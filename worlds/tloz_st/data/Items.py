@@ -32,17 +32,17 @@ ITEMS_DATA = {
     },
     "Bombs (Progressive)": {
         'classification': ItemClassification.progression,
-        "progressive": [[0x265320, 0x10]],
-        #"progressive_overwrite": True,
-        #"give_ammo": [10, 20, 30],
-        #"ammo_address": 0x1BA6C0
+        "progressive": [[0x265320, 0x10], [0x265331, 0x20]],
+        "progressive_overwrite": True,
+        "give_ammo": [10, 20, 30],
+        "ammo_address": 0x265333
     },
     "Bow (Progressive)": {
         'classification': ItemClassification.progression,
-        "progressive": [[0x265320, 0x08]],
-        #"give_ammo": [20, 30, 50],
-        #"ammo_address": 0x1BA6C2,
-        #"progressive_overwrite": True,
+        "progressive": [[0x265320, 0x08], [0x265330, 0x20]],
+        "progressive_overwrite": True,
+        "give_ammo": [20, 30, 50],
+        "ammo_address": 0x265332,
     },
     "Whip": {
         'classification': ItemClassification.progression,

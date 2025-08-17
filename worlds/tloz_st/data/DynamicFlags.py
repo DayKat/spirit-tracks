@@ -23,7 +23,7 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Aboda Bee Tree"],
         "unset_if_true": [(0x265714, 0x04)]
     },
-    "post children": {
+    "Post Aboda Children": {
         "on_scenes": [0x2F00],
         "has_locations": ["Aboda Clear Rocks", "Aboda Bee Tree"],
         "set_if_true": [(0x265714, 0x04)]

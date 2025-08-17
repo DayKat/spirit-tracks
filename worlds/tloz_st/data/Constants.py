@@ -27,7 +27,7 @@ STARTING_FLAGS = [
 ]
 
 STAGE_FLAGS = {
-     35: [0x0, 0x0A, 0x0B, 0x0C], # Aboda Village
+     35: [0x00, 0x00, 0x00, 0x2F], # Aboda Village
      29: [0x00, 0x00, 0x00, 0x00], # Castle Town
      28: [0x00, 0x00, 0x00, 0x00],  # Hyrule Castle
      13: [0x00, 0x00, 0x00, 0x00],  # Tower of Spirits (Main)
@@ -59,7 +59,9 @@ STAGES = {
     0x2F: "Aboda Village",
     0x29: "Castle Town",
     0x28: "Hyrule Castle",
-    0x13: "Tower of Spirits"
+    0x13: "Tower of Spirits",
+    0x14: "Tower of Spirits Base",
+    0x17: "Tower of Spirits Stairs",
 }
 
 ITEM_GROUPS = {
@@ -90,7 +92,8 @@ ITEM_GROUPS = {
 }
 
 LOCATION_GROUPS = {
-    "Aboda Village": ["Aboda Clear Rocks", "Aboda Bee Tree", "Aboda Stamp Station"]
+    "Aboda Village": ["Aboda Clear Rocks", "Aboda Bee Tree", "Aboda Stamp Station"],
+    "Castle Town": ["Castle Town Stamp Station"]
     # "Mountain Passage": [
     #     "Mountain Passage Chest 1",
     #     "Mountain Passage Chest 2",

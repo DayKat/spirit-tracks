@@ -29,6 +29,8 @@ class SpiritTracksRemoveItemsFromPool(ItemDict):
 
 class SpiritTracksLogic(Choice):
     """
+    NOT IMPLEMENTED YET
+
     Logic options:
     - Normal: Glitches not in logic.
     - Medium: Includes some cool uses of pots aren't hard, bun unconventional
@@ -61,6 +63,8 @@ class SpiritTracksLogic(Choice):
 
 class SpiritTracksKeyRandomization(Choice):
     """
+    NOT IMPLEMENTED YET
+
     Small Key Logic options:
     - vanilla: Keys are not randomized
     - in_own_dungeon: Keys can be found in their own dungeon
@@ -99,14 +103,14 @@ class SpiritTracksKeyRandomization(Choice):
 #     default = 0
 
 
-class SpiritTracksTrainRequiresForestGlyph(Toggle):
-    """
-    If True, heading out to sea from aboda requires the Forest Realm Glyph.
-    WARNING! If set to False and you travel without a glyph, you can softlock by crossing to another glyph.
-    Warp Gates require their glyph to work
-    """
-    display_name = "Train requires Forest Glyph"
-    default = 1
+# class SpiritTracksTrainRequiresForestGlyph(Toggle):
+#     """
+#     If True, heading out to sea from aboda requires the Forest Realm Glyph.
+#     WARNING! If set to False and you travel without a glyph, you can softlock by crossing to another glyph.
+#     Warp Gates require their glyph to work
+#     """
+#     display_name = "Train requires Forest Glyph"
+#     default = 1
 
 # class SpiritTracksDungeonHints(Choice):
 #     """
@@ -123,6 +127,8 @@ class SpiritTracksTrainRequiresForestGlyph(Toggle):
 
 class SpiritTracksExcludeNonRequiredDungeons(Toggle):
     """
+    NOT IMPLEMENTED YET
+
     Non-required dungeons won't have progression or useful items. Does not apply to TotOK.
     """
     display_name = "exclude_non_required_dungeons"
@@ -131,6 +137,8 @@ class SpiritTracksExcludeNonRequiredDungeons(Toggle):
 
 class SpiritTracksShopHints(Toggle):
     """
+    NOT IMPLEMENTED YET
+
     Get hints for shop items you currently can buy
     Includes island shops, Beedle, masked Beedle and Eddo
     """
@@ -144,13 +152,14 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Goal
     goal: SpiritTracksGoal
+
     #dungeons_required: SpiritTracksDungeonsRequired
     exclude_non_required_dungeons: SpiritTracksExcludeNonRequiredDungeons
 
     # Logic options
     logic: SpiritTracksLogic
     #phantom_combat_difficulty: SpiritTracksPhantomCombatDifficulty
-    train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
+    #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization

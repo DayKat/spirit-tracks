@@ -3,7 +3,7 @@ from Options import Accessibility
 from .Constants import *
 
 
-# =========== Item States ============= TODO another big change
+# =========== Item States =============
 
 def st_has_stamp_book(state, player):
     return state.has("Stamp Book", player)
@@ -38,10 +38,6 @@ def st_has_sword_beam_scroll(state: CollectionState, player: int):
 
 def st_has_regal_necklace(state: CollectionState, player: int):
     return state.has("Regal Necklace", player)
-
-
-def st_has_stantom_blade(state: CollectionState, player: int):
-    return state.has("Phantom Blade", player)
 
 
 def st_has_wood_heart(state: CollectionState, player: int):
@@ -123,7 +119,6 @@ def st_has_damage(state: CollectionState, player: int):
         state.has("Bombs (Progressive)", player),
         state.has("Bow (Progressive)", player),
         state.has("Whip", player),
-        state.has("Hammer", player)
     ])
 
 
@@ -373,7 +368,8 @@ def st_clever_bombs(state: CollectionState, player: int):
 
 
 def st_option_train_requires_forest_glyph(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.train_requires_forest_glyph
+    #state.multiworld.worlds[player].options.train_requires_forest_glyph
+    return True
 
 
 def st_option_goal_ToS_section_1(state: CollectionState, player: int):
@@ -387,19 +383,19 @@ def st_is_ut(state: CollectionState, player: int):
 
 # ============= Key logic ==============
 
-def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1):
-    return state.has(f"Small Key ({dung_name})", player, amount)
-
-
-def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
-    return state.has(f"Boss Key ({dung_name})", player)
-
-
-def st_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
-    return any([
-        st_has_boss_key(state, player, dung_name),
-        st_is_ut(state, player)
-    ])
+# def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1):
+#     return state.has(f"Small Key ({dung_name})", player, amount)
+#
+#
+# def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
+#     return state.has(f"Boss Key ({dung_name})", player)
+#
+#
+# def st_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
+#     return any([
+#         st_has_boss_key(state, player, dung_name),
+#         st_is_ut(state, player)
+#     ])
 
 
 def st_ut_small_key_vanilla_location(state, player):

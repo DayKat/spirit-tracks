@@ -9,11 +9,13 @@ from worlds._bizhawk.client import BizHawkClient
 from worlds.tloz_st import LOCATIONS_DATA, ITEMS_DATA
 from .data.Constants import *
 from .Util import *
+from .Options import SpiritTracksOptions
+
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
 
-#TODO make goal on location
+
 ROM_ADDRS = {
     "game_identifier": (0x00000000, 16, "ROM"),
     "slot_name": (0xFFFC0, 64, "ROM"),
@@ -163,6 +165,7 @@ class SpiritTracksClient(BizHawkClient):
         self.location_area_to_watches = build_location_room_to_watches()
         self.scene_to_dynamic_flag = build_scene_to_dynamic_flag()
         self.scene_to_stamp = build_scene_to_stamp()
+        self.goal_locations = build_location_to_goal_dict()
 
         self.local_checked_locations = set()
         self.local_scouted_locations = set()
@@ -341,6 +344,15 @@ class SpiritTracksClient(BizHawkClient):
                 print("NOT IN GAME")
                 # Finished game?
                 #TODO location goal
+                current_goal = SpiritTracksOptions().goal
+                if current_goal == "option_beat_ToS_section_1":
+                    current_goal = "ToS Forest Rail Glyph"
+                if current_goal in self.goal_locations:
+                    print("it works")
+                else:
+                    print("no worko")
+                if self.receiving_location and (current_goal in self.goal_locations):
+                    ctx.finished_game = True
                 if not ctx.finished_game:
                     await self.process_game_completion(ctx, current_stage)
                 return
@@ -1016,6 +1028,8 @@ class SpiritTracksClient(BizHawkClient):
         game_clear = False
         current_scene = current_scene * 0x100 if current_scene < 0x100 else current_scene
         game_clear = (current_scene == self.goal_room)  # Enter End Credits
+
+
 
         if game_clear:
             await ctx.send_msgs([{

@@ -23,7 +23,8 @@ LOCATIONS_DATA = {
         "x_min": 34192,
         "x_max": 52960,
         "z_min": -34890,
-        "z_max": -10024
+        "z_max": -10024,
+        "item_override": "Bombs (Progressive)"
     },
     "Aboda Stamp Station": {
         "region_id": "aboda village stamp station",

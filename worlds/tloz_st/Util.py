@@ -69,3 +69,11 @@ def build_scene_to_stamp() -> Dict[int, str]:
             stamp_locations[scene] = loc_name
     print(stamp_locations)
     return stamp_locations
+
+def build_location_to_goal_dict():
+    goal_locations = []
+    for loc_name, location in LOCATIONS_DATA.items():
+        if location.get("goal"):
+            goal_locations.append(loc_name)
+    print("goal locations:", goal_locations)
+    return goal_locations
