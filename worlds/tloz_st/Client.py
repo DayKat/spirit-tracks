@@ -340,14 +340,7 @@ class SpiritTracksClient(BizHawkClient):
             if not in_game or current_stage not in STAGES:
                 self.previous_game_state = False
                 print("NOT IN GAME")
-                # Finished game?
 
-                # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
-
-                current_goal = "ToS Forest Rail Glyph"
-                if self.receiving_location and (current_goal in self.goal_locations):
-                    print("it works")
-                    ctx.finished_game = True
                 if not ctx.finished_game:
                     await self.process_game_completion(ctx, 0x2700)
                 return
@@ -667,6 +660,13 @@ class SpiritTracksClient(BizHawkClient):
                 for loc_name, value in sram_reads.items():
                     if value & LOCATIONS_DATA[loc_name]["sram_value"]:
                         await self.process_checked_locations(ctx, loc_name)
+
+            # Finished game?
+            # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
+            current_goal = "ToS Forest Rail Glyph"
+            if self.receiving_location and (current_goal in self.goal_locations) and self.locations_in_scene.get(current_goal):
+                print("it works")
+                ctx.finished_game = True
 
     # Updates key count based on a tracker counter in memory. Called when entering a dungeon
     async def update_key_count(self, ctx, current_stage: int) -> None:
