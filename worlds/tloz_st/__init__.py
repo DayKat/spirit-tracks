@@ -194,6 +194,13 @@ class SpiritTracksWorld(World):
                     locations_to_exclude.remove(location)
 
         self.locations_to_exclude = locations_to_exclude
+
+        # Take item off goal location
+        if self.options.goal == SpiritTracksGoal(0):
+            current_goal = "ToS Forest Rail Glyph"
+            location = self.get_location(current_goal)
+            self.locations_to_exclude.add(location)
+
         for name in locations_to_exclude:
             self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
 

@@ -9,8 +9,6 @@ from worlds._bizhawk.client import BizHawkClient
 from worlds.tloz_st import LOCATIONS_DATA, ITEMS_DATA
 from .data.Constants import *
 from .Util import *
-from .Options import SpiritTracksOptions
-
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -165,7 +163,7 @@ class SpiritTracksClient(BizHawkClient):
         self.location_area_to_watches = build_location_room_to_watches()
         self.scene_to_dynamic_flag = build_scene_to_dynamic_flag()
         self.scene_to_stamp = build_scene_to_stamp()
-        self.goal_locations = build_location_to_goal_dict()
+        self.goal_locations = build_location_to_goal()
 
         self.local_checked_locations = set()
         self.local_scouted_locations = set()
@@ -311,7 +309,7 @@ class SpiritTracksClient(BizHawkClient):
         print(self.main_read_list)
 
     def get_ending_room(self, ctx):
-        self.goal_room = 0x1302
+        self.goal_room = 0x2700
 
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
 
@@ -343,18 +341,15 @@ class SpiritTracksClient(BizHawkClient):
                 self.previous_game_state = False
                 print("NOT IN GAME")
                 # Finished game?
-                #TODO location goal
-                current_goal = SpiritTracksOptions().goal
-                if current_goal == "option_beat_ToS_section_1":
-                    current_goal = "ToS Forest Rail Glyph"
-                if current_goal in self.goal_locations:
-                    print("it works")
-                else:
-                    print("no worko")
+
+                # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
+
+                current_goal = "ToS Forest Rail Glyph"
                 if self.receiving_location and (current_goal in self.goal_locations):
+                    print("it works")
                     ctx.finished_game = True
                 if not ctx.finished_game:
-                    await self.process_game_completion(ctx, current_stage)
+                    await self.process_game_completion(ctx, 0x2700)
                 return
 
             # On entering game from main menu
@@ -363,7 +358,7 @@ class SpiritTracksClient(BizHawkClient):
                 self.last_stage = None
                 self.last_scene = None
                 self.removed_boomerang = False  # Catches stray item menu errors, only 1 read
-                # self.save_slot = await read_memory_value(ctx, RAM_ADDRS["save_slot"][0])
+                 #self.save_slot = await read_memory_value(ctx, RAM_ADDRS["save_slot"][0])
                 self.get_ending_room(ctx)
                 print(f"Started Game")
 
