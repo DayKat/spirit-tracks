@@ -154,20 +154,20 @@ class SpiritTracksOptions(PerGameCommonOptions):
     goal: SpiritTracksGoal
 
     #dungeons_required: SpiritTracksDungeonsRequired
-    exclude_non_required_dungeons: SpiritTracksExcludeNonRequiredDungeons
+    #exclude_non_required_dungeons: SpiritTracksExcludeNonRequiredDungeons
 
     # Logic options
-    logic: SpiritTracksLogic
+    #logic: SpiritTracksLogic
     #phantom_combat_difficulty: SpiritTracksPhantomCombatDifficulty
     #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
 
     # Item Randomization
-    keysanity: SpiritTracksKeyRandomization
+    #keysanity: SpiritTracksKeyRandomization
     #randomize_frogs: SpiritTracksFrogRandomization
 
     # Hint Options
     #dungeon_hints: SpiritTracksDungeonHints
-    shop_hints: SpiritTracksShopHints
+    #shop_hints: SpiritTracksShopHints
 
     # World Options
 
