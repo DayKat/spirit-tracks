@@ -205,7 +205,7 @@ class SpiritTracksClient(BizHawkClient):
         self.last_key_count = 0
         self.key_address = 0
         self.key_value = 0
-        self.goal_room = 0x3600
+        self.goal_room = 0x2700
 
         self.get_main_read_list(self.current_stage)
 
@@ -368,6 +368,7 @@ class SpiritTracksClient(BizHawkClient):
             # This go true when link gets item
             getting_location = read_result.get("getting_item", 0)
             #print(f"getting location? {bool(getting_location)}")
+
 
             # Other game variables
             num_received_items = read_result["received_item_index"]
@@ -653,6 +654,7 @@ class SpiritTracksClient(BizHawkClient):
                 if "sram_addr" in location and location["sram_addr"] is not None:
                     sram_read_list[loc_name] = (location["sram_addr"], 1, "SRAM")
 
+
             # Read and set locations missed when bizhawk was disconnected
             if self.save_slot == 0 and len(sram_read_list) > 0:
                 sram_reads = await read_memory_values(ctx, sram_read_list)
@@ -660,13 +662,6 @@ class SpiritTracksClient(BizHawkClient):
                 for loc_name, value in sram_reads.items():
                     if value & LOCATIONS_DATA[loc_name]["sram_value"]:
                         await self.process_checked_locations(ctx, loc_name)
-
-            # Finished game?
-            # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
-            current_goal = "ToS Forest Rail Glyph"
-            if self.receiving_location and (current_goal in self.goal_locations) and self.locations_in_scene.get(current_goal):
-                print("it works")
-                ctx.finished_game = True
 
     # Updates key count based on a tracker counter in memory. Called when entering a dungeon
     async def update_key_count(self, ctx, current_stage: int) -> None:
@@ -717,7 +712,7 @@ class SpiritTracksClient(BizHawkClient):
             if r or (loc_id not in all_checked_locations):
                 await self.set_vanilla_item(ctx, location, loc_id)
                 local_checked_locations.add(loc_id)
-            print(f"pre-processed {pre_process}, vanill {self.last_vanilla_item}")
+            print(f"pre-processed {pre_process}, vanilla {self.last_vanilla_item}")
         else:
             # Get link's coords
             link_coords = await self.get_coords(ctx)
@@ -730,6 +725,9 @@ class SpiritTracksClient(BizHawkClient):
 
                 if "address" in location or location.get("stamp"):
                     continue
+
+                if "goal" in location:
+                    break
 
                 print(f"Processing locs {loc_name}")
                 print(
@@ -754,12 +752,20 @@ class SpiritTracksClient(BizHawkClient):
         print(f"location: {location}")
         if location is not None and "set_bit" in location:
             for addr, bit in location["set_bit"]:
-                print(f"Setting bit {bit} for location vanil {location['vanilla_item']}")
+                print(f"Setting bit {bit} for location vanilla {location['vanilla_item']}")
                 await write_memory_value(ctx, addr, bit)
 
         # Delay reset of vanilla item from certain address reads
         if location is not None and "delay_reset" in location:
             self.delay_reset = True
+
+        # Finished game?
+        # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
+        if location is not None and "goal" in location:
+            print("it works")
+            self.goal_room = 0x1302
+            await self.process_game_completion(ctx, 0x1302)
+
 
         # Send locations
         # print(f"Local locations: {local_checked_locations} in \n{all_checked_locations}")

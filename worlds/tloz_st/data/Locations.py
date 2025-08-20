@@ -25,7 +25,7 @@ LOCATIONS_DATA = {
         "z_min": -34890,
         "z_max": -10024,
         "item_override": "Bombs (Progressive)"
-    },
+    }, #TODO make location trigger on actual stamping
     "Aboda Stamp Station": {
         "region_id": "aboda village stamp station",
         #"vanilla_item": "Aboda Village Stamp",
@@ -71,7 +71,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x13,
         "room_id": 2,
         "goal": True,
-        #"y": 0x1333,
+        "y": 0x4916,
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)"]
         #'set_bit': [(0x265715, 0x80)]

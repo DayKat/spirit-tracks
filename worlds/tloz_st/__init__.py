@@ -127,7 +127,7 @@ class SpiritTracksWorld(World):
             self.create_location(location_data['region_id'], location_name, is_local)
 
         self.create_events()
-        # self.exclude_locations_automatically()
+        self.exclude_locations_automatically()
 
     def create_event(self, region_name, event_item_name):
         region = self.multiworld.get_region(region_name, self.player)
@@ -177,29 +177,28 @@ class SpiritTracksWorld(World):
         locations_to_exclude = set()
 
         # If non required dungeons need to be excluded, and not UT
-        if self.options.exclude_non_required_dungeons and not getattr(self.multiworld, "generation_is_fake", False):
-            #TODO always_include = ["Temple of the Ocean King", "Mountain Passage"]
-            always_include = []
-            excluded_dungeons = [d for d in DUNGEON_NAMES
-                                 if d not in self.required_dungeons + always_include]
-            self.excluded_dungeons = excluded_dungeons
-            for dungeon in excluded_dungeons:
-                locations_to_exclude.update(self.dungeon_name_groups[dungeon])
+        # if self.options.exclude_non_required_dungeons and not getattr(self.multiworld, "generation_is_fake", False):
+        #     #TODO always_include = ["Temple of the Ocean King", "Mountain Passage"]
+        #     always_include = []
+        #     excluded_dungeons = [d for d in DUNGEON_NAMES
+        #                          if d not in self.required_dungeons + always_include]
+        #     self.excluded_dungeons = excluded_dungeons
+        #     for dungeon in excluded_dungeons:
+        #         locations_to_exclude.update(self.dungeon_name_groups[dungeon])
 
-            self.ut_locations_to_exclude = locations_to_exclude.copy()
-            # Unexclude locations that have vanilla small keys/dung items cause in excluded dungeons, keys are vanilla
-            for location in locations_to_exclude.copy():
-                if ("Small Key" in LOCATIONS_DATA[location]["vanilla_item"] or
-                        "Boss Key" in LOCATIONS_DATA[location]["vanilla_item"]):
-                    locations_to_exclude.remove(location)
+        self.ut_locations_to_exclude = locations_to_exclude.copy()
+        # Unexclude locations that have vanilla small keys/dung items cause in excluded dungeons, keys are vanilla
+        for location in locations_to_exclude.copy():
+            if ("Small Key" in LOCATIONS_DATA[location]["vanilla_item"] or
+                    "Boss Key" in LOCATIONS_DATA[location]["vanilla_item"]):
+                locations_to_exclude.remove(location)
 
         self.locations_to_exclude = locations_to_exclude
 
         # Take item off goal location
         if self.options.goal == SpiritTracksGoal(0):
             current_goal = "ToS Forest Rail Glyph"
-            location = self.get_location(current_goal)
-            self.locations_to_exclude.add(location)
+            self.locations_to_exclude.add(current_goal)
 
         for name in locations_to_exclude:
             self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
