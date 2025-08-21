@@ -199,6 +199,9 @@ class SpiritTracksWorld(World):
         if self.options.goal == SpiritTracksGoal(0):
             current_goal = "ToS Forest Rail Glyph"
             self.locations_to_exclude.add(current_goal)
+        elif self.options.goal == SpiritTracksGoal(1):
+            current_goal = "Forest Temple Dungeon Reward"
+            self.locations_to_exclude.add(current_goal)
 
         for name in locations_to_exclude:
             self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
@@ -248,6 +251,7 @@ class SpiritTracksWorld(World):
                 continue
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
+            print(f"Location {loc_name} has {item_name} item")
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
@@ -292,8 +296,8 @@ class SpiritTracksWorld(World):
         return self.pre_fill_items
 
     def pre_fill(self) -> None:
-        # self.pre_fill_boss_rewards()
-        # self.pre_fill_dungeon_items()
+        self.pre_fill_boss_rewards()
+        self.pre_fill_dungeon_items()
         pass
 
     def filter_confined_dungeon_items_from_pool(self, items: List[Item]):
@@ -370,8 +374,7 @@ class SpiritTracksWorld(World):
 
     def fill_slot_data(self) -> dict:
         options = ["keysanity", "goal", "logic"]
-        # slot_data = self.options.as_dict(*options)
-        slot_data = {}
+        slot_data = self.options.as_dict(*options)
         return slot_data
 
     def write_spoiler(self, spoiler_handle):

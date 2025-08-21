@@ -272,7 +272,7 @@ class SpiritTracksClient(BizHawkClient):
         print(f"Treasure Tracker! {split_bits(self.last_treasures, 8)}")
 
     async def give_random_treasure(self, ctx):
-        address = 0x1BA5AC + random.randint(0, 7)
+        address = 0x269000 + random.randint(0, 7)
         await write_memory_value(ctx, address, 1, incr=True)
         await self.update_treasure_tracker(ctx)
 
@@ -627,12 +627,12 @@ class SpiritTracksClient(BizHawkClient):
                 await write_memory_values(ctx, self.stage_address + STAGE_FLAGS_OFFSET,
                                           STAGE_FLAGS[stage])
             # Give dungeon keys
-            if stage in DUNGEON_KEY_DATA:
-                # Change key read location if using TotOK midway
-                if self.entering_from == 0x2600 and scene_id == 0x2509:
-                    await self.update_key_count(ctx, 372)
-                elif stage != 0x25 or self.entering_from == 0x2600:  # Prevent regiving keys in TotoK
-                    await self.update_key_count(ctx, self.entering_dungeon)
+            # if stage in DUNGEON_KEY_DATA:
+            #     # Change key read location if using TotOK midway
+            #     if self.entering_from == 0x2600 and scene_id == 0x2509:
+            #         await self.update_key_count(ctx, 372)
+            #     elif stage != 0x25 or self.entering_from == 0x2600:  # Prevent regiving keys in TotoK
+            #         await self.update_key_count(ctx, self.entering_dungeon)
             self.new_stage_loading = None
             self.entering_from = scene_id
             self.get_main_read_list(stage)
@@ -679,9 +679,9 @@ class SpiritTracksClient(BizHawkClient):
         # Create write list, reset key tracker
         if new_keys != 0:
             new_keys = 7 if new_keys >= 7 else new_keys
-            if current_stage == 37:
-                if self.location_name_to_id["TotOK 1F SW Sea Chart Chest"] in ctx.checked_locations:
-                    new_keys -= 1  # Opening the SW sea chart door uses a key permanently! No savescums!
+            # if current_stage == 37:
+            #     if self.location_name_to_id["TotOK 1F SW Sea Chart Chest"] in ctx.checked_locations:
+            #         new_keys -= 1  # Opening the SW sea chart door uses a key permanently! No savescums!
             write_list = [(key_address, [new_keys], "Main RAM")]
             if key_data["name"] != "Temple of the Ocean King":
                 reset_tracker = (~key_data["filter"]) & key_values["tracker"]
@@ -762,10 +762,12 @@ class SpiritTracksClient(BizHawkClient):
         # Finished game?
         # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
         if location is not None and "goal" in location:
-            print("it works")
-            self.goal_room = 0x1302
-            await self.process_game_completion(ctx, 0x1302)
-
+            if location == "ToS Forest Rail Glyph":
+                self.goal_room = 0x1302
+                await self.process_game_completion(ctx, 0x1302)
+            elif location == "Forest Temple Dungeon Reward":
+                self.goal_room = 0x1E00
+                await self.process_game_completion(ctx, 0x1E00)
 
         # Send locations
         # print(f"Local locations: {local_checked_locations} in \n{all_checked_locations}")
@@ -886,27 +888,23 @@ class SpiritTracksClient(BizHawkClient):
 
         # Handle Small Keys
         elif "Small Key" in item_name:
-            data = DUNGEON_KEY_DATA[item_data["dungeon"]]
-            prev_value = await read_memory_value(ctx, data["address"])
+            async def write_keys_to_storage(dungeon) -> tuple[int, list, str]:
+                key_data = DUNGEON_KEY_DATA[dungeon]
+                prev_value = await read_memory_value(ctx, key_data["address"])
+                bit_filter = key_data["filter"]
+                new_v = prev_value | bit_filter if (prev_value & bit_filter) + key_data["value"] > bit_filter else prev_value + key_data["value"]
+                print(f"Writing {key_data["name"]} key to storage: {hex(prev_value)} -> {hex(new_v)}")
+                return key_data["address"], [new_v], "Main RAM"
 
             # Get key in own dungeon
             if self.current_stage == item_data["dungeon"]:
                 print("In dungeon! Getting Key")
                 self.key_value = await read_memory_value(ctx, self.key_address)
+                self.key_value = 7 if self.key_value > 7 else self.key_value
                 write_list.append((self.key_address, [self.key_value + 1], "Main RAM"))
-                # TotOK - adds to key increment if you get it in the dungeon, otherwise do as usual
-                if "Temple of the Ocean King" in item_name:
-                    new_value = prev_value + data["value"]
-                    print(f"Writing TotOK key to storage: {hex(prev_value)} -> {hex(new_value)}")
-                    write_list.append((data["address"], [new_value], "Main RAM"))
-
             # Get key elsewhere
-            elif (prev_value & data["filter"]) != data["filter"]:
-                new_value = prev_value + data["value"]
-                print(f"Writing keys to storage: {hex(prev_value)} -> {hex(new_value)}")
-                write_list.append((data["address"], [new_value], "Main RAM"))
             else:
-                print(f"Too many keys for dungeon {item_data['dungeon']}")
+                write_list.append(await write_keys_to_storage(item_data["dungeon"]))
 
         # Handle ammo refills
         elif "refill" in item_data:

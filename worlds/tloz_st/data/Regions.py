@@ -31,32 +31,45 @@ REGIONS = [
     #"beedle bomb bag",
 
     # Castle Town
-     "castle town",
-     "castle town stamp station",
-    # "castle town spirit flute",
-    # "castle town hc guard chest",
-    # "castle town hc bottom left chest",
-    # "castle town hc outside chest",
-    # "castle town guard captain sword",
-    # "castle town tunnel key chest",
-    # "castle town tunnel bomb chest",
-    # "castle town minigame 1",
+    "castle town",
+    "castle town stamp station",
+    "castle town L wall chest",
+    "castle town R wall chest",
+    #"castle town minigame",
+    "castle town minigame roof",
+    "castle town ramp house chest",
+    "castle town empty house roof",
     #"castle town fish gem",
+
+    # Hyrule Castle
+    "hyrule castle",
+    # "hyrule castle spirit flute",
+    "hyrule castle nw chest",
+    "hyrule castle 2f indoors chest",
+    "hyrule castle 1f back chest",
+    "hyrule castle sword training",
+
+    # Tunnel to Tower
+    "tower tunnel",
+    "tower tunnel block chest",
+    "tower tunnel 2f chest",
 
     # Tower of Spirits
     "tos",
+    "tos 2f chest",
     #"tos left tear",
     #"tos up tear",
     #"tos right tear",
-    "3f rail map",
+    "tos 3f rail map",
 
-    # Whittleton
-    #"whittleton",
-    #"whittleton stamp station",
-    #"whittleton minigame 1",
-    #"whittleton minigame 2",
-    #"whittleton axe gem",
-    #"whittleton leaf pile",
+    # Mayscore
+    "mayscore",
+    "mayscore stamp station",
+    "mayscore whip race bomb bag",
+    "mayscore whip race heart container",
+    "mayscore whip chest",
+    #"mayscore axe gem",
+    #"mayscore leaf pile",
 
     # Rabbitland Rescue
     #"rabbitland",
@@ -64,27 +77,27 @@ REGIONS = [
     #"rabbitland net",
 
     # Forest Sanctuary
-    #"fos",
-    #"fos stamp station",
-    #"fos song statue",
-    #"fos gage",
-    #"fos chest",
+    "fos",
+    "fos stamp station",
+    "fos song statue",
+    "fos gage",
+    "fos chest",
 
     # Forest Temple
-    #"fot",
-    #"fot song statue",
-    #"fot 1f enemy chest",
-    #"fot 1f key",
-    #"fot 1f switch chest",
-    #"fot 2f enemy chest",
-    #"fot 2f se whirlwind chest",
-    #"fot 3f chestnut chest",
-    #"fot 3f se chest",
-    #"fot 3f boss key chest",
-    #"fot heart container",
-    #"fot boss gem",
-    #"fot stamp station",
-    #"post fot"
+    "fot",
+    "fot song statue",
+    "fot 1f enemy chest",
+    "fot 1f key",
+    "fot 1f switch chest",
+    "fot 2f enemy chest",
+    "fot 2f poison chest",
+    "fot 3f chestnut chest",
+    "fot 3f se chest",
+    "fot 3f boss key chest",
+    "fot heart container",
+    "fot boss gem",
+    "fot stamp station",
+    "post fot"
 
     # Trading Post
     #"trading post",

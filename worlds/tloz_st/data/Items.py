@@ -13,7 +13,7 @@ ITEMS_DATA = {
     #   'ammo_address: int                      # address for ammo
     #    },
 
-    # ======= Regular Items========== TODO bombs
+    # ======= Regular Items==========
 
     "Sword (Progressive)": {
         'classification': ItemClassification.progression,
@@ -94,11 +94,11 @@ ITEMS_DATA = {
         #'address': ,
         #'value': ,
     },
-    "Tears of Light": {
-        'classification': ItemClassification.progression,
+    #"Tears of Light": {
+     #   'classification': ItemClassification.progression,
         #'address': ,
         #'value': ,
-    },
+    #},
     "Stamp Book": {
         'classification': ItemClassification.progression,
         'address': 0x265739,
@@ -113,7 +113,7 @@ ITEMS_DATA = {
         'value': 0x01,
     },
     "Song of Healing": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.useful,
         'address': 0x268FB0,
         'value': 0x02,
     },
@@ -139,7 +139,7 @@ ITEMS_DATA = {
     "Heart Container": {
         'classification': ItemClassification.useful,
         'backup_filler': True,
-        #'address': 0x1BA388,
+        'address': 0x2651BD,
         'value': 4,
         'incremental': True,
         'size': 2
@@ -159,8 +159,8 @@ ITEMS_DATA = {
 
     "Cannon": {
         'classification': ItemClassification.progression,
-        #'address': 0x265716, TODO check this
-        #'value': 0x40
+        'address': 0x265717,
+        'value': 0x80
     },
 
     # ========== Rail Maps ============
@@ -187,6 +187,12 @@ ITEMS_DATA = {
         'classification': ItemClassification.progression,
         'address': 0x265716,
         'value': 0x04,
+        'set_bit': [(0x265715, 0x80)]
+    },
+    "Forest Temple Tracks":{
+        'classification': ItemClassification.progression,
+        'address': 0x2653B0,
+        'value': 0x02,
         'set_bit': [(0x265715, 0x80)]
     },
 
@@ -298,13 +304,13 @@ ITEMS_DATA = {
     "Refill: Bombs": {
         'classification': ItemClassification.filler,
         "give_ammo": [10, 20, 30],
-        #"address": 0x1BA6C0,
+        "address": 0x265333,
         "refill": "Bombs (Progressive)"
     },
     "Refill: Arrows": {
         'classification': ItemClassification.filler,
         "give_ammo": [20, 30, 50],
-        #"address": 0x1BA6C2,
+        "address": 0x265332,
         "refill": "Bow (Progressive)"
     },
 
@@ -369,16 +375,28 @@ ITEMS_DATA = {
 
     # =========== Keys ============
 
-    # "Small Key (Mountain Passage)": {
+     "Small Key (ToS Tunnel)": {
+         'classification': ItemClassification.progression,
+         'address': 0x26532F,
+         'dungeon': 0x18,
+         'incremental': True
+     },
+    "Small Key (Forest Temple)": {
+         'classification': ItemClassification.progression,
+        'address': 0x26532F,
+        'dungeon': 0x19,
+         'incremental': True
+     },
+    "Boss Key (Forest Temple)": {
+         'classification': ItemClassification.progression,
+         'dungeon': 0x19,
+         'incremental': False
+     },
+    # "Regal Necklace": {
     #     'classification': ItemClassification.progression,
-    #     'dungeon': 39,
-    #     'incremental': True
+    #     'address': 0x1B5582,
+    #     'value': 0x08
     # },
-    "Regal Necklace": {
-        'classification': ItemClassification.progression,
-        'address': 0x1B5582,
-        'value': 0x08
-    },
 
     # Trade Quest and misc
 

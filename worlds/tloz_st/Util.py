@@ -67,7 +67,6 @@ def build_scene_to_stamp() -> Dict[int, str]:
         if location.get("stamp"):
             scene = location["stage_id"] << 8 + location["room_id"]
             stamp_locations[scene] = loc_name
-    print(stamp_locations)
     return stamp_locations
 
 def build_location_to_goal():
