@@ -44,9 +44,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ========== ToS ===================
 
         ["forest realm", "tos", False, None],
-        #["tos", "goal", False, lambda state: st_has_sword(state, player)],
         ["tos", "tos 2f chest", False, lambda state: (st_has_bombs(state, player) and st_has_sword(state, player))],
         ["tos", "tos 3f rail map", False, lambda state: st_has_sword(state, player)],
+        ["tos 3f rail map", "goal_forest_glyph", False, None],
 
         # # ============ Shops ====================
 
@@ -63,7 +63,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mayscore", "mayscore whip race heart container", False, lambda state: st_has_whip(state, player)],
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
 
-        # # ======== Mayscore =========
+        # # ======== Forest Sanctuary =========
 
         ["forest realm", "fos", False, None],
         ["fos", "fos stamp station", False, lambda state: st_has_stamp_book(state, player)],
@@ -85,7 +85,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["fot", "fot 3f se chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple", 2)],
         ["fot", "fot 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
         ["fot", "fot heart container", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2) and st_has_boss_key(state, player, "Forest Temple")],
-        ["fot", "fot boss gem", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2) and st_has_boss_key(state, player, "Forest Temple")],
+        ["fot", "fot stagnox", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2) and st_has_boss_key(state, player, "Forest Temple")],
+        ["fot stagnox", "goal_stagnox", False, None]
 
         # # ============ SW Ocean =================
 

@@ -13,6 +13,7 @@ from .Util import *
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
 
+#TODO game swallows item if in cutscene e.g boss intro
 
 ROM_ADDRS = {
     "game_identifier": (0x00000000, 16, "ROM"),
@@ -205,7 +206,7 @@ class SpiritTracksClient(BizHawkClient):
         self.last_key_count = 0
         self.key_address = 0
         self.key_value = 0
-        self.goal_room = 0x2700
+        self.goal_room = 0
 
         self.get_main_read_list(self.current_stage)
 
@@ -341,9 +342,9 @@ class SpiritTracksClient(BizHawkClient):
                 self.previous_game_state = False
                 print("NOT IN GAME")
 
-                if not ctx.finished_game:
-                    await self.process_game_completion(ctx, 0x2700)
-                return
+                # if not ctx.finished_game:
+                #     await self.process_game_completion(ctx, 0x2700)
+                # return
 
             # On entering game from main menu
             if in_game and not self.previous_game_state:
@@ -480,8 +481,8 @@ class SpiritTracksClient(BizHawkClient):
                 print(f"Delay reset over for {self.last_vanilla_item}")
 
             # Finished game?
-            if not ctx.finished_game:
-                await self.process_game_completion(ctx, current_scene)
+            # if not ctx.finished_game:
+            #     await self.process_game_completion(ctx, current_scene)
 
             # Process Deathlink
             if "DeathLink" in ctx.tags:
@@ -762,10 +763,10 @@ class SpiritTracksClient(BizHawkClient):
         # Finished game?
         # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
         if location is not None and "goal" in location:
-            if location == "ToS Forest Rail Glyph":
-                self.goal_room = 0x1302
-                await self.process_game_completion(ctx, 0x1302)
-            elif location == "Forest Temple Dungeon Reward":
+            # if location == "ToS Forest Rail Glyph":
+            #     self.goal_room = 0x1302
+            #     await self.process_game_completion(ctx, 0x1302)
+            if location == "Forest Temple Dungeon Reward":
                 self.goal_room = 0x1E00
                 await self.process_game_completion(ctx, 0x1E00)
 

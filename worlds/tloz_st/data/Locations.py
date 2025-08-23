@@ -41,7 +41,7 @@ LOCATIONS_DATA = {
         # 02271CF4 is bitfield of all stamps found
     },
 
-    # Castle Town
+    # Castle Town TODO add coords
     "Castle Town Stamp Station": {
         "region_id": "castle town stamp station",
         "vanilla_item": "Red Rupee (20)",
@@ -138,32 +138,32 @@ LOCATIONS_DATA = {
     # Tunnel to Tower
     "Tunnel to ToS Block Chest": {
         "region_id": "tower tunnel block chest",
-        "vanilla_item": "Small Key (ToS Tunnel)",
+        "vanilla_item": "Small Key (Tunnel to ToS)",
         "stage_id": 0x18,
         "room_id": 0,
         'dungeon': "Tunnel to ToS",
-        "item_override": "Cannon"
 },
     "Tunnel to ToS 2F Chest": {
         "region_id": "tower tunnel 2f chest",
-        "vanilla_item": "Small Key (ToS Tunnel)",
+        "vanilla_item": "Treasure",
         "stage_id": 0x18,
         "room_id": 1,
         'dungeon': "Tunnel to ToS"
     },
 
     # # ========== Tower of Spirits ==============
-
+    #TODO double check first visit flags
     "ToS 2F Chest": {
         "region_id": "tos 2f chest",
         "vanilla_item": "Treasure",
+        "item_override": "Cannon",
         "stage_id": 0x13,
         "room_id": 1,
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)", "Bombs (Progressive)"]
         #'set_bit': [(0x265715, 0x80)]
     },
-    "ToS Forest Rail Glyph": {
+    "ToS Forest Rail Glyph": { #TODO doesn't trigger
         "region_id": "tos 3f rail map",
         "vanilla_item": "Forest Glyph",
         "stage_id": 0x13,
@@ -212,16 +212,17 @@ LOCATIONS_DATA = {
         "require_item": ["Whip"],
     },
 
-    # Forest Sanctuary
+    # Forest Sanctuary TODO zelda doesn't let you leave until duet done, skip lost woods maze?
     "Forest Sanctuary Stamp Station": {
         "region_id": "fos stamp station",
-        "vanilla_item": "Train: Golden Train",
+        "vanilla_item": "Red Rupee (20)",
         #"vanilla_item": "Forest Sanctuary Stamp",
         "stage_id": 0x30,
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
     },
+    # TODO flag shenanigans
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
         "vanilla_item": "Song of Awakening",
@@ -229,6 +230,7 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "require_item": ["Spirit Flute"],
     },
+    #TODO location checks without flute
     "Forest Sanctuary Gage Duet": {
         "region_id": "fos gage",
         "stage_id": 0x30,
@@ -237,6 +239,7 @@ LOCATIONS_DATA = {
         "require_item": ["Spirit Flute"],
         "duet": True,
     },
+    #TODO add coords
     "Forest Sanctuary Chest": {
         "region_id": "fos chest",
         "vanilla_item": "Treasure",
@@ -246,7 +249,7 @@ LOCATIONS_DATA = {
     },
 
     # Forest Temple
-    "Forest Temple Song Statue": {
+    "Forest Temple Song Statue": { # TODO doesn't appear if have song already?
         "region_id": "fot song statue",
         "vanilla_item": "Song of Healing",
         "stage_id": 0x19,
@@ -256,7 +259,7 @@ LOCATIONS_DATA = {
     },
     "Forest Temple Stamp Station": {
         "region_id": "fot stamp station",
-        "vanilla_item": "Train: Dignified Train",
+        "vanilla_item": "Red Rupee (20)",
         #"vanilla_item": "Forest Station Stamp",
         "stage_id": 0x19,
         "room_id": 0,
@@ -335,8 +338,10 @@ LOCATIONS_DATA = {
         "require_item": ["Whirlwind"],
     },
     "Forest Temple Dungeon Reward": {
-        "region_id": "fot boss gem",
+        "region_id": "fot stagnox",
         "vanilla_item": "Treasure",
+        "address": 0x265714,
+        "value": 0x10,
         "stage_id": 0x1E,
         "room_id": 0,
         "dungeon": "Forest Temple",

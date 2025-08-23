@@ -36,14 +36,15 @@ class SpiritTracksWeb(WebWorld):
 
 # Adds a consistent count of items to pool, independent of how many are from locations
 def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
-    if filler_item_count >= count:
-        filler_item_count -= count
-        item_pool_dict[item] = count
+    count_addable = count-item_pool_dict.setdefault(item,0)
+    if filler_item_count >= count_addable:
+        item_pool_dict[item] += count_addable
+        filler_item_count = filler_item_count - count_addable
     else:
-        item_pool_dict[item] = filler_item_count
+        item_pool_dict[item] += filler_item_count
         filler_item_count = 0
 
-    return [item_pool_dict, filler_item_count]
+    return item_pool_dict, filler_item_count
 
 
 """TODO def add_additional_spirit_gems(item_pool_dict: dict, filler_item_count: int):
@@ -94,7 +95,7 @@ class SpiritTracksWorld(World):
 
     def generate_early(self):
         # self.pick_required_dungeons()
-        # self.restrict_non_local_items()
+        self.restrict_non_local_items()
         pass
 
     def restrict_non_local_items(self):
@@ -102,6 +103,7 @@ class SpiritTracksWorld(World):
         # to be placed locally (e.g. dungeon items with keysanity off)
         if not self.options.keysanity == "anywhere":
             self.options.non_local_items.value -= self.item_name_groups["Small Keys"]
+            self.options.non_local_items.value -= self.item_name_groups["Boss Keys"]
         self.options.non_local_items.value -= set(self.boss_reward_items_pool)
 
     def create_location(self, region_name: str, location_name: str, local: bool):
@@ -171,7 +173,11 @@ class SpiritTracksWorld(World):
     def create_events(self):
         # if "Temple of Fire" in self.required_dungeons:
         #     self.create_event("tof blaaz", "_required_dungeon")
-        self.create_event("goal", "_beaten_game")
+        if self.options.goal == 0:
+            goal_loc = "goal_forest_glyph"
+        elif self.options.goal == 1:
+            goal_loc = "goal_stagnox"
+        self.create_event(goal_loc, "_beaten_game")
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
@@ -251,7 +257,7 @@ class SpiritTracksWorld(World):
                 continue
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
-            print(f"Location {loc_name} has {item_name} item")
+            #print(f"Location {loc_name} has {item_name} item")
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
@@ -274,7 +280,7 @@ class SpiritTracksWorld(World):
             for _ in range(quantity):
                 items.append(self.create_item(item_name))
 
-        # self.filter_confined_dungeon_items_from_pool(items)
+        self.filter_confined_dungeon_items_from_pool(items)
         self.multiworld.itempool.extend(items)
 
     def get_extra_filler_items(self, item_pool_dict):
@@ -303,9 +309,10 @@ class SpiritTracksWorld(World):
     def filter_confined_dungeon_items_from_pool(self, items: List[Item]):
         confined_dungeon_items = []
 
-        # Confine small keys to own dungeon if option is enabled
+        # Confine small keys and boss key to own dungeon if option is enabled
         if self.options.keysanity == "in_own_dungeon":
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key")])
+            confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
 
         # Remove boss reward items from pool for pre filling
         confined_dungeon_items.extend([item for item in items if item.name in self.boss_reward_items_pool])

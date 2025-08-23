@@ -375,7 +375,7 @@ ITEMS_DATA = {
 
     # =========== Keys ============
 
-     "Small Key (ToS Tunnel)": {
+     "Small Key (Tunnel to ToS)": {
          'classification': ItemClassification.progression,
          'address': 0x26532F,
          'dungeon': 0x18,

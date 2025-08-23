@@ -156,7 +156,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     #exclude_non_required_dungeons: SpiritTracksExcludeNonRequiredDungeons
 
     # Logic options
-    #logic: SpiritTracksLogic
+    logic: SpiritTracksLogic
     #phantom_combat_difficulty: SpiritTracksPhantomCombatDifficulty
     #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
 

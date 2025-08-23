@@ -61,6 +61,7 @@ REGIONS = [
     #"tos up tear",
     #"tos right tear",
     "tos 3f rail map",
+    "goal_forest_glyph",
 
     # Mayscore
     "mayscore",
@@ -95,9 +96,10 @@ REGIONS = [
     "fot 3f se chest",
     "fot 3f boss key chest",
     "fot heart container",
-    "fot boss gem",
+    "fot stagnox",
+    "goal_stagnox",
     "fot stamp station",
-    "post fot"
+    "post fot",
 
     # Trading Post
     #"trading post",

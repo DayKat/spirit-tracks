@@ -7,7 +7,7 @@ STARTING_FLAGS = [
     # easier to bugfix)
 
     [0x265714, 0x04],  # restore spirit train cutscene skip
-    #[0x265715, 0x80],  # unlock rail map
+    [0x265715, 0x01],  # forest restoration duet done
     [0x265716, 0xF0],  # sword tutorial and intro stuff
     [0x265717, 0x07],  # split ToS and zelda 1st convo
     [0x265718, 0x14],  # load train to ToS
@@ -79,7 +79,7 @@ STAGES = {
 
 ITEM_GROUPS = {
      "Small Keys": [
-         "Small Key (ToS Tunnel)",
+         "Small Key (Tunnel to ToS)",
          "Small Key (Forest Temple)",
     #     "Small Key (Temple of Fire)",
     #     "Small Key (Temple of Wind)",
@@ -87,6 +87,9 @@ ITEM_GROUPS = {
     #     "Small Key (Temple of Ice)",
     #     "Small Key (Mutoh's Temple)"
      ],
+    "Boss Keys": [
+        "Boss Key (Forest Temple)"
+    ],
     "Treasure Items": [
         "Treasure: Pink Coral",
         "Treasure: White Pearl Loop",
