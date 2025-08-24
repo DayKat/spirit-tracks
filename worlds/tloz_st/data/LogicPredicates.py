@@ -208,7 +208,7 @@ def st_has_short_range(state: CollectionState, player: int):
 
 
 def st_has_mid_range(state: CollectionState, player: int):
-    return any([st_has_range(state, player),
+    return any([st_has_range(state, player), st_has_whip(state, player),
                 st_has_beam_sword(state, player)])
 
 

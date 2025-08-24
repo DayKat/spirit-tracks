@@ -34,10 +34,15 @@ DYNAMIC_FLAGS = {
         "has_locations": ["Forest Temple Song Statue"],
         "set_if_true": [(0x268FB0, 0x02)]
     },
-    "Forest Sanctuary reset duet":{
+    "Forest Sanctuary reset duet":{ #TODO wrong flag?
         "on_scenes": [0x3001],
         "not_has_locations": ["Forest Sanctuary Gage Duet"],
         "unset_if_true": [(0x265715, 0x01)]
+    },
+    "Assume duet done outside room":{
+        "on_scenes": [0x3000],
+        "not_has_locations": ["Forest Sanctuary Gage Duet"],
+        "set_if_true": [(0x268715, 0x01)]
     }
     # "RESET Bannan Island Map": {
     #     "on_scenes": [0x1],

@@ -41,7 +41,7 @@ LOCATIONS_DATA = {
         # 02271CF4 is bitfield of all stamps found
     },
 
-    # Castle Town TODO add coords
+    # Castle Town
     "Castle Town Stamp Station": {
         "region_id": "castle town stamp station",
         "vanilla_item": "Red Rupee (20)",
@@ -57,6 +57,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x29,
         "room_id": 0,
+        "x_min": -48215,
+        "x_max": -34406,
+        "z_min": 46694,
+        "z_max": 59802,
         "require_item": ["Bombs (Progressive)"],
         "item_override": "Whip"
     },
@@ -65,29 +69,45 @@ LOCATIONS_DATA = {
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x29,
         "room_id": 0,
+        "x_min": 34406,
+        "x_max": 49328,
+        "z_min": 46694,
+        "z_max": 59802,
         "require_item": ["Bombs (Progressive)"],
         "item_override": "Spirit Flute"
     },
     "Castle Town Minigame Roof": {
         "region_id": "castle town minigame roof",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Treasure",
         "stage_id": 0x29,
         "room_id": 0,
+        "x_min": 69222,
+        "x_max": 74138,
+        "z_min": 13914,
+        "z_max": 24835,
         "require_item": ["Bombs (Progressive)", "Song of Birds"],
     },
     "Castle Town Ramp House Chest": {
         "region_id": "castle town ramp house chest",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Treasure",
         "stage_id": 0x29,
         "room_id": 0,
+        "x_min": -76411,
+        "x_max": -66503,
+        "z_min": 18672,
+        "z_max": 28116,
         "require_item": ["Bombs (Progressive)", "Song of Birds"],
         "item_override": "Sword (Progressive)"
     },
     "Castle Town Empty House Roof Chest": {
         "region_id": "castle town empty house roof",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Treasure",
         "stage_id": 0x29,
         "room_id": 0,
+        "x_min": -43484,
+        "x_max": -32916,
+        "z_min": -43563,
+        "z_max": -33114,
         "require_item": ["Bombs (Progressive)", "Song of Birds"],
         "item_override": "Whirlwind"
     },
@@ -152,7 +172,6 @@ LOCATIONS_DATA = {
     },
 
     # # ========== Tower of Spirits ==============
-    #TODO double check first visit flags
     "ToS 2F Chest": {
         "region_id": "tos 2f chest",
         "vanilla_item": "Treasure",
@@ -163,13 +182,16 @@ LOCATIONS_DATA = {
         "require_item": ["Sword (Progressive)", "Bombs (Progressive)"]
         #'set_bit': [(0x265715, 0x80)]
     },
-    "ToS Forest Rail Glyph": { #TODO doesn't trigger
+    "ToS Forest Rail Glyph": {
         "region_id": "tos 3f rail map",
         "vanilla_item": "Forest Glyph",
         "stage_id": 0x13,
         "room_id": 2,
         "goal": True,
-        "y": 0x4916,
+        "x_min": -6390,
+        "x_max": 6390,
+        "z_min": -8438,
+        "z_max": 4506,
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)"]
         #'set_bit': [(0x265715, 0x80)]
@@ -209,10 +231,14 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x38,
         "room_id": 0,
+        "x_min": -63898,
+        "x_max": -46389,
+        "z_min": -59335,
+        "z_max": -41068,
         "require_item": ["Whip"],
     },
 
-    # Forest Sanctuary TODO zelda doesn't let you leave until duet done, skip lost woods maze?
+    # Forest Sanctuary TODO skip lost woods maze?
     "Forest Sanctuary Stamp Station": {
         "region_id": "fos stamp station",
         "vanilla_item": "Red Rupee (20)",
@@ -222,12 +248,16 @@ LOCATIONS_DATA = {
         "stamp": True,
         "require_item": ["Stamp Book"],
     },
-    # TODO flag shenanigans
+    #TODO location checks without flute
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
         "vanilla_item": "Song of Awakening",
         "stage_id": 0x30,
         "room_id": 0,
+        "x_min": -32764,
+        "x_max": -18104,
+        "z_min": 5734,
+        "z_max": 18842,
         "require_item": ["Spirit Flute"],
     },
     #TODO location checks without flute
@@ -239,17 +269,20 @@ LOCATIONS_DATA = {
         "require_item": ["Spirit Flute"],
         "duet": True,
     },
-    #TODO add coords
     "Forest Sanctuary Chest": {
         "region_id": "fos chest",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Big Red Rupee (200)",
+        "x_min": 9228,
+        "x_max": 18778,
+        "z_min": 39028,
+        "z_max": 52120,
         "stage_id": 0x30,
         "room_id": 0,
-        "require_item": ["Whirlwind"],
+        "require_item": ["Whirlwind", "Spirit Flute", "Song of Birds"],
     },
 
     # Forest Temple
-    "Forest Temple Song Statue": { # TODO doesn't appear if have song already?
+    "Forest Temple Song Statue": {
         "region_id": "fot song statue",
         "vanilla_item": "Song of Healing",
         "stage_id": 0x19,
@@ -272,6 +305,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 0,
+        "x_min": 22118,
+        "x_max": 34012,
+        "z_min": 30310,
+        "z_max": 39600,
         "dungeon": "Forest Temple",
     },
     "Forest Temple 1F Key": {
@@ -279,6 +316,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Small Key (Forest Temple)",
         "stage_id": 0x19,
         "room_id": 0,
+        "x_min": -58352,
+        "x_max": -19702,
+        "z_min": -63898,
+        "z_max": -22118,
         "dungeon": "Forest Temple",
         "require_item": ["Whirlwind"],
     },
@@ -287,6 +328,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 0,
+        "x_min": 30327,
+        "x_max": 43418,
+        "z_min": -63898,
+        "z_max": -52519,
         "dungeon": "Forest Temple",
         "require_item": ["Whirlwind"],
     },
@@ -295,6 +340,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 1,
+        "x_min": 63078,
+        "x_max": 76186,
+        "z_min": -39322,
+        "z_max": -32329,
         "dungeon": "Forest Temple",
     },
     "Forest Temple 2F Poison Chest": {
@@ -302,6 +351,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 1,
+        "x_min": 42598,
+        "x_max": 55113,
+        "z_min": -14746,
+        "z_max": -258,
         "dungeon": "Forest Temple",
         "require_item": ["Whirlwind"],
     },
@@ -310,6 +363,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Small Key (Forest Temple)",
         "stage_id": 0x19,
         "room_id": 2,
+        "x_min": -47514,
+        "x_max": -42598,
+        "z_min": -59802,
+        "z_max": -52296,
         "dungeon": "Forest Temple",
         "require_item": ["Whirlwind"],
     },
@@ -318,17 +375,25 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 2,
+        "x_min": 42646,
+        "x_max": 55982,
+        "z_min": -2458,
+        "z_max": 7485,
         "dungeon": "Forest Temple",
         "require_item": ["Whirlwind"],
     },
-    "Forest Temple 3F Boss Key Chest": {
-        "region_id": "fot 3f boss key chest",
-        "vanilla_item": "Boss Key (Forest Temple)",
-        "stage_id": 0x19,
-        "room_id": 2,
-        "dungeon": "Forest Temple",
-        "require_item": ["Whirlwind"],
-    },
+    # "Forest Temple 3F Boss Key Chest": {
+    #     "region_id": "fot 3f boss key chest",
+    #     "vanilla_item": "Boss Key (Forest Temple)",
+    #     "stage_id": 0x19,
+    #     "room_id": 2,
+    #     "x_min": 54886,
+    #     "x_max": 76186,
+    #     "z_min": -63898,
+    #     "z_max": -50790,
+    #     "dungeon": "Forest Temple",
+    #     "require_item": ["Whirlwind"],
+    # },
     "Forest Temple Boss Heart Container": {
         "region_id": "fot heart container",
         "vanilla_item": "Heart Container",

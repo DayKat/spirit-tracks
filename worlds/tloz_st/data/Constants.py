@@ -10,11 +10,11 @@ STARTING_FLAGS = [
     [0x265715, 0x01],  # forest restoration duet done
     [0x265716, 0xF0],  # sword tutorial and intro stuff
     [0x265717, 0x07],  # split ToS and zelda 1st convo
-    [0x265718, 0x14],  # load train to ToS
+    [0x265718, 0x34],  # load train to ToS
     [0x265719, 0x20],  # train quill tutorial skip
     [0x26571A, 0xFC],  # Intro stuff
     [0x26571B, 0x03],  # postman & get zelda's letter
-    [0x265726, 0x03],  # zelda 1st phantom possession
+    [0x265726, 0x13],  # zelda 1st phantom possession
     [0x265729, 0x50],  # post fleeing ToS 1F
     [0x26572C, 0x07],  # HC intro Zelda
     [0x26572F, 0x02],  # initial train cutscene skip

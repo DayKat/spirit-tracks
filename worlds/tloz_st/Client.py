@@ -14,7 +14,6 @@ if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
 
 #TODO game swallows item if in cutscene e.g boss intro
-
 ROM_ADDRS = {
     "game_identifier": (0x00000000, 16, "ROM"),
     "slot_name": (0xFFFC0, 64, "ROM"),
@@ -727,8 +726,11 @@ class SpiritTracksClient(BizHawkClient):
                 if "address" in location or location.get("stamp"):
                     continue
 
-                if "goal" in location:
+                goal = ctx.slot_data.get("goal")
+                if location.get("name") == "Tos Forest Rail Glyph" and goal == 0:
                     break
+                elif location.get("name") == "Forest Temple Dungeon Reward" and goal == 1:
+                    continue
 
                 print(f"Processing locs {loc_name}")
                 print(
@@ -761,17 +763,17 @@ class SpiritTracksClient(BizHawkClient):
             self.delay_reset = True
 
         # Finished game?
-        # TODO if location has goal tag *and* is chosen goal in options, then finish game upon doing location
+        goal = ctx.slot_data.get("goal")
         if location is not None and "goal" in location:
-            # if location == "ToS Forest Rail Glyph":
-            #     self.goal_room = 0x1302
-            #     await self.process_game_completion(ctx, 0x1302)
-            if location == "Forest Temple Dungeon Reward":
+            if goal == 0 and location.get("region_id") == "tos 3f rail map":
+                self.goal_room = 0x1302
+                await self.process_game_completion(ctx, 0x1302)
+            if goal == 1 and location.get("region_id") == "fot stagnox":
                 self.goal_room = 0x1E00
                 await self.process_game_completion(ctx, 0x1E00)
 
         # Send locations
-        # print(f"Local locations: {local_checked_locations} in \n{all_checked_locations}")
+        #print(f"Local locations: {local_checked_locations} in \n{all_checked_locations}")
         if any([i not in all_checked_locations for i in local_checked_locations]):
             print(f"Sending Locations: {local_checked_locations}")
             await ctx.send_msgs([{

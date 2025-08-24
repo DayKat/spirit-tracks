@@ -75,3 +75,4 @@ def build_location_to_goal():
         if location.get("goal"):
             goal_locations.append(loc_name)
     return goal_locations
+
