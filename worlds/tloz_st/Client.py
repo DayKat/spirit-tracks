@@ -50,7 +50,7 @@ STAGE_FLAGS_OFFSET = 0x268
 
 # Addresses to read each cycle
 read_keys_always = ["game_state", "received_item_index", "is_dead", "stage", "room", "slot_id", "menu", "loading_room"]
-read_keys_land = ["getting_item", "getting_train_part"]
+read_keys_land = ["getting_location", "getting_train_part"]
 
 
 
@@ -102,6 +102,12 @@ class SpiritTracksClient(DSZeldaClient):
             "y": coords.get("link_y", 0),
             "z": coords.get("link_z", 0)
         }
+
+    async def remove_special_vanilla_item(self, ctx, vanilla_item: str):
+        # ignore treasure for now
+        if vanilla_item == "Treasure":
+            return True
+        return False
 
     async def full_heal(self, ctx, bonus=0):
         pass
