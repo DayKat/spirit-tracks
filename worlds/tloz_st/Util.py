@@ -3,6 +3,12 @@ from .data import LOCATIONS_DATA, ITEMS_DATA, DYNAMIC_FLAGS
 from .data.Constants import HINTS_ON_SCENE
 
 
+def build_hint_scene_to_watches() -> dict[int, list]:
+    return {}
+
+def build_entrance_id_to_data():
+    return {}, {}
+
 def build_location_room_to_watches() -> Dict[int, dict[str, dict]]:
     location_room_to_watches: Dict[int, dict[str, dict]] = {}
     for loc_name, location in LOCATIONS_DATA.items():

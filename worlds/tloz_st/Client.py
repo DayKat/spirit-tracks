@@ -1,14 +1,5 @@
 import random
-import time
-from typing import TYPE_CHECKING, Set, Dict, Any
-
-from NetUtils import ClientStatus
-import worlds._bizhawk as bizhawk
-from Utils import async_start
-from worlds._bizhawk.client import BizHawkClient
-from worlds.tloz_st import LOCATIONS_DATA, ITEMS_DATA
-from .data.Constants import *
-from .Util import *
+from .DSZeldaClient import *
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -27,23 +18,18 @@ RAM_ADDRS = {
     "slot_id": (0x265782, 2, "Main RAM"),
 
     "stage": (0x260A2C, 4, "Main RAM"),
-    #"floor": (0x1B2E98, 4, "Main RAM"),
+    "floor": (0x1B2E98, 4, "Main RAM"),  # TODO: Find floor value
     "room": (0x2690EA, 1, "Main RAM"),
     "entrance": (0x2690EB, 1, "Main RAM"),
-    #"flags": (0x265700, 52, "Main RAM"),
 
     "getting_item": (0x04B114, 1, "Main RAM"),
-    # "shot_frog": (0x1B7038, 1, "Main RAM"),
     "getting_train_part": (0x11F5E4, 1, "Main RAM"),
     "menu": (0x260958, 1, "Main RAM"),
 
     "link_x": (0x05CC, 4, "Data TCM"),
     "link_y": (0x05D0, 4, "Data TCM"),
     "link_z": (0x05D4, 4, "Data TCM"),
-    #"using_item:": (0x26531C, 4, "Main RAM"),
-    #"boat_x": (0x1B8518, 4, "Main RAM"),
-    #"boat_z": (0x1B8520, 4, "Main RAM"),
-    #"save_slot": (265782, 2, "Main RAM"),
+
     "equipped_item": (0x265318, 4, "Main RAM")
 }
 
@@ -63,253 +49,81 @@ STAGE_FLAGS_OFFSET = 0x268
 # Addresses to read each cycle
 read_keys_always = ["game_state", "received_item_index", "is_dead", "stage", "room", "slot_id", "menu"]
 read_keys_land = ["getting_item", "getting_train_part"]
-#read_keys_sea = ["shot_frog"]
 
 
-# Split up large values to write into smaller chunks
-def split_bits(value, size):
-    ret = []
-    f = 0xFFFFFFFFFFFFFF00
-    for _ in range(size):
-        ret.append(value & 0xFF)
-        value = (value & f) >> 8
-    return ret
 
 
-# Read list of address data
-async def read_memory_values(ctx, read_list: dict[str, tuple[int, int, str]], signed=False) -> dict[str, int]:
-    keys = read_list.keys()
-    read_data = [(a, s, d) for a, s, d in read_list.values()]
-    read_result = await bizhawk.read(ctx.bizhawk_ctx, read_data)
-    values = [int.from_bytes(i, "little", signed=signed) for i in read_result]
-    return {key: value for key, value in zip(keys, values)}
 
-
-# Read single address
-async def read_memory_value(ctx, address: int, size=1, domain="Main RAM", signed=False) -> int:
-    read_result = await bizhawk.read(ctx.bizhawk_ctx, [(address, size, domain)])
-    print("Reading memory value", hex(address), size, domain, ", got value",
-          hex(int.from_bytes(read_result[0], "little")))
-    return int.from_bytes(read_result[0], "little", signed=signed)
-
-
-# Write single address
-async def write_memory_value(ctx, address: int, value: int, domain="Main RAM", incr=None, size=1, unset=False):
-    prev = await read_memory_value(ctx, address, size, domain)
-    if incr is not None:
-        value = -value if unset else value
-        if incr:
-            write_value = prev + value
-        else:
-            write_value = prev - value
-        write_value = 0 if write_value <= 0 else write_value
-    else:
-        if unset:
-            print(f"Unseting bit {hex(address)} {hex(value)} with filter {hex(~value)} from prev {hex(prev)} "
-                  f"for result {hex(prev & (~value))}")
-            write_value = prev & (~value)
-        else:
-            write_value = prev | value
-    if size > 1:
-        write_value = split_bits(write_value, size)
-    else:
-        write_value = [write_value]
-    print(f"Writing Memory: {hex(address)}, {write_value}, {size}, {domain}, {incr}, {unset}")
-    await bizhawk.write(ctx.bizhawk_ctx, [(address, write_value, domain)])
-    return write_value
-
-
-# Write list of values starting from address
-async def write_memory_values(ctx, address: int, values: list, domain="Main RAM", overwrite=False):
-    if not overwrite:
-        prev = await read_memory_value(ctx, address, len(values), domain)
-        new_values = [old | new for old, new in zip(split_bits(prev, 4), values)]
-        print(f"values: {new_values}, old: {split_bits(prev, 4)}")
-    else:
-        new_values = values
-    await bizhawk.write(ctx.bizhawk_ctx, [(address, new_values, domain)])
-
-
-# Get address from pointer
-async def get_address_from_heap(ctx, pointer=POINTERS["ADDR_gMapManager"], offset=0) -> int:
-    m_course = 0
-    while m_course == 0:
-        m_course = await read_memory_value(ctx, pointer, 4, domain="Data TCM")
-    read = await read_memory_value(ctx, m_course - 0x02000000, 4)
-    print(f"Got map address @ {hex(read + offset - 0x02000000)}")
-    return read + offset - 0x02000000
-
-
-# Get address for small key count in current stage
-async def get_small_key_address(ctx):
-    return await get_address_from_heap(ctx, offset=SMALL_KEY_OFFSET)
-
-
-class SpiritTracksClient(BizHawkClient):
+class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
     system = "NDS"
-    local_checked_locations: Set[int]
-    local_scouted_locations: Set[int]
-    local_tracker: Dict[str, Any]
-    item_id_to_name: Dict[int, str]
-    location_name_to_id: Dict[str, int]
-    location_area_to_watches: Dict[int, dict[str, dict]]
-    watches: Dict[str, tuple[int, int, str]]
 
     def __init__(self) -> None:
         super().__init__()
-        self.item_id_to_name = build_item_id_to_name_dict()
-        self.location_name_to_id = build_location_name_to_id_dict()
-        self.location_area_to_watches = build_location_room_to_watches()
-        self.scene_to_dynamic_flag = build_scene_to_dynamic_flag()
-        self.scene_to_stamp = build_scene_to_stamp()
-        self.goal_locations = build_location_to_goal()
 
-        self.local_checked_locations = set()
-        self.local_scouted_locations = set()
-        self.local_tracker = {}
+        # Required variables from inherit
+        self.starting_flags = STARTING_FLAGS
+        self.dungeon_key_data = DUNGEON_KEY_DATA
+        self.slot_id_addr = RAM_ADDRS["slot_id"][0]
+        self.received_item_index_addr = RAM_ADDRS["received_item_index"][0]
+        self.starting_entrance = (0x2F, 0, 1)  # stage, room, entrance
+        self.scene_addr = (RAM_ADDRS["stage"][0], RAM_ADDRS["room"][0], RAM_ADDRS["floor"][0], RAM_ADDRS["entrance"][0])  # Stage, room, floor, entrance
+        self.exit_coords_addr = ()  # TODO: x, y, z. what coords to spawn link at when entering a
+        # continuous transition
+        self.er_y_offest = 164  # In ph i use coords who's y is 164 off the entrance y
+        self.ADDR_gMapManager = POINTERS["ADDR_gMapManager"]
+        self.stage_flag_offset = STAGE_FLAGS_OFFSET
 
-        self.set_deathlink = False
-        self.last_deathlink = None
-        self.was_alive_last_frame = False
-        self.is_expecting_received_death = False
+        self.goal_room = 0
+        self.in_stamp_stand = False
 
-        self.save_slot = 0
-        self.version_offset = 0
+    async def get_small_key_address(self, ctx) -> int:
+        return 0x26532F
 
-        self.last_scene = None
-        self.locations_in_scene = {}
-        self.watches = {}
-        self.receiving_location = False
-        self.last_vanilla_item: list[str] = []
-        self.delay_reset = False
-        self.last_treasures = 0
-        self.last_train_parts = []
-        self.last_potions = [0, 0]
-
-        self.removed_boomerang = False
-
-        self.previous_game_state = False
-        self.just_entered_game = False
-        self.current_stage = 0xB
-        self.main_read_list = {}
-        self.last_stage = None
-        self.entering_from = None
-        self.entering_dungeon = None
-        self.unset_dynamic_watches = []
-        self.stage_address = 0
-        self.new_stage_loading = None
-        self.at_sea = False
-
-        self.delay_pickup: list[str, list[list[str, str, int]]] | None = None
-        self.last_key_count = 0
-        self.key_address = 0
-        self.key_value = 0
-        self.goal_room = 0x2700
-
-        self.get_main_read_list(self.current_stage)
-
-    async def validate_rom(self, ctx: "BizHawkClientContext") -> bool:
-        try:
-            # Check ROM name/patch version
-            rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
-            rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
-            print(f"Rom Name: {rom_name}")
-            if rom_name != "SPIRITTRACKSBKIP":  # EU
-                if rom_name == "ZELDA_DS:PHAZEE":  # US
-                    self.version_offset = -64
-                    return False
-                else:
-                    return False
-        except bizhawk.RequestFailedError:
-            print("Invalid rom")
-            return False
-
-        ctx.game = self.game
-        ctx.items_handling = 0b111
-        ctx.want_slot_data = True
-        ctx.watcher_timeout = 0.5
-
-        return True
-
-    def on_package(self, ctx, cmd, args):
-        if cmd == 'Connected':
-            if 'death_link' in args['slot_data'] and args['slot_data']['death_link']:
-                self.set_deathlink = True
-                self.last_deathlink = time.time()
-        super().on_package(ctx, cmd, args)
-
-    async def set_starting_flags(self, ctx: "BizHawkClientContext") -> None:
-        write_list = [(RAM_ADDRS["slot_id"][0], [ctx.slot], "Main RAM")]
-        print("New game, setting starting flags")
-        print(ctx.slot)
-        for adr, value in STARTING_FLAGS:
-            write_list.append((adr, [value], "Main RAM"))
-
-        await bizhawk.write(ctx.bizhawk_ctx, write_list)
-
-    # Boomerang is set to enable item menu, called on s+q to remove it again.
-    async def boomerwatch(self, ctx) -> bool:
-        print(f"got item menu {await read_memory_value(ctx, *RAM_ADDRS['got_item_menu'])}")
-        if await read_memory_value(ctx, *RAM_ADDRS["got_item_menu"]) > 0:
-            print("Reconnected, boomerwatching")
-            # Check if boomerang has been received
-            for item in ctx.items_received:
-                if item.item == ITEMS_DATA["Boomerang"]["id"]:
-                    return True
-            # Otherwise remove boomerang
-            boomerang = ITEMS_DATA["Boomerang"]
-            await write_memory_value(ctx, boomerang["address"], boomerang["value"], unset=True)
-
-            test = await read_memory_value(ctx, boomerang["address"], 1, "Main RAM")
-            print("Boomerwatch ""Successful!"f", value is {test}")
+    async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
+        rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
+        rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
+        print(f"Rom Name: {rom_name}")
+        if rom_name != "SPIRITTRACKSBKIP":  # EU
             return True
-        else:
-            return False
+        return False
 
-    async def update_treasure_tracker(self, ctx):
-        self.last_treasures = await read_memory_value(ctx, 0x1BA5AC, 8)
-        print(f"Treasure Tracker! {split_bits(self.last_treasures, 8)}")
+    def get_coord_address(self, at_sea=None, multi=False) -> dict[str, tuple[int, int, str]]:
+        return {k: v for k, v in RAM_ADDRS.items() if k in ["link_x", "link_y", "link_z"]}
 
-    async def give_random_treasure(self, ctx):
-        address = 0x1BA5AC + random.randint(0, 7)
-        await write_memory_value(ctx, address, 1, incr=True)
-        await self.update_treasure_tracker(ctx)
-
-    async def update_potion_tracker(self, ctx):
-        read_list = {"left": (0x1BA5D8, 1, "Main RAM"),
-                     "right": (0x1BA5D9, 1, "Main RAM")}
-        reads = await read_memory_values(ctx, read_list)
-        self.last_potions = list(reads.values())
-
-    def get_coord_address(self, at_sea=None) -> dict[str, tuple[int, int, str]]:
-        at_sea = self.at_sea if at_sea is None else at_sea
-        if at_sea:
-            return {k: v for k, v in RAM_ADDRS.items() if k in ["boat_x", "boat_z"]}
-        else:
-            return {k: v for k, v in RAM_ADDRS.items() if k in ["link_x", "link_y", "link_z"]}
-
-    async def get_coords(self, ctx):
+    async def get_coords(self, ctx, multi=False):
         coords = await read_memory_values(ctx, self.get_coord_address(), signed=True)
         return {
-            "x": coords.get("link_x", coords.get("boat_x", 0)),
+            "x": coords.get("link_x", 0),
             "y": coords.get("link_y", 0),
-            "z": coords.get("link_z", coords.get("boat_z", 0))
+            "z": coords.get("link_z", 0)
         }
 
-    def get_main_read_list(self, stage):
+    async def full_heal(self, ctx, bonus=0):
+        pass
+
+    async def watched_intro_cs(self, ctx):
+        pass
+
+    def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always
-        if stage is not None:
-            if stage == 0:
-                self.at_sea = True
-            else:
-                read_keys += read_keys_land
-                self.at_sea = False
+        read_keys += read_keys_land
         self.main_read_list = {k: v for k, v in RAM_ADDRS.items() if k in read_keys}
         print(self.main_read_list)
 
     def get_ending_room(self, ctx):
         self.goal_room = 0x2700
+
+    async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
+        current_menu = read_result["menu"]
+        self.in_stamp_stand = current_menu == 0x0E
+
+    async def process_in_game(self, ctx, read_result: dict):
+        # Detect stamp stand locations
+        if self.in_stamp_stand and not self.receiving_location:
+            self.receiving_location = True
+            stamp_location = self.scene_to_stamp[self.current_scene]
+            await self.process_checked_locations(ctx, stamp_location)
 
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
 
