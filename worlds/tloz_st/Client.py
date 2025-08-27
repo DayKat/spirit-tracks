@@ -128,6 +128,10 @@ class SpiritTracksClient(DSZeldaClient):
         current_menu = read_result["menu"]
         self.in_stamp_stand = current_menu == 0x0E
 
+        # Fix for stamp stand not counting as getting item
+        if self.in_stamp_stand and self.receiving_location:
+            self.getting_location = True
+
     async def process_in_game(self, ctx, read_result: dict):
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:
@@ -135,6 +139,10 @@ class SpiritTracksClient(DSZeldaClient):
             stamp_location = self.scene_to_stamp[self.current_scene]
             await self._process_checked_locations(ctx, stamp_location)
 
+    def cancel_location_read(self, location) -> bool:
+        if "stamp" in location:
+            return True
+        return False
 
     async def check_location_post_processing(self, ctx, location: dict):
         if location is not None and "goal" in location:

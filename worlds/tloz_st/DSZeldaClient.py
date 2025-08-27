@@ -891,7 +891,7 @@ class DSZeldaClient(BizHawkClient):
                 loc_name, location = loc
                 loc_bytes = self.location_name_to_id[loc_name]
 
-                if "address" in location:
+                if "address" in location or self.cancel_location_read(location):
                     continue
 
                 print(f"Processing locs {loc_name}")
@@ -908,6 +908,7 @@ class DSZeldaClient(BizHawkClient):
                         if len(self.locations_in_scene) > i + 1:
                             await self._set_delay_pickup(ctx, loc_name, location)
                             break
+
                     local_checked_locations.add(loc_bytes)
                     await self._set_vanilla_item(ctx, location)
                     print(f"Got location {loc_name}! with vanilla {self.last_vanilla_item} id {loc_bytes}")
@@ -934,6 +935,16 @@ class DSZeldaClient(BizHawkClient):
             }])
 
         await self.check_location_post_processing(ctx, location)
+
+    def cancel_location_read(self, location) -> bool:
+        """
+        called on the main path of _process_checked_location.
+        used to cancel special reads that should only happen on special reads
+        used in st for stamp book locations
+        :param location:
+        :return:
+        """
+        return False
 
     async def _set_delay_pickup(self, ctx, loc_name, location):
         delay_locations = []
