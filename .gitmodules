@@ -1,3 +1,6 @@
 [submodule "worlds/tloz_st/DSZeldaClient"]
 	path = worlds/tloz_st/DSZeldaClient
 	url = https://github.com/carrotinator/DSZeldaClient
+[submodule "worlds/tloz_st/dszc"]
+	path = worlds/tloz_st/dszc
+	url = https://github.com/carrotinator/DSZeldaClient
