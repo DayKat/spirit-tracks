@@ -16,6 +16,7 @@ from .data.Constants import *
 from .data.Items import ITEMS_DATA
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
+from .data.Entrances import ENTRANCES
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
 

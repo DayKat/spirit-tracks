@@ -123,6 +123,8 @@ class DSZeldaClient(BizHawkClient):
         self.er_y_offest = 164  # In ph i use coords who's y is 164 off the entrance y
         self.ADDR_gMapManager = 0xe60
         self.stage_flag_offset = 0x268
+        self.entrances = {}
+        self.hint_data = {}
 
         self.local_checked_locations = set()
         self.local_scouted_locations = set()
@@ -154,6 +156,7 @@ class DSZeldaClient(BizHawkClient):
         self.main_read_list = {}
         self.read_result = {}
         self.current_stage = 0xB
+        self.current_scene = None
         self.last_stage = None
         self.entering_from = None
         self.entering_dungeon = None
@@ -275,6 +278,15 @@ class DSZeldaClient(BizHawkClient):
         """
         return 0
 
+    def process_loading_variable(self, read_result) -> bool:
+        """
+        Loading variable can vary whether it should be one or 0
+        this should fix that
+        :param read_result: dict of all the read data
+        :return: is loading
+        """
+        return False
+
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         if not ctx.server or not ctx.server.socket.open or ctx.server.socket.closed or ctx.slot is None or ctx.slot == 0:
             self._just_entered_game = True
@@ -305,7 +317,7 @@ class DSZeldaClient(BizHawkClient):
             self.current_stage = current_stage
 
             # Loading variables
-            loading_scene = read_result["loading_room"]
+            loading_scene = self.process_loading_variable(read_result)
             loading = loading_scene or self._entered_entrance
 
             # If player is on title screen, don't do anything else
@@ -346,7 +358,7 @@ class DSZeldaClient(BizHawkClient):
             # Get current scene
             current_room = read_result.get("room", None)
             current_room = 0 if current_room == 0xFF else current_room  # Resetting in a dungeon sets a special value
-            current_scene = current_stage * 0x100 + current_room
+            self.current_scene = current_scene = current_stage * 0x100 + current_room
             current_entrance = read_result.get("entrance", 0)
             num_received_items = read_result.get("received_item_index", None)
 
@@ -540,7 +552,7 @@ class DSZeldaClient(BizHawkClient):
             pairings = {int(k): v for k, v in ctx.slot_data["er_pairings"].items()}
 
             # Loop through entrance data, format data
-            for data in ENTRANCES.values():
+            for data in self.entrances.values():
                 stage, room, entrance = data["entrance"]
                 link_coords = data.get("coords", None)
 
@@ -1274,21 +1286,17 @@ class DSZeldaClient(BizHawkClient):
         """
         return False
 
+    async def set_stage_flags(self, ctx, stage):
+        """
+        called on entering a new stage. sets stage flags. ST doesn't do this yet
+        :param ctx:
+        :param stage:
+        :return:
+        """
+        pass
+
     async def _enter_stage(self, ctx, stage, scene_id):
-        self.stage_address = await get_address_from_heap(ctx, self.ADDR_gMapManager, offset=self.stage_flag_offset)
-        self.key_address = await self.get_small_key_address(ctx)
-        if stage in STAGE_FLAGS:
-            flags = STAGE_FLAGS[stage]
-
-            # Change certain stage flags based on options
-            if stage == 0 and ctx.slot_data["skip_ocean_fights"] == 1:
-                flags = SKIP_OCEAN_FIGHTS_FLAGS
-            if stage == 41 and ctx.slot_data["logic"] <= 1:
-                flags = SPAWN_B3_REAPLING_FLAGS
-
-            print(f"Setting Stage flags for {STAGES[stage]}, "
-                  f"adr: {hex(self.stage_address)}")
-            await write_memory_values(ctx, self.stage_address, flags)
+        await self.set_stage_flags(ctx, stage)
         # Give dungeon keys
         if stage in self.dungeon_key_data:
             if not await self.enter_special_key_room(ctx, stage, scene_id):
@@ -1392,7 +1400,7 @@ class DSZeldaClient(BizHawkClient):
         if self.hint_scene_to_watches.get(scene, []):
             print(f"hints {self.hint_scene_to_watches.get(scene, [])}")
         for hint_name in self.hint_scene_to_watches.get(scene, []):
-            hint_data = HINT_DATA[hint_name]
+            hint_data = self.hint_data[hint_name]
             # Check requirements
             if not check_items(hint_data):
                 continue
