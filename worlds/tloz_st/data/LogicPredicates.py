@@ -529,10 +529,3 @@ def st_has_temple_tracks(state, player, temple):
 #         ])
 #     ])
 
-
-# Goal Stuff
-
-def st_temp_goal(state, player):
-    #return all([st_has_glyph(state, player, "Forest"),
-    #            st_has_sword(state, player)])
-    return True

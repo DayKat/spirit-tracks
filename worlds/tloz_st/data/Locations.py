@@ -172,14 +172,43 @@ LOCATIONS_DATA = {
     },
 
     # # ========== Tower of Spirits ==============
-    "ToS 2F Chest": {
-        "region_id": "tos 2f chest",
+    "ToS 1F Chest": {
+        "region_id": "tos 1f chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 0,
+        "x_min": -6554,
+        "x_max": 6554,
+        "z_min": -72090,
+        "z_max": -70791,
+        'dungeon': "Tower of Spirits",
+        #'set_bit': [(0x265715, 0x80)]
+    },
+    "ToS 2F Raised Chest": {
+        "region_id": "tos 2f raised chest",
         "vanilla_item": "Treasure",
         "item_override": "Cannon",
         "stage_id": 0x13,
         "room_id": 1,
+        "x_min": -5786,
+        "x_max": 10650,
+        "z_min": -39322,
+        "z_max": -29710,
         'dungeon': "Tower of Spirits",
-        "require_item": ["Sword (Progressive)", "Bombs (Progressive)"]
+        "require_item": ["Sword (Progressive)", "Whirlwind"]
+        #'set_bit': [(0x265715, 0x80)]
+    },
+    "ToS 2F Whirlwind Chest": {
+        "region_id": "tos 2f whirlwind",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 1,
+        "x_min": 21028,
+        "x_max": 40042,
+        "z_min": -63898,
+        "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind"]
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS Forest Rail Glyph": {
@@ -247,28 +276,32 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
+        "item_override": "Forest Temple Tracks"
     },
-    #TODO location checks without flute
-    "Forest Sanctuary Song Statue": {
-        "region_id": "fos song statue",
-        "vanilla_item": "Song of Awakening",
-        "stage_id": 0x30,
-        "room_id": 0,
-        "x_min": -32764,
-        "x_max": -18104,
-        "z_min": 5734,
-        "z_max": 18842,
-        "require_item": ["Spirit Flute"],
-    },
-    #TODO location checks without flute
-    "Forest Sanctuary Gage Duet": {
-        "region_id": "fos gage",
-        "stage_id": 0x30,
-        "room_id": 1,
-        "vanilla_item": "Forest Temple Tracks",
-        "require_item": ["Spirit Flute"],
-        "duet": True,
-    },
+    #TODO bad address for flute stuff
+    # "Forest Sanctuary Song Statue": {
+    #     "region_id": "fos song statue",
+    #     "vanilla_item": "Song of Awakening",
+    #     "stage_id": 0x30,
+    #     "room_id": 0,
+    #     "x_min": -32764,
+    #     "x_max": -18104,
+    #     "z_min": 5734,
+    #     "z_max": 18842,
+    #     "address": 0x0B92D8,
+    #     "value": 18,
+    #     "require_item": ["Spirit Flute"],
+    # },
+    # "Forest Sanctuary Gage Duet": {
+    #     "region_id": "fos gage",
+    #     "stage_id": 0x30,
+    #     "room_id": 1,
+    #     "address": 0x0B92D8,
+    #     "value": 18,
+    #     "vanilla_item": "Forest Temple Tracks",
+    #     "require_item": ["Spirit Flute"],
+    #     "duet": True,
+    # },
     "Forest Sanctuary Chest": {
         "region_id": "fos chest",
         "vanilla_item": "Big Red Rupee (200)",
@@ -281,15 +314,15 @@ LOCATIONS_DATA = {
         "require_item": ["Whirlwind", "Spirit Flute", "Song of Birds"],
     },
 
-    # Forest Temple
-    "Forest Temple Song Statue": {
-        "region_id": "fot song statue",
-        "vanilla_item": "Song of Healing",
-        "stage_id": 0x19,
-        "room_id": 0x0A,
-        "dungeon": "Forest Temple",
-        "require_item": ["Spirit Flute"],
-    },
+    # Forest Temple TODO keys aren't working
+    # "Forest Temple Song Statue": {
+    #     "region_id": "fot song statue",
+    #     "vanilla_item": "Song of Healing",
+    #     "stage_id": 0x19,
+    #     "room_id": 0x0A,
+    #     "dungeon": "Forest Temple",
+    #     "require_item": ["Spirit Flute"],
+    # },
     "Forest Temple Stamp Station": {
         "region_id": "fot stamp station",
         "vanilla_item": "Red Rupee (20)",
@@ -330,8 +363,8 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "x_min": 30327,
         "x_max": 43418,
-        "z_min": -63898,
-        "z_max": -52519,
+        "z_min": -39322,
+        "z_max": -30077,
         "dungeon": "Forest Temple",
         "require_item": ["Whirlwind"],
     },

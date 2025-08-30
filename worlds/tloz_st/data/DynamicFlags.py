@@ -42,7 +42,7 @@ DYNAMIC_FLAGS = {
     "Assume duet done outside room":{
         "on_scenes": [0x3000],
         "not_has_locations": ["Forest Sanctuary Gage Duet"],
-        "set_if_true": [(0x268715, 0x01)]
+        "set_if_true": [(0x265715, 0x01)]
     }
     # "RESET Bannan Island Map": {
     #     "on_scenes": [0x1],

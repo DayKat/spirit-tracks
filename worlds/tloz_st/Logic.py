@@ -44,7 +44,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ========== ToS ===================
 
         ["forest realm", "tos", False, None],
-        ["tos", "tos 2f chest", False, lambda state: (st_has_bombs(state, player) and st_has_sword(state, player))],
+        ["tos", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player))],
+        ["tos", "tos 2f raised chest", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
+        ["tos", "tos 2f whirlwind", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
         ["tos", "tos 3f rail map", False, lambda state: st_has_sword(state, player)],
         ["tos 3f rail map", "goal_forest_glyph", False, None],
 
@@ -67,15 +69,15 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "fos", False, None],
         ["fos", "fos stamp station", False, lambda state: st_has_stamp_book(state, player)],
-        ["fos", "fos song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        ["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
+        #["fos", "fos song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        #["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
         ["fos", "fos chest", False, lambda state: st_has_whirlwind(state, player) or (st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
 
         # # ======== Forest Temple =========
 
         ["forest realm", "fot", False, lambda state: st_has_temple_tracks(state, player, "Forest")],
         ["fot", "fot stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
-        ["fot", "fot song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        #["fot", "fot song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["fot", "fot 1f enemy chest", False, lambda state: st_has_damage(state, player)],
         ["fot 1f enemy chest", "fot 1f key", False, lambda state: st_has_whirlwind(state, player)],
         ["fot 1f enemy chest", "fot 2f enemy chest", False, lambda state: st_has_whirlwind(state, player)],

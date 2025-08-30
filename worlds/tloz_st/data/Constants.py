@@ -111,11 +111,11 @@ LOCATION_GROUPS = {
     "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
     "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
     "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
-    "Tower of Spirits": ["ToS 2F Chest", "ToS Forest Rail Glyph"],
+    "Tower of Spirits": ["ToS 1F Chest", "ToS 2F Raised Chest", "ToS 2f Whirlwind Chest", "ToS Forest Rail Glyph"],
     "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
     "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
     "Forest Temple": [
-        "Forest Temple Song Statue",
+        #"Forest Temple Song Statue",
         "Forest Temple Stamp Station",
         "Forest Temple 1F Enemy Chest",
         "Forest Temple 1F Key",
