@@ -428,8 +428,6 @@ ITEMS_DATA = {
 }
 
 
-
-
 # Oops apparently not a constant lul (it will be after this)
 for i, k in enumerate(ITEMS_DATA.keys()):
     ITEMS_DATA[k]["id"] = i+1
