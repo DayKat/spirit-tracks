@@ -7,14 +7,14 @@ STARTING_FLAGS = [
     # easier to bugfix)
 
     [0x265714, 0x04],  # restore spirit train cutscene skip
-    #[0x265715, 0x80],  # unlock rail map
+    [0x265715, 0x01],  # forest restoration duet done
     [0x265716, 0xF0],  # sword tutorial and intro stuff
     [0x265717, 0x07],  # split ToS and zelda 1st convo
-    [0x265718, 0x14],  # load train to ToS
+    [0x265718, 0x34],  # load train to ToS
     [0x265719, 0x20],  # train quill tutorial skip
     [0x26571A, 0xFC],  # Intro stuff
     [0x26571B, 0x03],  # postman & get zelda's letter
-    [0x265726, 0x03],  # zelda 1st phantom possession
+    [0x265726, 0x13],  # zelda 1st phantom possession
     [0x265729, 0x50],  # post fleeing ToS 1F
     [0x26572C, 0x07],  # HC intro Zelda
     [0x26572F, 0x02],  # initial train cutscene skip
@@ -27,12 +27,19 @@ STARTING_FLAGS = [
 ]
 
 STAGE_FLAGS = {
-     35: [0x00, 0x00, 0x00, 0x2F], # Aboda Village
-     29: [0x00, 0x00, 0x00, 0x00], # Castle Town
-     28: [0x00, 0x00, 0x00, 0x00],  # Hyrule Castle
-     13: [0x00, 0x00, 0x00, 0x00],  # Tower of Spirits (Main)
-    14: [0x00, 0x00, 0x00, 0x00], # Tower of Spirits (Base)
-    17: [0x00, 0x00, 0x00, 0x00],  # Tower of Spirits (Stairs)
+    0x04: [0x00, 0x00, 0x00, 0x04], # Forest Realm
+    0x2F: [0x00, 0x00, 0x00, 0x2F], # Aboda Village
+    0x29: [0x00, 0x00, 0x00, 0x29], # Castle Town
+    0x28: [0x00, 0x00, 0x00, 0x28],  # Hyrule Castle
+    0x13: [0x00, 0x00, 0x00, 0x13],  # Tower of Spirits (Main)
+    0x14: [0x00, 0x00, 0x00, 0x14], # Tower of Spirits (Base)
+    0x17: [0x00, 0x00, 0x00, 0x17],  # Tower of Spirits (Stairs)
+    0x18: [0x00, 0x00, 0x00, 0x18], # Tunnel to ToS
+    0x19: [0x00, 0x00, 0x00, 0x19],  # Forest Temple
+    0x1E: [0x00, 0x00, 0x00, 0x1E], # Stagnox
+    0x2A: [0x00, 0x00, 0x00, 0x2A],  # Mayscore/Whittleton
+    0x30: [0x00, 0x00, 0x00, 0x20],  # Forest Sanctuary
+    0x38: [0x00, 0x00, 0x00, 0x28],  # Mayscore Forest
 
     # 37: [0xFE, 0xBE, 0xFB, 0xAF],  # TotOK
     # 0: [0x82, 0xFC, 0x66, 0xED],  # Sea
@@ -62,18 +69,27 @@ STAGES = {
     0x13: "Tower of Spirits",
     0x14: "Tower of Spirits Base",
     0x17: "Tower of Spirits Stairs",
+    0x18: "Tunnel to ToS",
+    0x19: "Forest Temple",
+    0x1E: "Stagnox",
+    0x2A: "Mayscore",
+    0x30: "Forest Sanctuary",
+    0x38: "Mayscore Forest",
 }
 
 ITEM_GROUPS = {
-    # "Small Keys": [
-    #     "Small Key (Mountain Passage)",
-    #     "Small Key (Temple of the Ocean King)",
+     "Small Keys": [
+         "Small Key (Tunnel to ToS)",
+         "Small Key (Forest Temple)",
     #     "Small Key (Temple of Fire)",
     #     "Small Key (Temple of Wind)",
     #     "Small Key (Temple of Courage)",
     #     "Small Key (Temple of Ice)",
     #     "Small Key (Mutoh's Temple)"
-    # ],
+     ],
+    "Boss Keys": [
+        "Boss Key (Forest Temple)"
+    ],
     "Treasure Items": [
         "Treasure: Pink Coral",
         "Treasure: White Pearl Loop",
@@ -84,84 +100,82 @@ ITEM_GROUPS = {
         "Treasure: Helmaroc Plume",
         "Treasure: Regal Ring"
     ],
-    # "Ammo Refills": [
-    #     "Refill: Bombs",
-    #     "Refill: Arrows",
-    #     "Refill: Bombchus"
-    # ]
+     "Ammo Refills": [
+        "Refill: Bombs",
+        "Refill: Arrows",
+     ]
 }
 
 LOCATION_GROUPS = {
     "Aboda Village": ["Aboda Clear Rocks", "Aboda Bee Tree", "Aboda Stamp Station"],
-    "Castle Town": ["Castle Town Stamp Station"]
-    # "Mountain Passage": [
-    #     "Mountain Passage Chest 1",
-    #     "Mountain Passage Chest 2",
-    #     "Mountain Passage Key Drop",
-    #     "Mountain Passage Rat Key",
-    # ],
-    # "Temple of the Ocean King": [],
-    # "Temple of Fire": [],
-    # "Temple of Wind": [],
-    # "Temple of Courage": [],
+    "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
+    "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
+    "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
+    "Tower of Spirits": ["ToS 1F Chest", "ToS 2F Raised Chest", "ToS 2f Whirlwind Chest", "ToS Forest Rail Glyph"],
+    "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
+    "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
+    "Forest Temple": [
+        #"Forest Temple Song Statue",
+        "Forest Temple Stamp Station",
+        "Forest Temple 1F Enemy Chest",
+        "Forest Temple 1F Key",
+        "Forest Temple 1F Switch Chest",
+        "Forest Temple 2F Enemy Chest",
+        "Forest Temple 2F Poison Chest",
+        "Forest Temple 3F Chestnut Chest",
+        "Forest Temple 3F SE Chest",
+        "Forest Temple 3F Boss Key Chest",
+        "Forest Temple Boss Heart Container",
+        "Forest Temple Dungeon Reward"
+    ],
     # "Goron Temple": [],
     # "Temple of Ice": [],
     # "Mutoh's Temple": [],
     # "Ghost Ship": []
 }
 
-CUSTOM_METALS = {
-    "Custom Metals": [
-        "Verdanine",
-        "Lavendine",
-        "Amberine",
-        "Vermilline",
-        "Crystaline",
-    ],
-}
-
 DUNGEON_NAMES = [
-    "Hyrule Castle",
-    "Tower of Spirits"
+    "Tunnel to ToS",
+    "Tower of Spirits",
+    "Forest Temple"
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Tower of Spirits": "ToS Forest Rail Glyph",
+    "Forest Temple": "Forest Temple Dungeon Reward",
 }
 
 
 DUNGEON_KEY_DATA = {
-    # 39: {
-    #     "name": "Mountain Passage",
-    #     "address": 0x1BA64E,
-    #     "filter": 0x0C,
-    #     "value": 4,
-    #     "size": 2,
-    #     'entrances': {
-    #         0xB01: {
-    #             "max_z": 0x12800,
-    #             # "max_z": 0xFFFF7000
-    #         },
-    #         0xB03: {
-    #             "max_z": 0xB200,
-    #             "min_z": 0x5000
-    #         }
-    #
-    #     }
-    # },
-    # 37: {
-    #     "name": "Temple of the Ocean King",
-    #     "address": 0x1BA64E,
-    #     "filter": 0xE0,
-    #     "value": 0x20,
-    #     "size": 3,
-    #     'entrances': {
-    #         0x2600: {
-    #             "max_z": 0x11800,
-    #             "min_z": 0x0
-    #         }
-    #     }
-    # },
+    0x18: {
+        "name": "Tunnel to ToS",
+        "address": 0x265784,
+        "filter": 0x01,
+        "value": 1,
+        "size": 1,
+        # 'entrances': {
+        #     0xB01: {
+        #         "max_z": 0x12800,
+        #         # "max_z": 0xFFFF7000
+        #     },
+        #     0xB03: {
+        #         "max_z": 0xB200,
+        #         "min_z": 0x5000
+        #     }}
+    },
+    0x19: {
+        "name": "Forest Temple",
+        "address": 0x265784,
+        "filter": 0x06,
+        "value": 0x02,
+        "size": 2,
+        # 'entrances': {
+        #     0x2600: {
+        #         "max_z": 0x11800,
+        #         "min_z": 0x0
+        #     }
+        # }
+    },
     # 372: {
     #     "name": "Temple of the Ocean King",
     #     "address": 0x1BA64F,

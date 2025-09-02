@@ -21,12 +21,34 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== Castle Town =========
 
         ["forest realm", "castle town", False, None],
-        ["castle town", "castle town stamp station", True, lambda state: (st_has_stamp_book(state, player) and st_has_bomb(state, player))],
+        ["castle town", "castle town stamp station", False, lambda state: (st_has_stamp_book(state, player) and st_has_bombs(state, player))],
+        ["castle town", "castle town L wall chest", False, lambda state: (st_has_bombs(state, player))],
+        ["castle town", "castle town R wall chest", False, lambda state: (st_has_bombs(state, player))],
+        ["castle town", "castle town minigame roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player))],
+        ["castle town", "castle town ramp house chest", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player))],
+        ["castle town", "castle town empty house roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player))],
+
+        # # ======== Hyrule Castle =========
+
+        ["castle town", "hyrule castle", False, None],
+        ["hyrule castle", "hyrule castle nw chest", False, None],
+        ["hyrule castle", "hyrule castle 2f indoors chest", False, None],
+        ["hyrule castle", "hyrule castle 1f back chest", False, None],
+
+        # # ======== ToS Tunnel =========
+
+        ["hyrule castle", "tower tunnel", False, None],
+        ["tower tunnel", "tower tunnel block chest", False, lambda state: (st_has_damage(state, player))],
+        ["tower tunnel", "tower tunnel 2f chest", False, lambda state: (st_has_damage(state, player) and st_has_small_keys(state, player, "Tunnel to ToS", 1))],
 
         # # ========== ToS ===================
-        #TODO add 3f rail map
+
         ["forest realm", "tos", False, None],
-        ["tos", "goal", False, lambda state: st_has_sword(state, player)],
+        ["tos", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player))],
+        ["tos", "tos 2f raised chest", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
+        ["tos", "tos 2f whirlwind", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
+        ["tos", "tos 3f rail map", False, lambda state: st_has_sword(state, player)],
+        ["tos 3f rail map", "goal_forest_glyph", False, None],
 
         # # ============ Shops ====================
 
@@ -34,6 +56,39 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ["mercay island", "shop quiver", False, lambda state: st_can_buy_quiver(state, player)],
         # ["mercay island", "shop bombchu bag", False, lambda state: st_can_buy_chu_bag(state, player)],
         # ["mercay island", "shop heart container", False, lambda state: st_can_buy_heart(state, player)],
+
+        # # ======== Mayscore =========
+
+        ["forest realm", "mayscore", False, None],
+        ["mayscore", "mayscore stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["mayscore", "mayscore whip race bomb bag", False, lambda state: st_has_whip(state, player)],
+        ["mayscore", "mayscore whip race heart container", False, lambda state: st_has_whip(state, player)],
+        ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
+
+        # # ======== Forest Sanctuary =========
+
+        ["forest realm", "fos", False, None],
+        ["fos", "fos stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        #["fos", "fos song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        #["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
+        ["fos", "fos chest", False, lambda state: st_has_whirlwind(state, player) or (st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
+
+        # # ======== Forest Temple =========
+
+        ["forest realm", "fot", False, lambda state: st_has_temple_tracks(state, player, "Forest")],
+        ["fot", "fot stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
+        #["fot", "fot song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["fot", "fot 1f enemy chest", False, lambda state: st_has_damage(state, player)],
+        ["fot 1f enemy chest", "fot 1f key", False, lambda state: st_has_whirlwind(state, player)],
+        ["fot 1f enemy chest", "fot 2f enemy chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["fot 1f enemy chest", "fot 2f poison chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["fot", "fot 1f switch chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["fot", "fot 3f chestnut chest", False, lambda state: st_has_damage(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Forest Temple", 2)],
+        ["fot", "fot 3f se chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple", 2)],
+       #["fot", "fot 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
+        ["fot", "fot heart container", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
+        ["fot", "fot stagnox", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
+        ["fot stagnox", "goal_stagnox", False, None]
 
         # # ============ SW Ocean =================
 

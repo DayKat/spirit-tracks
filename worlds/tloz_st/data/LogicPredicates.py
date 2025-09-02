@@ -8,6 +8,9 @@ from .Constants import *
 def st_has_stamp_book(state, player):
     return state.has("Stamp Book", player)
 
+def st_has_spirit_flute(state, player):
+    return state.has("Spirit Flute", player)
+
 def st_has_sword(state: CollectionState, player: int):
     return state.has("Sword (Progressive)", player)
 
@@ -21,6 +24,8 @@ def st_has_bow(state: CollectionState, player: int):
 def st_has_bombs(state: CollectionState, player: int):
     return state.has("Bombs (Progressive)", player)
 
+def st_has_whirlwind(state: CollectionState, player: int):
+    return state.has("Whirlwind", player)
 
 def st_has_whip(state: CollectionState, player: int):
     return state.has("Whip", player)
@@ -53,6 +58,23 @@ def st_has_glyph(state: CollectionState, player: int, realm: str):
 def st_has_cannon(state: CollectionState, player: int):
     return state.has("Cannon", player)
 
+
+# ============== Songs =======================
+
+def st_has_awakening_song(state: CollectionState, player: int):
+    return state.has("Song of Awakening", player)
+
+def st_has_healing_song(state: CollectionState, player: int):
+    return state.has("Song of Healing", player)
+
+def st_has_birds_song(state: CollectionState, player: int):
+    return state.has("Song of Birds", player)
+
+def st_has_light_song(state: CollectionState, player: int):
+    return state.has("Song of Light", player)
+
+def st_has_discovery_song(state: CollectionState, player: int):
+    return state.has("Song of Discovery", player)
 
 # ============== Frogs =======================
 
@@ -108,10 +130,6 @@ def st_has_cannon(state: CollectionState, player: int):
 
 
 # =========== Combined item states ================
-
-def st_has_bomb(state: CollectionState, player: int):
-    return state.has_any(["Bombs (Progressive)"], player)
-
 
 def st_has_damage(state: CollectionState, player: int):
     return any([
@@ -181,7 +199,7 @@ def st_totok_stantom_steal_object(state, player):
 
 
 def st_has_range(state: CollectionState, player: int):
-    return state.has_any(["Boomerang", "Bow (Progressive)", "Whip"], player)
+    return state.has_any(["Boomerang", "Bow (Progressive)", "Whirlwind"], player)
 
 
 def st_has_short_range(state: CollectionState, player: int):
@@ -190,7 +208,7 @@ def st_has_short_range(state: CollectionState, player: int):
 
 
 def st_has_mid_range(state: CollectionState, player: int):
-    return any([st_has_range(state, player),
+    return any([st_has_range(state, player), st_has_whip(state, player),
                 st_has_beam_sword(state, player)])
 
 
@@ -383,19 +401,19 @@ def st_is_ut(state: CollectionState, player: int):
 
 # ============= Key logic ==============
 
-# def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1):
-#     return state.has(f"Small Key ({dung_name})", player, amount)
-#
-#
-# def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
-#     return state.has(f"Boss Key ({dung_name})", player)
-#
-#
-# def st_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
-#     return any([
-#         st_has_boss_key(state, player, dung_name),
-#         st_is_ut(state, player)
-#     ])
+def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1):
+    return state.has(f"Small Key ({dung_name})", player, amount)
+
+
+def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
+    return state.has(f"Boss Key ({dung_name})", player)
+
+
+#def st_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
+ #   return any([
+  #      st_has_boss_key(state, player, dung_name),
+        #         st_is_ut(state, player)
+  #  ])
 
 
 def st_ut_small_key_vanilla_location(state, player):
@@ -487,6 +505,9 @@ def st_train_access(state, player):
         st_has_glyph(state, player, "Forest")
     ])
 
+def st_has_temple_tracks(state, player, temple):
+    temple = temple+" Temple Tracks"
+    return state.has(temple, player)
 
 # Handles keylocking due to lack of locations
 # def st_can_reach_MP2(state: CollectionState, player: int):
@@ -508,10 +529,3 @@ def st_train_access(state, player):
 #         ])
 #     ])
 
-
-# Goal Stuff
-
-def st_temp_goal(state, player):
-    #return all([st_has_glyph(state, player, "Forest"),
-    #            st_has_sword(state, player)])
-    return True

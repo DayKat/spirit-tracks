@@ -14,7 +14,8 @@ class SpiritTracksGoal(Choice):
     """
     display_name = "Goal"
     option_beat_ToS_section_1 = 0
-    default = 0
+    option_beat_forest_temple = 1
+    default = 1
 
 
 class SpiritTracksRemoveItemsFromPool(ItemDict):
@@ -63,8 +64,6 @@ class SpiritTracksLogic(Choice):
 
 class SpiritTracksKeyRandomization(Choice):
     """
-    NOT IMPLEMENTED YET
-
     Small Key Logic options:
     - vanilla: Keys are not randomized
     - in_own_dungeon: Keys can be found in their own dungeon
@@ -157,12 +156,12 @@ class SpiritTracksOptions(PerGameCommonOptions):
     #exclude_non_required_dungeons: SpiritTracksExcludeNonRequiredDungeons
 
     # Logic options
-    #logic: SpiritTracksLogic
+    logic: SpiritTracksLogic
     #phantom_combat_difficulty: SpiritTracksPhantomCombatDifficulty
     #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
 
     # Item Randomization
-    #keysanity: SpiritTracksKeyRandomization
+    keysanity: SpiritTracksKeyRandomization
     #randomize_frogs: SpiritTracksFrogRandomization
 
     # Hint Options
