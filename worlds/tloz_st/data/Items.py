@@ -175,25 +175,25 @@ ITEMS_DATA = {
         'classification': ItemClassification.progression,
         'address': 0x265716,
         'value': 0x01,
-        'set_bit': [(0x265715, 0x80)]
+        #'set_bit': [(0x265715, 0x80)]
     },
     "Ocean Glyph": {
         'classification': ItemClassification.progression,
         'address': 0x265716,
         'value': 0x02,
-        'set_bit': [(0x265715, 0x80)]
+        #'set_bit': [(0x265715, 0x80)]
     },
     "Fire Glyph": {
         'classification': ItemClassification.progression,
         'address': 0x265716,
         'value': 0x04,
-        'set_bit': [(0x265715, 0x80)]
+        #'set_bit': [(0x265715, 0x80)]
     },
     "Forest Temple Tracks":{
         'classification': ItemClassification.progression,
         'address': 0x2653B0,
         'value': 0x02,
-        'set_bit': [(0x265715, 0x80)]
+        #'set_bit': [(0x265715, 0x80)]
     },
 
     # ========= Force Gems ==============
