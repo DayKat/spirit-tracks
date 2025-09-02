@@ -53,9 +53,6 @@ read_keys_always = ["game_state", "received_item_index", "is_dead", "stage", "ro
 read_keys_land = ["getting_location", "getting_train_part"]
 
 
-
-
-
 class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
     system = "NDS"
@@ -148,6 +145,11 @@ class SpiritTracksClient(DSZeldaClient):
         if location is not None and "goal" in location:
             print("it works")
             self.has_goal_location = True
+        # goal = ctx.slot_data.get("goal")
+        # if location.get("name") == "Tos Forest Rail Glyph" and goal == 0:
+        #     break
+        # elif location.get("name") == "Forest Temple Dungeon Reward" and goal == 1:
+        #     continue
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         if self.has_goal_location:
