@@ -61,8 +61,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "mayscore", False, None],
         ["mayscore", "mayscore stamp station", False, lambda state: st_has_stamp_book(state, player)],
-        ["mayscore", "mayscore whip race bomb bag", False, lambda state: st_has_whip(state, player)],
-        ["mayscore", "mayscore whip race heart container", False, lambda state: st_has_whip(state, player)],
+        #["mayscore", "mayscore whip race bomb bag", False, lambda state: st_has_whip(state, player)],
+        #["mayscore", "mayscore whip race heart container", False, lambda state: st_has_whip(state, player)],
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
 
         # # ======== Forest Sanctuary =========

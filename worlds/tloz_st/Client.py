@@ -144,12 +144,17 @@ class SpiritTracksClient(DSZeldaClient):
     async def check_location_post_processing(self, ctx, location: dict):
         if location is not None and "goal" in location:
             print("it works")
-            self.has_goal_location = True
         # goal = ctx.slot_data.get("goal")
         # if location.get("name") == "Tos Forest Rail Glyph" and goal == 0:
         #     break
         # elif location.get("name") == "Forest Temple Dungeon Reward" and goal == 1:
         #     continue
+            # Finished game?
+            goal = ctx.slot_data.get("goal")
+            if goal == 0 and location.get("region_id") == "tos 3f rail map":
+                self.has_goal_location = True
+            if goal == 1 and location.get("region_id") == "fot stagnox":
+                self.has_goal_location = True
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         if self.has_goal_location:

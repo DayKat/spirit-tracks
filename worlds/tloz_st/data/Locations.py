@@ -81,7 +81,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x29,
         "room_id": 0,
-        "x_min": 69222,
+        "x_min": 69100,
         "x_max": 74138,
         "z_min": 13914,
         "z_max": 24835,
@@ -180,7 +180,7 @@ LOCATIONS_DATA = {
         "x_min": -6554,
         "x_max": 6554,
         "z_min": -72090,
-        "z_max": -70791,
+        "z_max": -67990,
         'dungeon': "Tower of Spirits",
         #'set_bit': [(0x265715, 0x80)]
     },
@@ -200,7 +200,8 @@ LOCATIONS_DATA = {
     },
     "ToS 2F Whirlwind Chest": {
         "region_id": "tos 2f whirlwind",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Bombs (Progressive)",
+        #"vanilla_item": "Treasure",
         "stage_id": 0x13,
         "room_id": 1,
         "x_min": 21028,
@@ -238,23 +239,25 @@ LOCATIONS_DATA = {
         "vanilla_item": "Red Rupee (20)",
         "item_override": "Refill: Bombs"
     },
-    "Mayscore Whip Race 1st Reward": {
-        "region_id": "mayscore whip race bomb bag",
-        "vanilla_item": "Bombs (Progressive)",
-        "stage_id": 0x38,
-        "room_id": 2,
-        "entrance_id": 1,
-        "require_item": ["Whip"],
-        "item_override": "Refill: Arrows"
-    },
-    "Mayscore Whip Race 2nd Reward": {
-        "region_id": "mayscore whip race heart container",
-        "vanilla_item": "Heart Container",
-        "stage_id": 0x38,
-        "room_id": 2,
-        "entrance_id": 1,
-        "require_item": ["Whip"],
-    },
+    # "Mayscore Whip Race 1st Reward": { TODO make minigame option & find win address
+    #     "region_id": "mayscore whip race bomb bag",
+    #     "vanilla_item": "Bombs (Progressive)",
+    #     "minigame": True,
+    #     "stage_id": 0x38,
+    #     "room_id": 0,
+    #     "entrance_id": 2,
+    #     "require_item": ["Whip"],
+    #     "item_override": "Refill: Arrows"
+    #},
+    # "Mayscore Whip Race 2nd Reward": {
+    #     "region_id": "mayscore whip race heart container",
+    #     "vanilla_item": "Heart Container",
+    #     "minigame": True,
+    #     "stage_id": 0x38,
+    #     "room_id": 0,
+    #     "entrance_id": 2,
+    #     "require_item": ["Whip"],
+    # },
     "Mayscore Whip Chest": {
         "region_id": "mayscore whip chest",
         "vanilla_item": "Treasure",
@@ -267,7 +270,7 @@ LOCATIONS_DATA = {
         "require_item": ["Whip"],
     },
 
-    # Forest Sanctuary TODO skip lost woods maze?
+    # Forest Sanctuary
     "Forest Sanctuary Stamp Station": {
         "region_id": "fos stamp station",
         "vanilla_item": "Red Rupee (20)",
@@ -314,7 +317,7 @@ LOCATIONS_DATA = {
         "require_item": ["Whirlwind", "Spirit Flute", "Song of Birds"],
     },
 
-    # Forest Temple TODO keys aren't working
+    # Forest Temple
     # "Forest Temple Song Statue": {
     #     "region_id": "fot song statue",
     #     "vanilla_item": "Song of Healing",
@@ -375,8 +378,8 @@ LOCATIONS_DATA = {
         "room_id": 1,
         "x_min": 63078,
         "x_max": 76186,
-        "z_min": -39322,
-        "z_max": -32329,
+        "z_min": -63898,
+        "z_max": -53204,
         "dungeon": "Forest Temple",
     },
     "Forest Temple 2F Poison Chest": {
@@ -447,65 +450,6 @@ LOCATIONS_DATA = {
         "goal": True
     },
 
-
-    # "TotOK 1F Linebeck Key": {
-    #     "region_id": "totok",
-    #     "vanilla_item": "Small Key (Temple of the Ocean King)",
-    #     "stage_id": 37,
-    #     "room_id": 0,
-    #     "z_min": 0xB000,
-    #     "z_max": 0x11000,
-    #     "x_min": -100,
-    #     'set_bit': [(0x1B557D, 2)],
-    #     'dungeon': "Temple of the Ocean King"
-    # },
-    # "TotOK 1F Empty Chest": {
-    #     "region_id": "totok",
-    #     "vanilla_item": "Nothing!",
-    #     "stage_id": 37,
-    #     "room_id": 0,
-    #     "x_min": 0x4000,
-    #     'dungeon': "Temple of the Ocean King"
-    # },
-    # "TotOK B1 Small Key": {
-    #     "region_id": "totok b1 key",
-    #     "vanilla_item": "Small Key (Temple of the Ocean King)",
-    #     "stage_id": 37,
-    #     "room_id": 1,
-    #     "y": 0x1333,
-    #     'dungeon': "Temple of the Ocean King"
-    # },
-    # "TotOK B1 Shoot Eye Chest": {
-    #     "region_id": "totok b1 eye chest",
-    #     "vanilla_item": "Courage Gem",
-    #     "stage_id": 37,
-    #     "room_id": 1,
-    #     "x_min": 0xB000,
-    #     "x_max": 0x10000,
-    #     'dungeon': "Temple of the Ocean King"
-    # },
-    # "TotOK B2 Bombchu Chest": {
-    #     "region_id": "totok b2 bombchu chest",
-    #     "vanilla_item": "Wisdom Gem",
-    #     "stage_id": 37,
-    #     "room_id": 2,
-    #     "x_min": 0xD800,
-    #     "x_max": 0x10000,
-    #     "require_item": ["Bombchus (Progressive)", "Hammer"],
-    #     "delay_pickup": "TotOK B2 Small Key",
-    #     'dungeon': "Temple of the Ocean King"
-    # },
-    # "TotOK B2 Phantom Chest": {
-    #     "region_id": "totok b2 phantom chest",
-    #     "vanilla_item": "Treasure",
-    #     "farmable": True,
-    #     "stage_id": 37,
-    #     "room_id": 2,
-    #     "z_min": 0x7000,
-    #     "z_max": 0xF000,
-    #     "delay_pickup": "TotOK B2 Small Key",
-    #     'dungeon': "Temple of the Ocean King"
-    # },
 
     # Whittleton
 
