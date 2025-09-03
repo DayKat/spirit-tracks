@@ -18,7 +18,7 @@ LOCATIONS_DATA = {
     },
     "Aboda Bee Tree": {
         "region_id": "aboda village bees",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": 34192,
@@ -31,8 +31,8 @@ LOCATIONS_DATA = {
     "Aboda Stamp Station": {
         "region_id": "aboda village stamp station",
         #"vanilla_item": "Aboda Village Stamp",
-        "vanilla_item": "Red Rupee (20)",
-        "item_override": "Bombs (Progressive)",
+        "vanilla_item": "Treasure",
+        #"item_override": "Bombs (Progressive)",
         "stage_id": 0x2F,
         "room_id": 0,
         "stamp": True,
@@ -44,7 +44,7 @@ LOCATIONS_DATA = {
     # Castle Town
     "Castle Town Stamp Station": {
         "region_id": "castle town stamp station",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Treasure",
         #"vanilla_item": "Castle Town Stamp",
         "stage_id": 0x29,
         "room_id": 0,
@@ -78,7 +78,7 @@ LOCATIONS_DATA = {
     },
     "Castle Town Minigame Roof": {
         "region_id": "castle town minigame roof",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x29,
         "room_id": 0,
         "x_min": 69100,
@@ -273,7 +273,7 @@ LOCATIONS_DATA = {
     # Forest Sanctuary
     "Forest Sanctuary Stamp Station": {
         "region_id": "fos stamp station",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Treasure",
         #"vanilla_item": "Forest Sanctuary Stamp",
         "stage_id": 0x30,
         "room_id": 0,
@@ -328,7 +328,7 @@ LOCATIONS_DATA = {
     # },
     "Forest Temple Stamp Station": {
         "region_id": "fot stamp station",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Treasure",
         #"vanilla_item": "Forest Station Stamp",
         "stage_id": 0x19,
         "room_id": 0,

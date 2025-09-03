@@ -80,7 +80,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         #["fot", "fot song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["fot", "fot 1f enemy chest", False, lambda state: st_has_damage(state, player)],
         ["fot 1f enemy chest", "fot 1f key", False, lambda state: st_has_whirlwind(state, player)],
-        ["fot 1f enemy chest", "fot 2f enemy chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["fot 1f enemy chest", "fot 2f enemy chest", False, None],
         ["fot 1f enemy chest", "fot 2f poison chest", False, lambda state: st_has_whirlwind(state, player)],
         ["fot", "fot 1f switch chest", False, lambda state: st_has_whirlwind(state, player)],
         ["fot", "fot 3f chestnut chest", False, lambda state: st_has_damage(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Forest Temple", 2)],
