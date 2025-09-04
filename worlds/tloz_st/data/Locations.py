@@ -255,6 +255,139 @@ LOCATIONS_DATA = {
         "require_item": ["Sword (Progressive)"]
         #'set_bit': [(0x265715, 0x80)]
     },
+    "ToS 4F Central Chest": {
+        "region_id": "tos 4f central chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 3,
+        "x_min": -8703,
+        "x_max": 6560,
+        "z_min": 1650,
+        "z_max": 10670,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Forest Source"]
+    },
+    "ToS 4F NE Chest": {
+        "region_id": "tos 4f ne chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 3,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind", "Boomerang", "Bombs (Progressive)"]
+    },
+    "ToS 5F Island Chest": {
+        "region_id": "tos 5f island chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 4,
+        "x_min": -35226,
+        "x_max": -26130,
+        "z_min": 42350,
+        "z_max": 51230,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Forest Source"]
+    },
+    "ToS 5F Spinnit Key": {
+        "region_id": "tos 5f spinnit key",
+        "vanilla_item": "Small Key (ToS)",
+        "stage_id": 0x13,
+        "room_id": 4,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+    },
+    "ToS 5F Bomb Wall Chest": {
+        "region_id": "tos 5f secret chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        #"room_id": 4,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang", "Bombs (Progressive)"]
+    },
+    "ToS 6F Enemy Chest 1": {
+        "region_id": "tos 6f ne chest 1",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 5,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Enemy Chest 2": {
+        "region_id": "tos 6f ne chest 2",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 5,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Enemy Chest 3": {
+        "region_id": "tos 6f ne chest 3",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 5,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Enemy Big Chest": {
+        "region_id": "tos 6f ne big chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 5,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Key": {
+        "region_id": "tos 6f key",
+        "vanilla_item": "Small Key (ToS)",
+        "stage_id": 0x13,
+        "room_id": 4,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+    },
+    "ToS Snow Rail Glyph": {
+        "region_id": "tos 7f rail map",
+        "vanilla_item": "Snow Glyph",
+        "stage_id": 0x13,
+        "room_id": 4,
+        # "x_min": 21028,
+        # "x_max": 40042,
+        # "z_min": -63898,
+        # "z_max": -54886,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+    },
+
     # =============================================
 
     # Mayscore

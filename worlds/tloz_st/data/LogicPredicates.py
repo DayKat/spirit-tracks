@@ -63,13 +63,14 @@ def st_train_access(state, player):
         st_has_glyph(state, player, "Forest")
     ])
 
+def st_has_source(state: CollectionState, player: int, realm: str):
+    return state.has(f"{realm} Source", player)
+
 def st_has_temple_tracks(state, player, temple):
-    temple = temple+" Temple Tracks"
-    return state.has(temple, player)
+    return state.has(f"{temple} Temple Tracks", player)
 
 def st_has_misc_tracks(state, player, tracks):
-    tracks = tracks +" Tracks"
-    return state.has(tracks, player)
+    return state.has(f"{tracks} Tracks", player)
 
 
 # ============== Songs =======================

@@ -81,7 +81,8 @@ ITEM_GROUPS = {
      "Small Keys": [
          "Small Key (Tunnel to ToS)",
          "Small Key (Forest Temple)",
-    #     "Small Key (Temple of Fire)",
+         "Small Key (ToS)",
+         #     "Small Key (Temple of Fire)",
     #     "Small Key (Temple of Wind)",
     #     "Small Key (Temple of Courage)",
     #     "Small Key (Temple of Ice)",
@@ -106,12 +107,29 @@ ITEM_GROUPS = {
      ]
 }
 
-LOCATION_GROUPS = {
+LOCATION_GROUPS = { #TODO add locations
     "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station"],
     "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
     "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
     "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
-    "Tower of Spirits": ["ToS 1F Chest", "ToS 2F Raised Chest", "ToS 2f Whirlwind Chest", "ToS Forest Rail Glyph"],
+    "Tower of Spirits": [
+        "ToS 1F Chest",
+        "ToS 2F Raised Chest",
+        "ToS 2F Whirlwind Chest",
+        "ToS 2F Bomb Wall Chest",
+        "ToS Forest Rail Glyph",
+        "ToS 4F Central Chest",
+        "ToS 4F NE Chest",
+        "ToS 5F Island Chest",
+        "ToS 5F Spinnit Key",
+        "ToS 5F Bomb Wall Chest",
+        "ToS 6F Enemy Chest 1",
+        "ToS 6F Enemy Chest 2",
+        "ToS 6F Enemy Chest 3",
+        "ToS 6F Enemy Big Chest",
+        "ToS 6F Key",
+        "ToS Snow Rail Glyph"
+    ],
     "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
     "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
     "Forest Temple": [
@@ -147,6 +165,22 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
 
 
 DUNGEON_KEY_DATA = {
+    0x13: {
+        "name": "Tower of Spirits",
+        "address": 0x265785,
+        "filter": 0xFF,
+        "value": 1,
+        "size": 8,
+        # 'entrances': {
+        #     0xB01: {
+        #         "max_z": 0x12800,
+        #         # "max_z": 0xFFFF7000
+        #     },
+        #     0xB03: {
+        #         "max_z": 0xB200,
+        #         "min_z": 0x5000
+        #     }}
+    },
     0x18: {
         "name": "Tunnel to ToS",
         "address": 0x265784,
