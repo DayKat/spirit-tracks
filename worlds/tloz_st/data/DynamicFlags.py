@@ -1,17 +1,17 @@
 DYNAMIC_FLAGS = {
-    "Aboda Rei": {
+    "Outset Rei": {
         "on_scenes": [0x2F00],
-        "not_has_locations": ["Aboda Clear Rocks"],
+        "not_has_locations": ["Outset Clear Rocks"],
         "unset_if_true": [(0x265714, 0x04)]
     },
-    "Aboda Bee Boy": {
+    "Outset Bee Boy": {
         "on_scenes": [0x2F00],
-        "not_has_locations": ["Aboda Bee Tree"],
+        "not_has_locations": ["Outset Bee Tree"],
         "unset_if_true": [(0x265714, 0x04)]
     },
-    "Post Aboda Children": {
+    "Post Outset Children": {
         "on_scenes": [0x2F00],
-        "has_locations": ["Aboda Clear Rocks", "Aboda Bee Tree"],
+        "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
         "set_if_true": [(0x265714, 0x04)]
     },
     # "Forest Sanctuary Song Statue":{

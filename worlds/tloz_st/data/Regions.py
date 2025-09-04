@@ -9,17 +9,17 @@ REGIONS = [
     #"forest realm w cast town rabbit",
     #"forest realm ft rabbit",
 
-    # Aboda Village
-    "aboda village",
-    #"aboda village stamp book",
-    "aboda village stamp station",
-    "aboda village rocks",
-    "aboda village bees",
-    #"aboda village left tree",
-    #"aboda village right tree",
-    #"aboda village cuccos gem",
-    #"aboda village joe gem",
-    #"aboda village cannon",
+    # Outset Village
+    "outset village",
+    #"outset village stamp book",
+    "outset village stamp station",
+    "outset village rocks",
+    "outset village bees",
+    "outset village left tree",
+    "outset village right tree",
+    #"outset village cuccos gem",
+    #"outset village joe gem",
+    #"outset village cannon",
     
     # Shop Regions
     #"shop power gem",
@@ -56,14 +56,28 @@ REGIONS = [
 
     # Tower of Spirits
     "tos",
+    "tos section 1"
     "tos 1f chest",
     "tos 2f raised chest",
     "tos 2f whirlwind",
+    "tos 2f bomb wall",
     #"tos left tear",
     #"tos up tear",
     #"tos right tear",
     "tos 3f rail map",
     "goal_forest_glyph",
+    "tos section 2"
+    "tos 4f central chest",
+    "tos 4f ne chest",
+    "tos 5f island chest", #needs whirlwind
+    "tos 5f spinnit key",
+    "tos 5f secret chest",
+    "tos 6f key",
+    "tos 6f ne chest 1",
+    "tos 6f ne chest 2",
+    "tos 6f ne chest 3",
+    "tos 6f ne big chest",
+    "tos 7f rail map",
 
     # Mayscore
     "mayscore",
@@ -75,9 +89,9 @@ REGIONS = [
     #"mayscore leaf pile",
 
     # Rabbitland Rescue
-    #"rabbitland",
-    #"rabbitland chest",
-    #"rabbitland net",
+    "rabbitland",
+    "rabbitland chest",
+    "rabbitland net",
 
     # Forest Sanctuary
     "fos",
@@ -104,10 +118,11 @@ REGIONS = [
     "post fot",
 
     # Trading Post
-    #"trading post",
-    #"trading post song statue",
-    #"trading post chest",
-    #"trading post stamp station",
+    "trading post",
+    #"trading post discovery song statue",
+    #"trading post light song statue",
+    "trading post chest",
+    "trading post stamp station",
     #"trading post ore gem",
 
 

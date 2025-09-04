@@ -7,17 +7,17 @@
 
 LOCATIONS_DATA = {
 
-    #Aboda Village
-    "Aboda Clear Rocks": {
-        "region_id": "aboda village rocks",
+    #Outset Village
+    "Outset Clear Rocks": {
+        "region_id": "outset village rocks",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x2F,
         "room_id": 0,
         "address": 0x265743,
         "value": 0x20,
     },
-    "Aboda Bee Tree": {
-        "region_id": "aboda village bees",
+    "Outset Bee Tree": {
+        "region_id": "outset village bees",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x2F,
         "room_id": 0,
@@ -28,17 +28,39 @@ LOCATIONS_DATA = {
         "item_override": "Stamp Book",
 
 }, #TODO make location trigger on actual stamping
-    "Aboda Stamp Station": {
-        "region_id": "aboda village stamp station",
-        #"vanilla_item": "Aboda Village Stamp",
-        "vanilla_item": "Treasure",
-        #"item_override": "Bombs (Progressive)",
+    "Outset Stamp Station": {
+        "region_id": "outset village stamp station",
+        #"vanilla_item": "Outset Village Stamp",
+        #"vanilla_item": "Treasure",
+        "item_override": "Song of Discovery",
         "stage_id": 0x2F,
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
         # 02271CD8 is array of stamp IDs
         # 02271CF4 is bitfield of all stamps found
+    },
+    "Outset Far Right Tree": {
+        "region_id": "outset right tree",
+        "vanilla_item": "Red Rupee (20)",
+        "stage_id": 0x2F,
+        "room_id": 0,
+        "x_min": 27449,
+        "x_max": 43663,
+        "z_min": 11490,
+        "z_max": 33968,
+        "require_item": ["Spirit Flute", "Song of Discovery"]
+    },
+    "Outset Niko's House Tree": {
+        "region_id": "outset left tree",
+        "vanilla_item": "Red Rupee (20)",
+        "stage_id": 0x2F,
+        "room_id": 0,
+        "x_min": -60427,
+        "x_max": -41317,
+        "z_min": 10523,
+        "z_max": 28762,
+        "require_item": ["Spirit Flute", "Song of Discovery"]
     },
 
     # Castle Town
@@ -210,7 +232,14 @@ LOCATIONS_DATA = {
         "z_max": -54886,
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)", "Whirlwind"]
-        #'set_bit': [(0x265715, 0x80)]
+    },
+    "ToS 2F Bomb Wall Chest": {
+        "region_id": "tos 2f bomb wall",
+        "vanilla_item": "Red Rupee (20)",
+        "stage_id": 0x13,
+        "room_id": 28,
+        'dungeon': "Tower of Spirits",
+        "require_item": ["Sword (Progressive)", "Bombs (progressive)"]
     },
     "ToS Forest Rail Glyph": {
         "region_id": "tos 3f rail map",
@@ -440,7 +469,7 @@ LOCATIONS_DATA = {
     },
     "Forest Temple Dungeon Reward": {
         "region_id": "fot stagnox",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Forest Source",
         "address": 0x265714,
         "value": 0x10,
         "stage_id": 0x1E,
@@ -450,17 +479,51 @@ LOCATIONS_DATA = {
         "goal": True
     },
 
-
-    # Whittleton
-
     # Rabbitland Rescue
-
-    # Forest Sanctuary
-
-    # Forest Temple
+    "Rabbitland Rescue Net Gift": {
+        "region_id": "rabbitland net",
+        "vanilla_item": "Rabbit Net",
+        "stage_id": 0x3E,
+        "room_id": 0,
+    },
+    "Rabbitland Rescue Chest": {
+        "region_id": "rabbitland chest",
+        "vanilla_item": "Red Rupee (20)",
+        "stage_id": 0x3E,
+        "room_id": 0,
+    },
 
     # Trading Post
-
+    "Trading Post Stamp Station": {
+        "region_id": "trading stamp station",
+        #"vanilla_item": "Trading Post Stamp",
+        "stage_id": 0x37,
+        "room_id": 0,
+        "stamp": True,
+        "require_item": ["Stamp Book"],
+        "vanilla_item": "Red Rupee (20)",
+    },
+    # "Trading Post Outside Song Statue": {
+    #     "region_id": "trading post discovery song statue",
+    #     "vanilla_item": "Song of Discovery",
+    #     "stage_id": 0x37,
+    #     "room_id": 0,
+    #     "require_item": ["Spirit Flute"],
+    # },
+    # "Trading Post Cave Song Statue": {
+    #     "region_id": "trading post light song statue",
+    #     "vanilla_item": "Song of Light",
+    #     "stage_id": 0x37,
+    #     "room_id": 0,
+    #     "require_item": ["Spirit Flute"],
+    # },
+    "Trading Post Chest": {
+        "region_id": "trading post chest",
+        "vanilla_item": "Treasure: Regal Ring",
+        "stage_id": 0x37,
+        "room_id": 0,
+        "require_item": ["Boomerang", "Song of Discovery"],
+    },
 }
 
 for i, name in enumerate(LOCATIONS_DATA):

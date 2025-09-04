@@ -9,14 +9,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
 
 
-        # ====== Aboda Village ==============
+        # ====== Outset Village ==============
 
         #[region 1, region 2, two-directional, logic requirements],
-        ["aboda village", "aboda village rocks", False, None],
-        #["aboda village", "aboda village stamp book", False, None],
-        ["aboda village", "aboda village stamp station", False, lambda state: st_has_stamp_book(state, player)],
-        ["aboda village", "aboda village bees", False, None],
-        ["aboda village", "forest realm", False, lambda state: st_has_glyph(state, player, "Forest")],
+        ["outset village", "outset village rocks", False, None],
+        #["outset village", "outset village stamp book", False, None],
+        ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["outset village", "outset village bees", False, None],
+        ["outset village", "forest realm", False, lambda state: st_has_glyph(state, player, "Forest")],
 
         # # ======== Castle Town =========
 
@@ -44,10 +44,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ========== ToS ===================
 
         ["forest realm", "tos", False, None],
-        ["tos", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player))],
-        ["tos", "tos 2f raised chest", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
-        ["tos", "tos 2f whirlwind", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
-        ["tos", "tos 3f rail map", False, lambda state: st_has_sword(state, player)],
+        ["tos", "tos section 1", False, None],
+        ["tos section 1", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player))],
+        ["tos section 1", "tos 2f raised chest", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
+        ["tos section 1", "tos 2f whirlwind", False, lambda state: (st_has_whirlwind(state, player) and st_has_sword(state, player))],
+        ["tos section 1", "tos 2f bomb wall", False, lambda state: (st_has_bombs(state, player) and st_has_sword(state, player))],
+        ["tos section 1", "tos 3f rail map", False, lambda state: st_has_sword(state, player)],
         ["tos 3f rail map", "goal_forest_glyph", False, None],
 
         # # ============ Shops ====================
@@ -88,7 +90,21 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
        #["fot", "fot 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
         ["fot", "fot heart container", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
         ["fot", "fot stagnox", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
-        ["fot stagnox", "goal_stagnox", False, None]
+        ["fot stagnox", "goal_stagnox", False, None],
+
+        # # ============ Trading Post =============
+
+        ["forest realm", "trading post", False, lambda state: st_has_glyph(state, player, "Ocean")],
+        #["trading post", "trading post discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        #["trading post", "trading post light song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["trading post", "trading post chest", False, lambda state: st_has_boomerang(state, player) and st_has_discovery_song(state, player)],
+        ["trading post", "trading post stamp station", False, lambda state: st_has_bombs(state, player) and st_has_stamp_book(state, player)],
+
+        # # ========== Rabbitland Rescue ========
+
+        ["forest realm", "rabbitland", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["rabbitland", "rabbitland chest", False, None],
+        ["rabbitland", "rabbitland net", False, None],
 
         # # ============ SW Ocean =================
 

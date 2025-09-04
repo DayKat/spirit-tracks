@@ -104,7 +104,7 @@ class SpiritTracksKeyRandomization(Choice):
 
 # class SpiritTracksTrainRequiresForestGlyph(Toggle):
 #     """
-#     If True, heading out to sea from aboda requires the Forest Realm Glyph.
+#     If True, heading out to sea from outset requires the Forest Realm Glyph.
 #     WARNING! If set to False and you travel without a glyph, you can softlock by crossing to another glyph.
 #     Warp Gates require their glyph to work
 #     """

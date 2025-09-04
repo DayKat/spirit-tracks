@@ -28,7 +28,7 @@ STARTING_FLAGS = [
 
 STAGE_FLAGS = {
     0x04: [0x00, 0x00, 0x00, 0x04], # Forest Realm
-    0x2F: [0x00, 0x00, 0x00, 0x2F], # Aboda Village
+    0x2F: [0x00, 0x00, 0x00, 0x2F], # Outset Village
     0x29: [0x00, 0x00, 0x00, 0x29], # Castle Town
     0x28: [0x00, 0x00, 0x00, 0x28],  # Hyrule Castle
     0x13: [0x00, 0x00, 0x00, 0x13],  # Tower of Spirits (Main)
@@ -63,7 +63,7 @@ STAGE_FLAGS = {
 
 STAGES = {
     4: "Forest Realm",
-    0x2F: "Aboda Village",
+    0x2F: "Outset Village",
     0x29: "Castle Town",
     0x28: "Hyrule Castle",
     0x13: "Tower of Spirits",
@@ -107,7 +107,7 @@ ITEM_GROUPS = {
 }
 
 LOCATION_GROUPS = {
-    "Aboda Village": ["Aboda Clear Rocks", "Aboda Bee Tree", "Aboda Stamp Station"],
+    "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station"],
     "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
     "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
     "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
