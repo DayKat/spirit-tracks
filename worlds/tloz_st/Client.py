@@ -155,6 +155,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.has_goal_location = True
             if goal == 1 and location.get("region_id") == "fot stagnox":
                 self.has_goal_location = True
+        #await self._set_delay_pickup(self, ctx, location)
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         if self.has_goal_location:

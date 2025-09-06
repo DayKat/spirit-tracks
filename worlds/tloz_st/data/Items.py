@@ -301,6 +301,10 @@ ITEMS_DATA = {
         'classification': ItemClassification.filler,
         'dummy': True
     },
+    "Tear of Light": {
+        'classification': ItemClassification.filler,
+        'dummy': True
+    },
     "Refill: Bombs": {
         'classification': ItemClassification.filler,
         "give_ammo": [10, 20, 30],

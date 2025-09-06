@@ -172,16 +172,33 @@ LOCATIONS_DATA = {
     },
 
     # # ========== Tower of Spirits ==============
-    "ToS 1F Chest": {
-        "region_id": "tos 1f chest",
-        "vanilla_item": "Treasure",
+
+    "Tear 1F Top":{
+        "region_id": "tear 1f top",
+        "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x13,
         "room_id": 0,
         "x_min": -6554,
         "x_max": 6554,
         "z_min": -72090,
-        "z_max": -67990,
+        "z_max": -59101,
         'dungeon': "Tower of Spirits",
+        "conditional": True,
+        "item_override": "Tear of Light",
+        "delay_pickup": "ToS 1F Chest"
+    },
+
+    "ToS 1F Chest": {
+        "region_id": "tos 1f chest",
+        "vanilla_item": "Red Rupee (20)",
+        "stage_id": 0x13,
+        "room_id": 0,
+        "x_min": -6554,
+        "x_max": 6554,
+        "z_min": -72090,
+        "z_max": -59101,
+        'dungeon': "Tower of Spirits",
+        #"delay_pickup": "Tear 1F Top"
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS 2F Raised Chest": {
@@ -352,9 +369,9 @@ LOCATIONS_DATA = {
         "vanilla_item": "Small Key (Forest Temple)",
         "stage_id": 0x19,
         "room_id": 0,
-        "x_min": -58352,
-        "x_max": -19702,
-        "z_min": -63898,
+        "x_min": -63603,
+        "x_max": -13926,
+        "z_min": -17192,
         "z_max": -22118,
         "dungeon": "Forest Temple",
         "require_item": ["Whirlwind"],
