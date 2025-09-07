@@ -19,6 +19,6 @@
 4. Host the game, either locally or via the archipelago web hosting service
 5. Open the 'generic bizhawk client' in Archipelago, and connect to the server
 6. Launch the vanilla game in bizhawk, and open the lua console. Add the 'connector_bizhawk_generic.lua' script that can be found in 'Archipelago\data\lua'. 
-7. You are now ready to play! Start a new savefile and go! You can check that everything worked by checking if the bridge has been repaired.
+7. You are now ready to play! Start a new savefile and go!
 
 
