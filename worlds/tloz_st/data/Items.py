@@ -252,20 +252,6 @@ ITEMS_DATA = {
         'incremental': True,
         'size': 2
     },
-    "Rupoor (-10)": {
-        'classification': ItemClassification.trap,
-        'address': 0x265328,
-        'value': -10,
-        'incremental': True,
-        'size': 2
-    },
-    "Big Rupoor (-50)": {
-        'classification': ItemClassification.trap,
-        'address': 0x265328,
-        'value': -50,
-        'incremental': True,
-        'size': 2
-    },
     "Pre-Alpha Rupee (5000)": {
         'classification': ItemClassification.progression,
         'address': 0x265328,
