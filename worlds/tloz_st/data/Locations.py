@@ -1,4 +1,4 @@
-
+from .Constants import ITEM_GROUPS
 
 # TODO: Add sram data for saveslot 2
 # TODO: Add the rest of sram data in bulk
@@ -175,7 +175,7 @@ LOCATIONS_DATA = {
 
     "Tear 1F Top":{
         "region_id": "tear 1f top",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Tear of Light",
         "stage_id": 0x13,
         "room_id": 0,
         "x_min": -6554,
@@ -185,12 +185,12 @@ LOCATIONS_DATA = {
         'dungeon': "Tower of Spirits",
         "conditional": True,
         "item_override": "Tear of Light",
-        "delay_pickup": "ToS 1F Chest"
+        #"delay_pickup": "ToS 1F Chest"
     },
 
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": ITEM_GROUPS["Rare Treasure Items"],
         "stage_id": 0x13,
         "room_id": 0,
         "x_min": -6554,
@@ -198,7 +198,7 @@ LOCATIONS_DATA = {
         "z_min": -72090,
         "z_max": -59101,
         'dungeon': "Tower of Spirits",
-        #"delay_pickup": "Tear 1F Top"
+        "delay_pickup": "Tear 1F Top"
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS 2F Raised Chest": {

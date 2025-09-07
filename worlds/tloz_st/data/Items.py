@@ -303,7 +303,10 @@ ITEMS_DATA = {
     },
     "Tear of Light": {
         'classification': ItemClassification.filler,
-        'dummy': True
+        "address": 0x26532E,
+        'value': 1,
+        'incremental': True,
+        'size': 1
     },
     "Refill: Bombs": {
         'classification': ItemClassification.filler,
@@ -375,6 +378,14 @@ ITEMS_DATA = {
         'treasure': True,
         #'address': 0x1BA5B3,
         'incremental': True
+    },
+    "Treasure: Ancient Coin": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269026,
+        'incremental': True,
+        'value': 1
     },
 
     # =========== Keys ============

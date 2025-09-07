@@ -90,15 +90,20 @@ ITEM_GROUPS = {
     "Boss Keys": [
         "Boss Key (Forest Temple)"
     ],
-    "Treasure Items": [
+    "Common Treasure Items": [
         "Treasure: Pink Coral",
         "Treasure: White Pearl Loop",
         "Treasure: Dark Pearl Loop",
-        "Treasure: Zora Scale",
-        "Treasure: Goron Amber",
         "Treasure: Ruto Crown",
         "Treasure: Helmaroc Plume",
-        "Treasure: Regal Ring"
+        "Treasure: Regal Ring",
+        "Treasure: Zora Scale",
+    ],
+    "Rare Treasure Items": [
+        "Treasure: Ancient Coin",
+        "Treasure: Mystic Jade",
+        "Treasure: Goron Amber",
+        "Treasure: Palace Dish"
     ],
      "Ammo Refills": [
         "Refill: Bombs",

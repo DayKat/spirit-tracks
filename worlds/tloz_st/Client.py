@@ -129,6 +129,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.in_stamp_stand and self.receiving_location:
             self.getting_location = True
 
+
     async def process_in_game(self, ctx, read_result: dict):
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:
