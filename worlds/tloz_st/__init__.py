@@ -207,7 +207,7 @@ class SpiritTracksWorld(World):
             current_goal = "ToS Forest Rail Glyph"
             self.locations_to_exclude.add(current_goal)
         elif self.options.goal == SpiritTracksGoal(1):
-            current_goal = "Forest Temple Dungeon Reward"
+            current_goal = "Wooded Temple Dungeon Reward"
             self.locations_to_exclude.add(current_goal)
 
         for name in locations_to_exclude:

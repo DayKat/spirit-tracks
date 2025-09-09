@@ -63,11 +63,11 @@
   },
   "Forest Sanctuary": {
     "connects_to": [
-      "Forest Temple"
+      "Wooded Temple"
     ],
     "requires": "|Spirit Flute|"
   },
-  "Forest Temple": {
+  "Wooded Temple": {
     "connects_to": [],
     "requires": []
   },

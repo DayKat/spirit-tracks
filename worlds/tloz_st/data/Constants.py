@@ -35,7 +35,7 @@ STAGE_FLAGS = {
     0x14: [0x00, 0x00, 0x00, 0x14], # Tower of Spirits (Base)
     0x17: [0x00, 0x00, 0x00, 0x17],  # Tower of Spirits (Stairs)
     0x18: [0x00, 0x00, 0x00, 0x18], # Tunnel to ToS
-    0x19: [0x00, 0x00, 0x00, 0x19],  # Forest Temple
+    0x19: [0x00, 0x00, 0x00, 0x19],  # Wooded Temple
     0x1E: [0x00, 0x00, 0x00, 0x1E], # Stagnox
     0x2A: [0x00, 0x00, 0x00, 0x2A],  # Mayscore/Whittleton
     0x30: [0x00, 0x00, 0x00, 0x20],  # Forest Sanctuary
@@ -70,7 +70,7 @@ STAGES = {
     0x14: "Tower of Spirits Base",
     0x17: "Tower of Spirits Stairs",
     0x18: "Tunnel to ToS",
-    0x19: "Forest Temple",
+    0x19: "Wooded Temple",
     0x1E: "Stagnox",
     0x2A: "Mayscore",
     0x30: "Forest Sanctuary",
@@ -80,7 +80,7 @@ STAGES = {
 ITEM_GROUPS = {
      "Small Keys": [
          "Small Key (Tunnel to ToS)",
-         "Small Key (Forest Temple)",
+         "Small Key (Wooded Temple)",
     #     "Small Key (Temple of Fire)",
     #     "Small Key (Temple of Wind)",
     #     "Small Key (Temple of Courage)",
@@ -88,7 +88,7 @@ ITEM_GROUPS = {
     #     "Small Key (Mutoh's Temple)"
      ],
     "Boss Keys": [
-        "Boss Key (Forest Temple)"
+        "Boss Key (Wooded Temple)"
     ],
     "Common Treasure Items": [
         "Treasure: Pink Coral",
@@ -119,19 +119,19 @@ LOCATION_GROUPS = {
     "Tower of Spirits": ["ToS 1F Chest", "ToS 2F Raised Chest", "ToS 2f Whirlwind Chest", "ToS Forest Rail Glyph"],
     "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
     "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
-    "Forest Temple": [
-        #"Forest Temple Song Statue",
-        "Forest Temple Stamp Station",
-        "Forest Temple 1F Enemy Chest",
-        "Forest Temple 1F Key",
-        "Forest Temple 1F Switch Chest",
-        "Forest Temple 2F Enemy Chest",
-        "Forest Temple 2F Poison Chest",
-        "Forest Temple 3F Chestnut Chest",
-        "Forest Temple 3F SE Chest",
-        "Forest Temple 3F Boss Key Chest",
-        "Forest Temple Boss Heart Container",
-        "Forest Temple Dungeon Reward"
+    "Wooded Temple": [
+        #"Wooded Temple Song Statue",
+        "Wooded Temple Stamp Station",
+        "Wooded Temple 1F Enemy Chest",
+        "Wooded Temple 1F Key",
+        "Wooded Temple 1F Switch Chest",
+        "Wooded Temple 2F Enemy Chest",
+        "Wooded Temple 2F Poison Chest",
+        "Wooded Temple 3F Chestnut Chest",
+        "Wooded Temple 3F SE Chest",
+        "Wooded Temple 3F Boss Key Chest",
+        "Wooded Temple Boss Heart Container",
+        "Wooded Temple Dungeon Reward"
     ],
     # "Goron Temple": [],
     # "Temple of Ice": [],
@@ -142,12 +142,12 @@ LOCATION_GROUPS = {
 DUNGEON_NAMES = [
     "Tunnel to ToS",
     "Tower of Spirits",
-    "Forest Temple"
+    "Wooded Temple"
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Tower of Spirits": "ToS Forest Rail Glyph",
-    "Forest Temple": "Forest Temple Dungeon Reward",
+    "Wooded Temple": "Wooded Temple Dungeon Reward",
 }
 
 
@@ -169,7 +169,7 @@ DUNGEON_KEY_DATA = {
         #     }}
     },
     0x19: {
-        "name": "Forest Temple",
+        "name": "Wooded Temple",
         "address": 0x265784,
         "filter": 0x06,
         "value": 0x02,

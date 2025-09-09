@@ -189,7 +189,7 @@ ITEMS_DATA = {
         'value': 0x04,
         #'set_bit': [(0x265715, 0x80)]
     },
-    "Forest Temple Tracks":{
+    "Wooded Temple Tracks":{
         'classification': ItemClassification.progression,
         'address': 0x2653B0,
         'value': 0x02,
@@ -464,13 +464,13 @@ ITEMS_DATA = {
          'dungeon': 0x18,
          'incremental': True
      },
-    "Small Key (Forest Temple)": {
+    "Small Key (Wooded Temple)": {
          'classification': ItemClassification.progression,
         'address': 0x26532F,
         'dungeon': 0x19,
          'incremental': True
      },
-    "Boss Key (Forest Temple)": {
+    "Boss Key (Wooded Temple)": {
          'classification': ItemClassification.progression,
          'dungeon': 0x19,
          'incremental': False

@@ -296,7 +296,7 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
-        "item_override": "Forest Temple Tracks"
+        "item_override": "Wooded Temple Tracks"
     },
     #TODO bad address for flute stuff
     # "Forest Sanctuary Song Statue": {
@@ -318,7 +318,7 @@ LOCATIONS_DATA = {
     #     "room_id": 1,
     #     "address": 0x0B92D8,
     #     "value": 18,
-    #     "vanilla_item": "Forest Temple Tracks",
+    #     "vanilla_item": "Wooded Temple Tracks",
     #     "require_item": ["Spirit Flute"],
     #     "duet": True,
     # },
@@ -334,62 +334,62 @@ LOCATIONS_DATA = {
         "require_item": ["Whirlwind", "Spirit Flute", "Song of Birds"],
     },
 
-    # Forest Temple
-    # "Forest Temple Song Statue": {
-    #     "region_id": "fot song statue",
+    # Wooded Temple
+    # "Wooded Temple Song Statue": {
+    #     "region_id": "wt song statue",
     #     "vanilla_item": "Song of Healing",
     #     "stage_id": 0x19,
     #     "room_id": 0x0A,
-    #     "dungeon": "Forest Temple",
+    #     "dungeon": "Wooded Temple",
     #     "require_item": ["Spirit Flute"],
     # },
-    "Forest Temple Stamp Station": {
-        "region_id": "fot stamp station",
+    "Wooded Temple Stamp Station": {
+        "region_id": "wt stamp station",
         "vanilla_item": "Treasure",
         #"vanilla_item": "Forest Station Stamp",
         "stage_id": 0x19,
         "room_id": 0,
         "stamp": True,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind", "Stamp Book"],
     },
-    "Forest Temple 1F Enemy Chest": {
-        "region_id": "fot 1f enemy chest",
-        "vanilla_item": "Treasure",
+    "Wooded Temple 1F Enemy Chest": {
+        "region_id": "wt 1f enemy chest",
+        "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x19,
         "room_id": 0,
         "x_min": 22118,
         "x_max": 34012,
         "z_min": 30310,
         "z_max": 39600,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
     },
-    "Forest Temple 1F Key": {
-        "region_id": "fot 1f key",
-        "vanilla_item": "Small Key (Forest Temple)",
+    "Wooded Temple 1F Key": {
+        "region_id": "wt 1f key",
+        "vanilla_item": "Small Key (Wooded Temple)",
         "stage_id": 0x19,
         "room_id": 0,
         "x_min": -63603,
         "x_max": -13926,
         "z_min": -17192,
         "z_max": -22118,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
     },
-    "Forest Temple 1F Switch Chest": {
-        "region_id": "fot 1f switch chest",
-        "vanilla_item": "Treasure",
+    "Wooded Temple 1F Switch Chest": {
+        "region_id": "wt 1f switch chest",
+        "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x19,
         "room_id": 0,
         "x_min": 30327,
         "x_max": 43418,
         "z_min": -39322,
         "z_max": -30077,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
     },
-    "Forest Temple 2F Enemy Chest": {
-        "region_id": "fot 2f enemy chest",
+    "Wooded Temple 2F Enemy Chest": {
+        "region_id": "wt 2f enemy chest",
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 1,
@@ -397,34 +397,34 @@ LOCATIONS_DATA = {
         "x_max": 76186,
         "z_min": -63898,
         "z_max": -53204,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
     },
-    "Forest Temple 2F Poison Chest": {
-        "region_id": "fot 2f poison chest",
+    "Wooded Temple 2F Poison Chest": {
+        "region_id": "wt 2f poison chest",
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 1,
-        "x_min": 42598,
+        "x_min": 42450,
         "x_max": 55113,
-        "z_min": -14746,
+        "z_min": -14900,
         "z_max": -258,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
     },
-    "Forest Temple 3F Chestnut Chest": {
-        "region_id": "fot 3f chestnut chest",
-        "vanilla_item": "Small Key (Forest Temple)",
+    "Wooded Temple 3F Chestnut Chest": {
+        "region_id": "wt 3f chestnut chest",
+        "vanilla_item": "Small Key (Wooded Temple)",
         "stage_id": 0x19,
         "room_id": 2,
         "x_min": -47514,
         "x_max": -42598,
         "z_min": -59802,
         "z_max": -52296,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
     },
-    "Forest Temple 3F SE Chest": {
-        "region_id": "fot 3f se chest",
+    "Wooded Temple 3F SE Chest": {
+        "region_id": "wt 3f se chest",
         "vanilla_item": "Treasure",
         "stage_id": 0x19,
         "room_id": 2,
@@ -432,37 +432,37 @@ LOCATIONS_DATA = {
         "x_max": 55982,
         "z_min": -2458,
         "z_max": 7485,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
     },
-    # "Forest Temple 3F Boss Key Chest": {
-    #     "region_id": "fot 3f boss key chest",
-    #     "vanilla_item": "Boss Key (Forest Temple)",
+    # "Wooded Temple 3F Boss Key Chest": {
+    #     "region_id": "wt 3f boss key chest",
+    #     "vanilla_item": "Boss Key (Wooded Temple)",
     #     "stage_id": 0x19,
     #     "room_id": 2,
     #     "x_min": 54886,
     #     "x_max": 76186,
     #     "z_min": -63898,
     #     "z_max": -50790,
-    #     "dungeon": "Forest Temple",
+    #     "dungeon": "Wooded Temple",
     #     "require_item": ["Whirlwind"],
     # },
-    "Forest Temple Boss Heart Container": {
-        "region_id": "fot heart container",
+    "Wooded Temple Boss Heart Container": {
+        "region_id": "wt heart container",
         "vanilla_item": "Heart Container",
         "stage_id": 0x1E,
         "room_id": 0,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
     },
-    "Forest Temple Dungeon Reward": {
-        "region_id": "fot stagnox",
+    "Wooded Temple Dungeon Reward": {
+        "region_id": "wt stagnox",
         "vanilla_item": "Treasure",
         "address": 0x265714,
         "value": 0x10,
         "stage_id": 0x1E,
         "room_id": 0,
-        "dungeon": "Forest Temple",
+        "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
         "goal": True
     },
@@ -474,7 +474,7 @@ LOCATIONS_DATA = {
 
     # Forest Sanctuary
 
-    # Forest Temple
+    # Wooded Temple
 
     # Trading Post
 

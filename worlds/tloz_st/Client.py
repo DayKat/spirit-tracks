@@ -148,13 +148,13 @@ class SpiritTracksClient(DSZeldaClient):
         # goal = ctx.slot_data.get("goal")
         # if location.get("name") == "Tos Forest Rail Glyph" and goal == 0:
         #     break
-        # elif location.get("name") == "Forest Temple Dungeon Reward" and goal == 1:
+        # elif location.get("name") == "Wooded Temple Dungeon Reward" and goal == 1:
         #     continue
             # Finished game?
             goal = ctx.slot_data.get("goal")
             if goal == 0 and location.get("region_id") == "tos 3f rail map":
                 self.has_goal_location = True
-            if goal == 1 and location.get("region_id") == "fot stagnox":
+            if goal == 1 and location.get("region_id") == "wt stagnox":
                 self.has_goal_location = True
         #await self._set_delay_pickup(self, ctx, location)
 

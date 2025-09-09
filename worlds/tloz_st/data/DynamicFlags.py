@@ -19,9 +19,9 @@ DYNAMIC_FLAGS = {
     #     "not_has_locations": ["Forest Sanctuary Song Statue"],
     #     "unset_if_true": [(0x268FB0, 0x01)]
     # },
-    # "Forest Temple Song Statue":{
+    # "Wooded Temple Song Statue":{
     #     "on_scenes": [0x1900],
-    #     "not_has_locations": ["Forest Temple Song Statue"],
+    #     "not_has_locations": ["Wooded Temple Song Statue"],
     #     "unset_if_true": [(0x268FB0, 0x02)]
     # },
     # "RESET FS statue":{
@@ -29,9 +29,9 @@ DYNAMIC_FLAGS = {
     #     "has_locations": ["Forest Sanctuary Song Statue"],
     #     "set_if_true": [(0x268FB0, 0x01)]
     # },
-    # "RESET FT statue":{
+    # "RESET WT statue":{
     #     "on_scenes": [0x1900],
-    #     "has_locations": ["Forest Temple Song Statue"],
+    #     "has_locations": ["Wooded Temple Song Statue"],
     #     "set_if_true": [(0x268FB0, 0x02)]
     # },
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?

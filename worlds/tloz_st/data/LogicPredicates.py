@@ -186,6 +186,7 @@ def st_can_kill_bubble(state: CollectionState, player: int):
         all([
             st_has_sword(state, player), any([
                 st_has_boomerang(state, player),
+                st_has_whirlwind(state, player),
             ])
         ])
     ])
@@ -388,10 +389,6 @@ def st_clever_bombs(state: CollectionState, player: int):
 def st_option_train_requires_forest_glyph(state: CollectionState, player: int):
     #state.multiworld.worlds[player].options.train_requires_forest_glyph
     return True
-
-
-def st_option_goal_ToS_section_1(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.goal == "beat_ToS_section_1"
 
 
 # For doing sneaky stuff with universal tracker UT

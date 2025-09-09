@@ -24,9 +24,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town", "castle town stamp station", False, lambda state: (st_has_stamp_book(state, player) and st_has_bombs(state, player))],
         ["castle town", "castle town L wall chest", False, lambda state: (st_has_bombs(state, player))],
         ["castle town", "castle town R wall chest", False, lambda state: (st_has_bombs(state, player))],
-        ["castle town", "castle town minigame roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player))],
-        ["castle town", "castle town ramp house chest", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player))],
-        ["castle town", "castle town empty house roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player))],
+        #TODO can also use whirlwind for cucco if chased
+        ["castle town", "castle town minigame roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
+        ["castle town", "castle town ramp house chest", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
+        ["castle town", "castle town empty house roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
 
         # # ======== Hyrule Castle =========
 
@@ -73,22 +74,22 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         #["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
         ["fos", "fos chest", False, lambda state: st_has_whirlwind(state, player) or (st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
 
-        # # ======== Forest Temple =========
+        # # ======== Wooded Temple ========= #TODO stamp stand + chest + poison chest + 3f se can damage boost
 
-        ["forest realm", "fot", False, lambda state: st_has_temple_tracks(state, player, "Forest")],
-        ["fot", "fot stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
-        #["fot", "fot song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        ["fot", "fot 1f enemy chest", False, lambda state: st_has_damage(state, player)],
-        ["fot 1f enemy chest", "fot 1f key", False, lambda state: st_has_whirlwind(state, player)],
-        ["fot 1f enemy chest", "fot 2f enemy chest", False, None],
-        ["fot 1f enemy chest", "fot 2f poison chest", False, lambda state: st_has_whirlwind(state, player)],
-        ["fot", "fot 1f switch chest", False, lambda state: st_has_whirlwind(state, player)],
-        ["fot", "fot 3f chestnut chest", False, lambda state: st_has_damage(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Forest Temple", 2)],
-        ["fot", "fot 3f se chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple", 2)],
-       #["fot", "fot 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
-        ["fot", "fot heart container", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
-        ["fot", "fot stagnox", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Forest Temple",2)],
-        ["fot stagnox", "goal_stagnox", False, None]
+        ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Forest")],
+        ["wt", "wt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
+        #["wt", "wt song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["wt", "wt 1f enemy chest", False, lambda state: st_has_damage(state, player)],
+        ["wt 1f enemy chest", "wt 1f key", False, lambda state: st_has_whirlwind(state, player)],
+        ["wt 1f enemy chest", "wt 2f enemy chest", False, None],
+        ["wt 1f enemy chest", "wt 2f poison chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["wt", "wt 1f switch chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["wt", "wt 3f chestnut chest", False, lambda state: st_can_kill_bubble(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Wooded Temple", 2)],
+        ["wt", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) and st_can_kill_bubble(state, player) and st_has_small_keys(state, player,"Wooded Temple", 2)],
+       #["wt", "wt 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
+        ["wt", "wt heart container", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
+        ["wt", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
+        ["wt stagnox", "goal_stagnox", False, None]
 
         # # ============ SW Ocean =================
 
