@@ -259,10 +259,6 @@ ITEMS_DATA = {
         'incremental': True,
         'size': 2
     },
-    "Treasure": {
-        'classification': ItemClassification.filler,
-        'incremental': True
-    },
     "Train Part": {
         'classification': ItemClassification.filler,
         'train_part': True
@@ -290,6 +286,7 @@ ITEMS_DATA = {
     "Tear of Light": {
         'classification': ItemClassification.filler,
         "address": 0x26532E,
+        "dummy": True,
         'value': 1,
         'incremental': True,
         'size': 1
@@ -309,69 +306,154 @@ ITEMS_DATA = {
 
     # ========= Treasure =============
 
-    "Treasure: Pink Coral": {
-        'classification': ItemClassification.progression_skip_balancing,
-        'backup_filler': True,
-        'treasure': True,
-        #'address': 0x1BA5AC,
-        'incremental': True
+    "Treasure": {
+        'classification': ItemClassification.filler,
+        'dummy': True
     },
-    "Treasure: White Pearl Loop": {
-        'classification': ItemClassification.progression_skip_balancing,
+
+    "Treasure: Demon Fossil": {
+        'classification': ItemClassification.filler,
         'backup_filler': True,
         'treasure': True,
-        #'address': 0x1BA5AD,
-        'incremental': True
+        'address': 0x269000,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Stalfos Skull": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269002,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Star Fragment": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269004,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Bee Larvae": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269006,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Wood Heart": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269008,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
     },
     "Treasure: Dark Pearl Loop": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'backup_filler': True,
         'treasure': True,
-        #'address': 0x1BA5AE,
-        'incremental': True
+        'address': 0x26900A,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
     },
-    "Treasure: Zora Scale": {
-        'classification': ItemClassification.progression_skip_balancing,
+    "Treasure: White Pearl Loop": {
+        'classification': ItemClassification.filler,
         'backup_filler': True,
         'treasure': True,
-        #'address': 0x1BA5AF,
-        'incremental': True
-    },
-    "Treasure: Goron Amber": {
-        'classification': ItemClassification.progression_skip_balancing,
-        'backup_filler': True,
-        'treasure': True,
-        #'address': 0x1BA5B0,
-        'incremental': True
+        'address': 0x26900C,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
     },
     "Treasure: Ruto Crown": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'backup_filler': True,
         'treasure': True,
-        #'address': 0x1BA5B1,
-        'incremental': True
+        'address': 0x26900E,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
     },
-    "Treasure: Helmaroc Plume": {
-        'classification': ItemClassification.progression_skip_balancing,
+    "Treasure: Dragon Scale": {
+        'classification': ItemClassification.filler,
         'backup_filler': True,
         'treasure': True,
-        #'address': 0x1BA5B2,
-        'incremental': True
+        'address': 0x269010,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
     },
-    "Treasure: Regal Ring": {
-        'classification': ItemClassification.progression_skip_balancing,
+    "Treasure: Pirate's Necklace": {
+        'classification': ItemClassification.filler,
         'backup_filler': True,
         'treasure': True,
-        #'address': 0x1BA5B3,
-        'incremental': True
+        'address': 0x269012,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Palace Dish": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269014,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Goron Amber": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269016,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Mystic Jade": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x269018,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
     },
     "Treasure: Ancient Coin": {
         'classification': ItemClassification.filler,
         'backup_filler': True,
         'treasure': True,
-        'address': 0x269026,
+        'address': 0x26901A,
         'incremental': True,
-        'value': 1
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Priceless Stone": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x26901C,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
+    },
+    "Treasure: Regal Ring": {
+        'classification': ItemClassification.filler,
+        'backup_filler': True,
+        'treasure': True,
+        'address': 0x26901E,
+        'incremental': True,
+        'value': 1,
+        'size': 2,
     },
 
     # =========== Keys ============

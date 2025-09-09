@@ -185,7 +185,7 @@ LOCATIONS_DATA = {
         'dungeon': "Tower of Spirits",
         "conditional": True,
         "item_override": "Tear of Light",
-        #"delay_pickup": "ToS 1F Chest"
+        "delay_pickup": "ToS 1F Chest"
     },
 
     "ToS 1F Chest": {

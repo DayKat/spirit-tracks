@@ -244,6 +244,8 @@ class SpiritTracksWorld(World):
                 continue
 
             item_name = loc_data.get("item_override", loc_data["vanilla_item"])
+            if isinstance(item_name, list):
+                item_name = self.random.choice(item_name)
             if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
                 # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
                 removed_item_quantities[item_name] -= 1
