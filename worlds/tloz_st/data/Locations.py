@@ -479,19 +479,21 @@ LOCATIONS_DATA = {
         "goal": True
     },
 
-    # Rabbitland Rescue
-    "Rabbitland Rescue Net Gift": {
-        "region_id": "rabbitland net",
+    # Rabbit Haven
+    "Rabbit Haven Net Gift": {
+        "region_id": "rabbit haven net",
         "vanilla_item": "Rabbit Net",
         "stage_id": 0x3E,
         "room_id": 0,
+        "address": 0x26572E,
+        "value": 0x40
     },
-    "Rabbitland Rescue Chest": {
-        "region_id": "rabbitland chest",
-        "vanilla_item": "Red Rupee (20)",
-        "stage_id": 0x3E,
-        "room_id": 0,
-    },
+    # "Rabbit Haven Chest": { TODO need to check requirements
+    #     "region_id": "rabbit haven chest",
+    #     "vanilla_item": "Red Rupee (20)",
+    #     "stage_id": 0x3E,
+    #     "room_id": 0,
+    # },
 
     # Trading Post
     "Trading Post Stamp Station": {

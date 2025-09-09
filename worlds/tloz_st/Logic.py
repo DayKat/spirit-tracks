@@ -100,11 +100,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["trading post", "trading post chest", False, lambda state: st_has_boomerang(state, player) and st_has_discovery_song(state, player)],
         ["trading post", "trading post stamp station", False, lambda state: st_has_bombs(state, player) and st_has_stamp_book(state, player)],
 
-        # # ========== Rabbitland Rescue ========
+        # # ========== Rabbit Haven ========
 
-        ["forest realm", "rabbitland", False, lambda state: st_has_glyph(state, player, "Snow")],
-        ["rabbitland", "rabbitland chest", False, None],
-        ["rabbitland", "rabbitland net", False, None],
+        ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["rabbit haven", "rabbit haven chest", False, None],
+        ["rabbit haven", "rabbit haven net", False, None],
 
         # # ============ SW Ocean =================
 

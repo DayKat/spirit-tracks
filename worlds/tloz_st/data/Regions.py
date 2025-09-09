@@ -4,7 +4,7 @@ REGIONS = [
 
     # Forest Realm
     "forest realm",
-    #"forest realm nr rabbitland rabbit",
+    #"forest realm nr rabbit haven rabbit",
     #"forest realm s whittleton rabbit",
     #"forest realm w cast town rabbit",
     #"forest realm ft rabbit",
@@ -88,10 +88,10 @@ REGIONS = [
     #"mayscore axe gem",
     #"mayscore leaf pile",
 
-    # Rabbitland Rescue
-    "rabbitland",
-    "rabbitland chest",
-    "rabbitland net",
+    # Rabbit Haven
+    "rabbit haven",
+    "rabbit haven chest",
+    "rabbit haven net",
 
     # Forest Sanctuary
     "fos",
