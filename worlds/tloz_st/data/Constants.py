@@ -11,22 +11,27 @@ STARTING_FLAGS = [
     [0x265716, 0xF0],  # sword tutorial and intro stuff
     [0x265717, 0x47],  # split ToS and zelda 1st convo
     [0x265718, 0x34],  # load train to ToS
-    [0x265719, 0x30],  # train quill tutorial skip
+    [0x265719, 0x74],  # train quill tutorial skip
     [0x26571A, 0xFC],  # Intro stuff
-    [0x26571B, 0x03],  # postman & get zelda's letter
+    [0x26571B, 0x13],  # postman & get zelda's letter
+    [0x265720, 0xC0],  # convos
     [0x265723, 0xC0],  # ToS 4F 1st time entry
-    [0x265726, 0x17],  # zelda 1st phantom possession TODO check if location still works with 0x04
+    [0x265726, 0x17],  # zelda 1st phantom possession
     [0x265729, 0x58],  # post fleeing ToS 1F
     [0x26572A, 0x08],  # ready for FS duet
+    [0x265724, 0x50],  # anjean section text
     [0x26572C, 0x07],  # HC intro Zelda
     [0x26572F, 0x02],  # initial train cutscene skip
+    [0x26572E, 0x0C],  # rabbitland rock text
     [0x265738, 0x08],  # move HC guards
+    [0x265743, 0x40],  # linebeck 1st convo
+    [0x26574B, 0x10],  # teacher text skip
     [0x265751, 0x20],  # ToS safe zone tutorial
     [0x265756, 0x80],  # board with zelda
     [0x265766, 0x80],  # ToS initial Staircase cutscene skip
     [0x265766, 0x01],  # ToS additional Staircase cutscene skip
     [0x265768, 0x20],  # first spirit train journey
-    [0x26576B, 0x40],  # first spirit train journey
+    [0x26576B, 0x40],  # first song statue text
     [0x26575C, 0x10],  # alfonzo giving cannon
 ]
 
@@ -43,7 +48,9 @@ STAGE_FLAGS = {
     0x1E: [0x00, 0x00, 0x00, 0x1E], # Stagnox
     0x2A: [0x00, 0x00, 0x00, 0x2A],  # Mayscore/Whittleton
     0x30: [0x00, 0x00, 0x00, 0x20],  # Forest Sanctuary
-    0x38: [0x00, 0x00, 0x00, 0x28],  # Mayscore Forest
+    0x38: [0x00, 0x00, 0x00, 0x38],  # Mayscore Forest
+    0x3E: [0x00, 0x00, 0x00, 0x3E],  # Rabbit Haven
+    0x37: [0x00, 0x00, 0x00, 0x37],  # Trading Post
 
     # 37: [0xFE, 0xBE, 0xFB, 0xAF],  # TotOK
     # 0: [0x82, 0xFC, 0x66, 0xED],  # Sea
@@ -74,11 +81,13 @@ STAGES = {
     0x14: "Tower of Spirits Base",
     0x17: "Tower of Spirits Stairs",
     0x18: "Tunnel to ToS",
-    0x19: "Forest Temple",
+    0x19: "Wooded Temple",
     0x1E: "Stagnox",
     0x2A: "Mayscore",
     0x30: "Forest Sanctuary",
     0x38: "Mayscore Forest",
+    0x3E: "Rabbit Haven",
+    0x37: "Trading Post",
 }
 
 ITEM_GROUPS = {
@@ -94,15 +103,36 @@ ITEM_GROUPS = {
     "Boss Keys": [
         "Boss Key (Forest Temple)"
     ],
-    "Treasure Items": [
-        "Treasure: Pink Coral",
-        "Treasure: White Pearl Loop",
+    # "Treasure Items": [
+    #     "Treasure: Pink Coral",
+    #     "Treasure: White Pearl Loop",
+    #     "Treasure: Dark Pearl Loop",
+    #     "Treasure: Zora Scale",
+    #     "Treasure: Goron Amber",
+    #     "Treasure: Ruto Crown",
+    #     "Treasure: Helmaroc Plume",
+    #     "Treasure: Regal Ring"
+    # ],
+    "Common Treasures": [
+        "Treasure: Demon Fossil",
+        "Treasure: Stalfos Skull",
+        "Treasure: Star Fragment",
+        "Treasure: Bee Larvae",
+        "Treasure: Wood Heart",
+    ],
+    "Uncommon Treasures": [
         "Treasure: Dark Pearl Loop",
-        "Treasure: Zora Scale",
-        "Treasure: Goron Amber",
+        "Treasure: White Pearl Loop",
         "Treasure: Ruto Crown",
-        "Treasure: Helmaroc Plume",
-        "Treasure: Regal Ring"
+        "Treasure: Dragon Scale",
+        "Treasure: Pirate's Necklace",
+    ],
+    "Rare Treasures": [
+
+    ],
+    "Super Rare Treasures": [
+        "Treasure: Alchemy Stone",
+        "Treasure: Regal Ring",
     ],
      "Ammo Refills": [
         "Refill: Bombs",
@@ -111,11 +141,11 @@ ITEM_GROUPS = {
 }
 
 LOCATION_GROUPS = {
-    "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station"],
+    "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree", "Outset Niko's House Tree", "Outset Receive Stamp Book"],
     "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
     "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
     "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
-    "Tower of Spirits": ["ToS 1F Chest", "ToS 2F Raised Chest", "ToS 2f Whirlwind Chest", "ToS Forest Rail Glyph"],
+    "Tower of Spirits": ["ToS 1F Chest", "ToS 2F Raised Chest", "ToS 2F Whirlwind Chest", "ToS 2F Bomb Wall Chest", "ToS Forest Rail Glyph"],
     "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
     "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
     "Forest Temple": [
@@ -132,6 +162,8 @@ LOCATION_GROUPS = {
         "Forest Temple Boss Heart Container",
         "Forest Temple Dungeon Reward"
     ],
+    "Rabbit Haven": ["Rabbit Haven Net Gift", "Rabbit Haven Chest"],
+    "Trading Post": ["Trading Post Stamp Station", "Trading Post Chest"],
     # "Goron Temple": [],
     # "Temple of Ice": [],
     # "Mutoh's Temple": [],

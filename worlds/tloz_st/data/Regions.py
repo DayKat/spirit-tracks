@@ -11,7 +11,7 @@ REGIONS = [
 
     # Outset Village
     "outset village",
-    #"outset village stamp book",
+    "outset village stamp book",
     "outset village stamp station",
     "outset village rocks",
     "outset village bees",

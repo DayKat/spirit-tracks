@@ -2,6 +2,7 @@ from BaseClasses import MultiWorld, Item
 from .data import LOCATIONS_DATA
 from .data.LogicPredicates import *
 from .Options import SpiritTracksOptions
+from ..stardew_valley.stardew_rule import state
 
 
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
@@ -13,10 +14,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         #[region 1, region 2, two-directional, logic requirements],
         ["outset village", "outset village rocks", False, None],
-        #["outset village", "outset village stamp book", False, None],
+        ["outset village", "outset village stamp book", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_glyph(state, player, "Snow")],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village bees", False, None],
         ["outset village", "forest realm", False, lambda state: st_has_glyph(state, player, "Forest")],
+        ["outset village", "outset village right tree", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
+        ["outset village", "outset village left tree", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
 
         # # ======== Castle Town =========
 
@@ -94,15 +97,15 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ============ Trading Post =============
 
-        ["forest realm", "trading post", False, lambda state: st_has_glyph(state, player, "Ocean")],
+        ["forest realm", "trading post", False, lambda state: st_has_glyph(state, player, "Ocean") and st_has_cannon(state, player)],
         #["trading post", "trading post discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
         #["trading post", "trading post light song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        ["trading post", "trading post chest", False, lambda state: st_has_boomerang(state, player) and st_has_discovery_song(state, player)],
+        ["trading post", "trading post chest", False, lambda state: st_has_boomerang(state, player) and st_has_discovery_song(state, player) and st_has_light_song(state, player) and st_has_spirit_flute(state, player)],
         ["trading post", "trading post stamp station", False, lambda state: st_has_bombs(state, player) and st_has_stamp_book(state, player)],
 
         # # ========== Rabbit Haven ========
 
-        ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow") and st_has_temple_tracks(state, player, "Forest") and st_has_cannon(state, player)],
         ["rabbit haven", "rabbit haven chest", False, None],
         ["rabbit haven", "rabbit haven net", False, None],
 
