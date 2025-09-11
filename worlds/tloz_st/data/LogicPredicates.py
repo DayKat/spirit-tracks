@@ -54,9 +54,22 @@ def st_has_wood_heart(state: CollectionState, player: int):
 def st_has_glyph(state: CollectionState, player: int, realm: str):
     return state.has(f"{realm} Glyph", player)
 
-
 def st_has_cannon(state: CollectionState, player: int):
     return state.has("Cannon", player)
+
+def st_train_access(state, player):
+    return any([
+        not st_option_train_requires_forest_glyph(state, player),
+        st_has_glyph(state, player, "Forest")
+    ])
+
+def st_has_temple_tracks(state, player, temple):
+    temple = temple+" Temple Tracks"
+    return state.has(temple, player)
+
+def st_has_misc_tracks(state, player, tracks):
+    tracks = tracks +" Tracks"
+    return state.has(tracks, player)
 
 
 # ============== Songs =======================
@@ -496,15 +509,6 @@ def st_can_sword_scroll_clip(state, player):
 
 # Overworld
 
-def st_train_access(state, player):
-    return any([
-        not st_option_train_requires_forest_glyph(state, player),
-        st_has_glyph(state, player, "Forest")
-    ])
-
-def st_has_temple_tracks(state, player, temple):
-    temple = temple+" Temple Tracks"
-    return state.has(temple, player)
 
 # Handles keylocking due to lack of locations
 # def st_can_reach_MP2(state: CollectionState, player: int):

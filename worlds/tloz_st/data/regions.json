@@ -41,7 +41,7 @@
       "Tower of Spirits",
       "Whittleton Village",
       "Lost Woods",
-      "Rabbitland Rescue",
+      "Rabbit Haven",
       "Trading Post",
       "Dark Realm"
     ],
@@ -88,7 +88,7 @@
     ],
     "requires": "|Tears of Light:6| AND |Whirlwind| AND |Spirit Flute|"
   },
-  "Rabbitland Rescue": {
+  "Rabbit Haven": {
     "connects_to": [
       "Snow Realm"
     ],

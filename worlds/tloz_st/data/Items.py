@@ -94,11 +94,6 @@ ITEMS_DATA = {
         #'address': ,
         #'value': ,
     },
-    #"Tears of Light": {
-     #   'classification': ItemClassification.progression,
-        #'address': ,
-        #'value': ,
-    #},
     "Stamp Book": {
         'classification': ItemClassification.progression,
         'address': 0x265739,
@@ -144,7 +139,7 @@ ITEMS_DATA = {
         'incremental': True,
         'size': 2
     },
-        "Sword Beam Swordsman's Scroll": {
+    "Sword Beam Swordsman's Scroll": {
         'classification': ItemClassification.useful,
         'address': 0x265322,
         'value': 0x0010,

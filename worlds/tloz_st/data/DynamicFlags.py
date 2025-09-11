@@ -1,18 +1,61 @@
 DYNAMIC_FLAGS = {
-    "Aboda Rei": {
+    "Outset Rei": {
         "on_scenes": [0x2F00],
-        "not_has_locations": ["Aboda Clear Rocks"],
+        "not_has_locations": ["Outset Clear Rocks"],
         "unset_if_true": [(0x265714, 0x04)]
     },
-    "Aboda Bee Boy": {
+    "Outset Bee Boy": {
         "on_scenes": [0x2F00],
-        "not_has_locations": ["Aboda Bee Tree"],
+        "not_has_locations": ["Outset Bee Tree"],
         "unset_if_true": [(0x265714, 0x04)]
     },
-    "Post Aboda Children": {
+    "Post Outset Children": {
         "on_scenes": [0x2F00],
-        "has_locations": ["Aboda Clear Rocks", "Aboda Bee Tree"],
+        "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
         "set_if_true": [(0x265714, 0x04)]
+    },
+    "Allow Rabbit Net Read": {
+        "on_scenes": [0x3E00],
+        "not_has_locations": ["Rabbit Haven Net Gift"],
+        "unset_if_true": [(0x26572E, 0x40)],
+        "reset_flags": ["RESET Rabbit Net Read"]
+    },
+    "RESET Rabbit Net Read": {
+        "has_locations": ["Rabbit Haven Net Gift"],
+        "set_if_true": [(0x26572E, 0x40)],
+    },
+    "Allow rabbit catching": {
+        "on_scenes": [0x0400],
+        "has_items": ["Rabbit Net", 1],
+        "set_if_true": [(0x26572E, 0x40)],
+    },
+    "Disallow rabbit catching": {
+        "on_scenes": [0x0400],
+        "has_items": ["Rabbit Net", 0],
+        "unset_if_true": [(0x26572E, 0x40)],
+    },
+    "Move Alfonso to castle town station": {
+        "on_scenes": [0x2900],
+        "not_has_locations": ["Outset Receive Stamp Book"],
+        "has_items": [["Snow Glyph", 1], ["Forest Glyph", 1]],
+        "set_if_true": [(0x265725, 0x20)],
+        "reset_flags": ["RESET Alfonso"]
+    },
+    "RESET Alfonso": {
+        "on_scenes": [0x2F00],
+        "has_locations": ["Outset Receive Stamp Book"],
+        "unset_if_true": [(0x26572E, 0x20)],
+    },
+    "Allow Stamp Book check": {
+        "on_scenes": [0x2F0A],
+        "not_has_locations": ["Outset Receive Stamp Book"],
+        "unset_if_true": [(0x265739, 0x02)],
+        "reset_flags": ["RESET Stamp Book Check"]
+    },
+    "RESET Stamp Book Check": {
+        "on_scenes": [0x2F00],
+        "has_items": ["Stamp Book", 1],
+        "set_if_true": [(0x265739, 0x02)],
     },
     # "Forest Sanctuary Song Statue":{
     #     "on_scenes": [0x3000],
