@@ -80,7 +80,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ======== Wooded Temple ========= #TODO stamp stand + chest + poison chest + 3f se can damage boost
 
-        ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Forest")],
+        ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Wooded")],
         ["wt", "wt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
         #["wt", "wt song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["wt", "wt 1f enemy chest", False, lambda state: st_has_damage(state, player)],
@@ -88,7 +88,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["wt 1f enemy chest", "wt 2f enemy chest", False, None],
         ["wt 1f enemy chest", "wt 2f poison chest", False, lambda state: st_has_whirlwind(state, player)],
         ["wt", "wt 1f switch chest", False, lambda state: st_has_whirlwind(state, player)],
-        ["wt", "wt 3f chestnut chest", False, lambda state: st_can_kill_bubble(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Wooded Temple", 2)],
+        ["wt", "wt 3f chestnut chest", False, lambda state: st_can_kill_bubble(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Wooded Temple", 1)],
         ["wt", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) and st_can_kill_bubble(state, player) and st_has_small_keys(state, player,"Wooded Temple", 2)],
        #["wt", "wt 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         ["wt", "wt heart container", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
@@ -105,7 +105,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ========== Rabbit Haven ========
 
-        ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow") and st_has_temple_tracks(state, player, "Forest") and st_has_cannon(state, player)],
+        ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow") and st_has_temple_tracks(state, player, "Wooded") and st_has_cannon(state, player)],
         ["rabbit haven", "rabbit haven chest", False, None],
         ["rabbit haven", "rabbit haven net", False, None],
 

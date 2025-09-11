@@ -36,10 +36,9 @@ def build_location_room_to_watches() -> Dict[int, dict[str, dict]]:
 def build_scene_to_dynamic_flag() -> Dict[int, list[dict]]:
     scene_to_dynamic_flag: Dict[int, list[dict]] = {}
     for flag_name, data in DYNAMIC_FLAGS.items():
-        for scene in data["on_scenes"]:
-            data["name"] = flag_name
-            if scene not in scene_to_dynamic_flag:
-                scene_to_dynamic_flag[scene] = []
+        data["name"] = flag_name
+        for scene in data.get("on_scenes", []):
+            scene_to_dynamic_flag.setdefault(scene, [])
             scene_to_dynamic_flag[scene].append(data)
     return scene_to_dynamic_flag
 

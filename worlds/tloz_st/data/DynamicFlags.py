@@ -14,6 +14,17 @@ DYNAMIC_FLAGS = {
         "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
         "set_if_true": [(0x265714, 0x04)]
     },
+    "Stagnox location": {
+        "on_scenes": [0x1E00],
+        "not_has_locations": ["Wooded Temple Dungeon Reward"],
+        "unset_if_true": [(0x265714, 0x10)],
+        "reset_flags": ["RESET stagnox reward"]
+    },
+    "RESET stagnox reward": {
+        "has_locations": ["Wooded Temple Dungeon Reward"],
+        "has_items": [["Forest Source"]],
+        "set_if_true": [(0x265714, 0x10)]
+    },
     "Allow Rabbit Net Read": {
         "on_scenes": [0x3E00],
         "not_has_locations": ["Rabbit Haven Net Gift"],
@@ -26,12 +37,12 @@ DYNAMIC_FLAGS = {
     },
     "Allow rabbit catching": {
         "on_scenes": [0x0400],
-        "has_items": ["Rabbit Net", 1],
+        "has_items": [["Rabbit Net", 1]],
         "set_if_true": [(0x26572E, 0x40)],
     },
     "Disallow rabbit catching": {
         "on_scenes": [0x0400],
-        "has_items": ["Rabbit Net", 0],
+        "has_items": [["Rabbit Net", 0]],
         "unset_if_true": [(0x26572E, 0x40)],
     },
     "Move Alfonso to castle town station": {
@@ -41,7 +52,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(0x265725, 0x20)],
         "reset_flags": ["RESET Alfonso"]
     },
-    "RESET Alfonso": {
+    "RESET Alfonso": { #TODO alfonso yoinks the train!
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Receive Stamp Book"],
         "unset_if_true": [(0x26572E, 0x20)],
@@ -54,7 +65,7 @@ DYNAMIC_FLAGS = {
     },
     "RESET Stamp Book Check": {
         "on_scenes": [0x2F00],
-        "has_items": ["Stamp Book", 1],
+        "has_items": [["Stamp Book", 1]],
         "set_if_true": [(0x265739, 0x02)],
     },
     # "Forest Sanctuary Song Statue":{

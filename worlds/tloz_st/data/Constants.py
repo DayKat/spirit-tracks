@@ -114,17 +114,15 @@ ITEM_GROUPS = {
         "Treasure: Dark Pearl Loop",
         "Treasure: White Pearl Loop",
         "Treasure: Ruto Crown",
-        "Treasure: Helmaroc Plume",
-        "Treasure: Regal Ring",
-        "Treasure: Zora Scale",
+        "Treasure: Dragon Scale",
+        "Treasure: Pirate's Necklace",
     ],
-    "Rare Treasure Items": [
+    "Rare Treasures": [
         "Treasure: Ancient Coin",
         "Treasure: Mystic Jade",
         "Treasure: Goron Amber",
-        "Treasure: Palace Dish"
-        "Treasure: Dragon Scale",
-        "Treasure: Pirate's Necklace",
+        "Treasure: Palace Dish",
+
     ],
     "Super Rare Treasures": [
         "Treasure: Alchemy Stone",

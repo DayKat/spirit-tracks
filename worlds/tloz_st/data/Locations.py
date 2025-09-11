@@ -39,8 +39,9 @@ LOCATIONS_DATA = {
         # 02271CF4 is bitfield of all stamps found
     },
     "Outset Far Right Tree": {
-        "region_id": "outset right tree",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "region_id": "outset village right tree",
+        "vanilla_item": "Treasure",
+ #       "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": 27449,
@@ -50,17 +51,20 @@ LOCATIONS_DATA = {
         "require_item": ["Spirit Flute", "Song of Discovery"]
     },
     "Outset Niko's House Tree": {
-        "region_id": "outset left tree",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "region_id": "outset village left tree",
+        "vanilla_item": "Treasure",
+
+#        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": -60427,
         "x_max": -41317,
         "z_min": 10523,
         "z_max": 28762,
-        "require_item": ["Spirit Flute", "Song of Discovery"]
+        "require_item": ["Spirit Flute", "Song of Discovery"],
+        "item_override": "Snow Glyph"
     },
-    "Outset Receive Stamp Book": {
+    "Outset Receive Stamp Book": { #TODO skip alfonso pre-cannon cs
         "region_id": "outset village stamp book",
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
@@ -109,7 +113,8 @@ LOCATIONS_DATA = {
     },
     "Castle Town Minigame Roof": {
         "region_id": "castle town minigame roof",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
         "x_min": 69100,
@@ -120,7 +125,8 @@ LOCATIONS_DATA = {
     },
     "Castle Town Ramp House Chest": {
         "region_id": "castle town ramp house chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
         "x_min": -76411,
@@ -132,7 +138,8 @@ LOCATIONS_DATA = {
     },
     "Castle Town Empty House Roof Chest": {
         "region_id": "castle town empty house roof",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
         "x_min": -43484,
@@ -157,7 +164,8 @@ LOCATIONS_DATA = {
     # Hyrule Castle
     "Hyrule Castle NW Outside Chest": {
         "region_id": "hyrule castle nw chest",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x28,
         "room_id": 0,
         "entrance_id": 6,
@@ -220,7 +228,8 @@ LOCATIONS_DATA = {
 
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Bombs (Progressive)",
         "stage_id": 0x13,
         "room_id": 0,
@@ -234,7 +243,8 @@ LOCATIONS_DATA = {
     },
     "ToS 2F Raised Chest": {
         "region_id": "tos 2f raised chest",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Cannon",
         "stage_id": 0x13,
         "room_id": 1,
@@ -248,7 +258,8 @@ LOCATIONS_DATA = {
     },
     "ToS 2F Whirlwind Chest": {
         "region_id": "tos 2f whirlwind",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
         "room_id": 1,
         "x_min": 21028,
@@ -260,7 +271,8 @@ LOCATIONS_DATA = {
     },
     "ToS 2F Bomb Wall Chest": {
         "region_id": "tos 2f bomb wall",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": "Treasure",
+        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
         "room_id": 28,
         'dungeon': "Tower of Spirits",
@@ -314,7 +326,8 @@ LOCATIONS_DATA = {
     # },
     "Mayscore Whip Chest": {
         "region_id": "mayscore whip chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": "Treasure",
+       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x38,
         "room_id": 0,
         "x_min": -63898,
@@ -439,7 +452,8 @@ LOCATIONS_DATA = {
     },
     "Wooded Temple 2F Poison Chest": {
         "region_id": "wt 2f poison chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": "Treasure",
+       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x19,
         "room_id": 1,
         "x_min": 42450,
@@ -463,7 +477,8 @@ LOCATIONS_DATA = {
     },
     "Wooded Temple 3F SE Chest": {
         "region_id": "wt 3f se chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": "Treasure",
+       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x19,
         "room_id": 2,
         "x_min": 42646,
@@ -490,9 +505,12 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "stage_id": 0x1E,
         "room_id": 0,
+        "x_min": -12452,
+        "x_max": 13862,
+        "z_min": 875,
+        "z_max": 28042,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind"],
-        #TODO test if location works
+        "require_item": ["Whirlwind", "Sword (Progressive)"],
     },
     "Wooded Temple Dungeon Reward": {
         "region_id": "wt stagnox",
@@ -502,7 +520,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x1E,
         "room_id": 0,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind"],
+        "require_item": ["Whirlwind", "Sword (Progressive)"],
         "goal": True
     },
 
@@ -518,13 +536,15 @@ LOCATIONS_DATA = {
     },
     "Rabbit Haven Chest": {
         "region_id": "rabbit haven chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": "Treasure",
+       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
         "x_min": 13950,
         "x_max": 23070,
         "z_min": -18940,
         "z_max": -9020,
+        "item_override": "Ocean Glyph"
     },
 
     # Trading Post

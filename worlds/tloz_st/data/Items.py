@@ -190,6 +190,11 @@ ITEMS_DATA = {
         'value': 0x02,
         #'set_bit': [(0x265715, 0x80)]
     },
+    "Forest Source": {
+      'classification': ItemClassification.progression,
+        'address': 0x265314,
+        'value': 0x10,
+    },
 
     # ========= Force Gems ==============
 
@@ -460,10 +465,10 @@ ITEMS_DATA = {
          'incremental': True
      },
     "Small Key (Wooded Temple)": {
-         'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression,
         'address': 0x26532F,
         'dungeon': 0x19,
-         'incremental': True
+        'incremental': True
      },
     "Boss Key (Wooded Temple)": {
          'classification': ItemClassification.progression,

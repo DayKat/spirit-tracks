@@ -57,7 +57,7 @@ REGIONS = [
     # Tower of Spirits
     "tos",
     "tear 1f top",
-    "tos section 1"
+    "tos section 1",
     "tos 1f chest",
     "tos 2f raised chest",
     "tos 2f whirlwind",
