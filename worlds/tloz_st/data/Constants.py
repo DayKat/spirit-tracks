@@ -28,8 +28,7 @@ STARTING_FLAGS = [
     [0x26574B, 0x10],  # teacher text skip
     [0x265751, 0x20],  # ToS safe zone tutorial
     [0x265756, 0x80],  # board with zelda
-    [0x265766, 0x80],  # ToS initial Staircase cutscene skip
-    [0x265766, 0x01],  # ToS additional Staircase cutscene skip
+    [0x265766, 0x81],  # ToS initial Staircase cutscene skip
     [0x265768, 0x20],  # first spirit train journey
     [0x26576B, 0x40],  # first song statue text
     [0x26575C, 0x10],  # alfonzo giving cannon

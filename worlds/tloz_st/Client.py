@@ -32,7 +32,8 @@ RAM_ADDRS = {
     "link_y": (0x05D0, 4, "Data TCM"),
     "link_z": (0x05D4, 4, "Data TCM"),
 
-    "equipped_item": (0x265318, 4, "Main RAM")
+    "equipped_item": (0x265318, 4, "Main RAM"),
+    "train_gear": (0x2CA24C, 4, "Main RAM"),
 }
 
 POINTERS = {
@@ -157,6 +158,18 @@ class SpiritTracksClient(DSZeldaClient):
             if goal == 1 and location.get("region_id") == "wt stagnox":
                 self.has_goal_location = True
         #await self._set_delay_pickup(self, ctx, location)
+
+    # TODO if on highest gear then increase speed
+    # async def game_watcher(self, ctx: "BizHawkClientContext"):
+    #     read_result = await read_memory_values(ctx, self.main_read_list)
+    #     current_stage = read_result.get("stage", None)
+    #     current_room = read_result.get("room", None)
+    #     current_room = 0 if current_room == 0xFF else current_room  # Resetting in a dungeon sets a special value
+    #     self.current_scene = current_stage * 0x100 + current_room
+    #     if self.current_scene == (0x0400 or 0x0500 or 0x0600 or 0x0700):
+    #         current_gear = read_memory_value(ctx, 0x2CA24C, 4)
+    #         if current_gear == 0xC1:
+    #             await bizhawk.write(ctx.bizhawk_ctx, [(int(0x2CA250), [int(0x1FFF)], "Main RAM")])
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         if self.has_goal_location:

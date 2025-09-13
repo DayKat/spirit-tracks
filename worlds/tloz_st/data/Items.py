@@ -91,8 +91,8 @@ ITEMS_DATA = {
     },
     "Rabbit Net": {
         'classification': ItemClassification.progression,
-        #'address': ,
-        #'value': ,
+        'address': 0x26572E,
+        'value': 0x40,
     },
     "Stamp Book": {
         'classification': ItemClassification.progression,
@@ -310,7 +310,7 @@ ITEMS_DATA = {
         'classification': ItemClassification.filler,
         'dummy': True
     },
-
+    #TODO starts inventory no. at 0
     "Treasure: Demon Fossil": {
         'classification': ItemClassification.filler,
         'backup_filler': True,

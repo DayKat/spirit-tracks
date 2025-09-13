@@ -52,10 +52,12 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(0x265725, 0x20)],
         "reset_flags": ["RESET Alfonso"]
     },
-    "RESET Alfonso": { #TODO alfonso yoinks the train!
+    "RESET Alfonso": {
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Receive Stamp Book"],
-        "unset_if_true": [(0x26572E, 0x20)],
+        "unset_if_true": [(0x265725, 0x60)],
+        "reset_flags": ["RESET Alfonso"],
+        "set_if_true": [(0x26572F, 0x02)],
     },
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],

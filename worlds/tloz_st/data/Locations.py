@@ -228,8 +228,7 @@ LOCATIONS_DATA = {
 
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Bombs (Progressive)",
         "stage_id": 0x13,
         "room_id": 0,
@@ -422,7 +421,7 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "x_min": -63603,
         "x_max": -13926,
-        "z_min": -17192,
+        "z_min": -63898,
         "z_max": -22118,
         "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
