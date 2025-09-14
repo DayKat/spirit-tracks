@@ -14,6 +14,42 @@ DYNAMIC_FLAGS = {
         "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
         "set_if_true": [(0x265714, 0x04)]
     },
+    "Allow learning discovery song": {
+        "on_scenes": [0x3000],
+        "not_has_locations": ["Forest Sanctuary Song Statue"],
+        "unset_if_true": [(0x268FB0, 0x01)],
+        "reset_flags": ["RESET fs statue"]
+    },
+    "RESET fs statue": {
+        "on_scenes": [0x3000],
+        "has_locations": ["Forest Sanctuary Song Statue"],
+        "has_items": [["Song of Discovery", 1]],
+        "set_if_true": [(0x268FB0, 0x01)],
+    },
+    "Allow learning healing song": {
+        "on_scenes": [0x190A],
+        "not_has_locations": ["Wooded Temple Song Statue"],
+        "unset_if_true": [(0x268FB0, 0x02)],
+        "reset_flags": ["RESET wt statue"]
+    },
+    "RESET wt statue": {
+        "on_scenes": [0x190A],
+        "has_locations": ["Wooded Temple Song Statue"],
+        "has_items": [["Song of Healing", 1]],
+        "set_if_true": [(0x268FB0, 0x02)],
+    },
+    "Allow learning light song": {
+        "on_scenes": [0x3700],
+        "not_has_locations": ["Trading Post 2nd Song Statue"],
+        "unset_if_true": [(0x268FB0, 0x08)],
+        "reset_flags": ["RESET trading post statue"]
+    },
+    "RESET trading post statue": {
+        "on_scenes": [0x3700],
+        "has_locations": ["Trading Post 2nd Song Statue"],
+        "has_items": [["Song of Light", 1]],
+        "set_if_true": [(0x268FB0, 0x08)],
+    },
     "Stagnox location": {
         "on_scenes": [0x1E00],
         "not_has_locations": ["Wooded Temple Dungeon Reward"],
@@ -22,7 +58,7 @@ DYNAMIC_FLAGS = {
     },
     "RESET stagnox reward": {
         "has_locations": ["Wooded Temple Dungeon Reward"],
-        "has_items": [["Forest Source"]],
+        "has_items": [["Forest Source", 1]],
         "set_if_true": [(0x265714, 0x10)]
     },
     "Allow Rabbit Net Read": {

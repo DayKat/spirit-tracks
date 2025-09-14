@@ -18,7 +18,7 @@ LOCATIONS_DATA = {
     },
     "Outset Bee Tree": {
         "region_id": "outset village bees",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": 34192,
@@ -40,8 +40,7 @@ LOCATIONS_DATA = {
     },
     "Outset Far Right Tree": {
         "region_id": "outset village right tree",
-        "vanilla_item": "Treasure",
- #       "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": 27449,
@@ -52,9 +51,7 @@ LOCATIONS_DATA = {
     },
     "Outset Niko's House Tree": {
         "region_id": "outset village left tree",
-        "vanilla_item": "Treasure",
-
-#        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": -60427,
@@ -113,8 +110,7 @@ LOCATIONS_DATA = {
     },
     "Castle Town Minigame Roof": {
         "region_id": "castle town minigame roof",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
         "x_min": 69100,
@@ -125,8 +121,7 @@ LOCATIONS_DATA = {
     },
     "Castle Town Ramp House Chest": {
         "region_id": "castle town ramp house chest",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
         "x_min": -76411,
@@ -138,8 +133,7 @@ LOCATIONS_DATA = {
     },
     "Castle Town Empty House Roof Chest": {
         "region_id": "castle town empty house roof",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
         "x_min": -43484,
@@ -164,8 +158,7 @@ LOCATIONS_DATA = {
     # Hyrule Castle
     "Hyrule Castle NW Outside Chest": {
         "region_id": "hyrule castle nw chest",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x28,
         "room_id": 0,
         "entrance_id": 6,
@@ -242,8 +235,7 @@ LOCATIONS_DATA = {
     },
     "ToS 2F Raised Chest": {
         "region_id": "tos 2f raised chest",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Cannon",
         "stage_id": 0x13,
         "room_id": 1,
@@ -257,8 +249,7 @@ LOCATIONS_DATA = {
     },
     "ToS 2F Whirlwind Chest": {
         "region_id": "tos 2f whirlwind",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
         "room_id": 1,
         "x_min": 21028,
@@ -270,10 +261,13 @@ LOCATIONS_DATA = {
     },
     "ToS 2F Bomb Wall Chest": {
         "region_id": "tos 2f bomb wall",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
         "room_id": 28,
+        "x_min": -14760,
+        "x_max": 14760,
+        "z_min": -18842,
+        "z_max": 10650,
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)", "Bombs (progressive)"]
     },
@@ -325,8 +319,7 @@ LOCATIONS_DATA = {
     # },
     "Mayscore Whip Chest": {
         "region_id": "mayscore whip chest",
-        "vanilla_item": "Treasure",
-       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x38,
         "room_id": 0,
         "x_min": -63898,
@@ -348,19 +341,17 @@ LOCATIONS_DATA = {
         "item_override": "Wooded Temple Tracks"
     },
     #TODO bad address for flute stuff
-    # "Forest Sanctuary Song Statue": {
-    #     "region_id": "fos song statue",
-    #     "vanilla_item": "Song of Awakening",
-    #     "stage_id": 0x30,
-    #     "room_id": 0,
-    #     "x_min": -32764,
-    #     "x_max": -18104,
-    #     "z_min": 5734,
-    #     "z_max": 18842,
-    #     "address": 0x0B92D8,
-    #     "value": 18,
-    #     "require_item": ["Spirit Flute"],
-    # },
+    "Forest Sanctuary Song Statue": {
+        "region_id": "fos song statue",
+        "vanilla_item": "Song of Awakening",
+        "stage_id": 0x30,
+        "room_id": 0,
+        "x_min": -32764,
+        "x_max": -18104,
+        "z_min": 5734,
+        "z_max": 18842,
+        "require_item": ["Spirit Flute"],
+    },
     # "Forest Sanctuary Gage Duet": {
     #     "region_id": "fos gage",
     #     "stage_id": 0x30,
@@ -385,14 +376,18 @@ LOCATIONS_DATA = {
 
     # Wooded Temple
 
-    # "Wooded Temple Song Statue": {
-    #     "region_id": "wt song statue",
-    #     "vanilla_item": "Song of Healing",
-    #     "stage_id": 0x19,
-    #     "room_id": 0x0A,
-    #     "dungeon": "Wooded Temple",
-    #     "require_item": ["Spirit Flute"],
-    # },
+    "Wooded Temple Song Statue": {
+        "region_id": "wt song statue",
+        "vanilla_item": "Song of Healing",
+        "stage_id": 0x19,
+        "room_id": 0x0A,
+        "x_min": -35240,
+        "x_max": -14885,
+        "z_min": -51620,
+        "z_max": -39275,
+        "dungeon": "Wooded Temple",
+        "require_item": ["Spirit Flute"],
+    },
     "Wooded Temple Stamp Station": {
         "region_id": "wt stamp station",
         "vanilla_item": "Treasure",
@@ -451,8 +446,7 @@ LOCATIONS_DATA = {
     },
     "Wooded Temple 2F Poison Chest": {
         "region_id": "wt 2f poison chest",
-        "vanilla_item": "Treasure",
-       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x19,
         "room_id": 1,
         "x_min": 42450,
@@ -476,8 +470,7 @@ LOCATIONS_DATA = {
     },
     "Wooded Temple 3F SE Chest": {
         "region_id": "wt 3f se chest",
-        "vanilla_item": "Treasure",
-       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x19,
         "room_id": 2,
         "x_min": 42646,
@@ -531,12 +524,10 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "address": 0x26572E,
         "value": 0x40,
-        "item_override": "Song of Light"
     },
     "Rabbit Haven Chest": {
         "region_id": "rabbit haven chest",
-        "vanilla_item": "Treasure",
-       # "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
         "x_min": 13950,
@@ -547,17 +538,13 @@ LOCATIONS_DATA = {
     },
 
     # Trading Post
-    "Trading Post Stamp Station": {
+    "Trading Post Stamp Station": { #TODO causes error with scene
         "region_id": "trading post stamp station",
         #"vanilla_item": "Trading Post Stamp",
         "vanilla_item": "Treasure",
         "stage_id": 0x37,
         "room_id": 1,
         "stamp": True,
-        "x_min": -43570,
-        "x_max": -34030,
-        "z_min": -60020,
-        "z_max": -48360,
         "require_item": ["Stamp Book", "Bombs (Progressive)"],
     },
     # "Trading Post 1st Song Statue": { *only if not already have song*
@@ -571,25 +558,25 @@ LOCATIONS_DATA = {
     #     "z_min": 46500,
     #     "z_max": 57443,
     # },
-    # "Trading Post 2nd Song Statue": {
-    #     "region_id": "trading post light song statue",
-    #     "vanilla_item": "Song of Light",
-    #     "stage_id": 0x37,
-    #     "room_id": 0,
-    #     "x_min": -64094,
-    #     "x_max": -45666,
-    #     "z_min": -55626,
-    #     "z_max": -35679,
-    #     "require_item": ["Spirit Flute"],
-    # },
-    "Trading Post Chest": { #address might not work
+    "Trading Post 2nd Song Statue": {
+        "region_id": "trading post light song statue",
+        "vanilla_item": "Song of Light",
+        "stage_id": 0x37,
+        "room_id": 0,
+        "x_min": -64094,
+        "x_max": -45666,
+        "z_min": -55626,
+        "z_max": -35679,
+        "require_item": ["Spirit Flute"],
+    },
+    "Trading Post Chest": { #TODO figure out cs skip
         "region_id": "trading post chest",
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x37,
         "room_id": 2,
         "address": 0x265752,
         "value": 0x10,
-        "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute"],
+        "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
     },
 }
 

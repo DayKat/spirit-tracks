@@ -7,7 +7,7 @@ from .Options import SpiritTracksOptions
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
     overworld_logic = [
 
-
+        #TODO require cannon before non-forest glyph
 
         # ====== Outset Village ==============
 
@@ -74,7 +74,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "fos", False, None],
         ["fos", "fos stamp station", False, lambda state: st_has_stamp_book(state, player)],
-        #["fos", "fos song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["fos", "fos song statue", False, lambda state: st_has_spirit_flute(state, player)],
         #["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
         ["fos", "fos chest", False, lambda state: st_has_whirlwind(state, player) or (st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
 
@@ -82,7 +82,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Wooded")],
         ["wt", "wt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
-        #["wt", "wt song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["wt", "wt song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["wt", "wt 1f enemy chest", False, lambda state: st_has_damage(state, player)],
         ["wt 1f enemy chest", "wt 1f key", False, lambda state: st_has_whirlwind(state, player)],
         ["wt 1f enemy chest", "wt 2f enemy chest", False, None],
@@ -99,8 +99,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "trading post", False, lambda state: st_has_glyph(state, player, "Ocean") and st_has_cannon(state, player)],
         #["trading post", "trading post discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        #["trading post", "trading post light song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        ["trading post", "trading post chest", False, lambda state: st_has_boomerang(state, player) and st_has_discovery_song(state, player) and st_has_light_song(state, player) and st_has_spirit_flute(state, player)],
+        ["trading post", "trading post light song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["trading post", "trading post chest", False, lambda state: st_has_bombs(state, player) and (st_has_boomerang(state, player) or st_has_bow(state, player)) and st_has_discovery_song(state, player) and st_has_light_song(state, player) and st_has_spirit_flute(state, player)],
         ["trading post", "trading post stamp station", False, lambda state: st_has_bombs(state, player) and st_has_stamp_book(state, player)],
 
         # # ========== Rabbit Haven ========

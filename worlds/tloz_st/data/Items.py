@@ -192,7 +192,7 @@ ITEMS_DATA = {
     },
     "Forest Source": {
       'classification': ItemClassification.progression,
-        'address': 0x265314,
+        'address': 0x265714,
         'value': 0x10,
     },
 

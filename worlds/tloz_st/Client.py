@@ -146,30 +146,21 @@ class SpiritTracksClient(DSZeldaClient):
     async def check_location_post_processing(self, ctx, location: dict):
         if location is not None and "goal" in location:
             print("it works")
-        # goal = ctx.slot_data.get("goal")
-        # if location.get("name") == "Tos Forest Rail Glyph" and goal == 0:
-        #     break
-        # elif location.get("name") == "Wooded Temple Dungeon Reward" and goal == 1:
-        #     continue
             # Finished game?
             goal = ctx.slot_data.get("goal")
             if goal == 0 and location.get("region_id") == "tos 3f rail map":
                 self.has_goal_location = True
             if goal == 1 and location.get("region_id") == "wt stagnox":
                 self.has_goal_location = True
-        #await self._set_delay_pickup(self, ctx, location)
 
-    # TODO if on highest gear then increase speed
+    # TODO needs a way of freezing value
     # async def game_watcher(self, ctx: "BizHawkClientContext"):
-    #     read_result = await read_memory_values(ctx, self.main_read_list)
-    #     current_stage = read_result.get("stage", None)
-    #     current_room = read_result.get("room", None)
-    #     current_room = 0 if current_room == 0xFF else current_room  # Resetting in a dungeon sets a special value
-    #     self.current_scene = current_stage * 0x100 + current_room
+    #     await super().game_watcher(ctx)
     #     if self.current_scene == (0x0400 or 0x0500 or 0x0600 or 0x0700):
-    #         current_gear = read_memory_value(ctx, 0x2CA24C, 4)
+    #         current_gear = await read_memory_value(ctx, 0x2CA24C, 4)
     #         if current_gear == 0xC1:
-    #             await bizhawk.write(ctx.bizhawk_ctx, [(int(0x2CA250), [int(0x1FFF)], "Main RAM")])
+    #             await write_memory_value(ctx, 0x2CA250, 0xFFFFFFFF)
+    #             print(await read_memory_value(ctx, 0x2CA250, 4))
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         if self.has_goal_location:

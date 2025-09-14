@@ -121,7 +121,7 @@ REGIONS = [
     # Trading Post
     "trading post",
     #"trading post discovery song statue",
-    #"trading post light song statue",
+    "trading post light song statue",
     "trading post chest",
     "trading post stamp station",
     #"trading post ore gem",
