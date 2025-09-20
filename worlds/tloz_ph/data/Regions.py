@@ -246,6 +246,7 @@ REGIONS = [
     # Spirit Island
     "spirit island",
     "spirit island gauntlet",
+    "spirit cave",
     "spirit power 1",
     "spirit power 2",
     "spirit wisdom 1",
@@ -290,6 +291,9 @@ REGIONS = [
 
     # Bannan Island
     "bannan",
+    "bannan wayfarer",
+    "bannan cave east",
+    "bannan cave west",
     "bannan grapple",
     "bannan dig",
     "bannan east",
@@ -329,15 +333,33 @@ REGIONS = [
     "pirate ambush",
 
     # Goron Island
-    "goron",
+    "goron sw",
     "goron port house",
+    "goron shop",
+    "goron rock house",
+    "goron chu house",
+    "goron chu ledge",
     "goron chus",
     "goron grapple",
+    "goron shortcut",
+    "goron se",
+    "goron chief house",
+    "goron se house",
+    "goron mountain house",
     "goron quiz",
-    "goron north",
-    "goron outside temple",
-    "goron north bombchu",
     "goron chief 2",
+
+    "goron ne",
+    "goron maze south",
+    "goron maze north",
+    "goron maze nw",
+    "goron maze chu chest",
+    "goron maze north dead end",
+    "goron maze south dead end",
+    "goron maze spikes",
+    "goron maze spike chest",
+    "goron like like",
+    "goron outside temple",
 
     # Goron Temple
     "gt",

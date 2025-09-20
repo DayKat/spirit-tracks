@@ -58,7 +58,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay sw",
         "exit_region": "mercay oshus",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
         "two_way": True
     },
     "Mercay SW Apricot": {
@@ -68,7 +68,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay sw",
         "exit_region": "mercay apricot",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
         "two_way": True
     },
     "Mercay SW Sword Cave": {
@@ -78,7 +78,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay sw",
         "exit_region": "mercay sword cave",
         "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Mercay SW North": {
         "return_name": "Mercay NW South",
@@ -107,7 +107,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay se",
         "exit_region": "mercay milk bar",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Mercay SE Shipyard": {
         "return_name": "Inside Shipyard",
@@ -116,7 +116,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay se",
         "exit_region": "mercay shipyard",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Mercay SE Tuzi": {
         "return_name": "Tuzi House",
@@ -125,7 +125,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay se",
         "exit_region": "mercay tuzi",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Mercay SE Treasure Teller": {
         "return_name": "Treasure Teller House",
@@ -134,7 +134,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay se",
         "exit_region": "mercay treasure teller",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Mercay SE Shop": {
         "return_name": "Inside Mercay Shop",
@@ -143,7 +143,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay se",
         "exit_region": "mercay shop",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
 
     # =========== TotOK ==============
@@ -154,7 +154,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mercay island",
         "exit_region": "totok",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
 
     # =========== Ember Island ================
@@ -165,7 +165,7 @@ ENTRANCE_DATA = {
         "entrance_region": "ember port",
         "exit_region": "ember port house",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Ember Astrid House": {
         "return_name": "Inside Astrid House",
@@ -174,7 +174,7 @@ ENTRANCE_DATA = {
         "entrance_region": "ember port",
         "exit_region": "ember astrid",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Astrid House Stairs": {
         "return_name": "Astrid Basement",
@@ -192,7 +192,7 @@ ENTRANCE_DATA = {
         "entrance_region": "ember port",
         "exit_region": "ember kayo",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Ember West Coast South": {
         "return_name": "Ember East Coast South",
@@ -291,7 +291,7 @@ ENTRANCE_DATA = {
         "entrance_region": "ember outside tof",
         "exit_region": "tof 1f",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
         },
     "ToF Blaaz Warp": {
         "entrance": (0x2B, 0x0, 0x0),
@@ -323,7 +323,7 @@ ENTRANCE_DATA = {
         "entrance_region": "gust dig",
         "exit_region": "tow",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
         },
     "ToW Cyclok Warp": {
         "entrance": (0x2A, 0x0, 0x0),
@@ -342,7 +342,7 @@ ENTRANCE_DATA = {
         "entrance_region": "molida island",
         "exit_region": "molida port house",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
 
         # ========== Temple of Courage ============
@@ -353,7 +353,7 @@ ENTRANCE_DATA = {
         "entrance_region": "toc gates",
         "exit_region": "toc",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "ToC Crayk Warp": {
         "entrance": (0x2C, 0x0, 0x0),
@@ -370,10 +370,10 @@ ENTRANCE_DATA = {
         "return_name": "Goron Inside Port House",
         "entrance": (0x10, 0x2, 0x1),
         "exit": (0x10, 0xB, 0x0),
-        "entrance_region": "goron",
+        "entrance_region": "goron sw",
         "exit_region": "goron port house",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
 
     # ========== Goron Temple ============
@@ -384,7 +384,7 @@ ENTRANCE_DATA = {
         "entrance_region": "goron outside temple",
         "exit_region": "gt",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "GT Dongo Warp": {
         "entrance": (0x20, 0xA, 0x0),
@@ -403,7 +403,7 @@ ENTRANCE_DATA = {
         "entrance_region": "frost",
         "exit_region": "frost smart house",
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
 
 
@@ -415,7 +415,7 @@ ENTRANCE_DATA = {
         "entrance_region": "frost outside temple",
         "exit_region": "toi",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "ToI Gleeok Warp": {
         "entrance": (0x1f, 0x6, 0x0),
@@ -434,7 +434,7 @@ ENTRANCE_DATA = {
         "entrance_region": "ruins port",
         "exit_region": "ruins geozard cave east",
         "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
 
 
@@ -446,7 +446,7 @@ ENTRANCE_DATA = {
         "entrance_region": "ruins water",
         "exit_region": "mutoh",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "MT Eox Warp": {
         "entrance": (0x21, 0x6, 0x0),
@@ -691,7 +691,7 @@ ENTRANCE_DATA = {
         "entrance": (0x11, 0x1, 0x1),
         "exit": (0x24, 0x0, 0x1),
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Ruins NW Cave": {
         "return_name": "Ruins Cave Exit",
@@ -700,7 +700,7 @@ ENTRANCE_DATA = {
         "entrance": (0x12, 0x1, 0x2),
         "exit": (0x12, 0xB, 0x1),
         "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Ruins NW Across Bridge East": {
         "return_name": "Ruins NE Doylan Bridge One-Way West",
@@ -720,7 +720,7 @@ ENTRANCE_DATA = {
         "entrance": (0x11, 0x2, 0x1),
         "exit": (0x22, 0x0, 0x1),
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Doylan's Staircase": {
         "return_name": "Doylan's Chamber Exit",
@@ -729,7 +729,7 @@ ENTRANCE_DATA = {
         "entrance": (0x22, 0x0, 0x2),
         "exit": (0x22, 0x1, 0x1),
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Ruins SE Coast North": {
         "return_name": "Ruins NE Coast South",
@@ -821,7 +821,7 @@ ENTRANCE_DATA = {
         "exit": (0x23, 0x0, 0x1),
         "extra_data": {"conditional": ["ruins_water"]},
         "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
     },
     "Ruins SE Path to Temple North": {
         "return_name": "Ruins NE Path to Temple South",
@@ -1072,6 +1072,179 @@ ENTRANCE_DATA = {
         "coords": (185000, -164, -8192),
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.UP,
+    },
+    # Spirit
+    "Spirit Island Cave": {
+        "return_name": "Spirit Cave Exit",
+        "entrance_region": "spirit island",
+        "exit_region": "spirit cave",
+        "entrance": (0x17, 0x0, 0x1),
+        "exit": (0x17, 0x1, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    # Bannan
+    "Bannan Hut": {
+        "return_name": "Wayfarer Hut Exit",
+        "entrance_region": "bannan",
+        "exit_region": "bannan wayfarer",
+        "entrance": (0x14, 0x0, 0x2),
+        "exit": (0x14, 0x1, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Bannan West Cave": {
+        "return_name": "Bannan Cave West Exit",
+        "entrance_region": "bannan",
+        "exit_region": "bannan cave west",
+        "entrance": (0x14, 0x0, 0x5),
+        "exit": (0x14, 0xA, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Bannan East Cave": {
+        "return_name": "Bannan Cave East Exit",
+        "entrance_region": "bannan east",
+        "exit_region": "bannan cave east",
+        "entrance": (0x14, 0x0, 0x4),
+        "exit": (0x14, 0xA, 0x1),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    # Goron
+    "Goron Mountain House": {
+        "return_name": "Goron Mountain House Exit",
+        "entrance_region": "goron se",
+        "exit_region": "goron mountain house",
+        "entrance": (0x10, 0x3, 0x2),
+        "exit": (0x10, 0xF, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Goron Chu House": {
+        "return_name": "Goron Chu House Exit",
+        "entrance_region": "goron sw",
+        "exit_region": "goron chu house",
+        "entrance": (0x10, 0x2, 0x3),
+        "exit": (0x10, 0xD, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Goron Rock House": {
+        "return_name": "Goron Rock House Exit",
+        "entrance_region": "goron sw",
+        "exit_region": "goron rock house",
+        "entrance": (0x10, 0x2, 0x2),
+        "exit": (0x10, 0xC, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Goron Shop": {
+        "return_name": "Goron Shop Exit",
+        "entrance_region": "goron sw",
+        "exit_region": "goron shop",
+        "entrance": (0x10, 0x2, 0x4),
+        "exit": (0x10, 0x14, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Goron SW North": {
+        "return_name": "Goron NW South",
+        "entrance_region": "goron sw",
+        "exit_region": "goron shortcut",
+        "entrance": (0x10, 0x2, 0xFC),
+        "exit": (0x10, 0x0, 0xFB),
+        "coords": (-140000, 9666, -8192),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+    },
+    "Goron SE House": {
+        "return_name": "Goron SE House Exit",
+        "entrance_region": "goron se",
+        "exit_region": "goron se house",
+        "entrance": (0x10, 0x3, 0x1),
+        "exit": (0x10, 0xE, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Goron Chief House": {
+        "return_name": "Goron Chief House Exit",
+        "entrance_region": "goron se",
+        "exit_region": "goron chief house",
+        "entrance": (0x10, 0x3, 0x0),
+        "exit": (0x10, 0xA, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+    },
+    "Goron SW Coast East": {
+        "return_name": "Goron SE Coast West",
+        "entrance_region": "goron se",
+        "exit_region": "goron sw",
+        "entrance": (0x10, 0x2, 0xFD),
+        "exit": (0x10, 0x3, 0xFE),
+        "coords": (-8000, 4751, 70000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+    },
+    "Goron SW Mountains East": {
+        "return_name": "Goron SE Mountains West",
+        "entrance_region": "goron se",
+        "exit_region": "goron sw",
+        "entrance": (0x10, 0x2, 0xFD),
+        "exit": (0x10, 0x3, 0xFE),
+        "coords": (-8000, 9666, 22500),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+    },
+    "Goron SE North": {
+        "return_name": "Goron NE South",
+        "entrance_region": "goron se",
+        "exit_region": "goron ne",
+        "entrance": (0x10, 0x3, 0xFC),
+        "exit": (0x10, 0x1, 0xFB),
+        "coords": (148000, 9666, -8192),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+    },
+    "Goron South Dead End": {
+        "return_name": "Goron Maze West Mountain",
+        "entrance_region": "goron maze south dead end",
+        "exit_region": "goron maze south",
+        "entrance": (0x10, 0x0, 0xFD),
+        "exit": (0x10, 0x1, 0xFE),
+        "coords": (-8000, 4751, -60000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+    },
+    "Goron North Dead End": {
+        "return_name": "Goron Maze West Middle",
+        "entrance_region": "goron maze north dead end",
+        "exit_region": "goron maze north",
+        "entrance": (0x10, 0x0, 0xFD),
+        "exit": (0x10, 0x1, 0xFE),
+        "coords": (-8000, 4751, -102000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+    },
+    "Goron NW East Coast": {
+        "return_name": "Goron Maze West Coast",
+        "entrance_region": "goron like like",
+        "exit_region": "goron maze nw",
+        "entrance": (0x10, 0x0, 0xFD),
+        "exit": (0x10, 0x1, 0xFE),
+        "coords": (-8000, 4751, -122000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+    },
+    "Goron NW East Middle": {
+        "return_name": "Goron Maze Spikes",
+        "entrance_region": "goron like like",
+        "exit_region": "goron maze spikes",
+        "entrance": (0x10, 0x0, 0xFD),
+        "exit": (0x10, 0x1, 0xFE),
+        "coords": (-8000, 4751, -82000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
     },
 }
 

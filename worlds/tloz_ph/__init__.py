@@ -344,6 +344,8 @@ class PhantomHourglassWorld(World):
         # Switch states etc
         self.create_event("bremeur kings key", "_ruins_lower_water")
         self.create_event("gust sandworms", "_windmills")
+        self.create_event("goron chus", "_goron_chus")
+        self.create_event("goron maze south", "_goron_maze_switch")
         # Goal
         self.create_event("goal", "_beaten_game")
 

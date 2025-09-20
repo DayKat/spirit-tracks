@@ -1564,7 +1564,7 @@ LOCATIONS_DATA = {
         "id": 144,
     },
     "Isle of Gust East Cliff Dig": {
-        "region_id": "gust cliff dig",
+        "region_id": "gust cliffs dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xe,
         "floor_id": 0x0,
@@ -2064,7 +2064,7 @@ LOCATIONS_DATA = {
         "id": 192,
     },
     "Goron Island North Bombchu Switch Chest": {
-        "region_id": "goron north bombchu",
+        "region_id": "goron maze chu chest",
         "stage_id": 0x10,
         "floor_id": 0x1,
         "vanilla_item": "Treasure Map #18 (Cannon S)",
@@ -2073,7 +2073,7 @@ LOCATIONS_DATA = {
         "id": 193,
     },
     "Goron Island North Dead End Chest": {
-        "region_id": "goron north",
+        "region_id": "goron maze north dead end",
         "stage_id": 0x10,
         "floor_id": 0x0,
         "vanilla_item": "Big Green Rupee (100)",
@@ -2081,7 +2081,7 @@ LOCATIONS_DATA = {
         "id": 194,
     },
     "Goron Island North Spike Chest": {
-        "region_id": "goron outside temple",
+        "region_id": "goron maze spike chest",
         "stage_id": 0x10,
         "floor_id": 0x1,
         "vanilla_item": "Power Gem",
