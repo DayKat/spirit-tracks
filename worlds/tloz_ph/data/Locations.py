@@ -1541,14 +1541,14 @@ LOCATIONS_DATA = {
     # ========== Gust Island ============
 
     "Isle of Gust Hideout Chest": {
-        "region_id": "gust",
+        "region_id": "gust hideout",
         "vanilla_item": "Courage Gem",
         "stage_id": 0xe,
         "floor_id": 0xa,
         "id": 142,
     },
     "Isle of Gust Miblin Cave North Chest": {
-        "region_id": "gust combat",
+        "region_id": "gust cave damage",
         "vanilla_item": "Treasure Map #7 (Gusts E)",
         "stage_id": 0xe,
         "floor_id": 0xb,
@@ -1556,7 +1556,7 @@ LOCATIONS_DATA = {
         "id": 143,
     },
     "Isle of Gust Miblin Cave South Chest": {
-        "region_id": "gust",
+        "region_id": "gust cave",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0xe,
         "floor_id": 0xb,
@@ -1564,7 +1564,7 @@ LOCATIONS_DATA = {
         "id": 144,
     },
     "Isle of Gust East Cliff Dig": {
-        "region_id": "gust dig",
+        "region_id": "gust cliff dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xe,
         "floor_id": 0x0,
@@ -1573,7 +1573,7 @@ LOCATIONS_DATA = {
         "id": 145,
     },
     "Isle of Gust West Cliff Chest": {
-        "region_id": "gust dig",
+        "region_id": "gust west chest",
         "vanilla_item": "Power Gem",
         "stage_id": 0xe,
         "floor_id": 0x0,
@@ -1581,7 +1581,7 @@ LOCATIONS_DATA = {
         "id": 146,
     },
     "Isle of Gust NW Dig": {
-        "region_id": "gust dig",
+        "region_id": "gust nw dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xe,
         "floor_id": 0x1,
@@ -1591,7 +1591,7 @@ LOCATIONS_DATA = {
         "id": 147,
     },
     "Isle of Gust Sandworm Chest": {
-        "region_id": "gust dig",
+        "region_id": "gust sandworms",
         "vanilla_item": "Treasure Map #8 (Mercay SE)",
         "stage_id": 0xe,
         "floor_id": 0x1,

@@ -261,9 +261,21 @@ REGIONS = [
     "porl trade",
 
     # Isle of Gust
-    "gust",
-    "gust combat",
-    "gust dig",
+    "gust south",
+    "gust hideout",
+    "gust cave",
+    "gust cave damage",
+    "gust cliffs",
+    "gust temple road",
+    "gust outside temple",
+    "gust cliffs dig",
+    "gust west",
+    "gust above temple",
+    "gust west ledge",
+    "gust west chest",
+    "gust nw",
+    "gust nw dig",
+    "gust sandworms",
 
     # Temple of Wind
     "tow",

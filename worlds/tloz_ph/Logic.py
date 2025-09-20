@@ -297,7 +297,7 @@ def make_overworld_logic():
         ["nw ocean", "sw ocean east", False, "sea_chart", "SW"],
         ["nw ocean", "frog warps", False, None],
         ["nw ocean", "nw ocean frog n", False, "cannon"],
-        ["gust boat", "gust", True, None],
+        ["gust boat", "gust south", True, None],
         ["gust boat", "nw ocean", True, "require_chart", "NW"],
         ["bannan boat", "bannan", True, None],
         ["bannan boat", "nw ocean", True, "require_chart", "NW"],
@@ -312,9 +312,26 @@ def make_overworld_logic():
 
         # ================= Isle of Gust ====================
 
-        ["gust", "gust combat", False, "cave_damage"],
-        ["gust", "gust dig", False, "shovel"],
-        ["gust dig", "tow", True, None],
+        ["gust south", "gust hideout", True, None],
+        ["gust south", "gust cave", True, None],
+        ["gust cave", "gust cave damage", False, "cave_damage"],
+        ["gust cave", "gust cliffs", True, None],
+        ["gust cliffs", "gust south", False, None],
+        ["gust cliffs", "gust cliffs dig", False, "shovel"],
+        ["gust cliffs", "gust temple road", True, None],
+        ["gust cliffs", "gust above temple", True, None],
+        ["gust above temple", "gust west", True, None],
+        ["gust west", "gust west dig", False, "shovel"],
+        ["gust west", "gust west ledge", False, "shovel"],
+        ["gust west ledge", "gust west", False, None],
+        ["gust west ledge", "gust nw", True, None],
+        ["gust nw", "gust nw dig", False, "shovel"],
+        ["gust nw", "gust sandworms", True, "shovel"],
+        ["gust sandworms", "gust above temple", True, "has", "_windmills"],
+        ["gust above temple", "gust temple road", False, None],
+        ["gust temple road", "gust outside temple", False,  "has", "_windmills"],
+        ["gust outside temple", "gust temple road", False, None],
+        ["gust outside temple", "tow", True, None],
 
         # ================= Temple of Wind ====================
 

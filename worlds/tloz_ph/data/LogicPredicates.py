@@ -571,7 +571,7 @@ def ph_can_buy_bomb_bag(state: CollectionState, player: int):
 # ============ Option states =============
 
 def ph_option_glitched_logic(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.logic == "glitched" or state.has("_UT_Glitched_logic", player)
+    return state.multiworld.worlds[player].options.logic == "glitched" or state.has("_UT_Glitched_Logic", player)
 
 
 def ph_option_normal_logic(state: CollectionState, player: int):
@@ -580,7 +580,7 @@ def ph_option_normal_logic(state: CollectionState, player: int):
 
 def ph_option_hard_logic(state: CollectionState, player: int):
     return (state.multiworld.worlds[player].options.logic in ["hard", "glitched"]
-            or state.has("_UT_Glitched_logic", player))
+            or state.has("_UT_Glitched_Logic", player))
 
 
 def ph_option_not_glitched_logic(state: CollectionState, player: int):
@@ -811,7 +811,7 @@ def ph_is_ut(state: CollectionState, player: int):
 
 
 def ph_UT_glitched_logic(state, player):
-    return state.has("_UT_Glitched_logic", player)
+    return state.has("_UT_Glitched_Logic", player)
 
 
 # ============= Key logic ==============

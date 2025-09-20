@@ -1319,7 +1319,7 @@ ITEMS_DATA = {
         "size": 1,
         "id": 188,
     },
-    "_UT_Glitched_logic": {
+    "_UT_Glitched_Logic": {
         "classification": ItemClassification.progression,
         "dummy": True,
         "id": 189,

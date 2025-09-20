@@ -120,12 +120,12 @@ class PhantomHourglassWorld(World):
     item_name_groups = ITEM_GROUPS
     origin_region_name = "mercay sw"
 
-    glitches_item_name = "_UT_Glitched_logic"
+    glitches_item_name = "_UT_Glitched_Logic"
     ut_can_gen_without_yaml = True
     location_id_to_alias: Dict[int, str]
     tracker_world = {"map_page_folder": "tracker", "map_page_maps": "maps/maps.json",
                      "map_page_locations": "locations/locations.json"}
-    found_entrances_datastorage_key = "ph_checked_entrances_{player}"
+    found_entrances_datastorage_key = "ph_checked_entrances_{player}_{team}"
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -343,6 +343,7 @@ class PhantomHourglassWorld(World):
         self.create_event("mercay treasure teller", "_has_treasure_teller")
         # Switch states etc
         self.create_event("bremeur kings key", "_ruins_lower_water")
+        self.create_event("gust sandworms", "_windmills")
         # Goal
         self.create_event("goal", "_beaten_game")
 
@@ -703,6 +704,8 @@ class PhantomHourglassWorld(World):
             "death_link"
         ]
         slot_data = self.options.as_dict(*options)
+        slot_data["player_id"] = self.player
+
         # Used to make excluded dungeons consistent for UT
         slot_data["required_dungeons"] = self.required_dungeons
         # Used to determine if reached goal in client

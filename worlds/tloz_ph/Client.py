@@ -768,8 +768,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
         return None
 
-    async def update_stored_entrances(self, ctx):
-        storage_key = f"ph_checked_entrances_{ctx.slot}"
+    async def update_stored_entrances(self, ctx: "BizHawkClientContext"):
+        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
         stored_entrances = await ctx.send_msgs([{
                 "cmd": "Get",
                 "keys": [storage_key],
@@ -781,7 +781,7 @@ class PhantomHourglassClient(DSZeldaClient):
     # UT store entrances to remove
     async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data):
         old_visited_entrances = self.visited_entrances.copy()
-        storage_key = f"ph_checked_entrances_{ctx.slot}"
+        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
         self.visited_entrances.add(detect_data.id)
         self.visited_entrances.add(exit_data.id)
         print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
@@ -793,6 +793,11 @@ class PhantomHourglassClient(DSZeldaClient):
                 "operations": [{"operation": "update", "value": list(self.visited_entrances-old_visited_entrances)}]
             }])
 
+    def write_respawn_entrance(self, exit_data: "PhantomHourglassEntrance"):
+        # If ER:ing to sea, set respawn entrance to where you came from cause that doesn't change by itself when warping
+        if exit_data.stage == 0:
+            return [(0x1B2F12, [exit_data.room, exit_data.entrance[2]], "Main RAM")]
+        return []
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
