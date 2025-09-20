@@ -363,6 +363,12 @@ def ph_has_mid_range(state: CollectionState, player: int):
                 ph_has_beam_sword(state, player)])
 
 
+def ph_cuccoo_dig(state, player):
+    return all([
+        ph_has_shovel(state, player),
+        ph_has_grapple(state, player)
+    ])
+
 def ph_has_mid_range_pots(state, player):
     return any([
         ph_has_mid_range(state, player),
@@ -2419,6 +2425,7 @@ RULE_DICT = {
     "super_shield": ph_has_super_shield,
     "beam_sword": ph_has_beam_sword,
     "sword_beams": ph_has_beam_sword,
+    "cuccoo_dig": ph_cuccoo_dig,
     "can_make_phantom_sword": ph_can_make_phantom_sword,
     "can_hit_spin_switches": ph_can_hit_spin_switches,
     "can_hit_spiral_wall_switches": ph_spiral_wall_switches,

@@ -167,8 +167,15 @@ REGIONS = [
 
     # Cannon Island
     "cannon island",
+    "cannon fuzo",
+    "cannon eddo",
+    "cannon cave south",
+    "cannon cave north",
     "cannon island salvage arm",
     "cannon island dig",
+    "cannon bomb garden dig",
+    "cannon outside eddo",
+    "cannon bomb garden",
 
     # Ember ER
     "ember port",
@@ -210,10 +217,24 @@ REGIONS = [
     # Molida Island
     "molida island",
     "molida port house",
+    "molida potato house",
+    "molida shop",
+    "molida romaros",
+    "molida cave",
+    "molida cave upper",
+    "molida cave drop",
+    "molida cave sun door",
     "molida dig",
-    "molida grapple",
+    "molida cave grapple",
     "molida cave back",
-    "molida cave back dig",
+    "molida cave geozard",
+    "molida cave geozard dig",
+    "molida cave post geozard",
+    "molida cave octos",
+    "molida shovel cave",
+    "molida shovel cave dig",
+    "molida cliff north",
+    "molida cliff south",
     "molida cuccoo dig",
     "molida north",
     "molida north grapple",
@@ -442,10 +463,15 @@ REGIONS = [
     "ne ocean inner",
 
     # Isle of the Dead
-    "iotd",
-    "iotd rupoor",
-    "iotd dig",
+    "iotd port",
     "iotd cave",
+    "iotd rupoor",
+    "iotd",
+    "iotd tunnel",
+    "iotd tunnel cave",
+    "iotd face",
+    "iotd temple",
+    "iotd crown",
 
     # ruins er
     "ruins port",

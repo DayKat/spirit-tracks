@@ -181,8 +181,19 @@ def make_overworld_logic():
 
         # ============ Cannon Island ===============
 
-        ["cannon island", "cannon island salvage arm", False, "courage_crest"],
-        ["cannon island", "cannon island dig", False, "spade"],
+        ["cannon island", "cannon fuzo", True, None],
+        ["cannon island", "cannon island dig", False, "shovel"],
+        ["cannon island", "cannon cave south", True, None],
+        ["cannon cave south", "cannon cave north", False, None],
+        ["cannon cave north", "cannon bomb garden", True, None],
+        ["cannon bomb garden", "cannon outside eddo", False, None],
+        ["cannon outside eddo", "cannon bomb garden", False, "explosives"],
+        ["cannon bomb garden", "cannon island", False, None],
+        ["cannon outside eddo", "cannon island", False, "glitched_logic"],
+        ["cannon outside eddo", "cannon eddo", True, None],
+        ["cannon fuzo", "cannon eddo", True, "has", "_eddo_door"],
+        ["cannon eddo", "cannon island salvage arm", False, "courage_crest"],
+        ["cannon bomb garden", "cannon bomb garden dig", False, "shovel"],
 
         # =============== Isle of Ember ================
 
@@ -239,15 +250,37 @@ def make_overworld_logic():
 
         ["molida island", "molida dig", False, "spade"],
         ["molida island", "molida port house", True, None],
-        ["molida island", "molida grapple", False, "grapple"],
-        ["molida island", "molida cave back", False, "cave_damage"],
-        ["molida cave back", "molida cave back dig", False, "spade"],
-        ["molida cave back dig", "molida cuccoo dig", False, "grapple"],
-        ["molida dig", "molida north", False, "sun_key"],
+        ["molida island", "molida potato house", True, None],
+        ["molida island", "molida shop", True, None],
+        ["molida island", "molida romaros", True, None],
+        ["molida romaros", "molida archery", False, "has", "_beat_toc"],
+        ["molida island", "molida cave", True, None],
+        ["molida island", "molida cave upper", False, "shovel"],
+
+        ["molida cave upper", "molida cave", False, None],
+        ["molida cave", "molida cave grapple", False, "grapple"],
+        ["molida cave", "molida cave geozard", False, None],
+        ["molida cave geozard", "molida cave geozard dig", False, "shovel"],
+        ["molida cave geozard", "molida cave post geozard", False, "cave_damage"],
+        ["molida cave post geozard", "molida cave octos", True, None],
+        ["molida cave", "molida cave back", False, "bombs"],
+        ["molida cave back", "molida cave", False, None],
+        ["molida cave back", "molida cave octos", True, None],
+        ["molida cave back", "molida shovel cave", True, None],
+        ["molida shovel cave", "molida shovel cave dig", False, "shovel"],
+        ["molida cave back", "molida cliff north", True, None],
+
+        ["molida cliff north", "molida cliff south", True, None],
+        ["molida cliff south", "molida island", False, None],
+        ["molida cliff south", "molida cuccoo dig", False, "cuccoo_dig"],
+
+        ["molida cave upper", "molida cave sun door", True, "sun_key"],
+        ["molida north", "molida cave drop", False, "shovel"],
+        ["molida cave drop", "molida cave sun door", False, None],
+        ["molida cave sun door", "molida north", True, None],
         ["molida north", "molida north grapple", False, "grapple"],
         ["molida north", "toc gates", False, "enter_toc"],
         ["toc gates", "toc", True, None],
-        ["molida island", "molida archery", False, "has", "_beat_toc"],
 
         # =============== Temple of Courage ================
 
@@ -534,7 +567,7 @@ def make_overworld_logic():
         ["ne ocean", "frog warps", False, None],
         ["ne ocean", "ne ocean frog", False, "cannon"],
         ["ne ocean", "ne ocean combat", False, "can_kill_blue_chu"],
-        ["dead boat", "iotd", True, None],
+        ["dead boat", "iotd port", True, None],
         ["dead boat", "ne ocean", True, "require_chart", "NE"],
         ["maze boat", "maze", True, None],
         ["maze boat", "ne ocean", True, "require_chart", "NE"],
@@ -544,9 +577,18 @@ def make_overworld_logic():
 
         # ================= IotD ====================
 
-        ["iotd", "iotd rupoor", False, "bombs"],
-        ["iotd", "iotd dig", False, "shovel"],
-        ["iotd dig", "iotd cave", False, "bombs"],
+        ["iotd port", "iotd cave", True, None],
+        ["iotd cave", "iotd rupoor", False, "bombs"],
+        ["iotd rupoor", "iotd cave", False, None],
+        ["iotd cave", "iotd", False, None],
+        ["iotd", "iotd temple", False, None],
+        ["iotd", "iotd tunnel", False, "shovel"],
+        ["iotd tunnel", "iotd tunnel cave", False, "bombs"],
+        ["iotd tunnel cave", "iotd tunnel", False, None],
+        ["iotd tunnel", "iotd face", True, None],
+        ["iotd face", "iotd", False, None],
+        ["iotd temple", "iotd crown", True, None],
+        ["iotd crown", "iotd", False, None],
 
         # ================= Isle of Ruins ====================
 

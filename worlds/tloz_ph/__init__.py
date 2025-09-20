@@ -346,6 +346,7 @@ class PhantomHourglassWorld(World):
         self.create_event("gust sandworms", "_windmills")
         self.create_event("goron chus", "_goron_chus")
         self.create_event("goron maze south", "_goron_maze_switch")
+        self.create_event("cannon eddo", "_eddo_door")
         # Goal
         self.create_event("goal", "_beaten_game")
 

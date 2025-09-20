@@ -910,14 +910,14 @@ LOCATIONS_DATA = {
         "id": 79,
     },
     "Cannon Island Cave Chest": {
-        "region_id": "cannon island",
+        "region_id": "cannon cave south",
         "vanilla_item": "Power Gem",
         "stage_id": 0x28,
         "floor_id": 0x0,
         "id": 80,
     },
     "Cannon Island Cliff Chest": {
-        "region_id": "cannon island",
+        "region_id": "cannon bomb garden",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -925,7 +925,7 @@ LOCATIONS_DATA = {
         "id": 81,
     },
     "Cannon Island SE Dig": {
-        "region_id": "cannon island dig",
+        "region_id": "cannon bomb garden dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -936,7 +936,7 @@ LOCATIONS_DATA = {
         "id": 82,
     },
     "Cannon Island Bonk Tree": {
-        "region_id": "cannon island",
+        "region_id": "cannon bomb garden",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -949,7 +949,7 @@ LOCATIONS_DATA = {
         "id": 83,
     },
     "Cannon Island East Dig": {
-        "region_id": "cannon island dig",
+        "region_id": "cannon bomb garden dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -962,7 +962,7 @@ LOCATIONS_DATA = {
         "id": 84,
     },
     "Cannon Island Cannon": {
-        "region_id": "cannon island",
+        "region_id": "cannon eddo",
         "vanilla_item": "Nothing!",
         "item_override": "Cannon",
         "stage_id": 0x13,
@@ -1125,7 +1125,7 @@ LOCATIONS_DATA = {
     # ========== Molida Island ============
 
     "Molida Island 2nd House Chest": {
-        "region_id": "molida island",
+        "region_id": "molida potato house",
         "vanilla_item": "Treasure",
         "stage_id": 0xc,
         "floor_id": 0xd,
@@ -1144,7 +1144,7 @@ LOCATIONS_DATA = {
         "id": 102,
     },
     "Molida Cave Wayfarer Hideaway Chest": {
-        "region_id": "molida dig",
+        "region_id": "molida cave upper",
         "vanilla_item": "Treasure Map #2 (Mercay NE)",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1153,7 +1153,7 @@ LOCATIONS_DATA = {
         "id": 103,
     },
     "Molida Cave Grapple Chest": {
-        "region_id": "molida grapple",
+        "region_id": "molida cave grapple",
         "vanilla_item": "Power Gem",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1162,7 +1162,7 @@ LOCATIONS_DATA = {
         "id": 104,
     },
     "Molida Cave Geozard Dig": {
-        "region_id": "molida dig",
+        "region_id": "molida cave geozard dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1172,7 +1172,7 @@ LOCATIONS_DATA = {
         "id": 105,
     },
     "Molida Cave Shovel Chest": {
-        "region_id": "molida cave back",
+        "region_id": "molida shovel cave",
         "vanilla_item": "Shovel",
         "stage_id": 0xc,
         "floor_id": 0xf,
@@ -1182,7 +1182,7 @@ LOCATIONS_DATA = {
         "id": 106,
     },
     "Molida Cave Shovel Room Dig": {
-        "region_id": "molida cave back dig",
+        "region_id": "molida shovel cave dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
         "floor_id": 0xf,
@@ -1192,7 +1192,7 @@ LOCATIONS_DATA = {
         "id": 107,
     },
     "Molida Island Cliff Chest": {
-        "region_id": "molida cave back",
+        "region_id": "molida cliff north",
         "vanilla_item": "Treasure",
         "stage_id": 0xc,
         "floor_id": 0x1,
@@ -1222,7 +1222,7 @@ LOCATIONS_DATA = {
         "id": 110,
     },
     "Molida Island North Dig Chest": {
-        "region_id": "molida north",
+        "region_id": "molida cave drop",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -2612,14 +2612,14 @@ LOCATIONS_DATA = {
         "id": 246,
     },
     "Isle of the Dead Face Cave Chest": {
-        "region_id": "iotd cave",
+        "region_id": "iotd tunnel cave",
         "vanilla_item": "Power Gem",
         "stage_id": 0x15,
         "floor_id": 0x4,
         "id": 247,
     },
     "Isle of the Dead Face Chest": {
-        "region_id": "iotd dig",
+        "region_id": "iotd face",
         "vanilla_item": "Treasure Map #29 (Maze W)",
         "stage_id": 0x15,
         "floor_id": 0x0,
@@ -2627,7 +2627,7 @@ LOCATIONS_DATA = {
         "id": 248,
     },
     "Isle of the Dead Regal Necklace Chest": {
-        "region_id": "iotd",
+        "region_id": "iotd crown",
         "vanilla_item": "Regal Necklace",
         "stage_id": 0x15,
         "floor_id": 0x0,
