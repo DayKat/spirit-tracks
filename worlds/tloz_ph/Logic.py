@@ -362,13 +362,16 @@ def make_overworld_logic():
         # ================= Zauz's Island ====================
 
         ["zauz", "zauz dig", False, "shovel"],
-        ["zauz", "zauz blade", False, "has_zauz_required_metals"],
-        ["ghost ship tetra", "zauz crest", False, None],
+        ["zauz", "zauz house", True, None],
+        ["zauz house", "zauz blade", False, "has_zauz_required_metals"],
+        ["zauz house", "zauz crest", False, "has", "_beat_ghost_ship"],
 
         # ================= Uncharted Island ====================
 
         ["uncharted", "uncharted dig", False, "shovel"],
-        ["uncharted", "uncharted cave", False, "sword"],
+        ["uncharted", "uncharted outside cave", False, "sword"],
+        ["uncharted outside cave", "uncharted cave", True, None],
+        ["uncharted cave", "uncharted inner cave", True, None],
         ["uncharted cave", "uncharted grapple", False, "grapple"],
 
         # ================= Ghost Ship ====================
@@ -392,7 +395,7 @@ def make_overworld_logic():
         ["se ocean", "se ocean trade", False, "kaleidoscope"],
         ["se ocean", "frost boat", False, "can_pass_sea_monsters"],
         ["frost boat", "se ocean", False, "require_chart", "SE"],
-        ["frost boat", "iof", True, None],
+        ["frost boat", "frost", True, None],
         ["harrow boat", "harrow", True, None],
         ["harrow boat", "se ocean", True, "require_chart", "SE"],
         ["ds boat", "ds", True, None],
@@ -438,12 +441,45 @@ def make_overworld_logic():
 
         # ================= Isle of Frost ====================
 
-        ["iof", "iof grapple", False, "grapple"],
-        ["iof", "iof smart house", True, None],
-        ["iof", "iof dig", False, "shovel"],
-        ["iof grapple", "iof grapple dig", False, "shovel"],
-        ["iof", "iof yook", False, "damage"],
-        ["iof yook", "toi", True, None],
+        ["frost", "frost grapple", False, "grapple"],
+        ["frost", "frost dig", False, "spade"],
+        ["frost", "frost smart house", True, None],
+        ["frost", "frost sensitive house", True, None],
+        ["frost", "frost chief house", True, None],
+        ["frost", "frost estate", True, None],
+        ["frost", "frost cave", True, None],
+
+        ["frost estate", "frost fofo", True, None],
+        ["frost estate", "frost kumu", True, None],
+        ["frost estate", "frost dobo", True, None],
+        ["frost estate", "frost gumo", True, None],
+        ["frost estate", "frost aroo", True, None],
+        ["frost estate", "frost mazo", True, None],
+        ["frost estate", "frost estate dig", False, "shovel"],
+        ["frost estate dig", "frost estate grapple dig", False, "grapple"],
+
+        ["frost cave", "frost field", True, None],
+        ["frost field", "frost field exit", False, "yook"],
+        ["frost field", "frost field upper se", False, "grapple"],
+        ["frost field upper se", "frost field", False, None],
+        ["frost field upper se", "frost field upper chests", False, "grapple"],
+        ["frost field upper se", "frost field east ledge", False, None],
+        ["frost field upper se", "frost field upper north", True, "grapple"],
+        ["frost field upper se", "frost field exit", False, None],
+        ["frost field upper north", "frost field", False, None],
+        ["frost field upper north", "frost field exit", False, None],
+        ["frost field upper north", "frost above temple east", True, None],
+        ["frost field upper se", "frost above temple west", True, None],
+        ["frost field exit", "frost outside arena", True, None],
+
+        ["frost above temple east", "frost outside arena", False, None],
+        ["frost above temple west", "frost outside arena", False, None],
+        ["frost outside arena", "frost arena", False, None],
+        ["frost arena", "frost outside arena", False, "damage"],
+        ["frost arena", "frost outside temple", False, "damage"],
+        ["frost arena", "frost above temple east", False, "grapple"],
+        ["frost outside temple", "frost arena", False, None],
+        ["frost outside temple", "toi", True, None],
 
         # ================= Ice Temple ====================
 

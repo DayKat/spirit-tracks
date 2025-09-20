@@ -301,13 +301,16 @@ REGIONS = [
     # Zauz
     "zauz",
     "zauz dig",
+    "zauz house",
     "zauz crest",
     "zauz blade",
 
     # Uncharted
     "uncharted",
+    "uncharted outside cave",
     "uncharted dig",
     "uncharted cave",
+    "uncharted inner cave",
     "uncharted grapple",
 
     # Ghost Ship
@@ -361,12 +364,37 @@ REGIONS = [
     "ds race",
 
     # Isle of Frost
-    "iof",
-    "iof smart house",
-    "iof grapple",
-    "iof dig",
-    "iof grapple dig",
-    "iof yook",
+    "frost",
+    "frost smart house",
+    "frost sensitive house",
+    "frost chief house",
+    "frost grapple",
+    "frost dig",
+
+    "frost estate",
+    "frost estate dig",
+    "frost estate grapple dig",
+    "frost fofo",
+    "frost kumu",
+    "frost dobo",
+    "frost gumo",
+    "frost aroo",
+    "frost mazo",
+
+    "frost cave",
+
+    "frost field",
+    "frost field exit",
+    "frost field upper north",
+    "frost field upper se",
+    "frost field upper chests",
+    "frost field east ledge",
+
+    "frost above temple east",
+    "frost above temple west",
+    "frost outside arena",
+    "frost arena",
+    "frost outside temple",
 
     # Temple of Ice
     "toi",

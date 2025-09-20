@@ -1859,7 +1859,7 @@ LOCATIONS_DATA = {
         "id": 172,
     },
     "Uncharted Island Cyclone Slate": {
-        "region_id": "uncharted cave",
+        "region_id": "uncharted inner cave",
         "vanilla_item": "Cyclone Slate",
         "stage_id": 0x1a,
         "floor_id": 0xb,
@@ -2322,7 +2322,7 @@ LOCATIONS_DATA = {
     # ========== Frost Island ============
 
     "Isle of Frost Nobodo Grapple Chest": {
-        "region_id": "iof grapple",
+        "region_id": "frost grapple",
         "stage_id": 0xf,
         "floor_id": 0x0,
         "vanilla_item": "Wisdom Gem",
@@ -2330,7 +2330,7 @@ LOCATIONS_DATA = {
         "id": 218,
     },
     "Isle of Frost Chief House Dig": {
-        "region_id": "iof dig",
+        "region_id": "frost dig",
         "stage_id": 0xf,
         "floor_id": 0x0,
         "vanilla_item": "Big Green Rupee (100)",
@@ -2339,7 +2339,7 @@ LOCATIONS_DATA = {
         "id": 219,
     },
     "Isle of Frost Estate Sign Dig": {
-        "region_id": "iof dig",
+        "region_id": "frost estate dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
         "vanilla_item": "Big Red Rupee (200)",
@@ -2348,7 +2348,7 @@ LOCATIONS_DATA = {
         "id": 220,
     },
     "Isle of Frost Fofo Dig (SE)": {
-        "region_id": "iof dig",
+        "region_id": "frost estate dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
         "vanilla_item": "Big Green Rupee (100)",
@@ -2360,7 +2360,7 @@ LOCATIONS_DATA = {
         "id": 221,
     },
     "Isle of Frost Dobo Dig (SW)": {
-        "region_id": "iof dig",
+        "region_id": "frost estate dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
         "vanilla_item": "Big Green Rupee (100)",
@@ -2372,7 +2372,7 @@ LOCATIONS_DATA = {
         "id": 222,
     },
     "Isle of Frost Estate SW Island Dig": {
-        "region_id": "iof dig",
+        "region_id": "frost estate dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
         "vanilla_item": "Treasure Map #19 (Gusts NE)",
@@ -2380,7 +2380,7 @@ LOCATIONS_DATA = {
         "id": 223,
     },
     "Isle of Frost Estate SE Island Dig": {
-        "region_id": "iof grapple dig",
+        "region_id": "frost estate grapple dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
         "vanilla_item": "Gold Rupee (300)",
@@ -2389,7 +2389,7 @@ LOCATIONS_DATA = {
         "id": 224,
     },
     "Isle of Frost Ice Field South Ledge West Chest": {
-        "region_id": "iof grapple",
+        "region_id": "frost field upper chests",
         "stage_id": 0xf,
         "floor_id": 0x3,
         "vanilla_item": "Red Rupee (20)",
@@ -2400,7 +2400,7 @@ LOCATIONS_DATA = {
         "id": 225,
     },
     "Isle of Frost Ice Field South Ledge East Chest": {
-        "region_id": "iof grapple",
+        "region_id": "frost field upper chests",
         "stage_id": 0xf,
         "floor_id": 0x3,
         "vanilla_item": "Red Rupee (20)",
@@ -2411,7 +2411,7 @@ LOCATIONS_DATA = {
         "id": 226,
     },
     "Isle of Frost Ice Field SE Ledge Chest": {
-        "region_id": "iof grapple",
+        "region_id": "frost field upper chests",
         "stage_id": 0xf,
         "floor_id": 0x3,
         "vanilla_item": "Big Green Rupee (100)",
@@ -2419,7 +2419,7 @@ LOCATIONS_DATA = {
         "id": 227,
     },
     "Isle of Frost Ice Field East Ledge Chest": {
-        "region_id": "iof grapple",
+        "region_id": "frost field east ledge",
         "stage_id": 0xf,
         "floor_id": 0x3,
         "vanilla_item": "Power Gem",

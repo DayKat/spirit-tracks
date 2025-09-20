@@ -278,6 +278,12 @@ def ph_can_kill_bat(state: CollectionState, player: int):
         ph_has_boomerang(state, player)
     ])
 
+def ph_can_kill_yook(state: CollectionState, player: int):
+    return any([
+        ph_has_damage(state, player),
+        ph_option_hard_logic(state, player)
+        ])
+
 
 def ph_can_kill_blue_chu(state: CollectionState, player: int):
     return any([
@@ -2391,7 +2397,7 @@ RULE_DICT = {
     "frog_square": ph_has_frog_square,
     "frog_se": ph_has_se_frogs,
     "treasure_map": ph_has_treasure_map,
-    # Combind States
+    # Combined States
     "explosives": ph_has_explosives,
     "boom": ph_has_explosives,
     "damage": ph_has_damage,
@@ -2401,6 +2407,8 @@ RULE_DICT = {
     "can_kill_phantom_eye": ph_can_kill_phantom_eyes,
     "can_kill_eye_brute": ph_can_kill_eye_brute,
     "can_kill_bubble": ph_can_kill_bubble,
+    "can_kill_yook": ph_can_kill_yook,
+    "yook": ph_can_kill_yook,
     "can_steal_from_phantom": ph_totok_phantom_steal_object,
     "range": ph_has_range,
     "long_range": ph_has_range,
