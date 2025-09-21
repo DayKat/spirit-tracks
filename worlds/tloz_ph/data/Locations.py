@@ -49,7 +49,7 @@ LOCATIONS_DATA = {
         "id": 4,
     },
     "Mercay North Bonk Tree": {
-        "region_id": "mercay island",
+        "region_id": "mercay ne",
         "stage_id": 0xb,
         "floor_id": 0x2,
         "y": 0x2666,
@@ -59,7 +59,7 @@ LOCATIONS_DATA = {
         "id": 5,
     },
     "Mercay Geozard Cave Chest": {
-        "region_id": "mercay zora cave",
+        "region_id": "mercay geozard cave north",
         "stage_id": 0xb,
         "floor_id": 0x10,
         "vanilla_item": "Power Gem",
@@ -68,7 +68,7 @@ LOCATIONS_DATA = {
         "id": 6,
     },
     "Mercay Geozard Cave South Chest West": {
-        "region_id": "mercay zora cave south",
+        "region_id": "mercay se ledge",
         "stage_id": 0xb,
         "floor_id": 0x3,
         "y": 0x2666,
@@ -79,7 +79,7 @@ LOCATIONS_DATA = {
         "id": 7,
     },
     "Mercay Geozard Cave South Chest East": {
-        "region_id": "mercay zora cave south",
+        "region_id": "mercay se ledge",
         "stage_id": 0xb,
         "floor_id": 0x3,
         "y": 0x2666,

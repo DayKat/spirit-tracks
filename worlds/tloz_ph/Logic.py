@@ -7,44 +7,80 @@ from .data.Entrances import ENTRANCES
 def make_overworld_logic():
     overworld_logic = [
 
+        # Randomized start
+        ["menu", "mercay sw", False, None],
+
         # ====== Mercay Island ==============
 
         ["mercay sw", "mercay dig spot", False, "shovel"],
-        ["mercay se", "mercay island", True, None],
-        ["mercay island", "mercay zora cave", False, "explosives"],
-        ["mercay zora cave", "mercay zora cave south", False, "bow"],
-        ["mercay island", "mercay zora cave south", False, "sword_scroll_clip"],
-        ["mercay island", "totok", True, None],
-        ["mercay island", "mercay freedle island", False, "explosives"],
-        ["mercay freedle island", "mercay freedle tunnel chest", False, "range"],
-        ["mercay freedle island", "mercay freedle gift", False, "sea_chart", "SE"],
-        ["mercay se", "mercay yellow guy", False, "courage_crest"],
         ["mercay oshus", "mercay oshus gem", False, "oshus_gem"],
         ["mercay oshus", "mercay oshus phantom blade", False, "can_make_phantom_sword"],
         ["mercay oshus phantom blade", "mercay oshus gem", False, None],
-
-        # ER
-        ["mercay island", "mercay sw", False, None],
         ["mercay sw", "mercay sw bridge", True, None],
         ["mercay sw", "mercay oshus", True, None],
         ["mercay sw", "mercay apricot", True, None],
         ["mercay sw", "mercay sword cave", True, None],
+        ["mercay sw", "mercay nw chus", True, False],
 
         ["mercay sw bridge", "mercay se", True, None],
         ["mercay se", "mercay tuzi", True, None],
         ["mercay se", "mercay milk bar", True, None],
         ["mercay se", "mercay shop", True, None],
+        ["mercay shop", "island shop", False, None],
         ["mercay se", "mercay shipyard", False, "has", "_beat_tof"],
         ["mercay shipyard", "mercay se", False, None],
         ["mercay se", "mercay treasure teller", False, "courage_crest"],
         ["mercay treasure teller", "mercay se", False, None],
+        ["mercay se", "mercay yellow guy", False, "courage_crest"],
+        ["mercay se", "mercay ne", True, False],
+        ["mercay se ledge", "mercay se", False, None],
 
+        ["mercay nw chus", "mercay nw bamboo", True, "can_cut_bamboo"],
+        ["mercay nw temple", "mercay geozard cave north", False, "explosives"],
+        ["mercay geozard cave north", "mercay nw temple", False, None],
+        ["mercay geozard cave north", "mercay geozard cave south", False, "bow"],
+        ["mercay geozard cave south", "mercay ne ledge", True, None],
+        ["mercay nw temple", "totok", True, None],
+
+        ["mercay ne", "mercay freedle tunnel", False, "explosives"],
+        ["mercay freedle tunnel", "mercay ne", False, None],
+        ["mercay freedle tunnel", "mercay freedle island", True, None],
+        ["mercay freedle island", "mercay ne", False, None],
+        ["mercay freedle tunnel", "mercay freedle tunnel chest", False, "range"],
+        ["mercay freedle island", "mercay freedle gift", False, "sea_chart", "SE"],
+        ["mercay ne", "mercay nw temple", True, None],
+        ["mercay ne ledge", "mercay ne", False, None],
+        ["mercay ne ledge", "mercay se ledge", True, None],
+
+        ["mercay nw temple", "mercay nw oob high", False, "scroll_clip"],
+        ["mercay nw oob high", "mercay nw temple", False, None],
+        ["mercay nw oob high", "mercay nw oob low", False, None],
+        ["mercay nw oob low", "mercay nw chus", False, None],
+        ["mercay nw oob low", "mercay nw bamboo", False, None],
+        ["mercay nw oob high", "mercay ne oob", True, None],
+        ["mercay nw oob high", "mercay sw oob high", True, None],
+        ["mercay nw oob high", "mercay sw oob east", True, None],
+        ["mercay nw oob low", "mercay sw oob low", True, None],
+
+        ["mercay sw oob high", "mercay sw oob low", False, None],
+        ["mercay sw oob low", "mercay sw", False, None],
+        ["mercay sw oob east", "mercay sw bridge", False, None],
+        ["mercay sw oob east", "mercay se oob", True, None],
+
+        ["mercay se oob", "mercay se ledge", False, None],
+        ["mercay se oob", "mercay ne oob", True, None],
+        ["mercay ne oob", "mercay ne ledge", False, None],
 
         # ======== Mountain Passage =========
 
-        ["mercay island", "mercay passage 1", False, "can_enter_mp"],
-        ["mercay island", "mercay passage 2", False, "can_reach_mp2"],
-        ["mercay passage 2", "mercay passage rat", False, "mp_rat"],
+        ["mercay nw bamboo", "mercay passage 1", True, None],
+        ["mercay passage 1", "mercay passage 2", False, "can_reach_mp2"],
+        ["mercay passage 2 exit", "mercay passage 2", False, "can_reach_mp2_top"],
+        ["mercay passage 1", "mercay passage 2 exit", True, "mp2_bypass"],
+        ["mercay passage 2 exit", "mercay passage 3", True, None],
+        ["mercay passage 3", "mercay passage rat", False, "can_kill_bat"],
+        ["mercay passage 3", "mercay passage 4", True, "mp3"],
+        ["mercay passage 4", "mercay se", True, None],
 
         # ========== TotOK ===================
         ["totok", "totok 1f", False, "totok_1f"],
@@ -131,10 +167,10 @@ def make_overworld_logic():
 
         # ============ Shops ====================
 
-        ["mercay shop", "shop power gem", False, "can_buy_gem"],
-        ["mercay shop", "shop quiver", False, "can_buy_quiver"],
-        ["mercay shop", "shop bombchu bag", False, "can_buy_chu_bag"],
-        ["mercay shop", "shop heart container", False, "can_buy_heart"],
+        ["island shop", "shop power gem", False, "can_buy_gem"],
+        ["island shop", "shop quiver", False, "can_buy_quiver"],
+        ["island shop", "shop bombchu bag", False, "can_buy_chu_bag"],
+        ["island shop", "shop heart container", False, "can_buy_heart"],
 
         ["sw ocean east", "beedle", False, None],
         ["beedle", "beedle gem", False, "beedle_shop", 500],
@@ -252,6 +288,7 @@ def make_overworld_logic():
         ["molida island", "molida port house", True, None],
         ["molida island", "molida potato house", True, None],
         ["molida island", "molida shop", True, None],
+        ["molida shop", "island shop", False, None],
         ["molida island", "molida romaros", True, None],
         ["molida romaros", "molida archery", False, "has", "_beat_toc"],
         ["molida island", "molida cave", True, None],
@@ -443,6 +480,7 @@ def make_overworld_logic():
 
         ["goron sw", "goron port house", True, None],
         ["goron sw", "goron shop", True, None],
+        ["goron shop", "island shop", False, None],
         ["goron sw", "goron rock house", True, None],
         ["goron sw", "goron chu house", True, None],
         ["goron sw", "goron shortcut", True, None],
@@ -580,8 +618,8 @@ def make_overworld_logic():
         ["iotd port", "iotd cave", True, None],
         ["iotd cave", "iotd rupoor", False, "bombs"],
         ["iotd rupoor", "iotd cave", False, None],
-        ["iotd cave", "iotd", False, None],
-        ["iotd", "iotd temple", False, None],
+        ["iotd cave", "iotd", True, None],
+        ["iotd", "iotd temple", True, None],
         ["iotd", "iotd tunnel", False, "shovel"],
         ["iotd tunnel", "iotd tunnel cave", False, "bombs"],
         ["iotd tunnel cave", "iotd tunnel", False, None],
@@ -719,7 +757,7 @@ def make_overworld_logic():
         ["bellumbeck", "beat bellumbeck", False, "can_beat_bellumbeck"],
         ["beat bellumbeck", "goal", False, None],
         ["totok midway", "goal", False, "goal_midway"],
-        ["mercay island", "goal", False, "win_on_metals"],
+        ["menu", "goal", False, "win_on_metals"],
 
     ]
 

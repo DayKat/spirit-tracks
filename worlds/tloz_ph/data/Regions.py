@@ -1,19 +1,14 @@
 REGIONS = [
     "goal",
     "beat required dungeons",
+    "menu",
 
-    "mercay island",
     "mercay dig spot",
-    "mercay zora cave",
-    "mercay zora cave south",
     "mercay freedle island",
     "mercay freedle gift",
     "mercay freedle tunnel chest",
+    "mercay freedle tunnel",
     "mercay yellow guy",
-    "mercay passage 1",
-    "mercay passage 2",
-    "mercay passage 3",
-    "mercay passage rat",
     "mercay oshus gem",
     "mercay oshus phantom blade",
 
@@ -23,6 +18,9 @@ REGIONS = [
     "mercay oshus",
     "mercay apricot",
     "mercay sword cave",
+    "mercay sw oob east",
+    "mercay sw oob high",
+    "mercay sw oob low",
 
     "mercay se",
     "mercay tuzi",
@@ -32,8 +30,31 @@ REGIONS = [
     "mercay se post tof",
     "mercay shipyard",
     "mercay treasure teller",
+    "mercay se ledge",
+    "mercay se oob",
+
+    "mercay nw chus",
+    "mercay nw temple",
+    "mercay nw bamboo",
+    "mercay nw oob high",
+    "mercay nw oob low",
+    "mercay geozard cave north",
+    "mercay geozard cave south",
+
+    "mercay ne",
+    "mercay ne oob",
+    "mercay ne ledge",
+
+    # Mercay passage
+    "mercay passage 1",
+    "mercay passage 2",
+    "mercay passage 2 exit",
+    "mercay passage 3",
+    "mercay passage rat",
+    "mercay passage 4",
 
     # Shop Regions
+    "island shop",
     "shop power gem",
     "shop bombchu bag",
     "shop quiver",

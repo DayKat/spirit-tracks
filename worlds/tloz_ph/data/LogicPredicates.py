@@ -1018,34 +1018,53 @@ def ph_can_enter_mp(state, player):
          ])
 
 # Handles keylocking due to lack of locations
-def ph_can_reach_MP2(state: CollectionState, player: int):
+def ph_can_reach_mp2(state: CollectionState, player: int):
     return any([
+        ph_has_small_keys(state, player, "Mountain Passage", 2),
+        ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
+        ph_option_keys_vanilla(state, player),
         all([
-            ph_option_keysanity(state, player),
-            ph_has_small_keys(state, player, "Mountain Passage", 2)
-        ]),
-        all([
-            ph_option_keys_in_own_dungeon(state, player),
-            any([
-                ph_can_cut_small_trees(state, player),
-                ph_option_glitched_logic(state, player)  # SW in back entrance / reversse cuccoo jump
-            ]),
-            any([
-                ph_has_small_keys(state, player, "Mountain Passage"),
-                ph_is_ut(state, player)
-            ])
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 1)
         ])
     ])
 
-def ph_nyave_fight(state, player):
-    return any([ph_has_cave_damage(state, player), ph_clever_pots(state, player)])
+def ph_can_reach_mp2_top(state, player):
+    return any([
+        ph_has_small_keys(state, player, "Mountain Passage", 2),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 1)
+        ])
+    ])
+
+def ph_mp2_bypass(state, player):
+    return any([
+        ph_has_small_keys(state, player, "Mountain Passage", 3),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 2)
+        ])
+    ])
+
+def ph_mp3(state, player):
+    return any([
+        ph_has_small_keys(state, player, "Mountain Passage", 3),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 1)
+        ]),
+    ])
+
 
 def ph_mercay_passage_rat(state, player):
     return any([
         ph_can_kill_bat(state, player),
-        ph_clever_pots(state, player)
+        ph_clever_pots(state, player)  # only if not ER
     ])
 
+def ph_nyave_fight(state, player):
+    return any([ph_has_cave_damage(state, player), ph_clever_pots(state, player)])
 
 def ph_bannan_scroll(state, player):
     return all([
@@ -2511,7 +2530,10 @@ RULE_DICT = {
     # Overworld
     "boat_access": ph_boat_access,
     "can_enter_mp": ph_can_enter_mp,
-    "can_reach_mp2": ph_can_reach_MP2,
+    "can_reach_mp2": ph_can_reach_mp2,
+    "can_reach_mp2_top": ph_can_reach_mp2_top,
+    "mp2_bypass": ph_mp2_bypass,
+    "mp3": ph_mp3,
     "mp_rat": ph_mercay_passage_rat,
     "mercay_passage_rat": ph_mercay_passage_rat,
     "ember_grapple": ph_ember_grapple_chest,

@@ -498,6 +498,14 @@ class PhantomHourglassShuffleIslands(Toggle):
     display_name = "shuffle_island_entrances"
     default = 0
 
+class PhantomHourglassShuffleCaves(Choice):
+    """
+    Shuffle cave entrances
+    """
+    display_name = "shuffle_caves"
+    option_false = 0
+    option_
+
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility

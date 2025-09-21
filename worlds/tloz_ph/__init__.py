@@ -6,7 +6,7 @@ from typing import List, Union, ClassVar, Any, Optional, Tuple
 
 import entrance_rando
 import settings
-from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification
+from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from entrance_rando import randomize_entrances
@@ -118,7 +118,7 @@ class PhantomHourglassWorld(World):
     location_name_to_id = build_location_name_to_id_dict()
     item_name_to_id = build_item_name_to_id_dict()
     item_name_groups = ITEM_GROUPS
-    origin_region_name = "mercay sw"
+    origin_region_name = "menu"
 
     glitches_item_name = "_UT_Glitched_Logic"
     ut_can_gen_without_yaml = True
@@ -380,11 +380,11 @@ class PhantomHourglassWorld(World):
     def connect_entrances(self) -> None:
         do_er = True   # Sneaky beta setting
         coupled = True
-        full_er = False  # dev setting!
+        full_er = True  # dev setting!
         if do_er:
 
             # Filter entrances to disconnect by yaml settings
-            randomized_entrances = []
+            randomized_entrances: list["Entrance"] = []
             if full_er:  # Randomize everything, dev setting
                 randomized_entrances = [e for e in self.entrances.values()]
             else:
@@ -395,7 +395,7 @@ class PhantomHourglassWorld(World):
 
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:
-                entrance_rando.disconnect_entrance_for_randomization(entrance)
+                entrance_rando.disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
                 # print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
 
             def get_target_groups(g: int) -> list[int]:

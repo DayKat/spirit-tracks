@@ -456,6 +456,7 @@ def randomize_entrances(
                             and not er_state.test_speculative_connection(source_exit, target_entrance, exits_set)):
                         continue
                     do_placement(source_exit, target_entrance)
+                    print(f"Pairing Successful! {source_exit} => {target_entrance} group {target_groups}")
                     return True
         else:
             # no source exits had any valid target so this stage is deadlocked. retries may be implemented if early
