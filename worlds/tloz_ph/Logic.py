@@ -785,7 +785,7 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
             entrance_data = test_entrances[entrance_key]
             rando_type_bool = entrance_data.two_way
             entrance.randomization_type = EntranceType.TWO_WAY if rando_type_bool else EntranceType.ONE_WAY
-            entrance.randomization_group = entrance_data.direction | entrance_data.category_group
+            entrance.randomization_group = entrance_data.direction | entrance_data.category_group | entrance_data.island
             entrance.name = entrance_data.name
             multiworld.worlds[player].entrances[entrance.name] = entrance
 

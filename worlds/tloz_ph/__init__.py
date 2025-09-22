@@ -452,6 +452,7 @@ class PhantomHourglassWorld(World):
             for e in self.entrances.values():
                 # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
                 if type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]:
+                    print(f"disconnecting {e.name} for {type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]}")
                     randomized_entrances.append(e)
 
             # Disconnect entrances to shuffle
