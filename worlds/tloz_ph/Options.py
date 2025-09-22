@@ -489,7 +489,7 @@ class PhantomHourglassShuffleDungeonEntrances(Choice):
     default = 0
     option_no_shuffle = 0
     option_shuffle = 1
-    option_simple_mixed_pool = 2
+    option_simple_mixed_pool = 3
 
 class PhantomHourglassShuffleIslands(Choice):
     """
@@ -504,7 +504,7 @@ class PhantomHourglassShuffleIslands(Choice):
     default = 0
     option_no_shuffle = 0
     option_shuffle = 1
-    option_simple_mixed_pool = 2
+    option_simple_mixed_pool = 3
 
 
 class PhantomHourglassShuffleCaves(Choice):
@@ -562,14 +562,10 @@ class PhantomHourglassDecoupleEntrances(Choice):
     Decouple entrance shuffles enabled by other options, such that returning through an entrance you just entered does not lead back to where you came from.
     - couple_all: don't decouple
     - decouple_all: decouple all enabled entrance shuffles
-    - decouple_simple_mixed_pool: decouple all entrances is the simple mixed pool
-    - decouple_all_but_simple_mixed_pool: decouple all enabled entrances not in the simple mixed pool
     """
     option_couple_all = 0
     option_decouple_all = 1
-    option_decouple_simple_mixed_pool = 2
-    option_decouple_all_but_simple_mixed_pool = 3
-    display_name = "shuffle_houses"
+    display_name = "decouple_entrances"
     default = 0
 
 class PhantomHourglassPreserveDirectionality(Choice):

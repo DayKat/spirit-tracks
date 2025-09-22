@@ -825,6 +825,10 @@ def ph_is_ut(state: CollectionState, player: int):
 def ph_UT_glitched_logic(state, player):
     return state.has("_UT_Glitched_Logic", player)
 
+# ============== ER Options =============
+
+def ph_option_vanilla_caves(state, player):
+    return not state.multiworld.worlds[player].options.shuffle_caves
 
 # ============= Key logic ==============
 
@@ -1047,15 +1051,33 @@ def ph_mp2_bypass(state, player):
         ])
     ])
 
+def ph_mp2_bypass_fore(state, player):
+    return any([
+        ph_mp2_bypass(state, player),
+        all([
+            ph_option_vanilla_caves(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 2)
+        ])
+    ])
+
 def ph_mp3(state, player):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 3),
+
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
         ]),
     ])
 
+def ph_mp3_back(state, player):
+    return any([
+        ph_mp3(state, player),
+        all([
+            ph_option_vanilla_caves(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 2),
+        ]),
+    ])
 
 def ph_mercay_passage_rat(state, player):
     return any([
@@ -2536,7 +2558,9 @@ RULE_DICT = {
     "can_reach_mp2": ph_can_reach_mp2,
     "can_reach_mp2_top": ph_can_reach_mp2_top,
     "mp2_bypass": ph_mp2_bypass,
+    "mp2_bypass_fore": ph_mp2_bypass_fore,
     "mp3": ph_mp3,
+    "mp3_back": ph_mp3_back,
     "mp_rat": ph_mercay_passage_rat,
     "mercay_passage_rat": ph_mercay_passage_rat,
     "ember_grapple": ph_ember_grapple_chest,

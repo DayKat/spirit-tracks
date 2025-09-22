@@ -76,10 +76,12 @@ def make_overworld_logic():
         ["mercay nw bamboo", "mercay passage 1", True, None],
         ["mercay passage 1", "mercay passage 2", False, "can_reach_mp2"],
         ["mercay passage 2 exit", "mercay passage 2", False, "can_reach_mp2_top"],
-        ["mercay passage 1", "mercay passage 2 exit", True, "mp2_bypass"],
+        ["mercay passage 1", "mercay passage 2 exit", False, "mp2_bypass_fore"],
+        ["mercay passage 2 exit", "mercay passage 1", False, "mp2_bypass"],
         ["mercay passage 2 exit", "mercay passage 3", True, None],
         ["mercay passage 3", "mercay passage rat", False, "can_kill_bat"],
-        ["mercay passage 3", "mercay passage 4", True, "mp3"],
+        ["mercay passage 3", "mercay passage 4", False, "mp3"],
+        ["mercay passage 4", "mercay passage 3", False, "mp3_back"],
         ["mercay passage 4", "mercay se", True, None],
 
         # ========== TotOK ===================

@@ -9,7 +9,7 @@ import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
-from entrance_rando import randomize_entrances
+from entrance_rando import randomize_entrances, bake_target_group_lookup
 from worlds.AutoWorld import WebWorld, World
 
 from .Util import *
@@ -25,7 +25,7 @@ from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES,
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
-
+dev_prints = True
 
 class PhantomHourglassWeb(WebWorld):
     setup_en = Tutorial(
@@ -377,40 +377,101 @@ class PhantomHourglassWorld(World):
         for name in locations_to_exclude:
             self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
 
+    def create_er_target_groups(self, type_option_lookup):
+
+        simple_mixed_pool = []
+        for a, option in type_option_lookup.items():
+            if option == "simple_mixed_pool":
+                simple_mixed_pool.append(a)
+
+
+        def get_target_groups(g: int) -> list[int]:
+            direction = g & EntranceGroups.DIRECTION_MASK
+            area = (g & EntranceGroups.AREA_MASK) >> 3
+            island = (g & EntranceGroups.ISLAND_MASK) >> 7
+            target_directions, target_areas, target_islands = [], [], set()
+            in_simple_mixed_pool = area in simple_mixed_pool
+            print(f"{g} in simple pool? {in_simple_mixed_pool}")
+
+            # Create target direction list
+            if ((in_simple_mixed_pool and self.options.preserve_entrance_directionality.value in [1, 2]) or
+                    (not in_simple_mixed_pool and self.options.preserve_entrance_directionality.value in [1, 3])):
+                target_directions = range(0, 7)
+            else:
+                target_directions = [OPPOSITE_ENTRANCE_GROUPS[direction]]
+
+            # Create target type list
+            if in_simple_mixed_pool:
+                target_areas = simple_mixed_pool
+            else:
+                target_areas.append(area)
+
+            # Create target island list
+            try:
+                if type_option_lookup[area] == "shuffle_on_own_island":
+                    target_islands.add(island)
+                    target_islands.add(0)
+                else:
+                    target_islands = range(0, 15)
+            except AssertionError:
+                target_islands = range(0, 15)
+
+            # Put it all together
+            res = [d | (t << 3) | (i << 7) for d in target_directions for t in target_areas for i in target_islands]
+
+            if dev_prints:
+                print(f"dir: {target_directions}")
+                print(f"type: {target_areas}")
+                print(f"island: {target_islands}")
+                print(f"res: {g}")
+                print(f"\t{sorted(res)}")
+            return res
+
+        return bake_target_group_lookup(self, get_target_groups)
+
     def connect_entrances(self) -> None:
-        do_er = True   # Sneaky beta setting
-        coupled = True
-        full_er = True  # dev setting!
+        do_er = True   # Dev toggle
+
         if do_er:
+
+            # What option corresponds with what type
+            type_option_lookup = {
+                1: self.options.shuffle_houses,
+                2: self.options.shuffle_caves,
+                3: self.options.shuffle_ports,
+                4: self.options.shuffle_overworld_transitions,
+                5: self.options.shuffle_dungeon_entrances,
+                6: None,
+                7: None,
+                8: None,
+                9: self.options.shuffle_caves,
+                10: self.options.shuffle_caves}
 
             # Filter entrances to disconnect by yaml settings
             randomized_entrances: list["Entrance"] = []
-            if full_er:  # Randomize everything, dev setting
-                randomized_entrances = [e for e in self.entrances.values()]
-            else:
-                if self.options.shuffle_dungeon_entrances:
-                    randomized_entrances += [e for e in self.entrances.values() if e.randomization_group & EntranceGroups.AREA_MASK == EntranceGroups.DUNGEON_ENTRANCE]
-                if self.options.shuffle_island_entrances:
-                    randomized_entrances += [e for e in self.entrances.values() if e.randomization_group & EntranceGroups.AREA_MASK == EntranceGroups.ISLAND]
+            for e in self.entrances.values():
+                # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
+                if type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]:
+                    randomized_entrances.append(e)
 
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:
                 entrance_rando.disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
                 # print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
 
-            def get_target_groups(g: int) -> list[int]:
-                direction = g & EntranceGroups.DIRECTION_MASK
-                area = g & EntranceGroups.AREA_MASK
-                return list({OPPOSITE_ENTRANCE_GROUPS[direction] | area})
+            # Get valid connection groups
+            groups = self.create_er_target_groups(type_option_lookup)
 
-            groups = {direction | area << 3: get_target_groups(direction | area << 3) for direction in range(0, 7) for area in range(0, 11)}
-            # for i in groups.items():
-            #     print(f"\t{i}")
-            # Manually connect entrances if UT
-            if getattr(self.multiworld, "generation_is_fake", False):
-                pass
-            # Do ER!
-            else:
+            if dev_prints:
+                print(f"groups:")
+                for g in groups.items():
+                    print(f"\t{g}")
+
+            # Decide if coupled
+            coupled = bool(self.options.decouple_entrances)
+
+            # Do ER, if not UT!
+            if not getattr(self.multiworld, "generation_is_fake", False):
                 self.er_placement_state = entrance_rando.randomize_entrances(self, coupled, groups)
 
     def set_rules(self):
@@ -702,7 +763,9 @@ class PhantomHourglassWorld(World):
             # Cosmetic
             "additional_metal_names",
             # ER
-            "shuffle_dungeon_entrances", "shuffle_island_entrances",
+            "shuffle_dungeon_entrances", "shuffle_ports", "shuffle_caves", "shuffle_houses",
+            "shuffle_overworld_transitions",
+            "preserve_entrance_directionality", "decouple_entrances",
             # Deathlink
             "death_link"
         ]
@@ -775,7 +838,7 @@ class PhantomHourglassWorld(World):
 
                     exit_region.connect(entrance_region)
                     dangling_exit.connect(entrance_region)
-                    if dangling_entrance is not None:
+                    if dangling_entrance is not None or not self.options.decouple_entrances:
                         dangling_entrance.connect(exit_region)
                         self.disconnected_entrances_map.pop(i)
 

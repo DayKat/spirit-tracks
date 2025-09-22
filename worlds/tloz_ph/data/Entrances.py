@@ -9,7 +9,7 @@ class EntranceGroups(IntEnum):
     DOWN = 4
     INSIDE = 5
     OUTSIDE = 6
-    # Areas
+    # Types
     HOUSE = 1 << 3
     CAVE = 2 << 3
     ISLAND = 3 << 3
@@ -20,9 +20,35 @@ class EntranceGroups(IntEnum):
     WARP_PORTAL = 8 << 3
     STAIRS = 9 << 3
     HOLES = 10 << 3
+    # Island mask
+    SEA = 0 << 7
+    MERCAY = 1 << 7
+    CANNON = 2 << 7
+    EMBER = 3 << 7
+    MOLIDA = 4 << 7
+    SPIRIT = 5 << 7
+    GUST = 6 << 7
+    BANNAN = 7 << 7
+    UNCHARTED = 8 << 7
+    ZAUZ = 9 << 7
+    GHOST = 10 << 7
+    GORON = 11 << 7
+    FROST = 12 << 7
+    DEAD = 13 << 7
+    RUINS = 14 << 7
+
     # Bitmasks
     DIRECTION_MASK = HOUSE - 1
-    AREA_MASK = ~0 << 3
+    AREA_MASK = MERCAY - HOUSE
+    ISLAND_MASK =  ~0 << 7
+
+    @staticmethod
+    def area_shift(area):
+        return area << 3
+
+    @staticmethod
+    def island_shift(island):
+        return island << 7
 
 
 OPPOSITE_ENTRANCE_GROUPS = {
