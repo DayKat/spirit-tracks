@@ -1348,7 +1348,10 @@ def ph_goron_chus(state, player):
     return all([
         ph_has_shovel(state, player),
         any([
-            ph_has_hammer(state, player),
+            all([
+                ph_has_hammer(state, player),
+                ph_option_hard_logic(state, player)
+                ]),
             ph_has_bow(state, player),
             ph_has_grapple(state, player),
         ])

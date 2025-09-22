@@ -59,6 +59,6 @@ class TestGeneration(WorldTestBase):
         "ph_starting_time": 120,
         "ph_time_increment": 60,
         "randomize_beedle_membership": "no_beedle_points",
-        "shuffle_dungeon_entrances": True,
-        "shuffle_island_entrances": True,
+        "shuffle_dungeon_entrances": "shuffle",
+        "shuffle_island_entrances": "shuffle",
                }

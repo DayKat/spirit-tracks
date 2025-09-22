@@ -616,6 +616,7 @@ def make_overworld_logic():
         # ================= IotD ====================
 
         ["iotd port", "iotd cave", True, None],
+        ["iotd", "iotd port", False, None],
         ["iotd cave", "iotd rupoor", False, "bombs"],
         ["iotd rupoor", "iotd cave", False, None],
         ["iotd cave", "iotd", True, None],

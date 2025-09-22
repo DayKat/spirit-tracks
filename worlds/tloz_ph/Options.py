@@ -477,34 +477,113 @@ class PhantomHourglassDungeonShortcuts(Toggle):
     display_name = "dungeon_shortcuts"
     default = 0
 
-class PhantomHourglassShuffleDungeonEntrances(Toggle):
+class PhantomHourglassShuffleDungeonEntrances(Choice):
     """
-    EXPERIMENTAL!!! Use at your own risk!
-    Shuffle what dungeon entrance leads to which dungeon interior.
+    Shuffle what dungeon entrance leads to which dungeon interior. Directionality is always preserved, i.e. a dungeon exterior always goes to a dungeon interior.
     Does not include ghost ship.
-    Full entrance rando coming soon!
+    - no_shuffle: don't shuffle dungeon entrances
+    - shuffle: shuffle dungeon entrances
+    - simple_mixed_pool: shuffles dungeon entrances with other entrance types that have this option
     """
     display_name = "shuffle_dungeon_entrances"
     default = 0
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
 
-class PhantomHourglassShuffleIslands(Toggle):
+class PhantomHourglassShuffleIslands(Choice):
     """
-    EXPERIMENTAL!!! Use at your own risk!
-    Shuffle what island port leads to which island overworld.
+    Shuffle what island port leads to which island overworld. Directionality is always preserved, i.e. the land side always goes to the sea side.
     Does not include ghost ship or travellers ships.
-    Currently incompatible with boat requires sea chart.
-    Full entrance rando coming soon!
+    Compatible with boat requires sea chart.
+    - no_shuffle: don't shuffle ports
+    - shuffle: shuffle ports
+    - simple_mixed_pool: shuffles ports with other entrance types that have this option
     """
-    display_name = "shuffle_island_entrances"
+    display_name = "shuffle_ports"
     default = 0
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
+
 
 class PhantomHourglassShuffleCaves(Choice):
     """
-    Shuffle cave entrances
+    Shuffle cave entrances. Includes caves, staircases and drop down holes.
+    Entrances are coupled and preserve direction unless specified in another option.
+    - no_shuffle: don't shuffle caves
+    - shuffle_on_own_island: shuffles caves with other caves on that island
+    - shuffle_globally: caves can be shuffled between islands, creating connections that don't need the boat
+    - simple_mixed_pool: shuffles caves with other entrance types that have this option
     """
     display_name = "shuffle_caves"
-    option_false = 0
-    option_
+    option_no_shuffle = 0
+    option_shuffle_on_own_island = 1
+    option_shuffle_globally = 2
+    option_simple_mixed_pool = 3
+    default = 0
+
+class PhantomHourglassShuffleHouses(Choice):
+    """
+    Shuffle house entrances. Includes houses, shops, pyramids and Goron houses.
+    Entrances are coupled and preserve direction unless specified in another option.
+    - no_shuffle: don't shuffle houses
+    - shuffle_on_own_island: shuffles houses with other houses on that island
+    - shuffle_globally: houses can be shuffled between islands.
+    - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    """
+    display_name = "shuffle_houses"
+    option_no_shuffle = 0
+    option_shuffle_on_own_island = 1
+    option_shuffle_globally = 2
+    option_simple_mixed_pool = 3
+    default = 0
+
+class PhantomHourglassShuffleOverworldTransitions(Choice):
+    """
+    Shuffle overworld transitions, between the quadrants of islands.
+    Different heights and breaks in terrain create separate transitions.
+    Entrances are coupled and preserve direction unless specified in another option.
+    If glitched logic is enabled, includes out of bounds transitions that are reachable in vanilla.
+    - no_shuffle: don't shuffle island transitions
+    - shuffle_on_own_island: shuffles island transitions with other transitions on it's own island
+    - shuffle_globally: island transitions can be shuffled between islands.
+    - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    """
+    display_name = "shuffle_overworld_transitions"
+    option_no_shuffle = 0
+    option_shuffle_on_own_island = 1
+    option_shuffle_globally = 2
+    option_simple_mixed_pool = 3
+    default = 0
+
+class PhantomHourglassDecoupleEntrances(Choice):
+    """
+    Decouple entrance shuffles enabled by other options, such that returning through an entrance you just entered does not lead back to where you came from.
+    - couple_all: don't decouple
+    - decouple_all: decouple all enabled entrance shuffles
+    - decouple_simple_mixed_pool: decouple all entrances is the simple mixed pool
+    - decouple_all_but_simple_mixed_pool: decouple all enabled entrances not in the simple mixed pool
+    """
+    option_couple_all = 0
+    option_decouple_all = 1
+    option_decouple_simple_mixed_pool = 2
+    option_decouple_all_but_simple_mixed_pool = 3
+    display_name = "shuffle_houses"
+    default = 0
+
+class PhantomHourglassPreserveDirectionality(Choice):
+    """
+    Either preserve or disregard directionality for entrances shuffled in other options.
+    - preserve: preserve directionality for all shuffled entrances
+    - disregard_all: disregard directionality for all shuffled entrances
+    - disregard_simple_mixed_pool: disregard directionality for all shuffled entrances is the simple mixed pool, but preserve the others
+    - disregard_all_but_simple_mixed_pool: preserve directionality for all shuffled entrances in the simple mixed pool, and disregard directionality for all others.
+    """
+    option_preserve = 0
+    option_disregard_all = 1
+    option_disregard_simple_mixed_pool = 2
+    option_disregard_all_but_simple_mixed_pool = 3
 
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
@@ -566,7 +645,18 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # ER
     shuffle_dungeon_entrances: PhantomHourglassShuffleDungeonEntrances
-    shuffle_island_entrances: PhantomHourglassShuffleIslands
+    shuffle_ports: PhantomHourglassShuffleIslands
+    shuffle_caves: PhantomHourglassShuffleCaves
+    shuffle_houses: PhantomHourglassShuffleHouses
+    shuffle_overworld_transitions: PhantomHourglassShuffleOverworldTransitions
+    # Shuffle sea transitions
+    # Shuffle boss rooms
+    # Shuffle dungeons internally
+    # Shuffle travelling ships
+    # Shuffle TotOK internally
+    preserve_entrance_directionality: PhantomHourglassPreserveDirectionality
+    decouple_entrances: PhantomHourglassDecoupleEntrances
+
 
     # Cosmetic
     additional_metal_names: PhantomHourglassAdditionalMetalNames
@@ -633,7 +723,12 @@ ph_option_groups = [
     ]),
     OptionGroup("Entrance Randomizer Options", [
         PhantomHourglassShuffleDungeonEntrances,
-        PhantomHourglassShuffleIslands
+        PhantomHourglassShuffleIslands,
+        PhantomHourglassShuffleCaves,
+        PhantomHourglassShuffleHouses,
+        PhantomHourglassShuffleOverworldTransitions,
+        PhantomHourglassPreserveDirectionality,
+        PhantomHourglassDecoupleEntrances
     ]),
     OptionGroup("Cosmetic Options", [
         PhantomHourglassAdditionalMetalNames

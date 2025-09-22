@@ -775,8 +775,10 @@ class PhantomHourglassWorld(World):
 
                     exit_region.connect(entrance_region)
                     dangling_exit.connect(entrance_region)
-                    dangling_entrance.connect(exit_region)
+                    if dangling_entrance is not None:
+                        dangling_entrance.connect(exit_region)
+                        self.disconnected_entrances_map.pop(i)
 
-                    self.disconnected_entrances_map.pop(i)
+
             self.ut_connected_entrances |= new_entrances
 

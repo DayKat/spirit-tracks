@@ -492,6 +492,8 @@ REGIONS = [
     "iotd tunnel cave",
     "iotd face",
     "iotd temple",
+    "iotd brant maze",
+    "iotd brant chamber",
     "iotd crown",
 
     # ruins er

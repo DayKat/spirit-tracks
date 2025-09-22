@@ -1719,7 +1719,7 @@ LOCATIONS_DATA = {
         "id": 160,
     },
     "Bannan Island Wayfarer Gift": {
-        "region_id": "bannan",
+        "region_id": "bannan wayfarer",
         "vanilla_item": "Fishing Rod",
         "item_override": "Nothing!",
         "stage_id": 0x14,
