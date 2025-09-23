@@ -20,7 +20,7 @@ from .data.Constants import *
 from .data.Items import ITEMS_DATA
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
-from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region
+from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region, decode_entrance_groups
 
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
@@ -391,40 +391,39 @@ class PhantomHourglassWorld(World):
             island = (g & EntranceGroups.ISLAND_MASK) >> 7
             target_directions, target_areas, target_islands = [], [], set()
             in_simple_mixed_pool = area in simple_mixed_pool
-            print(f"{g} in simple pool? {in_simple_mixed_pool}")
+            print(f"{decode_entrance_groups(g)} in simple pool? {in_simple_mixed_pool}")
 
             # Create target direction list
-            if ((in_simple_mixed_pool and self.options.preserve_entrance_directionality.value in [1, 2]) or
-                    (not in_simple_mixed_pool and self.options.preserve_entrance_directionality.value in [1, 3])):
-                target_directions = range(0, 7)
+            if ((in_simple_mixed_pool and self.options.entrance_directionality.value in [1, 2]) or
+                    (not in_simple_mixed_pool and self.options.entrance_directionality.value in [1, 3])):
+                target_directions = range(7)
             else:
                 target_directions = [OPPOSITE_ENTRANCE_GROUPS[direction]]
 
             # Create target type list
             if in_simple_mixed_pool:
-                target_areas = simple_mixed_pool
+                target_areas += simple_mixed_pool
             else:
                 target_areas.append(area)
 
             # Create target island list
-            try:
-                if type_option_lookup[area] == "shuffle_on_own_island":
-                    target_islands.add(island)
-                    target_islands.add(0)
-                else:
-                    target_islands = range(0, 15)
-            except AssertionError:
-                target_islands = range(0, 15)
+            if ((in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 3]) or
+                    (not in_simple_mixed_pool and self.options.entrance_directionality.value in [0, 2])):
+                target_islands.update(range(15))
+            else:
+                target_islands.add(island)
+                # ports still need to be able to connect to the sea
+                if area == 3:
+                     target_islands.add(0)
+                if in_simple_mixed_pool and 3 in simple_mixed_pool:
+                    target_islands.update(range(15))
 
             # Put it all together
             res = [d | (t << 3) | (i << 7) for d in target_directions for t in target_areas for i in target_islands]
 
-            if dev_prints:
-                print(f"dir: {target_directions}")
-                print(f"type: {target_areas}")
-                print(f"island: {target_islands}")
-                print(f"res: {g}")
-                print(f"\t{sorted(res)}")
+            if dev_prints and False:
+                print(f"res: {decode_entrance_groups(g)}")
+                print(f"\t{sorted([decode_entrance_groups(i) for i in res])}")
             return res
 
         return bake_target_group_lookup(self, get_target_groups)
@@ -465,11 +464,11 @@ class PhantomHourglassWorld(World):
 
             if dev_prints:
                 print(f"groups:")
-                for g in groups.items():
-                    print(f"\t{g}")
+                for a, g in sorted(groups.items()):
+                    print(f"\t{a}\t{decode_entrance_groups(a)}: {sorted([decode_entrance_groups(i) for i in g])}")
 
             # Decide if coupled
-            coupled = bool(self.options.decouple_entrances)
+            coupled = not bool(self.options.decouple_entrances)
 
             # Do ER, if not UT!
             if not getattr(self.multiworld, "generation_is_fake", False):
@@ -766,7 +765,7 @@ class PhantomHourglassWorld(World):
             # ER
             "shuffle_dungeon_entrances", "shuffle_ports", "shuffle_caves", "shuffle_houses",
             "shuffle_overworld_transitions",
-            "preserve_entrance_directionality", "decouple_entrances",
+            "entrance_directionality", "decouple_entrances",
             # Deathlink
             "death_link"
         ]

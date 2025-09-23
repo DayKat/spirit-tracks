@@ -1,5 +1,52 @@
 from enum import IntEnum
 
+island_lookup = {
+    0: "sea",
+    1: "mercay",
+    2: "cannon",
+    3: "ember",
+    4: "molida",
+    5: "spirit",
+    6: "gust",
+    7: "bannan",
+    8: "uncharted",
+    9: "zauz",
+    10: "ghost",
+    11: "goron",
+    12: "frost",
+    13: "dead",
+    14: "ruins"
+}
+direction_lookup = {
+    0: "none",
+    1: "left",
+    2: "right",
+    3: "up",
+    4: "down",
+    5: "enter",
+    6: "exit"}
+type_lookup = {
+    0: "none",
+    1: "house",
+    2: "cave",
+    3: "port",
+    4: "overworld",
+    5: "dungeon",
+    6: "boss",
+    7: "dungeon_room",
+    8: "warp",
+    9: "stairs",
+    10: "holes",
+}
+
+# Print EntranceGroups as human readable string
+def decode_entrance_groups(group):
+    direction = group & EntranceGroups.DIRECTION_MASK
+    area = (group & EntranceGroups.AREA_MASK) >> 3
+    island = (group & EntranceGroups.ISLAND_MASK) >> 7
+
+    return f"{direction_lookup[direction]}_{type_lookup[area]}_{island_lookup[island]}"
+
 class EntranceGroups(IntEnum):
     NONE = 0
     # Directions
@@ -42,13 +89,25 @@ class EntranceGroups(IntEnum):
     AREA_MASK = MERCAY - HOUSE
     ISLAND_MASK =  ~0 << 7
 
+    def __str__(self):
+        return self.decode(self.value)
+
     @staticmethod
     def area_shift(area):
         return area << 3
 
     @staticmethod
+    def area_unshift(area):
+        return area >> 3
+
+    @staticmethod
     def island_shift(island):
         return island << 7
+
+    @staticmethod
+    def island_unshift(island):
+        return island >> 7
+
 
 
 OPPOSITE_ENTRANCE_GROUPS = {
@@ -286,7 +345,7 @@ ENTRANCE_DATA = {
     },
 
     # =========== TotOK ==============
-    "Mercay NW TotOK": {
+    "Mercay NW Enter Temple": {
         "return_name": "TotOK Lobby Entrance",
         "entrance": (0xB, 0x1, 0x2),
         "exit": (0x26, 0x00, 0x1),
