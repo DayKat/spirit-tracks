@@ -525,7 +525,7 @@ class PhantomHourglassShuffleCaves(Choice):
 class PhantomHourglassShuffleHouses(Choice):
     """
     Shuffle house entrances. Includes houses, shops, pyramids and Goron houses.
-    Entrances are coupled and preserve direction unless specified in another option.
+    If houses are alone in their pool, they always preserve directionality, cause GER would otherwise force pair dead ends with each other
     - no_shuffle: don't shuffle houses
     - shuffle: shuffle houses
     - simple_mixed_pool: shuffles houses with other entrance types that have this option
@@ -585,7 +585,7 @@ class PhantomHourglassPreserveDirectionality(Choice):
     - disregard_simple_mixed_pool: disregard directionality for all shuffled entrances is the simple mixed pool, but preserve the others
     - disregard_all_but_simple_mixed_pool: preserve directionality for all shuffled entrances in the simple mixed pool, and disregard directionality for all others.
     """
-    option_preserve = 0
+    option_preserve_all = 0
     option_disregard_all = 1
     option_disregard_simple_mixed_pool = 2
     option_disregard_all_but_simple_mixed_pool = 3

@@ -4,12 +4,11 @@ import random
 from math import ceil
 from typing import List, Union, ClassVar, Any, Optional, Tuple
 
-import entrance_rando
 import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
-from entrance_rando import randomize_entrances, bake_target_group_lookup
+from entrance_rando import randomize_entrances, bake_target_group_lookup, EntranceRandomizationError, disconnect_entrance_for_randomization
 from worlds.AutoWorld import WebWorld, World
 
 from .Util import *
@@ -140,12 +139,14 @@ class PhantomHourglassWorld(World):
         self.extra_filler_items = []
         self.excluded_dungeons = []
         self.ut_pairings = {}
+        self.manual_er_pairings = []
 
         self.entrances = {}
         self.er_placement_state = None
         self.ut_connected_entrances = set()
         self.disconnected_entrances_map = {}
         self.disconnected_exits_map = {}
+
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -391,12 +392,16 @@ class PhantomHourglassWorld(World):
             island = (g & EntranceGroups.ISLAND_MASK) >> 7
             target_directions, target_areas, target_islands = [], [], set()
             in_simple_mixed_pool = area in simple_mixed_pool
-            print(f"{decode_entrance_groups(g)} in simple pool? {in_simple_mixed_pool}")
+            # print(f"{decode_entrance_groups(g)} in simple pool? {in_simple_mixed_pool}")
 
             # Create target direction list
             if ((in_simple_mixed_pool and self.options.entrance_directionality.value in [1, 2]) or
                     (not in_simple_mixed_pool and self.options.entrance_directionality.value in [1, 3])):
-                target_directions = range(7)
+                if area == 1 and (not in_simple_mixed_pool or len(simple_mixed_pool) == 1):
+                    # 90% if houses are dead ends, and GER can't handle that with disregarded directionality
+                    target_directions = [OPPOSITE_ENTRANCE_GROUPS[direction]]
+                else:
+                    target_directions = range(7)
             else:
                 target_directions = [OPPOSITE_ENTRANCE_GROUPS[direction]]
 
@@ -408,7 +413,7 @@ class PhantomHourglassWorld(World):
 
             # Create target island list
             if ((in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 3]) or
-                    (not in_simple_mixed_pool and self.options.entrance_directionality.value in [0, 2])):
+                    (not in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 2])):
                 target_islands.update(range(15))
             else:
                 target_islands.add(island)
@@ -416,10 +421,20 @@ class PhantomHourglassWorld(World):
                 if area == 3:
                      target_islands.add(0)
                 if in_simple_mixed_pool and 3 in simple_mixed_pool:
+                    target_islands.add(0)
+                if island == 0:
                     target_islands.update(range(15))
 
             # Put it all together
-            res = [d | (t << 3) | (i << 7) for d in target_directions for t in target_areas for i in target_islands]
+            res = []
+            for d in target_directions:
+                for t in target_areas:
+                    if in_simple_mixed_pool and 3 in simple_mixed_pool and t == 3:
+                        for i in range(15):
+                            res += [d | (t << 3) | (i << 7)]
+                    else:
+                        for i in target_islands:
+                            res += [d | (t << 3) | (i << 7)]
 
             if dev_prints and False:
                 print(f"res: {decode_entrance_groups(g)}")
@@ -451,12 +466,12 @@ class PhantomHourglassWorld(World):
             for e in self.entrances.values():
                 # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
                 if type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]:
-                    print(f"disconnecting {e.name} for {type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]}")
+                    # print(f"disconnecting {e.name} for {type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]}")
                     randomized_entrances.append(e)
 
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:
-                entrance_rando.disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
+                disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
                 # print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
 
             # Get valid connection groups
@@ -468,11 +483,142 @@ class PhantomHourglassWorld(World):
                     print(f"\t{a}\t{decode_entrance_groups(a)}: {sorted([decode_entrance_groups(i) for i in g])}")
 
             # Decide if coupled
-            coupled = not bool(self.options.decouple_entrances)
+            coupled = not self.options.decouple_entrances
 
             # Do ER, if not UT!
             if not getattr(self.multiworld, "generation_is_fake", False):
-                self.er_placement_state = entrance_rando.randomize_entrances(self, coupled, groups)
+                ph_max_er_attempts = 10
+                for i in range(ph_max_er_attempts):
+                    # Workaround cause ER likes to link dead ends to each other when ignoring directions.
+                    # Concept stolen from CodeGorilla's Crystalis implementation
+                    try:
+                        self.manual_er()
+                        self.er_placement_state = randomize_entrances(self, coupled, groups)
+                        break
+                    except EntranceRandomizationError as error:
+                        print(f"Phantom Hourglass ER failed {i+1} time(s)")
+                        if i >= ph_max_er_attempts-1:
+                            raise EntranceRandomizationError(
+                                f"Phantom Hourglass: failed GER after {ph_max_er_attempts} attempts.")
+                        # disconnect entrances again, but only if they got connected before
+                        for entrance in randomized_entrances:
+                            if entrance.parent_region and entrance.connected_region:
+                                print(f"disconnecting entrance {entrance} {i}")
+                                disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.parent_region.name)
+
+    def manual_er(self):
+        def get_disconnected_entrances():
+            return {entrance.name: entrance for region in self.multiworld.get_regions(self.player)
+                             for entrance in region.entrances if not entrance.parent_region}
+        def get_disconnected_exits():
+            return {ex.name: ex for region in self.multiworld.get_regions(self.player)
+                             for ex in region.exits if not ex.connected_region}
+
+        def manual_connect(ex, entr):
+            # Connect!
+            if dev_prints:
+                print(f"Connecting {ex} => {entr}")
+            target_region = entr.connected_region
+            target_region.entrances.remove(entr)
+            ex.connect(target_region)
+            self.manual_er_pairings.append((ex.name, entr.name))
+
+            # If coupled do reverse entrance
+            if not self.options.decouple_entrances:
+                ex2 = exit_map[entr.name]
+                entr2 = entrance_map[ex.name]
+                if dev_prints:
+                    print(f"Connecting {ex2} => {entr2}")
+                entr2.connected_region.entrances.remove(entr2)
+                ex2.connect(entr2.connected_region)
+                self.manual_er_pairings.append((ex2.name, entr2.name))
+
+        def get_random_entrance(entr):
+            entr_list = [entrance_map[i] for i in entr]
+            self.random.shuffle(entr_list)
+            return entr_list[0]
+
+        def get_random_exit(ex):
+            ex_list = [exit_map[i] for i in ex]
+            self.random.shuffle(ex_list)
+            return ex_list[0]
+
+        self.manual_er_pairings = []
+        bremeur_location = "Ruins NW Pyramid"
+
+        # Connect ruins stuff early given certain risky conditions, because GER can't handle the water level
+        if (self.options.shuffle_houses == "shuffle"
+                and self.options.shuffle_between_islands.value in [1, 3]):
+            # Find entrance objects
+            entrance_map = get_disconnected_entrances()
+            exit_map = get_disconnected_exits()
+            bremeur_entrance = entrance_map["Bremeur's Exit"]
+            house_exit = get_random_exit(["Ruins NW Pyramid", "Ruins NE Small Pyramid"])
+            bremeur_location = house_exit.name
+
+            # Connect!
+            manual_connect(house_exit, bremeur_entrance)
+
+        if (self.options.shuffle_overworld_transitions == "shuffle"
+                and self.options.shuffle_between_islands.value in [1, 3]
+                and self.options.shuffle_houses.value in [0, 1]):
+            entrance_map = get_disconnected_entrances()
+            exit_map = get_disconnected_exits()
+
+            # Create entrance pool
+            entrance_list = ["Ruins NW One-Way Ledge South",
+                             "Ruins NW One-Way Ledge SW",]
+            if self.options.entrance_directionality.value in [1, 3]:
+                entrance_list += ["Ruins NW Across Bridge East",
+                                  "Ruins NW Upper One-Way East",
+                                  "Ruins SW Port Cliff North",
+                                  "Ruins SW East",
+                                  "Ruins NE Doylan Bridge One-Way West"]
+                if bremeur_location == "Ruins NE Small Pyramid":
+                    entrance_list += ["Ruins NE Doylan's Bridge NW"]
+
+            # Find entrance objects
+            maze_exit = exit_map["Ruins SW Upper Maze North"]
+            new_entrance = get_random_entrance(entrance_list)
+
+            # Connect!
+            manual_connect(maze_exit, new_entrance)
+
+            # If house ends up in the wrong screen, do another manual placement
+            old_entrance = new_entrance.name
+            if "Ruins NW" in old_entrance:
+                if bremeur_location != "Ruins NW Pyramid":
+                    new_entrance = get_random_entrance(["Ruins NE Doylan's Bridge NW",
+                                                        "Ruins NE Doylan Bridge One-Way West"])
+                    if old_entrance != "Ruins NW Across Bridge East":
+                        new_exit = exit_map["Ruins NW Across Bridge East"]
+                    else:
+                        new_exit = get_random_exit(["Ruins NW One-Way Ledge South", "Ruins NW One-Way Ledge SW"])
+                    manual_connect(new_exit, new_entrance)
+
+            elif "Ruins NE" in old_entrance:
+                if bremeur_location != "Ruins NE Small Pyramid":
+                    new_exit = exit_map["Ruins NE Doylan's Bridge NW"]
+                    new_entrance = get_random_entrance(["Ruins NW One-Way Ledge South",
+                                                        "Ruins NW One-Way Ledge SW",
+                                                        "Ruins NW Across Bridge East",
+                                                        "Ruins NW Upper One-Way East"])
+                    manual_connect(new_exit, new_entrance)
+
+            elif "Ruins SW" in old_entrance:
+                new_exit_name = ["Ruins SW Port Cliff North", "Ruins SW East"]
+                new_exit_name.remove(old_entrance)
+                new_exit = exit_map[new_exit_name[0]]
+                if bremeur_location == "Ruins NE Small Pyramid":
+                    new_entrance = get_random_entrance(["Ruins NE Doylan's Bridge NW",
+                                                        "Ruins NE Doylan Bridge One-Way West"])
+                else:
+                    new_entrance = get_random_entrance(["Ruins NW One-Way Ledge South",
+                                                        "Ruins NW One-Way Ledge SW",
+                                                        "Ruins NW Across Bridge East",
+                                                        "Ruins NW Upper One-Way East"])
+                manual_connect(new_exit, new_entrance)
+
 
     def set_rules(self):
         create_connections(self.multiworld, self.player, self.origin_region_name, self.options)
@@ -785,7 +931,7 @@ class PhantomHourglassWorld(World):
         # Create ER Pairings, as ids to save space
         pairings = {}
         if self.er_placement_state:
-            for e1, e2 in self.er_placement_state.pairings:
+            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings:
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
         slot_data["er_pairings"] = pairings
 
@@ -799,7 +945,7 @@ class PhantomHourglassWorld(World):
         if self.er_placement_state:
             spoiler_handle.write(f"\n\n Entrance Rando\n")
             prev = None
-            for i in self.er_placement_state.pairings:
+            for i in self.er_placement_state.pairings + self.manual_er_pairings:
                 if not (i[1], i[0]) == prev:
                     text = i[0] + " <=> " + i[1]
                     spoiler_handle.write(f"\t{text}\n")

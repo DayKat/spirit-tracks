@@ -567,8 +567,8 @@ def make_overworld_logic():
         ["frost field upper se", "frost field exit", False, None],
         ["frost field upper north", "frost field", False, None],
         ["frost field upper north", "frost field exit", False, None],
-        ["frost field upper north", "frost above temple east", True, None],
-        ["frost field upper se", "frost above temple west", True, None],
+        ["frost field upper north", "frost above temple west", True, None],
+        ["frost field upper se", "frost above temple east", True, None],
         ["frost field exit", "frost outside arena", True, None],
 
         ["frost above temple east", "frost outside arena", False, None],

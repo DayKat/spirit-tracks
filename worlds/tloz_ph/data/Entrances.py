@@ -90,7 +90,7 @@ class EntranceGroups(IntEnum):
     ISLAND_MASK =  ~0 << 7
 
     def __str__(self):
-        return self.decode(self.value)
+        return decode_entrance_groups(self.value)
 
     @staticmethod
     def area_shift(area):
@@ -136,8 +136,8 @@ ENTRANCE_DATA = {
     #   "two_way": bool=True. generates a reciprocal entrance, also used for ER generation
     # }
 
-    "Mercay SW Oshus": {
-        "return_name": "Oshus House",
+    "Mercay SW Oshus' House": {
+        "return_name": "Oshus' Exit",
         "entrance": (0xB, 0, 2),
         "exit": (0xB, 0xA, 1),
         "entrance_region": "mercay sw",
@@ -147,8 +147,8 @@ ENTRANCE_DATA = {
         "two_way": True,
         "island": EntranceGroups.MERCAY
     },
-    "Mercay SW Apricot": {
-        "return_name": "Apricot House",
+    "Mercay SW Apricot's House": {
+        "return_name": "Apricot's Exit",
         "entrance": (0xB, 0x0, 3),
         "exit": (0xB, 0xB, 1),
         "entrance_region": "mercay sw",
@@ -158,8 +158,8 @@ ENTRANCE_DATA = {
         "two_way": True,
         "island": EntranceGroups.MERCAY
     },
-    "Mercay SW Sword Cave": {
-        "return_name": "Inside Sword Cave",
+    "Mercay SW Barrel Cave": {
+        "return_name": "Sword Cave Exit",
         "entrance": (0xB, 0x0, 4),
         "exit": (0xB, 0x13, 1),
         "entrance_region": "mercay sw",
@@ -191,7 +191,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay SE Milk Bar": {
-        "return_name": "Inside Milk Bar",
+        "return_name": "Milk Bar Exit",
         "entrance": (0xB, 0x3, 0x3),
         "exit": (0xB, 0xC, 0x0),
         "entrance_region": "mercay se",
@@ -201,7 +201,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay SE Shipyard": {
-        "return_name": "Inside Shipyard",
+        "return_name": "Shipyard Exit",
         "entrance": (0xB, 0x3, 0x4),
         "exit": (0xB, 0xD, 0x0),
         "entrance_region": "mercay se",
@@ -210,8 +210,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
     },
-    "Mercay SE Tuzi": {
-        "return_name": "Tuzi House",
+    "Mercay SE Tuzi's House": {
+        "return_name": "Tuzi's Exit",
         "entrance": (0xB, 0x3, 0x5),
         "exit": (0xB, 0xE, 0x0),
         "entrance_region": "mercay se",
@@ -221,7 +221,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay SE Treasure Teller": {
-        "return_name": "Treasure Teller House",
+        "return_name": "Treasure Teller's Exit",
         "entrance": (0xB, 0x3, 0x6),
         "exit": (0xB, 0xF, 0x0),
         "entrance_region": "mercay se",
@@ -231,7 +231,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay SE Shop": {
-        "return_name": "Inside Mercay Shop",
+        "return_name": "Mercay Shop Exit",
         "entrance": (0xB, 0x3, 0x7),
         "exit": (0xB, 0x11, 0x1),
         "entrance_region": "mercay se",
@@ -294,7 +294,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay NE Hidden Cave": {
-        "return_name": "Mercay Freedle Tunnel West",
+        "return_name": "Freedle Tunnel West",
         "entrance_region": "mercay ne",
         "exit_region": "mercay freedle tunnel",
         "entrance": (0xB, 0x2, 0x2),
@@ -304,7 +304,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay NE Freedle Island Cave": {
-        "return_name": "Mercay Freedle Tunnel East",
+        "return_name": "Freedle Tunnel East",
         "entrance_region": "mercay freedle island",
         "exit_region": "mercay freedle tunnel",
         "entrance": (0xB, 0x2, 0x3),
@@ -346,7 +346,7 @@ ENTRANCE_DATA = {
 
     # =========== TotOK ==============
     "Mercay NW Enter Temple": {
-        "return_name": "TotOK Lobby Entrance",
+        "return_name": "TotOK Lobby Exit",
         "entrance": (0xB, 0x1, 0x2),
         "exit": (0x26, 0x00, 0x1),
         "entrance_region": "mercay nw temple",
@@ -367,7 +367,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.CANNON
     },
     "Cannon Workshop West": {
-        "return_name": "Cannon Fuzo Exit",
+        "return_name": "Fuzo's Exit",
         "entrance_region": "cannon island",
         "exit_region": "cannon fuzo",
         "entrance": (0x13, 0x0, 0x3),
@@ -376,8 +376,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.CANNON
     },
-    "Cannon Fuzo Interior Door": {
-        "return_name": "Cannon Eddo Interior Door",
+    "Fuzo's Interior Door": {
+        "return_name": "Eddo's Interior Door",
         "entrance_region": "cannon fuzo",
         "exit_region": "cannon eddo",
         "entrance": (0x13, 0xA, 0x1),
@@ -386,7 +386,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.CANNON
     },
-    "Cannon Island Bee Cave": {
+    "Cannon Bee Cave": {
         "return_name": "Cannon Cave Exit",
         "entrance_region": "cannon island",
         "exit_region": "cannon cave south",
@@ -418,8 +418,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
     },
-    "Ember Astrid House": {
-        "return_name": "Inside Astrid House",
+    "Ember Astrid's House": {
+        "return_name": "Astrid's Exit",
         "entrance": (0xD, 0x0, 0x1),
         "exit": (0xD, 0xA, 0x0),
         "entrance_region": "ember port",
@@ -428,8 +428,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
     },
-    "Astrid House Stairs": {
-        "return_name": "Astrid Basement",
+    "Astrid's Stairs": {
+        "return_name": "Astrid's Basement Stairs",
         "entrance": (0xD, 0xA, 0x1),
         "exit": (0xD, 0x14, 0x0),
         "entrance_region": "ember astrid",
@@ -438,8 +438,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.EMBER
     },
-    "Ember Kayo House": {
-        "return_name": "Inside Kayo House",
+    "Ember Kayo's House": {
+        "return_name": "Kayo's Exit",
         "entrance": (0xD, 0x0, 0x3),
         "exit": (0xD, 0xC, 0x0),
         "entrance_region": "ember port",
@@ -547,7 +547,7 @@ ENTRANCE_DATA = {
 
     # ========== Temple of Fire ============
     "Ember Enter Temple": {
-        "return_name": "ToF Entrance",
+        "return_name": "ToF Exit",
         "entrance": (0xD, 0x1, 0x0),
         "exit": (0x1C, 0x0, 0x0),
         "entrance_region": "ember outside tof",
@@ -568,7 +568,7 @@ ENTRANCE_DATA = {
     },
 # ========== Molida ============
     "Molida Port House": {
-        "return_name": "Molida Inside Port House",
+        "return_name": "Molida Port House Exit",
         "entrance": (0xC, 0x0, 0x4),
         "exit": (0xC, 0xC, 0x1),
         "entrance_region": "molida island",
@@ -577,8 +577,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Geozard Cave": {
-        "return_name": "Molida Octo Cave East",
+    "Molida Cave Geozard Cave": {
+        "return_name": "Octo Cave East",
         "entrance_region": "molida cave post geozard",
         "exit_region": "molida cave octos",
         "entrance": (0xC, 0xA, 0x6),
@@ -588,7 +588,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida Cave Back Cave": {
-        "return_name": "Molida Octo Cave West",
+        "return_name": "Octo Cave West",
         "entrance_region": "molida cave back",
         "exit_region": "molida cave octos",
         "entrance": (0xC, 0xA, 0x7),
@@ -598,7 +598,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida Cave Bomb Cave": {
-        "return_name": "Molida Shovel Cave Exit",
+        "return_name": "Shovel Cave Exit",
         "entrance_region": "molida cave back",
         "exit_region": "molida shovel cave",
         "entrance": (0xC, 0xA, 0x5),
@@ -628,8 +628,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Romaros House": {
-        "return_name": "Molida Exit Romaros",
+    "Molida Romanos' House": {
+        "return_name": "Romanos' Exit",
         "entrance_region": "molida island",
         "exit_region": "molida romaros",
         "entrance": (0xC, 0x0, 0x3),
@@ -639,7 +639,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida Shop": {
-        "return_name": "Molida Exit Shop",
+        "return_name": "Molida Shop Exit",
         "entrance_region": "molida island",
         "exit_region": "molida shop",
         "entrance": (0xC, 0x0, 0x6),
@@ -649,7 +649,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida Potato's House": {
-        "return_name": "Molida Exit Potato's",
+        "return_name": "Potato's Exit",
         "entrance_region": "molida island",
         "exit_region": "molida potato house",
         "entrance": (0xC, 0x0, 0x5),
@@ -678,7 +678,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Dig Hole": {
+    "Molida South Dig Hole": {
         "two_way": False,
         "entrance_region": "molida island",
         "exit_region": "molida cave upper",
@@ -701,7 +701,7 @@ ENTRANCE_DATA = {
 
         # ========== Temple of Courage ============
     "Molida Enter Temple": {
-        "return_name": "ToC Entrance",
+        "return_name": "ToC Exit",
         "entrance": (0xC, 0x1, 0x3),
         "exit": (0x1E, 0x0, 0x0),
         "entrance_region": "toc gates",
@@ -743,8 +743,8 @@ ENTRANCE_DATA = {
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.NONE,
         },
-    "Gust West Coast North": {
-        "return_name": "Gust West Coast South",
+    "Gust SW Coast North": {
+        "return_name": "Gust NW Coast South",
         "entrance_region": "gust west ledge",
         "exit_region": "gust nw",
         "entrance": (0xE, 0x0, 0xFC),
@@ -755,8 +755,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.GUST
     },
-    "Gust West Inland North": {
-        "return_name": "Gust West Inland South",
+    "Gust SW Inland North": {
+        "return_name": "Gust NW Inland South",
         "entrance_region": "gust west",
         "exit_region": "gust above temple",
         "entrance": (0xE, 0x0, 0xFC),
@@ -768,8 +768,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.GUST
     },
-    "Gust Above Temple North": {
-        "return_name": "Gust Above Temple South",
+    "Gust South Above Temple North": {
+        "return_name": "Gust North Above Temple South",
         "entrance_region": "gust cliffs",
         "exit_region": "gust above temple",
         "entrance": (0xE, 0x0, 0xFC),
@@ -780,8 +780,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.GUST
     },
-    "Gust Temple Road North": {
-        "return_name": "Gust Temple Road South",
+    "Gust South Temple Road North": {
+        "return_name": "Gust North Temple Road South",
         "entrance_region": "gust cliffs",
         "exit_region": "gust temple road",
         "entrance": (0xE, 0x0, 0xFC),
@@ -792,7 +792,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.GUST
     },
     "Gust Cave East": {
-        "return_name": "Gust Miblin Cave Exit East",
+        "return_name": "Miniblin Cave East",
         "entrance_region": "gust cliffs",
         "exit_region": "gust cave",
         "entrance": (0xE, 0x0, 0x4),
@@ -802,7 +802,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.GUST
     },
     "Gust Cave West": {
-        "return_name": "Gust Miblin Cave Exit West",
+        "return_name": "Miniblin Cave West",
         "entrance_region": "gust south",
         "exit_region": "gust cave",
         "entrance": (0xE, 0x0, 0x3),
@@ -811,7 +811,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GUST
     },
-    "Gust Hideout Cave": {
+    "Gust Secret Cave": {
         "return_name": "Gust Hideout Exit",
         "entrance_region": "gust south",
         "exit_region": "gust hideout",
@@ -825,10 +825,10 @@ ENTRANCE_DATA = {
 
         # ========== Temple of Wind ============
     "Gust Enter Temple": {
-        "return_name": "ToW Entrance",
+        "return_name": "ToW Exit",
         "entrance": (0xE, 0x1, 0x0),
         "exit": (0x1D, 0x0, 0x0),
-        "entrance_region": "gust dig",
+        "entrance_region": "gust outside temple",
         "exit_region": "tow",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
         "direction": EntranceGroups.INSIDE,
@@ -838,7 +838,7 @@ ENTRANCE_DATA = {
         "entrance": (0x2A, 0x0, 0x0),
         "exit": (0xE, 0x1, 0x0),
         "entrance_region": "tow cyclok",
-        "exit_region": "gust dig",
+        "exit_region": "gust outside temple",
         "type": EntranceGroups.WARP_PORTAL,
         "direction": EntranceGroups.NONE,
         "two_way": False,
@@ -846,7 +846,7 @@ ENTRANCE_DATA = {
     },
     # Bannan
     "Bannan Hut": {
-        "return_name": "Wayfarer Hut Exit",
+        "return_name": "Wayfarer's Exit",
         "entrance_region": "bannan",
         "exit_region": "bannan wayfarer",
         "entrance": (0x14, 0x0, 0x2),
@@ -855,7 +855,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.BANNAN
     },
-    "Bannan West Cave": {
+    "Bannan Wayfarer Cave": {
         "return_name": "Bannan Cave West Exit",
         "entrance_region": "bannan",
         "exit_region": "bannan cave west",
@@ -865,7 +865,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.BANNAN
     },
-    "Bannan East Cave": {
+    "Bannan Salvatore Cave": {
         "return_name": "Bannan Cave East Exit",
         "entrance_region": "bannan east",
         "exit_region": "bannan cave east",
@@ -877,7 +877,7 @@ ENTRANCE_DATA = {
     },
     # ===== Zauz =====
     "Zauz' House": {
-        "return_name": "Zauz' House Exit",
+        "return_name": "Zauz' Exit",
         "entrance_region": "zauz",
         "exit_region": "zauz house",
         "entrance": (0x16, 0x0, 0x2),
@@ -898,7 +898,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.UNCHARTED
     },
     "Uncharted Cave Inner Cave": {
-        "return_name": "Uncharted Golden Chief Exit",
+        "return_name": "Golden Chief Exit",
         "entrance_region": "uncharted cave",
         "exit_region": "uncharted inner cave",
         "entrance": (0x1A, 0xA, 0x2),
@@ -909,8 +909,8 @@ ENTRANCE_DATA = {
     },
 
     # ========== Goron ============
-    "Goron Port House": {
-        "return_name": "Goron Inside Port House",
+    "Goron SW Port House": {
+        "return_name": "Goron Port House Exit",
         "entrance": (0x10, 0x2, 0x1),
         "exit": (0x10, 0xB, 0x0),
         "entrance_region": "goron sw",
@@ -919,7 +919,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GORON
     },
-    "Goron Mountain House": {
+    "Goron SE Mountain House": {
         "return_name": "Goron Mountain House Exit",
         "entrance_region": "goron se",
         "exit_region": "goron mountain house",
@@ -929,7 +929,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GORON
     },
-    "Goron Chu House": {
+    "Goron SW Chu House": {
         "return_name": "Goron Chu House Exit",
         "entrance_region": "goron sw",
         "exit_region": "goron chu house",
@@ -939,7 +939,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GORON
     },
-    "Goron Rock House": {
+    "Goron SW Rock House": {
         "return_name": "Goron Rock House Exit",
         "entrance_region": "goron sw",
         "exit_region": "goron rock house",
@@ -949,7 +949,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GORON
     },
-    "Goron Shop": {
+    "Goron SW Shop": {
         "return_name": "Goron Shop Exit",
         "entrance_region": "goron sw",
         "exit_region": "goron shop",
@@ -970,8 +970,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.GORON
     },
-    "Goron SE House": {
-        "return_name": "Goron SE House Exit",
+    "Goron SE Coast House": {
+        "return_name": "Goron Coast House Exit",
         "entrance_region": "goron se",
         "exit_region": "goron se house",
         "entrance": (0x10, 0x3, 0x1),
@@ -980,7 +980,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GORON
     },
-    "Goron Chief House": {
+    "Goron SE Chief House": {
         "return_name": "Goron Chief House Exit",
         "entrance_region": "goron se",
         "exit_region": "goron chief house",
@@ -1024,7 +1024,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.GORON
     },
     "Goron South Dead End": {
-        "return_name": "Goron Maze West Mountain",
+        "return_name": "Goron NE Mountain West",
         "entrance_region": "goron maze south dead end",
         "exit_region": "goron maze south",
         "entrance": (0x10, 0x0, 0xFD),
@@ -1036,7 +1036,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.GORON
     },
     "Goron North Dead End": {
-        "return_name": "Goron Maze West Middle",
+        "return_name": "Goron NE Middle West",
         "entrance_region": "goron maze north dead end",
         "exit_region": "goron maze north",
         "entrance": (0x10, 0x0, 0xFD),
@@ -1047,8 +1047,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.GORON
     },
-    "Goron NW East Coast": {
-        "return_name": "Goron Maze West Coast",
+    "Goron NW Coast East": {
+        "return_name": "Goron NE Coast West",
         "entrance_region": "goron like like",
         "exit_region": "goron maze nw",
         "entrance": (0x10, 0x0, 0xFD),
@@ -1059,8 +1059,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.GORON
     },
-    "Goron NW East Middle": {
-        "return_name": "Goron Maze Spikes",
+    "Goron NW Middle East": {
+        "return_name": "Goron Spikes Dead End",
         "entrance_region": "goron like like",
         "exit_region": "goron maze spikes",
         "entrance": (0x10, 0x0, 0xFD),
@@ -1074,7 +1074,7 @@ ENTRANCE_DATA = {
 
     # ========== Goron Temple ============
     "Goron Enter Temple": {
-        "return_name": "GT Entrance",
+        "return_name": "GT Exit",
         "entrance": (0x10, 0x0, 0x0),
         "exit": (0x20, 0x0, 0x0),
         "entrance_region": "goron outside temple",
@@ -1094,8 +1094,8 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.GORON
     },
     # ========== Frost ============
-    "Frost Smart House": {
-        "return_name": "Frost Inside Smart House",
+    "Frost SW Smart House": {
+        "return_name": "Smart Anouki's Exit",
         "entrance": (0xF, 0x0, 0x2),
         "exit": (0xF, 0xB, 0x0),
         "entrance_region": "frost",
@@ -1104,8 +1104,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Chief House": {
-        "return_name": "Frost Chief Exit",
+    "Frost SW Chief House": {
+        "return_name": "Anouki Chief's Exit",
         "entrance_region": "frost",
         "exit_region": "frost chief house",
         "entrance": (0xF, 0x0, 0x1),
@@ -1114,8 +1114,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Sensitive House": {
-        "return_name": "Frost Sensitive Exit",
+    "Frost SW Sensitive House": {
+        "return_name": "Sensitive Anouki's Exit",
         "entrance_region": "frost",
         "exit_region": "frost sensitive house",
         "entrance": (0xF, 0x0, 0x3),
@@ -1135,8 +1135,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.FROST
     },
-    "Frost Dobo House": {
-        "return_name": "Frost Dobo Exit",
+    "Frost NW Dobo's House": {
+        "return_name": "Dobo's Exit",
         "entrance_region": "frost estate",
         "exit_region": "frost dobo",
         "entrance": (0xF, 0x2, 0x1),
@@ -1145,8 +1145,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Kumu House": {
-        "return_name": "Frost Kumu Exit",
+    "Frost NW Kumu's House": {
+        "return_name": "Kumu's Exit",
         "entrance_region": "frost estate",
         "exit_region": "frost kumu",
         "entrance": (0xF, 0x2, 0x2),
@@ -1155,8 +1155,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Fofo House": {
-        "return_name": "Frost Fofo Exit",
+    "Frost NW Fofo's House": {
+        "return_name": "Fofo's Exit",
         "entrance_region": "frost estate",
         "exit_region": "frost fofo",
         "entrance": (0xF, 0x2, 0x3),
@@ -1165,8 +1165,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Mazo House": {
-        "return_name": "Frost Mazo Exit",
+    "Frost NW Mazo's House": {
+        "return_name": "Mazo's Exit",
         "entrance_region": "frost estate",
         "exit_region": "frost mazo",
         "entrance": (0xF, 0x2, 0x6),
@@ -1175,8 +1175,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Aroo House": {
-        "return_name": "Frost Aroo Exit",
+    "Frost NW Aroo's House": {
+        "return_name": "Aroo's Exit",
         "entrance_region": "frost estate",
         "exit_region": "frost aroo",
         "entrance": (0xF, 0x2, 0x5),
@@ -1185,8 +1185,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Gumo House": {
-        "return_name": "Frost Gumo Exit",
+    "Frost NW Gumo's House": {
+        "return_name": "Gumo's Exit",
         "entrance_region": "frost estate",
         "exit_region": "frost gumo",
         "entrance": (0xF, 0x2, 0x4),
@@ -1196,7 +1196,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.FROST
     },
     "Frost SW Cave": {
-        "return_name": "Frost Cave West",
+        "return_name": "Frost Cave West Exit",
         "entrance_region": "frost",
         "exit_region": "frost cave",
         "entrance": (0xF, 0x0, 0x4),
@@ -1206,7 +1206,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.FROST
     },
     "Frost SE Cave": {
-        "return_name": "Frost Cave East",
+        "return_name": "Frost Cave East Exit",
         "entrance_region": "frost field",
         "exit_region": "frost cave",
         "entrance": (0xF, 0x3, 0x0),
@@ -1252,7 +1252,7 @@ ENTRANCE_DATA = {
     },
     # ========== Temple of Ice ============
     "Frost Enter Temple": {
-        "return_name": "ToI Entrance",
+        "return_name": "ToI Exit",
         "entrance": (0xF, 0x1, 0x0),
         "exit": (0x1F, 0x0, 0x0),
         "entrance_region": "frost outside temple",
@@ -1282,8 +1282,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.DEAD
     },
-    "IotD Cave Secret Cave": {
-        "return_name": "IotD Rupoor Room Exit",
+    "Aquanine Cave Secret Cave": {
+        "return_name": "Rupoor Cave Exit",
         "entrance_region": "iotd cave",
         "exit_region": "iotd rupoor",
         "entrance": (0x15, 0x1, 0x3),
@@ -1292,8 +1292,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.DEAD
     },
-    "IotD Upper Cave": {
-        "return_name": "IotD Cave West Exit",
+    "IotD Like Like Cave": {
+        "return_name": "Aquanine Cave West",
         "entrance_region": "iotd",
         "exit_region": "iotd cave",
         "entrance": (0x15, 0x0, 0x8),
@@ -1302,8 +1302,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.DEAD
     },
-    "IotD Tunnel Cave": {
-        "return_name": "IotD Tunnel Cave Exit",
+    "Boulder Tunnel Cave": {
+        "return_name": "IotD Rupee Cave Exit",
         "entrance_region": "iotd tunnel",
         "exit_region": "iotd tunnel cave",
         "entrance": (0x15, 0x3, 0x3),
@@ -1313,7 +1313,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.DEAD
     },
     "IotD Face Staircase": {
-        "return_name": "IotD Tunnel Exit",
+        "return_name": "Boulder Tunnel Staircase",
         "entrance_region": "iotd face",
         "exit_region": "iotd tunnel",
         "entrance": (0x15, 0x0, 0x5),
@@ -1323,7 +1323,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.DEAD
     },
     "IotD Pyramid": {
-        "return_name": "IotD Pyramid Exit",
+        "return_name": "Brant's Exit",
         "entrance_region": "iotd",
         "exit_region": "iotd temple",
         "entrance": (0x15, 0x0, 0x3),
@@ -1333,7 +1333,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.DEAD
     },
     "IotD Crown Staircase": {
-        "return_name": "IotD Brant's Chamber Exit",
+        "return_name": "Brant's Chamber Staircase",
         "entrance_region": "iotd crown",
         "exit_region": "iotd temple",
         "entrance": (0x15, 0x0, 0x4),
@@ -1352,7 +1352,7 @@ ENTRANCE_DATA = {
         "two_way": False,
         "island": EntranceGroups.DEAD
     },
-    "Brant Maze 1": {
+    "Brant's Maze 1": {
         "entrance_region": "iotd temple",
         "exit_region": "iotd brant maze",
         "entrance": (0x15, 0x5, 0x2),
@@ -1363,7 +1363,7 @@ ENTRANCE_DATA = {
         "never_shuffle": True,  # Doesn't do anything, isn't needed yet
         "island": EntranceGroups.DEAD
     },
-    "Brant Maze Exit": {
+    "Brant's Maze Exit": {
         "entrance_region": "iotd brant maze",
         "exit_region": "iotd brant chamber",
         "entrance": (0x15, 0xA, 0x1),
@@ -1375,64 +1375,8 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.DEAD
     },
     # ========== Ruins ============
-    "Ruins Port Cave": {
-        "return_name": "Ruins Geozard Cave East Exit",
-        "entrance": (0x11, 0x0, 0x2),
-        "exit": (0x11, 0xA, 0x1),
-        "entrance_region": "ruins port",
-        "exit_region": "ruins geozard cave east",
-        "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.INSIDE,
-        "island": EntranceGroups.RUINS
-    },
-"Ruins Port Cliff Cave": {
-        "return_name": "Ruins Geozard Cave Exit West",
-        "entrance_region": "ruins sw maze upper",
-        "exit_region": "ruins geozard cave west",
-        "entrance": (0x11, 0x0, 0x3),
-        "exit": (0x11, 0xA, 0x2),
-        "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.INSIDE,
-        "island": EntranceGroups.RUINS
-    },
-    "Ruins SW Maze Lower North": {
-        "return_name": "Ruins NW Maze Chest South",
-        "entrance_region": "ruins sw maze lower",
-        "exit_region": "ruins nw maze lower chest",
-        "entrance": (0x12, 0x0, 0xFC),
-        "exit": (0x12, 0x1, 0xFB),
-        "coords": (-63750, -164, -4815),
-        "extra_data": {"conditional": ["ruins_water"]},
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.RUINS
-    },
-    "Ruins SW Lower Maze Exit": {
-        "return_name": "Ruins NW Lower Maze Exit",
-        "entrance_region": "ruins sw maze lower exit",
-        "exit_region": "ruins nw maze lower exit",
-        "entrance": (0x11, 0x0, 0xFC),
-        "exit": (0x11, 0x1, 0xFB),
-        "coords": (-194200, 9666, -4815),
-        "extra_data": {"x_max": -150000},
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.RUINS
-    },
-    "Ruins SW Port Cliff North": {
-        "return_name": "Ruins NW Port Cliff South",
-        "entrance_region": "ruins sw port cliff",
-        "exit_region": "ruins nw port cliff",
-        "entrance": (0x11, 0x0, 0xFC),
-        "exit": (0x11, 0x1, 0xFB),
-        "coords": (-46050, 4751, -4815),
-        "extra_data": {"x_min": -70000},
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.RUINS
-    },
-    "Ruins SW Upper Maze Exit": {
-        "return_name": "Ruins NW Upper Maze Exit",
+    "Ruins SW Upper Maze North": {
+        "return_name": "Ruins NW One-Way Ledge South",
         "entrance_region": "ruins sw maze upper",
         "exit_region": "ruins nw maze upper exit",
         "entrance": (0x11, 0x0, 0xFC),
@@ -1443,24 +1387,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.RUINS
     },
-    "Ruins NW Pyramid": {
-        "return_name": "Bremeur Exit",
-        "entrance_region": "ruins nw boulders",
-        "exit_region": "bremeur",
-        "entrance": (0x11, 0x1, 0x1),
-        "exit": (0x24, 0x0, 0x1),
-        "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.INSIDE,
-        "island": EntranceGroups.RUINS
-    },
-    "Ruins NW Cave": {
-        "return_name": "Ruins Cave Exit",
-        "entrance_region": "ruins nw across bridge",
-        "exit_region": "ruins nw cave",
-        "entrance": (0x12, 0x1, 0x2),
-        "exit": (0x12, 0xB, 0x1),
-        "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.INSIDE,
+    "Ruins SW Lower Maze Exit North": {
+        "return_name": "Ruins NW One-Way Ledge SW",
+        "entrance_region": "ruins sw maze lower exit",
+        "exit_region": "ruins nw maze lower exit",
+        "entrance": (0x11, 0x0, 0xFC),
+        "exit": (0x11, 0x1, 0xFB),
+        "coords": (-194200, 9666, -4815),
+        "extra_data": {"x_max": -150000},
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.RUINS
     },
     "Ruins NW Across Bridge East": {
@@ -1475,7 +1411,94 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.RUINS
     },
-    "Ruins NE East Pyramid": {
+    "Ruins NW Upper One-Way East": {
+        "return_name": "Ruins NE Doylan's Bridge NW",
+        "entrance_region": "ruins nw return",
+        "exit_region": "ruins ne doylan bridge",
+        "entrance": (0x11, 0x1, 0xFD),
+        "exit": (0x11, 0x2, 0xFE),
+        "coords": (4784, 9666, -150700),
+        "extra_data": {"z_max": -110000},
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+        "island": EntranceGroups.RUINS
+    },
+    "Ruins SW Port Cliff North": {
+        "return_name": "Ruins NW Port Cliff South",
+        "entrance_region": "ruins sw port cliff",
+        "exit_region": "ruins nw port cliff",
+        "entrance": (0x11, 0x0, 0xFC),
+        "exit": (0x11, 0x1, 0xFB),
+        "coords": (-46050, 4751, -4815),
+        "extra_data": {"x_min": -70000},
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.RUINS
+    },
+    "Ruins SW East": {
+        "return_name": "Ruins SE West",
+        "entrance_region": "ruins sw port cliff",
+        "exit_region": "ruins se return bridge west",
+        "entrance": (0x11, 0x0, 0xFD),
+        "exit": (0x11, 0x3, 0xFE),
+        "coords": (4784, 9666, 51500),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+        "island": EntranceGroups.RUINS
+    },
+    "Ruins SW Port Cave": {
+        "return_name": "Ruins Geozard Cave East",
+        "entrance": (0x11, 0x0, 0x2),
+        "exit": (0x11, 0xA, 0x1),
+        "entrance_region": "ruins port",
+        "exit_region": "ruins geozard cave east",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.RUINS
+    },
+"Ruins SW Cliff Cave": {
+        "return_name": "Ruins Geozard Cave West",
+        "entrance_region": "ruins sw maze upper",
+        "exit_region": "ruins geozard cave west",
+        "entrance": (0x11, 0x0, 0x3),
+        "exit": (0x11, 0xA, 0x2),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.RUINS
+    },
+    "Ruins SW Maze Lower North": {
+        "return_name": "Ruins NW Lower Maze Chest South",
+        "entrance_region": "ruins sw maze lower",
+        "exit_region": "ruins nw maze lower chest",
+        "entrance": (0x12, 0x0, 0xFC),
+        "exit": (0x12, 0x1, 0xFB),
+        "coords": (-63750, -164, -4815),
+        "extra_data": {"conditional": ["ruins_water"]},
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.RUINS
+    },
+    "Ruins NW Pyramid": {
+        "return_name": "Bremeur's Exit",
+        "entrance_region": "ruins nw boulders",
+        "exit_region": "bremeur",
+        "entrance": (0x11, 0x1, 0x1),
+        "exit": (0x24, 0x0, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.RUINS
+    },
+    "Ruins NW Cave": {
+        "return_name": "Ruins Rupee Cave Exit",
+        "entrance_region": "ruins nw across bridge",
+        "exit_region": "ruins nw cave",
+        "entrance": (0x12, 0x1, 0x2),
+        "exit": (0x12, 0xB, 0x1),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.RUINS
+    },
+    "Ruins NE Small Pyramid": {
         "return_name": "Doylan's Exit",
         "entrance_region": "ruins ne doylan bridge",
         "exit_region": "doylan temple",
@@ -1508,20 +1531,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.RUINS
     },
-    "Ruins NW Upper One-Way East": {
-        "return_name": "Ruins NE Doylan's Bridge Exit West",
-        "entrance_region": "ruins nw return",
-        "exit_region": "ruins ne doylan bridge",
-        "entrance": (0x11, 0x1, 0xFD),
-        "exit": (0x11, 0x2, 0xFE),
-        "coords": (4784, 9666, -150700),
-        "extra_data": {"z_max": -110000},
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.RIGHT,
-        "island": EntranceGroups.RUINS
-    },
     "Ruins NW Alcove East": {
-        "return_name": "Ruins NE Lower East South",
+        "return_name": "Ruins NE Lower Bay West",
         "entrance_region": "ruins nw alcove",
         "exit_region": "ruins ne lower",
         "entrance": (0x12, 0x1, 0xFD),
@@ -1534,7 +1545,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.RUINS
     },
     "Ruins NW Lower East": {
-        "return_name": "Ruins NE Lower East North",
+        "return_name": "Ruins NE Lower Boulders West",
         "entrance_region": "ruins nw lower",
         "exit_region": "ruins ne lower",
         "entrance": (0x12, 0x1, 0xFD),
@@ -1546,7 +1557,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.RUINS
     },
-    "Ruins SE North West": {
+    "Ruins SE Bay North": {
         "return_name": "Ruins NE South",
         "entrance_region": "ruins se lower",
         "exit_region": "ruins ne lower",
@@ -1559,7 +1570,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.RUINS
     },
-    "Ruins SE North Secret": {
+    "Ruins SE Boulder North": {
         "return_name": "Ruins NE Secret Chest South",
         "entrance_region": "ruins se lower",
         "exit_region": "ruins ne secret chest",
@@ -1573,17 +1584,6 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.RUINS
     },
-    "Ruins SW East": {
-        "return_name": "Ruins SE Shortcut Bridge",
-        "entrance_region": "ruins sw port cliff",
-        "exit_region": "ruins se return bridge west",
-        "entrance": (0x11, 0x0, 0xFD),
-        "exit": (0x11, 0x3, 0xFE),
-        "coords": (4784, 9666, 51500),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.RIGHT,
-        "island": EntranceGroups.RUINS
-    },
     "Ruins SE Pyramid": {
         "return_name": "Max's Exit",
         "entrance_region": "ruins se outside max",
@@ -1595,8 +1595,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS
     },
-    "Ruins SE Path to Temple North": {
-        "return_name": "Ruins NE Path to Temple South",
+    "Ruins SE King's Road North": {
+        "return_name": "Ruins NE King's Road South",
         "entrance_region": "ruins se path to temple",
         "exit_region": "ruins ne geozards",
         "entrance": (0x12, 0x3, 0xFC),
@@ -1612,10 +1612,10 @@ ENTRANCE_DATA = {
 
     # ========== Mutoh's Temple ============
     "Ruins Enter Temple": {
-        "return_name": "MT Entrance",
+        "return_name": "MT Exit",
         "entrance": (0x12, 0x2, 0x2),
         "exit": (0x21, 0x0, 0x1),
-        "entrance_region": "ruins water",
+        "entrance_region": "ruins ne outside temple",
         "exit_region": "mutoh",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
         "direction": EntranceGroups.INSIDE,
@@ -1625,7 +1625,7 @@ ENTRANCE_DATA = {
         "entrance": (0x21, 0x6, 0x0),
         "exit": (0x12, 0x2, 0x2),
         "entrance_region": "mutoh eox",
-        "exit_region": "ruins water",
+        "exit_region": "ruins ne outside temple",
         "type": EntranceGroups.WARP_PORTAL,
         "direction": EntranceGroups.NONE,
         "two_way": False,
@@ -1786,8 +1786,8 @@ ENTRANCE_DATA = {
 
     # ============= NE Ocean ==================
 
-    "Ocean NE Dead": {
-        "return_name": "Dead Boat",
+    "Ocean NE IotD": {
+        "return_name": "IotD Boat",
         "entrance_region": "dead boat",
         "exit_region": "iotd",
         "entrance": (0x0, 0x3, 0x1),
@@ -1970,8 +1970,13 @@ entrance_id_to_region = {d.id: d.entrance_region for d in ENTRANCES.values()}
 
 
 if __name__ == "__main__":
-    for name, data in ENTRANCES.items():
-        print(f"{name}:", "{")
-        for k, v in data.items():
-            print(f"\t{k}: {v}")
-        print("},")
+    sorted_entrances = sorted(ENTRANCES, key=lambda x: (ENTRANCES[x].category_group, ENTRANCES[x].direction))
+    for name in sorted_entrances:
+        print(name)
+
+
+    # for name, data in ENTRANCES.items():
+    #     print(f"{name}:", "{")
+    #     for k, v in data.items():
+    #         print(f"\t{k}: {v}")
+    #     print("},")
