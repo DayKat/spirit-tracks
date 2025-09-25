@@ -823,8 +823,8 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "force_vanilla": True,
         "dungeon": True,
-        "dummy": True,
         "id": 109,
+        "always_process": True
     },
     "Boss Key (Mutoh's Temple)": {
         "classification": ItemClassification.progression,

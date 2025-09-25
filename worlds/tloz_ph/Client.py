@@ -516,6 +516,12 @@ class PhantomHourglassClient(DSZeldaClient):
                   f"adr: {hex(self.stage_address)}")
             await write_memory_values(ctx, self.stage_address, flags)
 
+        # Unlock boss door if have bk
+        data = BOSS_DOOR_DATA.get(stage, False)
+        if data and ctx.slot_data.get("boss_key_behaviour", False):
+            if item_count(ctx, f"Boss Key ({data['name']})"):
+                await write_memory_value(ctx, data["address"], data["value"], overwrite=True, size=4)
+
     # Enter stage
     async def enter_special_key_room(self, ctx, stage, scene_id) -> bool:
         if self.entering_from == 0x2600 and scene_id == 0x2509:
@@ -612,6 +618,12 @@ class PhantomHourglassClient(DSZeldaClient):
         elif item_name == "Refill: Health":
             await self.full_heal(ctx)
 
+        # Open boss door if got bk in own dungeon
+        elif "Boss Key" in item_name and ctx.slot_data.get("boss_key_behaviour", False):
+            if self.current_stage in BOSS_DOOR_DATA and item_name == BOSS_DOOR_DATA["name"]:
+                data = BOSS_DOOR_DATA
+                res += [(data["address"], split_bits(data["value"], 4), "Main RAM")]
+
         return res
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
@@ -658,6 +670,28 @@ class PhantomHourglassClient(DSZeldaClient):
             data = ITEMS_DATA[vanilla_item]
             await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)
             return False
+
+        elif "Boss Key" in vanilla_item and ctx.slot_data.get("boss_key_behaviour", True):
+            # Read actor id in link's held item address
+            bk_id = await read_memory_value(ctx, 0x1CD510,silent=True)
+            # Get the actor table
+            actor_table_addr = await read_memory_value(ctx, 0x1BA8C4, size=4, silent=True) - 0x2000000
+            actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=200, silent=True))
+            actor_table = "0" + actor_table[2:]
+            # Loop through the actor table checking if each actor has the bk_id.
+            for i in range(len(actor_table)//8):
+                actor_data = actor_table[i*8:(i+1)*8]
+                if actor_data[1] == "0":  # filter out empty slots
+                    continue
+                actor_id_addr = int(actor_data, 16) + 8 - 0x2000000
+                actor_id = await read_memory_value(ctx, actor_id_addr, size=4, silent=True)
+                # If you find the boss key, delete its pointer
+                if actor_id == bk_id:
+                    little_endian_lol = actor_table_addr + len(actor_table)//2 - (i+1)*4
+                    # print(f"Found bk pointer: {hex(actor_pointer_addr)} at index {i}")
+                    await write_memory_value(ctx, little_endian_lol, 0, overwrite=True, size=4)
+                    break
+
         else:
             return False
         return True  # Removed vanilla item, don't do more processing

@@ -67,6 +67,6 @@ class TestGeneration(WorldTestBase):
         "shuffle_overworld_transitions": "simple_mixed_pool",
         # entrance options
         "entrance_directionality": "preserve_all",
-        "shuffle_between_islands": "shuffle_only_on_own_island",
+        "shuffle_between_islands": "shuffle_anywhere",
         "decouple_entrances": "decouple_all",
                }

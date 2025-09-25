@@ -555,6 +555,8 @@ class PhantomHourglassShuffleOverworldTransitions(Choice):
 class PhantomHourglassShuffleBetweenIslands(Choice):
     """
     Either preserve or disregard directionality for entrances shuffled in other options.
+    When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
+    Please test generate before submitting to a public game.
     - shuffle_anywhere: entrances in a pool can connect to other entrances in that pool no matter their island.
     - shuffle_only_on_own_island: entrances in a pool can only connect to other entrances in that pool if they're on the same island.
     - limit_simple_mixed_pool: entrances in the simple_mixed_pool are only shuffled with entrances on their own island. other pools can be shuffled between islands.
@@ -580,6 +582,8 @@ class PhantomHourglassDecoupleEntrances(Choice):
 class PhantomHourglassPreserveDirectionality(Choice):
     """
     Either preserve or disregard directionality for entrances shuffled in other options.
+    When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
+    Please test generate before submitting to a public game.
     - preserve: preserve directionality for all shuffled entrances
     - disregard_all: disregard directionality for all shuffled entrances
     - disregard_simple_mixed_pool: disregard directionality for all shuffled entrances is the simple mixed pool, but preserve the others
@@ -589,6 +593,17 @@ class PhantomHourglassPreserveDirectionality(Choice):
     option_disregard_all = 1
     option_disregard_simple_mixed_pool = 2
     option_disregard_all_but_simple_mixed_pool = 3
+
+class PhantomHourglassBossKeyBehavior(Choice):
+    """
+    How boss keys work as items
+    - vanilla: boss key has to be carried to the boss door. Not compatible with boss key rando or inernal dungeon shuffle.
+    - inventory: getting the boss key item automatically opens it's boss door.
+    """
+    option_vanilla = 0
+    option_inventory = 1
+    default = 0
+    display_name = "boss_key_behavior"
 
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
@@ -632,6 +647,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     spirit_island_hints: PhantomHourglassHintSpiritIsland
 
     # World Options
+    boss_key_behaviour: PhantomHourglassBossKeyBehavior
     fog_settings: PhantomHourglassFogSettings
     skip_ocean_fights: PhantomHourglassSkipOceanFights
     zauz_required_metals: PhantomHourglassZauzRequiredMetals

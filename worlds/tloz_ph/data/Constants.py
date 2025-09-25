@@ -1294,6 +1294,24 @@ DUNGEON_KEY_DATA = {
     },
 }
 
+BOSS_DOOR_DATA = {
+    0x1E: {
+        "name": "Temple of Courage",
+        "address": 0x252360,
+        "value": 0x1E
+    },
+    0x1F: {
+        "name": "Temple of Ice",
+        "address": 0x259CA0,
+        "value": 0xDA
+    },
+    0x1D: {
+        "name": "Temple of Wind",
+        "address": 0x24D740,
+        "value": 0x77F
+    }
+}
+
 # Decode classification for humans
 CLASSIFICATION = {
     1: "progression",
