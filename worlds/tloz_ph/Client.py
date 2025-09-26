@@ -518,7 +518,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Unlock boss door if have bk
         data = BOSS_DOOR_DATA.get(stage, False)
-        if data and ctx.slot_data.get("boss_key_behaviour", False):
+        if data and ctx.slot_data.get("boss_key_behaviour", True):
             if item_count(ctx, f"Boss Key ({data['name']})"):
                 await write_memory_value(ctx, data["address"], data["value"], overwrite=True, size=4)
 
@@ -609,6 +609,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def receive_special_items(self, ctx, item_name, item_data) -> list[tuple[int, list, str]]:
         # Set ship
+        print(f"special item: {item_name} {self.current_stage}")
         res = []
         if "ship" in item_data:
             if not (await read_memory_value(ctx, 0x1ba661) & 0x80):
@@ -619,7 +620,7 @@ class PhantomHourglassClient(DSZeldaClient):
             await self.full_heal(ctx)
 
         # Open boss door if got bk in own dungeon
-        elif "Boss Key" in item_name and ctx.slot_data.get("boss_key_behaviour", False):
+        elif "Boss Key" in item_name and ctx.slot_data.get("boss_key_behaviour", True):
             if self.current_stage in BOSS_DOOR_DATA and item_name == BOSS_DOOR_DATA["name"]:
                 data = BOSS_DOOR_DATA
                 res += [(data["address"], split_bits(data["value"], 4), "Main RAM")]

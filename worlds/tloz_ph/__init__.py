@@ -2,7 +2,7 @@ import os
 import logging
 import random
 from math import ceil
-from typing import List, Union, ClassVar, Any, Optional, Tuple
+from typing import List, Union, ClassVar, Any, Optional, Tuple, TYPE_CHECKING
 
 import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
@@ -19,12 +19,15 @@ from .data.Constants import *
 from .data.Items import ITEMS_DATA
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
-from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region, decode_entrance_groups
-
+from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region
+from .Subclasses import PHRegion, decode_entrance_groups
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
 dev_prints = True
+
+if TYPE_CHECKING:
+    from .Subclasses import ERPlacementState
 
 class PhantomHourglassWeb(WebWorld):
     setup_en = Tutorial(
@@ -170,6 +173,8 @@ class PhantomHourglassWorld(World):
             self.pick_required_dungeons()
             if self.options.shuffle_dungeon_entrances:
                 self.options.dungeon_shortcuts.value = 0
+            if self.options.randomize_boss_keys:
+                self.options.boss_key_behaviour.value = 1
 
         self.restrict_non_local_items()
 
@@ -199,7 +204,7 @@ class PhantomHourglassWorld(World):
     def create_regions(self):
         # Create regions
         for region_name in REGIONS:
-            region = Region(region_name, self.player, self.multiworld)
+            region = PHRegion(region_name, self.player, self.multiworld)
             self.multiworld.regions.append(region)
 
         # Create locations
@@ -385,6 +390,9 @@ class PhantomHourglassWorld(World):
             if option == "simple_mixed_pool":
                 simple_mixed_pool.append(a)
 
+        unique_groups = {entrance.randomization_group for entrance in self.multiworld.get_entrances(self.player)
+                         if entrance.parent_region and not entrance.connected_region}
+
 
         def get_target_groups(g: int) -> list[int]:
             direction = g & EntranceGroups.DIRECTION_MASK
@@ -397,11 +405,11 @@ class PhantomHourglassWorld(World):
             # Create target direction list
             if ((in_simple_mixed_pool and self.options.entrance_directionality.value in [1, 2]) or
                     (not in_simple_mixed_pool and self.options.entrance_directionality.value in [1, 3])):
-                if area == 1 and (not in_simple_mixed_pool or len(simple_mixed_pool) == 1):
+                #if area == 1 and (not in_simple_mixed_pool or len(simple_mixed_pool) == 1):
                     # 90% if houses are dead ends, and GER can't handle that with disregarded directionality
-                    target_directions = [OPPOSITE_ENTRANCE_GROUPS[direction]]
-                else:
-                    target_directions = range(7)
+                    # target_directions = [OPPOSITE_ENTRANCE_GROUPS[direction]]
+                # else:
+                target_directions = range(7)
             else:
                 target_directions = [OPPOSITE_ENTRANCE_GROUPS[direction]]
 
@@ -419,22 +427,37 @@ class PhantomHourglassWorld(World):
                 target_islands.add(island)
                 # ports still need to be able to connect to the sea
                 if area == 3:
-                     target_islands.add(0)
+                     target_islands.update(range(15))
                 if in_simple_mixed_pool and 3 in simple_mixed_pool:
                     target_islands.add(0)
                 if island == 0:
                     target_islands.update(range(15))
 
+            def island_iter(loop, t):
+                ret = []
+                for i in loop:
+                    new_group = d | (t << 3) | (i << 7)
+                    if new_group in unique_groups:
+                        ret.append(new_group)
+                return ret
+
+            def area_iter(loop):
+                ret = []
+                for t in loop:
+                    if in_simple_mixed_pool and 3 in simple_mixed_pool and t == 3:
+                        ret += island_iter(range(15), t)
+                    else:
+                        ret += island_iter(target_islands, t)
+                return ret
+
             # Put it all together
             res = []
             for d in target_directions:
-                for t in target_areas:
-                    if in_simple_mixed_pool and 3 in simple_mixed_pool and t == 3:
-                        for i in range(15):
-                            res += [d | (t << 3) | (i << 7)]
-                    else:
-                        for i in target_islands:
-                            res += [d | (t << 3) | (i << 7)]
+                if in_simple_mixed_pool and 3 in simple_mixed_pool and area == 3:
+                    res += area_iter(simple_mixed_pool)
+                else:
+                    res += area_iter(target_areas)
+
 
             if dev_prints and False:
                 print(f"res: {decode_entrance_groups(g)}")
@@ -485,6 +508,19 @@ class PhantomHourglassWorld(World):
             # Decide if coupled
             coupled = not self.options.decouple_entrances
 
+            def on_connect(er_state: "ERPlacementState", placed_exits: list[Entrance],
+                           paired_entrances: list[Entrance]):
+                def dead_count(entrances):
+                    for entr in entrances:
+                        print(f"\tConnected {entr.name} group {decode_entrance_groups(entr.randomization_group)}")
+                        for i in groups[entr.randomization_group]:
+                            if i in er_state.dead_end_counter:
+                                er_state.dead_end_counter[i] -= 1
+
+                dead_count(placed_exits)
+                print({decode_entrance_groups(g): c for g, c in er_state.dead_end_counter.items()})
+                return False
+
             # Do ER, if not UT!
             if not getattr(self.multiworld, "generation_is_fake", False):
                 ph_max_er_attempts = 10
@@ -493,7 +529,7 @@ class PhantomHourglassWorld(World):
                     # Concept stolen from CodeGorilla's Crystalis implementation
                     try:
                         self.manual_er()
-                        self.er_placement_state = randomize_entrances(self, coupled, groups)
+                        self.er_placement_state = randomize_entrances(self, coupled, groups, on_connect=on_connect)
                         break
                     except EntranceRandomizationError as error:
                         print(f"Phantom Hourglass ER failed {i+1} time(s)")
@@ -895,11 +931,11 @@ class PhantomHourglassWorld(World):
             # Item Randomization
             "randomize_minigames", "randomize_digs", "randomize_fishing",
             "keysanity", "randomize_frogs", "randomize_salvage",
-            "randomize_triforce_crest", "randomize_harrow",
+            "randomize_triforce_crest", "randomize_harrow", "randomize_boss_keys",
             # Beedle randomization
             "randomize_masked_beedle", "randomize_beedle_membership",
             # World Settings
-            "fog_settings", "skip_ocean_fights", "dungeon_shortcuts",
+            "fog_settings", "skip_ocean_fights", "dungeon_shortcuts", "boss_key_behaviour",
             # Spirit Packs
             "spirit_gem_packs", "additional_spirit_gems",
             # Hint settings

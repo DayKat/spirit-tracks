@@ -60,13 +60,13 @@ class TestGeneration(WorldTestBase):
         "ph_time_increment": 60,
         "randomize_beedle_membership": "no_beedle_points",
         # Entrance types
-        "shuffle_dungeon_entrances": "simple_mixed_pool",
+        "shuffle_dungeon_entrances": "no_shuffle",
         "shuffle_ports": "simple_mixed_pool",
-        "shuffle_caves": "simple_mixed_pool",
+        "shuffle_caves": "no_shuffle",
         "shuffle_houses": "simple_mixed_pool",
-        "shuffle_overworld_transitions": "simple_mixed_pool",
+        "shuffle_overworld_transitions": "no_shuffle",
         # entrance options
-        "entrance_directionality": "preserve_all",
-        "shuffle_between_islands": "shuffle_anywhere",
-        "decouple_entrances": "decouple_all",
+        "entrance_directionality": "disregard_all",
+        "shuffle_between_islands": "shuffle_only_on_own_island",
+        "decouple_entrances": "couple_all",
                }

@@ -128,6 +128,18 @@ class PhantomHourglassKeyRandomization(Choice):
     option_anywhere = 2
     default = 1
 
+class PhantomHourglassRandomizeBossKeys(Choice):
+    """
+    Randomize Boss Keys. Automatically sets boss_key_behaviour to inventory if not vanilla.
+    - vanilla: Boss Keys are not randomized
+    - in_own_dungeon: Boss Keys can be found in their own dungeon
+    - anywhere: Boss Keys can be found anywhere
+    """
+    display_name = "randomize_boss_keys"
+    option_vanilla = 0
+    option_in_own_dungeon = 1
+    option_anywhere = 2
+    default = 1
 
 class PhantomHourglassTriforceCrestRandomization(Toggle):
     """
@@ -631,6 +643,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # Item Randomization
     keysanity: PhantomHourglassKeyRandomization
+    randomize_boss_keys: PhantomHourglassRandomizeBossKeys
     randomize_minigames: PhantomHourglassRandomizeMinigames
     randomize_frogs: PhantomHourglassFrogRandomization
     randomize_fishing: PhantomHourglassRandomizeFishing
@@ -711,6 +724,7 @@ ph_option_groups = [
     ]),
     OptionGroup("Item Randomization Options", [
         PhantomHourglassKeyRandomization,
+        PhantomHourglassRandomizeBossKeys,
         PhantomHourglassRandomizeMinigames,
         PhantomHourglassFrogRandomization,
         PhantomHourglassRandomizeFishing,
