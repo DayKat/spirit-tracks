@@ -788,12 +788,14 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
             entrance.randomization_group = entrance_data.direction | entrance_data.category_group | entrance_data.island
             entrance.name = entrance_data.name
             multiworld.worlds[player].entrances[entrance.name] = entrance
+            uncreated_entrances.remove(entrance.name)
 
     all_logic = [
         make_overworld_logic()
     ]
 
     test_entrances = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}
+    uncreated_entrances = [e.name for e in ENTRANCES.values()]
 
     # Create connections
     for logic_array in all_logic:
@@ -807,5 +809,7 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
                 create_entrance(region_2, region_1, *args)
 
 
-
+    # print(f"Some entrances had no logical matches: ")
+    # for i in uncreated_entrances:
+    #     print(f"\t{i}")
 

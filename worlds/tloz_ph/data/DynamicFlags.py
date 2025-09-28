@@ -764,7 +764,7 @@ DYNAMIC_FLAGS = {
     },
     "SE spawn pirate ship": {
         "on_scenes": [0x2, 0x3],
-        "not_has_locations": ["Ocean Pirate Ambush Item"],
+        "not_has_locations": ["Ocean Miniblin Pirate Ambush Item"],
         "has_locations": ["Ghost Ship Rescue Tetra"],
         "set_if_true": [(0x1B557E, 0x10), (0x1B5582, 0x80), (0x1B55AB, 0x10)]
     },

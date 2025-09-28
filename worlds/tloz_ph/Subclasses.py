@@ -14,41 +14,70 @@ class PHEntrance(Entrance):
         # the implementation of coupled causes issues for self-loops since the reverse entrance will be the
         # same as the forward entrance. In uncoupled they are ok.
 
+        # Vanilla GER Check first, cause the less resource intensive
+        if not (self.randomization_type == other.randomization_type and (not er_state.coupled or self.name != other.name)):
+            return False
+
         # Check if there are enough valid entrances to go around for the dead ends
         if not hasattr(er_state, "dead_end_counter"):
             self.make_dead_end_counter(er_state)
 
-        if not dead_end:
-            combined_groups = {}
-            for i in er_state.target_group_lookup[self.randomization_group] + er_state.target_group_lookup[other.randomization_group]:
-                combined_groups.setdefault(i, 0)
-                combined_groups[i] += 1
-            for i, c in combined_groups.items():
-                if i in er_state.dead_end_counter and er_state.dead_end_counter[i] - c <=0:
-                    print(f"\tTried to connect {self.name} => {other.name}")
-                    return False
-        return self.randomization_type == other.randomization_type and (not er_state.coupled or self.name != other.name)
+        # In stage 2 it is allowed to finish off groups with dead ends in them
+        if dead_end and not hasattr(er_state, "stage_2"):
+            er_state.stage_2 = True
+
+        # When in phase 3, ignore?
+        if dead_end or not hasattr(er_state, "dead_end_2"):
+            # print(f"Trying to connect {self.name} => {other.name}")
+            for counter in er_state.dead_end_counter.values():
+                # print(f"\t{decode_entrance_groups(counter.group)}: {counter.others}")
+                if self.name in counter.others or other.name in counter.others:
+                    for counter2 in er_state.dead_end_counter.values():
+                        # print(f"\t\tChecking dead ends {counter2.dead_ends} for group {decode_entrance_groups(counter2.group)}")
+                        # print(f"\t\tChecking others {counter2.others}")
+                        sub, sub_d = 0, 0
+                        if self.name in counter2.others:
+                            sub += 1
+                        if other.name in counter2.others:
+                            sub += 1
+                        if self.name in counter2.dead_ends:
+                            sub_d += 1
+                        if other.name in counter2.dead_ends:
+                            sub_d += 1
+                        # print(f"\tFound {sub} entrances in others and {sub_d} entrances in dead_ends")
+                        # print(f"\tde {len(counter2.dead_ends) - sub_d} > {len(counter2.others) - sub}")
+                        if len(counter2.dead_ends) - sub_d > len(counter2.others) - sub:
+                            # print(f"Failed {self.name} => {other.name} "
+                            #       f"for group {decode_entrance_groups(counter2.group)} "
+                            #       f"from group {decode_entrance_groups(counter.group)}")
+                            return False
+
+
+
+        return True
 
     def make_dead_end_counter(self, er_state: "ERPlacementState"):
-        dead_ends_in_group = {}
-        for dead_end in er_state.entrance_lookup.dead_ends:
-            dead_ends_in_group.setdefault(dead_end.randomization_group, 0)
-            dead_ends_in_group[dead_end.randomization_group] += 1
+        class DECounter:
+            def __init__(self, entrance_group):
+                self.group = entrance_group
+                self.dead_ends = []
+                self.others = []
 
+        # Create counter objects, and populate remaining entrances dict and dead ends
         remaining_entrances = {}
+        for dead_end in er_state.entrance_lookup.dead_ends:
+            remaining_entrances.setdefault(dead_end.randomization_group, DECounter(dead_end.randomization_group))
+            remaining_entrances[dead_end.randomization_group].dead_ends.append(dead_end.name)
+
+        # Add potential connected entrances
         target_group_lookup = er_state.target_group_lookup
-        for group, count in dead_ends_in_group.items():
-            remaining_entrances.setdefault(group, -count)
-            print(f"looking for {count} entrances targeting {decode_entrance_groups(group)}")
+        for group, counter in remaining_entrances.items():
+            # print(f"Added group {decode_entrance_groups(group)}")
             for entrance in er_state.entrance_lookup.others:
                 if entrance.randomization_group in target_group_lookup[group]:
-                    print(f"\t{entrance.name}")
-                    remaining_entrances[group] += 1
+                    # print(f"\t{entrance.name}")
+                    remaining_entrances[group].others.append(entrance.name)
 
-
-        printable = {decode_entrance_groups(g):c for g, c in dead_ends_in_group.items()}
-        print(f"Dead ends by group: {printable}")
-        print(f"number of connections per group: {remaining_entrances}")
         er_state.dead_end_counter = remaining_entrances
 
 class PHRegion(Region):

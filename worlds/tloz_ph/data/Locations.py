@@ -2023,7 +2023,7 @@ LOCATIONS_DATA = {
         "z_max": 0x3d090,
         "id": 188,
     },
-    "Ocean Pirate Ambush Item": {
+    "Ocean Miniblin Pirate Ambush Item": {
         "region_id": "pirate ambush",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x4,

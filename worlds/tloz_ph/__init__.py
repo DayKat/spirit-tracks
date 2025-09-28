@@ -24,7 +24,7 @@ from .Subclasses import PHRegion, decode_entrance_groups
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
-dev_prints = True
+dev_prints = False
 
 if TYPE_CHECKING:
     from .Subclasses import ERPlacementState
@@ -426,7 +426,7 @@ class PhantomHourglassWorld(World):
             else:
                 target_islands.add(island)
                 # ports still need to be able to connect to the sea
-                if area == 3:
+                if area == 3 and direction == 5:
                      target_islands.update(range(15))
                 if in_simple_mixed_pool and 3 in simple_mixed_pool:
                     target_islands.add(0)
@@ -512,18 +512,20 @@ class PhantomHourglassWorld(World):
                            paired_entrances: list[Entrance]):
                 def dead_count(entrances):
                     for entr in entrances:
-                        print(f"\tConnected {entr.name} group {decode_entrance_groups(entr.randomization_group)}")
-                        for i in groups[entr.randomization_group]:
-                            if i in er_state.dead_end_counter:
-                                er_state.dead_end_counter[i] -= 1
-
+                        # print(f"\tConnected {entr.name} group {decode_entrance_groups(entr.randomization_group)}")
+                        for i in er_state.dead_end_counter.values():
+                            if entr.name in i.dead_ends:
+                                i.dead_ends.remove(entr.name)
+                                # print(f"\t\tremoved from {decode_entrance_groups(i.group)} dead ends")
+                            if entr.name in i.others:
+                                i.others.remove(entr.name)
+                                # print(f"\t\tremoved from {decode_entrance_groups(i.group)} dead ends")
                 dead_count(placed_exits)
-                print({decode_entrance_groups(g): c for g, c in er_state.dead_end_counter.items()})
                 return False
 
             # Do ER, if not UT!
             if not getattr(self.multiworld, "generation_is_fake", False):
-                ph_max_er_attempts = 10
+                ph_max_er_attempts = 50
                 for i in range(ph_max_er_attempts):
                     # Workaround cause ER likes to link dead ends to each other when ignoring directions.
                     # Concept stolen from CodeGorilla's Crystalis implementation

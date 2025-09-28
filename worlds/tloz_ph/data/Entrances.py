@@ -291,8 +291,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.CANNON
     },
-
-    # =========== Ember Island ================
+#
+#     # =========== Ember Island ================
     "Ember Port House": {
         "return_name": "Ember Port House Exit",
         "entrance": (0xD, 0x0, 0x2),
@@ -1516,9 +1516,9 @@ ENTRANCE_DATA = {
         "two_way": False,
         "island": EntranceGroups.RUINS
     },
-
-    # ============= SW Ocean ==================
-
+#
+#     # ============= SW Ocean ==================
+#
     "Ocean SW Mercay": {
         "return_name": "Mercay SE Boat",
         "entrance": (0x0, 0x0, 0x2),
@@ -1580,7 +1580,7 @@ ENTRANCE_DATA = {
     "Ocean NW Gust": {
         "return_name": "Gust Boat",
         "entrance_region": "gust boat",
-        "exit_region": "gust",
+        "exit_region": "gust south",
         "entrance": (0x0, 0x1, 0x0),
         "exit": (0xE, 0x0, 0x0),
         "extra_data": {"conditional": ["need_sea_chart"]},
@@ -1602,7 +1602,7 @@ ENTRANCE_DATA = {
     "Ocean NW Zauz": {
         "return_name": "Zauz Boat",
         "entrance_region": "zauz boat",
-        "exit_region": "zauz island",
+        "exit_region": "zauz",
         "entrance": (0x0, 0x1, 0x4),
         "exit": (0x16, 0x0, 0x1),
         "extra_data": {"conditional": ["need_sea_chart"]},
@@ -1627,7 +1627,7 @@ ENTRANCE_DATA = {
     "Ocean SE Goron": {
         "return_name": "Goron Boat",
         "entrance_region": "goron boat",
-        "exit_region": "goron",
+        "exit_region": "goron sw",
         "entrance": (0x0, 0x2, 0x2),
         "exit": (0x10, 0x2, 0x0),
         "extra_data": {"conditional": ["need_sea_chart"]},
@@ -1674,7 +1674,7 @@ ENTRANCE_DATA = {
     "Ocean NE IotD": {
         "return_name": "IotD Boat",
         "entrance_region": "dead boat",
-        "exit_region": "iotd",
+        "exit_region": "iotd port",
         "entrance": (0x0, 0x3, 0x1),
         "exit": (0x15, 0x0, 0x0),
         "extra_data": {"conditional": ["need_sea_chart"]},

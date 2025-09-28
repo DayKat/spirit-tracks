@@ -461,9 +461,11 @@ def randomize_entrances(
                         continue
                     do_placement(source_exit, target_entrance)
                     if coupled:
-                        print(f"Pairing Successful! {source_exit} <=> {target_entrance}")
+                        pass
+                        # print(f"Pairing Successful! {source_exit} <=> {target_entrance}")
                     else:
-                        print(f"Pairing Successful! {source_exit} => {target_entrance}")
+                        pass
+                        # print(f"Pairing Successful! {source_exit} => {target_entrance}")
                     return True
         else:
             # no source exits had any valid target so this stage is deadlocked. retries may be implemented if early
@@ -521,13 +523,13 @@ def randomize_entrances(
     # stage 1 - try to place all the non-dead-end entrances
     # print(f"Non dead-ends: {er_state.entrance_lookup.others}")
     # print(f"Dead-ends: {er_state.entrance_lookup.dead_ends}")
-    print("stage 1")
+    # print("stage 1")
     while er_state.entrance_lookup.others:
         if not find_pairing(dead_end=False, require_new_exits=True):
             break
     # stage 2 - try to place all the dead-end entrances
     # print(f"Non dead-ends left unconnected: {er_state.entrance_lookup.others}")
-    print("stage 2")
+    # print("stage 2")
     while er_state.entrance_lookup.dead_ends:
         if not find_pairing(dead_end=True, require_new_exits=True):
             break
@@ -535,7 +537,7 @@ def randomize_entrances(
     # stage 3a - get the rest of the dead ends (e.g. second entrances into already-visited regions)
     #            doing this before the non-dead-ends is important to ensure there are enough connections to
     #            go around
-    print("stage 3")
+    # print("stage 3")
     while er_state.entrance_lookup.dead_ends:
         find_pairing(dead_end=True, require_new_exits=False)
     # stage 3b - tie all the other loose ends connecting visited regions to each other
