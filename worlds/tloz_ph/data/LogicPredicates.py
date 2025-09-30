@@ -2383,6 +2383,23 @@ def ph_totok_b13_chest(state, player):
 def ph_has(state, player, item):
     return state.has(item, player)
 
+# Switch States
+def ph_option_global_switch_state(state, player):
+    return state.multiworld.worlds[player].options.switch_state_behaviour.value == 2
+
+def ph_option_local_switch_state(state, player):
+    return not ph_option_global_switch_state(state, player)
+
+def ph_get_switch_state(state: "CollectionState", player, entrance):
+    if ph_option_local_switch_state(state, player):
+        dungeon = entrance.split(None, 1)[0]
+        return state.multiworld.worlds[player].get_entrance(entrance).switch_state[dungeon]
+    else:
+        return state.multiworld.worlds[player].get_entrance(entrance).global_switch_state
+
+def ph_switch_state_red(state, player, entrance):
+    return ph_get_switch_state(state, player, entrance) & 0x1
+
 RULE_DICT = {
     "sword": ph_has_sword,
     "phantom_sword": ph_has_sword,

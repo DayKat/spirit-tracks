@@ -1,11 +1,15 @@
 from typing import TYPE_CHECKING
 from BaseClasses import Entrance, Region
 from enum import IntEnum
+from .data.SwitchLogic import *
 
 if TYPE_CHECKING:
     from entrance_rando import ERPlacementState
 
 class PHEntrance(Entrance):
+    switch_state = {"TotOK": 0b1, "ToF": 0b1, "ToC": 0b1, "GT": 0b1, "ToI": 0b1}
+    global_switch_state = 0b1
+
 
     def is_valid_source_transition(self, er_state: "ERPlacementState") -> bool:
         return self.can_reach(er_state.collection_state)
@@ -17,6 +21,22 @@ class PHEntrance(Entrance):
         # Vanilla GER Check first, cause the less resource intensive
         if not (self.randomization_type == other.randomization_type and (not er_state.coupled or self.name != other.name)):
             return False
+
+        # Check if you have a valid switch state for the transition you are trying
+        if hasattr(er_state, "switch_state_option") and other.name in switch_sensitive_entrances:
+            if er_state.switch_state_option == 2:
+                if not self.global_switch_state & switch_sensitive_entrances[other.name]:
+                    return False
+            else:
+                dungeon = other.name.split(None, 1)[0]
+                if dungeon in self.switch_state and not self.switch_state[dungeon] & switch_sensitive_entrances[other.name]:
+                    return False
+
+
+        # Target group lookup is passed in through on_connect cause cursed.
+        # That means it's not in here until the first entrance has been connected
+        if not hasattr(er_state, "target_group_lookup"):
+            return True
 
         # Check if there are enough valid entrances to go around for the dead ends
         if not hasattr(er_state, "dead_end_counter"):
@@ -264,6 +284,12 @@ class EntranceGroups(IntEnum):
     def __str__(self):
         return decode_entrance_groups(self.value)
 
+    def island(self):
+        return self & self.ISLAND_MASK
+
+    def entrance_type(self):
+        return self & self.AREA_MASK
+
     @staticmethod
     def area_shift(area):
         return area << 3
@@ -290,3 +316,48 @@ OPPOSITE_ENTRANCE_GROUPS = {
     EntranceGroups.INSIDE: EntranceGroups.OUTSIDE,
     EntranceGroups.OUTSIDE: EntranceGroups.INSIDE
 }
+
+switch_logic_lookup = {}
+for i in switch_logic:
+    switch_logic_lookup.setdefault(i[0], [])
+    switch_logic_lookup[i[0]].append(i)
+
+# Called in on_connect. updates the switch states one can reach an exit with, based on switch_logic
+def update_switch_logic(old_ex: "PHEntrance", entr: "PHEntrance", er_state, logic_option, switch_option, new_exits):
+    # Get the entrance object for an exit to set its logical switch states
+    def find_exit(exit_name):
+        for e in er_state.entrance_lookup._usable_exits:
+            if e.name == exit_name:
+                return e
+        return None
+
+    # Don't process if vanilla behaviour and the connection doesn't connect rooms in the same dungeon
+    if switch_option == 0:
+        dungeon_connections = [EntranceGroups.DUNGEON_ROOM, EntranceGroups.WARP_PORTAL, EntranceGroups.DUNGEON_ENTRANCE]
+        if not (entr.randomization_group & EntranceGroups.AREA_MASK in dungeon_connections
+                and old_ex.randomization_group & EntranceGroups.AREA_MASK in dungeon_connections
+                and old_ex.randomization_group & EntranceGroups.ISLAND_MASK == entr.randomization_group & EntranceGroups.ISLAND_MASK):
+            return
+
+    # Lookup switch logic and propagate it to the newly revealed exits
+    if entr.name in switch_logic_lookup:
+        for _, ex, *logic in switch_logic_lookup[entr]:
+            logic_state = min(logic_option, len(logic)-1)
+            ex_object = find_exit(ex)
+            if ex_object:
+                if switch_option == 2:
+                    ex_object.global_switch_state = logic[logic_state]
+                else:
+                    dungeon = entr.name.split(None, 1)[0]
+                    ex_object.switch_state = entr.switch_state
+                    ex_object.switch_state[dungeon] = logic[logic_state]
+            # Prevent exits with switch logic from propagating the previous exits.
+            new_exits -= ex_object
+
+    # if not in switch logic, propagate the previous exit's logic
+    for ex in new_exits:
+        ex.global_switch_state = old_ex.global_switch_state
+        ex.switch_state = old_ex.switch_state
+
+
+

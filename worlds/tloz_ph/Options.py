@@ -508,6 +508,7 @@ class PhantomHourglassShuffleIslands(Choice):
     Shuffle what island port leads to which island overworld.
     Does not include ghost ship or travellers ships.
     The sea counts as a neutral island, and thus shuffling on own island will still allow for sea connections anywhere.
+    This however, tends to cause generation errors when mixed with other pools, especially if they have lots of dead ends.
     Compatible with boat requires sea chart.
     - no_shuffle: don't shuffle ports
     - shuffle: shuffle ports
@@ -617,6 +618,18 @@ class PhantomHourglassBossKeyBehavior(Choice):
     default = 0
     display_name = "boss_key_behavior"
 
+class PhantomHourglassSwitchBehaviour(Choice):
+    """
+    Modify the behaviour of color switches.
+    - vanilla: switches are dungeon local and reset each time you exit that dungeon or save and quit.
+    If playing with internal dungeon shuffle, this means that each time you enter a dungeon room the switch state will be in the default state (red).
+    - save_per_dungeon: Switch states are dungeon specific, but the game will remember what state you left it in. Fun for internal dungeon randomizer.
+    - save_globally: all switches are linked together, and affect all dungeons!
+    """
+    option_vanilla = 0
+    option_save_per_dungeon = 1
+    option_save_globally = 2
+
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
@@ -661,6 +674,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # World Options
     boss_key_behaviour: PhantomHourglassBossKeyBehavior
+    color_switch_behaviour: PhantomHourglassSwitchBehaviour
     fog_settings: PhantomHourglassFogSettings
     skip_ocean_fights: PhantomHourglassSkipOceanFights
     zauz_required_metals: PhantomHourglassZauzRequiredMetals
@@ -744,7 +758,9 @@ ph_option_groups = [
         PhantomHourglassFogSettings,
         PhantomHourglassSkipOceanFights,
         PhantomHourglassZauzRequiredMetals,
-        PhantomHourglassDungeonShortcuts
+        PhantomHourglassDungeonShortcuts,
+        PhantomHourglassSwitchBehaviour,
+        PhantomHourglassBossKeyBehavior
     ]),
     OptionGroup("Spirit Gem Options", [
         PhantomHourglassSpiritGemPacks,

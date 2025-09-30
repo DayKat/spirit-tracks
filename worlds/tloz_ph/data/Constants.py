@@ -1312,6 +1312,19 @@ BOSS_DOOR_DATA = {
     }
 }
 
+COLOR_SWITCH_DATA = {
+    0x1F: {
+        "name": "Temple of Ice",
+        "address": 0x20DBE0,
+        "value": 0x1
+    },
+    0x1E: {
+        "name": "Temple of Courage",
+        "address": 0x207CA8,
+        "value": 0x1
+    },
+}
+
 # Decode classification for humans
 CLASSIFICATION = {
     1: "progression",

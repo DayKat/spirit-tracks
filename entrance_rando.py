@@ -399,7 +399,6 @@ def randomize_entrances(
     )
     # place the menu region and connected start region(s)
     er_state.collection_state.update_reachable_regions(world.player)
-    er_state.target_group_lookup = target_group_lookup
 
     def do_placement(source_exit: Entrance, target_entrance: Entrance) -> None:
         placed_exits, paired_entrances = er_state.connect(source_exit, target_entrance)

@@ -20,14 +20,14 @@ from .data.Items import ITEMS_DATA
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region
-from .Subclasses import PHRegion, decode_entrance_groups
+from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
 dev_prints = False
 
 if TYPE_CHECKING:
-    from .Subclasses import ERPlacementState
+    from .Subclasses import ERPlacementState, PHEntrance, PHRegion
 
 class PhantomHourglassWeb(WebWorld):
     setup_en = Tutorial(
@@ -426,7 +426,7 @@ class PhantomHourglassWorld(World):
             else:
                 target_islands.add(island)
                 # ports still need to be able to connect to the sea
-                if area == 3 and direction == 5:
+                if area == 3:
                      target_islands.update(range(15))
                 if in_simple_mixed_pool and 3 in simple_mixed_pool:
                     target_islands.add(0)
@@ -508,24 +508,51 @@ class PhantomHourglassWorld(World):
             # Decide if coupled
             coupled = not self.options.decouple_entrances
 
-            def on_connect(er_state: "ERPlacementState", placed_exits: list[Entrance],
-                           paired_entrances: list[Entrance]):
-                def dead_count(entrances):
-                    for entr in entrances:
-                        # print(f"\tConnected {entr.name} group {decode_entrance_groups(entr.randomization_group)}")
-                        for i in er_state.dead_end_counter.values():
-                            if entr.name in i.dead_ends:
-                                i.dead_ends.remove(entr.name)
-                                # print(f"\t\tremoved from {decode_entrance_groups(i.group)} dead ends")
-                            if entr.name in i.others:
-                                i.others.remove(entr.name)
-                                # print(f"\t\tremoved from {decode_entrance_groups(i.group)} dead ends")
-                dead_count(placed_exits)
+            def on_connect(er_state: "ERPlacementState", placed_exits: list["PHEntrance"],
+                           paired_entrances: list["PHEntrance"]):
+
+                # Super cursed way of passing switch state options
+                if not hasattr(er_state, "switch_state_option"):
+                    er_state.switch_state_option = self.options.color_switch_behaviour
+
+                # Figure out what exits are new and need to inherit switch state stuff
+
+                new_exits = set()
+                if hasattr(er_state, "old_available_exits"):
+                    new_exits = set(er_state.find_placeable_exits(True, er_state.entrance_lookup._usable_exits)) - er_state.old_available_exits
+                    print(f"on connecting {placed_exits}, revealed new exits {new_exits}")
+                else:
+                    er_state.old_available_exits = set()
+
+                # Pass on valid switch states to new available exits
+                for ex, entr in zip(placed_exits, paired_entrances):
+                    if self.options.color_switch_behaviour.value > 0:  # global switches
+                        update_switch_logic(ex, entr, er_state, self.options.logic.value, self.options.color_switch_behaviour.value, new_exits)
+
+                # Update old exits now that you've used new exits
+                er_state.old_available_exits.update(new_exits)
+
+                # Super cursed way of passing in target group lookup to er_state
+                if not hasattr(er_state, "target_group_lookup"):
+                    er_state.target_group_lookup = groups
+                    return False
+
+                # Remove dead ends
+                for entr in placed_exits:
+                    # print(f"\tConnected {entr.name} group {decode_entrance_groups(entr.randomization_group)}")
+                    for i in er_state.dead_end_counter.values():
+                        if entr.name in i.dead_ends:
+                            i.dead_ends.remove(entr.name)
+                            # print(f"\t\tremoved from {decode_entrance_groups(i.group)} dead ends")
+                        if entr.name in i.others:
+                            i.others.remove(entr.name)
+                            # print(f"\t\tremoved from {decode_entrance_groups(i.group)} dead ends")
+
                 return False
 
             # Do ER, if not UT!
             if not getattr(self.multiworld, "generation_is_fake", False):
-                ph_max_er_attempts = 50
+                ph_max_er_attempts = 10
                 for i in range(ph_max_er_attempts):
                     # Workaround cause ER likes to link dead ends to each other when ignoring directions.
                     # Concept stolen from CodeGorilla's Crystalis implementation
@@ -541,7 +568,7 @@ class PhantomHourglassWorld(World):
                         # disconnect entrances again, but only if they got connected before
                         for entrance in randomized_entrances:
                             if entrance.parent_region and entrance.connected_region:
-                                print(f"disconnecting entrance {entrance} {i}")
+                                # print(f"disconnecting entrance {entrance} {i}")
                                 disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.parent_region.name)
 
     def manual_er(self):
@@ -937,7 +964,8 @@ class PhantomHourglassWorld(World):
             # Beedle randomization
             "randomize_masked_beedle", "randomize_beedle_membership",
             # World Settings
-            "fog_settings", "skip_ocean_fights", "dungeon_shortcuts", "boss_key_behaviour",
+            "fog_settings", "skip_ocean_fights", "dungeon_shortcuts",
+            "boss_key_behaviour", "color_switch_behaviour",
             # Spirit Packs
             "spirit_gem_packs", "additional_spirit_gems",
             # Hint settings
