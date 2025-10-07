@@ -7,8 +7,6 @@ from .Options import SpiritTracksOptions
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
     overworld_logic = [
 
-        #TODO require cannon before non-forest glyph
-
         # ====== Outset Village ==============
 
         #[region 1, region 2, two-directional, logic requirements],
@@ -16,9 +14,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["outset village", "outset village stamp book", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_glyph(state, player, "Snow")],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village bees", False, None],
-        ["outset village", "forest realm", False, lambda state: st_has_glyph(state, player, "Forest")],
         ["outset village", "outset village right tree", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
         ["outset village", "outset village left tree", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
+        ["outset village", "forest realm", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_cannon(state, player)],
 
         # # ======== Castle Town =========
 
@@ -99,8 +97,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "trading post", False, lambda state: st_has_glyph(state, player, "Ocean") and st_has_cannon(state, player)],
         #["trading post", "trading post discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        ["trading post", "trading post light song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        ["trading post", "trading post chest", False, lambda state: st_has_bombs(state, player) and (st_has_boomerang(state, player) or st_has_bow(state, player)) and st_has_discovery_song(state, player) and st_has_light_song(state, player) and st_has_spirit_flute(state, player)],
+        #["trading post", "trading post light song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        #["trading post", "trading post chest", False, lambda state: st_has_bombs(state, player) and (st_has_boomerang(state, player) or st_has_bow(state, player)) and st_has_discovery_song(state, player) and st_has_light_song(state, player) and st_has_spirit_flute(state, player)],
         ["trading post", "trading post stamp station", False, lambda state: st_has_bombs(state, player) and st_has_stamp_book(state, player)],
 
         # # ========== Rabbit Haven ========
@@ -123,6 +121,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
     return overworld_logic
 
+# TODO require cannon before non-forest glyph
+# def make_item_logic(player: int, origin_name: str, options: SpiritTracksOptions):
+#     item_logic = [
+#         ["Cannon", ["Snow Glyph", "Ocean Glyph", "Fire Glyph"]
+#     ]]
+#     return item_logic
 
 def is_item(item: Item, player: int, item_name: str):
     return item.player == player and item.name == item_name

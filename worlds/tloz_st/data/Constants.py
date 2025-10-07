@@ -32,6 +32,24 @@ STARTING_FLAGS = [
     [0x265768, 0x20],  # first spirit train journey
     [0x26576B, 0x40],  # first song statue text
     [0x26575C, 0x10],  # alfonzo giving cannon
+
+    # Set treasures to 0
+    [0x269000, 1],
+    [0x269002, 1],
+    [0x269004, 1],
+    [0x269006, 1],
+    [0x269008, 1],
+    [0x26900A, 1],
+    [0x26900C, 1],
+    [0x26900E, 1],
+    [0x269010, 1],
+    [0x269012, 1],
+    [0x269014, 1],
+    [0x269016, 1],
+    [0x269018, 1],
+    [0x26901A, 1],
+    [0x26901B, 1],
+    [0x26901C, 1]
 ]
 
 STAGE_FLAGS = {

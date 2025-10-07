@@ -310,7 +310,6 @@ ITEMS_DATA = {
         'classification': ItemClassification.filler,
         'dummy': True
     },
-    #TODO starts inventory no. at 0
     "Treasure: Demon Fossil": {
         'classification': ItemClassification.filler,
         'backup_filler': True,

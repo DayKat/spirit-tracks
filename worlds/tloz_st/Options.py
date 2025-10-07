@@ -45,23 +45,6 @@ class SpiritTracksLogic(Choice):
     default = 0
 
 
-# class SpiritTracksPhantomCombatDifficulty(Choice):
-#     """
-#     Option for what you need to kill phantoms in logic
-#     - require_phantom_sword: need phantom sword
-#     - require_traps: need a pit trap or boulder
-#     - require_stun: require a method of stunning, and an open pit to push into. Includes bow, hammer,
-#     and sword + 2 progressive spirits of power
-#     - require_weapon: all of the above plus grappling hook
-#     """
-#     display_name = "phantom_combat_difficulty"
-#     option_require_phantom_sword = 0
-#     option_require_traps = 1
-#     option_require_stun = 2
-#     option_require_weapon = 3
-#     default = 0
-
-
 class SpiritTracksKeyRandomization(Choice):
     """
     Small Key Logic options:

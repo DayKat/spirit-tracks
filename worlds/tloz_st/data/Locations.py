@@ -340,7 +340,7 @@ LOCATIONS_DATA = {
         "require_item": ["Stamp Book"],
         "item_override": "Wooded Temple Tracks"
     },
-    #TODO bad address for flute stuff
+    #TODO find better address for flute stuff
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
         "vanilla_item": "Song of Awakening",
@@ -543,7 +543,7 @@ LOCATIONS_DATA = {
         #"vanilla_item": "Trading Post Stamp",
         "vanilla_item": "Treasure",
         "stage_id": 0x37,
-        "room_id": 1,
+        "room_id": 0x01,
         "stamp": True,
         "require_item": ["Stamp Book", "Bombs (Progressive)"],
     },
@@ -558,26 +558,26 @@ LOCATIONS_DATA = {
     #     "z_min": 46500,
     #     "z_max": 57443,
     # },
-    "Trading Post 2nd Song Statue": {
-        "region_id": "trading post light song statue",
-        "vanilla_item": "Song of Light",
-        "stage_id": 0x37,
-        "room_id": 0,
-        "x_min": -64094,
-        "x_max": -45666,
-        "z_min": -55626,
-        "z_max": -35679,
-        "require_item": ["Spirit Flute"],
-    },
-    "Trading Post Chest": { #TODO figure out cs skip
-        "region_id": "trading post chest",
-        "vanilla_item": "Treasure: Regal Ring",
-        "stage_id": 0x37,
-        "room_id": 2,
-        "address": 0x265752,
-        "value": 0x10,
-        "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
-    },
+    # "Trading Post 2nd Song Statue": { TODO song statue gives chest check and disables chest check
+    #     "region_id": "trading post light song statue",
+    #     "vanilla_item": "Song of Light",
+    #     "stage_id": 0x37,
+    #     "room_id": 0,
+    #     "x_min": -64094,
+    #     "x_max": -45666,
+    #     "z_min": -55626,
+    #     "z_max": -35679,
+    #     "require_item": ["Spirit Flute"],
+    # },
+    # "Trading Post Chest": { #TODO figure out cs skip
+    #     "region_id": "trading post chest",
+    #     "vanilla_item": "Treasure: Regal Ring",
+    #     "stage_id": 0x37,
+    #     "room_id": 0x02,
+    #     "address": 0x265752,
+    #     "value": 0x10,
+    #     "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
+    # },
 }
 
 for i, name in enumerate(LOCATIONS_DATA):

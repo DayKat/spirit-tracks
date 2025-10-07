@@ -126,9 +126,6 @@ REGIONS = [
     "trading post stamp station",
     #"trading post ore gem",
 
-
-    # TODO Snow Realm
-
     #"snow realm",
     #"snow realm frog n",
     #"porl",
