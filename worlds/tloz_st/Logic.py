@@ -52,6 +52,18 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos section 1", "tos 2f bomb wall", False, lambda state: (st_has_bombs(state, player) and st_has_sword(state, player))],
         ["tos section 1", "tos 3f rail map", False, lambda state: st_has_sword(state, player)],
         ["tos 3f rail map", "goal_forest_glyph", False, None],
+        ["tos", "tos section 2", False, lambda state: (st_has_source(state, player, "Forest"))],
+        ["tos section 2", "tos 4f central chest", False, None],
+        ["tos section 2", "tos 5f island chest", False, lambda state: st_has_sword(state, player)],
+        ["tos 5f island chest", "tos 5f spinnit key", False, lambda state: st_has_whirlwind(state, player)],
+        ["tos 5f spinnit key", "tos 5f secret chest", False, lambda state: st_has_bombs(state, player) and st_has_boomerang(state, player)],
+        ["tos 5f spinnit key", "tos 4f ne chest", False, lambda state: st_has_bombs(state, player) and st_has_boomerang(state, player)],
+        ["tos 5f spinnit key", "tos 6f ne chest 1", False, lambda state: st_has_boomerang(state, player)],
+        ["tos 5f spinnit key", "tos 6f ne chest 2", False, lambda state: st_has_boomerang(state, player)],
+        ["tos 5f spinnit key", "tos 6f ne chest 3", False, lambda state: st_has_boomerang(state, player)],
+        ["tos 5f spinnit key", "tos 6f ne big chest", False, lambda state: st_has_boomerang(state, player)],
+        ["tos 5f spinnit key", "tos 6f key", False, lambda state: st_has_small_keys(state, player, "Tower of Spirits", 1)],
+        ["tos 6f key", "tos 7f rail map", False, lambda state: st_has_small_keys(state, player, "Tower of Spirits", 2)],
 
         # # ============ Shops ====================
 
