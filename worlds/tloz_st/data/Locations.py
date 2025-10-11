@@ -177,6 +177,10 @@ LOCATIONS_DATA = {
         "stage_id": 0x28,
         "room_id": 1,
         "entrance_id": 7,
+        "x_min": 20640,
+        "x_max": 39330,
+        "z_min": -51620,
+        "z_max": -40336,
         "item_override": "Sand Wand"
     },
     # "Hyrule Castle Sword Training Minigame": {

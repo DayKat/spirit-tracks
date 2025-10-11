@@ -21,4 +21,10 @@
 6. Launch the vanilla game in bizhawk, and open the lua console. Add the 'connector_bizhawk_generic.lua' script that can be found in 'Archipelago\data\lua'. 
 7. You are now ready to play! Start a new savefile and go!
 
+## Important:
+
+- When starting a new savefile, connect the lua to the client before starting. Using an in-progress file should be fine in either order.
+- On a new seed, DO NOT TALK TO ALFONSO to start the tutorial until zelda appears at the station.
+- If you feel you are stuck when you should be able to do something and the game is not allowing it, going in and out of a loading zone (e.g a house) might fix it so try that first.
+
 

@@ -9,9 +9,10 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Outset Bee Tree"],
         "unset_if_true": [(0x265714, 0x04)]
     },
-    "Post Outset Children": {
+    "Allow leaving Outset": {
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
+        "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(0x265714, 0x04)]
     },
     "Allow learning discovery song": {

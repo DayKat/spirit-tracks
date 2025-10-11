@@ -16,7 +16,7 @@ STARTING_FLAGS = [
     [0x26571B, 0x13],  # postman & get zelda's letter
     [0x265720, 0xC0],  # convos
     [0x265723, 0xC0],  # ToS 4F 1st time entry
-    [0x265726, 0x17],  # zelda 1st phantom possession
+    [0x265726, 0x13],  # zelda 1st phantom possession
     [0x265729, 0x58],  # post fleeing ToS 1F
     [0x26572A, 0x08],  # ready for FS duet
     [0x265724, 0x50],  # anjean section text
