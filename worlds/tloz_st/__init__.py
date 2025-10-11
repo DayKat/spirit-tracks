@@ -178,6 +178,8 @@ class SpiritTracksWorld(World):
             goal_loc = "goal_forest_glyph"
         elif self.options.goal == 1:
             goal_loc = "goal_stagnox"
+        elif self.options.goal == 2:
+            goal_loc = "goal_snow_glyph"
         self.create_event(goal_loc, "_beaten_game")
 
     def exclude_locations_automatically(self):
@@ -208,6 +210,9 @@ class SpiritTracksWorld(World):
             self.locations_to_exclude.add(current_goal)
         elif self.options.goal == SpiritTracksGoal(1):
             current_goal = "Wooded Temple Dungeon Reward"
+            self.locations_to_exclude.add(current_goal)
+        elif self.options.goal == SpiritTracksGoal(2):
+            current_goal = "ToS Snow Rail Glyph"
             self.locations_to_exclude.add(current_goal)
 
         for name in locations_to_exclude:

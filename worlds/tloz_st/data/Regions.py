@@ -79,6 +79,7 @@ REGIONS = [
     "tos 6f ne chest 3",
     "tos 6f ne big chest",
     "tos 7f rail map",
+    "goal_snow_glyph",
 
     # Mayscore
     "mayscore",

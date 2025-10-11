@@ -429,7 +429,8 @@ LOCATIONS_DATA = {
         "z_min": -8450,
         "z_max": 4515,
         'dungeon': "Tower of Spirits",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"],
+        "goal": True,
     },
 
     # =============================================

@@ -64,6 +64,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 5f spinnit key", "tos 6f ne big chest", False, lambda state: st_has_boomerang(state, player)],
         ["tos 5f spinnit key", "tos 6f key", False, lambda state: st_has_small_keys(state, player, "Tower of Spirits", 1)],
         ["tos 6f key", "tos 7f rail map", False, lambda state: st_has_small_keys(state, player, "Tower of Spirits", 2)],
+        ["tos 7f rail map", "goal_snow_glyph", False, None],
 
         # # ============ Shops ====================
 
