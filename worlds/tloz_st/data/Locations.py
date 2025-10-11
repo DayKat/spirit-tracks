@@ -361,7 +361,7 @@ LOCATIONS_DATA = {
         "x_max": 48753,
         "z_min": -10660,
         "z_max": -4354,
-        # "delay_pickup"
+        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
@@ -375,7 +375,7 @@ LOCATIONS_DATA = {
         "x_max": 80112,
         "z_min": -4646,
         "z_max": 6570,
-        # "delay_pickup"
+        "delay_pickup": ["ToS 6F Enemy Chest 1", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
@@ -389,7 +389,7 @@ LOCATIONS_DATA = {
         "x_max": 80310,
         "z_min": -10660,
         "z_max": -4354,
-        # "delay_pickup"
+        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 1", "ToS 6F Enemy Big Chest"],
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
@@ -403,7 +403,7 @@ LOCATIONS_DATA = {
         "x_max": 57985,
         "z_min": -10660,
         "z_max": 6560,
-        # "delay_pickup"
+        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Chest 1"],
         'dungeon': "Tower of Spirits",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
