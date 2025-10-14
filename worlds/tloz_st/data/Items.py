@@ -190,11 +190,6 @@ ITEMS_DATA = {
         'value': 0x02,
         #'set_bit': [(0x265715, 0x80)]
     },
-    "Forest Source": {
-      'classification': ItemClassification.progression,
-        'address': 0x265714,
-        'value': 0x10,
-    },
 
     # ========= Force Gems ==============
 
@@ -316,13 +311,16 @@ ITEMS_DATA = {
         'classification': ItemClassification.filler,
         "give_ammo": [10, 20, 30],
         "address": 0x265333,
-        "refill": "Bombs (Progressive)"
+        "refill": "Bombs (Progressive)",
+        "incremental": True,
+        "size": 2
     },
     "Refill: Arrows": {
         'classification': ItemClassification.filler,
         "give_ammo": [20, 30, 50],
         "address": 0x265332,
-        "refill": "Bow (Progressive)"
+        "refill": "Bow (Progressive)",
+        "incremental": True,
     },
 
     # ========= Treasure =============

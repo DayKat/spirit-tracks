@@ -59,7 +59,6 @@ LOCATIONS_DATA = {
         "z_min": 10523,
         "z_max": 28762,
         "require_item": ["Spirit Flute", "Song of Discovery"],
-        "item_override": "Snow Glyph"
     },
     "Outset Receive Stamp Book": { #TODO skip alfonso pre-cannon cs
         "region_id": "outset village stamp book",
@@ -197,7 +196,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x18,
         "room_id": 0,
         'dungeon': "Tunnel to ToS",
-},
+    },
     "Tunnel to ToS 2F Chest": {
         "region_id": "tower tunnel 2f chest",
         "vanilla_item": "Red Rupee (20)",
@@ -222,7 +221,6 @@ LOCATIONS_DATA = {
         "item_override": "Tear of Light",
         "delay_pickup": "ToS 1F Chest"
     },
-
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
@@ -396,6 +394,7 @@ LOCATIONS_DATA = {
     "ToS 6F Enemy Big Chest": {
         "region_id": "tos 6f ne big chest",
         "vanilla_item": "Treasure",
+        "item_override": "Refill: Arrows",
         "stage_id": 0x13,
         "room_id": 5,
         "entrance_id": 2,
