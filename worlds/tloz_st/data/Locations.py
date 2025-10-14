@@ -267,7 +267,7 @@ LOCATIONS_DATA = {
         "region_id": "tos 2f bomb wall",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
-        "room_id": 28,
+        "room_id": 0x28,
         "x_min": -14760,
         "x_max": 14760,
         "z_min": -18842,
@@ -347,7 +347,7 @@ LOCATIONS_DATA = {
     #TODO find better address for flute stuff
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
-        "vanilla_item": "Song of Awakening",
+        "vanilla_item": "Song of Awakening", #TODO song doesn't get removed
         "stage_id": 0x30,
         "room_id": 0,
         "x_min": -32764,
@@ -467,7 +467,7 @@ LOCATIONS_DATA = {
         "room_id": 2,
         "x_min": -47514,
         "x_max": -42598,
-        "z_min": -59802,
+        "z_min": -59820,
         "z_max": -52296,
         "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind"],
@@ -495,7 +495,7 @@ LOCATIONS_DATA = {
     #     "z_max": -50790,
     #     "dungeon": "Wooded Temple",
     #     "require_item": ["Whirlwind"],
-    # },
+    # }, TODO heart container processes on loop, causing heart loss
     "Wooded Temple Boss Heart Container": {
         "region_id": "wt heart container",
         "vanilla_item": "Heart Container",
@@ -542,7 +542,7 @@ LOCATIONS_DATA = {
     },
 
     # Trading Post
-    "Trading Post Stamp Station": { #TODO causes error with scene
+    "Trading Post Stamp Station": {
         "region_id": "trading post stamp station",
         #"vanilla_item": "Trading Post Stamp",
         "vanilla_item": "Treasure",

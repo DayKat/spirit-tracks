@@ -108,6 +108,7 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     async def full_heal(self, ctx, bonus=0):
+        # TODO this doesn't happen atm
         pass
 
     async def watched_intro_cs(self, ctx):

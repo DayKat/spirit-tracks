@@ -39,18 +39,18 @@ DYNAMIC_FLAGS = {
         "has_items": [["Song of Healing", 1]],
         "set_if_true": [(0x268FB0, 0x02)],
     },
-    "Allow learning light song": {
-        "on_scenes": [0x3700],
-        "not_has_locations": ["Trading Post 2nd Song Statue"],
-        "unset_if_true": [(0x268FB0, 0x08)],
-        "reset_flags": ["RESET trading post statue"]
-    },
-    "RESET trading post statue": {
-        "on_scenes": [0x3700],
-        "has_locations": ["Trading Post 2nd Song Statue"],
-        "has_items": [["Song of Light", 1]],
-        "set_if_true": [(0x268FB0, 0x08)],
-    },
+    # "Allow learning light song": {
+    #     "on_scenes": [0x3700],
+    #     "not_has_locations": ["Trading Post 2nd Song Statue"],
+    #     "unset_if_true": [(0x268FB0, 0x08)],
+    #     "reset_flags": ["RESET trading post statue"]
+    # },
+    # "RESET trading post statue": {
+    #     "on_scenes": [0x3700],
+    #     "has_locations": ["Trading Post 2nd Song Statue"],
+    #     "has_items": [["Song of Light", 1]],
+    #     "set_if_true": [(0x268FB0, 0x08)],
+    # },
     "Stagnox location": {
         "on_scenes": [0x1E00],
         "not_has_locations": ["Wooded Temple Dungeon Reward"],
@@ -93,7 +93,6 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Receive Stamp Book"],
         "unset_if_true": [(0x265725, 0x60)],
-        "reset_flags": ["RESET Alfonso"],
         "set_if_true": [(0x26572F, 0x02)],
     },
     "Allow Stamp Book check": {
@@ -107,26 +106,6 @@ DYNAMIC_FLAGS = {
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(0x265739, 0x02)],
     },
-    # "Forest Sanctuary Song Statue":{
-    #     "on_scenes": [0x3000],
-    #     "not_has_locations": ["Forest Sanctuary Song Statue"],
-    #     "unset_if_true": [(0x268FB0, 0x01)]
-    # },
-    # "Wooded Temple Song Statue":{
-    #     "on_scenes": [0x1900],
-    #     "not_has_locations": ["Wooded Temple Song Statue"],
-    #     "unset_if_true": [(0x268FB0, 0x02)]
-    # },
-    # "RESET FS statue":{
-    #     "on_scenes": [0x3000],
-    #     "has_locations": ["Forest Sanctuary Song Statue"],
-    #     "set_if_true": [(0x268FB0, 0x01)]
-    # },
-    # "RESET WT statue":{
-    #     "on_scenes": [0x1900],
-    #     "has_locations": ["Wooded Temple Song Statue"],
-    #     "set_if_true": [(0x268FB0, 0x02)]
-    # },
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
@@ -137,7 +116,19 @@ DYNAMIC_FLAGS = {
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
     #     "set_if_true": [(0x265715, 0x01)]
     # },
+    "Stop stagnox goal on scene":{
+        "on_scenes": [0x1903],
+        "not_has_locations": ["Wooded Temple Boss Heart Container", "Wooded Temple Dungeon Reward"],
+        "has_items": [["Forest Source", 1]],
+        "unset_if_true": [(0x265714, 0x10)],
+        "reset_flags": ["RESET forest source"]
+    },
+    "RESET forest source": {
+        "has_locations": ["Wooded Temple Boss Heart Container", "Wooded Temple Dungeon Reward"],
+        "has_items": [["Forest Source", 1]],
+        "set_if_true": [(0x265714, 0x10)],
     }
+}
 """
 "Dynamic Flag Name": {
     "on_scenes": list[int],
