@@ -20,16 +20,20 @@ class PHEntrance(Entrance):
 
         # Vanilla GER Check first, cause the less resource intensive
         if not (self.randomization_type == other.randomization_type and (not er_state.coupled or self.name != other.name)):
+            print(f"\t{self.name} could not connect to {other.name}")
             return False
 
         # Check if you have a valid switch state for the transition you are trying
         if hasattr(er_state, "switch_state_option") and other.name in switch_sensitive_entrances:
             if er_state.switch_state_option == 2:
                 if not self.global_switch_state & switch_sensitive_entrances[other.name]:
+                    print(f"\t{self.name} could not connect to {other.name} cause switch state 2")
                     return False
             else:
                 dungeon = other.name.split(None, 1)[0]
                 if dungeon in self.switch_state and not self.switch_state[dungeon] & switch_sensitive_entrances[other.name]:
+                    print(f"\t{self.name} could not connect to {other.name} cause switch state 1/0")
+                    print(f"\t{self.switch_state[dungeon]} & {switch_sensitive_entrances[other.name]}")
                     return False
 
 
@@ -67,9 +71,9 @@ class PHEntrance(Entrance):
                         # print(f"\tFound {sub} entrances in others and {sub_d} entrances in dead_ends")
                         # print(f"\tde {len(counter2.dead_ends) - sub_d} > {len(counter2.others) - sub}")
                         if len(counter2.dead_ends) - sub_d > len(counter2.others) - sub:
-                            # print(f"Failed {self.name} => {other.name} "
-                            #       f"for group {decode_entrance_groups(counter2.group)} "
-                            #       f"from group {decode_entrance_groups(counter.group)}")
+                            print(f"\tFailed {self.name} => {other.name} "
+                                  f"for group {decode_entrance_groups(counter2.group)} "
+                                  f"from group {decode_entrance_groups(counter.group)}")
                             return False
 
 
@@ -321,6 +325,7 @@ switch_logic_lookup = {}
 for i in switch_logic:
     switch_logic_lookup.setdefault(i[0], [])
     switch_logic_lookup[i[0]].append(i)
+# print(f"SLL: {switch_logic_lookup}")
 
 # Called in on_connect. updates the switch states one can reach an exit with, based on switch_logic
 def update_switch_logic(old_ex: "PHEntrance", entr: "PHEntrance", er_state, logic_option, switch_option, new_exits):
@@ -337,13 +342,17 @@ def update_switch_logic(old_ex: "PHEntrance", entr: "PHEntrance", er_state, logi
         if not (entr.randomization_group & EntranceGroups.AREA_MASK in dungeon_connections
                 and old_ex.randomization_group & EntranceGroups.AREA_MASK in dungeon_connections
                 and old_ex.randomization_group & EntranceGroups.ISLAND_MASK == entr.randomization_group & EntranceGroups.ISLAND_MASK):
+            print(f"Switch logic canceled due to entrance pairing being in different dungeons on vanilla setting")
             return
 
     # Lookup switch logic and propagate it to the newly revealed exits
+    # print(f"\tAttempting SLL {entr.name}")
     if entr.name in switch_logic_lookup:
-        for _, ex, *logic in switch_logic_lookup[entr]:
+        # print(f"\tsuccess found {switch_logic_lookup[entr.name]}")
+        for _, ex, *logic in switch_logic_lookup[entr.name]:
             logic_state = min(logic_option, len(logic)-1)
             ex_object = find_exit(ex)
+            print(f"\tpropagating switch logic for {ex} with state {logic[logic_state]} from {entr.name}")
             if ex_object:
                 if switch_option == 2:
                     ex_object.global_switch_state = logic[logic_state]
@@ -351,11 +360,10 @@ def update_switch_logic(old_ex: "PHEntrance", entr: "PHEntrance", er_state, logi
                     dungeon = entr.name.split(None, 1)[0]
                     ex_object.switch_state = entr.switch_state
                     ex_object.switch_state[dungeon] = logic[logic_state]
-            # Prevent exits with switch logic from propagating the previous exits.
-            new_exits -= ex_object
 
     # if not in switch logic, propagate the previous exit's logic
     for ex in new_exits:
+        print(f"\tupdating switch logic for {ex.name} to from {old_ex.name} to {old_ex.global_switch_state}")
         ex.global_switch_state = old_ex.global_switch_state
         ex.switch_state = old_ex.switch_state
 

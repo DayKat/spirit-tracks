@@ -1156,6 +1156,86 @@ ENTRANCE_DATA = {
         "two_way": False,
         "island": EntranceGroups.FROST
     },
+    "ToI 1F Right Staircase": {
+        "return_name": "ToI 2F Right Descent",
+        "entrance": (0x1f, 0x0, 0x1),
+        "exit": (0x1F, 0x3, 0x3),
+        "entrance_region": "toi 1f ascent",
+        "exit_region": "toi 2f right",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.FROST
+    },
+    "ToI 2F Right Ascent": {
+        "return_name": "ToI 3F Right Staircase",
+        "entrance": (0x1f, 0x3, 0x2),
+        "exit": (0x1F, 0x1, 0x1),
+        "entrance_region": "toi 2f right",
+        "exit_region": "toi 3f right",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.FROST
+    },
+    "ToI 3F Key Door Staircase": {
+        "return_name": "ToI 2F Arena Staircase",
+        "entrance": (0x1f, 0x2, 0x2),
+        "exit": (0x1F, 0x3, 0x1),
+        "entrance_region": "toi 3f key door",
+        "exit_region": "toi 2f arena",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.FROST
+    },
+    "ToI 2F Left Descent": {
+        "return_name": "ToI 1F Beetle Staircase",
+        "entrance": (0x1f, 0x3, 0x0),
+        "exit": (0x1F, 0x0, 0x2),
+        "entrance_region": "toi 2f left",
+        "exit_region": "toi 1f beetles",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.FROST
+    },
+    "ToI 1F Descent": {
+        "return_name": "ToI B1 Ascent",
+        "entrance": (0x1f, 0x0, 0x3),
+        "exit": (0x1F, 0x2, 0x1),
+        "entrance_region": "toi 1f descent",
+        "exit_region": "toi b1 ascent",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.FROST
+    },
+    "ToI B1 Descent": {
+        "return_name": "ToI B2 Staircase",
+        "entrance": (0x1f, 0x2, 0x2),
+        "exit": (0x1F, 0x5, 0x0),
+        "entrance_region": "toi b1 boss door",
+        "exit_region": "toi b2",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.FROST
+    },
+    "ToI B1 Blue Warp": {
+        "return_name": "ToI 1F Blue Warp",
+        "entrance": (0x1f, 0x2, 0x7),
+        "exit": (0x1F, 0x0, 0x4),
+        "entrance_region": "toi b1 before boss",
+        "exit_region": "toi blue warp",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.FROST
+    },
+    "ToI B1 Boss Staircase": {
+        "return_name": "Gleeok Entrance",
+        "entrance": (0x1f, 0x2, 0x3),
+        "exit": (0x2D, 0x0, 0x0),
+        "entrance_region": "toi b1 before boss",
+        "exit_region": "gleeok",
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.FROST
+    },
 # Dead
     "IotD Port Cave": {
         "return_name": "IotD Cave East Exit",
@@ -1620,6 +1700,28 @@ ENTRANCE_DATA = {
         "type": EntranceGroups.ISLAND,
         "direction": EntranceGroups.INSIDE,
         "return_island": EntranceGroups.UNCHARTED,
+    },
+
+    # ========== Ghost Ship ==========
+    "Ghost Ship 1F Descend": {
+        "return_name": "Ghost Ship B1 Ascend",
+        "entrance": (0x29, 0x3, 0x1),
+        "exit": (0x29, 0x0, 0x1),
+        "entrance_region": "ghost ship deck",
+        "exit_region": "ghost ship",
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.GHOST
+    },
+    "Finish Ghost Ship": {
+        "entrance": (0x4, 0x0, 0x0),
+        "exit": (0x0, 0x1, 0x5),
+        "entrance_region": "ghost ship tetra",
+        "exit_region": "nw ocean",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.GHOST,
+        "two_way": False,
     },
 
     # ============= SE Ocean ==================

@@ -2388,6 +2388,15 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 224,
     },
+    "Isle of Frost SW Peg Gift": {
+        "region_id": "frost",
+        "stage_id": 0xf,
+        "floor_id": 0x0,
+        "vanilla_item": "Red Rupee (20)",
+        "x_min": -67000,
+        "y": 4915,
+        "id": 329,
+    },
     "Isle of Frost Ice Field South Ledge West Chest": {
         "region_id": "frost field upper chests",
         "stage_id": 0xf,
@@ -2439,7 +2448,7 @@ LOCATIONS_DATA = {
         "id": 229,
     },
     "Temple of Ice 3F Switch State Chest": {
-        "region_id": "toi 3f switch",
+        "region_id": "toi 3f switch state",
         "stage_id": 0x1f,
         "floor_id": 0x1,
         "vanilla_item": "Wisdom Gem",
@@ -2448,7 +2457,7 @@ LOCATIONS_DATA = {
         "id": 230,
     },
     "Temple of Ice 3F Key Drop": {
-        "region_id": "toi 3f boomerang",
+        "region_id": "toi 3f boomerang key",
         "stage_id": 0x1f,
         "floor_id": 0x1,
         "vanilla_item": "Small Key (Temple of Ice)",
@@ -2457,7 +2466,7 @@ LOCATIONS_DATA = {
         "id": 231,
     },
     "Temple of Ice 2F Grappling Hook Chest": {
-        "region_id": "toi 2f miniboss",
+        "region_id": "toi 2f post arena",
         "stage_id": 0x1f,
         "floor_id": 0x3,
         "vanilla_item": "Grappling Hook",
@@ -2465,7 +2474,7 @@ LOCATIONS_DATA = {
         "id": 232,
     },
     "Temple of Ice B1 Entrance Chest": {
-        "region_id": "toi b1",
+        "region_id": "toi b1 south",
         "stage_id": 0x1f,
         "floor_id": 0x2,
         "x_max": -0x7530,
@@ -2474,7 +2483,7 @@ LOCATIONS_DATA = {
         "id": 233,
     },
     "Temple of Ice B1 SE Chest": {
-        "region_id": "toi b1 2",
+        "region_id": "toi b1 right",
         "stage_id": 0x1f,
         "floor_id": 0x2,
         "vanilla_item": "Small Key (Temple of Ice)",
@@ -2484,7 +2493,7 @@ LOCATIONS_DATA = {
         "id": 234,
     },
     "Temple of Ice B1 Locked Room Chest": {
-        "region_id": "toi b1 key",
+        "region_id": "toi b1 switch room",
         "stage_id": 0x1f,
         "floor_id": 0x2,
         "vanilla_item": "Wisdom Gem",
@@ -2493,7 +2502,7 @@ LOCATIONS_DATA = {
         "id": 235,
     },
     "Temple of Ice B2 Bow Bounce Chest": {
-        "region_id": "toi b2",
+        "region_id": "toi b2 bow",
         "stage_id": 0x1f,
         "floor_id": 0x5,
         "vanilla_item": "Small Key (Temple of Ice)",
@@ -2502,7 +2511,7 @@ LOCATIONS_DATA = {
         "id": 236,
     },
     "Temple of Ice B2 Fight Chest": {
-        "region_id": "toi b2 key",
+        "region_id": "toi b2 east arena",
         "stage_id": 0x1f,
         "floor_id": 0x5,
         "vanilla_item": "Purple Potion",
@@ -2511,7 +2520,7 @@ LOCATIONS_DATA = {
         "id": 237,
     },
     "Temple of Ice B2 Boss Key Chest": {
-        "region_id": "toi bk chest",
+        "region_id": "toi b2 bk chest",
         "stage_id": 0x1f,
         "floor_id": 0x5,
         "vanilla_item": "Boss Key (Temple of Ice)",
@@ -2521,7 +2530,7 @@ LOCATIONS_DATA = {
         "id": 238,
     },
     "Temple of Ice Gleeok Sand of Hours": {
-        "region_id": "toi gleeok",
+        "region_id": "beat gleeok",
         "stage_id": 0x2d,
         "floor_id": 0x0,
         "vanilla_item": "Sand of Hours (Boss)",
@@ -2532,7 +2541,7 @@ LOCATIONS_DATA = {
         "id": 239,
     },
     "Temple of Ice Gleeok Heart Container": {
-        "region_id": "toi gleeok",
+        "region_id": "beat gleeok",
         "stage_id": 0x2d,
         "floor_id": 0x0,
         "vanilla_item": "Heart Container",
@@ -2540,7 +2549,7 @@ LOCATIONS_DATA = {
         "id": 240,
     },
     "Temple of Ice Dungeon Reward": {
-        "region_id": "toi gleeok",
+        "region_id": "beat gleeok",
         "stage_id": 0x1f,
         "floor_id": 0x6,
         "vanilla_item": "Azurine",
@@ -2727,6 +2736,16 @@ LOCATIONS_DATA = {
         "x_max": 0x19a28,
         "z_max": -0x249f0,
         "id": 258,
+    },
+    "Isle of Ruins NW Lower Water Bonk Tree": {
+        "region_id": "ruins nw port cliff tree",
+        "vanilla_item": "Big Red Rupee (200)",
+        "stage_id": 0x12,
+        "floor_id": 0x1,
+        "y": 4915,
+        "x_min": -44500,
+        "z_min": -35000,
+        "id": 328,
     },
 
     # ========== Mutoh's Temple ============

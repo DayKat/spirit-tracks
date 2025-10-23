@@ -280,7 +280,10 @@ def ph_can_kill_bat(state: CollectionState, player: int):
 
 def ph_can_kill_yook(state: CollectionState, player: int):
     return any([
-        ph_has_damage(state, player),
+        ph_has_sword(state, player),
+        ph_has_bow(state, player),
+        ph_has_hammer(state, player),
+        ph_has_grapple(state, player),
         ph_option_hard_logic(state, player)
         ])
 
@@ -737,7 +740,7 @@ def ph_option_randomize_harrow(state: CollectionState, player: int):
 
 
 def ph_option_goal_dungeons(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.goal_requirements == "complete_dungeons"
+    return state.multiworld.worlds[player].options.goal_requirements == "defeat_bosses"
 
 
 def ph_option_goal_metal_hunt(state: CollectionState, player: int):
@@ -933,6 +936,11 @@ def ph_can_sword_glitch(state, player):
         ph_option_glitched_logic(state, player)
     ])
 
+def ph_can_grapple_glitch(state, player):
+    return all([
+        ph_has_grapple(state, player),
+        ph_option_glitched_logic(state, player)
+    ])
 
 def ph_can_sword_scroll_clip(state, player):
     return all([
@@ -1127,6 +1135,12 @@ def ph_oshus_gem(state, player):
         ph_can_make_phantom_sword(state, player)
     ])
 
+def ph_ice_field(state, player):
+    return all([
+        ph_can_kill_yook(state, player),
+        ph_has_bombs(state, player)
+    ])
+
 def ph_ruins_lower_water(state, player):
     return state.has("_ruins_lower_water", player)
 
@@ -1158,8 +1172,22 @@ def ph_tof_3f(state, player):
         any([
             ph_has_boomerang(state, player),
             ph_has_hammer(state, player),
-            ph_clever_bombs(state, player)
+            ph_clever_bombs(state, player),
+            all([
+                ph_option_hard_logic(state, player),
+                ph_has_chus(state, player),
+                any([
+                    ph_has_bow(state, player),
+                    ph_has_grapple(state, player)
+                ])
+            ])
         ])
+    ])
+
+def ph_tof_key_drop(state, player):
+    return any([
+        ph_has_boomerang(state, player),
+        ph_has_grapple(state, player)
     ])
 
 def ph_tof_3f_bk(state, player):
@@ -1422,7 +1450,10 @@ def ph_toi_shortcut(state, player):
 
 def ph_toi_b1(state, player):
     return any([
-            ph_has_explosives(state, player),
+            all([
+                ph_has_explosives(state, player),
+                ph_has_grapple(state, player)
+            ]),
             ph_has_hammer(state, player)
         ])
 
@@ -1439,13 +1470,11 @@ def ph_toi_3f_boomerang(state, player):
 def ph_toi_b2(state, player):
     return all([
         ph_has_bow(state, player),
+        ph_has_grapple(state, player),
         any([
             all([
                 ph_quick_switches(state, player),
-                any([
-                    ph_toi_key_doors(state, player, 3, 2),
-                    ph_can_hammer_clip(state, player),
-                ]),
+                state.has("_toi_b1_switch", player)
             ]),
             all([
                 ph_can_bcl(state, player),
@@ -1455,8 +1484,8 @@ def ph_toi_b2(state, player):
     ])
 
 def ph_toi_miniboss(state, player):
-    return all([ph_toi_key_door_1_ut(state, player),
-                ph_has_damage(state, player)])
+    return all([ph_has_grapple(state, player),
+                ph_can_kill_yook(state, player)])
 
 def ph_toi_key_door_1_ut(state, player):
     return any([
@@ -1483,6 +1512,13 @@ def ph_toi_all_key_doors_ut(state, player):
         ph_quick_switches(state, player)
     ])
 
+def ph_toi_b2_switch_room(state, player):
+    return any([
+        ph_has_boomerang(state, player),
+        ph_has_hammer(state, player),
+        ph_has_explosives(state, player),
+
+    ])
 
 def ph_toi_key_doors(state, player, glitched: int, not_glitched: int = None):
     not_glitched = glitched if not_glitched is None else not_glitched
@@ -1518,6 +1554,12 @@ def ph_toi_key_door_3(state, player):
         ph_toi_all_key_doors_ut(state, player),
     ])
 
+def ph_toi_b2_north(state, player):
+    return all([
+        ph_can_kill_yook(state, player),
+        ph_has_grapple(state, player),
+        ph_can_hit_spin_switches(state, player)
+    ])
 
 # Mutoh's
 
@@ -2568,6 +2610,7 @@ RULE_DICT = {
     "sword_glitch": ph_can_sword_glitch,
     "scroll_clip": ph_can_sword_scroll_clip,
     "sword_scroll_clip": ph_can_sword_scroll_clip,
+    "grapple_glitch": ph_can_grapple_glitch,
     # Specific Location
     # Overworld
     "boat_access": ph_boat_access,
@@ -2591,9 +2634,11 @@ RULE_DICT = {
     "oshus_gem": ph_oshus_gem,
     "ruins_geozards": ph_ruins_geozards,
     "ruins_water": ph_ruins_lower_water,
+    "ice_field": ph_ice_field,
     # ToF
     "tof_3f": ph_tof_3f,
     "tof_maze": ph_tof_maze,
+    "tof_key_drop": ph_tof_key_drop,
     "tof_3f_bk": ph_tof_3f_bk,
     "tof_blaaz": ph_tof_enter_blaaz,
     # ToW
@@ -2636,6 +2681,8 @@ RULE_DICT = {
     "toi_shortcut": ph_toi_shortcut,
     "toi_b1": ph_toi_b1,
     "toi_key_1_ut": ph_toi_key_door_1_ut,
+    "toi_b1_switch": ph_toi_b2_switch_room,
+    "toi_b2_north": ph_toi_b2_north,
     # MT
     "mutoh_entrance": ph_mutoh_entrance,
     "mutoh_water": ph_mutoh_water,

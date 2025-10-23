@@ -360,6 +360,7 @@ REGIONS = [
     "uncharted grapple",
 
     # Ghost Ship
+    "ghost ship deck",
     "ghost ship",
     "ghost ship barrel",
     "ghost ship b2",
@@ -462,19 +463,39 @@ REGIONS = [
 
     # Temple of Ice
     "toi",
-    "toi 2f",
+    "toi 1f ascent",
+    "toi 1f shortcut",
+    "toi 1f descent",
+    "toi 1f beetles",
+    "toi 2f right",
+    "toi 2f left",
+    "toi 2f arena",
+    "toi 2f post arena",
+    "toi 3f right",
+    "toi 3f key door",
     "toi 3f",
-    "toi 3f switch",
-    "toi 3f boomerang",
-    "toi 2f miniboss",
-    "toi side path",
-    "toi b1",
-    "toi b1 2",
-    "toi b1 key",
+    "toi 3f switch state",
+    "toi 3f boomerang key",
+
+    "toi b1 ascent",
+    "toi b1 shore",
+    "toi b1 south",
+    "toi b1 mid",
+    "toi b1 right",
+    "toi b1 switch",
+    "toi b1 switch room",
+    "toi b1 boss door",
+    "toi b1 before boss",
     "toi b2",
-    "toi bk chest",
-    "toi b2 key",
-    "toi gleeok",
+    "toi b2 north",
+    "toi b2 bk chest",
+    "toi b2 east",
+    "toi b2 bow",
+    "toi b2 east arena",
+    
+    "toi blue warp",
+    "gleeok",
+    "beat gleeok",
 
     # NE Ocean
 
@@ -514,6 +535,7 @@ REGIONS = [
     "ruins nw cave",
     "ruins nw alcove",
     "ruins nw port cliff",
+    "ruins nw port cliff tree",
     "ruins nw lower",
     "ruins nw return",
 

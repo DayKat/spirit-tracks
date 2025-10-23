@@ -1295,21 +1295,37 @@ DUNGEON_KEY_DATA = {
 }
 
 BOSS_DOOR_DATA = {
+    0x1C: {
+        "name": "Temple of Fire",
+        "address": 0x259EA8,
+        "value": 0xFFFFED1F
+    },
+    0x1D: {
+        "name": "Temple of Wind",
+        "address": 0x24D740,
+        "value": 0x77F
+    },
     0x1E: {
         "name": "Temple of Courage",
         "address": 0x252360,
-        "value": 0x1E
+        "value": 0x1Ed
+    },
+    0x20: {
+        "name": "Goron Temple",
+        "address": 0x25D9B0,
+        "value": 0x1
     },
     0x1F: {
         "name": "Temple of Ice",
         "address": 0x259CA0,
         "value": 0xDA
     },
-    0x1D: {
-        "name": "Temple of Wind",
-        "address": 0x24D740,
-        "value": 0x77F
-    }
+    0x21: {
+        "name": "Mutoh's Temple",
+        "address": 0x24DED0,
+        "value": 0x1
+    },
+
 }
 
 COLOR_SWITCH_DATA = {

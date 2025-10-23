@@ -104,6 +104,11 @@ DYNAMIC_ENTRANCES = {
         "destination": "MT Exit",
         "has_slot_data": [("shuffle_dungeon_entrances", 1)],
     },
+    "GS warp": {
+        "entrance": "Finish Ghost Ship",
+        "destination": "Ghost Ship B1 Ascend",
+        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+    },
     "Brant's Maze Shortcut": {
         "entrance": "Brant's Maze 1",
         "destination": "Brant's Maze Exit"

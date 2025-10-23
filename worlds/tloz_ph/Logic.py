@@ -279,7 +279,7 @@ def make_overworld_logic():
         ["tof 1f sw", "tof 2f south", False, "can_kill_bubble"],
         ["tof 2f south", "tof 3f", False, "tof_3f"],
         # 3F
-        ["tof 3f", "tof 3f key drop", False, "boomerang"],
+        ["tof 3f", "tof 3f key drop", False, "tof_key_drop"],
         ["tof 3f key drop", "tof 3f boss key", False, "tof_3f_bk"],  # All 3F checks need boomerang, UT included
         ["tof 3f boss key", "tof blaaz", False, "tof_blaaz"],  # Includes UT
         ["tof blaaz", "post tof", False, None],  # Used for events
@@ -378,7 +378,7 @@ def make_overworld_logic():
         ["zauz boat", "nw ocean", True, "require_chart", "NW"],
         ["uncharted boat", "uncharted", True, None],
         ["uncharted boat", "nw ocean", True, "require_chart", "NW"],
-        ["nw ocean", "ghost ship", False, "ghost_ship"],
+        ["nw ocean", "ghost ship deck", False, "ghost_ship"],
         ["nw ocean", "porl", False, None],
         ["porl", "porl item", False, "sword"],
         ["porl", "porl trade", False, "heroes_new_clothes"],
@@ -452,6 +452,7 @@ def make_overworld_logic():
 
         # ================= Ghost Ship ====================
 
+        ["ghost ship deck", "ghost ship", True, None],
         ["ghost ship", "ghost ship barrel", False, "gs_barrel"],
         ["ghost ship barrel", "ghost ship b2", False, "gs_triangle"],
         ["ghost ship b2", "ghost ship b3", False, None],
@@ -558,7 +559,7 @@ def make_overworld_logic():
         ["frost estate dig", "frost estate grapple dig", False, "grapple"],
 
         ["frost cave", "frost field", True, None],
-        ["frost field", "frost field exit", False, "yook"],
+        ["frost field", "frost field exit", False, "ice_field"],
         ["frost field", "frost field upper se", False, "grapple"],
         ["frost field upper se", "frost field", False, None],
         ["frost field upper se", "frost field upper chests", False, "grapple"],
@@ -582,23 +583,49 @@ def make_overworld_logic():
 
         # ================= Ice Temple ====================
 
-        ["toi", "toi 2f", False, "toi_2f"],
-        ["toi 2f", "toi 3f", False, "toi_3f"],
-        ["toi 3f", "toi 3f switch", False, "toi_3f_switch"],
-        ["toi 3f switch", "toi 3f boomerang", False, "toi_3f_boomerang"],
-        ["toi 3f boomerang", "toi 2f miniboss", False, "toi_miniboss"],
-        ["toi 3f", "toi 2f miniboss", False, "toi_key_doors", 3, 1],
-        ["toi 2f miniboss", "toi side path", False, "grapple"],
-        ["toi", "toi side path", False, "toi_shortcut"],
-        ["toi side path", "toi b1", False, "toi_b1"],
-        ["toi b1", "toi b1 2", False, "explosives"],
-        ["toi b1 2", "toi b1 key", False, "toi_key_door_2"],
-        ["toi b1 2", "toi b2", False, "toi_b2"],
-        ["toi b2", "toi bk chest", False, "hammer_clip"],
-        ["toi b2", "toi b2 key", False, "toi_key_door_3"],
-        ["toi b2 key", "toi bk chest", False, None],
-        ["toi bk chest", "toi gleeok", False, "is_ut"],
-        ["toi b2", "toi gleeok", False, "boss_key", "Temple of Ice"],
+        ["toi", "toi 1f ascent", False, "toi_2f"],
+        ["toi 1f ascent", "toi 2f right", True, None],
+        ["toi 3f right", "toi 2f right", True, None],
+        ["toi 3f right", "toi 3f", False, "toi_3f"],
+        ["toi 3f", "toi 3f right", False, "range"],
+        ["toi 3f", "toi 3f key door", True, "toi_key_doors", 3, 1],  # TODO: Key logic
+        ["toi 3f", "toi 3f switch state", False, "bombs"],  # TODO: Switch state logic
+        ["toi 3f switch state", "toi 3f boomerang key", False, "toi_3f_boomerang"],
+        ["toi 3f key door", "toi 2f arena", True, None],
+        ["toi 2f arena", "toi 2f post arena", False, "yook"],
+        ["toi 2f arena", "toi 2f left", False, "toi_miniboss"],
+        ["toi 2f left", "toi 1f beetles", True, None],
+        ["toi 1f beetles", "toi 1f shortcut", False, "grapple"],
+        ["toi 1f shortcut", "toi 1f beetles", False, "grapple_glitch"],
+        ["toi", "toi 1f shortcut", False, "hammer_clip"],
+        ["toi 1f shortcut", "toi", False, None],
+        ["toi 1f shortcut", "toi 1f descent", False, "grapple"],
+        ["toi 1f descent", "toi b1 ascent", True, None],
+
+        ["toi b1 ascent", "toi b1 shore", False, None],  # TODO: Switch state logic
+        ["toi b1 shore", "toi b1 ascent", False, "hammer_clip"],
+        ["toi b1 shore", "toi b1 south", False, "toi_b1"],
+        ["toi b1 south", "toi b1 shore", False, None],
+        ["toi b1 south", "toi b1 mid", True, "explosives"],
+        ["toi b1 mid", "toi b1 right", False, "grapple"],
+        ["toi b1 right", "toi b1 switch", False, "hammer_clip"],
+        ["toi b1 right", "toi b1 switch room", False, "toi_key_door_2"],  # TODO: Key logic, and also backwards switch logic?
+        ["toi b1 switch room", "toi b1 switch", False, "toi_b1_switch"],
+        ["toi b1 mid", "toi b1 boss door", False, "toi_b2"],
+        ["toi b1 boss door", "toi b1 mid", False, "grapple"],  # TODO: Switch state red
+        ["toi b1 boss door", "toi b1 before boss", True, "boss_key", "Temple of Ice"],  # TODO: UT ToI boss key
+        ["toi b1 before boss", "gleeok", True, None],
+        ["gleeok", "beat gleeok", False, "grapple"],
+        ["toi b1 before boss", "toi blue warp", True, None],
+        ["toi", "toi blue warp", True, "has", "_toi_blue_warp"],
+        ["toi b1 boss door", "toi b2", True, None],
+
+        ["toi b2", "toi b2 north", False, "toi_b2_north"],
+        ["toi b2 north", "toi b2 bk chest", False, "hammer_clip"],
+        ["toi b2 north", "toi b2 east", False, None],
+        ["toi b2 east", "toi b2 bow", False, "bow"],
+        ["toi b2 east", "toi b2 east arena", False, "toi_key_doors", 3, 3],  # TODO: Key logic
+        ["toi b2 east arena", "toi b2 bk chest", False, None],
 
         # ================= NE Ocean ====================
 
@@ -653,6 +680,7 @@ def make_overworld_logic():
         ["bremeur", "bremeur kings key", False, "kings_key"],
         ["ruins nw boulders", "ruins nw port cliff", False, None],
         ["ruins nw port cliff", "ruins sw port cliff", True, None],
+        ["ruins nw port cliff", "ruins nw port cliff tree", True, "ruins_water"],
         ["ruins nw boulders", "ruins nw lower", False, "ruins_water"],
         ["ruins nw across bridge", "ruins nw cave", True, "ruins_water"],  # this means cave might not be in logic while accessible...
         ["ruins nw across bridge", "ruins nw alcove", False, "ruins_water"],

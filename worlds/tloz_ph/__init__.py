@@ -277,7 +277,7 @@ class PhantomHourglassWorld(World):
         self.required_dungeons = implemented_dungeons[:dungeons_required]
 
         # Cap zauz metals at number of metals
-        if self.options.goal_requirements == "complete_dungeons":
+        if self.options.goal_requirements == "defeat_bosses":
             if self.options.zauz_required_metals > dungeons_required:
                 self.options.zauz_required_metals.value = dungeons_required
         elif self.options.goal_requirements == "metal_hunt":
@@ -291,7 +291,7 @@ class PhantomHourglassWorld(World):
             self.options.metal_hunt_total.value = self.options.metal_hunt_required.value
 
         # Extend mcguffin list
-        if self.options.goal_requirements == "complete_dungeons":
+        if self.options.goal_requirements == "defeat_bosses":
             self.boss_reward_items_pool = self.pick_metals(self.options.dungeons_required)
 
     def pick_metals(self, count):
@@ -316,7 +316,7 @@ class PhantomHourglassWorld(World):
 
     def create_events(self):
         # Create events for required dungeons
-        if self.options.goal_requirements == "complete_dungeons":
+        if self.options.goal_requirements == "defeat_bosses":
             if "Temple of Fire" in self.required_dungeons:
                 self.create_event("tof blaaz", "_required_dungeon")
             if "Temple of Wind" in self.required_dungeons:
@@ -331,7 +331,7 @@ class PhantomHourglassWorld(World):
             if "Goron Temple" in self.required_dungeons:
                 self.create_event("gt dongo", "_required_dungeon")
             if "Temple of Ice" in self.required_dungeons:
-                self.create_event("toi gleeok", "_required_dungeon")
+                self.create_event("beat gleeok", "_required_dungeon")
             if "Mutoh's Temple" in self.required_dungeons:
                 self.create_event("mutoh eox", "_required_dungeon")
         # Post Dungeon Events
@@ -353,6 +353,10 @@ class PhantomHourglassWorld(World):
         self.create_event("goron chus", "_goron_chus")
         self.create_event("goron maze south", "_goron_maze_switch")
         self.create_event("cannon eddo", "_eddo_door")
+        self.create_event("toi b1 switch", "_toi_b1_switch")
+        # Blue warps
+        self.create_event("toi blue warp", "_toi_blue_warp")
+
         # Goal
         self.create_event("goal", "_beaten_game")
 
@@ -478,9 +482,9 @@ class PhantomHourglassWorld(World):
                 3: self.options.shuffle_ports,
                 4: self.options.shuffle_overworld_transitions,
                 5: self.options.shuffle_dungeon_entrances,
-                6: None,
-                7: None,
-                8: None,
+                6: self.options.shuffle_bosses,
+                7: self.options.shuffle_dungeons_internally,
+                8: self.options.shuffle_dungeons_internally,
                 9: self.options.shuffle_caves,
                 10: self.options.shuffle_caves}
 
@@ -495,7 +499,7 @@ class PhantomHourglassWorld(World):
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:
                 disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
-                # print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
+                print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
 
             # Get valid connection groups
             groups = self.create_er_target_groups(type_option_lookup)
@@ -520,14 +524,13 @@ class PhantomHourglassWorld(World):
                 new_exits = set()
                 if hasattr(er_state, "old_available_exits"):
                     new_exits = set(er_state.find_placeable_exits(True, er_state.entrance_lookup._usable_exits)) - er_state.old_available_exits
-                    print(f"on connecting {placed_exits}, revealed new exits {new_exits}")
+                    print(f"\ton connecting {placed_exits}, revealed new exits {new_exits}")
                 else:
                     er_state.old_available_exits = set()
 
                 # Pass on valid switch states to new available exits
                 for ex, entr in zip(placed_exits, paired_entrances):
-                    if self.options.color_switch_behaviour.value > 0:  # global switches
-                        update_switch_logic(ex, entr, er_state, self.options.logic.value, self.options.color_switch_behaviour.value, new_exits)
+                    update_switch_logic(ex, entr, er_state, self.options.logic.value, self.options.color_switch_behaviour.value, new_exits)
 
                 # Update old exits now that you've used new exits
                 er_state.old_available_exits.update(new_exits)
@@ -552,7 +555,7 @@ class PhantomHourglassWorld(World):
 
             # Do ER, if not UT!
             if not getattr(self.multiworld, "generation_is_fake", False):
-                ph_max_er_attempts = 10
+                ph_max_er_attempts = 1
                 for i in range(ph_max_er_attempts):
                     # Workaround cause ER likes to link dead ends to each other when ignoring directions.
                     # Concept stolen from CodeGorilla's Crystalis implementation
@@ -753,7 +756,7 @@ class PhantomHourglassWorld(World):
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
             if item_name == "Rare Metal":  # Change rare metals to filler items for unrequired dungeons
-                if boss_reward_item_count <= 0 or self.options.goal_requirements != "complete_dungeons":
+                if boss_reward_item_count <= 0 or self.options.goal_requirements != "defeat_bosses":
                     filler_item_count += 1
                     continue
                 item_name = self.boss_reward_items_pool[boss_reward_item_count - 1]
@@ -885,7 +888,7 @@ class PhantomHourglassWorld(World):
         self.boss_reward_location_names = boss_reward_location_names
 
         # Pre-fill dungeon rewards
-        if self.options.goal_requirements == "complete_dungeons":
+        if self.options.goal_requirements == "defeat_bosses":
             boss_reward_locations = [loc for loc in self.multiworld.get_locations(self.player)
                                      if loc.name in boss_reward_location_names]
             boss_reward_items = [item for item in self.pre_fill_items if item.name in self.boss_reward_items_pool]

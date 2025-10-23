@@ -39,7 +39,7 @@ class TestGeneration(WorldTestBase):
     options = {
         "keysanity": "anywhere",
         "phantom_combat_difficulty": "require_traps",
-        "logic": "hard",
+        "logic": "normal",
         "accessibility": "items",
         "randomize_frogs": "randomize",
         "dungeons_required": 3,
@@ -61,12 +61,13 @@ class TestGeneration(WorldTestBase):
         "randomize_beedle_membership": "no_beedle_points",
         # Entrance types
         "shuffle_dungeon_entrances": "no_shuffle",
-        "shuffle_ports": "shuffle",
+        "shuffle_ports": "no_shuffle",
         "shuffle_caves": "no_shuffle",
         "shuffle_houses": "no_shuffle",
-        "shuffle_overworld_transitions": "shuffle",
+        "shuffle_overworld_transitions": "no_shuffle",
+        "shuffle_dungeons_internally": "shuffle",
         # entrance options
-        "entrance_directionality": "preserve_all",
+        "entrance_directionality": "disregard_all",
         "shuffle_between_islands": "shuffle_anywhere",
         "decouple_entrances": "couple_all",
                }
