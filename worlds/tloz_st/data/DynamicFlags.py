@@ -39,18 +39,18 @@ DYNAMIC_FLAGS = {
         "has_items": [["Song of Healing", 1]],
         "set_if_true": [(0x268FB0, 0x02)],
     },
-    # "Allow learning light song": {
-    #     "on_scenes": [0x3700],
-    #     "not_has_locations": ["Trading Post 2nd Song Statue"],
-    #     "unset_if_true": [(0x268FB0, 0x08)],
-    #     "reset_flags": ["RESET trading post statue"]
-    # },
-    # "RESET trading post statue": {
-    #     "on_scenes": [0x3700],
-    #     "has_locations": ["Trading Post 2nd Song Statue"],
-    #     "has_items": [["Song of Light", 1]],
-    #     "set_if_true": [(0x268FB0, 0x08)],
-    # },
+    "Allow learning light song": {
+        "on_scenes": [0x3700],
+        "not_has_locations": ["Trading Post 2nd Song Statue"],
+        "unset_if_true": [(0x268FB0, 0x08)],
+        "reset_flags": ["RESET trading post statue"]
+    },
+    "RESET trading post statue": {
+        "on_scenes": [0x3700],
+        "has_locations": ["Trading Post 2nd Song Statue"],
+        "has_items": [["Song of Light", 1]],
+        "set_if_true": [(0x268FB0, 0x08)],
+    },
     "Stagnox location": {
         "on_scenes": [0x1E00],
         "not_has_locations": ["Wooded Temple Dungeon Reward"],

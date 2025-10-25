@@ -347,7 +347,7 @@ LOCATIONS_DATA = {
     #TODO find better address for flute stuff
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
-        "vanilla_item": "Song of Awakening", #TODO song doesn't get removed
+        "vanilla_item": "Song of Awakening",
         "stage_id": 0x30,
         "room_id": 0,
         "x_min": -32764,
@@ -495,19 +495,19 @@ LOCATIONS_DATA = {
     #     "z_max": -50790,
     #     "dungeon": "Wooded Temple",
     #     "require_item": ["Whirlwind"],
-    # }, TODO heart container processes on loop, causing heart loss
-    "Wooded Temple Boss Heart Container": {
-        "region_id": "wt heart container",
-        "vanilla_item": "Heart Container",
-        "stage_id": 0x1E,
-        "room_id": 0,
-        "x_min": -12452,
-        "x_max": 13862,
-        "z_min": 875,
-        "z_max": 28042,
-        "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind", "Sword (Progressive)"],
-    },
+    # }, TODO heart container processes on loop, causing heart loss. check other HC chests, doesn't occur for other ones
+    # "Wooded Temple Boss Heart Container": {
+    #     "region_id": "wt heart container",
+    #     "vanilla_item": "Heart Container",
+    #     "stage_id": 0x1E,
+    #     "room_id": 0,
+    #     "x_min": -12452,
+    #     "x_max": 13862,
+    #     "z_min": 875,
+    #     "z_max": 28042,
+    #     "dungeon": "Wooded Temple",
+    #     "require_item": ["Whirlwind", "Sword (Progressive)"],
+    # },
     "Wooded Temple Dungeon Reward": {
         "region_id": "wt stagnox",
         "vanilla_item": "Forest Source",
@@ -562,26 +562,26 @@ LOCATIONS_DATA = {
     #     "z_min": 46500,
     #     "z_max": 57443,
     # },
-    # "Trading Post 2nd Song Statue": { TODO song statue gives chest check and disables chest check
-    #     "region_id": "trading post light song statue",
-    #     "vanilla_item": "Song of Light",
-    #     "stage_id": 0x37,
-    #     "room_id": 0,
-    #     "x_min": -64094,
-    #     "x_max": -45666,
-    #     "z_min": -55626,
-    #     "z_max": -35679,
-    #     "require_item": ["Spirit Flute"],
-    # },
-    # "Trading Post Chest": { #TODO figure out cs skip
-    #     "region_id": "trading post chest",
-    #     "vanilla_item": "Treasure: Regal Ring",
-    #     "stage_id": 0x37,
-    #     "room_id": 0x02,
-    #     "address": 0x265752,
-    #     "value": 0x10,
-    #     "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
-    # },
+    "Trading Post 2nd Song Statue": {
+        "region_id": "trading post light song statue",
+        "vanilla_item": "Song of Light",
+        "stage_id": 0x37,
+        "room_id": 0,
+        "x_min": -64094,
+        "x_max": -45666,
+        "z_min": -55626,
+        "z_max": -35679,
+        "require_item": ["Spirit Flute"],
+    },
+    "Trading Post Chest": { #TODO figure out cs skip
+        "region_id": "trading post chest",
+        "vanilla_item": "Treasure: Regal Ring",
+        "stage_id": 0x37,
+        "room_id": 0x02,
+        "address": 0x265752,
+        "value": 0x10,
+        "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
+    },
 }
 
 for i, name in enumerate(LOCATIONS_DATA):

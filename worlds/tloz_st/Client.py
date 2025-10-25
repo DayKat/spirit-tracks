@@ -34,6 +34,9 @@ RAM_ADDRS = {
 
     "equipped_item": (0x265318, 4, "Main RAM"),
     "train_gear": (0x2CA24C, 4, "Main RAM"),
+
+    "health": (0x2651BC, 1, "Main RAM"),
+    "heart_count": (0x2651BD, 1, "Main RAM"),
 }
 
 POINTERS = {
@@ -108,8 +111,7 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     async def full_heal(self, ctx, bonus=0):
-        # TODO this doesn't happen atm
-        pass
+        await write_memory_value(ctx, RAM_ADDRS["health"][0], await read_memory_value(ctx, *RAM_ADDRS["heart_count"]), size=RAM_ADDRS["health"][1])
 
     async def watched_intro_cs(self, ctx):
         return await read_memory_value(ctx, 0x265726) & 1
