@@ -116,7 +116,7 @@ DYNAMIC_FLAGS = {
     },
     "Bannan Wayfarer Map": {
         "on_scenes": [0x1400],
-        "not_has_locations": ["Bannan Island Wayfarers Dig"],
+        "not_has_locations": ["Bannan Island Wayfarer Dig"],
         "unset_if_true": [(0x1BA650, 0x20)],
         "reset_flags": ["RESET Bannan Wayfarer Map"]
     },

@@ -846,7 +846,10 @@ def ph_has_boss_key(state: CollectionState, player: int, dung_name: str):
 def ph_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
     return any([
         ph_has_boss_key(state, player, dung_name),
-        ph_is_ut(state, player)
+        all([
+            ph_is_ut(state, player),
+            state.multiworld.worlds[player].options.randomize_boss_keys == "vanilla"
+        ])
     ])
 
 
@@ -868,6 +871,15 @@ def ph_ut_small_key_own_dungeon(state, player):
     return all([
         ph_is_ut(state, player),
         ph_option_keys_in_own_dungeon(state, player)
+    ])
+
+def ph_option_boss_key_in_own_dungeon(state, player):
+    return state.multiworld.worlds[player].options.randomize_boss_keys in ["vanilla", "in_own_dungeon"]
+
+def ph_ut_boss_key_own_dungeon(state, player):
+    return all([
+        ph_is_ut(state, player),
+        ph_option_boss_key_in_own_dungeon(state, player)
     ])
 
 
@@ -1187,16 +1199,31 @@ def ph_tof_3f(state, player):
 def ph_tof_key_drop(state, player):
     return any([
         ph_has_boomerang(state, player),
-        ph_has_grapple(state, player)
+        all([
+            ph_has_grapple(state, player),
+            ph_option_hard_logic(state, player)
+        ])
     ])
 
-def ph_tof_3f_bk(state, player):
-    return any([ph_has_small_keys(state, player, "Temple of Fire", 3),
-         ph_ut_small_key_own_dungeon(state, player)])
+def ph_tof_3f_key_door(state, player):
+    return all([
+        any([
+            ph_has_small_keys(state, player, "Temple of Fire", 3),
+            all([
+                ph_ut_small_key_own_dungeon(state, player),
+                ph_tof_key_drop(state, player)
+            ])
+        ])
+    ])
 
 def ph_tof_enter_blaaz(state, player):
-    return all([
-        ph_has_boss_key_simple(state, player, "Temple of Fire")])
+    return any([
+            ph_has_boss_key(state, player, "Temple of Fire"),
+            all([
+                ph_ut_boss_key_own_dungeon(state, player),
+                ph_has_boomerang(state, player)
+            ])
+        ])
 
 def ph_tof_blaaz(state, player):
     return all([
@@ -1219,7 +1246,15 @@ def ph_tow_key_door(state, player):
 def ph_tow_enter_cyclok(state, player):
     return all([
             ph_has_bombs(state, player),
-            ph_has_boss_key_simple(state, player, "Temple of Wind")])
+            any([
+                ph_has_boss_key(state, player, "Temple of Wind"),
+                all([
+                    ph_ut_boss_key_own_dungeon(state, player),
+                    ph_has_shovel(state, player),
+                    ph_wind_temple_key_ut(state, player)
+                ]),
+            ])
+    ])
 
 def ph_wind_temple_key_ut(state, player):
     return all([
@@ -1317,6 +1352,11 @@ def ph_toc_key_door_3(state, player):
     return any([
         ph_has_small_keys(state, player, "Temple of Courage", 3),
         # UT
+        ph_toc_all_checks_door_3(state, player)
+    ]),
+
+def ph_toc_all_checks_door_3(state, player):
+    return any([
         all([
             ph_ut_small_key_own_dungeon(state, player),
             ph_has_bow(state, player),
@@ -1337,6 +1377,14 @@ def ph_toc_key_door_3(state, player):
         ])
     ])
 
+def ph_toc_boss_key(state, player):
+    return any([
+        ph_has_boss_key(state, player, "Temple of Courage"),
+        all([
+            ph_ut_boss_key_own_dungeon(state, player),
+            ph_toc_all_checks_door_3
+        ])
+    ])
 
 def ph_toc_key_doors(state, player, glitched: int, not_glitched: int):
     return any([
@@ -1424,9 +1472,13 @@ def ph_gt_b2_back(state, player):
             ph_has_boomerang(state, player)])
 
 def ph_gt_enter_dongo(state, player):
-    return all([
-            ph_has_chus(state, player),
-            ph_has_boss_key_simple(state, player, "Goron Temple")])
+    return any([
+        ph_has_boss_key(state, player, "Goron Temple"),
+        all([
+            ph_ut_boss_key_own_dungeon(state, player),
+            ph_has_chus(state, player)
+        ])
+    ])
 
 
 # Toi
@@ -1515,6 +1567,15 @@ def ph_toi_all_key_doors_ut(state, player):
         ph_has_explosives(state, player),
         ph_has_bow(state, player),
         ph_quick_switches(state, player)
+    ])
+
+def ph_toi_boss_door(state, player):
+    return any([
+        ph_has_boss_key(state, player, "Temple of Ice"),
+        all([
+            ph_ut_boss_key_own_dungeon(state, player),
+            ph_toi_all_key_doors_ut(state, player)
+        ])
     ])
 
 def ph_toi_b2_switch_room(state, player):
@@ -1625,6 +1686,15 @@ def ph_mutoh_bk_chest(state, player):
     return any([
             ph_has_small_keys(state, player, "Mutoh's Temple", 2),
             ph_ut_small_key_own_dungeon(state, player)])
+
+def ph_mutoh_boss_door(state, player):
+    return any([
+        ph_has_boss_key(state, player, "Mutoh's Temple"),
+        all([
+            ph_ut_boss_key_own_dungeon(state, player),
+            ph_mutoh_bk_chest(state, player),
+        ])
+    ])
 
 # Goal Stuff
 
@@ -2644,7 +2714,7 @@ RULE_DICT = {
     "tof_3f": ph_tof_3f,
     "tof_maze": ph_tof_maze,
     "tof_key_drop": ph_tof_key_drop,
-    "tof_3f_bk": ph_tof_3f_bk,
+    "tof_3f_key_door": ph_tof_3f_key_door,
     "tof_bk": ph_tof_enter_blaaz,
     "tof_blaaz": ph_tof_blaaz,
     # ToW
@@ -2662,6 +2732,7 @@ RULE_DICT = {
     "toc_crystal_south": ph_toc_crystal_south,
     "toc_spike_corridor": ph_toc_spike_corridor,
     "toc_switch_state": ph_toc_final_switch_state,
+    "toc_boss_key": ph_toc_boss_key,
     # gs
     "ghost_ship": ph_has_ghost_ship_access,
     "enter_gs": ph_has_ghost_ship_access,
@@ -2689,11 +2760,13 @@ RULE_DICT = {
     "toi_key_1_ut": ph_toi_key_door_1_ut,
     "toi_b1_switch": ph_toi_b2_switch_room,
     "toi_b2_north": ph_toi_b2_north,
+    "toi_boss_door": ph_toi_boss_door,
     # MT
     "mutoh_entrance": ph_mutoh_entrance,
     "mutoh_water": ph_mutoh_water,
     "mutoh_key_doors": ph_mutoh_key_doors,
     "mutoh_bk_chest": ph_mutoh_bk_chest,
+    "mutoh_boss_door": ph_mutoh_boss_door,
     # Goal
     "bellum_warp": ph_totok_blue_warp,
     "bellum_staircase": ph_totok_bellum_staircase,

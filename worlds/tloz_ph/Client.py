@@ -343,6 +343,10 @@ class PhantomHourglassClient(DSZeldaClient):
         await write_memory_value(ctx,0x0EC754, 2, overwrite=True)  # Set text speed to fast, no matter settings
         await self.update_stored_entrances(ctx)
 
+        # Set warp to start location
+        if ctx.slot_data["shuffle_overworld_transitions"]:
+            self.starting_entrance = (11, 0, 0)
+
 
     async def watched_intro_cs(self, ctx):
         return await read_memory_value(ctx, 0x1b55a8, silent=True) & 2

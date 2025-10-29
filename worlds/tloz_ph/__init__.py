@@ -790,6 +790,10 @@ class PhantomHourglassWorld(World):
                     key_item = self.create_item(item_name)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(key_item)
                     continue
+            if self.options.randomize_boss_keys == "vanilla" and "Boss Key" in item_name:
+                key_item = self.create_item(item_name)
+                self.multiworld.get_location(loc_name, self.player).place_locked_item(key_item)
+                continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
@@ -921,6 +925,9 @@ class PhantomHourglassWorld(World):
         # Confine small keys to own dungeon if option is enabled
         if self.options.keysanity == "in_own_dungeon":
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key")])
+        # Confine small keys to own dungeon if option is enabled
+        if self.options.randomize_boss_keys == "in_own_dungeon":
+            confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
 
         # Remove boss reward items from pool for pre filling
         confined_dungeon_items.extend([item for item in items if item.name in self.boss_reward_items_pool])

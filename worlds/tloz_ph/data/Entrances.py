@@ -918,8 +918,8 @@ ENTRANCE_DATA = {
     },
     "Goron SW Mountains East": {
         "return_name": "Goron SE Mountains West",
-        "entrance_region": "goron se",
-        "exit_region": "goron chu ledge",
+        "entrance_region": "goron chu ledge",
+        "exit_region": "goron se",
         "entrance": (0x10, 0x2, 0xFD),
         "exit": (0x10, 0x3, 0xFE),
         "coords": (-8000, 9666, 22500),
@@ -1002,8 +1002,8 @@ ENTRANCE_DATA = {
         "return_name": "Dongorongo Exit",
         "entrance": (0x20, 0x4, 0x1),
         "exit": (0x2E, 0x0, 0x0),
-        "entrance_region": "goron outside temple",
-        "exit_region": "gt",
+        "entrance_region": "gt before dongo",
+        "exit_region": "gt dongo",
         "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GORON

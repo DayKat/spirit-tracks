@@ -182,6 +182,7 @@ class PhantomHourglassBellumAccess(Choice):
     option_warp_to_bellum = 2
     option_spawn_bellumbeck = 3
     option_win = 4
+    default = 2
 
 
 class PhantomHourglassFrogRandomization(Choice):
@@ -297,6 +298,7 @@ class PhantomHourglassDungeonHintType(Choice):
     option_no_hints = 0
     option_hint_dungeon = 1
     option_hint_boss = 2
+    default = 2
 
 class PhantomHourglassExcludedDungeonHints(Toggle):
     """
@@ -306,7 +308,10 @@ class PhantomHourglassExcludedDungeonHints(Toggle):
 
 class PhantomHourglassExcludeNonRequriedDungeons(Toggle):
     """
-    Non-required dungeons won't have progression or useful items. Does not apply to TotOK.
+    Non-required dungeons won't have progression or useful items.
+    Does not apply to TotOK.
+    If you don't require specific bosses, this will still make a number of dungeons barren.
+    They will still count towards dungeon completions.
     """
     display_name = "exclude_non_required_dungeons"
     default = 1
@@ -366,7 +371,7 @@ class PhantomHourglassSkipOceanFights(Toggle):
     quest item are removed, and cannon isn't required for those locations
     """
     display_name = "skip_ocean_fights"
-    default = 0
+    default = 1
 
 
 class PhantomHourglassRandomizeFishing(Choice):
@@ -501,7 +506,6 @@ class PhantomHourglassRandomizeBeedlePoints(Choice):
 
 class PhantomHourglassDungeonShortcuts(Toggle):
     """
-    EXPERIMENTAL!!! Use at your own risk!
     Adds shortcuts from the beginning of islands to their dungeons, often by entering the house nearest their port.
     Requires getting the first check in the respective dungeon to activate.
     Disabled automatically with house ER or internal island ER (and dungeon ER until i add support for it)

@@ -1422,7 +1422,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 129,
     },
-    "Temple of Courage Crayk Sand of Hours": {
+    "Crayk Sand of Hours": {
         "region_id": "post toc",
         "vanilla_item": "Sand of Hours (Boss)",
         "stage_id": 0x2c,
@@ -1433,7 +1433,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 130,
     },
-    "Temple of Courage Heart Container": {
+    "Crayk Heart Container": {
         "region_id": "post toc",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2c,
@@ -1666,7 +1666,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of Wind",
         "id": 155,
     },
-    "Temple of Wind Cyclok Sand of Hours": {
+    "Cyclok Sand of Hours": {
         "region_id": "post tow",
         "vanilla_item": "Sand of Hours (Boss)",
         "stage_id": 0x2a,
@@ -1690,7 +1690,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 157,
     },
-    "Temple of Wind Cyclok Heart Container": {
+    "Cyclok Heart Container": {
         "region_id": "post tow",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2a,
@@ -1709,7 +1709,7 @@ LOCATIONS_DATA = {
         "z_min": 0x4e20,
         "id": 159,
     },
-    "Bannan Island Wayfarers Dig": {
+    "Bannan Island Wayfarer Dig": {
         "region_id": "bannan dig",
         "vanilla_item": "Treasure Map #21 (Molida NW)",
         "stage_id": 0x14,
@@ -1981,7 +1981,7 @@ LOCATIONS_DATA = {
         "dungeon": "Ghost Ship",
         "id": 184,
     },
-    "Ghost Ship Cubus Sisters Heart Container": {
+    "Cubus Sisters Heart Container": {
         "region_id": "ghost ship post cubus",
         "stage_id": 0x30,
         "floor_id": 0x0,
@@ -2166,7 +2166,7 @@ LOCATIONS_DATA = {
         "dungeon": "Goron Temple",
         "id": 203,
     },
-    "Goron Temple Dongorongo Sand of Hours": {
+    "Dongorongo Sand of Hours": {
         "region_id": "post gt",
         "stage_id": 0x2e,
         "floor_id": 0x0,
@@ -2177,7 +2177,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 204,
     },
-    "Goron Temple Dongorongo Heart Container": {
+    "Dongorongo Heart Container": {
         "region_id": "post gt",
         "stage_id": 0x2e,
         "floor_id": 0x0,
@@ -2287,7 +2287,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 214,
     },
-    "Dee Ess Left Speakers Dig West ": {
+    "Dee Ess Left Speakers Dig West": {
         "region_id": "ds dig",
         "stage_id": 0x1b,
         "floor_id": 0x0,
@@ -2327,6 +2327,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "vanilla_item": "Wisdom Gem",
         "y": 0x1333,
+        "x_max": -150000,
         "id": 218,
     },
     "Isle of Frost Chief House Dig": {
@@ -2529,7 +2530,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of Ice",
         "id": 238,
     },
-    "Temple of Ice Gleeok Sand of Hours": {
+    "Gleeok Sand of Hours": {
         "region_id": "beat gleeok",
         "stage_id": 0x2d,
         "floor_id": 0x0,
@@ -2540,7 +2541,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 239,
     },
-    "Temple of Ice Gleeok Heart Container": {
+    "Gleeok Heart Container": {
         "region_id": "beat gleeok",
         "stage_id": 0x2d,
         "floor_id": 0x0,
@@ -2659,7 +2660,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 250,
     },
-    "Isle of Ruins Bonk Tree": {
+    "Isle of Ruins Upper Bonk Tree": {
         "region_id": "ruins nw across bridge",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x11,
@@ -2814,7 +2815,7 @@ LOCATIONS_DATA = {
         "dungeon": "Mutoh's Temple",
         "id": 265,
     },
-    "Mutoh's Temple Eox Sand of Hours": {
+    "Eox Sand of Hours": {
         "region_id": "mutoh post eox",
         "vanilla_item": "Sand of Hours (Boss)",
         "stage_id": 0x2f,
@@ -2825,7 +2826,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 266,
     },
-    "Mutoh's Temple Heart Container Chest": {
+    "Eox Heart Container": {
         "region_id": "mutoh post eox",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2f,

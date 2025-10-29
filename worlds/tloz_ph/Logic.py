@@ -280,8 +280,9 @@ def make_overworld_logic():
         ["tof 2f south", "tof 3f", False, "tof_3f"],
         # 3F
         ["tof 3f", "tof 3f key drop", False, "tof_key_drop"],
-        ["tof 3f key drop", "tof 3f boss key", False, "tof_3f_bk"],  # All 3F checks need boomerang, UT included
-        ["tof 3f boss key", "tof before blaaz", False, "tof_bk"],  # Includes UT
+        ["tof 3f", "tof 3f key door", False, "tof_3f_key_door"],
+        ["tof 3f key door", "tof 3f boss key", False, "boomerang"],
+        ["tof 3f key door", "tof before blaaz", False, "tof_bk"],  # Includes UT
         ["tof before blaaz", "tof blaaz", True, None],
         ["tof blaaz", "post blaaz", False, "tof_blaaz"],
         ["post blaaz", "post tof", False, "tof_blaaz"],  # Used for events
@@ -349,7 +350,7 @@ def make_overworld_logic():
         ["toc torches", "toc pols 2", False, "toc_switch_state"],
         ["toc pols 2", "toc bk room", False, "toc_door_3"],
         ["toc bk room", "toc bk chest", False, "bow"],
-        ["toc bk room", "toc before boss", False, "boss_key", "Temple of Courage"],
+        ["toc bk room", "toc before boss", False, "toc_boss_key"],
         ["toc bk chest", "toc before boss", False, "simple_boss_key", "Temple of Courage"],
         ["toc before boss", "toc before boss chest", False, "boom"],
         ["toc before boss", "toc crayk", True, None],
@@ -496,6 +497,7 @@ def make_overworld_logic():
         ["goron chu ledge", "goron chus", False, "goron_chus"],
         ["goron chu ledge", "goron grapple", False, "grapple"],
         ["goron sw", "goron se", True, None],
+        ["goron chu ledge", "goron sw", False, None],
         ["goron se", "goron chu ledge", True, None],
         ["goron se", "goron mountain house", True, None],
         ["goron se", "goron se house", True, None],
@@ -621,7 +623,7 @@ def make_overworld_logic():
         ["toi b1 switch room", "toi b1 switch", False, "toi_b1_switch"],
         ["toi b1 mid", "toi b1 boss door", False, "toi_b2"],
         ["toi b1 boss door", "toi b1 mid", False, "grapple"],  # TODO: Switch state red
-        ["toi b1 boss door", "toi b1 before boss", True, "boss_key", "Temple of Ice"],  # TODO: UT ToI boss key
+        ["toi b1 boss door", "toi b1 before boss", True, "toi_boss_door"],  # TODO: do ER logic
         ["toi b1 before boss", "gleeok", True, None],
         ["gleeok", "beat gleeok", False, "grapple"],
         ["toi b1 before boss", "toi blue warp", True, None],
@@ -646,8 +648,8 @@ def make_overworld_logic():
         ["dead boat", "ne ocean", True, "require_chart", "NE"],
         ["maze boat", "maze", True, None],
         ["maze boat", "ne ocean", True, "require_chart", "NE"],
-        ["ne ocean inner", "ruins boat", True, None],
-        ["ruins boat", "ruins port", True, "require_chart", "NE"],
+        ["ne ocean inner", "ruins boat", True, "require_chart", "NE"],
+        ["ruins boat", "ruins port", True, None],
         ["ne ocean", "pirate ambush", False, "beat_gs"],
 
         # ================= IotD ====================
@@ -728,7 +730,7 @@ def make_overworld_logic():
         ["mutoh landing", "mutoh hammer", False, "hammer"],
         ["mutoh hammer", "mutoh water", False, "mutoh_water"],
         ["mutoh water", "mutoh bk chest", False, "mutoh_bk_chest"],
-        ["mutoh water", "mutoh before eox", False, "boss_key", "Mutoh's Temple"],
+        ["mutoh water", "mutoh before eox", False, "mutoh_boss_door"],
         ["mutoh before eox", "mutoh eox", True, None],
         ["mutoh eox", "mutoh post eox", False, "hammer"],
         ["mutoh bk chest", "mutoh before eox", False, "is_ut"],

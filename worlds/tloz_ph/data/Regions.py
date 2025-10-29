@@ -231,6 +231,7 @@ REGIONS = [
     "tof 2f south",
     "tof 3f",
     "tof 3f key drop",
+    "tof 3f key door",
     "tof 3f boss key",
     "tof before blaaz",
     "tof blaaz",

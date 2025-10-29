@@ -805,8 +805,8 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Fire 2F Rat Key",
         "Temple of Fire 3F Key Drop",
         "Temple of Fire 3F Boss Key Chest",
-        "Temple of Fire Blaaz Heart Container",
-        "Temple of Fire Blaaz Dungeon Reward",
+        "Blaaz Heart Container",
+        "Blaaz Boss Reward",
     ],
     "Molida Island": [
         "Molida Island 2nd House Chest",
@@ -839,9 +839,9 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Courage 1F Pols Voice Key 2",
         "Temple of Courage 2F Boss Key Chest",
         "Temple of Courage 3F Before Boss Chest",
-        "Temple of Courage Crayk Dungeon Reward",
-        "Temple of Courage Crayk Sand of Hours",
-        "Temple of Courage Heart Container",
+        "Crayk Boss Reward",
+        "Crayk Sand of Hours",
+        "Crayk Heart Container",
     ],
     "Spirit Island": [
         "Spirit Island Outside Chest",
@@ -874,9 +874,9 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Wind B1 Key Drop",
         "Temple of Wind B2 Bomb Bag Chest",
         "Temple of Wind 1F Boss Key Chest",
-        "Temple of Wind Cyclok Sand of Hours",
-        "Temple of Wind Cyclok Dungeon Reward",
-        "Temple of Wind Cyclok Heart Container",
+        "Cyclok Sand of Hours",
+        "Cyclok Boss Reward",
+        "Cyclok Heart Container",
     ],
     "Bannan Island": [
         "Bannan Island Entrance Grapple Chest",
@@ -912,8 +912,8 @@ STAGE_LOCATION_GROUPS = {
         "Ghost Ship B2 Spike Chest",
         "Ghost Ship B3 Chest",
         "Ghost Ship Rescue Tetra",
-        "Ghost Ship Cubus Sisters Ghost Key",
-        "Ghost Ship Cubus Sisters Heart Container",
+        "Cubus Sisters Ghost Key",
+        "Cubus Sisters Heart Container",
     ],
     "Linebeck's Ship": [
         "Ocean Pirate Ambush Item",
@@ -935,9 +935,9 @@ STAGE_LOCATION_GROUPS = {
         "Goron Temple B3 Kill Miblins Chest",
         "Goron Temple B2 Kill Eyeslugs Chest",
         "Goron Temple B2 Boss Key Chest",
-        "Goron Temple Dongorongo Dungeon Reward",
-        "Goron Temple Dongorongo Sand of Hours",
-        "Goron Temple Dongorongo Heart Container",
+        "Dongorongo Boss Reward",
+        "Dongorongo Sand of Hours",
+        "Dongorongo Heart Container",
     ],
     "Harrow Island": [
         "Harrow Island Dig 1",
@@ -978,9 +978,9 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Ice B2 Bow Bounce Chest",
         "Temple of Ice B2 Fight Chest",
         "Temple of Ice B2 Boss Key Chest",
-        "Temple of Ice Dungeon Reward",
-        "Temple of Ice Gleeok Sand of Hours",
-        "Temple of Ice Gleeok Heart Container",
+        "Gleeok Boss Reward",
+        "Gleeok Sand of Hours",
+        "Gleeok Heart Container",
     ],
     "Isle of the Dead": [
         "Isle of the Dead Rupoor Cave 1",
@@ -1010,9 +1010,9 @@ STAGE_LOCATION_GROUPS = {
         "Mutoh's Temple B1 Lower Water Chest",
         "Mutoh's Temple B1 Push Boulder Chest",
         "Mutoh's Temple B1 Boss Key Chest",
-        "Mutoh's Temple Dungeon Reward",
-        "Mutoh's Temple Eox Sand of Hours",
-        "Mutoh's Temple Heart Container Chest",
+        "Eox Boss Reward",
+        "Eox Sand of Hours",
+        "Eox Heart Container",
     ],
     "Maze Island": [
         "Maze Island Maze Chest",
@@ -1240,8 +1240,8 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
 
 GHOST_SHIP_BOSS_ITEM_LOCATION = [
     "Ghost Ship Rescue Tetra",
-    "Ghost Ship Cubus Sisters Ghost Key",
-        "Ghost Ship Cubus Sisters Ghost Key"
+    "GCubus Sisters Ghost Key",
+    "Cubus Sisters Ghost Key"
 ]
 
 DUNGEON_KEY_DATA = {

@@ -793,45 +793,39 @@ ITEMS_DATA = {
     },
     "Boss Key (Temple of Fire)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
         "dungeon": True,
-        "dummy": True,
         "id": 105,
+        "always_process": True
     },
     "Boss Key (Temple of Wind)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
         "dungeon": 0x1d,
-        "dummy": True,
         "id": 106,
+        "always_process": True
     },
     "Boss Key (Temple of Courage)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
         "dungeon": True,
-        "dummy": True,
         "id": 107,
+        "always_process": True
     },
     "Boss Key (Goron Temple)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
         "dungeon": True,
-        "dummy": True,
         "id": 108,
+        "always_process": True
     },
     "Boss Key (Temple of Ice)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
         "dungeon": True,
         "id": 109,
         "always_process": True
     },
     "Boss Key (Mutoh's Temple)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
         "dungeon": True,
-        "dummy": True,
         "id": 110,
+        "always_process": True
     },
     "Square Crystal (Temple of Courage)": {
         "classification": ItemClassification.progression,
