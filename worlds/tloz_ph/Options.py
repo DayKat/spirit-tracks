@@ -10,7 +10,7 @@ class PhantomHourglassGoal(Choice):
     """
     The goal to accomplish in order to unlock the endgame specified in 'bellum_access'
     - Triforce_door: Open the triforce door on TotOK B6. Leftover from pre-alpha
-    - defeat_bosses: defeat bosses to unlock the endgame
+    - defeat_bosses: defeat bosses/collect dungeon rewards to unlock the endgame
     - metal_hunt: collect a specified number of metals to unlock the endgame
     """
     display_name = "goal_requirements"
@@ -242,10 +242,11 @@ class PhantomHourglassRandomizeHarrow(Choice):
 
 class PhantomHourglassGhostShipInDungeonPool(Choice):
     """
-    Choose whether the ghost ship can be in the boss/dungeon reward pool
-    - rescue_tetra: the dungeon reward, if rolled, will be on using the ghost key
-    - cubus_sisters: the dungeon reward will be on defeating the cubus sisters
-    - false: the ghost ship cannot be rolled for the required dungeon pool
+    Choose whether the ghost ship can be in the boss/dungeon reward pool.
+    Has *interactions* with boss_shuffle.
+    - rescue_tetra: the dungeon reward, if rolled, will be on using the ghost key and climbing the staircase.
+    - cubus_sisters: the dungeon reward will be on defeating the cubus sisters.
+    - false: the ghost ship cannot be rolled for the required dungeon pool.
     """
     display_name = "Ghost Ship in Dungeon Pool"
     option_rescue_tetra = 0
@@ -271,19 +272,37 @@ class PhantomHourglassRandomizeMaskedBeedle(Toggle):
     default = 0
 
 
-class PhantomHourglassDungeonHints(Choice):
+class PhantomHourglassDungeonHintLocation(Choice):
     """
-    Receive hints for your required dungeons
-    - false: no hints
+    Where to receive dungeon hints etc
+    - start: give dungeon hints on starting a new save file
     - oshus: oshus gives dungeon hints
-    - totok: entering totok gives dungeon hints
+    - totok: entering the totok lobby gives dungeon hints
     """
-    display_name = "dungeon_hints"
-    option_false = 0
+    display_name = "dungeon_hint_location"
+    option_start = 0
     option_oshus = 1
     option_totok = 2
     default = 1
 
+class PhantomHourglassDungeonHintType(Choice):
+    """
+    Whether the dungeon hint tells you what dungeon is required, or what boss is required
+    - no_hints: don't hint for dungeon rewards
+    - hint_dungeon: hint the required dungeon, in plain text, to avoid spoiling randomized bosses
+    - hint_boss: hint the required boss reward, as an archipelago hint
+    - hint_rewards: hints for all rare metals. Compatible with metal hunt.
+    """
+    option_no_hints = 0
+    option_hint_dungeon = 1
+    option_hint_boss = 2
+    option_hint_rewards = 3
+
+class PhantomHourglassExcludedDungeonHints(Toggle):
+    """
+    Give hints, in plain text, for the excluded dungeons.
+    """
+    default = 0
 
 class PhantomHourglassExcludeNonRequriedDungeons(Toggle):
     """
@@ -663,11 +682,11 @@ class PhantomHourglassShuffleBosses(Choice):
     option_shuffle = 1
     option_simple_mixed_pool = 2
     default = 0
-    visibility = Visibility.none
 
 class PhantomHourglassRequireSpecificBosses(Toggle):
     """
-    Whether you are require specific dungeons/bosses for dungeon goal or not
+    Whether you are require specific dungeons/bosses for dungeon goal or if all bosses/dungeon rewards count.
+    Setting it to false will put a rare metal on every boss reward location
     """
     display_name = "dungeon_reward_type"
     default = 1
@@ -683,6 +702,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # Dungeons
     dungeons_required: PhantomHourglassDungeonsRequired
+    require_specific_bosses: PhantomHourglassRequireSpecificBosses
     exclude_non_required_dungeons: PhantomHourglassExcludeNonRequriedDungeons
     ghost_ship_in_dungeon_pool: PhantomHourglassGhostShipInDungeonPool
     totok_in_dungeon_pool: PhantomHourglassTotokInDungeonPool
@@ -710,7 +730,9 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     randomize_masked_beedle: PhantomHourglassRandomizeMaskedBeedle
 
     # Hint Options
-    dungeon_hints: PhantomHourglassDungeonHints
+    dungeon_hint_type: PhantomHourglassDungeonHintType
+    dungeon_hint_location: PhantomHourglassDungeonHintLocation
+    excluded_dungeon_hints: PhantomHourglassExcludedDungeonHints
     shop_hints: PhantomHourglassShopHints
     spirit_island_hints: PhantomHourglassHintSpiritIsland
 
@@ -764,6 +786,7 @@ ph_option_groups = [
     ]),
     OptionGroup("Dungeon Options", [
         PhantomHourglassDungeonsRequired,
+        PhantomHourglassRequireSpecificBosses,
         PhantomHourglassExcludeNonRequriedDungeons,
         PhantomHourglassGhostShipInDungeonPool,
         PhantomHourglassTotokInDungeonPool
@@ -791,7 +814,9 @@ ph_option_groups = [
         PhantomHourglassRandomizeMaskedBeedle
     ]),
     OptionGroup("Hint Options", [
-        PhantomHourglassDungeonHints,
+        PhantomHourglassDungeonHintType,
+        PhantomHourglassDungeonHintLocation,
+        PhantomHourglassExcludedDungeonHints,
         PhantomHourglassShopHints,
         PhantomHourglassHintSpiritIsland
     ]),

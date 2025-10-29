@@ -232,7 +232,9 @@ REGIONS = [
     "tof 3f",
     "tof 3f key drop",
     "tof 3f boss key",
+    "tof before blaaz",
     "tof blaaz",
+    "post blaaz",
     "post tof",
 
     # Molida Island
@@ -283,6 +285,7 @@ REGIONS = [
     "toc before boss",
     "toc before boss chest",
     "toc crayk",
+    "post crayk",
     "post toc",
 
     # Spirit Island
@@ -328,7 +331,9 @@ REGIONS = [
     "tow b2 dig",
     "tow b2 key",
     "tow bk chest",
+    "tow before boss",
     "tow cyclok",
+    "post cyclok",
     "post tow",
 
     # Bannan Island
@@ -366,6 +371,7 @@ REGIONS = [
     "ghost ship b2",
     "ghost ship b3",
     "ghost ship cubus",
+    "ghost ship post cubus",
     "ghost ship tetra",
     "spawn pirate ambush",
 
@@ -413,7 +419,9 @@ REGIONS = [
     "gt b2 back",
     "gt b3",
     "gt bk chest",
+    "gt before dongo",
     "gt dongo",
+    "post dongo",
     "post gt",
 
     # Harrow Island
@@ -568,7 +576,10 @@ REGIONS = [
     "mutoh hammer",
     "mutoh water",
     "mutoh bk chest",
+    "mutoh before eox",
     "mutoh eox",
+    "post eox",
+    "mutoh post eox",
 
     # Maze Island
     "maze",

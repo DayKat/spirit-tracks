@@ -77,41 +77,78 @@ DYNAMIC_ENTRANCES = {
     "Blaaz warp": {
         "entrance": "ToF Blaaz Warp",
         "destination": "ToF Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Blaaz warp Boss Shuffle": {
+        "entrance": "ToF Blaaz Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Cyclok warp": {
         "entrance": "ToW Cyclok Warp",
         "destination": "ToW Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Cyclok warp Boss Shuffle": {
+        "entrance": "ToW Cyclok Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Crayk warp": {
         "entrance": "ToC Crayk Warp",
         "destination": "ToC Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Crayk warp Boss Shuffle": {
+        "entrance": "ToC Crayk Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Dongo warp": {
         "entrance": "GT Dongo Warp",
         "destination": "GT Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Dongo warp Boss Shuffle": {
+        "entrance": "GT Dongo Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Gleeok warp": {
         "entrance": "ToI Gleeok Warp",
         "destination": "ToI Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Gleeok warp Boss Shuffle": {
+        "entrance": "ToI Gleeok Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Eox warp": {
         "entrance": "MT Eox Warp",
         "destination": "MT Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Eox warp Boss Shuffle": {
+        "entrance": "MT Eox Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "GS warp": {
         "entrance": "Finish Ghost Ship",
         "destination": "Ghost Ship B1 Ascend",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
     },
+    "Cubus warp Boss Shuffle": {
+        "entrance": "Cubus Sisters Blue Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
+    },
+    # Other shortcuts
     "Brant's Maze Shortcut": {
         "entrance": "Brant's Maze 1",
-        "destination": "Brant's Maze Exit"
+        "destination": "Brant's Maze Exit",
+        "has_slot_data": [("shuffle_houses", 0)],
     }
 }
 
@@ -119,7 +156,10 @@ DYNAMIC_ENTRANCES_BY_SCENE = {}
 for name, data in DYNAMIC_ENTRANCES.items():
     data["name"] = name
     entrance_data = ENTRANCES[data["entrance"]]
-    destination_data = ENTRANCES[data["destination"]]
+    if data["destination"] == "_connected_dungeon_entrance":
+        destination_data = None
+    else:
+        destination_data = ENTRANCES[data["destination"]]
 
     entrance_scene = entrance_data.scene
 

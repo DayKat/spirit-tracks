@@ -1100,16 +1100,16 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of Fire",
         "id": 98,
     },
-    "Temple of Fire Blaaz Heart Container": {
-        "region_id": "tof blaaz",
+    "Blaaz Heart Container": {
+        "region_id": "post tof",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2b,
         "floor_id": 0x0,
         "dungeon": "Temple of Fire",
         "id": 99,
     },
-    "Temple of Fire Blaaz Dungeon Reward": {
-        "region_id": "tof blaaz",
+    "Blaaz Boss Reward": {
+        "region_id": "post tof",
         "vanilla_item": "Spirit of Power (Progressive)",
         "item_override": "Rare Metal",
         "stage_id": 0x2b,
@@ -1409,8 +1409,8 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of Courage",
         "id": 128,
     },
-    "Temple of Courage Crayk Dungeon Reward": {
-        "region_id": "toc crayk",
+    "Crayk Boss Reward": {
+        "region_id": "post toc",
         "vanilla_item": "Spirit of Courage (White)",
         "item_override": "Rare Metal",
         "stage_id": 0x2c,
@@ -1423,7 +1423,7 @@ LOCATIONS_DATA = {
         "id": 129,
     },
     "Temple of Courage Crayk Sand of Hours": {
-        "region_id": "toc crayk",
+        "region_id": "post toc",
         "vanilla_item": "Sand of Hours (Boss)",
         "stage_id": 0x2c,
         "floor_id": 0x0,
@@ -1434,7 +1434,7 @@ LOCATIONS_DATA = {
         "id": 130,
     },
     "Temple of Courage Heart Container": {
-        "region_id": "toc crayk",
+        "region_id": "post toc",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2c,
         "floor_id": 0x0,
@@ -1667,7 +1667,7 @@ LOCATIONS_DATA = {
         "id": 155,
     },
     "Temple of Wind Cyclok Sand of Hours": {
-        "region_id": "tow cyclok",
+        "region_id": "post tow",
         "vanilla_item": "Sand of Hours (Boss)",
         "stage_id": 0x2a,
         "floor_id": 0x0,
@@ -1677,8 +1677,8 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 156,
     },
-    "Temple of Wind Cyclok Dungeon Reward": {
-        "region_id": "tow cyclok",
+    "Cyclok Boss Reward": {
+        "region_id": "post tow",
         "vanilla_item": "Spirit of Wisdom (Progressive)",
         "item_override": "Rare Metal",
         "stage_id": 0x2a,
@@ -1691,7 +1691,7 @@ LOCATIONS_DATA = {
         "id": 157,
     },
     "Temple of Wind Cyclok Heart Container": {
-        "region_id": "tow cyclok",
+        "region_id": "post tow",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2a,
         "floor_id": 0x0,
@@ -1973,8 +1973,8 @@ LOCATIONS_DATA = {
         "dungeon": "Ghost Ship",
         "id": 183,
     },
-    "Ghost Ship Cubus Sisters Ghost Key": {
-        "region_id": "ghost ship cubus",
+    "Cubus Sisters Ghost Key": {
+        "region_id": "ghost ship post cubus",
         "stage_id": 0x30,
         "floor_id": 0x0,
         "vanilla_item": "Ghost Key",
@@ -1982,7 +1982,7 @@ LOCATIONS_DATA = {
         "id": 184,
     },
     "Ghost Ship Cubus Sisters Heart Container": {
-        "region_id": "ghost ship cubus",
+        "region_id": "ghost ship post cubus",
         "stage_id": 0x30,
         "floor_id": 0x0,
         "address": 0x1b55ab,
@@ -2167,7 +2167,7 @@ LOCATIONS_DATA = {
         "id": 203,
     },
     "Goron Temple Dongorongo Sand of Hours": {
-        "region_id": "gt dongo",
+        "region_id": "post gt",
         "stage_id": 0x2e,
         "floor_id": 0x0,
         "vanilla_item": "Sand of Hours (Boss)",
@@ -2178,15 +2178,15 @@ LOCATIONS_DATA = {
         "id": 204,
     },
     "Goron Temple Dongorongo Heart Container": {
-        "region_id": "gt dongo",
+        "region_id": "post gt",
         "stage_id": 0x2e,
         "floor_id": 0x0,
         "vanilla_item": "Heart Container",
         "dungeon": "Goron Temple",
         "id": 205,
     },
-    "Goron Temple Dongorongo Dungeon Reward": {
-        "region_id": "gt dongo",
+    "Dongorongo Boss Reward": {
+        "region_id": "post gt",
         "stage_id": 0x20,
         "floor_id": 0xa,
         "vanilla_item": "Crimzonine",
@@ -2347,7 +2347,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 220,
     },
-    "Isle of Frost Fofo Dig (SE)": {
+    "Isle of Frost Estate Fofo Dig (SE)": {
         "region_id": "frost estate dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
@@ -2359,7 +2359,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 221,
     },
-    "Isle of Frost Dobo Dig (SW)": {
+    "Isle of Frost Estate Dobo Dig (SW)": {
         "region_id": "frost estate dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
@@ -2388,7 +2388,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 224,
     },
-    "Isle of Frost SW Peg Gift": {
+    "Isle of Frost Stand on Peg Gift": {
         "region_id": "frost",
         "stage_id": 0xf,
         "floor_id": 0x0,
@@ -2548,7 +2548,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of Ice",
         "id": 240,
     },
-    "Temple of Ice Dungeon Reward": {
+    "Gleeok Boss Reward": {
         "region_id": "beat gleeok",
         "stage_id": 0x1f,
         "floor_id": 0x6,
@@ -2815,7 +2815,7 @@ LOCATIONS_DATA = {
         "id": 265,
     },
     "Mutoh's Temple Eox Sand of Hours": {
-        "region_id": "mutoh eox",
+        "region_id": "mutoh post eox",
         "vanilla_item": "Sand of Hours (Boss)",
         "stage_id": 0x2f,
         "floor_id": 0x0,
@@ -2826,15 +2826,15 @@ LOCATIONS_DATA = {
         "id": 266,
     },
     "Mutoh's Temple Heart Container Chest": {
-        "region_id": "mutoh eox",
+        "region_id": "mutoh post eox",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2f,
         "floor_id": 0x0,
         "dungeon": "Mutoh's Temple",
         "id": 267,
     },
-    "Mutoh's Temple Dungeon Reward": {
-        "region_id": "mutoh eox",
+    "Eox Boss Reward": {
+        "region_id": "mutoh post eox",
         "vanilla_item": "Aquanine",
         "item_override": "Rare Metal",
         "stage_id": 0x21,

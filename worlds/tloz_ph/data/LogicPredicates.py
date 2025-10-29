@@ -1196,8 +1196,13 @@ def ph_tof_3f_bk(state, player):
 
 def ph_tof_enter_blaaz(state, player):
     return all([
-        ph_has_sword(state, player),
         ph_has_boss_key_simple(state, player, "Temple of Fire")])
+
+def ph_tof_blaaz(state, player):
+    return all([
+        ph_has_sword(state, player),
+        ph_has_boomerang(state, player)
+    ])
 
 # Wind
 
@@ -2640,7 +2645,8 @@ RULE_DICT = {
     "tof_maze": ph_tof_maze,
     "tof_key_drop": ph_tof_key_drop,
     "tof_3f_bk": ph_tof_3f_bk,
-    "tof_blaaz": ph_tof_enter_blaaz,
+    "tof_bk": ph_tof_enter_blaaz,
+    "tof_blaaz": ph_tof_blaaz,
     # ToW
     "tow_b1": ph_tow_b1,
     "tow_key": ph_tow_key_door,

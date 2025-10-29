@@ -51,6 +51,7 @@ class PHEntrance(Entrance):
             er_state.stage_2 = True
 
         # When in phase 3, ignore?
+        """ This wasn't working, ignore
         if dead_end or not hasattr(er_state, "dead_end_2"):
             # print(f"Trying to connect {self.name} => {other.name}")
             for counter in er_state.dead_end_counter.values():
@@ -74,8 +75,8 @@ class PHEntrance(Entrance):
                             print(f"\tFailed {self.name} => {other.name} "
                                   f"for group {decode_entrance_groups(counter2.group)} "
                                   f"from group {decode_entrance_groups(counter.group)}")
-                            return False
-
+                            # return False
+        """
 
 
         return True

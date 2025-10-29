@@ -108,6 +108,9 @@ class PhantomHourglassClient(DSZeldaClient):
         self.lowered_water = False
         self.visited_entrances = set()
 
+        self.boss_warp_entrance = None
+        self.last_warp_stage = None
+
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
         rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
@@ -840,3 +843,18 @@ class PhantomHourglassClient(DSZeldaClient):
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
+
+    def update_boss_warp(self, ctx, stage, scene_id):
+        if stage in range(42, 49) or scene_id in [0x1F06, 0x2106, 0x200A]:  # Boss rooms
+            reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
+            reverse_exit_id = self.entrances[reverse_exit].id
+            pair = ctx.slot_data["er_pairings"][f"{reverse_exit_id}"]
+            self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
+
+            # If last room was a dungeon, warp to dungeon entrance
+            dungeon_exit = BOSS_WARP_LOOKUP.get(self.boss_warp_entrance.stage, None)
+            if dungeon_exit:
+                self.boss_warp_entrance = self.entrances[dungeon_exit]
+
+        print(f"Warp Stage: {stage}, last: {self.last_warp_stage}, current warp {self.boss_warp_entrance}")
+        return self.boss_warp_entrance

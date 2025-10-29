@@ -441,9 +441,19 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
         },
+    "ToF Enter Boss": {
+        "return_name": "Blaaz Exit",
+        "entrance": (0x1C, 0x3, 0x1),
+        "exit": (0x2B, 0x0, 0x0),
+        "entrance_region": "tof before blaaz",
+        "exit_region": "tof blaaz",
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.EMBER
+    },
     "ToF Blaaz Warp": {
         "entrance": (0x2B, 0x0, 0x0),
-        "exit": (0xD, 0x1, 0x0),
+        "exit": (0xD, 0x1, 0x1),
         "entrance_region": "tof blaaz",
         "exit_region": "ember outside tof",
         "type": EntranceGroups.WARP_PORTAL,
@@ -595,6 +605,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
+    "ToC Enter Boss": {
+        "return_name": "Crayk Exit",
+        "entrance": (0x1E, 0x3, 0x3),
+        "exit": (0x2C, 0x0, 0x2),
+        "entrance_region": "toc before boss",
+        "exit_region": "toc crayk",
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.MOLIDA
+    },
     "ToC Crayk Warp": {
         "entrance": (0x2C, 0x0, 0x0),
         "exit": (0xC, 0x1, 0x4),
@@ -719,6 +739,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GUST
         },
+    "ToW Enter Boss": {
+        "return_name": "Cyclok Exit",
+        "entrance": (0x1D, 0x4, 0x1),
+        "exit": (0x2A, 0x0, 0x1),
+        "entrance_region": "tow before boss",
+        "exit_region": "tow cyclok",
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.GUST
+    },
     "ToW Cyclok Warp": {
         "entrance": (0x2A, 0x0, 0x0),
         "exit": (0xE, 0x1, 0x0),
@@ -965,6 +995,16 @@ ENTRANCE_DATA = {
         "entrance_region": "goron outside temple",
         "exit_region": "gt",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.GORON
+    },
+    "GT Enter Boss": {
+        "return_name": "Dongorongo Exit",
+        "entrance": (0x20, 0x4, 0x1),
+        "exit": (0x2E, 0x0, 0x0),
+        "entrance_region": "goron outside temple",
+        "exit_region": "gt",
+        "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GORON
     },
@@ -1226,17 +1266,18 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.FROST
     },
-    "ToI B1 Boss Staircase": {
-        "return_name": "Gleeok Entrance",
+    "ToI Enter Boss": {
+        "return_name": "Gleeok Exit",
         "entrance": (0x1f, 0x2, 0x3),
         "exit": (0x2D, 0x0, 0x0),
         "entrance_region": "toi b1 before boss",
         "exit_region": "gleeok",
         "type": EntranceGroups.BOSS,
-        "direction": EntranceGroups.UP,
+        "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-# Dead
+
+# ======= Dead=========
     "IotD Port Cave": {
         "return_name": "IotD Cave East Exit",
         "entrance_region": "iotd port",
@@ -1586,6 +1627,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS
     },
+    "MT Enter Boss": {
+        "return_name": "Eox Exit",
+        "entrance": (0x21, 0x5, 0x2),
+        "exit": (0x2F, 0x0, 0x1),
+        "entrance_region": "mutoh before eox",
+        "exit_region": "mutoh eox",
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.RUINS
+    },
     "MT Eox Warp": {
         "entrance": (0x21, 0x6, 0x0),
         "exit": (0x12, 0x2, 0x2),
@@ -1722,6 +1773,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GHOST,
         "two_way": False,
+    },
+    "Ghost Ship Cubus Sisters Reunion": {
+        "return_name": "Cubus Sisters Blue Warp",
+        "entrance": (0x29, 0x0, 0x3),
+        "exit": (0x30, 0x0, 0x1),
+        "entrance_region": "ghost ship b3",
+        "exit_region": "ghost ship cubus",
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.GHOST,
     },
 
     # ============= SE Ocean ==================

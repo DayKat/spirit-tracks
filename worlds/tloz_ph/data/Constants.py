@@ -1190,6 +1190,14 @@ CATEGORY_LOCATION_GROUPS = {
         "Ocean NE Salvage #29 Maze W",
         "Ocean NE Salvage #30 Ruins S",
         "Ocean NE Salvage #31 Dead S",
+    ],
+    "Boss Rewards": [
+        "Blaaz Boss Reward",
+        "Cyclok Boss Reward",
+        "Crayk Boss Reward",
+        "Dongorongo Boss Reward",
+        "Gleeok Boss Reward",
+        "Eox Boss Reward",
     ]
 }
 
@@ -1221,18 +1229,19 @@ DUNGEON_NAMES = [
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Temple of the Ocean King": "TotOK B13 NE Sea Chart Chest",
-    "Temple of Fire": "Temple of Fire Blaaz Dungeon Reward",
-    "Temple of Wind": "Temple of Wind Cyclok Dungeon Reward",
-    "Temple of Courage": "Temple of Courage Crayk Dungeon Reward",
-    "Goron Temple": "Goron Temple Dongorongo Dungeon Reward",
-    "Temple of Ice": "Temple of Ice Dungeon Reward",
-    "Mutoh's Temple": "Mutoh's Temple Dungeon Reward",
+    "Temple of Fire": "Blaaz Boss Reward",
+    "Temple of Wind": "Cyclok Boss Reward",
+    "Temple of Courage": "Crayk Boss Reward",
+    "Goron Temple": "Dongorongo Boss Reward",
+    "Temple of Ice": "Gleeok Boss Reward",
+    "Mutoh's Temple": "Eox Boss Reward",
     "Ghost Ship": "_gs",
 }
 
 GHOST_SHIP_BOSS_ITEM_LOCATION = [
     "Ghost Ship Rescue Tetra",
-    "Ghost Ship Cubus Sisters Ghost Key"
+    "Ghost Ship Cubus Sisters Ghost Key",
+        "Ghost Ship Cubus Sisters Ghost Key"
 ]
 
 DUNGEON_KEY_DATA = {
@@ -1325,7 +1334,28 @@ BOSS_DOOR_DATA = {
         "address": 0x24DED0,
         "value": 0x1
     },
+}
 
+# Entrance name: dungeon name
+BOSS_STAIRCASES = {
+    "ToF Enter Boss": "Temple of Fire",
+    "ToW Enter Boss": "Temple of Wind",
+    "ToC Enter Boss": "Temple of Courage",
+    "Ghost Ship Cubus Sisters Reunion": "Ghost Ship",
+    "GT Enter Boss": "Goron Temple",
+    "ToI Enter Boss": "Temple of Ice",
+    "MT Enter Boss": "Mutoh's Temple",
+}
+
+# Boss Room Entrance name: boss reward location name
+BOSS_ENTRANCE_LOOKUP = {
+    "Blaaz Exit": "Blaaz Boss Reward",
+    "Cyclok Exit": "Cyclok Boss Reward",
+    "Crayk Exit": "Crayk Boss Reward",
+    "Cubus Sisters Blue Warp": "Cubus Sisters Ghost Key",
+    "Dongorongo Exit": "Dongorongo Boss Reward",
+    "Gleeok Exit": "Gleeok Boss Reward",
+    "Eox Exit": "Eox Boss Reward",
 }
 
 COLOR_SWITCH_DATA = {
@@ -1351,6 +1381,26 @@ CLASSIFICATION = {
     25: "progression_deprioritized_skip_balancing",
     0: "filler"
                   }
+
+BOSS_WARP_LOOKUP = {
+    28: "ToF Exit",
+    29: "ToW Exit",
+    30: "ToC Exit",
+    31: "ToI Exit",
+    32: "GT Exit",
+    33: "MT Exit",
+    0x29: "Ghost Ship B1 Ascend"
+}
+
+BOSS_WARP_SCENE_LOOKUP = {
+    0x2B00: "Blaaz Exit",
+    0x2A00: "Cyclok Exit",
+    0x2C00: "Crayk Exit",
+    0x200A: "Dongo Exit",
+    0x1F06: "Gleeok Exit",
+    0x2106: "Mutoh Exit",
+    0x3000: "Cubus Sisters Blue Warp"
+}
 
 EQUIPPED_SHIP_PARTS_ADDR = [
     0x1BA544,

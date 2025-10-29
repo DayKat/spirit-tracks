@@ -318,12 +318,12 @@ DYNAMIC_FLAGS = {
     },
     "RESET Spirit of Wisdom boss flag": {
         # "on_scenes": [0x1700],
-        "not_has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "not_has_locations": ["Cyclok Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x40)]
     },
     "RESET Spirit of Courage boss flag": {
         # "on_scenes": [0x1700],
-        "not_has_locations": ["Temple of Courage Crayk Dungeon Reward"],
+        "not_has_locations": ["Crayk Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x80)]
     },
     # Spirit Island cap spirit gems to 20 on enter
@@ -526,7 +526,7 @@ DYNAMIC_FLAGS = {
     },
     "mercay Safety Shipyard": {
         "on_scenes": [0xB03],
-        "has_locations": ["Temple of Fire Blaaz Dungeon Reward"],
+        "has_locations": ["Blaaz Boss Reward"],
         "set_if_true": [(0x1B557F, 0x20)]
     },
     # Fog
@@ -634,7 +634,7 @@ DYNAMIC_FLAGS = {
     "Beat goron temple goron chief metal": {
         "on_scenes": [0x100A],
         "not_has_locations": ["Goron Island Chief Post Dungeon Item"],
-        "has_locations": ["Goron Temple Dongorongo Dungeon Reward", "Goron Island Goron Quiz"],
+        "has_locations": ["Dongorongo Boss Reward", "Goron Island Goron Quiz"],
         "set_if_true": [(0x1B558B, 0x40)],
         "reset_flags": ["RESET remove Crimzonine"]
     },
@@ -659,7 +659,7 @@ DYNAMIC_FLAGS = {
     },
     "Play goron game on dee ess after temple": {
         "on_scenes": [0x1B00],
-        "has_locations": ["Goron Temple Dongorongo Dungeon Reward"],
+        "has_locations": ["Dongorongo Boss Reward"],
         "set_if_true": [(0x1B5597, 0x20)]
     },
 
@@ -833,7 +833,7 @@ DYNAMIC_FLAGS = {
     },
     "RESET Remove Jolene": {
         # "on_scenes": [0xC00],
-        "has_locations": ["Temple of Courage Crayk Dungeon Reward"],
+        "has_locations": ["Crayk Boss Reward"],
         "set_if_true": [(0x1B557F, 0x80)]
     },
     "Zauz has enough metals": {
@@ -918,7 +918,7 @@ DYNAMIC_FLAGS = {
     },
     "Block Oshus Gem": {
         "on_scenes": [0xB0A],
-        "not_has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "not_has_locations": ["Cyclok Boss Reward"],
         "unset_if_true": [(0x1B55A0, 0x4), (0x1B557D, 0x2)]
     },
     "RESET Block Oshus Gem": {
@@ -929,7 +929,7 @@ DYNAMIC_FLAGS = {
     "Oshus Gem": {
         "on_scenes": [0xB0A],
         "not_has_locations": ["Mercay Oshus Spirit Gem"],
-        "has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "has_locations": ["Cyclok Boss Reward"],
         "set_if_true": [(0x1B55A0, 0x4), (0x1B557D, 0x2), (0x1B557F, 0x40)]
     },
     "RESET Oshus Gem hourglass": {
@@ -943,7 +943,7 @@ DYNAMIC_FLAGS = {
     },
     "RESET Oshus Wind Temple": {
         # "on_scenes": [0xB00],
-        "not_has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "not_has_locations": ["Cyclok Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x40)]
     },
     # Trade Quest
@@ -1027,13 +1027,13 @@ DYNAMIC_FLAGS = {
     },
     "Ice Field pre-dungeon": {
         "on_scenes": [0xF03, 0xF01],
-        "not_has_locations": ["Temple of Ice Dungeon Reward"],
+        "not_has_locations": ["Gleeok Boss Reward"],
         "unset_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field pre-dungeon"]
     },
     "Ice Field post-dungeon": {
         "on_scenes": [0xF03, 0xF01],
-        "has_locations": ["Temple of Ice Dungeon Reward"],
+        "has_locations": ["Gleeok Boss Reward"],
         "set_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field post-dungeon"]
     },

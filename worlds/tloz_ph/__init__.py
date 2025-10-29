@@ -143,6 +143,7 @@ class PhantomHourglassWorld(World):
         self.excluded_dungeons = []
         self.ut_pairings = {}
         self.manual_er_pairings = []
+        self.required_bosses = []
 
         self.entrances = {}
         self.er_placement_state = None
@@ -175,6 +176,8 @@ class PhantomHourglassWorld(World):
                 self.options.dungeon_shortcuts.value = 0
             if self.options.randomize_boss_keys:
                 self.options.boss_key_behaviour.value = 1
+            if self.options.shuffle_bosses.value == 2 and self.options.dungeon_hint_type == "hint_dungeon":
+                self.options.dungeon_hint_type.value = 1
 
         self.restrict_non_local_items()
 
@@ -275,6 +278,7 @@ class PhantomHourglassWorld(World):
             else self.options.dungeons_required.value
         self.options.dungeons_required.value = dungeons_required
         self.required_dungeons = implemented_dungeons[:dungeons_required]
+        print(f"Required dungeons: {self.required_dungeons}")
 
         # Cap zauz metals at number of metals
         if self.options.goal_requirements == "defeat_bosses":
@@ -292,7 +296,16 @@ class PhantomHourglassWorld(World):
 
         # Extend mcguffin list
         if self.options.goal_requirements == "defeat_bosses":
-            self.boss_reward_items_pool = self.pick_metals(self.options.dungeons_required)
+            if self.options.require_specific_bosses:
+                reward_count = self.options.dungeons_required
+            else:
+                reward_count = 6
+                if self.options.totok_in_dungeon_pool:
+                    reward_count += 1
+                if self.options.ghost_ship_in_dungeon_pool.value != 2:
+                    reward_count += 1
+            self.boss_reward_items_pool = self.pick_metals(reward_count)
+            print(f"Reward pool: {self.boss_reward_items_pool}")
 
     def pick_metals(self, count):
         metal_items = ITEM_GROUPS["Vanilla Metals"]
@@ -317,23 +330,25 @@ class PhantomHourglassWorld(World):
     def create_events(self):
         # Create events for required dungeons
         if self.options.goal_requirements == "defeat_bosses":
-            if "Temple of Fire" in self.required_dungeons:
-                self.create_event("tof blaaz", "_required_dungeon")
-            if "Temple of Wind" in self.required_dungeons:
-                self.create_event("tow cyclok", "_required_dungeon")
-            if "Temple of Courage" in self.required_dungeons:
-                self.create_event("toc crayk", "_required_dungeon")
-            if "Ghost Ship" in self.required_dungeons:
+            if "Blaaz Boss Reward" in self.required_bosses:
+                self.create_event("post blaaz", "_required_dungeon")
+            if "Cyclok Boss Reward" in self.required_bosses:
+                self.create_event("post cyclok", "_required_dungeon")
+            if "Crayk Boss Reward" in self.required_bosses:
+                self.create_event("post crayk", "_required_dungeon")
+            if "_gs" in self.required_bosses:
                 if self.options.ghost_ship_in_dungeon_pool == "rescue_tetra":
                     self.create_event("ghost ship tetra", "_required_dungeon")
                 elif self.options.ghost_ship_in_dungeon_pool == "cubus_sisters":
-                    self.create_event("ghost ship cubus", "_required_dungeon")
-            if "Goron Temple" in self.required_dungeons:
-                self.create_event("gt dongo", "_required_dungeon")
-            if "Temple of Ice" in self.required_dungeons:
+                    self.create_event("ghost ship post cubus", "_required_dungeon")
+            if "Cubus Sisters Ghost Key" in self.required_bosses:
+                self.create_event("ghost ship post cubus", "_required_dungeon")
+            if "Dongo Boss Reward" in self.required_bosses:
+                self.create_event("post dongo", "_required_dungeon")
+            if "Gleeok Boss Reward" in self.required_bosses:
                 self.create_event("beat gleeok", "_required_dungeon")
-            if "Mutoh's Temple" in self.required_dungeons:
-                self.create_event("mutoh eox", "_required_dungeon")
+            if "Eox Boss Reward" in self.required_bosses:
+                self.create_event("mutoh post eox", "_required_dungeon")
         # Post Dungeon Events
         self.create_event("post tof", "_beat_tof")
         self.create_event("post toc", "_beat_toc")
@@ -496,6 +511,10 @@ class PhantomHourglassWorld(World):
                     # print(f"disconnecting {e.name} for {type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]}")
                     randomized_entrances.append(e)
 
+            if self.options.shuffle_bosses and self.options.ghost_ship_in_dungeon_pool.value == 2 and self.options.exclude_non_required_dungeons:
+                randomized_entrances.remove(self.entrances["Ghost Ship Cubus Sisters Reunion"])
+                randomized_entrances.remove(self.entrances["Cubus Sisters Blue Warp"])
+
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:
                 disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
@@ -516,21 +535,23 @@ class PhantomHourglassWorld(World):
                            paired_entrances: list["PHEntrance"]):
 
                 # Super cursed way of passing switch state options
-                if not hasattr(er_state, "switch_state_option"):
-                    er_state.switch_state_option = self.options.color_switch_behaviour
+                # if not hasattr(er_state, "switch_state_option"):
+                #     er_state.switch_state_option = self.options.color_switch_behaviour
 
                 # Figure out what exits are new and need to inherit switch state stuff
 
                 new_exits = set()
                 if hasattr(er_state, "old_available_exits"):
                     new_exits = set(er_state.find_placeable_exits(True, er_state.entrance_lookup._usable_exits)) - er_state.old_available_exits
-                    print(f"\ton connecting {placed_exits}, revealed new exits {new_exits}")
+                    if dev_prints:
+                        # print(f"\ton connecting {placed_exits}, revealed new exits {new_exits}")
+                        pass
                 else:
                     er_state.old_available_exits = set()
 
-                # Pass on valid switch states to new available exits
-                for ex, entr in zip(placed_exits, paired_entrances):
-                    update_switch_logic(ex, entr, er_state, self.options.logic.value, self.options.color_switch_behaviour.value, new_exits)
+                # Pass on valid switch states to new available exits. Switch logic is backlogged for now
+                # for ex, entr in zip(placed_exits, paired_entrances):
+                #     update_switch_logic(ex, entr, er_state, self.options.logic.value, self.options.color_switch_behaviour.value, new_exits)
 
                 # Update old exits now that you've used new exits
                 er_state.old_available_exits.update(new_exits)
@@ -573,6 +594,33 @@ class PhantomHourglassWorld(World):
                             if entrance.parent_region and entrance.connected_region:
                                 # print(f"disconnecting entrance {entrance} {i}")
                                 disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.parent_region.name)
+
+                # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
+                # to put the reward on when bosses are shuffled
+                if not self.options.require_specific_bosses:
+                    self.required_bosses = list(DUNGEON_TO_BOSS_ITEM_LOCATION.values())
+                    if self.options.ghost_ship_in_dungeon_pool.value == 2:
+                        self.required_bosses.remove("_gs")
+                    if not self.options.totok_in_dungeon_pool:
+                        self.required_bosses.remove("TotOK B13 NE Sea Chart Chest")
+                elif self.options.shuffle_bosses.value == 1:
+                    self.required_bosses = []
+                    for e1, e2 in self.er_placement_state.pairings:
+                        if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
+                            if BOSS_STAIRCASES[e1] == "Ghost Ship" and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra":
+                                self.required_bosses.append("Ghost Ship Rescue Tetra")
+                            else:
+                                self.required_bosses.append(BOSS_ENTRANCE_LOOKUP[e2])
+                    if "Temple of the Ocean King" in self.required_dungeons:
+                        self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
+                else:
+                    self.required_bosses = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung] for dung in self.required_dungeons]
+
+                if "_gs" in self.required_bosses:
+                    self.required_bosses.remove("_gs")
+                    self.required_bosses.append(GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
+
+                print(f"Required bosses: {self.required_bosses}")
 
     def manual_er(self):
         def get_disconnected_entrances():
@@ -879,18 +927,45 @@ class PhantomHourglassWorld(World):
         self.pre_fill_items.extend(confined_dungeon_items)
 
     def pre_fill_boss_rewards(self):
+
+        """
         # Calculate dungeon reward locations
-        boss_reward_location_names = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung_name] for dung_name in self.required_dungeons]
+        if self.options.require_specific_bosses:
+            # If bosses are in mixed pool, set the boss rewards on the corresponding bosses to the chosen dungeons
+            if self.options.shuffle_bosses != "shuffle":
+                boss_reward_location_names = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung_name] for dung_name in self.required_dungeons]
+            else:
+                boss_reward_location_names = []
+
+                if "Temple of the Ocean King" in self.required_dungeons:
+                    boss_reward_location_names.append("TotOK B13 NE Sea Chart Chest")
+                if "Ghost Ship" in self.required_dungeons and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra":
+                    boss_reward_location_names.append("Ghost Ship Rescue Tetra")
+
+                # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
+                # to put the reward on when bosses are shuffled
+                for e1, e2 in self.er_placement_state.pairings:
+                    if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
+                        boss_reward_location_names.append(BOSS_ENTRANCE_LOOKUP[e2])
+        else:
+            # If you don't require specific bosses, stick rewards on every location
+            boss_reward_location_names = LOCATION_GROUPS["Boss Rewards"]
+            if self.options.ghost_ship_in_dungeon_pool:
+                boss_reward_location_names.append("_gs")
+            if self.options.totok_in_dungeon_pool:
+                boss_reward_location_names.append("TotOK B13 NE Sea Chart Chest")
+
         if "_gs" in boss_reward_location_names:  # Ghost ship can have variable dungeon reward location
             boss_reward_location_names.remove("_gs")
             boss_reward_location_names.append(
                 GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
         self.boss_reward_location_names = boss_reward_location_names
+        """
 
         # Pre-fill dungeon rewards
         if self.options.goal_requirements == "defeat_bosses":
             boss_reward_locations = [loc for loc in self.multiworld.get_locations(self.player)
-                                     if loc.name in boss_reward_location_names]
+                                     if loc.name in self.required_bosses]
             boss_reward_items = [item for item in self.pre_fill_items if item.name in self.boss_reward_items_pool]
 
             # Remove from the all_state the items we're about to place
@@ -900,6 +975,7 @@ class PhantomHourglassWorld(World):
             collection_state = self.multiworld.get_all_state(False)
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(boss_reward_locations)
+            print(f"filling {boss_reward_locations}")
             fill_restrictive(self.multiworld, collection_state, boss_reward_locations, boss_reward_items,
                              single_player_placement=True, lock=True, allow_excluded=True)
 
@@ -955,7 +1031,8 @@ class PhantomHourglassWorld(World):
             # Goal
             "goal_requirements", "bellum_access",
             # Dungeons
-            "dungeons_required", "ghost_ship_in_dungeon_pool", "exclude_non_required_dungeons",
+            "dungeons_required", "require_specific_bosses", "exclude_non_required_dungeons",
+            "ghost_ship_in_dungeon_pool", "totok_in_dungeon_pool",
             # Metal Hunt
             "metal_hunt_total", "metal_hunt_required", "zauz_required_metals",
             # Logic
@@ -972,14 +1049,15 @@ class PhantomHourglassWorld(World):
             # Spirit Packs
             "spirit_gem_packs", "additional_spirit_gems",
             # Hint settings
-            "dungeon_hints", "shop_hints", "spirit_island_hints",
+            "dungeon_hint_type", "dungeon_hint_location", "excluded_dungeon_hints",
+            "shop_hints", "spirit_island_hints",
             # PH settings
             "ph_time_logic", "ph_starting_time", "ph_time_increment", "ph_heart_time", "ph_required",
             # Cosmetic
             "additional_metal_names",
             # ER
             "shuffle_dungeon_entrances", "shuffle_ports", "shuffle_caves", "shuffle_houses",
-            "shuffle_overworld_transitions",
+            "shuffle_overworld_transitions", "shuffle_bosses",
             "entrance_directionality", "decouple_entrances",
             # Deathlink
             "death_link"
@@ -1052,7 +1130,8 @@ class PhantomHourglassWorld(World):
                     exit_region = self.get_region(entrance_id_to_region[pairing])
 
                     exit_region.connect(entrance_region)
-                    dangling_exit.connect(entrance_region)
+                    if dangling_exit is not None:
+                        dangling_exit.connect(entrance_region)
                     if dangling_entrance is not None or not self.options.decouple_entrances:
                         dangling_entrance.connect(exit_region)
                         self.disconnected_entrances_map.pop(i)

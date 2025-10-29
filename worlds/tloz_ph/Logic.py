@@ -281,8 +281,10 @@ def make_overworld_logic():
         # 3F
         ["tof 3f", "tof 3f key drop", False, "tof_key_drop"],
         ["tof 3f key drop", "tof 3f boss key", False, "tof_3f_bk"],  # All 3F checks need boomerang, UT included
-        ["tof 3f boss key", "tof blaaz", False, "tof_blaaz"],  # Includes UT
-        ["tof blaaz", "post tof", False, None],  # Used for events
+        ["tof 3f boss key", "tof before blaaz", False, "tof_bk"],  # Includes UT
+        ["tof before blaaz", "tof blaaz", True, None],
+        ["tof blaaz", "post blaaz", False, "tof_blaaz"],
+        ["post blaaz", "post tof", False, "tof_blaaz"],  # Used for events
 
         # =========== Molida Island ===============
 
@@ -350,8 +352,9 @@ def make_overworld_logic():
         ["toc bk room", "toc before boss", False, "boss_key", "Temple of Courage"],
         ["toc bk chest", "toc before boss", False, "simple_boss_key", "Temple of Courage"],
         ["toc before boss", "toc before boss chest", False, "boom"],
-        ["toc before boss", "toc crayk", False, "bow"],
-        ["toc crayk", "post toc", False, None],  # Used for events
+        ["toc before boss", "toc crayk", True, None],
+        ["toc crayk", "post crayk", False, "bow"],
+        ["post crayk", "post toc", False, "bow"],  # Used for events
 
         # ================ Spirit Island =====================
 
@@ -414,8 +417,10 @@ def make_overworld_logic():
         ["tow b2", "tow b2 bombs", False, "explosives"],
         ["tow b2", "tow b2 key", False, "tow_key"],
         ["tow b2", "tow bk chest", False, "bombs"],
-        ["tow", "tow cyclok", False, "tow_cyclok"],
-        ["tow cyclok", "post tow", False, None],
+        ["tow", "tow before boss", False, "tow_cyclok"],
+        ["tow before boss", "tow cyclok", True, None],
+        ["tow cyclok", "post cyclok", False, None],
+        ["post cyclok", "post tow", False, None],
 
         # ================= Bannan Island ====================
 
@@ -456,7 +461,8 @@ def make_overworld_logic():
         ["ghost ship", "ghost ship barrel", False, "gs_barrel"],
         ["ghost ship barrel", "ghost ship b2", False, "gs_triangle"],
         ["ghost ship b2", "ghost ship b3", False, None],
-        ["ghost ship b3", "ghost ship cubus", False, "sword"],
+        ["ghost ship b3", "ghost ship cubus", True, None],
+        ["ghost ship cubus", "ghost ship post cubus", False, "sword"],
         ["ghost ship b2", "ghost ship tetra", False, "ghost_key"],
         ["ghost ship tetra", "spawn pirate ambush", False, None],
 
@@ -524,8 +530,10 @@ def make_overworld_logic():
         ["gt b2", "gt b3", False, None],
         ["gt b2", "gt b2 back", False, "gt_b2_back"],
         ["gt b2 back", "gt bk chest", False, "chus"],
-        ["gt b2", "gt dongo", False, "gt_dongo"],
-        ["gt dongo", "post gt", False, None],
+        ["gt b2", "gt before dongo", False, "gt_dongo"],
+        ["gt before dongo", "gt dongo", True, None],
+        ["gt dongo", "post dongo", False, "chus"],
+        ["post dongo", "post gt", False, None],
 
         # ================= Harrow Island ====================
 
@@ -720,8 +728,10 @@ def make_overworld_logic():
         ["mutoh landing", "mutoh hammer", False, "hammer"],
         ["mutoh hammer", "mutoh water", False, "mutoh_water"],
         ["mutoh water", "mutoh bk chest", False, "mutoh_bk_chest"],
-        ["mutoh water", "mutoh eox", False, "boss_key", "Mutoh's Temple"],
-        ["mutoh bk chest", "mutoh eox", False, "is_ut"],
+        ["mutoh water", "mutoh before eox", False, "boss_key", "Mutoh's Temple"],
+        ["mutoh before eox", "mutoh eox", True, None],
+        ["mutoh eox", "mutoh post eox", False, "hammer"],
+        ["mutoh bk chest", "mutoh before eox", False, "is_ut"],
 
         # ================= Maze Island ====================
 
