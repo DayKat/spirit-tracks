@@ -1170,6 +1170,15 @@ DYNAMIC_FLAGS = {
         "beedle_points": 200,
         "set_if_true": [(0x1b558f, 0x1)]
     },
+    "Ember remove double linebeck": {
+        "on_scenes": [0xD00],
+        "set_if_true": [(0x1B557F, 0x20)],
+        "reset_flags": ["RESET Ember double linebeck"],
+    },
+    "RESET Ember double linebeck": {
+        "not_has_location": ["Blaaz Boss Reward"],
+        "unset_if_true": [(0x1B557F, 0x20)],
+    }
 
 }
 

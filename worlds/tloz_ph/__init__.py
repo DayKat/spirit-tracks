@@ -176,8 +176,11 @@ class PhantomHourglassWorld(World):
                 self.options.dungeon_shortcuts.value = 0
             if self.options.randomize_boss_keys:
                 self.options.boss_key_behaviour.value = 1
+            # Dungeon hint restrictions
             if self.options.shuffle_bosses.value == 2 and self.options.dungeon_hint_type == "hint_dungeon":
                 self.options.dungeon_hint_type.value = 1
+            if not self.options.exclude_non_required_dungeons:
+                self.options.excluded_dungeon_hints.value = 0
 
         self.restrict_non_local_items()
 
@@ -928,40 +931,6 @@ class PhantomHourglassWorld(World):
 
     def pre_fill_boss_rewards(self):
 
-        """
-        # Calculate dungeon reward locations
-        if self.options.require_specific_bosses:
-            # If bosses are in mixed pool, set the boss rewards on the corresponding bosses to the chosen dungeons
-            if self.options.shuffle_bosses != "shuffle":
-                boss_reward_location_names = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung_name] for dung_name in self.required_dungeons]
-            else:
-                boss_reward_location_names = []
-
-                if "Temple of the Ocean King" in self.required_dungeons:
-                    boss_reward_location_names.append("TotOK B13 NE Sea Chart Chest")
-                if "Ghost Ship" in self.required_dungeons and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra":
-                    boss_reward_location_names.append("Ghost Ship Rescue Tetra")
-
-                # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
-                # to put the reward on when bosses are shuffled
-                for e1, e2 in self.er_placement_state.pairings:
-                    if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
-                        boss_reward_location_names.append(BOSS_ENTRANCE_LOOKUP[e2])
-        else:
-            # If you don't require specific bosses, stick rewards on every location
-            boss_reward_location_names = LOCATION_GROUPS["Boss Rewards"]
-            if self.options.ghost_ship_in_dungeon_pool:
-                boss_reward_location_names.append("_gs")
-            if self.options.totok_in_dungeon_pool:
-                boss_reward_location_names.append("TotOK B13 NE Sea Chart Chest")
-
-        if "_gs" in boss_reward_location_names:  # Ghost ship can have variable dungeon reward location
-            boss_reward_location_names.remove("_gs")
-            boss_reward_location_names.append(
-                GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
-        self.boss_reward_location_names = boss_reward_location_names
-        """
-
         # Pre-fill dungeon rewards
         if self.options.goal_requirements == "defeat_bosses":
             boss_reward_locations = [loc for loc in self.multiworld.get_locations(self.player)
@@ -1072,7 +1041,7 @@ class PhantomHourglassWorld(World):
             "required_metals"] = self.options.metal_hunt_required.value if self.options.goal_requirements == "metal_hunt" \
             else self.options.dungeons_required.value
         # Used for dungeon hints in client
-        slot_data["required_dungeon_locations"] = self.boss_reward_location_names  # for dungeon hints
+        slot_data["required_dungeon_locations"] = self.required_bosses  # for dungeon hints
         slot_data["boss_reward_items_pool"] = self.boss_reward_items_pool
 
         # Create ER Pairings, as ids to save space

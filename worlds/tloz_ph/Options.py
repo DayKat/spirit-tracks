@@ -289,14 +289,14 @@ class PhantomHourglassDungeonHintType(Choice):
     """
     Whether the dungeon hint tells you what dungeon is required, or what boss is required
     - no_hints: don't hint for dungeon rewards
-    - hint_dungeon: hint the required dungeon, in plain text, to avoid spoiling randomized bosses
+    - hint_dungeon: hint the required dungeon, in plain text, to avoid spoiling randomized bosses.
+    If bosses are shuffled with other location types, this will not hint for dungeons.
+    Use excluded_dungeon_hints instead.
     - hint_boss: hint the required boss reward, as an archipelago hint
-    - hint_rewards: hints for all rare metals. Compatible with metal hunt.
     """
     option_no_hints = 0
     option_hint_dungeon = 1
     option_hint_boss = 2
-    option_hint_rewards = 3
 
 class PhantomHourglassExcludedDungeonHints(Toggle):
     """
@@ -630,7 +630,7 @@ class PhantomHourglassPreserveDirectionality(Choice):
 class PhantomHourglassBossKeyBehavior(Choice):
     """
     How boss keys work as items
-    - vanilla: boss key has to be carried to the boss door. Not compatible with boss key rando or inernal dungeon shuffle.
+    - vanilla: boss key has to be carried to the boss door. Not compatible with boss key rando or internal dungeon shuffle.
     - inventory: getting the boss key item automatically opens it's boss door.
     """
     option_vanilla = 0

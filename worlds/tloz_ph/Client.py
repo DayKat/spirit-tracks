@@ -858,3 +858,34 @@ class PhantomHourglassClient(DSZeldaClient):
 
         print(f"Warp Stage: {stage}, last: {self.last_warp_stage}, current warp {self.boss_warp_entrance}")
         return self.boss_warp_entrance
+
+    def dungeon_hints(self, ctx):
+        res = []
+        print(f"testing for dungeon hints")
+
+        # Send boss reward hints
+        if ctx.slot_data["dungeon_hint_type"] == 2:
+            print(f"Boss reward locations: {ctx.slot_data.get('required_dungeon_locations', [])}")
+            for loc in ctx.slot_data.get("required_dungeon_locations", []):
+                res.append(self.location_name_to_id[loc])
+        elif ctx.slot_data["dungeon_hint_type"] == 1:
+            dungeons = ctx.slot_data["required_dungeons"]
+            if dungeons:
+                logger.info(f"Your required dungeons are:")
+                for d in dungeons:
+                    logger.info(f"    {d}")
+            else:
+                logger.info(f"You have no required dungeons.")
+
+
+        if ctx.slot_data["excluded_dungeon_hints"]:
+            dungeons = ctx.slot_data["required_dungeons"]
+            excluded = [d for d in DUNGEON_NAMES[2:] if d not in dungeons]
+            if excluded:
+                logger.info(f"Your excluded dungeons are:")
+                for d in excluded:
+                    logger.info(f"    {d}")
+            else:
+                logger.info(f"You have no excluded dungeons.")
+
+        return res
