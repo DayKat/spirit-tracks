@@ -505,6 +505,7 @@ REGIONS = [
     "toi blue warp",
     "gleeok",
     "beat gleeok",
+    "post toi",
 
     # NE Ocean
 

@@ -1090,8 +1090,8 @@ CATEGORY_LOCATION_GROUPS = {
         "Isle of Frost Estate SE Island Dig",
         "Isle of Frost Chief House Dig",
         "Isle of Frost Estate Sign Dig",
-        "Isle of Frost Fofo Dig (SE)",
-        "Isle of Frost Dobo Dig (SW)",
+        "Isle of Frost Estate Fofo Dig (SE)",
+        "Isle of Frost Estate Dobo Dig (SW)",
         "Dee Ess Left Speakers Dig SSW",
         "Dee Ess Right Speakers Dig SE",
         "Dee Ess Left Speakers Dig West ",
@@ -1306,8 +1306,8 @@ DUNGEON_KEY_DATA = {
 BOSS_DOOR_DATA = {
     0x1C: {
         "name": "Temple of Fire",
-        "address": 0x259EA8,
-        "value": 0xFFFFED1F
+        "address": 0x258D20,
+        "value": 0xF
     },
     0x1D: {
         "name": "Temple of Wind",
@@ -1317,7 +1317,7 @@ BOSS_DOOR_DATA = {
     0x1E: {
         "name": "Temple of Courage",
         "address": 0x252360,
-        "value": 0x1Ed
+        "value": 0x1FF
     },
     0x20: {
         "name": "Goron Temple",
@@ -1398,7 +1398,7 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x2C00: "Crayk Exit",
     0x200A: "Dongo Exit",
     0x1F06: "Gleeok Exit",
-    0x2106: "Mutoh Exit",
+    0x2106: "Eox Exit",
     0x3000: "Cubus Sisters Blue Warp"
 }
 

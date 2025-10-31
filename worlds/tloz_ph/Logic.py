@@ -383,6 +383,7 @@ def make_overworld_logic():
         ["uncharted boat", "uncharted", True, None],
         ["uncharted boat", "nw ocean", True, "require_chart", "NW"],
         ["nw ocean", "ghost ship deck", False, "ghost_ship"],
+        ["ghost ship deck", "nw ocean", False, None],
         ["nw ocean", "porl", False, None],
         ["porl", "porl item", False, "sword"],
         ["porl", "porl trade", False, "heroes_new_clothes"],
@@ -532,9 +533,9 @@ def make_overworld_logic():
         ["gt b2", "gt b3", False, None],
         ["gt b2", "gt b2 back", False, "gt_b2_back"],
         ["gt b2 back", "gt bk chest", False, "chus"],
-        ["gt b2", "gt before dongo", False, "gt_dongo"],
+        ["gt b2", "gt before dongo", False, "gt_enter_dongo"],
         ["gt before dongo", "gt dongo", True, None],
-        ["gt dongo", "post dongo", False, "chus"],
+        ["gt dongo", "post dongo", False, "gt_dongo"],
         ["post dongo", "post gt", False, None],
 
         # ================= Harrow Island ====================
@@ -585,8 +586,8 @@ def make_overworld_logic():
         ["frost above temple east", "frost outside arena", False, None],
         ["frost above temple west", "frost outside arena", False, None],
         ["frost outside arena", "frost arena", False, None],
-        ["frost arena", "frost outside arena", False, "damage"],
-        ["frost arena", "frost outside temple", False, "damage"],
+        ["frost arena", "frost outside arena", False, "dark_yook"],
+        ["frost arena", "frost outside temple", False, "dark_yook"],
         ["frost arena", "frost above temple east", False, "grapple"],
         ["frost outside temple", "frost arena", False, None],
         ["frost outside temple", "toi", True, None],
@@ -598,11 +599,11 @@ def make_overworld_logic():
         ["toi 3f right", "toi 2f right", True, None],
         ["toi 3f right", "toi 3f", False, "toi_3f"],
         ["toi 3f", "toi 3f right", False, "range"],
-        ["toi 3f", "toi 3f key door", True, "toi_key_doors", 3, 1],  # TODO: Key logic
+        ["toi 3f", "toi 3f key door", True, "toi_key_door_1"],  # TODO: Key logic
         ["toi 3f", "toi 3f switch state", False, "bombs"],  # TODO: Switch state logic
         ["toi 3f switch state", "toi 3f boomerang key", False, "toi_3f_boomerang"],
         ["toi 3f key door", "toi 2f arena", True, None],
-        ["toi 2f arena", "toi 2f post arena", False, "yook"],
+        ["toi 2f arena", "toi 2f post arena", False, "dark_yook"],
         ["toi 2f arena", "toi 2f left", False, "toi_miniboss"],
         ["toi 2f left", "toi 1f beetles", True, None],
         ["toi 1f beetles", "toi 1f shortcut", False, "grapple"],
@@ -626,6 +627,7 @@ def make_overworld_logic():
         ["toi b1 boss door", "toi b1 before boss", True, "toi_boss_door"],  # TODO: do ER logic
         ["toi b1 before boss", "gleeok", True, None],
         ["gleeok", "beat gleeok", False, "grapple"],
+        ["beat gleeok", "post toi", False, None],
         ["toi b1 before boss", "toi blue warp", True, None],
         ["toi", "toi blue warp", True, "has", "_toi_blue_warp"],
         ["toi b1 boss door", "toi b2", True, None],

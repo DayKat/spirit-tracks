@@ -488,7 +488,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 gem_count = item_count(ctx, f"{d['count_gems']} Gem Pack")
                 count = pack_size * gem_count
                 print(count, d["count_gems"])
-                if count <= 20:
+                if count < 20:
                     return False
             return True
 

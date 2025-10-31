@@ -1,5 +1,5 @@
 import time
-
+import json
 from worlds.tloz_ph.data.Constants import *
 
 # TODO: Add sram data for saveslot 2
@@ -1096,7 +1096,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x1c,
         "floor_id": 0x2,
         "y": 0x1333,
-        "force_vanilla": True,
         "dungeon": "Temple of Fire",
         "id": 98,
     },
@@ -1397,7 +1396,6 @@ LOCATIONS_DATA = {
         "floor_id": 0x2,
         "x_min": 0x11170,
         "z_max": -0x7530,
-        "force_vanilla": True,
         "dungeon": "Temple of Courage",
         "id": 127,
     },
@@ -1662,7 +1660,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x1d,
         "floor_id": 0x0,
         "y": 0x1333,
-        "force_vanilla": True,
         "dungeon": "Temple of Wind",
         "id": 155,
     },
@@ -2162,7 +2159,6 @@ LOCATIONS_DATA = {
         "floor_id": 0x2,
         "vanilla_item": "Boss Key (Goron Temple)",
         "y": 0x1333,
-        "force_vanilla": True,
         "dungeon": "Goron Temple",
         "id": 203,
     },
@@ -2224,7 +2220,7 @@ LOCATIONS_DATA = {
         "region_id": "harrow dig 2",
         "stage_id": 0x18,
         "floor_id": 0x0,
-        "item_override": "Treasure Map #24 (Ruins W)",
+        "item_override": "Treasure Map #26 (Ruins SW)",
         "vanilla_item": "Nothing!",
         "address": 0x1ba653,
         "value": 0x2,
@@ -2403,7 +2399,6 @@ LOCATIONS_DATA = {
         "stage_id": 0xf,
         "floor_id": 0x3,
         "vanilla_item": "Red Rupee (20)",
-        "x_max": 0x249f0,
         "y": 0x399a,
         "sram_addr": 0x544,
         "sram_value": 0x2,
@@ -2414,7 +2409,6 @@ LOCATIONS_DATA = {
         "stage_id": 0xf,
         "floor_id": 0x3,
         "vanilla_item": "Red Rupee (20)",
-        "x_min": 0x249f0,
         "y": 0x399a,
         "sram_addr": 0x544,
         "sram_value": 0x4,
@@ -2525,7 +2519,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x1f,
         "floor_id": 0x5,
         "vanilla_item": "Boss Key (Temple of Ice)",
-        "force_vanilla": True,
         "y": 0x1333,
         "dungeon": "Temple of Ice",
         "id": 238,
@@ -2811,7 +2804,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x21,
         "floor_id": 0x3,
         "y": 0x4ccd,
-        "force_vanilla": True,
         "dungeon": "Mutoh's Temple",
         "id": 265,
     },
@@ -2970,7 +2962,7 @@ LOCATIONS_DATA = {
     },
     "Ocean NE Man Of Smiles Item 2": {
         "region_id": "ne ocean combat",
-        "vanilla_item": "Treasure Map #26 (Ruins SW)",
+        "vanilla_item": "Treasure Map #24 (Ruins W)",
         "stage_id": 0x6,
         "floor_id": 0x0,
         "address": 0x1b558f,
@@ -3427,6 +3419,18 @@ LOCATIONS_DATA = {
 if __name__ == "__main__":
     for loc in LOCATIONS_DATA:
         print("-", loc)
+
+    # Check for missing locs in tracker
+    with(open("locations.json","r")) as j:
+        tracker_data = json.load(j)
+        # print(tracker_data)
+    tracker_locs = []
+    for node in tracker_data:
+        for loc_dict in node["sections"]:
+            tracker_locs.append(loc_dict["name"])
+    missing_locs = [i for i in LOCATIONS_DATA if i not in tracker_locs]
+    for i in missing_locs:
+        print(i)
 
     """    islands = {}
         island_groups = {}

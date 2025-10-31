@@ -999,7 +999,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.GORON
     },
     "GT Enter Boss": {
-        "return_name": "Dongorongo Exit",
+        "return_name": "Dongo Exit",
         "entrance": (0x20, 0x4, 0x1),
         "exit": (0x2E, 0x0, 0x0),
         "entrance_region": "gt before dongo",
@@ -1188,7 +1188,7 @@ ENTRANCE_DATA = {
     },
     "ToI Gleeok Warp": {
         "entrance": (0x1f, 0x6, 0x0),
-        "exit": (0xF, 0x1, 0x0),
+        "exit": (0xF, 0x1, 0x1),
         "entrance_region": "toi gleeok",
         "exit_region": "frost outside temple",
         "type": EntranceGroups.WARP_PORTAL,
@@ -1754,13 +1754,24 @@ ENTRANCE_DATA = {
     },
 
     # ========== Ghost Ship ==========
+    "Board Ghost Ship": {
+        "return_name": "GS Exit",
+        "entrance": (0, 0x1, 0xFA),
+        "exit": (0x29, 0x3, 0x0),
+        "extra_data": {"ship_exit": 5},
+        "entrance_region": "nw ocean",
+        "exit_region": "ghost ship deck",
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.GHOST
+    },
     "Ghost Ship 1F Descend": {
         "return_name": "Ghost Ship B1 Ascend",
         "entrance": (0x29, 0x3, 0x1),
-        "exit": (0x29, 0x0, 0x1),
+        "exit": (0x29, 0x3, 0x0),
         "entrance_region": "ghost ship deck",
         "exit_region": "ghost ship",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.DUNGEON_ROOM,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GHOST
     },

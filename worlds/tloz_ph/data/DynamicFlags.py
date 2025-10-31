@@ -575,10 +575,28 @@ DYNAMIC_FLAGS = {
                                   "Ghost Ship B2 Third Sister Right Chest",
                                   "Ghost Ship B2 Spike Chest",
                                   "Ghost Ship B3 Chest",
-                                  "Ghost Ship Cubus Sisters Ghost Key",
-                                  "Ghost Ship Cubus Sisters Heart Container"],
+                                  "Cubus Sisters Ghost Key",
+                                  "Cubus Sisters Heart Container"],
+        "has_slot_data": [("shuffle_dungeon_entrances", 0)],
         "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
         "unset_if_true": [(0x1B5582, 0x80)]  # Respawn ghost ship
+    },
+    "Always Respawn ghost ship with dungeon rando": {
+        "on_scenes": [0x1],  # NW quadrant
+        "not_on_entrance": [5],  # prevent respawning if
+        "not_last_scenes": [0x2903, 0x400],  # from ghost ship
+        "has_locations": ["Ghost Ship Rescue Tetra"],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2])],
+        "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
+        "unset_if_true": [(0x1B5582, 0x80)],  # Respawn ghost ship
+    },
+    "Dungeon rando dummy spirit flag removal": {
+        "on_scenes": [0x1],
+        "reset_flags": ["Remove Spirit flag with dungeon rando"]
+    },
+
+    "Remove Spirit flag with dungeon rando": {
+        "unset_if_true": [(0x1B557E, 0x10)]
     },
     "RESET Respawn ghost ship": {
         "on_scenes": [0x1],
@@ -588,9 +606,10 @@ DYNAMIC_FLAGS = {
                           "Ghost Ship B2 Third Sister Right Chest",
                           "Ghost Ship B2 Spike Chest",
                           "Ghost Ship B3 Chest",
-                          "Ghost Ship Cubus Sisters Ghost Key",
-                          "Ghost Ship Cubus Sisters Heart Container",
+                          "Cubus Sisters Ghost Key",
+                          "Cubus Sisters Heart Container",
                           "Ghost Ship Rescue Tetra"],
+        "has_slot_data": [("shuffle_dungeon_entrances", 0)],
         "set_if_true": [(0x1B5582, 0x80), (0x1B557E, 0x10), (0x1B55AB, 0x10)]
     },
     "Yellow Guy moves after ghost ship": {
@@ -946,6 +965,16 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Cyclok Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x40)]
     },
+    "Oshus absent backup gem": {
+        "on_scenes": [0xB0A],
+        "has_locations": ["Cyclok Boss Reward", "Blaaz Boss Reward"],
+        "set_if_true": [(0x1b55a5, 0x2)]
+    },
+    "Oshus absent backup sword": {
+        "on_scenes": [0xB0A],
+        "has_items": [("Phantom Hourglass", 1), ("Phantom Blade", 1)],
+        "set_if_true": [(0x1b55a5, 0x2), (0x1ba648, 0x20)]
+    },
     # Trade Quest
     "PoRL Trade Quest": {
         "on_scenes": [0x700],
@@ -955,19 +984,19 @@ DYNAMIC_FLAGS = {
     },
     "Nyave Trade Quest": {
         "on_scenes": [0xA00],
-        "not_has_locations": ["Ocean NW Prince of Red Lions Trade Quest Item"],
+        "not_has_locations": ["Ocean SW Nyave Trade Quest Item"],
         "unset_if_true": [(0x1B5590, 0x80), (0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll", "RESET Wood Heart"]
     },
     "Hoiger Trade Quest": {
         "on_scenes": [0x900],
-        "not_has_locations": ["Ocean NW Prince of Red Lions Trade Quest Item"],
+        "not_has_locations": ["Ocean SE Hoiger Howgendoogen Trade Quest Item"],
         "unset_if_true": [(0x1B5590, 0x90), (0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll", "RESET Guard Notebook", "RESET Wood Heart"]
     },
     "Wayfarer Trade Quest": {
         "on_scenes": [0x800],
-        "not_has_locations": ["Ocean NW Prince of Red Lions Trade Quest Item"],
+        "not_has_locations": ["Bannan Island Wayfarer Trade Quest Chest"],
         "unset_if_true": [(0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll"]
     },
@@ -997,12 +1026,17 @@ DYNAMIC_FLAGS = {
     # Ghost Ship HC
     "Ghost Ship HC": {
         "on_scenes": [0x3000],
-        "not_has_locations": ["Ghost Ship Cubus Sisters Heart Container"],
+        "not_has_locations": ["Cubus Sisters Heart Container"],
         "unset_if_true": [(0x1B55AB, 0x8)],
         "reset_flags": ["RESET Ghost Ship HC"]
     },
     "RESET Ghost Ship HC": {
         "set_if_true": [(0x1B55AB, 0x8)]
+    },
+    "Ghost ship spawn warp": {
+        "on_scenes": [0x2900],
+        "check_bits": {0x1B5582: 0x10},
+        "set_if_true": [(0x1B5583, 0x40)]
     },
     # Vanilla frogs
     "Frogs show glyph": {
@@ -1170,6 +1204,7 @@ DYNAMIC_FLAGS = {
         "beedle_points": 200,
         "set_if_true": [(0x1b558f, 0x1)]
     },
+    # Ember Stuff
     "Ember remove double linebeck": {
         "on_scenes": [0xD00],
         "set_if_true": [(0x1B557F, 0x20)],
@@ -1178,7 +1213,21 @@ DYNAMIC_FLAGS = {
     "RESET Ember double linebeck": {
         "not_has_location": ["Blaaz Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x20)],
-    }
+    },
+    "Astrid after fire temple": {
+        "on_scenes": [0xD0A],
+        "has_location": ["Blaaz Boss Reward"],
+        "set_if_true": [(0x1B557F, 0x20)]
+    },
+    # Regal necklace backup removal
+    "Regal necklace backup removal dummy": {
+        "on_scenes": [0x1500],
+        "reset_flags": ["Regal necklace backup removal"]
+    },
+    "Regal necklace backup removal": {
+        "has_items": [("Regal Necklace", 0)],
+        "unset_if_true": [(0x1b5582, 0x8)]
+    },
 
 }
 

@@ -32,7 +32,7 @@
             {
                 "map": "seamap",
                 "x": 374,
-                "y": 40
+                "y": 48
             }
         ]
     },
@@ -54,6 +54,24 @@
                 "map": "seamap",
                 "x": 472,
                 "y": 421
+            }
+        ]
+    },
+      {
+        "name": "Fish",
+        "sections": [
+{"name": "Fishing Catch Skippyjack"},
+{"name": "Fishing Catch Toona"},
+{"name": "Fishing Catch Loovar"},
+{"name": "Fishing Catch Rusty Swordfish"},
+{"name": "Fishing Catch Legendary Neptoona"},
+{"name": "Fishing Catch Stowfish"}
+        ],
+        "map_locations": [
+            {
+                "map": "seamap",
+                "x": 472,
+                "y": 437
             }
         ]
     },
@@ -213,11 +231,11 @@
         "name": "Isle of Frost",
         "sections": [
 {"name": "Isle of Frost Chief House Dig"},
-{"name": "Isle of Frost Dobo Dig (SW)"},
+{"name": "Isle of Frost Estate Dobo Dig (SW)"},
 {"name": "Isle of Frost Estate SE Island Dig"},
 {"name": "Isle of Frost Estate Sign Dig"},
 {"name": "Isle of Frost Estate SW Island Dig"},
-{"name": "Isle of Frost Fofo Dig (SE)"},
+{"name": "Isle of Frost Estate Fofo Dig (SE)"},
 {"name": "Isle of Frost Ice Field East Ledge Chest"},
 {"name": "Isle of Frost Ice Field SE Ledge Chest"},
 {"name": "Isle of Frost Ice Field South Ledge East Chest"},
@@ -352,6 +370,7 @@
         "name": "Molida Island",
         "sections": [
 {"name": "Molida Archery 1700"},
+          {"name": "Molida Archery 2000"},
 {"name": "Molida Cave Geozard Dig"},
 {"name": "Molida Cave Grapple Chest"},
 {"name": "Molida Cave Shovel Chest"},
@@ -674,7 +693,7 @@
     {
         "name": "Ocean Pirate Ambush Item",
         "sections": [
-{"name": "Ocean Pirate Ambush Item"}
+{"name": "Ocean Miniblin Pirate Ambush Item"}
         ],
         "map_locations": [
             {

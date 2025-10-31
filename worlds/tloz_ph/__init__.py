@@ -243,7 +243,7 @@ class PhantomHourglassWorld(World):
             if "Masked Beedle" in location_name:
                 return self.options.randomize_masked_beedle
             if "Molida Archery 2000" == location_name:
-                return self.options.logic in ["hard", "glitched"]
+                return self.options.logic in ["hard", "glitched"] and self.options.randomize_minigames
             if location_name in LOCATION_GROUPS["Rupee Dig Spots"]:
                 return self.options.randomize_digs
             if location_name in LOCATION_GROUPS["Minigames"]:
@@ -281,7 +281,6 @@ class PhantomHourglassWorld(World):
             else self.options.dungeons_required.value
         self.options.dungeons_required.value = dungeons_required
         self.required_dungeons = implemented_dungeons[:dungeons_required]
-        print(f"Required dungeons: {self.required_dungeons}")
 
         # Cap zauz metals at number of metals
         if self.options.goal_requirements == "defeat_bosses":
@@ -308,7 +307,6 @@ class PhantomHourglassWorld(World):
                 if self.options.ghost_ship_in_dungeon_pool.value != 2:
                     reward_count += 1
             self.boss_reward_items_pool = self.pick_metals(reward_count)
-            print(f"Reward pool: {self.boss_reward_items_pool}")
 
     def pick_metals(self, count):
         metal_items = ITEM_GROUPS["Vanilla Metals"]
@@ -357,6 +355,7 @@ class PhantomHourglassWorld(World):
         self.create_event("post toc", "_beat_toc")
         self.create_event("post tow", "_beat_tow")
         self.create_event("post gt", "_beat_gt")
+        self.create_event("post toi", "_beat_toi")
         self.create_event("spawn pirate ambush", "_beat_ghost_ship")
         # Farmable minigame events
         self.create_event("bannan cannon game", "_can_play_cannon_game")
@@ -521,7 +520,8 @@ class PhantomHourglassWorld(World):
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:
                 disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
-                print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
+                if dev_prints:
+                    print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
 
             # Get valid connection groups
             groups = self.create_er_target_groups(type_option_lookup)
@@ -579,7 +579,7 @@ class PhantomHourglassWorld(World):
 
             # Do ER, if not UT!
             if not getattr(self.multiworld, "generation_is_fake", False):
-                ph_max_er_attempts = 1
+                ph_max_er_attempts = 10
                 for i in range(ph_max_er_attempts):
                     # Workaround cause ER likes to link dead ends to each other when ignoring directions.
                     # Concept stolen from CodeGorilla's Crystalis implementation
@@ -763,7 +763,7 @@ class PhantomHourglassWorld(World):
         removed_item_quantities = self.options.remove_items_from_pool.value.copy()
         item_pool_dict = {}
         filler_item_count = 0
-        boss_reward_item_count = self.options.dungeons_required
+        boss_reward_item_count = len(self.boss_reward_items_pool)
         for loc_name, loc_data in LOCATIONS_DATA.items():
             # print(f"New Location: {loc_name}")
             if not self.location_is_active(loc_name, loc_data):
@@ -951,7 +951,6 @@ class PhantomHourglassWorld(World):
             collection_state = self.multiworld.get_all_state(False)
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(boss_reward_locations)
-            print(f"filling {boss_reward_locations}")
             fill_restrictive(self.multiworld, collection_state, boss_reward_locations, boss_reward_items,
                              single_player_placement=True, lock=True, allow_excluded=True)
 
@@ -1108,9 +1107,10 @@ class PhantomHourglassWorld(World):
                     exit_region.connect(entrance_region)
                     if dangling_exit is not None:
                         dangling_exit.connect(entrance_region)
-                    if dangling_entrance is not None or not self.options.decouple_entrances:
-                        dangling_entrance.connect(exit_region)
-                        self.disconnected_entrances_map.pop(i)
+                    if dangling_entrance is not None:
+                        if not self.options.decouple_entrances:
+                            dangling_entrance.connect(exit_region)
+                            self.disconnected_entrances_map.pop(i)
 
 
             self.ut_connected_entrances |= new_entrances

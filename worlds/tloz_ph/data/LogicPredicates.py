@@ -280,13 +280,17 @@ def ph_can_kill_bat(state: CollectionState, player: int):
 
 def ph_can_kill_yook(state: CollectionState, player: int):
     return any([
+        ph_can_kill_dark_yook(state, player),
+        ph_option_hard_logic(state, player)
+        ])
+
+def ph_can_kill_dark_yook(state, player):
+    return any([
         ph_has_sword(state, player),
         ph_has_bow(state, player),
         ph_has_hammer(state, player),
         ph_has_grapple(state, player),
-        ph_option_hard_logic(state, player)
-        ])
-
+    ])
 
 def ph_can_kill_blue_chu(state: CollectionState, player: int):
     return any([
@@ -1148,9 +1152,12 @@ def ph_oshus_gem(state, player):
     ])
 
 def ph_ice_field(state, player):
-    return all([
-        ph_can_kill_yook(state, player),
+    return any([
+        all([
+        ph_can_kill_dark_yook(state, player),
         ph_has_bombs(state, player)
+        ]),
+        state.has("_beat_toi", player)
     ])
 
 def ph_ruins_lower_water(state, player):
@@ -1480,6 +1487,12 @@ def ph_gt_enter_dongo(state, player):
         ])
     ])
 
+def ph_can_beat_dongo(state, player):
+    return all([
+        ph_has_sword(state, player),
+        ph_has_chus(state, player)
+    ])
+
 
 # Toi
 
@@ -1542,13 +1555,18 @@ def ph_toi_b2(state, player):
 
 def ph_toi_miniboss(state, player):
     return all([ph_has_grapple(state, player),
-                ph_can_kill_yook(state, player)])
+                ph_can_kill_dark_yook(state, player)])
 
 def ph_toi_key_door_1_ut(state, player):
     return any([
         ph_toi_all_key_doors_ut(state, player),
         all([
             ph_option_not_glitched_logic(state, player),
+            ph_quick_switches(state, player),
+            any([
+                ph_has_boomerang(state, player),
+                ph_has_grapple(state, player)
+            ]),
             any([
                 ph_ut_small_key_vanilla_location(state, player),
                 all([
@@ -1559,6 +1577,14 @@ def ph_toi_key_door_1_ut(state, player):
         ])
     ])
 
+def ph_toi_key_door_1(state, player):
+    return any([
+        ph_toi_key_doors(state, player, 1, 3),
+        all([
+            ph_is_ut(state, player),
+            ph_toi_key_door_1_ut(state, player)
+        ])
+    ])
 
 def ph_toi_all_key_doors_ut(state, player):
     return all([
@@ -2593,6 +2619,8 @@ RULE_DICT = {
     "can_kill_bubble": ph_can_kill_bubble,
     "can_kill_yook": ph_can_kill_yook,
     "yook": ph_can_kill_yook,
+    "hard_yook": ph_can_kill_dark_yook,
+    "dark_yook": ph_can_kill_dark_yook,
     "can_steal_from_phantom": ph_totok_phantom_steal_object,
     "range": ph_has_range,
     "long_range": ph_has_range,
@@ -2744,11 +2772,13 @@ RULE_DICT = {
     "goron_chus": ph_goron_chus,
     "gt_b1": ph_gt_b1,
     "gt_b2_back": ph_gt_b2_back,
-    "gt_dongo": ph_gt_enter_dongo,
+    "gt_enter_dongo": ph_gt_enter_dongo,
+    "gt_dongo": ph_can_beat_dongo,
     # ToI
     "toi_3f_boomerang": ph_toi_3f_boomerang,
     "toi_b2": ph_toi_b2,
     "toi_key_doors": ph_toi_key_doors,
+    "toi_key_door_1": ph_toi_key_door_1,
     "toi_key_door_2": ph_toi_key_door_2,
     "toi_key_door_3": ph_toi_key_door_3,
     "toi_2f": ph_toi_2f,
