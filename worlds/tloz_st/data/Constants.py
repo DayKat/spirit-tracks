@@ -95,9 +95,9 @@ STAGES = {
     0x2F: "Outset Village",
     0x29: "Castle Town",
     0x28: "Hyrule Castle",
-    0x13: "Tower of Spirits",
-    0x14: "Tower of Spirits Base",
-    0x17: "Tower of Spirits Stairs",
+    0x13: "ToS",
+    0x14: "ToS Base",
+    0x17: "ToS Stairs",
     0x18: "Tunnel to ToS",
     0x19: "Wooded Temple",
     0x1E: "Stagnox",
@@ -160,7 +160,7 @@ LOCATION_GROUPS = {
     "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
     "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
     "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
-    "Tower of Spirits": [
+    "ToS": [
         "ToS 1F Chest",
         "ToS 2F Raised Chest",
         "ToS 2F Whirlwind Chest",
@@ -204,19 +204,19 @@ LOCATION_GROUPS = {
 
 DUNGEON_NAMES = [
     "Tunnel to ToS",
-    "Tower of Spirits",
+    "ToS", #Tower of Spirits
     "Wooded Temple"
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
-    "Tower of Spirits": "ToS Forest Rail Glyph",
+    "ToS": "ToS Forest Rail Glyph",
     "Wooded Temple": "Wooded Temple Dungeon Reward",
 }
 
 
 DUNGEON_KEY_DATA = {
     0x13: {
-        "name": "Tower of Spirits",
+        "name": "ToS",
         "address": 0x265785,
         "filter": 0xFF,
         "value": 1,

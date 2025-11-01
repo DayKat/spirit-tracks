@@ -216,7 +216,7 @@ LOCATIONS_DATA = {
         "x_max": 6554,
         "z_min": -72090,
         "z_max": -59101,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "conditional": True,
         "item_override": "Tear of Light",
         "delay_pickup": "ToS 1F Chest"
@@ -231,7 +231,7 @@ LOCATIONS_DATA = {
         "x_max": 6554,
         "z_min": -72090,
         "z_max": -59101,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "delay_pickup": "Tear 1F Top"
         #'set_bit': [(0x265715, 0x80)]
     },
@@ -245,7 +245,7 @@ LOCATIONS_DATA = {
         "x_max": 10650,
         "z_min": -39322,
         "z_max": -29710,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind"]
         #'set_bit': [(0x265715, 0x80)]
     },
@@ -258,7 +258,7 @@ LOCATIONS_DATA = {
         "x_max": 40042,
         "z_min": -63898,
         "z_max": -54886,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind"]
     },
     "ToS 2F Bomb Wall Chest": {
@@ -270,7 +270,7 @@ LOCATIONS_DATA = {
         "x_max": 14760,
         "z_min": -18842,
         "z_max": 10650,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Bombs (progressive)"]
     },
     "ToS Forest Rail Glyph": {
@@ -283,7 +283,7 @@ LOCATIONS_DATA = {
         "x_max": 6390,
         "z_min": -8438,
         "z_max": 4506,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)"]
         #'set_bit': [(0x265715, 0x80)]
     },
@@ -296,7 +296,7 @@ LOCATIONS_DATA = {
         "x_max": 6560,
         "z_min": 1650,
         "z_max": 10670,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Forest Source"]
     },
     "ToS 4F NE Chest": {
@@ -309,7 +309,7 @@ LOCATIONS_DATA = {
         "x_max": 51177,
         "z_min": -55720,
         "z_max": -42600,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind", "Boomerang", "Bombs (Progressive)"]
     },
     "ToS 5F Island Chest": {
@@ -321,12 +321,12 @@ LOCATIONS_DATA = {
         "x_max": -22990,
         "z_min": 42350,
         "z_max": 52230,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Forest Source"]
     },
     "ToS 5F Spinnit Key": {
         "region_id": "tos 5f spinnit key",
-        "vanilla_item": "Small Key (Tower of Spirits)",
+        "vanilla_item": "Small Key (ToS)",
         "stage_id": 0x13,
         "room_id": 4,
         #"delay_pickup"
@@ -334,7 +334,7 @@ LOCATIONS_DATA = {
         "x_max": -46720,
         "z_min": 9850,
         "z_max": 63920,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
     },
     "ToS 5F Bomb Wall Chest": {
@@ -346,7 +346,7 @@ LOCATIONS_DATA = {
         "x_max": 9061,
         "z_min": -17693,
         "z_max": 8481,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang", "Bombs (Progressive)"]
     },
     "ToS 6F Enemy Chest 1": {
@@ -360,7 +360,7 @@ LOCATIONS_DATA = {
         "z_min": -10660,
         "z_max": -4354,
         "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Chest 2": {
@@ -374,7 +374,7 @@ LOCATIONS_DATA = {
         "z_min": -4646,
         "z_max": 6570,
         "delay_pickup": ["ToS 6F Enemy Chest 1", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Chest 3": {
@@ -388,7 +388,7 @@ LOCATIONS_DATA = {
         "z_min": -10660,
         "z_max": -4354,
         "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 1", "ToS 6F Enemy Big Chest"],
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Big Chest": {
@@ -403,19 +403,19 @@ LOCATIONS_DATA = {
         "z_min": -10660,
         "z_max": 6560,
         "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Chest 1"],
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Key": {
         "region_id": "tos 6f key",
-        "vanilla_item": "Small Key (Tower of Spirits)",
+        "vanilla_item": "Small Key (ToS)",
         "stage_id": 0x13,
         "room_id": 5,
         "x_min": 46710,
         "x_max": 80290,
         "z_min": 26220,
         "z_max": 68000,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
     },
     "ToS Snow Rail Glyph": {
@@ -427,7 +427,7 @@ LOCATIONS_DATA = {
         "x_max": 6400,
         "z_min": -8450,
         "z_max": 4515,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"],
         "goal": True,
     },
