@@ -137,7 +137,7 @@ DYNAMIC_ENTRANCES = {
     "GS warp": {
         "entrance": "Finish Ghost Ship",
         "destination": "Ghost Ship B1 Ascend",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2])],
     },
     "Cubus warp Boss Shuffle": {
         "entrance": "Cubus Sisters Blue Warp",

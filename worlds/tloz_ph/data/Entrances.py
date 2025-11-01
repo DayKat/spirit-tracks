@@ -907,8 +907,8 @@ ENTRANCE_DATA = {
     },
     "Goron SW Coast East": {
         "return_name": "Goron SE Coast West",
-        "entrance_region": "goron se",
-        "exit_region": "goron sw",
+        "entrance_region": "goron sw",
+        "exit_region": "goron se",
         "entrance": (0x10, 0x2, 0xFD),
         "exit": (0x10, 0x3, 0xFE),
         "coords": (-8000, 4751, 70000),
@@ -1500,6 +1500,7 @@ ENTRANCE_DATA = {
         "exit_region": "ruins nw cave",
         "entrance": (0x12, 0x1, 0x2),
         "exit": (0x12, 0xB, 0x1),
+        "extra_data": {"conditional": ["ruins_water"]},
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS
@@ -1768,7 +1769,7 @@ ENTRANCE_DATA = {
     "Ghost Ship 1F Descend": {
         "return_name": "Ghost Ship B1 Ascend",
         "entrance": (0x29, 0x3, 0x1),
-        "exit": (0x29, 0x3, 0x0),
+        "exit": (0x29, 0x0, 0x1),
         "entrance_region": "ghost ship deck",
         "exit_region": "ghost ship",
         "type": EntranceGroups.DUNGEON_ROOM,

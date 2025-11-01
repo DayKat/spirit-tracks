@@ -533,6 +533,7 @@ DYNAMIC_FLAGS = {
     "No fog add fog if spirits": {
         "on_scenes": [0x01],
         "not_last_scenes": [0x2903],
+        "not_on_entrance": [5],
         "has_items": [("Spirit of Power (Progressive)", 1),
                       ("Spirit of Wisdom (Progressive)", 1),
                       ("Spirit of Courage (Progressive)", 1)],
@@ -550,6 +551,7 @@ DYNAMIC_FLAGS = {
     "Spawn Spirits in fog": {
         "on_scenes": [0x1],
         "not_last_scenes": [0x2903],
+        "not_on_entrance": [5],
         "has_items": [("Spirit of Power (Progressive)", 1),
                       ("Spirit of Wisdom (Progressive)", 1),
                       ("Spirit of Courage (Progressive)", 1)],
@@ -568,6 +570,7 @@ DYNAMIC_FLAGS = {
     "Respawn ghost ship": {
         "on_scenes": [0x1],  # NW quadrant
         "not_last_scenes": [0x2903, 0x400],  # from ghost ship
+        "not_on_entrance": [5],  # prevent respawning if coming from ghost ship
         "has_locations": ["Ghost Ship Rescue Tetra"],
         "any_not_has_locations": ["Ghost Ship B1 Entrance Chest",
                                   "Ghost Ship B1 Second Sister Chest",
@@ -583,20 +586,26 @@ DYNAMIC_FLAGS = {
     },
     "Always Respawn ghost ship with dungeon rando": {
         "on_scenes": [0x1],  # NW quadrant
-        "not_on_entrance": [5],  # prevent respawning if
-        "not_last_scenes": [0x2903, 0x400],  # from ghost ship
+        "not_on_entrance": [5],  # prevent respawning if coming from ghost ship
+        "not_last_scenes": [0x2903, 0x400], # from ghost ship
         "has_locations": ["Ghost Ship Rescue Tetra"],
         "has_slot_data": [("shuffle_dungeon_entrances", [1, 2])],
         "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
         "unset_if_true": [(0x1B5582, 0x80)],  # Respawn ghost ship
     },
+    "Dungeon rando remove spirit from GS": {
+        "on_scenes": [0x1],
+        "on_entrance": [5],
+        "unset_if_true": [(0x1B557E, 0x10)],
+        "set_if_true": [(0x1B5582, 0x80), (0x1B55AB, 0x10)]
+    },
     "Dungeon rando dummy spirit flag removal": {
         "on_scenes": [0x1],
-        "reset_flags": ["Remove Spirit flag with dungeon rando"]
+        "reset_flags": ["Dungeon rando resest spirit flags"]
     },
-
-    "Remove Spirit flag with dungeon rando": {
-        "unset_if_true": [(0x1B557E, 0x10)]
+    "Dungeon rando resest spirit flags": {
+        "unset_if_true": [(0x1B557E, 0x10)],
+        "set_if_true": [(0x1B5582, 0x80), (0x1B55AB, 0x10)]
     },
     "RESET Respawn ghost ship": {
         "on_scenes": [0x1],
@@ -973,6 +982,7 @@ DYNAMIC_FLAGS = {
     "Oshus absent backup sword": {
         "on_scenes": [0xB0A],
         "has_items": [("Phantom Hourglass", 1), ("Phantom Blade", 1)],
+        "has_locations": ["Blaaz Boss Reward"],
         "set_if_true": [(0x1b55a5, 0x2), (0x1ba648, 0x20)]
     },
     # Trade Quest
@@ -1060,13 +1070,18 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(0x1B5582, 0x4)],  # Water level
     },
     "Ice Field pre-dungeon": {
-        "on_scenes": [0xF03, 0xF01],
+        "on_scenes": [0xF03],
         "not_has_locations": ["Gleeok Boss Reward"],
         "unset_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field pre-dungeon"]
     },
+    "Frost Arena Always remove Azurine": {
+        "on_scenes": [0xF01],
+        "unset_if_true": [(0x1B558B, 0x20)],
+        "reset_flags": ["RESET Ice Field pre-dungeon", "RESET Ice Field post-dungeon"]
+    },
     "Ice Field post-dungeon": {
-        "on_scenes": [0xF03, 0xF01],
+        "on_scenes": [0xF03],
         "has_locations": ["Gleeok Boss Reward"],
         "set_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field post-dungeon"]

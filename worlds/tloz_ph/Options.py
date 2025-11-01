@@ -166,8 +166,8 @@ class PhantomHourglassDungeonsRequired(Range):
 class PhantomHourglassBellumAccess(Choice):
     """
     What unlocks after you reach your goal requirement. For bellum options, game completion is sent on entering the credits.
-    - spawn_phantoms_on_b13: getting your goal requirement spawns the phantoms on TotOK B13, and killing them gives \
-    you bellum access. You will have to run TotOK to the bottom after getting your goal requirement
+    - spawn_phantoms_on_b13: getting your goal requirement spawns the phantoms on TotOK B13,
+    and killing them gives you bellum access. You will have to run TotOK to the bottom after getting your goal requirement
     - unlock_staircase: getting your goal requirement unlocks the staircase to bellum. The phantoms on B13 spawn by
     default, and killing them unlocks the warp for later
     - warp_to_bellum: getting your goal requirement spawns the warp to bellum in TotOK. The phantoms are spawned by
@@ -246,7 +246,8 @@ class PhantomHourglassGhostShipInDungeonPool(Choice):
     Choose whether the ghost ship can be in the boss/dungeon reward pool.
     Has *interactions* with boss_shuffle.
     - rescue_tetra: the dungeon reward, if rolled, will be on using the ghost key and climbing the staircase.
-    - cubus_sisters: the dungeon reward will be on defeating the cubus sisters.
+    - cubus_sisters: the dungeon reward will be on defeating the Cubus Sisters,
+    or whatever boss gets randomized there with boss shuffle.
     - false: the ghost ship cannot be rolled for the required dungeon pool.
     """
     display_name = "Ghost Ship in Dungeon Pool"
@@ -516,7 +517,6 @@ class PhantomHourglassDungeonShortcuts(Toggle):
 class PhantomHourglassShuffleDungeonEntrances(Choice):
     """
     Shuffle what dungeon entrance leads to which dungeon interior.
-    Does not include ghost ship.
     - no_shuffle: don't shuffle dungeon entrances
     - shuffle: shuffle dungeon entrances
     - simple_mixed_pool: shuffles dungeon entrances with other entrance types that have this option
@@ -578,7 +578,7 @@ class PhantomHourglassShuffleOverworldTransitions(Choice):
     Shuffle overworld transitions, between the quadrants of islands.
     Different heights and breaks in terrain create separate transitions.
     Entrances are coupled and preserve direction unless specified in another option.
-    If glitched logic is enabled, includes out of bounds transitions that are reachable in vanilla.
+    If glitched logic is enabled, includes out of bounds transitions that are reachable in vanilla (coming soon).
     - no_shuffle: don't shuffle island transitions
     - shuffle: shuffle overworld transitions
     - simple_mixed_pool: shuffles houses with other entrance types that have this option
@@ -592,7 +592,7 @@ class PhantomHourglassShuffleOverworldTransitions(Choice):
 class PhantomHourglassShuffleBetweenIslands(Choice):
     """
     Either preserve or disregard directionality for entrances shuffled in other options.
-    When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
+    CAUTION: When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
     Please test generate before submitting to a public game.
     - shuffle_anywhere: entrances in a pool can connect to other entrances in that pool no matter their island.
     - shuffle_only_on_own_island: entrances in a pool can only connect to other entrances in that pool if they're on the same island.
@@ -607,7 +607,9 @@ class PhantomHourglassShuffleBetweenIslands(Choice):
 
 class PhantomHourglassDecoupleEntrances(Choice):
     """
-    Decouple entrance shuffles enabled by other options, such that returning through an entrance you just entered does not lead back to where you came from.
+    Decouples entrances such that entrances are no longer bidirectional.
+    Only applies to entrances enabled in other settings.
+    CAUTION: High chance of generation failure if combined with the wrong settings.
     - couple_all: don't decouple
     - decouple_all: decouple all enabled entrance shuffles
     """
@@ -619,7 +621,7 @@ class PhantomHourglassDecoupleEntrances(Choice):
 class PhantomHourglassPreserveDirectionality(Choice):
     """
     Either preserve or disregard directionality for entrances shuffled in other options.
-    When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
+    CAUTION: When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
     Please test generate before submitting to a public game.
     - preserve: preserve directionality for all shuffled entrances
     - disregard_all: disregard directionality for all shuffled entrances
@@ -636,6 +638,7 @@ class PhantomHourglassBossKeyBehavior(Choice):
     How boss keys work as items
     - vanilla: boss key has to be carried to the boss door. Not compatible with boss key rando or internal dungeon shuffle.
     - inventory: getting the boss key item automatically opens it's boss door.
+    You may need to reload the room if you got the key in the same room as it's door.
     """
     option_vanilla = 0
     option_inventory = 1
@@ -676,7 +679,8 @@ class PhantomHourglassShuffleDungeonTransitions(Choice):
 class PhantomHourglassShuffleBosses(Choice):
     """
     Shuffle Boss rooms.
-    Dungeon rewards being tied to boss or dungeon is set in a separate option
+    Dungeon rewards being tied to boss or dungeon is set in a separate option.
+    The boss doors of excluded dungeons can still shuffle to required locations if in mixed pool.
     - no_shuffle: don't shuffle island transitions
     - shuffle: shuffle boss rooms amongst each other
     - simple_mixed_pool: shuffles boss rooms with other entrance types that have this option
@@ -690,7 +694,7 @@ class PhantomHourglassShuffleBosses(Choice):
 class PhantomHourglassRequireSpecificBosses(Toggle):
     """
     Whether you are require specific dungeons/bosses for dungeon goal or if all bosses/dungeon rewards count.
-    Setting it to false will put a rare metal on every boss reward location
+    Setting it to false will put a rare metal on every boss reward location, no matter how many are required.
     """
     display_name = "dungeon_reward_type"
     default = 1
@@ -698,7 +702,6 @@ class PhantomHourglassRequireSpecificBosses(Toggle):
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
-    accessibility: ItemsAccessibility
 
     # Goal
     goal_requirements: PhantomHourglassGoal
@@ -778,6 +781,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     additional_metal_names: PhantomHourglassAdditionalMetalNames
 
     # Generic
+    accessibility: ItemsAccessibility
     start_inventory_from_pool: StartInventoryPool
     remove_items_from_pool: PhantomHourglassRemoveItemsFromPool
     death_link: DeathLink

@@ -808,6 +808,10 @@ STAGE_LOCATION_GROUPS = {
         "Blaaz Heart Container",
         "Blaaz Boss Reward",
     ],
+    "Blaaz": [
+        "Blaaz Heart Container",
+        "Blaaz Boss Reward",
+    ],
     "Molida Island": [
         "Molida Island 2nd House Chest",
         "Molida Island Romanos Tree Dig",
@@ -843,6 +847,11 @@ STAGE_LOCATION_GROUPS = {
         "Crayk Sand of Hours",
         "Crayk Heart Container",
     ],
+    "Crayk": [
+        "Crayk Boss Reward",
+        "Crayk Sand of Hours",
+        "Crayk Heart Container",
+    ],
     "Spirit Island": [
         "Spirit Island Outside Chest",
         "Spirit Island Gauntlet Chest",
@@ -874,6 +883,11 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Wind B1 Key Drop",
         "Temple of Wind B2 Bomb Bag Chest",
         "Temple of Wind 1F Boss Key Chest",
+        "Cyclok Sand of Hours",
+        "Cyclok Boss Reward",
+        "Cyclok Heart Container",
+    ],
+    "Cyclok": [
         "Cyclok Sand of Hours",
         "Cyclok Boss Reward",
         "Cyclok Heart Container",
@@ -915,6 +929,10 @@ STAGE_LOCATION_GROUPS = {
         "Cubus Sisters Ghost Key",
         "Cubus Sisters Heart Container",
     ],
+    "Cubus Sisters": [
+        "Cubus Sisters Ghost Key",
+        "Cubus Sisters Heart Container",
+    ],
     "Linebeck's Ship": [
         "Ocean Pirate Ambush Item",
     ],
@@ -939,6 +957,11 @@ STAGE_LOCATION_GROUPS = {
         "Dongorongo Sand of Hours",
         "Dongorongo Heart Container",
     ],
+    "Dongorongo": [
+        "Dongorongo Boss Reward",
+        "Dongorongo Sand of Hours",
+        "Dongorongo Heart Container",
+    ],
     "Harrow Island": [
         "Harrow Island Dig 1",
         "Harrow Island Dig 2",
@@ -949,7 +972,7 @@ STAGE_LOCATION_GROUPS = {
         "Dee Ess Menu Button Dig",
         "Dee Ess Left Speakers Dig SSW",
         "Dee Ess Right Speakers Dig SE",
-        "Dee Ess Left Speakers Dig West ",
+        "Dee Ess Left Speakers Dig West",
         "Dee Ess Win Goron Game",
         "Dee Ess Eye Brute Chest",
         "Dee Ess Blow in Microphone Chest",
@@ -978,6 +1001,11 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Ice B2 Bow Bounce Chest",
         "Temple of Ice B2 Fight Chest",
         "Temple of Ice B2 Boss Key Chest",
+        "Gleeok Boss Reward",
+        "Gleeok Sand of Hours",
+        "Gleeok Heart Container",
+    ],
+    "Gleeok": [
         "Gleeok Boss Reward",
         "Gleeok Sand of Hours",
         "Gleeok Heart Container",
@@ -1014,6 +1042,10 @@ STAGE_LOCATION_GROUPS = {
         "Eox Sand of Hours",
         "Eox Heart Container",
     ],
+    "Eox": [
+        "Eox Boss Reward",
+        "Eox Sand of Hours",
+        "Eox Heart Container",],
     "Maze Island": [
         "Maze Island Maze Chest",
         "Maze Island Beginner",
@@ -1240,7 +1272,7 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
 
 GHOST_SHIP_BOSS_ITEM_LOCATION = [
     "Ghost Ship Rescue Tetra",
-    "GCubus Sisters Ghost Key",
+    "Cubus Sisters Ghost Key",
     "Cubus Sisters Ghost Key"
 ]
 
@@ -1345,6 +1377,16 @@ BOSS_STAIRCASES = {
     "GT Enter Boss": "Goron Temple",
     "ToI Enter Boss": "Temple of Ice",
     "MT Enter Boss": "Mutoh's Temple",
+}
+
+BOSS_LOOKUP = {
+    "Temple of Fire": "Blaaz",
+    "Temple of Wind": "Cyclok",
+    "Temple of Courage": "Crayk",
+    "Ghost Ship": "Cubus Sisters",
+    "Goron Temple": "Dongorongo",
+    "Temple of Ice": "Gleeok",
+    "Mutoh's Temple": "Eox"
 }
 
 # Boss Room Entrance name: boss reward location name

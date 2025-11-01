@@ -682,12 +682,12 @@ class PhantomHourglassClient(DSZeldaClient):
         elif "Boss Key" in vanilla_item and ctx.slot_data.get("boss_key_behaviour", True):
             # Read actor id in link's held item address. For some reason it's somewhere else in GT
             if self.current_stage == 0x20:
-                bk_id = await read_memory_value(ctx, 0x1CD770, silent=True)
+                bk_id = await read_memory_value(ctx, 0x1CD770, silent=True, size=2)
             else:
-                bk_id = await read_memory_value(ctx, 0x1CD510,silent=True)
+                bk_id = await read_memory_value(ctx, 0x1CD510,silent=True, size=2)
             # Get the actor table
             actor_table_addr = await read_memory_value(ctx, 0x1BA8C4, size=4, silent=True) - 0x2000000
-            actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=200, silent=True))
+            actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=250, silent=True))
             actor_table = "0" + actor_table[2:]
             # Loop through the actor table checking if each actor has the bk_id.
             for i in range(len(actor_table)//8):

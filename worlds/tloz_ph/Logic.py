@@ -588,7 +588,7 @@ def make_overworld_logic():
         ["frost outside arena", "frost arena", False, None],
         ["frost arena", "frost outside arena", False, "dark_yook"],
         ["frost arena", "frost outside temple", False, "dark_yook"],
-        ["frost arena", "frost above temple east", False, "grapple"],
+        ["frost arena", "frost above temple west", False, "grapple"],
         ["frost outside temple", "frost arena", False, None],
         ["frost outside temple", "toi", True, None],
 

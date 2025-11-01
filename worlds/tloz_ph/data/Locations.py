@@ -25,7 +25,7 @@ LOCATIONS_DATA = {
         "stage_id": 0xb,
         "floor_id": 0x0,
         "y": 0x0,
-        "x_max": -160000,
+        "x_max": -150000,
         "sram_addr": 0x20ca,
         "sram_value": 0x40,
         "id": 2,
@@ -2660,6 +2660,8 @@ LOCATIONS_DATA = {
         "floor_id": 0x1,
         "additional_rooms": [0x1201],
         "y": 0x4ccd,
+        "sram_addr": 0x001A4C,
+        "sram_value": 1,
         "id": 251,
     },
     "Isle of Ruins Doylan's Item": {

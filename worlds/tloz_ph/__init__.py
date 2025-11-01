@@ -623,7 +623,7 @@ class PhantomHourglassWorld(World):
                     self.required_bosses.remove("_gs")
                     self.required_bosses.append(GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
 
-                print(f"Required bosses: {self.required_bosses}")
+                # print(f"Required bosses: {self.required_bosses}")
 
     def manual_er(self):
         def get_disconnected_entrances():
@@ -964,6 +964,8 @@ class PhantomHourglassWorld(World):
             # Build a list of locations in this dungeon
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
                                       if "dungeon" in loc and loc["dungeon"] == dung_name]
+            if self.options.shuffle_bosses:  # Exclude boss room if boss shuffling
+                dungeon_location_names = [i for i in dungeon_location_names if i not in LOCATION_GROUPS.get(BOSS_LOOKUP.get(dung_name, None), [])]
             dungeon_locations = [loc for loc in self.multiworld.get_locations(self.player)
                                  if loc.name in dungeon_location_names and not loc.locked]
 
