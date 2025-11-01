@@ -67,7 +67,7 @@ REGIONS = [
     #"tos right tear",
     "tos 3f rail map",
     "goal_forest_glyph",
-    "tos section 2"
+    "tos section 2",
     "tos 4f central chest",
     "tos 4f ne chest",
     "tos 5f island chest", #needs whirlwind

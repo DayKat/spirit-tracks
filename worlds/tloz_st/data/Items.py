@@ -495,7 +495,7 @@ ITEMS_DATA = {
          'dungeon': 0x19,
          'incremental': False
      },
-    "Small Key (ToS)": {
+    "Small Key (Tower of Spirits)": {
         'classification': ItemClassification.progression,
         'address': 0x26532F,
         'dungeon': 0x13,
