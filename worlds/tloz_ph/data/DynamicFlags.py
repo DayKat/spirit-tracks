@@ -116,7 +116,7 @@ DYNAMIC_FLAGS = {
     },
     "Bannan Wayfarer Map": {
         "on_scenes": [0x1400],
-        "not_has_locations": ["Bannan Island Wayfarers Dig"],
+        "not_has_locations": ["Bannan Island Wayfarer Dig"],
         "unset_if_true": [(0x1BA650, 0x20)],
         "reset_flags": ["RESET Bannan Wayfarer Map"]
     },
@@ -318,12 +318,12 @@ DYNAMIC_FLAGS = {
     },
     "RESET Spirit of Wisdom boss flag": {
         # "on_scenes": [0x1700],
-        "not_has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "not_has_locations": ["Cyclok Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x40)]
     },
     "RESET Spirit of Courage boss flag": {
         # "on_scenes": [0x1700],
-        "not_has_locations": ["Temple of Courage Crayk Dungeon Reward"],
+        "not_has_locations": ["Crayk Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x80)]
     },
     # Spirit Island cap spirit gems to 20 on enter
@@ -526,13 +526,14 @@ DYNAMIC_FLAGS = {
     },
     "mercay Safety Shipyard": {
         "on_scenes": [0xB03],
-        "has_locations": ["Temple of Fire Blaaz Dungeon Reward"],
+        "has_locations": ["Blaaz Boss Reward"],
         "set_if_true": [(0x1B557F, 0x20)]
     },
     # Fog
     "No fog add fog if spirits": {
         "on_scenes": [0x01],
         "not_last_scenes": [0x2903],
+        "not_on_entrance": [5],
         "has_items": [("Spirit of Power (Progressive)", 1),
                       ("Spirit of Wisdom (Progressive)", 1),
                       ("Spirit of Courage (Progressive)", 1)],
@@ -550,6 +551,7 @@ DYNAMIC_FLAGS = {
     "Spawn Spirits in fog": {
         "on_scenes": [0x1],
         "not_last_scenes": [0x2903],
+        "not_on_entrance": [5],
         "has_items": [("Spirit of Power (Progressive)", 1),
                       ("Spirit of Wisdom (Progressive)", 1),
                       ("Spirit of Courage (Progressive)", 1)],
@@ -568,6 +570,7 @@ DYNAMIC_FLAGS = {
     "Respawn ghost ship": {
         "on_scenes": [0x1],  # NW quadrant
         "not_last_scenes": [0x2903, 0x400],  # from ghost ship
+        "not_on_entrance": [5],  # prevent respawning if coming from ghost ship
         "has_locations": ["Ghost Ship Rescue Tetra"],
         "any_not_has_locations": ["Ghost Ship B1 Entrance Chest",
                                   "Ghost Ship B1 Second Sister Chest",
@@ -575,10 +578,34 @@ DYNAMIC_FLAGS = {
                                   "Ghost Ship B2 Third Sister Right Chest",
                                   "Ghost Ship B2 Spike Chest",
                                   "Ghost Ship B3 Chest",
-                                  "Ghost Ship Cubus Sisters Ghost Key",
-                                  "Ghost Ship Cubus Sisters Heart Container"],
+                                  "Cubus Sisters Ghost Key",
+                                  "Cubus Sisters Heart Container"],
+        "has_slot_data": [("shuffle_dungeon_entrances", 0)],
         "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
         "unset_if_true": [(0x1B5582, 0x80)]  # Respawn ghost ship
+    },
+    "Always Respawn ghost ship with dungeon rando": {
+        "on_scenes": [0x1],  # NW quadrant
+        "not_on_entrance": [5],  # prevent respawning if coming from ghost ship
+        "not_last_scenes": [0x2903, 0x400], # from ghost ship
+        "has_locations": ["Ghost Ship Rescue Tetra"],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2])],
+        "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
+        "unset_if_true": [(0x1B5582, 0x80)],  # Respawn ghost ship
+    },
+    "Dungeon rando remove spirit from GS": {
+        "on_scenes": [0x1],
+        "on_entrance": [5],
+        "unset_if_true": [(0x1B557E, 0x10)],
+        "set_if_true": [(0x1B5582, 0x80), (0x1B55AB, 0x10)]
+    },
+    "Dungeon rando dummy spirit flag removal": {
+        "on_scenes": [0x1],
+        "reset_flags": ["Dungeon rando resest spirit flags"]
+    },
+    "Dungeon rando resest spirit flags": {
+        "unset_if_true": [(0x1B557E, 0x10)],
+        "set_if_true": [(0x1B5582, 0x80), (0x1B55AB, 0x10)]
     },
     "RESET Respawn ghost ship": {
         "on_scenes": [0x1],
@@ -588,9 +615,10 @@ DYNAMIC_FLAGS = {
                           "Ghost Ship B2 Third Sister Right Chest",
                           "Ghost Ship B2 Spike Chest",
                           "Ghost Ship B3 Chest",
-                          "Ghost Ship Cubus Sisters Ghost Key",
-                          "Ghost Ship Cubus Sisters Heart Container",
+                          "Cubus Sisters Ghost Key",
+                          "Cubus Sisters Heart Container",
                           "Ghost Ship Rescue Tetra"],
+        "has_slot_data": [("shuffle_dungeon_entrances", 0)],
         "set_if_true": [(0x1B5582, 0x80), (0x1B557E, 0x10), (0x1B55AB, 0x10)]
     },
     "Yellow Guy moves after ghost ship": {
@@ -634,7 +662,7 @@ DYNAMIC_FLAGS = {
     "Beat goron temple goron chief metal": {
         "on_scenes": [0x100A],
         "not_has_locations": ["Goron Island Chief Post Dungeon Item"],
-        "has_locations": ["Goron Temple Dongorongo Dungeon Reward", "Goron Island Goron Quiz"],
+        "has_locations": ["Dongorongo Boss Reward", "Goron Island Goron Quiz"],
         "set_if_true": [(0x1B558B, 0x40)],
         "reset_flags": ["RESET remove Crimzonine"]
     },
@@ -659,7 +687,7 @@ DYNAMIC_FLAGS = {
     },
     "Play goron game on dee ess after temple": {
         "on_scenes": [0x1B00],
-        "has_locations": ["Goron Temple Dongorongo Dungeon Reward"],
+        "has_locations": ["Dongorongo Boss Reward"],
         "set_if_true": [(0x1B5597, 0x20)]
     },
 
@@ -764,7 +792,7 @@ DYNAMIC_FLAGS = {
     },
     "SE spawn pirate ship": {
         "on_scenes": [0x2, 0x3],
-        "not_has_locations": ["Ocean Pirate Ambush Item"],
+        "not_has_locations": ["Ocean Miniblin Pirate Ambush Item"],
         "has_locations": ["Ghost Ship Rescue Tetra"],
         "set_if_true": [(0x1B557E, 0x10), (0x1B5582, 0x80), (0x1B55AB, 0x10)]
     },
@@ -833,7 +861,7 @@ DYNAMIC_FLAGS = {
     },
     "RESET Remove Jolene": {
         # "on_scenes": [0xC00],
-        "has_locations": ["Temple of Courage Crayk Dungeon Reward"],
+        "has_locations": ["Crayk Boss Reward"],
         "set_if_true": [(0x1B557F, 0x80)]
     },
     "Zauz has enough metals": {
@@ -918,7 +946,7 @@ DYNAMIC_FLAGS = {
     },
     "Block Oshus Gem": {
         "on_scenes": [0xB0A],
-        "not_has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "not_has_locations": ["Cyclok Boss Reward"],
         "unset_if_true": [(0x1B55A0, 0x4), (0x1B557D, 0x2)]
     },
     "RESET Block Oshus Gem": {
@@ -929,7 +957,7 @@ DYNAMIC_FLAGS = {
     "Oshus Gem": {
         "on_scenes": [0xB0A],
         "not_has_locations": ["Mercay Oshus Spirit Gem"],
-        "has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "has_locations": ["Cyclok Boss Reward"],
         "set_if_true": [(0x1B55A0, 0x4), (0x1B557D, 0x2), (0x1B557F, 0x40)]
     },
     "RESET Oshus Gem hourglass": {
@@ -943,8 +971,19 @@ DYNAMIC_FLAGS = {
     },
     "RESET Oshus Wind Temple": {
         # "on_scenes": [0xB00],
-        "not_has_locations": ["Temple of Wind Cyclok Dungeon Reward"],
+        "not_has_locations": ["Cyclok Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x40)]
+    },
+    "Oshus absent backup gem": {
+        "on_scenes": [0xB0A],
+        "has_locations": ["Cyclok Boss Reward", "Blaaz Boss Reward"],
+        "set_if_true": [(0x1b55a5, 0x2)]
+    },
+    "Oshus absent backup sword": {
+        "on_scenes": [0xB0A],
+        "has_items": [("Phantom Hourglass", 1), ("Phantom Blade", 1)],
+        "has_locations": ["Blaaz Boss Reward"],
+        "set_if_true": [(0x1b55a5, 0x2), (0x1ba648, 0x20)]
     },
     # Trade Quest
     "PoRL Trade Quest": {
@@ -955,19 +994,19 @@ DYNAMIC_FLAGS = {
     },
     "Nyave Trade Quest": {
         "on_scenes": [0xA00],
-        "not_has_locations": ["Ocean NW Prince of Red Lions Trade Quest Item"],
+        "not_has_locations": ["Ocean SW Nyave Trade Quest Item"],
         "unset_if_true": [(0x1B5590, 0x80), (0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll", "RESET Wood Heart"]
     },
     "Hoiger Trade Quest": {
         "on_scenes": [0x900],
-        "not_has_locations": ["Ocean NW Prince of Red Lions Trade Quest Item"],
+        "not_has_locations": ["Ocean SE Hoiger Howgendoogen Trade Quest Item"],
         "unset_if_true": [(0x1B5590, 0x90), (0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll", "RESET Guard Notebook", "RESET Wood Heart"]
     },
     "Wayfarer Trade Quest": {
         "on_scenes": [0x800],
-        "not_has_locations": ["Ocean NW Prince of Red Lions Trade Quest Item"],
+        "not_has_locations": ["Bannan Island Wayfarer Trade Quest Chest"],
         "unset_if_true": [(0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll"]
     },
@@ -997,12 +1036,17 @@ DYNAMIC_FLAGS = {
     # Ghost Ship HC
     "Ghost Ship HC": {
         "on_scenes": [0x3000],
-        "not_has_locations": ["Ghost Ship Cubus Sisters Heart Container"],
+        "not_has_locations": ["Cubus Sisters Heart Container"],
         "unset_if_true": [(0x1B55AB, 0x8)],
         "reset_flags": ["RESET Ghost Ship HC"]
     },
     "RESET Ghost Ship HC": {
         "set_if_true": [(0x1B55AB, 0x8)]
+    },
+    "Ghost ship spawn warp": {
+        "on_scenes": [0x2900],
+        "check_bits": {0x1B5582: 0x10},
+        "set_if_true": [(0x1B5583, 0x40)]
     },
     # Vanilla frogs
     "Frogs show glyph": {
@@ -1026,14 +1070,19 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(0x1B5582, 0x4)],  # Water level
     },
     "Ice Field pre-dungeon": {
-        "on_scenes": [0xF03, 0xF01],
-        "not_has_locations": ["Temple of Ice Dungeon Reward"],
+        "on_scenes": [0xF03],
+        "not_has_locations": ["Gleeok Boss Reward"],
         "unset_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field pre-dungeon"]
     },
+    "Frost Arena Always remove Azurine": {
+        "on_scenes": [0xF01],
+        "unset_if_true": [(0x1B558B, 0x20)],
+        "reset_flags": ["RESET Ice Field pre-dungeon", "RESET Ice Field post-dungeon"]
+    },
     "Ice Field post-dungeon": {
-        "on_scenes": [0xF03, 0xF01],
-        "has_locations": ["Temple of Ice Dungeon Reward"],
+        "on_scenes": [0xF03],
+        "has_locations": ["Gleeok Boss Reward"],
         "set_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field post-dungeon"]
     },
@@ -1169,6 +1218,30 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x500],
         "beedle_points": 200,
         "set_if_true": [(0x1b558f, 0x1)]
+    },
+    # Ember Stuff
+    "Ember remove double linebeck": {
+        "on_scenes": [0xD00],
+        "set_if_true": [(0x1B557F, 0x20)],
+        "reset_flags": ["RESET Ember double linebeck"],
+    },
+    "RESET Ember double linebeck": {
+        "not_has_location": ["Blaaz Boss Reward"],
+        "unset_if_true": [(0x1B557F, 0x20)],
+    },
+    "Astrid after fire temple": {
+        "on_scenes": [0xD0A],
+        "has_location": ["Blaaz Boss Reward"],
+        "set_if_true": [(0x1B557F, 0x20)]
+    },
+    # Regal necklace backup removal
+    "Regal necklace backup removal dummy": {
+        "on_scenes": [0x1500],
+        "reset_flags": ["Regal necklace backup removal"]
+    },
+    "Regal necklace backup removal": {
+        "has_items": [("Regal Necklace", 0)],
+        "unset_if_true": [(0x1b5582, 0x8)]
     },
 
 }
