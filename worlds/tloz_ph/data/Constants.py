@@ -805,8 +805,12 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Fire 2F Rat Key",
         "Temple of Fire 3F Key Drop",
         "Temple of Fire 3F Boss Key Chest",
-        "Temple of Fire Blaaz Heart Container",
-        "Temple of Fire Blaaz Dungeon Reward",
+        "Blaaz Heart Container",
+        "Blaaz Boss Reward",
+    ],
+    "Blaaz": [
+        "Blaaz Heart Container",
+        "Blaaz Boss Reward",
     ],
     "Molida Island": [
         "Molida Island 2nd House Chest",
@@ -839,9 +843,14 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Courage 1F Pols Voice Key 2",
         "Temple of Courage 2F Boss Key Chest",
         "Temple of Courage 3F Before Boss Chest",
-        "Temple of Courage Crayk Dungeon Reward",
-        "Temple of Courage Crayk Sand of Hours",
-        "Temple of Courage Heart Container",
+        "Crayk Boss Reward",
+        "Crayk Sand of Hours",
+        "Crayk Heart Container",
+    ],
+    "Crayk": [
+        "Crayk Boss Reward",
+        "Crayk Sand of Hours",
+        "Crayk Heart Container",
     ],
     "Spirit Island": [
         "Spirit Island Outside Chest",
@@ -874,9 +883,14 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Wind B1 Key Drop",
         "Temple of Wind B2 Bomb Bag Chest",
         "Temple of Wind 1F Boss Key Chest",
-        "Temple of Wind Cyclok Sand of Hours",
-        "Temple of Wind Cyclok Dungeon Reward",
-        "Temple of Wind Cyclok Heart Container",
+        "Cyclok Sand of Hours",
+        "Cyclok Boss Reward",
+        "Cyclok Heart Container",
+    ],
+    "Cyclok": [
+        "Cyclok Sand of Hours",
+        "Cyclok Boss Reward",
+        "Cyclok Heart Container",
     ],
     "Bannan Island": [
         "Bannan Island Entrance Grapple Chest",
@@ -912,8 +926,12 @@ STAGE_LOCATION_GROUPS = {
         "Ghost Ship B2 Spike Chest",
         "Ghost Ship B3 Chest",
         "Ghost Ship Rescue Tetra",
-        "Ghost Ship Cubus Sisters Ghost Key",
-        "Ghost Ship Cubus Sisters Heart Container",
+        "Cubus Sisters Ghost Key",
+        "Cubus Sisters Heart Container",
+    ],
+    "Cubus Sisters": [
+        "Cubus Sisters Ghost Key",
+        "Cubus Sisters Heart Container",
     ],
     "Linebeck's Ship": [
         "Ocean Pirate Ambush Item",
@@ -935,9 +953,14 @@ STAGE_LOCATION_GROUPS = {
         "Goron Temple B3 Kill Miblins Chest",
         "Goron Temple B2 Kill Eyeslugs Chest",
         "Goron Temple B2 Boss Key Chest",
-        "Goron Temple Dongorongo Dungeon Reward",
-        "Goron Temple Dongorongo Sand of Hours",
-        "Goron Temple Dongorongo Heart Container",
+        "Dongorongo Boss Reward",
+        "Dongorongo Sand of Hours",
+        "Dongorongo Heart Container",
+    ],
+    "Dongorongo": [
+        "Dongorongo Boss Reward",
+        "Dongorongo Sand of Hours",
+        "Dongorongo Heart Container",
     ],
     "Harrow Island": [
         "Harrow Island Dig 1",
@@ -949,7 +972,7 @@ STAGE_LOCATION_GROUPS = {
         "Dee Ess Menu Button Dig",
         "Dee Ess Left Speakers Dig SSW",
         "Dee Ess Right Speakers Dig SE",
-        "Dee Ess Left Speakers Dig West ",
+        "Dee Ess Left Speakers Dig West",
         "Dee Ess Win Goron Game",
         "Dee Ess Eye Brute Chest",
         "Dee Ess Blow in Microphone Chest",
@@ -978,9 +1001,14 @@ STAGE_LOCATION_GROUPS = {
         "Temple of Ice B2 Bow Bounce Chest",
         "Temple of Ice B2 Fight Chest",
         "Temple of Ice B2 Boss Key Chest",
-        "Temple of Ice Dungeon Reward",
-        "Temple of Ice Gleeok Sand of Hours",
-        "Temple of Ice Gleeok Heart Container",
+        "Gleeok Boss Reward",
+        "Gleeok Sand of Hours",
+        "Gleeok Heart Container",
+    ],
+    "Gleeok": [
+        "Gleeok Boss Reward",
+        "Gleeok Sand of Hours",
+        "Gleeok Heart Container",
     ],
     "Isle of the Dead": [
         "Isle of the Dead Rupoor Cave 1",
@@ -1010,10 +1038,14 @@ STAGE_LOCATION_GROUPS = {
         "Mutoh's Temple B1 Lower Water Chest",
         "Mutoh's Temple B1 Push Boulder Chest",
         "Mutoh's Temple B1 Boss Key Chest",
-        "Mutoh's Temple Dungeon Reward",
-        "Mutoh's Temple Eox Sand of Hours",
-        "Mutoh's Temple Heart Container Chest",
+        "Eox Boss Reward",
+        "Eox Sand of Hours",
+        "Eox Heart Container",
     ],
+    "Eox": [
+        "Eox Boss Reward",
+        "Eox Sand of Hours",
+        "Eox Heart Container",],
     "Maze Island": [
         "Maze Island Maze Chest",
         "Maze Island Beginner",
@@ -1090,8 +1122,8 @@ CATEGORY_LOCATION_GROUPS = {
         "Isle of Frost Estate SE Island Dig",
         "Isle of Frost Chief House Dig",
         "Isle of Frost Estate Sign Dig",
-        "Isle of Frost Fofo Dig (SE)",
-        "Isle of Frost Dobo Dig (SW)",
+        "Isle of Frost Estate Fofo Dig (SE)",
+        "Isle of Frost Estate Dobo Dig (SW)",
         "Dee Ess Left Speakers Dig SSW",
         "Dee Ess Right Speakers Dig SE",
         "Dee Ess Left Speakers Dig West ",
@@ -1190,6 +1222,14 @@ CATEGORY_LOCATION_GROUPS = {
         "Ocean NE Salvage #29 Maze W",
         "Ocean NE Salvage #30 Ruins S",
         "Ocean NE Salvage #31 Dead S",
+    ],
+    "Boss Rewards": [
+        "Blaaz Boss Reward",
+        "Cyclok Boss Reward",
+        "Crayk Boss Reward",
+        "Dongorongo Boss Reward",
+        "Gleeok Boss Reward",
+        "Eox Boss Reward",
     ]
 }
 
@@ -1221,18 +1261,19 @@ DUNGEON_NAMES = [
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Temple of the Ocean King": "TotOK B13 NE Sea Chart Chest",
-    "Temple of Fire": "Temple of Fire Blaaz Dungeon Reward",
-    "Temple of Wind": "Temple of Wind Cyclok Dungeon Reward",
-    "Temple of Courage": "Temple of Courage Crayk Dungeon Reward",
-    "Goron Temple": "Goron Temple Dongorongo Dungeon Reward",
-    "Temple of Ice": "Temple of Ice Dungeon Reward",
-    "Mutoh's Temple": "Mutoh's Temple Dungeon Reward",
+    "Temple of Fire": "Blaaz Boss Reward",
+    "Temple of Wind": "Cyclok Boss Reward",
+    "Temple of Courage": "Crayk Boss Reward",
+    "Goron Temple": "Dongorongo Boss Reward",
+    "Temple of Ice": "Gleeok Boss Reward",
+    "Mutoh's Temple": "Eox Boss Reward",
     "Ghost Ship": "_gs",
 }
 
 GHOST_SHIP_BOSS_ITEM_LOCATION = [
     "Ghost Ship Rescue Tetra",
-    "Ghost Ship Cubus Sisters Ghost Key"
+    "Cubus Sisters Ghost Key",
+    "Cubus Sisters Ghost Key"
 ]
 
 DUNGEON_KEY_DATA = {
@@ -1294,6 +1335,84 @@ DUNGEON_KEY_DATA = {
     },
 }
 
+BOSS_DOOR_DATA = {
+    0x1C: {
+        "name": "Temple of Fire",
+        "address": 0x258D20,
+        "value": 0xF
+    },
+    0x1D: {
+        "name": "Temple of Wind",
+        "address": 0x24D740,
+        "value": 0x77F
+    },
+    0x1E: {
+        "name": "Temple of Courage",
+        "address": 0x252360,
+        "value": 0x1FF
+    },
+    0x20: {
+        "name": "Goron Temple",
+        "address": 0x25D9B0,
+        "value": 0x1
+    },
+    0x1F: {
+        "name": "Temple of Ice",
+        "address": 0x259CA0,
+        "value": 0xDA
+    },
+    0x21: {
+        "name": "Mutoh's Temple",
+        "address": 0x24DED0,
+        "value": 0x1
+    },
+}
+
+# Entrance name: dungeon name
+BOSS_STAIRCASES = {
+    "ToF Enter Boss": "Temple of Fire",
+    "ToW Enter Boss": "Temple of Wind",
+    "ToC Enter Boss": "Temple of Courage",
+    "Ghost Ship Cubus Sisters Reunion": "Ghost Ship",
+    "GT Enter Boss": "Goron Temple",
+    "ToI Enter Boss": "Temple of Ice",
+    "MT Enter Boss": "Mutoh's Temple",
+}
+
+BOSS_LOOKUP = {
+    "Temple of Fire": "Blaaz",
+    "Temple of Wind": "Cyclok",
+    "Temple of Courage": "Crayk",
+    "Ghost Ship": "Cubus Sisters",
+    "Goron Temple": "Dongorongo",
+    "Temple of Ice": "Gleeok",
+    "Mutoh's Temple": "Eox"
+}
+
+# Boss Room Entrance name: boss reward location name
+BOSS_ENTRANCE_LOOKUP = {
+    "Blaaz Exit": "Blaaz Boss Reward",
+    "Cyclok Exit": "Cyclok Boss Reward",
+    "Crayk Exit": "Crayk Boss Reward",
+    "Cubus Sisters Blue Warp": "Cubus Sisters Ghost Key",
+    "Dongorongo Exit": "Dongorongo Boss Reward",
+    "Gleeok Exit": "Gleeok Boss Reward",
+    "Eox Exit": "Eox Boss Reward",
+}
+
+COLOR_SWITCH_DATA = {
+    0x1F: {
+        "name": "Temple of Ice",
+        "address": 0x20DBE0,
+        "value": 0x1
+    },
+    0x1E: {
+        "name": "Temple of Courage",
+        "address": 0x207CA8,
+        "value": 0x1
+    },
+}
+
 # Decode classification for humans
 CLASSIFICATION = {
     1: "progression",
@@ -1304,6 +1423,26 @@ CLASSIFICATION = {
     25: "progression_deprioritized_skip_balancing",
     0: "filler"
                   }
+
+BOSS_WARP_LOOKUP = {
+    28: "ToF Exit",
+    29: "ToW Exit",
+    30: "ToC Exit",
+    31: "ToI Exit",
+    32: "GT Exit",
+    33: "MT Exit",
+    0x29: "Ghost Ship B1 Ascend"
+}
+
+BOSS_WARP_SCENE_LOOKUP = {
+    0x2B00: "Blaaz Exit",
+    0x2A00: "Cyclok Exit",
+    0x2C00: "Crayk Exit",
+    0x200A: "Dongo Exit",
+    0x1F06: "Gleeok Exit",
+    0x2106: "Eox Exit",
+    0x3000: "Cubus Sisters Blue Warp"
+}
 
 EQUIPPED_SHIP_PARTS_ADDR = [
     0x1BA544,

@@ -7,44 +7,82 @@ from .data.Entrances import ENTRANCES
 def make_overworld_logic():
     overworld_logic = [
 
+        # Randomized start
+        ["menu", "mercay sw", False, None],
+
         # ====== Mercay Island ==============
 
         ["mercay sw", "mercay dig spot", False, "shovel"],
-        ["mercay se", "mercay island", True, None],
-        ["mercay island", "mercay zora cave", False, "explosives"],
-        ["mercay zora cave", "mercay zora cave south", False, "bow"],
-        ["mercay island", "mercay zora cave south", False, "sword_scroll_clip"],
-        ["mercay island", "totok", True, None],
-        ["mercay island", "mercay freedle island", False, "explosives"],
-        ["mercay freedle island", "mercay freedle tunnel chest", False, "range"],
-        ["mercay freedle island", "mercay freedle gift", False, "sea_chart", "SE"],
-        ["mercay se", "mercay yellow guy", False, "courage_crest"],
         ["mercay oshus", "mercay oshus gem", False, "oshus_gem"],
         ["mercay oshus", "mercay oshus phantom blade", False, "can_make_phantom_sword"],
         ["mercay oshus phantom blade", "mercay oshus gem", False, None],
-
-        # ER
-        ["mercay island", "mercay sw", False, None],
         ["mercay sw", "mercay sw bridge", True, None],
         ["mercay sw", "mercay oshus", True, None],
         ["mercay sw", "mercay apricot", True, None],
         ["mercay sw", "mercay sword cave", True, None],
+        ["mercay sw", "mercay nw chus", True, False],
 
         ["mercay sw bridge", "mercay se", True, None],
         ["mercay se", "mercay tuzi", True, None],
         ["mercay se", "mercay milk bar", True, None],
         ["mercay se", "mercay shop", True, None],
+        ["mercay shop", "island shop", False, None],
         ["mercay se", "mercay shipyard", False, "has", "_beat_tof"],
         ["mercay shipyard", "mercay se", False, None],
         ["mercay se", "mercay treasure teller", False, "courage_crest"],
         ["mercay treasure teller", "mercay se", False, None],
+        ["mercay se", "mercay yellow guy", False, "courage_crest"],
+        ["mercay se", "mercay ne", True, False],
+        ["mercay se ledge", "mercay se", False, None],
 
+        ["mercay nw chus", "mercay nw bamboo", True, "can_cut_bamboo"],
+        ["mercay nw temple", "mercay geozard cave north", False, "explosives"],
+        ["mercay geozard cave north", "mercay nw temple", False, None],
+        ["mercay geozard cave north", "mercay geozard cave south", False, "bow"],
+        ["mercay geozard cave south", "mercay ne ledge", True, None],
+        ["mercay nw temple", "totok", True, None],
+
+        ["mercay ne", "mercay freedle tunnel", False, "explosives"],
+        ["mercay freedle tunnel", "mercay ne", False, None],
+        ["mercay freedle tunnel", "mercay freedle island", True, None],
+        ["mercay freedle island", "mercay ne", False, None],
+        ["mercay freedle tunnel", "mercay freedle tunnel chest", False, "range"],
+        ["mercay freedle island", "mercay freedle gift", False, "sea_chart", "SE"],
+        ["mercay ne", "mercay nw temple", True, None],
+        ["mercay ne ledge", "mercay ne", False, None],
+        ["mercay ne ledge", "mercay se ledge", True, None],
+
+        ["mercay nw temple", "mercay nw oob high", False, "scroll_clip"],
+        ["mercay nw oob high", "mercay nw temple", False, None],
+        ["mercay nw oob high", "mercay nw oob low", False, None],
+        ["mercay nw oob low", "mercay nw chus", False, None],
+        ["mercay nw oob low", "mercay nw bamboo", False, None],
+        ["mercay nw oob high", "mercay ne oob", True, None],
+        ["mercay nw oob high", "mercay sw oob high", True, None],
+        ["mercay nw oob high", "mercay sw oob east", True, None],
+        ["mercay nw oob low", "mercay sw oob low", True, None],
+
+        ["mercay sw oob high", "mercay sw oob low", False, None],
+        ["mercay sw oob low", "mercay sw", False, None],
+        ["mercay sw oob east", "mercay sw bridge", False, None],
+        ["mercay sw oob east", "mercay se oob", True, None],
+
+        ["mercay se oob", "mercay se ledge", False, None],
+        ["mercay se oob", "mercay ne oob", True, None],
+        ["mercay ne oob", "mercay ne ledge", False, None],
 
         # ======== Mountain Passage =========
 
-        ["mercay island", "mercay passage 1", False, "can_enter_mp"],
-        ["mercay island", "mercay passage 2", False, "can_reach_mp2"],
-        ["mercay passage 2", "mercay passage rat", False, "mp_rat"],
+        ["mercay nw bamboo", "mercay passage 1", True, None],
+        ["mercay passage 1", "mercay passage 2", False, "can_reach_mp2"],
+        ["mercay passage 2 exit", "mercay passage 2", False, "can_reach_mp2_top"],
+        ["mercay passage 1", "mercay passage 2 exit", False, "mp2_bypass_fore"],
+        ["mercay passage 2 exit", "mercay passage 1", False, "mp2_bypass"],
+        ["mercay passage 2 exit", "mercay passage 3", True, None],
+        ["mercay passage 3", "mercay passage rat", False, "can_kill_bat"],
+        ["mercay passage 3", "mercay passage 4", False, "mp3"],
+        ["mercay passage 4", "mercay passage 3", False, "mp3_back"],
+        ["mercay passage 4", "mercay se", True, None],
 
         # ========== TotOK ===================
         ["totok", "totok 1f", False, "totok_1f"],
@@ -131,10 +169,10 @@ def make_overworld_logic():
 
         # ============ Shops ====================
 
-        ["mercay shop", "shop power gem", False, "can_buy_gem"],
-        ["mercay shop", "shop quiver", False, "can_buy_quiver"],
-        ["mercay shop", "shop bombchu bag", False, "can_buy_chu_bag"],
-        ["mercay shop", "shop heart container", False, "can_buy_heart"],
+        ["island shop", "shop power gem", False, "can_buy_gem"],
+        ["island shop", "shop quiver", False, "can_buy_quiver"],
+        ["island shop", "shop bombchu bag", False, "can_buy_chu_bag"],
+        ["island shop", "shop heart container", False, "can_buy_heart"],
 
         ["sw ocean east", "beedle", False, None],
         ["beedle", "beedle gem", False, "beedle_shop", 500],
@@ -181,8 +219,19 @@ def make_overworld_logic():
 
         # ============ Cannon Island ===============
 
-        ["cannon island", "cannon island salvage arm", False, "courage_crest"],
-        ["cannon island", "cannon island dig", False, "spade"],
+        ["cannon island", "cannon fuzo", True, None],
+        ["cannon island", "cannon island dig", False, "shovel"],
+        ["cannon island", "cannon cave south", True, None],
+        ["cannon cave south", "cannon cave north", False, None],
+        ["cannon cave north", "cannon bomb garden", True, None],
+        ["cannon bomb garden", "cannon outside eddo", False, None],
+        ["cannon outside eddo", "cannon bomb garden", False, "explosives"],
+        ["cannon bomb garden", "cannon island", False, None],
+        ["cannon outside eddo", "cannon island", False, "glitched_logic"],
+        ["cannon outside eddo", "cannon eddo", True, None],
+        ["cannon fuzo", "cannon eddo", True, "has", "_eddo_door"],
+        ["cannon eddo", "cannon island salvage arm", False, "courage_crest"],
+        ["cannon bomb garden", "cannon bomb garden dig", False, "shovel"],
 
         # =============== Isle of Ember ================
 
@@ -230,24 +279,50 @@ def make_overworld_logic():
         ["tof 1f sw", "tof 2f south", False, "can_kill_bubble"],
         ["tof 2f south", "tof 3f", False, "tof_3f"],
         # 3F
-        ["tof 3f", "tof 3f key drop", False, "boomerang"],
-        ["tof 3f key drop", "tof 3f boss key", False, "tof_3f_bk"],  # All 3F checks need boomerang, UT included
-        ["tof 3f boss key", "tof blaaz", False, "tof_blaaz"],  # Includes UT
-        ["tof blaaz", "post tof", False, None],  # Used for events
+        ["tof 3f", "tof 3f key drop", False, "tof_key_drop"],
+        ["tof 3f", "tof 3f key door", False, "tof_3f_key_door"],
+        ["tof 3f key door", "tof 3f boss key", False, "boomerang"],
+        ["tof 3f key door", "tof before blaaz", False, "tof_bk"],  # Includes UT
+        ["tof before blaaz", "tof blaaz", True, None],
+        ["tof blaaz", "post blaaz", False, "tof_blaaz"],
+        ["post blaaz", "post tof", False, "tof_blaaz"],  # Used for events
 
         # =========== Molida Island ===============
 
         ["molida island", "molida dig", False, "spade"],
         ["molida island", "molida port house", True, None],
-        ["molida island", "molida grapple", False, "grapple"],
-        ["molida island", "molida cave back", False, "cave_damage"],
-        ["molida cave back", "molida cave back dig", False, "spade"],
-        ["molida cave back dig", "molida cuccoo dig", False, "grapple"],
-        ["molida dig", "molida north", False, "sun_key"],
+        ["molida island", "molida potato house", True, None],
+        ["molida island", "molida shop", True, None],
+        ["molida shop", "island shop", False, None],
+        ["molida island", "molida romaros", True, None],
+        ["molida romaros", "molida archery", False, "has", "_beat_toc"],
+        ["molida island", "molida cave", True, None],
+        ["molida island", "molida cave upper", False, "shovel"],
+
+        ["molida cave upper", "molida cave", False, None],
+        ["molida cave", "molida cave grapple", False, "grapple"],
+        ["molida cave", "molida cave geozard", False, None],
+        ["molida cave geozard", "molida cave geozard dig", False, "shovel"],
+        ["molida cave geozard", "molida cave post geozard", False, "cave_damage"],
+        ["molida cave post geozard", "molida cave octos", True, None],
+        ["molida cave", "molida cave back", False, "bombs"],
+        ["molida cave back", "molida cave", False, None],
+        ["molida cave back", "molida cave octos", True, None],
+        ["molida cave back", "molida shovel cave", True, None],
+        ["molida shovel cave", "molida shovel cave dig", False, "shovel"],
+        ["molida cave back", "molida cliff north", True, None],
+
+        ["molida cliff north", "molida cliff south", True, None],
+        ["molida cliff south", "molida island", False, None],
+        ["molida cliff south", "molida cuccoo dig", False, "cuccoo_dig"],
+
+        ["molida cave upper", "molida cave sun door", True, "sun_key"],
+        ["molida north", "molida cave drop", False, "shovel"],
+        ["molida cave drop", "molida cave sun door", False, None],
+        ["molida cave sun door", "molida north", True, None],
         ["molida north", "molida north grapple", False, "grapple"],
         ["molida north", "toc gates", False, "enter_toc"],
         ["toc gates", "toc", True, None],
-        ["molida island", "molida archery", False, "has", "_beat_toc"],
 
         # =============== Temple of Courage ================
 
@@ -275,21 +350,23 @@ def make_overworld_logic():
         ["toc torches", "toc pols 2", False, "toc_switch_state"],
         ["toc pols 2", "toc bk room", False, "toc_door_3"],
         ["toc bk room", "toc bk chest", False, "bow"],
-        ["toc bk room", "toc before boss", False, "boss_key", "Temple of Courage"],
+        ["toc bk room", "toc before boss", False, "toc_boss_key"],
         ["toc bk chest", "toc before boss", False, "simple_boss_key", "Temple of Courage"],
         ["toc before boss", "toc before boss chest", False, "boom"],
-        ["toc before boss", "toc crayk", False, "bow"],
-        ["toc crayk", "post toc", False, None],  # Used for events
+        ["toc before boss", "toc crayk", True, None],
+        ["toc crayk", "post crayk", False, "bow"],
+        ["post crayk", "post toc", False, "bow"],  # Used for events
 
         # ================ Spirit Island =====================
 
         ["spirit island", "spirit island gauntlet", False, "grapple"],
-        ["spirit island", "spirit power 1", False, "spirit_gems", "Power", 10],
-        ["spirit island", "spirit power 2", False, "spirit_gems",  "Power", 20],
-        ["spirit island", "spirit wisdom 1", False, "spirit_gems",  "Wisdom", 10],
-        ["spirit island", "spirit wisdom 2", False, "spirit_gems",  "Wisdom", 20],
-        ["spirit island", "spirit courage 1", False, "spirit_gems",  "Courage", 10],
-        ["spirit island", "spirit courage 2", False, "spirit_gems",  "Courage", 20],
+        ["spirit island", "spirit cave", True, None],
+        ["spirit cave", "spirit power 1", False, "spirit_gems", "Power", 10],
+        ["spirit cave", "spirit power 2", False, "spirit_gems",  "Power", 20],
+        ["spirit cave", "spirit wisdom 1", False, "spirit_gems",  "Wisdom", 10],
+        ["spirit cave", "spirit wisdom 2", False, "spirit_gems",  "Wisdom", 20],
+        ["spirit cave", "spirit courage 1", False, "spirit_gems",  "Courage", 10],
+        ["spirit cave", "spirit courage 2", False, "spirit_gems",  "Courage", 20],
 
         # ============ Ocean NW ===============
         ["sw ocean west", "nw ocean", False, "sea_chart", "NW"],
@@ -297,7 +374,7 @@ def make_overworld_logic():
         ["nw ocean", "sw ocean east", False, "sea_chart", "SW"],
         ["nw ocean", "frog warps", False, None],
         ["nw ocean", "nw ocean frog n", False, "cannon"],
-        ["gust boat", "gust", True, None],
+        ["gust boat", "gust south", True, None],
         ["gust boat", "nw ocean", True, "require_chart", "NW"],
         ["bannan boat", "bannan", True, None],
         ["bannan boat", "nw ocean", True, "require_chart", "NW"],
@@ -305,16 +382,34 @@ def make_overworld_logic():
         ["zauz boat", "nw ocean", True, "require_chart", "NW"],
         ["uncharted boat", "uncharted", True, None],
         ["uncharted boat", "nw ocean", True, "require_chart", "NW"],
-        ["nw ocean", "ghost ship", False, "ghost_ship"],
+        ["nw ocean", "ghost ship deck", False, "ghost_ship"],
+        ["ghost ship deck", "nw ocean", False, None],
         ["nw ocean", "porl", False, None],
         ["porl", "porl item", False, "sword"],
         ["porl", "porl trade", False, "heroes_new_clothes"],
 
         # ================= Isle of Gust ====================
 
-        ["gust", "gust combat", False, "cave_damage"],
-        ["gust", "gust dig", False, "shovel"],
-        ["gust dig", "tow", True, None],
+        ["gust south", "gust hideout", True, None],
+        ["gust south", "gust cave", True, None],
+        ["gust cave", "gust cave damage", False, "cave_damage"],
+        ["gust cave", "gust cliffs", True, None],
+        ["gust cliffs", "gust south", False, None],
+        ["gust cliffs", "gust cliffs dig", False, "shovel"],
+        ["gust cliffs", "gust temple road", True, None],
+        ["gust cliffs", "gust above temple", True, None],
+        ["gust above temple", "gust west", True, None],
+        ["gust west", "gust west chest", False, "shovel"],
+        ["gust west", "gust west ledge", False, "shovel"],
+        ["gust west ledge", "gust west", False, None],
+        ["gust west ledge", "gust nw", True, None],
+        ["gust nw", "gust nw dig", False, "shovel"],
+        ["gust nw", "gust sandworms", True, "shovel"],
+        ["gust sandworms", "gust above temple", True, "has", "_windmills"],
+        ["gust above temple", "gust temple road", False, None],
+        ["gust temple road", "gust outside temple", False,  "has", "_windmills"],
+        ["gust outside temple", "gust temple road", False, None],
+        ["gust outside temple", "tow", True, None],
 
         # ================= Temple of Wind ====================
 
@@ -324,42 +419,52 @@ def make_overworld_logic():
         ["tow b2", "tow b2 bombs", False, "explosives"],
         ["tow b2", "tow b2 key", False, "tow_key"],
         ["tow b2", "tow bk chest", False, "bombs"],
-        ["tow", "tow cyclok", False, "tow_cyclok"],
-        ["tow cyclok", "post tow", False, None],
+        ["tow", "tow before boss", False, "tow_cyclok"],
+        ["tow before boss", "tow cyclok", True, None],
+        ["tow cyclok", "post cyclok", False, None],
+        ["post cyclok", "post tow", False, None],
 
         # ================= Bannan Island ====================
 
         ["bannan", "bannan grapple", False, "grapple"],
         ["bannan", "bannan dig", False, "shovel"],
-        ["bannan", "bannan east", False, "bombs"],
+        ["bannan", "bannan wayfarer", True, None],
+        ["bannan", "bannan cave west", True, None],
+        ["bannan cave west", "bannan cave east", True, "bombs"],
+        ["bannan cave east", "bannan east", True, None],
         ["bannan east", "bannan east grapple", False, "grapple"],
         ["bannan east grapple", "bannan east grapple dig", False, "shovel"],
         ["bannan east", "bannan cannon game", False, "cannon"],
-        ["bannan", "bannan scroll", False, "bannan_scroll"],
-        ["bannan", "bannan loovar", False, "loovar"],
-        ["bannan", "bannan rsf", False, "rsf"],
-        ["bannan", "bannan neptoona", False, "neptoona"],
-        ["bannan", "bannan stowfish", False, "stowfish"],
-        ["bannan", "bannan letter", False, "jolene_letter"],
+        ["bannan wayfarer", "bannan scroll", False, "bannan_scroll"],
+        ["bannan wayfarer", "bannan loovar", False, "loovar"],
+        ["bannan wayfarer", "bannan rsf", False, "rsf"],
+        ["bannan wayfarer", "bannan neptoona", False, "neptoona"],
+        ["bannan wayfarer", "bannan stowfish", False, "stowfish"],
+        ["bannan wayfarer", "bannan letter", False, "jolene_letter"],
 
         # ================= Zauz's Island ====================
 
         ["zauz", "zauz dig", False, "shovel"],
-        ["zauz", "zauz blade", False, "has_zauz_required_metals"],
-        ["ghost ship tetra", "zauz crest", False, None],
+        ["zauz", "zauz house", True, None],
+        ["zauz house", "zauz blade", False, "has_zauz_required_metals"],
+        ["zauz house", "zauz crest", False, "has", "_beat_ghost_ship"],
 
         # ================= Uncharted Island ====================
 
         ["uncharted", "uncharted dig", False, "shovel"],
-        ["uncharted", "uncharted cave", False, "sword"],
+        ["uncharted", "uncharted outside cave", False, "sword"],
+        ["uncharted outside cave", "uncharted cave", True, None],
+        ["uncharted cave", "uncharted inner cave", True, None],
         ["uncharted cave", "uncharted grapple", False, "grapple"],
 
         # ================= Ghost Ship ====================
 
+        ["ghost ship deck", "ghost ship", True, None],
         ["ghost ship", "ghost ship barrel", False, "gs_barrel"],
         ["ghost ship barrel", "ghost ship b2", False, "gs_triangle"],
         ["ghost ship b2", "ghost ship b3", False, None],
-        ["ghost ship b3", "ghost ship cubus", False, "sword"],
+        ["ghost ship b3", "ghost ship cubus", True, None],
+        ["ghost ship cubus", "ghost ship post cubus", False, "sword"],
         ["ghost ship b2", "ghost ship tetra", False, "ghost_key"],
         ["ghost ship tetra", "spawn pirate ambush", False, None],
 
@@ -371,11 +476,11 @@ def make_overworld_logic():
         ["se ocean", "se ocean frogs", False, "cannon"],
         ["se ocean", "goron boat", False, "can_pass_sea_monsters"],
         ["goron boat", "se ocean", False, "require_chart", "SE"],
-        ["goron", "goron boat", True, None],
+        ["goron sw", "goron boat", True, None],
         ["se ocean", "se ocean trade", False, "kaleidoscope"],
         ["se ocean", "frost boat", False, "can_pass_sea_monsters"],
         ["frost boat", "se ocean", False, "require_chart", "SE"],
-        ["frost boat", "iof", True, None],
+        ["frost boat", "frost", True, None],
         ["harrow boat", "harrow", True, None],
         ["harrow boat", "se ocean", True, "require_chart", "SE"],
         ["ds boat", "ds", True, None],
@@ -384,17 +489,41 @@ def make_overworld_logic():
 
         # ================= Goron Island ====================
 
-        ["goron", "goron port house", True, None],
-        ["goron", "goron chus", False, "goron_chus"],
-        ["goron", "goron grapple", False, "grapple"],
-        ["goron chus", "goron quiz", False, None],
-        ["goron", "goron north", False, None],
-        ["goron north", "goron north bombchu", False, "bombchu_switches"],
-        ["goron north", "goron outside temple", False, "explosives"],
-        ["goron", "goron outside temple", False, "hammer_clip"],
-        ["goron outside temple", "goron north", False, "bombs"],
-        ["goron outside temple", "gt", True, None],
+        ["goron sw", "goron port house", True, None],
+        ["goron sw", "goron shop", True, None],
+        ["goron shop", "island shop", False, None],
+        ["goron sw", "goron rock house", True, None],
+        ["goron sw", "goron chu house", True, None],
+        ["goron sw", "goron shortcut", True, None],
+        ["goron chu ledge", "goron chus", False, "goron_chus"],
+        ["goron chu ledge", "goron grapple", False, "grapple"],
+        ["goron sw", "goron se", True, None],
+        ["goron chu ledge", "goron sw", False, None],
+        ["goron se", "goron chu ledge", True, None],
+        ["goron se", "goron mountain house", True, None],
+        ["goron se", "goron se house", True, None],
+        ["goron se", "goron chief house", True, None],
+        ["goron chief house", "goron quiz", False, "has", "_goron_chus"],
         ["goron quiz", "goron chief 2", False, "has", "_beat_gt"],
+        ["goron se", "goron ne", True, None],
+
+        ["goron ne", "goron maze south", False, None],
+        ["goron maze south", "goron ne", False, "explosives"],
+        ["goron maze south", "goron maze south dead end", True, None],
+        ["goron ne", "goron maze north", False, None],
+        ["goron ne", "goron maze chu chest", False, "bombchu_switches"],
+        ["goron maze north", "goron ne", False, "explosives"],
+        ["goron maze north", "goron maze nw", True, "explosives"],
+        ["goron maze north", "goron maze north dead end", True, None],
+        ["goron maze nw", "goron like like", True, None],
+        ["goron like like", "goron outside temple", False, "damage"],
+        ["goron like like", "goron maze spikes", True, None],
+        ["goron maze spikes", "goron maze spike chest", False, "has", "_goron_maze_switch"],
+        ["goron outside temple", "goron like like", False, "clever_bombs"],  # Hard logic
+
+        ["goron shortcut", "goron outside temple", False, "hammer_clip"],
+        ["goron outside temple", "goron shortcut", False, None],
+        ["goron outside temple", "gt", True, None],
 
         # ================= Goron Temple ====================
         ["gt", "gt 2", False, "goron_entrance"],
@@ -404,8 +533,10 @@ def make_overworld_logic():
         ["gt b2", "gt b3", False, None],
         ["gt b2", "gt b2 back", False, "gt_b2_back"],
         ["gt b2 back", "gt bk chest", False, "chus"],
-        ["gt b2", "gt dongo", False, "gt_dongo"],
-        ["gt dongo", "post gt", False, None],
+        ["gt b2", "gt before dongo", False, "gt_enter_dongo"],
+        ["gt before dongo", "gt dongo", True, None],
+        ["gt dongo", "post dongo", False, "gt_dongo"],
+        ["post dongo", "post gt", False, None],
 
         # ================= Harrow Island ====================
 
@@ -421,32 +552,92 @@ def make_overworld_logic():
 
         # ================= Isle of Frost ====================
 
-        ["iof", "iof grapple", False, "grapple"],
-        ["iof", "iof smart house", True, None],
-        ["iof", "iof dig", False, "shovel"],
-        ["iof grapple", "iof grapple dig", False, "shovel"],
-        ["iof", "iof yook", False, "damage"],
-        ["iof yook", "toi", True, None],
+        ["frost", "frost grapple", False, "grapple"],
+        ["frost", "frost dig", False, "spade"],
+        ["frost", "frost smart house", True, None],
+        ["frost", "frost sensitive house", True, None],
+        ["frost", "frost chief house", True, None],
+        ["frost", "frost estate", True, None],
+        ["frost", "frost cave", True, None],
+
+        ["frost estate", "frost fofo", True, None],
+        ["frost estate", "frost kumu", True, None],
+        ["frost estate", "frost dobo", True, None],
+        ["frost estate", "frost gumo", True, None],
+        ["frost estate", "frost aroo", True, None],
+        ["frost estate", "frost mazo", True, None],
+        ["frost estate", "frost estate dig", False, "shovel"],
+        ["frost estate dig", "frost estate grapple dig", False, "grapple"],
+
+        ["frost cave", "frost field", True, None],
+        ["frost field", "frost field exit", False, "ice_field"],
+        ["frost field", "frost field upper se", False, "grapple"],
+        ["frost field upper se", "frost field", False, None],
+        ["frost field upper se", "frost field upper chests", False, "grapple"],
+        ["frost field upper se", "frost field east ledge", False, None],
+        ["frost field upper se", "frost field upper north", True, "grapple"],
+        ["frost field upper se", "frost field exit", False, None],
+        ["frost field upper north", "frost field", False, None],
+        ["frost field upper north", "frost field exit", False, None],
+        ["frost field upper north", "frost above temple west", True, None],
+        ["frost field upper se", "frost above temple east", True, None],
+        ["frost field exit", "frost outside arena", True, None],
+
+        ["frost above temple east", "frost outside arena", False, None],
+        ["frost above temple west", "frost outside arena", False, None],
+        ["frost outside arena", "frost arena", False, None],
+        ["frost arena", "frost outside arena", False, "dark_yook"],
+        ["frost arena", "frost outside temple", False, "dark_yook"],
+        ["frost arena", "frost above temple west", False, "grapple"],
+        ["frost outside temple", "frost arena", False, None],
+        ["frost outside temple", "toi", True, None],
 
         # ================= Ice Temple ====================
 
-        ["toi", "toi 2f", False, "toi_2f"],
-        ["toi 2f", "toi 3f", False, "toi_3f"],
-        ["toi 3f", "toi 3f switch", False, "toi_3f_switch"],
-        ["toi 3f switch", "toi 3f boomerang", False, "toi_3f_boomerang"],
-        ["toi 3f boomerang", "toi 2f miniboss", False, "toi_miniboss"],
-        ["toi 3f", "toi 2f miniboss", False, "toi_key_doors", 3, 1],
-        ["toi 2f miniboss", "toi side path", False, "grapple"],
-        ["toi", "toi side path", False, "toi_shortcut"],
-        ["toi side path", "toi b1", False, "toi_b1"],
-        ["toi b1", "toi b1 2", False, "explosives"],
-        ["toi b1 2", "toi b1 key", False, "toi_key_door_2"],
-        ["toi b1 2", "toi b2", False, "toi_b2"],
-        ["toi b2", "toi bk chest", False, "hammer_clip"],
-        ["toi b2", "toi b2 key", False, "toi_key_door_3"],
-        ["toi b2 key", "toi bk chest", False, None],
-        ["toi bk chest", "toi gleeok", False, "is_ut"],
-        ["toi b2", "toi gleeok", False, "boss_key", "Temple of Ice"],
+        ["toi", "toi 1f ascent", False, "toi_2f"],
+        ["toi 1f ascent", "toi 2f right", True, None],
+        ["toi 3f right", "toi 2f right", True, None],
+        ["toi 3f right", "toi 3f", False, "toi_3f"],
+        ["toi 3f", "toi 3f right", False, "range"],
+        ["toi 3f", "toi 3f key door", True, "toi_key_door_1"],  # TODO: Key logic
+        ["toi 3f", "toi 3f switch state", False, "bombs"],  # TODO: Switch state logic
+        ["toi 3f switch state", "toi 3f boomerang key", False, "toi_3f_boomerang"],
+        ["toi 3f key door", "toi 2f arena", True, None],
+        ["toi 2f arena", "toi 2f post arena", False, "dark_yook"],
+        ["toi 2f arena", "toi 2f left", False, "toi_miniboss"],
+        ["toi 2f left", "toi 1f beetles", True, None],
+        ["toi 1f beetles", "toi 1f shortcut", False, "grapple"],
+        ["toi 1f shortcut", "toi 1f beetles", False, "grapple_glitch"],
+        ["toi", "toi 1f shortcut", False, "hammer_clip"],
+        ["toi 1f shortcut", "toi", False, None],
+        ["toi 1f shortcut", "toi 1f descent", False, "grapple"],
+        ["toi 1f descent", "toi b1 ascent", True, None],
+
+        ["toi b1 ascent", "toi b1 shore", False, None],  # TODO: Switch state logic
+        ["toi b1 shore", "toi b1 ascent", False, "hammer_clip"],
+        ["toi b1 shore", "toi b1 south", False, "toi_b1"],
+        ["toi b1 south", "toi b1 shore", False, None],
+        ["toi b1 south", "toi b1 mid", True, "explosives"],
+        ["toi b1 mid", "toi b1 right", False, "grapple"],
+        ["toi b1 right", "toi b1 switch", False, "hammer_clip"],
+        ["toi b1 right", "toi b1 switch room", False, "toi_key_door_2"],  # TODO: Key logic, and also backwards switch logic?
+        ["toi b1 switch room", "toi b1 switch", False, "toi_b1_switch"],
+        ["toi b1 mid", "toi b1 boss door", False, "toi_b2"],
+        ["toi b1 boss door", "toi b1 mid", False, "grapple"],  # TODO: Switch state red
+        ["toi b1 boss door", "toi b1 before boss", True, "toi_boss_door"],  # TODO: do ER logic
+        ["toi b1 before boss", "gleeok", True, None],
+        ["gleeok", "beat gleeok", False, "grapple"],
+        ["beat gleeok", "post toi", False, None],
+        ["toi b1 before boss", "toi blue warp", True, None],
+        ["toi", "toi blue warp", True, "has", "_toi_blue_warp"],
+        ["toi b1 boss door", "toi b2", True, None],
+
+        ["toi b2", "toi b2 north", False, "toi_b2_north"],
+        ["toi b2 north", "toi b2 bk chest", False, "hammer_clip"],
+        ["toi b2 north", "toi b2 east", False, None],
+        ["toi b2 east", "toi b2 bow", False, "bow"],
+        ["toi b2 east", "toi b2 east arena", False, "toi_key_doors", 3, 3],  # TODO: Key logic
+        ["toi b2 east arena", "toi b2 bk chest", False, None],
 
         # ================= NE Ocean ====================
 
@@ -455,19 +646,29 @@ def make_overworld_logic():
         ["ne ocean", "frog warps", False, None],
         ["ne ocean", "ne ocean frog", False, "cannon"],
         ["ne ocean", "ne ocean combat", False, "can_kill_blue_chu"],
-        ["dead boat", "iotd", True, None],
+        ["dead boat", "iotd port", True, None],
         ["dead boat", "ne ocean", True, "require_chart", "NE"],
         ["maze boat", "maze", True, None],
         ["maze boat", "ne ocean", True, "require_chart", "NE"],
-        ["ne ocean inner", "ruins boat", True, None],
-        ["ruins boat", "ruins port", True, "require_chart", "NE"],
+        ["ne ocean inner", "ruins boat", True, "require_chart", "NE"],
+        ["ruins boat", "ruins port", True, None],
         ["ne ocean", "pirate ambush", False, "beat_gs"],
 
         # ================= IotD ====================
 
-        ["iotd", "iotd rupoor", False, "bombs"],
-        ["iotd", "iotd dig", False, "shovel"],
-        ["iotd dig", "iotd cave", False, "bombs"],
+        ["iotd port", "iotd cave", True, None],
+        ["iotd", "iotd port", False, None],
+        ["iotd cave", "iotd rupoor", False, "bombs"],
+        ["iotd rupoor", "iotd cave", False, None],
+        ["iotd cave", "iotd", True, None],
+        ["iotd", "iotd temple", True, None],
+        ["iotd", "iotd tunnel", False, "shovel"],
+        ["iotd tunnel", "iotd tunnel cave", False, "bombs"],
+        ["iotd tunnel cave", "iotd tunnel", False, None],
+        ["iotd tunnel", "iotd face", True, None],
+        ["iotd face", "iotd", False, None],
+        ["iotd temple", "iotd crown", True, None],
+        ["iotd crown", "iotd", False, None],
 
         # ================= Isle of Ruins ====================
 
@@ -491,6 +692,7 @@ def make_overworld_logic():
         ["bremeur", "bremeur kings key", False, "kings_key"],
         ["ruins nw boulders", "ruins nw port cliff", False, None],
         ["ruins nw port cliff", "ruins sw port cliff", True, None],
+        ["ruins nw port cliff", "ruins nw port cliff tree", True, "ruins_water"],
         ["ruins nw boulders", "ruins nw lower", False, "ruins_water"],
         ["ruins nw across bridge", "ruins nw cave", True, "ruins_water"],  # this means cave might not be in logic while accessible...
         ["ruins nw across bridge", "ruins nw alcove", False, "ruins_water"],
@@ -530,8 +732,10 @@ def make_overworld_logic():
         ["mutoh landing", "mutoh hammer", False, "hammer"],
         ["mutoh hammer", "mutoh water", False, "mutoh_water"],
         ["mutoh water", "mutoh bk chest", False, "mutoh_bk_chest"],
-        ["mutoh water", "mutoh eox", False, "boss_key", "Mutoh's Temple"],
-        ["mutoh bk chest", "mutoh eox", False, "is_ut"],
+        ["mutoh water", "mutoh before eox", False, "mutoh_boss_door"],
+        ["mutoh before eox", "mutoh eox", True, None],
+        ["mutoh eox", "mutoh post eox", False, "hammer"],
+        ["mutoh bk chest", "mutoh before eox", False, "is_ut"],
 
         # ================= Maze Island ====================
 
@@ -598,7 +802,7 @@ def make_overworld_logic():
         ["bellumbeck", "beat bellumbeck", False, "can_beat_bellumbeck"],
         ["beat bellumbeck", "goal", False, None],
         ["totok midway", "goal", False, "goal_midway"],
-        ["mercay island", "goal", False, "win_on_metals"],
+        ["menu", "goal", False, "win_on_metals"],
 
     ]
 
@@ -623,15 +827,17 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
             entrance_data = test_entrances[entrance_key]
             rando_type_bool = entrance_data.two_way
             entrance.randomization_type = EntranceType.TWO_WAY if rando_type_bool else EntranceType.ONE_WAY
-            entrance.randomization_group = entrance_data.direction | entrance_data.category_group
+            entrance.randomization_group = entrance_data.direction | entrance_data.category_group | entrance_data.island
             entrance.name = entrance_data.name
             multiworld.worlds[player].entrances[entrance.name] = entrance
+            uncreated_entrances.remove(entrance.name)
 
     all_logic = [
         make_overworld_logic()
     ]
 
     test_entrances = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}
+    uncreated_entrances = [e.name for e in ENTRANCES.values()]
 
     # Create connections
     for logic_array in all_logic:
@@ -645,5 +851,7 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
                 create_entrance(region_2, region_1, *args)
 
 
-
+    # print(f"Some entrances had no logical matches: ")
+    # for i in uncreated_entrances:
+    #     print(f"\t{i}")
 

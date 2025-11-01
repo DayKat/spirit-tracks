@@ -6,16 +6,33 @@
 {"name": "Bannan Island East Grapple Chest West"},
 {"name": "Bannan Island East Grapple Dig"},
 {"name": "Bannan Island Entrance Grapple Chest"},
-{"name": "Bannan Island Give Letter to Joanne"},
-{"name": "Bannan Island Wayfarer Gift"},
-{"name": "Bannan Island Wayfarer Trade Quest Chest"},
-{"name": "Bannan Island Wayfarers Dig"}
+{"name": "Bannan Island Wayfarer Dig"},
+{"name": "Bannan Island Cannon Game"}
         ],
         "map_locations": [
             {
                 "map": "seamap",
                 "x": 374,
                 "y": 64
+            }
+        ]
+    },
+      {
+        "name": "Bannan Island Wayfarer",
+        "sections": [
+{"name": "Bannan Island Wayfarer Give Loovar"},
+{"name": "Bannan Island Wayfarer Give Rusty Swordfish"},
+{"name": "Bannan Island Wayfarer Give Legendary Neptoona"},
+{"name": "Bannan Island Wayfarer Give Stowfish"},
+{"name": "Bannan Island Give Letter to Joanne"},
+{"name": "Bannan Island Wayfarer Gift"},
+{"name": "Bannan Island Wayfarer Trade Quest Chest"}
+        ],
+        "map_locations": [
+            {
+                "map": "seamap",
+                "x": 374,
+                "y": 48
             }
         ]
     },
@@ -37,6 +54,24 @@
                 "map": "seamap",
                 "x": 472,
                 "y": 421
+            }
+        ]
+    },
+      {
+        "name": "Fish",
+        "sections": [
+{"name": "Fishing Catch Skippyjack"},
+{"name": "Fishing Catch Toona"},
+{"name": "Fishing Catch Loovar"},
+{"name": "Fishing Catch Rusty Swordfish"},
+{"name": "Fishing Catch Legendary Neptoona"},
+{"name": "Fishing Catch Stowfish"}
+        ],
+        "map_locations": [
+            {
+                "map": "seamap",
+                "x": 472,
+                "y": 437
             }
         ]
     },
@@ -89,8 +124,8 @@
 {"name": "Ghost Ship B2 Third Sister Left Chest"},
 {"name": "Ghost Ship B2 Third Sister Right Chest"},
 {"name": "Ghost Ship B3 Chest"},
-{"name": "Ghost Ship Cubus Sisters Ghost Key"},
-{"name": "Ghost Ship Cubus Sisters Heart Container"},
+{"name": "Cubus Sisters Ghost Key"},
+{"name": "Cubus Sisters Heart Container"},
 {"name": "Ghost Ship Rescue Tetra"}
         ],
         "map_locations": [
@@ -147,9 +182,9 @@
 {"name": "Goron Temple B2 Boss Key Chest"},
 {"name": "Goron Temple B2 Kill Eyeslugs Chest"},
 {"name": "Goron Temple B3 Kill Miblins Chest"},
-{"name": "Goron Temple Dongorongo Dungeon Reward"},
-{"name": "Goron Temple Dongorongo Heart Container"},
-{"name": "Goron Temple Dongorongo Sand of Hours"}
+{"name": "Dongorongo Boss Reward"},
+{"name": "Dongorongo Heart Container"},
+{"name": "Dongorongo Sand of Hours"}
         ],
         "map_locations": [
             {
@@ -196,16 +231,17 @@
         "name": "Isle of Frost",
         "sections": [
 {"name": "Isle of Frost Chief House Dig"},
-{"name": "Isle of Frost Dobo Dig (SW)"},
+{"name": "Isle of Frost Estate Dobo Dig (SW)"},
 {"name": "Isle of Frost Estate SE Island Dig"},
 {"name": "Isle of Frost Estate Sign Dig"},
 {"name": "Isle of Frost Estate SW Island Dig"},
-{"name": "Isle of Frost Fofo Dig (SE)"},
+{"name": "Isle of Frost Estate Fofo Dig (SE)"},
 {"name": "Isle of Frost Ice Field East Ledge Chest"},
 {"name": "Isle of Frost Ice Field SE Ledge Chest"},
 {"name": "Isle of Frost Ice Field South Ledge East Chest"},
 {"name": "Isle of Frost Ice Field South Ledge West Chest"},
-{"name": "Isle of Frost Nobodo Grapple Chest"}
+{"name": "Isle of Frost Nobodo Grapple Chest"},
+{"name": "Isle of Frost Stand on Peg Gift"}
         ],
         "map_locations": [
             {
@@ -237,7 +273,7 @@
     {
         "name": "Isle of Ruins",
         "sections": [
-{"name": "Isle of Ruins Bonk Tree"},
+{"name": "Isle of Ruins Upper Bonk Tree"},
 {"name": "Isle of Ruins Dodge Boulders Chest"},
 {"name": "Isle of Ruins Doylan's Item"},
 {"name": "Isle of Ruins Like-Like Dig"},
@@ -245,7 +281,8 @@
 {"name": "Isle of Ruins Maze Chest"},
 {"name": "Isle of Ruins Outside Doylan's Temple Chest"},
 {"name": "Isle of Ruins Outside Mutoh's Temple Chest"},
-{"name": "Isle of Ruins Push Boulder Chest"}
+{"name": "Isle of Ruins Push Boulder Chest"},
+{"name": "Isle of Ruins NW Lower Water Bonk Tree"}
         ],
         "map_locations": [
             {
@@ -333,6 +370,7 @@
         "name": "Molida Island",
         "sections": [
 {"name": "Molida Archery 1700"},
+          {"name": "Molida Archery 2000"},
 {"name": "Molida Cave Geozard Dig"},
 {"name": "Molida Cave Grapple Chest"},
 {"name": "Molida Cave Shovel Chest"},
@@ -368,9 +406,9 @@
 {"name": "Mutoh's Temple B1 Push Boulder Chest"},
 {"name": "Mutoh's Temple B2 Ledge Chest"},
 {"name": "Mutoh's Temple B2 Spike Roller Chest"},
-{"name": "Mutoh's Temple Dungeon Reward"},
-{"name": "Mutoh's Temple Eox Sand of Hours"},
-{"name": "Mutoh's Temple Heart Container Chest"}
+{"name": "Eox Boss Reward"},
+{"name": "Eox Sand of Hours"},
+{"name": "Eox Heart Container"}
         ],
         "map_locations": [
             {
@@ -655,7 +693,7 @@
     {
         "name": "Ocean Pirate Ambush Item",
         "sections": [
-{"name": "Ocean Pirate Ambush Item"}
+{"name": "Ocean Miniblin Pirate Ambush Item"}
         ],
         "map_locations": [
             {
@@ -989,9 +1027,9 @@
 {"name": "Temple of Courage B1 Bow Chest"},
 {"name": "Temple of Courage B1 Maze Chest"},
 {"name": "Temple of Courage B1 Torch Room Secret Chest"},
-{"name": "Temple of Courage Crayk Dungeon Reward"},
-{"name": "Temple of Courage Crayk Sand of Hours"},
-{"name": "Temple of Courage Heart Container"}
+{"name": "Crayk Boss Reward"},
+{"name": "Crayk Sand of Hours"},
+{"name": "Crayk Heart Container"}
         ],
         "map_locations": [
             {
@@ -1011,8 +1049,8 @@
 {"name": "Temple of Fire 2F Rat Key"},
 {"name": "Temple of Fire 3F Boss Key Chest"},
 {"name": "Temple of Fire 3F Key Drop"},
-{"name": "Temple of Fire Blaaz Dungeon Reward"},
-{"name": "Temple of Fire Blaaz Heart Container"}
+{"name": "Blaaz Boss Reward"},
+{"name": "Blaaz Heart Container"}
         ],
         "map_locations": [
             {
@@ -1035,9 +1073,9 @@
 {"name": "Temple of Ice B2 Boss Key Chest"},
 {"name": "Temple of Ice B2 Bow Bounce Chest"},
 {"name": "Temple of Ice B2 Fight Chest"},
-{"name": "Temple of Ice Dungeon Reward"},
-{"name": "Temple of Ice Gleeok Heart Container"},
-{"name": "Temple of Ice Gleeok Sand of Hours"}
+{"name": "Gleeok Boss Reward"},
+{"name": "Gleeok Heart Container"},
+{"name": "Gleeok Sand of Hours"}
         ],
         "map_locations": [
             {
@@ -1115,9 +1153,9 @@
 {"name": "Temple of Wind B2 Bomb Bag Chest"},
 {"name": "Temple of Wind B2 Bombable Wall Item"},
 {"name": "Temple of Wind B2 Chest"},
-{"name": "Temple of Wind Cyclok Dungeon Reward"},
-{"name": "Temple of Wind Cyclok Heart Container"},
-{"name": "Temple of Wind Cyclok Sand of Hours"}
+{"name": "Cyclok Boss Reward"},
+{"name": "Cyclok Heart Container"},
+{"name": "Cyclok Sand of Hours"}
         ],
         "map_locations": [
             {

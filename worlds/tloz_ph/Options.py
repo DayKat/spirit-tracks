@@ -10,12 +10,12 @@ class PhantomHourglassGoal(Choice):
     """
     The goal to accomplish in order to unlock the endgame specified in 'bellum_access'
     - Triforce_door: Open the triforce door on TotOK B6. Leftover from pre-alpha
-    - complete_dungeons: complete dungeons to unlock the endgame
+    - defeat_bosses: defeat bosses/collect dungeon rewards to unlock the endgame
     - metal_hunt: collect a specified number of metals to unlock the endgame
     """
     display_name = "goal_requirements"
     option_triforce_door = 0
-    option_complete_dungeons = 1
+    option_defeat_bosses = 1
     option_metal_hunt = 2
     default = 1
 
@@ -128,6 +128,18 @@ class PhantomHourglassKeyRandomization(Choice):
     option_anywhere = 2
     default = 1
 
+class PhantomHourglassRandomizeBossKeys(Choice):
+    """
+    Randomize Boss Keys. Automatically sets boss_key_behaviour to inventory if not vanilla.
+    - vanilla: Boss Keys are not randomized
+    - in_own_dungeon: Boss Keys can be found in their own dungeon
+    - anywhere: Boss Keys can be found anywhere
+    """
+    display_name = "randomize_boss_keys"
+    option_vanilla = 0
+    option_in_own_dungeon = 1
+    option_anywhere = 2
+    default = 1
 
 class PhantomHourglassTriforceCrestRandomization(Toggle):
     """
@@ -140,9 +152,10 @@ class PhantomHourglassTriforceCrestRandomization(Toggle):
 
 class PhantomHourglassDungeonsRequired(Range):
     """
-    How many dungeons are required to access the endgame.
-    Max is 6 unless you add Ghost ship and TotOK with their own options below
-    If metal hunt is enabled, this only effects what dungeons are excluded or not
+    How many dungeons/bosses are required to access the endgame.
+    Max is 6 unless you add Ghost ship and TotOK with their own options below.
+    If metal hunt is enabled, this only effects what dungeons are excluded or not.
+    If boss shuffle is on and bosses are in a mixed pool, this will still affect the number of excluded dungeons.
     """
     display_name = "dungeons_required"
     range_start = 0
@@ -153,8 +166,8 @@ class PhantomHourglassDungeonsRequired(Range):
 class PhantomHourglassBellumAccess(Choice):
     """
     What unlocks after you reach your goal requirement. For bellum options, game completion is sent on entering the credits.
-    - spawn_phantoms_on_b13: getting your goal requirement spawns the phantoms on TotOK B13, and killing them gives \
-    you bellum access. You will have to run TotOK to the bottom after getting your goal requirement
+    - spawn_phantoms_on_b13: getting your goal requirement spawns the phantoms on TotOK B13,
+    and killing them gives you bellum access. You will have to run TotOK to the bottom after getting your goal requirement
     - unlock_staircase: getting your goal requirement unlocks the staircase to bellum. The phantoms on B13 spawn by
     default, and killing them unlocks the warp for later
     - warp_to_bellum: getting your goal requirement spawns the warp to bellum in TotOK. The phantoms are spawned by
@@ -169,6 +182,7 @@ class PhantomHourglassBellumAccess(Choice):
     option_warp_to_bellum = 2
     option_spawn_bellumbeck = 3
     option_win = 4
+    default = 2
 
 
 class PhantomHourglassFrogRandomization(Choice):
@@ -229,10 +243,12 @@ class PhantomHourglassRandomizeHarrow(Choice):
 
 class PhantomHourglassGhostShipInDungeonPool(Choice):
     """
-    Choose whether the ghost ship can be in the dungeon reward pool
-    - rescue_tetra: the dungeon reward, if rolled, will be on using the ghost key
-    - cubus_sisters: the dungeon reward will be on defeating the cubus sisters
-    - false: the ghost ship cannot be rolled for the required dungeon pool
+    Choose whether the ghost ship can be in the boss/dungeon reward pool.
+    Has *interactions* with boss_shuffle.
+    - rescue_tetra: the dungeon reward, if rolled, will be on using the ghost key and climbing the staircase.
+    - cubus_sisters: the dungeon reward will be on defeating the Cubus Sisters,
+    or whatever boss gets randomized there with boss shuffle.
+    - false: the ghost ship cannot be rolled for the required dungeon pool.
     """
     display_name = "Ghost Ship in Dungeon Pool"
     option_rescue_tetra = 0
@@ -243,7 +259,7 @@ class PhantomHourglassGhostShipInDungeonPool(Choice):
 
 class PhantomHourglassTotokInDungeonPool(Toggle):
     """
-    Choose whether the NE Sea Chart chest on B13 of Temple of the Ocean King is in the dungeon reward pool
+    Choose whether the NE Sea Chart chest on B13 of Temple of the Ocean King is in the boss/dungeon reward pool
     """
     display_name = "TotOK in Dungeon Pool"
     default = 0
@@ -258,23 +274,45 @@ class PhantomHourglassRandomizeMaskedBeedle(Toggle):
     default = 0
 
 
-class PhantomHourglassDungeonHints(Choice):
+class PhantomHourglassDungeonHintLocation(Choice):
     """
-    Receive hints for your required dungeons
-    - false: no hints
+    Where to receive dungeon hints etc
+    - start: give dungeon hints on starting a new save file
     - oshus: oshus gives dungeon hints
-    - totok: entering totok gives dungeon hints
+    - totok: entering the totok lobby gives dungeon hints
     """
-    display_name = "dungeon_hints"
-    option_false = 0
+    display_name = "dungeon_hint_location"
+    option_start = 0
     option_oshus = 1
     option_totok = 2
     default = 1
 
+class PhantomHourglassDungeonHintType(Choice):
+    """
+    Whether the dungeon hint tells you what dungeon is required, or what boss is required
+    - no_hints: don't hint for dungeon rewards
+    - hint_dungeon: hint the required dungeon, in plain text, to avoid spoiling randomized bosses.
+    If bosses are shuffled with other location types, this will not hint for dungeons.
+    Use excluded_dungeon_hints instead.
+    - hint_boss: hint the required boss reward, as an archipelago hint
+    """
+    option_no_hints = 0
+    option_hint_dungeon = 1
+    option_hint_boss = 2
+    default = 2
+
+class PhantomHourglassExcludedDungeonHints(Toggle):
+    """
+    Give hints, in plain text, for the excluded dungeons.
+    """
+    default = 0
 
 class PhantomHourglassExcludeNonRequriedDungeons(Toggle):
     """
-    Non-required dungeons won't have progression or useful items. Does not apply to TotOK.
+    Non-required dungeons won't have progression or useful items.
+    Does not apply to TotOK.
+    If you don't require specific bosses, this will still make a number of dungeons barren.
+    They will still count towards dungeon completions.
     """
     display_name = "exclude_non_required_dungeons"
     default = 1
@@ -334,7 +372,7 @@ class PhantomHourglassSkipOceanFights(Toggle):
     quest item are removed, and cannon isn't required for those locations
     """
     display_name = "skip_ocean_fights"
-    default = 0
+    default = 1
 
 
 class PhantomHourglassRandomizeFishing(Choice):
@@ -469,7 +507,6 @@ class PhantomHourglassRandomizeBeedlePoints(Choice):
 
 class PhantomHourglassDungeonShortcuts(Toggle):
     """
-    EXPERIMENTAL!!! Use at your own risk!
     Adds shortcuts from the beginning of islands to their dungeons, often by entering the house nearest their port.
     Requires getting the first check in the respective dungeon to activate.
     Disabled automatically with house ER or internal island ER (and dungeon ER until i add support for it)
@@ -477,31 +514,194 @@ class PhantomHourglassDungeonShortcuts(Toggle):
     display_name = "dungeon_shortcuts"
     default = 0
 
-class PhantomHourglassShuffleDungeonEntrances(Toggle):
+class PhantomHourglassShuffleDungeonEntrances(Choice):
     """
-    EXPERIMENTAL!!! Use at your own risk!
     Shuffle what dungeon entrance leads to which dungeon interior.
-    Does not include ghost ship.
-    Full entrance rando coming soon!
+    - no_shuffle: don't shuffle dungeon entrances
+    - shuffle: shuffle dungeon entrances
+    - simple_mixed_pool: shuffles dungeon entrances with other entrance types that have this option
     """
     display_name = "shuffle_dungeon_entrances"
     default = 0
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
 
-class PhantomHourglassShuffleIslands(Toggle):
+class PhantomHourglassShuffleIslands(Choice):
     """
-    EXPERIMENTAL!!! Use at your own risk!
     Shuffle what island port leads to which island overworld.
     Does not include ghost ship or travellers ships.
-    Currently incompatible with boat requires sea chart.
-    Full entrance rando coming soon!
+    The sea counts as a neutral island, and thus shuffling on own island will still allow for sea connections anywhere.
+    This however, tends to cause generation errors when mixed with other pools, especially if they have lots of dead ends.
+    Compatible with boat requires sea chart.
+    - no_shuffle: don't shuffle ports
+    - shuffle: shuffle ports
+    - simple_mixed_pool: shuffles ports with other entrance types that have this option
     """
-    display_name = "shuffle_island_entrances"
+    display_name = "shuffle_ports"
     default = 0
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
+
+
+class PhantomHourglassShuffleCaves(Choice):
+    """
+    Shuffle cave entrances. Includes caves, staircases and drop down holes.
+    Entrances are coupled and preserve direction unless specified in another option.
+    - no_shuffle: don't shuffle caves
+    - shuffle: shuffle caves
+    - simple_mixed_pool: shuffles caves with other entrance types that have this option
+    """
+    display_name = "shuffle_caves"
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
+    default = 0
+
+class PhantomHourglassShuffleHouses(Choice):
+    """
+    Shuffle house entrances. Includes houses, shops, pyramids and Goron houses.
+    If houses are alone in their pool, they always preserve directionality, cause GER would otherwise force pair dead ends with each other
+    - no_shuffle: don't shuffle houses
+    - shuffle: shuffle houses
+    - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    """
+    display_name = "shuffle_houses"
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
+    default = 0
+
+class PhantomHourglassShuffleOverworldTransitions(Choice):
+    """
+    Shuffle overworld transitions, between the quadrants of islands.
+    Different heights and breaks in terrain create separate transitions.
+    Entrances are coupled and preserve direction unless specified in another option.
+    If glitched logic is enabled, includes out of bounds transitions that are reachable in vanilla (coming soon).
+    - no_shuffle: don't shuffle island transitions
+    - shuffle: shuffle overworld transitions
+    - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    """
+    display_name = "shuffle_overworld_transitions"
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
+    default = 0
+
+class PhantomHourglassShuffleBetweenIslands(Choice):
+    """
+    Either preserve or disregard directionality for entrances shuffled in other options.
+    CAUTION: When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
+    Please test generate before submitting to a public game.
+    - shuffle_anywhere: entrances in a pool can connect to other entrances in that pool no matter their island.
+    - shuffle_only_on_own_island: entrances in a pool can only connect to other entrances in that pool if they're on the same island.
+    - limit_simple_mixed_pool: entrances in the simple_mixed_pool are only shuffled with entrances on their own island. other pools can be shuffled between islands.
+    - limit_all_but_simple_mixed_pool: entrances not in the simple_mixed_pool are only shuffled with entrances on their own island. entrances in the simple mixed pool can be shuffled between islands.
+    """
+    option_shuffle_anywhere = 0
+    option_shuffle_only_on_own_island = 1
+    option_limit_simple_mixed_pool = 2
+    option_limit_all_but_simple_mixed_pool = 3
+    default = 0
+
+class PhantomHourglassDecoupleEntrances(Choice):
+    """
+    Decouples entrances such that entrances are no longer bidirectional.
+    Only applies to entrances enabled in other settings.
+    CAUTION: High chance of generation failure if combined with the wrong settings.
+    - couple_all: don't decouple
+    - decouple_all: decouple all enabled entrance shuffles
+    """
+    option_couple_all = 0
+    option_decouple_all = 1
+    display_name = "decouple_entrances"
+    default = 0
+
+class PhantomHourglassPreserveDirectionality(Choice):
+    """
+    Either preserve or disregard directionality for entrances shuffled in other options.
+    CAUTION: When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
+    Please test generate before submitting to a public game.
+    - preserve: preserve directionality for all shuffled entrances
+    - disregard_all: disregard directionality for all shuffled entrances
+    - disregard_simple_mixed_pool: disregard directionality for all shuffled entrances is the simple mixed pool, but preserve the others
+    - disregard_all_but_simple_mixed_pool: preserve directionality for all shuffled entrances in the simple mixed pool, and disregard directionality for all others.
+    """
+    option_preserve_all = 0
+    option_disregard_all = 1
+    option_disregard_simple_mixed_pool = 2
+    option_disregard_all_but_simple_mixed_pool = 3
+
+class PhantomHourglassBossKeyBehavior(Choice):
+    """
+    How boss keys work as items
+    - vanilla: boss key has to be carried to the boss door. Not compatible with boss key rando or internal dungeon shuffle.
+    - inventory: getting the boss key item automatically opens it's boss door.
+    You may need to reload the room if you got the key in the same room as it's door.
+    """
+    option_vanilla = 0
+    option_inventory = 1
+    default = 0
+    display_name = "boss_key_behavior"
+
+class PhantomHourglassSwitchBehaviour(Choice):
+    """
+    Modify the behaviour of color switches.
+    - vanilla: switches are dungeon local and reset each time you exit that dungeon or save and quit.
+    If playing with internal dungeon shuffle, this means that each time you enter a dungeon room the switch state will be in the default state (red).
+    - save_per_dungeon: Switch states are dungeon specific, but the game will remember what state you left it in. Fun for internal dungeon randomizer.
+    - save_globally: all switches are linked together, and affect all dungeons!
+    """
+    option_vanilla = 0
+    option_save_per_dungeon = 1
+    option_save_globally = 2
+    default = 0
+    display_name = "color_switch_behaviour"
+    visibility = Visibility.none
+
+class PhantomHourglassShuffleDungeonTransitions(Choice):
+    """
+    Shuffle internal rooms in dungeons. Includes Staircases, caves and blue warps.
+    Boss rooms are done with a separate option
+    If glitched logic is enabled, includes out of bounds transitions that are reachable in vanilla.
+    - no_shuffle: don't shuffle island transitions
+    - shuffle: shuffle overworld transitions
+    - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    """
+    display_name = "shuffle_dungeons_internally"
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
+    default = 0
+    visibility = Visibility.none
+
+class PhantomHourglassShuffleBosses(Choice):
+    """
+    Shuffle Boss rooms.
+    Dungeon rewards being tied to boss or dungeon is set in a separate option.
+    The boss doors of excluded dungeons can still shuffle to required locations if in mixed pool.
+    - no_shuffle: don't shuffle island transitions
+    - shuffle: shuffle boss rooms amongst each other
+    - simple_mixed_pool: shuffles boss rooms with other entrance types that have this option
+    """
+    display_name = "shuffle_bosses"
+    option_no_shuffle = 0
+    option_shuffle = 1
+    option_simple_mixed_pool = 2
+    default = 0
+
+class PhantomHourglassRequireSpecificBosses(Toggle):
+    """
+    Whether you are require specific dungeons/bosses for dungeon goal or if all bosses/dungeon rewards count.
+    Setting it to false will put a rare metal on every boss reward location, no matter how many are required.
+    """
+    display_name = "dungeon_reward_type"
+    default = 1
 
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
-    accessibility: ItemsAccessibility
 
     # Goal
     goal_requirements: PhantomHourglassGoal
@@ -509,6 +709,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # Dungeons
     dungeons_required: PhantomHourglassDungeonsRequired
+    require_specific_bosses: PhantomHourglassRequireSpecificBosses
     exclude_non_required_dungeons: PhantomHourglassExcludeNonRequriedDungeons
     ghost_ship_in_dungeon_pool: PhantomHourglassGhostShipInDungeonPool
     totok_in_dungeon_pool: PhantomHourglassTotokInDungeonPool
@@ -524,6 +725,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # Item Randomization
     keysanity: PhantomHourglassKeyRandomization
+    randomize_boss_keys: PhantomHourglassRandomizeBossKeys
     randomize_minigames: PhantomHourglassRandomizeMinigames
     randomize_frogs: PhantomHourglassFrogRandomization
     randomize_fishing: PhantomHourglassRandomizeFishing
@@ -535,11 +737,15 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     randomize_masked_beedle: PhantomHourglassRandomizeMaskedBeedle
 
     # Hint Options
-    dungeon_hints: PhantomHourglassDungeonHints
+    dungeon_hint_type: PhantomHourglassDungeonHintType
+    dungeon_hint_location: PhantomHourglassDungeonHintLocation
+    excluded_dungeon_hints: PhantomHourglassExcludedDungeonHints
     shop_hints: PhantomHourglassShopHints
     spirit_island_hints: PhantomHourglassHintSpiritIsland
 
     # World Options
+    boss_key_behaviour: PhantomHourglassBossKeyBehavior
+    color_switch_behaviour: PhantomHourglassSwitchBehaviour
     fog_settings: PhantomHourglassFogSettings
     skip_ocean_fights: PhantomHourglassSkipOceanFights
     zauz_required_metals: PhantomHourglassZauzRequiredMetals
@@ -558,12 +764,24 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # ER
     shuffle_dungeon_entrances: PhantomHourglassShuffleDungeonEntrances
-    shuffle_island_entrances: PhantomHourglassShuffleIslands
+    shuffle_ports: PhantomHourglassShuffleIslands
+    shuffle_caves: PhantomHourglassShuffleCaves
+    shuffle_houses: PhantomHourglassShuffleHouses
+    shuffle_overworld_transitions: PhantomHourglassShuffleOverworldTransitions
+    # Shuffle sea transitions
+    shuffle_bosses: PhantomHourglassShuffleBosses
+    shuffle_dungeons_internally: PhantomHourglassShuffleDungeonTransitions
+    # Shuffle travelling ships
+    # Shuffle TotOK internally
+    entrance_directionality: PhantomHourglassPreserveDirectionality
+    shuffle_between_islands: PhantomHourglassShuffleBetweenIslands
+    decouple_entrances: PhantomHourglassDecoupleEntrances
 
     # Cosmetic
     additional_metal_names: PhantomHourglassAdditionalMetalNames
 
     # Generic
+    accessibility: ItemsAccessibility
     start_inventory_from_pool: StartInventoryPool
     remove_items_from_pool: PhantomHourglassRemoveItemsFromPool
     death_link: DeathLink
@@ -576,6 +794,7 @@ ph_option_groups = [
     ]),
     OptionGroup("Dungeon Options", [
         PhantomHourglassDungeonsRequired,
+        PhantomHourglassRequireSpecificBosses,
         PhantomHourglassExcludeNonRequriedDungeons,
         PhantomHourglassGhostShipInDungeonPool,
         PhantomHourglassTotokInDungeonPool
@@ -591,6 +810,7 @@ ph_option_groups = [
     ]),
     OptionGroup("Item Randomization Options", [
         PhantomHourglassKeyRandomization,
+        PhantomHourglassRandomizeBossKeys,
         PhantomHourglassRandomizeMinigames,
         PhantomHourglassFrogRandomization,
         PhantomHourglassRandomizeFishing,
@@ -602,7 +822,9 @@ ph_option_groups = [
         PhantomHourglassRandomizeMaskedBeedle
     ]),
     OptionGroup("Hint Options", [
-        PhantomHourglassDungeonHints,
+        PhantomHourglassDungeonHintType,
+        PhantomHourglassDungeonHintLocation,
+        PhantomHourglassExcludedDungeonHints,
         PhantomHourglassShopHints,
         PhantomHourglassHintSpiritIsland
     ]),
@@ -610,7 +832,9 @@ ph_option_groups = [
         PhantomHourglassFogSettings,
         PhantomHourglassSkipOceanFights,
         PhantomHourglassZauzRequiredMetals,
-        PhantomHourglassDungeonShortcuts
+        PhantomHourglassDungeonShortcuts,
+        PhantomHourglassSwitchBehaviour,
+        PhantomHourglassBossKeyBehavior
     ]),
     OptionGroup("Spirit Gem Options", [
         PhantomHourglassSpiritGemPacks,
@@ -625,7 +849,15 @@ ph_option_groups = [
     ]),
     OptionGroup("Entrance Randomizer Options", [
         PhantomHourglassShuffleDungeonEntrances,
-        PhantomHourglassShuffleIslands
+        PhantomHourglassShuffleIslands,
+        PhantomHourglassShuffleCaves,
+        PhantomHourglassShuffleHouses,
+        PhantomHourglassShuffleOverworldTransitions,
+        PhantomHourglassShuffleDungeonTransitions,
+        PhantomHourglassShuffleBosses,
+        PhantomHourglassPreserveDirectionality,
+        PhantomHourglassDecoupleEntrances,
+        PhantomHourglassShuffleBetweenIslands
     ]),
     OptionGroup("Cosmetic Options", [
         PhantomHourglassAdditionalMetalNames

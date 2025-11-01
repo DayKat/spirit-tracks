@@ -108,6 +108,9 @@ class PhantomHourglassClient(DSZeldaClient):
         self.lowered_water = False
         self.visited_entrances = set()
 
+        self.boss_warp_entrance = None
+        self.last_warp_stage = None
+
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
         rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
@@ -340,6 +343,10 @@ class PhantomHourglassClient(DSZeldaClient):
         await write_memory_value(ctx,0x0EC754, 2, overwrite=True)  # Set text speed to fast, no matter settings
         await self.update_stored_entrances(ctx)
 
+        # Set warp to start location
+        if ctx.slot_data["shuffle_overworld_transitions"]:
+            self.starting_entrance = (11, 0, 0)
+
 
     async def watched_intro_cs(self, ctx):
         return await read_memory_value(ctx, 0x1b55a8, silent=True) & 2
@@ -481,7 +488,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 gem_count = item_count(ctx, f"{d['count_gems']} Gem Pack")
                 count = pack_size * gem_count
                 print(count, d["count_gems"])
-                if count <= 20:
+                if count < 20:
                     return False
             return True
 
@@ -515,6 +522,12 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"\tSetting Stage flags for {STAGES[stage]}, "
                   f"adr: {hex(self.stage_address)}")
             await write_memory_values(ctx, self.stage_address, flags)
+
+        # Unlock boss door if have bk
+        data = BOSS_DOOR_DATA.get(stage, False)
+        if data and ctx.slot_data.get("boss_key_behaviour", True):
+            if item_count(ctx, f"Boss Key ({data['name']})"):
+                await write_memory_value(ctx, data["address"], data["value"], overwrite=True, size=4)
 
     # Enter stage
     async def enter_special_key_room(self, ctx, stage, scene_id) -> bool:
@@ -603,6 +616,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def receive_special_items(self, ctx, item_name, item_data) -> list[tuple[int, list, str]]:
         # Set ship
+        print(f"special item: {item_name} {self.current_stage}")
         res = []
         if "ship" in item_data:
             if not (await read_memory_value(ctx, 0x1ba661) & 0x80):
@@ -611,6 +625,12 @@ class PhantomHourglassClient(DSZeldaClient):
 
         elif item_name == "Refill: Health":
             await self.full_heal(ctx)
+
+        # Open boss door if got bk in own dungeon
+        elif "Boss Key" in item_name and ctx.slot_data.get("boss_key_behaviour", True):
+            if self.current_stage in BOSS_DOOR_DATA and BOSS_DOOR_DATA[self.current_stage]["name"] in item_name:
+                data = BOSS_DOOR_DATA[self.current_stage]
+                res += [(data["address"], split_bits(data["value"], 4), "Main RAM")]
 
         return res
 
@@ -658,6 +678,31 @@ class PhantomHourglassClient(DSZeldaClient):
             data = ITEMS_DATA[vanilla_item]
             await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)
             return False
+
+        elif "Boss Key" in vanilla_item and ctx.slot_data.get("boss_key_behaviour", True):
+            # Read actor id in link's held item address. For some reason it's somewhere else in GT
+            if self.current_stage == 0x20:
+                bk_id = await read_memory_value(ctx, 0x1CD770, silent=True, size=2)
+            else:
+                bk_id = await read_memory_value(ctx, 0x1CD510,silent=True, size=2)
+            # Get the actor table
+            actor_table_addr = await read_memory_value(ctx, 0x1BA8C4, size=4, silent=True) - 0x2000000
+            actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=250, silent=True))
+            actor_table = "0" + actor_table[2:]
+            # Loop through the actor table checking if each actor has the bk_id.
+            for i in range(len(actor_table)//8):
+                actor_data = actor_table[i*8:(i+1)*8]
+                if actor_data[1] == "0":  # filter out empty slots
+                    continue
+                actor_id_addr = int(actor_data, 16) + 8 - 0x2000000
+                actor_id = await read_memory_value(ctx, actor_id_addr, size=4, silent=True)
+                # If you find the boss key, delete its pointer
+                if actor_id == bk_id:
+                    little_endian_lol = actor_table_addr + len(actor_table)//2 - (i+1)*4
+                    # print(f"Found bk pointer: {hex(actor_pointer_addr)} at index {i}")
+                    await write_memory_value(ctx, little_endian_lol, 0, overwrite=True, size=4)
+                    break
+
         else:
             return False
         return True  # Removed vanilla item, don't do more processing
@@ -768,8 +813,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
         return None
 
-    async def update_stored_entrances(self, ctx):
-        storage_key = f"ph_checked_entrances_{ctx.slot}"
+    async def update_stored_entrances(self, ctx: "BizHawkClientContext"):
+        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
         stored_entrances = await ctx.send_msgs([{
                 "cmd": "Get",
                 "keys": [storage_key],
@@ -781,7 +826,7 @@ class PhantomHourglassClient(DSZeldaClient):
     # UT store entrances to remove
     async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data):
         old_visited_entrances = self.visited_entrances.copy()
-        storage_key = f"ph_checked_entrances_{ctx.slot}"
+        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
         self.visited_entrances.add(detect_data.id)
         self.visited_entrances.add(exit_data.id)
         print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
@@ -793,7 +838,58 @@ class PhantomHourglassClient(DSZeldaClient):
                 "operations": [{"operation": "update", "value": list(self.visited_entrances-old_visited_entrances)}]
             }])
 
+    def write_respawn_entrance(self, exit_data: "PhantomHourglassEntrance"):
+        # If ER:ing to sea, set respawn entrance to where you came from cause that doesn't change by itself when warping
+        if exit_data.stage == 0:
+            return [(0x1B2F12, [exit_data.room, exit_data.entrance[2]], "Main RAM")]
+        return []
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
+
+    def update_boss_warp(self, ctx, stage, scene_id):
+        if stage in range(42, 49) or scene_id in [0x1F06, 0x2106, 0x200A]:  # Boss rooms
+            reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
+            reverse_exit_id = self.entrances[reverse_exit].id
+            pair = ctx.slot_data["er_pairings"][f"{reverse_exit_id}"]
+            self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
+
+            # If last room was a dungeon, warp to dungeon entrance
+            dungeon_exit = BOSS_WARP_LOOKUP.get(self.boss_warp_entrance.stage, None)
+            if dungeon_exit:
+                self.boss_warp_entrance = self.entrances[dungeon_exit]
+
+        print(f"Warp Stage: {stage}, last: {self.last_warp_stage}, current warp {self.boss_warp_entrance}")
+        return self.boss_warp_entrance
+
+    def dungeon_hints(self, ctx):
+        res = []
+        print(f"testing for dungeon hints")
+
+        # Send boss reward hints
+        if ctx.slot_data["dungeon_hint_type"] == 2:
+            print(f"Boss reward locations: {ctx.slot_data.get('required_dungeon_locations', [])}")
+            for loc in ctx.slot_data.get("required_dungeon_locations", []):
+                res.append(self.location_name_to_id[loc])
+        elif ctx.slot_data["dungeon_hint_type"] == 1:
+            dungeons = ctx.slot_data["required_dungeons"]
+            if dungeons:
+                logger.info(f"Your required dungeons are:")
+                for d in dungeons:
+                    logger.info(f"    {d}")
+            else:
+                logger.info(f"You have no required dungeons.")
+
+
+        if ctx.slot_data["excluded_dungeon_hints"]:
+            dungeons = ctx.slot_data["required_dungeons"]
+            excluded = [d for d in DUNGEON_NAMES[2:] if d not in dungeons]
+            if excluded:
+                logger.info(f"Your excluded dungeons are:")
+                for d in excluded:
+                    logger.info(f"    {d}")
+            else:
+                logger.info(f"You have no excluded dungeons.")
+
+        return res

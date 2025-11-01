@@ -180,6 +180,8 @@ class ERPlacementState:
     """A lookup table of all unconnected ER targets"""
     coupled: bool
     """Whether entrance randomization is operating in coupled mode"""
+    target_group_lookup: dict[int, list]
+    """Oops i added this"""
 
     def __init__(self, world: World, entrance_lookup: EntranceLookup, coupled: bool):
         self.placements = []
@@ -200,6 +202,7 @@ class ERPlacementState:
                                           if not ex.connected_region
                                           and ex in blocked_connections
                                           and ex.is_valid_source_transition(self)]
+
         else:
             # this is on a beaten minimal attempt, so any exit anywhere is fair game
             placeable_randomized_exits = [ex for ex in usable_exits if not ex.connected_region]
@@ -208,7 +211,6 @@ class ERPlacementState:
 
     def _connect_one_way(self, source_exit: Entrance, target_entrance: Entrance) -> None:
         target_region = target_entrance.connected_region
-
         target_region.entrances.remove(target_entrance)
         source_exit.connect(target_region)
 
@@ -442,7 +444,8 @@ def randomize_entrances(
         placeable_exits = er_state.find_placeable_exits(perform_validity_check, exits)
         for source_exit in placeable_exits:
             target_groups = target_group_lookup[source_exit.randomization_group]
-            for target_entrance in er_state.entrance_lookup.get_targets(target_groups, dead_end, preserve_group_order):
+            target_entrances = er_state.entrance_lookup.get_targets(target_groups, dead_end, preserve_group_order)
+            for target_entrance in target_entrances:
                 # when requiring new exits, ideally we would like to make it so that every placement increases
                 # (or keeps the same number of) reachable exits. The goal is to continue to expand the search space
                 # so that we do not crash. In the interest of performance and bias reduction, generally, just checking
@@ -456,6 +459,12 @@ def randomize_entrances(
                             and not er_state.test_speculative_connection(source_exit, target_entrance, exits_set)):
                         continue
                     do_placement(source_exit, target_entrance)
+                    if coupled:
+                        pass
+                        # print(f"Pairing Successful! {source_exit} <=> {target_entrance}")
+                    else:
+                        pass
+                        # print(f"Pairing Successful! {source_exit} => {target_entrance}")
                     return True
         else:
             # no source exits had any valid target so this stage is deadlocked. retries may be implemented if early
@@ -496,20 +505,30 @@ def randomize_entrances(
                               for exit_ in region.exits if not exit_.connected_region]
             entrance_kind = "dead ends" if dead_end else "non-dead ends"
             region_access_requirement = "requires" if require_new_exits else "does not require"
-            raise EntranceRandomizationError(
-                f"None of the available entrances are valid targets for the available exits.\n"
-                f"Randomization stage is placing {entrance_kind} and {region_access_requirement} "
+
+            # Custom message formatting
+            error_message = (f"None of the available entrances are valid targets for the available exits.\n"
+                f"\nRandomization stage is placing {entrance_kind} and {region_access_requirement} "
                 f"new region/exit access by default\n"
-                f"Placeable entrances: {lookup}\n"
-                f"Placeable exits: {placeable_exits}\n"
+                f"\nPlaceable entrances:")
+            for i in lookup:
+                error_message += f"\n\t{i}"
+            error_message += (
+                f"\nPlaceable exits: {placeable_exits}\n\n"
                 f"All unplaced entrances: {unplaced_entrances}\n"
                 f"All unplaced exits: {unplaced_exits}")
+            raise EntranceRandomizationError(error_message)
 
     # stage 1 - try to place all the non-dead-end entrances
+    # print(f"Non dead-ends: {er_state.entrance_lookup.others}")
+    # print(f"Dead-ends: {er_state.entrance_lookup.dead_ends}")
+    #print("stage 1")
     while er_state.entrance_lookup.others:
         if not find_pairing(dead_end=False, require_new_exits=True):
             break
     # stage 2 - try to place all the dead-end entrances
+    #print(f"Non dead-ends left unconnected: {er_state.entrance_lookup.others}")
+    #print("stage 2")
     while er_state.entrance_lookup.dead_ends:
         if not find_pairing(dead_end=True, require_new_exits=True):
             break
@@ -517,6 +536,7 @@ def randomize_entrances(
     # stage 3a - get the rest of the dead ends (e.g. second entrances into already-visited regions)
     #            doing this before the non-dead-ends is important to ensure there are enough connections to
     #            go around
+    #print("stage 3")
     while er_state.entrance_lookup.dead_ends:
         find_pairing(dead_end=True, require_new_exits=False)
     # stage 3b - tie all the other loose ends connecting visited regions to each other

@@ -8,28 +8,28 @@ def create_scene_id(entrance):
 DYNAMIC_ENTRANCES = {
     # Dungeon Shortcuts
     "Shortcut to TotOK": {
-        "entrance": "Mercay SE Tuzi",
-        "destination": "TotOK Lobby Entrance",
+        "entrance": "Mercay SE Tuzi's House",
+        "destination": "TotOK Lobby Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["TotOK Phantom Hourglass",
                           "TotOK 1F Linebeck Key"],
     },
     "Shortcut to Temple of Fire": {
         "entrance": "Ember Port House",
-        "destination": "ToF Entrance",
+        "destination": "ToF Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Temple of Fire 1F Keese Chest",
                               "Temple of Fire 1F Maze Chest"],
     },
     "Shortcut to Temple of Wind": {
         "entrance": "Ocean NW Gust",
-        "destination": "ToW Entrance",
+        "destination": "ToW Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "has_locations": LOCATION_GROUPS["Isle of Gust"],
     },
     "Shortcut to Temple of Wind no digging": {
         "entrance": "Ocean NW Gust",
-        "destination": "ToW Entrance",
+        "destination": "ToW Exit",
         "has_slot_data": [("dungeon_shortcuts", 1), ("randomize_digs", 0)],
         "has_locations": [
             "Isle of Gust Hideout Chest",
@@ -41,29 +41,29 @@ DYNAMIC_ENTRANCES = {
     },
     "Shortcut to Temple of Courage": {
         "entrance": "Molida Port House",
-        "destination": "ToC Entrance",
+        "destination": "ToC Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Temple of Courage 1F Bomb Alcove Chest",
                           "Temple of Courage 1F Raised Platform Chest"],
     },
     "Shortcut to Goron Temple": {
-        "entrance": "Goron Port House",
-        "destination": "GT Entrance",
+        "entrance": "Goron SW Port House",
+        "destination": "GT Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Goron Temple 1F Switch Chest",
                               "Goron Temple 1F Bow Chest",
                               "Goron Temple B1 Bombchu Bag Chest"],
     },
     "Shortcut to Temple of Ice": {
-        "entrance": "Frost Smart House",
-        "destination": "ToI Entrance",
+        "entrance": "Frost SW Smart House",
+        "destination": "ToI Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Temple of Ice 3F Corner Chest",
                               "Temple of Ice B1 Entrance Chest"],
     },
     "Shortcut to Mutoh's Temple": {
-        "entrance": "Ruins Port Cave",
-        "destination": "MT Entrance",
+        "entrance": "Ruins SW Port Cave",
+        "destination": "MT Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Mutoh's Temple 2F Like-Like Maze Chest",
                               "Mutoh's Temple 3F Hammer Chest",
@@ -76,41 +76,90 @@ DYNAMIC_ENTRANCES = {
     # Ending blue warps take you inside dungeon, to save ER hassles
     "Blaaz warp": {
         "entrance": "ToF Blaaz Warp",
-        "destination": "ToF Entrance",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "destination": "ToF Exit",
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Blaaz warp Boss Shuffle": {
+        "entrance": "ToF Blaaz Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Cyclok warp": {
         "entrance": "ToW Cyclok Warp",
-        "destination": "ToW Entrance",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "destination": "ToW Exit",
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Cyclok warp Boss Shuffle": {
+        "entrance": "ToW Cyclok Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Crayk warp": {
         "entrance": "ToC Crayk Warp",
-        "destination": "ToC Entrance",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "destination": "ToC Exit",
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Crayk warp Boss Shuffle": {
+        "entrance": "ToC Crayk Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Dongo warp": {
         "entrance": "GT Dongo Warp",
-        "destination": "GT Entrance",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "destination": "GT Exit",
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Dongo warp Boss Shuffle": {
+        "entrance": "GT Dongo Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Gleeok warp": {
         "entrance": "ToI Gleeok Warp",
-        "destination": "ToI Entrance",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "destination": "ToI Exit",
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+    },
+    "Gleeok warp Boss Shuffle": {
+        "entrance": "ToI Gleeok Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
     },
     "Eox warp": {
         "entrance": "MT Eox Warp",
-        "destination": "MT Entrance",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1)],
+        "destination": "MT Exit",
+        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
     },
+    "Eox warp Boss Shuffle": {
+        "entrance": "MT Eox Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
+    },
+    "GS warp": {
+        "entrance": "Finish Ghost Ship",
+        "destination": "Ghost Ship B1 Ascend",
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2])],
+    },
+    "Cubus warp Boss Shuffle": {
+        "entrance": "Cubus Sisters Blue Warp",
+        "destination": "_connected_dungeon_entrance",
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
+    },
+    # Other shortcuts
+    "Brant's Maze Shortcut": {
+        "entrance": "Brant's Maze 1",
+        "destination": "Brant's Maze Exit",
+        "has_slot_data": [("shuffle_houses", 0)],
+    }
 }
 
 DYNAMIC_ENTRANCES_BY_SCENE = {}
 for name, data in DYNAMIC_ENTRANCES.items():
     data["name"] = name
     entrance_data = ENTRANCES[data["entrance"]]
-    destination_data = ENTRANCES[data["destination"]]
+    if data["destination"] == "_connected_dungeon_entrance":
+        destination_data = None
+    else:
+        destination_data = ENTRANCES[data["destination"]]
 
     entrance_scene = entrance_data.scene
 
