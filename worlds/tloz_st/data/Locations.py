@@ -326,7 +326,7 @@ LOCATIONS_DATA = {
     },
     "ToS 5F Spinnit Key": {
         "region_id": "tos 5f spinnit key",
-        "vanilla_item": "Small Key (ToS)",
+        "vanilla_item": "Small Key (Tower of Spirits)",
         "stage_id": 0x13,
         "room_id": 4,
         #"delay_pickup"
@@ -408,7 +408,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Key": {
         "region_id": "tos 6f key",
-        "vanilla_item": "Small Key (ToS)",
+        "vanilla_item": "Small Key (Tower of Spirits)",
         "stage_id": 0x13,
         "room_id": 5,
         "x_min": 46710,
