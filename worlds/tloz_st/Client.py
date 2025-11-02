@@ -154,6 +154,8 @@ class SpiritTracksClient(DSZeldaClient):
                 self.has_goal_location = True
             if goal == 1 and location.get("region_id") == "wt stagnox":
                 self.has_goal_location = True
+            if goal == 2 and location.get("region_id") == "tos 7f rail map":
+                self.has_goal_location = True
 
     # TODO needs a way of freezing value
     # async def game_watcher(self, ctx: "BizHawkClientContext"):

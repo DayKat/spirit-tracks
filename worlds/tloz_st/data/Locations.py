@@ -59,7 +59,6 @@ LOCATIONS_DATA = {
         "z_min": 10523,
         "z_max": 28762,
         "require_item": ["Spirit Flute", "Song of Discovery"],
-        "item_override": "Snow Glyph"
     },
     "Outset Receive Stamp Book": {
         "region_id": "outset village stamp book",
@@ -197,7 +196,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x18,
         "room_id": 0,
         'dungeon': "Tunnel to ToS",
-},
+    },
     "Tunnel to ToS 2F Chest": {
         "region_id": "tower tunnel 2f chest",
         "vanilla_item": "Red Rupee (20)",
@@ -217,12 +216,11 @@ LOCATIONS_DATA = {
         "x_max": 6554,
         "z_min": -72090,
         "z_max": -59101,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "conditional": True,
         "item_override": "Tear of Light",
         "delay_pickup": "ToS 1F Chest"
     },
-
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
@@ -233,7 +231,7 @@ LOCATIONS_DATA = {
         "x_max": 6554,
         "z_min": -72090,
         "z_max": -59101,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "delay_pickup": "Tear 1F Top"
         #'set_bit': [(0x265715, 0x80)]
     },
@@ -247,7 +245,7 @@ LOCATIONS_DATA = {
         "x_max": 10650,
         "z_min": -39322,
         "z_max": -29710,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind"]
         #'set_bit': [(0x265715, 0x80)]
     },
@@ -260,10 +258,10 @@ LOCATIONS_DATA = {
         "x_max": 40042,
         "z_min": -63898,
         "z_max": -54886,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind"]
     },
-    "ToS 2F Bomb Wall Chest": {
+    "ToS 2F Bomb Wall Chest": { #TODO didn't activate
         "region_id": "tos 2f bomb wall",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
@@ -272,7 +270,7 @@ LOCATIONS_DATA = {
         "x_max": 14760,
         "z_min": -18842,
         "z_max": 10650,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Bombs (progressive)"]
     },
     "ToS Forest Rail Glyph": {
@@ -285,10 +283,155 @@ LOCATIONS_DATA = {
         "x_max": 6390,
         "z_min": -8438,
         "z_max": 4506,
-        'dungeon': "Tower of Spirits",
+        'dungeon': "ToS",
         "require_item": ["Sword (Progressive)"]
         #'set_bit': [(0x265715, 0x80)]
     },
+    "ToS 4F Central Chest": {
+        "region_id": "tos 4f central chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 3,
+        "x_min": -8703,
+        "x_max": 6560,
+        "z_min": 1650,
+        "z_max": 10670,
+        'dungeon': "ToS",
+        "require_item": ["Forest Source"]
+    },
+    "ToS 4F NE Chest": { #TODO double check if this sends
+        "region_id": "tos 4f ne chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 3,
+        "entrance_id": 2,
+        "x_min": 38520,
+        "x_max": 51177,
+        "z_min": -55720,
+        "z_max": -42600,
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind", "Boomerang", "Bombs (Progressive)"]
+    },
+    "ToS 5F Island Chest": {
+        "region_id": "tos 5f island chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 4,
+        "x_min": -35240,
+        "x_max": -22990,
+        "z_min": 42350,
+        "z_max": 52230,
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Forest Source"]
+    },
+    "ToS 5F Spinnit Key": {
+        "region_id": "tos 5f spinnit key",
+        "vanilla_item": "Small Key (ToS)",
+        "stage_id": 0x13,
+        "room_id": 4,
+        #"delay_pickup"
+        "x_min": -100790,
+        "x_max": -46720,
+        "z_min": 9850,
+        "z_max": 63920,
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+    },
+    "ToS 5F Bomb Wall Chest": {
+        "region_id": "tos 5f secret chest",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x13,
+        "room_id": 0x29,
+        "x_min": -8965,
+        "x_max": 9061,
+        "z_min": -17693,
+        "z_max": 8481,
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang", "Bombs (Progressive)"]
+    },
+    "ToS 6F Enemy Chest 1": {
+        "region_id": "tos 6f ne chest 1",
+        "vanilla_item": "Treasure: Demon Fossil",
+        "stage_id": 0x13,
+        "room_id": 5,
+        "entrance_id": 2,
+        "x_min": 34420,
+        "x_max": 48753,
+        "z_min": -10660,
+        "z_max": -4354,
+        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Enemy Chest 2": {
+        "region_id": "tos 6f ne chest 2",
+        "vanilla_item": "Treasure: Demon Fossil",
+        "stage_id": 0x13,
+        "room_id": 5,
+        "entrance_id": 2,
+        "x_min": 60910,
+        "x_max": 80112,
+        "z_min": -4646,
+        "z_max": 6570,
+        "delay_pickup": ["ToS 6F Enemy Chest 1", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Enemy Chest 3": {
+        "region_id": "tos 6f ne chest 3",
+        "vanilla_item": "Treasure: Demon Fossil",
+        "stage_id": 0x13,
+        "room_id": 5,
+        "entrance_id": 2,
+        "x_min": 63492,
+        "x_max": 80310,
+        "z_min": -10660,
+        "z_max": -4354,
+        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 1", "ToS 6F Enemy Big Chest"],
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Enemy Big Chest": {
+        "region_id": "tos 6f ne big chest",
+        "vanilla_item": "Treasure: Demon Fossil",
+        "item_override": "Refill: Arrows",
+        "stage_id": 0x13,
+        "room_id": 5,
+        "entrance_id": 2,
+        "x_min": 41795,
+        "x_max": 57985,
+        "z_min": -10660,
+        "z_max": 6560,
+        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Chest 1"],
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
+    },
+    "ToS 6F Key": {
+        "region_id": "tos 6f key",
+        "vanilla_item": "Small Key (ToS)",
+        "stage_id": 0x13,
+        "room_id": 5,
+        "x_min": 46710,
+        "x_max": 80290,
+        "z_min": 26220,
+        "z_max": 68000,
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+    },
+    "ToS Snow Rail Glyph": {
+        "region_id": "tos 7f rail map",
+        "vanilla_item": "Snow Glyph",
+        "stage_id": 0x13,
+        "room_id": 6,
+        "x_min": -6400,
+        "x_max": 6400,
+        "z_min": -8450,
+        "z_max": 4515,
+        'dungeon': "ToS",
+        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"],
+        "goal": True,
+    },
+
     # =============================================
 
     # Mayscore

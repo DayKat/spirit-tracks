@@ -15,6 +15,7 @@ class SpiritTracksGoal(Choice):
     display_name = "Goal"
     option_beat_ToS_section_1 = 0
     option_beat_wooded_temple = 1
+    option_beat_ToS_section_2 = 2
     default = 1
 
 
