@@ -11,6 +11,7 @@ class SpiritTracksGoal(Choice):
     """
     The goal to accomplish in order to complete the seed.
     - ToS Section 1: Finish the 1st section of Tower of Spirits and retrieve the Forest Glyph
+    - ToS Section 2: Finish the 2nd section of Tower of Spirits and retrieve the Snow Glyph
     """
     display_name = "Goal"
     option_beat_ToS_section_1 = 0
