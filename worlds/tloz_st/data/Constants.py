@@ -22,7 +22,7 @@ STARTING_FLAGS = [
     [0x265724, 0x50],  # anjean section text
     [0x26572C, 0x07],  # HC intro Zelda
     [0x26572F, 0x02],  # initial train cutscene skip
-    [0x26572E, 0x0C],  # rabbitland rock text
+    [0x26572E, 0x1C],  # rabbitland rock text
     [0x265738, 0x08],  # move HC guards
     [0x265743, 0x40],  # linebeck 1st convo
     [0x26574B, 0x10],  # teacher text skip

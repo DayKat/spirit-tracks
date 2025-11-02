@@ -62,6 +62,12 @@ DYNAMIC_FLAGS = {
         "has_items": [["Forest Source", 1]],
         "set_if_true": [(0x265714, 0x10)]
     },
+    "Remove Forest Source": {
+        "on_scenes": [0x1E03, 0x1E0A],
+        "has_locations": ["Wooded Temple Dungeon Reward"],
+        "has_items": [["Forest Source", 0]],
+        "unset_if_true": [(0x265714, 0x10)],
+    },
     "Allow Rabbit Net Read": {
         "on_scenes": [0x3E00],
         "not_has_locations": ["Rabbit Haven Net Gift"],

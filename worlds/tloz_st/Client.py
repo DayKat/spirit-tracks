@@ -148,7 +148,6 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def check_location_post_processing(self, ctx, location: dict):
         if location is not None and "goal" in location:
-            print("it works")
             # Finished game?
             goal = ctx.slot_data.get("goal")
             if goal == 0 and location.get("region_id") == "tos 3f rail map":

@@ -61,7 +61,7 @@ LOCATIONS_DATA = {
         "require_item": ["Spirit Flute", "Song of Discovery"],
         "item_override": "Snow Glyph"
     },
-    "Outset Receive Stamp Book": { #TODO skip alfonso pre-cannon cs
+    "Outset Receive Stamp Book": {
         "region_id": "outset village stamp book",
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
