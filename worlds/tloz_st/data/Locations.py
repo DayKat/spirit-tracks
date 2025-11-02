@@ -289,7 +289,7 @@ LOCATIONS_DATA = {
     },
     "ToS 4F Central Chest": {
         "region_id": "tos 4f central chest",
-        "vanilla_item": "Treasure",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 3,
         "x_min": -8703,
@@ -299,9 +299,9 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Forest Source"]
     },
-    "ToS 4F NE Chest": { #TODO double check if this sends
+    "ToS 4F NE Chest": {
         "region_id": "tos 4f ne chest",
-        "vanilla_item": "Treasure",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
         "room_id": 3,
         "entrance_id": 2,
@@ -314,7 +314,7 @@ LOCATIONS_DATA = {
     },
     "ToS 5F Island Chest": {
         "region_id": "tos 5f island chest",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x13,
         "room_id": 4,
         "x_min": -35240,
@@ -339,7 +339,7 @@ LOCATIONS_DATA = {
     },
     "ToS 5F Bomb Wall Chest": {
         "region_id": "tos 5f secret chest",
-        "vanilla_item": "Treasure",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
         "room_id": 0x29,
         "x_min": -8965,
@@ -351,7 +351,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Chest 1": {
         "region_id": "tos 6f ne chest 1",
-        "vanilla_item": "Treasure: Demon Fossil",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 5,
         "entrance_id": 2,
@@ -365,7 +365,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Chest 2": {
         "region_id": "tos 6f ne chest 2",
-        "vanilla_item": "Treasure: Demon Fossil",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 5,
         "entrance_id": 2,
@@ -379,7 +379,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Chest 3": {
         "region_id": "tos 6f ne chest 3",
-        "vanilla_item": "Treasure: Demon Fossil",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 5,
         "entrance_id": 2,
@@ -393,7 +393,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Big Chest": {
         "region_id": "tos 6f ne big chest",
-        "vanilla_item": "Treasure: Demon Fossil",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Refill: Arrows",
         "stage_id": 0x13,
         "room_id": 5,
