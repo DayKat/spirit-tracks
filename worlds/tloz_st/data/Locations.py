@@ -261,7 +261,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind"]
     },
-    "ToS 2F Bomb Wall Chest": {
+    "ToS 2F Bomb Wall Chest": { #TODO didn't activate
         "region_id": "tos 2f bomb wall",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
@@ -299,7 +299,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Forest Source"]
     },
-    "ToS 4F NE Chest": {
+    "ToS 4F NE Chest": { #TODO double check if this sends
         "region_id": "tos 4f ne chest",
         "vanilla_item": "Treasure",
         "stage_id": 0x13,
@@ -351,7 +351,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Chest 1": {
         "region_id": "tos 6f ne chest 1",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Treasure: Demon Fossil",
         "stage_id": 0x13,
         "room_id": 5,
         "entrance_id": 2,
@@ -365,7 +365,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Chest 2": {
         "region_id": "tos 6f ne chest 2",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Treasure: Demon Fossil",
         "stage_id": 0x13,
         "room_id": 5,
         "entrance_id": 2,
@@ -379,7 +379,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Chest 3": {
         "region_id": "tos 6f ne chest 3",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Treasure: Demon Fossil",
         "stage_id": 0x13,
         "room_id": 5,
         "entrance_id": 2,
@@ -393,7 +393,7 @@ LOCATIONS_DATA = {
     },
     "ToS 6F Enemy Big Chest": {
         "region_id": "tos 6f ne big chest",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Treasure: Demon Fossil",
         "item_override": "Refill: Arrows",
         "stage_id": 0x13,
         "room_id": 5,
