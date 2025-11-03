@@ -1579,7 +1579,7 @@ def ph_toi_key_door_1_ut(state, player):
 
 def ph_toi_key_door_1(state, player):
     return any([
-        ph_toi_key_doors(state, player, 1, 3),
+        ph_toi_key_doors(state, player, 3, 1),
         all([
             ph_is_ut(state, player),
             ph_toi_key_door_1_ut(state, player)

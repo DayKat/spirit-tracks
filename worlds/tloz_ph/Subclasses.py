@@ -182,6 +182,10 @@ class PHTransition:
         self.exit_scene = self.get_exit_scene()
         self.exit_stage = self.exit[0]
 
+    def set_exit_room(self, new_room):
+        self.exit = tuple([self.exit[0], new_room, self.exit[2]])
+        self.exit_scene = self.get_exit_scene()
+
     def copy(self):
         res = PHTransition(f"{self.name}{self.copy_number+1}", self.data)
         res.copy_number = self.copy_number + 1

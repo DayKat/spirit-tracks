@@ -1395,7 +1395,7 @@ BOSS_ENTRANCE_LOOKUP = {
     "Cyclok Exit": "Cyclok Boss Reward",
     "Crayk Exit": "Crayk Boss Reward",
     "Cubus Sisters Blue Warp": "Cubus Sisters Ghost Key",
-    "Dongorongo Exit": "Dongorongo Boss Reward",
+    "Dongo Exit": "Dongorongo Boss Reward",
     "Gleeok Exit": "Gleeok Boss Reward",
     "Eox Exit": "Eox Boss Reward",
 }
