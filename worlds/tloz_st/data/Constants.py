@@ -181,7 +181,7 @@ LOCATION_GROUPS = {
     "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
     "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
     "Wooded Temple": [
-        #"Wooded Temple Song Statue",
+        "Wooded Temple Song Statue",
         "Wooded Temple Stamp Station",
         "Wooded Temple 1F Enemy Chest",
         "Wooded Temple 1F Key",
@@ -190,8 +190,8 @@ LOCATION_GROUPS = {
         "Wooded Temple 2F Poison Chest",
         "Wooded Temple 3F Chestnut Chest",
         "Wooded Temple 3F SE Chest",
-        "Wooded Temple 3F Boss Key Chest",
-        "Wooded Temple Boss Heart Container",
+        #"Wooded Temple 3F Boss Key Chest",
+        #"Wooded Temple Boss Heart Container",
         "Wooded Temple Dungeon Reward"
     ],
     "Rabbit Haven": ["Rabbit Haven Net Gift", "Rabbit Haven Chest"],

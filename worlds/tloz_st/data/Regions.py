@@ -113,7 +113,7 @@ REGIONS = [
     "wt 3f chestnut chest",
     "wt 3f se chest",
     "wt 3f boss key chest",
-    "wt heart container",
+    #"wt heart container",
     "wt stagnox",
     "goal_stagnox",
     "wt stamp station",
