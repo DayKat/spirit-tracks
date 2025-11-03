@@ -139,7 +139,7 @@ class PhantomHourglassRandomizeBossKeys(Choice):
     option_vanilla = 0
     option_in_own_dungeon = 1
     option_anywhere = 2
-    default = 1
+    default = 0
 
 class PhantomHourglassTriforceCrestRandomization(Toggle):
     """
@@ -441,14 +441,13 @@ class PhantomHourglassAdditionalMetalNames(Choice):
     - custom_metals: additional metals are chosen randomly from a pre-defined list of names I made up. The names are
     based on color words ending in "ine". Some examples are "Verdantine", "Lavendine" and "Amberine". Currently there
     30 metal names defined.
-    - custom_metals_unique: same as custom metals, but there can only be 1 of each item. Additional metals will be
-    named "Additional Rare Metal"
+    - custom_metals_prefer_vanilla: metals will default to vanilla names, and only use custom names if you have more than 3.
     """
     display_name = "additional_metal_names"
     option_vanilla_only = 0
     option_additional_rare_metal = 1
     option_custom = 2
-    option_custom_unique = 3
+    option_custom_prefer_vanilla = 3
     default = 1
 
 class PhantomHourglassTimeLogic(Choice):
@@ -693,8 +692,8 @@ class PhantomHourglassShuffleBosses(Choice):
 
 class PhantomHourglassRequireSpecificBosses(Toggle):
     """
-    Whether you are require specific dungeons/bosses for dungeon goal or if all bosses/dungeon rewards count.
-    Setting it to false will put a rare metal on every boss reward location, no matter how many are required.
+    Whether you require specific dungeons/bosses for dungeon goal or if all bosses/dungeon rewards count.
+    Setting it to false will put a rare metal on every boss reward location, no matter how many are required or if the dungeon is excluded.
     """
     display_name = "dungeon_reward_type"
     default = 1

@@ -27,7 +27,7 @@ logger = logging.getLogger("Client")
 dev_prints = False
 
 if TYPE_CHECKING:
-    from .Subclasses import ERPlacementState, PHEntrance, PHRegion
+    from .Subclasses import ERPlacementState, PHEntrance, PHRegion, PHTransition
 
 class PhantomHourglassWeb(WebWorld):
     setup_en = Tutorial(
@@ -317,15 +317,19 @@ class PhantomHourglassWorld(World):
             extended_pool = ["Additional Rare Metal"]
         elif self.options.additional_metal_names == "custom":
             metal_items = ITEM_GROUPS["Vanilla Metals"] + ITEM_GROUPS["Custom Metals"]
-            extended_pool = ITEM_GROUPS["Vanilla Metals"] + ITEM_GROUPS["Custom Metals"]
-        elif self.options.additional_metal_names == "custom_unique":
-            metal_items = ITEM_GROUPS["Vanilla Metals"] + ITEM_GROUPS["Custom Metals"]
-            extended_pool = ["Additional Rare Metal"]
+        elif self.options.additional_metal_names == "custom_prefer_vanilla":
+            metal_items = ITEM_GROUPS["Custom Metals"]
 
         while len(metal_items) < count:
             metal_items += self.random.choice([extended_pool])
 
         self.random.shuffle(metal_items)
+
+        if self.options.additional_metal_names == "custom_prefer_vanilla":
+            vanillas = ITEM_GROUPS["Vanilla Metals"]
+            self.random.shuffle(vanillas)
+            metal_items = vanillas + metal_items
+
         return metal_items[:count]
 
     def create_events(self):
@@ -519,7 +523,8 @@ class PhantomHourglassWorld(World):
 
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:
-                disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.connected_region.name)
+                target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
+                disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
                 if dev_prints:
                     print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
 
@@ -595,8 +600,8 @@ class PhantomHourglassWorld(World):
                         # disconnect entrances again, but only if they got connected before
                         for entrance in randomized_entrances:
                             if entrance.parent_region and entrance.connected_region:
-                                # print(f"disconnecting entrance {entrance} {i}")
-                                disconnect_entrance_for_randomization(entrance, one_way_target_name=entrance.parent_region.name)
+                                target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
+                                disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
 
                 # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
                 # to put the reward on when bosses are shuffled

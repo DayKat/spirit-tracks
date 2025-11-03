@@ -1,4 +1,4 @@
-from .bases import TestGeneration
+from .bases import *
 
-test = TestGeneration()
+test = DefaultSettings()
 test.test_fill()
