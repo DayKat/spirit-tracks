@@ -122,18 +122,6 @@ DYNAMIC_FLAGS = {
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
     #     "set_if_true": [(0x265715, 0x01)]
     # },
-    "Stop stagnox goal on scene":{
-        "on_scenes": [0x1903],
-        "not_has_locations": ["Wooded Temple Boss Heart Container", "Wooded Temple Dungeon Reward"],
-        "has_items": [["Forest Source", 1]],
-        "unset_if_true": [(0x265714, 0x10)],
-        "reset_flags": ["RESET forest source"]
-    },
-    "RESET forest source": {
-        "has_locations": ["Wooded Temple Boss Heart Container", "Wooded Temple Dungeon Reward"],
-        "has_items": [["Forest Source", 1]],
-        "set_if_true": [(0x265714, 0x10)],
-    }
 }
 """
 "Dynamic Flag Name": {
