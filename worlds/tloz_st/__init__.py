@@ -18,7 +18,7 @@ from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import ENTRANCES
 
-from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
+#from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
 
 
 class SpiritTracksWeb(WebWorld):
