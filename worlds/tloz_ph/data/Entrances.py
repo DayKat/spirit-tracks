@@ -574,6 +574,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida South Dig Hole": {
+        "reverse_name": "Molida Cave South Drop",
         "two_way": False,
         "entrance_region": "molida island",
         "exit_region": "molida cave upper",
@@ -584,6 +585,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida North Dig Hole": {
+        "reverse_name": "Molida Cave Chest Drop",
         "two_way": False,
         "entrance_region": "molida north",
         "exit_region": "molida cave drop",
@@ -594,7 +596,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
 
-        # ========== Temple of Courage ============
+    # ========== Temple of Courage ============
     "Molida Enter Temple": {
         "return_name": "ToC Exit",
         "entrance": (0xC, 0x1, 0x3),
@@ -1349,6 +1351,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.DEAD
     },
     "IotD Dig Hole": {
+        "reverse_name": "IotD Tunnel Drop",
         "entrance_region": "iotd",
         "exit_region": "iotd tunnel",
         "entrance": (0x15, 0x0, 0x0),
@@ -1897,11 +1900,10 @@ for name, data in ENTRANCE_DATA.items():
     counter[point] += 1
 
     if data.get("two_way", True):
-        reverse_name = data.get("return_name", f"Unnamed Entrance {i}")
         two_way = True
     else:
-        reverse_name = data.get("exit_region", f"Unnamed Entrance {i}")
         two_way = False
+    reverse_name = data.get("return_name", f"Unnamed Entrance {i}")
     reverse_data = {
         "entrance_region": data.get("reverse_exit_region", data["exit_region"]),
         "exit_region": data.get("reverse_entrance_region", data["entrance_region"]),

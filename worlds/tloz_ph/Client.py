@@ -771,6 +771,14 @@ class PhantomHourglassClient(DSZeldaClient):
             # detect scene turns to 12
             er_map[scene][new_detect] = exit_data
 
+        # Leaving a travelling ship can make your detect entrance any quadrant
+        if detect_data.exit[2] == 0xFA:
+            for i in range(4):
+                new_detect = detect_data.copy()
+                new_detect.set_exit_room(i)
+                print(f"\tnew detect scene: {new_detect} {new_detect.entrance} {new_detect.exit}")
+                er_map[scene][new_detect] = exit_data
+
         return er_map
 
     async def lower_water(self, ctx):
