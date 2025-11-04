@@ -1,6 +1,7 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
 from .Constants import *
+from ...stardew_valley.stardew_rule import state
 
 
 # =========== Item States =============
@@ -72,6 +73,8 @@ def st_has_temple_tracks(state, player, temple):
 def st_has_misc_tracks(state, player, tracks):
     return state.has(f"{tracks} Tracks", player)
 
+def st_has_portal(state, player, portal):
+    return state.has(f"{portal} Portal", player)
 
 # ============== Songs =======================
 
@@ -267,6 +270,8 @@ def st_quick_switches(state, player):
 def st_can_cut_small_trees(state: CollectionState, player: int):
     return any([st_has_sword(state, player), st_has_bombs(state, player)])
 
+def st_can_ring_bell(state: CollectionState, player: int):
+    return any([st_has_sword(state, player), st_has_boomerang(state, player)])
 
 # ================ Rupee States ==================
 

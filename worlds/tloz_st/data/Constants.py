@@ -14,25 +14,29 @@ STARTING_FLAGS = [
     [0x265719, 0x74],  # train quill tutorial skip
     [0x26571A, 0xFC],  # Intro stuff
     [0x26571B, 0x13],  # postman & get zelda's letter
-    [0x265720, 0xC0],  # convos
+    [0x26571F, 0x98],  # blizzard stuff
+    [0x265720, 0xC2],  # convos
     [0x265723, 0xC0],  # ToS 4F 1st time entry
+    [0x265724, 0x50],  # anjean section text
     [0x265726, 0x13],  # zelda 1st phantom possession
     [0x265729, 0x58],  # post fleeing ToS 1F
     [0x26572A, 0x08],  # ready for FS duet
-    [0x265724, 0x50],  # anjean section text
     [0x26572C, 0x07],  # HC intro Zelda
+    [0x26572D, 0x01],  # steem
     [0x26572F, 0x02],  # initial train cutscene skip
     [0x26572E, 0x1C],  # rabbitland rock text
     [0x265738, 0x08],  # move HC guards
     [0x265743, 0x40],  # linebeck 1st convo
     [0x26574B, 0x10],  # teacher text skip
-    [0x265751, 0x20],  # ToS safe zone tutorial
+    [0x265751, 0x60],  # ToS safe zone tutorial
+    [0x265754, 0x04],  # 1st portal text
     [0x265756, 0x80],  # board with zelda
+    [0x26575C, 0x10],  # alfonzo giving cannon
+    [0x265762, 0x80],  # blizzard void out
     [0x265766, 0x80],  # ToS Staircase cutscene skip
     [0x265767, 0x01],  # ToS Staircase 2 zelda text skip
     [0x265768, 0x20],  # first spirit train journey
     [0x26576B, 0x40],  # first song statue text
-    [0x26575C, 0x10],  # alfonzo giving cannon
 
     # Set treasures to 0
     [0x269000, 0, 0],
@@ -69,6 +73,14 @@ STAGE_FLAGS = {
     0x38: [0x00, 0x00, 0x00, 0x38],  # Mayscore Forest
     0x3E: [0x00, 0x00, 0x00, 0x3E],  # Rabbit Haven
     0x37: [0x00, 0x00, 0x00, 0x37],  # Trading Post
+    0x2B: [0x00, 0x00, 0x00, 0x2B], # Anouki Village
+    0x31: [0x00, 0x00, 0x00, 0x31], # Snow Sanctuary
+    0x1A: [0x00, 0x00, 0x00, 0x1A], # Blizzard Temple
+    0x1F: [0x00, 0x00, 0x00, 0x1F], # Fraaz
+    0x35: [0x00, 0x00, 0x00, 0x35], # Icy Spring
+    0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
+    0x3F: [0x00, 0x00, 0x00, 0x3F], # Snowdrift Station
+    0x3F0A: [0x00, 0x00, 0x3F, 0x0A], # Slippery Station
 
     # 37: [0xFE, 0xBE, 0xFB, 0xAF],  # TotOK
     # 0: [0x82, 0xFC, 0x66, 0xED],  # Sea
@@ -106,6 +118,14 @@ STAGES = {
     0x38: "Mayscore Forest",
     0x3E: "Rabbit Haven",
     0x37: "Trading Post",
+    0x2B: "Anouki Village",
+    0x31: "Snow Sanctuary",
+    0x1A: "Blizzard Temple",
+    0x1F: "Fraaz",
+    0x35: "Icy Spring",
+    0x36: "Bridge Worker's Home",
+    0x3F: "Snowdrift Station",
+    0x3F0A: "Slippery Station",
 }
 
 ITEM_GROUPS = {
@@ -113,6 +133,7 @@ ITEM_GROUPS = {
          "Small Key (Tunnel to ToS)",
          "Small Key (Wooded Temple)",
          "Small Key (ToS)",
+         "Small Key (Blizzard Temple)",
 
          #     "Small Key (Temple of Fire)",
     #     "Small Key (Temple of Fire)",
@@ -122,7 +143,8 @@ ITEM_GROUPS = {
     #     "Small Key (Mutoh's Temple)"
      ],
     "Boss Keys": [
-        "Boss Key (Wooded Temple)"
+        "Boss Key (Wooded Temple)",
+        "Boss Key (Blizzard Temple)",
     ],
     "Common Treasures": [
         "Treasure: Demon Fossil",
@@ -146,7 +168,7 @@ ITEM_GROUPS = {
 
     ],
     "Super Rare Treasures": [
-        "Treasure: Alchemy Stone",
+        "Treasure: Priceless Stone",
         "Treasure: Regal Ring",
     ],
      "Ammo Refills": [
@@ -156,6 +178,7 @@ ITEM_GROUPS = {
 }
 
 LOCATION_GROUPS = {
+    "Forest Realm": [],
     "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree", "Outset Niko's House Tree", "Outset Receive Stamp Book"],
     "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
     "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
@@ -196,21 +219,27 @@ LOCATION_GROUPS = {
     ],
     "Rabbit Haven": ["Rabbit Haven Net Gift", "Rabbit Haven Chest"],
     "Trading Post": ["Trading Post Stamp Station", "Trading Post Chest"],
-    # "Goron Temple": [],
-    # "Temple of Ice": [],
-    # "Mutoh's Temple": [],
-    # "Ghost Ship": []
+    "Snow Realm": [],
+    "Anouki Village": [],
+    "Snow Sanctuary": [],
+    "Blizzard Temple": [],
+    "Icy Spring": [],
+    "Snowdrift Station": [],
+    "Slippery Station": [],
+    "Bridge Worker's Home": [],
 }
 
 DUNGEON_NAMES = [
     "Tunnel to ToS",
     "ToS", #Tower of Spirits
-    "Wooded Temple"
+    "Wooded Temple",
+    "Blizzard Temple"
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "ToS": "ToS Forest Rail Glyph",
     "Wooded Temple": "Wooded Temple Dungeon Reward",
+    "Blizzard Temple": "Blizzard Temple Dungeon Reward",
 }
 
 
@@ -260,61 +289,13 @@ DUNGEON_KEY_DATA = {
         #     }
         # }
     },
-    # 372: {
-    #     "name": "Temple of the Ocean King",
-    #     "address": 0x1BA64F,
-    #     "filter": 0xC0,
-    #     "value": 0x40,
-    #     "size": 2,
-    #     'entrances': {
-    #         0x2600: {
-    #             "max_z": 0x11800,
-    #             "min_z": 0x0}
-    #     }
-    # },
-    # 0x1C: {
-    #     "name": "Temple of Fire",
-    #     "address": 0x1BA64E,
-    #     "value": 1,
-    #     "size": 2,
-    #     "filter": 0x03,
-    #     "entrances": {
-    #         0xD01: {
-    #             "max_z": 0x10800,
-    #             "min_z": 0x8000},
-    #         0x2B00: {
-    #             "min_z": 0x800,
-    #             "max_z": 0xF000}
-    #     }
-    # },
-    # 0x1E: {
-    #     "name": "Temple of Courage",
-    #     "address": 0x1BA64F,
-    #     "value": 0x10,
-    #     "size": 2,
-    #     "filter": 0x30,
-    # },
-    # 0x1D: {
-    #     "name": "Temple of Wind",
-    #     "address": 0x1BA64E,
-    #     "value": 0x10,
-    #     "size": 1,
-    #     "filter": 0x10
-    # },
-    # 0x1F: {
-    #     "name": "Temple of Ice",
-    #     "address": 0x1BA64F,
-    #     "value": 0x1,
-    #     "size": 2,
-    #     "filter": 0x03
-    # },
-    # 0x21: {
-    #     "name": "Mutoh's Temple",
-    #     "address": 0x1BA64F,
-    #     "value": 0x4,
-    #     "size": 2,
-    #     "filter": 0x0C
-    # },
+    0x1A: {
+        "name": "Blizzard Temple",
+        "address": 0x265784,
+        "filter": 0x08,
+        "value": 0x08,
+        "size": 1,
+    },
 }
 
 HINTS_ON_SCENE = {

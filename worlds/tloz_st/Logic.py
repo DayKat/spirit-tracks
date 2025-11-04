@@ -120,6 +120,62 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["rabbit haven", "rabbit haven chest", False, None],
         ["rabbit haven", "rabbit haven net", False, None],
 
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # # ============ Snow Realm ===============
+
+        ["forest realm", "snow realm", True, lambda state: st_has_glyph(state, player, "Snow") and (st_has_temple_tracks(state, player, 'Wooded') or st_has_portal(state, player, "SW Snow Realm"))],
+        ["snow realm", "snow realm post song", False, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
+
+        # ======== Anouki Village ========
+
+        ["snow realm", "anouki village", False, None],
+        ["anouki village", "anouki village stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["anouki village", "anouki village discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["anouki village", "anouki village song statue chest", False, lambda state: st_has_spirit_flute(state, player)],
+        ["anouki village", "anouki village bomb cave chest", False, lambda state: st_has_bombs(state, player)],
+        ["anouki village", "anouki village lake chest", False, lambda state: st_has_boomerang(state, player)],
+
+        # =========== Snow Sanctuary ==========
+
+        ["snow realm", "ss", False, None],
+        ["ss", "ss stamp station", False, lambda state: st_has_stamp_book(state, player)],
+
+        ## ========== Blizzard Temple =========
+
+        ["snow realm post song", "bt", False, None],
+        ["bt", "bt b1 se chest", False, lambda state: st_can_ring_bell(state, player) and st_has_whirlwind(state, player) and (st_has_range(state, player) or st_has_whip(state, player) or st_has_bombs(state, player))],
+        ["bt b1 se chest", "bt b1 ne enemy chest", False, lambda state: st_can_kill_bubble(state, player)],
+        ["bt b1 se chest", "bt 1f ne chest", False, lambda state: st_has_boomerang(state, player)],
+        ["bt 1f ne chest", "bt b1 sw chest", False, None],
+        ["bt 1f ne chest", "bt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_small_keys(state, player, "Blizzard Temple", 1)],
+        ["bt 1f ne chest", "bt b1 nw enemy chest", False, lambda state: st_has_small_keys(state, player, "Blizzard Temple", 1)],
+        ["bt b1 nw enemy chest", "bt 1f nw chest", False, None],
+        ["bt b1 nw enemy chest", "bt 1f torch chest", False, None],
+        ["bt b1 nw enemy chest", "bt heart container", False, lambda state: st_has_sword(state, player)],
+        ["bt b1 nw enemy chest", "bt fraaz", False, lambda state: st_has_sword(state, player)],
+        ["bt fraaz", "goal_fraaz", False, None],
+
+        # ========== Icy Spring ==========
+
+        ["snow realm post song", "icyspring", False, None],
+        ["icyspring", "icyspring stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["icyspring", "icyspring whip chest", False, lambda state: st_has_whip(state, player)],
+
+        # ============ Snowdrift Station =========
+
+        ["snow realm post song", "snowdrift", False, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station")],
+        ["snowdrift", "snowdrift reward", False, lambda state: st_has_boomerang(state, player)],
+
+        # ========== Slippery Station ==========
+        ["snow realm post song", "slippery", False, lambda state: st_has_misc_tracks(state, player, "Slippery Station")],
+        ["slippery", "slippery amateur", False, None],
+        ["slippery", "slippery pro", False, None],
+        ["slippery", "slippery champion", False, None],
+
+        # ========== Bridge Worker's Home =======
+        ["snow realm", "bridge workers", False, None],
+        ["bridge workers", "bridge workers chest", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
+
         # # ============ SW Ocean =================
 
 

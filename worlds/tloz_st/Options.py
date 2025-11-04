@@ -15,8 +15,9 @@ class SpiritTracksGoal(Choice):
     """
     display_name = "Goal"
     option_beat_ToS_section_1 = 0
-    option_beat_wooded_temple = 1
-    option_beat_ToS_section_2 = 2
+    option_beat_ToS_section_2 = 1
+    option_beat_wooded_temple = 2
+    option_beat_blizzard_temple = 3
     default = 1
 
 
@@ -86,15 +87,6 @@ class SpiritTracksKeyRandomization(Choice):
 #     option_randomize = 2
 #     default = 0
 
-
-# class SpiritTracksTrainRequiresForestGlyph(Toggle):
-#     """
-#     If True, heading out to sea from outset requires the Forest Realm Glyph.
-#     WARNING! If set to False and you travel without a glyph, you can softlock by crossing to another glyph.
-#     Warp Gates require their glyph to work
-#     """
-#     display_name = "Train requires Forest Glyph"
-#     default = 1
 
 # class SpiritTracksDungeonHints(Choice):
 #     """

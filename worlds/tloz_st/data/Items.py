@@ -157,6 +157,11 @@ ITEMS_DATA = {
         'address': 0x265717,
         'value': 0x80
     },
+    "SW Snow Realm Portal": {
+        'classification': ItemClassification.progression,
+        'address': 0x265744,
+        'value': 0x08,
+    },
 
     # ========== Rail Maps ============
 
@@ -164,32 +169,52 @@ ITEMS_DATA = {
         'classification': ItemClassification.progression,
         'address': 0x265715,
         'value': 0x80,
-        #'set_bit': [(0x265715, 0)]
     },
     "Snow Glyph": {
         'classification': ItemClassification.progression,
         'address': 0x265716,
         'value': 0x01,
-        #'set_bit': [(0x265715, 0x80)]
     },
     "Ocean Glyph": {
         'classification': ItemClassification.progression,
         'address': 0x265716,
         'value': 0x02,
-        #'set_bit': [(0x265715, 0x80)]
     },
     "Fire Glyph": {
         'classification': ItemClassification.progression,
         'address': 0x265716,
         'value': 0x04,
-        #'set_bit': [(0x265715, 0x80)]
     },
     "Wooded Temple Tracks":{
         'classification': ItemClassification.progression,
         'address': 0x2653B0,
         'value': 0x02,
-        #'set_bit': [(0x265715, 0x80)]
     },
+    "Blizzard Temple Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B0,
+        'value': 0x04,
+    },
+    "Snowdrift Station Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B5,
+        'value': 0x04,
+    },
+    "Slippery Station Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B5,
+        'value': 0x20,
+    },
+    "W Wooded Temple Tracks": {
+        'classification': ItemClassification.useful,
+        'address': 0x2653B5,
+        'value': 0x01,
+    },
+    # "W Castle Town Tracks": {
+    #     'classification': ItemClassification.progression,
+    #     'address': 0x2653B5,
+    #     'value': 0x02,
+    # },
 
     # ========= Force Gems ==============
 
@@ -285,15 +310,21 @@ ITEMS_DATA = {
     },
     "Red Potion": {
         'classification': ItemClassification.filler,
-        'value': 100
+        'address': 0x265334, #this is potion slot 1
+        'value': 1,
+        'size': 1
     },
     "Purple Potion": {
         'classification': ItemClassification.filler,
-        'value': 100
+        'address': 0x265334, #this is potion slot 1
+        'value': 2,
+        'size': 1
     },
     "Yellow Potion": {
         'classification': ItemClassification.filler,
-        'value': 200
+        'address': 0x265334, #this is potion slot 1
+        'value': 3,
+        'size': 1
     },
     "Nothing!": {
         'classification': ItemClassification.filler,
@@ -498,6 +529,17 @@ ITEMS_DATA = {
         'address': 0x26532F,
         'dungeon': 0x13,
         'incremental': True
+    },
+    "Small Key (Blizzard Temple)": {
+        'classification': ItemClassification.progression,
+        'address': 0x26532F,
+        'dungeon': 0x1A,
+        'incremental': True
+    },
+    "Boss Key (Blizzard Temple)": {
+        'classification': ItemClassification.progression,
+        'dungeon': 0x1A,
+        'incremental': False
     },
     # "Regal Necklace": {
     #     'classification': ItemClassification.progression,

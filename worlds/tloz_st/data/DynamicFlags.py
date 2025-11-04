@@ -112,6 +112,23 @@ DYNAMIC_FLAGS = {
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(0x265739, 0x02)],
     },
+    "Fraaz location": {
+        "on_scenes": [0x1F00],
+        "not_has_locations": ["Blizzard Temple Dungeon Reward"],
+        "unset_if_true": [(0x265714, 0x20)],
+        "reset_flags": ["RESET fraaz reward"]
+    },
+    "RESET fraaz reward": {
+        "has_locations": ["Blizzard Temple Dungeon Reward"],
+        "has_items": [["Snow Source", 1]],
+        "set_if_true": [(0x265714, 0x20)]
+    },
+    "Remove Snow Source": {
+        "on_scenes": [0x1F03, 0x1F04], #TODO check
+        "has_locations": ["Blizzard Temple Dungeon Reward"],
+        "has_items": [["Snow Source", 0]],
+        "unset_if_true": [(0x265714, 0x20)],
+    },
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],

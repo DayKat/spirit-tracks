@@ -152,9 +152,11 @@ class SpiritTracksClient(DSZeldaClient):
             goal = ctx.slot_data.get("goal")
             if goal == 0 and location.get("region_id") == "tos 3f rail map":
                 self.has_goal_location = True
-            if goal == 1 and location.get("region_id") == "wt stagnox":
+            if goal == 1 and location.get("region_id") == "tos 7f rail map":
                 self.has_goal_location = True
-            if goal == 2 and location.get("region_id") == "tos 7f rail map":
+            if goal == 2 and location.get("region_id") == "wt stagnox":
+                self.has_goal_location = True
+            if goal == 3 and location.get("region_id") == "bt fraaz":
                 self.has_goal_location = True
 
     # TODO needs a way of freezing value

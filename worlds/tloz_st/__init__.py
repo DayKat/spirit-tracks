@@ -177,9 +177,11 @@ class SpiritTracksWorld(World):
         if self.options.goal == 0:
             goal_loc = "goal_forest_glyph"
         elif self.options.goal == 1:
-            goal_loc = "goal_stagnox"
-        elif self.options.goal == 2:
             goal_loc = "goal_snow_glyph"
+        elif self.options.goal == 2:
+            goal_loc = "goal_stagnox"
+        elif self.options.goal == 3:
+            goal_loc = "goal_fraaz"
         self.create_event(goal_loc, "_beaten_game")
 
     def exclude_locations_automatically(self):
@@ -187,7 +189,7 @@ class SpiritTracksWorld(World):
 
         # If non required dungeons need to be excluded, and not UT
         # if self.options.exclude_non_required_dungeons and not getattr(self.multiworld, "generation_is_fake", False):
-        #     #TODO always_include = ["Temple of the Ocean King", "Mountain Passage"]
+        #     # always_include = ["Temple of the Ocean King", "Mountain Passage"]
         #     always_include = []
         #     excluded_dungeons = [d for d in DUNGEON_NAMES
         #                          if d not in self.required_dungeons + always_include]
@@ -209,10 +211,13 @@ class SpiritTracksWorld(World):
             current_goal = "ToS Forest Rail Glyph"
             self.locations_to_exclude.add(current_goal)
         elif self.options.goal == SpiritTracksGoal(1):
-            current_goal = "Wooded Temple Dungeon Reward"
+            current_goal = "ToS Snow Rail Glyph"
             self.locations_to_exclude.add(current_goal)
         elif self.options.goal == SpiritTracksGoal(2):
-            current_goal = "ToS Snow Rail Glyph"
+            current_goal = "Wooded Temple Dungeon Reward"
+            self.locations_to_exclude.add(current_goal)
+        elif self.options.goal == SpiritTracksGoal(3):
+            current_goal = "Blizzard Temple Dungeon Reward"
             self.locations_to_exclude.add(current_goal)
 
         for name in locations_to_exclude:
