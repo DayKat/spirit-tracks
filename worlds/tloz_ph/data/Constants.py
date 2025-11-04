@@ -1339,17 +1339,17 @@ BOSS_DOOR_DATA = {
     0x1C: {
         "name": "Temple of Fire",
         "address": 0x258D20,
-        "value": 0xF
+        "value": 0x1
     },
     0x1D: {
         "name": "Temple of Wind",
         "address": 0x24D740,
-        "value": 0x77F
+        "value": 0x400
     },
     0x1E: {
         "name": "Temple of Courage",
         "address": 0x252360,
-        "value": 0x1FF
+        "value": 0x2
     },
     0x20: {
         "name": "Goron Temple",
@@ -1359,7 +1359,7 @@ BOSS_DOOR_DATA = {
     0x1F: {
         "name": "Temple of Ice",
         "address": 0x259CA0,
-        "value": 0xDA
+        "value": 0x80
     },
     0x21: {
         "name": "Mutoh's Temple",

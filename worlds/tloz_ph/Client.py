@@ -527,7 +527,7 @@ class PhantomHourglassClient(DSZeldaClient):
         data = BOSS_DOOR_DATA.get(stage, False)
         if data and ctx.slot_data.get("boss_key_behaviour", True):
             if item_count(ctx, f"Boss Key ({data['name']})"):
-                await write_memory_value(ctx, data["address"], data["value"], overwrite=True, size=4)
+                await write_memory_value(ctx, data["address"], data["value"], size=4)
 
     # Enter stage
     async def enter_special_key_room(self, ctx, stage, scene_id) -> bool:
@@ -630,8 +630,9 @@ class PhantomHourglassClient(DSZeldaClient):
         elif "Boss Key" in item_name and ctx.slot_data.get("boss_key_behaviour", True):
             if self.current_stage in BOSS_DOOR_DATA and BOSS_DOOR_DATA[self.current_stage]["name"] in item_name:
                 data = BOSS_DOOR_DATA[self.current_stage]
-                res += [(data["address"], split_bits(data["value"], 4), "Main RAM")]
-
+                last_value = await read_memory_value(ctx, data["address"], size=4)
+                new_value = last_value | data["value"]
+                res += [(data["address"], split_bits(new_value, 4), "Main RAM")]
         return res
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
