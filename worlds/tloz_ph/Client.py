@@ -11,7 +11,7 @@ ROM_ADDRS = {
 
 RAM_ADDRS = {
     "game_state": (0x060C48, 1, "Main RAM"),
-    "in_cutscene": (0x060F78, 1, "Main RAM"),
+    "in_cutscene": (0x1BBCF4, 1, "Main RAM"),
 
     "link_health": (0x1CB08E, 2, "Main RAM"),
     "boat_health": (0x1FA036, 1, "Main RAM"),
@@ -725,7 +725,7 @@ class PhantomHourglassClient(DSZeldaClient):
         return game_clear
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        if not read_result.get("drawing_sea_route", False) and not read_result["in_cutscene"]:
+        if not read_result.get("drawing_sea_route", False) and read_result["in_cutscene"]:
             if ctx.last_death_link > self.last_deathlink and not is_dead:
                 # A death was received from another player, make our player die as well
                 if stage == 0:

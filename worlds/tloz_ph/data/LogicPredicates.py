@@ -755,10 +755,7 @@ def ph_option_goal_midway(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.goal_requirements == "triforce_door"
 
 def ph_option_island_shuffle(state, player):
-    try:
-        return state.multiworld.worlds[player].options.shuffle_island_entrances
-    except AttributeError:
-        return False
+    return state.multiworld.worlds[player].options.shuffle_ports
 
 def ph_can_pass_sea_monsters(state, player):
     return any([

@@ -1111,7 +1111,9 @@ class PhantomHourglassWorld(World):
                     entrance_region = self.get_region(entrance_id_to_region[i])
                     exit_region = self.get_region(entrance_id_to_region[pairing])
 
-                    exit_region.connect(entrance_region)
+
+                    # print(f"Connecting: {exit_region} => {entrance_region} {dangling_exit} {dangling_entrance} {i}")
+                    entrance_region.connect(exit_region)
                     if dangling_exit is not None:
                         dangling_exit.connect(entrance_region)
                     if dangling_entrance is not None:
