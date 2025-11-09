@@ -320,9 +320,9 @@ LOCATIONS_DATA = {
         "z_min": 42350,
         "z_max": 52230,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Forest Source"]
+        "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind"]
     },
-    "ToS 5F Spinnit Key": {
+    "ToS 5F Spinnit Key": { #TODO check keys
         "region_id": "tos 5f spinnit key",
         "vanilla_item": "Small Key (ToS)",
         "stage_id": 0x13,
@@ -464,7 +464,7 @@ LOCATIONS_DATA = {
     # },
     "Mayscore Whip Chest": {
         "region_id": "mayscore whip chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x38,
         "room_id": 0,
         "x_min": -63898,
@@ -485,7 +485,7 @@ LOCATIONS_DATA = {
         "require_item": ["Stamp Book"],
         "item_override": "Wooded Temple Tracks"
     },
-    #TODO find better address for flute stuff
+    #TODO still having removal issues, and statue didn't spawn after trading post?
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
         "vanilla_item": "Song of Awakening",
@@ -521,7 +521,7 @@ LOCATIONS_DATA = {
 
     # Wooded Temple
 
-    "Wooded Temple Song Statue": {
+    "Wooded Temple Song Statue": { #TODO late spirit flute caused statue not to spawn?
         "region_id": "wt song statue",
         "vanilla_item": "Song of Healing",
         "stage_id": 0x19,
@@ -636,7 +636,7 @@ LOCATIONS_DATA = {
     #     "z_max": -50790,
     #     "dungeon": "Wooded Temple",
     #     "require_item": ["Whirlwind"],
-    # }, TODO heart container processes on loop, causing heart loss. check other HC chests, doesn't occur for other ones
+    # }, TODO heart container processes on loop, causing heart loss. doesn't occur for other ones
     # "Wooded Temple Boss Heart Container": {
     #     "region_id": "wt heart container",
     #     "vanilla_item": "Heart Container",
@@ -675,7 +675,7 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
-        "x_min": 13950,
+        "x_min": 11447,
         "x_max": 23070,
         "z_min": -18940,
         "z_max": -9020,
@@ -714,7 +714,7 @@ LOCATIONS_DATA = {
         "z_max": -35679,
         "require_item": ["Spirit Flute"],
     },
-    "Trading Post Chest": { #TODO figure out cs skip
+    "Trading Post Chest": { #TODO figure out cs skip, linebeck steals ring
         "region_id": "trading post chest",
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x37,
@@ -722,6 +722,7 @@ LOCATIONS_DATA = {
         "address": 0x265752,
         "value": 0x10,
         "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
+        "item_override": "W Wooded Temple Tracks",
     },
 
     # Anouki Village
@@ -732,16 +733,17 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
+        "item_override": "Snowdrift Station Tracks",
     },
     "Anouki Village Song Statue": {
         "region_id": "anouki village discovery song statue",
         "vanilla_item": "Song of Discovery",
         "stage_id": 0x2B,
         "room_id": 0,
-        "x_min": -64094,
-        "x_max": -45666,
-        "z_min": -55626,
-        "z_max": -35679,
+        "x_min": -10441,
+        "x_max": 6441,
+        "z_min": -59643,
+        "z_max": -43683,
         "require_item": ["Spirit Flute"],
     },
     "Anouki Village Song Statue Chest": {
@@ -749,10 +751,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Red Potion",
         "stage_id": 0x2B,
         "room_id": 0,
-        "x_min": -64094,
-        "x_max": -45666,
-        "z_min": -55626,
-        "z_max": -35679,
+        "x_min": -10441,
+        "x_max": 6441,
+        "z_min": -59643,
+        "z_max": -43683,
         "require_item": ["Spirit Flute"],
     },
     "Anouki Village Bomb Cave Chest": {
@@ -760,10 +762,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x2B,
         "room_id": 0x07,
-        "x_min": -64094,
-        "x_max": -45666,
-        "z_min": -55626,
-        "z_max": -35679,
+        "x_min": 10380,
+        "x_max": 23020,
+        "z_min": -42922,
+        "z_max": -19997,
         "require_item": ["Bombs (Progressive)"],
     },
     "Anouki Village Lake Chest": {
@@ -771,12 +773,13 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x2B,
         "room_id": 0,
-        "x_min": -64094,
-        "x_max": -45666,
-        "z_min": -55626,
-        "z_max": -35679,
+        "x_min": -96434,
+        "x_max": -83560,
+        "z_min": -55650,
+        "z_max": -47180,
         "require_item": ["Boomerang"],
-    },
+    "item_override": "Slippery Station Tracks",
+},
 
     # Snow Sanctuary
     "Snow Sanctuary Stamp Station": {
@@ -786,6 +789,7 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
+        "item_override": "Blizzard Temple Tracks",
     },
     # "Snow Sanctuary Steem Duet": {
     #     "region_id": "ss steem duet",
@@ -810,7 +814,8 @@ LOCATIONS_DATA = {
         "z_max": 47530,
         "dungeon": "Blizzard Temple",
         "require_item": [],
-    },
+        "item_override": "Forest Realm SE Portal Tracks",
+},
     "Blizzard Temple B1 NE Enemy Chest": {
         "region_id": "bt b1 ne enemy chest",
         "vanilla_item": "Boomerang",
@@ -834,10 +839,11 @@ LOCATIONS_DATA = {
         "z_max": -58982,
         "dungeon": "Blizzard Temple",
         "require_item": [],
+        "item_override": "N Castle Town Tracks",
     },
     "Blizzard Temple B1 SW Chest": {
         "region_id": "bt b1 sw chest",
-        "vanilla_item": "Small Key (Blizzard Temple)",
+        "vanilla_item": "Small Key (Blizzard Temple)", #TODO yoinked key
         "stage_id": 0x1A,
         "room_id": 1,
         "x_min": -17527,
@@ -855,6 +861,7 @@ LOCATIONS_DATA = {
         "stamp": True,
         "dungeon": "Blizzard Temple",
         "require_item": ["Stamp Book", "Boomerang", "Small Key (Blizzard Temple)"],
+        "item_override": "Snow Realm Bridge Tracks",
     },
     "Blizzard Temple B1 NW Enemy Chest": {
         "region_id": "bt b1 nw enemy chest",
@@ -867,6 +874,7 @@ LOCATIONS_DATA = {
         "z_max": -42615,
         "dungeon": "Blizzard Temple",
         "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
+        "item_override": "N Icy Spring Tracks",
     },
     "Blizzard Temple 1F NW Chest": {
         "region_id": "bt 1f nw chest",
@@ -879,6 +887,7 @@ LOCATIONS_DATA = {
         "z_max": -56082,
         "dungeon": "Blizzard Temple",
         "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
+        "item_override": "W Castle Town Tracks",
     },
     "Blizzard Temple 1F Torch Chest": {
         "region_id": "bt 1f torch chest",
@@ -934,7 +943,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x35,
         "room_id": 0,
         "stamp": True,
-        "require_item": ["Stamp Book, Boomerang"],
+        "require_item": ["Stamp Book", "Boomerang"],
+        "item_override": "Shield",
     },
 
     # Snowdrift Station
@@ -942,12 +952,12 @@ LOCATIONS_DATA = {
         "region_id": "snowdrift reward",
         "vanilla_item": ITEM_GROUPS["Super Rare Treasures"],
         "stage_id": 0x3F,
-        "room_id": 0,
-        # "x_min": -8700,
-        # "x_max": 8172,
-        # "z_min": -68020,
-        # "z_max": -58982,
-        "require_item": ["Boomerang"],
+        "room_id": 1,
+        "x_min": -10650,
+        "x_max": 10650,
+        "z_min": -55800,
+        "z_max": -38083,
+        "require_item": ["Boomerang", "Snowdrift Station Tracks", "Shield", "Snow Source"],
     },
 
     # Slippery Station
@@ -955,48 +965,48 @@ LOCATIONS_DATA = {
         "region_id": "slippery amateur",
         "vanilla_item": "Gold Rupee (300)",
         "stage_id": 0x3F,
-        "room_id": 0x0A,
-        # "x_min": -8700,
-        # "x_max": 8172,
-        # "z_min": -68020,
-        # "z_max": -58982,
-        "require_item": [],
+        "room_id": 0x06,
+        "x_min": -1930,
+        "x_max": 14746,
+        "z_min": -68303,
+        "z_max": -50810,
+        "require_item": ["Slippery Station Tracks", "Snow Source"],
     },
     "Slippery Station Pro Reward": {
         "region_id": "slippery pro",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x3F,
-        "room_id": 0x0A,
-        # "x_min": -8700,
-        # "x_max": 8172,
-        # "z_min": -68020,
-        # "z_max": -58982,
-        "require_item": [],
+        "room_id": 0x06,
+        "x_min": 87833,
+        "x_max": 104858,
+        "z_min": -65036,
+        "z_max": -46800,
+        "require_item": ["Slippery Station Tracks", "Snow Source"],
     },
     "Slippery Station Champion Reward": {
         "region_id": "slippery champion",
         "vanilla_item": ITEM_GROUPS["Super Rare Treasures"],
         "stage_id": 0x3F,
-        "room_id": 0x0A,
-        # "x_min": -8700,
-        # "x_max": 8172,
-        # "z_min": -68020,
-        # "z_max": -58982,
-        "require_item": [],
+        "room_id": 0x06,
+        "x_min": 72800,
+        "x_max": 88000,
+        "z_min": 45579,
+        "z_max": 64500,
+        "require_item": ["Slippery Station Tracks", "Snow Source"],
     },
 
     # Bridge Worker's Home
-    # "Bridge Worker's Home Chest": {
-    #     "region_id": "bridge workers chest",
-    #     "vanilla_item": "Big Green Rupee (100)",
-    #     "stage_id": 0x36,
-    #     "room_id": 0,
-    #     # "x_min": -8700,
-    #     # "x_max": 8172,
-    #     # "z_min": -68020,
-    #     # "z_max": -58982,
-    #     "require_item": ["Spirit Flute", "Song of Discovery"],
-    # },
+    "Bridge Worker's Home Chest": {
+        "region_id": "bridge workers chest",
+        "vanilla_item": "Big Green Rupee (100)",
+        "stage_id": 0x36,
+        "room_id": 0,
+        "x_min": 63278,
+        "x_max": 72232,
+        "z_min": -43618,
+        "z_max": -28439,
+        "require_item": ["Spirit Flute", "Song of Discovery", "Snow Source"],
+    },
 }
 
 for i, name in enumerate(LOCATIONS_DATA):

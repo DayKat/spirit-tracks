@@ -33,13 +33,15 @@ class SpiritTracksRemoveItemsFromPool(ItemDict):
 
 class SpiritTracksLogic(Choice):
     """
-    NOT IMPLEMENTED YET
+    Currently only used for Slippery Station Champion reward check - if you want to include this check then choose Hard.
 
     Logic options:
     - Normal: Glitches not in logic.
-    - Medium: Includes some cool uses of pots aren't hard, bun unconventional
-    - Glitched: Hammer clips, chu camera displacement and clever use of items in logic
+    - Medium: Includes some cool uses of pots aren't hard, but unconventional
+    - Glitched: Clever use of items in logic and glitches
     Be careful, using glitches on normal logic can cause key-related softlocks
+
+    Please let me (@DayKat) know if you know of any glitches or non-normal logic!
     """
     display_name = "logic"
     option_normal = 0

@@ -34,7 +34,6 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET wt statue"]
     },
     "RESET wt statue": {
-        "on_scenes": [0x190A],
         "has_locations": ["Wooded Temple Song Statue"],
         "has_items": [["Song of Healing", 1]],
         "set_if_true": [(0x268FB0, 0x02)],

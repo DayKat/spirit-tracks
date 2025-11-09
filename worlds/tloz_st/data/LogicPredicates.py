@@ -1,7 +1,6 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
 from .Constants import *
-from ...stardew_valley.stardew_rule import state
 
 
 # =========== Item States =============
@@ -17,7 +16,7 @@ def st_has_sword(state: CollectionState, player: int):
 
 def st_has_shield(state: CollectionState, player: int):
     # Shield can be bought from shop
-    return True
+    return state.has("Shield", player)
 
 def st_has_bow(state: CollectionState, player: int):
     return state.has("Bow (Progressive)", player)

@@ -11,7 +11,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         #[region 1, region 2, two-directional, logic requirements],
         ["outset village", "outset village rocks", False, None],
-        ["outset village", "outset village stamp book", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_glyph(state, player, "Snow")],
+        ["outset village", "outset village stamp book", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_glyph(state, player, "Snow") and st_has_cannon(state, player)],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village bees", False, None],
         ["outset village", "outset village right tree", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
@@ -24,10 +24,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town", "castle town stamp station", False, lambda state: (st_has_stamp_book(state, player) and st_has_bombs(state, player))],
         ["castle town", "castle town L wall chest", False, lambda state: (st_has_bombs(state, player))],
         ["castle town", "castle town R wall chest", False, lambda state: (st_has_bombs(state, player))],
-        #TODO can also use whirlwind for cucco if chased
-        ["castle town", "castle town minigame roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
-        ["castle town", "castle town ramp house chest", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
-        ["castle town", "castle town empty house roof", False, lambda state: (st_has_bombs(state, player) and st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
+        ["castle town", "castle town minigame roof", False, lambda state: st_has_bombs(state, player) and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player)) or st_has_whirlwind(state, player))],
+        ["castle town", "castle town ramp house chest", False, lambda state: st_has_bombs(state, player) and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player)) or st_has_whirlwind(state, player))],
+        ["castle town", "castle town empty house roof", False, lambda state: st_has_bombs(state, player) and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player)) or st_has_whirlwind(state, player))],
 
         # # ======== Hyrule Castle =========
 
@@ -54,7 +53,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 3f rail map", "goal_forest_glyph", False, None],
         ["tos", "tos section 2", False, lambda state: (st_has_source(state, player, "Forest"))],
         ["tos section 2", "tos 4f central chest", False, None],
-        ["tos section 2", "tos 5f island chest", False, lambda state: st_has_sword(state, player)],
+        ["tos section 2", "tos 5f island chest", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player)],
         ["tos 5f island chest", "tos 5f spinnit key", False, lambda state: st_has_whirlwind(state, player)],
         ["tos 5f spinnit key", "tos 5f secret chest", False, lambda state: st_has_bombs(state, player) and st_has_boomerang(state, player)],
         ["tos 5f spinnit key", "tos 4f ne chest", False, lambda state: st_has_bombs(state, player) and st_has_boomerang(state, player)],
@@ -123,12 +122,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # # ============ Snow Realm ===============
 
-        ["forest realm", "snow realm", True, lambda state: st_has_glyph(state, player, "Snow") and (st_has_temple_tracks(state, player, 'Wooded') or st_has_portal(state, player, "SW Snow Realm"))],
+        ["forest realm", "snow realm", True, lambda state: st_has_glyph(state, player, "Snow")],# and (st_has_temple_tracks(state, player, 'Wooded') or st_has_source(state, player, 'Snow') or (st_has_temple_tracks(state, player, 'Blizzard') and st_has_misc_tracks(state, player, 'Forest Realm SE Portal')))],
         ["snow realm", "snow realm post song", False, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
 
         # ======== Anouki Village ========
 
-        ["snow realm", "anouki village", False, None],
+        ["snow realm", "anouki village", False, None], #lambda state: st_has_temple_tracks(state, player, "Wooded") or (st_has_source(state, player, 'Snow') and (st_has_temple_tracks(state, player, 'Blizzard') or st_has_misc_tracks(state, player, 'Snow Realm Bridge')))],
         ["anouki village", "anouki village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["anouki village", "anouki village discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["anouki village", "anouki village song statue chest", False, lambda state: st_has_spirit_flute(state, player)],
@@ -137,12 +136,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # =========== Snow Sanctuary ==========
 
-        ["snow realm", "ss", False, None],
+        ["anouki village", "ss", False, None],
         ["ss", "ss stamp station", False, lambda state: st_has_stamp_book(state, player)],
 
         ## ========== Blizzard Temple =========
 
-        ["snow realm post song", "bt", False, None],
+        ["snow realm", "bt", False, lambda state: st_has_temple_tracks(state, player, 'Blizzard') or st_has_source(state, player, 'Snow')],
         ["bt", "bt b1 se chest", False, lambda state: st_can_ring_bell(state, player) and st_has_whirlwind(state, player) and (st_has_range(state, player) or st_has_whip(state, player) or st_has_bombs(state, player))],
         ["bt b1 se chest", "bt b1 ne enemy chest", False, lambda state: st_can_kill_bubble(state, player)],
         ["bt b1 se chest", "bt 1f ne chest", False, lambda state: st_has_boomerang(state, player)],
@@ -158,22 +157,22 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ========== Icy Spring ==========
 
         ["snow realm post song", "icyspring", False, None],
-        ["icyspring", "icyspring stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["icyspring", "icyspring stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_boomerang(state, player)],
         ["icyspring", "icyspring whip chest", False, lambda state: st_has_whip(state, player)],
 
         # ============ Snowdrift Station =========
 
-        ["snow realm post song", "snowdrift", False, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station")],
-        ["snowdrift", "snowdrift reward", False, lambda state: st_has_boomerang(state, player)],
+        ["snow realm post song", "snowdrift", False, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station") and st_has_source(state, player, 'Snow')],
+        ["snowdrift", "snowdrift reward", False, lambda state: st_has_boomerang(state, player) and st_has_shield(state, player)],
 
         # ========== Slippery Station ==========
-        ["snow realm post song", "slippery", False, lambda state: st_has_misc_tracks(state, player, "Slippery Station")],
+        ["snow realm post song", "slippery", False, lambda state: st_has_misc_tracks(state, player, "Slippery Station") and st_has_source(state, player, 'Snow')],
         ["slippery", "slippery amateur", False, None],
         ["slippery", "slippery pro", False, None],
-        ["slippery", "slippery champion", False, None],
+        ["slippery", "slippery champion", False, lambda state: st_option_hard_logic(state, player)],
 
         # ========== Bridge Worker's Home =======
-        ["snow realm", "bridge workers", False, None],
+        ["snow realm", "bridge workers", False, lambda state: st_has_source(state, player, 'Snow')],
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
 
         # # ============ SW Ocean =================
@@ -190,12 +189,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
     return overworld_logic
 
-# TODO require cannon before non-forest glyph
-# def make_item_logic(player: int, origin_name: str, options: SpiritTracksOptions):
-#     item_logic = [
-#         ["Cannon", ["Snow Glyph", "Ocean Glyph", "Fire Glyph"]
-#     ]]
-#     return item_logic
 
 def is_item(item: Item, player: int, item_name: str):
     return item.player == player and item.name == item_name

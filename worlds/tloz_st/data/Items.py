@@ -21,7 +21,7 @@ ITEMS_DATA = {
         #'set_bit': [(0x1BA644, 1)]  # Means that sending sword if sword breaks gives the base layer
     },
     "Shield": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'address': 0x265322,
         'value': 0x01
     },
@@ -89,7 +89,7 @@ ITEMS_DATA = {
         'address': 0x265717,
         'value': 0x01,
     },
-    "Rabbit Net": { #TODO find net address
+    "Rabbit Net": {
         'classification': ItemClassification.progression,
         'address': 0x26572E,
         'value': 0x40,
@@ -157,11 +157,11 @@ ITEMS_DATA = {
         'address': 0x265717,
         'value': 0x80
     },
-    "SW Snow Realm Portal": {
-        'classification': ItemClassification.progression,
-        'address': 0x265744,
-        'value': 0x08,
-    },
+    # "SW Snow Realm Portal": {
+    #     'classification': ItemClassification.progression,
+    #     'address': 0x265744,
+    #     'value': 0x08,
+    # },
 
     # ========== Rail Maps ============
 
@@ -205,16 +205,56 @@ ITEMS_DATA = {
         'address': 0x2653B5,
         'value': 0x20,
     },
+    "Forest Realm Ocean Shortcut Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B4,
+        'value': 0x02,
+    },
+    "E Mayscore Bridge Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B4,
+        'value': 0x04,
+    },
+    "Forest Realm SE Portal Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B4,
+        'value': 0x08,
+    },
+    "W Castle Town Tracks": {
+        'classification': ItemClassification.useful,
+        'address': 0x2653B4,
+        'value': 0x20,
+    },
+    "W Forest Realm Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B4,
+        'value': 0x40,
+    },
+    "Forest Realm SW Cave Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B4,
+        'value': 0x80,
+    },
     "W Wooded Temple Tracks": {
         'classification': ItemClassification.useful,
         'address': 0x2653B5,
         'value': 0x01,
     },
-    # "W Castle Town Tracks": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x2653B5,
-    #     'value': 0x02,
-    # },
+    "N Castle Town Tracks": {
+        'classification': ItemClassification.useful,
+        'address': 0x2653B5,
+        'value': 0x02,
+    },
+    "Snow Realm Bridge Tracks": { # has portal to ocean realm
+        'classification': ItemClassification.progression,
+        'address': 0x2653B5,
+        'value': 0x08,
+    },
+    "N Icy Spring Tracks": {
+        'classification': ItemClassification.progression,
+        'address': 0x2653B5,
+        'value': 0x10,
+    },
 
     # ========= Force Gems ==============
 
@@ -222,21 +262,25 @@ ITEMS_DATA = {
       'classification': ItemClassification.progression,
         "address": 0x265714,
         'value': 0x10,
+        'set_bit': [[0x2653B8, 2]]
     },
     "Snow Source": {
       'classification': ItemClassification.progression,
         "address": 0x265714,
         'value': 0x20,
+        'set_bit': [[0x2653B8, 4]]
     },
     "Ocean Source": {
       'classification': ItemClassification.progression,
         "address": 0x265714,
         'value': 0x40,
+        'set_bit': [[0x2653B8, 8]]
     },
     "Fire Source": {
       'classification': ItemClassification.progression,
         "address": 0x265714,
         'value': 0x80,
+        'set_bit': [[0x2653B8, 0x10]]
     },
 
     # Warp gates require cannon
