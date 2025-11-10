@@ -832,7 +832,7 @@ def ph_UT_glitched_logic(state, player):
 # ============== ER Options =============
 
 def ph_option_vanilla_caves(state, player):
-    return not state.multiworld.worlds[player].options.shuffle_caves
+    return state.multiworld.worlds[player].options.shuffle_caves in ["no_shuffle"]
 
 # ============= Key logic ==============
 
@@ -1035,19 +1035,11 @@ def ph_boat_access(state, player):
         ph_option_island_shuffle(state, player)
     ])
 
-def ph_can_enter_mp(state, player):
-    return any([
-        ph_can_cut_small_trees(state, player),
-        ph_has_small_keys(state, player, "Mountain Passage", 3),
-        ph_option_glitched_logic(state, player)  # Savewarp in back entrance / reverse cuccoo jump
-         ])
-
 # Handles keylocking due to lack of locations
 def ph_can_reach_mp2(state: CollectionState, player: int):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 2),
         ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
-        ph_option_keys_vanilla(state, player),
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
@@ -1057,6 +1049,7 @@ def ph_can_reach_mp2(state: CollectionState, player: int):
 def ph_can_reach_mp2_top(state, player):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 2),
+        state.has("_mp1", player),
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
@@ -1077,14 +1070,18 @@ def ph_mp2_bypass_fore(state, player):
         ph_mp2_bypass(state, player),
         all([
             ph_option_vanilla_caves(state, player),
-            ph_has_small_keys(state, player, "Mountain Passage", 2)
+            ph_has_small_keys(state, player, "Mountain Passage", 2),
         ])
     ])
 
 def ph_mp3(state, player):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 3),
-
+        all([
+            state.has("_mp3", player),
+            ph_option_keys_in_own_dungeon(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 1),
+            ]),
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
@@ -1093,7 +1090,7 @@ def ph_mp3(state, player):
 
 def ph_mp3_back(state, player):
     return any([
-        ph_mp3(state, player),
+        ph_has_small_keys(state, player, "Mountain Passage", 3),
         all([
             ph_option_vanilla_caves(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 2),
@@ -2540,6 +2537,8 @@ def ph_get_switch_state(state: "CollectionState", player, entrance):
 def ph_switch_state_red(state, player, entrance):
     return ph_get_switch_state(state, player, entrance) & 0x1
 
+# This is pretty stupid, but is niceish when writing logic. Was originally intended for exporting logic to
+# poptracker but with the advancements in UT tracker that probably won't be necessary any more
 RULE_DICT = {
     "sword": ph_has_sword,
     "phantom_sword": ph_has_sword,
@@ -2714,7 +2713,6 @@ RULE_DICT = {
     # Specific Location
     # Overworld
     "boat_access": ph_boat_access,
-    "can_enter_mp": ph_can_enter_mp,
     "can_reach_mp2": ph_can_reach_mp2,
     "can_reach_mp2_top": ph_can_reach_mp2_top,
     "mp2_bypass": ph_mp2_bypass,
