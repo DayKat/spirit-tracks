@@ -31,7 +31,7 @@ calculating logic at all! Good luck!
  - B4 throw pot from floor above to hit switch behind SE gust of wind (Hard logic)
  - B4 [Boomerang return key](https://youtu.be/FbvG2Jzs68g?t=14) (Glitched logic)
  - B4 hit switches with hammer clips (Glitched Logic)
- - B5 Chest backwards with BCL and boomerang (Doesn't effect logic, but saves a key!)
+ - B5 [Chest backwards with BCL and boomerang](https://youtu.be/5597wXT0E1E) (Doesn't effect logic, but saves a key!)
  - B7 push phantoms into pits (kill phantoms with stun/weapon)
  - B8 push phantoms into pits (kill phantoms with stun/weapon)
  - B8 Hammer clip bombchu switch (Glitched Logic)
