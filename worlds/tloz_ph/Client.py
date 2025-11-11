@@ -725,7 +725,8 @@ class PhantomHourglassClient(DSZeldaClient):
         return game_clear
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        if not read_result.get("drawing_sea_route", False) and read_result["in_cutscene"]:
+        if (not read_result.get("drawing_sea_route", False) and read_result["in_cutscene"]
+                and self.current_scene not in [0x1701]):
             if ctx.last_death_link > self.last_deathlink and not is_dead:
                 # A death was received from another player, make our player die as well
                 if stage == 0:
