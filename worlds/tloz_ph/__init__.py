@@ -111,7 +111,7 @@ class PhantomHourglassWorld(World):
     game = "The Legend of Zelda - Phantom Hourglass"
     options_dataclass = PhantomHourglassOptions
     options: PhantomHourglassOptions
-    required_client_version = (0, 6, 3)
+    required_client_version = (0, 6, 0)
     web = PhantomHourglassWeb()
     topology_present = True
 
@@ -236,14 +236,6 @@ class PhantomHourglassWorld(World):
         else:
             if location_name in LOCATION_GROUPS["Golden Frogs"]:
                 return self.options.randomize_frogs != PhantomHourglassFrogRandomization.option_start_with
-            if "Harrow Island" in location_name:
-                return self.options.randomize_harrow
-            if "Zauz's Island Triforce Crest" == location_name:
-                return self.options.randomize_triforce_crest
-            if "Masked Beedle" in location_name:
-                return self.options.randomize_masked_beedle
-            if "Molida Archery 2000" == location_name:
-                return self.options.logic in ["hard", "glitched"] and self.options.randomize_minigames
             if location_name in LOCATION_GROUPS["Rupee Dig Spots"]:
                 return self.options.randomize_digs
             if location_name in LOCATION_GROUPS["Minigames"]:
@@ -254,6 +246,14 @@ class PhantomHourglassWorld(World):
                 return self.options.randomize_salvage
             if "Beedle Membership" in location_name:
                 return self.options.randomize_beedle_membership.value > 1
+            if "Harrow Island" in location_name:
+                return self.options.randomize_harrow
+            if "Zauz's Island Triforce Crest" == location_name:
+                return self.options.randomize_triforce_crest
+            if "Masked Beedle" in location_name:
+                return self.options.randomize_masked_beedle
+            if "Molida Archery 2000" == location_name:
+                return self.options.logic in ["hard", "glitched"] and self.options.randomize_minigames
             if "GOAL" in location_name:
                 if location_name == "GOAL: Beat Bellumbeck" and self.options.bellum_access != "win":
                     return True
@@ -316,9 +316,11 @@ class PhantomHourglassWorld(World):
         elif self.options.additional_metal_names == "additional_rare_metal":
             extended_pool = ["Additional Rare Metal"]
         elif self.options.additional_metal_names == "custom":
-            metal_items = ITEM_GROUPS["Vanilla Metals"] + ITEM_GROUPS["Custom Metals"]
+            metal_items += ITEM_GROUPS["Custom Metals"]
+            extended_pool = ITEM_GROUPS["Metals"]
         elif self.options.additional_metal_names == "custom_prefer_vanilla":
             metal_items = ITEM_GROUPS["Custom Metals"]
+            extended_pool = ITEM_GROUPS["Metals"]
 
         while len(metal_items) < count:
             metal_items += self.random.choice([extended_pool])
@@ -377,7 +379,9 @@ class PhantomHourglassWorld(World):
         self.create_event("toi b1 switch", "_toi_b1_switch")
         # Blue warps
         self.create_event("toi blue warp", "_toi_blue_warp")
-
+        # Mountain passage
+        self.create_event("mercay passage 1", "_mp1")
+        self.create_event("mercay passage rat", "_mp3")
         # Goal
         self.create_event("goal", "_beaten_game")
 
@@ -770,7 +774,6 @@ class PhantomHourglassWorld(World):
         filler_item_count = 0
         boss_reward_item_count = len(self.boss_reward_items_pool)
         for loc_name, loc_data in LOCATIONS_DATA.items():
-            # print(f"New Location: {loc_name}")
             if not self.location_is_active(loc_name, loc_data):
                 # print(f"{loc_name} is not active")
                 continue
@@ -833,8 +836,7 @@ class PhantomHourglassWorld(World):
             if (item_name in ["Treasure", "Ship Part", "Nothing!", "Potion", "Red Potion", "Purple Potion",
                               "Yellow Potion", "Power Gem", "Wisdom Gem", "Courage Gem", "Heart Container",
                               "Bombs (Progressive)", "Bow (Progressive)", "Bombchus (Progressive)",
-                              "Sand of Hours (Boss)"]
-                    or "Treasure Map" in item_name):
+                              "Sand of Hours (Boss)"]):
                 filler_item_count += 1
                 continue
 
@@ -852,36 +854,27 @@ class PhantomHourglassWorld(World):
                 metal_pool[i] += 1
             add_items += metal_pool.items()
         add_items += add_spirit_gems(self.options.spirit_gem_packs, self.options.additional_spirit_gems)
-
-        # If salvage add treasure maps
-        if self.options.randomize_salvage:
-            add_items += [(i, 1) for i in ITEM_GROUPS["Treasure Maps"]]
         add_items += [("Heart Container", 13)]
 
         # Add sand items to pool
         add_items += add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
-
         # Add beedle point items
         if self.options.randomize_beedle_membership.value > 0:
             add_items += [("Freebie Card", 1), ("Complimentary Card", 1)]
             if self.options.randomize_beedle_membership.value > 1:
                 add_items += add_beedle_point_items()
-
         # add items to item pool
         for i, count in add_items:
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
-
         # Add ships if enough room in filler pool
         if filler_item_count >= 8:
             for i in ITEM_GROUPS["Ships"][1:]:
                 item_pool_dict[i] = 1
             filler_item_count -= 8
-
         # Add as many filler items as required
         for _ in range(filler_item_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
-
         return item_pool_dict
 
     def create_items(self):
@@ -891,7 +884,6 @@ class PhantomHourglassWorld(World):
         for item_name, quantity in item_pool_dict.items():
             for _ in range(quantity):
                 items.append(self.create_item(item_name))
-
         self.filter_confined_dungeon_items_from_pool(items)
         self.multiworld.itempool.extend(items)
 
@@ -1111,7 +1103,9 @@ class PhantomHourglassWorld(World):
                     entrance_region = self.get_region(entrance_id_to_region[i])
                     exit_region = self.get_region(entrance_id_to_region[pairing])
 
-                    exit_region.connect(entrance_region)
+
+                    # print(f"Connecting: {exit_region} => {entrance_region} {dangling_exit} {dangling_entrance} {i}")
+                    entrance_region.connect(exit_region)
                     if dangling_exit is not None:
                         dangling_exit.connect(entrance_region)
                     if dangling_entrance is not None:

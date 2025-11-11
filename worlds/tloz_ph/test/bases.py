@@ -39,11 +39,21 @@ class DefaultSettings(WorldTestBase):
     options = {
         "shuffle_dungeon_entrances": "no_shuffle",
         "shuffle_ports": "no_shuffle",
-        "shuffle_caves": "no_shuffle",
+        "shuffle_caves": "shuffle",
         "shuffle_houses": "no_shuffle",
         "shuffle_overworld_transitions": "no_shuffle",
         "shuffle_bosses": "shuffle",
-        "additional_metal_names": "custom_prefer_vanilla"
+        "additional_metal_names": "custom_prefer_vanilla",
+        "keysanity": "in_own_dungeon",
+        "plando_items": [{
+            "items": {'Small Key (Mountain Passage)': 3},
+            "locations": [
+                #"Mountain Passage Chest 1",
+                'Mountain Passage Chest 2',
+                'Mountain Passage Key Drop',
+                'Mountain Passage Rat Key',
+            ]
+        }]
     }
 
 # class TestGeneration(WorldTestBase):

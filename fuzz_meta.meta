@@ -2,11 +2,6 @@ null:
   progression_balancing: 50
 The Legend of Zelda - Phantom Hourglass:
   plando_items: []
-  dungeon_hints: 'false'
-  shop_hints: 'false'
-  spirit_island_hints: none
-  ph_starting_time: 1
-  ph_time_increment: 1
   remove_items_from_pool: {}
   death_link: 'false'
   local_items: []
@@ -18,3 +13,13 @@ The Legend of Zelda - Phantom Hourglass:
   exclude_locations: []
   priority_locations: []
   item_links: []
+
+  entrance_directionality: 0
+  shuffle_between_islands: 0
+  decouple_entrances: 0
+
+  ph_starting_time: 60
+  ph_time_increment: 10
+
+  keysanity: in_own_dungeon
+  shuffle_caves: no_shuffle

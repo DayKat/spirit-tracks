@@ -66,7 +66,7 @@ class PhantomHourglassTimeIncrement(Range):
     If you exclude as many locations as possible, and have 30 metal items, generation breaks at 6 seconds
     """
     display_name = "Increment for each Sand of Hours"
-    range_start = 0
+    range_start = 1
     range_end = 5999
     default = 60
 

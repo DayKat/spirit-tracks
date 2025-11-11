@@ -593,6 +593,21 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
         "unset_if_true": [(0x1B5582, 0x80)],  # Respawn ghost ship
     },
+    "Spawn ghost ship Open GS removed fog": {
+        "on_scenes": [0x1],  # NW quadrant
+        "not_on_entrance": [5],
+        "has_slot_data": [("fog_settings", 2)],
+        "has_locations": ["Ghost Ship Rescue Tetra"],
+        "set_if_true": [(0x1B557E, 0x10)],  # Spawn spirits, remove fog
+        "unset_if_true": [(0x1B5582, 0x80)],  # Respawn ghost ship
+    },
+    "Spawn ghost ship Open GS": {
+        "on_scenes": [0x1],  # NW quadrant
+        "has_slot_data": [("fog_settings", 2)],
+        "not_has_locations": ["Ghost Ship Rescue Tetra"],
+        "set_if_true": [(0x1B557E, 0x10)],  # Spawn spirits,
+        "unset_if_true": [(0x1B5582, 0x80), (0x1B55AB, 0x10)],  # Respawn ghost ship, add fog
+    },
     "Dungeon rando remove spirit from GS": {
         "on_scenes": [0x1],
         "on_entrance": [5],
