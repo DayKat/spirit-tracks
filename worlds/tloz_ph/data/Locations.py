@@ -2979,6 +2979,7 @@ LOCATIONS_DATA = {
         "address": 0x1b558f,
         "value": 0x8,
         "id": 327,
+        "conditional": True
     },
     "Ocean NW Prince of Red Lions Trade Quest Item": {
         "region_id": "porl trade",

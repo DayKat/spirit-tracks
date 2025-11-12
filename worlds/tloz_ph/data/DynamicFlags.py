@@ -1249,6 +1249,11 @@ DYNAMIC_FLAGS = {
         "has_location": ["Blaaz Boss Reward"],
         "set_if_true": [(0x1B557F, 0x20)]
     },
+    "Astrid before fire temple": {
+        "on_scenes": [0xD0A],
+        "not_has_location": ["Blaaz Boss Reward"],
+        "unset_if_true": [(0x1B557F, 0x20)]
+    },
     # Regal necklace backup removal
     "Regal necklace backup removal dummy": {
         "on_scenes": [0x1500],

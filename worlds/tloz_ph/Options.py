@@ -78,7 +78,6 @@ class PhantomHourglassRemoveItemsFromPool(ItemDict):
     before using it on long generations. Use at your own risk!
     """
     display_name = "remove_items_from_pool"
-    verify_item_name = False
 
 
 class PhantomHourglassLogic(Choice):
@@ -504,6 +503,12 @@ class PhantomHourglassRandomizeBeedlePoints(Choice):
     option_randomize_with_grinding = 3
     default = 1
 
+class PhantomHourglassAddItemsToPool(ItemDict):
+    """
+    Add items to pool. Useful for adding duplicates
+    """
+    display_name = "add_items_to_pool"
+
 class PhantomHourglassDungeonShortcuts(Toggle):
     """
     Adds shortcuts from the beginning of islands to their dungeons, often by entering the house nearest their port.
@@ -782,6 +787,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     # Generic
     accessibility: ItemsAccessibility
     start_inventory_from_pool: StartInventoryPool
+    add_items_to_pool: PhantomHourglassAddItemsToPool
     remove_items_from_pool: PhantomHourglassRemoveItemsFromPool
     death_link: DeathLink
 

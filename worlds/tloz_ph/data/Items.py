@@ -1329,11 +1329,8 @@ ITEMS_DATA = {
 # bulk data editing / export
 if __name__ == "__main__":
     for name, data in ITEMS_DATA.items():
-        if "progressive" not in data and "dummy" not in data:
-            if "value" not in data:
-                address = data.get('address', 0)
-                if address is not None:
-                    print(f"{name}, {hex(address)}")
+        if "address" not in data and "dummy" not in data and name not in ["Treasure", "Ship Part", "Oshus' Sword"] and "Boss Key" not in name and "Small Key" not in name and "progressive" not in data and "Potion" not in name:
+            print(name)
 """
     keys = set()
     for name, data in ITEMS_DATA.items():

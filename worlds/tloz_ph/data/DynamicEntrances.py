@@ -147,9 +147,8 @@ DYNAMIC_ENTRANCES = {
     # Other shortcuts
     "Brant's Maze Shortcut": {
         "entrance": "Brant's Maze 1",
-        "destination": "Brant's Maze Exit",
-        "has_slot_data": [("shuffle_houses", 0)],  # TODO: add to dungeon shortcuts
-    }
+        "destination": "Brant's Maze Exit", # TODO: add to dungeon shortcuts
+    },
 }
 
 DYNAMIC_ENTRANCES_BY_SCENE = {}

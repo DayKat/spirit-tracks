@@ -1353,8 +1353,21 @@ def ph_toc_key_door_3(state, player):
     return any([
         ph_has_small_keys(state, player, "Temple of Courage", 3),
         # UT
-        ph_toc_all_checks_door_3(state, player)
-    ]),
+        all([
+            ph_is_ut(state, player),
+            ph_toc_all_checks_door_3(state, player),
+        ]),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Temple of Courage", 1),
+            ph_has_hammer(state, player)
+        ]),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Temple of Courage", 2),
+            ph_has_grapple(state, player)
+        ])
+    ])
 
 def ph_toc_all_checks_door_3(state, player):
     return any([

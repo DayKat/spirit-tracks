@@ -65,20 +65,19 @@ class PhantomHourglassWeb(WebWorld):
 def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
     if filler_item_count >= count:
         filler_item_count -= count
-        item_pool_dict[item] = count
+        item_pool_dict[item] = item_pool_dict.get(item, 0) + count
     else:
         item_pool_dict[item] = filler_item_count
         filler_item_count = 0
-
     return [item_pool_dict, filler_item_count]
 
 
 def add_spirit_gems(pack_option, add_option):
     if pack_option == 1:
-        return [("Power Gem", 20), ("Wisdom Gem", 20), ("Courage Gem", 20)]
+        return {"Power Gem": 20, "Wisdom Gem": 20, "Courage Gem": 20}
     else:
         count = ceil(20 / pack_option.value) + add_option
-        return [("Power Gem Pack", count), ("Wisdom Gem Pack", count), ("Courage Gem Pack", count)]
+        return {"Power Gem Pack": count, "Wisdom Gem Pack": count, "Courage Gem Pack": count}
 
 
 def add_sand(starting_time, time_incr, time_logic):
@@ -97,11 +96,11 @@ def add_sand(starting_time, time_incr, time_logic):
     if sand_count > max_sand_count:
         sand_count = max_sand_count
     # print(f"Sand count: {sand_count} total {starting_time.value + min_sand_count * time_incr.value}")
-    return [("Sand of Hours", sand_count)]
+    return {"Sand of Hours": sand_count}
 
 
 def add_beedle_point_items():
-    return [("Beedle Points (50)", 2), ("Beedle Points (20)", 3), ("Beedle Points (10)", 4)]
+    return {"Beedle Points (50)": 2, "Beedle Points (20)": 3, "Beedle Points (10)": 4}
 
 
 class PhantomHourglassWorld(World):
@@ -784,11 +783,6 @@ class PhantomHourglassWorld(World):
                 continue
 
             item_name = loc_data.get("item_override", loc_data["vanilla_item"])
-            if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
-                # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
-                removed_item_quantities[item_name] -= 1
-                filler_item_count += 1
-                continue
             if item_name == "Filler Item":
                 filler_item_count += 1
                 continue
@@ -832,7 +826,9 @@ class PhantomHourglassWorld(World):
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
-
+            if "Treasure Map" in item_name:
+                filler_item_count += 1
+                continue
             if (item_name in ["Treasure", "Ship Part", "Nothing!", "Potion", "Red Potion", "Purple Potion",
                               "Yellow Potion", "Power Gem", "Wisdom Gem", "Courage Gem", "Heart Container",
                               "Bombs (Progressive)", "Bow (Progressive)", "Bombchus (Progressive)",
@@ -844,27 +840,34 @@ class PhantomHourglassWorld(World):
 
         # Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3), ("Bombchus (Progressive)", 3)]
-        add_items += [("Phantom Hourglass", 1)]
+        add_items = {"Bombs (Progressive)": 3, "Bow (Progressive)": 3, "Bombchus (Progressive)": 3}
+        add_items |= {"Phantom Hourglass": 1}
         # If metal hunt create and add metals
         if self.options.goal_requirements == "metal_hunt":
             metal_pool = {}
             for i in self.pick_metals(self.options.metal_hunt_total):
                 metal_pool.setdefault(i, 0)
                 metal_pool[i] += 1
-            add_items += metal_pool.items()
-        add_items += add_spirit_gems(self.options.spirit_gem_packs, self.options.additional_spirit_gems)
-        add_items += [("Heart Container", 13)]
+            add_items |= metal_pool.items()
+        add_items |= add_spirit_gems(self.options.spirit_gem_packs, self.options.additional_spirit_gems)
+        add_items |= {"Heart Container": 13}
 
         # Add sand items to pool
-        add_items += add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
+        add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
+        # Add treasure maps
+        if self.options.randomize_salvage.value:
+            add_items |= {i: 1 for i in ITEM_GROUPS["Treasure Maps"]}
         # Add beedle point items
         if self.options.randomize_beedle_membership.value > 0:
-            add_items += [("Freebie Card", 1), ("Complimentary Card", 1)]
+            add_items |= {"Freebie Card": 1, "Complimentary Card": 1}
             if self.options.randomize_beedle_membership.value > 1:
-                add_items += add_beedle_point_items()
+                add_items |= add_beedle_point_items()
+        # Add items from options
+        for item, count in self.options.add_items_to_pool.items():
+            add_items.setdefault(item, 0)
+            add_items[item] += count
         # add items to item pool
-        for i, count in add_items:
+        for i, count in add_items.items():
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
         # Add ships if enough room in filler pool
         if filler_item_count >= 8:
@@ -875,6 +878,17 @@ class PhantomHourglassWorld(World):
         for _ in range(filler_item_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
+        # Remove items from options, replace with filler
+        for item, count in self.options.remove_items_from_pool.items():
+            if item in item_pool_dict:
+                new_count = item_pool_dict[item] - count
+                if new_count < 0:
+                    count = count + new_count
+                item_pool_dict[item] -= count
+                for i in range(count):
+                    random_filler_item = self.get_filler_item_name()
+                    item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
+
         return item_pool_dict
 
     def create_items(self):

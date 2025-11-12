@@ -355,7 +355,7 @@ def make_overworld_logic():
         ["toc before boss", "toc before boss chest", False, "boom"],
         ["toc before boss", "toc crayk", True, None],
         ["toc crayk", "post crayk", False, "bow"],
-        ["post crayk", "post toc", False, "bow"],  # Used for events
+        ["post crayk", "post toc", False, None],  # Used for events
 
         # ================ Spirit Island =====================
 
