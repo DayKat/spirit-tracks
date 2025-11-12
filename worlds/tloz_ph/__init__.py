@@ -603,14 +603,16 @@ class PhantomHourglassWorld(World):
 
                 return False
 
+            # Connect plando first, cause they will not be redone if failed
+            self.connect_plando(self.options.plando_transitions)
+            disconnect_on_retry = [i for i in randomized_entrances if i not in plando_disconnects]
             # Do ER
             ph_max_er_attempts = 10
             for i in range(ph_max_er_attempts):
                 # Workaround cause ER likes to link dead ends to each other when ignoring directions.
-                # Concept stolen from CodeGorilla's Crystalis implementation
+                # Concept borrowed from CodeGorilla's Crystalis implementation
                 try:
                     self.manual_er()
-                    self.connect_plando(self.options.plando_transitions)
                     self.er_placement_state = randomize_entrances(self, coupled, groups, on_connect=on_connect)
                     break
                 except EntranceRandomizationError as error:
@@ -619,8 +621,10 @@ class PhantomHourglassWorld(World):
                         raise EntranceRandomizationError(
                             f"Phantom Hourglass: failed GER after {ph_max_er_attempts} attempts.")
                     # disconnect entrances again, but only if they got connected before
-                    for entrance in randomized_entrances:
-                        if entrance.parent_region and entrance.connected_region:
+                    print(f"entrances to find for re-disconnect: {disconnect_on_retry}")
+                    for entrance in disconnect_on_retry:
+                        print(f"{entrance}: {entrance.parent_region} -> {entrance.connected_region}")
+                        if entrance.connected_region:
                             target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
                             disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
 

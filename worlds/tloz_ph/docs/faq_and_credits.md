@@ -16,12 +16,13 @@ If you want to help make a randomizer that's fully integrated into the game, vis
 This is a spiritual successor to my discontinued [Manual for Phantom Hourglass](https://github.com/carrotinator/manual_phantomhourglass_carrot). It covers the full game but you've got to do all the memory editing manually.
 
 ## Who made this?
-This version of the randomizer was made by me, @Carrotinator. The method making the item menu appear after getting an item was writen by @CelestialKitsune. But it wouldn't have been possible without the work of many that came before. Here are some of them:
+This version of the randomizer was made by me, @Carrotinator. Some features were added by  @CelestialKitsune and @Tanker50207, and some stuff in the shared client with Spirit tracks was written by @DayKat and @1313e. But it wouldn't have been possible without the work of many that came before. Here are some of them:
  * The Phantom Hourglass [Decomp Project](https://github.com/AetiasHax/ph), and especially: 
    * @Aetias for making an inventory editing script while playing the manual rando for PH I made previously. This spawned the idea for using the generic bizhawk connector to do everything, and look where that got us
    * Everyone who worked on the [PH dev spreadsheet](https://docs.google.com/spreadsheets/d/1_4Bo1IxLDtaytXj7SQFIAtt9QbPfYDTGZ-CDNf0DXJA/edit?gid=0#gid=0), but especially SammyGoodTunes, for updating the dev spreadsheets memory addresses live while I was working on this. I wouldn't have been able to do anything without the documentation in the spreadsheet.
  * The standalone [Phantom Hourglass Randomizer](https://github.com/phst-randomizer/ph-randomizer)
  * @Dinopony, whose [Archipelago implementation for Zelda: Oracle of Seasons](https://github.com/Dinopony/ArchipelagoOoS/releases) I used as a starting point and a reference for how to make an Archipelago client using the bizhawk tools. And for making their code easy to understand!
+ * @alwaysintreble, whose entrance randomizer code from [The Messenger](https://github.com/alwaysintreble/TheMessengerRandomizerModAP) helped me figure that stuff out
  * The Manual for Archipelago discord, for lowering the entry threshold to Archipelago development.
  * Everyone who worked on Archipelago as a whole, for upholding high standards in code readability, and for creating such an amazing system.
  * Everyone who playtested the early versions of this, for giving enthusiasm and bug reports!
@@ -40,7 +41,7 @@ It's still early alpha, and there are lots of issues around! Report issues to th
 
 ### Is there a tracker?
 
-[Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases) is supported.  
+[Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases) is supported, and includes a map screen by palex00.  
 There's an [item tracker](https://github.com/ZobeePlays/PH-AP-Item-Tracker/tree/main) for [poptracker](https://github.com/black-sliver/PopTracker) by ZobeePlays.
 Kizugaya/Kirito who made the [twilight princess poptracker](https://github.com/Kizugaya/TPRAP_poptracker) has started
 working on a map tracker for [poptracker](https://github.com/black-sliver/PopTracker). More info coming soon!
@@ -57,12 +58,13 @@ The Milk Bar on Mercay Island will give free refills. How nice
 ### My ship is slow. How do i go faster?
 There are multiple ways of doing this, but my favorite is to create a cheat in bizhawk for address `021FA0A4` in 
 `ARM7 system bus`, and set to any speed value. Default max speed is ``0x0080``.  My favorite is `0x0200`, or 4x speed.
-Note that this forces a max speed, and makes turning weird- you'll need to toggle it on and off to do things precisely.
+Note that this forces a max speed, and makes turning weird- you'll need to toggle it on and off to do things precisely. 
+Highly recommend setting a hotkey for toggling all cheats!
 
 ### My game crashed/I quit without saving
 
 The client should give you back your missing items when you reenter the game. It can take a while if you're missing a 
-lot of items, and there's not really any indicator for it.
+lot of items, but it will tell you what it's doing in the client.
 
 ### I collected some locations while the client wasn't connected
 

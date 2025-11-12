@@ -713,7 +713,7 @@ class PhantomHourglassEntrancePlando(PlandoConnections):
       percentage: 100
     Direction must be one of 'entrance', 'exit', or 'both', and defaults to 'both' if omitted.
     Percentage is an integer from 1 to 100, and defaults to 100 when omitted.
-    Will disconnect entrances for you, and randomize their dangling entrances with each other.
+    Will disconnect entrances for you, and randomize their dangling entrances with each other if their entrance groups allow it.
     """
     display_name = "Transition Plando"
     entrances = frozenset(ENTRANCES.keys())
@@ -879,7 +879,8 @@ ph_option_groups = [
         PhantomHourglassShuffleBosses,
         PhantomHourglassPreserveDirectionality,
         PhantomHourglassDecoupleEntrances,
-        PhantomHourglassShuffleBetweenIslands
+        PhantomHourglassShuffleBetweenIslands,
+        PhantomHourglassEntrancePlando
     ]),
     OptionGroup("Cosmetic Options", [
         PhantomHourglassAdditionalMetalNames
