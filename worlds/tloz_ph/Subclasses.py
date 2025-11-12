@@ -136,7 +136,7 @@ class PHTransition:
         self.exit_stage = self.exit[0]
         self.y = self.coords[1] if self.coords else None
 
-        self.vanilla_reciprocal = None  # Paired location
+        self.vanilla_reciprocal: PHTransition | None = None  # Paired location
 
         self.copy_number = 0
 
@@ -371,6 +371,4 @@ def update_switch_logic(old_ex: "PHEntrance", entr: "PHEntrance", er_state, logi
         print(f"\tupdating switch logic for {ex.name} to from {old_ex.name} to {old_ex.global_switch_state}")
         ex.global_switch_state = old_ex.global_switch_state
         ex.switch_state = old_ex.switch_state
-
-
 

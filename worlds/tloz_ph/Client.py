@@ -149,6 +149,10 @@ class PhantomHourglassClient(DSZeldaClient):
         if ctx.slot_data["randomize_harrow"] == 0:
             write_list += [(0x1B559A, [0x18], "Main RAM")]
 
+        # Print starting hints
+        if ctx.slot_data["dungeon_hint_location"] == 0:
+            self.dungeon_hints(ctx)
+
         return write_list
 
     async def get_coords(self, ctx, multi=False):
@@ -891,7 +895,7 @@ class PhantomHourglassClient(DSZeldaClient):
             else:
                 logger.info(f"You have no required dungeons.")
 
-
+        # Send excluded dungeon hints
         if ctx.slot_data["excluded_dungeon_hints"]:
             dungeons = ctx.slot_data["required_dungeons"]
             excluded = [d for d in DUNGEON_NAMES[2:] if d not in dungeons]

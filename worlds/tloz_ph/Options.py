@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from datetime import datetime
+from .data.Entrances import ENTRANCES
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-    ItemDict, ItemsAccessibility, ItemSet, Visibility, OptionGroup
+    ItemDict, ItemsAccessibility, ItemSet, Visibility, OptionGroup, PlandoConnections
 from worlds.tloz_ph.data.Items import ITEMS_DATA
 
 
@@ -703,6 +704,21 @@ class PhantomHourglassRequireSpecificBosses(Toggle):
     display_name = "dungeon_reward_type"
     default = 1
 
+class PhantomHourglassEntrancePlando(PlandoConnections):
+    """
+    Plando entrance connections. Format is a list of dictionaries:
+    - entrance: "Entrance Name"
+      exit: "Exit Name"
+      direction: "Direction"
+      percentage: 100
+    Direction must be one of 'entrance', 'exit', or 'both', and defaults to 'both' if omitted.
+    Percentage is an integer from 1 to 100, and defaults to 100 when omitted.
+    Will disconnect entrances for you, and randomize their dangling entrances with each other.
+    """
+    display_name = "Transition Plando"
+    entrances = frozenset(ENTRANCES.keys())
+    exits = frozenset(ENTRANCES.keys())
+
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
@@ -780,6 +796,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     entrance_directionality: PhantomHourglassPreserveDirectionality
     shuffle_between_islands: PhantomHourglassShuffleBetweenIslands
     decouple_entrances: PhantomHourglassDecoupleEntrances
+    plando_transitions: PhantomHourglassEntrancePlando
 
     # Cosmetic
     additional_metal_names: PhantomHourglassAdditionalMetalNames
@@ -866,6 +883,10 @@ ph_option_groups = [
     ]),
     OptionGroup("Cosmetic Options", [
         PhantomHourglassAdditionalMetalNames
+    ]),
+    OptionGroup("Item & Location Options", [
+        PhantomHourglassAddItemsToPool,
+        PhantomHourglassRemoveItemsFromPool
     ]),
 ]
 

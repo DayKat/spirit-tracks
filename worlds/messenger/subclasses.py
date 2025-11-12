@@ -82,3 +82,5 @@ class MessengerShopLocation(MessengerLocation):
 
 class MessengerItem(Item):
     game = "The Messenger"
+
+

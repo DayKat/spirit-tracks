@@ -55,7 +55,9 @@ class DefaultSettings(WorldTestBase):
             ]
         }],
         "add_items_to_pool": {"Grappling Hook": 1, "Boomerang": 1, "Shovel": 1, "Hammer": 1},
-        "remove_items_from_pool": {"Red Rupee (20)": 5}
+        "remove_items_from_pool": {"Red Rupee (20)": 5},
+        "plando_transitions": [{"entrance": "Mercay SW Oshus' House", "exit": "Apricot's Exit"},
+                               ]
     }
 
 # class TestGeneration(WorldTestBase):
