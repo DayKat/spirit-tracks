@@ -684,7 +684,10 @@ class PhantomHourglassClient(DSZeldaClient):
             await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)
             return False
 
-        elif "Boss Key" in vanilla_item and ctx.slot_data.get("boss_key_behaviour", True):
+        elif "Boss Key" in vanilla_item :
+            # Don't do anything if vanilla bk behaviour
+            if not ctx.slot_data["boss_key_behaviour"]:
+                return True
             # Read actor id in link's held item address. For some reason it's somewhere else in GT
             if self.current_stage == 0x20:
                 bk_id = await read_memory_value(ctx, 0x1CD770, silent=True, size=2)
@@ -828,6 +831,7 @@ class PhantomHourglassClient(DSZeldaClient):
         return None
 
     async def update_stored_entrances(self, ctx: "BizHawkClientContext"):
+        self.visited_entrances.clear()
         storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
         stored_entrances = await ctx.send_msgs([{
                 "cmd": "Get",
@@ -843,6 +847,7 @@ class PhantomHourglassClient(DSZeldaClient):
         storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
         self.visited_entrances.add(detect_data.id)
         self.visited_entrances.add(exit_data.id)
+        print(f"visited: {self.visited_entrances} old {old_visited_entrances}")
         print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
         if len(old_visited_entrances) != len(self.visited_entrances):
             await ctx.send_msgs([{

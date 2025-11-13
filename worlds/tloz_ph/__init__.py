@@ -143,6 +143,7 @@ class PhantomHourglassWorld(World):
         self.excluded_dungeons = []
         self.ut_pairings = {}
         self.manual_er_pairings = []
+        self.plando_er_pairings = []
         self.required_bosses = []
 
         self.entrances = {}
@@ -689,13 +690,15 @@ class PhantomHourglassWorld(World):
             reg1 = self.get_region(r1.entrance_region)
             remove_dangling_exit(reg1)
 
-
             r2 = ENTRANCES[plando_connection.exit]
             reg2 = self.get_region(r2.entrance_region)
             remove_dangling_entrance(reg2)
             # connect the regions
             reg1.connect(reg2)
-            self.manual_er_pairings.append((r1.name, r2.name))
+            self.plando_er_pairings.append((r1.name, r2.name))
+            if dev_prints:
+                print(f"Plando Connecting {r1} => {r2} with regions {reg1} => {reg2}")
+                print(f"ER pairings: {self.plando_er_pairings}")
 
             # pretend the user set the plando direction as "both" regardless of what they actually put on coupled
             if (self.options.decouple_entrances == "couple_all"
@@ -703,7 +706,9 @@ class PhantomHourglassWorld(World):
                 remove_dangling_exit(reg2)
                 remove_dangling_entrance(reg1)
                 reg2.connect(reg1)
-                self.manual_er_pairings.append((r2.name, r1.name))
+                self.plando_er_pairings.append((r2.name, r1.name))
+                if dev_prints:
+                    print(f"Connecting backwards {r2} => {r1}")
 
     def manual_er(self):
         def get_disconnected_entrances():
@@ -1137,7 +1142,7 @@ class PhantomHourglassWorld(World):
         # Create ER Pairings, as ids to save space
         pairings = {}
         if self.er_placement_state:
-            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings:
+            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
         slot_data["er_pairings"] = pairings
 
@@ -1151,7 +1156,7 @@ class PhantomHourglassWorld(World):
         if self.er_placement_state:
             spoiler_handle.write(f"\n\n Entrance Rando\n")
             prev = None
-            for i in self.er_placement_state.pairings + self.manual_er_pairings:
+            for i in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
                 if not (i[1], i[0]) == prev:
                     text = i[0] + " <=> " + i[1]
                     spoiler_handle.write(f"\t{text}\n")
