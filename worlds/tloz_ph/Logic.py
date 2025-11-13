@@ -87,6 +87,7 @@ def make_overworld_logic():
         ["mercay passage 3", "mercay passage 4", False, "mp3"],
         ["mercay passage 4", "mercay passage 3", False, "mp3_back"],
         ["mercay passage 4", "mercay se", True, None],
+        ["mercay passage 4", "mercay 1", False, "hard_logic"],  # Savewarp
 
         # ========== TotOK ===================
         ["totok", "totok 1f", False, "totok_1f"],
