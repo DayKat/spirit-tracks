@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from datetime import datetime
+from .data.Entrances import ENTRANCES
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-    ItemDict, ItemsAccessibility, ItemSet, Visibility, OptionGroup
+    ItemDict, ItemsAccessibility, ItemSet, Visibility, OptionGroup, PlandoConnections
 from worlds.tloz_ph.data.Items import ITEMS_DATA
 
 
@@ -78,7 +79,6 @@ class PhantomHourglassRemoveItemsFromPool(ItemDict):
     before using it on long generations. Use at your own risk!
     """
     display_name = "remove_items_from_pool"
-    verify_item_name = False
 
 
 class PhantomHourglassLogic(Choice):
@@ -504,6 +504,12 @@ class PhantomHourglassRandomizeBeedlePoints(Choice):
     option_randomize_with_grinding = 3
     default = 1
 
+class PhantomHourglassAddItemsToPool(ItemDict):
+    """
+    Add items to pool. Useful for adding duplicates
+    """
+    display_name = "add_items_to_pool"
+
 class PhantomHourglassDungeonShortcuts(Toggle):
     """
     Adds shortcuts from the beginning of islands to their dungeons, often by entering the house nearest their port.
@@ -698,6 +704,21 @@ class PhantomHourglassRequireSpecificBosses(Toggle):
     display_name = "dungeon_reward_type"
     default = 1
 
+class PhantomHourglassEntrancePlando(PlandoConnections):
+    """
+    Plando entrance connections. Format is a list of dictionaries:
+    - entrance: "Entrance Name"
+      exit: "Exit Name"
+      direction: "Direction"
+      percentage: 100
+    Direction must be one of 'entrance', 'exit', or 'both', and defaults to 'both' if omitted.
+    Percentage is an integer from 1 to 100, and defaults to 100 when omitted.
+    Will disconnect entrances for you, and randomize their dangling entrances with each other if their entrance groups allow it.
+    """
+    display_name = "Transition Plando"
+    entrances = frozenset(ENTRANCES.keys())
+    exits = frozenset(ENTRANCES.keys())
+
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
@@ -775,6 +796,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     entrance_directionality: PhantomHourglassPreserveDirectionality
     shuffle_between_islands: PhantomHourglassShuffleBetweenIslands
     decouple_entrances: PhantomHourglassDecoupleEntrances
+    plando_transitions: PhantomHourglassEntrancePlando
 
     # Cosmetic
     additional_metal_names: PhantomHourglassAdditionalMetalNames
@@ -782,6 +804,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     # Generic
     accessibility: ItemsAccessibility
     start_inventory_from_pool: StartInventoryPool
+    add_items_to_pool: PhantomHourglassAddItemsToPool
     remove_items_from_pool: PhantomHourglassRemoveItemsFromPool
     death_link: DeathLink
 
@@ -856,10 +879,15 @@ ph_option_groups = [
         PhantomHourglassShuffleBosses,
         PhantomHourglassPreserveDirectionality,
         PhantomHourglassDecoupleEntrances,
-        PhantomHourglassShuffleBetweenIslands
+        PhantomHourglassShuffleBetweenIslands,
+        PhantomHourglassEntrancePlando
     ]),
     OptionGroup("Cosmetic Options", [
         PhantomHourglassAdditionalMetalNames
+    ]),
+    OptionGroup("Item & Location Options", [
+        PhantomHourglassAddItemsToPool,
+        PhantomHourglassRemoveItemsFromPool
     ]),
 ]
 

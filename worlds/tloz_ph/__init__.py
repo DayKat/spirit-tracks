@@ -24,7 +24,7 @@ from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
-dev_prints = False
+dev_prints = True
 
 if TYPE_CHECKING:
     from .Subclasses import ERPlacementState, PHEntrance, PHRegion, PHTransition
@@ -65,20 +65,19 @@ class PhantomHourglassWeb(WebWorld):
 def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
     if filler_item_count >= count:
         filler_item_count -= count
-        item_pool_dict[item] = count
+        item_pool_dict[item] = item_pool_dict.get(item, 0) + count
     else:
         item_pool_dict[item] = filler_item_count
         filler_item_count = 0
-
     return [item_pool_dict, filler_item_count]
 
 
 def add_spirit_gems(pack_option, add_option):
     if pack_option == 1:
-        return [("Power Gem", 20), ("Wisdom Gem", 20), ("Courage Gem", 20)]
+        return {"Power Gem": 20, "Wisdom Gem": 20, "Courage Gem": 20}
     else:
         count = ceil(20 / pack_option.value) + add_option
-        return [("Power Gem Pack", count), ("Wisdom Gem Pack", count), ("Courage Gem Pack", count)]
+        return {"Power Gem Pack": count, "Wisdom Gem Pack": count, "Courage Gem Pack": count}
 
 
 def add_sand(starting_time, time_incr, time_logic):
@@ -97,11 +96,12 @@ def add_sand(starting_time, time_incr, time_logic):
     if sand_count > max_sand_count:
         sand_count = max_sand_count
     # print(f"Sand count: {sand_count} total {starting_time.value + min_sand_count * time_incr.value}")
-    return [("Sand of Hours", sand_count)]
+    return {"Sand of Hours": sand_count}
 
 
 def add_beedle_point_items():
-    return [("Beedle Points (50)", 2), ("Beedle Points (20)", 3), ("Beedle Points (10)", 4)]
+    return {"Beedle Points (50)": 2, "Beedle Points (20)": 3, "Beedle Points (10)": 4}
+
 
 
 class PhantomHourglassWorld(World):
@@ -143,6 +143,7 @@ class PhantomHourglassWorld(World):
         self.excluded_dungeons = []
         self.ut_pairings = {}
         self.manual_er_pairings = []
+        self.plando_er_pairings = []
         self.required_bosses = []
 
         self.entrances = {}
@@ -259,6 +260,8 @@ class PhantomHourglassWorld(World):
                     return True
                 elif location_name == "GOAL: Triforce Door" and self.options.goal_requirements == "triforce_door":
                     return True
+            if location_name == "Ocean NE Man of Smiles Prize Postcard":  # This it pretty random but whatever...
+                return self.options.randomize_beedle_membership.value > 0
             return False
 
     def pick_required_dungeons(self):
@@ -496,10 +499,14 @@ class PhantomHourglassWorld(World):
         return bake_target_group_lookup(self, get_target_groups)
 
     def connect_entrances(self) -> None:
-        do_er = True   # Dev toggle
-
-        if do_er:
-
+        # UT only needs to disconnect entrances, use slot data pairings to figure out which
+        if getattr(self.multiworld, "generation_is_fake", False):
+            disconnect_ids = set(self.ut_pairings.keys()) | set(self.ut_pairings.values())
+            for e in self.entrances.values():
+                if ENTRANCES[e.name].id in disconnect_ids:
+                    target_name = ENTRANCES[e.name].vanilla_reciprocal.name
+                    disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
+        else:
             # What option corresponds with what type
             type_option_lookup = {
                 1: self.options.shuffle_houses,
@@ -515,10 +522,20 @@ class PhantomHourglassWorld(World):
 
             # Filter entrances to disconnect by yaml settings
             randomized_entrances: list["Entrance"] = []
+            plando_disconnects = set()
+            for i in self.options.plando_transitions.value:
+                plando_disconnects.add(i.entrance)
+                plando_disconnects.add(ENTRANCES[i.entrance].vanilla_reciprocal.name)
+                plando_disconnects.add(i.exit)
+                plando_disconnects.add(ENTRANCES[i.exit].vanilla_reciprocal.name)
+            if dev_prints:
+                print(f"Plando disconnects {plando_disconnects}")
             for e in self.entrances.values():
                 # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
                 if type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]:
                     # print(f"disconnecting {e.name} for {type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]}")
+                    randomized_entrances.append(e)
+                elif e.name in plando_disconnects:
                     randomized_entrances.append(e)
 
             if self.options.shuffle_bosses and self.options.ghost_ship_in_dungeon_pool.value == 2 and self.options.exclude_non_required_dungeons:
@@ -531,6 +548,7 @@ class PhantomHourglassWorld(World):
                 disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
                 if dev_prints:
                     print(f"disconnected {entrance.name}, parent {entrance.parent_region}, child {entrance.connected_region}, group {entrance.randomization_group}")
+
 
             # Get valid connection groups
             groups = self.create_er_target_groups(type_option_lookup)
@@ -586,53 +604,111 @@ class PhantomHourglassWorld(World):
 
                 return False
 
-            # Do ER, if not UT!
-            if not getattr(self.multiworld, "generation_is_fake", False):
-                ph_max_er_attempts = 10
-                for i in range(ph_max_er_attempts):
-                    # Workaround cause ER likes to link dead ends to each other when ignoring directions.
-                    # Concept stolen from CodeGorilla's Crystalis implementation
-                    try:
-                        self.manual_er()
-                        self.er_placement_state = randomize_entrances(self, coupled, groups, on_connect=on_connect)
-                        break
-                    except EntranceRandomizationError as error:
-                        print(f"Phantom Hourglass ER failed {i+1} time(s)")
-                        if i >= ph_max_er_attempts-1:
-                            raise EntranceRandomizationError(
-                                f"Phantom Hourglass: failed GER after {ph_max_er_attempts} attempts.")
-                        # disconnect entrances again, but only if they got connected before
-                        for entrance in randomized_entrances:
-                            if entrance.parent_region and entrance.connected_region:
-                                target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
-                                disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
+            # Connect plando first, cause they will not be redone if failed
+            self.connect_plando(self.options.plando_transitions)
+            disconnect_on_retry = [i for i in randomized_entrances if i not in plando_disconnects]
+            # Do ER
+            ph_max_er_attempts = 10
+            for i in range(ph_max_er_attempts):
+                # Workaround cause ER likes to link dead ends to each other when ignoring directions.
+                # Concept borrowed from CodeGorilla's Crystalis implementation
+                try:
+                    self.manual_er()
+                    self.er_placement_state = randomize_entrances(self, coupled, groups, on_connect=on_connect)
+                    break
+                except EntranceRandomizationError as error:
+                    print(f"Phantom Hourglass ER failed {i+1} time(s)")
+                    if i >= ph_max_er_attempts-1:
+                        raise EntranceRandomizationError(
+                            f"Phantom Hourglass: failed GER after {ph_max_er_attempts} attempts.")
+                    # disconnect entrances again, but only if they got connected before
+                    print(f"entrances to find for re-disconnect: {disconnect_on_retry}")
+                    for entrance in disconnect_on_retry:
+                        print(f"{entrance}: {entrance.parent_region} -> {entrance.connected_region}")
+                        if entrance.connected_region:
+                            target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
+                            disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
 
-                # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
-                # to put the reward on when bosses are shuffled
-                if not self.options.require_specific_bosses:
-                    self.required_bosses = list(DUNGEON_TO_BOSS_ITEM_LOCATION.values())
-                    if self.options.ghost_ship_in_dungeon_pool.value == 2:
-                        self.required_bosses.remove("_gs")
-                    if not self.options.totok_in_dungeon_pool:
-                        self.required_bosses.remove("TotOK B13 NE Sea Chart Chest")
-                elif self.options.shuffle_bosses.value == 1:
-                    self.required_bosses = []
-                    for e1, e2 in self.er_placement_state.pairings:
-                        if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
-                            if BOSS_STAIRCASES[e1] == "Ghost Ship" and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra":
-                                self.required_bosses.append("Ghost Ship Rescue Tetra")
-                            else:
-                                self.required_bosses.append(BOSS_ENTRANCE_LOOKUP[e2])
-                    if "Temple of the Ocean King" in self.required_dungeons:
-                        self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
-                else:
-                    self.required_bosses = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung] for dung in self.required_dungeons]
-
-                if "_gs" in self.required_bosses:
+            # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
+            # to put the reward on when bosses are shuffled
+            if not self.options.require_specific_bosses:
+                self.required_bosses = list(DUNGEON_TO_BOSS_ITEM_LOCATION.values())
+                if self.options.ghost_ship_in_dungeon_pool.value == 2:
                     self.required_bosses.remove("_gs")
-                    self.required_bosses.append(GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
+                if not self.options.totok_in_dungeon_pool:
+                    self.required_bosses.remove("TotOK B13 NE Sea Chart Chest")
+            elif self.options.shuffle_bosses.value == 1:
+                self.required_bosses = []
+                for e1, e2 in self.er_placement_state.pairings:
+                    if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
+                        if BOSS_STAIRCASES[
+                            e1] == "Ghost Ship" and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra":
+                            self.required_bosses.append("Ghost Ship Rescue Tetra")
+                        else:
+                            self.required_bosses.append(BOSS_ENTRANCE_LOOKUP[e2])
+                if "Temple of the Ocean King" in self.required_dungeons:
+                    self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
+            else:
+                self.required_bosses = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung] for dung in
+                                        self.required_dungeons]
 
-                # print(f"Required bosses: {self.required_bosses}")
+            if "_gs" in self.required_bosses:
+                self.required_bosses.remove("_gs")
+                self.required_bosses.append(
+                    GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
+
+            # Add dungeon hints to start
+            if self.options.dungeon_hint_location.value == 0 and self.options.dungeon_hint_type == "hint_boss":
+                self.options.start_location_hints.value += self.required_bosses
+
+            # print(f"Required bosses: {self.required_bosses}")
+
+    # Based on the messenger's plando connection by Aaron Wagner
+    def connect_plando(self, plando_connections: "PhantomHourglassEntrancePlando") -> None:
+        def remove_dangling_exit(region: Region) -> None:
+            # find the disconnected exit and remove references to it
+            for _exit in region.exits:
+                if not _exit.connected_region:
+                    break
+            else:
+                raise ValueError(f"Unable to find randomized transition for {plando_connection}")
+
+            region.exits.remove(_exit)
+
+        def remove_dangling_entrance(region: Region) -> None:
+            # find the disconnected entrance and remove references to it
+            for _entrance in region.entrances:
+                if not _entrance.parent_region:
+                    break
+            else:
+                raise ValueError(f"Invalid target region for {plando_connection}")
+            region.entrances.remove(_entrance)
+
+        for plando_connection in plando_connections:
+            # get the connecting regions
+            r1 = ENTRANCES[plando_connection.entrance]
+            reg1 = self.get_region(r1.entrance_region)
+            remove_dangling_exit(reg1)
+
+            r2 = ENTRANCES[plando_connection.exit]
+            reg2 = self.get_region(r2.entrance_region)
+            remove_dangling_entrance(reg2)
+            # connect the regions
+            reg1.connect(reg2)
+            self.plando_er_pairings.append((r1.name, r2.name))
+            if dev_prints:
+                print(f"Plando Connecting {r1} => {r2} with regions {reg1} => {reg2}")
+                print(f"ER pairings: {self.plando_er_pairings}")
+
+            # pretend the user set the plando direction as "both" regardless of what they actually put on coupled
+            if (self.options.decouple_entrances == "couple_all"
+                 or plando_connection.direction == "both"):
+                remove_dangling_exit(reg2)
+                remove_dangling_entrance(reg1)
+                reg2.connect(reg1)
+                self.plando_er_pairings.append((r2.name, r1.name))
+                if dev_prints:
+                    print(f"Connecting backwards {r2} => {r1}")
 
     def manual_er(self):
         def get_disconnected_entrances():
@@ -784,11 +860,6 @@ class PhantomHourglassWorld(World):
                 continue
 
             item_name = loc_data.get("item_override", loc_data["vanilla_item"])
-            if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
-                # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
-                removed_item_quantities[item_name] -= 1
-                filler_item_count += 1
-                continue
             if item_name == "Filler Item":
                 filler_item_count += 1
                 continue
@@ -832,7 +903,9 @@ class PhantomHourglassWorld(World):
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
-
+            if "Treasure Map" in item_name:
+                filler_item_count += 1
+                continue
             if (item_name in ["Treasure", "Ship Part", "Nothing!", "Potion", "Red Potion", "Purple Potion",
                               "Yellow Potion", "Power Gem", "Wisdom Gem", "Courage Gem", "Heart Container",
                               "Bombs (Progressive)", "Bow (Progressive)", "Bombchus (Progressive)",
@@ -844,27 +917,34 @@ class PhantomHourglassWorld(World):
 
         # Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3), ("Bombchus (Progressive)", 3)]
-        add_items += [("Phantom Hourglass", 1)]
+        add_items = {"Bombs (Progressive)": 3, "Bow (Progressive)": 3, "Bombchus (Progressive)": 3}
+        add_items |= {"Phantom Hourglass": 1}
         # If metal hunt create and add metals
         if self.options.goal_requirements == "metal_hunt":
             metal_pool = {}
             for i in self.pick_metals(self.options.metal_hunt_total):
                 metal_pool.setdefault(i, 0)
                 metal_pool[i] += 1
-            add_items += metal_pool.items()
-        add_items += add_spirit_gems(self.options.spirit_gem_packs, self.options.additional_spirit_gems)
-        add_items += [("Heart Container", 13)]
+            add_items |= metal_pool.items()
+        add_items |= add_spirit_gems(self.options.spirit_gem_packs, self.options.additional_spirit_gems)
+        add_items |= {"Heart Container": 13}
 
         # Add sand items to pool
-        add_items += add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
+        add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
+        # Add treasure maps
+        if self.options.randomize_salvage.value:
+            add_items |= {i: 1 for i in ITEM_GROUPS["Treasure Maps"]}
         # Add beedle point items
         if self.options.randomize_beedle_membership.value > 0:
-            add_items += [("Freebie Card", 1), ("Complimentary Card", 1)]
+            add_items |= {"Freebie Card": 1, "Complimentary Card": 1}
             if self.options.randomize_beedle_membership.value > 1:
-                add_items += add_beedle_point_items()
+                add_items |= add_beedle_point_items()
+        # Add items from options
+        for item, count in self.options.add_items_to_pool.items():
+            add_items.setdefault(item, 0)
+            add_items[item] += count
         # add items to item pool
-        for i, count in add_items:
+        for i, count in add_items.items():
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
         # Add ships if enough room in filler pool
         if filler_item_count >= 8:
@@ -875,6 +955,16 @@ class PhantomHourglassWorld(World):
         for _ in range(filler_item_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
+        # Remove items from options, replace with filler
+        for item, count in self.options.remove_items_from_pool.items():
+            if item in item_pool_dict:
+                new_count = item_pool_dict[item] - count
+                if new_count < 0:
+                    count = count + new_count
+                item_pool_dict[item] -= count
+                for i in range(count):
+                    random_filler_item = self.get_filler_item_name()
+                    item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
         return item_pool_dict
 
     def create_items(self):
@@ -1052,7 +1142,7 @@ class PhantomHourglassWorld(World):
         # Create ER Pairings, as ids to save space
         pairings = {}
         if self.er_placement_state:
-            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings:
+            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
         slot_data["er_pairings"] = pairings
 
@@ -1066,7 +1156,7 @@ class PhantomHourglassWorld(World):
         if self.er_placement_state:
             spoiler_handle.write(f"\n\n Entrance Rando\n")
             prev = None
-            for i in self.er_placement_state.pairings + self.manual_er_pairings:
+            for i in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
                 if not (i[1], i[0]) == prev:
                     text = i[0] + " <=> " + i[1]
                     spoiler_handle.write(f"\t{text}\n")

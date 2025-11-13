@@ -1939,9 +1939,10 @@ entrance_id_to_region = {d.id: d.entrance_region for d in ENTRANCES.values()}
 
 
 if __name__ == "__main__":
-    sorted_entrances = sorted(ENTRANCES, key=lambda x: (ENTRANCES[x].category_group, ENTRANCES[x].direction))
+    sorted_entrances = sorted(ENTRANCES, key=lambda x: (ENTRANCES[x].island, ENTRANCES[x].category_group, ENTRANCES[x].direction, ENTRANCES[x].name))
     for name in sorted_entrances:
-        print(name)
+        if not "Unnamed" in name:
+            print(name)
 
 
     # for name, data in ENTRANCES.items():

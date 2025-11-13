@@ -3,6 +3,10 @@ from .data import LOCATIONS_DATA
 from .data.LogicPredicates import *
 from .Options import PhantomHourglassOptions
 from .data.Entrances import ENTRANCES
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .Subclasses import PHRegion
 
 def make_overworld_logic():
     overworld_logic = [
@@ -355,7 +359,7 @@ def make_overworld_logic():
         ["toc before boss", "toc before boss chest", False, "boom"],
         ["toc before boss", "toc crayk", True, None],
         ["toc crayk", "post crayk", False, "bow"],
-        ["post crayk", "post toc", False, "bow"],  # Used for events
+        ["post crayk", "post toc", False, None],  # Used for events
 
         # ================ Spirit Island =====================
 
@@ -814,13 +818,17 @@ def is_item(item: Item, player: int, item_name: str):
 
 
 def create_connections(multiworld: MultiWorld, player: int, origin_name: str, options):
-    def create_entrance(r1, r2, *arguments):
+    def create_entrance(r1: "PHRegion", r2: "PHRegion", *arguments):
         entrance_key = (r1.name, r2.name)
+        name = None
+        if entrance_key in test_entrances:
+            entrance_data = test_entrances[entrance_key]
+            name = entrance_data.name
         if rule_lookup:
             rule_func = RULE_DICT[rule_lookup]
-            entrance = r1.connect(r2, None, lambda state: rule_func(state, player, *arguments))
+            entrance = r1.connect(r2, name, lambda state: rule_func(state, player, *arguments))
         else:
-            entrance = r1.connect(r2, None, None)
+            entrance = r1.connect(r2, name, None)
 
         if entrance_key in test_entrances:
             # Set entrance data
