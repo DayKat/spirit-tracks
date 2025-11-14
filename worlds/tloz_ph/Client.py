@@ -110,6 +110,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         self.boss_warp_entrance = None
         self.last_warp_stage = None
+        self.item_location_combo = None
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
@@ -656,6 +657,25 @@ class PhantomHourglassClient(DSZeldaClient):
             self.metal_count += 1
             await self.process_game_completion(ctx)
 
+        exclude_key = f"ph_keylocking_{ctx.slot}_{ctx.team}"
+        # Exclude forced vanilla items on not needing them any more
+        if item_name == "Grappling Hook":
+            print(f"TotOK B3 has no more useful force gems")
+            data = [self.location_name_to_id[i] for i in LOCATION_GROUPS["Grappling Hook Excludes"]]
+            await self.store_data(ctx, exclude_key, data)
+
+        # Run code if you got a certain item from a certain location
+        if self.item_location_combo:
+            if "Mountain Passage" in self.item_location_combo["name"]:
+                if ctx.slot_data["keysanity"] < 2 and "Small Key" not in item_name:
+                    print(f"Mountain Passage has no more useful items")
+                    key = f"ph_keylocking_{ctx.slot}_{ctx.team}"
+                    data = [self.location_name_to_id[i] for i in LOCATION_GROUPS["Mountain Passage"]]
+                    await self.store_data(ctx, exclude_key, data)
+
+            self.item_location_combo = None
+
+
     @staticmethod
     async def enable_items(ctx: "BizHawkClientContext", inventory_id: int):
         equipped_item_pointer = await read_memory_value(ctx, POINTERS["ADDR_gItemManager"], size=4, domain="Data TCM", silent=True) - 0x02000000
@@ -850,12 +870,16 @@ class PhantomHourglassClient(DSZeldaClient):
         print(f"visited: {self.visited_entrances} old {old_visited_entrances}")
         print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
         if len(old_visited_entrances) != len(self.visited_entrances):
-            await ctx.send_msgs([{
-                "cmd": "Set",
-                "key": storage_key,
-                "default": set(),
-                "operations": [{"operation": "update", "value": list(self.visited_entrances-old_visited_entrances)}]
-            }])
+            await self.store_data(ctx, storage_key, self.visited_entrances-old_visited_entrances)
+
+    @staticmethod
+    async def store_data(ctx: "BizHawkClientContext", key, data):
+        await ctx.send_msgs([{
+            "cmd": "Set",
+            "key": key,
+            "default": set(),
+            "operations": [{"operation": "update", "value": list(data)}]
+        }])
 
     def write_respawn_entrance(self, exit_data: "PhantomHourglassEntrance"):
         # If ER:ing to sea, set respawn entrance to where you came from cause that doesn't change by itself when warping
@@ -912,3 +936,8 @@ class PhantomHourglassClient(DSZeldaClient):
                 logger.info(f"You have no excluded dungeons.")
 
         return res
+
+    async def check_location_post_processing(self, ctx, location):
+        if location is not None and "do_special" in location:
+            print(f"Got item in Mountain passage: {ctx.items_received[-1]}")
+            self.item_location_combo = location

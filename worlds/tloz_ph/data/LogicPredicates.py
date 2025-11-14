@@ -1072,7 +1072,7 @@ def ph_mp2_bypass_fore(state, player):
             ph_option_vanilla_caves(state, player),
             any([
                 ph_has_small_keys(state, player, "Mountain Passage", 2),
-                ph_is_ut(state, player)
+                ph_is_ut(state, player),
             ])
         ])
     ])
@@ -1103,7 +1103,10 @@ def ph_mp3_back(state, player):
 def ph_mercay_passage_rat(state, player):
     return any([
         ph_can_kill_bat(state, player),
-        ph_clever_pots(state, player)  # only if not ER
+        all([
+            ph_clever_pots(state, player),  # only if not ER
+            ph_option_vanilla_caves(state, player)
+        ]),
     ])
 
 def ph_nyave_fight(state, player):

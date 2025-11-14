@@ -1095,6 +1095,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field pre-dungeon", "RESET Ice Field post-dungeon"]
     },
+    "Frost Port Azurine for Peg lol": {
+        "on_scenes": [0xF00],
+        "not_has_locations": ["Isle of Frost Stand on Peg Gift"],
+        "unset_if_true": [(0x1B558B, 0x20)],
+        "reset_flags": ["RESET Ice Field pre-dungeon", "RESET Ice Field post-dungeon"]
+    },
     "Ice Field post-dungeon": {
         "on_scenes": [0xF03],
         "has_locations": ["Gleeok Boss Reward"],
@@ -1198,7 +1204,7 @@ DYNAMIC_FLAGS = {
     # Skippyjack protection
     "Remove big catch lure if no skippyjack": {
         "on_scenes": [0, 1, 2, 3],
-        "not_has_location": ["Fishing Catch Skippyjack"],
+        "not_has_locations": ["Fishing Catch Skippyjack"],
         "unset_if_true": [(0x1ba649, 0x80)],
         "reset_flags": ["RESET Remove big catch lure if no skippyjack"]
     },
@@ -1241,7 +1247,7 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Ember double linebeck"],
     },
     "RESET Ember double linebeck": {
-        "not_has_location": ["Blaaz Boss Reward"],
+        "not_has_locations": ["Blaaz Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x20)],
     },
     "Astrid after fire temple": {
@@ -1251,17 +1257,17 @@ DYNAMIC_FLAGS = {
     },
     "Astrid before fire temple": {
         "on_scenes": [0xD0A],
-        "not_has_location": ["Blaaz Boss Reward"],
+        "not_has_locations": ["Blaaz Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x20)]
     },
     "Ember respawn blaaz": {
         "on_scenes": [0x2B00],
-        "not_has_location": ["Blaaz Boss Reward"],
+        "not_has_locations": ["Blaaz Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x20)],
     },
     "Molida respawn crayk": {
         "on_scenes": [0x2C00],
-        "not_has_location": ["Crayk Boss Reward"],
+        "not_has_locations": ["Crayk Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x80)],
     },
     # Regal necklace backup removal

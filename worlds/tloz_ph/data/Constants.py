@@ -1230,6 +1230,11 @@ CATEGORY_LOCATION_GROUPS = {
         "Dongorongo Boss Reward",
         "Gleeok Boss Reward",
         "Eox Boss Reward",
+    ],
+    "Grappling Hook Excludes": [
+        "TotOK B3 NW Chest",
+        "TotOK B3 SW Chest",
+        "TotOK B3 SE Chest"
     ]
 }
 
