@@ -24,7 +24,7 @@ from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
-dev_prints = False
+dev_prints = True
 
 if TYPE_CHECKING:
     from .Subclasses import ERPlacementState, PHEntrance, PHRegion, PHTransition
@@ -454,7 +454,7 @@ class PhantomHourglassWorld(World):
 
             # Create target island list
             if ((in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 3]) or
-                    (not in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 2])):
+                    (not in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 2] and type_option_lookup[area].value != 3)):
                 target_islands.update(range(15))
             else:
                 target_islands.add(island)

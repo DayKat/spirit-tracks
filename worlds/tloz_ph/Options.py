@@ -557,11 +557,13 @@ class PhantomHourglassShuffleCaves(Choice):
     - no_shuffle: don't shuffle caves
     - shuffle: shuffle caves
     - simple_mixed_pool: shuffles caves with other entrance types that have this option
+    - shuffle_on_own_island: caves on each island will be shuffled with each other. Overrides the shuffle_between_islands option.
     """
     display_name = "shuffle_caves"
     option_no_shuffle = 0
     option_shuffle = 1
     option_simple_mixed_pool = 2
+    option_shuffle_on_own_island = 3
     default = 0
 
 class PhantomHourglassShuffleHouses(Choice):
@@ -571,11 +573,13 @@ class PhantomHourglassShuffleHouses(Choice):
     - no_shuffle: don't shuffle houses
     - shuffle: shuffle houses
     - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    - shuffle_on_own_island: houses on each island will be shuffled with each other. Overrides the shuffle_between_islands option.
     """
     display_name = "shuffle_houses"
     option_no_shuffle = 0
     option_shuffle = 1
     option_simple_mixed_pool = 2
+    option_shuffle_on_own_island = 3
     default = 0
 
 class PhantomHourglassShuffleOverworldTransitions(Choice):
@@ -587,11 +591,13 @@ class PhantomHourglassShuffleOverworldTransitions(Choice):
     - no_shuffle: don't shuffle island transitions
     - shuffle: shuffle overworld transitions
     - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    - shuffle_on_own_island: overworld transitions on each island will be shuffled with each other. Overrides the shuffle_between_islands option.
     """
     display_name = "shuffle_overworld_transitions"
     option_no_shuffle = 0
     option_shuffle = 1
     option_simple_mixed_pool = 2
+    option_shuffle_on_own_island = 3
     default = 0
 
 class PhantomHourglassShuffleBetweenIslands(Choice):
