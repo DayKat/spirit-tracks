@@ -15,8 +15,9 @@ class SpiritTracksGoal(Choice):
     """
     display_name = "Goal"
     option_beat_ToS_section_1 = 0
-    option_beat_wooded_temple = 1
-    option_beat_ToS_section_2 = 2
+    option_beat_ToS_section_2 = 1
+    option_beat_wooded_temple = 2
+    option_beat_blizzard_temple = 3
     default = 1
 
 
@@ -32,13 +33,15 @@ class SpiritTracksRemoveItemsFromPool(ItemDict):
 
 class SpiritTracksLogic(Choice):
     """
-    NOT IMPLEMENTED YET
+    Currently only used for Slippery Station Champion reward check - if you want to include this check then choose Hard.
 
     Logic options:
     - Normal: Glitches not in logic.
-    - Medium: Includes some cool uses of pots aren't hard, bun unconventional
-    - Glitched: Hammer clips, chu camera displacement and clever use of items in logic
+    - Medium: Includes some cool uses of pots aren't hard, but unconventional
+    - Glitched: Clever use of items in logic and glitches
     Be careful, using glitches on normal logic can cause key-related softlocks
+
+    Please let me (@DayKat) know if you know of any glitches or non-normal logic!
     """
     display_name = "logic"
     option_normal = 0
@@ -86,15 +89,6 @@ class SpiritTracksKeyRandomization(Choice):
 #     option_randomize = 2
 #     default = 0
 
-
-# class SpiritTracksTrainRequiresForestGlyph(Toggle):
-#     """
-#     If True, heading out to sea from outset requires the Forest Realm Glyph.
-#     WARNING! If set to False and you travel without a glyph, you can softlock by crossing to another glyph.
-#     Warp Gates require their glyph to work
-#     """
-#     display_name = "Train requires Forest Glyph"
-#     default = 1
 
 # class SpiritTracksDungeonHints(Choice):
 #     """

@@ -16,7 +16,7 @@ def st_has_sword(state: CollectionState, player: int):
 
 def st_has_shield(state: CollectionState, player: int):
     # Shield can be bought from shop
-    return True
+    return state.has("Shield", player)
 
 def st_has_bow(state: CollectionState, player: int):
     return state.has("Bow (Progressive)", player)
@@ -72,6 +72,8 @@ def st_has_temple_tracks(state, player, temple):
 def st_has_misc_tracks(state, player, tracks):
     return state.has(f"{tracks} Tracks", player)
 
+def st_has_portal(state, player, portal):
+    return state.has(f"{portal} Portal", player)
 
 # ============== Songs =======================
 
@@ -267,6 +269,8 @@ def st_quick_switches(state, player):
 def st_can_cut_small_trees(state: CollectionState, player: int):
     return any([st_has_sword(state, player), st_has_bombs(state, player)])
 
+def st_can_ring_bell(state: CollectionState, player: int):
+    return any([st_has_sword(state, player), st_has_boomerang(state, player)])
 
 # ================ Rupee States ==================
 

@@ -6,8 +6,8 @@ REGIONS = [
     "forest realm",
     #"forest realm nr rabbit haven rabbit",
     #"forest realm s whittleton rabbit",
-    #"forest realm w cast town rabbit",
-    #"forest realm ft rabbit",
+    #"forest realm w castle town rabbit",
+    #"forest realm wt rabbit",
 
     # Outset Village
     "outset village",
@@ -127,13 +127,71 @@ REGIONS = [
     "trading post stamp station",
     #"trading post ore gem",
 
-    #"snow realm",
-    #"snow realm frog n",
-    #"porl",
-    #"porl item",
-    #"porl trade",
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # Snow Realm
+    "snow realm",
+    "snow realm post song",
+    # "w anouki village rabbit",
+    # "e anouki village rabbit",
+    # "sw blizzard rabbit",
+    # "snowdrift station rabbit",
+    # "central blizzard rabbit",
+    # "nw blizzard rabbit",
+    # "ne blizzard rabbit",
+    # "e blizzard rabbit",
+    # "w icyspring rabbit",
+    # "n icyspring rabbit",
+    
+    # Anouki Village
+    "anouki village",
+    "anouki village stamp station",
+    "anouki village discovery song statue",
+    "anouki village song statue chest",
+    "anouki village bomb cave chest",
+    "anouki village lake chest",
+    #"anouki village worker to anouki gem",
 
+    # Snow Sanctuary
+    "ss",
+    "ss stamp station",
+    #"ss steem duet",
+    #"ss shop hc", (costs 2000)
 
+    # Blizzard Temple
+    "bt",
+    "bt b1 se chest",
+    "bt b1 ne enemy chest",
+    "bt 1f ne chest",
+    "bt b1 sw chest",
+    "bt stamp station",
+    "bt b1 nw enemy chest",
+    "bt 1f nw chest",
+    "bt 1f torch chest",
+    "bt fraaz",
+    "bt heart container",
+    "goal_fraaz",
+    "post bt",
+
+    # Icy Spring
+    "icyspring",
+    "icyspring stamp station",
+    "icyspring whip chest",
+
+    # Snowdrift Station
+    "snowdrift",
+    "snowdrift reward",
+
+    # Slippery Station
+    "slippery",
+    "slippery amateur",
+    "slippery pro",
+    "slippery champion",
+
+    # Bridge Worker's Home
+    "bridge workers",
+    "bridge workers chest",
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm
 
     #"ocean realm",
@@ -141,21 +199,14 @@ REGIONS = [
     #"ocean realm trade",
     #"pirate ambush",
 
-
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Fire Realm
 
     #"fire realm",
     #"fire realm frog",
     #"fire realm combat",
 
-
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
-
-
-    # Uncharted
-    #"uncharted",
-    #"uncharted dig",
-    #"uncharted cave",
-    #"uncharted grapple",
 
 ]

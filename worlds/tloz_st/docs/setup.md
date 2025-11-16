@@ -4,7 +4,7 @@
 
 * [Archipelago 0.6.1+](https://archipelago.gg/tutorial/Archipelago/setup/en)
 * [Bizhawk 2.10+](https://github.com/TASEmulators/BizHawk)
-* Legally acquired Spirit Tracks EU rom (US support coming soon). Apparently it only works in English
+* Legally acquired Spirit Tracks EU rom *(Not revision 1)*. Apparently it only works in English
 * [Latest tloz_st.apworld](https://github.com/DayKat/spirit-tracks/releases)
 
 ## Recommended Software
@@ -24,7 +24,7 @@
 ## Important:
 
 - When starting a new savefile, connect the lua to the client before starting. Using an in-progress file should be fine in either order.
-- On a new seed, DO NOT TALK TO ALFONSO to start the tutorial until zelda appears at the station.
+- On a new seed, DO NOT TALK TO ALFONSO to start the tutorial until zelda appears at the station. She'll appear after doing the "Outset Clear Rocks" and "Outset Bee Tree" checks, and if you have received both Forest Glyph and Cannon.
 - If you feel you are stuck when you should be able to do something and the game is not allowing it, going in and out of a loading zone (e.g a house) might fix it so try that first.
 
 

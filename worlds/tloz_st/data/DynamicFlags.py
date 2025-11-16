@@ -15,16 +15,15 @@ DYNAMIC_FLAGS = {
         "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(0x265714, 0x04)]
     },
-    "Allow learning discovery song": {
+    "Allow learning awakening song": {
         "on_scenes": [0x3000],
         "not_has_locations": ["Forest Sanctuary Song Statue"],
         "unset_if_true": [(0x268FB0, 0x01)],
         "reset_flags": ["RESET fs statue"]
     },
     "RESET fs statue": {
-        "on_scenes": [0x3000],
-        "has_locations": ["Forest Sanctuary Song Statue"],
-        "has_items": [["Song of Discovery", 1]],
+        #"has_locations": ["Forest Sanctuary Song Statue"],
+        "has_items": [["Song of Awakening", 1]],
         "set_if_true": [(0x268FB0, 0x01)],
     },
     "Allow learning healing song": {
@@ -34,8 +33,7 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET wt statue"]
     },
     "RESET wt statue": {
-        "on_scenes": [0x190A],
-        "has_locations": ["Wooded Temple Song Statue"],
+        #"has_locations": ["Wooded Temple Song Statue"],
         "has_items": [["Song of Healing", 1]],
         "set_if_true": [(0x268FB0, 0x02)],
     },
@@ -46,10 +44,20 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET trading post statue"]
     },
     "RESET trading post statue": {
-        "on_scenes": [0x3700],
-        "has_locations": ["Trading Post 2nd Song Statue"],
+        #"has_locations": ["Trading Post 2nd Song Statue"],
         "has_items": [["Song of Light", 1]],
         "set_if_true": [(0x268FB0, 0x08)],
+    },
+    "Allow learning discovery song": {
+        "on_scenes": [0x2B00],
+        "not_has_locations": ["Anouki Village Song Statue"],
+        "unset_if_true": [(0x268FB0, 0x10)],
+        "reset_flags": ["RESET av statue"]
+    },
+    "RESET av statue": {
+        # "has_locations": ["Anouki Village Song Statue"],
+        "has_items": [["Song of Discovery", 1]],
+        "set_if_true": [(0x268FB0, 0x10)],
     },
     "Stagnox location": {
         "on_scenes": [0x1E00],
@@ -111,6 +119,23 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2F00],
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(0x265739, 0x02)],
+    },
+    "Fraaz location": {
+        "on_scenes": [0x1F00],
+        "not_has_locations": ["Blizzard Temple Dungeon Reward"],
+        "unset_if_true": [(0x265714, 0x20)],
+        "reset_flags": ["RESET fraaz reward"]
+    },
+    "RESET fraaz reward": {
+        "has_locations": ["Blizzard Temple Dungeon Reward"],
+        "has_items": [["Snow Source", 1]],
+        "set_if_true": [(0x265714, 0x20)]
+    },
+    "Remove Snow Source": {
+        "on_scenes": [0x1F03, 0x1F04], #TODO check
+        "has_locations": ["Blizzard Temple Dungeon Reward"],
+        "has_items": [["Snow Source", 0]],
+        "unset_if_true": [(0x265714, 0x20)],
     },
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
