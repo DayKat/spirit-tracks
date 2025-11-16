@@ -15,7 +15,7 @@ STARTING_FLAGS = [
     [0x26571A, 0xFC],  # Intro stuff
     [0x26571B, 0x13],  # postman & get zelda's letter
     [0x26571F, 0x98],  # blizzard stuff
-    [0x265720, 0xC2],  # convos
+    [0x265720, 0xE2],  # convos
     [0x265723, 0xC0],  # ToS 4F 1st time entry
     [0x265724, 0x50],  # anjean section text
     [0x265726, 0x13],  # zelda 1st phantom possession

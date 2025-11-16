@@ -259,7 +259,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind"]
     },
-    "ToS 2F Bomb Wall Chest": { #TODO didn't activate
+    "ToS 2F Bomb Wall Chest": {
         "region_id": "tos 2f bomb wall",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
@@ -322,7 +322,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind"]
     },
-    "ToS 5F Spinnit Key": { #TODO check keys
+    "ToS 5F Spinnit Key": { #TODO ask with carrot
         "region_id": "tos 5f spinnit key",
         "vanilla_item": "Small Key (ToS)",
         "stage_id": 0x13,
@@ -357,7 +357,7 @@ LOCATIONS_DATA = {
         "x_max": 48753,
         "z_min": -10660,
         "z_max": -4354,
-        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
+        "delay_pickup": ["ToS 6F Enemy Big Chest"],
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
@@ -369,9 +369,8 @@ LOCATIONS_DATA = {
         "entrance_id": 2,
         "x_min": 60910,
         "x_max": 80112,
-        "z_min": -4646,
+        "z_min": -4151,
         "z_max": 6570,
-        "delay_pickup": ["ToS 6F Enemy Chest 1", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Big Chest"],
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
@@ -384,8 +383,7 @@ LOCATIONS_DATA = {
         "x_min": 63492,
         "x_max": 80310,
         "z_min": -10660,
-        "z_max": -4354,
-        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 1", "ToS 6F Enemy Big Chest"],
+        "z_max": -4152,
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
@@ -400,7 +398,7 @@ LOCATIONS_DATA = {
         "x_max": 57985,
         "z_min": -10660,
         "z_max": 6560,
-        "delay_pickup": ["ToS 6F Enemy Chest 2", "ToS 6F Enemy Chest 3", "ToS 6F Enemy Chest 1"],
+        "delay_pickup": ["ToS 6F Enemy Chest 1"],
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
@@ -485,7 +483,7 @@ LOCATIONS_DATA = {
         "require_item": ["Stamp Book"],
         "item_override": "Wooded Temple Tracks"
     },
-    #TODO still having removal issues, and statue didn't spawn after trading post?
+    #TODO ask carrot to record this
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
         "vanilla_item": "Song of Awakening",
@@ -521,7 +519,7 @@ LOCATIONS_DATA = {
 
     # Wooded Temple
 
-    "Wooded Temple Song Statue": { #TODO late spirit flute caused statue not to spawn?
+    "Wooded Temple Song Statue": {
         "region_id": "wt song statue",
         "vanilla_item": "Song of Healing",
         "stage_id": 0x19,
@@ -714,7 +712,7 @@ LOCATIONS_DATA = {
         "z_max": -35679,
         "require_item": ["Spirit Flute"],
     },
-    "Trading Post Chest": { #TODO figure out cs skip, linebeck steals ring
+    "Trading Post Chest": {
         "region_id": "trading post chest",
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x37,
@@ -744,17 +742,19 @@ LOCATIONS_DATA = {
         "x_max": 6441,
         "z_min": -59643,
         "z_max": -43683,
+        "delay_pickup": ["Anouki Village Song Statue Chest"],
         "require_item": ["Spirit Flute"],
     },
     "Anouki Village Song Statue Chest": {
         "region_id": "anouki village song statue chest",
-        "vanilla_item": "Red Potion",
+        "vanilla_item": ["Red Potion", "Big Green Rupee (100)"],
         "stage_id": 0x2B,
         "room_id": 0,
         "x_min": -10441,
-        "x_max": 6441,
+        "x_max": 9130,
         "z_min": -59643,
         "z_max": -43683,
+        "delay_pickup": ["Anouki Village Song Statue"],
         "require_item": ["Spirit Flute"],
     },
     "Anouki Village Bomb Cave Chest": {
@@ -843,7 +843,7 @@ LOCATIONS_DATA = {
     },
     "Blizzard Temple B1 SW Chest": {
         "region_id": "bt b1 sw chest",
-        "vanilla_item": "Small Key (Blizzard Temple)", #TODO yoinked key
+        "vanilla_item": "Small Key (Blizzard Temple)",
         "stage_id": 0x1A,
         "room_id": 1,
         "x_min": -17527,

@@ -283,6 +283,8 @@ ITEMS_DATA = {
         'set_bit': [[0x2653B8, 0x10]]
     },
 
+    # TODO bridge repair 265752 0x10
+
     # Warp gates require cannon
     "Force Gem 1": {
         'classification': ItemClassification.progression,
@@ -347,10 +349,6 @@ ITEMS_DATA = {
     "Train Part": {
         'classification': ItemClassification.filler,
         'train_part': True
-    },
-    "Potion": {
-        'classification': ItemClassification.filler,
-        'dummy': True
     },
     "Red Potion": {
         'classification': ItemClassification.filler,
