@@ -18,6 +18,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["outset village", "outset village left tree", False, lambda state: st_has_spirit_flute(state, player) and st_has_discovery_song(state, player)],
         ["outset village", "forest realm", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_cannon(state, player)],
 
+        # ========= Forest Realm ==========
+
+        ["forest realm", "forest realm se portal track", False, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player, "Forest Realm SE Portal")],
+
         # # ======== Castle Town =========
 
         ["forest realm", "castle town", False, None],
@@ -122,7 +126,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # # ============ Snow Realm ===============
 
-        ["forest realm", "snow realm", True, lambda state: st_has_glyph(state, player, "Snow")],# and (st_has_temple_tracks(state, player, 'Wooded') or st_has_source(state, player, 'Snow') or (st_has_temple_tracks(state, player, 'Blizzard') and st_has_misc_tracks(state, player, 'Forest Realm SE Portal')))],
+        ["forest realm", "snow realm", False, lambda state: st_has_glyph(state, player, "Snow")],# and (st_has_temple_tracks(state, player, 'Wooded') or st_has_source(state, player, 'Snow') or (st_has_temple_tracks(state, player, 'Blizzard') and st_has_misc_tracks(state, player, 'Forest Realm SE Portal')))],
         ["snow realm", "snow realm post song", False, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
 
         # ======== Anouki Village ========

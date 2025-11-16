@@ -27,7 +27,6 @@ STARTING_FLAGS = [
     [0x26572E, 0x1C],  # rabbitland rock text
     [0x265738, 0x08],  # move HC guards
     [0x265743, 0x40],  # linebeck 1st convo
-    [0x265744, 0x08],  # snow sw portal
     [0x26574B, 0x10],  # teacher text skip
     [0x265751, 0x60],  # ToS safe zone tutorial
     [0x265754, 0x04],  # 1st portal text

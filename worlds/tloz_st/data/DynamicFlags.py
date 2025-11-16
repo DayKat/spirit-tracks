@@ -15,6 +15,11 @@ DYNAMIC_FLAGS = {
         "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(0x265714, 0x04)]
     },
+    "Allow Portal near castle town use": {
+        "on_scenes": [0x0400],
+        "has_items": [["Snow Glyph", 1]],
+        "set_if_true": [(0x265744, 0x08)] # activates portal to sw snow realm
+    },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
         "not_has_locations": ["Forest Sanctuary Song Statue"],

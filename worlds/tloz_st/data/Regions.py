@@ -4,6 +4,7 @@ REGIONS = [
 
     # Forest Realm
     "forest realm",
+    "forest realm se portal track",
     #"forest realm nr rabbit haven rabbit",
     #"forest realm s whittleton rabbit",
     #"forest realm w castle town rabbit",
