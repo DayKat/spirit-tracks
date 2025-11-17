@@ -179,6 +179,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x8,
         "dungeon": "Mountain Passage",
         "id": 17,
+        "do_special": True
     },
     "Mountain Passage Chest 2": {
         "region_id": "mercay passage 2",
@@ -191,6 +192,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 18,
+        "do_special": True,
     },
     "Mountain Passage Key Drop": {
         "region_id": "mercay passage 2",
@@ -202,6 +204,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 19,
+        "do_special": True,
     },
     "Mountain Passage Rat Key": {
         "region_id": "mercay passage rat",
@@ -212,6 +215,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x20,
         "dungeon": "Mountain Passage",
         "id": 20,
+        "do_special": True,
     },
 
     # ========== Island Shops ============
@@ -3417,7 +3421,8 @@ LOCATIONS_DATA = {
     },
 }
 
-
+for i in LOCATIONS_DATA:
+    LOCATIONS_DATA[i]["name"] = i
 
 if __name__ == "__main__":
     for loc in LOCATIONS_DATA:

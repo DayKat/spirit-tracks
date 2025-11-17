@@ -519,6 +519,14 @@ class PhantomHourglassDungeonShortcuts(Toggle):
     display_name = "dungeon_shortcuts"
     default = 0
 
+class PhantomHourglassTotOKCheckpoints(Toggle):
+    """
+    Redirects the yellow warp portal in the lobby to the deepest floor with a blue warp you've visited.
+    Entering that blue warp again will take you one warp portal up the dungeon.
+    """
+    default = 0
+    visibility = Visibility.none
+
 class PhantomHourglassShuffleDungeonEntrances(Choice):
     """
     Shuffle what dungeon entrance leads to which dungeon interior.
@@ -557,11 +565,13 @@ class PhantomHourglassShuffleCaves(Choice):
     - no_shuffle: don't shuffle caves
     - shuffle: shuffle caves
     - simple_mixed_pool: shuffles caves with other entrance types that have this option
+    - shuffle_on_own_island: caves on each island will be shuffled with each other. Overrides the shuffle_between_islands option.
     """
     display_name = "shuffle_caves"
     option_no_shuffle = 0
     option_shuffle = 1
     option_simple_mixed_pool = 2
+    option_shuffle_on_own_island = 3
     default = 0
 
 class PhantomHourglassShuffleHouses(Choice):
@@ -571,11 +581,13 @@ class PhantomHourglassShuffleHouses(Choice):
     - no_shuffle: don't shuffle houses
     - shuffle: shuffle houses
     - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    - shuffle_on_own_island: houses on each island will be shuffled with each other. Overrides the shuffle_between_islands option.
     """
     display_name = "shuffle_houses"
     option_no_shuffle = 0
     option_shuffle = 1
     option_simple_mixed_pool = 2
+    option_shuffle_on_own_island = 3
     default = 0
 
 class PhantomHourglassShuffleOverworldTransitions(Choice):
@@ -587,11 +599,13 @@ class PhantomHourglassShuffleOverworldTransitions(Choice):
     - no_shuffle: don't shuffle island transitions
     - shuffle: shuffle overworld transitions
     - simple_mixed_pool: shuffles houses with other entrance types that have this option
+    - shuffle_on_own_island: overworld transitions on each island will be shuffled with each other. Overrides the shuffle_between_islands option.
     """
     display_name = "shuffle_overworld_transitions"
     option_no_shuffle = 0
     option_shuffle = 1
     option_simple_mixed_pool = 2
+    option_shuffle_on_own_island = 3
     default = 0
 
 class PhantomHourglassShuffleBetweenIslands(Choice):
@@ -770,6 +784,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     skip_ocean_fights: PhantomHourglassSkipOceanFights
     zauz_required_metals: PhantomHourglassZauzRequiredMetals
     dungeon_shortcuts: PhantomHourglassDungeonShortcuts
+    totok_checkpoints: PhantomHourglassTotOKCheckpoints
 
     # Spirit Gem options
     spirit_gem_packs: PhantomHourglassSpiritGemPacks
@@ -855,6 +870,7 @@ ph_option_groups = [
         PhantomHourglassSkipOceanFights,
         PhantomHourglassZauzRequiredMetals,
         PhantomHourglassDungeonShortcuts,
+        PhantomHourglassTotOKCheckpoints,
         PhantomHourglassSwitchBehaviour,
         PhantomHourglassBossKeyBehavior
     ]),

@@ -39,7 +39,7 @@ class DefaultSettings(WorldTestBase):
     options = {
         "shuffle_dungeon_entrances": "no_shuffle",
         "shuffle_ports": "no_shuffle",
-        "shuffle_caves": "no_shuffle",
+        "shuffle_caves": "shuffle_on_own_island",
         "shuffle_houses": "no_shuffle",
         "shuffle_overworld_transitions": "no_shuffle",
         "shuffle_bosses": "no_shuffle",

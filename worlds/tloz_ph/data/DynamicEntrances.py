@@ -149,6 +149,39 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Brant's Maze 1",
         "destination": "Brant's Maze Exit", # TODO: add to dungeon shortcuts
     },
+    # TotOK shortcuts
+    "TotOK b10 shortcut warp": {
+        "entrance": "TotOK Lobby Yellow Warp",
+        "destination": "TotOK B10 Cave",
+        "has_locations": ["TotOK B9.5 SE Sea Chart Chest"],
+        "has_slot_data": [("totok_checkpoints", 1)]
+    },
+    "TotOK b9.5 warp up": {
+        "entrance": "TotOK B9.5 Blue Warp",
+        "destination": "TotOK B6.5 Yellow Warp",
+        "has_slot_data": [("totok_checkpoints", 1)]
+    },
+    "TotOK midway warp up": {
+        "entrance": "TotOK B6.5 Yellow Warp",
+        "destination": "TotOK B3.5 Blue Warp",
+        "has_slot_data": [("totok_checkpoints", 1)]
+    },
+    "TotOK b3 shortcut warp": {
+        "entrance": "TotOK Lobby Yellow Warp",
+        "destination": "TotOK B3.5 Blue Warp",
+        "has_locations": ["TotOK B3 NW Sea Chart Chest"],
+        "has_slot_data": [("totok_checkpoints", 1)],
+        "check_bits": [(0x1BA661, 0x40, "not")]
+    },
+    "TotOK cc room backup": {
+        "entrance": "TotOK CC Room Warp",
+        "destination": "TotOK B6 Red Door Hourglass",
+    },
+    "TotOK B3 warp up hint": {
+        "entrance": "TotOK B3.5 Blue Warp",
+        "destination": "TotOK Lobby Yellow Warp",
+        "has_slot_data": [("totok_checkpoints", 1)],
+    },
 }
 
 DYNAMIC_ENTRANCES_BY_SCENE = {}

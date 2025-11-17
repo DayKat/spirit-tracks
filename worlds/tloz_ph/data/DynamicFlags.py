@@ -1060,7 +1060,7 @@ DYNAMIC_FLAGS = {
     },
     "Ghost ship spawn warp": {
         "on_scenes": [0x2900],
-        "check_bits": {0x1B5582: 0x10},
+        "check_bits": [(0x1B5582, 0x10)],
         "set_if_true": [(0x1B5583, 0x40)]
     },
     # Vanilla frogs
@@ -1092,6 +1092,12 @@ DYNAMIC_FLAGS = {
     },
     "Frost Arena Always remove Azurine": {
         "on_scenes": [0xF01],
+        "unset_if_true": [(0x1B558B, 0x20)],
+        "reset_flags": ["RESET Ice Field pre-dungeon", "RESET Ice Field post-dungeon"]
+    },
+    "Frost Port Azurine for Peg lol": {
+        "on_scenes": [0xF00],
+        "not_has_locations": ["Isle of Frost Stand on Peg Gift"],
         "unset_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field pre-dungeon", "RESET Ice Field post-dungeon"]
     },
@@ -1198,13 +1204,13 @@ DYNAMIC_FLAGS = {
     # Skippyjack protection
     "Remove big catch lure if no skippyjack": {
         "on_scenes": [0, 1, 2, 3],
-        "not_has_location": ["Fishing Catch Skippyjack"],
+        "not_has_locations": ["Fishing Catch Skippyjack"],
         "unset_if_true": [(0x1ba649, 0x80)],
         "reset_flags": ["RESET Remove big catch lure if no skippyjack"]
     },
     "RESET Remove big catch lure if no skippyjack": {
         # "on_scenes": [0, 1, 2, 3],
-        "has_location": ["Fishing Catch Skippyjack"],
+        "has_locations": ["Fishing Catch Skippyjack"],
         "has_items": [("Big Catch Lure", 1)],
         "set_if_true": [(0x1ba649, 0x80)]
     },
@@ -1241,27 +1247,27 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Ember double linebeck"],
     },
     "RESET Ember double linebeck": {
-        "not_has_location": ["Blaaz Boss Reward"],
+        "not_has_locations": ["Blaaz Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x20)],
     },
     "Astrid after fire temple": {
         "on_scenes": [0xD0A],
-        "has_location": ["Blaaz Boss Reward"],
+        "has_locations": ["Blaaz Boss Reward"],
         "set_if_true": [(0x1B557F, 0x20)]
     },
     "Astrid before fire temple": {
         "on_scenes": [0xD0A],
-        "not_has_location": ["Blaaz Boss Reward"],
+        "not_has_locations": ["Blaaz Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x20)]
     },
     "Ember respawn blaaz": {
         "on_scenes": [0x2B00],
-        "not_has_location": ["Blaaz Boss Reward"],
+        "not_has_locations": ["Blaaz Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x20)],
     },
     "Molida respawn crayk": {
         "on_scenes": [0x2C00],
-        "not_has_location": ["Crayk Boss Reward"],
+        "not_has_locations": ["Crayk Boss Reward"],
         "unset_if_true": [(0x1B557F, 0x80)],
     },
     # Regal necklace backup removal
@@ -1272,6 +1278,13 @@ DYNAMIC_FLAGS = {
     "Regal necklace backup removal": {
         "has_items": [("Regal Necklace", 0)],
         "unset_if_true": [(0x1b5582, 0x8)]
+    },
+    # TotOK shortcuts
+    "Spawn yellow warp early": {
+        "has_slot_data": [("totok_checkpoints", 1)],
+        "has_locations": ["TotOK B3 NW Sea Chart Chest"],
+        "on_scenes": [0x2600],
+        "set_if_true": [(0x1B55AA, 0x20)]
     },
 
 }

@@ -449,7 +449,7 @@ def ph_can_cut_small_trees(state: CollectionState, player: int):
 
 def ph_has_rupees(state: CollectionState, player: int, cost: int):
     # If has a farmable minigame and the means to sell, expensive things are in logic.
-    if ph_can_farm_rupees(state, player):
+    if ph_can_farm_rupees(state, player) or ph_UT_glitched_logic(state, player):
         return True
 
     # Count up regular rupee items
@@ -570,7 +570,7 @@ def ph_can_get_beedle_bronze(state, player):
     return any([ph_has_rupees(state, player, 80), ph_has_beedle_points(state, player, 1)])
 
 def ph_can_buy_gem(state: CollectionState, player: int):
-    return all([ph_has_bow(state, player), ph_island_shop(state, player, 500)])
+    return all([ph_island_shop(state, player, 500)])
 
 
 def ph_can_buy_quiver(state: CollectionState, player: int):
@@ -1039,7 +1039,14 @@ def ph_boat_access(state, player):
 def ph_can_reach_mp2(state: CollectionState, player: int):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 2),
-        ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
+        all([
+            ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
+            any([
+                ph_has_small_keys(state, player, "Mountain Passage", 1),
+                not ph_is_ut(state, player),
+                ph_UT_glitched_logic(state, player),
+            ])
+        ]),
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
@@ -1070,7 +1077,11 @@ def ph_mp2_bypass_fore(state, player):
         ph_mp2_bypass(state, player),
         all([
             ph_option_vanilla_caves(state, player),
-            ph_has_small_keys(state, player, "Mountain Passage", 2),
+            any([
+                ph_has_small_keys(state, player, "Mountain Passage", 2),
+                ph_UT_glitched_logic(state, player),
+                not ph_is_ut(state, player)
+            ])
         ])
     ])
 
@@ -1100,7 +1111,10 @@ def ph_mp3_back(state, player):
 def ph_mercay_passage_rat(state, player):
     return any([
         ph_can_kill_bat(state, player),
-        ph_clever_pots(state, player)  # only if not ER
+        all([
+            ph_clever_pots(state, player),  # only if not ER
+            ph_option_vanilla_caves(state, player)
+        ]),
     ])
 
 def ph_nyave_fight(state, player):
@@ -1711,6 +1725,10 @@ def ph_mutoh_key_doors(state, player, glitched: int, not_glitched: int):
         all([
             ph_option_not_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mutoh's Temple", not_glitched)
+        ]),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mutoh's Temple", 1)
         ])
     ])
 
@@ -2038,7 +2056,11 @@ def ph_totok_b2(state, player):
         ph_totok_has_floor_time(state, player, 2),
         any([
             ph_has_small_keys(state, player, "Temple of the Ocean King", 2),
-            ph_totok_b1_all_checks_ut(state, player)
+            ph_totok_b1_all_checks_ut(state, player),
+            all([
+                ph_has_small_keys(state, player, "Temple of the Ocean King", 1),
+                ph_UT_glitched_logic(state, player)
+            ])
         ])
     ])
 
@@ -2076,7 +2098,11 @@ def ph_totok_b3(state, player):
         ph_totok_has_floor_time(state, player, 3),  # Includes switch logic
         any([
             ph_has_small_keys(state, player, "Temple of the Ocean King", 3),
-            ph_totok_b2_all_checks_ut(state, player)
+            ph_totok_b2_all_checks_ut(state, player),
+            all([
+                ph_has_small_keys(state, player, "Temple of the Ocean King", 2),
+                ph_UT_glitched_logic(state, player)
+            ])
         ])
 
     ])
@@ -2190,20 +2216,35 @@ def ph_totok_b5(state, player):
         ph_totok_has_floor_time(state, player, 5),
         any([
             ph_totok_b4_all_checks_ut(state, player),
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 5),
-            all([
-                ph_has_grapple(state, player),
-                ph_has_small_keys(state, player, "Temple of the Ocean King", 4)
-            ])
+            ph_totok_b5_key_count(state, player)
         ])
     ])
 
+def ph_totok_b5_key_count(state, player):
+    return any([
+            ph_has_small_keys(state, player, "Temple of the Ocean King", 5),
+            all([
+                any([
+                    ph_has_grapple(state, player),
+                    ph_UT_glitched_logic(state, player)
+                ]),
+                ph_has_small_keys(state, player, "Temple of the Ocean King", 4)
+            ]),
+            all([
+                ph_has_grapple(state, player),
+                ph_has_small_keys(state, player, "Temple of the Ocean King", 3),
+                ph_UT_glitched_logic(state, player)
+            ]),
+        ])
 
 def ph_totok_b5_alt(state, player):
     return all([
         ph_totok_has_floor_time(state, player, 5),
         ph_can_hit_bombchu_switches(state, player),
-        ph_has_small_keys(state, player, "Temple of the Ocean King", 5)
+        any([
+            ph_totok_b4_all_checks_ut(state, player),
+            ph_totok_b5_key_count(state, player)
+        ])
     ])
 
 
@@ -2453,7 +2494,15 @@ def ph_totok_b11(state, player):
             ph_has_small_keys(state, player, "Temple of the Ocean King", 6),
             all([
                 ph_has_small_keys(state, player, "Temple of the Ocean King", 5),
-                ph_has_grapple(state, player)
+                any([
+                    ph_has_grapple(state, player),
+                    ph_UT_glitched_logic(state, player)
+                ])
+            ]),
+            all([
+                ph_has_grapple(state, player),
+                ph_UT_glitched_logic(state, player),
+                ph_has_small_keys(state, player, "Temple of the Ocean King", 4),
             ])
         ])
     ])

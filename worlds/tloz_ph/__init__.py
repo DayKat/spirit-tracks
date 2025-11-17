@@ -24,7 +24,7 @@ from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
-dev_prints = True
+dev_prints = False
 
 if TYPE_CHECKING:
     from .Subclasses import ERPlacementState, PHEntrance, PHRegion, PHTransition
@@ -127,7 +127,7 @@ class PhantomHourglassWorld(World):
     location_id_to_alias: Dict[int, str]
     tracker_world = {"map_page_folder": "tracker", "map_page_maps": "maps/maps.json",
                      "map_page_locations": "locations/locations.json"}
-    found_entrances_datastorage_key = "ph_checked_entrances_{player}_{team}"
+    found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}", "ph_keylocking_{player}_{team}"]
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -151,6 +151,7 @@ class PhantomHourglassWorld(World):
         self.ut_connected_entrances = set()
         self.disconnected_entrances_map = {}
         self.disconnected_exits_map = {}
+        self.ut_excluded = []
 
 
     def generate_early(self):
@@ -453,7 +454,9 @@ class PhantomHourglassWorld(World):
 
             # Create target island list
             if ((in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 3]) or
-                    (not in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 2])):
+                    (not in_simple_mixed_pool
+                     and self.options.shuffle_between_islands.value in [0, 2]
+                     and type_option_lookup[area] != "shuffle_on_own_island")):
                 target_islands.update(range(15))
             else:
                 target_islands.add(island)
@@ -659,7 +662,7 @@ class PhantomHourglassWorld(World):
 
             # Add dungeon hints to start
             if self.options.dungeon_hint_location.value == 0 and self.options.dungeon_hint_type == "hint_boss":
-                self.options.start_location_hints.value += self.required_bosses
+                self.options.start_location_hints.value.update(self.required_bosses)
 
             # print(f"Required bosses: {self.required_bosses}")
 
@@ -1108,7 +1111,8 @@ class PhantomHourglassWorld(World):
             # Beedle randomization
             "randomize_masked_beedle", "randomize_beedle_membership",
             # World Settings
-            "fog_settings", "skip_ocean_fights", "dungeon_shortcuts",
+            "fog_settings", "skip_ocean_fights",
+            "dungeon_shortcuts", "totok_checkpoints",
             "boss_key_behaviour", "color_switch_behaviour",
             # Spirit Packs
             "spirit_gem_packs", "additional_spirit_gems",
@@ -1172,37 +1176,43 @@ class PhantomHourglassWorld(World):
     def reconnect_found_entrances(self, key, stored_data):
         print(f"UT Tried to defer entrances! key {key}")
 
-        # Create a lookup for disconnected entrances if you haven't already.
-        if not self.disconnected_entrances_map:
-            entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
-            self.disconnected_entrances_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
-                                               for e in region.entrances if not e.parent_region}
-            self.disconnected_exits_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
-                                               for e in region.exits if not e.connected_region}
+        if "ph_checked_entrances" in key:
+            # Create a lookup for disconnected entrances if you haven't already.
+            if not self.disconnected_entrances_map:
+                entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
+                self.disconnected_entrances_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
+                                                   for e in region.entrances if not e.parent_region}
+                self.disconnected_exits_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
+                                                   for e in region.exits if not e.connected_region}
 
-        if stored_data:
-            new_entrances = set(stored_data) - self.ut_connected_entrances
-            print(f"new entrances: {new_entrances}")
+            if stored_data:
+                new_entrances = set(stored_data) - self.ut_connected_entrances
+                print(f"new entrances: {new_entrances}")
 
-            for i in new_entrances:
-                pairing = self.ut_pairings.get(str(i), None)
-                if pairing is not None:
-                    dangling_entrance = self.disconnected_entrances_map.get(i, None)
-                    dangling_exit = self.disconnected_exits_map.get(i, None)
+                for i in new_entrances:
+                    pairing = self.ut_pairings.get(str(i), None)
+                    if pairing is not None:
+                        dangling_entrance = self.disconnected_entrances_map.get(i, None)
+                        dangling_exit = self.disconnected_exits_map.get(i, None)
 
-                    entrance_region = self.get_region(entrance_id_to_region[i])
-                    exit_region = self.get_region(entrance_id_to_region[pairing])
-
-
-                    # print(f"Connecting: {exit_region} => {entrance_region} {dangling_exit} {dangling_entrance} {i}")
-                    entrance_region.connect(exit_region)
-                    if dangling_exit is not None:
-                        dangling_exit.connect(entrance_region)
-                    if dangling_entrance is not None:
-                        if not self.options.decouple_entrances:
-                            dangling_entrance.connect(exit_region)
-                            self.disconnected_entrances_map.pop(i)
+                        entrance_region = self.get_region(entrance_id_to_region[i])
+                        exit_region = self.get_region(entrance_id_to_region[pairing])
 
 
-            self.ut_connected_entrances |= new_entrances
+                        # print(f"Connecting: {exit_region} => {entrance_region} {dangling_exit} {dangling_entrance} {i}")
+                        entrance_region.connect(exit_region)
+                        if dangling_exit is not None:
+                            dangling_exit.connect(entrance_region)
+                        if dangling_entrance is not None:
+                            if not self.options.decouple_entrances:
+                                dangling_entrance.connect(exit_region)
+                                self.disconnected_entrances_map.pop(i)
+
+
+                self.ut_connected_entrances |= new_entrances
+        elif "ph_keylocking" in key and stored_data:
+            print(f"Attempting to keylock stuff!")
+            for i in stored_data:
+                print(f"Excluding {self.location_id_to_name[i]}")
+                self.multiworld.get_location(self.location_id_to_name[i], self.player).progress_type = LocationProgressType.EXCLUDED
 
