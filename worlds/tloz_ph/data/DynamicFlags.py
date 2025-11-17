@@ -1060,7 +1060,7 @@ DYNAMIC_FLAGS = {
     },
     "Ghost ship spawn warp": {
         "on_scenes": [0x2900],
-        "check_bits": {0x1B5582: 0x10},
+        "check_bits": [(0x1B5582, 0x10)],
         "set_if_true": [(0x1B5583, 0x40)]
     },
     # Vanilla frogs
@@ -1210,7 +1210,7 @@ DYNAMIC_FLAGS = {
     },
     "RESET Remove big catch lure if no skippyjack": {
         # "on_scenes": [0, 1, 2, 3],
-        "has_location": ["Fishing Catch Skippyjack"],
+        "has_locations": ["Fishing Catch Skippyjack"],
         "has_items": [("Big Catch Lure", 1)],
         "set_if_true": [(0x1ba649, 0x80)]
     },
@@ -1252,7 +1252,7 @@ DYNAMIC_FLAGS = {
     },
     "Astrid after fire temple": {
         "on_scenes": [0xD0A],
-        "has_location": ["Blaaz Boss Reward"],
+        "has_locations": ["Blaaz Boss Reward"],
         "set_if_true": [(0x1B557F, 0x20)]
     },
     "Astrid before fire temple": {
@@ -1278,6 +1278,13 @@ DYNAMIC_FLAGS = {
     "Regal necklace backup removal": {
         "has_items": [("Regal Necklace", 0)],
         "unset_if_true": [(0x1b5582, 0x8)]
+    },
+    # TotOK shortcuts
+    "Spawn yellow warp early": {
+        "has_slot_data": [("totok_checkpoints", 1)],
+        "has_locations": ["TotOK B3 NW Sea Chart Chest"],
+        "on_scenes": [0x2600],
+        "set_if_true": [(0x1B55AA, 0x20)]
     },
 
 }

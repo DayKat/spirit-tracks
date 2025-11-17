@@ -1882,6 +1882,70 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "return_island": EntranceGroups.NONE,
     },
+    # Don't move until future versions ~
+    # TotOK shortcuts
+    "TotOK B3.5 Blue Warp": {
+        "return_name": "TotOK B3.5 Warp Exit",
+        "entrance_region": "totok b35",
+        "exit_region": "totok",
+        "entrance": (0x25, 0x4, 0x3),
+        "exit": (0x26, 0x0, 0x3),
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+        "two_way": False
+    },
+    "TotOK B6.5 Yellow Warp": {
+        "return_name": "TotOK Lobby Yellow Warp",
+        "entrance_region": "totok midway",
+        "exit_region": "totok",
+        "entrance": (0x25, 0x9, 0x2),
+        "exit": (0x26, 0x0, 0x6),
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+    },
+    "TotOK B9.5 Blue Warp": {
+        "return_name": "TotOK 9.5 Warp Exit",
+        "entrance_region": "totok b10",
+        "exit_region": "totok",
+        "entrance": (0x25, 0xD, 0x2),
+        "exit": (0x26, 0x0, 0x3),
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+        "two_way": False
+    },
+    "TotOK B9.5 Descend": {
+        "return_name": "TotOK B10 Cave",
+        "entrance_region": "totok b95",
+        "exit_region": "totok b10",
+        "entrance": (0x25, 0xD, 0x1),
+        "exit": (0x25, 0xE, 0x0),
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+    },
+    "TotOK CC Room Warp": {
+        "return_name": "TotOK CC Warp Reverse",
+        "entrance_region": "totok b6 crest",
+        "exit_region": "totok",
+        "entrance": (0x25, 0x8, 0x1),
+        "exit": (0x26, 0x0, 0x3),
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+    },
+    "TotOK B6 Exit CC Room": {
+        "return_name": "TotOK B6 Red Door Hourglass",
+        "entrance_region": "totok b6 crest",
+        "exit_region": "totok b6",
+        "entrance": (0x25, 0x8, 0x0),
+        "exit": (0x25, 0x7, 0x1),
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.DOWN,
+        "island": EntranceGroups.MERCAY,
+    },
 }
 
 

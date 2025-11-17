@@ -145,7 +145,8 @@ def make_overworld_logic():
         ["totok b9", "totok b9 phantom", False, "totok_b9_phantom"],
         ["totok b9", "totok b9 ghosts", False, "totok_b9_ghosts"],
 
-        ["totok b9", "totok b10", False, "totok_b10"],
+        ["totok b9", "totok b95", False, "totok_b10"],
+        ["totok b95", "totok b10", True, None],
 
         ["totok b10", "totok b10 key", False, "totok_b10_key"],
         ["totok b10", "totok b10 phantom", False, "totok_b10_phantom"],

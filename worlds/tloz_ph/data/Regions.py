@@ -131,6 +131,7 @@ REGIONS = [
     "totok b9 corner chest",
     "totok b9 1c",
     "totok b9 2c",
+    "totok b95",
 
     "totok b10",
     "totok b10 key",

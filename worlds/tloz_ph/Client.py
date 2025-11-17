@@ -536,16 +536,22 @@ class PhantomHourglassClient(DSZeldaClient):
 
     # Enter stage
     async def enter_special_key_room(self, ctx, stage, scene_id) -> bool:
-        if self.entering_from == 0x2600 and scene_id == 0x2509:
-            await self.update_key_count(ctx, 372)
-        elif stage != 0x25 or self.entering_from == 0x2600:
+        if stage != 0x25:
             return False
+        if scene_id in [0x2509, 0x250E]:
+            await self.update_key_count(ctx, 372)
+        elif scene_id in [0x2500, 0x2504]:
+            return False  # Do normal enter TotOK operation, see update_special_key_count for key calc
         return True
 
     async def update_special_key_count(self, ctx, current_stage: int, new_keys, key_data: dict, key_values, key_address: int) -> tuple[int, bool]:
-        if current_stage == 37:
+        if current_stage == 0x25:
             if self.location_name_to_id["TotOK 1F SW Sea Chart Chest"] in ctx.checked_locations:
                 new_keys -= 1  # Opening the SW sea chart door uses a key permanently! No savescums!
+            if self.current_scene == 0x2504:  # Set B3.5 key count
+                new_keys -= 2
+                if not item_count(ctx, "Grappling Hook"):
+                    new_keys -= 1
             return new_keys, False
         return new_keys, True
 
@@ -669,7 +675,6 @@ class PhantomHourglassClient(DSZeldaClient):
             if "Mountain Passage" in self.item_location_combo["name"]:
                 if ctx.slot_data["keysanity"] < 2 and "Small Key" not in item_name:
                     print(f"Mountain Passage has no more useful items")
-                    key = f"ph_keylocking_{ctx.slot}_{ctx.team}"
                     data = [self.location_name_to_id[i] for i in LOCATION_GROUPS["Mountain Passage"]]
                     await self.store_data(ctx, exclude_key, data)
 

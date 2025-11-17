@@ -519,6 +519,14 @@ class PhantomHourglassDungeonShortcuts(Toggle):
     display_name = "dungeon_shortcuts"
     default = 0
 
+class PhantomHourglassTotOKCheckpoints(Toggle):
+    """
+    Redirects the yellow warp portal in the lobby to the deepest floor with a blue warp you've visited.
+    Entering that blue warp again will take you one warp portal up the dungeon.
+    """
+    default = 0
+    visibility = Visibility.none
+
 class PhantomHourglassShuffleDungeonEntrances(Choice):
     """
     Shuffle what dungeon entrance leads to which dungeon interior.
@@ -776,6 +784,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     skip_ocean_fights: PhantomHourglassSkipOceanFights
     zauz_required_metals: PhantomHourglassZauzRequiredMetals
     dungeon_shortcuts: PhantomHourglassDungeonShortcuts
+    totok_checkpoints: PhantomHourglassTotOKCheckpoints
 
     # Spirit Gem options
     spirit_gem_packs: PhantomHourglassSpiritGemPacks
@@ -861,6 +870,7 @@ ph_option_groups = [
         PhantomHourglassSkipOceanFights,
         PhantomHourglassZauzRequiredMetals,
         PhantomHourglassDungeonShortcuts,
+        PhantomHourglassTotOKCheckpoints,
         PhantomHourglassSwitchBehaviour,
         PhantomHourglassBossKeyBehavior
     ]),
