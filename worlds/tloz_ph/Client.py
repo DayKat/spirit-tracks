@@ -600,6 +600,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def received_special_incremental(self, ctx, item_data) -> int:
         # Sand of hours check
         if "Sand" in item_data['value']:
+            print(f"sAND")
             if item_data.get("value") == "Sand":
                 if not ctx.slot_data["ph_required"] or item_count(ctx, "Phantom Hourglass"):
                     value = ctx.slot_data["ph_time_increment"] * 60
@@ -619,6 +620,10 @@ class PhantomHourglassClient(DSZeldaClient):
             if last_time + value > 359940:
                 print(f"Time: Last time {last_time} value {value} new {359940 - last_time} max {359940}")
                 value = 359940 - last_time
+            print(f"Sand stage {self.current_stage} {value}")
+            if self.current_stage == 0x25:
+                await write_memory_value(ctx, 0x1E2A48, value, incr=True, size=4)
+
         elif item_data.get("value") == "pack_size":
             value = ctx.slot_data["spirit_gem_packs"]
         else:

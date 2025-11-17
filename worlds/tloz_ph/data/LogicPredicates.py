@@ -1039,7 +1039,14 @@ def ph_boat_access(state, player):
 def ph_can_reach_mp2(state: CollectionState, player: int):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 2),
-        ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
+        all([
+            ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
+            any([
+                ph_has_small_keys(state, player, "Mountain Passage", 1),
+                not ph_is_ut(state, player),
+                ph_UT_glitched_logic(state, player),
+            ])
+        ]),
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
@@ -1072,7 +1079,8 @@ def ph_mp2_bypass_fore(state, player):
             ph_option_vanilla_caves(state, player),
             any([
                 ph_has_small_keys(state, player, "Mountain Passage", 2),
-                ph_is_ut(state, player),
+                ph_UT_glitched_logic(state, player),
+                not ph_is_ut(state, player)
             ])
         ])
     ])
