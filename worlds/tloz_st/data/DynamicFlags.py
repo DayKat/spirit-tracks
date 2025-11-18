@@ -44,12 +44,12 @@ DYNAMIC_FLAGS = {
     },
     "Allow learning light song": {
         "on_scenes": [0x3700],
-        "not_has_locations": ["Trading Post 2nd Song Statue"],
+        "not_has_locations": ["Trading Post Song of Light Statue"],
         "unset_if_true": [(0x268FB0, 0x08)],
         "reset_flags": ["RESET trading post statue"]
     },
     "RESET trading post statue": {
-        #"has_locations": ["Trading Post 2nd Song Statue"],
+        #"has_locations": ["Trading Post Song of Light Statue"],
         "has_items": [["Song of Light", 1]],
         "set_if_true": [(0x268FB0, 0x08)],
     },
@@ -65,7 +65,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(0x268FB0, 0x10)],
     },
     "Stagnox location": {
-        "on_scenes": [0x1E00],
+        "on_scenes": [0x1E00], #TODO seems this can also be 0x1900 instead? or maybe not taking away source fast enough?
         "not_has_locations": ["Wooded Temple Dungeon Reward"],
         "unset_if_true": [(0x265714, 0x10)],
         "reset_flags": ["RESET stagnox reward"]
@@ -78,7 +78,7 @@ DYNAMIC_FLAGS = {
     "Remove Forest Source": {
         "on_scenes": [0x1E03, 0x1E0A],
         "has_locations": ["Wooded Temple Dungeon Reward"],
-        "has_items": [["Forest Source", 0]],
+        "has_items": [["Forest Source", 0]], #doesn't have item
         "unset_if_true": [(0x265714, 0x10)],
     },
     "Allow Rabbit Net Read": {
@@ -125,6 +125,8 @@ DYNAMIC_FLAGS = {
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(0x265739, 0x02)],
     },
+    #TODO add flag that stops anjean allowing other realms from ToS heeeeelp
+
     "Fraaz location": {
         "on_scenes": [0x1F00],
         "not_has_locations": ["Blizzard Temple Dungeon Reward"],

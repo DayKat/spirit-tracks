@@ -161,6 +161,7 @@ REGIONS = [
     # Blizzard Temple
     "bt",
     "bt b1 se chest",
+    "bt b1 e enemy chest",
     "bt b1 ne enemy chest",
     "bt 1f ne chest",
     "bt b1 sw chest",

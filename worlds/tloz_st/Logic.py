@@ -94,7 +94,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ======== Wooded Temple ========= #TODO stamp stand + chest + poison chest + 3f se can damage boost
 
-        ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Wooded")],
+        ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Wooded") or st_has_source(state, player, "Forest")],
         ["wt", "wt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
         ["wt", "wt song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["wt", "wt 1f enemy chest", False, lambda state: st_has_damage(state, player)],
@@ -119,19 +119,19 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ========== Rabbit Haven ========
 
-        ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow") and st_has_temple_tracks(state, player, "Wooded") and st_has_cannon(state, player)],
+        ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["rabbit haven", "rabbit haven chest", False, None],
         ["rabbit haven", "rabbit haven net", False, None],
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # # ============ Snow Realm ===============
 
-        ["forest realm", "snow realm", False, lambda state: st_has_glyph(state, player, "Snow")],# and (st_has_temple_tracks(state, player, 'Wooded') or st_has_source(state, player, 'Snow') or (st_has_temple_tracks(state, player, 'Blizzard') and st_has_misc_tracks(state, player, 'Forest Realm SE Portal')))],
+        ["forest realm", "snow realm", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["snow realm", "snow realm post song", False, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
 
         # ======== Anouki Village ========
 
-        ["snow realm", "anouki village", False, None], #lambda state: st_has_temple_tracks(state, player, "Wooded") or (st_has_source(state, player, 'Snow') and (st_has_temple_tracks(state, player, 'Blizzard') or st_has_misc_tracks(state, player, 'Snow Realm Bridge')))],
+        ["snow realm", "anouki village", False, None],
         ["anouki village", "anouki village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["anouki village", "anouki village discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["anouki village", "anouki village song statue chest", False, lambda state: st_has_spirit_flute(state, player)],
@@ -147,9 +147,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["snow realm", "bt", False, lambda state: st_has_temple_tracks(state, player, 'Blizzard') or st_has_source(state, player, 'Snow')],
         ["bt", "bt b1 se chest", False, lambda state: st_can_ring_bell(state, player) and st_has_whirlwind(state, player) and (st_has_range(state, player) or st_has_whip(state, player) or st_has_bombs(state, player))],
+        ["bt b1 se chest", "bt b1 e enemy chest", False, None],
         ["bt b1 se chest", "bt b1 ne enemy chest", False, lambda state: st_can_kill_bubble(state, player)],
-        ["bt b1 se chest", "bt 1f ne chest", False, lambda state: st_has_boomerang(state, player)],
-        ["bt 1f ne chest", "bt b1 sw chest", False, None],
+        ["bt b1 se chest", "bt 1f ne chest", False, lambda state: st_has_boomerang(state, player) or (st_has_whip(state, player) and st_has_whirlwind(state, player))],
+        ["bt 1f ne chest", "bt b1 sw chest", False, lambda state: st_has_boomerang(state, player)],
         ["bt 1f ne chest", "bt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_small_keys(state, player, "Blizzard Temple", 1)],
         ["bt 1f ne chest", "bt b1 nw enemy chest", False, lambda state: st_has_small_keys(state, player, "Blizzard Temple", 1)],
         ["bt b1 nw enemy chest", "bt 1f nw chest", False, None],

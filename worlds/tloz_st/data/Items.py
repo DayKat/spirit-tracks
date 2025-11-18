@@ -396,7 +396,7 @@ ITEMS_DATA = {
         "incremental": True,
     },
 
-    # ========= Treasure =============
+    # ========= Treasure ============= TODO collection menu still seems inaccurate to what you should/shouldn't have
 
     "Treasure": {
         'classification': ItemClassification.filler,

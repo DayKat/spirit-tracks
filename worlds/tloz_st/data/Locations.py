@@ -1,3 +1,4 @@
+from worlds.tloz_st import ITEM_GROUPS
 from .Constants import ITEM_GROUPS
 
 # TODO: Add sram data for saveslot 2
@@ -18,7 +19,7 @@ LOCATIONS_DATA = {
     },
     "Outset Bee Tree": {
         "region_id": "outset village bees",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Common Treasures"], #TODO check removal of treasure
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": 34192,
@@ -59,7 +60,7 @@ LOCATIONS_DATA = {
         "z_max": 28762,
         "require_item": ["Spirit Flute", "Song of Discovery"],
     },
-    "Outset Receive Stamp Book": {
+    "Outset Receive Stamp Book": { #TODO freeze at stairs when dropping off alfonso, related to stamp book?
         "region_id": "outset village stamp book",
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
@@ -322,7 +323,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind"]
     },
-    "ToS 5F Spinnit Key": { #TODO ask with carrot
+    "ToS 5F Spinnit Key": {
         "region_id": "tos 5f spinnit key",
         "vanilla_item": "Small Key (ToS)",
         "stage_id": 0x13,
@@ -387,7 +388,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
-    "ToS 6F Enemy Big Chest": {
+    "ToS 6F Enemy Big Chest": { #TODO didn't send
         "region_id": "tos 6f ne big chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Refill: Arrows",
@@ -483,7 +484,6 @@ LOCATIONS_DATA = {
         "require_item": ["Stamp Book"],
         "item_override": "Wooded Temple Tracks"
     },
-    #TODO ask carrot to record this
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
         "vanilla_item": "Song of Awakening",
@@ -701,7 +701,7 @@ LOCATIONS_DATA = {
     #     "z_min": 46500,
     #     "z_max": 57443,
     # },
-    "Trading Post 2nd Song Statue": {
+    "Trading Post Song of Light Statue": {
         "region_id": "trading post light song statue",
         "vanilla_item": "Song of Light",
         "stage_id": 0x37,
@@ -775,11 +775,11 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "x_min": -96434,
         "x_max": -83560,
-        "z_min": -55650,
+        "z_min": -55900,
         "z_max": -47180,
         "require_item": ["Boomerang"],
-    "item_override": "Slippery Station Tracks",
-},
+        "item_override": "Slippery Station Tracks",
+    },
 
     # Snow Sanctuary
     "Snow Sanctuary Stamp Station": {
@@ -815,7 +815,19 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
         "require_item": [],
         "item_override": "Forest Realm SE Portal Tracks",
-},
+    },
+    "Blizzard Temple B1 E Enemy Chest": {
+        "region_id": "bt b1 e enemy chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x1A,
+        "room_id": 1,
+        # "x_min": 42800, TODO
+        # "x_max": 51630,
+        # "z_min": 39300,
+        # "z_max": 47530,
+        "dungeon": "Blizzard Temple",
+        "require_item": [],
+    },
     "Blizzard Temple B1 NE Enemy Chest": {
         "region_id": "bt b1 ne enemy chest",
         "vanilla_item": "Boomerang",
@@ -915,7 +927,7 @@ LOCATIONS_DATA = {
     },
     "Blizzard Temple Dungeon Reward": {
         "region_id": "bt fraaz",
-        "vanilla_item": "Snow Source",
+        "vanilla_item": "Snow Source", #TODO tracks did not get removed, and check sent on room entry
         "address": 0x265714,
         "value": 0x20,
         "stage_id": 0x1F,
