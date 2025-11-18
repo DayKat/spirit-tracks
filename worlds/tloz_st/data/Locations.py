@@ -813,7 +813,7 @@ LOCATIONS_DATA = {
         "z_min": 39300,
         "z_max": 47530,
         "dungeon": "Blizzard Temple",
-        "require_item": [],
+        "require_item": ["Whirlwind"],
         "item_override": "Forest Realm SE Portal Tracks",
     },
     "Blizzard Temple B1 E Enemy Chest": {
@@ -821,12 +821,12 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1A,
         "room_id": 1,
-        # "x_min": 42800, TODO
-        # "x_max": 51630,
-        # "z_min": 39300,
-        # "z_max": 47530,
+        "x_min": 73520,
+        "x_max": 92474,
+        "z_min": -28212,
+        "z_max": -13300,
         "dungeon": "Blizzard Temple",
-        "require_item": [],
+        "require_item": ["Whirlwind"],
     },
     "Blizzard Temple B1 NE Enemy Chest": {
         "region_id": "bt b1 ne enemy chest",
