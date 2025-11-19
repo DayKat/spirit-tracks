@@ -2026,51 +2026,9 @@ ENTRANCE_DATA = {
 
 
 
-ENTRANCES: dict[str, "PHTransition"] = {}
+ENTRANCES: dict[str, "PHTransition"] = PHTransition.from_data(ENTRANCE_DATA)
 counter = {}
 i = 0
-for name, data in ENTRANCE_DATA.items():
-    ENTRANCES[name] = PHTransition(name, data)
-    ENTRANCES[name].id = i
-    # print(f"{i} {ENTRANCES[name].entrance_region} -> {ENTRANCES[name].exit_region}")
-    i += 1
-    point = data["entrance_region"] + "<=>" + data["exit_region"]
-    counter.setdefault(point, 0)
-    counter[point] += 1
-
-    if data.get("two_way", True):
-        two_way = True
-    else:
-        two_way = False
-    reverse_name = data.get("return_name", f"Unnamed Entrance {i}")
-    reverse_data = {
-        "entrance_region": data.get("reverse_exit_region", data["exit_region"]),
-        "exit_region": data.get("reverse_entrance_region", data["entrance_region"]),
-        "id": i,
-        "entrance": data["exit"],
-        "exit": data["entrance"],
-        "two_way": two_way,
-        "type": data["type"],
-        "island": data.get("return_island", data.get("island", EntranceGroups.NONE)),
-        "direction": OPPOSITE_ENTRANCE_GROUPS[data["direction"]],
-        "coords": data.get("coords", None),
-
-    }
-    if "extra_data" in data:
-        reverse_data["extra_data"] = data["extra_data"]
-    if reverse_name in ENTRANCES:
-        print(f"DUPLICATE ENTRANCE!!! {reverse_name}")
-    ENTRANCES[reverse_name] = PHTransition(reverse_name, reverse_data)
-
-    ENTRANCES[name].vanilla_reciprocal = ENTRANCES[reverse_name]
-    ENTRANCES[reverse_name].vanilla_reciprocal = ENTRANCES[name]
-
-    # print(f"{i} {ENTRANCES[reverse_name].entrance_region} -> {ENTRANCES[reverse_name].exit_region}")
-    i += 1
-    point = reverse_data["entrance_region"] + "<=>" + reverse_data["exit_region"]
-    counter.setdefault(point, 0)
-    counter[point] += 1
-
 entrance_id_to_region = {d.id: d.entrance_region for d in ENTRANCES.values()}
 
 # print({key: value for key, value in counter.items() if value != 1})
