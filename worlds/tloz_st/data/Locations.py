@@ -1,4 +1,4 @@
-from worlds.tloz_st import ITEM_GROUPS
+
 from .Constants import ITEM_GROUPS
 
 # TODO: Add sram data for saveslot 2

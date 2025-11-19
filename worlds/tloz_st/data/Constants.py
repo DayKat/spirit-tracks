@@ -128,6 +128,8 @@ STAGES = {
     0x36: "Bridge Worker's Home",
     0x3F: "Snowdrift Station",
     0x3F0A: "Slippery Station",
+    6: "Ocean Realm",
+    7: "Fire Realm"
 }
 
 ITEM_GROUPS = {
