@@ -24,7 +24,7 @@ from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
-dev_prints = False
+dev_prints = True
 
 if TYPE_CHECKING:
     from .Subclasses import ERPlacementState, PHEntrance, PHRegion, PHTransition
@@ -536,8 +536,8 @@ class PhantomHourglassWorld(World):
             for e in self.entrances.values():
                 # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
                 if type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]:
-                    # print(f"disconnecting {e.name} for {type_option_lookup[(e.randomization_group & EntranceGroups.AREA_MASK) >> 3]}")
-                    randomized_entrances.append(e)
+                    if not (ENTRANCES[e.name].extra_data.get("glitched", False) and self.options.logic != "glitched"):
+                        randomized_entrances.append(e)
                 elif e.name in plando_disconnects:
                     randomized_entrances.append(e)
 
