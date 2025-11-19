@@ -17,7 +17,7 @@ RAM_ADDRS = {
     "received_item_index": (0x265780, 2, "Main RAM"),
     "slot_id": (0x265782, 2, "Main RAM"),
 
-    "stage": (0x260A2C, 4, "Main RAM"),
+    "stage": (0x2690E0, 4, "Main RAM"),
     "floor": (0x1B2E98, 4, "Main RAM"),  # TODO: Find floor value
     "room": (0x2690EA, 1, "Main RAM"),
     "entrance": (0x2690EB, 1, "Main RAM"),
@@ -53,7 +53,7 @@ SMALL_KEY_OFFSET = 0x260
 STAGE_FLAGS_OFFSET = 0x268
 
 # Addresses to read each cycle
-read_keys_always = ["game_state", "received_item_index", "is_dead", "stage", "room", "slot_id", "menu", "loading_room"]
+read_keys_always = ["game_state", "received_item_index", "is_dead", "stage", "room", "entrance", "slot_id", "menu", "loading_room"]
 read_keys_land = ["getting_location", "getting_train_part"]
 
 
