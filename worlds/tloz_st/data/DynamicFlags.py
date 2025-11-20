@@ -125,7 +125,6 @@ DYNAMIC_FLAGS = {
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(0x265739, 0x02)],
     },
-    #TODO add flag that stops anjean allowing other realms from ToS heeeeelp
 
     "Fraaz location": {
         "on_scenes": [0x1F00],
@@ -144,6 +143,16 @@ DYNAMIC_FLAGS = {
         "has_items": [["Snow Source", 0]],
         "unset_if_true": [(0x265714, 0x20)],
     },
+    "Anjean kick out after ocean glyph fix": {
+        "on_scenes": [0x1401],
+        "has_items": [["Ocean Glyph", 1]],
+        "set_if_true": [(0x26572B, 0x20)]
+    },
+    # ==== Stage flags ====
+    "Outset Stage Flags": {
+        "set_if_true": [(0x33ED48, 0x9A)],
+        "on_scenes": [0x2F00],
+    }
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],

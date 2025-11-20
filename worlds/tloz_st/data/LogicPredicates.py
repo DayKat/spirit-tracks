@@ -92,58 +92,6 @@ def st_has_light_song(state: CollectionState, player: int):
 def st_has_discovery_song(state: CollectionState, player: int):
     return state.has("Song of Discovery", player)
 
-# ============== Frogs =======================
-
-# Does not mean you can logically get back, use the other frogs
-# def st_has_frog(state: CollectionState, player: int, glyst: str, quadrant: str):
-#     return all([
-#         st_has_sea_chart(state, player, quadrant),
-#         st_has_cyclone_slate(state, player),
-#         any([
-#             state.has(f"Frog Glyst {glyst}", player),
-#             st_option_start_with_frogs(state, player)
-#         ])
-#     ])
-#
-#
-# def st_has_frog_x(state: CollectionState, player: int):
-#     return st_has_frog(state, player, "X", "SW")
-#
-#
-# def st_has_frog_sti(state: CollectionState, player: int):
-#     return all([
-#         st_has_frog(state, player, "Phi", "SW"),
-#         any([
-#             st_has_cannon(state, player),
-#             st_has_frog_x(state, player),
-#             st_has_sea_chart(state, player, "NW")
-#         ])
-#     ])
-#
-#
-# def st_has_frog_n(state: CollectionState, player: int):
-#     return st_has_frog(state, player, "N", "NW")
-#
-#
-# def st_has_frog_omega(state: CollectionState, player: int):
-#     return st_has_frog(state, player, "Omega", "SE")
-#
-#
-# def st_has_frog_w(state: CollectionState, player: int):
-#     return st_has_frog(state, player, "W", "SE")
-#
-#
-# def st_has_frog_square(state: CollectionState, player: int):
-#     return all([
-#         st_has_frog(state, player, "Square", "NE"),
-#         any([
-#             st_has_sea_chart(state, player, "SE"),
-#             st_has_frog_sti(state, player),
-#             st_has_frog_n(state, player),
-#             st_has_frog_x(state, player)
-#         ])
-#     ])
-
 
 # =========== Combined item states ================
 
@@ -324,7 +272,7 @@ def st_can_farm_rupees(state: CollectionState, player: int):
 # ============ Option states =============
 
 def st_option_glitched_logic(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.logic == "glitched"
+    return state.multiworld.worlds[player].options.logic == "glitched" or state.has("_UT_Glitched_Logic", player)
 
 
 def st_option_normal_logic(state: CollectionState, player: int):
@@ -332,7 +280,7 @@ def st_option_normal_logic(state: CollectionState, player: int):
 
 
 def st_option_hard_logic(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.logic in ["hard", "glitched"]
+    return state.multiworld.worlds[player].options.logic in ["hard", "glitched"] or state.has("_UT_Glitched_Logic", player)
 
 
 def st_option_not_glitched_logic(state: CollectionState, player: int):
@@ -514,6 +462,10 @@ def st_can_sword_scroll_clip(state, player):
 
 # Overworld
 
+def st_castle_town_cuccos(state, player):
+    return (st_has_bombs(state, player)
+            and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player))
+                 or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))))
 
 # Handles keylocking due to lack of locations
 # def st_can_reach_MP2(state: CollectionState, player: int):
