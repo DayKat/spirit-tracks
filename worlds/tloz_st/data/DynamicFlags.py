@@ -71,7 +71,6 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET stagnox reward"]
     },
     "RESET stagnox reward": {
-        "has_locations": ["Wooded Temple Dungeon Reward"],
         "has_items": [["Forest Source", 1]],
         "set_if_true": [(0x265714, 0x10)]
     },
@@ -148,11 +147,6 @@ DYNAMIC_FLAGS = {
         "has_items": [["Ocean Glyph", 1]],
         "set_if_true": [(0x26572B, 0x20)]
     },
-    # ==== Stage flags ====
-    "Outset Stage Flags": {
-        "set_if_true": [(0x33ED48, 0x9A)],
-        "on_scenes": [0x2F00],
-    }
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],

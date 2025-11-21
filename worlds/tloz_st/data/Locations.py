@@ -60,16 +60,19 @@ LOCATIONS_DATA = {
         "z_max": 28762,
         "require_item": ["Spirit Flute", "Song of Discovery"],
     },
-    "Outset Receive Stamp Book": { #TODO freeze at stairs when dropping off alfonso, related to stamp book?
+    "Outset Receive Stamp Book": { # TODO: if using address read it triggers if you receive stamp book at start
         "region_id": "outset village stamp book",
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
         "room_id": 0x0A,
+        "address": 0x265739,
+        "value": 0x2,
         "x_min": -9816,
         "x_max": 12156,
         "z_min": -22938,
         "z_max": 2247,
-        "require_item": ["Forest Glyph", "Snow Glyph"]
+        "require_item": ["Forest Glyph", "Snow Glyph"],
+        #"delay_pickup": "Outset Niko's House Tree"
     },
 
     # Castle Town

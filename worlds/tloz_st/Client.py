@@ -129,14 +129,11 @@ class SpiritTracksClient(DSZeldaClient):
     def process_loading_variable(self, read_result) -> bool:
         mid_load = read_result.get("mid_load", True) == 0xFF
         if self._loading_scene and not self.loading_stage:
-            print(f"### Loading scene {mid_load} {self.loading_stage}")
             if mid_load:
-                print(f"### Mid load active")
                 self.loading_stage = True
 
         if self.loading_stage:
             if not mid_load:
-                print(f"### Mid load deactive")
                 self.loading_stage = False
                 return mid_load
         return not read_result.get("loading_room", 27)
@@ -149,6 +146,12 @@ class SpiritTracksClient(DSZeldaClient):
         # Fix for stamp stand not counting as getting item
         if self.in_stamp_stand and self.receiving_location:
             self.getting_location = True
+
+        if read_result["stage"] == 0x79:
+            read_result["stage"] = 0x14
+            read_result["room"] = 0x1
+            await write_memory_value(ctx, RAM_ADDRS["stage"][0], 0x14, overwrite=True)
+            await write_memory_value(ctx, RAM_ADDRS["room"][0], 0x1, overwrite=True)
 
 
     async def process_in_game(self, ctx, read_result: dict):
@@ -200,4 +203,3 @@ class SpiritTracksClient(DSZeldaClient):
             stage_flag_address = stage_address + STAGE_FLAGS_OFFSET - 0x2000000
             print(f"Setting stage flags for stage {hex(stage)} at address {hex(stage_flag_address)}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await write_memory_values(ctx, stage_flag_address, STAGE_FLAGS[stage], size=4)
-
