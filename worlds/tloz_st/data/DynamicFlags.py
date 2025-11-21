@@ -147,6 +147,16 @@ DYNAMIC_FLAGS = {
         "has_items": [["Ocean Glyph", 1]],
         "set_if_true": [(0x26572B, 0x20)]
     },
+    "Snow realm crashes with snow source and no blizzard tracks": {
+        "on_scenes": [0x500],
+        "has_items": [["Snow Source", 1], ["Blizzard Temple Tracks", 0]],
+        "unset_if_true": [(0x265714, 0x20)],
+        "reset_flags": ["RESET snow realm crash"]
+    },
+    "RESET snow realm crash": {
+        "set_if_true": [(0x265714, 0x20)],
+        "has_items": [["Snow Source", 1]],
+    }
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
