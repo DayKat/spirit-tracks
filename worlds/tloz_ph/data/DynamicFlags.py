@@ -1286,6 +1286,5 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2600],
         "set_if_true": [(0x1B55AA, 0x20)]
     },
-
 }
 

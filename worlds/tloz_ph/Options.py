@@ -733,6 +733,36 @@ class PhantomHourglassEntrancePlando(PlandoConnections):
     entrances = frozenset(ENTRANCES.keys())
     exits = frozenset(ENTRANCES.keys())
 
+class PhantomHourglassRandomizePedestalItems(Choice):
+    """
+    Randomize shape crystals and force gems.
+    The randomize options will also create items for the items carried by phantoms.
+    The phantom's items won't be removed, and can still be used, but having the abstract items will open them for you no hauling required.
+    - vanilla: don't randomize. you have to haul your shapes to their pedestals
+    - vanilla_abstract: don't randomize, but the shapes get converted to abstract items that take immediate effect.
+    - in_own_dungeon: randomize in own dungeon
+    - anywhere: randomize anywhere
+    """
+    display_name = "Randomize Pedestal Items"
+    option_vanilla = 0
+    option_vanilla_abstract = 1
+    option_in_own_dungeon = 2
+    option_anywhere = 3
+    default = 0
+
+class PhantomHourglassPedestalOptions(Choice):
+    """
+    How to randomize pedestal items. Only take effect when pedestal items are randomized.
+    open_per_dungeon: one crystal per dungeon, that opens all their pedestals. There are 3 force gems per force gem floor.
+    unique_pedestals: creates an item for each pedestal, opening them individually.
+    open_globally: There will only be one of each type of crystal/force gem. They will open all pedestals, no matter the dungeon. If randomized in own dungeon, they can end up in any dungeon with a matching pedestal.
+    """
+    display_name = "Pedestal Item Options"
+    option_open_per_dungeon = 0
+    option_unique_pedestals = 1
+    option_open_globally = 2
+    default = 0
+
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
@@ -759,6 +789,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # Item Randomization
     keysanity: PhantomHourglassKeyRandomization
+    randomize_pedestal_items: PhantomHourglassRandomizePedestalItems
     randomize_boss_keys: PhantomHourglassRandomizeBossKeys
     randomize_minigames: PhantomHourglassRandomizeMinigames
     randomize_frogs: PhantomHourglassFrogRandomization
@@ -779,6 +810,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
 
     # World Options
     boss_key_behaviour: PhantomHourglassBossKeyBehavior
+    pedestal_item_options: PhantomHourglassPedestalOptions
     color_switch_behaviour: PhantomHourglassSwitchBehaviour
     fog_settings: PhantomHourglassFogSettings
     skip_ocean_fights: PhantomHourglassSkipOceanFights
@@ -847,6 +879,7 @@ ph_option_groups = [
     ]),
     OptionGroup("Item Randomization Options", [
         PhantomHourglassKeyRandomization,
+        PhantomHourglassRandomizePedestalItems,
         PhantomHourglassRandomizeBossKeys,
         PhantomHourglassRandomizeMinigames,
         PhantomHourglassFrogRandomization,
@@ -872,7 +905,8 @@ ph_option_groups = [
         PhantomHourglassDungeonShortcuts,
         PhantomHourglassTotOKCheckpoints,
         PhantomHourglassSwitchBehaviour,
-        PhantomHourglassBossKeyBehavior
+        PhantomHourglassBossKeyBehavior,
+        PhantomHourglassPedestalOptions
     ]),
     OptionGroup("Spirit Gem Options", [
         PhantomHourglassSpiritGemPacks,

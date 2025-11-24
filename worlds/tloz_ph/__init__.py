@@ -102,7 +102,30 @@ def add_sand(starting_time, time_incr, time_logic):
 def add_beedle_point_items():
     return {"Beedle Points (50)": 2, "Beedle Points (20)": 3, "Beedle Points (10)": 4}
 
+def add_pedestal_items(place, option, excluded_dungeons):
+    res = dict()
+    def add_from_group(g, count=1):
+        return {i: count for i in ITEM_GROUPS[g]}
 
+    if option == "open_globally":
+        res |= add_from_group("Global Pedestal Items")
+    elif option == "open_per_dungeon":
+        res |= add_from_group("Regular Crystal Items")
+        res |= add_from_group("Unique Force Gems", 3)
+    elif option == "unique_pedestals":
+        res |= add_from_group("Unique Crystal Items")
+        res |= add_from_group("Unique Force Gems", 3)
+
+    if place == "in_own_dungeon":
+        if "Temple of Courage" in excluded_dungeons:
+            for i in ["Square Crystal (Temple of Courage)", "Square Pedestal North (Temple of Courage)", "Square Pedestal South (Temple of Courage)",]:
+                if i in res:
+                    res.pop(i)
+        if "Ghost Ship" in excluded_dungeons:
+            for i in ["Triangle Crystal (Ghost Ship)", "Round Crystal (Ghost Ship)"]:
+                res.pop(i)
+
+    return res
 
 class PhantomHourglassWorld(World):
     """
@@ -313,18 +336,18 @@ class PhantomHourglassWorld(World):
             self.boss_reward_items_pool = self.pick_metals(reward_count)
 
     def pick_metals(self, count):
-        metal_items = ITEM_GROUPS["Vanilla Metals"]
-        extended_pool = []
+        metal_items: list = list(ITEM_GROUPS["Vanilla Metals"])
+        extended_pool: list = []
         if self.options.additional_metal_names == "vanilla_only":
-            extended_pool = ITEM_GROUPS["Vanilla Metals"]
+            extended_pool = list(ITEM_GROUPS["Vanilla Metals"])
         elif self.options.additional_metal_names == "additional_rare_metal":
             extended_pool = ["Additional Rare Metal"]
         elif self.options.additional_metal_names == "custom":
             metal_items += ITEM_GROUPS["Custom Metals"]
-            extended_pool = ITEM_GROUPS["Metals"]
+            extended_pool = list(ITEM_GROUPS["Metals"])
         elif self.options.additional_metal_names == "custom_prefer_vanilla":
-            metal_items = ITEM_GROUPS["Custom Metals"]
-            extended_pool = ITEM_GROUPS["Metals"]
+            metal_items = list(ITEM_GROUPS["Custom Metals"])
+            extended_pool = list(ITEM_GROUPS["Metals"])
 
         while len(metal_items) < count:
             metal_items += self.random.choice([extended_pool])
@@ -332,7 +355,7 @@ class PhantomHourglassWorld(World):
         self.random.shuffle(metal_items)
 
         if self.options.additional_metal_names == "custom_prefer_vanilla":
-            vanillas = ITEM_GROUPS["Vanilla Metals"]
+            vanillas = list(ITEM_GROUPS["Vanilla Metals"])
             self.random.shuffle(vanillas)
             metal_items = vanillas + metal_items
 
@@ -400,6 +423,7 @@ class PhantomHourglassWorld(World):
             excluded_dungeons = [d for d in DUNGEON_NAMES
                                  if d not in self.required_dungeons + always_include]
             self.excluded_dungeons = excluded_dungeons
+            print(f"Excluded dungeons: {self.excluded_dungeons}")
             for dungeon in excluded_dungeons:
                 locations_to_exclude.update(self.dungeon_name_groups[dungeon])
 
@@ -881,8 +905,13 @@ class PhantomHourglassWorld(World):
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
             if 'dungeon' in ITEMS_DATA[item_name]:
-                # if dungeon is excluded, place keys in vanilla locations
                 dung = item_name.rsplit('(', 1)[1][:-1]
+                # If pedestal item location is vanilla, lock them there
+                if self.options.randomize_pedestal_items.value in [0, 1] and item_name in ITEM_GROUPS["Regular Crystal Items"]:
+                    forced_item = self.create_item(item_name)
+                    self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                    continue
+                # if dungeon is excluded, place keys in vanilla locations
                 if self.options.exclude_non_required_dungeons and dung in self.excluded_dungeons:
                     forced_item = self.create_item(item_name)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
@@ -909,10 +938,12 @@ class PhantomHourglassWorld(World):
             if "Treasure Map" in item_name:
                 filler_item_count += 1
                 continue
-            if (item_name in ["Treasure", "Ship Part", "Nothing!", "Potion", "Red Potion", "Purple Potion",
-                              "Yellow Potion", "Power Gem", "Wisdom Gem", "Courage Gem", "Heart Container",
-                              "Bombs (Progressive)", "Bow (Progressive)", "Bombchus (Progressive)",
-                              "Sand of Hours (Boss)"]):
+            if (item_name in ITEM_GROUPS["Items With Ammo"] |
+                    ITEM_GROUPS["Technical Items"] |
+                    ITEM_GROUPS["Potions"] |
+                    ITEM_GROUPS["Single Spirit Gems"] |
+                    ITEM_GROUPS["Regular Pedestal Items"] |  # These get locked in the dungeon category if vanilla
+                    {"Heart Container"}):
                 filler_item_count += 1
                 continue
 
@@ -931,7 +962,9 @@ class PhantomHourglassWorld(World):
             add_items |= metal_pool.items()
         add_items |= add_spirit_gems(self.options.spirit_gem_packs, self.options.additional_spirit_gems)
         add_items |= {"Heart Container": 13}
-
+        # Add pedestal items
+        if self.options.randomize_pedestal_items.value > 1:
+            add_items |= add_pedestal_items(self.options.randomize_pedestal_items, self.options.pedestal_item_options, self.excluded_dungeons)
         # Add sand items to pool
         add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
         # Add treasure maps
@@ -951,7 +984,7 @@ class PhantomHourglassWorld(World):
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
         # Add ships if enough room in filler pool
         if filler_item_count >= 8:
-            for i in ITEM_GROUPS["Ships"][1:]:
+            for i in ITEM_GROUPS["Ships"]:
                 item_pool_dict[i] = 1
             filler_item_count -= 8
         # Add as many filler items as required
@@ -968,6 +1001,8 @@ class PhantomHourglassWorld(World):
                 for i in range(count):
                     random_filler_item = self.get_filler_item_name()
                     item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
+
+        print(f"Created pedestal items {[(item, count) for item, count in item_pool_dict.items() if item in ITEM_GROUPS['Pedestal Items']]}")
         return item_pool_dict
 
     def create_items(self):
@@ -1018,7 +1053,8 @@ class PhantomHourglassWorld(World):
         # Confine small keys to own dungeon if option is enabled
         if self.options.randomize_boss_keys == "in_own_dungeon":
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
-
+        if self.options.randomize_pedestal_items == "in_own_dungeon":
+            confined_dungeon_items.extend([item for item in items if "Crystal" in item.name or item.name.startswith("Force")])
         # Remove boss reward items from pool for pre filling
         confined_dungeon_items.extend([item for item in items if item.name in self.boss_reward_items_pool])
 
@@ -1045,6 +1081,26 @@ class PhantomHourglassWorld(World):
                              single_player_placement=True, lock=True, allow_excluded=True)
 
     def pre_fill_dungeon_items(self):
+
+        global_crystal_dungeons = {}
+        def global_pedestal_helper(crystal, dungeon):
+            global_crystal_dungeons.setdefault(dungeon, [])
+            item = crystal + " Crystals"
+            if dungeon in self.excluded_dungeons:
+                global_crystal_dungeons["Temple of the Ocean King"].append(item)
+            else:
+                global_crystal_dungeons[self.random.choice(["Temple of the Ocean King", dungeon])].append(item)
+
+        # Since crystals can be in multiple dungeons with global crystals,
+        # and them ending up in excluded dungeons causes errors,
+        # pre-choose what dungeon they belong to
+        if (self.options.randomize_pedestal_items == "in_own_dungeon"
+                and self.options.pedestal_item_options == "open_globally"):
+            global_crystal_dungeons.setdefault("Temple of the Ocean King", [])
+            global_pedestal_helper("Square", "Temple of Courage")
+            global_pedestal_helper("Round", "Ghost Ship")
+            global_pedestal_helper("Triangle", "Ghost Ship")
+
         # If keysanity is off, dungeon items can only be put inside local dungeon locations, and there are not so many
         # of those which makes them pretty crowded.
         # This usually ends up with generator not having anywhere to place a few small keys, making the seed unbeatable.
@@ -1063,6 +1119,15 @@ class PhantomHourglassWorld(World):
             # dungeon we are currently processing.
             confined_dungeon_items = [item for item in self.pre_fill_items
                                       if item.name.endswith(f"({dung_name})")]
+
+            # Add global crystals/force gems
+            if dung_name in global_crystal_dungeons:
+                confined_dungeon_items.extend(global_crystal_dungeons[dung_name])
+
+            if self.options.randomize_pedestal_items == "in_own_dungeon" and dung_name == "Temple of the Ocean King":
+                confined_dungeon_items = [item for item in self.pre_fill_items
+                                          if "Force Gem" in item.name]
+
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 
@@ -1106,14 +1171,15 @@ class PhantomHourglassWorld(World):
             "logic", "phantom_combat_difficulty", "boat_requires_sea_chart",
             # Item Randomization
             "randomize_minigames", "randomize_digs", "randomize_fishing",
-            "keysanity", "randomize_frogs", "randomize_salvage",
-            "randomize_triforce_crest", "randomize_harrow", "randomize_boss_keys",
+            "keysanity", "randomize_boss_keys", "randomize_pedestal_items",
+            "randomize_frogs", "randomize_salvage",
+            "randomize_triforce_crest", "randomize_harrow",
             # Beedle randomization
             "randomize_masked_beedle", "randomize_beedle_membership",
             # World Settings
             "fog_settings", "skip_ocean_fights",
             "dungeon_shortcuts", "totok_checkpoints",
-            "boss_key_behaviour", "color_switch_behaviour",
+            "boss_key_behaviour", "color_switch_behaviour", "pedestal_item_options",
             # Spirit Packs
             "spirit_gem_packs", "additional_spirit_gems",
             # Hint settings

@@ -242,7 +242,7 @@ def ph_has_se_frogs(state, player):
     ])
 
 def ph_has_treasure_map(state, player, number):
-    map_name = ITEM_GROUPS["Treasure Maps"][number - 1]
+    map_name = TREASURE_MAPS[number - 1]
     return state.has(map_name, player)
 
 
