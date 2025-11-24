@@ -180,8 +180,9 @@ class SpiritTracksClient(DSZeldaClient):
                 self.has_goal_location = True
 
     # TODO needs a way of freezing value
-    # async def game_watcher(self, ctx: "BizHawkClientContext"):
-    #     await super().game_watcher(ctx)
+    # fixes conflict with bizhawk_UT
+    async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
+        await super().game_watcher(ctx)
     #     if self.current_scene == (0x0400 or 0x0500 or 0x0600 or 0x0700):
     #         current_gear = await read_memory_value(ctx, 0x2CA24C, 4)
     #         if current_gear == 0xC1:

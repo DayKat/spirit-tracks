@@ -58,7 +58,7 @@ STARTING_FLAGS = [
     [0x26901E, 0, 0]
 ]
 
-# You can find the stage flags for a stage by checking the stage data pointer of 0x265164 and adding an offset of 176 (note decimal) to it's value
+# You can find the stage flags for a stage by checking the stage data pointer of 0x265164 and adding an offset of 176 (note decimal) to its value
 # then endian is opposite of what it usually is cause i like to use spreadsheets to import it.
 # check the stage flag page in the spreadsheet to see what each bit corresponds to.
 STAGE_FLAGS = {

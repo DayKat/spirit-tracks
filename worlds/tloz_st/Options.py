@@ -33,8 +33,6 @@ class SpiritTracksRemoveItemsFromPool(ItemDict):
 
 class SpiritTracksLogic(Choice):
     """
-    Currently only used for Slippery Station Champion reward check - if you want to include this check then choose Hard.
-
     Logic options:
     - Normal: Glitches not in logic.
     - Medium: Includes some cool uses of pots aren't hard, but unconventional
