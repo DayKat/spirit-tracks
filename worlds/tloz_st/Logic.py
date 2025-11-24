@@ -28,9 +28,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town", "castle town stamp station", False, lambda state: (st_has_stamp_book(state, player) and st_has_bombs(state, player))],
         ["castle town", "castle town L wall chest", False, lambda state: (st_has_bombs(state, player))],
         ["castle town", "castle town R wall chest", False, lambda state: (st_has_bombs(state, player))],
-        ["castle town", "castle town minigame roof", False, lambda state: st_has_bombs(state, player) and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player)) or st_has_whirlwind(state, player))],
-        ["castle town", "castle town ramp house chest", False, lambda state: st_has_bombs(state, player) and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player)) or st_has_whirlwind(state, player))],
-        ["castle town", "castle town empty house roof", False, lambda state: st_has_bombs(state, player) and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player)) or st_has_whirlwind(state, player))],
+        ["castle town", "castle town minigame roof", False, lambda state: st_castle_town_cuccos(state, player)],
+        ["castle town", "castle town ramp house chest", False, lambda state: st_castle_town_cuccos(state, player)],
+        ["castle town", "castle town empty house roof", False, lambda state: st_castle_town_cuccos(state, player)],
 
         # # ======== Hyrule Castle =========
 
@@ -42,7 +42,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== ToS Tunnel =========
 
         ["hyrule castle", "tower tunnel", False, None],
-        ["tower tunnel", "tower tunnel block chest", False, lambda state: (st_has_damage(state, player))],
+        ["tower tunnel", "tower tunnel block chest", False, lambda state: (st_has_damage(state, player) or st_option_hard_logic(state, player))],
         ["tower tunnel", "tower tunnel 2f chest", False, lambda state: (st_has_damage(state, player) and st_has_small_keys(state, player, "Tunnel to ToS", 1))],
 
         # # ========== ToS ===================
@@ -92,16 +92,16 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         #["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
         ["fos", "fos chest", False, lambda state: st_has_whirlwind(state, player) or (st_has_birds_song(state, player) and st_has_spirit_flute(state, player))],
 
-        # # ======== Wooded Temple ========= #TODO stamp stand + chest + poison chest + 3f se can damage boost
+        # # ======== Wooded Temple =========
 
         ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Wooded") or st_has_source(state, player, "Forest")],
-        ["wt", "wt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whirlwind(state, player)],
+        ["wt", "wt stamp station", False, lambda state: st_has_stamp_book(state, player) and (st_has_whirlwind(state, player) or st_option_hard_logic(state, player))],
         ["wt", "wt song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["wt", "wt 1f enemy chest", False, lambda state: st_has_damage(state, player)],
         ["wt 1f enemy chest", "wt 1f key", False, lambda state: st_has_whirlwind(state, player)],
         ["wt 1f enemy chest", "wt 2f enemy chest", False, None],
-        ["wt 1f enemy chest", "wt 2f poison chest", False, lambda state: st_has_whirlwind(state, player)],
-        ["wt", "wt 1f switch chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["wt 1f enemy chest", "wt 2f poison chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
+        ["wt", "wt 1f switch chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
         ["wt", "wt 3f chestnut chest", False, lambda state: st_can_kill_bubble(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Wooded Temple", 1)],
         ["wt", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) and st_can_kill_bubble(state, player) and st_has_small_keys(state, player,"Wooded Temple", 2)],
        #["wt", "wt 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
@@ -171,7 +171,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["snowdrift", "snowdrift reward", False, lambda state: st_has_boomerang(state, player) and st_has_shield(state, player)],
 
         # ========== Slippery Station ==========
-        ["snow realm post song", "slippery", False, lambda state: st_has_misc_tracks(state, player, "Slippery Station") and st_has_source(state, player, 'Snow')],
+        ["snow realm post song", "slippery", False, lambda state: st_has_misc_tracks(state, player, "Slippery Station") and (st_has_source(state, player, 'Snow') or st_has_misc_tracks(state, player, "N Icy Spring"))],
         ["slippery", "slippery amateur", False, None],
         ["slippery", "slippery pro", False, None],
         ["slippery", "slippery champion", False, lambda state: st_option_hard_logic(state, player)],

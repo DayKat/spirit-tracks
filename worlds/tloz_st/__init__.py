@@ -80,6 +80,7 @@ class SpiritTracksWorld(World):
     item_name_to_id = build_item_name_to_id_dict()
     item_name_groups = ITEM_GROUPS
     origin_region_name = "outset village"
+    glitches_item_name = "_UT_Glitched_Logic"
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -386,7 +387,6 @@ class SpiritTracksWorld(World):
         filler_item_names = [
             "Blue Rupee (5)",
             "Red Rupee (20)",
-            "Rupoor (-10)"
         ]
 
         item_name = self.random.choice(filler_item_names)

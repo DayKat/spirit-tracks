@@ -11,7 +11,8 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Tower of Spirits Snow Realm",
         "destination": "Tower of Spirits Snow Realm",
         "not_has_all_items": [("Snow Glyph", 0), ("Snow Source", 0),
-                              ("Blizzard Temple Tracks", 0)]  # Apparently this is required...
+                              # ("Blizzard Temple Tracks", 0) # Fixed!a
+                              ]
     },
     # Portal Bounces
     "Bounce forest portal north": {

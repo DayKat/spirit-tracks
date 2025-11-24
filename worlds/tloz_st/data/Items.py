@@ -634,6 +634,12 @@ ITEMS_DATA = {
         'backup_filler': True,
         'train': 8
     },
+
+    "_UT_Glitched_Logic": {  # Shows yellow logic in UT
+        "classification": ItemClassification.progression,
+        "dummy": True,
+        "id": 189,
+    },
 }
 
 

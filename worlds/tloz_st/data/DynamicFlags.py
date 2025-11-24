@@ -71,7 +71,6 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET stagnox reward"]
     },
     "RESET stagnox reward": {
-        "has_locations": ["Wooded Temple Dungeon Reward"],
         "has_items": [["Forest Source", 1]],
         "set_if_true": [(0x265714, 0x10)]
     },
@@ -125,7 +124,6 @@ DYNAMIC_FLAGS = {
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(0x265739, 0x02)],
     },
-    #TODO add flag that stops anjean allowing other realms from ToS heeeeelp
 
     "Fraaz location": {
         "on_scenes": [0x1F00],
@@ -144,6 +142,21 @@ DYNAMIC_FLAGS = {
         "has_items": [["Snow Source", 0]],
         "unset_if_true": [(0x265714, 0x20)],
     },
+    "Anjean kick out after ocean glyph fix": {
+        "on_scenes": [0x1401],
+        "has_items": [["Ocean Glyph", 1]],
+        "set_if_true": [(0x26572B, 0x20)]
+    },
+    "Snow realm crashes with snow source and no blizzard tracks": {
+        "on_scenes": [0x500],
+        "has_items": [["Snow Source", 1], ["Blizzard Temple Tracks", 0]],
+        "unset_if_true": [(0x265714, 0x20)],
+        "reset_flags": ["RESET snow realm crash"]
+    },
+    "RESET snow realm crash": {
+        "set_if_true": [(0x265714, 0x20)],
+        "has_items": [["Snow Source", 1]],
+    }
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],

@@ -23,8 +23,9 @@ RAM_ADDRS = {
     "entrance": (0x2690EB, 1, "Main RAM"),
 
     "loading_room": (0x0c2FF0, 1, "Main RAM"),
+    "mid_load": (0x265190, 1, "Main RAM"),
 
-    "getting_location": (0x04B114, 1, "Main RAM"),
+    "getting_location": (0x04B9B8, 1, "Main RAM"),
     "getting_train_part": (0x11F5E4, 1, "Main RAM"),
     "menu": (0x260958, 1, "Main RAM"),
 
@@ -50,10 +51,12 @@ POINTERS = {
 
 # gMapManager -> mCourse -> mSmallKeys
 SMALL_KEY_OFFSET = 0x260
-STAGE_FLAGS_OFFSET = 0x268
+STAGE_FLAGS_OFFSET = 176
+STAGE_FLAG_POINTER = 0x265164
 
 # Addresses to read each cycle
-read_keys_always = ["game_state", "received_item_index", "is_dead", "stage", "room", "entrance", "slot_id", "menu", "loading_room"]
+read_keys_always = ["game_state", "received_item_index", "is_dead", "stage", "room", "entrance", "slot_id", "menu",
+                    "loading_room", "mid_load"]
 read_keys_land = ["getting_location", "getting_train_part"]
 
 
@@ -81,6 +84,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.scene_to_stamp = build_scene_to_stamp()
         self.goal_locations = build_location_to_goal()
         self.has_goal_location = False
+        self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
 
     async def get_small_key_address(self, ctx) -> int:
         return 0x26532F
@@ -123,15 +127,31 @@ class SpiritTracksClient(DSZeldaClient):
         print(self.main_read_list)
 
     def process_loading_variable(self, read_result) -> bool:
+        mid_load = read_result.get("mid_load", True) == 0xFF
+        if self._loading_scene and not self.loading_stage:
+            if mid_load:
+                self.loading_stage = True
+
+        if self.loading_stage:
+            if not mid_load:
+                self.loading_stage = False
+                return mid_load
         return not read_result.get("loading_room", 27)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu = read_result["menu"]
         self.in_stamp_stand = current_menu == 0x0E
+        self.getting_location = not read_result["getting_location"]
 
         # Fix for stamp stand not counting as getting item
         if self.in_stamp_stand and self.receiving_location:
             self.getting_location = True
+
+        if read_result["stage"] == 0x79:
+            read_result["stage"] = 0x14
+            read_result["room"] = 0x1
+            await write_memory_value(ctx, RAM_ADDRS["stage"][0], 0x14, overwrite=True)
+            await write_memory_value(ctx, RAM_ADDRS["room"][0], 0x1, overwrite=True)
 
 
     async def process_in_game(self, ctx, read_result: dict):
@@ -176,3 +196,10 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
         pass
+
+    async def set_stage_flags(self, ctx, stage):
+        if stage in STAGE_FLAGS:
+            stage_address = await read_memory_value(ctx, STAGE_FLAG_POINTER, size=4)
+            stage_flag_address = stage_address + STAGE_FLAGS_OFFSET - 0x2000000
+            print(f"Setting stage flags for stage {hex(stage)} at address {hex(stage_flag_address)}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
+            await write_memory_values(ctx, stage_flag_address, STAGE_FLAGS[stage], size=4)
