@@ -832,30 +832,36 @@ ITEMS_DATA = {
         "dungeon": True,
         "always_process": True,
         "id": 111,
+        "set_bit_in_room": {0x1E00: [(0x252264, 0x10),
+                                     ("stage_flag", 0x80)]}
     },
     "Square Pedestal North (Temple of Courage)": {
         "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 194,
+        "set_bit_in_room": {0x1E00: [(0x252264, 0x10)]}
     },
     "Square Pedestal South (Temple of Courage)": {
         "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 195,
+        "set_bit_in_room": {0x1E00: [("stage_flag", 0x80)]}
     },
     "Triangle Crystal (Ghost Ship)": {
         "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 112,
+        "set_bit_in_room": {0x2900: [("stage_flag", [0, 8])]}
     },
     "Round Crystal (Ghost Ship)": {
         "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 113,
+        "set_bit_in_room": {0x2900: [("stage_flag", [0, 0, 0, 2])]}
     },
     "Round Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
@@ -885,7 +891,8 @@ ITEMS_DATA = {
         "dungeon": 0x25,
         "id": 204,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x2)],
-                            0x250C: [(0x257694, 0x4)]}
+                            0x250C: [(0x257694, 0x4)],
+                            0x2900: [("stage_flag", [0, 0, 0, 2])]}
     },
     "Triangle Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
@@ -915,7 +922,8 @@ ITEMS_DATA = {
         "dungeon": 0x25,
         "id": 203,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x4)],
-                            0x250C: [(0x257694, 0x8)]}
+                            0x250C: [(0x257694, 0x8)],
+                            0x2900: [("stage_flag", [0, 8])]}
     },
     "Square Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
@@ -943,7 +951,9 @@ ITEMS_DATA = {
         "dungeon": True,
         "always_process": True,
         "id": 202,
-        "set_bit_in_room": {0x250C: [(0x257694, 0x22)]}
+        "set_bit_in_room": {0x250C: [(0x257694, 0x22)],
+                            0x1E00: [(0x252264, 0x10),
+                                     ("stage_flag", 0x80)]}
     },
     "Force Gem (B3)": {
         "classification": ItemClassification.progression,
@@ -959,7 +969,9 @@ ITEMS_DATA = {
         "dungeon": 0x25,
         "id": 118,
         "set_bit_in_room": {0x2510: [(0x257834, 0xFE, {"count": 3}),
-                                     (0x257835, 0xF, {"count": 3})]}
+                                     (0x257835, 0xF, {"count": 3}),
+                                     (0x257834, 0xC, {"count": 2}),
+                                     (0x257834, 0x4, {"count": 1})]}
     },
     "Force Gems": {
         "classification": ItemClassification.progression,

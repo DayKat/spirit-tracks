@@ -383,6 +383,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Open pedestal doors. sucks that you can't trigger it with dynaflags. slow code but game is slower
         if ctx.slot_data.get("randomize_pedestal_items", 0) > 0:
+
+            # === TotOK ===
             if current_scene == 0x2503:  # B3
                 if item_count(ctx, "Force Gem (B3)") >= 3 or item_count(ctx, "Force Gems"):
                     await write_memory_values(ctx, 0x2572EC, [0xFE, 0x0F])
@@ -414,6 +416,29 @@ class PhantomHourglassClient(DSZeldaClient):
             elif current_scene == 0x2510:  # B12
                 if item_count(ctx, "Force Gem (B12)") >= 3 or item_count(ctx, "Force Gems"):
                     await write_memory_values(ctx, 0x257834, [0xFE, 0x0F])
+                # Remove ability to place force gems on southern pedestals
+                await write_memory_value(ctx, 0x257EA4, 0x9, overwrite=True)
+                await write_memory_value(ctx, 0x257FE4, 0x9, overwrite=True)
+
+            # === Temple of Courage ===
+            elif current_scene == 0x1E00:
+                if (item_count(ctx, "Square Pedestal North (Temple of Courage)")
+                        or item_count(ctx, "Square Crystal (Temple of Courage)")
+                        or item_count(ctx, "Square Crystals")):
+                    await write_memory_value(ctx, 0x252264 , 0x10)
+                if (item_count(ctx, "Square Pedestal South (Temple of Courage)")
+                        or item_count(ctx, "Square Crystal (Temple of Courage)")
+                        or item_count(ctx, "Square Crystals")):
+                    await write_memory_value(ctx, self.stage_address, 0x80)
+
+            # === Ghost Ship ===
+            elif current_scene == 0x2900:
+                if (item_count(ctx, "Triangle Crystal (Ghost Ship)")
+                        or item_count(ctx, "Triangle Crystals")):
+                    await write_memory_value(ctx, self.stage_address+1, 0x8)
+                if (item_count(ctx, "Round Crystal (Ghost Ship)")
+                        or item_count(ctx, "Round Crystals")):
+                    await write_memory_value(ctx, self.stage_address+3, 0x2)
 
     async def write_totok_midway_keys(self, ctx):
         data = DUNGEON_KEY_DATA[372]
@@ -555,7 +580,7 @@ class PhantomHourglassClient(DSZeldaClient):
             # Change certain stage flags based on options
             if stage == 0 and ctx.slot_data["skip_ocean_fights"] == 1:
                 flags = SKIP_OCEAN_FIGHTS_FLAGS
-            if stage == 41 and ctx.slot_data["logic"] <= 1:
+            if stage == 41 and ctx.slot_data["logic"] >= 1:
                 flags = SPAWN_B3_REAPLING_FLAGS
 
             print(f"\tSetting Stage flags for {STAGES[stage]}, "
@@ -720,12 +745,19 @@ class PhantomHourglassClient(DSZeldaClient):
             self.item_location_combo = None
 
         if "set_bit_in_room" in item_data and ctx.slot_data.get("randomize_pedestal_items", 0):
+            print(f"Trying to set bit in room, room {hex(self.current_scene)}")
             if self.current_scene in item_data["set_bit_in_room"]:
                 for addr, value, *args in item_data["set_bit_in_room"][self.current_scene]:
-                    if "count" in args:
-                        if item_count(ctx, item_name) < args["count"]:
+                    print(f"args {args}")
+                    if addr == "stage_flag":
+                        addr = self.stage_address
+                        print(f"Stage address: {addr}")
+                    if args and "count" in args[0]:
+                        if item_count(ctx, item_name) < args[0]["count"]:
                             continue
-                    await write_memory_value(ctx, addr, value)
+                    if isinstance(value, int):
+                        value = [value]
+                    await write_memory_values(ctx, addr, value)
 
 
     @staticmethod

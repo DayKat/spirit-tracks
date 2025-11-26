@@ -371,6 +371,7 @@ REGIONS = [
     "ghost ship",
     "ghost ship barrel",
     "ghost ship b2",
+    "ghost ship b2 chests",
     "ghost ship b3",
     "ghost ship cubus",
     "ghost ship post cubus",

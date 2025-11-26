@@ -1924,7 +1924,7 @@ LOCATIONS_DATA = {
         "id": 179,
     },
     "Ghost Ship B2 Third Sister Right Chest": {
-        "region_id": "ghost ship b2",
+        "region_id": "ghost ship b2 chests",
         "stage_id": 0x29,
         "floor_id": 0x1,
         "vanilla_item": "Red Potion",
@@ -1937,7 +1937,7 @@ LOCATIONS_DATA = {
         "id": 180,
     },
     "Ghost Ship B2 Third Sister Left Chest": {
-        "region_id": "ghost ship b2",
+        "region_id": "ghost ship b2 chests",
         "stage_id": 0x29,
         "floor_id": 0x1,
         "vanilla_item": "Rupoor (-10)",
@@ -1948,7 +1948,7 @@ LOCATIONS_DATA = {
         "id": 181,
     },
     "Ghost Ship B2 Spike Chest": {
-        "region_id": "ghost ship b2",
+        "region_id": "ghost ship b2 chests",
         "stage_id": 0x29,
         "floor_id": 0x1,
         "vanilla_item": "Round Crystal (Ghost Ship)",

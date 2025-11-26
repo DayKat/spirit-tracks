@@ -105,8 +105,9 @@ def add_beedle_point_items():
 def add_pedestal_items(place, option, excluded_dungeons):
     res = dict()
     def add_from_group(g, count=1):
-        return {i: count for i in ITEM_GROUPS[g]}
+        return {n: count for n in ITEM_GROUPS[g]}
 
+    # Create items
     if option == "open_globally":
         res |= add_from_group("Global Pedestal Items")
     elif option == "open_per_dungeon":
@@ -116,6 +117,7 @@ def add_pedestal_items(place, option, excluded_dungeons):
         res |= add_from_group("Unique Crystal Items")
         res |= add_from_group("Unique Force Gems", 3)
 
+    # Remove from excluded dungeons
     if place == "in_own_dungeon":
         if "Temple of Courage" in excluded_dungeons:
             for i in ["Square Crystal (Temple of Courage)", "Square Pedestal North (Temple of Courage)", "Square Pedestal South (Temple of Courage)",]:
@@ -123,7 +125,8 @@ def add_pedestal_items(place, option, excluded_dungeons):
                     res.pop(i)
         if "Ghost Ship" in excluded_dungeons:
             for i in ["Triangle Crystal (Ghost Ship)", "Round Crystal (Ghost Ship)"]:
-                res.pop(i)
+                if i in res:
+                    res.pop(i)
 
     return res
 
@@ -206,6 +209,7 @@ class PhantomHourglassWorld(World):
                 self.options.dungeon_hint_type.value = 1
             if not self.options.exclude_non_required_dungeons:
                 self.options.excluded_dungeon_hints.value = 0
+            # Pedestal item restrictions
 
         self.restrict_non_local_items()
 
@@ -480,7 +484,7 @@ class PhantomHourglassWorld(World):
             if ((in_simple_mixed_pool and self.options.shuffle_between_islands.value in [0, 3]) or
                     (not in_simple_mixed_pool
                      and self.options.shuffle_between_islands.value in [0, 2]
-                     and type_option_lookup[area] != "shuffle_on_own_island")):
+                     and type_option_lookup[area].value != 3)):
                 target_islands.update(range(15))
             else:
                 target_islands.add(island)
@@ -907,7 +911,7 @@ class PhantomHourglassWorld(World):
             if 'dungeon' in ITEMS_DATA[item_name]:
                 dung = item_name.rsplit('(', 1)[1][:-1]
                 # If pedestal item location is vanilla, lock them there
-                if self.options.randomize_pedestal_items.value in [0, 1] and item_name in ITEM_GROUPS["Regular Crystal Items"]:
+                if self.options.randomize_pedestal_items.value in [0, 1] and item_name in ITEM_GROUPS["Regular Pedestal Items"]:
                     forced_item = self.create_item(item_name)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
@@ -1054,13 +1058,14 @@ class PhantomHourglassWorld(World):
         if self.options.randomize_boss_keys == "in_own_dungeon":
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
         if self.options.randomize_pedestal_items == "in_own_dungeon":
-            confined_dungeon_items.extend([item for item in items if "Crystal" in item.name or item.name.startswith("Force")])
+            confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Pedestal Items"]])
         # Remove boss reward items from pool for pre filling
         confined_dungeon_items.extend([item for item in items if item.name in self.boss_reward_items_pool])
 
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
+        print(f"pre fill items: {self.pre_fill_items}")
 
     def pre_fill_boss_rewards(self):
 
@@ -1074,7 +1079,7 @@ class PhantomHourglassWorld(World):
             for item in boss_reward_items:
                 self.pre_fill_items.remove(item)
 
-            collection_state = self.multiworld.get_all_state(False)
+            collection_state = self.multiworld.get_all_state()
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(boss_reward_locations)
             fill_restrictive(self.multiworld, collection_state, boss_reward_locations, boss_reward_items,
@@ -1101,12 +1106,14 @@ class PhantomHourglassWorld(World):
             global_pedestal_helper("Round", "Ghost Ship")
             global_pedestal_helper("Triangle", "Ghost Ship")
 
+        print(f"global crystal dungeons: {global_crystal_dungeons}")
         # If keysanity is off, dungeon items can only be put inside local dungeon locations, and there are not so many
         # of those which makes them pretty crowded.
         # This usually ends up with generator not having anywhere to place a few small keys, making the seed unbeatable.
         # To circumvent this, we perform a restricted pre-fill here, placing only those dungeon items
         # before anything else.
         for dung_name in DUNGEON_NAMES:
+            print(f"pre-filling {dung_name}")
             # Build a list of locations in this dungeon
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
                                       if "dungeon" in loc and loc["dungeon"] == dung_name]
@@ -1121,24 +1128,28 @@ class PhantomHourglassWorld(World):
                                       if item.name.endswith(f"({dung_name})")]
 
             # Add global crystals/force gems
+            print(f"Extending cdi {confined_dungeon_items}")
             if dung_name in global_crystal_dungeons:
-                confined_dungeon_items.extend(global_crystal_dungeons[dung_name])
+                confined_dungeon_items.extend([item for item in self.pre_fill_items if item.name in global_crystal_dungeons[dung_name]])
+                print(f"Extended cdi {confined_dungeon_items}")
 
+            # Add force gems
             if self.options.randomize_pedestal_items == "in_own_dungeon" and dung_name == "Temple of the Ocean King":
-                confined_dungeon_items = [item for item in self.pre_fill_items
-                                          if "Force Gem" in item.name]
+                confined_dungeon_items.extend([item for item in self.pre_fill_items
+                                          if "Force Gem" in item.name])
 
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 
             # Remove from the all_state the items we're about to place
             for item in confined_dungeon_items:
+                print(f"Trying to remove cdi {item}")
                 self.pre_fill_items.remove(item)
-            collection_state = self.multiworld.get_all_state(False)
+            collection_state = self.multiworld.get_all_state()
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(dungeon_locations)
             fill_restrictive(self.multiworld, collection_state, dungeon_locations, confined_dungeon_items,
-                             single_player_placement=True, lock=True, allow_excluded=True)
+                             single_player_placement=True, lock=True)
 
     def get_filler_item_name(self) -> str:
         filler_item_names = [

@@ -341,11 +341,12 @@ def make_overworld_logic():
         ["toc hammer clips", "toc 1f west", False, None],
         ["toc 1f west", "toc map room", False, "boom"],
         ["toc 1f west", "toc 2f beamos", False, "toc_door_2"],
-        ["toc 1f west", "toc b1 maze", False, "shape_crystal", "Temple of Courage", "Square"],
-        ["toc 2f beamos", "toc b1 maze", False, "is_ut"],  # UT Crystal
+        ["toc 1f west", "toc b1 maze", False, "shape_crystal", "Temple of Courage", "Square", "North"],
+        ["toc 2f beamos", "toc b1 maze", False, "ut_pedestals_vanilla"],  # UT Crystal
         ["toc 2f beamos", "toc south 1f", False, "toc_beamos_ut"],  # UT Crystal South
         ["toc b1 grapple", "toc b1 maze", False, None],
         ["toc b1 maze", "toc south 1f", False, "toc_crystal_south"],
+        ["toc 1f west", "toc south 1f", False, "toc_crystal_south_abstract"],
 
         ["toc south 1f", "toc 2f spike corridor", False, "boom"],
         ["toc 2f spike corridor", "toc 2f platforms", False, "toc_spike_corridor"],
@@ -468,7 +469,8 @@ def make_overworld_logic():
         ["ghost ship deck", "ghost ship", True, None],
         ["ghost ship", "ghost ship barrel", False, "gs_barrel"],
         ["ghost ship barrel", "ghost ship b2", False, "gs_triangle"],
-        ["ghost ship b2", "ghost ship b3", False, None],
+        ["ghost ship b2", "ghost ship b2 chests", False, "can_hit_switches"],
+        ["ghost ship b2 chests", "ghost ship b3", False, "can_kill_bat"],
         ["ghost ship b3", "ghost ship cubus", True, None],
         ["ghost ship cubus", "ghost ship post cubus", False, "sword"],
         ["ghost ship b2", "ghost ship tetra", False, "ghost_key"],
