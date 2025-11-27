@@ -346,7 +346,6 @@ def make_overworld_logic():
         ["toc 2f beamos", "toc south 1f", False, "toc_beamos_ut"],  # UT Crystal South
         ["toc b1 grapple", "toc b1 maze", False, None],
         ["toc b1 maze", "toc south 1f", False, "toc_crystal_south"],
-        ["toc 1f west", "toc south 1f", False, "toc_crystal_south_abstract"],
 
         ["toc south 1f", "toc 2f spike corridor", False, "boom"],
         ["toc 2f spike corridor", "toc 2f platforms", False, "toc_spike_corridor"],

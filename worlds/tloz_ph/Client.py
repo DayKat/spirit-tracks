@@ -414,8 +414,13 @@ class PhantomHourglassClient(DSZeldaClient):
                 if item_count(ctx, "Square Pedestal Center (Temple of the Ocean King)"):
                     await write_memory_value(ctx, 0x257694, 0x2)
             elif current_scene == 0x2510:  # B12
-                if item_count(ctx, "Force Gem (B12)") >= 3 or item_count(ctx, "Force Gems"):
+                gem_count = item_count(ctx, "Force Gem (B12)") | item_count(ctx, "Force Gems")*3
+                if gem_count >= 3:
                     await write_memory_values(ctx, 0x257834, [0xFE, 0x0F])
+                elif gem_count == 2:
+                    await write_memory_value(ctx, 0x257834, 0xC)
+                elif gem_count == 1:
+                    await write_memory_value(ctx, 0x257834, 0x8)
                 # Remove ability to place force gems on southern pedestals
                 await write_memory_value(ctx, 0x257EA4, 0x9, overwrite=True)
                 await write_memory_value(ctx, 0x257FE4, 0x9, overwrite=True)
@@ -729,7 +734,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         exclude_key = f"ph_keylocking_{ctx.slot}_{ctx.team}"
         # Exclude forced vanilla items on not needing them any more
-        if item_name == "Grappling Hook":
+        if item_name == "Grappling Hook" and ctx.slot_data.get("randomize_pedestal_items", 0) in [0, 1]:
             print(f"TotOK B3 has no more useful force gems")
             data = [self.location_name_to_id[i] for i in LOCATION_GROUPS["Grappling Hook Excludes"]]
             await self.store_data(ctx, exclude_key, data)
@@ -788,12 +793,12 @@ class PhantomHourglassClient(DSZeldaClient):
             await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)
             return False
 
-        elif "Boss Key" in vanilla_item or "Crystal" in vanilla_item or "Force Gem" in vanilla_item:
+        elif vanilla_item in ITEM_GROUPS["Throwable Keys"]:
             # Don't do anything if vanilla bk behaviour
             if "Boss Key" in vanilla_item and not ctx.slot_data["boss_key_behaviour"]:
                 return True
             # Don't do anything if vanilla pedestal item behaviour
-            if "Crystal" in vanilla_item or "Force Gem" in vanilla_item and not ctx.slot_data.get("randomize_pedestal_items", 0):
+            if ("Crystal" in vanilla_item or "Force Gem" in vanilla_item) and not ctx.slot_data.get("randomize_pedestal_items", 0):
                 return True
 
             # Read actor id in link's held item address. For some reason it's somewhere else in GT
@@ -808,6 +813,7 @@ class PhantomHourglassClient(DSZeldaClient):
             actor_table_addr = await read_memory_value(ctx, 0x1BA8C4, size=4, silent=True) - 0x2000000
             actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=250, silent=True))
             actor_table = "0" + actor_table[2:]
+            print(f"Removing throwable key {vanilla_item} with bk_id {bk_id}")
 
             # Loop through the actor table checking if each actor has the bk_id.
             for i in range(len(actor_table)//8):
@@ -819,7 +825,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 # If you find the boss key, delete its pointer
                 if actor_id == bk_id:
                     little_endian_lol = actor_table_addr + len(actor_table)//2 - (i+1)*4
-                    # print(f"Found bk pointer: {hex(actor_table_addr)} at index {i}")
+                    print(f"Found bk pointer: {hex(actor_table_addr)} at index {i}")
                     await write_memory_value(ctx, little_endian_lol, 0, overwrite=True, size=4)
                     break
 
@@ -1031,5 +1037,11 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def check_location_post_processing(self, ctx, location):
         if location is not None and "do_special" in location:
-            print(f"Got item in Mountain passage: {ctx.items_received[-1]}")
-            self.item_location_combo = location
+            if location["do_special"] == "keylock":
+                print(f"Got item in Mountain passage: {ctx.items_received[-1]}")
+                self.item_location_combo = location
+            if location["do_special"] == "ut_event":
+                key = f"ph_ut_events_{ctx.slot}_{ctx.team}"
+                print(f"got ut_event location for key {key} loc {location['name']}")
+                if location["name"] == "TotOK 1F SW Sea Chart Chest":
+                    await self.store_data(ctx, key, ["1f"])

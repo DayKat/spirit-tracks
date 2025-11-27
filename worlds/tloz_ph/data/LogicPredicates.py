@@ -1101,8 +1101,13 @@ def ph_mp2_bypass_fore(state, player):
             ph_option_vanilla_caves(state, player),
             any([
                 ph_has_small_keys(state, player, "Mountain Passage", 2),
-                ph_UT_glitched_logic(state, player),
-                not ph_is_ut(state, player)
+                all([
+                    ph_option_keys_in_own_dungeon(state, player),
+                    any([
+                        ph_UT_glitched_logic(state, player),
+                        not ph_is_ut(state, player)
+                    ])
+                ]),
             ])
         ])
     ])
@@ -1367,6 +1372,11 @@ def ph_toc_key_door_2(state, player):
     return any([
         ph_toc_key_doors(state, player, 3, 2),
         # UT stuff
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_hammer(state, player),
+            ph_toc_key_doors(state, player, 1, 2),
+        ]),
         all([
             ph_option_not_glitched_logic(state, player),
             any([
@@ -1864,9 +1874,11 @@ def ph_time_b3(state, player):
     return 6000
 
 def ph_totok_small_keys(state, player, base_count):
-    count = base_count
-    if base_count >= 2 and ph_UT_glitched_logic(state, player):
-        count -= 1
+    sub = 0
+    if ph_is_ut(state, player):
+        print(f"Recalcing logic: chart {state.has('_UT_got_chart', player)}")
+    if base_count >= 2 and ph_UT_glitched_logic(state, player) and not state.has("_UT_got_chart", player):
+        sub += 1
     if all([
         base_count >= 5,
         any([
@@ -1881,9 +1893,9 @@ def ph_totok_small_keys(state, player, base_count):
             ])
         ])
     ]):
-        count -= 1
+        sub += 1
     # print(f"count {count}/{base_count} {ph_has_small_keys(state, player, 'Temple of the Ocean King', count)}")
-    return ph_has_small_keys(state, player, "Temple of the Ocean King", count)
+    return ph_has_small_keys(state, player, "Temple of the Ocean King", base_count-sub)
 
 def ph_time_b4(state, player):
     if ph_has_grapple(state, player):

@@ -24,7 +24,7 @@ from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 
 logger = logging.getLogger("Client")
-dev_prints = True
+dev_prints = False
 
 if TYPE_CHECKING:
     from .Subclasses import ERPlacementState, PHEntrance, PHRegion, PHTransition
@@ -153,7 +153,9 @@ class PhantomHourglassWorld(World):
     location_id_to_alias: Dict[int, str]
     tracker_world = {"map_page_folder": "tracker", "map_page_maps": "maps/maps.json",
                      "map_page_locations": "locations/locations.json"}
-    found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}", "ph_keylocking_{player}_{team}"]
+    found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}",
+                                       "ph_keylocking_{player}_{team}",
+                                       "ph_ut_events_{player}_{team}"]
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -178,6 +180,7 @@ class PhantomHourglassWorld(World):
         self.disconnected_entrances_map = {}
         self.disconnected_exits_map = {}
         self.ut_excluded = []
+        self.ut_created_events = []
 
 
     def generate_early(self):
@@ -427,7 +430,7 @@ class PhantomHourglassWorld(World):
             excluded_dungeons = [d for d in DUNGEON_NAMES
                                  if d not in self.required_dungeons + always_include]
             self.excluded_dungeons = excluded_dungeons
-            print(f"Excluded dungeons: {self.excluded_dungeons}")
+            # print(f"Excluded dungeons: {self.excluded_dungeons}")
             for dungeon in excluded_dungeons:
                 locations_to_exclude.update(self.dungeon_name_groups[dungeon])
 
@@ -653,9 +656,9 @@ class PhantomHourglassWorld(World):
                         raise EntranceRandomizationError(
                             f"Phantom Hourglass: failed GER after {ph_max_er_attempts} attempts.")
                     # disconnect entrances again, but only if they got connected before
-                    print(f"entrances to find for re-disconnect: {disconnect_on_retry}")
+                    # print(f"entrances to find for re-disconnect: {disconnect_on_retry}")
                     for entrance in disconnect_on_retry:
-                        print(f"{entrance}: {entrance.parent_region} -> {entrance.connected_region}")
+                        # print(f"{entrance}: {entrance.parent_region} -> {entrance.connected_region}")
                         if entrance.connected_region:
                             target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
                             disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
@@ -1006,7 +1009,6 @@ class PhantomHourglassWorld(World):
                     random_filler_item = self.get_filler_item_name()
                     item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
 
-        print(f"Created pedestal items {[(item, count) for item, count in item_pool_dict.items() if item in ITEM_GROUPS['Pedestal Items']]}")
         return item_pool_dict
 
     def create_items(self):
@@ -1065,7 +1067,6 @@ class PhantomHourglassWorld(World):
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
-        print(f"pre fill items: {self.pre_fill_items}")
 
     def pre_fill_boss_rewards(self):
 
@@ -1106,14 +1107,13 @@ class PhantomHourglassWorld(World):
             global_pedestal_helper("Round", "Ghost Ship")
             global_pedestal_helper("Triangle", "Ghost Ship")
 
-        print(f"global crystal dungeons: {global_crystal_dungeons}")
         # If keysanity is off, dungeon items can only be put inside local dungeon locations, and there are not so many
         # of those which makes them pretty crowded.
         # This usually ends up with generator not having anywhere to place a few small keys, making the seed unbeatable.
         # To circumvent this, we perform a restricted pre-fill here, placing only those dungeon items
         # before anything else.
         for dung_name in DUNGEON_NAMES:
-            print(f"pre-filling {dung_name}")
+            # print(f"pre-filling {dung_name}")
             # Build a list of locations in this dungeon
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
                                       if "dungeon" in loc and loc["dungeon"] == dung_name]
@@ -1128,10 +1128,8 @@ class PhantomHourglassWorld(World):
                                       if item.name.endswith(f"({dung_name})")]
 
             # Add global crystals/force gems
-            print(f"Extending cdi {confined_dungeon_items}")
             if dung_name in global_crystal_dungeons:
                 confined_dungeon_items.extend([item for item in self.pre_fill_items if item.name in global_crystal_dungeons[dung_name]])
-                print(f"Extended cdi {confined_dungeon_items}")
 
             # Add force gems
             if self.options.randomize_pedestal_items == "in_own_dungeon" and dung_name == "Temple of the Ocean King":
@@ -1143,7 +1141,6 @@ class PhantomHourglassWorld(World):
 
             # Remove from the all_state the items we're about to place
             for item in confined_dungeon_items:
-                print(f"Trying to remove cdi {item}")
                 self.pre_fill_items.remove(item)
             collection_state = self.multiworld.get_all_state()
             # Perform a prefill to place confined items inside locations of this dungeon
@@ -1251,7 +1248,7 @@ class PhantomHourglassWorld(World):
 
     # UT reconnect entrances
     def reconnect_found_entrances(self, key, stored_data):
-        print(f"UT Tried to defer entrances! key {key}")
+        print(f"UT Tried to defer entrances! key {key} {stored_data}")
 
         if "ph_checked_entrances" in key:
             # Create a lookup for disconnected entrances if you haven't already.
@@ -1287,9 +1284,16 @@ class PhantomHourglassWorld(World):
 
 
                 self.ut_connected_entrances |= new_entrances
+
         elif "ph_keylocking" in key and stored_data:
             print(f"Attempting to keylock stuff!")
             for i in stored_data:
                 print(f"Excluding {self.location_id_to_name[i]}")
                 self.multiworld.get_location(self.location_id_to_name[i], self.player).progress_type = LocationProgressType.EXCLUDED
 
+        elif "ph_ut_events" in key and stored_data:
+            print(f"UT tried to create events {self.ut_created_events} {stored_data}")
+            if "1f" in stored_data and not "1f" in self.ut_created_events:
+                print(f"UT is Creating got charte event")
+                self.create_event("totok 1f chart", "_UT_got_chart")
+                self.ut_created_events.append("1f")

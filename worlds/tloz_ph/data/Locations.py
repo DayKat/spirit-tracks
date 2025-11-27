@@ -179,7 +179,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x8,
         "dungeon": "Mountain Passage",
         "id": 17,
-        "do_special": True
+        "do_special": "keylock"
     },
     "Mountain Passage Chest 2": {
         "region_id": "mercay passage 2",
@@ -192,7 +192,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 18,
-        "do_special": True,
+        "do_special": "keylock"
     },
     "Mountain Passage Key Drop": {
         "region_id": "mercay passage 2",
@@ -204,7 +204,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 19,
-        "do_special": True,
+        "do_special": "keylock"
     },
     "Mountain Passage Rat Key": {
         "region_id": "mercay passage rat",
@@ -215,7 +215,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x20,
         "dungeon": "Mountain Passage",
         "id": 20,
-        "do_special": True,
+        "do_special": "keylock"
     },
 
     # ========== Island Shops ============
@@ -374,6 +374,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "set_bit": [(0x1b557d, 0x2)],
         "id": 29,
+        "do_special": "ut_event",
     },
     "TotOK 1F Linebeck Key": {
         "region_id": "totok 1f",
