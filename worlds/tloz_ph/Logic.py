@@ -181,6 +181,10 @@ def make_overworld_logic():
         ["island shop", "shop heart container", False, "can_buy_heart"],
 
         ["sw ocean east", "beedle", False, None],
+        ["sw ocean west", "beedle", False, None],
+        ["nw ocean", "beedle", False, None],
+        ["se ocean", "beedle", False, None],
+        ["ne ocean", "beedle", False, None],
         ["beedle", "beedle gem", False, "beedle_shop", 500],
         ["beedle", "beedle bomb bag", False, "can_buy_bomb_bag"],
         ["beedle", "masked ship gem", False, "beedle_shop", 500],
@@ -701,7 +705,8 @@ def make_overworld_logic():
         ["ruins nw port cliff", "ruins sw port cliff", True, None],
         ["ruins nw port cliff", "ruins nw port cliff tree", True, "ruins_water"],
         ["ruins nw boulders", "ruins nw lower", False, "ruins_water"],
-        ["ruins nw across bridge", "ruins nw cave", True, "ruins_water"],  # this means cave might not be in logic while accessible...
+        ["ruins nw across bridge", "ruins nw cave", True, "ruins_water"],
+        ["ruins nw cave", "ruins rupee cave", True, None],
         ["ruins nw across bridge", "ruins nw alcove", False, "ruins_water"],
         ["ruins nw across bridge", "ruins ne enter upper", True, None],
         ["ruins nw return", "ruins nw boulders", False, None],

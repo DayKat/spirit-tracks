@@ -3,6 +3,7 @@ from .DSZeldaClient.DSZeldaClient import *
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
+    from .Subclasses import PHTransition
 
 ROM_ADDRS = {
     "game_identifier": (0, 16, "ROM"),
@@ -930,16 +931,16 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"{exit_data.extra_data['conditional']}, {exit_data.stage}, {ctx.slot_data['boat_requires_sea_chart']}")
             if "need_sea_chart" in exit_data.extra_data["conditional"] and exit_data.stage == 0 and ctx.slot_data["boat_requires_sea_chart"]:
                 quadrant = exit_data.room
-                chart = ITEM_GROUPS["Sea Charts"][quadrant]
+                chart = SEA_CHARTS[quadrant]
                 print(f"chart: {chart} {item_count(ctx, chart)}")
                 if not item_count(ctx, chart):
                     logger.info(f"Missing correct sea chart ({chart})")
                     return False
         return True
 
-    async def conditional_bounce(self, ctx, scene, entrance) -> "PhantomHourglassEntrance" or None:
+    async def conditional_bounce(self, ctx, scene, entrance) -> "PHTransition" or None:
         if scene in [0, 1, 2, 3] and ctx.slot_data["boat_requires_sea_chart"]:
-            chart = ITEM_GROUPS["Sea Charts"][scene]
+            chart = SEA_CHARTS[scene]
             if not item_count(ctx, chart):
                 for e in self.entrances.values():
                     if e.detect_exit_scene(scene, entrance):
@@ -979,7 +980,7 @@ class PhantomHourglassClient(DSZeldaClient):
             "operations": [{"operation": "update", "value": list(data)}]
         }])
 
-    def write_respawn_entrance(self, exit_data: "PhantomHourglassEntrance"):
+    def write_respawn_entrance(self, exit_data: "PHTransition"):
         # If ER:ing to sea, set respawn entrance to where you came from cause that doesn't change by itself when warping
         if exit_data.stage == 0:
             return [(0x1B2F12, [exit_data.room, exit_data.entrance[2]], "Main RAM")]

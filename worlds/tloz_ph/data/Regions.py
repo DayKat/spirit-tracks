@@ -545,6 +545,7 @@ REGIONS = [
     "ruins nw dig",
     "ruins nw across bridge",
     "ruins nw cave",
+    "ruins rupee cave",
     "ruins nw alcove",
     "ruins nw port cliff",
     "ruins nw port cliff tree",

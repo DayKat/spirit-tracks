@@ -1,5 +1,4 @@
-from worlds.tloz_oos import ITEM_GROUPS
-from worlds.witness.data.static_items import ITEM_GROUPS
+
 
 VERSION = "0.3.0"
 ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
@@ -209,6 +208,13 @@ SEA_REGIONS = [
     "Ocean Unspecific"
 ]
 
+SEA_CHARTS = [
+    "SW Sea Chart",
+    "NW Sea Chart",
+    "SE Sea Chart",
+    "NE Sea Chart",
+]
+
 TREASURE_MAPS = [
     "Treasure Map #1 (Molida SW)",
     "Treasure Map #2 (Mercay NE)",
@@ -336,12 +342,7 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Fish: Legendary Neptoona",
         "Fish: Stowfish"
     },
-    "Sea Charts": {
-        "SW Sea Chart",
-        "NW Sea Chart",
-        "SE Sea Chart",
-        "NE Sea Chart",
-    },
+    "Sea Charts": set(SEA_CHARTS),
     "Upgrades": {
         "Heart Container",
         "Sand of Hours",
@@ -470,10 +471,10 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Oshus' Sword",
         "Phantom Sword",
     },
-
 }
 
-COMBO_ITEM_GROUPS: dict[str, set[str]] = {
+# Combo groups
+ITEM_GROUPS |= {
     "Metals":
         ITEM_GROUPS["Vanilla Metals"] |
         ITEM_GROUPS["Custom Metals"] |
@@ -500,9 +501,7 @@ COMBO_ITEM_GROUPS: dict[str, set[str]] = {
         ITEM_GROUPS["Spirit Gem Packs"],
 }
 
-ITEM_GROUPS |= COMBO_ITEM_GROUPS
-
-COMBO_ITEM_GROUPS_2: dict[str, set[str]] = {
+ITEM_GROUPS |=  {
     "Shape Crystals":
         ITEM_GROUPS["Unique Crystal Items"] |
         ITEM_GROUPS["Regular Crystal Items"] |
@@ -517,9 +516,7 @@ COMBO_ITEM_GROUPS_2: dict[str, set[str]] = {
                     ITEM_GROUPS["Swords"],
 }
 
-ITEM_GROUPS |= COMBO_ITEM_GROUPS_2
-
-COMBO_ITEM_GROUPS_3: dict[str, set[str]] = {
+ITEM_GROUPS |=  {
     "Throwable Keys":
         ITEM_GROUPS["Boss Keys"] |
         ITEM_GROUPS["Pedestal Items"],
@@ -529,8 +526,6 @@ COMBO_ITEM_GROUPS_3: dict[str, set[str]] = {
         ITEM_GROUPS["Boss Keys"] |
         ITEM_GROUPS["Pedestal Items"],
 }
-
-ITEM_GROUPS |= COMBO_ITEM_GROUPS_3
 
 STAGE_LOCATION_GROUPS = {
     "Mercay Island": [

@@ -1248,7 +1248,9 @@ class PhantomHourglassWorld(World):
 
     # UT reconnect entrances
     def reconnect_found_entrances(self, key, stored_data):
-        print(f"UT Tried to defer entrances! key {key} {stored_data}")
+        print(f"UT Tried to defer entrances! key {key} "
+              # f"{stored_data}"
+              )
 
         if "ph_checked_entrances" in key:
             # Create a lookup for disconnected entrances if you haven't already.
@@ -1272,9 +1274,14 @@ class PhantomHourglassWorld(World):
                         entrance_region = self.get_region(entrance_id_to_region[i])
                         exit_region = self.get_region(entrance_id_to_region[pairing])
 
+                        # print(f"Connecting: {entrance_region} => {exit_region} | {dangling_exit} | {dangling_entrance} | {i}")
+                        name_check = f"{entrance_region.name} -> {exit_region.name}"
+                        if name_check in [i.name for i in entrance_region.exits]:
+                            print(f"exit {exit_region} already existed for {entrance_region}")
+                        else:
+                            entrance_region.connect(exit_region)
 
-                        # print(f"Connecting: {exit_region} => {entrance_region} {dangling_exit} {dangling_entrance} {i}")
-                        entrance_region.connect(exit_region)
+
                         if dangling_exit is not None:
                             dangling_exit.connect(entrance_region)
                         if dangling_entrance is not None:
@@ -1294,6 +1301,6 @@ class PhantomHourglassWorld(World):
         elif "ph_ut_events" in key and stored_data:
             print(f"UT tried to create events {self.ut_created_events} {stored_data}")
             if "1f" in stored_data and not "1f" in self.ut_created_events:
-                print(f"UT is Creating got charte event")
+                print(f"UT is Creating got chart event")
                 self.create_event("totok 1f chart", "_UT_got_chart")
                 self.ut_created_events.append("1f")

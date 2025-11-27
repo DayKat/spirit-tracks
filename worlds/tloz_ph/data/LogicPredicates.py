@@ -1133,6 +1133,10 @@ def ph_mp3_back(state, player):
             ph_option_vanilla_caves(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 2),
         ]),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 1),
+        ]),
     ])
 
 def ph_mercay_passage_rat(state, player):
@@ -1182,8 +1186,11 @@ def ph_salvage_behind_bannan(state, player):
 
 def ph_oshus_gem(state, player):
     return any([
-        state.has("_beat_tow", player),
-        ph_can_make_phantom_sword(state, player)
+        ph_can_make_phantom_sword(state, player),
+        all([
+            state.has("_beat_tow", player),
+            "Temple of Wind" not in state.multiworld.worlds[player].excluded_dungeons
+        ])
     ])
 
 def ph_ice_field(state, player):
@@ -1875,8 +1882,6 @@ def ph_time_b3(state, player):
 
 def ph_totok_small_keys(state, player, base_count):
     sub = 0
-    if ph_is_ut(state, player):
-        print(f"Recalcing logic: chart {state.has('_UT_got_chart', player)}")
     if base_count >= 2 and ph_UT_glitched_logic(state, player) and not state.has("_UT_got_chart", player):
         sub += 1
     if all([
@@ -1894,7 +1899,6 @@ def ph_totok_small_keys(state, player, base_count):
         ])
     ]):
         sub += 1
-    # print(f"count {count}/{base_count} {ph_has_small_keys(state, player, 'Temple of the Ocean King', count)}")
     return ph_has_small_keys(state, player, "Temple of the Ocean King", base_count-sub)
 
 def ph_time_b4(state, player):
@@ -2178,8 +2182,10 @@ def ph_totok_b2_key(state, player):
 def ph_totok_b2_phantom(state, player):
     return all([
         ph_has_phantom_sword(state, player),
-        any([ph_has_mid_range(state, player),
-             ph_has_explosives(state, player)]),
+        any([
+            ph_has_mid_range(state, player),
+            ph_has_explosives(state, player)
+        ]),
         ph_totok_has_floor_time(state, player, 2, 20)
     ])
 
@@ -2314,7 +2320,7 @@ def ph_totok_b5(state, player):
     ])
 
 def ph_totok_b5_key_count(state, player):
-    return ph_totok_small_keys(state, player,  5),
+    return ph_totok_small_keys(state, player,  5)
 
 def ph_totok_b5_alt(state, player):
     return all([
