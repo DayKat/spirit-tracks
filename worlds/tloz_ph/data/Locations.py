@@ -179,7 +179,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x8,
         "dungeon": "Mountain Passage",
         "id": 17,
-        "do_special": True
+        "do_special": "keylock"
     },
     "Mountain Passage Chest 2": {
         "region_id": "mercay passage 2",
@@ -192,7 +192,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 18,
-        "do_special": True,
+        "do_special": "keylock"
     },
     "Mountain Passage Key Drop": {
         "region_id": "mercay passage 2",
@@ -204,7 +204,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 19,
-        "do_special": True,
+        "do_special": "keylock"
     },
     "Mountain Passage Rat Key": {
         "region_id": "mercay passage rat",
@@ -215,7 +215,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x20,
         "dungeon": "Mountain Passage",
         "id": 20,
-        "do_special": True,
+        "do_special": "keylock"
     },
 
     # ========== Island Shops ============
@@ -374,6 +374,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "set_bit": [(0x1b557d, 0x2)],
         "id": 29,
+        "do_special": "ut_event",
     },
     "TotOK 1F Linebeck Key": {
         "region_id": "totok 1f",
@@ -491,7 +492,6 @@ LOCATIONS_DATA = {
         "z_max": -0x88b8,
         "y": 0x0,
         "delay_pickup": "TotOK B3 Small Key",
-        "force_vanilla": True,
         "dungeon": "Temple of the Ocean King",
         "id": 40,
     },
@@ -505,7 +505,6 @@ LOCATIONS_DATA = {
         "z_min": 0x8000,
         "y": 0x0,
         "delay_pickup": "TotOK B3 Small Key",
-        "force_vanilla": True,
         "dungeon": "Temple of the Ocean King",
         "id": 41,
     },
@@ -518,7 +517,6 @@ LOCATIONS_DATA = {
         "z_min": 0xb000,
         "y": 0x0,
         "delay_pickup": "TotOK B3 Small Key",
-        "force_vanilla": True,
         "dungeon": "Temple of the Ocean King",
         "id": 42,
     },
@@ -627,7 +625,6 @@ LOCATIONS_DATA = {
         "x_min": -0x1388,
         "x_max": 0x3a98,
         "z_max": -0xc350,
-        "force_vanilla": True,
         "dungeon": "Temple of the Ocean King",
         "id": 53,
     },
@@ -683,7 +680,6 @@ LOCATIONS_DATA = {
         "floor_id": 0xc,
         "x_min": -0xafc8,
         "z_max": -0x7530,
-        "force_vanilla": True,
         "dungeon": "Temple of the Ocean King",
         "id": 58,
     },
@@ -792,7 +788,6 @@ LOCATIONS_DATA = {
         "floor_id": 0x10,
         "x_min": 0x88b8,
         "z_max": -0xc350,
-        "force_vanilla": True,
         "dungeon": "Temple of the Ocean King",
         "id": 68,
     },
@@ -803,7 +798,6 @@ LOCATIONS_DATA = {
         "floor_id": 0x10,
         "x_max": -0x88b8,
         "z_max": -0xc350,
-        "force_vanilla": True,
         "dungeon": "Temple of the Ocean King",
         "id": 69,
     },
@@ -1328,7 +1322,6 @@ LOCATIONS_DATA = {
         "floor_id": 0x2,
         "z_max": -0x7530,
         "x_max": -0xc350,
-        "force_vanilla": True,
         "dungeon": "Temple of Courage",
         "id": 120,
     },
@@ -1928,12 +1921,11 @@ LOCATIONS_DATA = {
         "vanilla_item": "Triangle Crystal (Ghost Ship)",
         "x_min": 0xea60,
         "z_max": -0x1388,
-        "force_vanilla": True,
         "dungeon": "Ghost Ship",
         "id": 179,
     },
     "Ghost Ship B2 Third Sister Right Chest": {
-        "region_id": "ghost ship b2",
+        "region_id": "ghost ship b2 chests",
         "stage_id": 0x29,
         "floor_id": 0x1,
         "vanilla_item": "Red Potion",
@@ -1946,7 +1938,7 @@ LOCATIONS_DATA = {
         "id": 180,
     },
     "Ghost Ship B2 Third Sister Left Chest": {
-        "region_id": "ghost ship b2",
+        "region_id": "ghost ship b2 chests",
         "stage_id": 0x29,
         "floor_id": 0x1,
         "vanilla_item": "Rupoor (-10)",
@@ -1957,12 +1949,11 @@ LOCATIONS_DATA = {
         "id": 181,
     },
     "Ghost Ship B2 Spike Chest": {
-        "region_id": "ghost ship b2",
+        "region_id": "ghost ship b2 chests",
         "stage_id": 0x29,
         "floor_id": 0x1,
         "vanilla_item": "Round Crystal (Ghost Ship)",
         "z_min": -0x1f40,
-        "force_vanilla": True,
         "dungeon": "Ghost Ship",
         "id": 182,
     },

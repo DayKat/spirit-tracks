@@ -829,59 +829,158 @@ ITEMS_DATA = {
     },
     "Square Crystal (Temple of Courage)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
         "dungeon": True,
-        "dummy": True,
+        "always_process": True,
         "id": 111,
+        "set_bit_in_room": {0x1E00: [(0x252264, 0x10),
+                                     ("stage_flag", 0x80)]}
+    },
+    "Square Pedestal North (Temple of Courage)": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": True,
+        "id": 194,
+        "set_bit_in_room": {0x1E00: [(0x252264, 0x10)]}
+    },
+    "Square Pedestal South (Temple of Courage)": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": True,
+        "id": 195,
+        "set_bit_in_room": {0x1E00: [("stage_flag", 0x80)]}
     },
     "Triangle Crystal (Ghost Ship)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
+        "always_process": True,
         "dungeon": True,
-        "dummy": True,
         "id": 112,
+        "set_bit_in_room": {0x2900: [("stage_flag", [0, 8])]}
     },
     "Round Crystal (Ghost Ship)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
+        "always_process": True,
         "dungeon": True,
-        "dummy": True,
         "id": 113,
+        "set_bit_in_room": {0x2900: [("stage_flag", [0, 0, 0, 2])]}
     },
     "Round Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
-        "dummy": True,
+        "always_process": True,
         "dungeon": 0x25,
         "id": 114,
+        "set_bit_in_room": {0x250B: [(0x25762C, 0x2)],  # format: dict[room, list[tuple[addr, value, *dict(extra data)]]]
+                            0x250C: [(0x257694, 0x4)]}
+    },
+    "Round Pedestal B8 (Temple of the Ocean King)": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": 0x25,
+        "id": 196,
+        "set_bit_in_room": {0x250B: [(0x25762C, 0x2)]}
+    },
+    "Round Pedestal B9 (Temple of the Ocean King)": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": 0x25,
+        "id": 197,
+        "set_bit_in_room": {0x250C: [(0x257694, 0x4)]}
+    },
+    "Round Crystals": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": 0x25,
+        "id": 204,
+        "set_bit_in_room": {0x250B: [(0x25762C, 0x2)],
+                            0x250C: [(0x257694, 0x4)],
+                            0x2900: [("stage_flag", [0, 0, 0, 2])]}
     },
     "Triangle Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
-        "dummy": True,
+        "always_process": True,
         "dungeon": 0x25,
         "id": 115,
+        "set_bit_in_room": {0x250B: [(0x25762C, 0x4)],
+                            0x250C: [(0x257694, 0x8)]}
+    },
+    "Triangle Pedestal B8 (Temple of the Ocean King)": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": 0x25,
+        "id": 198,
+        "set_bit_in_room": {0x250B: [(0x25762C, 0x4)]}
+    },
+    "Triangle Pedestal B9 (Temple of the Ocean King)": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": 0x25,
+        "id": 199,
+        "set_bit_in_room": {0x250C: [(0x257694, 0x8)]}
+    },
+    "Triangle Crystals": {
+        "classification": ItemClassification.progression,
+        "always_process": True,
+        "dungeon": 0x25,
+        "id": 203,
+        "set_bit_in_room": {0x250B: [(0x25762C, 0x4)],
+                            0x250C: [(0x257694, 0x8)],
+                            0x2900: [("stage_flag", [0, 8])]}
     },
     "Square Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
+        "always_process": True,
         "dungeon": True,
-        "dummy": True,
         "id": 116,
+        "set_bit_in_room": {0x250C: [(0x257694, 0x22)]}
+    },
+    "Square Pedestal West (Temple of the Ocean King)": {
+        "classification": ItemClassification.useful,
+        "always_process": True,
+        "dungeon": True,
+        "id": 200,
+        "set_bit_in_room": {0x250C: [(0x257694, 0x20)]}
+    },
+    "Square Pedestal Center (Temple of the Ocean King)": {
+        "classification": ItemClassification.useful,
+        "always_process": True,
+        "dungeon": True,
+        "id": 201,
+        "set_bit_in_room": {0x250C: [(0x257694, 0x2)]}
+    },
+    "Square Crystals": {
+        "classification": ItemClassification.progression,
+        "dungeon": True,
+        "always_process": True,
+        "id": 202,
+        "set_bit_in_room": {0x250C: [(0x257694, 0x22)],
+                            0x1E00: [(0x252264, 0x10),
+                                     ("stage_flag", 0x80)]}
     },
     "Force Gem (B3)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
-        "dummy": True,
+        "always_process": True,
         "dungeon": 0x25,
         "id": 117,
+        "set_bit_in_room": {0x2503: [(0x2572EC, 0xFE, {"count": 3}),
+                                     (0x2572ED, 0xF, {"count": 3})]}
     },
     "Force Gem (B12)": {
         "classification": ItemClassification.progression,
-        "force_vanilla": True,
-        "dummy": True,
+        "always_process": True,
         "dungeon": 0x25,
         "id": 118,
+        "set_bit_in_room": {0x2510: [(0x257834, 0xFE, {"count": 3}),
+                                     (0x257835, 0xF, {"count": 3}),
+                                     (0x257834, 0xC, {"count": 2}),
+                                     (0x257834, 0x4, {"count": 1})]}
+    },
+    "Force Gems": {
+        "classification": ItemClassification.progression,
+        "id": 205,
+        "always_process": True,
+        "set_bit_in_room": {0x2503: [(0x2572EC, 0xFE),
+                                     (0x2572ED, 0xF)],
+                            0x2510: [(0x257834, 0xFE),
+                                     (0x257835, 0xF)]}
     },
     "Triforce Crest": {
         "classification": ItemClassification.progression,
@@ -1321,6 +1420,11 @@ ITEMS_DATA = {
 
 }
 
+id_check = []
+for data in ITEMS_DATA.values():
+    if data["id"] in id_check:
+        raise f"Duplicate ID Detected: {data['id']}"
+    id_check.append(data["id"])
 
 # IDs are now fixed!!!
 """for i, k in enumerate(ITEMS_DATA):
@@ -1329,8 +1433,8 @@ ITEMS_DATA = {
 # bulk data editing / export
 if __name__ == "__main__":
     for name, data in ITEMS_DATA.items():
-        if "address" not in data and "dummy" not in data and name not in ["Treasure", "Ship Part", "Oshus' Sword"] and "Boss Key" not in name and "Small Key" not in name and "progressive" not in data and "Potion" not in name:
-            print(name)
+        if name in ITEM_GROUPS["Pedestal Items"]:
+            print(f"{name}: {data['id']}")
 """
     keys = set()
     for name, data in ITEMS_DATA.items():

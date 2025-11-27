@@ -1500,7 +1500,7 @@ ENTRANCE_DATA = {
     "Ruins NW Cave": {
         "return_name": "Ruins Rupee Cave Exit",
         "entrance_region": "ruins nw across bridge",
-        "exit_region": "ruins nw cave",
+        "exit_region": "ruins rupee cave",
         "entrance": (0x12, 0x1, 0x2),
         "exit": (0x12, 0xB, 0x1),
         "extra_data": {"conditional": ["ruins_water"]},

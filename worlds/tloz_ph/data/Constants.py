@@ -1,3 +1,5 @@
+
+
 VERSION = "0.3.0"
 ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 
@@ -206,9 +208,50 @@ SEA_REGIONS = [
     "Ocean Unspecific"
 ]
 
+SEA_CHARTS = [
+    "SW Sea Chart",
+    "NW Sea Chart",
+    "SE Sea Chart",
+    "NE Sea Chart",
+]
 
-ITEM_GROUPS = {
-    "Small Keys": [
+TREASURE_MAPS = [
+    "Treasure Map #1 (Molida SW)",
+    "Treasure Map #2 (Mercay NE)",
+    "Treasure Map #3 (Gusts SW)",
+    "Treasure Map #4 (Bannan SE)",
+    "Treasure Map #5 (Molida N)",
+    "Treasure Map #6 (Bannan W)",
+    "Treasure Map #7 (Gusts E)",
+    "Treasure Map #8 (Mercay SE)",
+    "Treasure Map #9 (Cannon W)",
+    "Treasure Map #10 (Gusts SE)",
+    "Treasure Map #11 (Gusts N)",
+    "Treasure Map #12 (Dee Ess N)",
+    "Treasure Map #13 (Harrow E)",
+    "Treasure Map #14 (Goron NW)",
+    "Treasure Map #15 (Goron W)",
+    "Treasure Map #16 (Goron NE)",
+    "Treasure Map #17 (Frost S)",
+    "Treasure Map #18 (Cannon S)",
+    "Treasure Map #19 (Gusts NE)",
+    "Treasure Map #20 (Bannan E)",
+    "Treasure Map #21 (Molida NW)",
+    "Treasure Map #22 (Harrow S)",
+    "Treasure Map #23 (Frost NW)",
+    "Treasure Map #24 (Ruins W)",
+    "Treasure Map #25 (Dead E)",
+    "Treasure Map #26 (Ruins SW)",
+    "Treasure Map #27 (Maze E)",
+    "Treasure Map #28 (Ruins NW)",
+    "Treasure Map #29 (Maze W)",
+    "Treasure Map #30 (Ruins S)",
+    "Treasure Map #31 (Dead S)",
+]
+
+
+ITEM_GROUPS: dict[str, set[str]] = {
+    "Small Keys": {
         "Small Key (Mountain Passage)",
         "Small Key (Temple of the Ocean King)",
         "Small Key (Temple of Fire)",
@@ -216,17 +259,13 @@ ITEM_GROUPS = {
         "Small Key (Temple of Courage)",
         "Small Key (Temple of Ice)",
         "Small Key (Mutoh's Temple)"
-    ],
-    "Vanilla Metals": [
+    },
+    "Vanilla Metals": {
         "Crimzonine",
         "Azurine",
         "Aquanine"
-    ],
-    "Metals": [
-        "Crimzonine",
-        "Azurine",
-        "Aquanine",
-        "Additional Rare Metal",
+    },
+    "Custom Metals": {
         "Verdanine",
         "Lavendine",
         "Amberine",
@@ -254,37 +293,8 @@ ITEM_GROUPS = {
         "Limeinine",
         "Mintine",
         "Umberine",
-    ],
-    "Custom Metals": [
-        "Verdanine",
-        "Lavendine",
-        "Amberine",
-        "Vermilline",
-        "Burgundine",
-        "Crystaline",
-        "Carrotine",
-        "Olivine",
-        "Chartreusine",
-        "Violetine",
-        "Ceruline",
-        "Fuchsianine",
-        "Saffronine",
-        "Viridine",
-        "Sepianine",
-        "Apricotine",
-        "Scarletine",
-        "Coraline",
-        "Magentine",
-        "Cyanine",
-        "Mauvine",
-        "Lilacine",
-        "Indigorine",
-        "Junipine",
-        "Limeinine",
-        "Mintine",
-        "Umberine",
-    ],
-    "Treasure Items": [
+    },
+    "Treasure Items": {
         "Treasure: Pink Coral",
         "Treasure: White Pearl Loop",
         "Treasure: Dark Pearl Loop",
@@ -293,97 +303,52 @@ ITEM_GROUPS = {
         "Treasure: Ruto Crown",
         "Treasure: Helmaroc Plume",
         "Treasure: Regal Ring"
-    ],
-    "Ammo Refills": [
+    },
+    "Ammo Refills": {
         "Refill: Bombs",
         "Refill: Arrows",
         "Refill: Bombchus",
         "Refill: Health",
-    ],
-    "Treasure Maps": [
-        "Treasure Map #1 (Molida SW)",
-        "Treasure Map #2 (Mercay NE)",
-        "Treasure Map #3 (Gusts SW)",
-        "Treasure Map #4 (Bannan SE)",
-        "Treasure Map #5 (Molida N)",
-        "Treasure Map #6 (Bannan W)",
-        "Treasure Map #7 (Gusts E)",
-        "Treasure Map #8 (Mercay SE)",
-        "Treasure Map #9 (Cannon W)",
-        "Treasure Map #10 (Gusts SE)",
-        "Treasure Map #11 (Gusts N)",
-        "Treasure Map #12 (Dee Ess N)",
-        "Treasure Map #13 (Harrow E)",
-        "Treasure Map #14 (Goron NW)",
-        "Treasure Map #15 (Goron W)",
-        "Treasure Map #16 (Goron NE)",
-        "Treasure Map #17 (Frost S)",
-        "Treasure Map #18 (Cannon S)",
-        "Treasure Map #19 (Gusts NE)",
-        "Treasure Map #20 (Bannan E)",
-        "Treasure Map #21 (Molida NW)",
-        "Treasure Map #22 (Harrow S)",
-        "Treasure Map #23 (Frost NW)",
-        "Treasure Map #24 (Ruins W)",
-        "Treasure Map #25 (Dead E)",
-        "Treasure Map #26 (Ruins SW)",
-        "Treasure Map #27 (Maze E)",
-        "Treasure Map #28 (Ruins NW)",
-        "Treasure Map #29 (Maze W)",
-        "Treasure Map #30 (Ruins S)",
-        "Treasure Map #31 (Dead S)",
-    ],
-    "Equipable Items": [
-        "Boomerang",
+    },
+    "Treasure Maps": set(TREASURE_MAPS),
+    "Items With Ammo": {
         "Bombs (Progressive)",
         "Bombchus (Progressive)",
         "Bow (Progressive)",
+    },
+    "Items Without Ammo": {
+        "Boomerang",
         "Grappling Hook",
         "Shovel",
         "Hammer",
-    ],
-    "Spirits": [
+    },
+    "Spirits": {
         "Spirit of Power (Progressive)",
         "Spirit of Wisdom (Progressive)",
         "Spirit of Courage (Progressive)",
-    ],
-    "Ship Items": [
+    },
+    "Ship Items": {
         "Cannon",
         "Salvage Arm",
         "Fishing Rod",
         "Big Catch Lure",
         "Cyclone Slate",
-    ],
-    "Fish": [
+    },
+    "Fish": {
         "Fish: Skippyjack",
         "Fish: Toona",
         "Fish: Loovar",
         "Fish: Rusty Swordfish",
         "Fish: Legendary Neptoona",
         "Fish: Stowfish"
-    ],
-    "Fishing Items": [
-        "Fishing Rod",
-        "Big Catch Lure",
-        "Fish: Skippyjack",
-        "Fish: Toona",
-        "Fish: Loovar",
-        "Fish: Rusty Swordfish",
-        "Fish: Legendary Neptoona",
-        "Fish: Stowfish"
-    ],
-    "Sea Charts": [
-        "SW Sea Chart",
-        "NW Sea Chart",
-        "SE Sea Chart",
-        "NE Sea Chart",
-    ],
-    "Upgrades": [
+    },
+    "Sea Charts": set(SEA_CHARTS),
+    "Upgrades": {
         "Heart Container",
         "Sand of Hours",
         "Swordsman's Scroll",
-    ],
-    "Rupees": [
+    },
+    "Rupees": {
         "Green Rupee (1)",
         "Blue Rupee (5)",
         "Red Rupee (20)",
@@ -393,104 +358,86 @@ ITEM_GROUPS = {
         "Rupoor (-10)",
         "Big Rupoor (-50)",
         "Pre-Alpha Rupee (5000)",
-    ],
-    "Throwable Keys": [
+    },
+    "Boss Keys": {
         "Boss Key (Temple of Fire)",
         "Boss Key (Temple of Wind)",
         "Boss Key (Temple of Courage)",
         "Boss Key (Goron Temple)",
         "Boss Key (Temple of Ice)",
         "Boss Key (Mutoh's Temple)",
-        "Square Crystal (Temple of Courage)",
-        "Triangle Crystal (Ghost Ship)",
-        "Round Crystal (Ghost Ship)",
-        "Round Crystal (Temple of the Ocean King)",
-        "Triangle Crystal (Temple of the Ocean King)",
-        "Force Gem (B3)",
-        "Force Gem (B12)",
-    ],
-    "Boss Keys": [
-        "Boss Key (Temple of Fire)",
-        "Boss Key (Temple of Wind)",
-        "Boss Key (Temple of Courage)",
-        "Boss Key (Goron Temple)",
-        "Boss Key (Temple of Ice)",
-        "Boss Key (Mutoh's Temple)",
-    ],
-    "Force Gems": [
-        "Force Gem (B3)",
-        "Force Gem (B12)",
-    ],
-    "Spirit Gems": [
+    },
+    "Single Spirit Gems": {
         "Power Gem",
         "Wisdom Gem",
         "Courage Gem",
-    ],
-    "Spirit Gem Packs": [
+    },
+    "Spirit Gem Packs": {
         "Power Gem Pack",
         "Wisdom Gem Pack",
         "Courage Gem Pack",
-    ],
-    "Shape Crystals": [
+    },
+
+    "Unique Crystal Items": {
+        "Triangle Pedestal B8 (Temple of the Ocean King)",
+        "Triangle Pedestal B9 (Temple of the Ocean King)",
+        "Round Pedestal B8 (Temple of the Ocean King)",
+        "Round Pedestal B9 (Temple of the Ocean King)",
+        "Square Pedestal West (Temple of the Ocean King)",
+        "Square Pedestal Center (Temple of the Ocean King)",
+        "Square Pedestal North (Temple of Courage)",
+        "Square Pedestal South (Temple of Courage)",
+        "Triangle Crystal (Ghost Ship)",
+        "Round Crystal (Ghost Ship)",
+    },
+    "Regular Crystal Items": {
         "Square Crystal (Temple of Courage)",
         "Triangle Crystal (Ghost Ship)",
         "Round Crystal (Ghost Ship)",
         "Round Crystal (Temple of the Ocean King)",
         "Triangle Crystal (Temple of the Ocean King)",
-    ],
-    "Collection Screen Keys": [
-        "Sun Key",
-        "Ghost Key",
-        "King's Key",
-        "Regal Necklace",
-    ],
-    "Keys": [
-        "Small Key (Mountain Passage)",
-        "Small Key (Temple of the Ocean King)",
-        "Small Key (Temple of Fire)",
-        "Small Key (Temple of Wind)",
-        "Small Key (Temple of Courage)",
-        "Small Key (Temple of Ice)",
-        "Small Key (Mutoh's Temple)",
-        "Boss Key (Temple of Fire)",
-        "Boss Key (Temple of Wind)",
-        "Boss Key (Temple of Courage)",
-        "Boss Key (Goron Temple)",
-        "Boss Key (Temple of Ice)",
-        "Boss Key (Mutoh's Temple)",
-        "Square Crystal (Temple of Courage)",
-        "Triangle Crystal (Ghost Ship)",
-        "Round Crystal (Ghost Ship)",
-        "Round Crystal (Temple of the Ocean King)",
-        "Triangle Crystal (Temple of the Ocean King)",
+        "Square Crystal (Temple of the Ocean King)",
+    },
+    "Global Crystal Items": {
+        "Square Crystals",
+        "Round Crystals",
+        "Triangle Crystals",
+    },
+    "Unique Force Gems": {
         "Force Gem (B3)",
         "Force Gem (B12)",
-        "Triforce Crest",
+    },
+    "Force Gems": {
+        "Force Gem (B3)",
+        "Force Gem (B12)",
+        "Force Gem"
+    },
+    "Collection Screen Keys": {
         "Sun Key",
         "Ghost Key",
         "King's Key",
         "Regal Necklace",
-    ],
-    "Trade Quest Items": [
+    },
+    "Trade Quest Items": {
         "Hero's New Clothes",
         "Kaleidoscope",
         "Guard Notebook",
         "Wood Heart",
-    ],
-    "Crests": [
+    },
+    "Crests": {
         "Courage Crest",
         "Triforce Crest",
-    ],
-    "Golden Frog Glyphs": [
+    },
+    "Golden Frog Glyphs": {
         "Golden Frog Glyph X",
         "Golden Frog Glyph Phi",
         "Golden Frog Glyph N",
         "Golden Frog Glyph Omega",
         "Golden Frog Glyph W",
         "Golden Frog Glyph Square"
-    ],
-    "Ships": [
-        "S.S. Linebeck",
+    },
+    "Ships": {
+#         "S.S. Linebeck",
         "Ship: Bright Ship",
         "Ship: Iron Ship",
         "Ship: Stone Ship",
@@ -499,38 +446,85 @@ ITEM_GROUPS = {
         "Ship: Tropical Ship",
         "Ship: Dignified Ship",
         "Ship: Golden Ship",
-    ],
-    "Technical Items": [
+    },
+    "Technical Items": {
         "Treasure",
         "Ship Part",
         "Potion",
         "Nothing!",
         "Sand of Hours (Boss)",
         "Sand of Hours (Small)",
-    ],
-    "Player Items": [
-        "Sword (Progressive)",
-        "Oshus' Sword",
-        "Phantom Sword",
-        "Shield",
-        "Boomerang",
-        "Bombs (Progressive)",
-        "Bombchus (Progressive)",
-        "Bow (Progressive)",
-        "Grappling Hook",
-        "Shovel",
-        "Hammer",
-    ],
-    "Rupoors": [
+        "Spirit of Courage (White)"
+    },
+    "Potions": {
+        "Red Potion",
+        "Purple Potion",
+        "Yellow Potion",
+        "Potion"
+    },
+    "Rupoors": {
         "Rupoor (-10)",
         "Big Rupoor (-50)",
-    ],
-    "Swords": [
+    },
+    "Swords": {
         "Sword (Progressive)",
         "Oshus' Sword",
         "Phantom Sword",
-    ]
+    },
+}
 
+# Combo groups
+ITEM_GROUPS |= {
+    "Metals":
+        ITEM_GROUPS["Vanilla Metals"] |
+        ITEM_GROUPS["Custom Metals"] |
+        {"Additional Rare Metal"},
+    "Equipable Items":
+        ITEM_GROUPS["Items With Ammo"] |
+        ITEM_GROUPS["Items Without Ammo"],
+    "Fishing Items": {
+                         "Fishing Rod",
+                         "Big Catch Lure"
+                     } |
+                     ITEM_GROUPS["Fish"],
+    "Regular Pedestal Items":
+        ITEM_GROUPS["Regular Crystal Items"] |
+        ITEM_GROUPS["Unique Force Gems"],
+    "Unique Pedestal Items":
+        ITEM_GROUPS["Unique Force Gems"] |
+        ITEM_GROUPS["Unique Crystal Items"],
+    "Global Pedestal Items":
+        ITEM_GROUPS["Global Crystal Items"] |
+        {"Force Gems"},
+    "Spirit Gems":
+        ITEM_GROUPS["Single Spirit Gems"] |
+        ITEM_GROUPS["Spirit Gem Packs"],
+}
+
+ITEM_GROUPS |=  {
+    "Shape Crystals":
+        ITEM_GROUPS["Unique Crystal Items"] |
+        ITEM_GROUPS["Regular Crystal Items"] |
+        ITEM_GROUPS["Global Crystal Items"],
+    "Pedestal Items":
+        ITEM_GROUPS["Regular Pedestal Items"] |
+        ITEM_GROUPS["Unique Pedestal Items"] |
+        ITEM_GROUPS["Global Pedestal Items"],
+    "Player Items": {
+                        "Shield",
+                    } | ITEM_GROUPS["Equipable Items"] |
+                    ITEM_GROUPS["Swords"],
+}
+
+ITEM_GROUPS |=  {
+    "Throwable Keys":
+        ITEM_GROUPS["Boss Keys"] |
+        ITEM_GROUPS["Pedestal Items"],
+    "Keys":
+        ITEM_GROUPS["Collection Screen Keys"] |
+        ITEM_GROUPS["Small Keys"] |
+        ITEM_GROUPS["Boss Keys"] |
+        ITEM_GROUPS["Pedestal Items"],
 }
 
 STAGE_LOCATION_GROUPS = {

@@ -242,7 +242,7 @@ def ph_has_se_frogs(state, player):
     ])
 
 def ph_has_treasure_map(state, player, number):
-    map_name = ITEM_GROUPS["Treasure Maps"][number - 1]
+    map_name = TREASURE_MAPS[number - 1]
     return state.has(map_name, player)
 
 
@@ -694,6 +694,21 @@ def ph_has_required_metals(state: CollectionState, player: int):
         ])
     ])
 
+# pedestal options
+def ph_option_pedestals_vanilla(state, player):
+    return state.multiworld.worlds[player].options.randomize_pedestal_items.value == 0
+
+def ph_option_pedestals_abstract_vanilla(state, player):
+    return state.multiworld.worlds[player].options.randomize_pedestal_items.value == 1
+
+def ph_option_pedestals_vanilla_any(state, player):
+    return state.multiworld.worlds[player].options.randomize_pedestal_items.value in [0, 1]
+
+def ph_option_pedestals_local(state, player):
+    return state.multiworld.worlds[player].options.randomize_pedestal_items.value == 2
+
+def ph_option_pedestals_anywhere(state, player):
+    return state.multiworld.worlds[player].options.randomize_pedestal_items.value in [2, 3]
 
 def ph_zauz_required_metals(state: CollectionState, player: int):
     current_metals = ITEM_GROUPS["Metals"]
@@ -854,12 +869,19 @@ def ph_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
     ])
 
 
-def ph_has_force_gems(state, player, floor=3, count=3):
-    return state.has(f"Force Gem (B{floor})", player, count)
+def ph_has_force_gems(state, player, floor, count=3):
+    return any([
+        state.has(f"Force Gem (B{floor})", player, count),
+        state.has(f"Force Gems", player, 1),
+    ])
 
 
-def ph_has_shape_crystal(state: CollectionState, player: int, dung_name: str, shape: str):
-    return state.has(f"{shape} Crystal ({dung_name})", player)
+def ph_has_shape_crystal(state: CollectionState, player: int, dung_name: str, shape: str, diff: str=""):
+    return any([
+        state.has(f"{shape} Crystal ({dung_name})", player),
+        state.has(f"{shape} Crystals", player),
+        state.has(f"{shape} Pedestal {diff} ({dung_name})", player),
+    ])
 
 def ph_ut_small_key_vanilla_location(state, player):
     return all([
@@ -1079,8 +1101,13 @@ def ph_mp2_bypass_fore(state, player):
             ph_option_vanilla_caves(state, player),
             any([
                 ph_has_small_keys(state, player, "Mountain Passage", 2),
-                ph_UT_glitched_logic(state, player),
-                not ph_is_ut(state, player)
+                all([
+                    ph_option_keys_in_own_dungeon(state, player),
+                    any([
+                        ph_UT_glitched_logic(state, player),
+                        not ph_is_ut(state, player)
+                    ])
+                ]),
             ])
         ])
     ])
@@ -1105,6 +1132,10 @@ def ph_mp3_back(state, player):
         all([
             ph_option_vanilla_caves(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 2),
+        ]),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 1),
         ]),
     ])
 
@@ -1155,8 +1186,11 @@ def ph_salvage_behind_bannan(state, player):
 
 def ph_oshus_gem(state, player):
     return any([
-        state.has("_beat_tow", player),
-        ph_can_make_phantom_sword(state, player)
+        ph_can_make_phantom_sword(state, player),
+        all([
+            state.has("_beat_tow", player),
+            "Temple of Wind" not in state.multiworld.worlds[player].excluded_dungeons
+        ])
     ])
 
 def ph_ice_field(state, player):
@@ -1305,12 +1339,20 @@ def ph_toc_switch_1(state, player):
     ])
 
 def ph_toc_beamos_ut(state, player):
-    return all([ph_is_ut(state, player), ph_has_bow(state, player)])
+    return all([
+        ph_ut_pedestals_vanilla(state, player),
+        ph_has_bow(state, player)])
+
+def ph_toc_crystal_south_abstract(state, player):
+    return all([
+        not ph_option_pedestals_vanilla(state, player),
+        ph_has_shape_crystal(state, player, "Temple of Courage", "Square", "South")
+    ])
 
 def ph_toc_crystal_south(state, player):
     return all([
         ph_has_bow(state, player),
-        ph_has_shape_crystal(state, player, "Temple of Courage", "Square")])
+        ph_has_shape_crystal(state, player, "Temple of Courage", "Square", "South")])
 
 def ph_toc_spike_corridor(state, player):
     return all([ph_has_explosives(state, player), ph_has_bow(state, player)])
@@ -1337,6 +1379,11 @@ def ph_toc_key_door_2(state, player):
     return any([
         ph_toc_key_doors(state, player, 3, 2),
         # UT stuff
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_hammer(state, player),
+            ph_toc_key_doors(state, player, 1, 2),
+        ]),
         all([
             ph_option_not_glitched_logic(state, player),
             any([
@@ -1430,8 +1477,9 @@ def ph_toc_key_doors(state, player, glitched: int, not_glitched: int):
 def ph_toc_final_switch_state(state, player):
     return any([
         ph_has_bow(state, player),
-        ph_toc_key_doors(state, player, 2, 1)
+        ph_toc_key_doors(state, player, 2, 1),
     ])
+
 
 
 # Ghost Ship
@@ -1448,15 +1496,25 @@ def ph_has_ghost_ship_access(state, player):
     ])
 
 def ph_has_gs_triangle_crystal(state, player):
-    return any([ph_has_shape_crystal(state, player, "Ghost Ship", "Triangle"),
-             ph_is_ut(state, player)])
+    return any([
+        ph_has_shape_crystal(state, player, "Ghost Ship", "Triangle"),
+        all([
+            ph_is_ut(state, player),
+            ph_option_pedestals_vanilla_any(state, player)
+        ])
+    ])
+
 
 def ph_ghost_ship_barrel(state, player):
     return any([
-        ph_has_bombs(state, player),
+        all([
+            ph_has_bombs(state, player),
+            ph_option_hard_logic(state, player)
+        ]),
         ph_has_hammer(state, player),
         ph_has_boomerang(state, player),
-        ph_has_grapple(state, player)
+        ph_has_grapple(state, player),
+        ph_has_shape_crystal(state, player, "Ghost Ship", "Round")
     ])
 
 
@@ -1822,18 +1880,53 @@ def ph_time_b3(state, player):
         return ph_time_b2(state, player) + 30
     return 6000
 
+def ph_totok_small_keys(state, player, base_count):
+    sub = 0
+    if base_count >= 2 and ph_UT_glitched_logic(state, player) and not state.has("_UT_got_chart", player):
+        sub += 1
+    if all([
+        base_count >= 5,
+        any([
+            ph_has_grapple(state, player),
+            all([
+                not ph_option_pedestals_vanilla(state, player),
+                any([
+                    ph_UT_glitched_logic(state, player),
+                    ph_option_hard_logic(state, player),
+                    not ph_option_pedestals_abstract_vanilla(state, player),
+                ])
+            ])
+        ])
+    ]):
+        sub += 1
+    return ph_has_small_keys(state, player, "Temple of the Ocean King", base_count-sub)
 
 def ph_time_b4(state, player):
     if ph_has_grapple(state, player):
         return ph_time_b3(state, player) + 8
-    elif any([
-        ph_has_force_gems(state, player, 3, 3),
-        all([
-            ph_is_ut(state, player),
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 4)
-        ])
-    ]):
-        return ph_time_b3(state, player) + 60
+    elif ph_option_pedestals_vanilla_any(state, player):
+        if all([
+            any([
+                ph_totok_small_keys(state, player,  4),
+                all([
+                    ph_option_hard_logic(state, player),
+                    ph_option_pedestals_abstract_vanilla(state, player),
+                ])
+            ]),
+            any([
+                ph_has_force_gems(state, player, 3, 3),
+                ph_is_ut(state, player)
+            ])
+        ]):
+            if ph_option_pedestals_vanilla_any(state, player):
+                return ph_time_b3(state, player) + 60
+            elif ph_option_hard_logic(state, player):
+                return ph_time_b3(state, player) + 5
+            else:
+                return ph_time_b3(state, player) + 40
+    elif ph_option_pedestals_anywhere(state, player) and ph_has_force_gems(state, player, 3, 3):
+        return ph_time_b3(state, player) + 5
+
     return 6000
 
 
@@ -1878,7 +1971,7 @@ def ph_time_b8(state, player):
 
 def ph_time_b8_shortcut(state, player):
     comp = [6000]
-    if ph_has_small_keys(state, player, "Temple of the Ocean King", 6):
+    if ph_totok_small_keys(state, player,  6):
         comp += [ph_time_b7_g(state, player) + 5]
         # comp += [ph_time_b7_e(state, player) + 20] Invalid, causes loop
     return min(comp)
@@ -1920,17 +2013,28 @@ def ph_time_b9_1c(state, player):
 
 def ph_time_b9_2c(state, player):
     comp = [6000]
-    if ph_has_explosives(state, player) or ph_can_hit_bombchu_switches(state, player):
+    if (ph_has_explosives(state, player)
+            or ph_can_hit_bombchu_switches(state, player)
+            or ph_totok_b9_abstract_triangle(state, player)):
         comp.append(ph_time_b8_2c(state, player) + 70),
     if ph_totok_phantom_steal_object(state, player):
         comp.append(ph_time_b9_1c(state, player) + 25)
+    if ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Square", "West"):
+        comp.append(ph_time_b8_2c(state, player))
     return min(comp)
 
+def ph_totok_b9_all_crystals(state, player):
+    return all([
+                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Round", "B9"),
+                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Triangle", "B9"),
+                ph_totok_b9_square_crystal(state, player, "Center")
+            ])
 
 def ph_time_b10(state, player):
     return min([
         ph_time_b9_2c(state, player) + 35,
-        ph_time_b9_1c(state, player) + 50 if ph_totok_phantom_steal_object(state, player) else 6000
+        ph_time_b9_1c(state, player) + 50 if ph_totok_b9_square_crystal(state, player, "Center") else 6000,
+        ph_time_b9_2c(state, player) + 5 if ph_totok_b9_all_crystals(state, player) and not ph_option_pedestals_vanilla(state, player) else 6000
     ])
 
 
@@ -1955,6 +2059,8 @@ def ph_time_b13(state, player):
     return min(
         ph_time_b12(state, player) + 60,
         ph_time_b12_h(state, player) + 50,
+        ph_time_b12(state, player) + 20 if ph_totok_b12_abstract_pedestals(state, player, 2) else 6000,
+        ph_time_b12_h(state, player) + 10 if ph_totok_b12_abstract_pedestals(state, player, 2) else 6000,
     )
 
 
@@ -2004,7 +2110,7 @@ def ph_totok_1f_chart(state, player):
     return all([
         ph_totok_has_floor_time(state, player, 0, 15),
         any([
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 1),
+            ph_totok_small_keys(state, player,  1),
             ph_totok_b1_all_checks_ut(state, player)  # UT Bypass
         ])
 
@@ -2055,12 +2161,8 @@ def ph_totok_b2(state, player):
     return all([
         ph_totok_has_floor_time(state, player, 2),
         any([
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 2),
+            ph_totok_small_keys(state, player, 2),
             ph_totok_b1_all_checks_ut(state, player),
-            all([
-                ph_has_small_keys(state, player, "Temple of the Ocean King", 1),
-                ph_UT_glitched_logic(state, player)
-            ])
         ])
     ])
 
@@ -2080,8 +2182,10 @@ def ph_totok_b2_key(state, player):
 def ph_totok_b2_phantom(state, player):
     return all([
         ph_has_phantom_sword(state, player),
-        any([ph_has_mid_range(state, player),
-             ph_has_explosives(state, player)]),
+        any([
+            ph_has_mid_range(state, player),
+            ph_has_explosives(state, player)
+        ]),
         ph_totok_has_floor_time(state, player, 2, 20)
     ])
 
@@ -2097,14 +2201,9 @@ def ph_totok_b3(state, player):
     return all([
         ph_totok_has_floor_time(state, player, 3),  # Includes switch logic
         any([
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 3),
+            ph_totok_small_keys(state, player,  3),
             ph_totok_b2_all_checks_ut(state, player),
-            all([
-                ph_has_small_keys(state, player, "Temple of the Ocean King", 2),
-                ph_UT_glitched_logic(state, player)
-            ])
         ])
-
     ])
 
 
@@ -2120,7 +2219,7 @@ def ph_totok_b3_sw(state, player):
     return all([
         ph_totok_has_floor_time(state, player, 3, 7),
         any([
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 4),
+            ph_totok_small_keys(state, player,  4),
             ph_totok_b4_all_checks_ut(state, player)
         ])
     ])
@@ -2221,21 +2320,7 @@ def ph_totok_b5(state, player):
     ])
 
 def ph_totok_b5_key_count(state, player):
-    return any([
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 5),
-            all([
-                any([
-                    ph_has_grapple(state, player),
-                    ph_UT_glitched_logic(state, player)
-                ]),
-                ph_has_small_keys(state, player, "Temple of the Ocean King", 4)
-            ]),
-            all([
-                ph_has_grapple(state, player),
-                ph_has_small_keys(state, player, "Temple of the Ocean King", 3),
-                ph_UT_glitched_logic(state, player)
-            ]),
-        ])
+    return ph_totok_small_keys(state, player,  5)
 
 def ph_totok_b5_alt(state, player):
     return all([
@@ -2348,10 +2433,14 @@ def ph_totok_b9(state, player):
             ph_totok_has_floor_time(state, player, '9_1c')
         ]),
         all([
-            ph_has_explosives(state, player),
+            ph_totok_has_floor_time(state, player, '9_2c'),
             any([
-                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Triangle"),
-                ph_is_ut(state, player)
+                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Triangle", "B8"),
+                ph_ut_pedestals_vanilla(state, player)
+            ]),
+            any([
+                ph_has_explosives(state, player),
+                not ph_option_pedestals_vanilla(state, player)
             ])
         ])
     ])
@@ -2370,9 +2459,14 @@ def ph_totok_b7_phantom(state, player):
         ])
     ])
 
+def ph_totok_b9_abstract_triangle(state, player):
+    return all([
+        ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Triangle", "B8"),
+        not ph_option_pedestals_vanilla(state, player)
+    ])
 
 def ph_totok_b9_phantom(state, player):
-    room = 9 if ph_can_hit_bombchu_switches(state, player) else '9_1c'
+    room = 9 if ph_can_hit_bombchu_switches(state, player) or ph_totok_b9_abstract_triangle(state, player) else '9_1c'
     return any([
         all([
             ph_has_phantom_sword(state, player),
@@ -2391,22 +2485,30 @@ def ph_totok_b9_phantom(state, player):
         ]),
     ])
 
-
 def ph_totok_b9_ghosts(state, player):
     room = 9 if ph_can_hit_bombchu_switches(state, player) else '9_1c'
     return ph_totok_has_floor_time(state, player, room, 30)
 
+def ph_ut_pedestals_vanilla(state, player):
+    return all([
+        ph_is_ut(state, player),
+        ph_option_pedestals_vanilla(state, player)
+    ])
+
+def ph_totok_b9_square_crystal(state, player, diff):
+    return any([
+        ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Square", diff),
+        ph_totok_phantom_steal_object(state, player)
+    ])
 
 def ph_totok_b9_corner_chest(state, player):
-    # print(f"corner 8_2c {ph_time_b8_2c(state, player)} "
-    #      f"9_2c {ph_time_b9_2c(state, player)} "
-    #      f"9 {ph_time_b9(state, player) + 25}")
     return any([
         all([
             ph_totok_has_floor_time(state, player, '8_2c'),
             any([
-                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Round"),
-                ph_is_ut(state, player)
+                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Round", "B8"),
+                ph_has_hammer(state, player),
+                ph_ut_pedestals_vanilla(state, player)
             ])
         ]),
         all([
@@ -2414,20 +2516,24 @@ def ph_totok_b9_corner_chest(state, player):
                 ph_totok_has_floor_time(state, player, 9, 25),
                 ph_totok_has_floor_time(state, player, '9_2c'),
             ]),
-            ph_totok_phantom_steal_object(state, player)
+            ph_totok_b9_square_crystal(state, player, "West")
         ])
     ])
 
 
 def ph_totok_b8_2_crystal_chest(state, player):
+    time = 30 if ph_option_pedestals_vanilla(state, player) else 15
     return all([
-        ph_has_explosives(state, player),
-        ph_totok_has_floor_time(state, player, '8_2c', 30),
         any([
-            ph_is_ut(state, player),
+            ph_has_explosives(state, player),
+            not ph_option_pedestals_vanilla(state, player)
+        ]),
+        ph_totok_has_floor_time(state, player, '8_2c', time),
+        any([
+            ph_ut_pedestals_vanilla(state, player),
             all([
-                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Round"),
-                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Triangle"),
+                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Round", "B8"),
+                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Triangle", "B8"),
             ])
         ])
     ])
@@ -2437,11 +2543,9 @@ def ph_totok_b10(state, player):
     return all([
         ph_totok_has_floor_time(state, player, 10),
         any([
-            ph_is_ut(state, player),
-            all([
-                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Round"),
-                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Triangle"),
-            ])
+            ph_ut_pedestals_vanilla(state, player),
+            ph_totok_b9_all_crystals(state, player)
+
         ])
     ])
 
@@ -2491,19 +2595,7 @@ def ph_totok_b11(state, player):
                 ph_is_ut(state, player),
                 ph_totok_b10_all_checks_ut(state, player)  # Assume that time is enough
             ]),
-            ph_has_small_keys(state, player, "Temple of the Ocean King", 6),
-            all([
-                ph_has_small_keys(state, player, "Temple of the Ocean King", 5),
-                any([
-                    ph_has_grapple(state, player),
-                    ph_UT_glitched_logic(state, player)
-                ])
-            ]),
-            all([
-                ph_has_grapple(state, player),
-                ph_UT_glitched_logic(state, player),
-                ph_has_small_keys(state, player, "Temple of the Ocean King", 4),
-            ])
+            ph_totok_small_keys(state, player,  6),
         ])
     ])
 
@@ -2549,11 +2641,20 @@ def ph_totok_b12_phantom(state, player):
         ])
     ])
 
+def ph_totok_b12_abstract_pedestals(state, player, count=2):
+    return all([
+        not ph_option_pedestals_vanilla(state, player),
+        any([
+            ph_has_force_gems(state, player, 12, 2),
+        ])
+    ])
 
 def ph_totok_b12_ghost(state, player):
     return any([
+        ph_totok_has_floor_time(state, player, '12_h', 20) if ph_totok_b12_abstract_pedestals(state, player) else False,
+        ph_totok_has_floor_time(state, player, 12, 20) if ph_totok_b12_abstract_pedestals(state, player) else False,
+        ph_totok_has_floor_time(state, player, '12_h', 50),
         ph_totok_has_floor_time(state, player, 12, 70),
-        ph_totok_has_floor_time(state, player, '12_h', 50)
     ])
 
 
@@ -2567,9 +2668,12 @@ def ph_totok_b13(state, player):
         any([
             all([
                 ph_has_force_gems(state, player, 12, 2),
-                ph_totok_phantom_steal_object(state, player)  # Redundant since bombs are needed to get here
+                any([
+                    ph_totok_phantom_steal_object(state, player),  # Redundant since bombs are needed to get here
+                    ph_has_force_gems(state, player, 12, 3),
+                ])
             ]),
-            ph_is_ut(state, player)
+            ph_ut_pedestals_vanilla(state, player)
         ])
     ])
 
@@ -2752,6 +2856,7 @@ RULE_DICT = {
     "has_time": ph_has_time,
     "is_ut": ph_is_ut,
     "ut_glitched": ph_UT_glitched_logic,
+    "ut_pedestals_vanilla": ph_ut_pedestals_vanilla,
     # Key Logic
     "small_keys": ph_has_small_keys,
     "boss_key": ph_has_boss_key,
@@ -2815,6 +2920,7 @@ RULE_DICT = {
     "toc_grapple": ph_toc_grapple_chest,
     "toc_beamos_ut": ph_toc_beamos_ut,
     "toc_crystal_south": ph_toc_crystal_south,
+    "toc_crystal_south_abstract": ph_toc_crystal_south_abstract,
     "toc_spike_corridor": ph_toc_spike_corridor,
     "toc_switch_state": ph_toc_final_switch_state,
     "toc_boss_key": ph_toc_boss_key,
