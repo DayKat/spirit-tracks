@@ -37,27 +37,15 @@ from test.bases import *
 class DefaultSettings(WorldTestBase):
     game = "The Legend of Zelda - Phantom Hourglass"
     options = {
-        "shuffle_dungeon_entrances": "no_shuffle",
-        "shuffle_ports": "no_shuffle",
-        "shuffle_caves": "shuffle_on_own_island",
-        "shuffle_houses": "no_shuffle",
-        "shuffle_overworld_transitions": "no_shuffle",
-        "shuffle_bosses": "no_shuffle",
-        "additional_metal_names": "custom_prefer_vanilla",
+        "logic": "normal",
         "keysanity": "in_own_dungeon",
-        "plando_items": [{
-            "items": {'Small Key (Mountain Passage)': 3},
-            "locations": [
-                #"Mountain Passage Chest 1",
-                'Mountain Passage Chest 2',
-                'Mountain Passage Key Drop',
-                'Mountain Passage Rat Key',
-            ]
-        }],
-        "add_items_to_pool": {"Grappling Hook": 1, "Boomerang": 1, "Shovel": 1, "Hammer": 1},
-        "remove_items_from_pool": {"Red Rupee (20)": 5},
-        "plando_transitions": [{"entrance": "Mercay SW Oshus' House", "exit": "Apricot's Exit"},
-                               ]
+        "randomize_pedestal_items": "in_own_dungeon",
+        "pedestal_item_options": "unique_pedestals",
+        "time_logic": "no_logic",
+        # "add_items_to_pool": {"Grappling Hook": 1, "Boomerang": 1, "Shovel": 1, "Hammer": 1},
+        # "remove_items_from_pool": {"Red Rupee (20)": 5},
+        # "plando_transitions": [{"entrance": "Mercay SW Oshus' House", "exit": "Apricot's Exit"},
+        #                        ]
     }
 
 # class TestGeneration(WorldTestBase):

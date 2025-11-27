@@ -1,6 +1,8 @@
 from typing import TYPE_CHECKING
 from BaseClasses import Entrance, Region
 from enum import IntEnum
+
+from .DSZeldaClient.subclasses import DSTransition
 from .data.SwitchLogic import *
 
 if TYPE_CHECKING:
@@ -108,101 +110,6 @@ class PHEntrance(Entrance):
 class PHRegion(Region):
     entrance_type = PHEntrance
 
-class PHTransition:
-    """
-    Datastructures for dealing with Transitions on the client side.
-    Not to be confused with PHEntrances, that deals with entrance objects during ER placement.
-    """
-
-    def __init__(self, name, data):
-        self.data = data
-
-        self.name: str = name
-        self.id: int | None = data.get("id", None)
-        self.entrance: tuple = data["entrance"]
-        self.exit: tuple = data["exit"]
-        self.entrance_region: str = data["entrance_region"]
-        self.exit_region: str = data["exit_region"]
-        self.two_way: bool = data.get("two_way", True)
-        self.category_group = data["type"]
-        self.direction = data["direction"]
-        self.island = data.get("island", EntranceGroups.NONE)
-        self.coords: tuple | None = data.get("coords", None)
-        self.extra_data: dict = data.get("extra_data", {})
-
-        self.stage, self.room, _ = self.entrance
-        self.scene: int = self.get_scene()
-        self.exit_scene: int = self.get_exit_scene()
-        self.exit_stage = self.exit[0]
-        self.y = self.coords[1] if self.coords else None
-
-        self.vanilla_reciprocal: PHTransition | None = None  # Paired location
-
-        self.copy_number = 0
-
-    def get_scene(self):
-        return self.stage * 0x100 + self.room
-
-    def get_exit_scene(self):
-        return self.exit[0] * 0x100 + self.exit[1]
-
-    def is_pairing(self, r1, r2) -> bool:
-        return r1 == self.entrance_region and r2 == self.exit_region
-
-    def get_y(self):
-        return self.coords[1] if self.coords else None
-
-    def detect_exit_simple(self, stage, room, entrance):
-        return self.exit == (stage, room, entrance)
-
-    def detect_exit_scene(self, scene, entrance):
-        return self.exit_scene == scene and entrance == self.exit[2]
-
-    def detect_exit(self, scene, entrance, coords, y_offest):
-        if self.detect_exit_scene(scene, entrance):
-            if entrance < 0xF0:
-                return True
-            # Continuous entrance check
-            x_max = self.extra_data.get("x_max", 0x8FFFFFFF)
-            x_min = self.extra_data.get("x_min", -0x8FFFFFFF)
-            z_max = self.extra_data.get("z_max", 0x8FFFFFFF)
-            z_min = self.extra_data.get("z_min", -0x8FFFFFFF)
-            y = self.coords[1] if self.coords else coords["y"] - y_offest
-            # print(f"Checking entrance {self.name}: x {x_max} > {coords['x']} > {x_min}")
-            # print(f"\ty: {y + 1000} > {y} > {coords['y'] - y_offest}")
-            # print(f"\tz: {z_max} > {coords['z']} > {z_min}")
-            if y + 2000 > coords["y"] - y_offest >= y and x_max > coords["x"] > x_min and z_max > coords["z"] > z_min:
-                return True
-        return False
-
-    def set_stage(self, new_stage):
-        self.stage = new_stage
-        self.scene = self.get_scene()
-        self.entrance = tuple([new_stage] + list(self.entrance[1:]))
-
-    def set_exit_stage(self, new_stage):
-        self.exit = tuple([new_stage] + list(self.exit[1:]))
-        self.exit_scene = self.get_exit_scene()
-        self.exit_stage = self.exit[0]
-
-    def set_exit_room(self, new_room):
-        self.exit = tuple([self.exit[0], new_room, self.exit[2]])
-        self.exit_scene = self.get_exit_scene()
-
-    def copy(self):
-        res = PHTransition(f"{self.name}{self.copy_number+1}", self.data)
-        res.copy_number = self.copy_number + 1
-        return res
-
-    def __str__(self):
-        return self.name
-
-    def debug_print(self):
-        print(f"Debug print for entrance {self.name}")
-        print(f"\tentrance {self.entrance}")
-        print(f"\texit {self.exit}")
-        print(f"\tcoords {self.coords}")
-        print(f"\textra_data {self.extra_data}")
 
 island_lookup = {
     0: "sea",
@@ -328,6 +235,14 @@ OPPOSITE_ENTRANCE_GROUPS = {
     EntranceGroups.INSIDE: EntranceGroups.OUTSIDE,
     EntranceGroups.OUTSIDE: EntranceGroups.INSIDE
 }
+
+class PHTransition(DSTransition):
+    """
+    Datastructures for dealing with Transitions on the client side.
+    Not to be confused with PHEntrances, that deals with entrance objects during ER placement.
+    """
+    entrance_groups = EntranceGroups
+    opposite_entrance_groups = OPPOSITE_ENTRANCE_GROUPS
 
 switch_logic_lookup = {}
 for i in switch_logic:

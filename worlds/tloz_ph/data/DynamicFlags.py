@@ -442,7 +442,7 @@ DYNAMIC_FLAGS = {
     "Block Bellum Staircase": {
         "on_scenes": [0x2600],
         "set_if_true": [(0x1B5595, 0x2)],
-        "reset_flags": ["RESET Block Bellum Staircase"]
+        # "reset_flags": ["RESET Block Bellum Staircase"]
     },
     "RESET Block Bellum Staircase": {
         # "on_scenes": [0xB01],
@@ -1135,37 +1135,37 @@ DYNAMIC_FLAGS = {
 
     "RESET Fishing remove Stowfish": {
         # "on_scenes": [0, 1, 2, 3],
-        "last_scene": [0x200],
+        "last_scenes": [0x200],
         "has_items": [("Fish: Stowfish", 1)],
         "set_if_true": [(0x1BA5B9, "Fish: Stowfish")]
     },
     "RESET Fishing skippy": {
         # "on_scenes": [0, 1, 2, 3],
-        "last_scene": [0x200],
+        "last_scenes": [0x200],
         "has_items": [("Fish: Skippyjack", 1)],
         "set_if_true": [(0x1BA5B4, "Fish: Skippyjack")]
     },
     "RESET Fishing toona": {
         # "on_scenes": [0, 1, 2, 3],
-        "last_scene": [0x200],
+        "last_scenes": [0x200],
         "has_items": [("Fish: Toona", 1)],
         "set_if_true": [(0x1BA5B5, "Fish: Toona")]
     },
     "RESET Fishing loovar": {
         # "on_scenes": [0, 1, 2, 3],
-        "last_scene": [0x200],
+        "last_scenes": [0x200],
         "has_items": [("Fish: Loovar", 1)],
         "set_if_true": [(0x1BA5B6, "Fish: Loovar")]
     },
     "RESET Fishing rsf": {
         # "on_scenes": [0, 1, 2, 3],
-        "last_scene": [0x200],
+        "last_scenes": [0x200],
         "has_items": [("Fish: Rusty Swordfish", 1)],
         "set_if_true": [(0x1BA5B7, "Fish: Rusty Swordfish")]
     },
     "RESET Fishing neptoona": {
         # "on_scenes": [0, 1, 2, 3],
-        "last_scene": [0x200],
+        "last_scenes": [0x200],
         "has_items": [("Fish: Legendary Neptoona", 1)],
         "set_if_true": [(0x1BA5B8, 0x1)]
     },
@@ -1286,6 +1286,15 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2600],
         "set_if_true": [(0x1B55AA, 0x20)]
     },
-
+    "TotOK Elevator down": {
+        "on_scenes": [0x250D],
+        "last_scenes": [0x250C],
+        "set_if_true": [(0x20C5F0, 0x10)]
+    },
+    "TotOK Elevator up": {
+        "on_scenes": [0x250D],
+        "last_scenes": [0x250E],
+        "unset_if_true": [(0x20C5F0, 0x10)]
+    },
 }
 
