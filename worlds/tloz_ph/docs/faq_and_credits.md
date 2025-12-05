@@ -66,6 +66,9 @@ Highly recommend setting a hotkey for toggling all cheats!
 The client should give you back your missing items when you reenter the game. It can take a while if you're missing a 
 lot of items, but it will tell you what it's doing in the client.
 
+## Where is `Location`?
+There's a location guide being worked on at the [wiki](https://github.com/carrotinator/Archipelago/wiki). If the location you're looking for isn't there, ask about it in the discord.
+
 ## I collected some locations while the client wasn't connected
 
 There is a backup system that reads savedata for missing checks when you enter a room. To trigger this, save and 
