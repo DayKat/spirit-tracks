@@ -17,9 +17,31 @@ ENTRANCE_DATA = {
     #   "two_way": bool=True. generates a reciprocal entrance, also used for ER generation
     # }
 
+    # ==== Outset ====
+    "Outset to Forest Realm": {
+        "return_name": "Forest Realm to Outset",
+        "exit": (0x4, 0x0, 1),
+        "entrance": (0x2F, 0x0, 0),
+        "exit_region": "forest realm",
+        "entrance_region": "outset village",
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.OUTSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Outset to Tutorial": {
+        "return_name": "Tutorial to Outset",
+        "exit": (0x8, 0x0, 0),
+        "entrance": (0x2F, 0x0, 0),
+        "exit_region": "forest realm",
+        "entrance_region": "outset village",
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.OUTSIDE,
+        "island": EntranceGroups.NONE
+    },
+
     # ===== Tower of Spirits =====
-    "Tower of Spirits Forest Realm": {
-        "return_name": "Forest Realm Tower of Spirits",
+    "Tower of Spirits to Forest Realm": {
+        "return_name": "Forest Realm to Tower of Spirits",
         "entrance": (0x14, 1, 0),
         "exit": (0x4, 0x0, 6),
         "entrance_region": "tos",
@@ -28,8 +50,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.OUTSIDE,
         "island": EntranceGroups.NONE
     },
-    "Tower of Spirits Snow Realm": {
-        "return_name": "Snow Realm Tower of Spirits",
+    "Tower of Spirits to Snow Realm": {
+        "return_name": "Snow Realm to Tower of Spirits",
         "entrance": (0x14, 1, 0),
         "exit": (0x5, 0x0, 6),
         "entrance_region": "tos",

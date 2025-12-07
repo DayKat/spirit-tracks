@@ -8,12 +8,23 @@ from .Constants import LOCATION_GROUPS
 DYNAMIC_ENTRANCES = {
     # ToS Bounce
     "Exit ToS to snow without source": {
-        "entrance": "Tower of Spirits Snow Realm",
-        "destination": "Tower of Spirits Snow Realm",
+        "entrance": "Tower of Spirits to Snow Realm",
+        "destination": "Tower of Spirits to Snow Realm",
         "not_has_all_items": [("Snow Glyph", 0), ("Snow Source", 0),
                               # ("Blizzard Temple Tracks", 0) # Fixed!a
                               ]
     },
+    # Outset pre-glyph bounce
+    "Bounce Outset without glyph": {
+        "entrance": "Outset to Forest Realm",
+        "destination": "Outset to Forest Realm",
+        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)]
+    },
+    "Bounce Tutorial": {
+        "entrance": "Outset to Tutorial",
+        "destination": "Outset to Tutorial",
+    },
+
     # Portal Bounces
     "Bounce forest portal north": {
         "entrance": "Forest Realm North Portal",

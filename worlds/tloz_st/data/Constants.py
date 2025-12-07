@@ -90,6 +90,7 @@ STAGE_FLAGS = {
 
 STAGES = {
     4: "Forest Realm",
+    8: "Tutorial",
     0x2F: "Outset Village",
     0x29: "Castle Town",
     0x28: "Hyrule Castle",
