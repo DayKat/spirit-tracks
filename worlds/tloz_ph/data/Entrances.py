@@ -2,10 +2,6 @@
 from ..Subclasses import PHTransition, EntranceGroups, OPPOSITE_ENTRANCE_GROUPS
 
 
-
-
-
-
 ENTRANCE_DATA = {
     # "Name": {
     #   "return_name": str. what to call the vanilla connecting entrance that generates automatically
@@ -2040,6 +2036,8 @@ if __name__ == "__main__":
     for name in sorted_entrances:
         if not "Unnamed" in name:
             print(name)
+
+    print(f"len {len(ENTRANCES)}")
 
 
     # for name, data in ENTRANCES.items():
