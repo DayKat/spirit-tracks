@@ -1456,6 +1456,17 @@ EQUIPPED_SHIP_PARTS_ADDR = [
 
 TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}
 
+TREASURE_PRICES = {
+    "Treasure: Pink Coral": [1500, 50, 150, 50, 150, 150, 1500, 50, 50, 1500, 50],
+    "Treasure: White Pearl Loop": [800, 50, 50, 150, 50, 150, 50, 50, 1500, 800, 50],
+    "Treasure: Dark Pearl Loop": [150, 50, 50, 800, 800, 50, 800, 800, 50, 150, 50],
+    "Treasure: Zora Scale": [150, 150, 1500, 150, 150, 800, 800, 50, 50, 50, 50],
+    "Treasure: Goron Amber": [50, 150, 800, 800, 150, 50, 50, 800, 800, 50, 50],
+    "Treasure: Ruto Crown": [50, 1500, 50, 150, 50, 800, 50, 1500, 50, 50, 50],
+    "Treasure: Helmaroc Plume": [50, 800, 150, 50, 800, 150, 50, 50, 800, 50, 50],
+    "Treasure: Regal Ring": [1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 50]
+}
+
 if __name__ == "__main__":
     for group in LOCATION_GROUPS:
         print("-", group)

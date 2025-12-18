@@ -347,6 +347,8 @@ class PhantomHourglassClient(DSZeldaClient):
         self.set_ending_room(ctx)
         await self.lower_water(ctx)
         await write_memory_value(ctx,0x0EC754, 2, overwrite=True)  # Set text speed to fast, no matter settings
+        # Set treasure prices so they match seed (save file resets it on menu)
+        await write_memory_value(ctx, 0x0EC7D8, ctx.slot_data.get("treasure_price_index", 0), overwrite=True, size=4)
         await self.update_stored_entrances(ctx)
 
         # Set warp to start location

@@ -460,9 +460,11 @@ def ph_has_rupees(state: CollectionState, player: int, cost: int):
     rupees += state.count("Big Red Rupee (200)", player) * 200
     rupees += state.count("Gold Rupee (300)", player) * 300
 
-    # Sell Treasure for safe average 150 (can be 50, 150, 800 or 1500)
-    if ph_has_courage_crest(state, player):
-        rupees += state.count_group("Treasure Items", player) * 150
+    # Sell Treasure
+    if state.has("_has_treasure_teller", player):
+        treasure_index = state.multiworld.worlds[player].treasure_price_index
+        for treasure in ITEM_GROUPS["Treasure Items"]:
+            rupees += state.count(treasure, player) * TREASURE_PRICES[treasure][treasure_index]
 
     return rupees >= cost
 

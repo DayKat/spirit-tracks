@@ -181,6 +181,7 @@ class PhantomHourglassWorld(World):
         self.disconnected_exits_map = {}
         self.ut_excluded = []
         self.ut_created_events = []
+        self.treasure_price_index = 0
 
 
     def generate_early(self):
@@ -200,6 +201,7 @@ class PhantomHourglassWorld(World):
             self.required_dungeons = slot_data["required_dungeons"]
             self.boss_reward_items_pool = slot_data["boss_reward_items_pool"]
             self.ut_pairings = slot_data.get("er_pairings", {})
+            self.treasure_price_index = slot_data.get("treasure_price_index", 0)
 
         else:
             self.pick_required_dungeons()
@@ -212,7 +214,9 @@ class PhantomHourglassWorld(World):
                 self.options.dungeon_hint_type.value = 1
             if not self.options.exclude_non_required_dungeons:
                 self.options.excluded_dungeon_hints.value = 0
-            # Pedestal item restrictions
+
+            # Treasure Prices
+            self.treasure_price_index = self.random.randint(0, 9)
 
         self.restrict_non_local_items()
 
@@ -1216,6 +1220,7 @@ class PhantomHourglassWorld(World):
         # Used for dungeon hints in client
         slot_data["required_dungeon_locations"] = self.required_bosses  # for dungeon hints
         slot_data["boss_reward_items_pool"] = self.boss_reward_items_pool
+        slot_data["treasure_price_index"] = self.treasure_price_index
 
         # Create ER Pairings, as ids to save space
         pairings = {}

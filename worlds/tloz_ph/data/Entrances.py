@@ -574,7 +574,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida South Dig Hole": {
-        "reverse_name": "Molida Cave South Drop",
+        "return_name": "Molida Cave South Drop",
         "two_way": False,
         "entrance_region": "molida island",
         "exit_region": "molida cave upper",
@@ -585,7 +585,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Molida North Dig Hole": {
-        "reverse_name": "Molida Cave Chest Drop",
+        "return_name": "Molida Cave Chest Drop",
         "two_way": False,
         "entrance_region": "molida north",
         "exit_region": "molida cave drop",
@@ -1351,7 +1351,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.DEAD
     },
     "IotD Dig Hole": {
-        "reverse_name": "IotD Tunnel Drop",
+        "return_name": "IotD Tunnel Drop",
         "entrance_region": "iotd",
         "exit_region": "iotd tunnel",
         "entrance": (0x15, 0x0, 0x0),
