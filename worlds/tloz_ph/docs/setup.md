@@ -22,6 +22,10 @@
 6. Launch the vanilla game in bizhawk, and open the lua console. Add the `connector_bizhawk_generic.lua` script that can be found in `Archipelago\data\lua`. 
 7. You are now ready to play! Start a new savefile and go! You can check that everything worked by checking if the bridge has been repaired.
 
+## External patches
+- Works with controller patches!
+- Works with player model patches. [Guide](https://gamebanana.com/tuts/19109) for making them.
+
 ## Further Reading
 
 - [FAQ and Credits](https://github.com/carrotinator/Archipelago/blob/main/worlds/tloz_ph/docs/faq_and_credits.md)
