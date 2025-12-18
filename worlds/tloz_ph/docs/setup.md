@@ -9,7 +9,7 @@
 
 ## Recommended Software
 
-* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases)
+* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases) Contains a simple map tracker by @palex00
 * [Item Tracker](https://github.com/ZobeePlays/PH-AP-Item-Tracker/tree/main) (poptracker pack by @ZobeePlays. No map tracking)
 
 ## Setup
