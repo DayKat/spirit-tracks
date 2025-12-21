@@ -10,7 +10,7 @@ LOCATIONS_DATA = {
     # ========== Mercay Island ============
 
     "Mercay Sword Chest": {
-        "region_id": "mercay sword cave",
+        "region_id": "Sword Cave",
         "item_override": "Sword (Progressive)",
         "vanilla_item": "Oshus' Sword",
         "stage_id": 0xb,
@@ -20,7 +20,7 @@ LOCATIONS_DATA = {
         "id": 1,
     },
     "Mercay Clear Rocks": {
-        "region_id": "mercay sw",
+        "region_id": "Mercay SW",
         "vanilla_item": "Green Rupee (1)",
         "stage_id": 0xb,
         "floor_id": 0x0,
@@ -31,7 +31,7 @@ LOCATIONS_DATA = {
         "id": 2,
     },
     "Mercay Oshus Dig": {
-        "region_id": "mercay dig spot",
+        "region_id": "Mercay SW Dig Spot",
         "stage_id": 0xb,
         "floor_id": 0x0,
         "y": 0x1333,
@@ -39,7 +39,7 @@ LOCATIONS_DATA = {
         "id": 3,
     },
     "Mercay Cuccoo Chest": {
-        "region_id": "mercay se",
+        "region_id": "Mercay SE",
         "stage_id": 0xb,
         "floor_id": 0x3,
         "y": 0x1333,
@@ -49,7 +49,7 @@ LOCATIONS_DATA = {
         "id": 4,
     },
     "Mercay North Bonk Tree": {
-        "region_id": "mercay ne",
+        "region_id": "Mercay NE",
         "stage_id": 0xb,
         "floor_id": 0x2,
         "y": 0x2666,
@@ -59,7 +59,7 @@ LOCATIONS_DATA = {
         "id": 5,
     },
     "Mercay Geozard Cave Chest": {
-        "region_id": "mercay geozard cave north",
+        "region_id": "Mercay Geozard Cave North",
         "stage_id": 0xb,
         "floor_id": 0x10,
         "vanilla_item": "Power Gem",
@@ -68,7 +68,7 @@ LOCATIONS_DATA = {
         "id": 6,
     },
     "Mercay Geozard Cave South Chest West": {
-        "region_id": "mercay se ledge",
+        "region_id": "Mercay SE Ledge",
         "stage_id": 0xb,
         "floor_id": 0x3,
         "y": 0x2666,
@@ -79,7 +79,7 @@ LOCATIONS_DATA = {
         "id": 7,
     },
     "Mercay Geozard Cave South Chest East": {
-        "region_id": "mercay se ledge",
+        "region_id": "Mercay SE Ledge",
         "stage_id": 0xb,
         "floor_id": 0x3,
         "y": 0x2666,
@@ -90,7 +90,7 @@ LOCATIONS_DATA = {
         "id": 8,
     },
     "TotOK Phantom Hourglass": {
-        "region_id": "totok",
+        "region_id": "TotOK Lobby",
         "stage_id": 0x26,
         "floor_id": 0x0,
         "address": 0x1b55a0,
@@ -100,7 +100,7 @@ LOCATIONS_DATA = {
         "id": 9,
     },
     "Mercay Freedle Tunnel Chest": {
-        "region_id": "mercay freedle tunnel chest",
+        "region_id": "Mercay Freedle Tunnel Chest",
         "stage_id": 0xb,
         "floor_id": 0x12,
         "vanilla_item": "Courage Gem",
@@ -109,7 +109,7 @@ LOCATIONS_DATA = {
         "id": 10,
     },
     "Mercay Freedle Island Chest": {
-        "region_id": "mercay freedle island",
+        "region_id": "Mercay NW Freedle Island",
         "stage_id": 0xb,
         "floor_id": 0x2,
         "y": 0x4ccd,
@@ -120,7 +120,7 @@ LOCATIONS_DATA = {
         "id": 11,
     },
     "Mercay Freedle Gift Item": {
-        "region_id": "mercay freedle gift",
+        "region_id": "Mercay NW Freedle Gift",
         "stage_id": 0xb,
         "floor_id": 0x2,
         "y": 0x4ccd,
@@ -129,7 +129,7 @@ LOCATIONS_DATA = {
         "id": 12,
     },
     "Mercay Ojibe (Docks Guy) Item": {
-        "region_id": "mercay yellow guy",
+        "region_id": "Mercay SE Ojibe",
         "stage_id": 0xb,
         "floor_id": 0x3,
         "address": 0x1ba650,
@@ -138,7 +138,7 @@ LOCATIONS_DATA = {
         "id": 13,
     },
     "Mercay Shipyard Chest": {
-        "region_id": "mercay shipyard",
+        "region_id": "Shipyard",
         "stage_id": 0xb,
         "floor_id": 0xd,
         "vanilla_item": "Ship Part",
@@ -146,7 +146,7 @@ LOCATIONS_DATA = {
         "id": 14,
     },
     "Mercay Oshus Spirit Gem": {
-        "region_id": "mercay oshus gem",
+        "region_id": "Oshus Gem",
         "stage_id": 0xb,
         "floor_id": 0xa,
         "vanilla_item": "Power Gem",
@@ -156,7 +156,7 @@ LOCATIONS_DATA = {
         "id": 15,
     },
     "Mercay Oshus Phantom Sword": {
-        "region_id": "mercay oshus phantom blade",
+        "region_id": "Oshus Phantom Blade",
         "stage_id": 0xb,
         "floor_id": 0xa,
         "item_override": "Sword (Progressive)",
@@ -169,7 +169,7 @@ LOCATIONS_DATA = {
     # ========== Mountain Passage ============
 
     "Mountain Passage Chest 1": {
-        "region_id": "mercay passage 1",
+        "region_id": "Mountain Passage 1",
         "vanilla_item": "Small Key (Mountain Passage)",
         "stage_id": 0x27,
         "floor_id": 0x0,
@@ -182,7 +182,7 @@ LOCATIONS_DATA = {
         "do_special": "keylock"
     },
     "Mountain Passage Chest 2": {
-        "region_id": "mercay passage 2",
+        "region_id": "Mountain Passage 2",
         "stage_id": 0x27,
         "floor_id": 0x0,
         "x_min": 0x10900,
@@ -195,7 +195,7 @@ LOCATIONS_DATA = {
         "do_special": "keylock"
     },
     "Mountain Passage Key Drop": {
-        "region_id": "mercay passage 2",
+        "region_id": "Mountain Passage 2",
         "vanilla_item": "Small Key (Mountain Passage)",
         "stage_id": 0x27,
         "floor_id": 0x0,
@@ -207,7 +207,7 @@ LOCATIONS_DATA = {
         "do_special": "keylock"
     },
     "Mountain Passage Rat Key": {
-        "region_id": "mercay passage rat",
+        "region_id": "Mountain Passage Rat",
         "vanilla_item": "Small Key (Mountain Passage)",
         "stage_id": 0x27,
         "floor_id": 0x1,
@@ -221,7 +221,7 @@ LOCATIONS_DATA = {
     # ========== Island Shops ============
 
     "Island Shop Power Gem": {
-        "region_id": "shop power gem",
+        "region_id": "Island Shop Power Gem",
         "vanilla_item": "Power Gem",
         "stage_id": 0xb,
         "floor_id": 0x11,
@@ -233,7 +233,7 @@ LOCATIONS_DATA = {
         "id": 21,
     },
     "Island Shop Quiver": {
-        "region_id": "shop quiver",
+        "region_id": "Island Shop Quiver",
         "vanilla_item": "Bow (Progressive)",
         "stage_id": 0xb,
         "floor_id": 0x11,
@@ -245,7 +245,7 @@ LOCATIONS_DATA = {
         "id": 22,
     },
     "Island Shop Bombchu Bag": {
-        "region_id": "shop bombchu bag",
+        "region_id": "Island Shop Bombchu Bag",
         "vanilla_item": "Bombchus (Progressive)",
         "stage_id": 0xb,
         "floor_id": 0x11,
@@ -257,7 +257,7 @@ LOCATIONS_DATA = {
         "id": 23,
     },
     "Island Shop Heart Container": {
-        "region_id": "shop heart container",
+        "region_id": "Island Shop Heart Container",
         "vanilla_item": "Heart Container",
         "stage_id": 0xb,
         "floor_id": 0x11,
@@ -271,7 +271,7 @@ LOCATIONS_DATA = {
     # ========== Beedle ============
 
     "Beedle Shop Bomb Bag": {
-        "region_id": "beedle bomb bag",
+        "region_id": "Beedle Bomb Bag",
         "vanilla_item": "Bombs (Progressive)",
         "stage_id": 0x5,
         "floor_id": 0x0,
@@ -281,7 +281,7 @@ LOCATIONS_DATA = {
         "id": 25,
     },
     "Beedle Shop Wisdom Gem": {
-        "region_id": "beedle gem",
+        "region_id": "Beedle Gem",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0x5,
         "floor_id": 0x0,
@@ -291,7 +291,7 @@ LOCATIONS_DATA = {
         "id": 26,
     },
     "Masked Beedle Heart Container": {
-        "region_id": "masked ship hc",
+        "region_id": "Masked Ship HC",
         "vanilla_item": "Heart Container",
         "stage_id": 0x5,
         "floor_id": 0x0,
@@ -302,7 +302,7 @@ LOCATIONS_DATA = {
         "id": 27,
     },
     "Masked Beedle Courage Gem": {
-        "region_id": "masked ship gem",
+        "region_id": "Masked Ship Gem",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x5,
         "floor_id": 0x0,
@@ -313,7 +313,7 @@ LOCATIONS_DATA = {
         "id": 28,
     },
     "Beedle Membership Bronze": {
-        "region_id": "beedle bronze",
+        "region_id": "Beedle Bronze Membership",
         "stage_id": 0x5,
         "floor_id": 0x0,
         "vanilla_item": "Nothing!",
@@ -323,7 +323,7 @@ LOCATIONS_DATA = {
         "id": 322,
     },
     "Beedle Membership Silver": {
-        "region_id": "beedle silver",
+        "region_id": "Beedle Silver Membership",
         "stage_id": 0x5,
         "floor_id": 0x0,
         "vanilla_item": "Nothing!",
@@ -333,7 +333,7 @@ LOCATIONS_DATA = {
         "id": 323,
     },
     "Beedle Membership Gold": {
-        "region_id": "beedle gold",
+        "region_id": "Beedle Gold Membership",
         "stage_id": 0x5,
         "floor_id": 0x0,
         "vanilla_item": "Nothing!",
@@ -343,7 +343,7 @@ LOCATIONS_DATA = {
         "id": 324,
     },
     "Beedle Membership Platinum": {
-        "region_id": "beedle plat",
+        "region_id": "Beedle Platinum Membership",
         "stage_id": 0x5,
         "floor_id": 0x0,
         "vanilla_item": "Nothing!",
@@ -353,7 +353,7 @@ LOCATIONS_DATA = {
         "id": 325,
     },
     "Beedle Membership VIP": {
-        "region_id": "beedle vip",
+        "region_id": "Beedle VIP Membership",
         "stage_id": 0x5,
         "floor_id": 0x0,
         "vanilla_item": "Nothing!",
@@ -366,7 +366,7 @@ LOCATIONS_DATA = {
     # ========== TotOK ============
 
     "TotOK 1F SW Sea Chart Chest": {
-        "region_id": "totok 1f chart",
+        "region_id": "TotOK 1F Chart",
         "vanilla_item": "SW Sea Chart",
         "stage_id": 0x25,
         "floor_id": 0x0,
@@ -377,7 +377,7 @@ LOCATIONS_DATA = {
         "do_special": "ut_event",
     },
     "TotOK 1F Linebeck Key": {
-        "region_id": "totok 1f",
+        "region_id": "TotOK 1F",
         "vanilla_item": "Small Key (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0x0,
@@ -389,7 +389,7 @@ LOCATIONS_DATA = {
         "id": 30,
     },
     "TotOK 1F Empty Chest": {
-        "region_id": "totok 1f chest",
+        "region_id": "TotOK 1F Chest",
         "vanilla_item": "Nothing!",
         "stage_id": 0x25,
         "floor_id": 0x0,
@@ -398,7 +398,7 @@ LOCATIONS_DATA = {
         "id": 31,
     },
     "TotOK B1 Small Key": {
-        "region_id": "totok b1 key",
+        "region_id": "TotOK B1 Key",
         "vanilla_item": "Small Key (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0x1,
@@ -407,7 +407,7 @@ LOCATIONS_DATA = {
         "id": 32,
     },
     "TotOK B1 Shoot Eye Chest": {
-        "region_id": "totok b1 bow",
+        "region_id": "TotOK B1 Bow",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x25,
         "floor_id": 0x1,
@@ -417,7 +417,7 @@ LOCATIONS_DATA = {
         "id": 33,
     },
     "TotOK B1 Phantom Chest": {
-        "region_id": "totok b1 phantom",
+        "region_id": "TotOK B1 Phantom",
         "vanilla_item": "Treasure",
         "farmable": True,
         "stage_id": 0x25,
@@ -429,7 +429,7 @@ LOCATIONS_DATA = {
         "id": 34,
     },
     "TotOK B2 Bombchu Chest": {
-        "region_id": "totok b2 chu",
+        "region_id": "TotOK B2 Chu",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0x25,
         "floor_id": 0x2,
@@ -441,7 +441,7 @@ LOCATIONS_DATA = {
         "id": 35,
     },
     "TotOK B2 Phantom Chest": {
-        "region_id": "totok b2 phantom",
+        "region_id": "TotOK B2 Phantom",
         "vanilla_item": "Treasure",
         "farmable": True,
         "stage_id": 0x25,
@@ -453,7 +453,7 @@ LOCATIONS_DATA = {
         "id": 36,
     },
     "TotOK B2 Small Key": {
-        "region_id": "totok b2 key",
+        "region_id": "TotOK B2 Key",
         "vanilla_item": "Small Key (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0x2,
@@ -461,7 +461,7 @@ LOCATIONS_DATA = {
         "id": 37,
     },
     "TotOK B3 Bow Chest": {
-        "region_id": "totok b3 bow",
+        "region_id": "TotOK B3 Bow",
         "vanilla_item": "Power Gem",
         "stage_id": 0x25,
         "floor_id": 0x3,
@@ -472,7 +472,7 @@ LOCATIONS_DATA = {
         "id": 38,
     },
     "TotOK B3 Phantom Chest": {
-        "region_id": "totok b3 phantom",
+        "region_id": "TotOK B3 Phantom",
         "vanilla_item": "Treasure",
         "farmable": True,
         "stage_id": 0x25,
@@ -484,7 +484,7 @@ LOCATIONS_DATA = {
         "id": 39,
     },
     "TotOK B3 NW Chest": {
-        "region_id": "totok b3 nw",
+        "region_id": "TotOK B3 NW Chest",
         "vanilla_item": "Force Gem (B3)",
         "stage_id": 0x25,
         "floor_id": 0x3,
@@ -496,7 +496,7 @@ LOCATIONS_DATA = {
         "id": 40,
     },
     "TotOK B3 SW Chest": {
-        "region_id": "totok b3 sw",
+        "region_id": "TotOK B3 SW Chest",
         "vanilla_item": "Force Gem (B3)",
         "stage_id": 0x25,
         "floor_id": 0x3,
@@ -509,7 +509,7 @@ LOCATIONS_DATA = {
         "id": 41,
     },
     "TotOK B3 SE Chest": {
-        "region_id": "totok b3 se",
+        "region_id": "TotOK B3 SE Chest",
         "vanilla_item": "Force Gem (B3)",
         "stage_id": 0x25,
         "floor_id": 0x3,
@@ -521,7 +521,7 @@ LOCATIONS_DATA = {
         "id": 42,
     },
     "TotOK B3 Small Key": {
-        "region_id": "totok b3 key",
+        "region_id": "TotOK B3 Key",
         "vanilla_item": "Small Key (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0x3,
@@ -529,7 +529,7 @@ LOCATIONS_DATA = {
         "id": 43,
     },
     "TotOK B3 NW Sea Chart Chest": {
-        "region_id": "totok b35",
+        "region_id": "TotOK B3.5",
         "vanilla_item": "NW Sea Chart",
         "stage_id": 0x25,
         "floor_id": 0x4,
@@ -537,7 +537,7 @@ LOCATIONS_DATA = {
         "id": 44,
     },
     "TotOK B4 Phantom Eye Chest": {
-        "region_id": "totok b4 eyes",
+        "region_id": "TotOK B4 Eyes",
         "vanilla_item": "Power Gem",
         "stage_id": 0x25,
         "floor_id": 0x5,
@@ -548,7 +548,7 @@ LOCATIONS_DATA = {
         "id": 45,
     },
     "TotOK B4 Phantom Chest": {
-        "region_id": "totok b4 phantom",
+        "region_id": "TotOK B4 Phantom",
         "vanilla_item": "Treasure",
         "farmable": True,
         "stage_id": 0x25,
@@ -559,7 +559,7 @@ LOCATIONS_DATA = {
         "id": 46,
     },
     "TotOK B4 Small Key": {
-        "region_id": "totok b4 key",
+        "region_id": "TotOK B4 Key",
         "vanilla_item": "Small Key (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0x5,
@@ -568,7 +568,7 @@ LOCATIONS_DATA = {
         "id": 47,
     },
     "TotOK B5 Alt Path Chest": {
-        "region_id": "totok b5 alt chest",
+        "region_id": "TotOK B5 Alt Path Chest",
         "vanilla_item": "Treasure Map #23 (Frost NW)",
         "stage_id": 0x25,
         "floor_id": 0x6,
@@ -577,7 +577,7 @@ LOCATIONS_DATA = {
         "id": 48,
     },
     "TotOK B5 Chest": {
-        "region_id": "totok b5 chest",
+        "region_id": "TotOK B5 Chest",
         "vanilla_item": "Red Potion",
         "stage_id": 0x25,
         "floor_id": 0x6,
@@ -587,7 +587,7 @@ LOCATIONS_DATA = {
         "id": 49,
     },
     "TotOK B6 Phantom Chest": {
-        "region_id": "totok b6 phantom",
+        "region_id": "TotOK B6 Phantom",
         "vanilla_item": "Treasure",
         "farmable": True,
         "stage_id": 0x25,
@@ -598,7 +598,7 @@ LOCATIONS_DATA = {
         "id": 50,
     },
     "TotOK B6 Bow Chest": {
-        "region_id": "totok b6 bow",
+        "region_id": "TotOK B6 Bow",
         "vanilla_item": "Treasure Map #11 (Gusts N)",
         "stage_id": 0x25,
         "floor_id": 0x7,
@@ -607,7 +607,7 @@ LOCATIONS_DATA = {
         "id": 51,
     },
     "TotOK B6 Courage Crest": {
-        "region_id": "totok b6 crest",
+        "region_id": "TotOK B6 Crest",
         "vanilla_item": "Nothing!",
         "item_override": "Courage Crest",
         "stage_id": 0x25,
@@ -618,7 +618,7 @@ LOCATIONS_DATA = {
         "id": 52,
     },
     "TotOK B7 North Chest": {
-        "region_id": "totok b7 crystal",
+        "region_id": "TotOK B7 Crystal",
         "vanilla_item": "Round Crystal (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0xa,
@@ -629,7 +629,7 @@ LOCATIONS_DATA = {
         "id": 53,
     },
     "TotOK B7 Peg Chest": {
-        "region_id": "totok b7 switch",
+        "region_id": "TotOK B7 Switch",
         "vanilla_item": "Power Gem",
         "stage_id": 0x25,
         "floor_id": 0xa,
@@ -640,7 +640,7 @@ LOCATIONS_DATA = {
         "id": 54,
     },
     "TotOK B7 Phantom Chest": {
-        "region_id": "totok b7 phantom",
+        "region_id": "TotOK B7 Phantom",
         "vanilla_item": "Ship Part",
         "farmable": True,
         "stage_id": 0x25,
@@ -651,7 +651,7 @@ LOCATIONS_DATA = {
         "id": 55,
     },
     "TotOK B8 2 Crystals Chest": {
-        "region_id": "totok b8 2c chest",
+        "region_id": "TotOK B8 2 Crystals Chest",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x25,
         "floor_id": 0xb,
@@ -661,7 +661,7 @@ LOCATIONS_DATA = {
         "id": 56,
     },
     "TotOK B8 Phantom Chest": {
-        "region_id": "totok b8 phantom",
+        "region_id": "TotOK B8 Phantom",
         "vanilla_item": "Ship Part",
         "farmable": True,
         "stage_id": 0x25,
@@ -674,7 +674,7 @@ LOCATIONS_DATA = {
         "id": 57,
     },
     "TotOK B9 NW Chest": {
-        "region_id": "totok b9 corner chest",
+        "region_id": "TotOK B9 Corner Chest",
         "vanilla_item": "Triangle Crystal (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0xc,
@@ -684,7 +684,7 @@ LOCATIONS_DATA = {
         "id": 58,
     },
     "TotOK B9 Wizzrobe Chest": {
-        "region_id": "totok b9 ghosts",
+        "region_id": "TotOK B9 Wizzrobes",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0x25,
         "floor_id": 0xc,
@@ -696,7 +696,7 @@ LOCATIONS_DATA = {
         "id": 59,
     },
     "TotOK B9 Phantom Chest": {
-        "region_id": "totok b9 phantom",
+        "region_id": "TotOK B9 Phantom",
         "vanilla_item": "Ship Part",
         "farmable": True,
         "stage_id": 0x25,
@@ -707,7 +707,7 @@ LOCATIONS_DATA = {
         "id": 60,
     },
     "TotOK B9.5 SE Sea Chart Chest": {
-        "region_id": "totok b10",
+        "region_id": "TotOK B10",
         "vanilla_item": "SE Sea Chart",
         "stage_id": 0x25,
         "floor_id": 0xd,
@@ -715,7 +715,7 @@ LOCATIONS_DATA = {
         "id": 61,
     },
     "TotOK B10 Hammer Switch Chest": {
-        "region_id": "totok b10 hammer",
+        "region_id": "TotOK B10 Hammer",
         "vanilla_item": "Treasure Map #30 (Ruins S)",
         "stage_id": 0x25,
         "floor_id": 0xe,
@@ -729,7 +729,7 @@ LOCATIONS_DATA = {
         "id": 62,
     },
     "TotOK B10 Phantom Chest": {
-        "region_id": "totok b10 phantom",
+        "region_id": "TotOK B10 Phantom",
         "vanilla_item": "Big Green Rupee (100)",
         "farmable": True,
         "stage_id": 0x25,
@@ -744,7 +744,7 @@ LOCATIONS_DATA = {
         "id": 63,
     },
     "TotOK B10 Phantom Eye Chest": {
-        "region_id": "totok b10 eye",
+        "region_id": "TotOK B10 Eyes",
         "vanilla_item": "Red Potion",
         "stage_id": 0x25,
         "floor_id": 0xe,
@@ -753,7 +753,7 @@ LOCATIONS_DATA = {
         "id": 64,
     },
     "TotOK B10 Small Key": {
-        "region_id": "totok b10 key",
+        "region_id": "TotOK B10 Key",
         "vanilla_item": "Small Key (Temple of the Ocean King)",
         "stage_id": 0x25,
         "floor_id": 0xe,
@@ -761,7 +761,7 @@ LOCATIONS_DATA = {
         "id": 65,
     },
     "TotOK B11 Phantom Eye Chest": {
-        "region_id": "totok b11 eyes",
+        "region_id": "TotOK B11 Eyes",
         "vanilla_item": "Treasure",
         "stage_id": 0x25,
         "floor_id": 0xf,
@@ -771,7 +771,7 @@ LOCATIONS_DATA = {
         "id": 66,
     },
     "TotOK B11 Phantom Chest": {
-        "region_id": "totok b11 phantom",
+        "region_id": "TotOK B11 Phantom",
         "vanilla_item": "Big Red Rupee (200)",
         "farmable": True,
         "stage_id": 0x25,
@@ -782,7 +782,7 @@ LOCATIONS_DATA = {
         "id": 67,
     },
     "TotOK B12 NW Chest": {
-        "region_id": "totok b12 nw",
+        "region_id": "TotOK B12 NW Chest",
         "vanilla_item": "Force Gem (B12)",
         "stage_id": 0x25,
         "floor_id": 0x10,
@@ -792,7 +792,7 @@ LOCATIONS_DATA = {
         "id": 68,
     },
     "TotOK B12 NE Chest": {
-        "region_id": "totok b12 ne",
+        "region_id": "TotOK B12 NE Chest",
         "vanilla_item": "Force Gem (B12)",
         "stage_id": 0x25,
         "floor_id": 0x10,
@@ -802,7 +802,7 @@ LOCATIONS_DATA = {
         "id": 69,
     },
     "TotOK B12 Hammer Chest": {
-        "region_id": "totok b12 hammer",
+        "region_id": "TotOK B12 Hammer",
         "vanilla_item": "Treasure Map #31 (Dead S)",
         "stage_id": 0x25,
         "floor_id": 0x10,
@@ -811,7 +811,7 @@ LOCATIONS_DATA = {
         "id": 70,
     },
     "TotOK B12 Kill Everything Chest": {
-        "region_id": "totok b12 ghost",
+        "region_id": "TotOK B12 Ghost",
         "vanilla_item": "Ship Part",
         "item_override": "NE Sea Chart",
         "stage_id": 0x25,
@@ -821,7 +821,7 @@ LOCATIONS_DATA = {
         "id": 71,
     },
     "TotOK B12 Phantom Chest": {
-        "region_id": "totok b12 phantom",
+        "region_id": "TotOK B12 Phantom",
         "vanilla_item": "Gold Rupee (300)",
         "farmable": True,
         "stage_id": 0x25,
@@ -834,7 +834,7 @@ LOCATIONS_DATA = {
         "id": 72,
     },
     "TotOK B13 NE Sea Chart Chest": {
-        "region_id": "totok b13 chest",
+        "region_id": "TotOK B13 Chest",
         "vanilla_item": "NE Sea Chart",
         "item_override": "Rare Metal",
         "stage_id": 0x25,
@@ -847,7 +847,7 @@ LOCATIONS_DATA = {
     # ========== Ocean SW ============
 
     "Ocean SW Salvage Courage Crest": {
-        "region_id": "sw ocean crest salvage",
+        "region_id": "SW Ocean Crest Salvage",
         "vanilla_item": "Sun Key",
         "stage_id": 0x0,
         "floor_id": 0x0,
@@ -865,7 +865,7 @@ LOCATIONS_DATA = {
         "id": 75,
     },
     "Ocean SW Golden Frog Phi": {
-        "region_id": "sw ocean frog phi",
+        "region_id": "SW Ocean Frog Phi",
         "vanilla_item": "Golden Frog Glyph Phi",
         "stage_id": 0x0,
         "floor_id": 0x0,
@@ -874,7 +874,7 @@ LOCATIONS_DATA = {
         "id": 76,
     },
     "Ocean SW Nyave Treasure": {
-        "region_id": "sw ocean nyave",
+        "region_id": "SW Ocean Nyave",
         "vanilla_item": "Treasure",
         "stage_id": 0xa,
         "floor_id": 0x0,
@@ -887,7 +887,7 @@ LOCATIONS_DATA = {
     # ========== Cannon Island ============
 
     "Cannon Island Bee Chest": {
-        "region_id": "cannon island",
+        "region_id": "Cannon Island",
         "vanilla_item": "Treasure Map #1 (Molida SW)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -898,7 +898,7 @@ LOCATIONS_DATA = {
         "id": 78,
     },
     "Cannon Island Bee Dig": {
-        "region_id": "cannon island dig",
+        "region_id": "Cannon Island Dig",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -908,14 +908,14 @@ LOCATIONS_DATA = {
         "id": 79,
     },
     "Cannon Island Cave Chest": {
-        "region_id": "cannon cave south",
+        "region_id": "Cannon Cave South",
         "vanilla_item": "Power Gem",
         "stage_id": 0x28,
         "floor_id": 0x0,
         "id": 80,
     },
     "Cannon Island Cliff Chest": {
-        "region_id": "cannon bomb garden",
+        "region_id": "Cannon Bomb Garden",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -923,7 +923,7 @@ LOCATIONS_DATA = {
         "id": 81,
     },
     "Cannon Island SE Dig": {
-        "region_id": "cannon bomb garden dig",
+        "region_id": "Cannon Bomb Garden Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -934,7 +934,7 @@ LOCATIONS_DATA = {
         "id": 82,
     },
     "Cannon Island Bonk Tree": {
-        "region_id": "cannon bomb garden",
+        "region_id": "Cannon Bomb Garden",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -947,7 +947,7 @@ LOCATIONS_DATA = {
         "id": 83,
     },
     "Cannon Island East Dig": {
-        "region_id": "cannon bomb garden dig",
+        "region_id": "Cannon Bomb Garden Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x13,
         "floor_id": 0x0,
@@ -960,7 +960,7 @@ LOCATIONS_DATA = {
         "id": 84,
     },
     "Cannon Island Cannon": {
-        "region_id": "cannon eddo",
+        "region_id": "Eddo's Workshop",
         "vanilla_item": "Nothing!",
         "item_override": "Cannon",
         "stage_id": 0x13,
@@ -970,7 +970,7 @@ LOCATIONS_DATA = {
         "id": 85,
     },
     "Cannon Island Salvage Arm": {
-        "region_id": "cannon island salvage arm",
+        "region_id": "Eddo Salvage Arm",
         "vanilla_item": "Salvage Arm",
         "stage_id": 0x13,
         "floor_id": 0xb,
@@ -982,14 +982,14 @@ LOCATIONS_DATA = {
     # ========== Ember Island ============
 
     "Isle of Ember Astrid's Basement Dig": {
-        "region_id": "ember astrid basement dig",
+        "region_id": "Astrid's Basement",
         "vanilla_item": "Treasure Map #3 (Gusts SW)",
         "stage_id": 0xd,
         "floor_id": 0x14,
         "id": 87,
     },
     "Isle of Ember Grapple Chest": {
-        "region_id": "ember grapple",
+        "region_id": "Ember Grapple",
         "vanilla_item": "Courage Gem",
         "stage_id": 0xd,
         "floor_id": 0x0,
@@ -998,7 +998,7 @@ LOCATIONS_DATA = {
         "id": 88,
     },
     "Isle of Ember Summit Dig": {
-        "region_id": "ember outside tof dig",
+        "region_id": "Ember Outside ToF Dig",
         "vanilla_item": "Treasure Map #4 (Bannan SE)",
         "stage_id": 0xd,
         "floor_id": 0x1,
@@ -1006,7 +1006,7 @@ LOCATIONS_DATA = {
         "id": 89,
     },
     "Isle of Ember Summit Chest": {
-        "region_id": "ember summit west",
+        "region_id": "Ember Summit West",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0xd,
         "floor_id": 0x0,
@@ -1014,7 +1014,7 @@ LOCATIONS_DATA = {
         "id": 90,
     },
     "Isle of Ember Astrid after Fire Temple": {
-        "region_id": "ember astrid post tof",
+        "region_id": "Astrid Post ToF",
         "item_override": "Power Gem",
         "vanilla_item": "Nothing!",
         "stage_id": 0xd,
@@ -1028,7 +1028,7 @@ LOCATIONS_DATA = {
     # ========== Temple of Fire ============
 
     "Temple of Fire 1F Keese Chest": {
-        "region_id": "tof 1f keese",
+        "region_id": "ToF 1F Keese Arena",
         "vanilla_item": "Small Key (Temple of Fire)",
         "stage_id": 0x1c,
         "floor_id": 0x0,
@@ -1038,7 +1038,7 @@ LOCATIONS_DATA = {
         "id": 92,
     },
     "Temple of Fire 1F Maze Chest": {
-        "region_id": "tof 1f maze",
+        "region_id": "ToF 1F Maze",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1c,
         "floor_id": 0x0,
@@ -1048,7 +1048,7 @@ LOCATIONS_DATA = {
         "id": 93,
     },
     "Temple of Fire 2F Boomerang Chest": {
-        "region_id": "tof 2f",
+        "region_id": "ToF 2F",
         "vanilla_item": "Boomerang",
         "stage_id": 0x1c,
         "floor_id": 0x1,
@@ -1058,7 +1058,7 @@ LOCATIONS_DATA = {
         "id": 94,
     },
     "Temple of Fire 2F Fire Keese Chest": {
-        "region_id": "tof 2f south",
+        "region_id": "ToF 2F South",
         "vanilla_item": "Red Rupee (20)",
         "item_override": "Spirit of Power (Progressive)",
         "stage_id": 0x1c,
@@ -1072,7 +1072,7 @@ LOCATIONS_DATA = {
         "id": 95,
     },
     "Temple of Fire 2F Rat Key": {
-        "region_id": "tof 2f south",
+        "region_id": "ToF 2F South",
         "vanilla_item": "Small Key (Temple of Fire)",
         "stage_id": 0x1c,
         "floor_id": 0x1,
@@ -1080,7 +1080,7 @@ LOCATIONS_DATA = {
         "id": 96,
     },
     "Temple of Fire 3F Key Drop": {
-        "region_id": "tof 3f key drop",
+        "region_id": "ToF 3F Key Drop",
         "vanilla_item": "Small Key (Temple of Fire)",
         "stage_id": 0x1c,
         "floor_id": 0x2,
@@ -1089,7 +1089,7 @@ LOCATIONS_DATA = {
         "id": 97,
     },
     "Temple of Fire 3F Boss Key Chest": {
-        "region_id": "tof 3f boss key",
+        "region_id": "ToF 3F Boss Key",
         "vanilla_item": "Boss Key (Temple of Fire)",
         "stage_id": 0x1c,
         "floor_id": 0x2,
@@ -1098,7 +1098,7 @@ LOCATIONS_DATA = {
         "id": 98,
     },
     "Blaaz Heart Container": {
-        "region_id": "post tof",
+        "region_id": "Post Blaaz",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2b,
         "floor_id": 0x0,
@@ -1106,7 +1106,7 @@ LOCATIONS_DATA = {
         "id": 99,
     },
     "Blaaz Boss Reward": {
-        "region_id": "post tof",
+        "region_id": "Post Blaaz",
         "vanilla_item": "Spirit of Power (Progressive)",
         "item_override": "Rare Metal",
         "stage_id": 0x2b,
@@ -1122,14 +1122,14 @@ LOCATIONS_DATA = {
     # ========== Molida Island ============
 
     "Molida Island 2nd House Chest": {
-        "region_id": "molida potato house",
+        "region_id": "Potato's house",
         "vanilla_item": "Treasure",
         "stage_id": 0xc,
         "floor_id": 0xd,
         "id": 101,
     },
     "Molida Island Romanos Tree Dig": {
-        "region_id": "molida dig",
+        "region_id": "Molida Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
         "floor_id": 0x0,
@@ -1141,7 +1141,7 @@ LOCATIONS_DATA = {
         "id": 102,
     },
     "Molida Cave Wayfarer Hideaway Chest": {
-        "region_id": "molida cave upper",
+        "region_id": "Molida Cave Upper",
         "vanilla_item": "Treasure Map #2 (Mercay NE)",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1150,7 +1150,7 @@ LOCATIONS_DATA = {
         "id": 103,
     },
     "Molida Cave Grapple Chest": {
-        "region_id": "molida cave grapple",
+        "region_id": "Molida Cave Grapple",
         "vanilla_item": "Power Gem",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1159,7 +1159,7 @@ LOCATIONS_DATA = {
         "id": 104,
     },
     "Molida Cave Geozard Dig": {
-        "region_id": "molida cave geozard dig",
+        "region_id": "Molida Cave Geozard Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1169,7 +1169,7 @@ LOCATIONS_DATA = {
         "id": 105,
     },
     "Molida Cave Shovel Chest": {
-        "region_id": "molida shovel cave",
+        "region_id": "Shovel Cave",
         "vanilla_item": "Shovel",
         "stage_id": 0xc,
         "floor_id": 0xf,
@@ -1179,7 +1179,7 @@ LOCATIONS_DATA = {
         "id": 106,
     },
     "Molida Cave Shovel Room Dig": {
-        "region_id": "molida shovel cave dig",
+        "region_id": "Shovel Cave Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
         "floor_id": 0xf,
@@ -1189,7 +1189,7 @@ LOCATIONS_DATA = {
         "id": 107,
     },
     "Molida Island Cliff Chest": {
-        "region_id": "molida cliff north",
+        "region_id": "Molida Cliff North",
         "vanilla_item": "Treasure",
         "stage_id": 0xc,
         "floor_id": 0x1,
@@ -1199,7 +1199,7 @@ LOCATIONS_DATA = {
         "id": 108,
     },
     "Molida Island Cuccoo Grapple Tree Dig": {
-        "region_id": "molida cuccoo dig",
+        "region_id": "Molida Cucco Dig",
         "vanilla_item": "Treasure Map #20 (Bannan E)",
         "stage_id": 0xc,
         "floor_id": 0x0,
@@ -1208,7 +1208,7 @@ LOCATIONS_DATA = {
         "id": 109,
     },
     "Molida Island Cuccoo Grapple Small Island Dig": {
-        "region_id": "molida cuccoo dig",
+        "region_id": "Molida Cucco Dig",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0xc,
         "floor_id": 0x0,
@@ -1219,7 +1219,7 @@ LOCATIONS_DATA = {
         "id": 110,
     },
     "Molida Island North Dig Chest": {
-        "region_id": "molida cave drop",
+        "region_id": "Molida Cave North Drop",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1228,7 +1228,7 @@ LOCATIONS_DATA = {
         "id": 111,
     },
     "Molida Island North Grapple Chest": {
-        "region_id": "molida north grapple",
+        "region_id": "Molida North Grapple",
         "vanilla_item": "Courage Gem",
         "stage_id": 0xc,
         "floor_id": 0x1,
@@ -1237,7 +1237,7 @@ LOCATIONS_DATA = {
         "id": 112,
     },
     "Molida Archery 1700": {
-        "region_id": "molida archery",
+        "region_id": "Archery Game",
         "vanilla_item": "Bow (Progressive)",
         "stage_id": 0xc,
         "floor_id": 0xb,
@@ -1249,7 +1249,7 @@ LOCATIONS_DATA = {
         "id": 113,
     },
     "Molida Archery 2000": {
-        "region_id": "molida archery",
+        "region_id": "Archery Game",
         "vanilla_item": "Heart Container",
         "stage_id": 0xc,
         "floor_id": 0x1,
@@ -1264,7 +1264,7 @@ LOCATIONS_DATA = {
     # ========== Temple of Courage ============
 
     "Temple of Courage 1F Bomb Alcove Chest": {
-        "region_id": "toc bomb alcove",
+        "region_id": "ToC 1F Bomb Alcove",
         "vanilla_item": "Treasure",
         "stage_id": 0x1e,
         "floor_id": 0x0,
@@ -1275,7 +1275,7 @@ LOCATIONS_DATA = {
         "id": 115,
     },
     "Temple of Courage 1F Raised Platform Chest": {
-        "region_id": "toc",
+        "region_id": "ToC 1F",
         "vanilla_item": "Small Key (Temple of Courage)",
         "stage_id": 0x1e,
         "floor_id": 0x0,
@@ -1285,7 +1285,7 @@ LOCATIONS_DATA = {
         "id": 116,
     },
     "Temple of Courage 1F Map Room Chest East": {
-        "region_id": "toc map room",
+        "region_id": "ToC 1F Map Room",
         "vanilla_item": "Power Gem",
         "stage_id": 0x1e,
         "floor_id": 0x0,
@@ -1296,7 +1296,7 @@ LOCATIONS_DATA = {
         "id": 117,
     },
     "Temple of Courage 1F Map Room Chest West": {
-        "region_id": "toc map room",
+        "region_id": "ToC 1F Map Room",
         "vanilla_item": "Ship Part",
         "stage_id": 0x1e,
         "floor_id": 0x0,
@@ -1306,7 +1306,7 @@ LOCATIONS_DATA = {
         "id": 118,
     },
     "Temple of Courage 1F Pols Voice Key": {
-        "region_id": "toc 1f west",
+        "region_id": "ToC 1F West",
         "vanilla_item": "Small Key (Temple of Courage)",
         "stage_id": 0x1e,
         "floor_id": 0x0,
@@ -1316,7 +1316,7 @@ LOCATIONS_DATA = {
         "id": 119,
     },
     "Temple of Courage 2F Beamos Maze Chest": {
-        "region_id": "toc 2f beamos",
+        "region_id": "ToC 2F Beamos Room",
         "vanilla_item": "Square Crystal (Temple of Courage)",
         "stage_id": 0x1e,
         "floor_id": 0x2,
@@ -1326,7 +1326,7 @@ LOCATIONS_DATA = {
         "id": 120,
     },
     "Temple of Courage B1 Maze Chest": {
-        "region_id": "toc b1 maze",
+        "region_id": "ToC B1 Invisible Maze",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x1e,
         "floor_id": 0x1,
@@ -1336,7 +1336,7 @@ LOCATIONS_DATA = {
         "id": 121,
     },
     "Temple of Courage B1 Bow Chest": {
-        "region_id": "toc b1 maze",
+        "region_id": "ToC B1 Invisible Maze",
         "vanilla_item": "Bow (Progressive)",
         "stage_id": 0x1e,
         "floor_id": 0x1,
@@ -1345,7 +1345,7 @@ LOCATIONS_DATA = {
         "id": 122,
     },
     "Temple of Courage 2F Moving Platform Chest": {
-        "region_id": "toc 2f platforms",
+        "region_id": "ToC 2F Moving Platform Room",
         "vanilla_item": "Power Gem",
         "stage_id": 0x1e,
         "floor_id": 0x2,
@@ -1357,7 +1357,7 @@ LOCATIONS_DATA = {
         "id": 123,
     },
     "Temple of Courage 2F Spike Corridor Chest": {
-        "region_id": "toc 2f spike corridor",
+        "region_id": "ToC 2F Spike Corridor",
         "vanilla_item": "Treasure",
         "item_override": "Spirit of Courage (Progressive)",
         "stage_id": 0x1e,
@@ -1368,7 +1368,7 @@ LOCATIONS_DATA = {
         "id": 124,
     },
     "Temple of Courage B1 Torch Room Secret Chest": {
-        "region_id": "toc torches chest",
+        "region_id": "ToC B1 Torches Chest",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0x1e,
         "floor_id": 0x1,
@@ -1377,7 +1377,7 @@ LOCATIONS_DATA = {
         "id": 125,
     },
     "Temple of Courage 1F Pols Voice Key 2": {
-        "region_id": "toc pols 2",
+        "region_id": "ToC 1F Pols NW",
         "vanilla_item": "Small Key (Temple of Courage)",
         "stage_id": 0x1e,
         "floor_id": 0x0,
@@ -1387,7 +1387,7 @@ LOCATIONS_DATA = {
         "id": 126,
     },
     "Temple of Courage 2F Boss Key Chest": {
-        "region_id": "toc bk chest",
+        "region_id": "ToC 2F Scribble Platform Chest",
         "vanilla_item": "Boss Key (Temple of Courage)",
         "stage_id": 0x1e,
         "floor_id": 0x2,
@@ -1397,7 +1397,7 @@ LOCATIONS_DATA = {
         "id": 127,
     },
     "Temple of Courage 3F Before Boss Chest": {
-        "region_id": "toc before boss chest",
+        "region_id": "ToC 3F Chest",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x1e,
         "floor_id": 0x3,
@@ -1405,7 +1405,7 @@ LOCATIONS_DATA = {
         "id": 128,
     },
     "Crayk Boss Reward": {
-        "region_id": "post toc",
+        "region_id": "Post Crayk",
         "vanilla_item": "Spirit of Courage (White)",
         "item_override": "Rare Metal",
         "stage_id": 0x2c,
@@ -1418,7 +1418,7 @@ LOCATIONS_DATA = {
         "id": 129,
     },
     "Crayk Sand of Hours": {
-        "region_id": "post toc",
+        "region_id": "Post Crayk",
         "vanilla_item": "Sand of Hours (Boss)",
         "stage_id": 0x2c,
         "floor_id": 0x0,
@@ -1429,7 +1429,7 @@ LOCATIONS_DATA = {
         "id": 130,
     },
     "Crayk Heart Container": {
-        "region_id": "post toc",
+        "region_id": "Post Crayk",
         "vanilla_item": "Heart Container",
         "stage_id": 0x2c,
         "floor_id": 0x0,
@@ -1440,7 +1440,7 @@ LOCATIONS_DATA = {
     # ========== Spirit Island ============
 
     "Spirit Island Outside Chest": {
-        "region_id": "spirit island",
+        "region_id": "Spirit Island",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x17,
         "floor_id": 0x0,
@@ -1449,7 +1449,7 @@ LOCATIONS_DATA = {
         "id": 132,
     },
     "Spirit Island Gauntlet Chest": {
-        "region_id": "spirit island gauntlet",
+        "region_id": "Spirit Island Gauntlet",
         "vanilla_item": "Power Gem",
         "stage_id": 0x17,
         "floor_id": 0x0,
@@ -1457,7 +1457,7 @@ LOCATIONS_DATA = {
         "id": 133,
     },
     "Spirit Island Power Upgrade Level 1": {
-        "region_id": "spirit power 1",
+        "region_id": "Spirit Power 1",
         "vanilla_item": "Spirit of Power (Progressive)",
         "stage_id": 0x17,
         "floor_id": 0x1,
@@ -1466,7 +1466,7 @@ LOCATIONS_DATA = {
         "id": 134,
     },
     "Spirit Island Power Upgrade Level 2": {
-        "region_id": "spirit power 2",
+        "region_id": "Spirit Power 2",
         "vanilla_item": "Spirit of Power (Progressive)",
         "stage_id": 0x17,
         "floor_id": 0x1,
@@ -1475,7 +1475,7 @@ LOCATIONS_DATA = {
         "id": 135,
     },
     "Spirit Island Wisdom Upgrade Level 1": {
-        "region_id": "spirit wisdom 1",
+        "region_id": "Spirit Wisdom 1",
         "vanilla_item": "Spirit of Wisdom (Progressive)",
         "stage_id": 0x17,
         "floor_id": 0x1,
@@ -1484,7 +1484,7 @@ LOCATIONS_DATA = {
         "id": 136,
     },
     "Spirit Island Wisdom Upgrade Level 2": {
-        "region_id": "spirit wisdom 2",
+        "region_id": "Spirit Wisdom 2",
         "vanilla_item": "Spirit of Wisdom (Progressive)",
         "stage_id": 0x17,
         "floor_id": 0x1,
@@ -1493,7 +1493,7 @@ LOCATIONS_DATA = {
         "id": 137,
     },
     "Spirit Island Courage Upgrade Level 1": {
-        "region_id": "spirit courage 1",
+        "region_id": "Spirit Courage 1",
         "vanilla_item": "Spirit of Courage (Progressive)",
         "stage_id": 0x17,
         "floor_id": 0x1,
@@ -1502,7 +1502,7 @@ LOCATIONS_DATA = {
         "id": 138,
     },
     "Spirit Island Courage Upgrade Level 2": {
-        "region_id": "spirit courage 2",
+        "region_id": "Spirit Courage 2",
         "vanilla_item": "Spirit of Courage (Progressive)",
         "stage_id": 0x17,
         "floor_id": 0x1,
@@ -1514,7 +1514,7 @@ LOCATIONS_DATA = {
     # ========== Ocean NW ============
 
     "Ocean NW Golden Frog N": {
-        "region_id": "nw ocean frog n",
+        "region_id": "NW Ocean Frog N",
         "vanilla_item": "Golden Frog Glyph N",
         "stage_id": 0x0,
         "floor_id": 0x1,
@@ -1522,7 +1522,7 @@ LOCATIONS_DATA = {
         "id": 140,
     },
     "Ocean NW Prince of Red Lion Combat Reward": {
-        "region_id": "porl item",
+        "region_id": "PoRL Item",
         "vanilla_item": "Heart Container",
         "stage_id": 0x7,
         "floor_id": 0x0,
@@ -1536,14 +1536,14 @@ LOCATIONS_DATA = {
     # ========== Gust Island ============
 
     "Isle of Gust Hideout Chest": {
-        "region_id": "gust hideout",
+        "region_id": "Tiled Hideout",
         "vanilla_item": "Courage Gem",
         "stage_id": 0xe,
         "floor_id": 0xa,
         "id": 142,
     },
     "Isle of Gust Miblin Cave North Chest": {
-        "region_id": "gust cave damage",
+        "region_id": "Miniblin Cave Damage",
         "vanilla_item": "Treasure Map #7 (Gusts E)",
         "stage_id": 0xe,
         "floor_id": 0xb,
@@ -1551,7 +1551,7 @@ LOCATIONS_DATA = {
         "id": 143,
     },
     "Isle of Gust Miblin Cave South Chest": {
-        "region_id": "gust cave",
+        "region_id": "Miniblin Cave",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0xe,
         "floor_id": 0xb,
@@ -1559,7 +1559,7 @@ LOCATIONS_DATA = {
         "id": 144,
     },
     "Isle of Gust East Cliff Dig": {
-        "region_id": "gust cliffs dig",
+        "region_id": "Gust South Cliffs Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xe,
         "floor_id": 0x0,
@@ -1568,7 +1568,7 @@ LOCATIONS_DATA = {
         "id": 145,
     },
     "Isle of Gust West Cliff Chest": {
-        "region_id": "gust west chest",
+        "region_id": "Gust South NW chest",
         "vanilla_item": "Power Gem",
         "stage_id": 0xe,
         "floor_id": 0x0,
@@ -1576,7 +1576,7 @@ LOCATIONS_DATA = {
         "id": 146,
     },
     "Isle of Gust NW Dig": {
-        "region_id": "gust nw dig",
+        "region_id": "Gust North Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xe,
         "floor_id": 0x1,
@@ -1586,7 +1586,7 @@ LOCATIONS_DATA = {
         "id": 147,
     },
     "Isle of Gust Sandworm Chest": {
-        "region_id": "gust sandworms",
+        "region_id": "Gust North Sandworms",
         "vanilla_item": "Treasure Map #8 (Mercay SE)",
         "stage_id": 0xe,
         "floor_id": 0x1,
@@ -1598,7 +1598,7 @@ LOCATIONS_DATA = {
     # ========== Temple of Wind ============
 
     "Temple of Wind B1 SE Corner Chest": {
-        "region_id": "tow b1",
+        "region_id": "ToW B1",
         "vanilla_item": "Treasure",
         "item_override": "Spirit of Wisdom (Progressive)",
         "stage_id": 0x1d,
@@ -1608,7 +1608,7 @@ LOCATIONS_DATA = {
         "id": 149,
     },
     "Temple of Wind B1 Ledge Chest": {
-        "region_id": "tow b1",
+        "region_id": "ToW B1",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x1d,
         "floor_id": 0x1,
@@ -1617,7 +1617,7 @@ LOCATIONS_DATA = {
         "id": 150,
     },
     "Temple of Wind B2 Chest": {
-        "region_id": "tow b2",
+        "region_id": "ToW B2",
         "vanilla_item": "Power Gem",
         "stage_id": 0x1d,
         "floor_id": 0x2,
@@ -1626,7 +1626,7 @@ LOCATIONS_DATA = {
         "id": 151,
     },
     "Temple of Wind B2 Bombable Wall Item": {
-        "region_id": "tow b2 bombs",
+        "region_id": "ToW B2 Bombs",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x1d,
         "floor_id": 0x3,
@@ -1634,7 +1634,7 @@ LOCATIONS_DATA = {
         "id": 152,
     },
     "Temple of Wind B1 Key Drop": {
-        "region_id": "tow b2 dig",
+        "region_id": "ToW B2 Dig",
         "vanilla_item": "Small Key (Temple of Wind)",
         "stage_id": 0x1d,
         "floor_id": 0x1,
@@ -1643,7 +1643,7 @@ LOCATIONS_DATA = {
         "id": 153,
     },
     "Temple of Wind B2 Bomb Bag Chest": {
-        "region_id": "tow b2 key",
+        "region_id": "ToW B2 Key",
         "vanilla_item": "Bombs (Progressive)",
         "stage_id": 0x1d,
         "floor_id": 0x2,
