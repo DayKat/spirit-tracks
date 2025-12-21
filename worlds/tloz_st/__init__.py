@@ -224,7 +224,7 @@ class SpiritTracksWorld(World):
         # Exclude Rabbit locations
         if self.options.rabbitsanity:
             for loc in LOCATIONS_DATA:
-                if loc.get("rabbit"):
+                if "rabbit" in loc:
                     self.locations_to_exclude.add(loc)
             self.locations_to_exclude.add("Rabbit Haven Rescue 5 Rabbits")
             self.locations_to_exclude.add("Rabbit Haven Rescue 10 Forest Rabbits")

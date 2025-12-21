@@ -10,7 +10,7 @@ REGIONS = [
     "e mayscore rabbit",
     "sw trading post rabbit",
     "e outset rabbit",
-    "sw rabbit haven rabit",
+    "sw rabbit haven rabbit",
     "wt rabbit",
     "nr rabbit haven rabbit",
     "forest after bridge rabbit",
@@ -101,9 +101,9 @@ REGIONS = [
     "rabbit haven",
     "rabbit haven chest",
     "rabbit haven net",
-    "rabbit haven 5 rabbits"
-    "rabbit haven 10 forest rabbits"
-    "rabbit haven 10 snow rabbits"
+    "rabbit haven 5 rabbits",
+    "rabbit haven 10 forest rabbits",
+    "rabbit haven 10 snow rabbits",
     # "rabbit haven 10 ocean rabbits"
     # "rabbit haven 10 fire rabbits"
     # "rabbit haven 10 sand rabbits"
