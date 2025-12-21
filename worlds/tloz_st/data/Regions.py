@@ -5,10 +5,16 @@ REGIONS = [
     # Forest Realm
     "forest realm",
     "forest realm se portal track",
-    #"forest realm nr rabbit haven rabbit",
-    #"forest realm s whittleton rabbit",
-    #"forest realm w castle town rabbit",
-    #"forest realm wt rabbit",
+    "w castle town rabbit",
+    "forest ocean shortcut rabbit",
+    "e mayscore rabbit",
+    "sw trading post rabbit",
+    "e outset rabbit",
+    "sw rabbit haven rabit",
+    "wt rabbit",
+    "nr rabbit haven rabbit",
+    "forest after bridge rabbit",
+    "s rabbit haven rabbit",
 
     # Outset Village
     "outset village",
@@ -95,6 +101,13 @@ REGIONS = [
     "rabbit haven",
     "rabbit haven chest",
     "rabbit haven net",
+    "rabbit haven 5 rabbits"
+    "rabbit haven 10 forest rabbits"
+    "rabbit haven 10 snow rabbits"
+    # "rabbit haven 10 ocean rabbits"
+    # "rabbit haven 10 fire rabbits"
+    # "rabbit haven 10 sand rabbits"
+    # "rabbit haven 50 rabbits"
 
     # Forest Sanctuary
     "fos",
@@ -132,17 +145,17 @@ REGIONS = [
     # Snow Realm
     "snow realm",
     "snow realm post song",
-    # "w anouki village rabbit",
-    # "e anouki village rabbit",
-    # "sw blizzard rabbit",
-    # "snowdrift station rabbit",
-    # "central blizzard rabbit",
-    # "nw blizzard rabbit",
-    # "ne blizzard rabbit",
-    # "e blizzard rabbit",
-    # "w icyspring rabbit",
-    # "n icyspring rabbit",
-    
+    "ne blizzard rabbit",
+    "se blizzard rabbit",
+    "w anouki village rabbit",
+    "sw blizzard rabbit",
+    "e anouki village rabbit",
+    "snowdrift station rabbit",
+    "w icyspring rabbit",
+    "n icyspring rabbit",
+    "nw blizzard rabbit",
+    "central blizzard rabbit",
+
     # Anouki Village
     "anouki village",
     "anouki village stamp station",

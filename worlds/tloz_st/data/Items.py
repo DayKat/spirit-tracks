@@ -292,6 +292,40 @@ ITEMS_DATA = {
         #'value': 0x40
     },
 
+    # ========== Rabbits ============
+
+    "Forest Rabbit": {
+        'classification': ItemClassification.progression,
+        'incremental': True,
+        'dummy': True,
+    },
+    "Snow Rabbit": {
+        'classification': ItemClassification.progression,
+        'incremental': True,
+        'dummy': True,
+    },
+    # "Water Rabbit": {
+    #     'classification': ItemClassification.progression,
+    #     'address': 0x262032,
+    #     'value': 1,
+    #     'incremental': True,
+    #     'size': 1
+    # },
+    # "Fire Rabbit": {
+    #     'classification': ItemClassification.progression,
+    #     'address': 0x262034,
+    #     'value': 1,
+    #     'incremental': True,
+    #     'size': 1
+    # },
+    # "Sand Rabbit": {
+    #     'classification': ItemClassification.progression,
+    #     'address': 0x262035,
+    #     'value': 1,
+    #     'incremental': True,
+    #     'size': 1
+    # },
+
     # ========== Rupees and filler =============
 
     "Green Rupee (1)": {

@@ -44,12 +44,27 @@ def st_has_sword_beam_scroll(state: CollectionState, player: int):
 def st_has_regal_necklace(state: CollectionState, player: int):
     return state.has("Regal Necklace", player)
 
-
 def st_has_wood_heart(state: CollectionState, player: int):
     return state.has("Wood Heart", player)
 
+def st_has_net(state: CollectionState, player: int):
+    return state.has("Rabbit Net", player)
 
-# ========= Rail Items =============
+## ========== Rabbits ===========
+
+def st_has_total_rabbits(state: CollectionState, player: int, count):
+    rabbit_total = state.count("Forest Rabbit", player) + state.count("Snow Rabbit", player)
+    return rabbit_total >= count
+
+def st_has_forest_rabbits(state: CollectionState, player: int, count):
+    rabbits = state.count("Forest Rabbit", player)
+    return rabbits >= count
+
+def st_has_snow_rabbits(state: CollectionState, player: int, count):
+    rabbits = state.count("Snow Rabbit", player)
+    return rabbits >= count
+
+## ========= Rail Items =============
 
 def st_has_glyph(state: CollectionState, player: int, realm: str):
     return state.has(f"{realm} Glyph", player)

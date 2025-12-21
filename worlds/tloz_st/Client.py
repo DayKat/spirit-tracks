@@ -38,6 +38,7 @@ RAM_ADDRS = {
 
     "health": (0x2651BC, 1, "Main RAM"),
     "heart_count": (0x2651BD, 1, "Main RAM"),
+    "rabbits": (0x262030, 7, "Main RAM"),
 }
 
 POINTERS = {
@@ -158,7 +159,7 @@ class SpiritTracksClient(DSZeldaClient):
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:
             self.receiving_location = True
-            stamp_location = self.scene_to_stamp[self.current_scene]
+            stamp_location = self.scene_to_stamp[self.current_scene] #TODO error when loading into slot (in fs) after receiving stamp book offline, scene refresh fixed
             await self._process_checked_locations(ctx, stamp_location)
 
     def cancel_location_read(self, location) -> bool:
@@ -179,9 +180,12 @@ class SpiritTracksClient(DSZeldaClient):
             if goal == 3 and location.get("region_id") == "bt fraaz":
                 self.has_goal_location = True
 
-    # TODO needs a way of freezing value
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
+        rabbit_total = item_count(ctx, "Forest Rabbit") + item_count(ctx, "Snow Rabbit")
+        if rabbit_total > 0:
+            if (self.current_scene == 0x09) or (self.current_scene == 0x3E):
+                await write_memory_value(ctx, RAM_ADDRS["rabbits"], int(hex(rabbit_total)))
         await super().game_watcher(ctx)
     #     if self.current_scene == (0x0400 or 0x0500 or 0x0600 or 0x0700):
     #         current_gear = await read_memory_value(ctx, 0x2CA24C, 4)

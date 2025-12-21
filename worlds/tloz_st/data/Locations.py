@@ -4,8 +4,6 @@ from .Constants import ITEM_GROUPS
 # TODO: Add sram data for saveslot 2
 # TODO: Add the rest of sram data in bulk
 
-## ========== remember to add item override!! =============
-
 LOCATIONS_DATA = {
 
     #Outset Village
@@ -682,6 +680,32 @@ LOCATIONS_DATA = {
         "z_max": -9020,
         "item_override": "Ocean Glyph"
     },
+    "Rabbit Haven Rescue 5 Rabbits": {
+        "region_id": "rabbit haven 5 rabbits",
+        "vanilla_item": "Heart Container",
+        "stage_id": 0x3E,
+        "room_id": 0,
+    },
+    "Rabbit Haven Rescue 10 Forest Rabbits": {
+        "region_id": "rabbit haven 10 forest rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        "require_item": ["Forest Rabbit"],
+    },
+    "Rabbit Haven Rescue 10 Snow Rabbits": {
+        "region_id": "rabbit haven 10 snow rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        "require_item": ["Snow Rabbit"],
+    },
+    # "Rabbit Haven Rescue 50 Rabbits": {
+    #     "region_id": "rabbit haven 50 rabbits",
+    #     "vanilla_item": "Sword Beam Swordsman's Scroll",
+    #     "stage_id": 0x3E,
+    #     "room_id": 0,
+    # },
 
     # Trading Post
     "Trading Post Stamp Station": {
@@ -748,7 +772,7 @@ LOCATIONS_DATA = {
         "delay_pickup": ["Anouki Village Song Statue Chest"],
         "require_item": ["Spirit Flute"],
     },
-    "Anouki Village Song Statue Chest": {
+    "Anouki Village Song Statue Chest": { #TODO check if consistently sending check
         "region_id": "anouki village song statue chest",
         "vanilla_item": ["Red Potion", "Big Green Rupee (100)"],
         "stage_id": 0x2B,
@@ -1022,7 +1046,193 @@ LOCATIONS_DATA = {
         "z_max": -28439,
         "require_item": ["Spirit Flute", "Song of Discovery", "Snow Source"],
     },
+
+    # ========= Rabbits ==========
+
+    "Rabbit near Castle Town": {
+        "region_id": "w castle town rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 1,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit near Ocean Shortcut": {
+        "region_id": "forest ocean shortcut rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 2,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit E Mayscore": {
+        "region_id": "e mayscore rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 4,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit SW Trading Post": {
+        "region_id": "sw trading post rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 8,
+    "rabbit": True,
+    "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit E Outset": {
+        "region_id": "e outset rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 0x10,
+    "rabbit": True,
+    "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit SW Rabbit Haven": {
+        "region_id": "sw rabbit haven rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 0x20,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit near Wooded Temple": {
+        "region_id": "wt rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 0x40,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit near Rabbit Haven": {
+        "region_id": "nr rabbit haven rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262030,
+        "value": 0x80,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit past wooden bridge": {
+        "region_id": "forest after bridge rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262031,
+        "value": 1,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit S Rabbit Haven": {
+        "region_id": "s rabbit haven rabbit",
+        "vanilla_item": "Forest Rabbit",
+        "stage_id": 0x04,
+        "address": 0x262031,
+        "value": 2,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+
+    "Rabbit NE Blizzard": {
+        "region_id": "ne blizzard rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262031,
+        "value": 4,
+    "rabbit": True,
+    "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit SE Blizzard": {
+        "region_id": "se blizzard rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262031,
+        "value": 8,
+    "rabbit": True,
+    "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit W Anouki Village": {
+        "region_id": "w anouki village rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262031,
+        "value": 0x10,
+    "rabbit": True,
+    "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit SW Blizzard": {
+        "region_id": "sw blizzard rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262031,
+        "value": 0x20,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit E Anouki Village": {
+        "region_id": "e anouki village rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262031,
+        "value": 0x40,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit near Snowdrift Station": {
+        "region_id": "snowdrift station rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262031,
+        "value": 0x80,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit W Icy Spring Station": {
+        "region_id": "w icyspring rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262032,
+        "value": 1,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit N Icy Spring Station": {
+        "region_id": "n icyspring rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262032,
+        "value": 2,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit NW Blizzard": {
+        "region_id": "nw blizzard rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262032,
+        "value": 4,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
+    "Rabbit Central Blizzard": {
+        "region_id": "central blizzard rabbit",
+        "vanilla_item": "Snow Rabbit",
+        "stage_id": 0x05,
+        "address": 0x262032,
+        "value": 8,
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
+    },
 }
+## ========== remember to add item override!! =============
+
 
 for i, name in enumerate(LOCATIONS_DATA):
     LOCATIONS_DATA[name]["id"] = i+1

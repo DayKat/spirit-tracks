@@ -168,6 +168,14 @@ ITEM_GROUPS = {
      ]
 }
 
+# RABBITS = {
+#     "Forest Rabbits": [0x262030, 0xFF, 0x262031, 0x03],
+#     "Snow Rabbits": [0x262031, 0xFC, 0x262032, 0x0F],
+#     # "Water Rabbits": [0x262032, 0xF0, 0x262033, 0x3F],
+#     # "Fire Rabbits": [0x262033, 0xC0, 0x262034, 0xFF],
+#     # "Sand Rabbits": [0x262034, 0xFF, 0x262035, 0x03],
+# }
+
 LOCATION_GROUPS = {
     "Forest Realm": [],
     "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree", "Outset Niko's House Tree", "Outset Receive Stamp Book"],

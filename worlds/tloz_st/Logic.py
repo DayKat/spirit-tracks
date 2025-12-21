@@ -21,6 +21,16 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ========= Forest Realm ==========
 
         ["forest realm", "forest realm se portal track", False, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player, "Forest Realm SE Portal")],
+        ["forest realm", "w castle town rabbit", False, lambda state: st_has_net(state, player)],
+        ["forest realm", "forest ocean shortcut rabbit", False, lambda state: st_has_net(state, player) and st_has_misc_tracks(state, player, "Forest Realm Ocean Shortcut")],
+        ["forest realm", "e mayscore rabbit", False, lambda state: st_has_misc_tracks(state, player, "E Mayscore Bridge") and st_has_net(state, player)],
+        ["forest realm", "sw trading post rabbit", False, lambda state: st_has_misc_tracks(state, player, "Forest Realm SE Portal Tracks") and st_has_net(state, player)],
+        ["forest realm", "e outset rabbit", False, lambda state: st_has_net(state, player)],
+        ["forest realm", "sw rabbit haven rabbit", False, lambda state: st_has_misc_tracks(state, player, "W Forest Realm Tracks") and (st_has_temple_tracks(state, player, "Wooded Temple") or st_has_glyph(state, player, "Snow")) and st_has_net(state, player)],
+        ["forest realm", "wt rabbit", False, lambda state: st_has_temple_tracks("Wooded") and  st_has_net(state, player)],
+        ["forest realm", "nr rabbit haven rabbit", False, lambda state: st_has_glyph("Snow") and st_has_net(state, player)],
+        ["forest realm", "forest after bridge rabbit", False, lambda state: st_has_misc_tracks(state, player, "E Mayscore Bridge") and st_has_net(state, player)],
+        ["forest realm", "sw rabbit haven rabbit", False, lambda state: st_has_misc_tracks(state, player, "W Forest Realm Tracks") and (st_has_temple_tracks(state, player, "Wooded Temple") or st_has_glyph(state, player,"Snow")) and st_has_net(state, player)],
 
         # # ======== Castle Town =========
 
@@ -122,12 +132,25 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "rabbit haven", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["rabbit haven", "rabbit haven chest", False, None],
         ["rabbit haven", "rabbit haven net", False, None],
+        ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
+        ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_forest_rabbits(state, player, 10)],
+        ["rabbit haven", "rabbit haven 10 snow rabbits", False, lambda state: st_has_snow_rabbits(state, player, 10)],
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # # ============ Snow Realm ===============
 
         ["forest realm", "snow realm", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["snow realm", "snow realm post song", False, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
+        ["snow realm post song", "ne blizzard rabbit", False, lambda state: st_has_net(state, player)],
+        ["snow realm post song", "se blizzard rabbit", False, lambda state: st_has_net(state, player)],
+        ["snow realm", "w anouki village rabbit", False, lambda state: st_has_net(state, player)],
+        ["snow realm post song", "sw blizzard rabbit", False, lambda state: st_has_net(state, player)],
+        ["snow realm", "e anouki village rabbit", False, lambda state: st_has_net(state, player)],
+        ["snow realm post song", "snowdrift station rabbit", False, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station") and st_has_net(state, player)],
+        ["snow realm post song", "w icyspring rabbit", False, lambda state: st_has_misc_tracks(state, player, "N Icy Spring") and st_has_net(state, player)],
+        ["snow realm post song", "n icyspring rabbit", False, lambda state: st_has_misc_tracks(state, player, "N Icy Spring") and st_has_net(state, player)],
+        ["snow realm post song", "nw blizzard rabbit", False, lambda state: st_has_net(state, player)],
+        ["snow realm post song", "central blizzard rabbit", False, lambda state: st_has_net(state, player)],
 
         # ======== Anouki Village ========
 

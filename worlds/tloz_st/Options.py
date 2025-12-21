@@ -35,7 +35,7 @@ class SpiritTracksLogic(Choice):
     """
     Logic options:
     - Normal: Glitches not in logic.
-    - Medium: Includes some cool uses of pots aren't hard, but unconventional
+    - Hard: Includes some cool uses of pots aren't hard, but unconventional
     - Glitched: Clever use of items in logic and glitches
     Be careful, using glitches on normal logic can cause key-related softlocks
 
@@ -73,21 +73,6 @@ class SpiritTracksKeyRandomization(Choice):
 #     default = 3
 
 
-# class SpiritTracksFrogRandomization(Choice):
-#     """
-#     Ramdomize golden cyclone frogs
-#     - vanilla: shooting a frog gives their warp spot
-#     - start_with: start with all warps unlocked. Frogs are not checks. You don't start with cyclone slate unless it's
-#     in starting_items. You also need their respective sea charts to actually warp.
-#     - randomize: frog glyphs are random and frogs are checks
-#     """
-#     display_name = "randomize_frogs"
-#     option_vanilla = 0
-#     option_start_with = 1
-#     option_randomize = 2
-#     default = 0
-
-
 # class SpiritTracksDungeonHints(Choice):
 #     """
 #     Receive hints for your required dungeons
@@ -101,25 +86,34 @@ class SpiritTracksKeyRandomization(Choice):
 #     option_totok = 2
 #     default = 1
 
-class SpiritTracksExcludeNonRequiredDungeons(Toggle):
-    """
-    NOT IMPLEMENTED YET
+#
+# class SpiritTracksShopHints(Toggle):
+#     """
+#     NOT IMPLEMENTED YET
+#
+#     Get hints for shop items you currently can buy
+#     Includes island shops, Beedle, masked Beedle and Eddo
+#     """
+#     display_name = "hint_shops"
+#     default = 1
 
-    Non-required dungeons won't have progression or useful items. Does not apply to TotOK.
+#
+# class SpiritTracksExcludeNonRequiredDungeons(Toggle):
+#     """
+#     NOT IMPLEMENTED YET
+#
+#     Non-required dungeons won't have progression or useful items. Does not apply to TotOK.
+#     """
+#     display_name = "exclude_non_required_dungeons"
+#     default = 1
+
+class SpiritTracksRabbitsanity(Toggle):
     """
-    display_name = "exclude_non_required_dungeons"
+    Rabbits received are separated into realms, while each rabbit catch is a check. Also includes Bunnio's rewards.
+    """
+    display_name = "Rabbitsanity"
     default = 1
 
-
-class SpiritTracksShopHints(Toggle):
-    """
-    NOT IMPLEMENTED YET
-
-    Get hints for shop items you currently can buy
-    Includes island shops, Beedle, masked Beedle and Eddo
-    """
-    display_name = "hint_shops"
-    default = 1
 
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
@@ -146,6 +140,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     #shop_hints: SpiritTracksShopHints
 
     # World Options
+    rabbitsanity: SpiritTracksRabbitsanity
 
     # Generic
     start_inventory_from_pool: StartInventoryPool
