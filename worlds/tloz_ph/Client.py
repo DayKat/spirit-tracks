@@ -845,7 +845,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         current_scene = self.read_result["stage"] * 0x100 + self.read_result["room"]
         game_clear = False
-        current_scene = current_scene * 0x100 if current_scene < 0x100 else current_scene
+        current_scene = current_scene * 0x100 if current_scene < 0x100 else current_scene  # ???
         if ctx.slot_data["bellum_access"] == 4:
             game_clear = self.metal_count >= ctx.slot_data["required_metals"]
         else:

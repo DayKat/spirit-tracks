@@ -504,7 +504,7 @@ REGIONS = [
     
     "ToI Blue Warp",
     "Gleeok",
-    "Beat Gleeok",
+    "Post Gleeok",
     "Post ToI",
 
     # NE Ocean
@@ -612,7 +612,6 @@ REGIONS = [
     "NE Ocean Salvage",
     "NE Ocean Salvage Inner",
     "NW Ocean Corner Salvage",
-
 
     "Salvage 1",
     "Salvage 2",
