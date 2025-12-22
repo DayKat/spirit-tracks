@@ -40,7 +40,7 @@ DYNAMIC_ENTRANCES = {
         ],
     },
     "Shortcut to Temple of Courage": {
-        "entrance": "Molida Port House",
+        "entrance": "Molida Ocara's House",
         "destination": "ToC Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Temple of Courage 1F Bomb Alcove Chest",

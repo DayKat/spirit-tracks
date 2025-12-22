@@ -58,8 +58,8 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Green Rupee (100)",
         "id": 5,
     },
-    "Mercay Geozard Cave Chest": {
-        "region_id": "Mercay Geozard Cave North",
+    "Eye Bridge Cave Chest": {
+        "region_id": "Eye Bridge Cave North",
         "stage_id": 0xb,
         "floor_id": 0x10,
         "vanilla_item": "Power Gem",
@@ -67,7 +67,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x1,
         "id": 6,
     },
-    "Mercay Geozard Cave South Chest West": {
+    "Mercay SE Ledge Chest West": {
         "region_id": "Mercay SE Ledge",
         "stage_id": 0xb,
         "floor_id": 0x3,
@@ -78,7 +78,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "id": 7,
     },
-    "Mercay Geozard Cave South Chest East": {
+    "Mercay SE Ledge Chest East": {
         "region_id": "Mercay SE Ledge",
         "stage_id": 0xb,
         "floor_id": 0x3,
@@ -99,8 +99,8 @@ LOCATIONS_DATA = {
         "vanilla_item": "Nothing!",
         "id": 9,
     },
-    "Mercay Freedle Tunnel Chest": {
-        "region_id": "Mercay Freedle Tunnel Chest",
+    "Long Bridge Cave Chest": {
+        "region_id": "Long Bridge Cave Chest",
         "stage_id": 0xb,
         "floor_id": 0x12,
         "vanilla_item": "Courage Gem",
@@ -781,7 +781,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "id": 67,
     },
-    "TotOK B12 NW Chest": {
+    "TotOK B12 NE Chest": {
         "region_id": "TotOK B12 NW Chest",
         "vanilla_item": "Force Gem (B12)",
         "stage_id": 0x25,
@@ -791,7 +791,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "id": 68,
     },
-    "TotOK B12 NE Chest": {
+    "TotOK B12 NW Chest": {
         "region_id": "TotOK B12 NE Chest",
         "vanilla_item": "Force Gem (B12)",
         "stage_id": 0x25,
@@ -856,7 +856,7 @@ LOCATIONS_DATA = {
         "id": 74,
     },
     "Ocean SW Golden Frog X": {
-        "region_id": "sw ocean frog x",
+        "region_id": "SW Ocean Frog X",
         "vanilla_item": "Golden Frog Glyph X",
         "stage_id": 0x0,
         "floor_id": 0x0,
@@ -874,7 +874,7 @@ LOCATIONS_DATA = {
         "id": 76,
     },
     "Ocean SW Nyave Treasure": {
-        "region_id": "SW Ocean Nyave",
+        "region_id": "Nyave",
         "vanilla_item": "Treasure",
         "stage_id": 0xa,
         "floor_id": 0x0,
@@ -908,7 +908,7 @@ LOCATIONS_DATA = {
         "id": 79,
     },
     "Cannon Island Cave Chest": {
-        "region_id": "Cannon Cave South",
+        "region_id": "Bomb Flower Cave South",
         "vanilla_item": "Power Gem",
         "stage_id": 0x28,
         "floor_id": 0x0,
@@ -982,7 +982,7 @@ LOCATIONS_DATA = {
     # ========== Ember Island ============
 
     "Isle of Ember Astrid's Basement Dig": {
-        "region_id": "Astrid's Basement",
+        "region_id": "Astrid's Basement Dig",
         "vanilla_item": "Treasure Map #3 (Gusts SW)",
         "stage_id": 0xd,
         "floor_id": 0x14,
@@ -1140,8 +1140,8 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 102,
     },
-    "Molida Cave Wayfarer Hideaway Chest": {
-        "region_id": "Molida Cave Upper",
+    "Sun Lake Cave Wayfarer Hideaway Chest": {
+        "region_id": "Sun Lake Cave Upper",
         "vanilla_item": "Treasure Map #2 (Mercay NE)",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1149,8 +1149,8 @@ LOCATIONS_DATA = {
         "x_max": -0x61a8,
         "id": 103,
     },
-    "Molida Cave Grapple Chest": {
-        "region_id": "Molida Cave Grapple",
+    "Sun Lake Cave Grapple Chest": {
+        "region_id": "Sun Lake Cave Grapple",
         "vanilla_item": "Power Gem",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1158,8 +1158,8 @@ LOCATIONS_DATA = {
         "x_min": 0x9c40,
         "id": 104,
     },
-    "Molida Cave Geozard Dig": {
-        "region_id": "Molida Cave Geozard Dig",
+    "Sun Lake Cave Geozard Dig": {
+        "region_id": "Sun Lake Cave Geozard Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1168,8 +1168,8 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 105,
     },
-    "Molida Cave Shovel Chest": {
-        "region_id": "Shovel Cave",
+    "Shovel Hideout Chest": {
+        "region_id": "Shovel Hideout",
         "vanilla_item": "Shovel",
         "stage_id": 0xc,
         "floor_id": 0xf,
@@ -1178,8 +1178,8 @@ LOCATIONS_DATA = {
         "sram_value": 0x1,
         "id": 106,
     },
-    "Molida Cave Shovel Room Dig": {
-        "region_id": "Shovel Cave Dig",
+    "Shovel Hideout Dig": {
+        "region_id": "Shovel Hideout Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
         "floor_id": 0xf,
@@ -1218,8 +1218,8 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 110,
     },
-    "Molida Island North Dig Chest": {
-        "region_id": "Molida Cave North Drop",
+    "Sun Lake Cave North Drop Chest": {
+        "region_id": "Sun Lake Cave North Drop",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0xc,
         "floor_id": 0xa,
@@ -1815,7 +1815,7 @@ LOCATIONS_DATA = {
         "id": 168,
     },
     "Bannan Island Cannon Game": {
-        "region_id": "bannan cannon game",
+        "region_id": "Bannan Cannon Game",
         "vanilla_item": "Bombs (Progressive)",
         "stage_id": 0x14,
         "floor_id": 0x0,
@@ -2986,7 +2986,7 @@ LOCATIONS_DATA = {
         "id": 281,
     },
     "Ocean SW Nyave Trade Quest Item": {
-        "region_id": "SW Ocean Nyave Trade",
+        "region_id": "Nyave Trade",
         "vanilla_item": "Wood Heart",
         "stage_id": 0xa,
         "floor_id": 0x0,

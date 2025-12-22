@@ -146,7 +146,7 @@ class PhantomHourglassWorld(World):
     location_name_to_id = build_location_name_to_id_dict()
     item_name_to_id = build_item_name_to_id_dict()
     item_name_groups = ITEM_GROUPS
-    origin_region_name = "menu"
+    origin_region_name = "Menu"
 
     glitches_item_name = "_UT_Glitched_Logic"
     ut_can_gen_without_yaml = True
@@ -376,52 +376,52 @@ class PhantomHourglassWorld(World):
         # Create events for required dungeons
         if self.options.goal_requirements == "defeat_bosses":
             if "Blaaz Boss Reward" in self.required_bosses:
-                self.create_event("post blaaz", "_required_dungeon")
+                self.create_event("Post Blaaz", "_required_dungeon")
             if "Cyclok Boss Reward" in self.required_bosses:
-                self.create_event("post cyclok", "_required_dungeon")
+                self.create_event("Post Cyclok", "_required_dungeon")
             if "Crayk Boss Reward" in self.required_bosses:
-                self.create_event("post crayk", "_required_dungeon")
+                self.create_event("Post Crayk", "_required_dungeon")
             if "_gs" in self.required_bosses:
                 if self.options.ghost_ship_in_dungeon_pool == "rescue_tetra":
-                    self.create_event("ghost ship tetra", "_required_dungeon")
+                    self.create_event("Ghost Ship Tetra", "_required_dungeon")
                 elif self.options.ghost_ship_in_dungeon_pool == "cubus_sisters":
-                    self.create_event("ghost ship post cubus", "_required_dungeon")
+                    self.create_event("Post Cubus Sisters", "_required_dungeon")
             if "Cubus Sisters Ghost Key" in self.required_bosses:
-                self.create_event("ghost ship post cubus", "_required_dungeon")
+                self.create_event("Post Cubus Sisters", "_required_dungeon")
             if "Dongo Boss Reward" in self.required_bosses:
-                self.create_event("post dongo", "_required_dungeon")
+                self.create_event("Post Dongorongo", "_required_dungeon")
             if "Gleeok Boss Reward" in self.required_bosses:
-                self.create_event("beat gleeok", "_required_dungeon")
+                self.create_event("Post Gleeok", "_required_dungeon")
             if "Eox Boss Reward" in self.required_bosses:
-                self.create_event("mutoh post eox", "_required_dungeon")
+                self.create_event("Post Eox", "_required_dungeon")
         # Post Dungeon Events
-        self.create_event("post tof", "_beat_tof")
-        self.create_event("post toc", "_beat_toc")
-        self.create_event("post tow", "_beat_tow")
-        self.create_event("post gt", "_beat_gt")
-        self.create_event("post toi", "_beat_toi")
-        self.create_event("spawn pirate ambush", "_beat_ghost_ship")
+        self.create_event("Post ToF", "_beat_tof")
+        self.create_event("Post ToC", "_beat_toc")
+        self.create_event("Post ToW", "_beat_tow")
+        self.create_event("Post GT", "_beat_gt")
+        self.create_event("Post ToI", "_beat_toi")
+        self.create_event("Spawn Pirate Ambush", "_beat_ghost_ship")
         # Farmable minigame events
-        self.create_event("bannan cannon game", "_can_play_cannon_game")
-        self.create_event("harrow dig", "_can_play_harrow")
-        self.create_event("ds race", "_can_play_goron_race")
-        self.create_event("totok b1 phantom", "_can_farm_totok")
+        self.create_event("Bannan Cannon Game", "_can_play_cannon_game")
+        self.create_event("Harrow Minigame", "_can_play_harrow")
+        self.create_event("Dee Ess Goron Race", "_can_play_goron_race")
+        self.create_event("TotOK B1 Phantom", "_can_farm_totok")
         # Shop stuff
-        self.create_event("mercay treasure teller", "_has_treasure_teller")
+        self.create_event("Treasure Teller", "_has_treasure_teller")
         # Switch states etc
-        self.create_event("bremeur kings key", "_ruins_lower_water")
-        self.create_event("gust sandworms", "_windmills")
-        self.create_event("goron chus", "_goron_chus")
-        self.create_event("goron maze south", "_goron_maze_switch")
-        self.create_event("cannon eddo", "_eddo_door")
-        self.create_event("toi b1 switch", "_toi_b1_switch")
+        self.create_event("Bremeur's Temple Kings Key", "_ruins_lower_water")
+        self.create_event("Gust North Sandworms", "_windmills")
+        self.create_event("Goron Chus", "_goron_chus")
+        self.create_event("Goron NE South", "_goron_maze_switch")
+        self.create_event("Eddo's Workshop", "_eddo_door")
+        self.create_event("ToI B1 Switch", "_toi_b1_switch")
         # Blue warps
-        self.create_event("toi blue warp", "_toi_blue_warp")
+        self.create_event("ToI Blue Warp", "_toi_blue_warp")
         # Mountain passage
-        self.create_event("mercay passage 1", "_mp1")
-        self.create_event("mercay passage rat", "_mp3")
+        self.create_event("Mountain Passage 1", "_mp1")
+        self.create_event("Mountain Passage Rat", "_mp3")
         # Goal
-        self.create_event("goal", "_beaten_game")
+        self.create_event("Goal", "_beaten_game")
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
@@ -918,7 +918,8 @@ class PhantomHourglassWorld(World):
             if 'dungeon' in ITEMS_DATA[item_name]:
                 dung = item_name.rsplit('(', 1)[1][:-1]
                 # If pedestal item location is vanilla, lock them there
-                if self.options.randomize_pedestal_items.value in [0, 1] and item_name in ITEM_GROUPS["Regular Pedestal Items"]:
+                if (self.options.randomize_pedestal_items.value in [0, 1]
+                        and item_name in ITEM_GROUPS["Regular Pedestal Items"]):
                     forced_item = self.create_item(item_name)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
@@ -975,6 +976,7 @@ class PhantomHourglassWorld(World):
         add_items |= {"Heart Container": 13}
         # Add pedestal items
         if self.options.randomize_pedestal_items.value > 1:
+            print(f"{add_pedestal_items(self.options.randomize_pedestal_items, self.options.pedestal_item_options, self.excluded_dungeons)}")
             add_items |= add_pedestal_items(self.options.randomize_pedestal_items, self.options.pedestal_item_options, self.excluded_dungeons)
         # Add sand items to pool
         add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
@@ -999,6 +1001,7 @@ class PhantomHourglassWorld(World):
                 item_pool_dict[i] = 1
             filler_item_count -= 8
         # Add as many filler items as required
+        print(f"Remaining filler: {filler_item_count}")
         for _ in range(filler_item_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
@@ -1064,6 +1067,7 @@ class PhantomHourglassWorld(World):
         if self.options.randomize_boss_keys == "in_own_dungeon":
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
         if self.options.randomize_pedestal_items == "in_own_dungeon":
+            print(f"{[item for item in items if item.name in ITEM_GROUPS["Pedestal Items"]]}")
             confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Pedestal Items"]])
         # Remove boss reward items from pool for pre filling
         confined_dungeon_items.extend([item for item in items if item.name in self.boss_reward_items_pool])
@@ -1110,6 +1114,7 @@ class PhantomHourglassWorld(World):
             global_pedestal_helper("Square", "Temple of Courage")
             global_pedestal_helper("Round", "Ghost Ship")
             global_pedestal_helper("Triangle", "Ghost Ship")
+            print(f"{global_crystal_dungeons}")
 
         # If keysanity is off, dungeon items can only be put inside local dungeon locations, and there are not so many
         # of those which makes them pretty crowded.
@@ -1133,6 +1138,7 @@ class PhantomHourglassWorld(World):
 
             # Add global crystals/force gems
             if dung_name in global_crystal_dungeons:
+                print(f"{[item for item in self.pre_fill_items if item.name in global_crystal_dungeons[dung_name]]}")
                 confined_dungeon_items.extend([item for item in self.pre_fill_items if item.name in global_crystal_dungeons[dung_name]])
 
             # Add force gems
@@ -1140,6 +1146,7 @@ class PhantomHourglassWorld(World):
                 confined_dungeon_items.extend([item for item in self.pre_fill_items
                                           if "Force Gem" in item.name])
 
+            print(f"{dung_name}: {confined_dungeon_items}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 

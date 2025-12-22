@@ -1467,6 +1467,46 @@ TREASURE_PRICES = {
     "Treasure: Regal Ring": [1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 50]
 }
 
+region_aliases = {
+    # Aliases
+    "ToF 1F": [
+        "Temple of Fire",
+        "ToF"],
+    "ToW 1F": ["Temple of Wind", "Tow", "Temple of Wind 1F"],
+    "ToC 1F": ["Temple of Courage", "ToC", "Temple of Courage 1F"],
+    "Ghost Ship 1F": ["Ghost Ship", "GS", "Ghost Ship Deck", "GS 1F"],
+    "GT 1F": ["Goron Temple", "GT"],
+    "ToI 1F": ["Temple of Ice", "ToI"],
+    "MT 1F": ["Mutoh's Temple", "MT"],
+    "TotOK Lobby": ["Temple of the Ocean King", "TotOK"],
+
+    "Mercay SE": ["Mercay Island", "Mercay", "Mercay Port"],
+    "Cannon Island": ["Cannon"],
+    "Ember Port": ["Isle of Ember", "Ember Island", "Ember"],
+    "Molida South": ["Molida Island", "Molida", "Molida Port"],
+    "Spirit Island": ["Isle of Spirits", "Spirit"],
+    "Gust South": ["Isle of Gust", "Gust"],
+    "Bannan Island": ["Bannan West", "Bannan", "Bannan Port"],
+    "Zauz's Island": ["Zauz"],
+    "Uncharted Island": ["Uncharted"],
+    "Goron SW": ["Goron", "Goron Island", "Goron Port"],
+    "Frost SW": ["Isle of Frost", "Frost", "Frost Island", "Ice Island", "Ice"],
+    "Harrow Island": ["Harrow"],
+    "Dee Ess Island": ["Dee Ess", "DS", "DS Island"],
+    "Isle of the Dead": ["IotD", "Dead"],
+    "Ruins SW Port": ["Ruins", "Isle of Ruins", "Ruins Island", "Ruins Port"],
+    "Maze Island": ["Maze"],
+
+    "Nyave": ["SW Ocean Nyave", "Nyave's Ship"],
+    "PoRL": ["Nyeve", "Nyeve's Ship", "Prince of Red Lions"],
+    "SE Ocean Trade": ["Wayaway", "Wayaway Ship", "Hoho Tribe", "Hoho Tribe's Ship"],
+    "NE Ocean Combat": ["Man of Smiles", "Man of Smiles' Ship", "Man of Smiles' Trade"],
+
+    "Sun Lake Cave": ["Molida Cave"],
+    "Keese Passage West": ["Bannan Cave West", "Bannan Cave", "Keese Passage"],
+}
+
+
 if __name__ == "__main__":
     for group in LOCATION_GROUPS:
         print("-", group)

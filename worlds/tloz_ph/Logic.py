@@ -35,7 +35,7 @@ def make_overworld_logic():
         ["Shipyard", "Mercay SE", False, None],
         ["Mercay SE", "Treasure Teller", False, "courage_crest"],
         ["Treasure Teller", "Mercay SE", False, None],
-        ["Mercay SE", "Mercay SE Yellow Guy", False, "courage_crest"],
+        ["Mercay SE", "Mercay SE Ojibe", False, "courage_crest"],
         ["Mercay SE", "Mercay NE", True, False],
         ["Mercay SE Ledge", "Mercay SE", False, None],
 
@@ -113,6 +113,7 @@ def make_overworld_logic():
         ["TotOK B3", "TotOK B3 Key", False, "totok_b3_key"],
         ["TotOK B3", "TotOK B3 Phantom", False, "totok_b3_phantom"],
         ["TotOK B3", "TotOK B3.5", False, "totok_b35"],
+        ["TotOK B3.5", "TotOK B4", False, "totok_b4"],
 
         ["TotOK B4", "TotOK B4 Key", False, "totok_b4_key"],
         ["TotOK B4", "TotOK B4 Eyes", False, "totok_b4_eyes"],
@@ -208,12 +209,12 @@ def make_overworld_logic():
         ["SW Ocean East", "SW Ocean Crest Salvage", False, "salvage_courage_crest"],
         ["SW Ocean East", "SW Ocean West", False, "cannon"],
         ["SW Ocean West", "SW Ocean East", False, "cannon"],
-        ["Molida Boat", "Molida Island", True, None],
+        ["Molida Boat", "Molida South", True, None],
         ["Molida Boat", "SW Ocean West", True, "require_chart", "SW"],
         ["Spirit Boat", "Spirit Island", True, None],
         ["Spirit Boat", "SW Ocean West", True, "require_chart", "SW"],
-        ["SW Ocean West", "SW Ocean Nyave", False, "nyave_fight"],
-        ["SW Ocean Nyave", "SW Ocean Nyave Trade", False, "guard_notebook"],
+        ["SW Ocean West", "Nyave", False, "nyave_fight"],
+        ["Nyave", "Nyave Trade", False, "guard_notebook"],
         ["SW Ocean West", "SW Ocean Frog Phi", False, "cannon"],
         ["SW Ocean East", "SW Ocean Frog X", False, "cannon"],
         ["SW Ocean West", "Frog Warps", False, None],
@@ -245,6 +246,7 @@ def make_overworld_logic():
         # =============== Isle of Ember ================
 
         # ER
+        ["Ember Port", "Astrid's House", True, None],
         ["Astrid's House", "Astrid's Basement", True, None],
         ["Astrid's Basement", "Astrid's Basement Dig", False, "spade"],
         ["Ember Port", "Kayo's House", True, None],
@@ -295,15 +297,15 @@ def make_overworld_logic():
 
         # =========== Molida Island ===============
 
-        ["Molida Island", "Molida Dig", False, "spade"],
-        ["Molida Island", "Ocara's House", True, None],
-        ["Molida Island", "Potato's house", True, None],
-        ["Molida Island", "Molida Shop", True, None],
+        ["Molida South", "Molida Dig", False, "spade"],
+        ["Molida South", "Ocara's House", True, None],
+        ["Molida South", "Potato's house", True, None],
+        ["Molida South", "Molida Shop", True, None],
         ["Molida Shop", "Island Shop", False, None],
-        ["Molida Island", "Romaros' House", True, None],
+        ["Molida South", "Romaros' House", True, None],
         ["Romaros' House", "Archery Game", False, "has", "_beat_toc"],
-        ["Molida Island", "Sun Lake Cave", True, None],
-        ["Molida Island", "Sun Lake Cave Upper", False, "shovel"],
+        ["Molida South", "Sun Lake Cave", True, None],
+        ["Molida South", "Sun Lake Cave Upper", False, "shovel"],
 
         ["Sun Lake Cave Upper", "Sun Lake Cave", False, None],
         ["Sun Lake Cave", "Sun Lake Cave Grapple", False, "grapple"],
@@ -319,7 +321,7 @@ def make_overworld_logic():
         ["Sun Lake Cave Back", "Molida Cliff North", True, None],
 
         ["Molida Cliff North", "Molida Cliff South", True, None],
-        ["Molida Cliff South", "Molida Island", False, None],
+        ["Molida Cliff South", "Molida South", False, None],
         ["Molida Cliff South", "Molida Cucco Dig", False, "cuccoo_dig"],
 
         ["Sun Lake Cave Upper", "Sun Lake Cave Sun Door", True, "sun_key"],
@@ -490,8 +492,8 @@ def make_overworld_logic():
         ["Frost Boat", "Frost SW", True, None],
         ["Harrow Boat", "Harrow Island", True, None],
         ["Harrow Boat", "SE Ocean", True, "require_chart", "SE"],
-        ["DS Boat", "Dee Ess Island", True, None],
-        ["DS Boat", "SE Ocean", True, "require_chart", "SE"],
+        ["Dee Ess Boat", "Dee Ess Island", True, None],
+        ["Dee Ess Boat", "SE Ocean", True, "require_chart", "SE"],
         ["SE Ocean", "Pirate Ambush", False, "beat_gs"],
 
         # ================= Goron Island ====================
@@ -653,8 +655,8 @@ def make_overworld_logic():
         ["NE Ocean", "Frog Warps", False, None],
         ["NE Ocean", "NE Ocean Frog", False, "cannon"],
         ["NE Ocean", "NE Ocean Combat", False, "can_kill_blue_chu"],
-        ["Dead Boat", "IotD Port", True, None],
-        ["Dead Boat", "NE Ocean", True, "require_chart", "NE"],
+        ["IotD Boat", "IotD Port", True, None],
+        ["IotD Boat", "NE Ocean", True, "require_chart", "NE"],
         ["Maze Boat", "Maze Island", True, None],
         ["Maze Boat", "NE Ocean", True, "require_chart", "NE"],
         ["NE Ocean Inner", "Ruins Boat", True, "require_chart", "NE"],
@@ -663,7 +665,7 @@ def make_overworld_logic():
 
         # ================= IotD ====================
 
-        ["IotD Port", "Aquanine Cave", True, None],
+        ["IotD Port", "McNay's Cave", True, None],
         ["Isle of the Dead", "IotD Port", False, None],
         ["McNay's Cave", "Rupoor Cave", False, "bombs"],
         ["Rupoor Cave", "McNay's Cave", False, None],
@@ -718,7 +720,7 @@ def make_overworld_logic():
         ["Ruins NE Lower", "Ruins NW Alcove", True, "ruins_water"],
         ["Ruins NE Lower", "Ruins NE Behind Pyramids", True, "grapple"],
         ["Ruins NE Lower", "Ruins SE Lower", True, "ruins_water"],
-        ["Ruins NE Behind Pyramids", "ruins SE coast", True, "ruins_water"],
+        ["Ruins NE Behind Pyramids", "Ruins SE coast", True, "ruins_water"],
         ["Ruins NE Outside Temple", "Ruins NE Behind Pyramids", False, "ruins_water"],
         ["Ruins NE Outside Temple", "MT 1F", True, None],
         ["Ruins NE Outside Temple", "Ruins NE Geozard Arena", False, "ruins_water"],
@@ -731,8 +733,8 @@ def make_overworld_logic():
         ["Ruins SE Lower", "Ruins SE Outside Pyramid", True, "ruins_water"],
         ["Ruins SE Return Bridge West", "Ruins SW Port Cliff", True, None],
         ["Ruins SE Outside Pyramid", "Max's Temple", True, None],
-        ["Ruins SE Lower", "ruins SE Royal Road", False, None],
-        ["ruins SE Royal Road", "Ruins NE Geozard Arena", True, "ruins_water"],
+        ["Ruins SE Lower", "Ruins SE Royal Road", False, None],
+        ["Ruins SE Royal Road", "Ruins NE Geozard Arena", True, "ruins_water"],
 
         # ================= Mutoh's Temple ====================
 
@@ -867,15 +869,6 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
     #     print(f"\t{i}")
 
 if __name__ == "__main__":
-    from worlds.tloz_ph.data.Regions import REGIONS
-
-    for reg1, reg2, *args in make_overworld_logic():
-        regions_lower = [r.lower() for r in REGIONS]
-        if reg1 in regions_lower:
-            i = regions_lower.index(reg1)
-            reg1 = REGIONS[i]
-
-        if reg2 in regions_lower:
-            i = regions_lower.index(reg2)
-            reg2 = REGIONS[i]
-        print(f"\t\t[{reg1}, {reg2}, {args}],")
+    for reg1, reg2, _, func, *args in make_overworld_logic():
+        if func not in RULE_DICT:
+            print(f"{reg1} => {reg2}")
