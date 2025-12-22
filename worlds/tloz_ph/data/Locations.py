@@ -9,7 +9,7 @@ LOCATIONS_DATA = {
 
     # ========== Mercay Island ============
 
-    "Mercay Sword Chest": {
+    "Sword Cave Chest": {
         "region_id": "Sword Cave",
         "item_override": "Sword (Progressive)",
         "vanilla_item": "Oshus' Sword",
@@ -19,7 +19,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x1,
         "id": 1,
     },
-    "Mercay Clear Rocks": {
+    "Mercay SW Clear Rocks": {
         "region_id": "Mercay SW",
         "vanilla_item": "Green Rupee (1)",
         "stage_id": 0xb,
@@ -30,7 +30,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x40,
         "id": 2,
     },
-    "Mercay Oshus Dig": {
+    "Mercay SW Tree Dig": {
         "region_id": "Mercay SW Dig Spot",
         "stage_id": 0xb,
         "floor_id": 0x0,
@@ -38,7 +38,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure Map #10 (Gusts SE)",
         "id": 3,
     },
-    "Mercay Cuccoo Chest": {
+    "Mercay SE Cucco Chest": {
         "region_id": "Mercay SE",
         "stage_id": 0xb,
         "floor_id": 0x3,
@@ -48,7 +48,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x8,
         "id": 4,
     },
-    "Mercay North Bonk Tree": {
+    "Mercay NE Bonk Tree": {
         "region_id": "Mercay NE",
         "stage_id": 0xb,
         "floor_id": 0x2,
@@ -89,7 +89,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x4,
         "id": 8,
     },
-    "TotOK Phantom Hourglass": {
+    "TotOK Lobby Phantom Hourglass": {
         "region_id": "TotOK Lobby",
         "stage_id": 0x26,
         "floor_id": 0x0,
@@ -108,7 +108,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x1,
         "id": 10,
     },
-    "Mercay Freedle Island Chest": {
+    "Mercay NE Freedle Island Chest": {
         "region_id": "Mercay NW Freedle Island",
         "stage_id": 0xb,
         "floor_id": 0x2,
@@ -128,7 +128,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure Map #12 (Dee Ess N)",
         "id": 12,
     },
-    "Mercay Ojibe (Docks Guy) Item": {
+    "Mercay SE Ojibe (Docks Guy) Item": {
         "region_id": "Mercay SE Ojibe",
         "stage_id": 0xb,
         "floor_id": 0x3,
@@ -137,7 +137,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure Map #9 (Cannon W)",
         "id": 13,
     },
-    "Mercay Shipyard Chest": {
+    "Shipyard Chest": {
         "region_id": "Shipyard",
         "stage_id": 0xb,
         "floor_id": 0xd,
@@ -145,7 +145,7 @@ LOCATIONS_DATA = {
         "post_dungeon": "Temple of Fire",
         "id": 14,
     },
-    "Mercay Oshus Spirit Gem": {
+    "Oshus Spirit Gem": {
         "region_id": "Oshus Gem",
         "stage_id": 0xb,
         "floor_id": 0xa,
@@ -155,7 +155,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 15,
     },
-    "Mercay Oshus Phantom Sword": {
+    "Oshus Phantom Sword": {
         "region_id": "Oshus Phantom Blade",
         "stage_id": 0xb,
         "floor_id": 0xa,
@@ -168,7 +168,7 @@ LOCATIONS_DATA = {
 
     # ========== Mountain Passage ============
 
-    "Mountain Passage Chest 1": {
+    "Mountain Passage 1F Entrance Chest": {
         "region_id": "Mountain Passage 1",
         "vanilla_item": "Small Key (Mountain Passage)",
         "stage_id": 0x27,
@@ -181,7 +181,7 @@ LOCATIONS_DATA = {
         "id": 17,
         "do_special": "keylock"
     },
-    "Mountain Passage Chest 2": {
+    "Mountain Passage 1F Side Chest": {
         "region_id": "Mountain Passage 2",
         "stage_id": 0x27,
         "floor_id": 0x0,
@@ -194,7 +194,7 @@ LOCATIONS_DATA = {
         "id": 18,
         "do_special": "keylock"
     },
-    "Mountain Passage Key Drop": {
+    "Mountain Passage 1F Key Drop": {
         "region_id": "Mountain Passage 2",
         "vanilla_item": "Small Key (Mountain Passage)",
         "stage_id": 0x27,
@@ -206,7 +206,7 @@ LOCATIONS_DATA = {
         "id": 19,
         "do_special": "keylock"
     },
-    "Mountain Passage Rat Key": {
+    "Mountain Passage 2F Rat Key": {
         "region_id": "Mountain Passage Rat",
         "vanilla_item": "Small Key (Mountain Passage)",
         "stage_id": 0x27,
@@ -365,7 +365,7 @@ LOCATIONS_DATA = {
 
     # ========== TotOK ============
 
-    "TotOK 1F SW Sea Chart Chest": {
+    "TotOK 1F Sea Chart Chest": {
         "region_id": "TotOK 1F Chart",
         "vanilla_item": "SW Sea Chart",
         "stage_id": 0x25,
@@ -873,7 +873,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 76,
     },
-    "Ocean SW Nyave Treasure": {
+    "Nyave Gift": {
         "region_id": "Nyave",
         "vanilla_item": "Treasure",
         "stage_id": 0xa,
@@ -907,7 +907,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 79,
     },
-    "Cannon Island Cave Chest": {
+    "Bomb Flower Cave Chest": {
         "region_id": "Bomb Flower Cave South",
         "vanilla_item": "Power Gem",
         "stage_id": 0x28,
@@ -959,7 +959,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 84,
     },
-    "Cannon Island Cannon": {
+    "Eddo's Cannon": {
         "region_id": "Eddo's Workshop",
         "vanilla_item": "Nothing!",
         "item_override": "Cannon",
@@ -969,7 +969,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "id": 85,
     },
-    "Cannon Island Salvage Arm": {
+    "Eddo's Salvage Arm": {
         "region_id": "Eddo Salvage Arm",
         "vanilla_item": "Salvage Arm",
         "stage_id": 0x13,
@@ -981,14 +981,14 @@ LOCATIONS_DATA = {
 
     # ========== Ember Island ============
 
-    "Isle of Ember Astrid's Basement Dig": {
+    "Astrid's Basement Dig": {
         "region_id": "Astrid's Basement Dig",
         "vanilla_item": "Treasure Map #3 (Gusts SW)",
         "stage_id": 0xd,
         "floor_id": 0x14,
         "id": 87,
     },
-    "Isle of Ember Grapple Chest": {
+    "Isle of Ember West Grapple Chest": {
         "region_id": "Ember Grapple",
         "vanilla_item": "Courage Gem",
         "stage_id": 0xd,
@@ -997,7 +997,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "id": 88,
     },
-    "Isle of Ember Summit Dig": {
+    "Isle of Ember East Summit Dig": {
         "region_id": "Ember Outside Temple Dig",
         "vanilla_item": "Treasure Map #4 (Bannan SE)",
         "stage_id": 0xd,
@@ -1005,7 +1005,7 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "id": 89,
     },
-    "Isle of Ember Summit Chest": {
+    "Isle of Ember West Summit Chest": {
         "region_id": "Ember Summit West",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0xd,
@@ -1013,7 +1013,7 @@ LOCATIONS_DATA = {
         "y": 0x399a,
         "id": 90,
     },
-    "Isle of Ember Astrid after Fire Temple": {
+    "Astrid After Fire Temple Gift": {
         "region_id": "Astrid Post ToF",
         "item_override": "Power Gem",
         "vanilla_item": "Nothing!",
@@ -1121,14 +1121,14 @@ LOCATIONS_DATA = {
 
     # ========== Molida Island ============
 
-    "Molida Island 2nd House Chest": {
+    "Potato's House Chest": {
         "region_id": "Potato's house",
         "vanilla_item": "Treasure",
         "stage_id": 0xc,
         "floor_id": 0xd,
         "id": 101,
     },
-    "Molida Island Romanos Tree Dig": {
+    "Molida Island South Romanos Tree Dig": {
         "region_id": "Molida Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xc,
@@ -1188,7 +1188,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 107,
     },
-    "Molida Island Cliff Chest": {
+    "Molida Island North Cliff Chest": {
         "region_id": "Molida Cliff North",
         "vanilla_item": "Treasure",
         "stage_id": 0xc,
@@ -1198,7 +1198,7 @@ LOCATIONS_DATA = {
         "z_min": -0x7530,
         "id": 108,
     },
-    "Molida Island Cuccoo Grapple Tree Dig": {
+    "Molida Island South Cucco Grapple Tree Dig": {
         "region_id": "Molida Cucco Dig",
         "vanilla_item": "Treasure Map #20 (Bannan E)",
         "stage_id": 0xc,
@@ -1207,7 +1207,7 @@ LOCATIONS_DATA = {
         "x_min": 0x15f90,
         "id": 109,
     },
-    "Molida Island Cuccoo Grapple Small Island Dig": {
+    "Molida Island South Cucco Grapple Small Island Dig": {
         "region_id": "Molida Cucco Dig",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0xc,
@@ -1236,7 +1236,7 @@ LOCATIONS_DATA = {
         "x_max": 0x0,
         "id": 112,
     },
-    "Molida Archery 1700": {
+    "Archery Minigame 1700": {
         "region_id": "Archery Game",
         "vanilla_item": "Bow (Progressive)",
         "stage_id": 0xc,
@@ -1248,7 +1248,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 113,
     },
-    "Molida Archery 2000": {
+    "Archery Minigame 2000": {
         "region_id": "Archery Game",
         "vanilla_item": "Heart Container",
         "stage_id": 0xc,
@@ -1456,7 +1456,7 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "id": 133,
     },
-    "Spirit Island Power Upgrade Level 1": {
+    "Spirit Shrine Power Upgrade Level 1": {
         "region_id": "Spirit Power 1",
         "vanilla_item": "Spirit of Power (Progressive)",
         "stage_id": 0x17,
@@ -1465,7 +1465,7 @@ LOCATIONS_DATA = {
         "value": 0x1,
         "id": 134,
     },
-    "Spirit Island Power Upgrade Level 2": {
+    "Spirit Shrine Power Upgrade Level 2": {
         "region_id": "Spirit Power 2",
         "vanilla_item": "Spirit of Power (Progressive)",
         "stage_id": 0x17,
@@ -1474,7 +1474,7 @@ LOCATIONS_DATA = {
         "value": 0x8,
         "id": 135,
     },
-    "Spirit Island Wisdom Upgrade Level 1": {
+    "Spirit Shrine Wisdom Upgrade Level 1": {
         "region_id": "Spirit Wisdom 1",
         "vanilla_item": "Spirit of Wisdom (Progressive)",
         "stage_id": 0x17,
@@ -1492,7 +1492,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "id": 137,
     },
-    "Spirit Island Courage Upgrade Level 1": {
+    "Spirit Shrine Courage Upgrade Level 1": {
         "region_id": "Spirit Courage 1",
         "vanilla_item": "Spirit of Courage (Progressive)",
         "stage_id": 0x17,
@@ -1501,7 +1501,7 @@ LOCATIONS_DATA = {
         "value": 0x80,
         "id": 138,
     },
-    "Spirit Island Courage Upgrade Level 2": {
+    "Spirit Shrine Courage Upgrade Level 2": {
         "region_id": "Spirit Courage 2",
         "vanilla_item": "Spirit of Courage (Progressive)",
         "stage_id": 0x17,
@@ -1521,7 +1521,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 140,
     },
-    "Ocean NW Prince of Red Lion Combat Reward": {
+    "Prince of Red Lion Combat Reward": {
         "region_id": "PoRL Item",
         "vanilla_item": "Heart Container",
         "stage_id": 0x7,
@@ -1535,14 +1535,14 @@ LOCATIONS_DATA = {
 
     # ========== Gust Island ============
 
-    "Isle of Gust Hideout Chest": {
+    "Tiled Hideout Chest": {
         "region_id": "Tiled Hideout",
         "vanilla_item": "Courage Gem",
         "stage_id": 0xe,
         "floor_id": 0xa,
         "id": 142,
     },
-    "Isle of Gust Miblin Cave North Chest": {
+    "Miniblin Cave North Chest": {
         "region_id": "Miniblin Cave Damage",
         "vanilla_item": "Treasure Map #7 (Gusts E)",
         "stage_id": 0xe,
@@ -1550,7 +1550,7 @@ LOCATIONS_DATA = {
         "z_max": -0x55f0,
         "id": 143,
     },
-    "Isle of Gust Miblin Cave South Chest": {
+    "Miniblin Cave South Chest": {
         "region_id": "Miniblin Cave",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0xe,
@@ -1558,7 +1558,7 @@ LOCATIONS_DATA = {
         "z_min": -0x55f0,
         "id": 144,
     },
-    "Isle of Gust East Cliff Dig": {
+    "Isle of Gust South NE Dig": {
         "region_id": "Gust South Cliffs Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xe,
@@ -1567,7 +1567,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 145,
     },
-    "Isle of Gust West Cliff Chest": {
+    "Isle of Gust South NW Chest": {
         "region_id": "Gust South NW chest",
         "vanilla_item": "Power Gem",
         "stage_id": 0xe,
@@ -1575,7 +1575,7 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "id": 146,
     },
-    "Isle of Gust NW Dig": {
+    "Isle of Gust North Dig": {
         "region_id": "Gust North Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0xe,
@@ -1585,7 +1585,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 147,
     },
-    "Isle of Gust Sandworm Chest": {
+    "Isle of Gust North Sandworm Chest": {
         "region_id": "Gust North Sandworms",
         "vanilla_item": "Treasure Map #8 (Mercay SE)",
         "stage_id": 0xe,
@@ -1695,7 +1695,7 @@ LOCATIONS_DATA = {
 
     # ========== Bannan Island ============
 
-    "Bannan Island Entrance Grapple Chest": {
+    "Bannan Island West Grapple Chest": {
         "region_id": "Bannan West Grapple",
         "vanilla_item": "Power Gem",
         "stage_id": 0x14,
@@ -1703,7 +1703,7 @@ LOCATIONS_DATA = {
         "z_min": 0x4e20,
         "id": 159,
     },
-    "Bannan Island Wayfarer Dig": {
+    "Bannan Island West Wayfarer Dig": {
         "region_id": "Bannan Dig",
         "vanilla_item": "Treasure Map #21 (Molida NW)",
         "stage_id": 0x14,
@@ -1712,7 +1712,7 @@ LOCATIONS_DATA = {
         "x_max": 0x2710,
         "id": 160,
     },
-    "Bannan Island Wayfarer Gift": {
+    "Wayfarer's Gift": {
         "region_id": "Wayfarer's House",
         "vanilla_item": "Fishing Rod",
         "item_override": "Nothing!",
@@ -1723,7 +1723,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 161,
     },
-    "Bannan Island Wayfarer Give Loovar": {
+    "Wayfarer Give Loovar": {
         "region_id": 'Wayfarer Give Loovar',
         "vanilla_item": "Big Catch Lure",
         "stage_id": 0x14,
@@ -1734,7 +1734,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 162,
     },
-    "Bannan Island Wayfarer Give Rusty Swordfish": {
+    "Wayfarer Give Rusty Swordfish": {
         "region_id": 'Wayfarer Give Rusty Swordfish',
         "vanilla_item": "Ship Part",
         "item_override": "Swordfish Shadows",
@@ -1746,7 +1746,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 163,
     },
-    "Bannan Island Wayfarer Give Legendary Neptoona": {
+    "Wayfarer Give Legendary Neptoona": {
         "region_id": 'Wayfarer Give Legendary Neptoona',
         "vanilla_item": "Heart Container",
         "stage_id": 0x14,
@@ -1757,7 +1757,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 164,
     },
-    "Bannan Island Wayfarer Give Stowfish": {
+    "Wayfarer Give Stowfish": {
         "region_id": 'Wayfarer Give Stowfish',
         "vanilla_item": "Ship Part",
         "item_override": "Fishing Rod",
@@ -1769,7 +1769,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 165,
     },
-    "Bannan Island Give Letter to Joanne": {
+    "Joanne Give Letter": {
         "region_id": 'Joanne Give Letter',
         "stage_id": 0x14,
         "floor_id": 0x1,
@@ -1814,7 +1814,7 @@ LOCATIONS_DATA = {
         "z_max": -0x61a8,
         "id": 168,
     },
-    "Bannan Island Cannon Game": {
+    "Bannan Island East Cannon Game": {
         "region_id": "Bannan Cannon Game",
         "vanilla_item": "Bombs (Progressive)",
         "stage_id": 0x14,
@@ -1825,7 +1825,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 169,
     },
-    "Bannan Island Wayfarer Trade Quest Chest": {
+    "Wayfarer Trade Quest Chest": {
         "region_id": "Wayfarer Trade Quest",
         "vanilla_item": "Swordsman's Scroll",
         "stage_id": 0x14,
@@ -1845,14 +1845,14 @@ LOCATIONS_DATA = {
         "x_min": -0x124f8,
         "id": 171,
     },
-    "Uncharted Island Grapple Chest": {
+    "Descending Cave Grapple Chest": {
         "region_id": "Descending Cave Grapple",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x1a,
         "floor_id": 0xa,
         "id": 172,
     },
-    "Uncharted Island Cyclone Slate": {
+    "Golden Chief Gift": {
         "region_id": "Golden Chief Cave",
         "vanilla_item": "Cyclone Slate",
         "stage_id": 0x1a,
@@ -1880,7 +1880,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "id": 175,
     },
-    "Zauz's Island Triforce Crest": {
+    "Zauz's House Triforce Crest": {
         "region_id": "Zauz's Crest",
         "vanilla_item": "Nothing!",
         "item_override": "Triforce Crest",
@@ -1892,7 +1892,7 @@ LOCATIONS_DATA = {
         "post_dungeon": "Ghost Ship",
         "id": 176,
     },
-    "Zauz's Island Phantom Blade": {
+    "Zauz's House Phantom Blade": {
         "region_id": "Zauz's Blade",
         "vanilla_item": "Phantom Blade",
         "stage_id": 0x16,
@@ -2028,7 +2028,7 @@ LOCATIONS_DATA = {
 
     # ========== Goron Island ============
 
-    "Goron Island Yellow Chu Item": {
+    "Goron Island SW Yellow Chu Item": {
         "region_id": "Goron Chus",
         "stage_id": 0x10,
         "floor_id": 0x2,
@@ -2037,7 +2037,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "id": 190,
     },
-    "Goron Island Grapple Chest": {
+    "Goron Island SW Grapple Chest": {
         "region_id": "Goron SW Grapple",
         "stage_id": 0x10,
         "floor_id": 0x2,
@@ -2046,7 +2046,7 @@ LOCATIONS_DATA = {
         "x_max": -0x15f90,
         "id": 191,
     },
-    "Goron Island Goron Quiz": {
+    "Goron Chief Goron Quiz": {
         "region_id": "Goron Quiz",
         "stage_id": 0x10,
         "floor_id": 0xa,
@@ -2055,7 +2055,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "id": 192,
     },
-    "Goron Island North Bombchu Switch Chest": {
+    "Goron Island NE Bombchu Switch Chest": {
         "region_id": "Goron NE Chu Chest",
         "stage_id": 0x10,
         "floor_id": 0x1,
@@ -2064,7 +2064,7 @@ LOCATIONS_DATA = {
         "z_max": -0x1adb0,
         "id": 193,
     },
-    "Goron Island North Dead End Chest": {
+    "Goron Island NW Dead End Chest": {
         "region_id": "Goron NW North Dead End",
         "stage_id": 0x10,
         "floor_id": 0x0,
@@ -2072,7 +2072,7 @@ LOCATIONS_DATA = {
         "x_max": 0xc350,
         "id": 194,
     },
-    "Goron Island North Spike Chest": {
+    "Goron Island NE Spike Chest": {
         "region_id": "Goron NE Spike Chest",
         "stage_id": 0x10,
         "floor_id": 0x1,
@@ -2080,7 +2080,7 @@ LOCATIONS_DATA = {
         "x_max": 0x35000,
         "id": 195,
     },
-    "Goron Island Chief Post Dungeon Item": {
+    "Goron Chief Post Dungeon Item": {
         "region_id": "Goron Chief Post Dungeon",
         "stage_id": 0x10,
         "floor_id": 0xa,
@@ -2312,7 +2312,7 @@ LOCATIONS_DATA = {
 
     # ========== Frost Island ============
 
-    "Isle of Frost Nobodo Grapple Chest": {
+    "Isle of Frost SW Nobodo Grapple Chest": {
         "region_id": "Frost SW Grapple",
         "stage_id": 0xf,
         "floor_id": 0x0,
@@ -2321,7 +2321,7 @@ LOCATIONS_DATA = {
         "x_max": -150000,
         "id": 218,
     },
-    "Isle of Frost Chief House Dig": {
+    "Isle of Frost SW Chief's Sign Dig": {
         "region_id": "Frost SW Dig",
         "stage_id": 0xf,
         "floor_id": 0x0,
@@ -2330,7 +2330,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 219,
     },
-    "Isle of Frost Estate Sign Dig": {
+    "Isle of Frost NW Estate Sign Dig": {
         "region_id": "Frost NW Dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
@@ -2339,7 +2339,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 220,
     },
-    "Isle of Frost Estate Fofo Dig (SE)": {
+    "Isle of Frost NW Fofo's Sign Dig (SE)": {
         "region_id": "Frost NW Dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
@@ -2351,7 +2351,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 221,
     },
-    "Isle of Frost Estate Dobo Dig (SW)": {
+    "Isle of Frost NW Dobo's Sign Dig (SW)": {
         "region_id": "Frost NW Dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
@@ -2363,7 +2363,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 222,
     },
-    "Isle of Frost Estate SW Island Dig": {
+    "Isle of Frost NW Island Dig SW": {
         "region_id": "Frost NW Dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
@@ -2371,7 +2371,7 @@ LOCATIONS_DATA = {
         "x_max": -0x2d2a8,
         "id": 223,
     },
-    "Isle of Frost Estate SE Island Dig": {
+    "Isle of Frost NW Island Dig SE": {
         "region_id": "Frost NW Grapple Dig",
         "stage_id": 0xf,
         "floor_id": 0x2,
@@ -2380,7 +2380,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 224,
     },
-    "Isle of Frost Stand on Peg Gift": {
+    "Isle of Frost SW Stand on Peg Gift": {
         "region_id": "Frost SW",
         "stage_id": 0xf,
         "floor_id": 0x0,
@@ -2389,7 +2389,7 @@ LOCATIONS_DATA = {
         "y": 4915,
         "id": 329,
     },
-    "Isle of Frost Ice Field South Ledge West Chest": {
+    "Isle of Frost SE South Ledge West Chest": {
         "region_id": "Frost SE Upper Chests",
         "stage_id": 0xf,
         "floor_id": 0x3,
@@ -2399,7 +2399,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "id": 225,
     },
-    "Isle of Frost Ice Field South Ledge East Chest": {
+    "Isle of Frost SE South Ledge East Chest": {
         "region_id": "Frost SE Upper Chests",
         "stage_id": 0xf,
         "floor_id": 0x3,
@@ -2409,7 +2409,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x4,
         "id": 226,
     },
-    "Isle of Frost Ice Field SE Ledge Chest": {
+    "Isle of Frost SE Corner Chest": {
         "region_id": "Frost SE Upper Chests",
         "stage_id": 0xf,
         "floor_id": 0x3,
@@ -2417,7 +2417,7 @@ LOCATIONS_DATA = {
         "y": 0x4ccd,
         "id": 227,
     },
-    "Isle of Frost Ice Field East Ledge Chest": {
+    "Isle of Frost SE East Ledge Chest": {
         "region_id": "Frost SE East Ledge",
         "stage_id": 0xf,
         "floor_id": 0x3,
@@ -2561,7 +2561,7 @@ LOCATIONS_DATA = {
 
     # ========== Dead Island ============
 
-    "Isle of the Dead Rupoor Cave 1": {
+    "Rupoor Cave 1": {
         "region_id": "Rupoor Cave",
         "vanilla_item": "Ship Part",
         "stage_id": 0x15,
@@ -2570,10 +2570,10 @@ LOCATIONS_DATA = {
         "x_max": 0x7d0,
         "sram_addr": 0x73c,
         "sram_value": 0x4,
-        "delay_pickup": ["Isle of the Dead Rupoor Cave 3", "Isle of the Dead Rupoor Cave 2"],
+        "delay_pickup": ["Rupoor Cave 3", "Rupoor Cave 2"],
         "id": 243,
     },
-    "Isle of the Dead Rupoor Cave 4": {
+    "Rupoor Cave 4": {
         "region_id": "Rupoor Cave",
         "vanilla_item": "Ship Part",
         "stage_id": 0x15,
@@ -2582,10 +2582,10 @@ LOCATIONS_DATA = {
         "x_min": -0xfa0,
         "sram_addr": 0x73c,
         "sram_value": 0x1,
-        "delay_pickup": ["Isle of the Dead Rupoor Cave 3", "Isle of the Dead Rupoor Cave 2"],
+        "delay_pickup": ["Rupoor Cave 3", "Rupoor Cave 2"],
         "id": 244,
     },
-    "Isle of the Dead Rupoor Cave 2": {
+    "Rupoor Cave 2": {
         "region_id": "Rupoor Cave",
         "vanilla_item": "Treasure Map #28 (Ruins NW)",
         "stage_id": 0x15,
@@ -2594,10 +2594,10 @@ LOCATIONS_DATA = {
         "x_max": 0x1f40,
         "sram_addr": 0x73c,
         "sram_value": 0x2,
-        "delay_pickup": "Isle of the Dead Rupoor Cave 3",
+        "delay_pickup": "Rupoor Cave 3",
         "id": 245,
     },
-    "Isle of the Dead Rupoor Cave 3": {
+    "Rupoor Cave 3": {
         "region_id": "Rupoor Cave",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x15,
@@ -2606,10 +2606,10 @@ LOCATIONS_DATA = {
         "x_min": 0x7d0,
         "sram_addr": 0x73c,
         "sram_value": 0x1,
-        "delay_pickup": "Isle of the Dead Rupoor Cave 2",
+        "delay_pickup": "Rupoor Cave 2",
         "id": 246,
     },
-    "Isle of the Dead Face Cave Chest": {
+    "Stone Treasure Cave Chest": {
         "region_id": "Stone Treasure Cave",
         "vanilla_item": "Power Gem",
         "stage_id": 0x15,
@@ -2624,7 +2624,7 @@ LOCATIONS_DATA = {
         "y": 0x4ccd,
         "id": 248,
     },
-    "Isle of the Dead Regal Necklace Chest": {
+    "Isle of the Dead Crown Chest": {
         "region_id": "IotD Crown",
         "vanilla_item": "Regal Necklace",
         "stage_id": 0x15,
@@ -2636,7 +2636,7 @@ LOCATIONS_DATA = {
 
     # ========== Ruins Island ============
 
-    "Isle of Ruins Like-Like Dig": {
+    "Isle of Ruins NW Like-Like Dig": {
         "region_id": "Ruins NW Dig",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x11,
@@ -2648,7 +2648,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 250,
     },
-    "Isle of Ruins Upper Bonk Tree": {
+    "Isle of Ruins NW Upper Bonk Tree": {
         "region_id": "Ruins NW Across Bridge",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x11,
@@ -2659,7 +2659,7 @@ LOCATIONS_DATA = {
         "sram_value": 1,
         "id": 251,
     },
-    "Isle of Ruins Doylan's Item": {
+    "Doylan's Gift": {
         "region_id": "Doylan's Chamber",
         "vanilla_item": "King's Key",
         "stage_id": 0x22,
@@ -2668,14 +2668,14 @@ LOCATIONS_DATA = {
         "value": 0x4,
         "id": 252,
     },
-    "Isle of Ruins Lower Water Cave Chest": {
-        "region_id": "Ruins NW Cave",
+    "Grassy Treasure Cave Chest": {
+        "region_id": "Grassy Treasure Cave",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0x12,
         "floor_id": 0xb,
         "id": 253,
     },
-    "Isle of Ruins Maze Chest": {
+    "Isle of Ruins NW Lower Maze Chest": {
         "region_id": "Ruins NW Maze Lower Chest",
         "vanilla_item": "Power Gem",
         "stage_id": 0x12,
@@ -2683,7 +2683,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "id": 254,
     },
-    "Isle of Ruins Dodge Boulders Chest": {
+    "Isle of Ruins NE Dodge Boulders Chest": {
         "region_id": "Ruins NE Lower",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x12,
@@ -2695,7 +2695,7 @@ LOCATIONS_DATA = {
         "z_max": -0x124f8,
         "id": 255,
     },
-    "Isle of Ruins Push Boulder Chest": {
+    "Isle of Ruins NE Secret Alcove Chest": {
         "region_id": "Ruins NE Secret Chest",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0x12,
@@ -2705,7 +2705,7 @@ LOCATIONS_DATA = {
         "z_min": -0x7530,
         "id": 256,
     },
-    "Isle of Ruins Outside Doylan's Temple Chest": {
+    "Isle of Ruins NE Outside Pyramid Chest": {
         "region_id": "Ruins NE Behind Pyramids",
         "vanilla_item": "Courage Gem",
         "stage_id": 0x12,
@@ -2716,7 +2716,7 @@ LOCATIONS_DATA = {
         "z_max": -0x124f8,
         "id": 257,
     },
-    "Isle of Ruins Outside Mutoh's Temple Chest": {
+    "Isle of Ruins NE Behind Temple Chest": {
         "region_id": "Ruins NE Behind Pyramids",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x11,
@@ -2836,7 +2836,7 @@ LOCATIONS_DATA = {
 
     # ========== Maze Island ============
 
-    "Maze Island Maze Chest": {
+    "Maze Island Bombable Wall Chest": {
         "region_id": "Maze Island Bomb Chest",
         "vanilla_item": "Wisdom Gem",
         "stage_id": 0x19,
@@ -2929,7 +2929,7 @@ LOCATIONS_DATA = {
 
     # ========== Goal Locations ============
 
-    "GOAL: Beat Bellumbeck": {
+    "GOAL: Bellumbeck": {
         "region_id": "Goal",
         "vanilla_item": "Nothing!",
         "stage_id": 0x36,
@@ -2948,7 +2948,7 @@ LOCATIONS_DATA = {
 
     # 	# ========== Traveller's Ships ============
 
-    "Ocean NE Man Of Smiles Item 1": {
+    "Man Of Smiles' Item 1": {
         "region_id": "NE Ocean Combat",
         "vanilla_item": "Hero's New Clothes",
         "stage_id": 0x6,
@@ -2957,7 +2957,7 @@ LOCATIONS_DATA = {
         "value": 0x20,
         "id": 279,
     },
-    "Ocean NE Man Of Smiles Item 2": {
+    "Man Of Smiles' Item 2": {
         "region_id": "NE Ocean Combat",
         "vanilla_item": "Treasure Map #24 (Ruins W)",
         "stage_id": 0x6,
@@ -2966,7 +2966,7 @@ LOCATIONS_DATA = {
         "value": 0x20,
         "id": 280,
     },
-    "Ocean NE Man of Smiles Prize Postcard": {
+    "Man of Smiles' Prize Postcard": {
         "region_id": "NE Ocean Combat",
         "vanilla_item": "Prize Postcard",
         "stage_id": 0x6,
@@ -2976,7 +2976,7 @@ LOCATIONS_DATA = {
         "id": 327,
         "conditional": True
     },
-    "Ocean NW Prince of Red Lions Trade Quest Item": {
+    "Prince of Red Lions Trade Quest Item": {
         "region_id": "PoRL Trade",
         "vanilla_item": "Kaleidoscope",
         "stage_id": 0x7,
@@ -2985,7 +2985,7 @@ LOCATIONS_DATA = {
         "value": 0x8,
         "id": 281,
     },
-    "Ocean SW Nyave Trade Quest Item": {
+    "Nyave Trade Quest Item": {
         "region_id": "Nyave Trade",
         "vanilla_item": "Wood Heart",
         "stage_id": 0xa,
@@ -2994,7 +2994,7 @@ LOCATIONS_DATA = {
         "value": 0x80,
         "id": 282,
     },
-    "Ocean SE Hoiger Howgendoogen Trade Quest Item": {
+    "Hoiger Howgendoogen Trade Quest Item": {
         "region_id": "SE Ocean Trade",
         "vanilla_item": "Guard Notebook",
         "stage_id": 0x9,
@@ -3416,20 +3416,24 @@ for i in LOCATIONS_DATA:
     LOCATIONS_DATA[i]["name"] = i
 
 if __name__ == "__main__":
-    for loc in LOCATIONS_DATA:
-        print("-", loc)
+    action = "print_locs"
+
+    if action == "print_locs":
+        for loc in LOCATIONS_DATA:
+            print(loc)
 
     # Check for missing locs in tracker
-    with(open("locations.json","r")) as j:
-        tracker_data = json.load(j)
-        # print(tracker_data)
-    tracker_locs = []
-    for node in tracker_data:
-        for loc_dict in node["sections"]:
-            tracker_locs.append(loc_dict["name"])
-    missing_locs = [i for i in LOCATIONS_DATA if i not in tracker_locs]
-    for i in missing_locs:
-        print(i)
+    if action == "compare_tracker":
+        with(open("locations.json","r")) as j:
+            tracker_data = json.load(j)
+            # print(tracker_data)
+        tracker_locs = []
+        for node in tracker_data:
+            for loc_dict in node["sections"]:
+                tracker_locs.append(loc_dict["name"])
+        missing_locs = [i for i in LOCATIONS_DATA if i not in tracker_locs]
+        for i in missing_locs:
+            print(i)
 
     """    islands = {}
         island_groups = {}
