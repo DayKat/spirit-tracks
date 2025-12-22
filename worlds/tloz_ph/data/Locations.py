@@ -998,7 +998,7 @@ LOCATIONS_DATA = {
         "id": 88,
     },
     "Isle of Ember Summit Dig": {
-        "region_id": "Ember Outside ToF Dig",
+        "region_id": "Ember Outside Temple Dig",
         "vanilla_item": "Treasure Map #4 (Bannan SE)",
         "stage_id": 0xd,
         "floor_id": 0x1,

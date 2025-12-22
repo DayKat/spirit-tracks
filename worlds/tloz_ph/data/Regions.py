@@ -200,7 +200,7 @@ REGIONS = [
     "Ember Coast North",
     "Ember Grapple",
     "Ember Climb West",
-    "Ember Outside ToF",
+    "Ember Outside Temple",
     "Ember Summit West",
     "Ember Summit East",
 
@@ -209,7 +209,7 @@ REGIONS = [
     "Kayo's House",
     "Abandoned House",
 
-    "Ember Outside ToF Dig",
+    "Ember Outside Temple Dig",
     "Astrid's Basement Dig",
     "Astrid Post ToF",
 

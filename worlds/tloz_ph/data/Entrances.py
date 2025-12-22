@@ -21,8 +21,8 @@ ENTRANCE_DATA = {
         "return_name": "Oshus' Exit",
         "entrance": (0xB, 0, 2),
         "exit": (0xB, 0xA, 1),
-        "entrance_region": "mercay sw",
-        "exit_region": "mercay oshus",
+        "entrance_region": "Mercay SW",
+        "exit_region": "Oshus' House",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "two_way": True,
@@ -32,8 +32,8 @@ ENTRANCE_DATA = {
         "return_name": "Apricot's Exit",
         "entrance": (0xB, 0x0, 3),
         "exit": (0xB, 0xB, 1),
-        "entrance_region": "mercay sw",
-        "exit_region": "mercay apricot",
+        "entrance_region": "Mercay SW",
+        "exit_region": "Apricot's House",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "two_way": True,
@@ -43,8 +43,8 @@ ENTRANCE_DATA = {
         "return_name": "Sword Cave Exit",
         "entrance": (0xB, 0x0, 4),
         "exit": (0xB, 0x13, 1),
-        "entrance_region": "mercay sw",
-        "exit_region": "mercay sword cave",
+        "entrance_region": "Mercay SW",
+        "exit_region": "Sword Cave",
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
@@ -54,8 +54,8 @@ ENTRANCE_DATA = {
         "entrance": (0xB, 0x0, 0xFC),
         "exit": (0xB, 0x1, 0xFB),
         "coords": (-164000, -164, 16000),  # The coord that doesn't matter doesn't matter. Y level diferentiates exit
-        "entrance_region": "mercay sw",
-        "exit_region": "mercay nw chus",
+        "entrance_region": "Mercay SW",
+        "exit_region": "Mercay NW Chus",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MERCAY
@@ -65,8 +65,8 @@ ENTRANCE_DATA = {
         "entrance": (0xB, 0x0, 0xFD),
         "exit": (0xB, 0x3, 0xFE),
         "coords": (4780, -164, 53300),
-        "entrance_region": "mercay sw bridge",
-        "exit_region": "mercay se",
+        "entrance_region": "Mercay SW Bridge",
+        "exit_region": "Mercay SE",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.MERCAY
@@ -75,8 +75,8 @@ ENTRANCE_DATA = {
         "return_name": "Milk Bar Exit",
         "entrance": (0xB, 0x3, 0x3),
         "exit": (0xB, 0xC, 0x0),
-        "entrance_region": "mercay se",
-        "exit_region": "mercay milk bar",
+        "entrance_region": "Mercay SE",
+        "exit_region": "Milk Bar",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
@@ -85,8 +85,8 @@ ENTRANCE_DATA = {
         "return_name": "Shipyard Exit",
         "entrance": (0xB, 0x3, 0x4),
         "exit": (0xB, 0xD, 0x0),
-        "entrance_region": "mercay se",
-        "exit_region": "mercay shipyard",
+        "entrance_region": "Mercay SE",
+        "exit_region": "Shipyard",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
@@ -95,8 +95,8 @@ ENTRANCE_DATA = {
         "return_name": "Tuzi's Exit",
         "entrance": (0xB, 0x3, 0x5),
         "exit": (0xB, 0xE, 0x0),
-        "entrance_region": "mercay se",
-        "exit_region": "mercay tuzi",
+        "entrance_region": "Mercay SE",
+        "exit_region": "Tuzi's House",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
@@ -105,8 +105,8 @@ ENTRANCE_DATA = {
         "return_name": "Treasure Teller's Exit",
         "entrance": (0xB, 0x3, 0x6),
         "exit": (0xB, 0xF, 0x0),
-        "entrance_region": "mercay se",
-        "exit_region": "mercay treasure teller",
+        "entrance_region": "Mercay SE",
+        "exit_region": "Treasure Teller",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
@@ -115,16 +115,16 @@ ENTRANCE_DATA = {
         "return_name": "Mercay Shop Exit",
         "entrance": (0xB, 0x3, 0x7),
         "exit": (0xB, 0x11, 0x1),
-        "entrance_region": "mercay se",
-        "exit_region": "mercay shop",
+        "entrance_region": "Mercay SE",
+        "exit_region": "Mercay Shop",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
     },
     "Mercay SE North": {
         "return_name": "Mercay NE South",
-        "entrance_region": "mercay se",
-        "exit_region": "mercay ne",
+        "entrance_region": "Mercay SE",
+        "exit_region": "Mercay NE",
         "entrance": (0xB, 0x3, 0xFC),
         "exit": (0xB, 0x2, 0xFB),
         "coords": (131000, -164, -4815),
@@ -134,8 +134,8 @@ ENTRANCE_DATA = {
     },
     "Mercay NE West": {
         "return_name": "Mercay NW East",
-        "entrance_region": "mercay ne",
-        "exit_region": "mercay nw temple",
+        "entrance_region": "Mercay NE",
+        "exit_region": "Mercay NW Temple",
         "entrance": (0xB, 0x2, 0xFE),
         "exit": (0xB, 0x1, 0xFD),
         "coords": (-4815, 9666, -60000),
@@ -144,9 +144,9 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay NW Temple Cave": {
-        "return_name": "Mercay Geozard Cave North Exit",
-        "entrance_region": "mercay nw temple",
-        "exit_region": "mercay geozard cave north",
+        "return_name": "Eye Bridge Cave North Exit",
+        "entrance_region": "Mercay NW Temple",
+        "exit_region": "Eye Bridge Cave North",
         "entrance": (0xB, 0x1, 0x3),
         "exit": (0xB, 0x10, 0x1),
         "type": EntranceGroups.CAVE,
@@ -154,9 +154,9 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay NE Ledge Cave": {
-        "return_name": "Mercay Geozard Cave South Exit",
-        "entrance_region": "mercay ne ledge",
-        "exit_region": "mercay geozard cave south",
+        "return_name": "Eye Bridge Cave South Exit",
+        "entrance_region": "Mercay NE Ledge",
+        "exit_region": "Eye Bridge Cave South",
         "entrance": (0xB, 0x2, 0x1),
         "exit": (0xB, 0x10, 0x2),
         "type": EntranceGroups.CAVE,
@@ -165,8 +165,8 @@ ENTRANCE_DATA = {
     },
     "Mercay SE Ledge North": {
         "return_name": "Mercay NE Ledge South",
-        "entrance_region": "mercay se ledge",
-        "exit_region": "mercay ne ledge",
+        "entrance_region": "Mercay SE Ledge",
+        "exit_region": "Mercay NE Ledge",
         "entrance": (0xB, 0x3, 0xFC),
         "exit": (0xB, 0x2, 0xFB),
         "coords": (110000, 9666, -4815),
@@ -175,9 +175,9 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay NE Hidden Cave": {
-        "return_name": "Freedle Tunnel West",
-        "entrance_region": "mercay ne",
-        "exit_region": "mercay freedle tunnel",
+        "return_name": "Long Bridge Cave West",
+        "entrance_region": "Mercay NE",
+        "exit_region": "Long Bridge Cave",
         "entrance": (0xB, 0x2, 0x2),
         "exit": (0xB, 0x12, 0x3),
         "type": EntranceGroups.CAVE,
@@ -185,9 +185,9 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay NE Freedle Island Cave": {
-        "return_name": "Freedle Tunnel East",
-        "entrance_region": "mercay freedle island",
-        "exit_region": "mercay freedle tunnel",
+        "return_name": "Long Bridge Cave East",
+        "entrance_region": "Mercay NW Freedle Island",
+        "exit_region": "Long Bridge Cave",
         "entrance": (0xB, 0x2, 0x3),
         "exit": (0xB, 0x12, 0x2),
         "type": EntranceGroups.CAVE,
@@ -196,8 +196,8 @@ ENTRANCE_DATA = {
     },
     "Mercay SE Cave": {
         "return_name": "Mountain Passage Upper Exit",
-        "entrance_region": "mercay se",
-        "exit_region": "mercay passage 4",
+        "entrance_region": "Mercay SE",
+        "exit_region": "Mountain Passage 4",
         "entrance": (0xB, 0x3, 0x1),
         "exit": (0x27, 0x1, 0x1),
         "type": EntranceGroups.CAVE,
@@ -206,8 +206,8 @@ ENTRANCE_DATA = {
     },
     "Mountain Passage Lower Staircase": {
         "return_name": "Mountain Passage Upper Staircase",
-        "entrance_region": "mercay passage 2 exit",
-        "exit_region": "mercay passage 3",
+        "entrance_region": "Mountain Passage 2 Exit",
+        "exit_region": "Mountain Passage 3",
         "entrance": (0x27, 0x0, 0x2),
         "exit": (0x27, 0x1, 0x2),
         "type": EntranceGroups.STAIRS,
@@ -216,8 +216,8 @@ ENTRANCE_DATA = {
     },
     "Mercay NW Bamboo Cave": {
         "return_name": "Mountain Passage Lower Exit",
-        "entrance_region": "mercay nw bamboo",
-        "exit_region": "mercay passage 1",
+        "entrance_region": "Mercay NW Bamboo",
+        "exit_region": "Mountain Passage 1",
         "entrance": (0xB, 0x1, 0x1),
         "exit": (0x27, 0x0, 0x1),
         "type": EntranceGroups.CAVE,
@@ -230,8 +230,8 @@ ENTRANCE_DATA = {
         "return_name": "TotOK Lobby Exit",
         "entrance": (0xB, 0x1, 0x2),
         "exit": (0x26, 0x00, 0x1),
-        "entrance_region": "mercay nw temple",
-        "exit_region": "totok",
+        "entrance_region": "Mercay NW Temple",
+        "exit_region": "TotOK Lobby",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
@@ -239,8 +239,8 @@ ENTRANCE_DATA = {
     # ========== Cannon ==========
     "Cannon Workshop East": {
         "return_name": "Cannon Eddo Exit",
-        "entrance_region": "cannon outside eddo",
-        "exit_region": "cannon eddo",
+        "entrance_region": "Cannon Outside Eddo",
+        "exit_region": "Eddo's Workshop",
         "entrance": (0x13, 0x0, 0x4),
         "exit": (0x13, 0xB, 0x0),
         "type": EntranceGroups.HOUSE,
@@ -249,8 +249,8 @@ ENTRANCE_DATA = {
     },
     "Cannon Workshop West": {
         "return_name": "Fuzo's Exit",
-        "entrance_region": "cannon island",
-        "exit_region": "cannon fuzo",
+        "entrance_region": "Cannon Island",
+        "exit_region": "Fuzo's Workshop",
         "entrance": (0x13, 0x0, 0x3),
         "exit": (0x13, 0xA, 0x0),
         "type": EntranceGroups.HOUSE,
@@ -259,8 +259,8 @@ ENTRANCE_DATA = {
     },
     "Fuzo's Interior Door": {
         "return_name": "Eddo's Interior Door",
-        "entrance_region": "cannon fuzo",
-        "exit_region": "cannon eddo",
+        "entrance_region": "Fuzo's Workshop",
+        "exit_region": "Eddo's Workshop",
         "entrance": (0x13, 0xA, 0x1),
         "exit": (0x13, 0xB, 0x1),
         "type": EntranceGroups.HOUSE,
@@ -269,8 +269,8 @@ ENTRANCE_DATA = {
     },
     "Cannon Bee Cave": {
         "return_name": "Cannon Cave Exit",
-        "entrance_region": "cannon island",
-        "exit_region": "cannon cave south",
+        "entrance_region": "Cannon Island",
+        "exit_region": "Bomb Flower Cave South",
         "entrance": (0x13, 0x0, 0x1),
         "exit": (0x28, 0x0, 0x2),
         "type": EntranceGroups.CAVE,
@@ -279,22 +279,22 @@ ENTRANCE_DATA = {
     },
     "Cannon Bomb Garden Cave": {
         "return_name": "Cannon Cave Staircase",
-        "entrance_region": "cannon bomb garden",
-        "exit_region": "cannon cave north",
+        "entrance_region": "Cannon Bomb Garden Dig",
+        "exit_region": "Bomb Flower Cave North",
         "entrance": (0x13, 0x0, 0x2),
         "exit": (0x28, 0x0, 0x1),
         "type": EntranceGroups.STAIRS,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.CANNON
     },
-#
-#     # =========== Ember Island ================
+
+    # =========== Ember Island ================
     "Ember Port House": {
-        "return_name": "Ember Port House Exit",
+        "return_name": "Abandoned House Exit",
         "entrance": (0xD, 0x0, 0x2),
         "exit": (0xD, 0xB, 0x0),
-        "entrance_region": "ember port",
-        "exit_region": "ember port house",
+        "entrance_region": "Ember Port",
+        "exit_region": "Abandoned House",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
@@ -303,8 +303,8 @@ ENTRANCE_DATA = {
         "return_name": "Astrid's Exit",
         "entrance": (0xD, 0x0, 0x1),
         "exit": (0xD, 0xA, 0x0),
-        "entrance_region": "ember port",
-        "exit_region": "ember astrid",
+        "entrance_region": "Ember Port",
+        "exit_region": "Astrid's House",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
@@ -313,8 +313,8 @@ ENTRANCE_DATA = {
         "return_name": "Astrid's Basement Stairs",
         "entrance": (0xD, 0xA, 0x1),
         "exit": (0xD, 0x14, 0x0),
-        "entrance_region": "ember astrid",
-        "exit_region": "ember astrid basement",
+        "entrance_region": "Astrid's House",
+        "exit_region": "Astrid's Basement",
         "type": EntranceGroups.STAIRS,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.EMBER
@@ -323,8 +323,8 @@ ENTRANCE_DATA = {
         "return_name": "Kayo's Exit",
         "entrance": (0xD, 0x0, 0x3),
         "exit": (0xD, 0xC, 0x0),
-        "entrance_region": "ember port",
-        "exit_region": "ember kayo",
+        "entrance_region": "Ember Port",
+        "exit_region": "Kayo's House",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
@@ -335,8 +335,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, -164, 80000),
         "extra_data": {"z_min": 0},
-        "entrance_region": "ember port",
-        "exit_region": "ember coast east",
+        "entrance_region": "Ember Port",
+        "exit_region": "Ember Coast East",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -347,8 +347,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, -164, -85000),
         "extra_data": {"z_max": 0},
-        "entrance_region": "ember coast north",
-        "exit_region": "ember coast east",
+        "entrance_region": "Ember Coast North",
+        "exit_region": "Ember Coast East",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -359,8 +359,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, 4751, -65000),
         "extra_data": {"z_max": 0},
-        "entrance_region": "ember port",
-        "exit_region": "ember climb east",
+        "entrance_region": "Ember Port",
+        "exit_region": "Ember Climb East",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -371,8 +371,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, 4751, 50000),
         "extra_data": {"z_min": 0},
-        "entrance_region": "ember climb west",
-        "exit_region": "ember coast east",
+        "entrance_region": "Ember Climb West",
+        "exit_region": "Ember Coast East",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -383,8 +383,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, 9666, -50000),
         "extra_data": {"z_max": 0},
-        "entrance_region": "ember climb west",
-        "exit_region": "ember outside tof",
+        "entrance_region": "Ember Climb West",
+        "exit_region": "Ember Outside Temple",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -395,8 +395,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, 9666, 25000),
         "extra_data": {"z_min": 0},
-        "entrance_region": "ember summit west",
-        "exit_region": "ember outside tof",
+        "entrance_region": "Ember Summit West",
+        "exit_region": "Ember Outside Temple",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -407,8 +407,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, 14582, -35000),
         "extra_data": {"z_max": 0},
-        "entrance_region": "ember summit west",
-        "exit_region": "ember summit north",
+        "entrance_region": "Ember Summit West",
+        "exit_region": "Ember Summit North",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -419,8 +419,8 @@ ENTRANCE_DATA = {
         "exit": (0xD, 0x1, 0xFE),
         "coords": (-4500, 14582, 8000),
         "extra_data": {"z_min": 0},
-        "entrance_region": "ember summit west",
-        "exit_region": "ember summit east",
+        "entrance_region": "Ember Summit West",
+        "exit_region": "Ember Summit East",
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.EMBER
@@ -431,8 +431,8 @@ ENTRANCE_DATA = {
         "return_name": "ToF Exit",
         "entrance": (0xD, 0x1, 0x0),
         "exit": (0x1C, 0x0, 0x0),
-        "entrance_region": "ember outside tof",
-        "exit_region": "tof 1f",
+        "entrance_region": "Ember Outside Temple",
+        "exit_region": "ToF 1F",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
@@ -441,8 +441,8 @@ ENTRANCE_DATA = {
         "return_name": "Blaaz Exit",
         "entrance": (0x1C, 0x3, 0x1),
         "exit": (0x2B, 0x0, 0x0),
-        "entrance_region": "tof before blaaz",
-        "exit_region": "tof blaaz",
+        "entrance_region": "ToF 4F",
+        "exit_region": "Blaaz",
         "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
@@ -450,55 +450,55 @@ ENTRANCE_DATA = {
     "ToF Blaaz Warp": {
         "entrance": (0x2B, 0x0, 0x0),
         "exit": (0xD, 0x1, 0x1),
-        "entrance_region": "tof blaaz",
-        "exit_region": "ember outside tof",
+        "entrance_region": "Blaaz",
+        "exit_region": "Ember Outside Temple",
         "type": EntranceGroups.WARP_PORTAL,
         "direction": EntranceGroups.NONE,
         "two_way": False,
         "island": EntranceGroups.EMBER
     },
-# ========== Molida ============
-    "Molida Port House": {
-        "return_name": "Molida Port House Exit",
+    # ========== Molida ============
+    "Molida Ocara's House": {
+        "return_name": "Ocara's House Exit",
         "entrance": (0xC, 0x0, 0x4),
         "exit": (0xC, 0xC, 0x1),
-        "entrance_region": "molida island",
-        "exit_region": "molida port house",
+        "entrance_region": "Molida Island",
+        "exit_region": "Ocara's House",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Cave Geozard Cave": {
-        "return_name": "Octo Cave East",
-        "entrance_region": "molida cave post geozard",
-        "exit_region": "molida cave octos",
+    "Sun Lake Cave Geozard Cave": {
+        "return_name": "Octorok Cave East",
+        "entrance_region": "Sun Lake Cave Post Geozard",
+        "exit_region": "Octorok Cave",
         "entrance": (0xC, 0xA, 0x6),
         "exit": (0xC, 0xF, 0x2),
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Cave Back Cave": {
-        "return_name": "Octo Cave West",
-        "entrance_region": "molida cave back",
-        "exit_region": "molida cave octos",
+    "Sun Lake Cave Back Cave": {
+        "return_name": "Octorok Cave West",
+        "entrance_region": "Sun Lake Cave Back",
+        "exit_region": "Octorok Cave",
         "entrance": (0xC, 0xA, 0x7),
         "exit": (0xC, 0xF, 0x3),
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Cave Bomb Cave": {
-        "return_name": "Shovel Cave Exit",
-        "entrance_region": "molida cave back",
-        "exit_region": "molida shovel cave",
+    "Sun Lake Cave Bomb Cave": {
+        "return_name": "Shovel Hideout Exit",
+        "entrance_region": "Sun Lake Cave Back",
+        "exit_region": "Shovel Hideout",
         "entrance": (0xC, 0xA, 0x5),
         "exit": (0xC, 0xF, 0x1),
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Cave Staircase": {
+    "Sun Lake Cave Staircase": {
         "return_name": "Molida Cliff Staircase",
         "entrance_region": "molida cave back",
         "exit_region": "molida cliff north",
