@@ -198,7 +198,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay SE Cave": {
-        "return_name": "Mountain Passage Upper Exit",
+        "return_name": "Mountain Passage 2F Exit",
         "entrance_region": "Mercay SE",
         "exit_region": "Mountain Passage 4",
         "entrance": (0xB, 0x3, 0x1),
@@ -207,8 +207,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
     },
-    "Mountain Passage Lower Staircase": {
-        "return_name": "Mountain Passage Upper Staircase",
+    "Mountain Passage 1F Staircase": {
+        "return_name": "Mountain Passage 2F Staircase",
         "entrance_region": "Mountain Passage 2 Exit",
         "exit_region": "Mountain Passage 3",
         "entrance": (0x27, 0x0, 0x2),
@@ -218,7 +218,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY
     },
     "Mercay NW Bamboo Cave": {
-        "return_name": "Mountain Passage Lower Exit",
+        "return_name": "Mountain Passage 1F Exit",
         "entrance_region": "Mercay NW Bamboo",
         "exit_region": "Mountain Passage 1",
         "entrance": (0xB, 0x1, 0x1),
@@ -241,7 +241,7 @@ ENTRANCE_DATA = {
     },
     # ========== Cannon ==========
     "Cannon Workshop East": {
-        "return_name": "Cannon Eddo Exit",
+        "return_name": "Eddo's Exit",
         "entrance_region": "Cannon Outside Eddo",
         "exit_region": "Eddo's Workshop",
         "entrance": (0x13, 0x0, 0x4),
