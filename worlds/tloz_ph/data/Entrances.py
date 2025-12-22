@@ -1594,7 +1594,7 @@ ENTRANCE_DATA = {
     },
     "Ruins SE King's Road North": {
         "return_name": "Ruins NE King's Road South",
-        "entrance_region": "Ruins SE Royal Road",
+        "entrance_region": "Ruins SE King's Road",
         "exit_region": "Ruins NE Geozard Arena",
         "entrance": (0x12, 0x3, 0xFC),
         "exit": (0x12, 0x2, 0xFB),

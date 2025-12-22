@@ -568,7 +568,7 @@ REGIONS = [
     "Ruins SE Outside Pyramid",
     "Max's Temple",
     "Ruins SE coast",
-    "Ruins SE Royal Road",
+    "Ruins SE King's Road",
 
 
 

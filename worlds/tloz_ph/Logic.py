@@ -733,8 +733,8 @@ def make_overworld_logic():
         ["Ruins SE Lower", "Ruins SE Outside Pyramid", True, "ruins_water"],
         ["Ruins SE Return Bridge West", "Ruins SW Port Cliff", True, None],
         ["Ruins SE Outside Pyramid", "Max's Temple", True, None],
-        ["Ruins SE Lower", "Ruins SE Royal Road", False, None],
-        ["Ruins SE Royal Road", "Ruins NE Geozard Arena", True, "ruins_water"],
+        ["Ruins SE Lower", "Ruins SE King's Road", False, None],
+        ["Ruins SE King's Road", "Ruins NE Geozard Arena", True, "ruins_water"],
 
         # ================= Mutoh's Temple ====================
 
