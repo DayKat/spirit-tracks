@@ -1,5 +1,8 @@
 
-from ..Subclasses import PHTransition, EntranceGroups, OPPOSITE_ENTRANCE_GROUPS
+if __name__ == "__main__":
+    from worlds.tloz_ph.Subclasses import PHTransition, EntranceGroups
+else:
+    from ..Subclasses import PHTransition, EntranceGroups, OPPOSITE_ENTRANCE_GROUPS
 
 
 ENTRANCE_DATA = {

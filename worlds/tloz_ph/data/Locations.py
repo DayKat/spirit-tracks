@@ -119,7 +119,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x40,
         "id": 11,
     },
-    "Mercay Freedle Gift Item": {
+    "Mercay NE Freedle Gift Item": {
         "region_id": "Mercay NW Freedle Gift",
         "stage_id": 0xb,
         "floor_id": 0x2,
@@ -1483,7 +1483,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "id": 136,
     },
-    "Spirit Island Wisdom Upgrade Level 2": {
+    "Spirit Shrine Wisdom Upgrade Level 2": {
         "region_id": "Spirit Wisdom 2",
         "vanilla_item": "Spirit of Wisdom (Progressive)",
         "stage_id": 0x17,
