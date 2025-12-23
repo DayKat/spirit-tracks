@@ -113,6 +113,8 @@ class PhantomHourglassClient(DSZeldaClient):
         self.last_warp_stage = None
         self.item_location_combo = None
 
+        self.sent_event = False
+
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
         rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
@@ -313,10 +315,10 @@ class PhantomHourglassClient(DSZeldaClient):
         await self.update_treasure_tracker(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
-
         # Detect lowering of water and update ER Map
         if not self.lowered_water and self.current_stage == 0x24:
             await self.lower_water(ctx)
+        await self.detect_ut_event(ctx, self.current_scene)
 
     async def detect_warp_to_start(self, ctx, read_result: dict):
         # Opened clog warp to start check
@@ -360,6 +362,7 @@ class PhantomHourglassClient(DSZeldaClient):
         return await read_memory_value(ctx, 0x1b55a8, silent=True) & 2
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
+        self.sent_event = False  # Reset per-room UT events
         # Yellow warp in TotOK saves keys
         # TODO: allow this to work with ER
         if self.last_scene is not None:
@@ -921,6 +924,34 @@ class PhantomHourglassClient(DSZeldaClient):
                         self.er_map[scene][detect_data] = exit_data
             self.lowered_water = True
 
+    async def detect_ut_event(self, ctx, scene):
+        if not self.sent_event:
+            """
+            Send UT event locations on certain flags being set in certain scenes.
+            """
+            ut_event_data = {
+                0x2400: {"address": 0x1B5582,
+                       "value": 0x4,
+                       "entrance": "EVENT: Bremeur's Temple Lower Water"},
+                0x800: {"address": 0x1B5592,
+                       "value": 0x8,
+                       "entrance": "EVENT: SS Wayfarer Give Wood Heart"},
+                0x1001: {"address": "stage_flags",
+                       "value": 0x400,
+                       "entrance": "EVENT: Goron NE Spike Switch",
+                       "size": 2}
+            }
+            if scene in ut_event_data:
+                data = ut_event_data[scene]
+                address = self.stage_address if data["address"] == "stage_flags" else data["address"]
+                if await read_memory_value(ctx, address, size=data.get("size", 1), silent=True) & data["value"]:
+                    print(f"Event detection Success!, {data['entrance']}")
+                    entrance = ENTRANCES[data["entrance"]]
+                    await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
+                    self.sent_event = True
+            else:
+                self.sent_event = True
+
     async def conditional_er(self, ctx, exit_data) -> bool:
         print(f"\tcond. {exit_data.name} {exit_data.extra_data} lowered water: {self.lowered_water}")
         if "conditional" in exit_data.extra_data:
@@ -1048,3 +1079,5 @@ class PhantomHourglassClient(DSZeldaClient):
                 print(f"got ut_event location for key {key} loc {location['name']}")
                 if location["name"] == "TotOK 1F SW Sea Chart Chest":
                     await self.store_data(ctx, key, ["1f"])
+                elif location["name"] == "Wayfarer's Gift":
+                    await self.store_data(ctx, key, ["wayfarer"])

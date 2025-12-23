@@ -338,6 +338,7 @@ REGIONS = [
     # Bannan Island
     "Bannan Island",
     "Wayfarer's House",
+    "Wayfarer Event",
     "Keese Passage East",
     "Keese Passage West",
     "Bannan West Grapple",
@@ -379,6 +380,9 @@ REGIONS = [
     "SE Ocean",
     "SE Ocean Frogs",
     "SE Ocean Trade",
+    "SS Wayfarer",
+    "SS Wayfarer Trade",
+    "SS Wayfarer Event",
     "Pirate Ambush",
 
     # Goron Island
@@ -400,6 +404,7 @@ REGIONS = [
 
     "Goron NE",
     "Goron NE South",
+    "Goron NE Event",
     "Goron NE Coast",
     "Goron NE Middle",
     "Goron NE Chu Chest",
@@ -551,6 +556,7 @@ REGIONS = [
 
     "Bremeur's Temple",
     "Bremeur's Temple Kings Key",
+    "Bremeur's Temple Event",
 
     "Ruins NE Doylan Bridge",
     "Ruins NE Lower",

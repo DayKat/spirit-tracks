@@ -25,7 +25,7 @@ LOCATIONS_DATA = {
         "stage_id": 0xb,
         "floor_id": 0x0,
         "y": 0x0,
-        "x_max": -150000,
+        "x_max": -170000,
         "sram_addr": 0x20ca,
         "sram_value": 0x40,
         "id": 2,
@@ -1722,6 +1722,7 @@ LOCATIONS_DATA = {
         "value": 0x8,
         "delay_reset": True,
         "id": 161,
+        "do_special": "ut_event",
     },
     "Wayfarer Give Loovar": {
         "region_id": 'Wayfarer Give Loovar',
@@ -3410,6 +3411,18 @@ LOCATIONS_DATA = {
         "vanilla_item": "Gold Rupee (300)",
         "item_override": "Treasure Map #31 (Dead S)",
     },
+    # Nope. Events need to be *disconnected entrances*
+    # "EVENT: Ruins Lower Water": {
+    #     "region_id": "Bremeur's Temple Kings Key",
+    #     "stage_id": 0x24,
+    #     "floor_id": 0,
+    #     "conditional": True,
+    #     "address": 0x1B5582,
+    #     "value": 0x4,
+    #     "id": 330,
+    #     "vanilla_item": "Nothing!",
+    #     "send_event": "lowered_water"
+    # }
 }
 
 for i in LOCATIONS_DATA:

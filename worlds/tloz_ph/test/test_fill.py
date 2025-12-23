@@ -1,4 +1,4 @@
 from .bases import *
 
-test = DefaultSettings()
+test = TestFullER()
 test.test_fill()

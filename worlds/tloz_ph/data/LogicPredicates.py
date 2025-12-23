@@ -1155,11 +1155,24 @@ def ph_nyave_fight(state, player):
 
 def ph_bannan_scroll(state, player):
     return all([
-        ph_has_wood_heart(state, player),
+        state.has("_wayfarer_trade", player),
         ph_can_pass_sea_monsters(state, player),
-        ph_has_sea_chart(state, player, "SE"),
     ])
 
+def ph_ss_wayfarer(state, player):
+    return all([
+        ph_has_wood_heart(state, player),
+        any([
+            all([
+                not ph_is_ut(state, player),
+                state.has("_wayfarer_gift", player),
+            ]),
+            all([
+                ph_is_ut(state, player),
+                state.has("_UT_wayfarer", player),
+            ])
+        ])
+    ])
 
 def ph_salvage_courage_crest(state: CollectionState, player: int):
     return all([
@@ -2894,6 +2907,7 @@ RULE_DICT = {
     "bannan_scroll": ph_bannan_scroll,
     "salvage_courage_crest": ph_salvage_courage_crest,
     "ocean_sw_west": ph_can_enter_ocean_sw_west,
+    "ss_wayfarer": ph_ss_wayfarer,
     "nyave_fight": ph_nyave_fight,
     "se_ocean": ph_enter_se_ocean,
     "enter_ruins": ph_enter_ruins,

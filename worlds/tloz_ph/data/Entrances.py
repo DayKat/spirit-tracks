@@ -292,7 +292,7 @@ ENTRANCE_DATA = {
     },
 
     # =========== Ember Island ================
-    "Ember Port House": {
+    "Ember West Port House": {
         "return_name": "Abandoned House Exit",
         "entrance": (0xD, 0x0, 0x2),
         "exit": (0xD, 0xB, 0x0),
@@ -302,7 +302,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.EMBER
     },
-    "Ember Astrid's House": {
+    "Ember West Astrid's House": {
         "return_name": "Astrid's Exit",
         "entrance": (0xD, 0x0, 0x1),
         "exit": (0xD, 0xA, 0x0),
@@ -322,7 +322,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.EMBER
     },
-    "Ember Kayo's House": {
+    "Ember West Kayo's House": {
         "return_name": "Kayo's Exit",
         "entrance": (0xD, 0x0, 0x3),
         "exit": (0xD, 0xC, 0x0),
@@ -461,7 +461,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.EMBER
     },
     # ========== Molida ============
-    "Molida Ocara's House": {
+    "Molida South Ocara's House": {
         "return_name": "Ocara's House Exit",
         "entrance": (0xC, 0x0, 0x4),
         "exit": (0xC, 0xC, 0x1),
@@ -502,7 +502,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
     "Sun Lake Cave Staircase": {
-        "return_name": "Molida Cliff Staircase",
+        "return_name": "Molida North Cliff Staircase",
         "entrance_region": "Sun Lake Cave Back",
         "exit_region": "Molida Cliff North",
         "entrance": (0xC, 0xA, 0x1),
@@ -511,8 +511,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Cliff North": {
-        "return_name": "Molida Cliff South",
+    "Molida South Cliff North": {
+        "return_name": "Molida North Cliff South",
         "entrance_region": "Molida Cliff South",
         "exit_region": "Molida Cliff North",
         "entrance": (0xC, 0x0, 0xFC),
@@ -522,7 +522,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Romanos' House": {
+    "Molida South Romanos' House": {
         "return_name": "Romanos' Exit",
         "entrance_region": "Molida South",
         "exit_region": "Romaros' House",
@@ -532,7 +532,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Shop": {
+    "Molida South Shop": {
         "return_name": "Molida Shop Exit",
         "entrance_region": "Molida South",
         "exit_region": "Molida Shop",
@@ -542,7 +542,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Potato's House": {
+    "Molida South Potato's House": {
         "return_name": "Potato's Exit",
         "entrance_region": "Molida South",
         "exit_region": "Potato's house",
@@ -552,7 +552,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MOLIDA
     },
-    "Molida Cave": {
+    "Molida South Cave": {
         "return_name": "Sun Lake Cave Exit",
         "entrance_region": "Molida South",
         "exit_region": "Sun Lake Cave",
@@ -749,7 +749,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.GUST
     },
     # Bannan
-    "Bannan Hut": {
+    "Bannan West Hut": {
         "return_name": "Wayfarer's Exit",
         "entrance_region": "Bannan Island",
         "exit_region": "Wayfarer's House",
@@ -759,8 +759,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.BANNAN
     },
-    "Bannan Wayfarer Cave": {
-        "return_name": "Bannan Cave West Exit",
+    "Bannan West Cave": {
+        "return_name": "Keese Passage West Exit",
         "entrance_region": "Bannan Island",
         "exit_region": "Keese Passage West",
         "entrance": (0x14, 0x0, 0x5),
@@ -769,8 +769,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.BANNAN
     },
-    "Bannan Salvatore Cave": {
-        "return_name": "Bannan Cave East Exit",
+    "Bannan East Cave": {
+        "return_name": "Keese Passage East Exit",
         "entrance_region": "Bannan East",
         "exit_region": "Keese Passage East",
         "entrance": (0x14, 0x0, 0x4),
@@ -1110,7 +1110,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.FROST
     },
     "Frost SW Cave": {
-        "return_name": "Frost Cave West Exit",
+        "return_name": "Frozen Cave West Exit",
         "entrance_region": "Frost SW",
         "exit_region": "Frozen Cave",
         "entrance": (0xF, 0x0, 0x4),
@@ -1120,7 +1120,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.FROST
     },
     "Frost SE Cave": {
-        "return_name": "Frost Cave East Exit",
+        "return_name": "Frozen Cave East Exit",
         "entrance_region": "Frost SE",
         "exit_region": "Frozen Cave",
         "entrance": (0xF, 0x3, 0x0),
@@ -1129,8 +1129,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost Field Upper NE": {
-        "return_name": "Frost Above Temple SE",
+    "Frost SE Upper NE": {
+        "return_name": "Frost NE Above Temple SE",
         "entrance_region": "Frost SE Upper East",
         "exit_region": "Frost NE Above Temple East",
         "entrance": (0xF, 0x3, 0xFC),
@@ -1141,8 +1141,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.FROST
     },
-    "Frost Field Upper NW": {
-        "return_name": "Frost Above Temple SW",
+    "Frost SE Upper NW": {
+        "return_name": "Frost NE Above Temple SW",
         "entrance_region": "Frost SE Upper North",
         "exit_region": "Frost NE Above Temple West",
         "entrance": (0xF, 0x3, 0xFC),
@@ -1153,7 +1153,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.FROST
     },
-    "Frost Field Lower North": {
+    "Frost SE Lower North": {
         "return_name": "Frost NE Lower South",
         "entrance_region": "Frost SE Exit",
         "exit_region": "Frost NE Outside Arena",
@@ -2007,6 +2007,33 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MERCAY,
         "extra_data": {"glitched": True},
+    },
+    "EVENT: SS Wayfarer Give Wood Heart": {
+        "two_way": False,
+        "entrance_region": "SS Wayfarer Trade",
+        "exit_region": "SS Wayfarer Event",
+        "entrance": (0x8, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
+    "EVENT: Bremeur's Temple Lower Water": {
+        "two_way": False,
+        "entrance_region": "Bremeur's Temple Kings Key",
+        "exit_region": "Bremeur's Temple Event",
+        "entrance": (0x24, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
+    "EVENT: Goron NE Spike Switch": {
+        "two_way": False,
+        "entrance_region": "Goron NE South",
+        "exit_region": "Goron NE Event",
+        "entrance": (0x10, 0x1, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
     },
 }
 

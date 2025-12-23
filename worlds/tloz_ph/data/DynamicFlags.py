@@ -1282,7 +1282,7 @@ DYNAMIC_FLAGS = {
     # TotOK shortcuts
     "Spawn yellow warp early": {
         "has_slot_data": [("totok_checkpoints", 1)],
-        "has_locations": ["TotOK B3 NW Sea Chart Chest"],
+        "has_locations": ["TotOK B3.5 Sea Chart Chest"],
         "on_scenes": [0x2600],
         "set_if_true": [(0x1B55AA, 0x20)]
     },

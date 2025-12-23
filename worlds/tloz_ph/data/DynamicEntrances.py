@@ -15,7 +15,7 @@ DYNAMIC_ENTRANCES = {
                           "TotOK 1F Linebeck Key"],
     },
     "Shortcut to Temple of Fire": {
-        "entrance": "Ember Port House",
+        "entrance": "Ember West Port House",
         "destination": "ToF Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Temple of Fire 1F Keese Chest",
@@ -40,7 +40,7 @@ DYNAMIC_ENTRANCES = {
         ],
     },
     "Shortcut to Temple of Courage": {
-        "entrance": "Molida Ocara's House",
+        "entrance": "Molida South Ocara's House",
         "destination": "ToC Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
         "any_has_locations": ["Temple of Courage 1F Bomb Alcove Chest",

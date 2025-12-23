@@ -437,6 +437,7 @@ def make_overworld_logic():
         ["Bannan Island", "Bannan West Grapple", False, "grapple"],
         ["Bannan Island", "Bannan Dig", False, "shovel"],
         ["Bannan Island", "Wayfarer's House", True, None],
+        ["Wayfarer's House", "Wayfarer Event", False, None],
         ["Bannan Island", "Keese Passage West", True, None],
         ["Keese Passage West", "Keese Passage East", True, "bombs"],
         ["Keese Passage East", "Bannan East", True, None],
@@ -495,6 +496,9 @@ def make_overworld_logic():
         ["Dee Ess Boat", "Dee Ess Island", True, None],
         ["Dee Ess Boat", "SE Ocean", True, "require_chart", "SE"],
         ["SE Ocean", "Pirate Ambush", False, "beat_gs"],
+        ["SE Ocean", "SS Wayfarer", True, "ss_wayfarer"],
+        ["SS Wayfarer", "SS Wayfarer Trade", False, "wood_heart"],
+        ["SS Wayfarer Trade", "SS Wayfarer Event", False, None],
 
         # ================= Goron Island ====================
 
@@ -517,6 +521,7 @@ def make_overworld_logic():
         ["Goron SE", "Goron NE", True, None],
 
         ["Goron NE", "Goron NE South", False, None],
+        ["Goron NE South", "Goron NE Event", False, None],
         ["Goron NE South", "Goron NE", False, "explosives"],
         ["Goron NE South", "Goron NW South Dead End", True, None],
         ["Goron NE", "Goron NE Middle", False, None],
@@ -699,6 +704,7 @@ def make_overworld_logic():
         ["Ruins NW Boulders", "Ruins NW Across Bridge", True, None],
         ["Ruins NW Boulders", "Bremeur's Temple", True, None],
         ["Bremeur's Temple", "Bremeur's Temple Kings Key", False, "kings_key"],
+        ["Bremeur's Temple Kings Key", "Bremeur's Temple Event", False, None],
         ["Ruins NW Boulders", "Ruins NW Port Cliff", False, None],
         ["Ruins NW Port Cliff", "Ruins SW Port Cliff", True, None],
         ["Ruins NW Port Cliff", "Ruins NW Port Cliff Tree", True, "ruins_water"],

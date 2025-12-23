@@ -178,6 +178,7 @@ class EntranceGroups(IntEnum):
     WARP_PORTAL = 8 << 3
     STAIRS = 9 << 3
     HOLES = 10 << 3
+    EVENT = 11 << 3
     # Island mask
     SEA = 0 << 7
     MERCAY = 1 << 7

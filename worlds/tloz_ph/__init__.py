@@ -297,6 +297,9 @@ class PhantomHourglassWorld(World):
                     return True
             if location_name == "Ocean NE Man of Smiles Prize Postcard":  # This it pretty random but whatever...
                 return self.options.randomize_beedle_membership.value > 0
+            if "EVENT" in location_name:
+                print(f"Found event {location_name} {getattr(self.multiworld, "generation_is_fake", False)}")
+                return getattr(self.multiworld, "generation_is_fake", False)
             return False
 
     def pick_required_dungeons(self):
@@ -406,13 +409,16 @@ class PhantomHourglassWorld(World):
         self.create_event("Harrow Minigame", "_can_play_harrow")
         self.create_event("Dee Ess Goron Race", "_can_play_goron_race")
         self.create_event("TotOK B1 Phantom", "_can_farm_totok")
+        # Wayfarer Trade Quest
+        self.create_event("Wayfarer's House", "_wayfarer_gift")
+        self.create_event("SS Wayfarer Event", "_wayfarer_trade")
         # Shop stuff
         self.create_event("Treasure Teller", "_has_treasure_teller")
         # Switch states etc
-        self.create_event("Bremeur's Temple Kings Key", "_ruins_lower_water")
+        self.create_event("Bremeur's Temple Event", "_ruins_lower_water")
         self.create_event("Gust North Sandworms", "_windmills")
         self.create_event("Goron Chus", "_goron_chus")
-        self.create_event("Goron NE South", "_goron_maze_switch")
+        self.create_event("Goron NE Event", "_goron_maze_switch")
         self.create_event("Eddo's Workshop", "_eddo_door")
         self.create_event("ToI B1 Switch", "_toi_b1_switch")
         # Blue warps
@@ -541,9 +547,12 @@ class PhantomHourglassWorld(World):
         if getattr(self.multiworld, "generation_is_fake", False):
             disconnect_ids = set(self.ut_pairings.keys()) | set(self.ut_pairings.values())
             for e in self.entrances.values():
-                if ENTRANCES[e.name].id in disconnect_ids:
+                if ENTRANCES[e.name].id in disconnect_ids or ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
+                    if ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
+                        self.ut_pairings[str(ENTRANCES[e.name].id)] = ENTRANCES[e.name].vanilla_reciprocal.id
+                        self.ut_pairings[str(ENTRANCES[e.name].vanilla_reciprocal.id)] = ENTRANCES[e.name].id
         else:
             # What option corresponds with what type
             type_option_lookup = {
@@ -556,7 +565,9 @@ class PhantomHourglassWorld(World):
                 7: self.options.shuffle_dungeons_internally,
                 8: self.options.shuffle_dungeons_internally,
                 9: self.options.shuffle_caves,
-                10: self.options.shuffle_caves}
+                10: self.options.shuffle_caves,
+                11: False  # Events, UT only
+                }
 
             # Filter entrances to disconnect by yaml settings
             randomized_entrances: list["Entrance"] = []
@@ -976,7 +987,6 @@ class PhantomHourglassWorld(World):
         add_items |= {"Heart Container": 13}
         # Add pedestal items
         if self.options.randomize_pedestal_items.value > 1:
-            print(f"{add_pedestal_items(self.options.randomize_pedestal_items, self.options.pedestal_item_options, self.excluded_dungeons)}")
             add_items |= add_pedestal_items(self.options.randomize_pedestal_items, self.options.pedestal_item_options, self.excluded_dungeons)
         # Add sand items to pool
         add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
@@ -1001,7 +1011,6 @@ class PhantomHourglassWorld(World):
                 item_pool_dict[i] = 1
             filler_item_count -= 8
         # Add as many filler items as required
-        print(f"Remaining filler: {filler_item_count}")
         for _ in range(filler_item_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
@@ -1067,7 +1076,6 @@ class PhantomHourglassWorld(World):
         if self.options.randomize_boss_keys == "in_own_dungeon":
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
         if self.options.randomize_pedestal_items == "in_own_dungeon":
-            print(f"{[item for item in items if item.name in ITEM_GROUPS["Pedestal Items"]]}")
             confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Pedestal Items"]])
         # Remove boss reward items from pool for pre filling
         confined_dungeon_items.extend([item for item in items if item.name in self.boss_reward_items_pool])
@@ -1114,7 +1122,6 @@ class PhantomHourglassWorld(World):
             global_pedestal_helper("Square", "Temple of Courage")
             global_pedestal_helper("Round", "Ghost Ship")
             global_pedestal_helper("Triangle", "Ghost Ship")
-            print(f"{global_crystal_dungeons}")
 
         # If keysanity is off, dungeon items can only be put inside local dungeon locations, and there are not so many
         # of those which makes them pretty crowded.
@@ -1138,7 +1145,6 @@ class PhantomHourglassWorld(World):
 
             # Add global crystals/force gems
             if dung_name in global_crystal_dungeons:
-                print(f"{[item for item in self.pre_fill_items if item.name in global_crystal_dungeons[dung_name]]}")
                 confined_dungeon_items.extend([item for item in self.pre_fill_items if item.name in global_crystal_dungeons[dung_name]])
 
             # Add force gems
@@ -1146,7 +1152,6 @@ class PhantomHourglassWorld(World):
                 confined_dungeon_items.extend([item for item in self.pre_fill_items
                                           if "Force Gem" in item.name])
 
-            print(f"{dung_name}: {confined_dungeon_items}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 
@@ -1279,6 +1284,7 @@ class PhantomHourglassWorld(World):
 
                 for i in new_entrances:
                     pairing = self.ut_pairings.get(str(i), None)
+                    # print(f"UT pairings {self.ut_pairings}")
                     if pairing is not None:
                         dangling_entrance = self.disconnected_entrances_map.get(i, None)
                         dangling_exit = self.disconnected_exits_map.get(i, None)
@@ -1292,6 +1298,7 @@ class PhantomHourglassWorld(World):
                             print(f"exit {exit_region} already existed for {entrance_region}")
                         else:
                             entrance_region.connect(exit_region)
+                            # print(f"Connecting {entrance_region} => {exit_region}")
 
 
                         if dangling_exit is not None:
@@ -1311,8 +1318,13 @@ class PhantomHourglassWorld(World):
                 self.multiworld.get_location(self.location_id_to_name[i], self.player).progress_type = LocationProgressType.EXCLUDED
 
         elif "ph_ut_events" in key and stored_data:
-            print(f"UT tried to create events {self.ut_created_events} {stored_data}")
-            if "1f" in stored_data and not "1f" in self.ut_created_events:
-                print(f"UT is Creating got chart event")
-                self.create_event("totok 1f chart", "_UT_got_chart")
-                self.ut_created_events.append("1f")
+            def manage_ut_event(stored_name, region_name, event_item_name):
+                if stored_name in stored_data and not stored_name in self.ut_created_events:
+                    print(f"UT is Creating {event_item_name} event")
+                    self.create_event(region_name, event_item_name)
+                    self.ut_created_events.append(stored_name)
+
+            # Sent on getting location. Does not show event in UT
+            manage_ut_event("1f", "TotOK 1F Chart", "_UT_got_chart")
+            manage_ut_event("wayfarer", "Wayfarer Event", "_UT_wayfarer")
+
