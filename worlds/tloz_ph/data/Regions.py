@@ -239,7 +239,7 @@ REGIONS = [
     "Ocara's House",
     "Potato's house",
     "Molida Shop",
-    "Romaros' House",
+    "Romanos' House",
     "Archery Game",
 
     "Sun Lake Cave",

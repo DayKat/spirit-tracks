@@ -410,7 +410,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Dee Ess Goron Race", "_can_play_goron_race")
         self.create_event("TotOK B1 Phantom", "_can_farm_totok")
         # Wayfarer Trade Quest
-        self.create_event("Wayfarer's House", "_wayfarer_gift")
+        self.create_event("Wayfarer Event", "_wayfarer_gift")
         self.create_event("SS Wayfarer Event", "_wayfarer_trade")
         # Shop stuff
         self.create_event("Treasure Teller", "_has_treasure_teller")
@@ -1326,5 +1326,5 @@ class PhantomHourglassWorld(World):
 
             # Sent on getting location. Does not show event in UT
             manage_ut_event("1f", "TotOK 1F Chart", "_UT_got_chart")
-            manage_ut_event("wayfarer", "Wayfarer Event", "_UT_wayfarer")
+            # manage_ut_event("wayfarer", "Wayfarer Event", "_UT_wayfarer")
 

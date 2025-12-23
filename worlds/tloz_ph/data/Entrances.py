@@ -525,7 +525,7 @@ ENTRANCE_DATA = {
     "Molida South Romanos' House": {
         "return_name": "Romanos' Exit",
         "entrance_region": "Molida South",
-        "exit_region": "Romaros' House",
+        "exit_region": "Romanos' House",
         "entrance": (0xC, 0x0, 0x3),
         "exit": (0xC, 0xB, 0x0),
         "type": EntranceGroups.HOUSE,
@@ -2036,6 +2036,15 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
     },
+    "EVENT: Meet Wayfarer": {
+        "two_way": False,
+        "entrance_region": "Wayfarer's House",
+        "exit_region": "Wayfarer Event",
+        "entrance": (0x14, 0x1, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    }
 }
 
 

@@ -302,8 +302,8 @@ def make_overworld_logic():
         ["Molida South", "Potato's house", True, None],
         ["Molida South", "Molida Shop", True, None],
         ["Molida Shop", "Island Shop", False, None],
-        ["Molida South", "Romaros' House", True, None],
-        ["Romaros' House", "Archery Game", False, "has", "_beat_toc"],
+        ["Molida South", "Romanos' House", True, None],
+        ["Romanos' House", "Archery Game", False, "has", "_beat_toc"],
         ["Molida South", "Sun Lake Cave", True, None],
         ["Molida South", "Sun Lake Cave Upper", False, "shovel"],
 

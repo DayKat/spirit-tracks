@@ -1162,16 +1162,7 @@ def ph_bannan_scroll(state, player):
 def ph_ss_wayfarer(state, player):
     return all([
         ph_has_wood_heart(state, player),
-        any([
-            all([
-                not ph_is_ut(state, player),
-                state.has("_wayfarer_gift", player),
-            ]),
-            all([
-                ph_is_ut(state, player),
-                state.has("_UT_wayfarer", player),
-            ])
-        ])
+        state.has("_wayfarer_gift", player),
     ])
 
 def ph_salvage_courage_crest(state: CollectionState, player: int):

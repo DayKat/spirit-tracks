@@ -2283,7 +2283,7 @@ LOCATIONS_DATA = {
         "region_id": "Dee Ess Dig",
         "stage_id": 0x1b,
         "floor_id": 0x0,
-        "vanilla_item": "Big Green Rupee (100)",
+        "vanilla_item": "Big Red Rupee (200)",
         "y": 0x2666,
         "x_max": -0x107ac,
         "conditional": True,

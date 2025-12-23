@@ -1136,7 +1136,7 @@ CATEGORY_LOCATION_GROUPS = {
         "Isle of Frost Estate Dobo Dig (SW)",
         "Dee Ess Left Speakers Dig SSW",
         "Dee Ess Right Speakers Dig SE",
-        "Dee Ess Left Speakers Dig West ",
+        "Dee Ess Left Speakers Dig West",
         "Isle of Gust NW Dig",
         "Isle of Gust East Cliff Dig",
         "Molida Island Cuccoo Grapple Small Island Dig",
@@ -1438,7 +1438,12 @@ UT_EVENT_DATA = {
                 0x1001: {"address": "stage_flags",
                        "value": 0x400,
                        "entrance": "EVENT: Goron NE Spike Switch",
-                       "size": 2}
+                       "size": 2},
+                0x1401: {
+                    "address": 0x1B5581,
+                    "value": 0x8,
+                    "entrance": "EVENT: Meet Wayfarer",
+                }
             }
 
 # Decode classification for humans
