@@ -17,7 +17,7 @@ DYNAMIC_FLAGS = {
     # them back on the next scene
     "Astrid's Basement Treasure Map": {
         "on_scenes": [0xD14],
-        "not_has_locations": ["Isle of Ember Astrid's Basement Dig"],
+        "not_has_locations": ["Astrid's Basement Dig"],
         "unset_if_true": [(0x1BA651, 0x20)],
         "reset_flags": ["RESET Astrid's Basement Treasure Map"]
     },
@@ -28,7 +28,7 @@ DYNAMIC_FLAGS = {
     },
     "Ember summit treasure map": {
         "on_scenes": [0xD01],
-        "not_has_locations": ["Isle of Ember Summit Dig"],
+        "not_has_locations": ["Isle of Ember East Summit Dig"],
         "unset_if_true": [(0x1BA651, 0x80)],
         "reset_flags": ["RESET Ember summit treasure map"]
     },
@@ -39,7 +39,7 @@ DYNAMIC_FLAGS = {
     },
     "Mercay yellow guy treasure map": {
         "on_scenes": [0xB03],
-        "not_has_locations": ["Mercay Ojibe (Docks Guy) Item"],
+        "not_has_locations": ["Mercay SE Ojibe (Docks Guy) Item"],
         "unset_if_true": [(0x1BA650, 0x02)],
         "reset_flags": ["RESET Mercay yellow guy treasure map"]
     },
@@ -50,7 +50,7 @@ DYNAMIC_FLAGS = {
     },
     "Mercay freedle gift treasure map": {
         "on_scenes": [0xB02],
-        "not_has_locations": ["Mercay Freedle Gift Item"],
+        "not_has_locations": ["Mercay NE Freedle Gift Item"],
         "unset_if_true": [(0x1BA652, 0x20)],
         "reset_flags": ["RESET Mercay freedle gift treasure map"]
     },
@@ -61,7 +61,7 @@ DYNAMIC_FLAGS = {
     },
     "Mercay oshus dig treasure map": {
         "on_scenes": [0xB00],
-        "not_has_locations": ["Mercay Oshus Dig"],
+        "not_has_locations": ["Mercay SW Tree Dig"],
         "unset_if_true": [(0x1BA651, 0x10)],
         "reset_flags": ["RESET Mercay oshus dig treasure map"]
     },
@@ -72,7 +72,7 @@ DYNAMIC_FLAGS = {
     },
     "Molida Cuccoo dig map": {
         "on_scenes": [0xC00],
-        "not_has_locations": ["Molida Island Cuccoo Grapple Tree Dig"],
+        "not_has_locations": ["Molida Island South Cucco Grapple Tree Dig"],
         "unset_if_true": [(0x1BA651, 0x40)],
         "reset_flags": ["RESET Molida Cuccoo dig map"]
     },
@@ -105,7 +105,7 @@ DYNAMIC_FLAGS = {
     },
     "Frost Island Map": {
         "on_scenes": [0xF02],
-        "not_has_locations": ["Isle of Frost Estate SW Island Dig"],
+        "not_has_locations": ["Isle of Frost NW Island Dig SW"],
         "unset_if_true": [(0x1BA651, 0x4)],
         "reset_flags": ["RESET Frost Island Map"]
     },
@@ -116,7 +116,7 @@ DYNAMIC_FLAGS = {
     },
     "Bannan Wayfarer Map": {
         "on_scenes": [0x1400],
-        "not_has_locations": ["Bannan Island Wayfarer Dig"],
+        "not_has_locations": ["Bannan Island West Wayfarer Dig"],
         "unset_if_true": [(0x1BA650, 0x20)],
         "reset_flags": ["RESET Bannan Wayfarer Map"]
     },
@@ -138,7 +138,7 @@ DYNAMIC_FLAGS = {
     },
     "Rupoor cave map": {
         "on_scenes": [0x1502],
-        "not_has_locations": ["Isle of the Dead Rupoor Cave 2"],
+        "not_has_locations": ["Rupoor Cave 2"],
         "unset_if_true": [(0x1BA653, 0x1)],
         "reset_flags": ["RESET Rupoor cave map"]
     },
@@ -149,7 +149,7 @@ DYNAMIC_FLAGS = {
     },
     "Goron Chu Map": {
         "on_scenes": [0x1002],
-        "not_has_locations": ["Goron Island Yellow Chu Item"],
+        "not_has_locations": ["Goron Island SW Yellow Chu Item"],
         "unset_if_true": [(0x1ba652, 0x10)],
         "reset_flags": ["RESET Goron Chu Map"]
     },
@@ -160,25 +160,25 @@ DYNAMIC_FLAGS = {
     # TotoK 1F
     "TotoK Don't open key door": {
         "on_scenes": [0x2500],
-        "not_has_locations": ["TotOK 1F SW Sea Chart Chest"],
+        "not_has_locations": ["TotOK 1F Sea Chart Chest"],
         "unset_if_true": [(0x1B557D, 0x02)]
     },
     "TotoK remove linebeck": {
         "on_scenes": [0x2500],
-        "has_locations": ["TotOK 1F SW Sea Chart Chest"],
+        "has_locations": ["TotOK 1F Sea Chart Chest"],
         "set_if_true": [(0x1B557D, 0x02)]
     },
 
     # Cannon Island
     "Enter Cannon: Not Bought Cannon": {
         "on_scenes": [0x130B],
-        "not_has_locations": ["Cannon Island Cannon"],
+        "not_has_locations": ["Eddo's Cannon"],
         "unset_if_true": [(0x1B5582, 0x1), (0x1B558D, 0x10)]
     },
     "Enter Cannon: Not Bought Salvage": {
         "on_scenes": [0x130B],
-        "not_has_locations": ["Cannon Island Salvage Arm"],
-        "has_locations": ["Cannon Island Cannon"],
+        "not_has_locations": ["Eddo's Salvage Arm"],
+        "has_locations": ["Eddo's Cannon"],
         "set_if_true": [(0x1B5582, 0x1)],
         "unset_if_true": [(0x1BA649, 0x10), (0x1B558D, 0x10)]
     },
@@ -215,37 +215,37 @@ DYNAMIC_FLAGS = {
     # Spirit Island
     "Spirit of Power 1": {
         "on_scenes": [0x1701],
-        "not_has_locations": ["Spirit Island Power Upgrade Level 1"],
+        "not_has_locations": ["Spirit Shrine Power Upgrade Level 1"],
         "unset_if_true": [(0x1BA647, 0x9)],
     },
     "Spirit of Wisdom 1": {
         "on_scenes": [0x1701],
-        "not_has_locations": ["Spirit Island Wisdom Upgrade Level 1"],
+        "not_has_locations": ["Spirit Shrine Wisdom Upgrade Level 1"],
         "unset_if_true": [(0x1BA647, 0x12)],
     },
     "Spirit of Courage 1": {
         "on_scenes": [0x1701],
-        "not_has_locations": ["Spirit Island Courage Upgrade Level 1"],
+        "not_has_locations": ["Spirit Shrine Courage Upgrade Level 1"],
         "unset_if_true": [(0x1BA646, 0x80), (0x1BA647, 0x04)],
     },
     "Spirit of Power 2": {
         "on_scenes": [0x1701],
-        "has_locations": ["Spirit Island Power Upgrade Level 1"],
-        "not_has_locations": ["Spirit Island Power Upgrade Level 2"],
+        "has_locations": ["Spirit Shrine Power Upgrade Level 1"],
+        "not_has_locations": ["Spirit Shrine Power Upgrade Level 2"],
         "unset_if_true": [(0x1BA647, 0x8)],
         "set_if_true": [(0x1BA647, 0x1)],
     },
     "Spirit of Wisdom 2": {
         "on_scenes": [0x1701],
-        "has_locations": ["Spirit Island Wisdom Upgrade Level 1"],
-        "not_has_locations": ["Spirit Island Wisdom Upgrade Level 2"],
+        "has_locations": ["Spirit Shrine Wisdom Upgrade Level 1"],
+        "not_has_locations": ["Spirit Shrine Wisdom Upgrade Level 2"],
         "unset_if_true": [(0x1BA647, 0x10)],
         "set_if_true": [(0x1BA647, 0x2)],
     },
     "Spirit of Courage 2": {
         "on_scenes": [0x1701],
-        "has_locations": ["Spirit Island Courage Upgrade Level 1"],
-        "not_has_locations": ["Spirit Island Courage Upgrade Level 2"],
+        "has_locations": ["Spirit Shrine Courage Upgrade Level 1"],
+        "not_has_locations": ["Spirit Shrine Courage Upgrade Level 2"],
         "unset_if_true": [(0x1BA647, 0x4)],
         "set_if_true": [(0x1BA646, 0x80)],
     },
@@ -458,7 +458,7 @@ DYNAMIC_FLAGS = {
         "goal_requirement": True,
         "set_if_true": [(0x1B5599, 0x4)],
         "has_slot_data": [["bellum_access", 2]],
-        "has_locations": ["TotOK Phantom Hourglass"]
+        "has_locations": ["TotOK Lobby Phantom Hourglass"]
     },
     "Spawn phantom wreckage": {
         "on_scenes": [0x0],
@@ -670,14 +670,14 @@ DYNAMIC_FLAGS = {
     # Goron Chief
     "Beat goron temple goron chief": {
         "on_scenes": [0x100A],
-        "not_has_locations": ["Goron Island Chief Post Dungeon Item"],
+        "not_has_locations": ["Goron Chief Post Dungeon Item"],
         "unset_if_true": [(0x1B5593, 0x2)],
         "reset_flags": ["RESET Beat goron temple goron chief"]
     },
     "Beat goron temple goron chief metal": {
         "on_scenes": [0x100A],
-        "not_has_locations": ["Goron Island Chief Post Dungeon Item"],
-        "has_locations": ["Dongorongo Boss Reward", "Goron Island Goron Quiz"],
+        "not_has_locations": ["Goron Chief Post Dungeon Item"],
+        "has_locations": ["Dongorongo Boss Reward", "Goron Chief Goron Quiz"],
         "set_if_true": [(0x1B558B, 0x40)],
         "reset_flags": ["RESET remove Crimzonine"]
     },
@@ -821,7 +821,7 @@ DYNAMIC_FLAGS = {
     # Zauz
     "Zauz remove phantom blade": {
         "on_scenes": [0x160A],
-        "not_has_locations": ["Zauz's Island Phantom Blade"],
+        "not_has_locations": ["Zauz's House Phantom Blade"],
         "unset_if_true": [(0x1B5592, 0x20)],
         "reset_flags": ["RESET Zauz remove phantom blade"]
     },
@@ -859,13 +859,13 @@ DYNAMIC_FLAGS = {
     },
     "Zauz remove oshus flag": {
         "on_scenes": [0x160A],
-        "has_locations": ["Mercay Oshus Phantom Sword"],
+        "has_locations": ["Oshus Phantom Sword"],
         "unset_if_true": [(0x1B5592, 0x40)],
         "reset_flags": ["RESET Zauz remove oshus flag"]
     },
     "RESET Zauz remove oshus flag": {
         # "on_scenes": [0x1600],
-        "has_locations": ["Mercay Oshus Phantom Sword"],
+        "has_locations": ["Oshus Phantom Sword"],
         "set_if_true": [(0x1B5592, 0x40)]
     },
     # Jolene
@@ -920,13 +920,13 @@ DYNAMIC_FLAGS = {
     "Block phantom sword crafting blade": {
         "on_scenes": [0xB0A],
         "has_items": [("Phantom Blade", 0)],
-        "not_has_locations": ["Mercay Oshus Phantom Sword"],
+        "not_has_locations": ["Oshus Phantom Sword"],
         "unset_if_true": [(0x1B5592, 0x20), (0x1BA648, 0x20)]
     },
     "Block phantom sword crafting ph": {
         "on_scenes": [0xB0A],
         "has_items": [("Phantom Hourglass", 0)],
-        "not_has_locations": ["Mercay Oshus Phantom Sword"],
+        "not_has_locations": ["Oshus Phantom Sword"],
         "unset_if_true": [(0x1B5592, 0x20), (0x1BA648, 0x20)]
     },
     "Reset Oshus": {
@@ -951,7 +951,7 @@ DYNAMIC_FLAGS = {
     "Oshus have phantom sword": {
         "on_scenes": [0xB0A],
         "has_items": [("Sword (Progressive)", 2)],
-        "not_has_locations": ["Mercay Oshus Phantom Sword"],
+        "not_has_locations": ["Oshus Phantom Sword"],
         "unset_if_true": [(0x1BA648, 0x20)]
     },
     "RESET Oshus have phantom sword": {
@@ -971,13 +971,13 @@ DYNAMIC_FLAGS = {
     },
     "Oshus Gem": {
         "on_scenes": [0xB0A],
-        "not_has_locations": ["Mercay Oshus Spirit Gem"],
+        "not_has_locations": ["Oshus Spirit Gem"],
         "has_locations": ["Cyclok Boss Reward"],
         "set_if_true": [(0x1B55A0, 0x4), (0x1B557D, 0x2), (0x1B557F, 0x40)]
     },
     "RESET Oshus Gem hourglass": {
         # "on_scenes": [0xB00],
-        "not_has_locations": ["TotOK Phantom Hourglass"],
+        "not_has_locations": ["TotOK Lobby Phantom Hourglass"],
         "unset_if_true": [(0x1B55A0, 0x4)]
     },
     "RESET Oshus Gem chart": {
@@ -1003,25 +1003,25 @@ DYNAMIC_FLAGS = {
     # Trade Quest
     "PoRL Trade Quest": {
         "on_scenes": [0x700],
-        "not_has_locations": ["Ocean NW Prince of Red Lions Trade Quest Item"],
+        "not_has_locations": ["Prince of Red Lions Trade Quest Item"],
         "unset_if_true": [(0x1B5590, 0x98), (0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll", "RESET Guard Notebook", "RESET Kaleidoscope", "RESET Wood Heart"]
     },
     "Nyave Trade Quest": {
         "on_scenes": [0xA00],
-        "not_has_locations": ["Ocean SW Nyave Trade Quest Item"],
+        "not_has_locations": ["Nyave Trade Quest Item"],
         "unset_if_true": [(0x1B5590, 0x80), (0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll", "RESET Wood Heart"]
     },
     "Hoiger Trade Quest": {
         "on_scenes": [0x900],
-        "not_has_locations": ["Ocean SE Hoiger Howgendoogen Trade Quest Item"],
+        "not_has_locations": ["Hoiger Howgendoogen Trade Quest Item"],
         "unset_if_true": [(0x1B5590, 0x90), (0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll", "RESET Guard Notebook", "RESET Wood Heart"]
     },
     "Wayfarer Trade Quest": {
         "on_scenes": [0x800],
-        "not_has_locations": ["Bannan Island Wayfarer Trade Quest Chest"],
+        "not_has_locations": ["Wayfarer Trade Quest Chest"],
         "unset_if_true": [(0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll"]
     },
@@ -1033,19 +1033,19 @@ DYNAMIC_FLAGS = {
     "RESET Wood Heart": {
         # "on_scenes": [0x0, 0x1, 0x2, 0x3],
         "has_items": [("Wood Heart", 1)],
-        "not_has_locations": ["Bannan Island Wayfarer Trade Quest Chest"],
+        "not_has_locations": ["Wayfarer Trade Quest Chest"],
         "set_if_true": [(0x1B5590, 0x80)]
     },
     "RESET Guard Notebook": {
         # "on_scenes": [0x0, 0x1, 0x2, 0x3],
         "has_items": [("Guard Notebook", 1)],
-        "not_has_locations": ["Ocean SW Nyave Trade Quest Item"],
+        "not_has_locations": ["Nyave Trade Quest Item"],
         "set_if_true": [(0x1B5590, 0x10)]
     },
     "RESET Kaleidoscope": {
         # "on_scenes": [0x1, 0x2, 0x3],
         "has_items": [("Kaleidoscope", 1)],
-        "not_has_locations": ["Ocean SE Hoiger Howgendoogen Trade Quest Item"],
+        "not_has_locations": ["Hoiger Howgendoogen Trade Quest Item"],
         "set_if_true": [(0x1B5590, 0x8)]
     },
     # Ghost Ship HC
@@ -1076,7 +1076,7 @@ DYNAMIC_FLAGS = {
     # Doyland
     "Doyland lower water": {
         "on_scenes": [0x2201],
-        "not_has_locations": ["Isle of Ruins Doylan's Item"],
+        "not_has_locations": ["Doylan's Gift"],
         "unset_if_true": [(0x1B5582, 0x4), (0x1B55A9, 0x30)],
         "reset_flags": ["RESET Doyland lowered water"]
     },
@@ -1097,7 +1097,7 @@ DYNAMIC_FLAGS = {
     },
     "Frost Port Azurine for Peg lol": {
         "on_scenes": [0xF00],
-        "not_has_locations": ["Isle of Frost Stand on Peg Gift"],
+        "not_has_locations": ["Isle of Frost SW Stand on Peg Gift"],
         "unset_if_true": [(0x1B558B, 0x20)],
         "reset_flags": ["RESET Ice Field pre-dungeon", "RESET Ice Field post-dungeon"]
     },
@@ -1188,13 +1188,13 @@ DYNAMIC_FLAGS = {
     "RESET Salvage salvage": {
         # "on_scenes": [0xD00],
         "unset_if_true": [(0x1B558D, 0x10)],
-        "not_has_locations": ["Cannon Island Salvage Arm"]
+        "not_has_locations": ["Eddo's Salvage Arm"]
     },
     # Man of smiles prize postcard
     "Man of smiles prize postcard removal": {
         "on_scenes": [0x600],
         "unset_if_true": [(0x1B558F, 0x08)],
-        "not_has_locations": ["Ocean NE Man of Smiles Prize Postcard"]
+        "not_has_locations": ["Man of Smiles Prize Postcard"]
     },
     # Heal on bellumbeck
     "Full heal on bellumbeck": {
