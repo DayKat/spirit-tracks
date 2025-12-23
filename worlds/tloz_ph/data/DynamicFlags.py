@@ -861,13 +861,13 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x160A],
         "has_locations": ["Oshus Phantom Sword"],
         "unset_if_true": [(0x1B5592, 0x40)],
-        "reset_flags": ["RESET Zauz remove oshus flag"]
+        # "reset_flags": ["RESET Zauz remove oshus flag"]
     },
-    "RESET Zauz remove oshus flag": {
-        # "on_scenes": [0x1600],
-        "has_locations": ["Oshus Phantom Sword"],
-        "set_if_true": [(0x1B5592, 0x40)]
-    },
+    # "RESET Zauz remove oshus flag": {
+    #     # "on_scenes": [0x1600],
+    #     "has_locations": ["Oshus Phantom Sword"],
+    #     "set_if_true": [(0x1B5592, 0x40)]
+    # },
     # Jolene
     "Remove Jolene": {
         "on_scenes": [0x0],
@@ -936,7 +936,11 @@ DYNAMIC_FLAGS = {
                         "Oshus not have phantom sword",
                         "RESET Block Oshus Gem", "RESET Oshus Gem hourglass",
                         "RESET Oshus Gem chart",
-                        "RESET Oshus Wind Temple"]
+                        "RESET Oshus Wind Temple",
+                        "RESET Oshus spawn B13 Phantoms"]
+    },
+    "RESET Oshus spawn B13 Phantoms": {
+        "set_if_true": [(0x1B5592, 0x40)]
     },
     "RESET Block phantom sword crafting": {
         # "on_scenes": [0xB00],

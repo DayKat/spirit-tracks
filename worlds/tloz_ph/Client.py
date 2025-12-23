@@ -925,24 +925,12 @@ class PhantomHourglassClient(DSZeldaClient):
             self.lowered_water = True
 
     async def detect_ut_event(self, ctx, scene):
+        """
+        Send UT event locations on certain flags being set in certain scenes.
+        """
         if not self.sent_event:
-            """
-            Send UT event locations on certain flags being set in certain scenes.
-            """
-            ut_event_data = {
-                0x2400: {"address": 0x1B5582,
-                       "value": 0x4,
-                       "entrance": "EVENT: Bremeur's Temple Lower Water"},
-                0x800: {"address": 0x1B5592,
-                       "value": 0x8,
-                       "entrance": "EVENT: SS Wayfarer Give Wood Heart"},
-                0x1001: {"address": "stage_flags",
-                       "value": 0x400,
-                       "entrance": "EVENT: Goron NE Spike Switch",
-                       "size": 2}
-            }
-            if scene in ut_event_data:
-                data = ut_event_data[scene]
+            if scene in UT_EVENT_DATA:
+                data = UT_EVENT_DATA[scene]
                 address = self.stage_address if data["address"] == "stage_flags" else data["address"]
                 if await read_memory_value(ctx, address, size=data.get("size", 1), silent=True) & data["value"]:
                     print(f"Event detection Success!, {data['entrance']}")

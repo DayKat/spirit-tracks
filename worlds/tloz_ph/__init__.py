@@ -1226,8 +1226,8 @@ class PhantomHourglassWorld(World):
         # Used to make excluded dungeons consistent for UT
         slot_data["required_dungeons"] = self.required_dungeons
         # Used to determine if reached goal in client
-        slot_data[
-            "required_metals"] = self.options.metal_hunt_required.value if self.options.goal_requirements == "metal_hunt" \
+        slot_data["required_metals"] = self.options.metal_hunt_required.value \
+            if self.options.goal_requirements == "metal_hunt" \
             else self.options.dungeons_required.value
         # Used for dungeon hints in client
         slot_data["required_dungeon_locations"] = self.required_bosses  # for dungeon hints

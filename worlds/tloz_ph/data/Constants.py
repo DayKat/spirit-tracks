@@ -471,6 +471,22 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Oshus' Sword",
         "Phantom Sword",
     },
+
+    # Item Aliases
+    "Sword": {"Sword (Progressive"},
+    "Bombs": {"Bombs (Progressive"},
+    "Bow": {"Bow (Progressive)"},
+    "Quiver": {"Bow (Progressive)"},
+    "Bombchus": {"Bombchus (Progressive"},
+    "Chus": {"Bombchus (Progressive"},
+    "Spade": {"Shovel"},
+    "Rang": {"Boomerang"},
+    "Grapple": {"Grappling Hook"},
+
+    "Spirit of Power": {"Spirit of Power (Progressive)"},
+    "Spirit of Wisdom": {"Spirit of Wisdom (Progressive)"},
+    "Spirit of Courage": {"Spirit of Courage (Progressive)"},
+
 }
 
 # Combo groups
@@ -1411,6 +1427,19 @@ COLOR_SWITCH_DATA = {
         "value": 0x1
     },
 }
+
+UT_EVENT_DATA = {
+                0x2400: {"address": 0x1B5582,
+                       "value": 0x4,
+                       "entrance": "EVENT: Bremeur's Temple Lower Water"},
+                0x800: {"address": 0x1B5592,
+                       "value": 0x8,
+                       "entrance": "EVENT: SS Wayfarer Give Wood Heart"},
+                0x1001: {"address": "stage_flags",
+                       "value": 0x400,
+                       "entrance": "EVENT: Goron NE Spike Switch",
+                       "size": 2}
+            }
 
 # Decode classification for humans
 CLASSIFICATION = {

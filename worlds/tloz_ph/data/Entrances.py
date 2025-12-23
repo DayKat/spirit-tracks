@@ -2008,6 +2008,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MERCAY,
         "extra_data": {"glitched": True},
     },
+    # Event entrances
     "EVENT: SS Wayfarer Give Wood Heart": {
         "two_way": False,
         "entrance_region": "SS Wayfarer Trade",
