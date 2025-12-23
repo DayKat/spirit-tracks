@@ -528,7 +528,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "id": 43,
     },
-    "TotOK B3 NW Sea Chart Chest": {
+    "TotOK B3.5 Sea Chart Chest": {
         "region_id": "TotOK B3.5",
         "vanilla_item": "NW Sea Chart",
         "stage_id": 0x25,
@@ -706,7 +706,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "id": 60,
     },
-    "TotOK B9.5 SE Sea Chart Chest": {
+    "TotOK B9.5 Sea Chart Chest": {
         "region_id": "TotOK B10",
         "vanilla_item": "SE Sea Chart",
         "stage_id": 0x25,

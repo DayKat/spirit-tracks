@@ -11,7 +11,7 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Mercay SE Tuzi's House",
         "destination": "TotOK Lobby Exit",
         "has_slot_data": [("dungeon_shortcuts", 1)],
-        "any_has_locations": ["TotOK Phantom Hourglass",
+        "any_has_locations": ["TotOK Lobby Phantom Hourglass",
                           "TotOK 1F Linebeck Key"],
     },
     "Shortcut to Temple of Fire": {
@@ -32,11 +32,11 @@ DYNAMIC_ENTRANCES = {
         "destination": "ToW Exit",
         "has_slot_data": [("dungeon_shortcuts", 1), ("randomize_digs", 0)],
         "has_locations": [
-            "Isle of Gust Hideout Chest",
-            "Isle of Gust Miblin Cave North Chest",
-            "Isle of Gust Miblin Cave South Chest",
-            "Isle of Gust West Cliff Chest",
-            "Isle of Gust Sandworm Chest",
+            "Tiled Hideout Chest",
+            "Miniblin Cave North Chest",
+            "Miniblin Cave South Chest",
+            "Isle of Gust South NW Chest",
+            "Isle of Gust North Sandworm Chest"
         ],
     },
     "Shortcut to Temple of Courage": {
@@ -153,7 +153,7 @@ DYNAMIC_ENTRANCES = {
     "TotOK b10 shortcut warp": {
         "entrance": "TotOK Lobby Yellow Warp",
         "destination": "TotOK B10 Cave",
-        "has_locations": ["TotOK B9.5 SE Sea Chart Chest"],
+        "has_locations": ["TotOK B9.5 Sea Chart Chest"],
         "has_slot_data": [("totok_checkpoints", 1)]
     },
     "TotOK b9.5 warp up": {
@@ -169,7 +169,7 @@ DYNAMIC_ENTRANCES = {
     "TotOK b3 shortcut warp": {
         "entrance": "TotOK Lobby Yellow Warp",
         "destination": "TotOK B3.5 Blue Warp",
-        "has_locations": ["TotOK B3 NW Sea Chart Chest"],
+        "has_locations": ["TotOK B3.5 Sea Chart Chest"],
         "has_slot_data": [("totok_checkpoints", 1)],
         "check_bits": [(0x1BA661, 0x40, "not")]
     },
