@@ -160,10 +160,10 @@ class PhantomHourglassWorld(World):
     # This is all code you still need to implement. I am writing down logic.
     # 
     # Maps:
-    #     Always load:
-    #         maps/maps_always.json
+    #     Load when *no* ER is on:
+    #         maps/maps_any_er_false.json
     #     Load when *any* ER is on:
-    #         maps/maps_er_overview.json
+    #         maps/maps_any_er_true.json
     #     Load when Overworld-Transition-ER is on:
     #         maps/maps_ow_er_true.json
     #     Load when Overworld-Transition-ER is off:
