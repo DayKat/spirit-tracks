@@ -1,0 +1,9 @@
+[
+{"name": "Isle of Ember", "img": "images/isle_of_ember.png", "location_size": 14, "location_border_thickness": 2},
+{"name": "Mercay Island", "img": "images/mercay_island.png", "location_size": 14, "location_border_thickness": 2},
+{"name": "Molida Island", "img": "images/molida_island.png", "location_size": 14, "location_border_thickness": 2},
+{"name": "Goron Island", "img": "images/goron_island.png", "location_size": 14, "location_border_thickness": 2},
+{"name": "Isle of Frost", "img": "images/isle_of_frost.png", "location_size": 14, "location_border_thickness": 2},
+{"name": "Isle of Gusts", "img": "images/isle_of_gusts.png", "location_size": 14, "location_border_thickness": 2},
+{"name": "Isle of Ruins", "img": "images/isle_of_ruins.png", "location_size": 14, "location_border_thickness": 2}
+]

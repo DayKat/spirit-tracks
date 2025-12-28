@@ -156,6 +156,46 @@ class PhantomHourglassWorld(World):
     found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}",
                                        "ph_keylocking_{player}_{team}",
                                        "ph_ut_events_{player}_{team}"]
+                                       
+    # This is all code you still need to implement. I am writing down logic.
+    # 
+    # Maps:
+    #     Load when *no* ER is on:
+    #         maps/maps_any_er_false.json
+    #     Load when *any* ER is on:
+    #         maps/maps_any_er_true.json
+    #     Load when Overworld-Transition-ER is on:
+    #         maps/maps_ow_er_true.json
+    #     Load when Overworld-Transition-ER is off:
+    #         maps/maps_ow_er_false.json
+    #         
+    # Locations:
+    #     Always load:
+    #         locations/locations.json
+    #         locations/interior_checks.json
+    #     Load when Dungeons AND Bosses are vanilla:
+    #         locations/overview_dungeons_full.json
+    #     Load when Dungeons are vanilla BUT NOT bosses:
+    #         locations/overview_dungeons.json
+    #     Load when Bosses are vanilla (regardless of Dungeon-ER):
+    #         locations/overview_bosses.json
+    #     Load when Caves are vanilla:
+    #         locations/caves.json
+    #     Load when Houses are vanilla:
+    #         locations/houses.json
+    #     Special Cases incoming yey :)
+    #     Load when BOTH Houses and Caves are vanilla (additionally to the above):
+    #         locations/overview_astrid_full.json
+    #     Load when Houses are vanilla but Caves are NOT (additionally to the above):
+    #         locations/overview_astrid_houses
+    #         
+    # Entrances:
+    #     Load the obviously named files in tracker/entrances/ depending on which ER is enabled
+    #     Load them as locations
+    # 
+    # That's all!
+        
+                                       
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
