@@ -130,6 +130,27 @@ def add_pedestal_items(place, option, excluded_dungeons):
 
     return res
 
+TRACKER_WORLD = {"map_page_folder": "tracker",
+                 "map_page_maps": ["maps/maps_any_er_true.json",
+                                   "maps/maps_ow_er_true.json"],
+                 "map_page_locations": ["locations/locations.json",
+                                        "locations/interior_checks.json",
+                                        "locations/overview_houses.json",
+                                        # "locations/overview_astrid_full.json", empty
+                                        "locations/overview_astrid_houses.json",
+                                        "locations/overview_bosses.json",
+                                        "locations/overview_caves.json",
+                                        "locations/overview_dungeons_full.json",
+                                        # Entrances
+                                        "entrances/overworld_transitions.json",
+                                        "entrances/bosses.json",
+                                        "entrances/caves.json",
+                                        "entrances/dungeons.json",
+                                        "entrances/houses.json",
+                                        "entrances/ports.json",
+
+                                        ]}
+
 class PhantomHourglassWorld(World):
     """
     The Legend of Zelda: Phantom Hourglass is the sea bound handheld sequel to the Wind Waker.
@@ -151,8 +172,7 @@ class PhantomHourglassWorld(World):
     glitches_item_name = "_UT_Glitched_Logic"
     ut_can_gen_without_yaml = True
     location_id_to_alias: Dict[int, str]
-    tracker_world = {"map_page_folder": "tracker", "map_page_maps": "maps/maps.json",
-                     "map_page_locations": "locations/locations.json"}
+    tracker_world = TRACKER_WORLD
     found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}",
                                        "ph_keylocking_{player}_{team}",
                                        "ph_ut_events_{player}_{team}"]
