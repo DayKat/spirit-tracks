@@ -1082,8 +1082,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x04,
         "address": 0x262030,
         "value": 8,
-    "rabbit": True,
-    "require_item": ["Rabbit Net", "Cannon"]
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
     },
     "Rabbit E Outset": {
         "region_id": "e outset rabbit",
@@ -1091,8 +1091,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x04,
         "address": 0x262030,
         "value": 0x10,
-    "rabbit": True,
-    "require_item": ["Rabbit Net", "Cannon"]
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"]
     },
     "Rabbit SW Rabbit Haven": {
         "region_id": "sw rabbit haven rabbit",

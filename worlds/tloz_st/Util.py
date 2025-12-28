@@ -50,6 +50,14 @@ def build_location_name_to_id_dict() -> Dict[str, int]:
         location_name_to_id[loc_name] = location["id"]
     return location_name_to_id
 
+def build_rabbit_location_id_to_name_dict() -> Dict[int, str]:
+    location_id_to_name: Dict[int, str] = {}
+    for loc_name, location in LOCATIONS_DATA.items():
+        if location.get("rabbit"):
+            index = location["id"]
+            location_id_to_name[index] = loc_name
+    return location_id_to_name
+
 
 def build_item_name_to_id_dict() -> Dict[str, int]:
     item_name_to_id: Dict[str, int] = {}

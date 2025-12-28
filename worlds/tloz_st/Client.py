@@ -81,8 +81,10 @@ class SpiritTracksClient(DSZeldaClient):
         self.ADDR_gMapManager = POINTERS["ADDR_gMapManager"]
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
 
+        self.update_rabbits = False
         self.in_stamp_stand = False
         self.scene_to_stamp = build_scene_to_stamp()
+        self.rabbit_id_to_name = build_rabbit_location_id_to_name_dict()
         self.goal_locations = build_location_to_goal()
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
@@ -161,13 +163,19 @@ class SpiritTracksClient(DSZeldaClient):
             self.receiving_location = True
             stamp_location = self.scene_to_stamp[self.current_scene] #TODO error when loading into slot (in fs) after receiving stamp book offline, scene refresh fixed
             await self._process_checked_locations(ctx, stamp_location)
-        current_menu = read_result["menu"]
-        if (current_menu == 9) or (self.current_scene == 0x3E):
+        if self.current_scene == 0x3E00 and not self.update_rabbits:
+            self.update_rabbits = True
+            await write_memory_value(ctx, RAM_ADDRS["rabbits"][0], 0)
             rabbit_total = item_count(ctx, "Forest Rabbit") + item_count(ctx, "Snow Rabbit")
             rabbit_total = 2 ** rabbit_total - 1  # convert decimal to that number of bits
             print("updating rabbit count")
-            await write_memory_value(ctx, RAM_ADDRS["rabbits"], rabbit_total)
-            #TODO need to revert back to accurate count after, preferably with the right rabbits done
+            await write_memory_value(ctx, RAM_ADDRS["rabbits"][0], rabbit_total)
+        if self.update_rabbits and self.current_scene != 0x3E00: #TODO going on train gives rabbit locations
+            await write_memory_value(ctx, RAM_ADDRS["rabbits"][0], 0)
+            for _id, name in self.rabbit_id_to_name.items():
+                if _id in ctx.checked_locations:
+                    await write_memory_value(ctx, LOCATIONS_DATA[name]["address"], LOCATIONS_DATA[name]["value"])
+            self.update_rabbits = False
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:

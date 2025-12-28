@@ -246,7 +246,7 @@ class SpiritTracksWorld(World):
         ap_code = self.item_name_to_id[name]
         return Item(name, classification, ap_code, self.player)
 
-    def build_item_pool_dict(self): #TODO take rabbits out of item pool if option not on?
+    def build_item_pool_dict(self): #TODO take rabbits out of item pool if option not on? start inv not working?
         removed_item_quantities = self.options.remove_items_from_pool.value.copy()
         item_pool_dict = {}
         filler_item_count = 0
@@ -266,6 +266,10 @@ class SpiritTracksWorld(World):
             item_name = loc_data.get("item_override", loc_data["vanilla_item"])
             if isinstance(item_name, list):
                 item_name = self.random.choice(item_name)
+            if not self.options.rabbitsanity and (item_name == "Forest Rabbit" or  item_name == "Snow Rabbit"):
+                removed_item_quantities[item_name] -= 1
+                filler_item_count += 1
+                continue
             if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
                 # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
                 removed_item_quantities[item_name] -= 1
