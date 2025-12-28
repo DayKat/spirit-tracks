@@ -992,15 +992,6 @@ class PhantomHourglassClient(DSZeldaClient):
         if len(old_visited_entrances) != len(self.visited_entrances):
             await self.store_data(ctx, storage_key, self.visited_entrances-old_visited_entrances)
 
-    @staticmethod
-    async def store_data(ctx: "BizHawkClientContext", key, data):
-        await ctx.send_msgs([{
-            "cmd": "Set",
-            "key": key,
-            "default": set(),
-            "operations": [{"operation": "update", "value": list(data)}]
-        }])
-
     def write_respawn_entrance(self, exit_data: "PHTransition"):
         # If ER:ing to sea, set respawn entrance to where you came from cause that doesn't change by itself when warping
         if exit_data.stage == 0:

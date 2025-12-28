@@ -132,7 +132,9 @@ def add_pedestal_items(place, option, excluded_dungeons):
 
 TRACKER_WORLD = {"map_page_folder": "tracker",
                  "map_page_maps": ["maps/maps_any_er_true.json",
-                                   "maps/maps_ow_er_true.json"],
+                                   "maps/maps_any_er_false.json",
+                                   "maps/maps_ow_er_true.json",
+                                   "maps/maps_ow_er_false.json"],
                  "map_page_locations": ["locations/locations.json",
                                         "locations/interior_checks.json",
                                         "locations/overview_houses.json",
@@ -148,8 +150,9 @@ TRACKER_WORLD = {"map_page_folder": "tracker",
                                         "entrances/dungeons.json",
                                         "entrances/houses.json",
                                         "entrances/ports.json",
-
-                                        ]}
+                                        ],
+                 "map_page_settings_key": "{slot}_{team}_UT_MAP",
+                 }
 
 class PhantomHourglassWorld(World):
     """
@@ -176,6 +179,7 @@ class PhantomHourglassWorld(World):
     found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}",
                                        "ph_keylocking_{player}_{team}",
                                        "ph_ut_events_{player}_{team}"]
+    ut_map_page_excluded_locations: dict[str, list[int]]
                                        
     # This is all code you still need to implement. I am writing down logic.
     # 
@@ -243,6 +247,8 @@ class PhantomHourglassWorld(World):
         self.ut_created_events = []
         self.treasure_price_index = 0
 
+        self.ut_map_page_hidden_locations = {}
+        self.ut_map_page_hidden_entrances = {}
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -262,6 +268,10 @@ class PhantomHourglassWorld(World):
             self.boss_reward_items_pool = slot_data["boss_reward_items_pool"]
             self.ut_pairings = slot_data.get("er_pairings", {})
             self.treasure_price_index = slot_data.get("treasure_price_index", 0)
+
+            # Hide stuff in UT map page based on what entrances are randomized
+            self.ut_map_page_hidden_locations = {"Mercay Island (SW)": [15, 16]}
+            self.ut_map_page_hidden_entrances = {"Mercay Island (SW)": ["Mercay SW Barrel Cave"]}
 
         else:
             self.pick_required_dungeons()
@@ -1328,6 +1338,8 @@ class PhantomHourglassWorld(World):
         print(f"UT Tried to defer entrances! key {key} "
               # f"{stored_data}"
               )
+
+
 
         if "ph_checked_entrances" in key:
             # Create a lookup for disconnected entrances if you haven't already.
