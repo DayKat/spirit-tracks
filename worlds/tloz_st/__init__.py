@@ -246,7 +246,7 @@ class SpiritTracksWorld(World):
         ap_code = self.item_name_to_id[name]
         return Item(name, classification, ap_code, self.player)
 
-    def build_item_pool_dict(self):
+    def build_item_pool_dict(self): #TODO take rabbits out of item pool if option not on?
         removed_item_quantities = self.options.remove_items_from_pool.value.copy()
         item_pool_dict = {}
         filler_item_count = 0
