@@ -1521,7 +1521,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 140,
     },
-    "Prince of Red Lion Combat Reward": {
+    "Prince of Red Lions Combat Reward": {
         "region_id": "PoRL Item",
         "vanilla_item": "Heart Container",
         "stage_id": 0x7,

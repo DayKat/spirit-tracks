@@ -1592,11 +1592,16 @@ def ph_toi_3f(state, player):
             ph_has_bombs(state, player)])
 
 def ph_toi_3f_switch(state, player):
-    return any([ph_has_bombs(state, player),
-              all([
-                  ph_option_hard_logic(state, player),
-                  ph_has_chus(state, player)
-              ])])
+    return any([
+        ph_has_bombs(state, player),
+        all([
+            ph_option_hard_logic(state, player),
+            any([
+                ph_has_chus(state, player),
+                ph_has_boomerang(state, player)
+            ])
+        ])
+    ])
 
 def ph_toi_shortcut(state, player):
     return all([

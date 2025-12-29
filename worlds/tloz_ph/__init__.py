@@ -331,18 +331,18 @@ class PhantomHourglassWorld(World):
                 return self.options.randomize_beedle_membership.value > 1
             if "Harrow Island" in location_name:
                 return self.options.randomize_harrow
-            if "Zauz's Island Triforce Crest" == location_name:
+            if "Zauz's House Triforce Crest" == location_name:
                 return self.options.randomize_triforce_crest
             if "Masked Beedle" in location_name:
                 return self.options.randomize_masked_beedle
-            if "Molida Archery 2000" == location_name:
+            if "Archery Minigame 2000" == location_name:
                 return self.options.logic in ["hard", "glitched"] and self.options.randomize_minigames
             if "GOAL" in location_name:
                 if location_name == "GOAL: Beat Bellumbeck" and self.options.bellum_access != "win":
                     return True
                 elif location_name == "GOAL: Triforce Door" and self.options.goal_requirements == "triforce_door":
                     return True
-            if location_name == "Ocean NE Man of Smiles Prize Postcard":  # This it pretty random but whatever...
+            if location_name == "Man of Smiles' Prize Postcard":  # This it pretty random but whatever...
                 return self.options.randomize_beedle_membership.value > 0
             if "EVENT" in location_name:
                 print(f"Found event {location_name} {getattr(self.multiworld, "generation_is_fake", False)}")

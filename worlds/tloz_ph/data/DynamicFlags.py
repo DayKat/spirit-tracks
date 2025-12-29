@@ -970,7 +970,7 @@ DYNAMIC_FLAGS = {
     },
     "RESET Block Oshus Gem": {
         # "on_scenes": [0xB00],
-        "has_locations": ["TotOK Phantom Hourglass"],
+        "has_locations": ["TotOK Lobby Phantom Hourglass"],
         "set_if_true": [(0x1B55A0, 0x4)]
     },
     "Oshus Gem": {
