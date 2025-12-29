@@ -22,6 +22,7 @@ from .data.LogicPredicates import *
 from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region
 from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
+from .tracker.TrackerUtil import TRACKER_WORLD
 
 logger = logging.getLogger("Client")
 dev_prints = False
@@ -130,30 +131,6 @@ def add_pedestal_items(place, option, excluded_dungeons):
 
     return res
 
-TRACKER_WORLD = {"map_page_folder": "tracker",
-                 "map_page_maps": ["maps/maps_any_er_true.json",
-                                   "maps/maps_any_er_false.json",
-                                   "maps/maps_ow_er_true.json",
-                                   "maps/maps_ow_er_false.json"],
-                 "map_page_locations": ["locations/locations.json",
-                                        "locations/interior_checks.json",
-                                        "locations/overview_houses.json",
-                                        # "locations/overview_astrid_full.json", empty
-                                        "locations/overview_astrid_houses.json",
-                                        "locations/overview_bosses.json",
-                                        "locations/overview_caves.json",
-                                        "locations/overview_dungeons_full.json",
-                                        # Entrances
-                                        "entrances/overworld_transitions.json",
-                                        "entrances/bosses.json",
-                                        "entrances/caves.json",
-                                        "entrances/dungeons.json",
-                                        "entrances/houses.json",
-                                        "entrances/ports.json",
-                                        ],
-                 "map_page_settings_key": "{slot}_{team}_UT_MAP",
-                 }
-
 class PhantomHourglassWorld(World):
     """
     The Legend of Zelda: Phantom Hourglass is the sea bound handheld sequel to the Wind Waker.
@@ -179,7 +156,6 @@ class PhantomHourglassWorld(World):
     found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}",
                                        "ph_keylocking_{player}_{team}",
                                        "ph_ut_events_{player}_{team}"]
-    ut_map_page_excluded_locations: dict[str, list[int]]
                                        
     # This is all code you still need to implement. I am writing down logic.
     # 
@@ -249,6 +225,7 @@ class PhantomHourglassWorld(World):
 
         self.ut_map_page_hidden_locations = {}
         self.ut_map_page_hidden_entrances = {}
+        self.ut_map_page_hidden_events = {}
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -270,8 +247,8 @@ class PhantomHourglassWorld(World):
             self.treasure_price_index = slot_data.get("treasure_price_index", 0)
 
             # Hide stuff in UT map page based on what entrances are randomized
-            self.ut_map_page_hidden_locations = {"Mercay Island (SW)": [15, 16]}
-            self.ut_map_page_hidden_entrances = {"Mercay Island (SW)": ["Mercay SW Barrel Cave"]}
+            from .tracker.TrackerUtil import get_hidden_entrances
+            self.ut_map_page_hidden_locations, self.ut_map_page_hidden_entrances = get_hidden_entrances(self)
 
         else:
             self.pick_required_dungeons()

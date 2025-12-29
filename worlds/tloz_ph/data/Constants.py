@@ -1173,12 +1173,12 @@ CATEGORY_LOCATION_GROUPS = {
         "Ocean SW Salvage Courage Crest",
     ],
     "Spirit Upgrades": [
-        "Spirit Island Power Upgrade Level 1",
-        "Spirit Island Power Upgrade Level 2",
-        "Spirit Island Wisdom Upgrade Level 1",
-        "Spirit Island Wisdom Upgrade Level 2",
-        "Spirit Island Courage Upgrade Level 1",
-        "Spirit Island Courage Upgrade Level 2",
+        "Spirit Shrine Power Upgrade Level 1",
+        "Spirit Shrine Power Upgrade Level 2",
+        "Spirit Shrine Wisdom Upgrade Level 1",
+        "Spirit Shrine Wisdom Upgrade Level 2",
+        "Spirit Shrine Courage Upgrade Level 1",
+        "Spirit Shrine Courage Upgrade Level 2",
     ],
     "Fishing Locations": [
         "Bannan Island Wayfarer Give Loovar",
@@ -1539,6 +1539,7 @@ region_aliases = {
     "Sun Lake Cave": ["Molida Cave"],
     "Keese Passage West": ["Bannan Cave West", "Bannan Cave", "Keese Passage"],
 }
+
 
 
 if __name__ == "__main__":

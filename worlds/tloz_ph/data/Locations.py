@@ -25,7 +25,7 @@ LOCATIONS_DATA = {
         "stage_id": 0xb,
         "floor_id": 0x0,
         "y": 0x0,
-        "x_max": -170000,
+        "x_max": -150000,
         "sram_addr": 0x20ca,
         "sram_value": 0x40,
         "id": 2,

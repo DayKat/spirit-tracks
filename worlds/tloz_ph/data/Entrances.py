@@ -596,7 +596,7 @@ ENTRANCE_DATA = {
     },
 
     # ========== Temple of Courage ============
-    "Molida Enter Temple": {
+    "Molida North Enter Temple": {
         "return_name": "ToC Exit",
         "entrance": (0xC, 0x1, 0x3),
         "exit": (0x1E, 0x0, 0x0),
@@ -792,7 +792,7 @@ ENTRANCE_DATA = {
     },
     # ===== Uncharted =====
     "Uncharted Cave": {
-        "return_name": "Uncharted Cave Exit",
+        "return_name": "Descending Cave Exit",
         "entrance_region": "Uncharted Outside Cave",
         "exit_region": "Descending Cave",
         "entrance": (0x1A, 0x0, 0x2),
@@ -801,7 +801,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.UNCHARTED
     },
-    "Uncharted Cave Inner Cave": {
+    "Descending Cave Lower Cave": {
         "return_name": "Golden Chief Exit",
         "entrance_region": "Descending Cave",
         "exit_region": "Golden Chief Cave",
@@ -1165,7 +1165,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.FROST
     },
     # ========== Temple of Ice ============
-    "Frost Enter Temple": {
+    "Frost NE Enter Temple": {
         "return_name": "ToI Exit",
         "entrance": (0xF, 0x1, 0x0),
         "exit": (0x1F, 0x0, 0x0),
