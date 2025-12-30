@@ -247,8 +247,9 @@ class PhantomHourglassWorld(World):
             self.treasure_price_index = slot_data.get("treasure_price_index", 0)
 
             # Hide stuff in UT map page based on what entrances are randomized
-            from .tracker.TrackerUtil import get_hidden_entrances
-            self.ut_map_page_hidden_locations, self.ut_map_page_hidden_entrances = get_hidden_entrances(self)
+            if not self.ut_map_page_hidden_locations or not self.ut_map_page_hidden_entrances:
+                from .tracker.TrackerUtil import get_hidden_entrances
+                self.ut_map_page_hidden_locations, self.ut_map_page_hidden_entrances = get_hidden_entrances(self)
 
         else:
             self.pick_required_dungeons()
@@ -1335,8 +1336,8 @@ class PhantomHourglassWorld(World):
                     pairing = self.ut_pairings.get(str(i), None)
                     # print(f"UT pairings {self.ut_pairings}")
                     if pairing is not None:
-                        dangling_entrance = self.disconnected_entrances_map.get(i, None)
-                        dangling_exit = self.disconnected_exits_map.get(i, None)
+                        dangling_entrance: "Entrance" = self.disconnected_entrances_map.get(i, None)
+                        dangling_exit: "Entrance" = self.disconnected_exits_map.get(i, None)
 
                         entrance_region = self.get_region(entrance_id_to_region[i])
                         exit_region = self.get_region(entrance_id_to_region[pairing])
@@ -1351,10 +1352,12 @@ class PhantomHourglassWorld(World):
 
 
                         if dangling_exit is not None:
-                            dangling_exit.connect(entrance_region)
+                            dangling_exit.connect(exit_region)
+                            # print(f"dangling_exit's region: {dangling_exit.name} => {dangling_exit.connected_region}")
                         if dangling_entrance is not None:
                             if not self.options.decouple_entrances:
-                                dangling_entrance.connect(exit_region)
+                                dangling_entrance.connect(entrance_region)
+                                # print(f"dangling_entrance's region: {dangling_entrance.name} => {dangling_entrance.connected_region}")
                                 self.disconnected_entrances_map.pop(i)
 
 

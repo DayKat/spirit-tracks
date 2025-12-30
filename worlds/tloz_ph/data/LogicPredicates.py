@@ -1217,6 +1217,18 @@ def ph_ruins_geozards(state, player):
         ph_ruins_lower_water(state, player)
     ])
 
+def ph_ruins_stalfos_n(state, player):
+    return any([
+        ph_ruins_stalfos_s(state, player),
+        ph_option_hard_logic(state, player)
+    ])
+
+def ph_ruins_stalfos_s(state, player):
+    return any([
+        ph_ruins_lower_water(state, player),
+        ph_can_kill_bat(state, player),
+    ])
+
 # Tof
 
 def ph_tof_maze(state, player):
@@ -2911,6 +2923,8 @@ RULE_DICT = {
     "oshus_gem": ph_oshus_gem,
     "ruins_geozards": ph_ruins_geozards,
     "ruins_water": ph_ruins_lower_water,
+    "ruins_stalfos_n": ph_ruins_stalfos_n,
+    "ruins_stalfos_s": ph_ruins_stalfos_n,
     "ice_field": ph_ice_field,
     # ToF
     "tof_3f": ph_tof_3f,

@@ -559,6 +559,7 @@ REGIONS = [
     "Bremeur's Temple Event",
 
     "Ruins NE Doylan Bridge",
+    "Ruins NE Doylan Bridge North",
     "Ruins NE Lower",
     "Ruins NE Behind Pyramids",
     "Ruins NE Enter Upper",
@@ -573,10 +574,24 @@ REGIONS = [
     "Ruins SE Return Bridge West",
     "Ruins SE Outside Pyramid",
     "Max's Temple",
-    "Ruins SE coast",
+    "Ruins SE Coast",
     "Ruins SE King's Road",
 
-
+    "Ruins NW Maze Lower Water",
+    "Ruins SW Maze Lower Water",
+    "Ruins NW Lower Water",
+    "Ruins NE Lower Water North",
+    "Ruins NW Alcove Water",
+    "Ruins NE Lower Water South",
+    "Ruins SE Lower Water Bay",
+    "Ruins NE Lower Water Bay",
+    "Ruins SE Lower Water Wall",
+    "Ruins NE Secret Chest Water",
+    "Ruins NE Behind Pyramids Water",
+    "Ruins SE Coast Water",
+    "Ruins SE Outside Pyramid Water",
+    "Ruins SE King's Road Water",
+    "Ruins NE Geozards Water",
 
     # Mutoh's Temple
     "MT 1F",
