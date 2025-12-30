@@ -471,14 +471,17 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Oshus' Sword",
         "Phantom Sword",
     },
+}
 
-    # Item Aliases
-    "Sword": {"Sword (Progressive"},
-    "Bombs": {"Bombs (Progressive"},
+# Item Aliases
+ITEM_GROUPS |= {
+
+    "Sword": ITEM_GROUPS["Swords"],
+    "Bombs": {"Bombs (Progressive)"},
     "Bow": {"Bow (Progressive)"},
     "Quiver": {"Bow (Progressive)"},
-    "Bombchus": {"Bombchus (Progressive"},
-    "Chus": {"Bombchus (Progressive"},
+    "Bombchus": {"Bombchus (Progressive)"},
+    "Chus": {"Bombchus (Progressive)"},
     "Spade": {"Shovel"},
     "Rang": {"Boomerang"},
     "Grapple": {"Grappling Hook"},

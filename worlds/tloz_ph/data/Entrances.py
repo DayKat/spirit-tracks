@@ -227,6 +227,81 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
     },
+    # OOB
+    "Mercay SW OOB North Upper": {
+        "return_name": "Mercay NW OOB South Upper",
+        "entrance_region": "Mercay SW OoB High",
+        "exit_region": "Mercay NW OoB High",
+        "entrance": (0xB, 0x0, 0xFC),
+        "exit": (0xB, 0x1, 0xFB),
+        "coords": (-85000, 14582, -5000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.MERCAY,
+        "extra_data": {"glitched": True,
+                       "x_max": -30000,},
+    },
+    "Mercay SW OOB North Waterfall": {
+        "return_name": "Mercay NW OOB South Waterfall",
+        "entrance_region": "Mercay SW OoB East",
+        "exit_region": "Mercay NW OoB High",
+        "entrance": (0xB, 0x0, 0xFC),
+        "exit": (0xB, 0x1, 0xFB),
+        "coords": (-14000, 14582, -5000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.MERCAY,
+        "extra_data": {"glitched": True,
+                       "x_min": -30000, },
+    },
+    "Mercay SW OOB East": {
+        "return_name": "Mercay SE OOB West",
+        "entrance_region": "Mercay SW OoB East",
+        "exit_region": "Mercay SE OoB",
+        "entrance": (0xB, 0x0, 0xFD),
+        "exit": (0xB, 0x3, 0xFE),
+        "coords": (5000, 14582, 25000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+        "island": EntranceGroups.MERCAY,
+        "extra_data": {"glitched": True},
+    },
+    "Mercay NW OOB East": {
+        "return_name": "Mercay NE OOB West",
+        "entrance_region": "Mercay NW OoB High",
+        "exit_region": "Mercay NE OoB",
+        "entrance": (0xB, 0x1, 0xFD),
+        "exit": (0xB, 0x2, 0xFE),
+        "coords": (5000, 14582, -8000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.RIGHT,
+        "island": EntranceGroups.MERCAY,
+        "extra_data": {"glitched": True},
+    },
+    "Mercay SE OOB North": {
+        "return_name": "Mercay NE OOB South",
+        "entrance_region": "Mercay SE OoB",
+        "exit_region": "Mercay NE OoB",
+        "entrance": (0xB, 0x3, 0xFC),
+        "exit": (0xB, 0x2, 0xFB),
+        "coords": (10000, 14582, -5000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.MERCAY,
+        "extra_data": {"glitched": True},
+    },
+    "Mercay SW OOB North Lower": {
+        "return_name": "Mercay NW OOB South Lower",
+        "entrance_region": "Mercay SW OoB Low",
+        "exit_region": "Mercay NW OoB Low",
+        "entrance": (0xB, 0x0, 0xFC),
+        "exit": (0xB, 0x1, 0xFB),
+        "coords": (-140000, 4751, -5000),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.MERCAY,
+        "extra_data": {"glitched": True},
+    },
 
     # =========== TotOK ==============
     "Mercay NW Enter Temple": {
@@ -238,6 +313,68 @@ ENTRANCE_DATA = {
         "type": EntranceGroups.DUNGEON_ENTRANCE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.MERCAY
+    },
+    "TotOK B3.5 Blue Warp": {
+        "return_name": "TotOK B3.5 Warp Exit",
+        "entrance_region": "TotOK B3.5",
+        "exit_region": "TotOK Lobby",
+        "entrance": (0x25, 0x4, 0x3),
+        "exit": (0x26, 0x0, 0x3),
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+        "two_way": False
+    },
+    "TotOK B6.5 Yellow Warp": {
+        "return_name": "TotOK Lobby Yellow Warp",
+        "entrance_region": "TotOK B6 Midway",
+        "exit_region": "TotOK Lobby",
+        "entrance": (0x25, 0x9, 0x2),
+        "exit": (0x26, 0x0, 0x6),
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+    },
+    "TotOK B9.5 Blue Warp": {
+        "return_name": "TotOK 9.5 Warp Exit",
+        "entrance_region": "TotOK B10",
+        "exit_region": "TotOK Lobby",
+        "entrance": (0x25, 0xD, 0x2),
+        "exit": (0x26, 0x0, 0x3),
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+        "two_way": False
+    },
+    "TotOK B9.5 Descend": {
+        "return_name": "TotOK B10 Cave",
+        "entrance_region": "TotOK B9.5",
+        "exit_region": "TotOK B10",
+        "entrance": (0x25, 0xD, 0x1),
+        "exit": (0x25, 0xE, 0x0),
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+    },
+    "TotOK CC Room Warp": {
+        "return_name": "TotOK CC Warp Reverse",
+        "entrance_region": "TotOK B6 Crest",
+        "exit_region": "TotOK Lobby",
+        "entrance": (0x25, 0x8, 0x1),
+        "exit": (0x26, 0x0, 0x3),
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.MERCAY,
+    },
+    "TotOK B6 Exit CC Room": {
+        "return_name": "TotOK B6 Red Door Hourglass",
+        "entrance_region": "TotOK B6 Crest",
+        "exit_region": "TotOK B6",
+        "entrance": (0x25, 0x8, 0x0),
+        "exit": (0x25, 0x7, 0x1),
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.DOWN,
+        "island": EntranceGroups.MERCAY,
     },
     # ========== Cannon ==========
     "Cannon Workshop East": {
@@ -627,7 +764,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.MOLIDA
     },
 
-    # Spirit
+    # ========== Spirit ============
     "Spirit Island Cave": {
         "return_name": "Spirit Shrine Exit",
         "entrance_region": "Spirit Island",
@@ -638,6 +775,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.SPIRIT
     },
+
     # ========== Gust ============
     "Gust SW Coast North": {
         "return_name": "Gust NW Coast South",
@@ -717,6 +855,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.GUST
     },
+
     # ========== Temple of Wind ============
     "Gust Enter Temple": {
         "return_name": "ToW Exit",
@@ -748,7 +887,8 @@ ENTRANCE_DATA = {
         "two_way": False,
         "island": EntranceGroups.GUST
     },
-    # Bannan
+
+    # ========== Bannan ============
     "Bannan West Hut": {
         "return_name": "Wayfarer's Exit",
         "entrance_region": "Bannan Island",
@@ -779,6 +919,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.BANNAN
     },
+
     # ===== Zauz =====
     "Zauz' House": {
         "return_name": "Zauz' Exit",
@@ -790,6 +931,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.ZAUZ
     },
+
     # ===== Uncharted =====
     "Uncharted Cave": {
         "return_name": "Descending Cave Exit",
@@ -1007,6 +1149,7 @@ ENTRANCE_DATA = {
         "two_way": False,
         "island": EntranceGroups.GORON
     },
+
     # ========== Frost ============
     "Frost SW Smart House": {
         "return_name": "Smart Anouki's Exit",
@@ -1164,6 +1307,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.FROST
     },
+
     # ========== Temple of Ice ============
     "Frost NE Enter Temple": {
         "return_name": "ToI Exit",
@@ -1370,6 +1514,7 @@ ENTRANCE_DATA = {
         "never_shuffle": True,  # Doesn't do anything, isn't needed yet
         "island": EntranceGroups.DEAD
     },
+
     # ========== Ruins ============
     "Ruins SW Upper Maze North": {
         "return_name": "Ruins NW One-Way Ledge South",
@@ -1452,7 +1597,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS
     },
-"Ruins SW Cliff Cave": {
+    "Ruins SW Cliff Cave": {
         "return_name": "Sandy Geozard Cave West",
         "entrance_region": "Ruins SW Maze Upper",
         "exit_region": "Sandy Geozard Cave West",
@@ -1486,7 +1631,7 @@ ENTRANCE_DATA = {
     },
     "Ruins NW Cave": {
         "return_name": "Grassy Rupee Cave Exit",
-        "entrance_region": "Ruins NW Across Bridge",
+        "entrance_region": "Ruins NW Cave",
         "exit_region": "Grassy Treasure Cave",
         "entrance": (0x12, 0x1, 0x2),
         "exit": (0x12, 0xB, 0x1),
@@ -1638,9 +1783,8 @@ ENTRANCE_DATA = {
         "two_way": False,
         "island": EntranceGroups.RUINS
     },
-#
-#     # ============= SW Ocean ==================
-#
+
+   # ============= SW Ocean ==================
     "Ocean SW Mercay": {
         "return_name": "Mercay SE Boat",
         "entrance": (0x0, 0x0, 0x2),
@@ -1868,145 +2012,6 @@ ENTRANCE_DATA = {
         "type": EntranceGroups.ISLAND,
         "direction": EntranceGroups.INSIDE,
         "return_island": EntranceGroups.NONE,
-    },
-    # Don't move until future versions ~
-    # TotOK shortcuts
-    "TotOK B3.5 Blue Warp": {
-        "return_name": "TotOK B3.5 Warp Exit",
-        "entrance_region": "TotOK B3.5",
-        "exit_region": "TotOK Lobby",
-        "entrance": (0x25, 0x4, 0x3),
-        "exit": (0x26, 0x0, 0x3),
-        "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.MERCAY,
-        "two_way": False
-    },
-    "TotOK B6.5 Yellow Warp": {
-        "return_name": "TotOK Lobby Yellow Warp",
-        "entrance_region": "TotOK B6 Midway",
-        "exit_region": "TotOK Lobby",
-        "entrance": (0x25, 0x9, 0x2),
-        "exit": (0x26, 0x0, 0x6),
-        "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.MERCAY,
-    },
-    "TotOK B9.5 Blue Warp": {
-        "return_name": "TotOK 9.5 Warp Exit",
-        "entrance_region": "TotOK B10",
-        "exit_region": "TotOK Lobby",
-        "entrance": (0x25, 0xD, 0x2),
-        "exit": (0x26, 0x0, 0x3),
-        "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.MERCAY,
-        "two_way": False
-    },
-    "TotOK B9.5 Descend": {
-        "return_name": "TotOK B10 Cave",
-        "entrance_region": "TotOK B9.5",
-        "exit_region": "TotOK B10",
-        "entrance": (0x25, 0xD, 0x1),
-        "exit": (0x25, 0xE, 0x0),
-        "type": EntranceGroups.DUNGEON_ROOM,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.MERCAY,
-    },
-    "TotOK CC Room Warp": {
-        "return_name": "TotOK CC Warp Reverse",
-        "entrance_region": "TotOK B6 Crest",
-        "exit_region": "TotOK Lobby",
-        "entrance": (0x25, 0x8, 0x1),
-        "exit": (0x26, 0x0, 0x3),
-        "type": EntranceGroups.DUNGEON_ROOM,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.MERCAY,
-    },
-    "TotOK B6 Exit CC Room": {
-        "return_name": "TotOK B6 Red Door Hourglass",
-        "entrance_region": "TotOK B6 Crest",
-        "exit_region": "TotOK B6",
-        "entrance": (0x25, 0x8, 0x0),
-        "exit": (0x25, 0x7, 0x1),
-        "type": EntranceGroups.DUNGEON_ROOM,
-        "direction": EntranceGroups.DOWN,
-        "island": EntranceGroups.MERCAY,
-    },
-    # ==== Mercay OOB =====
-    "Mercay SW OOB North Upper": {
-        "return_name": "Mercay NW OOB South Upper",
-        "entrance_region": "Mercay SW OoB High",
-        "exit_region": "Mercay NW OoB High",
-        "entrance": (0xB, 0x0, 0xFC),
-        "exit": (0xB, 0x1, 0xFB),
-        "coords": (-85000, 14582, -5000),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.MERCAY,
-        "extra_data": {"glitched": True,
-                       "x_max": -30000,},
-    },
-    "Mercay SW OOB North Waterfall": {
-        "return_name": "Mercay NW OOB South Waterfall",
-        "entrance_region": "Mercay SW OoB East",
-        "exit_region": "Mercay NW OoB High",
-        "entrance": (0xB, 0x0, 0xFC),
-        "exit": (0xB, 0x1, 0xFB),
-        "coords": (-14000, 14582, -5000),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.MERCAY,
-        "extra_data": {"glitched": True,
-                       "x_min": -30000, },
-    },
-    "Mercay SW OOB East": {
-        "return_name": "Mercay SE OOB West",
-        "entrance_region": "Mercay SW OoB East",
-        "exit_region": "Mercay SE OoB",
-        "entrance": (0xB, 0x0, 0xFD),
-        "exit": (0xB, 0x3, 0xFE),
-        "coords": (5000, 14582, 25000),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.RIGHT,
-        "island": EntranceGroups.MERCAY,
-        "extra_data": {"glitched": True},
-    },
-    "Mercay NW OOB East": {
-        "return_name": "Mercay NE OOB West",
-        "entrance_region": "Mercay NW OoB High",
-        "exit_region": "Mercay NE OoB",
-        "entrance": (0xB, 0x1, 0xFD),
-        "exit": (0xB, 0x2, 0xFE),
-        "coords": (5000, 14582, -8000),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.RIGHT,
-        "island": EntranceGroups.MERCAY,
-        "extra_data": {"glitched": True},
-    },
-    "Mercay SE OOB North": {
-        "return_name": "Mercay NE OOB South",
-        "entrance_region": "Mercay SE OoB",
-        "exit_region": "Mercay NE OoB",
-        "entrance": (0xB, 0x3, 0xFC),
-        "exit": (0xB, 0x2, 0xFB),
-        "coords": (10000, 14582, -5000),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.MERCAY,
-        "extra_data": {"glitched": True},
-    },
-    "Mercay SW OOB North Lower": {
-        "return_name": "Mercay NW OOB South Lower",
-        "entrance_region": "Mercay SW OoB Low",
-        "exit_region": "Mercay NW OoB Low",
-        "entrance": (0xB, 0x0, 0xFC),
-        "exit": (0xB, 0x1, 0xFB),
-        "coords": (-140000, 4751, -5000),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.MERCAY,
-        "extra_data": {"glitched": True},
     },
     # Event entrances
     "EVENT: SS Wayfarer Give Wood Heart": {

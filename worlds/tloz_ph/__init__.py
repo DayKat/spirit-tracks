@@ -1363,6 +1363,19 @@ class PhantomHourglassWorld(World):
 
                 self.ut_connected_entrances |= new_entrances
 
+        elif "ph_disconnect_entrances" in key and stored_data:
+            for e in self.entrances.values():
+                if ENTRANCES[e.name].id in stored_data[key] and e.parent_region and e.connected_region:
+                    print(f"Disconnecting {e.name}")
+                    child_region = e.connected_region
+                    parent_region = e.parent_region
+
+                    # disconnect the edge
+                    child_region.entrances.remove(e)
+                    e.connected_region = None
+                    # Create target
+                    parent_region.create_er_target(e.name)
+
         elif "ph_keylocking" in key and stored_data:
             print(f"Attempting to keylock stuff!")
             for i in stored_data:
