@@ -40,7 +40,7 @@
 {"name": "Gust Secret Cave", "sections": [{"name": "Gust Secret Cave"}], "map_locations": [{"map": "Isle of Gusts", "x": 158, "y": 134}]},
 {"name": "Gust Secret Cave", "sections": [{"name": "Gust Secret Cave"}], "map_locations": [{"map": "Isle of Gusts (South)", "x": 188, "y": 76}]},
 {"name": "Tiled Hideout Exit", "sections": [{"name": "Tiled Hideout Exit"}], "map_locations": [{"map": "Tiled Hideout", "x": 112, "y": 118}]},
-{"name": "Miniblin Cave East", "sections": [{"name": "Miniblin Cave East"}], "map_locations": [{"map": "Miniblin Cave", "x": 122, "y": 110}]},
+{"name": "Miniblin Cave East", "sections": [{"name": "Miniblin Cave East"}], "map_locations": [{"map": "Miniblin Cave", "x": 192, "y": 110}]},
 {"name": "Miniblin Cave West", "sections": [{"name": "Miniblin Cave West"}], "map_locations": [{"map": "Miniblin Cave", "x": 56, "y": 122}]},
 {"name": "Bannan East Cave", "sections": [{"name": "Bannan East Cave"}], "map_locations": [{"map": "Bannan Island", "x": 156, "y": 60}]},
 {"name": "Bannan West Cave", "sections": [{"name": "Bannan West Cave"}], "map_locations": [{"map": "Bannan Island", "x": 120, "y": 92}]},

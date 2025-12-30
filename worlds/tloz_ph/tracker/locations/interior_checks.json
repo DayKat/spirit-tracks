@@ -35,7 +35,7 @@
 { "name": "Ghost Ship B2 Spike Chest", "sections": [{ "name": "Ghost Ship B2 Spike Chest" }], "map_locations": [{ "map": "Ghost Ship B2", "x": 138, "y": 98}] },
 { "name": "Ghost Ship B2 Third Sister Chests", "sections": [{ "name": "Ghost Ship B2 Third Sister Left Chest" }, { "name": "Ghost Ship B2 Third Sister Right Chest" }], "map_locations": [{ "map": "Ghost Ship B2", "x": 88, "y": 74 }] },
 { "name": "Ghost Ship B3 Chest", "sections": [{ "name": "Ghost Ship B3 Chest" }], "map_locations": [{ "map": "Ghost Ship B3", "x": 92, "y": 54}] },
-{ "name": "Ghost Ship Rescue Tetra", "sections": [{ "name": "Ghost Ship Rescue Tetra" }], "map_locations": [{ "map": "Ghost Ship Tetra", "x": 128, "y": 80}] },
+{ "name": "Ghost Ship Rescue Tetra", "sections": [{ "name": "Ghost Ship Rescue Tetra" }], "map_locations": [{ "map": "Ghost Ship B2", "x": 204, "y": 56}] },
 { "name": "Gleeok Boss Reward", "sections": [{ "name": "Gleeok Boss Reward" }], "map_locations": [{ "map": "Temple of Ice Azurine Room", "x": 128, "y": 80}] },
 { "name": "Gleeok", "sections": [{ "name": "Gleeok Heart Container" }, { "name": "Gleeok Sand of Hours" }], "map_locations": [{ "map": "Gleeok Arena", "x": 128, "y": 118 }] },
 { "name": "GOAL: Triforce Door", "sections": [{ "name": "GOAL: Triforce Door" }], "map_locations": [{ "map": "Temple of the Ocean King B6", "x": 128, "y": 112}] },
@@ -283,5 +283,16 @@
 { "name": "EVENT: Goron NE Spike Switch", "sections": [{ "name": "EVENT: Goron NE Spike Switch" }], "map_locations": [{ "map": "Goron Island (NE)", "x": 42, "y": 110}] },
 { "name": "EVENT: Bremeur's Temple Lower Water", "sections": [{ "name": "EVENT: Bremeur's Temple Lower Water" }], "map_locations": [{ "map": "Bremeur's Temple", "x": 128, "y": 96}] },
 { "name": "EVENT: SS Wayfarer Give Wood Heart", "sections": [{ "name": "EVENT: SS Wayfarer Give Wood Heart" }], "map_locations": [{ "map": "Wayfarer's Ship", "x": 128, "y": 66}] },
-{ "name": "EVENT: Meet Wayfarer", "sections": [{ "name": "EVENT: Meet Wayfarer" }], "map_locations": [{ "map": "Wayfarer's House", "x": 114, "y": 82}] }
+{ "name": "EVENT: Meet Wayfarer", "sections": [{ "name": "EVENT: Meet Wayfarer" }], "map_locations": [{ "map": "Wayfarer's House", "x": 118, "y": 86}] },
+{ "name": "EVENT: Goron SW Kill Yellow Chus", "sections": [{ "name": "EVENT: Goron SW Kill Yellow Chus" }], "map_locations": [{ "map": "Goron Island", "x": 115, "y": 119}] },
+{ "name": "EVENT: Goron SW Kill Yellow Chus", "sections": [{ "name": "EVENT: Goron SW Kill Yellow Chus" }], "map_locations": [{ "map": "Goron Island (SW)", "x": 230, "y": 46}] },
+{ "name": "EVENT: Goron SE Shout to Bridge Goron", "sections": [{ "name": "EVENT: Goron SE Shout to Bridge Goron" }], "map_locations": [{ "map": "Goron Island", "x": 139, "y": 137}] },
+{ "name": "EVENT: Goron SE Shout to Bridge Goron", "sections": [{ "name": "EVENT: Goron SE Shout to Bridge Goron" }], "map_locations": [{ "map": "Goron Island (SE)", "x": 22, "y": 82}] },
+{ "name": "EVENT: Defeat Blaaz", "sections": [{ "name": "EVENT: Defeat Blaaz" }], "map_locations": [{ "map": "Blaaz Arena", "x": 126, "y": 94}] },
+{ "name": "EVENT: Defeat Cyclok", "sections": [{ "name": "EVENT: Defeat Cyclok" }], "map_locations": [{ "map": "Cyclok Arena", "x": 126, "y": 98}] },
+{ "name": "EVENT: Defeat Crayk", "sections": [{ "name": "EVENT: Defeat Crayk" }], "map_locations": [{ "map": "Crayk Arena", "x": 128, "y": 90}] },
+{ "name": "EVENT: Defeat Dongorongo", "sections": [{ "name": "EVENT: Defeat Dongorongo" }], "map_locations": [{ "map": "Dongorongo Arena", "x": 128, "y": 92}] },
+{ "name": "EVENT: Defeat Gleeok", "sections": [{ "name": "EVENT: Defeat Gleeok" }], "map_locations": [{ "map": "Gleeok Arena", "x": 128, "y": 126}] },
+{ "name": "EVENT: Defeat Eox", "sections": [{ "name": "EVENT: Defeat Eox" }], "map_locations": [{ "map": "Eox Arena", "x": 124, "y": 94}] },
+{ "name": "EVENT: Rescue Tetra", "sections": [{ "name": "EVENT: Rescue Tetra" }], "map_locations": [{ "map": "Ghost Ship B2", "x": 204, "y": 48}] }
 ]
