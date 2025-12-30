@@ -1070,7 +1070,10 @@ def ph_can_reach_mp2(state: CollectionState, player: int):
             any([
                 ph_has_small_keys(state, player, "Mountain Passage", 1),
                 not ph_is_ut(state, player),
-                ph_UT_glitched_logic(state, player),
+                all([
+                    ph_UT_glitched_logic(state, player),
+                    ph_option_smart_key_logic(state, player)  # weird condition...
+                ]),
             ])
         ]),
         all([
@@ -1108,7 +1111,10 @@ def ph_mp2_bypass_fore(state, player):
                 all([
                     ph_option_keys_in_own_dungeon(state, player),
                     any([
-                        ph_UT_glitched_logic(state, player),
+                        all([
+                            ph_UT_glitched_logic(state, player),
+                            ph_option_smart_key_logic(state, player),
+                        ]),
                         not ph_is_ut(state, player)
                     ])
                 ]),

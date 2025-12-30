@@ -1252,7 +1252,7 @@ LOCATIONS_DATA = {
         "region_id": "Archery Game",
         "vanilla_item": "Heart Container",
         "stage_id": 0xc,
-        "floor_id": 0x1,
+        "floor_id": 0xb,
         "address": 0x1b55a6,
         "value": 0x10,
         "post_dungeon": "Temple of Courage",

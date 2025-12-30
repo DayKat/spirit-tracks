@@ -322,6 +322,8 @@ class PhantomHourglassWorld(World):
                 return self.options.randomize_frogs != PhantomHourglassFrogRandomization.option_start_with
             if location_name in LOCATION_GROUPS["Rupee Dig Spots"]:
                 return self.options.randomize_digs
+            if "Archery Minigame 2000" == location_name:
+                return self.options.logic in ["hard", "glitched"] and self.options.randomize_minigames
             if location_name in LOCATION_GROUPS["Minigames"]:
                 return self.options.randomize_minigames
             if location_name in LOCATION_GROUPS["Fishing Locations"]:
@@ -336,8 +338,6 @@ class PhantomHourglassWorld(World):
                 return self.options.randomize_triforce_crest
             if "Masked Beedle" in location_name:
                 return self.options.randomize_masked_beedle
-            if "Archery Minigame 2000" == location_name:
-                return self.options.logic in ["hard", "glitched"] and self.options.randomize_minigames
             if "GOAL" in location_name:
                 if location_name == "GOAL: Beat Bellumbeck" and self.options.bellum_access != "win":
                     return True

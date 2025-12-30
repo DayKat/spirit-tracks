@@ -2064,7 +2064,7 @@ ENTRANCE_DATA = {
     "EVENT: Goron SE Shout to Bridge Goron": {
         "two_way": False,
         "entrance_region": "Goron SE",
-        "exit_region": "Goron SE Shout Event",
+        "exit_region": "Goron SE Bridge Event",
         "entrance": (0x10, 0x3, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
