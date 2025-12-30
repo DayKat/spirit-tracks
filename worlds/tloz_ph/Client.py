@@ -1058,5 +1058,9 @@ class PhantomHourglassClient(DSZeldaClient):
                 print(f"got ut_event location for key {key} loc {location['name']}")
                 if location["name"] == "TotOK 1F SW Sea Chart Chest":
                     await self.store_data(ctx, key, ["1f"])
-                elif location["name"] == "Wayfarer's Gift":
-                    await self.store_data(ctx, key, ["wayfarer"])
+            if isinstance(location["do_special"], dict):
+                event_type = location["do_special"].get("event_type", None)
+                if event_type == "ut_connect":
+                    event_name = location["do_special"]["event_name"]
+                    entr = ENTRANCES[event_name]
+                    await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)

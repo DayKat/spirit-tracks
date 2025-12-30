@@ -2046,10 +2046,30 @@ ENTRANCE_DATA = {
         "entrance_region": "Wayfarer's House",
         "exit_region": "Wayfarer Event",
         "entrance": (0x14, 0x1, 0x0),
+        "extra_data": {"shared_event": True},
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
-    }
+    },
+    "EVENT: Goron SW Kill Yellow Chus": {
+        "two_way": False,
+        "entrance_region": "Goron Chus",
+        "exit_region": "Goron Chus Event",
+        "entrance": (0x10, 0x2, 0x0),
+        "extra_data": {"shared_event": True},
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
+    "EVENT: Goron SE Shout to Bridge Goron": {
+        "two_way": False,
+        "entrance_region": "Goron SE",
+        "exit_region": "Goron SE Shout Event",
+        "entrance": (0x10, 0x3, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
 }
 
 

@@ -763,6 +763,39 @@ class PhantomHourglassPedestalOptions(Choice):
     option_open_globally = 2
     default = 0
 
+class PhantomHourglassUTSmartKeys(Toggle):
+    """
+    If small keys, boss keys or pedestal items are in their own dungeon, Universal Tracker will show their doors as passable if all their possible locations are in logic and smart keys are enabled.
+    """
+    default = 0
+    display_name = "UT Smart Keys"
+
+class PhantomHourglassUTEvents(Choice):
+    """
+    If enabled, UT will show triggers separate from their effects as events.
+    - no_events: no events
+    - all_events: all events.
+    - unique_events: only create events that don't share a trigger with a location
+    """
+    default = 1
+    display_name = "UT Events"
+    option_no_events = 0
+    option_all_events = 1
+    option_unique_events = 2
+
+class PhantomHourglassUTBlockedEntrances(Choice):
+    """
+    How UT handles entrances if you check an entrance that is blocked, for example boarding the boat without a sea chart or entering a flooded room.
+    - mark_on_check: checking a blocked entrance will mark it as checked, even if you can't pass it.
+    - mark_on_pass: checking a blocked entrance will not mark as checked, you have to actually pass it to mark it.
+    - unmark_when_opened: checking a blocked entrance will mark it as checked, but once you unlock the requirements for traversing it that entrance will be unchecked.
+    """
+    display_name = "UT Blocked Entrances Behaviour"
+    option_mark_on_check = 0
+    option_mark_on_pass = 1
+    option_unmark_when_opened = 2
+    default = 0
+
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
@@ -848,6 +881,11 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     # Cosmetic
     additional_metal_names: PhantomHourglassAdditionalMetalNames
 
+    # UT options
+    ut_smart_keys: PhantomHourglassUTSmartKeys
+    ut_events: PhantomHourglassUTEvents
+    ut_blocked_entrances_behaviour: PhantomHourglassUTBlockedEntrances
+
     # Generic
     accessibility: ItemsAccessibility
     start_inventory_from_pool: StartInventoryPool
@@ -931,6 +969,11 @@ ph_option_groups = [
         PhantomHourglassDecoupleEntrances,
         PhantomHourglassShuffleBetweenIslands,
         PhantomHourglassEntrancePlando
+    ]),
+    OptionGroup("Universal Tracker Options", [
+        PhantomHourglassUTBlockedEntrances,
+        PhantomHourglassUTSmartKeys,
+        PhantomHourglassUTEvents
     ]),
     OptionGroup("Cosmetic Options", [
         PhantomHourglassAdditionalMetalNames

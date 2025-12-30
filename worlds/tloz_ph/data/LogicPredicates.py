@@ -611,6 +611,8 @@ def ph_option_not_glitched_logic(state: CollectionState, player: int):
 def ph_option_keysanity(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.keysanity == "anywhere"
 
+def ph_option_smart_key_logic(state: CollectionState, player: int):
+    return ph_is_ut(state, player) and state.multiworld.worlds[player].options.ut_smart_keys
 
 def ph_option_keys_vanilla(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.keysanity == "vanilla"
@@ -865,7 +867,7 @@ def ph_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
     return any([
         ph_has_boss_key(state, player, dung_name),
         all([
-            ph_is_ut(state, player),
+            ph_option_smart_key_logic(state, player),
             state.multiworld.worlds[player].options.randomize_boss_keys == "vanilla"
         ])
     ])
@@ -887,14 +889,14 @@ def ph_has_shape_crystal(state: CollectionState, player: int, dung_name: str, sh
 
 def ph_ut_small_key_vanilla_location(state, player):
     return all([
-        ph_is_ut(state, player),
+        ph_option_smart_key_logic(state, player),
         ph_option_keys_vanilla(state, player)
     ])
 
 
 def ph_ut_small_key_own_dungeon(state, player):
     return all([
-        ph_is_ut(state, player),
+        ph_option_smart_key_logic(state, player),
         ph_option_keys_in_own_dungeon(state, player)
     ])
 
@@ -903,7 +905,7 @@ def ph_option_boss_key_in_own_dungeon(state, player):
 
 def ph_ut_boss_key_own_dungeon(state, player):
     return all([
-        ph_is_ut(state, player),
+        ph_option_smart_key_logic(state, player),
         ph_option_boss_key_in_own_dungeon(state, player)
     ])
 
@@ -1433,7 +1435,7 @@ def ph_toc_key_door_3(state, player):
         ph_has_small_keys(state, player, "Temple of Courage", 3),
         # UT
         all([
-            ph_is_ut(state, player),
+            ph_option_smart_key_logic(state, player),
             ph_toc_all_checks_door_3(state, player),
         ]),
         all([
@@ -1517,7 +1519,7 @@ def ph_has_gs_triangle_crystal(state, player):
     return any([
         ph_has_shape_crystal(state, player, "Ghost Ship", "Triangle"),
         all([
-            ph_is_ut(state, player),
+            ph_option_smart_key_logic(state, player),
             ph_option_pedestals_vanilla_any(state, player)
         ])
     ])
@@ -1562,6 +1564,12 @@ def ph_goron_chus(state, player):
             ph_has_bow(state, player),
             ph_has_grapple(state, player),
         ])
+    ])
+
+def ph_meet_all_gorons(state, player):
+    return all([
+        state.has("_goron_chus", player),
+        state.has("_goron_bridge", player),
     ])
 
 def ph_gt_b1(state, player):
@@ -1683,7 +1691,7 @@ def ph_toi_key_door_1(state, player):
     return any([
         ph_toi_key_doors(state, player, 3, 1),
         all([
-            ph_is_ut(state, player),
+            ph_option_smart_key_logic(state, player),
             ph_toi_key_door_1_ut(state, player)
         ])
     ])
@@ -1938,7 +1946,7 @@ def ph_time_b4(state, player):
             ]),
             any([
                 ph_has_force_gems(state, player, 3, 3),
-                ph_is_ut(state, player)
+                ph_option_smart_key_logic(state, player)
             ])
         ]):
             if ph_option_pedestals_vanilla_any(state, player):
@@ -2514,7 +2522,7 @@ def ph_totok_b9_ghosts(state, player):
 
 def ph_ut_pedestals_vanilla(state, player):
     return all([
-        ph_is_ut(state, player),
+        ph_option_smart_key_logic(state, player),
         ph_option_pedestals_vanilla(state, player)
     ])
 
@@ -2614,10 +2622,7 @@ def ph_totok_b11(state, player):
         ph_has_explosives(state, player),
         ph_totok_has_floor_time(state, player, 11),
         any([
-            all([
-                ph_is_ut(state, player),
-                ph_totok_b10_all_checks_ut(state, player)  # Assume that time is enough
-            ]),
+            ph_totok_b10_all_checks_ut(state, player),  # Assume that time is enough
             ph_totok_small_keys(state, player,  6),
         ])
     ])
@@ -2959,6 +2964,7 @@ RULE_DICT = {
     # GT
     "goron_entrance": ph_goron_entrance,
     "goron_chus": ph_goron_chus,
+    "meet_gorons": ph_meet_all_gorons,
     "gt_b1": ph_gt_b1,
     "gt_b2_back": ph_gt_b2_back,
     "gt_enter_dongo": ph_gt_enter_dongo,

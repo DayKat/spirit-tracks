@@ -20,6 +20,3 @@ The Legend of Zelda - Phantom Hourglass:
 
   ph_starting_time: 60
   ph_time_increment: 10
-
-  keysanity: in_own_dungeon
-  shuffle_caves: no_shuffle

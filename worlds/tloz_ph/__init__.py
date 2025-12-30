@@ -451,6 +451,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Post ToW", "_beat_tow")
         self.create_event("Post GT", "_beat_gt")
         self.create_event("Post ToI", "_beat_toi")
+        self.create_event("Post MT", "_beat_mt")
         self.create_event("Spawn Pirate Ambush", "_beat_ghost_ship")
         # Farmable minigame events
         self.create_event("Bannan Cannon Game", "_can_play_cannon_game")
@@ -465,7 +466,8 @@ class PhantomHourglassWorld(World):
         # Switch states etc
         self.create_event("Bremeur's Temple Event", "_ruins_lower_water")
         self.create_event("Gust North Sandworms", "_windmills")
-        self.create_event("Goron Chus", "_goron_chus")
+        self.create_event("Goron Chus Event", "_goron_chus")
+        self.create_event("Goron SE Bridge Event", "_goron_bridge")
         self.create_event("Goron NE Event", "_goron_maze_switch")
         self.create_event("Eddo's Workshop", "_eddo_door")
         self.create_event("ToI B1 Switch", "_toi_b1_switch")
@@ -598,7 +600,9 @@ class PhantomHourglassWorld(World):
                 if ENTRANCES[e.name].id in disconnect_ids or ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
-                    if ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
+                    if self.options.ut_events and ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
+                        if self.options.ut_events == "unique_events" and ENTRANCES[e.name].extra_data.get("shared_event", False):
+                            continue
                         self.ut_pairings[str(ENTRANCES[e.name].id)] = ENTRANCES[e.name].vanilla_reciprocal.id
                         self.ut_pairings[str(ENTRANCES[e.name].vanilla_reciprocal.id)] = ENTRANCES[e.name].id
         else:
@@ -1265,6 +1269,8 @@ class PhantomHourglassWorld(World):
             "shuffle_dungeon_entrances", "shuffle_ports", "shuffle_caves", "shuffle_houses",
             "shuffle_overworld_transitions", "shuffle_bosses",
             "entrance_directionality", "decouple_entrances",
+            # UT
+            "ut_events", "ut_blocked_entrances_behaviour", "ut_smart_keys",
             # Deathlink
             "death_link"
         ]

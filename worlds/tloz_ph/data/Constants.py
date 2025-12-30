@@ -1477,11 +1477,19 @@ UT_EVENT_DATA = {
                        "value": 0x400,
                        "entrance": "EVENT: Goron NE Spike Switch",
                        "size": 2},
-                0x1401: {
-                    "address": 0x1B5581,
-                    "value": 0x8,
-                    "entrance": "EVENT: Meet Wayfarer",
-                }
+                # 0x1401: {
+                #     "address": 0x1B5581,
+                #     "value": 0x8,
+                #     "entrance": "EVENT: Meet Wayfarer",
+                # },
+                0x1003: {
+                    "address": 0x1B559F,
+                    "value": 0x2,
+                    "entrance": "EVENT: Goron SE Shout to Bridge Goron"
+                },
+                0x1002: {"address": 0x1B559E,
+                         "value": 0x20,
+                         "entrance": "EVENT: Goron SW Kill Yellow Chus"}
             }
 
 # Decode classification for humans

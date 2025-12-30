@@ -85,4 +85,6 @@ class TestFullER(WorldTestBase):
         "entrance_directionality": "preserve_all",
         "shuffle_between_islands": "shuffle_anywhere",
         "decouple_entrances": "couple_all",
+
+        "ut_smart_keys": True,
                }

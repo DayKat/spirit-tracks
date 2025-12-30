@@ -1722,7 +1722,9 @@ LOCATIONS_DATA = {
         "value": 0x8,
         "delay_reset": True,
         "id": 161,
-        "do_special": "ut_event",
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Meet Wayfarer"},
+        "set_bit": [(0x1b5581, 0x8)]
     },
     "Wayfarer Give Loovar": {
         "region_id": 'Wayfarer Give Loovar',
@@ -2037,6 +2039,9 @@ LOCATIONS_DATA = {
         "address": 0x1ba652,
         "value": 0x10,
         "id": 190,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Goron SW Kill Yellow Chus"},
+        "set_bit": [(0x1ba652, 0x10)]
     },
     "Goron Island SW Grapple Chest": {
         "region_id": "Goron SW Grapple",
@@ -2547,6 +2552,8 @@ LOCATIONS_DATA = {
         "boss_reward_location": True,
         "dungeon": "Temple of Ice",
         "id": 241,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Defeat Gleeok"},
     },
 
     # ========== Ocean NE ============

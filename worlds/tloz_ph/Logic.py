@@ -509,6 +509,7 @@ def make_overworld_logic():
         ["Goron SW", "Goron House Left Rock", True, None],
         ["Goron SW", "Goron NW Shortcut", True, None],
         ["Goron SW Chu Ledge", "Goron Chus", False, "goron_chus"],
+        ["Goron Chus", "Goron Chus Event", False, None],
         ["Goron SW Chu Ledge", "Goron SW Grapple", False, "grapple"],
         ["Goron SW", "Goron SE", True, None],
         ["Goron SW Chu Ledge", "Goron SW", False, None],
@@ -516,7 +517,8 @@ def make_overworld_logic():
         ["Goron SE", "Goron House Right Rock", True, None],
         ["Goron SE", "Goron House Two Rocks", True, None],
         ["Goron SE", "Goron Chief House", True, None],
-        ["Goron Chief House", "Goron Quiz", False, "has", "_goron_chus"],
+        ["Goron SE", "Goron SE Bridge Event", False, None],
+        ["Goron Chief House", "Goron Quiz", False, "meet_gorons"],
         ["Goron Quiz", "Goron Chief Post Dungeon", False, "has", "_beat_gt"],
         ["Goron SE", "Goron NE", True, None],
 
@@ -767,6 +769,7 @@ def make_overworld_logic():
         ["MT Lower Water", "MT B3", False, "mutoh_boss_door"],
         ["MT B3", "Eox", True, None],
         ["Eox", "Post Eox", False, "hammer"],
+        ["Post Eox", "Post MT", False, None],
 
         # ================= Maze Island ====================
 
