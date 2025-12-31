@@ -184,7 +184,7 @@
 { "name": "Mutoh's Temple B2 Spike Roller Chest", "sections": [{ "name": "Mutoh's Temple B2 Spike Roller Chest" }], "map_locations": [{ "map": "Mutoh's Temple B2", "x": 24, "y": 150}] },
 { "name": "Ocean Miniblin Pirate Ambush Item", "sections": [{ "name": "Ocean Miniblin Pirate Ambush Item" }], "map_locations": [{ "map": "Linebeck's Ship", "x": 128, "y": 60}] },
 { "name": "Man of Smiles", "sections": [{ "name": "Man Of Smiles' Item 1" }, { "name": "Man Of Smiles' Item 2" }, { "name": "Man of Smiles' Prize Postcard" }], "map_locations": [{ "map": "Man of Smiles' Ship", "x": 134, "y": 54 }] },
-{ "name": "Prince of Red Lion", "sections": [{ "name": "Prince of Red Lion Combat Reward" }, { "name": "Prince of Red Lions Trade Quest Item" }], "map_locations": [{ "map": "PoRL's Ship", "x": 124, "y": 78 }] },
+{ "name": "Prince of Red Lion", "sections": [{ "name": "Prince of Red Lions Combat Reward" }, { "name": "Prince of Red Lions Trade Quest Item" }], "map_locations": [{ "map": "PoRL's Ship", "x": 124, "y": 78 }] },
 { "name": "Hoiger Howgendoogen Trade Quest Item", "sections": [{ "name": "Hoiger Howgendoogen Trade Quest Item" }], "map_locations": [{ "map": "Hoho Tribe's Ship", "x": 120, "y": 86}] },
 { "name": "Nyave", "sections": [{ "name": "Nyave Trade Quest Item" }, { "name": "Nyave Gift" }], "map_locations": [{ "map": "Nyave's Ship", "x": 128, "y": 84 }] },
 { "name": "Spirit Shrine", "sections": [{ "name": "Spirit Shrine Courage Upgrade Level 1" }, { "name": "Spirit Shrine Courage Upgrade Level 2" }, { "name": "Spirit Shrine Power Upgrade Level 1" }, { "name": "Spirit Shrine Power Upgrade Level 2" }, { "name": "Spirit Shrine Wisdom Upgrade Level 1" }, { "name": "Spirit Shrine Wisdom Upgrade Level 2" }], "map_locations": [{ "map": "Spirit Shrine", "x": 128, "y": 78 }] },
@@ -241,7 +241,7 @@
 { "name": "TotOK B12 Hammer Chest", "sections": [{ "name": "TotOK B12 Hammer Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 204, "y": 94}] },
 { "name": "TotOK B12 Kill Everything Chest", "sections": [{ "name": "TotOK B12 Kill Everything Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 52, "y": 94}] },
 { "name": "TotOK B12 NW Chest", "sections": [{ "name": "TotOK B12 NW Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 84, "y": 30}] },
-{ "name": "TotOK B12 NW Chest", "sections": [{ "name": "TotOK B12 NW Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 172, "y": 30}] },
+{ "name": "TotOK B12 NE Chest", "sections": [{ "name": "TotOK B12 NE Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 172, "y": 30}] },
 { "name": "TotOK B12 Phantom Chest", "sections": [{ "name": "TotOK B12 Phantom Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 128, "y": 110}] },
 { "name": "TotOK B13 NE Sea Chart Chest", "sections": [{ "name": "TotOK B13 NE Sea Chart Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B13", "x": 128, "y": 106}] },
 { "name": "TotOK B2 Bombchu Chest", "sections": [{ "name": "TotOK B2 Bombchu Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B2", "x": 188, "y": 98}] },
@@ -294,5 +294,7 @@
 { "name": "EVENT: Defeat Dongorongo", "sections": [{ "name": "EVENT: Defeat Dongorongo" }], "map_locations": [{ "map": "Dongorongo Arena", "x": 128, "y": 92}] },
 { "name": "EVENT: Defeat Gleeok", "sections": [{ "name": "EVENT: Defeat Gleeok" }], "map_locations": [{ "map": "Gleeok Arena", "x": 128, "y": 126}] },
 { "name": "EVENT: Defeat Eox", "sections": [{ "name": "EVENT: Defeat Eox" }], "map_locations": [{ "map": "Eox Arena", "x": 124, "y": 94}] },
-{ "name": "EVENT: Rescue Tetra", "sections": [{ "name": "EVENT: Rescue Tetra" }], "map_locations": [{ "map": "Ghost Ship B2", "x": 204, "y": 48}] }
+{ "name": "EVENT: Rescue Tetra", "sections": [{ "name": "EVENT: Rescue Tetra" }], "map_locations": [{ "map": "Ghost Ship B2", "x": 204, "y": 48}] },
+{ "name": "Spirit Island Gauntlet Chest", "sections": [{ "name": "Spirit Island Gauntlet Chest" }], "map_locations": [{ "map": "Spirit Island", "x": 186, "y": 96}] },
+{ "name": "Spirit Island Outside Chest", "sections": [{ "name": "Spirit Island Outside Chest" }], "map_locations": [{ "map": "Spirit Island", "x": 134, "y": 100}] }
 ]
