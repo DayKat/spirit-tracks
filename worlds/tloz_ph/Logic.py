@@ -835,6 +835,7 @@ def make_overworld_logic():
         ["SW Ocean East", "Bellumbeck", False, "bellumbeck_quick_finish"],
         ["Bellumbeck", "Beat Bellumbeck", False, "can_beat_bellumbeck"],
         ["Beat Bellumbeck", "Goal", False, None],
+        ["Goal", "Goal Event", False, None],  # Event stuff
         ["TotOK B6 Midway", "Goal", False, "goal_midway"],
         ["Menu", "Goal", False, "win_on_metals"],
 

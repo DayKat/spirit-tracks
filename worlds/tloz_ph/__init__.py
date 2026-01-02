@@ -155,7 +155,8 @@ class PhantomHourglassWorld(World):
     tracker_world = TRACKER_WORLD
     found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}",
                                        "ph_keylocking_{player}_{team}",
-                                       "ph_ut_events_{player}_{team}"]
+                                       "ph_ut_events_{player}_{team}",
+                                       "ph_disconnect_entrances_{player}_{team}"]
                                        
     # This is all code you still need to implement. I am writing down logic.
     # 
@@ -338,11 +339,11 @@ class PhantomHourglassWorld(World):
                 return self.options.randomize_triforce_crest
             if "Masked Beedle" in location_name:
                 return self.options.randomize_masked_beedle
-            if "GOAL" in location_name:
-                if location_name == "GOAL: Beat Bellumbeck" and self.options.bellum_access != "win":
-                    return True
-                elif location_name == "GOAL: Triforce Door" and self.options.goal_requirements == "triforce_door":
-                    return True
+            # if "GOAL" in location_name:
+            #     if location_name == "GOAL: Beat Bellumbeck" and self.options.bellum_access != "win":
+            #         return True
+            #     elif location_name == "GOAL: Triforce Door" and self.options.goal_requirements == "triforce_door":
+            #         return True
             if location_name == "Man of Smiles' Prize Postcard":  # This it pretty random but whatever...
                 return self.options.randomize_beedle_membership.value > 0
             if "EVENT" in location_name:
@@ -602,6 +603,12 @@ class PhantomHourglassWorld(World):
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
                     if self.options.ut_events and ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
                         if self.options.ut_events == "unique_events" and ENTRANCES[e.name].extra_data.get("shared_event", False):
+                            continue
+                        if self.options.goal_requirements != "triforce_door" and e.name in ["GOAL: Triforce Door"]:
+                            continue
+                        elif self.options.bellum_access != "win" and e.name in ["GOAL"]:
+                            continue
+                        elif (self.options.goal_requirements == "triforce_door" or self.options.bellum_access == "win") and e.name in ["GOAL: Bellumbeck"]:
                             continue
                         self.ut_pairings[str(ENTRANCES[e.name].id)] = ENTRANCES[e.name].vanilla_reciprocal.id
                         self.ut_pairings[str(ENTRANCES[e.name].vanilla_reciprocal.id)] = ENTRANCES[e.name].id
@@ -1369,7 +1376,7 @@ class PhantomHourglassWorld(World):
 
                 self.ut_connected_entrances |= new_entrances
 
-        elif "ph_disconnect_entrances" in key and stored_data:
+        elif "ph_disconnect_entrances" in key and stored_data and False:
             for e in self.entrances.values():
                 if ENTRANCES[e.name].id in stored_data[key] and e.parent_region and e.connected_region:
                     print(f"Disconnecting {e.name}")

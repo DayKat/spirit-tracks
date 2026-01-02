@@ -2070,6 +2070,33 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
     },
+    "GOAL: Bellumbeck": {
+        "two_way": False,
+        "entrance_region": "Goal",
+        "exit_region": "Goal Event",
+        "entrance": (0x36, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
+    "GOAL: Triforce Door": {
+        "two_way": False,
+        "entrance_region": "Goal",
+        "exit_region": "Goal Event",
+        "entrance": (0x25, 0x9, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
+    "GOAL": {
+        "two_way": False,
+        "entrance_region": "Goal",
+        "exit_region": "Goal Event",
+        "entrance": (0xB, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
 }
 
 

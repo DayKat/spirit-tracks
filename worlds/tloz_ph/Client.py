@@ -1,5 +1,6 @@
 from random import randint
 from .DSZeldaClient.DSZeldaClient import *
+from ..messenger import disconnect_entrances
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -769,6 +770,14 @@ class PhantomHourglassClient(DSZeldaClient):
                     if isinstance(value, int):
                         value = [value]
                     await write_memory_values(ctx, addr, value)
+
+        # disconnect water entrances
+        if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2 and ctx.slot_data["boat_requires_sea_chart"] and "disconnect_entrances" in item_data:
+            disconnects = [ENTRANCES[i] for i in item_data["disconnect_entrances"]]
+            reciprocals = [ENTRANCES[i].vanilla_reciprocal for i in item_data["disconnect_entrances"]]
+            disconnects_ids = [e.id for e in disconnects + reciprocals]
+            key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
+            await self.store_data(ctx, key, disconnects_ids)
 
 
     @staticmethod

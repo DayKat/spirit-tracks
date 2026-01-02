@@ -246,6 +246,13 @@ ITEMS_DATA = {
         "address": 0x1ba648,
         "value": 0x2,
         "id": 28,
+        "disconnect_entrances": [
+            "Ocean SW Mercay",
+            "Ocean SW Cannon",
+            "Ocean SW Ember",
+            "Ocean SW Molida",
+            "Ocean SW Spirit",
+        ],
     },
     "NW Sea Chart": {
         "classification": ItemClassification.progression,

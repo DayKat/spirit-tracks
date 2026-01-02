@@ -2937,22 +2937,22 @@ LOCATIONS_DATA = {
 
     # ========== Goal Locations ============
 
-    "GOAL: Bellumbeck": {
-        "region_id": "Goal",
-        "vanilla_item": "Nothing!",
-        "stage_id": 0x36,
-        "floor_id": 0x0,
-        "conditional": True,
-        "id": 277,
-    },
-    "GOAL: Triforce Door": {
-        "region_id": "Goal",
-        "vanilla_item": "Nothing!",
-        "stage_id": 0x25,
-        "floor_id": 0x9,
-        "conditional": True,
-        "id": 278,
-    },
+    # "GOAL: Bellumbeck": {
+    #     "region_id": "Goal",
+    #     "vanilla_item": "Nothing!",
+    #     "stage_id": 0x36,
+    #     "floor_id": 0x0,
+    #     "conditional": True,
+    #     "id": 277,
+    # },
+    # "GOAL: Triforce Door": {
+    #     "region_id": "Goal",
+    #     "vanilla_item": "Nothing!",
+    #     "stage_id": 0x25,
+    #     "floor_id": 0x9,
+    #     "conditional": True,
+    #     "id": 278,
+    # },
 
     # 	# ========== Traveller's Ships ============
 
