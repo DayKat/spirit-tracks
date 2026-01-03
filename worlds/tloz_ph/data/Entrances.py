@@ -1993,7 +1993,7 @@ ENTRANCE_DATA = {
     },
     "Ocean NE Ruins": {
         "return_name": "Ruins Boat",
-        "entrance_region": "Ruins boat",
+        "entrance_region": "Ruins Boat",
         "exit_region": "Ruins SW Port",
         "entrance": (0x0, 0x3, 0x2),
         "exit": (0x11, 0x0, 0x0),

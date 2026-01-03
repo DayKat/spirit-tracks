@@ -874,7 +874,7 @@ class PhantomHourglassClient(DSZeldaClient):
         if ctx.slot_data["bellum_access"] == 4:
             game_clear = self.metal_count >= ctx.slot_data["required_metals"]
         else:
-            game_clear = (current_scene == self.goal_room)  # Enter End Credits
+            game_clear = current_scene == self.goal_room  # Enter End Credits
         return game_clear
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):

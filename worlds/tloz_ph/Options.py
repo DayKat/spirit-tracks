@@ -490,12 +490,9 @@ class PhantomHourglassRandomizeBeedlePoints(Choice):
     the Freebie Card, Complimentary Card and Compliment card to the pool
     Point thresholds are at 0, 20, 50, 100 and 200.
     - no_beedle_points: don't randomize this
-    - cards_only: adds the Freebie, Comploment and Complimentary cards to the item pool, but doesn't randomize
-    Membership thresholds
+    - cards_only: adds the Freebie, Comploment and Complimentary cards to the item pool, but doesn't randomize Membership thresholds
     - randomize: randomizes the beedle membership levels. You will only be logically expected to buy the first level.
-    - randomize_with_grinding: randomizes the beedle membership levels. If you have a farmable source of rupees, the
-    game can expect you to farm 20 000 rupees and use time travelling to buy out his stock day after day. Don't pick
-    unless you know what you're signing up for
+    - randomize_with_grinding: randomizes the beedle membership levels. If you have a farmable source of rupees, the game can expect you to farm 20 000 rupees and use time travelling to buy out his stock day after day. Don't pick unless you know what you're signing up for
     """
     display_name = "randomize_beedle_membership"
     option_no_beedle_points = 0

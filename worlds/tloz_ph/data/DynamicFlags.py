@@ -1198,7 +1198,7 @@ DYNAMIC_FLAGS = {
     "Man of smiles prize postcard removal": {
         "on_scenes": [0x600],
         "unset_if_true": [(0x1B558F, 0x08)],
-        "not_has_locations": ["Man of Smiles Prize Postcard"]
+        "not_has_locations": ["Man of Smiles' Prize Postcard"]
     },
     # Heal on bellumbeck
     "Full heal on bellumbeck": {
