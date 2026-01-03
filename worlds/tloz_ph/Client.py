@@ -109,6 +109,7 @@ class PhantomHourglassClient(DSZeldaClient):
         self.at_sea = False
         self.lowered_water = False
         self.visited_entrances = set()
+        self.redisconnected_entrances = set()
 
         self.boss_warp_entrance = None
         self.last_warp_stage = None
@@ -337,7 +338,7 @@ class PhantomHourglassClient(DSZeldaClient):
         if self.warp_to_start_flag:
             # Cyclone slate warp to start crashes, prevent that from working
             if self.at_sea:
-                if await read_memory_value(ctx, 0x1B636C) == 1:  # is 0x65 if never used cyclone slate
+                if await read_memory_value(ctx, 0x1B636C, silent=True) == 1:  # is 0x65 if never used cyclone slate
                     self.warp_to_start_flag = False
                     logger.info("Canceled warp to start, Cyclone Slate is not a valid warp method")
             if self.is_dead:
@@ -353,6 +354,7 @@ class PhantomHourglassClient(DSZeldaClient):
         # Set treasure prices so they match seed (save file resets it on menu)
         await write_memory_value(ctx, 0x0EC7D8, ctx.slot_data.get("treasure_price_index", 0), overwrite=True, size=4)
         await self.update_stored_entrances(ctx)
+        await self.update_redisconnected_entrances(ctx)
 
         # Set warp to start location
         if ctx.slot_data["shuffle_overworld_transitions"]:
@@ -774,10 +776,20 @@ class PhantomHourglassClient(DSZeldaClient):
         # disconnect water entrances
         if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2 and ctx.slot_data["boat_requires_sea_chart"] and "disconnect_entrances" in item_data:
             disconnects = [ENTRANCES[i] for i in item_data["disconnect_entrances"]]
-            reciprocals = [ENTRANCES[i].vanilla_reciprocal for i in item_data["disconnect_entrances"]]
-            disconnects_ids = [e.id for e in disconnects + reciprocals]
+            reciprocal_ids = [ctx.slot_data["er_pairings"][str(i.id)] for i in disconnects if str(i.id) in ctx.slot_data["er_pairings"]]
+            disconnects_ids = [e.id for e in disconnects if str(e.id) in ctx.slot_data["er_pairings"]]
+            all_ids = reciprocal_ids + disconnects_ids
+            print(f"disconnects: {[(e.name, e.id) for e in disconnects]}")
+            print(f"ids: {all_ids}")
+            print(f"pairings: {ctx.slot_data['er_pairings']}")
             key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
-            await self.store_data(ctx, key, disconnects_ids)
+            await self.store_data(ctx, key, all_ids)
+            self.redisconnected_entrances.update(all_ids)
+
+            # remove from checked entrances
+            key2 = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
+            self.visited_entrances = await self.overwrite_old_stored_data(ctx, key2, all_ids,
+                                                 self.visited_entrances)
 
 
     @staticmethod
@@ -990,16 +1002,44 @@ class PhantomHourglassClient(DSZeldaClient):
         if stored_entrances:
             self.visited_entrances = set(stored_entrances)
 
+    async def update_redisconnected_entrances(self, ctx: "BizHawkClientContext"):
+        self.redisconnected_entrances.clear()
+        storage_key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
+        stored_entrances = await ctx.send_msgs([{
+                "cmd": "Get",
+                "keys": [storage_key],
+            }])
+        print(f"fetched datapackage: {stored_entrances}")
+        if stored_entrances:
+            self.redisconnected_entrances = set(stored_entrances)
+
+    async def overwrite_old_stored_data(self, ctx, key, remove_data, old_data):
+        # Remove disconnected entrances
+        list_changed = False
+        for i in remove_data:
+            if i in old_data:
+                old_data.remove(i)
+                list_changed = True
+        if list_changed:
+            await self.store_data(ctx, key, old_data, "replace")
+        return old_data
+
     # UT store entrances to remove
     async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data):
         old_visited_entrances = self.visited_entrances.copy()
         storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
         self.visited_entrances.add(detect_data.id)
         self.visited_entrances.add(exit_data.id)
-        print(f"visited: {self.visited_entrances} old {old_visited_entrances}")
-        print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
+        # print(f"visited: {self.visited_entrances} old {old_visited_entrances}")
+        # print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
         if len(old_visited_entrances) != len(self.visited_entrances):
             await self.store_data(ctx, storage_key, self.visited_entrances-old_visited_entrances)
+
+        # Remove redisconnected entrances
+        if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2:
+            key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
+            self.redisconnected_entrances = await self.overwrite_old_stored_data(ctx, key, [detect_data.id, exit_data.id], self.redisconnected_entrances)
+
 
     def write_respawn_entrance(self, exit_data: "PHTransition"):
         # If ER:ing to sea, set respawn entrance to where you came from cause that doesn't change by itself when warping

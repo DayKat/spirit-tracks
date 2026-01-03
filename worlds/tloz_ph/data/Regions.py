@@ -1,5 +1,6 @@
 REGIONS = [
     "Goal",
+    "Goal Event",
     "Beat Required Dungeons",
     "Menu",
 

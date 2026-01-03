@@ -259,6 +259,13 @@ ITEMS_DATA = {
         "address": 0x1ba648,
         "value": 0x4,
         "id": 29,
+        "disconnect_entrances": [
+            "Ocean NW Gust",
+            "Ocean NW Bannan",
+            "Ocean NW Zauz",
+            "Ocean NW Uncharted",
+            "Board Ghost Ship",
+        ]
     },
     "SE Sea Chart": {
         "classification": ItemClassification.progression,
@@ -266,14 +273,24 @@ ITEMS_DATA = {
         "value": 0x8,
         "set_bit": [(0x1b557d, 0x8)],
         "id": 30,
+        "disconnect_entrances": [
+            "Ocean SE Goron",
+            "Ocean SE Harrow",
+            "Ocean SE Dee Ess",
+            "Ocean SE Frost",
+        ],
     },
     "NE Sea Chart": {
         "classification": ItemClassification.progression,
         "address": 0x1ba648,
         "value": 0x10,
         "id": 31,
+        "disconnect_entrances": [
+            "Ocean NE IotD",
+            "Ocean NE Ruins",
+            "Ocean NE Maze",
+        ],
     },
-
     # Spirit gems
     "Power Gem": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
