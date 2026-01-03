@@ -319,7 +319,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def process_in_game(self, ctx, read_result: dict):
         # Detect lowering of water and update ER Map
         if not self.lowered_water and self.current_stage == 0x24:
-            await self.lower_water(ctx)
+            await self.lower_water(ctx, True)
         await self.detect_ut_event(ctx, self.current_scene)
 
     async def detect_warp_to_start(self, ctx, read_result: dict):
@@ -779,18 +779,19 @@ class PhantomHourglassClient(DSZeldaClient):
             reciprocal_ids = [ctx.slot_data["er_pairings"][str(i.id)] for i in disconnects if str(i.id) in ctx.slot_data["er_pairings"]]
             disconnects_ids = [e.id for e in disconnects if str(e.id) in ctx.slot_data["er_pairings"]]
             all_ids = reciprocal_ids + disconnects_ids
-            print(f"disconnects: {[(e.name, e.id) for e in disconnects]}")
-            print(f"ids: {all_ids}")
-            print(f"pairings: {ctx.slot_data['er_pairings']}")
-            key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
-            await self.store_data(ctx, key, all_ids)
-            self.redisconnected_entrances.update(all_ids)
+            print(f"sea disconnects: {[(e.name, e.id) for e in disconnects]}")
+            await self.redisconnect(ctx, all_ids)
 
-            # remove from checked entrances
-            key2 = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
-            self.visited_entrances = await self.overwrite_old_stored_data(ctx, key2, all_ids,
-                                                 self.visited_entrances)
+    async def redisconnect(self, ctx, data):
+        # store redisconnects
+        key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
+        await self.store_data(ctx, key, data)
+        self.redisconnected_entrances.update(data)
 
+        # remove from checked entrances
+        key2 = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
+        self.visited_entrances = await self.overwrite_old_stored_data(ctx, key2, data,
+                                                                      self.visited_entrances)
 
     @staticmethod
     async def enable_items(ctx: "BizHawkClientContext", inventory_id: int):
@@ -935,7 +936,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         return er_map
 
-    async def lower_water(self, ctx):
+    async def lower_water(self, ctx, allow_redisconnect=False):
         if await read_memory_value(ctx, 0x1B5582, silent=True) & 0x4:
             print(f"Water has been lowered...")
             for scene, data in self.er_map.items():
@@ -943,6 +944,14 @@ class PhantomHourglassClient(DSZeldaClient):
                     if exit_data.stage == 0x11:
                         exit_data.set_stage(0x12)
                         self.er_map[scene][detect_data] = exit_data
+            if allow_redisconnect and not self.lowered_water and ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2:
+                print(f"Allowing redisconnect")
+                water_entrances = [i.id for i in ENTRANCES.values() if "ruins_water" in i.extra_data.get("conditional", [])]
+                reciprocals = [ctx.slot_data["er_pairings"][str(i)] for i in water_entrances if str(i) in ctx.slot_data["er_pairings"]]
+                all_ids = set(water_entrances + reciprocals)
+                print(f"Redisconnecting {[self.entrance_id_to_entrance[i].name for i in all_ids]}")
+                await self.redisconnect(ctx, all_ids)
+
             self.lowered_water = True
 
     async def detect_ut_event(self, ctx, scene):
