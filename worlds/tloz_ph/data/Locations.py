@@ -2483,8 +2483,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x1f,
         "floor_id": 0x2,
         "vanilla_item": "Small Key (Temple of Ice)",
-        "x_min": 0x11170,
-        "z_min": 0xafc8,
+        "x_min": 65000,
+        "z_min": 45000,
         "dungeon": "Temple of Ice",
         "id": 234,
     },
@@ -2552,8 +2552,8 @@ LOCATIONS_DATA = {
         "boss_reward_location": True,
         "dungeon": "Temple of Ice",
         "id": 241,
-        "do_special": {"event_type": "ut_connect",
-                       "event_name": "EVENT: Defeat Gleeok"},
+        # "do_special": {"event_type": "ut_connect",
+        #                "event_name": "EVENT: Defeat Gleeok"},
     },
 
     # ========== Ocean NE ============

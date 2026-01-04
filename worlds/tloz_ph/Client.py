@@ -618,7 +618,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def update_special_key_count(self, ctx, current_stage: int, new_keys, key_data: dict, key_values, key_address: int) -> tuple[int, bool]:
         if current_stage == 0x25:
-            if self.location_name_to_id["TotOK 1F SW Sea Chart Chest"] in ctx.checked_locations:
+            if self.location_name_to_id["TotOK 1F Sea Chart Chest"] in ctx.checked_locations:
                 new_keys -= 1  # Opening the SW sea chart door uses a key permanently! No savescums!
             if self.current_scene == 0x2504:  # Set B3.5 key count
                 new_keys -= 2
@@ -1113,7 +1113,7 @@ class PhantomHourglassClient(DSZeldaClient):
             if location["do_special"] == "ut_event":
                 key = f"ph_ut_events_{ctx.slot}_{ctx.team}"
                 print(f"got ut_event location for key {key} loc {location['name']}")
-                if location["name"] == "TotOK 1F SW Sea Chart Chest":
+                if location["name"] == "TotOK 1F Sea Chart Chest":
                     await self.store_data(ctx, key, ["1f"])
             if isinstance(location["do_special"], dict):
                 event_type = location["do_special"].get("event_type", None)

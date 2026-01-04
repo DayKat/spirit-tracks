@@ -419,7 +419,7 @@ ENTRANCE_DATA = {
     },
     "Cannon Bomb Garden Cave": {
         "return_name": "Cannon Cave Staircase",
-        "entrance_region": "Cannon Bomb Garden Dig",
+        "entrance_region": "Cannon Bomb Garden",
         "exit_region": "Bomb Flower Cave North",
         "entrance": (0x13, 0x0, 0x2),
         "exit": (0x28, 0x0, 0x1),
