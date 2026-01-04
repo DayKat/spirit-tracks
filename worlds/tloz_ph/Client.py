@@ -1,6 +1,5 @@
 from random import randint
 from .DSZeldaClient.DSZeldaClient import *
-from ..messenger import disconnect_entrances
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
