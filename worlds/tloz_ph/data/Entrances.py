@@ -1531,7 +1531,7 @@ ENTRANCE_DATA = {
     "Ruins SW Lower Maze Exit North": {
         "return_name": "Ruins NW One-Way Ledge SW",
         "entrance_region": "Ruins SW Maze Lower Exit",
-        "exit_region": "Ruins NW Maze Lower Chest",
+        "exit_region": "Ruins NW Maze Lower Exit",
         "entrance": (0x11, 0x0, 0xFC),
         "exit": (0x11, 0x1, 0xFB),
         "coords": (-194200, 9666, -4815),

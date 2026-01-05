@@ -1352,7 +1352,6 @@ class PhantomHourglassWorld(World):
                 disconnects = self.ut_redisconnected_entrances - self.ut_traversed_entrances
                 reconnects = {i for i in self.ut_redisconnected_entrances & self.ut_traversed_entrances if i not in self.ut_reconnected_entrances}
                 new_entrances = (set(stored_data) - self.ut_connected_entrances - disconnects) | reconnects
-                print(f"UT NEW ENTRANCES: {[entrance_id_to_region[i] for i in new_entrances]}")
                 if reconnects:
                     self.ut_reconnected_entrances.update(reconnects)
 

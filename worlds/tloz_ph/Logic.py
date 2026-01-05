@@ -666,7 +666,8 @@ def make_overworld_logic():
         ["IotD Boat", "NE Ocean", True, "require_chart", "NE"],
         ["Maze Boat", "Maze Island", True, None],
         ["Maze Boat", "NE Ocean", True, "require_chart", "NE"],
-        ["NE Ocean Inner", "Ruins Boat", True, "require_chart", "NE"],
+        ["NE Ocean Inner", "Ruins Boat", False, None],
+        ["Ruins Boat", "NE Ocean", False, "require_chart", "NE"],
         ["Ruins Boat", "Ruins SW Port", True, None],
         ["NE Ocean", "Pirate Ambush", False, "beat_gs"],
 

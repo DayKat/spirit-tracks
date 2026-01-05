@@ -77,7 +77,7 @@ DYNAMIC_ENTRANCES = {
     "Blaaz warp": {
         "entrance": "ToF Blaaz Warp",
         "destination": "ToF Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2]), ("shuffle_bosses", 0)],
     },
     "Blaaz warp Boss Shuffle": {
         "entrance": "ToF Blaaz Warp",
@@ -87,7 +87,7 @@ DYNAMIC_ENTRANCES = {
     "Cyclok warp": {
         "entrance": "ToW Cyclok Warp",
         "destination": "ToW Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2]), ("shuffle_bosses", 0)],
     },
     "Cyclok warp Boss Shuffle": {
         "entrance": "ToW Cyclok Warp",
@@ -97,7 +97,7 @@ DYNAMIC_ENTRANCES = {
     "Crayk warp": {
         "entrance": "ToC Crayk Warp",
         "destination": "ToC Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2]), ("shuffle_bosses", 0)],
     },
     "Crayk warp Boss Shuffle": {
         "entrance": "ToC Crayk Warp",
@@ -107,7 +107,7 @@ DYNAMIC_ENTRANCES = {
     "Dongo warp": {
         "entrance": "GT Dongo Warp",
         "destination": "GT Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2]), ("shuffle_bosses", 0)],
     },
     "Dongo warp Boss Shuffle": {
         "entrance": "GT Dongo Warp",
@@ -117,7 +117,7 @@ DYNAMIC_ENTRANCES = {
     "Gleeok warp": {
         "entrance": "ToI Gleeok Warp",
         "destination": "ToI Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2]), ("shuffle_bosses", 0)],
     },
     "Gleeok warp Boss Shuffle": {
         "entrance": "ToI Gleeok Warp",
@@ -127,7 +127,7 @@ DYNAMIC_ENTRANCES = {
     "Eox warp": {
         "entrance": "MT Eox Warp",
         "destination": "MT Exit",
-        "has_slot_data": [("shuffle_dungeon_entrances", 1), ("shuffle_bosses", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", [1, 2]), ("shuffle_bosses", 0)],
     },
     "Eox warp Boss Shuffle": {
         "entrance": "MT Eox Warp",
@@ -136,7 +136,7 @@ DYNAMIC_ENTRANCES = {
     },
     "GS warp": {
         "entrance": "Finish Ghost Ship",
-        "destination": "Ghost Ship B1 Ascend",
+        "destination": "Ghost Ship 1F Descend",
         "has_slot_data": [("shuffle_dungeon_entrances", [1, 2])],
     },
     "Cubus warp Boss Shuffle": {

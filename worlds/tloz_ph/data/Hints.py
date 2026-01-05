@@ -97,7 +97,7 @@ HINT_DATA = {
         "slot_data": [("randomize_minigames", 1)],
         "locations": ["Maze Island Beginner", "Maze Island Normal", "Maze Island Expert", "Maze Island Bonus Reward"]
     },
-    "Prince of Red Lion Combat Reward": {
+    "Prince of Red Lions Combat Reward": {
         "scenes": [0x700],
         "slot_data": [("randomize_minigames", 1)],
     },
