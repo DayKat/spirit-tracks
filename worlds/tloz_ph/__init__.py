@@ -156,7 +156,8 @@ class PhantomHourglassWorld(World):
     found_entrances_datastorage_key = ["ph_checked_entrances_{player}_{team}",
                                        "ph_keylocking_{player}_{team}",
                                        "ph_ut_events_{player}_{team}",
-                                       "ph_disconnect_entrances_{player}_{team}"]
+                                       "ph_disconnect_entrances_{player}_{team}",
+                                       "ph_traversed_entrances_{player}_{team}"]
                                        
     # This is all code you still need to implement. I am writing down logic.
     # 
@@ -215,9 +216,12 @@ class PhantomHourglassWorld(World):
         self.plando_er_pairings = []
         self.required_bosses = []
 
-        self.entrances = {}
+        self.entrances: dict[str, "Entrance"] = {}
         self.er_placement_state = None
         self.ut_connected_entrances = set()
+        self.ut_redisconnected_entrances = set()
+        self.ut_traversed_entrances = set()
+        self.ut_reconnected_entrances = set()
         self.disconnected_entrances_map = {}
         self.disconnected_exits_map = {}
         self.ut_excluded = []
@@ -1332,7 +1336,8 @@ class PhantomHourglassWorld(World):
 
 
 
-        if "ph_checked_entrances" in key:
+
+        if "ph_checked_entrances" in key or "ph_traversed_entrances" in key:
             # Create a lookup for disconnected entrances if you haven't already.
             if not self.disconnected_entrances_map:
                 entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
@@ -1342,8 +1347,16 @@ class PhantomHourglassWorld(World):
                                                    for e in region.exits if not e.connected_region}
 
             if stored_data:
-                new_entrances = set(stored_data) - self.ut_connected_entrances
-                print(f"new entrances: {new_entrances}")
+                if "ph_traversed_entrances" in key:
+                    self.ut_traversed_entrances.update(stored_data)
+                disconnects = self.ut_redisconnected_entrances - self.ut_traversed_entrances
+                reconnects = {i for i in self.ut_redisconnected_entrances & self.ut_traversed_entrances if i not in self.ut_reconnected_entrances}
+                new_entrances = (set(stored_data) - self.ut_connected_entrances - disconnects) | reconnects
+                print(f"UT NEW ENTRANCES: {[entrance_id_to_region[i] for i in new_entrances]}")
+                if reconnects:
+                    self.ut_reconnected_entrances.update(reconnects)
+
+                print(f"new checked entrances: {new_entrances}")
 
                 for i in new_entrances:
                     pairing = self.ut_pairings.get(str(i), None)
@@ -1371,14 +1384,17 @@ class PhantomHourglassWorld(World):
                             if not self.options.decouple_entrances:
                                 dangling_entrance.connect(entrance_region)
                                 # print(f"dangling_entrance's region: {dangling_entrance.name} => {dangling_entrance.connected_region}")
-                                self.disconnected_entrances_map.pop(i)
 
 
                 self.ut_connected_entrances |= new_entrances
 
         elif "ph_disconnect_entrances" in key and stored_data:
+            self.ut_redisconnected_entrances.update(stored_data)
             for e in self.entrances.values():
-                if ENTRANCES[e.name].id in stored_data and e.parent_region and e.connected_region and ENTRANCES[e.name].id in self.ut_connected_entrances:
+                entr_id = ENTRANCES[e.name].id
+                if (ENTRANCES[e.name].id in stored_data and e.parent_region and e.connected_region
+                        and entr_id in self.ut_connected_entrances
+                        and not entr_id in self.ut_traversed_entrances):
                     print(f"Disconnecting {e.name}")
                     child_region = e.connected_region
                     parent_region = e.parent_region
@@ -1388,9 +1404,6 @@ class PhantomHourglassWorld(World):
                     e.connected_region = None
                     # Create target
                     parent_region.create_er_target(e.name)
-                    # Allow reconnection
-                    self.ut_connected_entrances.remove(ENTRANCES[e.name].id)
-                    self.disconnected_entrances_map.clear()
 
         elif "ph_keylocking" in key and stored_data:
             print(f"Attempting to keylock stuff!")

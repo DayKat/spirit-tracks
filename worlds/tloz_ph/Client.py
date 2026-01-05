@@ -772,7 +772,7 @@ class PhantomHourglassClient(DSZeldaClient):
                         value = [value]
                     await write_memory_values(ctx, addr, value)
 
-        # disconnect water entrances
+        # disconnect port entrances
         if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2 and ctx.slot_data["boat_requires_sea_chart"] and "disconnect_entrances" in item_data:
             disconnects = [ENTRANCES[i] for i in item_data["disconnect_entrances"]]
             reciprocal_ids = [ctx.slot_data["er_pairings"][str(i.id)] for i in disconnects if str(i.id) in ctx.slot_data["er_pairings"]]
@@ -786,11 +786,6 @@ class PhantomHourglassClient(DSZeldaClient):
         key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
         await self.store_data(ctx, key, data)
         self.redisconnected_entrances.update(data)
-
-        # remove from checked entrances
-        key2 = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
-        self.visited_entrances = await self.overwrite_old_stored_data(ctx, key2, data,
-                                                                      self.visited_entrances)
 
     @staticmethod
     async def enable_items(ctx: "BizHawkClientContext", inventory_id: int):
@@ -1001,7 +996,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def update_stored_entrances(self, ctx: "BizHawkClientContext"):
         self.visited_entrances.clear()
-        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
+        storage_key = f"ph_traversed_entrances_{ctx.slot}_{ctx.team}"
         stored_entrances = await ctx.send_msgs([{
                 "cmd": "Get",
                 "keys": [storage_key],
@@ -1033,20 +1028,22 @@ class PhantomHourglassClient(DSZeldaClient):
         return old_data
 
     # UT store entrances to remove
-    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data):
+    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data, interaction="traverse"):
         old_visited_entrances = self.visited_entrances.copy()
-        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
-        self.visited_entrances.add(detect_data.id)
-        self.visited_entrances.add(exit_data.id)
+        new_data = {detect_data.id, exit_data.id}
+
+        if interaction == "traverse" or ctx.slot_data.get("ut_blocked_entrances_behaviour", 1) == 0:
+            storage_key = f"ph_traversed_entrances_{ctx.slot}_{ctx.team}"
+            self.visited_entrances.update(new_data)
+            new_data = self.visited_entrances-old_visited_entrances
+        elif interaction == "check":
+            storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
+        else:
+            raise ValueError(f"store_visited_entrances() had an unhandled interaction value {interaction}")
+
         # print(f"visited: {self.visited_entrances} old {old_visited_entrances}")
         # print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
-        if len(old_visited_entrances) != len(self.visited_entrances):
-            await self.store_data(ctx, storage_key, self.visited_entrances-old_visited_entrances)
-
-        # Remove redisconnected entrances
-        if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2:
-            key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
-            self.redisconnected_entrances = await self.overwrite_old_stored_data(ctx, key, [detect_data.id, exit_data.id], self.redisconnected_entrances)
+        await self.store_data(ctx, storage_key, new_data)
 
 
     def write_respawn_entrance(self, exit_data: "PHTransition"):
