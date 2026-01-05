@@ -229,7 +229,8 @@ loc_files = [
     "locations/overview_astrid_houses.json",
     "locations/overview_bosses.json",
     "locations/overview_caves.json",
-    "locations/overview_dungeons_full.json",]
+    "locations/overview_dungeons_full.json",
+    "locations/overview_dungeons.json",]
 
 TRACKER_WORLD = {"map_page_folder": "tracker",
                  "map_page_maps": ["maps/maps_any_er_true.json",
@@ -255,13 +256,12 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
                     f"/tracker/{f}").decode('utf-8-sig'))
         return res
 
-    pack_name = world.__class__.__module__
     entr_data = get_json(entrance_files)
     loc_data = get_json(loc_files)
     active_entrances = [int(i) for i in world.ut_pairings]
     # print(active_entrances)
-    entr_hidden = {}
-    locs_hidden = {}
+    entr_hidden: dict[str, list[str]] = {}
+    locs_hidden: dict[str, list[int]] = {}
     events_hidden = {}
     map_coord_checks = {}
     print(f"Wrong entrances:")
@@ -297,6 +297,37 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
                         locs_hidden.setdefault(loc_map, [])
                         locs_hidden[loc_map] += loc_ids
 
+    # Special Cases
+    if ENTRANCES["Bannan West Hut"].id in active_entrances:
+        entr_hidden.setdefault("Bannan Island", []).append("EVENT: Meet Wayfarer")
+    if ENTRANCES["Astrid's Stairs"].id in active_entrances:
+        locs_hidden.setdefault("Isle of Ember", []).append(87)
+        locs_hidden.setdefault("Isle of Ember (West)", []).append(87)
+    else:  # Astrid's Stairs is offset by default, needs a manual removal
+        entr_hidden.setdefault("Isle of Ember", []).append("Astrid's Stairs")
+        entr_hidden.setdefault("Isle of Ember (West)", []).append("Astrid's Stairs")
+    if ENTRANCES["Ember West Astrid's House"].id in active_entrances:
+        entr_hidden.setdefault("Isle of Ember", []).append("Astrid's Stairs")
+        entr_hidden.setdefault("Isle of Ember (West)", []).append("Astrid's Stairs")
+    # Bosses
+    if ENTRANCES["ToF Enter Boss"].id in active_entrances:
+        locs_hidden.setdefault("Isle of Ember", []).extend([99, 100])
+        locs_hidden.setdefault("Isle of Ember (East)", []).extend([99, 100])
+    if ENTRANCES["ToW Enter Boss"].id in active_entrances:
+        locs_hidden.setdefault("Isle of Gusts", []).extend([156, 157, 158])
+        locs_hidden.setdefault("Isle of Gusts (North)", []).extend([156, 157, 158])
+    if ENTRANCES["ToC Enter Boss"].id in active_entrances:
+        locs_hidden.setdefault("Molida Island", []).extend([129, 130, 131])
+        locs_hidden.setdefault("Molida Island (North)", []).extend([129, 130, 131])
+    if ENTRANCES["GT Enter Boss"].id in active_entrances:
+        locs_hidden.setdefault("Goron Island", []).extend([204, 205, 206])
+        locs_hidden.setdefault("Goron Island (NW)", []).extend([204, 205, 206])
+    if ENTRANCES["ToI Enter Boss"].id in active_entrances:
+        locs_hidden.setdefault("Isle of Frost", []).extend([239, 240, 241])
+        locs_hidden.setdefault("Isle of Frost (NE)", []).extend([239, 240, 241])
+    if ENTRANCES["MT Enter Boss"].id in active_entrances:
+        locs_hidden.setdefault("Isle of Ruins", []).extend([266, 267, 268])
+        locs_hidden.setdefault("Isle of Ruins NE", []).extend([266, 267, 268])
 
     # for i, v in maps_hidden.items():
     #     print(f"{i}: {v}")

@@ -1117,6 +1117,8 @@ LOCATIONS_DATA = {
         "boss_reward_location": True,
         "delay_reset": True,
         "id": 100,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Defeat Blaaz"},
     },
 
     # ========== Molida Island ============
@@ -1416,6 +1418,8 @@ LOCATIONS_DATA = {
         "boss_reward_location": True,
         "delay_reset": True,
         "id": 129,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Defeat Crayk"},
     },
     "Crayk Sand of Hours": {
         "region_id": "Post Crayk",
@@ -1683,6 +1687,8 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of Wind",
         "delay_reset": True,
         "id": 157,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Defeat Cyclok"},
     },
     "Cyclok Heart Container": {
         "region_id": "Post Cyclok",
@@ -1996,6 +2002,8 @@ LOCATIONS_DATA = {
         "item_override": "Rare Metal",
         "dungeon": "Ghost Ship",
         "id": 186,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Rescue Tetra"},
     },
 
     # ========== Ocean SE ============
@@ -2191,6 +2199,8 @@ LOCATIONS_DATA = {
         "boss_reward_location": True,
         "dungeon": "Goron Temple",
         "id": 206,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Defeat Dongorongo"},
     },
 
     # ========== Harrow Island ============
@@ -2552,8 +2562,8 @@ LOCATIONS_DATA = {
         "boss_reward_location": True,
         "dungeon": "Temple of Ice",
         "id": 241,
-        # "do_special": {"event_type": "ut_connect",
-        #                "event_name": "EVENT: Defeat Gleeok"},
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Defeat Gleeok"},
     },
 
     # ========== Ocean NE ============
@@ -2840,6 +2850,8 @@ LOCATIONS_DATA = {
         "boss_reward_location": True,
         "dungeon": "Mutoh's Temple",
         "id": 268,
+        "do_special": {"event_type": "ut_connect",
+                       "event_name": "EVENT: Defeat Eox"},
     },
 
     # ========== Maze Island ============

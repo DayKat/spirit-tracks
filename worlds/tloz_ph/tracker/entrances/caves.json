@@ -78,7 +78,7 @@
 {"name": "Cannon Cave Staircase", "sections": [{"name": "Cannon Cave Staircase"}], "map_locations": [{"map": "Bomb Flower Cave", "x": 112, "y": 60}]},
 {"name": "Cannon Bomb Garden Cave", "sections": [{"name": "Cannon Bomb Garden Cave"}], "map_locations": [{"map": "Cannon Island", "x": 72, "y": 108}]},
 {"name": "Astrid's Basement Stairs", "sections": [{"name": "Astrid's Basement Stairs"}], "map_locations": [{"map": "Astrid's Basement", "x": 116, "y": 84}]},
-{"name": "Astrid's Stairs", "sections": [{"name": "Astrid's Stairs"}], "map_locations": [{"map": "Astrid's House", "x": 116, "y": 96}]},
+{"name": "Astrid's Stairs", "sections": [{"name": "Astrid's Stairs"}], "map_locations": [{"map": "Astrid's House", "x": 116, "y": 96}, { "map": "Isle of Ember", "x": 79, "y": 90 }, { "map": "Isle of Ember (West)", "x": 158, "y": 90 }]},
 {"name": "Sun Lake Cave Staircase", "sections": [{"name": "Sun Lake Cave Staircase"}], "map_locations": [{"map": "Sun Lake Cave", "x": 84, "y": 52}]},
 {"name": "Sun Lake Cave Sun Staircase", "sections": [{"name": "Sun Lake Cave Sun Staircase"}], "map_locations": [{"map": "Sun Lake Cave", "x": 56, "y": 20}]},
 {"name": "Molida North Cliff Staircase", "sections": [{"name": "Molida North Cliff Staircase"}], "map_locations": [{"map": "Molida Island", "x": 124, "y": 84}]},
