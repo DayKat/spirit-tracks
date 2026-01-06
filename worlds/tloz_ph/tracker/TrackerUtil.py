@@ -219,7 +219,8 @@ entrance_files = [
     "entrances/caves.json",
     "entrances/dungeons.json",
     "entrances/houses.json",
-    "entrances/ports.json",]
+    "entrances/ports.json",
+    "entrances/entrances_overview.json"]
 
 loc_files = [
     "locations/locations.json",
