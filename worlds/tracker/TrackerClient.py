@@ -660,7 +660,6 @@ class TrackerGameContext(CommonContext):
         self.ui.loc_border = m["location_border_thickness"] if "location_border_thickness" in m else 8  # default location size per poptracker/src/core/map.h
         temp_locs = [location for location in self.locs]
         map_locs = []
-        print(f"UT is loading the map")
         hidden_locations = getattr(self.tracker_core.get_current_world(), "ut_map_page_hidden_locations", {})
         current_hidden_locs = hidden_locations.get(m["name"], [])
         while temp_locs:
