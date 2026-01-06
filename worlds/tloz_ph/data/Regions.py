@@ -1,6 +1,8 @@
 REGIONS = [
     "Goal",
     "Goal Event",
+    "Goal Event Bellumbeck",
+    "Goal Event Triforce",
     "Beat Required Dungeons",
     "Menu",
 

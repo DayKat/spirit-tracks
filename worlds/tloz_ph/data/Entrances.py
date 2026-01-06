@@ -2013,6 +2013,8 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "return_island": EntranceGroups.NONE,
     },
+}
+EVENT_DATA = {
     # Event entrances
     "EVENT: SS Wayfarer Give Wood Heart": {
         "two_way": False,
@@ -2074,7 +2076,7 @@ ENTRANCE_DATA = {
     "GOAL: Bellumbeck": {
         "two_way": False,
         "entrance_region": "Goal",
-        "exit_region": "Goal Event",
+        "exit_region": "Goal Event Bellumbeck",
         "entrance": (0x36, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
@@ -2083,7 +2085,7 @@ ENTRANCE_DATA = {
     "GOAL: Triforce Door": {
         "two_way": False,
         "entrance_region": "Goal",
-        "exit_region": "Goal Event",
+        "exit_region": "Goal Event Triforce",
         "entrance": (0x25, 0x9, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
@@ -2173,7 +2175,9 @@ ENTRANCE_DATA = {
 
 
 
-ENTRANCES: dict[str, "PHTransition"] = PHTransition.from_data(ENTRANCE_DATA)
+ENTRANCES: dict[str, "PHTransition"] = PHTransition.from_data(ENTRANCE_DATA | EVENT_DATA)
+EVENTS: dict[str, "PHTransition"] = {name: entr for name, entr in ENTRANCES.items() if entr.category_group == EntranceGroups.EVENT}
+
 counter = {}
 i = 0
 entrance_id_to_region = {d.id: d.entrance_region for d in ENTRANCES.values()}

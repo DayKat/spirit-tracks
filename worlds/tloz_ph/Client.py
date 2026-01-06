@@ -102,6 +102,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Ph variables
         self.goal_room = 0x3600
+        self.goal_event_connect = None
         self.last_treasures = 0
         self.last_potions = [0, 0]
         self.last_ship_parts = []
@@ -858,8 +859,12 @@ class PhantomHourglassClient(DSZeldaClient):
     def set_ending_room(self, ctx):
         if ctx.slot_data["goal_requirements"] == "beat_bellumbeck":
             self.goal_room = 0x3600
+            if ctx.slot_data["ut_events"] > 0:
+                self.goal_event_connect = ENTRANCES["GOAL: Bellumbeck"]
         elif ctx.slot_data["goal_requirements"] == "triforce_door":
             self.goal_room = 0x2509
+            if ctx.slot_data["ut_events"] > 0:
+                self.goal_event_connect = ENTRANCES["GOAL: Triforce Door"]
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         current_scene = self.read_result["stage"] * 0x100 + self.read_result["room"]
@@ -869,6 +874,8 @@ class PhantomHourglassClient(DSZeldaClient):
             game_clear = self.metal_count >= ctx.slot_data["required_metals"]
         else:
             game_clear = current_scene == self.goal_room  # Enter End Credits
+            if game_clear and self.goal_event_connect:
+                await self.store_visited_entrances(ctx, self.goal_event_connect, self.goal_event_connect.vanilla_reciprocal)
         return game_clear
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):

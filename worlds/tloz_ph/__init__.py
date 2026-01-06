@@ -19,7 +19,7 @@ from .data.Constants import *
 from .data.Items import ITEMS_DATA
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
-from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region
+from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region, EVENTS
 from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 from .tracker.TrackerUtil import TRACKER_WORLD
@@ -250,6 +250,25 @@ class PhantomHourglassWorld(World):
             self.boss_reward_items_pool = slot_data["boss_reward_items_pool"]
             self.ut_pairings = slot_data.get("er_pairings", {})
             self.treasure_price_index = slot_data.get("treasure_price_index", 0)
+
+            # Figure out what events are active, and add to ut_pairings
+            print(F"Generating early")
+            print(f"UT Pairings: {self.ut_pairings}")
+            if self.options.ut_events:
+                for event in EVENTS.values():
+                    if "GOAL" in event.name or "EVENT" in event.name:
+                        if self.options.ut_events == "unique_events" and event.extra_data.get("shared_event", False):
+                            continue
+                        if "GOAL" in event.name:
+                            if self.options.goal_requirements != "triforce_door" and event.name in ["GOAL: Triforce Door"]:
+                                continue
+                            if self.options.bellum_access != "win" and event.name in ["GOAL"]:
+                                continue
+                            if ((self.options.goal_requirements == "triforce_door" or self.options.bellum_access == "win")
+                                  and event.name in ["GOAL: Bellumbeck"]):
+                                continue
+                        print(f"Adding Event: {event.name}")
+                        self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
             # Hide stuff in UT map page based on what entrances are randomized
             if not self.ut_map_page_hidden_locations or not self.ut_map_page_hidden_entrances:
@@ -600,22 +619,11 @@ class PhantomHourglassWorld(World):
     def connect_entrances(self) -> None:
         # UT only needs to disconnect entrances, use slot data pairings to figure out which
         if getattr(self.multiworld, "generation_is_fake", False):
-            disconnect_ids = set(self.ut_pairings.keys()) | set(self.ut_pairings.values())
+            disconnect_ids = {int(i) for i in self.ut_pairings.keys()}
             for e in self.entrances.values():
-                if ENTRANCES[e.name].id in disconnect_ids or ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
+                if ENTRANCES[e.name].id in disconnect_ids:
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
-                    if self.options.ut_events and ENTRANCES[e.name].category_group == EntranceGroups.EVENT:
-                        if self.options.ut_events == "unique_events" and ENTRANCES[e.name].extra_data.get("shared_event", False):
-                            continue
-                        if self.options.goal_requirements != "triforce_door" and e.name in ["GOAL: Triforce Door"]:
-                            continue
-                        elif self.options.bellum_access != "win" and e.name in ["GOAL"]:
-                            continue
-                        elif (self.options.goal_requirements == "triforce_door" or self.options.bellum_access == "win") and e.name in ["GOAL: Bellumbeck"]:
-                            continue
-                        self.ut_pairings[str(ENTRANCES[e.name].id)] = ENTRANCES[e.name].vanilla_reciprocal.id
-                        self.ut_pairings[str(ENTRANCES[e.name].vanilla_reciprocal.id)] = ENTRANCES[e.name].id
         else:
             # What option corresponds with what type
             type_option_lookup = {

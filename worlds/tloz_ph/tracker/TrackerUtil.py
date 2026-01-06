@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from ..data.Entrances import ENTRANCES
+from ..data.Entrances import ENTRANCES, entrance_id_to_region
 
 if TYPE_CHECKING:
     from ..__init__ import PhantomHourglassWorld
@@ -259,24 +259,32 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
     entr_data = get_json(entrance_files)
     loc_data = get_json(loc_files)
     active_entrances = [int(i) for i in world.ut_pairings]
-    # print(active_entrances)
+    # print(f"active entrances: {[i for i in active_entrances]}")
     entr_hidden: dict[str, list[str]] = {}
     locs_hidden: dict[str, list[int]] = {}
     events_hidden = {}
     map_coord_checks = {}
-    print(f"Wrong entrances:")
+    # Move event data from locations to entrances
+    for loc in loc_data.copy():
+        event_names = [s.get("name") for s in loc.get("sections", []) if "EVENT" in s.get("name") or "GOAL" in s.get("name")]
+        if event_names:
+            entr_data.append(loc)
+            loc_data.remove(loc)
+    # Handle entrances
     for entrance in entr_data:
-        entr_name = entrance.get("name")
+        entr_grouping = entrance.get("name")
+        entr_names = [s.get("name") for s in entrance.get("sections", [])]
         map_locs = entrance.get("map_locations", [])
         maps = map_locs[0].get("map", "Check Overview")
-        if entr_name not in ENTRANCES:
-            print(f"\t{entr_name}")
-        elif ENTRANCES[entr_name].id not in active_entrances:
-            entr_hidden.setdefault(maps, []).append(entr_name)
-        else:
-            coords = [(i["x"], i["y"]) for i in map_locs]
-            map_coord_checks.setdefault(maps, []).append(coords)
-
+        for entr_name in entr_names:
+            if entr_name not in ENTRANCES:
+                print(f"Wrong Entrance in tracker data: {entr_name}")
+            elif ENTRANCES[entr_name].id not in active_entrances:
+                entr_hidden.setdefault(maps, []).append(entr_name)
+            else:
+                coords = [(i["x"], i["y"]) for i in map_locs]
+                map_coord_checks.setdefault(maps, []).append(coords)
+    # Handle locations and coord check entrances
     for loc in loc_data:
         loc_names = [s.get("name") for s in loc.get("sections", [])]
         loc_map_locations = loc.get("map_locations")
@@ -290,7 +298,7 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
                     if c in [i[0] for i in map_coord_checks[loc_map]]:
                         loc_ids = []
                         for loc2 in loc_names:
-                            if "EVENT" in loc2:
+                            if "EVENT" in loc2 or "GOAL" in loc2:
                                 entr_hidden.setdefault(loc_map, []).append(loc2)
                             else:
                                 loc_ids.append(world.location_name_to_id[loc2])
@@ -329,7 +337,7 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
         locs_hidden.setdefault("Isle of Ruins", []).extend([266, 267, 268])
         locs_hidden.setdefault("Isle of Ruins NE", []).extend([266, 267, 268])
 
-    # for i, v in maps_hidden.items():
+    # for i, v in entr_hidden.items():
     #     print(f"{i}: {v}")
     # for m, locs in locs_hidden.items():
     #     print(f"{m}: {[world.location_id_to_name[loc] for loc in locs]}")
