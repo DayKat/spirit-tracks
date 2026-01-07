@@ -1288,18 +1288,6 @@ CATEGORY_LOCATION_GROUPS = {
 
 LOCATION_GROUPS = CATEGORY_LOCATION_GROUPS | STAGE_LOCATION_GROUPS
 
-CUSTOM_METALS = {
-    "Custom Metals": [
-        "Verdanine",
-        "Lavendine",
-        "Amberine",
-        "Vermilline",
-        "Burgundine",
-        "Crystaline",
-        "Carrotine",
-    ],
-}
-
 DUNGEON_NAMES = [
     "Mountain Passage",
     "Temple of the Ocean King",

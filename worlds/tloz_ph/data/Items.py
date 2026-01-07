@@ -1279,6 +1279,7 @@ ITEMS_DATA = {
     "Beedle Points (10)": {
         "classification": ItemClassification.progression,
         "address": 0x1B2773,
+        "incremental": True,
         "value": 10,
         "id": 167,
     },
@@ -1286,12 +1287,14 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "address": 0x1B2773,
         "value": 20,
+        "incremental": True,
         "id": 191,
     },
     "Beedle Points (50)": {
         "classification": ItemClassification.progression,
         "address": 0x1B2773,
         "value": 50,
+        "incremental": True,
         "id": 192,
     },
 

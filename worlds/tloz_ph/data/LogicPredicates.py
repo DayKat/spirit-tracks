@@ -560,7 +560,9 @@ def ph_has_beedle_points_buyable(state, player, points):
 
 def ph_has_beedle_points(state: CollectionState, player, points):
     option = state.multiworld.worlds[player].options.randomize_beedle_membership
-    if option == "randomize":
+    if ph_UT_glitched_logic(state, player):
+        return True
+    elif option == "randomize":
         if points <= 20:  # Buying 20 points is always in logic
             return ph_has_beedle_points_buyable(state, player, points)
         return ph_count_beedle_points(state, player) >= points

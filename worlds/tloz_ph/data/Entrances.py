@@ -1635,7 +1635,7 @@ ENTRANCE_DATA = {
         "exit_region": "Grassy Treasure Cave",
         "entrance": (0x12, 0x1, 0x2),
         "exit": (0x12, 0xB, 0x1),
-        "extra_data": {"conditional": ["ruins_water"]},
+        "reverse_one_way_data": {"conditional": ["ruins_water"]},
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS
@@ -1732,7 +1732,7 @@ ENTRANCE_DATA = {
         "exit_region": "Max's Temple",
         "entrance": (0x12, 0x3, 0x1),
         "exit": (0x23, 0x0, 0x1),
-        "extra_data": {"conditional": ["ruins_water"]},
+        "reverse_one_way_data": {"conditional": ["ruins_water"]},
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS
@@ -1759,6 +1759,7 @@ ENTRANCE_DATA = {
         "exit": (0x21, 0x0, 0x1),
         "entrance_region": "Ruins NE Outside Temple",
         "exit_region": "MT 1F",
+        "reverse_one_way_data": {"conditional": ["ruins_water"]},
         "type": EntranceGroups.DUNGEON_ENTRANCE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS
