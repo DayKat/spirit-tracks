@@ -322,21 +322,52 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
     if ENTRANCES["ToF Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Isle of Ember", []).extend([99, 100])
         locs_hidden.setdefault("Isle of Ember (East)", []).extend([99, 100])
+        entr_hidden.setdefault("Isle of Ember (West)", []).append("EVENT: Defeat Blaaz")
+        entr_hidden.setdefault("Isle of Ember", []).append("EVENT: Defeat Blaaz")
     if ENTRANCES["ToW Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Isle of Gusts", []).extend([156, 157, 158])
         locs_hidden.setdefault("Isle of Gusts (North)", []).extend([156, 157, 158])
+        entr_hidden.setdefault("Isle of Gusts (North)", []).append("EVENT: Defeat Cyclok")
+        entr_hidden.setdefault("Isle of Gusts", []).append("EVENT: Defeat Cyclok")
     if ENTRANCES["ToC Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Molida Island", []).extend([129, 130, 131])
         locs_hidden.setdefault("Molida Island (North)", []).extend([129, 130, 131])
+        entr_hidden.setdefault("Molida Island", []).append("EVENT: Defeat Crayk")
+        entr_hidden.setdefault("Molida Island (North)", []).append("EVENT: Defeat Crayk")
     if ENTRANCES["GT Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Goron Island", []).extend([204, 205, 206])
         locs_hidden.setdefault("Goron Island (NW)", []).extend([204, 205, 206])
+        entr_hidden.setdefault("Goron Island", []).append("EVENT: Defeat Dongorongo")
+        entr_hidden.setdefault("Goron Island (NW)", []).append("EVENT: Defeat Dongorongo")
     if ENTRANCES["ToI Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Isle of Frost", []).extend([239, 240, 241])
         locs_hidden.setdefault("Isle of Frost (NE)", []).extend([239, 240, 241])
+        entr_hidden.setdefault("Isle of Frost", []).append("EVENT: Defeat Gleeok")
+        entr_hidden.setdefault("Isle of Frost (NE)", []).append("EVENT: Defeat Gleeok")
     if ENTRANCES["MT Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Isle of Ruins", []).extend([266, 267, 268])
         locs_hidden.setdefault("Isle of Ruins NE", []).extend([266, 267, 268])
+        entr_hidden.setdefault("Isle of Ruins", []).append("EVENT: Defeat Eox")
+        entr_hidden.setdefault("Isle of Ruins NE", []).append("EVENT: Defeat Eox")
+    # Dungeon entrances & events
+    if ENTRANCES["Ember Enter Temple"].id in active_entrances:
+        entr_hidden.setdefault("Isle of Ember (West)", []).append("EVENT: Defeat Blaaz")
+        entr_hidden.setdefault("Isle of Ember", []).append("EVENT: Defeat Blaaz")
+    if ENTRANCES["Gust Enter Temple"].id in active_entrances:
+        entr_hidden.setdefault("Isle of Gusts (North)", []).append("EVENT: Defeat Cyclok")
+        entr_hidden.setdefault("Isle of Gusts", []).append("EVENT: Defeat Cyclok")
+    if ENTRANCES["Molida North Enter Temple"].id in active_entrances:
+        entr_hidden.setdefault("Molida Island", []).append("EVENT: Defeat Crayk")
+        entr_hidden.setdefault("Molida Island (North)", []).append("EVENT: Defeat Crayk")
+    if ENTRANCES["Goron Enter Temple"].id in active_entrances:
+        entr_hidden.setdefault("Goron Island", []).append("EVENT: Defeat Dongorongo")
+        entr_hidden.setdefault("Goron Island (NW)", []).append("EVENT: Defeat Dongorongo")
+    if ENTRANCES["Frost NE Enter Temple"].id in active_entrances:
+        entr_hidden.setdefault("Isle of Frost", []).append("EVENT: Defeat Gleeok")
+        entr_hidden.setdefault("Isle of Frost (NE)", []).append("EVENT: Defeat Gleeok")
+    if ENTRANCES["Ruins Enter Temple"].id in active_entrances:
+        entr_hidden.setdefault("Isle of Ruins", []).append("EVENT: Defeat Eox")
+        entr_hidden.setdefault("Isle of Ruins NE", []).append("EVENT: Defeat Eox")
 
     # for i, v in entr_hidden.items():
     #     print(f"{i}: {v}")
@@ -346,3 +377,5 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
     #     print(f"{m}: {locs}")
 
     return locs_hidden, entr_hidden
+
+
