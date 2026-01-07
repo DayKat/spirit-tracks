@@ -316,8 +316,14 @@ class PhantomHourglassWorld(World):
             location.item_rule = lambda item: item.player == self.player
 
     def create_regions(self):
+        # Add region aliases if UT
+        all_regions = set(REGIONS)
+        if getattr(self.multiworld, "generation_is_fake", False):
+            all_regions.update(set(ENTRANCES.keys()))
+            for aliases in region_aliases.values():
+                all_regions.update(aliases)
         # Create regions
-        for region_name in REGIONS:
+        for region_name in all_regions:
             region = PHRegion(region_name, self.player, self.multiworld)
             self.multiworld.regions.append(region)
 

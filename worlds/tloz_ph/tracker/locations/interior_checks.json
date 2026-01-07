@@ -17,7 +17,7 @@
 { "name": "Cannon Island East Dig", "sections": [{ "name": "Cannon Island East Dig" }], "map_locations": [{ "map": "Cannon Island", "x": 170, "y": 98}] },
 { "name": "Cannon Island SE Dig", "sections": [{ "name": "Cannon Island SE Dig" }], "map_locations": [{ "map": "Cannon Island", "x": 148, "y": 138}] },
 { "name": "Crayk", "sections": [{ "name": "Crayk Boss Reward" }, { "name": "Crayk Heart Container" }, { "name": "Crayk Sand of Hours" }], "map_locations": [{ "map": "Crayk Arena", "x": 128, "y": 82 }] },
-{ "name": "Cubus Sisters", "sections": [{ "name": "Cubus Sisters Ghost Key" }, { "name": "Cubus Sisters Heart Container" }], "map_locations": [{ "map": "Cubus Sisters Arena", "x": 126, "y": 134 }] },
+{ "name": "Cubus Sisters", "sections": [{ "name": "Cubus Sisters Ghost Key" }, { "name": "Cubus Sisters Heart Container" }], "map_locations": [{ "map": "Cubus Sisters Arena", "x": 126, "y": 142 }] },
 { "name": "Cyclok", "sections": [{ "name": "Cyclok Boss Reward" }, { "name": "Cyclok Heart Container" }, { "name": "Cyclok Sand of Hours" }], "map_locations": [{ "map": "Cyclok Arena", "x": 126, "y": 90 }] },
 { "name": "Dee Ess Blow in Microphone Chest", "sections": [{ "name": "Dee Ess Blow in Microphone Chest" }], "map_locations": [{ "map": "Dee Ess Island", "x": 94, "y": 160}] },
 { "name": "Dee Ess Eye Brute Chest", "sections": [{ "name": "Dee Ess Eye Brute Chest" }], "map_locations": [{ "map": "Dee Ess Island", "x": 120, "y": 56}] },

@@ -877,6 +877,16 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
     all_logic = [
         make_overworld_logic()
     ]
+    # UT creates alias regions
+    if getattr(multiworld, "generation_is_fake", False):
+        from .data.Constants import region_aliases
+        from .data.Regions import REGIONS
+        alias_logic = []
+        for region, aliases in region_aliases.items():
+            for alias in aliases:
+                alias_logic.append([region, alias, False, None])
+        all_logic.append(alias_logic)
+        all_logic.append([[entr.entrance_region, entr.name, False, None] for entr in ENTRANCES.values() if entr.name not in REGIONS])
 
     test_entrances = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}
     uncreated_entrances = [e.name for e in ENTRANCES.values()]
