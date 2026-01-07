@@ -15,9 +15,6 @@
         "name": "Bannan Cave West Exit"
       },
       {
-        "name": "Bannan Hut"
-      },
-      {
         "name": "Wayfarer's Exit"
       },
       {
@@ -25,7 +22,12 @@
       },
       {
         "name": "Bannan Boat"
-      }
+      },
+      {"name": "Bannan West Hut"},
+      {"name": "Bannan West Cave"},
+      {"name": "Keese Passage West Exit"},
+      {"name": "Bannan East Cave"},
+      {"name": "Keese Passage East Exit"}
     ],
     "map_locations": [
       {
@@ -67,6 +69,9 @@
       },
       {
         "name": "Fuzo's Exit"
+      },
+      {
+        "name": "Eddo's Exit"
       },
       {
         "name": "Ocean SW Cannon"
@@ -355,7 +360,11 @@
       },
       {
         "name": "Ember Boat"
-      }
+      },
+      {"name": "Ember West Port House"},
+{"name": "Abandoned House Exit"},
+{"name": "Ember West Astrid's House"},
+{"name": "Ember West Kayo's House"}
     ],
     "map_locations": [
       {
@@ -472,7 +481,15 @@
       },
       {
         "name": "Frost Boat"
-      }
+      },
+      {"name": "Frozen Cave West Exit"},
+{"name": "Frozen Cave East Exit"},
+{"name": "Frost SE Upper NE"},
+{"name": "Frost NE Above Temple SE"},
+{"name": "Frost SE Upper NW"},
+{"name": "Frost NE Above Temple SW"},
+{"name": "Frost SE Lower North"},
+{"name": "Frost NE Enter Temple"}
     ],
     "map_locations": [
       {
@@ -544,7 +561,8 @@
       },
       {
         "name": "Gust Boat"
-      }
+      },
+      {"name": "Tiled Hideout Exit"}
     ],
     "map_locations": [
       {
@@ -694,7 +712,10 @@
       },
       {
         "name": "Ruins Boat"
-      }
+      },
+      {"name": "Sandy Geozard Cave East"},
+{"name": "Sandy Geozard Cave West"},
+{"name": "Grassy Rupee Cave Exit"}
     ],
     "map_locations": [
       {
@@ -766,7 +787,11 @@
       },
       {
         "name": "IotD Boat"
-      }
+      },
+      {"name": "McNey's Cave East Exit"},
+{"name": "McNey's Cave Secret Cave"},
+{"name": "McNey's Cave West"},
+{"name": "Stone Treasure Cave Exit"}
     ],
     "map_locations": [
       {
@@ -961,7 +986,15 @@
       },
       {
         "name": "Mercay SE Boat"
-      }
+      },
+      {"name": "Eye Bridge Cave North Exit"},
+{"name": "Eye Bridge Cave South Exit"},
+{"name": "Long Bridge Cave West"},
+{"name": "Long Bridge Cave East"},
+{"name": "Mountain Passage 2F Exit"},
+{"name": "Mountain Passage 1F Staircase"},
+{"name": "Mountain Passage 2F Staircase"},
+{"name": "Mountain Passage 1F Exit"}
     ],
     "map_locations": [
       {
@@ -1069,7 +1102,26 @@
       },
       {
         "name": "Molida Boat"
-      }
+      },
+      {"name": "Molida South Ocara's House"},
+{"name": "Ocara's House Exit"},
+{"name": "Sun Lake Cave Geozard Cave"},
+{"name": "Octorok Cave East"},
+{"name": "Sun Lake Cave Back Cave"},
+{"name": "Octorok Cave West"},
+{"name": "Sun Lake Cave Bomb Cave"},
+{"name": "Shovel Hideout Exit"},
+{"name": "Sun Lake Cave Staircase"},
+{"name": "Molida North Cliff Staircase"},
+{"name": "Molida South Cliff North"},
+{"name": "Molida North Cliff South"},
+{"name": "Molida South Romanos' House"},
+{"name": "Molida South Shop"},
+{"name": "Molida South Potato's House"},
+{"name": "Molida South Cave"},
+{"name": "Sun Lake Cave Exit"},
+{"name": "Sun Lake Cave Sun Staircase"},
+{"name": "Molida North Enter Temple"}
     ],
     "map_locations": [
       {
@@ -1086,7 +1138,7 @@
         "name": "Spirit Island Cave"
       },
       {
-        "name": "Spirit Cave Exit"
+        "name": "Spirit Shrine Exit"
       },
       {
         "name": "Ocean SW Spirit"

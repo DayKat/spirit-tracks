@@ -2188,9 +2188,24 @@ entrance_id_to_region = {d.id: d.entrance_region for d in ENTRANCES.values()}
 
 if __name__ == "__main__":
     # sorted_entrances = sorted(ENTRANCES, key=lambda x: (ENTRANCES[x].island, ENTRANCES[x].category_group, ENTRANCES[x].direction, ENTRANCES[x].name))
-    for name in ENTRANCES:
-        print(name)
-
+    data = [
+      {
+        "name": "Zauz' House"
+      },
+      {
+        "name": "Zauz' Exit"
+      },
+      {
+        "name": "Ocean NW Zauz"
+      },
+      {
+        "name": "Zauz Boat"
+      }
+    ]
+    process = [i.get("name") for i in data]
+    res = [i.name for i in ENTRANCES.values() if i.island == EntranceGroups.ZAUZ and i.name not in process]
+    for i in res:
+        print("{" + f"\"name\": \"{i}\"" + "}, ")
     # print(f"len {len(ENTRANCES)}")
 
 
