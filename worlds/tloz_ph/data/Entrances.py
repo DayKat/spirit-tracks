@@ -2187,23 +2187,37 @@ entrance_id_to_region = {d.id: d.entrance_region for d in ENTRANCES.values()}
 
 
 if __name__ == "__main__":
-    # sorted_entrances = sorted(ENTRANCES, key=lambda x: (ENTRANCES[x].island, ENTRANCES[x].category_group, ENTRANCES[x].direction, ENTRANCES[x].name))
+    sorted_entrances = sorted(ENTRANCES, key=lambda x: (ENTRANCES[x].island, ENTRANCES[x].category_group, ENTRANCES[x].direction, ENTRANCES[x].name))
     data = [
-      {
-        "name": "Zauz' House"
-      },
-      {
-        "name": "Zauz' Exit"
-      },
-      {
-        "name": "Ocean NW Zauz"
-      },
-      {
-        "name": "Zauz Boat"
-      }
+        {
+            "name": "Bannan Salvatore Cave"
+        },
+        {
+            "name": "Bannan Wayfarer Cave"
+        },
+        {
+            "name": "Bannan Cave East Exit"
+        },
+        {
+            "name": "Bannan Cave West Exit"
+        },
+        {
+            "name": "Wayfarer's Exit"
+        },
+        {
+            "name": "Ocean NW Bannan"
+        },
+        {
+            "name": "Bannan Boat"
+        },
+        {"name": "Bannan West Hut"},
+        {"name": "Bannan West Cave"},
+        {"name": "Keese Passage West Exit"},
+        {"name": "Bannan East Cave"},
+        {"name": "Keese Passage East Exit"}
     ]
     process = [i.get("name") for i in data]
-    res = [i.name for i in ENTRANCES.values() if i.island == EntranceGroups.ZAUZ and i.name not in process]
+    res = [i for i in sorted_entrances if i in process]
     for i in res:
         print("{" + f"\"name\": \"{i}\"" + "}, ")
     # print(f"len {len(ENTRANCES)}")
