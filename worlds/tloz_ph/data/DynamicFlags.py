@@ -580,7 +580,7 @@ DYNAMIC_FLAGS = {
                                   "Ghost Ship B3 Chest",
                                   "Cubus Sisters Ghost Key",
                                   "Cubus Sisters Heart Container"],
-        "has_slot_data": [("shuffle_dungeon_entrances", 0)],
+        "has_slot_data": [("shuffle_dungeon_entrances", 0), ("shuffle_bosses", 0)],
         "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
         "unset_if_true": [(0x1B5582, 0x80)]  # Respawn ghost ship
     },
@@ -590,6 +590,15 @@ DYNAMIC_FLAGS = {
         "not_last_scenes": [0x2903, 0x400], # from ghost ship
         "has_locations": ["Ghost Ship Rescue Tetra"],
         "has_slot_data": [("shuffle_dungeon_entrances", [1, 2])],
+        "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
+        "unset_if_true": [(0x1B5582, 0x80)],  # Respawn ghost ship
+    },
+    "Always Respawn ghost ship with boss rando": {
+        "on_scenes": [0x1],  # NW quadrant
+        "not_on_entrance": [5],  # prevent respawning if coming from ghost ship
+        "not_last_scenes": [0x2903, 0x400],  # from ghost ship
+        "has_locations": ["Ghost Ship Rescue Tetra"],
+        "has_slot_data": [("shuffle_bosses", [1, 2])],
         "set_if_true": [(0x1B557E, 0x10), (0x1B55AB, 0x10)],  # Spawn spirits, remove fog
         "unset_if_true": [(0x1B5582, 0x80)],  # Respawn ghost ship
     },

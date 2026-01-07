@@ -1,4 +1,16 @@
 [
+      {
+        "name": "Check Overview",
+        "img": "images/seamap.png",
+        "location_size": 14,
+        "location_border_thickness": 2
+    },
+    {
+        "name": "Entrance Overview",
+        "img": "images/seamap.png",
+        "location_size": 14,
+        "location_border_thickness": 2
+    },
 {"name": "Isle of Ember", "img": "images/isle_of_ember.png", "location_size": 7, "location_border_thickness": 1},
 {"name": "Mercay Island", "img": "images/mercay_island.png", "location_size": 7, "location_border_thickness": 1},
 {"name": "Molida Island", "img": "images/molida_island.png", "location_size": 7, "location_border_thickness": 1},

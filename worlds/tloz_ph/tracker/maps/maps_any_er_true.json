@@ -1,16 +1,5 @@
 [
-    {
-        "name": "Check Overview",
-        "img": "images/seamap.png",
-        "location_size": 14,
-        "location_border_thickness": 2
-    },
-    {
-        "name": "Entrance Overview",
-        "img": "images/seamap.png",
-        "location_size": 14,
-        "location_border_thickness": 2
-    },
+
 {"name": "Blaaz Arena", "img": "images/blaaz_arena.png", "location_size": 7, "location_border_thickness": 1},
 {"name": "Cubus Sisters Arena", "img": "images/cubus_sisters_arena.png", "location_size": 7, "location_border_thickness": 1},
 {"name": "Crayk Arena", "img": "images/crayk_arena.png", "location_size": 7, "location_border_thickness": 1},
