@@ -290,8 +290,9 @@ def make_overworld_logic():
         ["ToF 3F", "ToF 3F Key Drop", False, "tof_key_drop"],
         ["ToF 3F", "ToF 3F Key Door", False, "tof_3f_key_door"],
         ["ToF 3F Key Door", "ToF 3F Boss Key", False, "boomerang"],
-        ["ToF 3F Key Door", "ToF 4F", False, "tof_bk"],
+        ["ToF 3F Key Door", "ToF 4F", True, "tof_bk"],
         ["ToF 4F", "Blaaz", True, None],
+        ["ToF 4F", "ToF 1F", False, None],  # warp or S+Q
         ["Blaaz", "Post Blaaz", False, "tof_blaaz"],
         ["Post Blaaz", "Post ToF", False, "tof_blaaz"],
 
@@ -362,6 +363,7 @@ def make_overworld_logic():
         ["ToC 2F Scribble Platform Chest", "ToC 3F", False, "simple_boss_key", "Temple of Courage"],
         ["ToC 3F", "ToC 3F Chest", False, "boom"],
         ["ToC 3F", "Crayk", True, None],
+        ["ToC 3F", "ToC 1F", False, None],
         ["Crayk", "Post Crayk", False, "bow"],
         ["Post Crayk", "Post ToC", False, None],
 
@@ -429,6 +431,7 @@ def make_overworld_logic():
         ["ToW B2", "ToW 1F NE", False, "bombs"],
         ["ToW 1F", "ToW 2F", False, "tow_cyclok"],
         ["ToW 2F", "Cyclok", True, None],
+        ["ToW 2F", "ToW 1F", False, None],
         ["Cyclok", "Post Cyclok", False, None],
         ["Post Cyclok", "Post ToW", False, None],
 
@@ -473,7 +476,9 @@ def make_overworld_logic():
         ["Ghost Ship B1 Barrel", "Ghost Ship B2", False, "gs_triangle"],
         ["Ghost Ship B2", "Ghost Ship B2 Chests", False, "can_hit_switches"],
         ["Ghost Ship B2 Chests", "Ghost Ship B3", False, "can_kill_bat"],
-        ["Ghost Ship B3", "Cubus Sisters", True, None],
+        ["Ghost Ship B3", "Ghost Ship Warp", False, None],
+        ["Ghost Ship Warp", "Cubus Sisters", True, None],
+        ["Ghost Ship Warp", "Ghost Ship 1F", False, None],
         ["Cubus Sisters", "Post Cubus Sisters", False, "sword"],
         ["Ghost Ship B2", "Ghost Ship Tetra", False, "ghost_key"],
         ["Ghost Ship Tetra", "Spawn Pirate Ambush", False, None],
@@ -551,6 +556,7 @@ def make_overworld_logic():
         ["GT B2 Back", "GT B2 Back Chest", False, "chus"],
         ["GT B2", "GT B4", False, "gt_enter_dongo"],
         ["GT B4", "Dongorongo", True, None],
+        ["GT B4", "GT 1F", False, None],
         ["Dongorongo", "Post Dongorongo", False, "gt_dongo"],
         ["Post Dongorongo", "Post GT", False, None],
 
@@ -769,6 +775,7 @@ def make_overworld_logic():
         ["MT Lower Water", "MT BK Chest", False, "mutoh_bk_chest"],
         ["MT Lower Water", "MT B3", False, "mutoh_boss_door"],
         ["MT B3", "Eox", True, None],
+        ["MT B3", "MT 1F", False, None],
         ["Eox", "Post Eox", False, "hammer"],
         ["Post Eox", "Post MT", False, None],
 

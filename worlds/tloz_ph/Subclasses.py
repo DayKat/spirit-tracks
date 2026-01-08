@@ -22,7 +22,7 @@ class PHEntrance(Entrance):
 
         # Vanilla GER Check first, cause the less resource intensive
         if not (self.randomization_type == other.randomization_type and (not er_state.coupled or self.name != other.name)):
-            print(f"\t{self.name} could not connect to {other.name}")
+            # print(f"\t{self.name} could not connect to {other.name}")
             return False
 
         # Check if you have a valid switch state for the transition you are trying

@@ -374,6 +374,7 @@ REGIONS = [
     "Ghost Ship B2",
     "Ghost Ship B2 Chests",
     "Ghost Ship B3",
+    "Ghost Ship Warp",
     "Cubus Sisters",
     "Post Cubus Sisters",
     "Ghost Ship Tetra",

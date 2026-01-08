@@ -103,6 +103,7 @@ class PhantomHourglassClient(DSZeldaClient):
         # Ph variables
         self.goal_room = 0x3600
         self.goal_event_connect = None
+        self.sent_goal = False
         self.last_treasures = 0
         self.last_potions = [0, 0]
         self.last_ship_parts = []
@@ -623,8 +624,10 @@ class PhantomHourglassClient(DSZeldaClient):
                 new_keys -= 1  # Opening the SW sea chart door uses a key permanently! No savescums!
             if self.current_scene == 0x2504:  # Set B3.5 key count
                 new_keys -= 2
-                if not item_count(ctx, "Grappling Hook"):
+                if not item_count(ctx, "Grappling Hook") and ctx.slot_data["randomize_pedestal_items"] == 0:
                     new_keys -= 1
+            return new_keys, False
+        elif current_stage == 372:
             return new_keys, False
         return new_keys, True
 
@@ -857,14 +860,14 @@ class PhantomHourglassClient(DSZeldaClient):
         return True  # Removed vanilla item, don't do more processing
 
     def set_ending_room(self, ctx):
-        if ctx.slot_data["goal_requirements"] == "beat_bellumbeck":
-            self.goal_room = 0x3600
-            if ctx.slot_data["ut_events"] > 0:
-                self.goal_event_connect = ENTRANCES["GOAL: Bellumbeck"]
-        elif ctx.slot_data["goal_requirements"] == "triforce_door":
+        if ctx.slot_data["goal_requirements"] == 0:
             self.goal_room = 0x2509
             if ctx.slot_data["ut_events"] > 0:
                 self.goal_event_connect = ENTRANCES["GOAL: Triforce Door"]
+        elif ctx.slot_data["bellum_access"] < 4:
+            self.goal_room = 0x3600
+            if ctx.slot_data["ut_events"] > 0:
+                self.goal_event_connect = ENTRANCES["GOAL: Bellumbeck"]
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         current_scene = self.read_result["stage"] * 0x100 + self.read_result["room"]
@@ -872,10 +875,14 @@ class PhantomHourglassClient(DSZeldaClient):
         current_scene = current_scene * 0x100 if current_scene < 0x100 else current_scene  # ???
         if ctx.slot_data["bellum_access"] == 4:
             game_clear = self.metal_count >= ctx.slot_data["required_metals"]
+            if game_clear and not self.sent_goal:
+                await self.store_visited_entrances(ctx, ENTRANCES["GOAL"], ENTRANCES["GOAL"].vanilla_reciprocal)
+                self.sent_goal = True
         else:
             game_clear = current_scene == self.goal_room  # Enter End Credits
-            if game_clear and self.goal_event_connect:
+            if game_clear and self.goal_event_connect and not self.sent_goal:
                 await self.store_visited_entrances(ctx, self.goal_event_connect, self.goal_event_connect.vanilla_reciprocal)
+                self.sent_goal = True
         return game_clear
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
@@ -975,8 +982,7 @@ class PhantomHourglassClient(DSZeldaClient):
         print(f"\tcond. {exit_data.name} {exit_data.extra_data} lowered water: {self.lowered_water}")
         if "conditional" in exit_data.extra_data:
             # Bounce back if the entrance connects to a lower room
-            if ("ruins_water" in exit_data.extra_data["conditional"] and not self.lowered_water
-                    and exit_data.room < 0x9):
+            if "ruins_water" in exit_data.extra_data["conditional"] and not self.lowered_water:
                 logger.info(f"This entrance is flooded (Isle of Ruins)")
                 return False
             # Can't enter the sea without the correct chart

@@ -1038,6 +1038,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(0x1BA649, 0x20)],
         "reset_flags": ["RESET Swordsmans Scroll"]
     },
+    "Wayfarer Hut Trade Quest": {
+        "on_scenes": [0x1401],
+        "not_has_locations": ["Wayfarer Trade Quest Chest"],
+        "unset_if_true": [(0x1b5590, 0x80)],
+        "reset_flags": ["RESET Wood Heart"]
+    },
     "RESET Swordsmans Scroll": {
         # "on_scenes": [0x0, 0x1, 0x2, 0x3],
         "has_items": [("Swordsman's Scroll", 1)],
