@@ -25,6 +25,15 @@ class PHEntrance(Entrance):
             # print(f"\t{self.name} could not connect to {other.name}")
             return False
 
+        # Don't connect to the same scene if using an entrance type that doesn't like it
+        from .data.Entrances import ENTRANCES
+        old_scene = ENTRANCES[self.name].scene
+        new_scene =  ENTRANCES[other.name].scene
+        if (old_scene == new_scene
+                and (self.randomization_group & EntranceGroups.AREA_MASK in [EntranceGroups.OVERWORLD, EntranceGroups.ISLAND]
+                or other.randomization_group & EntranceGroups.AREA_MASK in [EntranceGroups.OVERWORLD, EntranceGroups.ISLAND])):
+            return False
+
         # Check if you have a valid switch state for the transition you are trying
         if hasattr(er_state, "switch_state_option") and other.name in switch_sensitive_entrances:
             if er_state.switch_state_option == 2:

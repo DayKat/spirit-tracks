@@ -1387,7 +1387,7 @@ class PhantomHourglassWorld(World):
                             print(f"exit {exit_region} already existed for {entrance_region}")
                         else:
                             entrance_region.connect(exit_region)
-                            # print(f"Connecting {entrance_region} => {exit_region}")
+                            print(f"Connecting {entrance_region} => {exit_region}")
 
 
                         if dangling_exit is not None:
@@ -1405,9 +1405,9 @@ class PhantomHourglassWorld(World):
             self.ut_redisconnected_entrances.update(stored_data)
             for e in self.entrances.values():
                 entr_id = ENTRANCES[e.name].id
-                if (ENTRANCES[e.name].id in stored_data and e.parent_region and e.connected_region
+                if (entr_id in stored_data and e.parent_region and e.connected_region
                         and entr_id in self.ut_connected_entrances
-                        and not entr_id in self.ut_traversed_entrances):
+                        and entr_id not in self.ut_traversed_entrances):
                     print(f"Disconnecting {e.name}")
                     child_region = e.connected_region
                     parent_region = e.parent_region
@@ -1417,6 +1417,7 @@ class PhantomHourglassWorld(World):
                     e.connected_region = None
                     # Create target
                     parent_region.create_er_target(e.name)
+                    self.disconnected_entrances_map.clear()
 
         elif "ph_keylocking" in key and stored_data:
             print(f"Attempting to keylock stuff!")

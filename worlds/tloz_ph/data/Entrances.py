@@ -1732,7 +1732,7 @@ ENTRANCE_DATA = {
         "exit_region": "Max's Temple",
         "entrance": (0x12, 0x3, 0x1),
         "exit": (0x23, 0x0, 0x1),
-        "reverse_one_way_data": {"conditional": ["ruins_water"]},
+        "one_way_data": {"conditional": ["ruins_water"]},
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.RUINS

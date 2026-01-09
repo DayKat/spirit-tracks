@@ -245,7 +245,7 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Sent full heal hearts {hearts} addr {hex(health_address)}")
             await write_memory_values(ctx, health_address, split_bits(hearts * 4, 2), overwrite=True)
 
-    async def refill_ammo(self, ctx):
+    async def refill_ammo(self, ctx, text="milk_bar"):
         items = [i + " (Progressive)" for i in ["Bombs", "Bombchus", "Bow"]]
 
         # Count upgrades
@@ -262,7 +262,8 @@ class PhantomHourglassClient(DSZeldaClient):
             write_list += [(data["ammo_address"], [data["give_ammo"][count - 1]], "Main RAM")]
         await bizhawk.write(ctx.bizhawk_ctx, write_list)
         await self.full_heal(ctx)
-        logger.info(f"You drink a glass of milk. You feel refreshed, and your ammo has been refilled.")
+        if text == "milk_bar":
+            logger.info(f"You drink a glass of milk. You feel refreshed, and your ammo has been refilled.")
 
     def get_progress(self, ctx, scene=0):
         # Count current metals
@@ -363,7 +364,11 @@ class PhantomHourglassClient(DSZeldaClient):
 
 
     async def watched_intro_cs(self, ctx):
-        return await read_memory_value(ctx, 0x1b55a8, silent=True) & 2
+        watched_intro = await read_memory_value(ctx, 0x1b55a8, silent=True) & 2
+        # if not watched_intro and ctx.slot_data.get("randomize_start_location", True):
+        #     self.precision_mode = True
+        #     print(f"In Intro CS")
+        return watched_intro
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         self.sent_event = False  # Reset per-room UT events
@@ -379,7 +384,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Milk bar refills all ammo
         if current_scene in [0xb0C]:
-            await self.refill_ammo(ctx)
+            await self.refill_ammo(ctx, "milk_bar")
 
         # Oshus gives metal info
         if current_scene in [0xB0A, 0x160A]:
@@ -1131,3 +1136,8 @@ class PhantomHourglassClient(DSZeldaClient):
                     event_name = location["do_special"]["event_name"]
                     entr = ENTRANCES[event_name]
                     await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
+
+    # async def process_in_menu(self, ctx):
+    #     started_save_file = await read_memory_value(ctx, 0x0598EC)
+    #     if started_save_file:
+    #         self.precision_mode = [0x1B2E94, 0x6E]

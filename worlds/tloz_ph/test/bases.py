@@ -76,13 +76,13 @@ class TestFullER(WorldTestBase):
         "randomize_beedle_membership": "no_beedle_points",
         # Entrance types
         "shuffle_dungeon_entrances": "simple_mixed_pool",
-        "shuffle_ports": "shuffle",
-        "shuffle_caves": "shuffle",
-        "shuffle_houses": "shuffle",
-        "shuffle_overworld_transitions": "shuffle",
+        "shuffle_ports": "simple_mixed_pool",
+        "shuffle_caves": "simple_mixed_pool",
+        "shuffle_houses": "simple_mixed_pool",
+        "shuffle_overworld_transitions": "simple_mixed_pool",
         "shuffle_bosses": "simple_mixed_pool",
         # entrance options
-        "entrance_directionality": "preserve_all",
+        "entrance_directionality": "disregard_all",
         "shuffle_between_islands": "shuffle_anywhere",
         "decouple_entrances": "couple_all",
 

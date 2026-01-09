@@ -79,9 +79,9 @@ MAP_INDEX = {
     0x2300: 102, 0x12300: 102,
     0x2400: 103, 0x12400: 103,
     0xd0a: 104, 0x10d0a: 104,
-    0xd14: 105, 0x10d14: 105,
+    0xd0b: 105, 0x10d0b: 105,
     0xd0c: 106, 0x10d0c: 106,
-    0xd0b: 107, 0x10d0b: 107,
+    0xd14: 107, 0x10d14: 107,
     0x1401: 108, 0x11401: 108,
     0x140a: 109, 0x1140a: 109,
     0x1400: 110, 0x11400: 110,
@@ -327,34 +327,27 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
     if ENTRANCES["ToF Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Isle of Ember", []).extend([99, 100])
         locs_hidden.setdefault("Isle of Ember (East)", []).extend([99, 100])
-        entr_hidden.setdefault("Isle of Ember (West)", []).append("EVENT: Defeat Blaaz")
+        locs_hidden.setdefault("Temple of Fire 3F", []).extend([99, 100])
+        entr_hidden.setdefault("Isle of Ember (East)", []).append("EVENT: Defeat Blaaz")
         entr_hidden.setdefault("Isle of Ember", []).append("EVENT: Defeat Blaaz")
-        entr_hidden.setdefault("Temple of Fire 3F", []).append("Blaaz Boss Reward")
-        entr_hidden.setdefault("Temple of Fire 3F", []).append("Blaaz Heart Container")
     if ENTRANCES["ToW Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Isle of Gusts", []).extend([156, 157, 158])
         locs_hidden.setdefault("Isle of Gusts (North)", []).extend([156, 157, 158])
         entr_hidden.setdefault("Isle of Gusts (North)", []).append("EVENT: Defeat Cyclok")
         entr_hidden.setdefault("Isle of Gusts", []).append("EVENT: Defeat Cyclok")
-        entr_hidden.setdefault("Temple of Wind 1F", []).append("Cyclok Boss Reward")
-        entr_hidden.setdefault("Temple of Wind 1F", []).append("Cyclok Heart Container")
-        entr_hidden.setdefault("Temple of Wind 1F", []).append("Cyclok Sand of Hours")
+        locs_hidden.setdefault("Temple of Wind 1F", []).extend([156, 157, 158])
     if ENTRANCES["ToC Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Molida Island", []).extend([129, 130, 131])
         locs_hidden.setdefault("Molida Island (North)", []).extend([129, 130, 131])
         entr_hidden.setdefault("Molida Island", []).append("EVENT: Defeat Crayk")
         entr_hidden.setdefault("Molida Island (North)", []).append("EVENT: Defeat Crayk")
-        entr_hidden.setdefault("Temple of Courage 2F", []).append("Crayk Boss Reward")
-        entr_hidden.setdefault("Temple of Courage 2F", []).append("Crayk Heart Container")
-        entr_hidden.setdefault("Temple of Courage 2F", []).append("Crayk Sand of Hours")
+        locs_hidden.setdefault("Temple of Courage 2F", []).extend([129, 130, 131])
     if ENTRANCES["GT Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Goron Island", []).extend([204, 205, 206])
         locs_hidden.setdefault("Goron Island (NW)", []).extend([204, 205, 206])
         entr_hidden.setdefault("Goron Island", []).append("EVENT: Defeat Dongorongo")
         entr_hidden.setdefault("Goron Island (NW)", []).append("EVENT: Defeat Dongorongo")
-        entr_hidden.setdefault("Goron Temple B3", []).append("Dongorongo Boss Reward")
-        entr_hidden.setdefault("Goron Temple B3", []).append("Dongorongo Heart Container")
-        entr_hidden.setdefault("Goron Temple B3", []).append("Dongorongo Sand of Hours")
+        locs_hidden.setdefault("Goron Temple B3", []).extend([204, 205, 206])
     if ENTRANCES["ToI Enter Boss"].id in active_entrances:
         locs_hidden.setdefault("Isle of Frost", []).extend([239, 240, 241])
         locs_hidden.setdefault("Isle of Frost (NE)", []).extend([239, 240, 241])
@@ -365,12 +358,10 @@ def get_hidden_entrances(world: "PhantomHourglassWorld"):
         locs_hidden.setdefault("Isle of Ruins NE", []).extend([266, 267, 268])
         entr_hidden.setdefault("Isle of Ruins", []).append("EVENT: Defeat Eox")
         entr_hidden.setdefault("Isle of Ruins NE", []).append("EVENT: Defeat Eox")
-        entr_hidden.setdefault("Mutoh's Temple B2", []).append("Eox Boss Reward")
-        entr_hidden.setdefault("Mutoh's Temple B2", []).append("Eox Heart Container")
-        entr_hidden.setdefault("Mutoh's Temple B2", []).append("Eox Sand of Hours")
+        locs_hidden.setdefault("Mutoh's Temple B2", []).extend([266, 267, 268])
     # Dungeon entrances & events
     if ENTRANCES["Ember Enter Temple"].id in active_entrances:
-        entr_hidden.setdefault("Isle of Ember (West)", []).append("EVENT: Defeat Blaaz")
+        entr_hidden.setdefault("Isle of Ember (East)", []).append("EVENT: Defeat Blaaz")
         entr_hidden.setdefault("Isle of Ember", []).append("EVENT: Defeat Blaaz")
     if ENTRANCES["Gust Enter Temple"].id in active_entrances:
         entr_hidden.setdefault("Isle of Gusts (North)", []).append("EVENT: Defeat Cyclok")
