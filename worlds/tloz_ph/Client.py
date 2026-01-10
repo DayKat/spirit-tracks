@@ -368,9 +368,6 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def watched_intro_cs(self, ctx):
         watched_intro = await read_memory_value(ctx, 0x1b55a8, silent=True) & 2
-        # if not watched_intro and ctx.slot_data.get("randomize_start_location", True):
-        #     self.precision_mode = True
-        #     print(f"In Intro CS")
         return watched_intro
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
@@ -1156,3 +1153,11 @@ class PhantomHourglassClient(DSZeldaClient):
             "default": 0,
             "operations": [{"operation": "replace", "value": scene}]
         }])
+
+    async def process_in_menu(self, ctx):
+        if self.current_stage & 0xFF == 0x6E:
+            started_save_file = await read_memory_value(ctx, 0x1B7FB8, silent=True)
+            if started_save_file:
+                print(f"Started save file")
+                self.precision_mode = [0x1B2E94, 0x6E]
+                ctx.watcher_timeout = 0.1
