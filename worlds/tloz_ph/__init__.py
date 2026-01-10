@@ -708,9 +708,9 @@ class PhantomHourglassWorld(World):
                 elif e.name in plando_disconnects:
                     randomized_entrances.append(e)
 
-            if self.options.shuffle_bosses and self.options.ghost_ship_in_dungeon_pool.value == 2 and self.options.exclude_non_required_dungeons:
-                randomized_entrances.remove(self.entrances["Ghost Ship Cubus Sisters Reunion"])
-                randomized_entrances.remove(self.entrances["Cubus Sisters Blue Warp"])
+            # if self.options.shuffle_bosses and self.options.ghost_ship_in_dungeon_pool.value == 2 and self.options.exclude_non_required_dungeons:
+            #     randomized_entrances.remove(self.entrances["Ghost Ship Cubus Sisters Reunion"])
+            #     randomized_entrances.remove(self.entrances["Cubus Sisters Blue Warp"])
 
             # Disconnect entrances to shuffle
             for entrance in randomized_entrances:

@@ -245,7 +245,7 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Sent full heal hearts {hearts} addr {hex(health_address)}")
             await write_memory_values(ctx, health_address, split_bits(hearts * 4, 2), overwrite=True)
 
-    async def refill_ammo(self, ctx, text="milk_bar"):
+    async def refill_ammo(self, ctx, text=""):
         items = [i + " (Progressive)" for i in ["Bombs", "Bombchus", "Bow"]]
 
         # Count upgrades
