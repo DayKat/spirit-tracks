@@ -424,6 +424,7 @@ REGIONS = [
     # Goron Temple
     "GT 1F",
     "GT 1F Upper",
+    "GT 1F NW",
     "GT 1F Bow",
     "GT B1",
     "GT B2",

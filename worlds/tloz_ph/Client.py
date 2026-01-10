@@ -1141,11 +1141,6 @@ class PhantomHourglassClient(DSZeldaClient):
                     entr = ENTRANCES[event_name]
                     await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
 
-    # async def process_in_menu(self, ctx):
-    #     started_save_file = await read_memory_value(ctx, 0x0598EC)
-    #     if started_save_file:
-    #         self.precision_mode = [0x1B2E94, 0x6E]
-
     async def ut_bounce_scene(self, ctx, scene):
         if not ctx.slot_data["shuffle_houses"] and map_type_lookup.get(scene) == "house":
             return

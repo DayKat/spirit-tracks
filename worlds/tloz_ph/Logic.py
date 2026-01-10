@@ -547,9 +547,10 @@ def make_overworld_logic():
         ["Goron NW Outside Temple", "GT 1F", True, None],
 
         # ================= Goron Temple ====================
-        ["GT 1F", "GT 1F Upper", False, "goron_entrance"],
-        ["GT 1F Upper", "GT 1F Bow", False, "bow"],
-        ["GT 1F Upper", "GT B1", False, "gt_b1"],
+        ["GT 1F", "GT 1F Upper", False, "shovel"],
+        ["GT 1F", "GT 1F NW", False, "goron_entrance"],
+        ["GT 1F NW", "GT 1F Bow", False, "bow"],
+        ["GT 1F NW", "GT B1", False, "gt_b1"],
         ["GT B1", "GT B2", False, "bombchu_switches"],
         ["GT B2", "GT B3", False, None],
         ["GT B2", "GT B2 Back", False, "gt_b2_back"],

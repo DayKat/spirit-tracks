@@ -637,6 +637,8 @@ class TrackerGameContext(CommonContext):
                 return
             m = self.maps[map_id]
         self.map_id = map_id
+        for i, mp in enumerate(self.maps):
+            print(f"{i}\t{mp['name']}")
         if self.map_to_name is not None:
             self.ui.current_map = self.map_to_name.get(m["name"], m["name"])
         else:
