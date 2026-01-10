@@ -50,6 +50,7 @@ RAM_ADDRS = {
     "flipped_clog": (0x0FA37B, 1, "Main RAM"),
 
     "in_short_cs": (0x1B6FE8, 1, "Main RAM"),
+    "saving": (0x19B7CF, 1, "Main RAM"),
 
 }
 
@@ -69,9 +70,11 @@ SMALL_KEY_OFFSET = 0x260
 STAGE_FLAGS_OFFSET = 0x268
 
 # Addresses to read each cycle
-read_keys_always = ["game_state", "in_cutscene", "received_item_index", "stage", "room", "slot_id",
-                    "entrance", "in_short_cs",
-                    "loading_room", "opened_clog"]
+read_keys_always = ["game_state", "in_cutscene", "loading_room",
+                    "received_item_index", "slot_id",
+                    "stage", "room", "entrance",
+                    "in_short_cs", "opened_clog", "saving"
+                     ]
 
 read_keys_deathlink = ["link_health"]
 read_keys_land = ["getting_item", "getting_ship_part"]
@@ -117,6 +120,8 @@ class PhantomHourglassClient(DSZeldaClient):
         self.item_location_combo = None
 
         self.sent_event = False
+        self.last_saved_scene = None
+        self.lss_retry_attempts = 4
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
@@ -327,6 +332,11 @@ class PhantomHourglassClient(DSZeldaClient):
         if self.current_stage == 3 and read_result.get("salvage_health", 5) <= 1:
             await self.instant_repair_salvage_arm(ctx)
 
+        if read_result.get("saving"):
+            print(f"Saving scene {hex(self.current_scene)}")
+            self.last_saved_scene = self.current_scene
+            await self.store_data(ctx, f"ph_save_scene_{ctx.slot}_{ctx.team}", self.last_saved_scene, "replace", default=0)
+
     async def detect_warp_to_start(self, ctx, read_result: dict):
         # Opened clog warp to start check
         if read_result.get("opened_clog", False):
@@ -359,7 +369,6 @@ class PhantomHourglassClient(DSZeldaClient):
         # Set treasure prices so they match seed (save file resets it on menu)
         await write_memory_value(ctx, 0x0EC7D8, ctx.slot_data.get("treasure_price_index", 0), overwrite=True, size=4)
         await self.update_stored_entrances(ctx)
-        await self.update_redisconnected_entrances(ctx)
 
         # Set warp to start location
         if ctx.slot_data["shuffle_overworld_transitions"]:
@@ -1015,25 +1024,20 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def update_stored_entrances(self, ctx: "BizHawkClientContext"):
         self.visited_entrances.clear()
-        storage_key = f"ph_traversed_entrances_{ctx.slot}_{ctx.team}"
-        stored_entrances = await ctx.send_msgs([{
-                "cmd": "Get",
-                "keys": [storage_key],
-            }])
-        print(f"fetched datapackage: {stored_entrances}")
-        if stored_entrances:
-            self.visited_entrances = set(stored_entrances)
-
-    async def update_redisconnected_entrances(self, ctx: "BizHawkClientContext"):
         self.redisconnected_entrances.clear()
-        storage_key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
-        stored_entrances = await ctx.send_msgs([{
+        disconnect_key = f"ph_disconnect_entrances_{ctx.slot}_{ctx.team}"
+        traversal_key = f"ph_traversed_entrances_{ctx.slot}_{ctx.team}"
+        await ctx.send_msgs([{
                 "cmd": "Get",
-                "keys": [storage_key],
+                "keys": [disconnect_key,
+                         traversal_key],
             }])
-        print(f"fetched datapackage: {stored_entrances}")
-        if stored_entrances:
-            self.redisconnected_entrances = set(stored_entrances)
+        stored_disconnects = ctx.stored_data.get(disconnect_key, [])
+        stored_traversals = ctx.stored_data.get(traversal_key, [])
+        if stored_disconnects:
+            self.visited_entrances = set(stored_disconnects)
+        if stored_traversals:
+            self.redisconnected_entrances = set(stored_traversals)
 
     async def overwrite_old_stored_data(self, ctx, key, remove_data, old_data):
         # Remove disconnected entrances
@@ -1076,8 +1080,11 @@ class PhantomHourglassClient(DSZeldaClient):
         await super().game_watcher(ctx)
 
     def update_boss_warp(self, ctx, stage, scene_id):
-        if stage in range(42, 49) or scene_id in [0x1F06, 0x2106, 0x200A]:  # Boss rooms
+        if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
             reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
+            if reverse_exit not in self.entrances:
+                print(f"Boss Entrance not Randomized")
+                return None
             reverse_exit_id = self.entrances[reverse_exit].id
             pair = ctx.slot_data["er_pairings"][f"{reverse_exit_id}"]
             self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
@@ -1154,10 +1161,37 @@ class PhantomHourglassClient(DSZeldaClient):
             "operations": [{"operation": "replace", "value": scene}]
         }])
 
-    async def process_in_menu(self, ctx):
+    async def process_in_menu(self, ctx: "BizHawkClientContext"):
+        if self.last_saved_scene is None:
+            key = f"ph_save_scene_{ctx.slot}_{ctx.team}"
+            await ctx.send_msgs([{
+                "cmd": "Get",
+                "keys": [key]
+            }])
+            print(f"Stored keys: {[k for k in ctx.stored_data.keys()]}")
+            last_saved_scene = ctx.stored_data.get(key, None)
+            print(f"fetched last saved scene: {last_saved_scene}")
+            self.last_saved_scene = last_saved_scene if self.lss_retry_attempts >= 0 else 0 # if last_saved_scene is not None else False
+            self.lss_retry_attempts -= 1
+
+
         if self.current_stage & 0xFF == 0x6E:
             started_save_file = await read_memory_value(ctx, 0x1B7FB8, silent=True)
             if started_save_file:
-                print(f"Started save file")
-                self.precision_mode = [0x1B2E94, 0x6E]
-                ctx.watcher_timeout = 0.1
+                print(f"Started save file with saved scene {hex(self.last_saved_scene)}")
+                if self.last_saved_scene in BOSS_WARP_SCENE_LOOKUP:
+                    print(f"Problem entrance detected")
+                    warp_exit = self.update_boss_warp(ctx, self.current_stage, self.last_saved_scene)
+                    if warp_exit is not None:
+                        self.precision_mode = [0x1B2E94, 0x6E, "warp", warp_exit]
+                        ctx.watcher_timeout = 0.1
+
+    async def precision_backup(self, ctx, precision_read):
+        if len(self.precision_mode) > 2 and self.precision_mode[2] == "warp":
+            if precision_read == 0x34:
+                print(f"New file, cancel precision")
+                return True
+        return False
+
+    def clear_variables(self):
+        self.last_saved_scene = None

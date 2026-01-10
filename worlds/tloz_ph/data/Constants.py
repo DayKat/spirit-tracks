@@ -1506,8 +1506,11 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x2A00: "Cyclok Exit",
     0x2C00: "Crayk Exit",
     0x200A: "Dongo Exit",
+    0x2E00: "Dongo Exit",
     0x1F06: "Gleeok Exit",
+    0x1D00: "Gleeok Exit",
     0x2106: "Eox Exit",
+    0x2F00: "Eox Exit",
     0x3000: "Cubus Sisters Blue Warp"
 }
 
