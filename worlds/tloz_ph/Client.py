@@ -122,6 +122,8 @@ class PhantomHourglassClient(DSZeldaClient):
         self.sent_event = False
         self.last_saved_scene = None
         self.lss_retry_attempts = 4
+        self.death_check = False
+        self.death_precision = None
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
@@ -336,6 +338,25 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Saving scene {hex(self.current_scene)}")
             self.last_saved_scene = self.current_scene
             await self.store_data(ctx, f"ph_save_scene_{ctx.slot}_{ctx.team}", self.last_saved_scene, "replace", default=0)
+
+        # if self.is_dead and not self.death_check:
+        #     self.death_check = True
+        #     print(f"Death Check! {hex(self.current_scene)}")
+        #     if self.current_scene in BOSS_WARP_SCENE_LOOKUP:
+        #         self.death_precision = self.update_boss_warp(ctx, self.current_stage, self.current_scene)
+        # elif self.death_check and not self.is_dead:
+        #     self.death_check = False
+        #     print(f"death check reset")
+        # elif self.death_precision:
+        #     print(f"death precision check")
+        #     read_list = {"continue": (0x1BA6FC, 1, "Main RAM"), "no_quit": (0x1B2C35, 1, "Main RAM")}
+        #     cont = await read_memory_values(ctx, read_list)
+        #     print(f"death precision check {cont}")
+        #     if any(cont.values()):
+        #         self.precision_mode = [0x1B2E94, self.current_stage, "warp", self.death_precision.copy()]
+        #         ctx.watcher_timeout = 0.1
+        #         self.death_precision = None
+
 
     async def detect_warp_to_start(self, ctx, read_result: dict):
         # Opened clog warp to start check
@@ -1162,6 +1183,8 @@ class PhantomHourglassClient(DSZeldaClient):
         }])
 
     async def process_in_menu(self, ctx: "BizHawkClientContext"):
+        self.death_precision = None
+
         if self.last_saved_scene is None:
             key = f"ph_save_scene_{ctx.slot}_{ctx.team}"
             await ctx.send_msgs([{
@@ -1195,3 +1218,4 @@ class PhantomHourglassClient(DSZeldaClient):
 
     def clear_variables(self):
         self.last_saved_scene = None
+        self.lss_retry_attempts = 4
