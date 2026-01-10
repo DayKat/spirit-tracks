@@ -438,10 +438,9 @@ class PhantomHourglassAdditionalMetalNames(Choice):
     If there are more than 3 rare metals in the pool, what should the additional items be called?
     - vanilla_only: additional metals are duplicate vanilla metals
     - additional_rare_metal: additional metals are all called "Additional Rare Metal"
-    - custom_metals: additional metals are chosen randomly from a pre-defined list of names I made up. The names are
-    based on color words ending in "ine". Some examples are "Verdantine", "Lavendine" and "Amberine". Currently there
-    30 metal names defined.
-    - custom_metals_prefer_vanilla: metals will default to vanilla names, and only use custom names if you have more than 3.
+    - custom: additional metals are chosen randomly from a pre-defined list of names I made up. The names are
+    based on color words ending in "ine". Some examples are "Verdantine", "Lavendine" and "Amberine". Currently there are 30 metal names defined.
+    - custom_prefer_vanilla: metals will default to vanilla names, and only use custom names if you have more than 3.
     """
     display_name = "additional_metal_names"
     option_vanilla_only = 0
@@ -460,7 +459,7 @@ class PhantomHourglassTimeLogic(Choice):
     - hard: a quarter of the easy times. Expects you to get everything with ~1.25 minutes
     - ph_only_b1: only the phantom hourglass item is required for checks past b1, checks above that are always in logic
     - ph_only_b4: only the phantom hourglass item is required for checks past b4, checks above that are always in logic
-    - no_logic: Sand of Hours does not effect logic
+    - no_logic: Sand of Hours does not affect logic
     """
     display_name = "ph_time_logic"
     option_beginner = -1
@@ -490,7 +489,7 @@ class PhantomHourglassRandomizeBeedlePoints(Choice):
     the Freebie Card, Complimentary Card and Compliment card to the pool
     Point thresholds are at 0, 20, 50, 100 and 200.
     - no_beedle_points: don't randomize this
-    - cards_only: adds the Freebie, Comploment and Complimentary cards to the item pool, but doesn't randomize Membership thresholds
+    - cards_only: adds the Freebie, Compliment and Complimentary cards to the item pool, but doesn't randomize Membership thresholds
     - randomize: randomizes the beedle membership levels. You will only be logically expected to buy the first level.
     - randomize_with_grinding: randomizes the beedle membership levels. If you have a farmable source of rupees, the game can expect you to farm 20 000 rupees and use time travelling to buy out his stock day after day. Don't pick unless you know what you're signing up for
     """

@@ -324,6 +324,9 @@ class PhantomHourglassClient(DSZeldaClient):
             await self.lower_water(ctx, True)
         await self.detect_ut_event(ctx, self.current_scene)
 
+        if self.current_stage == 3 and read_result.get("salvage_health", 5) <= 1:
+            await self.instant_repair_salvage_arm(ctx)
+
     async def detect_warp_to_start(self, ctx, read_result: dict):
         # Opened clog warp to start check
         if read_result.get("opened_clog", False):
@@ -499,9 +502,11 @@ class PhantomHourglassClient(DSZeldaClient):
 
     @staticmethod
     async def instant_repair_salvage_arm(ctx):
-        salvage_kits = await read_memory_value(ctx, 0x1BA661) & 7
+        salvage_data = await read_memory_value(ctx, 0x1BA661)
+        salvage_kits = salvage_data & 7
         if salvage_kits > 0:
-            write_list = [(0x1BA661, [salvage_kits - 1], "Main RAM"),
+            new_value = salvage_data - 1
+            write_list = [(0x1BA661, [new_value], "Main RAM"),
                           (RAM_ADDRS["salvage_health"][0], [5], "Main RAM"),
                           (0x1BA390, [5], "Main RAM")]  # Global salvage health
             await bizhawk.write(ctx.bizhawk_ctx, write_list)

@@ -630,6 +630,36 @@ class PhantomHourglassWorld(World):
                 if ENTRANCES[e.name].id in disconnect_ids:
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
+            print(f"getattr {getattr(self.multiworld, 'enforce_deferred_connections', 'error')}")
+            if hasattr(self.multiworld, "enforce_deferred_connections"):
+                if getattr(self.multiworld, "enforce_deferred_connections") == "off":
+                    entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
+                    self.disconnected_entrances_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
+                                                       for e in region.entrances if not e.parent_region}
+                    self.disconnected_exits_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
+                                                   for e in region.exits if not e.connected_region}
+
+                    for i, pairing in self.ut_pairings.items():
+                        i = int(i)
+                        dangling_entrance: "Entrance" or None = self.disconnected_entrances_map.get(i, None)
+                        dangling_exit: "Entrance" or None = self.disconnected_exits_map.get(i, None)
+
+                        entrance_region = self.get_region(entrance_id_to_region[i])
+                        exit_region = self.get_region(entrance_id_to_region[pairing])
+
+                        print(f"Connecting: {entrance_region} => {exit_region} | {dangling_exit} | {dangling_entrance} | {i}")
+                        name_check = f"{entrance_region.name} -> {exit_region.name}"
+                        if name_check in [i.name for i in entrance_region.exits]:
+                            print(f"exit {exit_region} already existed for {entrance_region}")
+                        else:
+                            entrance_region.connect(exit_region)
+
+                        if dangling_exit is not None:
+                            dangling_exit.connect(exit_region)
+                        if dangling_entrance is not None:
+                            if not self.options.decouple_entrances:
+                                dangling_entrance.connect(entrance_region)
+
         else:
             # What option corresponds with what type
             type_option_lookup = {
@@ -1348,10 +1378,10 @@ class PhantomHourglassWorld(World):
               f" {stored_data}"
               )
 
+        if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
+            print(f"Don't defer entrances when off")
 
-
-
-        if "ph_checked_entrances" in key or "ph_traversed_entrances" in key:
+        elif "ph_checked_entrances" in key or "ph_traversed_entrances" in key:
             # Create a lookup for disconnected entrances if you haven't already.
             if not self.disconnected_entrances_map:
                 entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
@@ -1419,7 +1449,7 @@ class PhantomHourglassWorld(World):
                     parent_region.create_er_target(e.name)
                     self.disconnected_entrances_map.clear()
 
-        elif "ph_keylocking" in key and stored_data:
+        if "ph_keylocking" in key and stored_data:
             print(f"Attempting to keylock stuff!")
             for i in stored_data:
                 print(f"Excluding {self.location_id_to_name[i]}")

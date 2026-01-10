@@ -471,6 +471,7 @@ ITEMS_DATA = {
         "classification": ItemClassification.filler,
         "address": 0x1ba661,
         "value": 0x1,
+        "incremental": True,
         "id": 57,
         "max": 0x7
     },
