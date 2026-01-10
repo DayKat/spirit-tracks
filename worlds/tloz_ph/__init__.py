@@ -501,8 +501,22 @@ class PhantomHourglassWorld(World):
         self.create_event("Goron NE Event", "_goron_maze_switch")
         self.create_event("Eddo's Workshop", "_eddo_door")
         self.create_event("ToI B1 Switch", "_toi_b1_switch")
+
+        self.create_event("Mercay NW Freedle Island", "_freedle_island_switch")
+        self.create_event("Goron NW Outside Temple", "_goron_shortcut_bridge")
+        self.create_event("Sun Lake Cave Back", "_molida_cave_bomb_flowers")
+        self.create_event("Goron NE", "_goron_bomb_flowers")
+        self.create_event("Sun Lake Cave Defeat Geozard", "_molida_cave_geozard")
+        self.create_event("Cannon Bomb Garden", "_cannon_bomb_garden")
+        self.create_event("Ruins SE Return Bridge East", "_ruins_bridge")
+        self.create_event("Frost SE Yook", "_frost_ice_field")
         # Blue warps
+        self.create_event("ToF 4F", "_tof_blue_warp")
+        self.create_event("ToW 2F", "_tow_blue_warp")
+        self.create_event("ToC 3F", "_toc_blue_warp")
+        self.create_event("GT B4", "_gt_blue_warp")
         self.create_event("ToI Blue Warp", "_toi_blue_warp")
+        self.create_event("MT B3", "_mt_blue_warp")
         # Mountain passage
         self.create_event("Mountain Passage 1", "_mp1")
         self.create_event("Mountain Passage Rat", "_mp3")

@@ -254,6 +254,7 @@ REGIONS = [
     "Sun Lake Cave Back",
     "Sun Lake Cave Geozard",
     "Sun Lake Cave Geozard Dig",
+    "Sun Lake Cave Defeat Geozard",
     "Sun Lake Cave Post Geozard",
     "Octorok Cave",
     "Shovel Hideout",
@@ -469,6 +470,7 @@ REGIONS = [
     "Frozen Cave",
 
     "Frost SE",
+    "Frost SE Yook",
     "Frost SE Exit",
     "Frost SE Upper North",
     "Frost SE Upper East",
