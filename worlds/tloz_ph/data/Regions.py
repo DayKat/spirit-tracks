@@ -254,6 +254,7 @@ REGIONS = [
     "Sun Lake Cave Back",
     "Sun Lake Cave Geozard",
     "Sun Lake Cave Geozard Dig",
+    "Sun Lake Cave Defeat Geozard",
     "Sun Lake Cave Post Geozard",
     "Octorok Cave",
     "Shovel Hideout",
@@ -424,6 +425,7 @@ REGIONS = [
     # Goron Temple
     "GT 1F",
     "GT 1F Upper",
+    "GT 1F NW",
     "GT 1F Bow",
     "GT B1",
     "GT B2",
@@ -468,6 +470,7 @@ REGIONS = [
     "Frozen Cave",
 
     "Frost SE",
+    "Frost SE Yook",
     "Frost SE Exit",
     "Frost SE Upper North",
     "Frost SE Upper East",

@@ -470,9 +470,10 @@ ITEMS_DATA = {
     "Salvage Repair Kit": {
         "classification": ItemClassification.filler,
         "address": 0x1ba661,
-        "value": 0x1,
+        "value": 0x20,
+        "incremental": True,
         "id": 57,
-        "max": 0x7
+        "max": 0xFF
     },
     "Refill: Health": {
         "classification": ItemClassification.filler,

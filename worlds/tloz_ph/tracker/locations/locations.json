@@ -1080,8 +1080,18 @@
     "map_locations": [
       {
         "map": "Check Overview",
-        "x": 468,
-        "y": 345
+        "x": 297,
+        "y": 206
+      },
+      {
+        "map": "Check Overview",
+        "x": 608,
+        "y": 550
+      },
+      {
+        "map": "Check Overview",
+        "x": 922,
+        "y": 78
       }
     ]
   },

@@ -1160,8 +1160,20 @@ def ph_mercay_passage_rat(state, player):
         ]),
     ])
 
+def ph_cannon_reverse_garden(state, player):
+    return any([
+        ph_has_explosives(state, player),
+        state.has("_cannon_bomb_garden", player)
+    ])
+
 def ph_nyave_fight(state, player):
     return any([ph_has_cave_damage(state, player), ph_clever_pots(state, player)])
+
+def ph_molida_bomb_flowers(state, player):
+    return any([
+        ph_has_bombs(state, player),
+        state.has("_molida_cave_bomb_flowers", player)
+    ])
 
 def ph_bannan_scroll(state, player):
     return all([
@@ -1237,6 +1249,12 @@ def ph_ruins_stalfos_s(state, player):
     return any([
         ph_ruins_lower_water(state, player),
         ph_can_kill_bat(state, player),
+    ])
+
+def ph_ruins_bridge(state, player):
+    return any([
+        ph_has_hammer(state, player),
+        state.has("_ruins_bridge", player)
     ])
 
 # Tof
@@ -1321,7 +1339,9 @@ def ph_tow_key_door(state, player):
         ph_wind_temple_key_ut(state, player)])
 
 def ph_tow_enter_cyclok(state, player):
-    return all([
+    return any([
+        state.has("_tow_blue_warp", player),
+        all([
             ph_has_bombs(state, player),
             any([
                 ph_has_boss_key(state, player, "Temple of Wind"),
@@ -1331,6 +1351,7 @@ def ph_tow_enter_cyclok(state, player):
                     ph_wind_temple_key_ut(state, player)
                 ]),
             ])
+        ])
     ])
 
 def ph_wind_temple_key_ut(state, player):
@@ -1551,6 +1572,18 @@ def ph_beat_ghost_ship(state: CollectionState, player):
 
 
 # Goron
+
+def ph_goron_shortcut(state, player):
+    return any([
+        ph_can_hammer_clip(state, player),
+        state.has("_goron_shortcut_bridge", player)
+    ])
+
+def ph_goron_south_reverse(state, player):
+    return any([
+        ph_has_explosives(state, player),
+        state.has("_goron_bomb_flowers", player)
+    ])
 
 def ph_goron_entrance(state, player):
     return all([
@@ -2925,6 +2958,8 @@ RULE_DICT = {
     "mp_rat": ph_mercay_passage_rat,
     "mercay_passage_rat": ph_mercay_passage_rat,
     "ember_grapple": ph_ember_grapple_chest,
+    "cannon_reverse_garden": ph_cannon_reverse_garden,
+    "molida_bomb_flowers": ph_molida_bomb_flowers,
     "bannan_scroll": ph_bannan_scroll,
     "salvage_courage_crest": ph_salvage_courage_crest,
     "ocean_sw_west": ph_can_enter_ocean_sw_west,
@@ -2938,6 +2973,7 @@ RULE_DICT = {
     "ruins_water": ph_ruins_lower_water,
     "ruins_stalfos_n": ph_ruins_stalfos_n,
     "ruins_stalfos_s": ph_ruins_stalfos_n,
+    "ruins_bridge": ph_ruins_bridge,
     "ice_field": ph_ice_field,
     # ToF
     "tof_3f": ph_tof_3f,
@@ -2970,6 +3006,8 @@ RULE_DICT = {
     "gs_barrel": ph_ghost_ship_barrel,
     "beat_gs": ph_beat_ghost_ship,
     # GT
+    "goron_shortcut": ph_goron_shortcut,
+    "goron_south_reverse": ph_goron_south_reverse,
     "goron_entrance": ph_goron_entrance,
     "goron_chus": ph_goron_chus,
     "meet_gorons": ph_meet_all_gorons,

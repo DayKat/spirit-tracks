@@ -1938,7 +1938,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x29,
         "floor_id": 0x1,
         "vanilla_item": "Red Potion",
-        "x_min": -0xc350,
+        "x_min": -0xd000,
         "x_max": -0x7530,
         "dungeon": "Ghost Ship",
         "sram_addr": 0xb14,
@@ -1955,6 +1955,7 @@ LOCATIONS_DATA = {
         "dungeon": "Ghost Ship",
         "sram_addr": 0xb14,
         "sram_value": 0x1,
+        "delay_pickup": "Ghost Ship B2 Third Sister Right Chest",
         "id": 181,
     },
     "Ghost Ship B2 Spike Chest": {
