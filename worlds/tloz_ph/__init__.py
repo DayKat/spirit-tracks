@@ -1046,6 +1046,12 @@ class PhantomHourglassWorld(World):
                     forced_item = self.create_item(item_name)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
+                if (loc_name in ["Mountain Passage 1F Entrance Chest", "Mountain Passage 2F Rat Key"]
+                        and self.options.accessibility.value == 0 # full accessibility
+                        and not self.options.shuffle_caves.value and self.options.keysanity == "in_own_dungeon"):
+                    forced_item = self.create_item(item_name)
+                    self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                    continue
             if item_name in ITEM_GROUPS["Golden Frog Glyphs"]:
                 if self.options.randomize_frogs == "vanilla":
                     forced_item = self.create_item(item_name)

@@ -469,7 +469,7 @@ class PhantomHourglassClient(DSZeldaClient):
         keys = keys * data["value"]
         keys = data["filter"] if keys > data["filter"] else keys
         await write_memory_value(ctx, 0x1BA64F, keys)
-        await write_memory_value(ctx, 0x1BA661, 0x40)  # Set bit to write future TotOK keys to post midway
+        await write_memory_value(ctx, 0x1BA661, 0x1)  # Set bit to write future TotOK keys to post midway
 
     @staticmethod
     async def repair_salvage_arm(ctx, scene=0x500):
@@ -477,12 +477,12 @@ class PhantomHourglassClient(DSZeldaClient):
                      "rupees": (0x1BA53E, 2, "Main RAM"),
                      "repair_kits": (0x1BA661, 1, "Main RAM"), }
         prev = await read_memory_values(ctx, read_list)
-        prev["repair_kits"] &= 0x7
+        repair_kits = (prev["repair_kits"] & 0xE) >> 5
         if prev["salvage_health"] <= 2:
             write_list = []
             text = f"Repaired Salvage Arm for "
-            if prev["repair_kits"] > 0:
-                write_list.append((0x1BA661, [prev["repair_kits"] - 1], "Main RAM"))
+            if repair_kits > 0:
+                write_list.append((0x1BA661, [prev["repair_kits"] - 0x20], "Main RAM"))
                 text += f"1 Salvage Repair Kit. You have {prev['repair_kits']} remaining."
             else:
                 # Repair cost, doesn't care if you're out of rupees out of qol
@@ -503,10 +503,9 @@ class PhantomHourglassClient(DSZeldaClient):
     @staticmethod
     async def instant_repair_salvage_arm(ctx):
         salvage_data = await read_memory_value(ctx, 0x1BA661)
-        salvage_kits = salvage_data & 7
+        salvage_kits = (salvage_data & 0xE0) >> 5
         if salvage_kits > 0:
-            new_value = salvage_data - 1
-            write_list = [(0x1BA661, [new_value], "Main RAM"),
+            write_list = [(0x1BA661, [salvage_data - 0x20], "Main RAM"),
                           (RAM_ADDRS["salvage_health"][0], [5], "Main RAM"),
                           (0x1BA390, [5], "Main RAM")]  # Global salvage health
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
@@ -530,7 +529,7 @@ class PhantomHourglassClient(DSZeldaClient):
         ship_write_list = [] + ships * 8
         print(ships, ship_write_list)
         await bizhawk.write(ctx.bizhawk_ctx, [(0x1BA564, ship_write_list, "Main RAM")])
-        await write_memory_value(ctx, 0x1ba661, 0x80)
+        await write_memory_value(ctx, 0x1ba661, 0x2)
 
     # Dynamic flags/ Entrances
     async def has_special_dynamic_requirements(self, ctx, data) -> bool:
@@ -679,7 +678,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def received_special_small_keys(self, ctx, item_name, write_keys_to_storage):
         # TotOK Midway special data
         if "Temple of the Ocean King" in item_name:
-            if await read_memory_value(ctx, 0x1BA661) & 0x40:
+            if await read_memory_value(ctx, 0x1BA661) & 0x1:
                 return [await write_keys_to_storage(372)]
         return []
 
@@ -721,7 +720,7 @@ class PhantomHourglassClient(DSZeldaClient):
         print(f"special item: {item_name} {self.current_stage}")
         res = []
         if "ship" in item_data:
-            if not (await read_memory_value(ctx, 0x1ba661) & 0x80):
+            if not (await read_memory_value(ctx, 0x1ba661) & 2):
                 for addr in EQUIPPED_SHIP_PARTS_ADDR:
                     res += [(addr, [item_data["ship"]], "Main RAM")]
 
@@ -1146,3 +1145,19 @@ class PhantomHourglassClient(DSZeldaClient):
     #     started_save_file = await read_memory_value(ctx, 0x0598EC)
     #     if started_save_file:
     #         self.precision_mode = [0x1B2E94, 0x6E]
+
+    async def ut_bounce_scene(self, ctx, scene):
+        if not ctx.slot_data["shuffle_houses"] and map_type_lookup.get(scene) == "house":
+            return
+        if not ctx.slot_data["shuffle_caves"] and map_type_lookup.get(scene) == "cave":
+            return
+
+        if ctx.slot_data.get("shuffle_overworld_transitions", False):
+            scene |= 1 << 16
+        print(f"Storing new scene for UT {hex(scene)}")
+        await ctx.send_msgs([{
+            "cmd": "Set",
+            "key": f"{ctx.slot}_{ctx.team}_UT_MAP",
+            "default": 0,
+            "operations": [{"operation": "replace", "value": scene}]
+        }])
