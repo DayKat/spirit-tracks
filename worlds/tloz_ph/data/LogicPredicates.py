@@ -1181,6 +1181,17 @@ def ph_bannan_scroll(state, player):
         ph_can_pass_sea_monsters(state, player),
     ])
 
+def ph_bannan_sea_monster(state, player):
+    return all([
+        ph_require_sea_chart(state, player, "NW"),
+        any([
+            ph_can_pass_sea_monsters(state, player),
+            ph_UT_glitched_logic(state, player),
+            not state.has("_wayfarer_trade", player)
+        ])
+    ])
+
+
 def ph_ss_wayfarer(state, player):
     return all([
         ph_has_wood_heart(state, player),
@@ -2961,6 +2972,7 @@ RULE_DICT = {
     "cannon_reverse_garden": ph_cannon_reverse_garden,
     "molida_bomb_flowers": ph_molida_bomb_flowers,
     "bannan_scroll": ph_bannan_scroll,
+    "bannan_sea_monster": ph_bannan_sea_monster,
     "salvage_courage_crest": ph_salvage_courage_crest,
     "ocean_sw_west": ph_can_enter_ocean_sw_west,
     "ss_wayfarer": ph_ss_wayfarer,

@@ -1918,5 +1918,10 @@
         "map": "Check Overview",
         "x": 717,
         "y": 182
+      }] },
+  { "name": "Events - Cannon Island", "sections": [{"name": "EVENT: Open Eddo's Door"}], "map_locations": [{
+        "map": "Check Overview",
+        "x": 343,
+        "y": 652
       }] }
 ]

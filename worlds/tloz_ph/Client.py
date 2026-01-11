@@ -274,11 +274,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     def get_progress(self, ctx, scene=0):
         # Count current metals
-        progress = 0
-        metals = [ITEMS_DATA[i]["id"] for i in ITEM_GROUPS["Metals"]]
-        for i in ctx.items_received:
-            if i.item in metals:
-                progress += 1
+        self.update_metal_count(ctx)
 
         # Figure out totals
         if ctx.slot_data["goal_requirements"] < 2:
@@ -297,11 +293,11 @@ class PhantomHourglassClient(DSZeldaClient):
                             "opens the blue warp to Bellum in TotOK.",
                             "spawns the ruins of the Ghost Ship in the SW Quadrant.",
                             "wins the game."]
-            logger.info(f"You have {progress} out of {required} rare metals. There are {total} metals in total.\n"
+            logger.info(f"You have {self.metal_count} out of {required} rare metals. There are {total} metals in total.\n"
                         f"Finding the metals {bellum_texts[ctx.slot_data['bellum_access']]}")
         elif scene == 0x160A:
             zauz_required = ctx.slot_data["zauz_required_metals"]
-            logger.info(f"Zauz needs {zauz_required} rare metals to give an item. You have {progress}/{total} metals.")
+            logger.info(f"Zauz needs {zauz_required} rare metals to give an item. You have {self.metal_count}/{total} metals.")
 
     def process_loading_variable(self, read_result) -> bool:
         return read_result["loading_room"]
@@ -334,7 +330,7 @@ class PhantomHourglassClient(DSZeldaClient):
         if self.current_stage == 3 and read_result.get("salvage_health", 5) <= 1:
             await self.instant_repair_salvage_arm(ctx)
 
-        if read_result.get("saving"):
+        if read_result.get("saving") == 0x46:
             print(f"Saving scene {hex(self.current_scene)}")
             self.last_saved_scene = self.current_scene
             await self.store_data(ctx, f"ph_save_scene_{ctx.slot}_{ctx.team}", self.last_saved_scene, "replace", default=0)
@@ -504,7 +500,8 @@ class PhantomHourglassClient(DSZeldaClient):
                      "rupees": (0x1BA53E, 2, "Main RAM"),
                      "repair_kits": (0x1BA661, 1, "Main RAM"), }
         prev = await read_memory_values(ctx, read_list)
-        repair_kits = (prev["repair_kits"] & 0xE) >> 5
+        repair_kits = (prev["repair_kits"] & 0xE0) >> 5
+        print(f"Repair kits: {repair_kits}")
         if prev["salvage_health"] <= 2:
             write_list = []
             text = f"Repaired Salvage Arm for "
@@ -523,7 +520,7 @@ class PhantomHourglassClient(DSZeldaClient):
             print(write_list)
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
         else:
-            text = f"This room automatically repairs your Salvage Arm, for a cost, when at 2 health or below."
+            text = f"This room automatically repairs your Salvage Arm, for a cost or a kit, when at 2 health or below."
         # Send a client message about the repair
         logger.info(text)
 
@@ -563,13 +560,13 @@ class PhantomHourglassClient(DSZeldaClient):
         # Special case of metals
         def check_metals(d):
             if "zauz_metals" in d or "goal_requirement" in d:
-                metals_ids = [ITEMS_DATA[metal]["id"] for metal in ITEM_GROUPS["Metals"]]
-                current_metals = sum([1 for i in ctx.items_received if i.item in metals_ids])
-                print(f"Metal check: {current_metals} metals out of {ctx.slot_data['zauz_required_metals']}")
+                self.update_metal_count(ctx)
+
 
                 # Zauz Check
                 if "zauz_metals" in d:
-                    if current_metals < ctx.slot_data["zauz_required_metals"]:
+                    print(f"Metal check: {self.metal_count} metals out of {ctx.slot_data['zauz_required_metals']}")
+                    if self.metal_count < ctx.slot_data["zauz_required_metals"]:
                         if d["zauz_metals"]:
                             return False
                     else:
@@ -578,7 +575,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
                 # Goal Check
                 if "goal_requirement" in d:
-                    return current_metals >= ctx.slot_data["required_metals"]
+                    print(f"Metal check: {self.metal_count} metals out of {ctx.slot_data['required_metals']}")
+                    return self.metal_count >= ctx.slot_data["required_metals"]
             return True
 
         # Beedle points

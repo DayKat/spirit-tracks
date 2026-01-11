@@ -2171,6 +2171,15 @@ EVENT_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
     },
+    "EVENT: Open Eddo's Door": {
+        "two_way": False,
+        "entrance_region": "Eddo's Workshop",
+        "exit_region": "Eddo Event",
+        "entrance": (0x13, 0xB, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
 }
 
 

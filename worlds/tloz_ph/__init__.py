@@ -499,7 +499,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Goron Chus Event", "_goron_chus")
         self.create_event("Goron SE Bridge Event", "_goron_bridge")
         self.create_event("Goron NE Event", "_goron_maze_switch")
-        self.create_event("Eddo's Workshop", "_eddo_door")
+        self.create_event("Eddo Event", "_eddo_door")
         self.create_event("ToI B1 Switch", "_toi_b1_switch")
 
         self.create_event("Mercay NW Freedle Island", "_freedle_island_switch")
@@ -510,6 +510,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Cannon Bomb Garden", "_cannon_bomb_garden")
         self.create_event("Ruins SE Return Bridge East", "_ruins_bridge")
         self.create_event("Frost SE Yook", "_frost_ice_field")
+        self.create_event("Uncharted Puzzle", "_uncharted_bridge")
         # Blue warps
         self.create_event("ToF 4F", "_tof_blue_warp")
         self.create_event("ToW 2F", "_tow_blue_warp")

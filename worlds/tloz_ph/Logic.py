@@ -242,6 +242,7 @@ def make_overworld_logic():
         ["Cannon Outside Eddo", "Eddo's Workshop", True, None],
         ["Fuzo's Workshop", "Eddo's Workshop", True, "has", "_eddo_door"],
         ["Eddo's Workshop", "Eddo Salvage Arm", False, "courage_crest"],
+        ["Eddo's Workshop", "Eddo Event", False, None],
         ["Cannon Bomb Garden", "Cannon Bomb Garden Dig", False, "shovel"],
 
         # =============== Isle of Ember ================
@@ -392,8 +393,7 @@ def make_overworld_logic():
         ["Gust Boat", "Gust South", True, None],
         ["Gust Boat", "NW Ocean", True, "require_chart", "NW"],
         ["Bannan Boat", "Bannan Island", True, None],
-        ["Bannan Boat", "NW Ocean", True, "require_chart", "NW"],
-        ["Zauz Boat", "Zauz's Island", True, None],
+        ["Bannan Boat", "NW Ocean", True, "bannan_sea_monster"],
         ["Zauz Boat", "NW Ocean", True, "require_chart", "NW"],
         ["Uncharted Boat", "Uncharted Island", True, None],
         ["Uncharted Boat", "NW Ocean", True, "require_chart", "NW"],
@@ -469,7 +469,9 @@ def make_overworld_logic():
         # ================= Uncharted Island ====================
 
         ["Uncharted Island", "Uncharted Dig", False, "shovel"],
-        ["Uncharted Island", "Uncharted Outside Cave", False, "sword"],
+        ["Uncharted Island", "Uncharted Puzzle", False, "sword"],
+        ["Uncharted Puzzle", "Uncharted Outside Cave", False, None],
+        ["Uncharted Outside Cave", "Uncharted Island", False, "has", "_uncharted_bridge"],
         ["Uncharted Outside Cave", "Descending Cave", True, None],
         ["Descending Cave", "Golden Chief Cave", True, None],
         ["Descending Cave", "Descending Cave Grapple", False, "grapple"],

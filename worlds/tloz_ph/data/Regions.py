@@ -189,6 +189,7 @@ REGIONS = [
     "Cannon Island",
     "Fuzo's Workshop",
     "Eddo's Workshop",
+    "Eddo Event",
     "Bomb Flower Cave South",
     "Bomb Flower Cave North",
     "Eddo Salvage Arm",
@@ -362,6 +363,7 @@ REGIONS = [
 
     # Uncharted
     "Uncharted Island",
+    "Uncharted Puzzle",
     "Uncharted Outside Cave",
     "Uncharted Dig",
     "Descending Cave",
