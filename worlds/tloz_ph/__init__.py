@@ -119,15 +119,14 @@ def add_pedestal_items(place, option, excluded_dungeons):
         res |= add_from_group("Unique Force Gems", 3)
 
     # Remove from excluded dungeons
-    if place == "in_own_dungeon":
-        if "Temple of Courage" in excluded_dungeons:
-            for i in ["Square Crystal (Temple of Courage)", "Square Pedestal North (Temple of Courage)", "Square Pedestal South (Temple of Courage)",]:
-                if i in res:
-                    res.pop(i)
-        if "Ghost Ship" in excluded_dungeons:
-            for i in ["Triangle Crystal (Ghost Ship)", "Round Crystal (Ghost Ship)"]:
-                if i in res:
-                    res.pop(i)
+    if "Temple of Courage" in excluded_dungeons:
+        for i in ["Square Crystal (Temple of Courage)", "Square Pedestal North (Temple of Courage)", "Square Pedestal South (Temple of Courage)",]:
+            if i in res:
+                res.pop(i)
+    if "Ghost Ship" in excluded_dungeons:
+        for i in ["Triangle Crystal (Ghost Ship)", "Round Crystal (Ghost Ship)"]:
+            if i in res:
+                res.pop(i)
 
     return res
 

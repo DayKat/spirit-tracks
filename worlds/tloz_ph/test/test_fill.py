@@ -1,4 +1,4 @@
 from .bases import *
 
-test = TestFullER()
+test = TestExcludedCrystals()
 test.test_fill()

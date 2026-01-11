@@ -395,6 +395,7 @@ def make_overworld_logic():
         ["Bannan Boat", "Bannan Island", True, None],
         ["Bannan Boat", "NW Ocean", True, "bannan_sea_monster"],
         ["Zauz Boat", "NW Ocean", True, "require_chart", "NW"],
+        ["Zauz Boat", "Zauz's Island", True, None],
         ["Uncharted Boat", "Uncharted Island", True, None],
         ["Uncharted Boat", "NW Ocean", True, "require_chart", "NW"],
         ["NW Ocean", "Ghost Ship 1F", False, "ghost_ship"],

@@ -48,6 +48,13 @@ class DefaultSettings(WorldTestBase):
         #                        ]
     }
 
+class TestExcludedCrystals(WorldTestBase):
+    game = "The Legend of Zelda - Phantom Hourglass"
+    options = {"dungeons_required": 0,
+               "randomize_pedestal_items": "anywhere",
+               "pedestal_item_options": "unique_pedestals",
+               }
+
 class TestFullER(WorldTestBase):
     game = "The Legend of Zelda - Phantom Hourglass"
     options = {
