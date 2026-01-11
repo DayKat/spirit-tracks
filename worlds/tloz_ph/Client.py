@@ -1,5 +1,6 @@
 from random import randint
 from .DSZeldaClient.DSZeldaClient import *
+from .MapWarp import map_mode
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -52,6 +53,8 @@ RAM_ADDRS = {
     "in_short_cs": (0x1B6FE8, 1, "Main RAM"),
     "saving": (0x19B7CF, 1, "Main RAM"),
 
+    "in_map": (0x1B2D60, 1, "Main RAM"),
+
 }
 
 POINTERS = {
@@ -77,7 +80,7 @@ read_keys_always = ["game_state", "in_cutscene", "loading_room",
                      ]
 
 read_keys_deathlink = ["link_health"]
-read_keys_land = ["getting_item", "getting_ship_part"]
+read_keys_land = ["getting_item", "getting_ship_part", "in_map"]
 read_keys_sea = ["shot_frog"]
 read_keys_deathlink_sea = ["boat_health", "drawing_sea_route"]
 read_keys_deathlink_salvage = ["salvage_health"]
@@ -124,6 +127,11 @@ class PhantomHourglassClient(DSZeldaClient):
         self.lss_retry_attempts = 4
         self.death_check = False
         self.death_precision = None
+
+        # Map warp vars
+        self.map_mode: bool = False  # if in warp menu
+        self.map_warp: "PHTransition" or None = None  # destination entrance
+        self.map_warp_reselector: bool = True  # Spam prevention
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
@@ -334,6 +342,17 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Saving scene {hex(self.current_scene)}")
             self.last_saved_scene = self.current_scene
             await self.store_data(ctx, f"ph_save_scene_{ctx.slot}_{ctx.team}", self.last_saved_scene, "replace", default=0)
+
+        if read_result.get("in_map", 0):
+            await map_mode(self, ctx, read_result)
+        if not read_result.get("in_map", 0) and self.map_mode:
+            self.map_mode = False
+            self.map_warp = None
+            self.map_warp_reselector = True
+            logger.info(f"Illegal map menu exit, canceling all map warps")
+        if self.warp_to_start_flag and self.map_warp:
+            self.map_warp = None
+            logger.info(f"Canceled map warp due to starting a warp to start")
 
         # if self.is_dead and not self.death_check:
         #     self.death_check = True
@@ -1180,8 +1199,14 @@ class PhantomHourglassClient(DSZeldaClient):
             "operations": [{"operation": "replace", "value": scene}]
         }])
 
-    async def process_in_menu(self, ctx: "BizHawkClientContext"):
+    async def process_in_menu(self, ctx: "BizHawkClientContext", read_result):
         self.death_precision = None
+
+        if (not read_result.get("in_map", 0) and self.map_mode) or self.map_warp:
+            self.map_mode = False
+            self.map_warp = None
+            self.map_warp_reselector = True
+            logger.info(f"Illegal map menu exit, canceling all map warps")
 
         if self.last_saved_scene is None:
             key = f"ph_save_scene_{ctx.slot}_{ctx.team}"
