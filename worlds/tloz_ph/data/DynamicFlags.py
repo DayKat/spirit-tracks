@@ -879,7 +879,7 @@ DYNAMIC_FLAGS = {
     # },
     # Jolene
     "Remove Jolene": {
-        "on_scenes": [0x0],
+        "on_scenes": [0x0, 0x2, 0x3],
         "unset_if_true": [(0x1B557F, 0x80)],
         "reset_flags": ["RESET Remove Jolene"]
     },
@@ -938,6 +938,11 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Oshus Phantom Sword"],
         "unset_if_true": [(0x1B5592, 0x20), (0x1BA648, 0x20)]
     },
+    "Oshus Allow Sword Craft": {
+        "on_scenes": [0xB0A],
+        "has_items": [("Phantom Hourglass", 1), ("Phantom Blade", 1)],
+        "unset_if_true": [(0x1B5592, 0x40)]
+    },
     "Reset Oshus": {
         "on_scenes": [0xB0A],
         "reset_flags": ["RESET Block phantom sword crafting",
@@ -946,10 +951,15 @@ DYNAMIC_FLAGS = {
                         "RESET Block Oshus Gem", "RESET Oshus Gem hourglass",
                         "RESET Oshus Gem chart",
                         "RESET Oshus Wind Temple",
-                        "RESET Oshus spawn B13 Phantoms"]
+                        "RESET Oshus spawn B13 Phantoms",
+                        "RESET Oshus Have Phantom Blade"]
     },
     "RESET Oshus spawn B13 Phantoms": {
         "set_if_true": [(0x1B5592, 0x40)]
+    },
+    "RESET Oshus Have Phantom Blade": {
+        "has_items": [("Phantom Blade", 1)],
+        "set_if_true": [(0x1b5592, 0x20)]
     },
     "RESET Block phantom sword crafting": {
         # "on_scenes": [0xB00],
