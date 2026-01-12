@@ -30,6 +30,26 @@ transition_lookup = {
     0x31: "Maze Boat",
     0x32: "Uncharted Boat",
 }
+
+warp_item_lookup = {
+    0x23: "Map Warp: Mercay",
+    0x24: "Map Warp: Molida",
+    0x25: "Map Warp: Ember",
+    0x26: "Map Warp: Gust",
+    0x27: "Map Warp: Frost",
+    0x28: "Map Warp: Goron",
+    0x29: "Map Warp: Ruins",
+    0x2A: "Map Warp: Dee Ess",
+    0x2B: "Map Warp: Cannon",
+    0x2C: "Map Warp: Bannan",
+    0x2D: "Map Warp: Isle of the Dead",
+    0x2E: "Map Warp: Zauz",
+    0x2F: "Map Warp: Spirit",
+    0x30: "Map Warp: Harrow",
+    0x31: "Map Warp: Maze",
+    0x32: "Map Warp: Uncharted",
+}
+
 no_ow_er_lookup = {
     0x1F: [0],
     0x20: [2],
@@ -229,6 +249,10 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         elif client.current_scene in ow_er_lookup[transition_mode]:
             logger.info(f"You are already in that scene, you can't warp there")
             client.map_warp = None
+        elif ctx.slot_data["map_warp_options"] == 1:
+            if transition_mode in warp_item_lookup and not item_count(ctx, warp_item_lookup["transition_mode"]):
+                client.map_warp = None
+                logger.info(f"Missing warp unlock item for that island")
         elif transition_mode in range(0x1f, 0x23) and ctx.slot_data["boat_requires_sea_chart"]:
             # If warping to sea, check sea chart reqs
             trans_mode_to_chart = {0x1F: "SW Sea Chart", 0x20: "SE Sea Chart", 0x21: "NW Sea Chart", 0x22: "NE Sea Chart"}

@@ -1121,6 +1121,8 @@ class PhantomHourglassWorld(World):
         # Add treasure maps
         if self.options.randomize_salvage.value:
             add_items |= {i: 1 for i in ITEM_GROUPS["Treasure Maps"]}
+        if self.options.map_warp_options.value in [1]:
+            add_items |= {i: 1 for i in ITEM_GROUPS["Map Warp Unlocks"]}
         # Add beedle point items
         if self.options.randomize_beedle_membership.value > 0:
             add_items |= {"Freebie Card": 1, "Complimentary Card": 1}

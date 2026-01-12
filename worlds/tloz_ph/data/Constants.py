@@ -471,6 +471,24 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Oshus' Sword",
         "Phantom Sword",
     },
+    "Map Warp Unlocks": {
+        "Map Warp: Mercay",
+        "Map Warp: Cannon",
+        "Map Warp: Ember",
+        "Map Warp: Molida",
+        "Map Warp: Spirit",
+        "Map Warp: Gust",
+        "Map Warp: Bannan",
+        "Map Warp: Uncharted",
+        "Map Warp: Zauz",
+        "Map Warp: Goron",
+        "Map Warp: Frost",
+        "Map Warp: Harrow",
+        "Map Warp: Dee Ess",
+        "Map Warp: Isle of the Dead",
+        "Map Warp: Ruins",
+        "Map Warp: Maze",
+    }
 }
 
 # Item Aliases
