@@ -132,6 +132,8 @@ class PhantomHourglassClient(DSZeldaClient):
         self.map_mode: bool = False  # if in warp menu
         self.map_warp: "PHTransition" or None = None  # destination entrance
         self.map_warp_reselector: bool = True  # Spam prevention
+        self.last_pen_mode = 0x18
+
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]

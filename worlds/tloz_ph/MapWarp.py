@@ -41,6 +41,7 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
 
     # read transition mode
     transition_mode = await read_memory_value(ctx, 0x1BA700, silent=True)
+    if not transition_mode: return
 
     # Enter map mode
     if transition_mode == 6:
@@ -59,6 +60,7 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
         print(f"bool map warp {client.map_warp} {bool(client.map_warp)}")
         client.map_warp_reselector = False
+        pen_mode = await read_memory_value(ctx, 0x1CF524, silent=True)
         # Do detailed warp instructions
     elif transition_mode == 0x17:
         client.map_warp_reselector = True

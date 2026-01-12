@@ -1445,7 +1445,86 @@ ITEMS_DATA = {
         "dummy": True,
         "id": 189,
     },
-
+    "Map Warp: Mercay": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 206,
+    },
+    "Map Warp: Cannon": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 207,
+    },
+    "Map Warp: Ember": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 208,
+    },
+    "Map Warp: Molida": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 209,
+    },
+    "Map Warp: Spirit": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 210,
+    },
+    "Map Warp: Gust": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 211,
+    },
+    "Map Warp: Bannan": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 212,
+    },
+    "Map Warp: Uncharted": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 213,
+    },
+    "Map Warp: Zauz": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 214,
+    },
+    "Map Warp: Goron": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 215,
+    },
+    "Map Warp: Frost": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 216,
+    },
+    "Map Warp: Harrow": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 217,
+    },
+    "Map Warp: Dee Ess": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 218,
+    },
+    "Map Warp: Isle of the Dead": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 219,
+    },
+    "Map Warp: Ruins": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 220,
+    },
+    "Map Warp: Maze": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 221,
+    },
 }
 
 id_check = []

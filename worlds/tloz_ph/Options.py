@@ -792,6 +792,21 @@ class PhantomHourglassUTBlockedEntrances(Choice):
     option_unmark_when_opened = 2
     default = 0
 
+class PhantomHourglassMapWarp(Choice):
+    """
+    Allows you to use the sea chart menu to warp to previously visited islands.
+    Still in development, is super broken rn
+    - warp_to_start_only: the only warp method is warp to start. Open the collection screen and flip it to prime a warp to start, and enter any entrance to trigger it.
+    - ports_require_items: creates an item for each island, that is required to warp there. You can only warp to an island's port.
+    - ports_open: you can warp to any island as soon as you've been there.
+    - detailed: coming soon! lets you select island quadrants or even dungeons from the map menu.
+    """
+    default = 0
+    option_warp_to_start_only = 0
+    option_ports_require_items = 1
+    option_ports_open = 2
+    option_detailed = 3
+
 @dataclass
 class PhantomHourglassOptions(PerGameCommonOptions):
     # Accessibility
@@ -838,6 +853,7 @@ class PhantomHourglassOptions(PerGameCommonOptions):
     spirit_island_hints: PhantomHourglassHintSpiritIsland
 
     # World Options
+    map_warp_options: PhantomHourglassMapWarp
     boss_key_behaviour: PhantomHourglassBossKeyBehavior
     pedestal_item_options: PhantomHourglassPedestalOptions
     color_switch_behaviour: PhantomHourglassSwitchBehaviour
@@ -933,6 +949,7 @@ ph_option_groups = [
         PhantomHourglassHintSpiritIsland
     ]),
     OptionGroup("World Options", [
+        PhantomHourglassMapWarp,
         PhantomHourglassFogSettings,
         PhantomHourglassSkipOceanFights,
         PhantomHourglassZauzRequiredMetals,

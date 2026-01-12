@@ -1328,6 +1328,7 @@ class PhantomHourglassWorld(World):
             # Beedle randomization
             "randomize_masked_beedle", "randomize_beedle_membership",
             # World Settings
+            "map_warp_options",
             "fog_settings", "skip_ocean_fights",
             "dungeon_shortcuts", "totok_checkpoints",
             "boss_key_behaviour", "color_switch_behaviour", "pedestal_item_options",

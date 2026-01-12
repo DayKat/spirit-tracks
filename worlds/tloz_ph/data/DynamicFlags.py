@@ -1331,5 +1331,34 @@ DYNAMIC_FLAGS = {
         "last_scenes": [0x250E],
         "unset_if_true": [(0x20C5F0, 0x10)]
     },
+    # Map warping setup
+    "Reset sea charts": {
+        "on_scenes": [0, 1, 2, 3],
+        "reset_flags": ["RESET Give all sea charts if map warping"]
+    },
+    "RESET Give all sea charts if map warping": {
+        "has_slot_data": [("map_warp_options", [1, 2, 3, 4])],
+        "set_if_true": [(0x1ba648, 0x1E)]
+    },
+    "Map warp remove sw chart": {
+        "on_scenes": [0, 1, 2, 3],
+        "has_items": [("SW Sea Chart", 0)],
+        "unset_if_true": [(0x1ba648, 0x2)]
+    },
+    "Map warp remove nw chart": {
+        "on_scenes": [0, 1, 2, 3],
+        "has_items": [("NW Sea Chart", 0)],
+        "unset_if_true": [(0x1ba648, 0x4)]
+    },
+    "Map warp remove se chart": {
+        "on_scenes": [0, 1, 2, 3],
+        "has_items": [("SE Sea Chart", 0)],
+        "unset_if_true": [(0x1ba648, 0x8)]
+    },
+    "Map warp remove ne chart": {
+        "on_scenes": [0, 1, 2, 3],
+        "has_items": [("NE Sea Chart", 0)],
+        "unset_if_true": [(0x1ba648, 0x10)]
+    },
 }
 
