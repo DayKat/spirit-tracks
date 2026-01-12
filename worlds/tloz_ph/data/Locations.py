@@ -1572,7 +1572,7 @@ LOCATIONS_DATA = {
         "id": 145,
     },
     "Isle of Gust South NW Chest": {
-        "region_id": "Gust South NW chest",
+        "region_id": "Gust South NW Chest",
         "vanilla_item": "Power Gem",
         "stage_id": 0xe,
         "floor_id": 0x0,

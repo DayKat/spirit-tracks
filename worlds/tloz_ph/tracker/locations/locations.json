@@ -1854,74 +1854,221 @@
       }
     ]
   },
-  { "name": "Events - Goron Island", "sections": [{"name": "EVENT: Goron NE Spike Switch"}, {"name": "EVENT: Goron SW Kill Yellow Chus"}, {"name": "EVENT: Goron SE Shout to Bridge Goron"}], "map_locations": [{
+  {
+    "name": "Events - Goron Island",
+    "sections": [
+      {
+        "name": "EVENT: Goron NE Spike Switch"
+      },
+      {
+        "name": "EVENT: Goron SW Kill Yellow Chus"
+      },
+      {
+        "name": "EVENT: Goron SE Shout to Bridge Goron"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 701,
         "y": 670
-      }] },
-    { "name": "Events - Goron Temple", "sections": [{"name": "EVENT: Defeat Dongorongo"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Goron Temple",
+    "sections": [
+      {
+        "name": "EVENT: Defeat Dongorongo"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 701,
         "y": 654
-      }] },
-    { "name": "Events - Wayfarer", "sections": [{"name": "EVENT: Meet Wayfarer"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Wayfarer",
+    "sections": [
+      {
+        "name": "EVENT: Meet Wayfarer"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 390,
         "y": 48
-      }] },
-      { "name": "Events - Isle of Ruins", "sections": [{"name": "EVENT: Bremeur's Temple Lower Water"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Isle of Ruins",
+    "sections": [
+      {
+        "name": "EVENT: Bremeur's Temple Lower Water"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 717,
         "y": 198
-      }] },
-        { "name": "Events - SS Wayfarer", "sections": [{"name": "EVENT: SS Wayfarer Give Wood Heart"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - SS Wayfarer",
+    "sections": [
+      {
+        "name": "EVENT: SS Wayfarer Give Wood Heart"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 770,
         "y": 550
-      }] },
-          { "name": "Events - Bellumbeck", "sections": [{"name": "GOAL: Bellumbeck"}, {"name": "GOAL"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Bellumbeck",
+    "sections": [
+      {
+        "name": "GOAL: Bellumbeck"
+      },
+      {
+        "name": "GOAL"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 250,
         "y": 455
-      }] },
-            { "name": "Events - Temple of the Ocean King", "sections": [{"name": "GOAL: Triforce Door"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Temple of the Ocean King",
+    "sections": [
+      {
+        "name": "GOAL: Triforce Door"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 395,
         "y": 478
-      }] },
-            { "name": "Events - Temple of Fire", "sections": [{"name": "EVENT: Defeat Blaaz"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Temple of Fire",
+    "sections": [
+      {
+        "name": "EVENT: Defeat Blaaz"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 440,
         "y": 706
-      }] },
-            { "name": "Events - Temple of Wind", "sections": [{"name": "EVENT: Defeat Cyclok"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Temple of Wind",
+    "sections": [
+      {
+        "name": "EVENT: Defeat Cyclok"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 306,
         "y": 237
-      }] },
-            { "name": "Events - Temple of Courage", "sections": [{"name": "EVENT: Defeat Crayk"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Temple of Courage",
+    "sections": [
+      {
+        "name": "EVENT: Defeat Crayk"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 144,
         "y": 591
-      }] },
-            { "name": "Events - Ghost Ship", "sections": [{"name": "EVENT: Rescue Tetra"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Ghost Ship",
+    "sections": [
+      {
+        "name": "EVENT: Rescue Tetra"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 93,
         "y": 198
-      }] },
-            { "name": "Events - Temple of Ice", "sections": [{"name": "EVENT: Defeat Gleeok"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Temple of Ice",
+    "sections": [
+      {
+        "name": "EVENT: Defeat Gleeok"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 946,
         "y": 485
-      }] },
-            { "name": "Events - Mutoh's Temple", "sections": [{"name": "EVENT: Defeat Eox"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Mutoh's Temple",
+    "sections": [
+      {
+        "name": "EVENT: Defeat Eox"
+      }
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 717,
         "y": 182
-      }] },
-  { "name": "Events - Cannon Island", "sections": [{"name": "EVENT: Open Eddo's Door"}], "map_locations": [{
+      }
+    ]
+  },
+  {
+    "name": "Events - Cannon Island",
+    "sections": [
+      {"name": "EVENT: Open Eddo's Door"}
+    ],
+    "map_locations": [
+      {
         "map": "Check Overview",
         "x": 343,
         "y": 652
-      }] }
+      }
+    ]
+  }
 ]

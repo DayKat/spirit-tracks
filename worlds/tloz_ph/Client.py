@@ -1107,7 +1107,8 @@ class PhantomHourglassClient(DSZeldaClient):
         else:
             raise ValueError(f"store_visited_entrances() had an unhandled interaction value {interaction}")
 
-        await self.store_data(ctx, key, new_data)
+        if new_data:
+            await self.store_data(ctx, key, new_data)
 
 
     def write_respawn_entrance(self, exit_data: "PHTransition"):
@@ -1194,7 +1195,10 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Not map switching due to cave: {hex(scene)}")
             return
 
-        tab_scene = scene | (1 << 16) if ctx.slot_data.get("shuffle_overworld_transitions", False) else scene
+        if scene in range(3):  # Sea overvire if port shuffle
+            tab_scene = 1 if ctx.slot_data["shuffle_ports"] else 0
+        else:
+            tab_scene = scene | (1 << 16) if ctx.slot_data.get("shuffle_overworld_transitions", False) else scene
         print(f"Storing new scene for UT {hex(tab_scene)}")
         await ctx.send_msgs([{
             "cmd": "Set",

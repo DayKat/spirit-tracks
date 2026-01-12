@@ -1,0 +1,260 @@
+[
+  {
+    "name": "Bannan Island",
+    "sections": [
+      {
+        "name": "Ocean NW Bannan"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 374,
+        "y": 64
+      }
+    ]
+  },
+  {
+    "name": "Cannon Island",
+    "sections": [
+      {
+        "name": "Ocean SW Cannon"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 327,
+        "y": 652
+      }
+    ]
+  },
+  {
+    "name": "Dee Ess",
+    "sections": [
+      {
+        "name": "Ocean SE Dee Ess"
+      },
+      {
+        "name": "Dee Ess Boat"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 842,
+        "y": 711
+      }
+    ]
+  },
+  {
+    "name": "Ghost Ship",
+    "sections": [
+      {
+        "name": "Board Ghost Ship"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 77,
+        "y": 198
+      }
+    ]
+  },
+  {
+    "name": "Goron Island",
+    "sections": [
+      {
+        "name": "Ocean SE Goron"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 685,
+        "y": 670
+      }
+    ]
+  },
+  {
+    "name": "Harrow Island",
+    "sections": [
+      {
+        "name": "Ocean SE Harrow"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 694,
+        "y": 470
+      }
+    ]
+  },
+  {
+    "name": "Isle of Ember",
+    "sections": [
+      {
+        "name": "Ocean SW Ember"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 424,
+        "y": 722
+      }
+    ]
+  },
+  {
+    "name": "Isle of Frost",
+    "sections": [
+      {
+        "name": "Ocean SE Frost"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 930,
+        "y": 501
+      }
+    ]
+  },
+  {
+    "name": "Isle of Gust",
+    "sections": [
+      {
+        "name": "Ocean NW Gust"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 290,
+        "y": 253
+      }
+    ]
+  },
+  {
+    "name": "Isle of Ruins",
+    "sections": [
+      {
+        "name": "Ocean NE Ruins"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 701,
+        "y": 198
+      }
+    ]
+  },
+  {
+    "name": "Isle of the Dead",
+    "sections": [
+      {
+        "name": "Ocean NE IotD"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 894,
+        "y": 114
+      }
+    ]
+  },
+  {
+    "name": "Maze Island",
+    "sections": [
+      {
+        "name": "Ocean NE Maze"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 770,
+        "y": 48
+      }
+    ]
+  },
+  {
+    "name": "Mercay Island",
+    "sections": [
+      {
+        "name": "Ocean SW Mercay"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 379,
+        "y": 494
+      }
+    ]
+  },
+  {
+    "name": "Molida Island",
+    "sections": [
+      {
+        "name": "Ocean SW Molida"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 128,
+        "y": 607
+      }
+    ]
+  },
+  {
+    "name": "Spirit Island",
+    "sections": [
+      {
+        "name": "Ocean SW Spirit"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 128,
+        "y": 706
+      }
+    ]
+  },
+  {
+    "name": "Uncharted Island",
+    "sections": [
+      {
+        "name": "Ocean NW Uncharted"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 406,
+        "y": 184
+      }
+    ]
+  },
+  {
+    "name": "Zauz's Island",
+    "sections": [
+      {
+        "name": "Ocean NW Zauz"
+      }
+    ],
+    "map_locations": [
+      {
+        "map": "Sea Overview",
+        "x": 258,
+        "y": 44
+      }
+    ]
+  }
+]
