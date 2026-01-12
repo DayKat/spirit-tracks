@@ -794,7 +794,7 @@ class PhantomHourglassUTBlockedEntrances(Choice):
 
 class PhantomHourglassMapWarp(Choice):
     """
-    Allows you to use the sea chart menu to warp to previously visited islands.
+    Allows you to use the sea chart menu to warp to previously visited islands. Open the sea chart menu and select an island to warp. Does not work at sea.
     Still in development, is super broken rn
     - warp_to_start_only: the only warp method is warp to start. Open the collection screen and flip it to prime a warp to start, and enter any entrance to trigger it.
     - ports_require_items: creates an item for each island, that is required to warp there. You can only warp to an island's port.

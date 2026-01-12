@@ -2191,7 +2191,7 @@ EVENTS: dict[str, "PHTransition"] = {name: entr for name, entr in ENTRANCES.item
 counter = {}
 i = 0
 entrance_id_to_region = {d.id: d.entrance_region for d in ENTRANCES.values()}
-
+entrance_id_to_entrance = {d.id: d for d in ENTRANCES.values()}
 # print({key: value for key, value in counter.items() if value != 1})
 
 
