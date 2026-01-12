@@ -94,9 +94,6 @@ ut_exclude_key = "ph_keylocking"
 save_scene_key = "ph_save_scene"
 visited_scenes_key = "ph_visited_scenes"
 
-def storage_key(ctx, key: str):
-    return f"{key}_{ctx.slot}_{ctx.team}"
-
 class PhantomHourglassClient(DSZeldaClient):
     game = "The Legend of Zelda - Phantom Hourglass"
     system = "NDS"
@@ -372,20 +369,6 @@ class PhantomHourglassClient(DSZeldaClient):
         if self.warp_to_start_flag and self.map_warp:
             self.map_warp = None
             logger.info(f"Canceled map warp due to starting a warp to start")
-
-        # Datastore requests take time, load when available
-        if not self.visited_entrances:
-            stored_disconnects = ctx.stored_data.get(storage_key(ctx, disconnect_key), [])
-            if stored_disconnects:
-                self.visited_entrances = set(stored_disconnects)
-        if not self.redisconnected_entrances:
-            stored_traversals = ctx.stored_data.get(storage_key(ctx, traversal_key), [])
-            if stored_traversals:
-                self.redisconnected_entrances = set(stored_traversals)
-        if not self.visited_scenes:
-            visited_scenes = ctx.stored_data.get(storage_key(ctx, visited_scenes_key), [])
-            if visited_scenes:
-                self.redisconnected_entrances = set(visited_scenes)
 
         # if self.is_dead and not self.death_check:
         #     self.death_check = True
@@ -874,6 +857,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def redisconnect(self, ctx, data):
         # store redisconnects
         key = storage_key(ctx, disconnect_key)
+        self.redisconnected_entrances |= get_stored_data(ctx, disconnect_key, set())
         await self.store_data(ctx, key, data)
         self.redisconnected_entrances.update(data)
 
@@ -1103,29 +1087,10 @@ class PhantomHourglassClient(DSZeldaClient):
                          storage_key(ctx, traversal_key),
                          storage_key(ctx, visited_scenes_key)],
             }])
-        stored_disconnects = ctx.stored_data.get(storage_key(ctx, disconnect_key), [])
-        stored_traversals = ctx.stored_data.get(storage_key(ctx, traversal_key), [])
-        stored_scenes = ctx.stored_data.get(storage_key(ctx, visited_scenes_key), [])
-        if stored_disconnects:
-            self.visited_entrances = set(stored_disconnects)
-        if stored_traversals:
-            self.redisconnected_entrances = set(stored_traversals)
-        if stored_scenes:
-            self.redisconnected_entrances = set(stored_scenes)
-
-    async def overwrite_old_stored_data(self, ctx, key, remove_data, old_data):
-        # Remove disconnected entrances
-        list_changed = False
-        for i in remove_data:
-            if i in old_data:
-                old_data.remove(i)
-                list_changed = True
-        if list_changed:
-            await self.store_data(ctx, key, old_data, "replace")
-        return old_data
 
     # UT store entrances to remove
     async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data, interaction="traverse"):
+        self.visited_entrances |= set(get_stored_data(ctx, traversal_key, set()))
         old_visited_entrances = self.visited_entrances.copy()
         new_data = {detect_data.id, exit_data.id}
 
@@ -1138,8 +1103,6 @@ class PhantomHourglassClient(DSZeldaClient):
         else:
             raise ValueError(f"store_visited_entrances() had an unhandled interaction value {interaction}")
 
-        # print(f"visited: {self.visited_entrances} old {old_visited_entrances}")
-        # print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
         await self.store_data(ctx, key, new_data)
 
 
@@ -1221,18 +1184,19 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def ut_bounce_scene(self, ctx, scene):
         if not ctx.slot_data["shuffle_houses"] and map_type_lookup.get(scene) == "house":
+            print(f"Not map switching due to house: {hex(scene)}")
             return
         if not ctx.slot_data["shuffle_caves"] and map_type_lookup.get(scene) == "cave":
+            print(f"Not map switching due to cave: {hex(scene)}")
             return
 
-        if ctx.slot_data.get("shuffle_overworld_transitions", False):
-            scene |= 1 << 16
-        print(f"Storing new scene for UT {hex(scene)}")
+        tab_scene = scene | (1 << 16) if ctx.slot_data.get("shuffle_overworld_transitions", False) else scene
+        print(f"Storing new scene for UT {hex(tab_scene)}")
         await ctx.send_msgs([{
             "cmd": "Set",
             "key": f"{ctx.slot}_{ctx.team}_UT_MAP",
             "default": 0,
-            "operations": [{"operation": "replace", "value": scene}]
+            "operations": [{"operation": "replace", "value": tab_scene}]
         }])
 
         # Save visited scenes
@@ -1250,13 +1214,12 @@ class PhantomHourglassClient(DSZeldaClient):
             logger.info(f"Illegal map menu exit, canceling all map warps")
 
         if self.last_saved_scene is None:
-            key = f"ph_save_scene_{ctx.slot}_{ctx.team}"
+            key = storage_key(ctx, save_scene_key)
             await ctx.send_msgs([{
                 "cmd": "Get",
                 "keys": [key]
             }])
-            print(f"Stored keys: {[k for k in ctx.stored_data.keys()]}")
-            last_saved_scene = ctx.stored_data.get(key, None)
+            last_saved_scene = get_stored_data(ctx, save_scene_key)
             print(f"fetched last saved scene: {last_saved_scene}")
             self.last_saved_scene = last_saved_scene if self.lss_retry_attempts >= 0 else 0 # if last_saved_scene is not None else False
             self.lss_retry_attempts -= 1

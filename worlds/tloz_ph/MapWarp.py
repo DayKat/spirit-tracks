@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, item_count
+from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, item_count, storage_key, get_stored_data
 from .data.Entrances import ENTRANCES, entrance_id_to_entrance
 import logging
 
@@ -20,8 +20,8 @@ transition_lookup = {
     0x27: "Frost Boat",
     0x28: "Goron Boat",
     0x29: "Ruins Boat",
-    0x2A: "Cannon Boat",
-    0x2B: "Dee Ess Boat",
+    0x2A: "Dee Ess Boat",
+    0x2B: "Cannon Boat",
     0x2C: "Bannan Boat",
     0x2D: "IotD Boat",
     0x2E: "Zauz Boat",
@@ -43,8 +43,8 @@ no_ow_er_lookup = {
     0x28: [0x1000, 0x1001, 0x1002, 0x1003],
     0x29: [0x1100, 0x1101, 0x1103,
            0x1200, 0x1201, 0x1203],
-    0x2A: [0x1300],
-    0x2B: [0x1B00],
+    0x2A: [0x1B00],
+    0x2B: [0x1300],
     0x2C: [0x1400],
     0x2D: [0x1500],
     0x2E: [0x1600],
@@ -67,8 +67,8 @@ ow_er_lookup = {
     0x28: [0x1002],
     0x29: [0x1100,
            0x1200],
-    0x2A: [0x1300],
-    0x2B: [0x1B00],
+    0x2A: [0x1B00],
+    0x2B: [0x1300],
     0x2C: [0x1400],
     0x2D: [0x1500],
     0x2E: [0x1600],
@@ -123,11 +123,13 @@ def check_any_er(ctx):
 def check_entrances(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", trans_value, safe_entrance_map):
     if trans_value not in safe_entrance_map:
         return True
-    if not ctx.slot_data["shuffle_ports"]:  # Entrances only exist if things are actually randomized, this solves most cases
+    if not ctx.slot_data["shuffle_ports"]:  # Entrances only exist if things are actually randomized, this solves most cases. actually it prevents warping to uncharted but i dont care
         if not (ctx.slot_data["shuffle_caves"] and trans_value in [0x2C, 0x32]):
             return True
 
+    client.visited_entrances |= set(get_stored_data(ctx, "ph_traversed_entrances", []))
     visited_entrances = client.visited_entrances
+    print(f"Visited entrances: {visited_entrances}")
     for entr in safe_entrance_map[trans_value]:
         entr_id = ENTRANCES[entr].id
         if entr_id in visited_entrances:
@@ -153,6 +155,30 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
 
     # read transition mode
     transition_mode = await read_memory_value(ctx, 0x1BA700, silent=True)
+
+    client.visited_scenes |= set(get_stored_data(ctx, 'ph_visited_scenes', []))
+
+    if client.pen_mode_pointer: # Do fun stuff with the pen and eraser buttons
+        current_pen_mode = await read_memory_value(ctx, client.pen_mode_pointer, silent=True)
+        if current_pen_mode in [0x18, 0x19] and current_pen_mode != client.last_pen_mode:
+            if current_pen_mode == 0x19:
+                def quick_entrance_log(key):
+                    logger.info(f"Current storage {key}:")
+                    for e in get_stored_data(ctx, key, []):
+                        logger.info(f"  {entrance_id_to_entrance[e].name}")
+
+                quick_entrance_log("ph_checked_entrances")
+                quick_entrance_log("ph_disconnect_entrances")
+                quick_entrance_log("ph_traversed_entrances")
+                logger.info(f"local traverses: {client.visited_entrances}")
+
+                logger.info(f"Currently stored scenes:")
+                for i in set(get_stored_data(ctx, 'ph_visited_scenes', [])) | client.visited_scenes:
+                    logger.info(f"  {hex(i)}")
+
+            client.last_pen_mode = current_pen_mode
+
+
     if not transition_mode: return
 
     # Enter map mode
@@ -168,13 +194,16 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         client.map_mode = False
         print(f"Exiting Map Menu")
     elif client.map_warp_reselector and transition_mode in transition_lookup:
-        logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
         print(f"bool map warp {client.map_warp} {bool(client.map_warp)}")
         client.map_warp_reselector = False
 
         # Setup pen mode stuff
-        client.pen_mode_pointer = (await read_memory_value(ctx, 0x1CCCEC, silent=True))+26*4-0x2000000
-        client.last_pen_mode = await read_memory_value(ctx, client.pen_mode_pointer)
+        pen_mode_pointer = await read_memory_value(ctx, 0x1CCCEC, silent=True, size=4)
+        print(f"pen mode pointer {hex(pen_mode_pointer)}")
+        client.pen_mode_pointer = pen_mode_pointer+25*4-0x2000000
+        if client.pen_mode_pointer < 0xFFFFFF:
+            client.last_pen_mode = await read_memory_value(ctx, client.pen_mode_pointer)
+        else: client.pen_mode_pointer = None
 
         # Do detailed warp instructions
         if check_any_er(ctx):
@@ -192,8 +221,12 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
 
         # Failure conditions
         if not client.map_warp:
-            logger.info(f"You have yet to visit that island")
-        elif client.current_scene in ow_er_lookup[client.map_warp.stage]:
+            land_type = "ocean" if transition_mode in range(0x1f, 0x23) else "island's port"
+            if ctx.slot_data["shuffle_caves"] and not ctx.slot_data["shuffle_ports"] and transition_mode == 0x32:
+                logger.info(f"You can't warp to uncharted with these settings, cause i don't know if you have boat access.")
+            else:
+                logger.info(f"You have yet to visit that {land_type}")
+        elif client.current_scene in ow_er_lookup[transition_mode]:
             logger.info(f"You are already in that scene, you can't warp there")
             client.map_warp = None
         elif transition_mode in range(0x1f, 0x23) and ctx.slot_data["boat_requires_sea_chart"]:
@@ -202,17 +235,10 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
             if not item_count(ctx, trans_mode_to_chart[transition_mode]):
                 client.map_warp = None
                 logger.info(f"You do not have the correct sea chart")
+            else:
+                logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
+        else:  # success
+            logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
 
     elif transition_mode == 0x17:  # Return to big map, reset selector
         client.map_warp_reselector = True
-    elif client.pen_mode_pointer: # Do fun stuff with the pen and eraser buttons
-        current_pen_mode = await read_memory_value(ctx, client.pen_mode_pointer)
-        print(f"Current pen mode")
-        if current_pen_mode in [0x18, 0x19] and current_pen_mode != client.last_pen_mode:
-            print(f"Changed Pen Mode")
-            if current_pen_mode == 0x19:
-                logger.info(f"Currently visited entrances")
-                for i in client.visited_entrances:
-                    logger.info(f"\t{entrance_id_to_entrance[i].name}")
-
-            client.last_pen_mode = current_pen_mode
