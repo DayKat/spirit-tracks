@@ -967,7 +967,7 @@ ENTRANCE_DATA = {
     },
     "Goron SE Mountain House": {
         "return_name": "Goron Mountain House Exit",
-        "entrance_region": "Goron SE",
+        "entrance_region": "Goron SE NW",
         "exit_region": "Goron House Right Rock",
         "entrance": (0x10, 0x3, 0x2),
         "exit": (0x10, 0xF, 0x0),
@@ -1039,7 +1039,7 @@ ENTRANCE_DATA = {
     "Goron SW Coast East": {
         "return_name": "Goron SE Coast West",
         "entrance_region": "Goron SW",
-        "exit_region": "Goron SE",
+        "exit_region": "Goron SE NW",
         "entrance": (0x10, 0x2, 0xFD),
         "exit": (0x10, 0x3, 0xFE),
         "coords": (-8000, 4751, 70000),
@@ -1050,7 +1050,7 @@ ENTRANCE_DATA = {
     "Goron SW Mountains East": {
         "return_name": "Goron SE Mountains West",
         "entrance_region": "Goron SW Chu Ledge",
-        "exit_region": "Goron SE",
+        "exit_region": "Goron SE NW",
         "entrance": (0x10, 0x2, 0xFD),
         "exit": (0x10, 0x3, 0xFE),
         "coords": (-8000, 9666, 22500),
@@ -2066,7 +2066,7 @@ EVENT_DATA = {
     },
     "EVENT: Goron SE Shout to Bridge Goron": {
         "two_way": False,
-        "entrance_region": "Goron SE",
+        "entrance_region": "Goron SE NW",
         "exit_region": "Goron SE Bridge Event",
         "entrance": (0x10, 0x3, 0x0),
         "type": EntranceGroups.EVENT,

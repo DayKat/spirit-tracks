@@ -510,6 +510,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Ruins SE Return Bridge East", "_ruins_bridge")
         self.create_event("Frost SE Yook", "_frost_ice_field")
         self.create_event("Uncharted Puzzle", "_uncharted_bridge")
+        self.create_event("Molida Temple Doors", "_molida_temple_doors")
         # Blue warps
         self.create_event("ToF 4F", "_tof_blue_warp")
         self.create_event("ToW 2F", "_tow_blue_warp")

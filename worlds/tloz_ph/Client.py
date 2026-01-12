@@ -189,7 +189,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Start with sea maps if map warping
         if ctx.slot_data["map_warp_options"]:
-            write_list += [(0x1ba648, [0x1E], "Main RAM")]
+            write_list += [(0x1ba648, [0x1F], "Main RAM")]
 
         return write_list
 
@@ -857,7 +857,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def redisconnect(self, ctx, data):
         # store redisconnects
         key = storage_key(ctx, disconnect_key)
-        self.redisconnected_entrances |= get_stored_data(ctx, disconnect_key, set())
+        self.redisconnected_entrances |= set(get_stored_data(ctx, disconnect_key, set()))
         await self.store_data(ctx, key, data)
         self.redisconnected_entrances.update(data)
 
@@ -888,6 +888,10 @@ class PhantomHourglassClient(DSZeldaClient):
             data = ITEMS_DATA[vanilla_item]
             await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)
             return False
+
+        elif ctx.slot_data.get("map_warp_options", 0) and "Sea Chart" in vanilla_item:
+            # Do nothing with sea charts if map warp is enabled
+            return True
 
         elif vanilla_item in ITEM_GROUPS["Throwable Keys"]:
             # Don't do anything if vanilla bk behaviour

@@ -267,6 +267,7 @@ REGIONS = [
     "Molida North",
     "Molida North Grapple",
     "Molida Outside Temple",
+    "Molida Temple Doors",
 
     # Temple of Courage
     "ToC 1F",
@@ -322,7 +323,7 @@ REGIONS = [
     "Gust South NW",
     "Gust North Above Temple",
     "Gust South NW Ledge",
-    "Gust South NW chest",
+    "Gust South NW Chest",
     "Gust North",
     "Gust North Dig",
     "Gust North Sandworms",
@@ -404,6 +405,7 @@ REGIONS = [
     "Goron SW Grapple",
     "Goron NW Shortcut",
     "Goron SE",
+    "Goron SE NW",
     "Goron SE Bridge Event",
     "Goron Chief House",
     "Goron House Two Rocks",
