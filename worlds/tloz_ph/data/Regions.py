@@ -13,6 +13,8 @@ REGIONS = [
     "Long Bridge Cave Chest",
     "Long Bridge Cave",
     "Mercay SE Ojibe",
+    "Mercay SE Shipyard",
+    "Mercay SE Treasure Teller",
     "Oshus Gem",
     "Oshus Phantom Blade",
 
@@ -678,6 +680,9 @@ REGIONS = [
     "Salvage 29",
     "Salvage 30",
     "Salvage 31",
+
+    # UT Event Events
+    "Event Goron Shortcut Bridge",
 ]
 
 

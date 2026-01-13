@@ -31,10 +31,12 @@ def make_overworld_logic():
         ["Mercay SE", "Milk Bar", True, None],
         ["Mercay SE", "Mercay Shop", True, None],
         ["Mercay Shop", "Island Shop", False, None],
-        ["Mercay SE", "Shipyard", False, "has", "_beat_tof"],
-        ["Shipyard", "Mercay SE", False, None],
-        ["Mercay SE", "Treasure Teller", False, "courage_crest"],
-        ["Treasure Teller", "Mercay SE", False, None],
+        ["Mercay SE", "Mercay SE Shipyard", False, "has", "_beat_tof"],
+        ["Shipyard", "Mercay SE Shipyard", True, None],
+        ["Mercay SE Shipyard", "Mercay SE", False, None],
+        ["Mercay SE", "Mercay SE Treasure Teller", False, "courage_crest"],
+        ["Mercay SE Treasure Teller", "Treasure Teller", True, None],
+        ["Mercay SE Treasure Teller", "Mercay SE", False, None],
         ["Mercay SE", "Mercay SE Ojibe", False, "courage_crest"],
         ["Mercay SE", "Mercay NE", True, False],
         ["Mercay SE Ledge", "Mercay SE", False, None],
@@ -50,7 +52,6 @@ def make_overworld_logic():
         ["Long Bridge Cave", "Mercay NE", False, None],
         ["Long Bridge Cave", "Mercay NW Freedle Island", True, None],
         ["Mercay NW Freedle Island", "Mercay NE", False, None],
-        ["Mercay NE", "Mercay NW Freedle Island", False, "has", "_freedle_island_switch"],
         ["Long Bridge Cave", "Long Bridge Cave Chest", False, "range"],
         ["Mercay NW Freedle Island", "Mercay NW Freedle Gift", False, "sea_chart", "SE"],
         ["Mercay NE", "Mercay NW Temple", True, None],
@@ -872,6 +873,9 @@ def make_overworld_logic():
 
     return overworld_logic
 
+ut_event_logic = [
+    ["Menu", "Event Goron Shortcut Bridge", False, None],
+]
 
 def is_item(item: Item, player: int, item_name: str):
     return item.player == player and item.name == item_name
@@ -913,6 +917,7 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
                 alias_logic.append([region, alias, False, None])
         all_logic.append(alias_logic)
         all_logic.append([[entr.entrance_region, entr.name, False, None] for entr in ENTRANCES.values() if entr.name not in REGIONS])
+        all_logic.append(ut_event_logic)
 
     test_entrances = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}
     uncreated_entrances = [e.name for e in ENTRANCES.values()]

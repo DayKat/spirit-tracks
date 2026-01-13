@@ -266,6 +266,14 @@ class PhantomHourglassWorld(World):
                             if ((self.options.goal_requirements == "triforce_door" or self.options.bellum_access == "win")
                                   and event.name in ["GOAL: Bellumbeck"]):
                                 continue
+
+                        if self.options.exclude_non_required_dungeons:
+                            loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
+                            if loc_lookup:
+                                print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
+                                loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
+                                if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
+                                    continue
                         print(f"Adding Event: {event.name}")
                         self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
@@ -375,7 +383,7 @@ class PhantomHourglassWorld(World):
             if location_name == "Man of Smiles' Prize Postcard":  # This it pretty random but whatever...
                 return self.options.randomize_beedle_membership.value > 0
             if "EVENT" in location_name:
-                print(f"Found event {location_name} {getattr(self.multiworld, "generation_is_fake", False)}")
+                print(f"Found event {location_name} {getattr(self.multiworld, 'generation_is_fake', False)}")
                 return getattr(self.multiworld, "generation_is_fake", False)
             return False
 
@@ -484,6 +492,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Spawn Pirate Ambush", "_beat_ghost_ship")
         # Farmable minigame events
         self.create_event("Bannan Cannon Game", "_can_play_cannon_game")
+        self.create_event("Archery Game", "_can_play_archery")
         self.create_event("Harrow Minigame", "_can_play_harrow")
         self.create_event("Dee Ess Goron Race", "_can_play_goron_race")
         self.create_event("TotOK B1 Phantom", "_can_farm_totok")
@@ -1480,13 +1489,28 @@ class PhantomHourglassWorld(World):
                 self.multiworld.get_location(self.location_id_to_name[i], self.player).progress_type = LocationProgressType.EXCLUDED
 
         elif "ph_ut_events" in key and stored_data:
+            # Used to create an event item for specific tracker logic
             def manage_ut_event(stored_name, region_name, event_item_name):
                 if stored_name in stored_data and not stored_name in self.ut_created_events:
                     print(f"UT is Creating {event_item_name} event")
                     self.create_event(region_name, event_item_name)
                     self.ut_created_events.append(stored_name)
 
+            # Used when event is only used for get_logical_path. inspired by codegorilla's crystalis implementation
+            def connect_existing_regions(stored_name, reg1, reg2, name=None):
+                if stored_name in stored_data: #  and not stored_name in self.ut_created_events:
+                    try:
+                        entr = self.get_entrance(f"{reg1} -> {reg2}")
+                        print(f"Entrance exists, removing rule")
+                        entr.access_rule = lambda state: True
+                    except KeyError:
+                        print(f"Entrance does not exist, creating it anew")
+                        self.get_region(reg1).connect(self.get_region(reg2), name)
+
             # Sent on getting location. Does not show event in UT
             manage_ut_event("1f", "TotOK 1F Chart", "_UT_got_chart")
-            # manage_ut_event("wayfarer", "Wayfarer Event", "_UT_wayfarer")
-
+            # Connected on flag read
+            connect_existing_regions("gsb", "Goron NW Shortcut", "Goron NW Outside Temple")
+            connect_existing_regions("fi", "Mercay NE", "Mercay NW Freedle Island")
+            connect_existing_regions("gms", "Goron NE Middle", "Goron NE")
+            connect_existing_regions("gss", "Goron NE South", "Goron NE")

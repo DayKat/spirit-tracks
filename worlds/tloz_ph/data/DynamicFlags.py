@@ -1054,12 +1054,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(0x1b5590, 0x80)],
         "reset_flags": ["RESET Wood Heart"]
     },
-    "Wayfarer Hut Trade Quest Bannan Flag": {
-        "on_scenes": [0x1401],
-        "not_has_locations": ["Wayfarer Trade Quest Chest"],
-        "set_if_true": [(0x20DAA1, 0x80)],
-        "check_bits": [(0x1B5592, 0x8)],
-    },
+    # "Wayfarer Hut Trade Quest Bannan Flag": {
+    #     "on_scenes": [0x1401],
+    #     "not_has_locations": ["Wayfarer Trade Quest Chest"],
+    #     "set_if_true": [(0x20DAA1, 0x80)],
+    #     "check_bits": [(0x1B5592, 0x8)],
+    # },
     "RESET Swordsmans Scroll": {
         # "on_scenes": [0x0, 0x1, 0x2, 0x3],
         "has_items": [("Swordsman's Scroll", 1)],

@@ -1832,6 +1832,7 @@ LOCATIONS_DATA = {
         "value": 0x40,
         "delay_reset": True,
         "conditional": True,
+        "farmable": True,
         "id": 169,
     },
     "Wayfarer Trade Quest Chest": {

@@ -1479,20 +1479,22 @@ UT_EVENT_DATA = {
                 0x800: {"address": 0x1B5592,
                        "value": 0x8,
                        "entrance": "EVENT: SS Wayfarer Give Wood Heart"},
-                0x1001: {"address": "stage_flags",
-                       "value": 0x400,
-                       "entrance": "EVENT: Goron NE Spike Switch",
-                       "size": 2},
-                # 0x1401: {
-                #     "address": 0x1B5581,
-                #     "value": 0x8,
-                #     "entrance": "EVENT: Meet Wayfarer",
-                # },
-                0x1003: {
-                    "address": 0x1B559F,
-                    "value": 0x2,
-                    "entrance": "EVENT: Goron SE Shout to Bridge Goron"
-                },
+                0x1001: [
+                    {"address": "stage_flags",
+                     "value": 0x400,
+                     "entrance": "EVENT: Goron NE Spike Switch",
+                     "size": 2},
+                    {"address": 0x262888,
+                      "value": 0x8,
+                      "event": "gms"},
+                    {"address": 0x262888,
+                     "value": 0x1,
+                     "event": "gss"}],
+                0x1003: [
+                    {"address": 0x1B559F,
+                        "value": 0x2,
+                        "entrance": "EVENT: Goron SE Shout to Bridge Goron"},
+                ],
                 0x1002: {"address": 0x1B559E,
                          "value": 0x20,
                          "entrance": "EVENT: Goron SW Kill Yellow Chus"},
@@ -1501,8 +1503,25 @@ UT_EVENT_DATA = {
                          "entrance": "EVENT: Open Eddo's Door",},
                 0xe01: {"address": "stage_flags",
                          "value": 0x20,
-                         "entrance": "EVENT: Gust Windmills",}
+                         "entrance": "EVENT: Gust Windmills",},
+                0x1000: {"address": "stage_flags",
+                        "value": 0x2,
+                        "event": "gsb"},
+    0xB02: {"address": "stage_flags",
+             "value": 0x100,
+             "event": "fi",
+              "size": 2},
             }
+
+BOSS_EVENT_TO_LOCATION = {
+    "EVENT: Defeat Blaaz": "Blaaz Boss Reward",
+    "EVENT: Defeat Cyclok": "Cyclok Boss Reward",
+    "EVENT: Defeat Crayk": "Crayk Boss Reward",
+    "EVENT: Rescue Tetra": ["Ghost Ship Rescue Tetra", "Cubus Sisters Ghost Key"],
+    "EVENT: Defeat Dongorongo": "Dongorongo Boss Reward",
+    "EVENT: Defeat Gleeok": "Gleeok Boss Reward",
+    "EVENT: Defeat Eox": "Eox Boss Reward",
+}
 
 # Decode classification for humans
 CLASSIFICATION = {

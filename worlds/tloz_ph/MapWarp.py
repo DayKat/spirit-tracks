@@ -253,6 +253,8 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
             if transition_mode in warp_item_lookup and not item_count(ctx, warp_item_lookup[transition_mode]):
                 client.map_warp = None
                 logger.info(f"Missing warp unlock item for that island")
+            else:
+                logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
         elif transition_mode in range(0x1f, 0x23) and ctx.slot_data["boat_requires_sea_chart"]:
             # If warping to sea, check sea chart reqs
             trans_mode_to_chart = {0x1F: "SW Sea Chart", 0x20: "SE Sea Chart", 0x21: "NW Sea Chart", 0x22: "NE Sea Chart"}

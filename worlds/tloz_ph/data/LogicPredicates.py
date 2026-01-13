@@ -481,7 +481,7 @@ def ph_can_farm_rupees(state: CollectionState, player: int):
                 all([  # Can Farm Minigames
                     ph_option_randomize_minigames(state, player),
                     any([
-                        state.has("_beat_toc", player),  # Archery Game
+                        state.has("_can_play_archery", player),
                         state.has("_can_play_cannon_game", player),
                         state.has("_can_play_goron_race", player),
                     ])
@@ -1087,7 +1087,6 @@ def ph_can_reach_mp2(state: CollectionState, player: int):
 def ph_can_reach_mp2_top(state, player):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 2),
-        state.has("_mp1", player),
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
@@ -1585,15 +1584,14 @@ def ph_beat_ghost_ship(state: CollectionState, player):
 # Goron
 
 def ph_goron_shortcut(state, player):
+    # print(f"\tHas goron shortcut event: {state.has('_goron_shortcut_bridge', player)}")
     return any([
         ph_can_hammer_clip(state, player),
-        state.has("_goron_shortcut_bridge", player)
     ])
 
 def ph_goron_south_reverse(state, player):
     return any([
         ph_has_explosives(state, player),
-        state.has("_goron_bomb_flowers", player)
     ])
 
 def ph_goron_entrance(state, player):

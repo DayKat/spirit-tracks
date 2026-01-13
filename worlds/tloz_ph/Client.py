@@ -132,6 +132,8 @@ class PhantomHourglassClient(DSZeldaClient):
         self.item_location_combo = None
 
         self.sent_event = False
+        self.event_read_list = {}
+        self.event_data = []
         self.last_saved_scene = None
         self.lss_retry_attempts = 4
         self.death_check = False
@@ -217,6 +219,7 @@ class PhantomHourglassClient(DSZeldaClient):
         address = 0x1BA5AC + randint(0, 7)
         await write_memory_value(ctx, address, 1, incr=True)
         await self.update_treasure_tracker(ctx)
+        logger.info(f"Got random treasure from farmable location.")
 
     async def update_potion_tracker(self, ctx):
         read_list = {"left": (0x1BA5D8, 1, "Main RAM"),
@@ -378,7 +381,7 @@ class PhantomHourglassClient(DSZeldaClient):
             logger.info(f"Map warp canceled due to death")
 
         if self.is_dead and ctx.slot_data["shuffle_bosses"] and self.current_scene in BOSS_WARP_SCENE_LOOKUP and not self.death_warning_spam_protect:
-            if not read_result["in_cutscene"]:
+            if read_result["in_cutscene"]:
                 logger.info(f"WARNING! Clicking continue in a boss room will put you out of logic. Please save and quit before continuing.")
             self.death_warning_spam_protect = True
         elif not self.is_dead:
@@ -447,6 +450,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         self.sent_event = False  # Reset per-room UT events
+        self.event_data = []
+        self.event_read_list = {}
         self.save_spam_protection = False  # Reset save spam protection
 
         # Yellow warp in TotOK saves keys
@@ -472,6 +477,10 @@ class PhantomHourglassClient(DSZeldaClient):
             await self.edit_ship(ctx)
         if current_scene in [0xB03]:
             await self.remove_ship_parts(ctx)
+
+        if current_scene == 0x1401:  # Bannan chest needs to happen after load
+            if await read_memory_value(ctx, 0x1B5592) & 0x8:
+                await write_memory_value(ctx, 0x20DAA1, 0x80)
 
         # Open pedestal doors. sucks that you can't trigger it with dynaflags. slow code but game is slower
         if ctx.slot_data.get("randomize_pedestal_items", 0) > 0:
@@ -734,6 +743,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 await self.give_random_treasure(ctx)
             else:
                 self.last_vanilla_item.pop()
+                logger.info(f"Got farmable location")
 
     async def receive_key_in_own_dungeon(self, ctx, item_name: str, write_keys_to_storage):
         # TotOK - adds to key increment if you get it in the dungeon, otherwise do as usual
@@ -1055,17 +1065,36 @@ class PhantomHourglassClient(DSZeldaClient):
         """
         Send UT event locations on certain flags being set in certain scenes.
         """
-        if not self.sent_event:
-            if scene in UT_EVENT_DATA:
+        if scene in UT_EVENT_DATA and not self.sent_event:
+            if not self.event_read_list:
                 data = UT_EVENT_DATA[scene]
-                address = self.stage_address if data["address"] == "stage_flags" else data["address"]
-                if await read_memory_value(ctx, address, size=data.get("size", 1), silent=True) & data["value"]:
-                    print(f"Event detection Success!, {data['entrance']}")
-                    entrance = ENTRANCES[data["entrance"]]
-                    await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
-                    self.sent_event = True
-            else:
+                data = [data] if isinstance(data, dict) else data
+                self.event_data = data
+                for event in data:
+                    key = event.get("entrance", event.get("event"))
+                    address = self.stage_address if event["address"] == "stage_flags" else event["address"]
+                    self.event_read_list[key] = (address, event.get("size", 1), "Main RAM")
+
+            read_results = await read_memory_values(ctx, self.event_read_list)
+            for event, res in zip(self.event_data, read_results.values()):
+                if event["value"] & res:
+                    if "entrance" in event:
+                        print(f"Event detection Success!, {event['entrance']}")
+                        entrance = ENTRANCES[event["entrance"]]
+                        await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
+                    elif "event" in event:
+                        print(f"Event detection Success!, {event['event']}")
+                        key = storage_key(ctx, ut_events_key)
+                        await self.store_data(ctx, key, [event["event"]])
+
+                    self.event_read_list.pop(event.get("event", event.get("entrance")))
+                    self.event_data.remove(event)
+            if not self.event_data:
+                print(f"All events sent!")
                 self.sent_event = True
+
+        else:
+            self.sent_event = True
 
     async def conditional_er(self, ctx, exit_data) -> bool:
         print(f"\tcond. {exit_data.name} {exit_data.extra_data} lowered water: {self.lowered_water}")
@@ -1210,7 +1239,7 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Not map switching due to cave: {hex(scene)}")
             return
 
-        if scene in range(3):  # Sea overvire if port shuffle
+        if scene in range(4):  # Sea overview if port shuffle
             tab_scene = 1 if ctx.slot_data["shuffle_ports"] else 0
         else:
             tab_scene = scene | (1 << 16) if ctx.slot_data.get("shuffle_overworld_transitions", False) else scene
