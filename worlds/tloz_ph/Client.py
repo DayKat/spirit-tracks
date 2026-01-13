@@ -136,6 +136,7 @@ class PhantomHourglassClient(DSZeldaClient):
         self.lss_retry_attempts = 4
         self.death_check = False
         self.death_precision = None
+        self.save_spam_protection = False
 
         # Map warp vars
         self.map_mode: bool = False  # if in warp menu
@@ -354,11 +355,13 @@ class PhantomHourglassClient(DSZeldaClient):
         if self.current_stage == 3 and read_result.get("salvage_health", 5) <= 1:
             await self.instant_repair_salvage_arm(ctx)
 
-        if read_result.get("saving") == 0x46:
+        if read_result.get("saving") == 0x46 and not self.save_spam_protection:
             print(f"Saving scene {hex(self.current_scene)}")
             self.last_saved_scene = self.current_scene
             await self.store_data(ctx, storage_key(ctx, save_scene_key), self.last_saved_scene, "replace", default=0)
+            self.save_spam_protection = True
 
+        # Map warp entrypoint
         if read_result.get("in_map", 0):
             await map_mode(self, ctx, read_result)
         if not read_result.get("in_map", 0) and self.map_mode:
@@ -369,6 +372,12 @@ class PhantomHourglassClient(DSZeldaClient):
         if self.warp_to_start_flag and self.map_warp:
             self.map_warp = None
             logger.info(f"Canceled map warp due to starting a warp to start")
+        if self.map_warp and self.is_dead:
+            self.map_warp = None
+            logger.info(f"Map warp canceled due to death")
+
+        if self.is_dead and ctx.slot_data["shuffle_bosses"] and self.current_stage in BOSS_WARP_SCENE_LOOKUP:
+            logger.info(f"WARNING! Clicking continue in a boss room will put you out of logic. Please save and quit before continuing.")
 
         # if self.is_dead and not self.death_check:
         #     self.death_check = True
@@ -433,6 +442,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         self.sent_event = False  # Reset per-room UT events
+        self.save_spam_protection = False  # Reset save spam protection
+
         # Yellow warp in TotOK saves keys
         # TODO: allow this to work with ER
         if self.last_scene is not None:
@@ -470,7 +481,6 @@ class PhantomHourglassClient(DSZeldaClient):
                         or item_count(ctx, "Round Crystals")):
                     await write_memory_value(ctx, 0x25762C, 0x2)
                 if (item_count(ctx, "Triangle Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Triangle Pedestal B8 (Temple of the Ocean King)")
                         or item_count(ctx, "Triangle Crystals")):
                     await write_memory_value(ctx, 0x25762C, 0x4)
             elif current_scene == 0x250C:  # B9
@@ -1232,6 +1242,11 @@ class PhantomHourglassClient(DSZeldaClient):
             self.last_saved_scene = last_saved_scene if self.lss_retry_attempts >= 0 else 0 # if last_saved_scene is not None else False
             self.lss_retry_attempts -= 1
 
+        if self.warp_to_start_flag:
+            print(f"Entered menu with warp to start active")
+            self.warp_to_start_flag = False
+
+
 
         if self.current_stage & 0xFF == 0x6E:
             started_save_file = await read_memory_value(ctx, 0x1B7FB8, silent=True)
@@ -1243,6 +1258,12 @@ class PhantomHourglassClient(DSZeldaClient):
                     if warp_exit is not None:
                         self.precision_mode = [0x1B2E94, 0x6E, "warp", warp_exit]
                         ctx.watcher_timeout = 0.1
+
+                if self.warp_to_start_flag:
+                    print(f"Started save file with warp to start active, warping to start")
+                    self.warp_to_start_flag = False
+                    self.precision_mode = [0x1B2E94, 0x6E, "wts"]
+                    ctx.watcher_timeout = 0.1
 
     async def precision_backup(self, ctx, precision_read):
         if len(self.precision_mode) > 2 and self.precision_mode[2] == "warp":

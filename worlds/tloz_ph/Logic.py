@@ -424,6 +424,7 @@ def make_overworld_logic():
         ["Gust South NW Ledge", "Gust North", True, None],
         ["Gust North", "Gust North Dig", False, "shovel"],
         ["Gust North", "Gust North Sandworms", True, "shovel"],
+        ["Gust North Sandworms", "Gust North Event", False, None],
         ["Gust North Sandworms", "Gust North Above Temple", True, "has", "_windmills"],
         ["Gust North Above Temple", "Gust North Temple Road", False, None],
         ["Gust North Temple Road", "Gust North Outside Temple", False, "has", "_windmills"],

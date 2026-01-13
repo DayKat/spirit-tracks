@@ -494,7 +494,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Treasure Teller", "_has_treasure_teller")
         # Switch states etc
         self.create_event("Bremeur's Temple Event", "_ruins_lower_water")
-        self.create_event("Gust North Sandworms", "_windmills")
+        self.create_event("Gust North Event", "_windmills")
         self.create_event("Goron Chus Event", "_goron_chus")
         self.create_event("Goron SE Bridge Event", "_goron_bridge")
         self.create_event("Goron NE Event", "_goron_maze_switch")

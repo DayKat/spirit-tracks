@@ -1499,6 +1499,9 @@ UT_EVENT_DATA = {
                 0x130B: {"address": 0x1B5582,
                          "value": 0x2,
                          "entrance": "EVENT: Open Eddo's Door",},
+                0xe01: {"address": "stage_flags",
+                         "value": 0x20,
+                         "entrance": "EVENT: Gust Windmills",}
             }
 
 # Decode classification for humans

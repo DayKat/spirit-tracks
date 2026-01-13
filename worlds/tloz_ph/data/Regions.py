@@ -327,6 +327,7 @@ REGIONS = [
     "Gust North",
     "Gust North Dig",
     "Gust North Sandworms",
+    "Gust North Event",
 
     # Temple of Wind
     "ToW 1F",

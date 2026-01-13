@@ -2070,5 +2070,18 @@
         "y": 652
       }
     ]
+  },
+    {
+    "name": "Events - Gust",
+    "sections": [
+      {"name": "EVENT: Gust Windmills"}
+    ],
+    "map_locations": [
+      {
+        "map": "Check Overview",
+        "x": 306,
+        "y": 253
+      }
+    ]
   }
 ]

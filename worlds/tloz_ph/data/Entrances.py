@@ -2180,6 +2180,15 @@ EVENT_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
     },
+    "EVENT: Gust Windmills": {
+        "two_way": False,
+        "entrance_region": "Gust North Sandworms",
+        "exit_region": "Gust North Event",
+        "entrance": (0x13, 0xB, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+    },
 }
 
 

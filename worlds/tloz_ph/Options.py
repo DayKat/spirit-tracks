@@ -147,7 +147,7 @@ class PhantomHourglassTriforceCrestRandomization(Toggle):
     When disabled, the door will always be open
     """
     display_name = "randomize_triforce_crest"
-    default = 0
+    default = 1
 
 
 class PhantomHourglassDungeonsRequired(Range):
@@ -796,8 +796,8 @@ class PhantomHourglassMapWarp(Choice):
     """
     Allows you to use the sea chart menu to warp to ports of previously visited islands. Open the sea chart menu and select an island to warp. Does not work at sea.
     - warp_to_start_only: the only warp method is warp to start. Open the collection screen and flip it to prime a warp to start, and enter any entrance to trigger it.
-    - ports_require_items: creates an item for each island, that is required to warp there. You can only warp to an island's port.
-    - ports_open: you can warp to any island as soon as you've been there.
+    - ports_require_items: creates an unlock item for each island, that is required to warp there. You can only warp to an island's port.
+    - ports_open: you can warp to any island's port as soon as you've been there.
     - detailed: coming soon! maybe. lets you select island quadrants or even dungeons from the map menu.
     """
     default = 0
