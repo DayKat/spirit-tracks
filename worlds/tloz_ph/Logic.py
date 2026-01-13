@@ -237,7 +237,7 @@ def make_overworld_logic():
         ["Bomb Flower Cave South", "Bomb Flower Cave North", False, None],
         ["Bomb Flower Cave North", "Cannon Bomb Garden", True, None],
         ["Cannon Bomb Garden", "Cannon Outside Eddo", False, None],
-        ["Cannon Outside Eddo", "Cannon Bomb Garden", False, "cannon_reverse_garden"],
+        ["Cannon Outside Eddo", "Cannon Bomb Garden", False, "explosives"],
         ["Cannon Bomb Garden", "Cannon Island", False, None],
         ["Cannon Outside Eddo", "Cannon Island", False, "glitched_logic"],
         ["Cannon Outside Eddo", "Eddo's Workshop", True, None],
@@ -296,7 +296,6 @@ def make_overworld_logic():
         ["ToF 3F Key Door", "ToF 4F", True, "tof_bk"],
         ["ToF 4F", "Blaaz", True, None],
         ["ToF 4F", "ToF 1F", False, None],  # warp or S+Q
-        ["ToF 1F", "ToF 4F", False, "has", "_tof_blue_warp"],
         ["Blaaz", "Post Blaaz", False, "tof_blaaz"],
         ["Post Blaaz", "Post ToF", False, "tof_blaaz"],
 
@@ -320,7 +319,7 @@ def make_overworld_logic():
         ["Sun Lake Cave Defeat Geozard", "Sun Lake Cave Post Geozard", False, None],
         ["Sun Lake Cave Post Geozard", "Sun Lake Cave Geozard", False, "has", "_molida_cave_geozard"],
         ["Sun Lake Cave Post Geozard", "Octorok Cave", True, None],
-        ["Sun Lake Cave", "Sun Lake Cave Back", False, "molida_bomb_flowers"],
+        ["Sun Lake Cave", "Sun Lake Cave Back", False, "bombs"],
         ["Sun Lake Cave Back", "Sun Lake Cave", False, None],
         ["Sun Lake Cave Back", "Octorok Cave", True, None],
         ["Sun Lake Cave Back", "Shovel Hideout", True, None],
@@ -338,7 +337,6 @@ def make_overworld_logic():
         ["Molida North", "Molida North Grapple", False, "grapple"],
         ["Molida North", "Molida Temple Doors", False, "enter_toc"],
         ["Molida Temple Doors", "Molida Outside Temple", False, None],
-        ["Molida Outside Temple", "Molida North", False, "has", "_molida_temple_doors"],
         ["Molida Outside Temple", "ToC 1F", True, None],
 
         # =============== Temple of Courage ================
@@ -372,7 +370,6 @@ def make_overworld_logic():
         ["ToC 3F", "ToC 3F Chest", False, "boom"],
         ["ToC 3F", "Crayk", True, None],
         ["ToC 3F", "ToC 1F", False, None],
-        ["ToC 1F", "ToC 3F", False, "has", "_toc_blue_warp"],
         ["Crayk", "Post Crayk", False, "bow"],
         ["Post Crayk", "Post ToC", False, None],
 
@@ -477,7 +474,6 @@ def make_overworld_logic():
         ["Uncharted Island", "Uncharted Dig", False, "shovel"],
         ["Uncharted Island", "Uncharted Puzzle", False, "sword"],
         ["Uncharted Puzzle", "Uncharted Outside Cave", False, None],
-        ["Uncharted Outside Cave", "Uncharted Island", False, "has", "_uncharted_bridge"],
         ["Uncharted Outside Cave", "Descending Cave", True, None],
         ["Descending Cave", "Golden Chief Cave", True, None],
         ["Descending Cave", "Descending Cave Grapple", False, "grapple"],
@@ -573,7 +569,6 @@ def make_overworld_logic():
         ["GT B2", "GT B4", False, "gt_enter_dongo"],
         ["GT B4", "Dongorongo", True, None],
         ["GT B4", "GT 1F", False, None],
-        ["GT 1F", "GT B4", False, "has", "_gt_blue_warp"],
         ["Dongorongo", "Post Dongorongo", False, "gt_dongo"],
         ["Post Dongorongo", "Post GT", False, None],
 
@@ -619,7 +614,7 @@ def make_overworld_logic():
         ["Frost SE Upper East", "Frost SE Exit", False, None],
         ["Frost SE Upper North", "Frost SE", False, None],
         ["Frost SE Upper North", "Frost SE Exit", False, None],
-        ["Frost SE Exit", "Frost SE", False, "has", "_frost_ice_field"],
+        ["Frost SE Exit", "Frost SE", False, "has", "_beat_toi"],
         ["Frost SE Upper North", "Frost NE Above Temple West", True, None],
         ["Frost SE Upper East", "Frost NE Above Temple East", True, None],
         ["Frost SE Exit", "Frost NE Outside Arena", True, None],
@@ -776,7 +771,7 @@ def make_overworld_logic():
             ["Ruins NE Secret Chest Water", "Ruins NE Secret Chest", True, "ruins_water"],
             ["Ruins SE Lower", "Ruins SE Lower Water Wall", True, "ruins_water"],
         ["Ruins SE Lower", "Ruins SE Return Bridge East", True, "ruins_water"],
-        ["Ruins SE Return Bridge West", "Ruins SE Return Bridge East", False, "ruins_bridge"],
+        ["Ruins SE Return Bridge West", "Ruins SE Return Bridge East", False, "hammer"],
         ["Ruins SE Return Bridge East", "Ruins SE Return Bridge West", False, None],
         ["Ruins SE Lower", "Ruins SE Outside Pyramid", True, "ruins_water"],
         ["Ruins SE Return Bridge West", "Ruins SW Port Cliff", True, None],
@@ -795,7 +790,6 @@ def make_overworld_logic():
         ["MT Lower Water", "MT B3", False, "mutoh_boss_door"],
         ["MT B3", "Eox", True, None],
         ["MT B3", "MT 1F", False, None],
-        ["MT 1F", "MT B3", False, "has", "_mt_blue_warp"],
         ["Eox", "Post Eox", False, "hammer"],
         ["Post Eox", "Post MT", False, None],
 

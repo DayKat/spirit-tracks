@@ -1069,14 +1069,7 @@ def ph_can_reach_mp2(state: CollectionState, player: int):
         ph_has_small_keys(state, player, "Mountain Passage", 2),
         all([
             ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
-            any([
-                ph_has_small_keys(state, player, "Mountain Passage", 1),
-                not ph_is_ut(state, player),
-                all([
-                    ph_UT_glitched_logic(state, player),
-                    ph_option_smart_key_logic(state, player)  # weird condition...
-                ]),
-            ])
+            ph_option_smart_key_logic(state, player)
         ]),
         all([
             ph_UT_glitched_logic(state, player),
@@ -1111,26 +1104,15 @@ def ph_mp2_bypass_fore(state, player):
                 ph_has_small_keys(state, player, "Mountain Passage", 2),
                 all([
                     ph_option_keys_in_own_dungeon(state, player),
-                    any([
-                        all([
-                            ph_UT_glitched_logic(state, player),
-                            ph_option_smart_key_logic(state, player),
-                        ]),
-                        not ph_is_ut(state, player)
+                    ph_option_smart_key_logic(state, player)
                     ])
-                ]),
+                ])
             ])
         ])
-    ])
 
 def ph_mp3(state, player):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 3),
-        all([
-            state.has("_mp3", player),
-            ph_option_keys_in_own_dungeon(state, player),
-            ph_has_small_keys(state, player, "Mountain Passage", 1),
-            ]),
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
@@ -1159,20 +1141,9 @@ def ph_mercay_passage_rat(state, player):
         ]),
     ])
 
-def ph_cannon_reverse_garden(state, player):
-    return any([
-        ph_has_explosives(state, player),
-        state.has("_cannon_bomb_garden", player)
-    ])
-
 def ph_nyave_fight(state, player):
     return any([ph_has_cave_damage(state, player), ph_clever_pots(state, player)])
 
-def ph_molida_bomb_flowers(state, player):
-    return any([
-        ph_has_bombs(state, player),
-        state.has("_molida_cave_bomb_flowers", player)
-    ])
 
 def ph_bannan_scroll(state, player):
     return all([
@@ -1261,11 +1232,6 @@ def ph_ruins_stalfos_s(state, player):
         ph_can_kill_bat(state, player),
     ])
 
-def ph_ruins_bridge(state, player):
-    return any([
-        ph_has_hammer(state, player),
-        state.has("_ruins_bridge", player)
-    ])
 
 # Tof
 
@@ -1349,18 +1315,15 @@ def ph_tow_key_door(state, player):
         ph_wind_temple_key_ut(state, player)])
 
 def ph_tow_enter_cyclok(state, player):
-    return any([
-        state.has("_tow_blue_warp", player),
-        all([
-            ph_has_bombs(state, player),
-            any([
-                ph_has_boss_key(state, player, "Temple of Wind"),
-                all([
-                    ph_ut_boss_key_own_dungeon(state, player),
-                    ph_has_shovel(state, player),
-                    ph_wind_temple_key_ut(state, player)
-                ]),
-            ])
+    return all([
+        ph_has_bombs(state, player),
+        any([
+            ph_has_boss_key(state, player, "Temple of Wind"),
+            all([
+                ph_ut_boss_key_own_dungeon(state, player),
+                ph_has_shovel(state, player),
+                ph_wind_temple_key_ut(state, player)
+            ]),
         ])
     ])
 
@@ -2967,8 +2930,6 @@ RULE_DICT = {
     "mp_rat": ph_mercay_passage_rat,
     "mercay_passage_rat": ph_mercay_passage_rat,
     "ember_grapple": ph_ember_grapple_chest,
-    "cannon_reverse_garden": ph_cannon_reverse_garden,
-    "molida_bomb_flowers": ph_molida_bomb_flowers,
     "bannan_scroll": ph_bannan_scroll,
     "bannan_sea_monster": ph_bannan_sea_monster,
     "salvage_courage_crest": ph_salvage_courage_crest,
@@ -2983,7 +2944,6 @@ RULE_DICT = {
     "ruins_water": ph_ruins_lower_water,
     "ruins_stalfos_n": ph_ruins_stalfos_n,
     "ruins_stalfos_s": ph_ruins_stalfos_n,
-    "ruins_bridge": ph_ruins_bridge,
     "ice_field": ph_ice_field,
     # ToF
     "tof_3f": ph_tof_3f,

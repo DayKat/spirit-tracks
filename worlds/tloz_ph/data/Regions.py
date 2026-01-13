@@ -681,8 +681,6 @@ REGIONS = [
     "Salvage 30",
     "Salvage 31",
 
-    # UT Event Events
-    "Event Goron Shortcut Bridge",
 ]
 
 

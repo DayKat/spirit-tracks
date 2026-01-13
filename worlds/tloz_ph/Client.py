@@ -1072,7 +1072,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 self.event_data = data
                 for event in data:
                     key = event.get("entrance", event.get("event"))
-                    address = self.stage_address if event["address"] == "stage_flags" else event["address"]
+                    address = self.stage_address + event.get("offset", 0) if event["address"] == "stage_flags" else event["address"]
                     self.event_read_list[key] = (address, event.get("size", 1), "Main RAM")
 
             read_results = await read_memory_values(ctx, self.event_read_list)

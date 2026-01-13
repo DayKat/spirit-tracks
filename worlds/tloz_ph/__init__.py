@@ -510,23 +510,8 @@ class PhantomHourglassWorld(World):
         self.create_event("Eddo Event", "_eddo_door")
         self.create_event("ToI B1 Switch", "_toi_b1_switch")
 
-        self.create_event("Mercay NW Freedle Island", "_freedle_island_switch")
-        self.create_event("Goron NW Outside Temple", "_goron_shortcut_bridge")
-        self.create_event("Sun Lake Cave Back", "_molida_cave_bomb_flowers")
-        self.create_event("Goron NE", "_goron_bomb_flowers")
-        self.create_event("Sun Lake Cave Defeat Geozard", "_molida_cave_geozard")
-        self.create_event("Cannon Bomb Garden", "_cannon_bomb_garden")
-        self.create_event("Ruins SE Return Bridge East", "_ruins_bridge")
-        self.create_event("Frost SE Yook", "_frost_ice_field")
-        self.create_event("Uncharted Puzzle", "_uncharted_bridge")
-        self.create_event("Molida Temple Doors", "_molida_temple_doors")
         # Blue warps
-        self.create_event("ToF 4F", "_tof_blue_warp")
-        self.create_event("ToW 2F", "_tow_blue_warp")
-        self.create_event("ToC 3F", "_toc_blue_warp")
-        self.create_event("GT B4", "_gt_blue_warp")
         self.create_event("ToI Blue Warp", "_toi_blue_warp")
-        self.create_event("MT B3", "_mt_blue_warp")
         # Mountain passage
         self.create_event("Mountain Passage 1", "_mp1")
         self.create_event("Mountain Passage Rat", "_mp3")
@@ -1498,7 +1483,7 @@ class PhantomHourglassWorld(World):
 
             # Used when event is only used for get_logical_path. inspired by codegorilla's crystalis implementation
             def connect_existing_regions(stored_name, reg1, reg2, name=None):
-                if stored_name in stored_data: #  and not stored_name in self.ut_created_events:
+                if stored_name in stored_data and not stored_name in self.ut_created_events:
                     try:
                         entr = self.get_entrance(f"{reg1} -> {reg2}")
                         print(f"Entrance exists, removing rule")
@@ -1514,3 +1499,18 @@ class PhantomHourglassWorld(World):
             connect_existing_regions("fi", "Mercay NE", "Mercay NW Freedle Island")
             connect_existing_regions("gms", "Goron NE Middle", "Goron NE")
             connect_existing_regions("gss", "Goron NE South", "Goron NE")
+            connect_existing_regions("gls", "Goron NW Outside Temple", "Goron NW Like Like")
+
+            connect_existing_regions("rb", "Ruins SE Return Bridge West", "Ruins SE Return Bridge East")
+            connect_existing_regions("fif", "Frost SE Exit", "Frost SE")
+            connect_existing_regions("ub", "Uncharted Outside Cave", "Uncharted Island")
+            connect_existing_regions("md", "Molida Outside Temple", "Molida North")
+            connect_existing_regions("cb", "Cannon Outside Eddo", "Cannon Bomb Garden")
+            connect_existing_regions("mcb", "Sun Lake Cave", "Sun Lake Cave Back")
+
+            connect_existing_regions("tfw", "ToF 1F", "ToF 4F")
+            connect_existing_regions("tww", "ToW 1F", "ToW 2F")
+            connect_existing_regions("tcw", "ToC 1F", "ToC 3F")
+            connect_existing_regions("gtw", "GT 1F", "GT B4")
+            connect_existing_regions("tiw", "ToI 1F", "ToI Blue Warp")
+            connect_existing_regions("mtw", "MT 1F", "MT B3")
