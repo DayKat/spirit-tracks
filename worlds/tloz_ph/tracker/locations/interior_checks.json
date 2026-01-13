@@ -101,7 +101,7 @@
 { "name": "Isle of Gust North Sandworm Chest", "sections": [{ "name": "Isle of Gust North Sandworm Chest" }], "map_locations": [{ "map": "Isle of Gusts (North)", "x": 226, "y": 174}] },
   { "name": "EVENT: Gust Windmills", "sections": [{ "name": "EVENT: Gust Windmills" }], "map_locations": [
     { "map": "Isle of Gusts", "x": 103, "y": 67},
-    { "map": "Isle of Gusts (North)", "x": 77, "y": 135}] },
+    { "map": "Isle of Gusts (North)", "x": 78, "y": 135}] },
 { "name": "Isle of Gust South NW Chest", "sections": [{ "name": "Isle of Gust South NW Chest" }], "map_locations": [{ "map": "Isle of Gusts", "x": 75, "y": 111}] },
 { "name": "Isle of Gust South NW Chest", "sections": [{ "name": "Isle of Gust South NW Chest" }], "map_locations": [{ "map": "Isle of Gusts (South)", "x": 22, "y": 30}] },
 { "name": "Isle of Ruins NE Dodge Boulders Chest", "sections": [{ "name": "Isle of Ruins NE Dodge Boulders Chest" }], "map_locations": [{ "map": "Isle of Ruins", "x": 159, "y": 55}] },

@@ -137,6 +137,7 @@ class PhantomHourglassClient(DSZeldaClient):
         self.death_check = False
         self.death_precision = None
         self.save_spam_protection = False
+        self.death_warning_spam_protect = False
 
         # Map warp vars
         self.map_mode: bool = False  # if in warp menu
@@ -376,8 +377,12 @@ class PhantomHourglassClient(DSZeldaClient):
             self.map_warp = None
             logger.info(f"Map warp canceled due to death")
 
-        if self.is_dead and ctx.slot_data["shuffle_bosses"] and self.current_stage in BOSS_WARP_SCENE_LOOKUP:
-            logger.info(f"WARNING! Clicking continue in a boss room will put you out of logic. Please save and quit before continuing.")
+        if self.is_dead and ctx.slot_data["shuffle_bosses"] and self.current_scene in BOSS_WARP_SCENE_LOOKUP and not self.death_warning_spam_protect:
+            if not read_result["in_cutscene"]:
+                logger.info(f"WARNING! Clicking continue in a boss room will put you out of logic. Please save and quit before continuing.")
+            self.death_warning_spam_protect = True
+        elif not self.is_dead:
+            self.death_warning_spam_protect = False
 
         # if self.is_dead and not self.death_check:
         #     self.death_check = True
@@ -1242,28 +1247,24 @@ class PhantomHourglassClient(DSZeldaClient):
             self.last_saved_scene = last_saved_scene if self.lss_retry_attempts >= 0 else 0 # if last_saved_scene is not None else False
             self.lss_retry_attempts -= 1
 
-        if self.warp_to_start_flag:
-            print(f"Entered menu with warp to start active")
-            self.warp_to_start_flag = False
-
-
-
         if self.current_stage & 0xFF == 0x6E:
             started_save_file = await read_memory_value(ctx, 0x1B7FB8, silent=True)
             if started_save_file:
                 print(f"Started save file with saved scene {hex(self.last_saved_scene)}")
-                if self.last_saved_scene in BOSS_WARP_SCENE_LOOKUP:
+                if self.warp_to_start_flag:
+                    print(f"Started save file with warp to start active, warping to start")
+                    self.warp_to_start_flag = False
+                    self.precision_mode = [0x1B2E94, 0x6E, "wts"]
+                    ctx.watcher_timeout = 0.1
+
+                elif self.last_saved_scene in BOSS_WARP_SCENE_LOOKUP:
                     print(f"Problem entrance detected")
                     warp_exit = self.update_boss_warp(ctx, self.current_stage, self.last_saved_scene)
                     if warp_exit is not None:
                         self.precision_mode = [0x1B2E94, 0x6E, "warp", warp_exit]
                         ctx.watcher_timeout = 0.1
 
-                if self.warp_to_start_flag:
-                    print(f"Started save file with warp to start active, warping to start")
-                    self.warp_to_start_flag = False
-                    self.precision_mode = [0x1B2E94, 0x6E, "wts"]
-                    ctx.watcher_timeout = 0.1
+
 
     async def precision_backup(self, ctx, precision_read):
         if len(self.precision_mode) > 2 and self.precision_mode[2] == "warp":

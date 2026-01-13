@@ -250,7 +250,7 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
             logger.info(f"You are already in that scene, you can't warp there")
             client.map_warp = None
         elif ctx.slot_data["map_warp_options"] == 1:
-            if transition_mode in warp_item_lookup and not item_count(ctx, warp_item_lookup["transition_mode"]):
+            if transition_mode in warp_item_lookup and not item_count(ctx, warp_item_lookup[transition_mode]):
                 client.map_warp = None
                 logger.info(f"Missing warp unlock item for that island")
         elif transition_mode in range(0x1f, 0x23) and ctx.slot_data["boat_requires_sea_chart"]:

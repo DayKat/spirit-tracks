@@ -435,10 +435,10 @@ class PhantomHourglassZauzRequiredMetals(Range):
 
 class PhantomHourglassAdditionalMetalNames(Choice):
     """
-    If there are more than 3 rare metals in the pool, what should the additional items be called?
+    What to call the dungeon reward/metal hunt metal.
     - vanilla_only: additional metals are duplicate vanilla metals
     - additional_rare_metal: additional metals are all called "Additional Rare Metal"
-    - custom: additional metals are chosen randomly from a pre-defined list of names I made up. The names are
+    - custom: metal names are chosen randomly from a pre-defined list of names I made up. The names are
     based on color words ending in "ine". Some examples are "Verdantine", "Lavendine" and "Amberine". Currently there are 30 metal names defined.
     - custom_prefer_vanilla: metals will default to vanilla names, and only use custom names if you have more than 3.
     """
