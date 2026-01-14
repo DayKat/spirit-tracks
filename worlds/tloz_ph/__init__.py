@@ -1296,6 +1296,7 @@ class PhantomHourglassWorld(World):
         ]
         filler_item_names += ITEM_GROUPS["Treasure Items"]
         filler_item_names += ITEM_GROUPS["Ammo Refills"]
+        filler_item_names += ITEM_GROUPS["Potions"]
         if self.options.randomize_fishing:  # If fishing is enable add useless fish to filler pool cause funny :3
             filler_item_names += ["Fish: Skippyjack", "Fish: Toona"]
         if self.options.randomize_salvage:

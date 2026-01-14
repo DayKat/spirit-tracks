@@ -460,7 +460,6 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Red Potion",
         "Purple Potion",
         "Yellow Potion",
-        "Potion"
     },
     "Rupoors": {
         "Rupoor (-10)",

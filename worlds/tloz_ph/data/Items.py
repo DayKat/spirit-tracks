@@ -428,17 +428,17 @@ ITEMS_DATA = {
     },
     "Red Potion": {
         "classification": ItemClassification.filler,
-        "value": 0x64,
+        "value": 1,
         "id": 50,
     },
     "Purple Potion": {
         "classification": ItemClassification.filler,
-        "value": 0x64,
+        "value": 2,
         "id": 51,
     },
     "Yellow Potion": {
         "classification": ItemClassification.filler,
-        "value": 0xc8,
+        "value": 3,
         "id": 52,
     },
     "Nothing!": {

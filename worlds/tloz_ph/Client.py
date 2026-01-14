@@ -821,6 +821,17 @@ class PhantomHourglassClient(DSZeldaClient):
                 last_value = await read_memory_value(ctx, data["address"], size=4)
                 new_value = last_value | data["value"]
                 res += [(data["address"], split_bits(new_value, 4), "Main RAM")]
+
+        # Handle Potions
+        elif "Potion" in item_name:
+            await self.update_potion_tracker(ctx)
+            print(f"Potion data: {self.last_potions} {item_data['value']}")
+            for i, pot, addr in zip([0, 1], self.last_potions, [0x1BA5D8, 0x1BA5D9]):
+                if not pot:
+                    res += [(addr, [item_data["value"]], "Main RAM")]
+                    res += [(0x1BA645, [0x6], "Main RAM")]  # has potion, fill all
+                    self.last_potions[i] = item_data["value"]
+                    break
         return res
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):

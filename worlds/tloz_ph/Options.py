@@ -311,7 +311,7 @@ class PhantomHourglassExcludeNonRequriedDungeons(Toggle):
     """
     Non-required dungeons won't have progression or useful items.
     Does not apply to TotOK.
-    If you don't require specific bosses, this will still make a number of dungeons barren.
+    If you don't require specific bosses, this will still exclude a number of dungeons.
     They will still count towards dungeon completions.
     """
     display_name = "exclude_non_required_dungeons"
