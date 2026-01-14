@@ -91,7 +91,10 @@ def ph_has_kings_key(state: CollectionState, player: int):
 
 
 def ph_has_regal_necklace(state: CollectionState, player: int):
-    return state.has("Regal Necklace", player)
+    return all([
+        state.has("Regal Necklace", player),
+        ph_require_sea_chart(state, player, "NE")
+    ])
 
 
 def ph_has_phantom_blade(state: CollectionState, player: int):
@@ -784,6 +787,12 @@ def ph_can_pass_sea_monsters(state, player):
         state.multiworld.worlds[player].options.skip_ocean_fights
     ])
 
+def ph_charted_sea_monsters(state, player, chart):
+    return all([
+        ph_can_pass_sea_monsters(state, player),
+        ph_require_sea_chart(state, player, chart)
+    ])
+
 
 def ph_option_time_no_logic(state, player):
     time_option = state.multiworld.worlds[player].options.ph_time_logic
@@ -1185,9 +1194,6 @@ def ph_can_enter_ocean_sw_west(state, player):
 def ph_enter_se_ocean(state, player):
     return ph_has_sea_chart(state, player, "SE")
 
-def ph_enter_ruins(state, player):
-    return all([ph_has_regal_necklace(state, player), ph_has_cave_damage(state, player)])
-
 def ph_salvage_behind_bannan(state, player):
     return all([
             ph_has_salvage(state, player),
@@ -1507,14 +1513,17 @@ def ph_toc_final_switch_state(state, player):
 # Ghost Ship
 
 def ph_has_ghost_ship_access(state, player):
-    return any([
-        all([
-            ph_has_spirit(state, player, "Power"),
-            ph_has_spirit(state, player, "Wisdom"),
-            ph_has_spirit(state, player, "Courage"),
-            ph_option_fog_vanilla(state, player)
-        ]),
-        ph_option_fog_open(state, player)
+    return all([
+        ph_require_sea_chart(state, player, "NW"),
+        any([
+            all([
+                ph_has_spirit(state, player, "Power"),
+                ph_has_spirit(state, player, "Wisdom"),
+                ph_has_spirit(state, player, "Courage"),
+                ph_option_fog_vanilla(state, player)
+            ]),
+            ph_option_fog_open(state, player)
+        ])
     ])
 
 def ph_has_gs_triangle_crystal(state, player):
@@ -2892,6 +2901,7 @@ RULE_DICT = {
     "goal_metal_hunt": ph_option_goal_metal_hunt,
     "goal_midway": ph_option_goal_midway,
     "can_pass_sea_monsters": ph_can_pass_sea_monsters,
+    "charty_sea_monster": ph_charted_sea_monsters,
     "no_time_logic": ph_option_time_no_logic,
     "require_ph": ph_option_ph_required,
     "has_time": ph_has_time,
@@ -2937,7 +2947,6 @@ RULE_DICT = {
     "ss_wayfarer": ph_ss_wayfarer,
     "nyave_fight": ph_nyave_fight,
     "se_ocean": ph_enter_se_ocean,
-    "enter_ruins": ph_enter_ruins,
     "salvage_behind_bannan": ph_salvage_behind_bannan,
     "oshus_gem": ph_oshus_gem,
     "ruins_geozards": ph_ruins_geozards,

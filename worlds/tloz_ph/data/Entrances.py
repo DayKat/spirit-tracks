@@ -1895,7 +1895,7 @@ ENTRANCE_DATA = {
         "entrance": (0, 0x1, 0xFA),
         "exit": (0x29, 0x3, 0x0),
         "extra_data": {"ship_exit": 5, "conditional": ["need_sea_chart"]},
-        "entrance_region": "NW Ocean",
+        "entrance_region": "Ghost Ship Boat",
         "exit_region": "Ghost Ship 1F",
         "type": EntranceGroups.DUNGEON_ENTRANCE,
         "direction": EntranceGroups.INSIDE,

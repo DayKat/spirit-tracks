@@ -1411,6 +1411,8 @@ class PhantomHourglassWorld(World):
             if stored_data:
                 if "ph_traversed_entrances" in key:
                     self.ut_traversed_entrances.update(stored_data)
+                # always_connect_checked = set(stored_data) if "ph_checked_entrances" in key else set()
+
                 disconnects = self.ut_redisconnected_entrances - self.ut_traversed_entrances
                 reconnects = {i for i in self.ut_redisconnected_entrances & self.ut_traversed_entrances if i not in self.ut_reconnected_entrances}
                 new_entrances = (set(stored_data) - self.ut_connected_entrances - disconnects) | reconnects
@@ -1491,6 +1493,7 @@ class PhantomHourglassWorld(World):
                     except KeyError:
                         print(f"Entrance does not exist, creating it anew")
                         self.get_region(reg1).connect(self.get_region(reg2), name)
+                    self.ut_created_events.append(stored_name)
 
             # Sent on getting location. Does not show event in UT
             manage_ut_event("1f", "TotOK 1F Chart", "_UT_got_chart")

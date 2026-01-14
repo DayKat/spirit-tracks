@@ -1,6 +1,7 @@
 from random import randint
 from .DSZeldaClient.DSZeldaClient import *
 from .MapWarp import map_mode
+from .data.Entrances import entrance_id_to_entrance
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -126,6 +127,7 @@ class PhantomHourglassClient(DSZeldaClient):
         self.lowered_water = False
         self.visited_entrances = set()
         self.redisconnected_entrances = set()
+        self.checked_entrances = set()
 
         self.boss_warp_entrance = None
         self.last_warp_stage = None
@@ -872,19 +874,35 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # disconnect port entrances
         if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2 and ctx.slot_data["boat_requires_sea_chart"] and "disconnect_entrances" in item_data:
-            disconnects = [ENTRANCES[i] for i in item_data["disconnect_entrances"]]
-            reciprocal_ids = [ctx.slot_data["er_pairings"][str(i.id)] for i in disconnects if str(i.id) in ctx.slot_data["er_pairings"]]
-            disconnects_ids = [e.id for e in disconnects if str(e.id) in ctx.slot_data["er_pairings"]]
-            all_ids = reciprocal_ids + disconnects_ids
-            print(f"sea disconnects: {[(e.name, e.id) for e in disconnects]}")
-            await self.redisconnect(ctx, all_ids)
+            disconnects_ids = [ENTRANCES[e].id for e in item_data["disconnect_entrances"] if str(ENTRANCES[e].id) in ctx.slot_data["er_pairings"]]
+            await self.redisconnect(ctx, disconnects_ids)
 
     async def redisconnect(self, ctx, data):
+        reciprocals = [ctx.slot_data["er_pairings"][str(i)] for i in data if
+                       str(i) in ctx.slot_data["er_pairings"]]
+        all_ids = set(data + reciprocals) if not ctx.slot_data["decouple_entrances"] else set(reciprocals)
+
+        # Don't disconnect still blocked entrances
+        for i in reciprocals:
+            if not await self.conditional_er(ctx, entrance_id_to_entrance[i], silent=True):
+                print(f"not redisconnecting blocked entrance {entrance_id_to_entrance[i].name}")
+                all_ids.remove(i)
+                if not ctx.slot_data["decouple_entrances"]:
+                    print(f"\treciprocal{entrance_id_to_entrance[ctx.slot_data['ut_pairings'][str(i)]].name}")
+                    all_ids.remove(ctx.slot_data["ut_pairings"][str(i)])
+        # Don't disconnect undiscovered entrances
+        self.checked_entrances |= set(get_stored_data(ctx, checked_key, set()))
+        for i in all_ids.copy():
+            if i not in self.checked_entrances:
+                print(f"not redisconnecting unfound entrance: {entrance_id_to_entrance[i].name}")
+                all_ids.remove(i)
+
+        print(f"Redisconnecting {[self.entrance_id_to_entrance[i].name for i in all_ids]}")
         # store redisconnects
         key = storage_key(ctx, disconnect_key)
         self.redisconnected_entrances |= set(get_stored_data(ctx, disconnect_key, set()))
-        await self.store_data(ctx, key, data)
-        self.redisconnected_entrances.update(data)
+        await self.store_data(ctx, key, all_ids)
+        self.redisconnected_entrances.update(all_ids)
 
     @staticmethod
     async def enable_items(ctx: "BizHawkClientContext", inventory_id: int):
@@ -1054,10 +1072,7 @@ class PhantomHourglassClient(DSZeldaClient):
             if allow_redisconnect and not self.lowered_water and ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2:
                 print(f"Allowing redisconnect")
                 water_entrances = [i.id for i in ENTRANCES.values() if "ruins_water" in i.extra_data.get("conditional", [])]
-                reciprocals = [ctx.slot_data["er_pairings"][str(i)] for i in water_entrances if str(i) in ctx.slot_data["er_pairings"]]
-                all_ids = set(water_entrances + reciprocals)
-                print(f"Redisconnecting {[self.entrance_id_to_entrance[i].name for i in all_ids]}")
-                await self.redisconnect(ctx, all_ids)
+                await self.redisconnect(ctx, water_entrances)
 
             self.lowered_water = True
 
@@ -1096,12 +1111,12 @@ class PhantomHourglassClient(DSZeldaClient):
         else:
             self.sent_event = True
 
-    async def conditional_er(self, ctx, exit_data) -> bool:
+    async def conditional_er(self, ctx, exit_data, silent=False) -> bool:
         print(f"\tcond. {exit_data.name} {exit_data.extra_data} lowered water: {self.lowered_water}")
         if "conditional" in exit_data.extra_data:
             # Bounce back if the entrance connects to a lower room
             if "ruins_water" in exit_data.extra_data["conditional"] and not self.lowered_water:
-                logger.info(f"This entrance is flooded (Isle of Ruins)")
+                if not silent: logger.info(f"This entrance is flooded (Isle of Ruins)")
                 return False
             # Can't enter the sea without the correct chart
             print(f"{exit_data.extra_data['conditional']}, {exit_data.stage}, {ctx.slot_data['boat_requires_sea_chart']}")
@@ -1110,7 +1125,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 chart = SEA_CHARTS[quadrant]
                 print(f"chart: {chart} {item_count(ctx, chart)}")
                 if not item_count(ctx, chart):
-                    logger.info(f"Missing correct sea chart ({chart})")
+                    if not silent: logger.info(f"Missing correct sea chart ({chart})")
                     return False
         return True
 
@@ -1129,18 +1144,20 @@ class PhantomHourglassClient(DSZeldaClient):
         self.visited_entrances.clear()
         self.redisconnected_entrances.clear()
         self.visited_scenes.clear()
+        self.checked_entrances.clear()
         await ctx.send_msgs([{
                 "cmd": "Get",
                 "keys": [storage_key(ctx, disconnect_key),
                          storage_key(ctx, traversal_key),
-                         storage_key(ctx, visited_scenes_key)],
+                         storage_key(ctx, visited_scenes_key),
+                         storage_key(ctx, checked_key)],
             }])
 
     # UT store entrances to remove
     async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data, interaction="traverse"):
         self.visited_entrances |= set(get_stored_data(ctx, traversal_key, set()))
         old_visited_entrances = self.visited_entrances.copy()
-        new_data = {detect_data.id, exit_data.id}
+        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data["decouple_entrances"] else {detect_data.id}
 
         if interaction == "traverse" or ctx.slot_data.get("ut_blocked_entrances_behaviour", 1) == 0:
             key = storage_key(ctx, traversal_key)
@@ -1148,6 +1165,7 @@ class PhantomHourglassClient(DSZeldaClient):
             new_data = self.visited_entrances-old_visited_entrances
         elif interaction == "check":
             key = storage_key(ctx, checked_key)
+            self.checked_entrances.update(new_data)
         else:
             raise ValueError(f"store_visited_entrances() had an unhandled interaction value {interaction}")
 

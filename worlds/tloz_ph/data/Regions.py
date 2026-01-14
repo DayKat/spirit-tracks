@@ -179,6 +179,7 @@ REGIONS = [
     "Bannan Boat",
     "Uncharted Boat",
     "Zauz Boat",
+    "Ghost Ship Boat",
     "Goron Boat",
     "Frost Boat",
     "Harrow Boat",
