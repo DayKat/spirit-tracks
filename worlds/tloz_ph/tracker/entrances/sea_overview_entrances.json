@@ -9,8 +9,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 374,
-        "y": 64
+        "x": 351,
+        "y": 95
       }
     ]
   },
@@ -24,8 +24,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 327,
-        "y": 652
+        "x": 337,
+        "y": 643
       }
     ]
   },
@@ -39,8 +39,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 842,
-        "y": 711
+        "x": 825,
+        "y": 715
       }
     ]
   },
@@ -54,8 +54,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 77,
-        "y": 198
+        "x": 78,
+        "y": 201
       }
     ]
   },
@@ -69,8 +69,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 685,
-        "y": 670
+        "x": 677,
+        "y": 697
       }
     ]
   },
@@ -84,8 +84,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 694,
-        "y": 470
+        "x": 693,
+        "y": 487
       }
     ]
   },
@@ -99,8 +99,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 424,
-        "y": 722
+        "x": 399,
+        "y": 733
       }
     ]
   },
@@ -114,8 +114,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 930,
-        "y": 501
+        "x": 915,
+        "y": 503
       }
     ]
   },
@@ -129,8 +129,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 290,
-        "y": 253
+        "x": 275,
+        "y": 271
       }
     ]
   },
@@ -145,7 +145,7 @@
       {
         "map": "Sea Overview",
         "x": 701,
-        "y": 198
+        "y": 221
       }
     ]
   },
@@ -159,8 +159,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 894,
-        "y": 114
+        "x": 879,
+        "y": 131
       }
     ]
   },
@@ -174,8 +174,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 770,
-        "y": 48
+        "x": 751,
+        "y": 55
       }
     ]
   },
@@ -189,8 +189,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 379,
-        "y": 494
+        "x": 411,
+        "y": 539
       }
     ]
   },
@@ -204,8 +204,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 128,
-        "y": 607
+        "x": 103,
+        "y": 625
       }
     ]
   },
@@ -219,8 +219,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 128,
-        "y": 706
+        "x": 111,
+        "y": 719
       }
     ]
   },
@@ -234,8 +234,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 406,
-        "y": 184
+        "x": 391,
+        "y": 199
       }
     ]
   },
@@ -249,8 +249,8 @@
     "map_locations": [
       {
         "map": "Sea Overview",
-        "x": 258,
-        "y": 44
+        "x": 243,
+        "y": 59
       }
     ]
   }

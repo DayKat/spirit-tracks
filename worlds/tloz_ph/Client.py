@@ -888,8 +888,8 @@ class PhantomHourglassClient(DSZeldaClient):
                 print(f"not redisconnecting blocked entrance {entrance_id_to_entrance[i].name}")
                 all_ids.remove(i)
                 if not ctx.slot_data["decouple_entrances"]:
-                    print(f"\treciprocal{entrance_id_to_entrance[ctx.slot_data['ut_pairings'][str(i)]].name}")
-                    all_ids.remove(ctx.slot_data["ut_pairings"][str(i)])
+                    print(f"\treciprocal{entrance_id_to_entrance[ctx.slot_data['er_pairings'][str(i)]].name}")
+                    all_ids.remove(ctx.slot_data["er_pairings"][str(i)])
         # Don't disconnect undiscovered entrances
         self.checked_entrances |= set(get_stored_data(ctx, checked_key, set()))
         for i in all_ids.copy():
@@ -1012,7 +1012,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 elif stage == 3:
                     await write_memory_value(ctx, RAM_ADDRS["salvage_health"][0], 0, overwrite=True)
                 else:
-                    await write_memory_value(ctx, RAM_ADDRS["link_health"][0], 0, size=2, overwrite=True)
+                    await write_memory_value(ctx, self.main_read_list["link_health"], 0, size=2, overwrite=True)
 
                 self.is_expecting_received_death = True
                 self.last_deathlink = ctx.last_death_link
@@ -1023,6 +1023,7 @@ class PhantomHourglassClient(DSZeldaClient):
             elif self.was_alive_last_frame and is_dead:
                 # Our player just died...
                 self.was_alive_last_frame = False
+                print(f"health address: {hex(self.main_read_list['link_health'])}")
                 if self.is_expecting_received_death:
                     # ...because of a received deathlink, so let's not make a circular chain of deaths please
                     self.is_expecting_received_death = False
@@ -1186,11 +1187,11 @@ class PhantomHourglassClient(DSZeldaClient):
     def update_boss_warp(self, ctx, stage, scene_id):
         if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
             reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
-            if reverse_exit not in self.entrances:
+            reverse_exit_id = self.entrances[reverse_exit].id
+            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", None)
+            if pair is None:
                 print(f"Boss Entrance not Randomized")
                 return None
-            reverse_exit_id = self.entrances[reverse_exit].id
-            pair = ctx.slot_data["er_pairings"][f"{reverse_exit_id}"]
             self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
 
             # If last room was a dungeon, warp to dungeon entrance
