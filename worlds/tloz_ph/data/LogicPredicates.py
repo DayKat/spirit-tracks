@@ -1077,8 +1077,20 @@ def ph_can_reach_mp2(state: CollectionState, player: int):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 2),
         all([
-            ph_option_keys_in_own_dungeon(state, player),  # Guaranteed key in mp1 (if not keylocked or ER...)
-            ph_option_smart_key_logic(state, player)
+            ph_option_keys_in_own_dungeon(state, player),
+            any([
+                all([
+                    any([
+                        ph_option_smart_key_logic(state, player),
+                        not ph_is_ut(state, player)
+                    ]),
+                    ph_mercay_passage_rat(state, player)
+                    ]),
+                all([
+                    ph_has_small_keys(state, player, "Mountain Passage", 1),
+                    ph_option_vanilla_caves(state, player)
+                ])
+            ])
         ]),
         all([
             ph_UT_glitched_logic(state, player),
@@ -1101,38 +1113,57 @@ def ph_mp2_bypass(state, player):
         all([
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 2)
-        ])
+        ]),
+        ph_option_hard_logic(state, player)  # Savewarp
     ])
 
 def ph_mp2_bypass_fore(state, player):
     return any([
-        ph_mp2_bypass(state, player),
+        ph_has_small_keys(state, player, "Mountain Passage", 3),
         all([
-            ph_option_vanilla_caves(state, player),
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 2)
+        ]),
+        all([
             any([
-                ph_has_small_keys(state, player, "Mountain Passage", 2),
-                all([
-                    ph_option_keys_in_own_dungeon(state, player),
-                    ph_option_smart_key_logic(state, player)
-                    ])
-                ])
+                ph_option_vanilla_caves(state, player),
+                ph_option_keys_in_own_dungeon(state, player)
+            ]),
+            ph_has_small_keys(state, player, "Mountain Passage", 2),
+            any([
+                not ph_is_ut(state, player),
+                ph_option_smart_key_logic(state, player)
             ])
-        ])
+        ]),
+    ])
 
 def ph_mp3(state, player):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 3),
-        all([
+        all([  # use key
             ph_UT_glitched_logic(state, player),
             ph_has_small_keys(state, player, "Mountain Passage", 1)
         ]),
+        all([  # smart keys
+            ph_option_smart_key_logic(state, player),
+            ph_has_small_keys(state, player, "Mountain Passage", 1),
+            ph_option_keys_in_own_dungeon(state, player)
+        ]),
+        all([  # logic assumes accessible
+            ph_option_keys_in_own_dungeon(state, player),
+            not ph_is_ut(state, player),
+            ph_mercay_passage_rat(state, player)
+        ])
     ])
 
 def ph_mp3_back(state, player):
     return any([
         ph_has_small_keys(state, player, "Mountain Passage", 3),
         all([
-            ph_option_vanilla_caves(state, player),
+            any([
+                ph_option_vanilla_caves(state, player),
+                ph_option_keys_in_own_dungeon(state, player)
+            ]),
             ph_has_small_keys(state, player, "Mountain Passage", 2),
         ]),
         all([

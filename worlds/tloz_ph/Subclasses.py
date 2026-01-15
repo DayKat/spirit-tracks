@@ -18,8 +18,8 @@ class PHEntrance(Entrance):
 
     def can_connect_to(self, other: Entrance, dead_end: bool, er_state: "ERPlacementState") -> bool:
         # the implementation of coupled causes issues for self-loops since the reverse entrance will be the
-        # same as the forward entrance. In uncoupled they are ok.
-
+        # same as the forward entrance. In decoupled they are ok.
+        # print(f"Checking connection for {self.name} -> {other.name}")
         # Vanilla GER Check first, cause the less resource intensive
         if not (self.randomization_type == other.randomization_type and (not er_state.coupled or self.name != other.name)):
             # print(f"\t{self.name} could not connect to {other.name}")
@@ -32,6 +32,7 @@ class PHEntrance(Entrance):
         if (old_scene == new_scene
                 and (self.randomization_group & EntranceGroups.AREA_MASK in [EntranceGroups.OVERWORLD, EntranceGroups.ISLAND]
                 or other.randomization_group & EntranceGroups.AREA_MASK in [EntranceGroups.OVERWORLD, EntranceGroups.ISLAND])):
+            # print(f"Tried connecting to the same scene: {self.name}")
             return False
 
         # Check if you have a valid switch state for the transition you are trying

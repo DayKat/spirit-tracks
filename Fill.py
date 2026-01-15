@@ -94,6 +94,7 @@ def fill_restrictive(multiworld: MultiWorld, base_state: CollectionState, locati
                 unplaced_items += items_to_place
                 break
             item_to_place = items_to_place.pop(0)
+            print(f"trying to place item {item_to_place}")
             spot_to_fill: typing.Optional[Location] = None
 
             # if minimal accessibility, only check whether location is reachable if game not beatable
@@ -109,6 +110,7 @@ def fill_restrictive(multiworld: MultiWorld, base_state: CollectionState, locati
                         and location.can_fill(maximum_exploration_state, item_to_place, perform_access_check):
                     # popping by index is faster than removing by content,
                     spot_to_fill = locations.pop(i)
+                    print(f"\t found spot {spot_to_fill}")
                     # skipping a scan for the element
                     break
 

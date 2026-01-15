@@ -1925,7 +1925,7 @@ ENTRANCE_DATA = {
         "return_name": "Cubus Sisters Blue Warp",
         "entrance": (0x29, 0x0, 0x3),
         "exit": (0x30, 0x0, 0x1),
-        "entrance_region": "Ghost Ship B3",
+        "entrance_region": "Ghost Ship Warp",
         "exit_region": "Cubus Sisters",
         "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.INSIDE,
