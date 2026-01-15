@@ -1328,6 +1328,18 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Ghost Ship": "_gs",
 }
 
+BOSS_LOCATION_TO_DUNGEON = {
+    "TotOK B13 NE Sea Chart Chest": "Temple of the Ocean King",
+    "Blaaz Boss Reward": "Temple of Fire",
+    "Cyclok Boss Reward": "Temple of Wind",
+    "Crayk Boss Reward": "Temple of Courage",
+    "Dongorongo Boss Reward": "Goron Temple",
+    "Gleeok Boss Reward": "Temple of Ice",
+    "Eox Boss Reward": "Mutoh's Temple",
+    "Ghost Ship Rescue Tetra": "Ghost Ship",
+    "Cubus Sisters Ghost Key": "Ghost Ship",
+}
+
 GHOST_SHIP_BOSS_ITEM_LOCATION = [
     "Ghost Ship Rescue Tetra",
     "Cubus Sisters Ghost Key",
