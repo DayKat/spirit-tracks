@@ -120,9 +120,6 @@ def add_pedestal_items(place, option, excluded_dungeons):
 
     return res
 
-def unexclude_placement(location: "Location"):
-    print(f"Placed item {location.item.name} at loc {location.name} excluded {location.progress_type}")
-
 class PhantomHourglassWorld(World):
     """
     The Legend of Zelda: Phantom Hourglass is the sea bound handheld sequel to the Wind Waker.
@@ -530,9 +527,9 @@ class PhantomHourglassWorld(World):
             for dungeon in excluded_dungeons:
                 locations_to_exclude.update(self.dungeon_name_groups[dungeon])
                 # hold off on excluding boss rooms/post boss locations if bosses are shuffled. mixed pool bosses don't inherrit dungeon status
-                if self.options.shuffle_bosses != 1:
-                    locations_to_exclude.update(self.boss_room_name_groups[dungeon])
-                    locations_to_exclude.update(self.post_dungeon_name_groups[dungeon])
+                if self.options.shuffle_bosses != 1 or self.options.decouple_entrances:
+                    locations_to_exclude.update(self.boss_room_name_groups.get(dungeon, []))
+                    locations_to_exclude.update(self.post_dungeon_name_groups.get(dungeon, []))
 
         self.locations_to_exclude = locations_to_exclude
         for name in locations_to_exclude:
@@ -773,20 +770,22 @@ class PhantomHourglassWorld(World):
                     self.manual_er()
                     self.er_placement_state = randomize_entrances(self, coupled, groups, on_connect=on_connect)
                     break
+
                 except EntranceRandomizationError as error:
                     print(f"Phantom Hourglass ER failed {i+1} time(s)")
                     if i >= ph_max_er_attempts-1:
                         raise EntranceRandomizationError(
                             f"Phantom Hourglass: failed GER after {ph_max_er_attempts} attempts.")
                     # disconnect entrances again, but only if they got connected before
-                    # print(f"entrances to find for re-disconnect: {disconnect_on_retry}")
-                    for entrance in disconnect_on_retry:
-                        # print(f"{entrance}: {entrance.parent_region} -> {entrance.connected_region}")
-                        if entrance.connected_region:
-                            target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
-                            disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
-
-
+                    for region in self.get_regions():
+                        # print(f"\tRegion: {region} | exits {[e for e in region.get_exits()]}")
+                        for _exit in region.get_exits():
+                            if (_exit.parent_region
+                                and _exit.connected_region
+                                and _exit in randomized_entrances):
+                                # print(f"Disconnecting entrance {_exit} {_exit.randomization_group}")
+                                target_name = ENTRANCES[_exit.name].vanilla_reciprocal.name
+                                disconnect_entrance_for_randomization(_exit, one_way_target_name=target_name)
 
     def generate_basic(self) -> None:
         if not getattr(self.multiworld, "generation_is_fake", False):
@@ -802,7 +801,7 @@ class PhantomHourglassWorld(World):
                 self.required_bosses.remove("_gs")
             if not self.options.totok_in_dungeon_pool:
                 self.required_bosses.remove("TotOK B13 NE Sea Chart Chest")
-        elif self.options.shuffle_bosses.value == 1:
+        elif self.options.shuffle_bosses.value == 1 and not self.options.decouple_entrances:
             self.required_bosses = []
             for e1, e2 in self.er_placement_state.pairings:
                 if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
@@ -813,6 +812,14 @@ class PhantomHourglassWorld(World):
                         self.required_bosses.append(BOSS_ENTRANCE_LOOKUP[e2])
             if "Temple of the Ocean King" in self.required_dungeons:
                 self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
+
+            # Exclude post boss locations if needed
+            if self.options.exclude_non_required_dungeons:
+                for boss in self.required_bosses:
+                    dung = BOSS_LOCATION_TO_DUNGEON[boss]
+                    for loc in self.boss_room_name_groups.get(dung, set()) | self.post_dungeon_name_groups.get(dung, set()):
+                        self.multiworld.get_location(loc, self.player).progress_type = LocationProgressType.EXCLUDED
+                        self.locations_to_exclude.add(loc)
         else:
             self.required_bosses = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung] for dung in
                                     self.required_dungeons]
@@ -1224,7 +1231,7 @@ class PhantomHourglassWorld(World):
             collection_state = self.multiworld.get_all_state()
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(boss_reward_locations)
-            print(f"Pre-Filling boss rewards: {boss_reward_locations} \n {boss_reward_items}")
+            # print(f"Pre-Filling boss rewards: {boss_reward_locations} \n {boss_reward_items}")
             fill_restrictive(self.multiworld, collection_state, boss_reward_locations, boss_reward_items,
                              single_player_placement=True, lock=True, allow_excluded=True)
 
@@ -1289,7 +1296,7 @@ class PhantomHourglassWorld(World):
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(dungeon_locations)
             fill_restrictive(self.multiworld, collection_state, dungeon_locations, confined_dungeon_items,
-                             single_player_placement=True, lock=True, allow_excluded=True, on_place=unexclude_placement)
+                             single_player_placement=True, lock=True, allow_excluded=True)
 
     def get_filler_item_name(self) -> str:
         filler_item_names = [

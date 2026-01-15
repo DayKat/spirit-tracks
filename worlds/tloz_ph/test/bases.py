@@ -82,16 +82,16 @@ class TestFullER(WorldTestBase):
         "ph_time_increment": 60,
         "randomize_beedle_membership": "no_beedle_points",
         # Entrance types
-        "shuffle_dungeon_entrances": "simple_mixed_pool",
-        "shuffle_ports": "simple_mixed_pool",
-        "shuffle_caves": "simple_mixed_pool",
-        "shuffle_houses": "simple_mixed_pool",
-        "shuffle_overworld_transitions": "simple_mixed_pool",
-        "shuffle_bosses": "simple_mixed_pool",
+        "shuffle_dungeon_entrances": "shuffle",
+        #"shuffle_ports": "simple_mixed_pool",
+        #"shuffle_caves": "no_shuffle",
+        # "shuffle_houses": "no_shuffle",
+        #"shuffle_overworld_transitions": "shuffle_on_own_island",
+        #"shuffle_bosses": "simple_mixed_pool",
         # entrance options
-        "entrance_directionality": "disregard_all",
+        "entrance_directionality": "preserve_all",
         "shuffle_between_islands": "shuffle_anywhere",
-        "decouple_entrances": "couple_all",
+        "decouple_entrances": 0,
 
         "ut_smart_keys": True,
                }
