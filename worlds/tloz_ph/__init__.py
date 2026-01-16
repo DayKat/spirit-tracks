@@ -633,7 +633,6 @@ class PhantomHourglassWorld(World):
                 if ENTRANCES[e.name].id in disconnect_ids:
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
-            print(f"getattr {getattr(self.multiworld, 'enforce_deferred_connections', 'error')}")
             if hasattr(self.multiworld, "enforce_deferred_connections"):
                 if getattr(self.multiworld, "enforce_deferred_connections") == "off":
                     entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
@@ -643,26 +642,9 @@ class PhantomHourglassWorld(World):
                                                    for e in region.exits if not e.connected_region}
 
                     for i, pairing in self.ut_pairings.items():
-                        i = int(i)
-                        dangling_entrance: "Entrance" or None = self.disconnected_entrances_map.get(i, None)
-                        dangling_exit: "Entrance" or None = self.disconnected_exits_map.get(i, None)
-
-                        entrance_region = self.get_region(entrance_id_to_region[i])
-                        exit_region = self.get_region(entrance_id_to_region[pairing])
-
-                        print(f"Connecting: {entrance_region} => {exit_region} | {dangling_exit} | {dangling_entrance} | {i}")
-                        name_check = f"{entrance_region.name} -> {exit_region.name}"
-                        if name_check in [i.name for i in entrance_region.exits]:
-                            print(f"exit {exit_region} already existed for {entrance_region}")
-                        else:
-                            entrance_region.connect(exit_region)
-
-                        if dangling_exit is not None:
-                            dangling_exit.connect(exit_region)
-                        if dangling_entrance is not None:
-                            if not self.options.decouple_entrances:
-                                dangling_entrance.connect(entrance_region)
-
+                        _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
+                        entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                        _exit.connect(entrance_region)
         else:
             # What option corresponds with what type
             type_option_lookup = {
@@ -1405,18 +1387,19 @@ class PhantomHourglassWorld(World):
         return slot_data
 
     def write_spoiler(self, spoiler_handle):
+        spoiler_handle.write(f"\n")
         if self.options.goal_requirements == "defeat_bosses":
-            spoiler_handle.write(f"\n\nRequired Dungeons ({self.multiworld.player_name[self.player]}):\n")
+            spoiler_handle.write(f"\nRequired Dungeons ({self.multiworld.player_name[self.player]}):\n")
             for dung in self.required_dungeons:
                 spoiler_handle.write(f"\t- {dung}\n")
 
         if self.excluded_dungeons:
-            spoiler_handle.write(f"\n\nExcluded Dungeons ({self.multiworld.player_name[self.player]}):\n")
+            spoiler_handle.write(f"\nExcluded Dungeons ({self.multiworld.player_name[self.player]}):\n")
             for dung in self.excluded_dungeons:
                 spoiler_handle.write(f"\t- {dung}\n")
 
         if self.options.goal_requirements == "defeat_bosses" and self.options.shuffle_bosses:
-            spoiler_handle.write(f"\n\nRequired Bosses ({self.multiworld.player_name[self.player]}):\n")
+            spoiler_handle.write(f"\nRequired Bosses ({self.multiworld.player_name[self.player]}):\n")
             for boss in self.required_bosses:
                 spoiler_handle.write(f"\t- {boss}\n")
 
@@ -1471,32 +1454,10 @@ class PhantomHourglassWorld(World):
                     pairing = self.ut_pairings.get(str(i), None)
                     # print(f"UT pairings {self.ut_pairings}")
                     if pairing is not None:
-                        dangling_entrance: "Entrance" = self.disconnected_entrances_map.get(i, None)
-                        dangling_exit: "Entrance" = self.disconnected_exits_map.get(i, None)
-
-                        entrance_region = self.get_region(entrance_id_to_region[i])
-                        exit_region = self.get_region(entrance_id_to_region[pairing])
-
-                        print(f"Connecting: {entrance_region} => {exit_region} | {dangling_exit} | {dangling_entrance} | {i}")
-                        try:
-                            print(f"Theoretical get_entrance: {self.get_entrance(entrance_id_to_entrance[i].name)} {self.get_entrance(entrance_id_to_entrance[pairing].name)}")
-                        except KeyError:
-                            print(f"Could not find entrance {entrance_id_to_entrance[i].name} {entrance_id_to_entrance[pairing].name}")
-                        name_check = f"{entrance_region.name} -> {exit_region.name}"
-                        if name_check in [i.name for i in entrance_region.exits]:
-                            print(f"exit {exit_region} already existed for {entrance_region}")
-                        else:
-                            entrance_region.connect(exit_region)
-                            print(f"Connecting {entrance_region} => {exit_region}")
-
-
-                        if dangling_exit is not None:
-                            dangling_exit.connect(exit_region)
-                            # print(f"dangling_exit's region: {dangling_exit.name} => {dangling_exit.connected_region}")
-                        if dangling_entrance is not None:
-                            if not self.options.decouple_entrances:
-                                dangling_entrance.connect(entrance_region)
-                                # print(f"dangling_entrance's region: {dangling_entrance.name} => {dangling_entrance.connected_region}")
+                        _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[i].name)
+                        entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                        print(f"Connecting: {_exit} => {entrance_region} | {i}: {pairing}")
+                        _exit.connect(entrance_region)
 
 
                 self.ut_connected_entrances |= new_entrances
