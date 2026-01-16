@@ -142,7 +142,7 @@ LOCATIONS_DATA = {
         "stage_id": 0xb,
         "floor_id": 0xd,
         "vanilla_item": "Ship Part",
-        "post_dungeon": "Temple of Fire",
+        # "post_dungeon": "Temple of Fire", hard code
         "id": 14,
     },
     "Oshus Spirit Gem": {

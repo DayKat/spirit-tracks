@@ -1346,6 +1346,38 @@ GHOST_SHIP_BOSS_ITEM_LOCATION = [
     "Cubus Sisters Ghost Key"
 ]
 
+# Entrance name: dungeon name
+BOSS_STAIRCASES = {
+    "ToF Enter Boss": "Temple of Fire",
+    "ToW Enter Boss": "Temple of Wind",
+    "ToC Enter Boss": "Temple of Courage",
+    "Ghost Ship Cubus Sisters Reunion": "Ghost Ship",
+    "GT Enter Boss": "Goron Temple",
+    "ToI Enter Boss": "Temple of Ice",
+    "MT Enter Boss": "Mutoh's Temple",
+}
+
+BOSS_LOOKUP = {
+    "Temple of Fire": "Blaaz",
+    "Temple of Wind": "Cyclok",
+    "Temple of Courage": "Crayk",
+    "Ghost Ship": "Cubus Sisters",
+    "Goron Temple": "Dongorongo",
+    "Temple of Ice": "Gleeok",
+    "Mutoh's Temple": "Eox"
+}
+
+# Boss Room Entrance name: boss reward location name
+BOSS_ENTRANCE_LOOKUP = {
+    "Blaaz Exit": "Blaaz Boss Reward",
+    "Cyclok Exit": "Cyclok Boss Reward",
+    "Crayk Exit": "Crayk Boss Reward",
+    "Cubus Sisters Blue Warp": "Cubus Sisters Ghost Key",
+    "Dongo Exit": "Dongorongo Boss Reward",
+    "Gleeok Exit": "Gleeok Boss Reward",
+    "Eox Exit": "Eox Boss Reward",
+}
+
 DUNGEON_KEY_DATA = {
     39: {
         "name": "Mountain Passage",
@@ -1438,37 +1470,7 @@ BOSS_DOOR_DATA = {
     },
 }
 
-# Entrance name: dungeon name
-BOSS_STAIRCASES = {
-    "ToF Enter Boss": "Temple of Fire",
-    "ToW Enter Boss": "Temple of Wind",
-    "ToC Enter Boss": "Temple of Courage",
-    "Ghost Ship Cubus Sisters Reunion": "Ghost Ship",
-    "GT Enter Boss": "Goron Temple",
-    "ToI Enter Boss": "Temple of Ice",
-    "MT Enter Boss": "Mutoh's Temple",
-}
 
-BOSS_LOOKUP = {
-    "Temple of Fire": "Blaaz",
-    "Temple of Wind": "Cyclok",
-    "Temple of Courage": "Crayk",
-    "Ghost Ship": "Cubus Sisters",
-    "Goron Temple": "Dongorongo",
-    "Temple of Ice": "Gleeok",
-    "Mutoh's Temple": "Eox"
-}
-
-# Boss Room Entrance name: boss reward location name
-BOSS_ENTRANCE_LOOKUP = {
-    "Blaaz Exit": "Blaaz Boss Reward",
-    "Cyclok Exit": "Cyclok Boss Reward",
-    "Crayk Exit": "Crayk Boss Reward",
-    "Cubus Sisters Blue Warp": "Cubus Sisters Ghost Key",
-    "Dongo Exit": "Dongorongo Boss Reward",
-    "Gleeok Exit": "Gleeok Boss Reward",
-    "Eox Exit": "Eox Boss Reward",
-}
 
 COLOR_SWITCH_DATA = {
     0x1F: {

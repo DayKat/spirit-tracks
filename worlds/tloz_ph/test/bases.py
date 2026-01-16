@@ -53,6 +53,8 @@ class TestExcludedCrystals(WorldTestBase):
     options = {"dungeons_required": 0,
                "randomize_pedestal_items": "anywhere",
                "pedestal_item_options": "unique_pedestals",
+               "shuffle_bosses": "shuffle",
+               "shuffle_houses": "shuffle",
                }
 
 class TestFullER(WorldTestBase):
@@ -83,11 +85,11 @@ class TestFullER(WorldTestBase):
         "randomize_beedle_membership": "no_beedle_points",
         # Entrance types
         "shuffle_dungeon_entrances": "shuffle",
-        #"shuffle_ports": "simple_mixed_pool",
-        #"shuffle_caves": "no_shuffle",
-        # "shuffle_houses": "no_shuffle",
-        #"shuffle_overworld_transitions": "shuffle_on_own_island",
-        #"shuffle_bosses": "simple_mixed_pool",
+        "shuffle_ports": "simple_mixed_pool",
+        "shuffle_caves": "no_shuffle",
+        "shuffle_houses": "no_shuffle",
+        # "shuffle_overworld_transitions": "shuffle_on_own_island",
+        "shuffle_bosses": "simple_mixed_pool",
         # entrance options
         "entrance_directionality": "preserve_all",
         "shuffle_between_islands": "shuffle_anywhere",

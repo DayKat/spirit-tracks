@@ -70,6 +70,7 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
     else:
         item_pool_dict[item] = filler_item_count
         filler_item_count = 0
+        print(f"Ran out of filler items! on item {item}")
     return [item_pool_dict, filler_item_count]
 
 
@@ -224,6 +225,8 @@ class PhantomHourglassWorld(World):
         self.ut_map_page_hidden_entrances = {}
         self.ut_map_page_hidden_events = {}
 
+        self.is_ut = getattr(self.multiworld, "generation_is_fake", False)
+
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
@@ -321,7 +324,7 @@ class PhantomHourglassWorld(World):
     def create_regions(self):
         # Add region aliases if UT
         all_regions = set(REGIONS)
-        if getattr(self.multiworld, "generation_is_fake", False):
+        if self.is_ut:
             all_regions.update(set(ENTRANCES.keys()))
             for aliases in region_aliases.values():
                 all_regions.update(aliases)
@@ -379,8 +382,8 @@ class PhantomHourglassWorld(World):
             if location_name == "Man of Smiles' Prize Postcard":  # This it pretty random but whatever...
                 return self.options.randomize_beedle_membership.value > 0
             if "EVENT" in location_name:
-                print(f"Found event {location_name} {getattr(self.multiworld, 'generation_is_fake', False)}")
-                return getattr(self.multiworld, "generation_is_fake", False)
+                print(f"Found event {location_name} {self.is_ut}")
+                return self.is_ut
             return False
 
     def pick_required_dungeons(self):
@@ -530,6 +533,8 @@ class PhantomHourglassWorld(World):
                 if self.options.shuffle_bosses != 1 or self.options.decouple_entrances:
                     locations_to_exclude.update(self.boss_room_name_groups.get(dungeon, []))
                     locations_to_exclude.update(self.post_dungeon_name_groups.get(dungeon, []))
+                    if not self.options.shuffle_houses and dungeon == "Temple of Fire":
+                        locations_to_exclude.add("Shipyard Chest")
 
         self.locations_to_exclude = locations_to_exclude
         for name in locations_to_exclude:
@@ -622,7 +627,7 @@ class PhantomHourglassWorld(World):
 
     def connect_entrances(self) -> None:
         # UT only needs to disconnect entrances, use slot data pairings to figure out which
-        if getattr(self.multiworld, "generation_is_fake", False):
+        if self.is_ut:
             disconnect_ids = {int(i) for i in self.ut_pairings.keys()}
             for e in self.entrances.values():
                 if ENTRANCES[e.name].id in disconnect_ids:
@@ -788,7 +793,7 @@ class PhantomHourglassWorld(World):
                                 disconnect_entrance_for_randomization(_exit, one_way_target_name=target_name)
 
     def generate_basic(self) -> None:
-        if not getattr(self.multiworld, "generation_is_fake", False):
+        if not self.is_ut:
             self.link_dungeon_to_boss()
 
     def link_dungeon_to_boss(self):
@@ -815,11 +820,17 @@ class PhantomHourglassWorld(World):
 
             # Exclude post boss locations if needed
             if self.options.exclude_non_required_dungeons:
-                for boss in self.required_bosses:
-                    dung = BOSS_LOCATION_TO_DUNGEON[boss]
+                excluded_boss_keys = {BOSS_LOCATION_TO_DUNGEON[boss] for boss in BOSS_LOCATION_TO_DUNGEON if
+                                      boss not in self.required_bosses}
+                for dung in excluded_boss_keys:
                     for loc in self.boss_room_name_groups.get(dung, set()) | self.post_dungeon_name_groups.get(dung, set()):
                         self.multiworld.get_location(loc, self.player).progress_type = LocationProgressType.EXCLUDED
                         self.locations_to_exclude.add(loc)
+
+                    if not self.options.shuffle_houses and dung == "Temple of Fire":
+                        self.multiworld.get_location("Shipyard Chest", self.player).progress_type = LocationProgressType.EXCLUDED
+                        self.locations_to_exclude.add("Shipyard Chest")
+
         else:
             self.required_bosses = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung] for dung in
                                     self.required_dungeons]
@@ -828,11 +839,6 @@ class PhantomHourglassWorld(World):
             self.required_bosses.remove("_gs")
             self.required_bosses.append(
                 GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
-
-        # Exclude boss room and post boss items as needed
-        for boss in self.required_bosses:
-            dungeon = BOSS_LOCATION_TO_DUNGEON[boss]
-            []
 
         # Add dungeon hints to start
         if self.options.dungeon_hint_location.value == 0 and self.options.dungeon_hint_type == "hint_boss":
@@ -1117,8 +1123,6 @@ class PhantomHourglassWorld(World):
         # Add pedestal items
         if self.options.randomize_pedestal_items.value > 1:
             add_items |= add_pedestal_items(self.options.randomize_pedestal_items, self.options.pedestal_item_options, self.excluded_dungeons)
-        # Add sand items to pool
-        add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
         # Add treasure maps
         if self.options.randomize_salvage.value:
             add_items |= {i: 1 for i in ITEM_GROUPS["Treasure Maps"]}
@@ -1133,14 +1137,16 @@ class PhantomHourglassWorld(World):
         for item, count in self.options.add_items_to_pool.items():
             add_items.setdefault(item, 0)
             add_items[item] += count
+        # Add sand items to pool
+        add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment,
+                              self.options.ph_time_logic)
+        # Add ships last cause they can be overwritten
+        for i in ITEM_GROUPS["Ships"]:
+            add_items.setdefault(i, 0)
+            add_items[i] += 1
         # add items to item pool
         for i, count in add_items.items():
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
-        # Add ships if enough room in filler pool
-        if filler_item_count >= 8:
-            for i in ITEM_GROUPS["Ships"]:
-                item_pool_dict[i] = 1
-            filler_item_count -= 8
         # Add as many filler items as required
         for _ in range(filler_item_count):
             random_filler_item = self.get_filler_item_name()
@@ -1186,7 +1192,21 @@ class PhantomHourglassWorld(World):
                 extra_items_list.extend([item] * count)
 
         extra_item_count = len(self.locations_to_exclude) - filler_count + 20
-        # print(f"Filler items needed: {len(self.locations_to_exclude)} | have: {filler_count} | available: {len(extra_items_list)}")
+        # print(f"Filler items basic: {len(self.locations_to_exclude)} | have: {filler_count} | "
+        #       f"available: {len(extra_items_list)} | total: {extra_item_count}")
+
+        # since item pool is created before items are filtered to dungeon pool,
+        # remove the worst case scenario for excluded key items to lighten the pool
+        ed = len(self.excluded_dungeons)
+        extra_item_count -= ([0] + list(range(8)))[ed] if self.options.randomize_boss_keys.value in [0, 1] else 0  # boss keys iod
+        extra_item_count -= [0, 0, 0, 1, 3, 6, 9, 12][ed] if self.options.keysanity.value in [0, 1] else 0  # keys iod
+        extra_item_count -= [0, 0, 0, 0, 0, 0, 1, 3][ed] if (self.options.randomize_pedestal_items.value in [0, 1, 2]
+                                                             and self.options.pedestal_item_options in [0, 1]) else 0
+        extra_item_count -= ed if not self.options.require_specific_bosses else 0  # boss rewards on rsb
+        if self.options.shuffle_bosses == 1 and not self.options.decouple_entrances:  # boss exclusion happens later
+            extra_item_count += [0, 5, 10, 14, 18, 21, 24, 27][ed]  # worst case boss room + post dungeon locs
+
+        # print(f"Filler items advanced: {extra_item_count}")
         if extra_item_count > 0:
             self.random.shuffle(extra_items_list)
             self.extra_filler_items = extra_items_list[:extra_item_count]
@@ -1217,7 +1237,8 @@ class PhantomHourglassWorld(World):
         self.pre_fill_items.extend(confined_dungeon_items)
 
     def pre_fill_boss_rewards(self):
-
+        if self.is_ut:
+            print(f"UT is creating boss rewards! stop it!")
         # Pre-fill dungeon rewards
         if self.options.goal_requirements == "defeat_bosses":
             boss_reward_locations = [loc for loc in self.multiworld.get_locations(self.player)
@@ -1236,6 +1257,8 @@ class PhantomHourglassWorld(World):
                              single_player_placement=True, lock=True, allow_excluded=True)
 
     def pre_fill_dungeon_items(self):
+        if self.is_ut:
+            print(f"UT is creating dungeon items! stop it!")
 
         global_crystal_dungeons = {}
         def global_pedestal_helper(crystal, dungeon):
@@ -1382,16 +1405,28 @@ class PhantomHourglassWorld(World):
         return slot_data
 
     def write_spoiler(self, spoiler_handle):
-        spoiler_handle.write(f"\n\nRequired Dungeons ({self.multiworld.player_name[self.player]}):\n")
-        for dung in self.required_dungeons:
-            spoiler_handle.write(f"\t- {dung}\n")
+        if self.options.goal_requirements == "defeat_bosses":
+            spoiler_handle.write(f"\n\nRequired Dungeons ({self.multiworld.player_name[self.player]}):\n")
+            for dung in self.required_dungeons:
+                spoiler_handle.write(f"\t- {dung}\n")
 
-        if self.er_placement_state:
-            spoiler_handle.write(f"\n\n Entrance Rando\n")
+        if self.excluded_dungeons:
+            spoiler_handle.write(f"\n\nExcluded Dungeons ({self.multiworld.player_name[self.player]}):\n")
+            for dung in self.excluded_dungeons:
+                spoiler_handle.write(f"\t- {dung}\n")
+
+        if self.options.goal_requirements == "defeat_bosses" and self.options.shuffle_bosses:
+            spoiler_handle.write(f"\n\nRequired Bosses ({self.multiworld.player_name[self.player]}):\n")
+            for boss in self.required_bosses:
+                spoiler_handle.write(f"\t- {boss}\n")
+
+        if self.er_placement_state.pairings:
+            spoiler_handle.write(f"\n\nEntrance Rando ({self.multiworld.player_name[self.player]}):\n")
             prev = None
+            arrow = "=>" if self.options.decouple_entrances else "<=>"
             for i in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
-                if not (i[1], i[0]) == prev:
-                    text = i[0] + " <=> " + i[1]
+                if (i[1], i[0]) != prev or self.options.decouple_entrances:
+                    text = i[0] + f" {arrow} " + i[1]
                     spoiler_handle.write(f"\t{text}\n")
                 prev = i
 
