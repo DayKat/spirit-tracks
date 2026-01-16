@@ -1528,3 +1528,29 @@ class PhantomHourglassWorld(World):
             connect_existing_regions("gtw", "GT 1F", "GT B4")
             connect_existing_regions("tiw", "ToI 1F", "ToI Blue Warp")
             connect_existing_regions("mtw", "MT 1F", "MT B3")
+
+            # map warp connections
+            connect_existing_regions("wsw", "Menu", "SW Ocean East", "Warp to SW Ocean")
+            connect_existing_regions("wse", "Menu", "SE Ocean", "Warp to SE Ocean")
+            connect_existing_regions("wnw", "Menu", "NW Ocean", "Warp to NW Ocean")
+            connect_existing_regions("wne", "Menu", "NE Ocean", "Warp to NE Ocean")
+
+            connect_existing_regions("wmc", "Menu", "Mercay SE", "Warp to Mercay Island")
+            connect_existing_regions("wc", "Menu", "Cannon Island", "Warp to Cannon Island")
+            connect_existing_regions("we", "Menu", "Ember Port", "Warp to Isle of Ember")
+            connect_existing_regions("wml", "Menu", "Molida South", "Warp to Molida Island")
+            connect_existing_regions("ws", "Menu", "Spirit Island", "Warp to Spirit Island")
+
+            connect_existing_regions("wgu", "Menu", "Gust South", "Warp to Isle of Gust")
+            connect_existing_regions("wb", "Menu", "Bannan East", "Warp to Bannan Island")
+            connect_existing_regions("wz", "Menu", "Zauz's Island", "Warp to Zauz' Island")
+            connect_existing_regions("wu", "Menu", "Uncharted Island", "Warp to Uncharted Island")
+
+            connect_existing_regions("wgo", "Menu", "Goron SW", "Warp to Goron Island")
+            connect_existing_regions("wf", "Menu", "Frost SW", "Warp to Isle of Frost")
+            connect_existing_regions("wh", "Menu", "Harrow Island", "Warp to Harrow Island")
+            connect_existing_regions("wds", "Menu", "Dee Ess Island", "Warp to Dee Ess Island")
+
+            connect_existing_regions("wd", "Menu", "IotD Port", "Warp to Isle of the Dead")
+            connect_existing_regions("wr", "Menu", "Ruins SW Port", "Warp to Isle of Ruins")
+            connect_existing_regions("wmz", "Menu", "Maze Island", "Warp to Maze Island")

@@ -1034,7 +1034,7 @@ class PhantomHourglassClient(DSZeldaClient):
             elif self.was_alive_last_frame and is_dead:
                 # Our player just died...
                 self.was_alive_last_frame = False
-                print(f"health address: {hex(self.main_read_list['link_health'])}")
+                print(f"health address: {hex(self.main_read_list['link_health'][0])}")
                 if self.is_expecting_received_death:
                     # ...because of a received deathlink, so let's not make a circular chain of deaths please
                     self.is_expecting_received_death = False
