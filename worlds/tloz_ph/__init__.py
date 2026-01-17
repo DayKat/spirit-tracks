@@ -61,6 +61,15 @@ class PhantomHourglassWeb(WebWorld):
     theme = "ocean"
     option_groups = ph_option_groups
 
+class PhantomHourglassSettings(settings.Group):
+    class PHGetLogicalPathShortcuts(str):
+        """
+        For use with universal tracker.
+        Toggles if universal tracker can use unlocked shortcuts and map warps to find shorter paths for /get_logical_path.
+        """
+
+    ut_get_logical_path_shortcuts: Union[PHGetLogicalPathShortcuts, bool] = True
+
 
 # Adds a consistent count of items to pool, independent of how many are from locations
 def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
@@ -132,6 +141,7 @@ class PhantomHourglassWorld(World):
     web = PhantomHourglassWeb()
     topology_present = True
 
+    settings: ClassVar[PhantomHourglassSettings]
     settings_key = "tloz_ph_options"
 
     location_name_to_id = build_location_name_to_id_dict()
@@ -1486,7 +1496,7 @@ class PhantomHourglassWorld(World):
                 print(f"Excluding {self.location_id_to_name[i]}")
                 self.multiworld.get_location(self.location_id_to_name[i], self.player).progress_type = LocationProgressType.EXCLUDED
 
-        elif "ph_ut_events" in key and stored_data:
+        if "ph_ut_events" in key and stored_data and self.settings['ut_get_logical_path_shortcuts']:
             # Used to create an event item for specific tracker logic
             def manage_ut_event(stored_name, region_name, event_item_name):
                 if stored_name in stored_data and not stored_name in self.ut_created_events:
@@ -1542,7 +1552,7 @@ class PhantomHourglassWorld(World):
             connect_existing_regions("ws", "Menu", "Spirit Island", "Warp to Spirit Island")
 
             connect_existing_regions("wgu", "Menu", "Gust South", "Warp to Isle of Gust")
-            connect_existing_regions("wb", "Menu", "Bannan East", "Warp to Bannan Island")
+            connect_existing_regions("wb", "Menu", "Bannan Island", "Warp to Bannan Island")
             connect_existing_regions("wz", "Menu", "Zauz's Island", "Warp to Zauz' Island")
             connect_existing_regions("wu", "Menu", "Uncharted Island", "Warp to Uncharted Island")
 

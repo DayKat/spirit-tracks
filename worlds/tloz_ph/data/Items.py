@@ -958,14 +958,14 @@ ITEMS_DATA = {
         "set_bit_in_room": {0x250C: [(0x257694, 0x22)]}
     },
     "Square Pedestal West (Temple of the Ocean King)": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 200,
         "set_bit_in_room": {0x250C: [(0x257694, 0x20)]}
     },
     "Square Pedestal Center (Temple of the Ocean King)": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 201,
@@ -1319,13 +1319,13 @@ ITEMS_DATA = {
         "id": 170,
     },
     "Golden Frog Glyph Omega": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "address": 0x1b55a3,
         "value": 0x4,
         "id": 171,
     },
     "Golden Frog Glyph W": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "address": 0x1b55a3,
         "value": 0x8,
         "id": 172,

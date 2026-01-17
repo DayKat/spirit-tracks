@@ -1859,6 +1859,7 @@ map_type_lookup = {
 0x1: "sea",
 0x2: "sea",
 0x3: "sea",
+0x300: "sea"
 }
 
 if __name__ == "__main__":

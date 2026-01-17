@@ -2526,6 +2526,15 @@ def ph_totok_b9(state, player):
                 ph_has_explosives(state, player),
                 not ph_option_pedestals_vanilla(state, player)
             ])
+        ]),
+        all([
+            ph_totok_has_floor_time(state, player, '8_2c', 5),
+            not ph_option_pedestals_vanilla(state, player),
+            ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Square", "West"),
+            any([
+                ph_has_shape_crystal(state, player, "Temple of the Ocean King", "Round", "B8"),
+                ph_has_hammer(state, player),
+            ])
         ])
     ])
 
