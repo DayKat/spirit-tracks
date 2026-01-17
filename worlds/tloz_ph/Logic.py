@@ -92,6 +92,7 @@ def make_overworld_logic():
         ["Mountain Passage 4", "Mountain Passage 3", False, "mp3_back"],
         ["Mountain Passage 4", "Mercay SE", True, None],
         ["Mountain Passage 4", "Mountain Passage 1", False, "hard_logic"],
+        ["Mountain Passage 3", "Mountain Passage 1", False, "hard_logic"],
 
         # ========== TotOK ===================
         ["TotOK Lobby", "TotOK 1F", False, "totok_1f"],
@@ -242,6 +243,7 @@ def make_overworld_logic():
         ["Cannon Island", "Bomb Flower Cave South", True, None],
         ["Bomb Flower Cave South", "Bomb Flower Cave North", False, None],
         ["Bomb Flower Cave North", "Cannon Bomb Garden", True, None],
+        ["Bomb Flower Cave North", "Bomb Flower Cave South", False, "hard_logic"],
         ["Cannon Bomb Garden", "Cannon Outside Eddo", False, None],
         ["Cannon Outside Eddo", "Cannon Bomb Garden", False, "explosives"],
         ["Cannon Bomb Garden", "Cannon Island", False, None],

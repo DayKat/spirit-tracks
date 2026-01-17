@@ -1,6 +1,8 @@
 from typing import TYPE_CHECKING
-from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, item_count, storage_key, get_stored_data
+from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, item_count, storage_key, get_stored_data, \
+    write_memory_values
 from .data.Entrances import ENTRANCES, entrance_id_to_entrance
+import worlds._bizhawk as bizhawk
 import logging
 
 if TYPE_CHECKING:
@@ -48,6 +50,29 @@ warp_item_lookup = {
     0x30: "Map Warp: Harrow",
     0x31: "Map Warp: Maze",
     0x32: "Map Warp: Uncharted",
+}
+
+ut_event_lookup = {
+    0x1F: "wsw",
+    0x20: "wse",
+    0x21: "wnw",
+    0x22: "wne",
+    0x23: "wmc",
+    0x24: "wml",
+    0x25: "we",
+    0x26: "wgu",
+    0x27: "wf",
+    0x28: "wgo",
+    0x29: "wr",
+    0x2A: "wds",
+    0x2B: "wc",
+    0x2C: "wb",
+    0x2D: "wd",
+    0x2E: "wz",
+    0x2F: "ws",
+    0x30: "wh",
+    0x31: "wmz",
+    0x32: "wu",
 }
 
 no_ow_er_lookup = {
@@ -122,6 +147,25 @@ safe_entrances_ow = safe_entrances_common | {
            "Ruins SW East", "Ruins SW Port Cave", "Ruins SW Cliff Cave"],
 }
 
+island_visibility_addr = {
+    "Map Warp: Mercay": 0x1b4b8c,
+    "Map Warp: Molida": 0x1b4bb4,
+    "Map Warp: Ember": 0x1B4BDC,
+    "Map Warp: Cannon": 0x1B4C04,
+    "Map Warp: Spirit": 0x1B4C2C,
+    "Map Warp: Gust": 0x1B4C54,
+    "Map Warp: Bannan": 0x1B4C7C,
+    "Map Warp: Zauz": 0x1B4CA4,
+    "Map Warp: Uncharted": 0x1B4CCC,
+    "Map Warp: Goron": 0x1B4CF4,
+    "Map Warp: Frost": 0x1B4D1C,
+    "Map Warp: Harrow": 0x1B4D44,
+    "Map Warp: Dee Ess": 0x1B4D6C,
+    "Map Warp: Ruins": 0x1B4D94,
+    "Map Warp: Isle of the Dead": 0x1B4DBC,
+    "Map Warp: Maze": 0x1B4DE4,
+}
+
 safe_entrances_no_ow = safe_entrances_common | {}
 
 # Ruins lower does not count! check entrances for that!
@@ -165,6 +209,15 @@ def check_visited_scenes(client, ctx, transition_mode, scene_lookup, safe_entran
             return ENTRANCES[transition_lookup[transition_mode]]
     return None
 
+async def set_visibility(ctx: "BizHawkClientContext"):
+    write_list = []
+    for item, addr in island_visibility_addr.items():
+        if item_count(ctx, item):
+            write_list.append((addr, [0x1], "Main RAM"))
+        else:
+            write_list.append((addr, [0], "Main RAM"))
+    await bizhawk.write(ctx.bizhawk_ctx, write_list)
+
 async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", read_list):
     # Check options
     if ctx.slot_data.get("map_warp_options", 0) == 0 and False: return
@@ -207,6 +260,8 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         if client.map_warp:
             client.map_warp = None
             logger.info(f"Canceled map warp")
+        if ctx.slot_data["map_warp_options"] == 1:
+            await set_visibility(ctx)
     if not client.map_mode: return
 
     # Exit map mode when appropriate
@@ -253,18 +308,18 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
             if transition_mode in warp_item_lookup and not item_count(ctx, warp_item_lookup[transition_mode]):
                 client.map_warp = None
                 logger.info(f"Missing warp unlock item for that island")
-            else:
-                logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
         elif transition_mode in range(0x1f, 0x23) and ctx.slot_data["boat_requires_sea_chart"]:
             # If warping to sea, check sea chart reqs
             trans_mode_to_chart = {0x1F: "SW Sea Chart", 0x20: "SE Sea Chart", 0x21: "NW Sea Chart", 0x22: "NE Sea Chart"}
             if not item_count(ctx, trans_mode_to_chart[transition_mode]):
                 client.map_warp = None
                 logger.info(f"You do not have the correct sea chart")
-            else:
-                logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
-        else:  # success
+
+        # Success
+        if client.map_warp:
             logger.info(f"Selected map warp destination: {transition_lookup[transition_mode]}")
+            # Store connection for ut glp
+            await client.store_data(ctx, storage_key(ctx, "ph_ut_events"), [ut_event_lookup[transition_mode]])
 
     elif transition_mode == 0x17:  # Return to big map, reset selector
         client.map_warp_reselector = True

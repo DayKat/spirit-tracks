@@ -61,6 +61,15 @@ class PhantomHourglassWeb(WebWorld):
     theme = "ocean"
     option_groups = ph_option_groups
 
+class PhantomHourglassSettings(settings.Group):
+    class PHGetLogicalPathShortcuts(str):
+        """
+        For use with universal tracker.
+        Toggles if universal tracker can use unlocked shortcuts and map warps to find shorter paths for /get_logical_path.
+        """
+
+    ut_get_logical_path_shortcuts: Union[PHGetLogicalPathShortcuts, bool] = True
+
 
 # Adds a consistent count of items to pool, independent of how many are from locations
 def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
@@ -70,6 +79,7 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
     else:
         item_pool_dict[item] = filler_item_count
         filler_item_count = 0
+        print(f"Ran out of filler items! on item {item}")
     return [item_pool_dict, filler_item_count]
 
 
@@ -118,16 +128,6 @@ def add_pedestal_items(place, option, excluded_dungeons):
         res |= add_from_group("Unique Crystal Items")
         res |= add_from_group("Unique Force Gems", 3)
 
-    # Remove from excluded dungeons
-    if "Temple of Courage" in excluded_dungeons:
-        for i in ["Square Crystal (Temple of Courage)", "Square Pedestal North (Temple of Courage)", "Square Pedestal South (Temple of Courage)",]:
-            if i in res:
-                res.pop(i)
-    if "Ghost Ship" in excluded_dungeons:
-        for i in ["Triangle Crystal (Ghost Ship)", "Round Crystal (Ghost Ship)"]:
-            if i in res:
-                res.pop(i)
-
     return res
 
 class PhantomHourglassWorld(World):
@@ -141,6 +141,7 @@ class PhantomHourglassWorld(World):
     web = PhantomHourglassWeb()
     topology_present = True
 
+    settings: ClassVar[PhantomHourglassSettings]
     settings_key = "tloz_ph_options"
 
     location_name_to_id = build_location_name_to_id_dict()
@@ -205,9 +206,12 @@ class PhantomHourglassWorld(World):
         self.required_dungeons = []
         self.boss_reward_items_pool = []
         self.boss_reward_location_names = []
+
         self.dungeon_name_groups = {}
+        self.post_dungeon_name_groups = {}
+        self.boss_room_name_groups = {}
+
         self.locations_to_exclude = set()
-        self.ut_locations_to_exclude = set()
         self.extra_filler_items = []
         self.excluded_dungeons = []
         self.ut_pairings = {}
@@ -230,6 +234,8 @@ class PhantomHourglassWorld(World):
         self.ut_map_page_hidden_locations = {}
         self.ut_map_page_hidden_entrances = {}
         self.ut_map_page_hidden_events = {}
+
+        self.is_ut = getattr(self.multiworld, "generation_is_fake", False)
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -311,13 +317,16 @@ class PhantomHourglassWorld(World):
         region = self.multiworld.get_region(region_name, self.player)
         location = Location(self.player, location_name, self.location_name_to_id[location_name], region)
         region.locations.append(location)
-        if "dungeon" in LOCATIONS_DATA[location_name]:
-            self.dungeon_name_groups.setdefault(LOCATIONS_DATA[location_name]["dungeon"], set())
-            self.dungeon_name_groups[LOCATIONS_DATA[location_name]["dungeon"]].add(location_name)
-        # For excluding post-dungeon checks from excluded dungeons
-        if "post_dungeon" in LOCATIONS_DATA[location_name]:
-            self.dungeon_name_groups.setdefault(LOCATIONS_DATA[location_name]["post_dungeon"], set())
-            self.dungeon_name_groups[LOCATIONS_DATA[location_name]["post_dungeon"]].add(location_name)
+
+        def add_to_name_group(group_name, group_var):
+            if group_name in LOCATIONS_DATA[location_name]:
+                group_var.setdefault(LOCATIONS_DATA[location_name][group_name], set())
+                group_var[LOCATIONS_DATA[location_name][group_name]].add(location_name)
+
+        # Used for excluding room sets
+        add_to_name_group("dungeon", self.dungeon_name_groups)
+        add_to_name_group("post_dungeon", self.post_dungeon_name_groups)
+        add_to_name_group("boss_room", self.boss_room_name_groups)
 
         if local:
             location.item_rule = lambda item: item.player == self.player
@@ -325,7 +334,7 @@ class PhantomHourglassWorld(World):
     def create_regions(self):
         # Add region aliases if UT
         all_regions = set(REGIONS)
-        if getattr(self.multiworld, "generation_is_fake", False):
+        if self.is_ut:
             all_regions.update(set(ENTRANCES.keys()))
             for aliases in region_aliases.values():
                 all_regions.update(aliases)
@@ -383,8 +392,8 @@ class PhantomHourglassWorld(World):
             if location_name == "Man of Smiles' Prize Postcard":  # This it pretty random but whatever...
                 return self.options.randomize_beedle_membership.value > 0
             if "EVENT" in location_name:
-                print(f"Found event {location_name} {getattr(self.multiworld, 'generation_is_fake', False)}")
-                return getattr(self.multiworld, "generation_is_fake", False)
+                print(f"Found event {location_name} {self.is_ut}")
+                return self.is_ut
             return False
 
     def pick_required_dungeons(self):
@@ -524,23 +533,18 @@ class PhantomHourglassWorld(World):
         # If non required dungeons need to be excluded, and UT can now participate too!
         if self.options.exclude_non_required_dungeons:
             always_include = ["Temple of the Ocean King", "Mountain Passage"]
-            if self.options.ghost_ship_in_dungeon_pool.value == 2:
-                always_include.append("Ghost Ship")
             excluded_dungeons = [d for d in DUNGEON_NAMES
                                  if d not in self.required_dungeons + always_include]
             self.excluded_dungeons = excluded_dungeons
             # print(f"Excluded dungeons: {self.excluded_dungeons}")
             for dungeon in excluded_dungeons:
                 locations_to_exclude.update(self.dungeon_name_groups[dungeon])
-
-            self.ut_locations_to_exclude = locations_to_exclude.copy()
-            # Unexclude locations that have vanilla small keys/dung items cause in excluded dungeons, keys are vanilla
-            if not getattr(self.multiworld, "generation_is_fake", False):
-                for location in locations_to_exclude.copy():
-                    if ("Small Key" in LOCATIONS_DATA[location]["vanilla_item"] or
-                            "Boss Key" in LOCATIONS_DATA[location]["vanilla_item"] or
-                            "Crystal" in LOCATIONS_DATA[location]["vanilla_item"]):
-                        locations_to_exclude.remove(location)
+                # hold off on excluding boss rooms/post boss locations if bosses are shuffled. mixed pool bosses don't inherrit dungeon status
+                if self.options.shuffle_bosses != 1 or self.options.decouple_entrances:
+                    locations_to_exclude.update(self.boss_room_name_groups.get(dungeon, []))
+                    locations_to_exclude.update(self.post_dungeon_name_groups.get(dungeon, []))
+                    if not self.options.shuffle_houses and dungeon == "Temple of Fire":
+                        locations_to_exclude.add("Shipyard Chest")
 
         self.locations_to_exclude = locations_to_exclude
         for name in locations_to_exclude:
@@ -633,13 +637,12 @@ class PhantomHourglassWorld(World):
 
     def connect_entrances(self) -> None:
         # UT only needs to disconnect entrances, use slot data pairings to figure out which
-        if getattr(self.multiworld, "generation_is_fake", False):
+        if self.is_ut:
             disconnect_ids = {int(i) for i in self.ut_pairings.keys()}
             for e in self.entrances.values():
                 if ENTRANCES[e.name].id in disconnect_ids:
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
-            print(f"getattr {getattr(self.multiworld, 'enforce_deferred_connections', 'error')}")
             if hasattr(self.multiworld, "enforce_deferred_connections"):
                 if getattr(self.multiworld, "enforce_deferred_connections") == "off":
                     entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
@@ -649,26 +652,9 @@ class PhantomHourglassWorld(World):
                                                    for e in region.exits if not e.connected_region}
 
                     for i, pairing in self.ut_pairings.items():
-                        i = int(i)
-                        dangling_entrance: "Entrance" or None = self.disconnected_entrances_map.get(i, None)
-                        dangling_exit: "Entrance" or None = self.disconnected_exits_map.get(i, None)
-
-                        entrance_region = self.get_region(entrance_id_to_region[i])
-                        exit_region = self.get_region(entrance_id_to_region[pairing])
-
-                        print(f"Connecting: {entrance_region} => {exit_region} | {dangling_exit} | {dangling_entrance} | {i}")
-                        name_check = f"{entrance_region.name} -> {exit_region.name}"
-                        if name_check in [i.name for i in entrance_region.exits]:
-                            print(f"exit {exit_region} already existed for {entrance_region}")
-                        else:
-                            entrance_region.connect(exit_region)
-
-                        if dangling_exit is not None:
-                            dangling_exit.connect(exit_region)
-                        if dangling_entrance is not None:
-                            if not self.options.decouple_entrances:
-                                dangling_entrance.connect(entrance_region)
-
+                        _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
+                        entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                        _exit.connect(entrance_region)
         else:
             # What option corresponds with what type
             type_option_lookup = {
@@ -781,50 +767,74 @@ class PhantomHourglassWorld(World):
                     self.manual_er()
                     self.er_placement_state = randomize_entrances(self, coupled, groups, on_connect=on_connect)
                     break
+
                 except EntranceRandomizationError as error:
                     print(f"Phantom Hourglass ER failed {i+1} time(s)")
                     if i >= ph_max_er_attempts-1:
                         raise EntranceRandomizationError(
                             f"Phantom Hourglass: failed GER after {ph_max_er_attempts} attempts.")
                     # disconnect entrances again, but only if they got connected before
-                    # print(f"entrances to find for re-disconnect: {disconnect_on_retry}")
-                    for entrance in disconnect_on_retry:
-                        # print(f"{entrance}: {entrance.parent_region} -> {entrance.connected_region}")
-                        if entrance.connected_region:
-                            target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
-                            disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
+                    for region in self.get_regions():
+                        # print(f"\tRegion: {region} | exits {[e for e in region.get_exits()]}")
+                        for _exit in region.get_exits():
+                            if (_exit.parent_region
+                                and _exit.connected_region
+                                and _exit in randomized_entrances):
+                                # print(f"Disconnecting entrance {_exit} {_exit.randomization_group}")
+                                target_name = ENTRANCES[_exit.name].vanilla_reciprocal.name
+                                disconnect_entrance_for_randomization(_exit, one_way_target_name=target_name)
 
-            # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
-            # to put the reward on when bosses are shuffled
-            if not self.options.require_specific_bosses:
-                self.required_bosses = list(DUNGEON_TO_BOSS_ITEM_LOCATION.values())
-                if self.options.ghost_ship_in_dungeon_pool.value == 2:
-                    self.required_bosses.remove("_gs")
-                if not self.options.totok_in_dungeon_pool:
-                    self.required_bosses.remove("TotOK B13 NE Sea Chart Chest")
-            elif self.options.shuffle_bosses.value == 1:
-                self.required_bosses = []
-                for e1, e2 in self.er_placement_state.pairings:
-                    if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
-                        if (BOSS_STAIRCASES[e1] == "Ghost Ship"
-                                and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra"):
-                            self.required_bosses.append("Ghost Ship Rescue Tetra")
-                        else:
-                            self.required_bosses.append(BOSS_ENTRANCE_LOOKUP[e2])
-                if "Temple of the Ocean King" in self.required_dungeons:
-                    self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
-            else:
-                self.required_bosses = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung] for dung in
-                                        self.required_dungeons]
+    def generate_basic(self) -> None:
+        if not self.is_ut:
+            self.link_dungeon_to_boss()
 
-            if "_gs" in self.required_bosses:
+    def link_dungeon_to_boss(self):
+        # Required dungeon determines which bosses are required, so read the pairings to figure out what boss
+        # to put the reward on when bosses are shuffled
+        # also need to figure out exclusion for bosses and post boss locs
+        if not self.options.require_specific_bosses:
+            self.required_bosses = list(DUNGEON_TO_BOSS_ITEM_LOCATION.values())
+            if self.options.ghost_ship_in_dungeon_pool.value == 2:
                 self.required_bosses.remove("_gs")
-                self.required_bosses.append(
-                    GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
+            if not self.options.totok_in_dungeon_pool:
+                self.required_bosses.remove("TotOK B13 NE Sea Chart Chest")
+        elif self.options.shuffle_bosses.value == 1 and not self.options.decouple_entrances:
+            self.required_bosses = []
+            for e1, e2 in self.er_placement_state.pairings:
+                if e1 in BOSS_STAIRCASES and BOSS_STAIRCASES[e1] in self.required_dungeons:
+                    if (BOSS_STAIRCASES[e1] == "Ghost Ship"
+                            and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra"):
+                        self.required_bosses.append("Ghost Ship Rescue Tetra")
+                    else:
+                        self.required_bosses.append(BOSS_ENTRANCE_LOOKUP[e2])
+            if "Temple of the Ocean King" in self.required_dungeons:
+                self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
 
-            # Add dungeon hints to start
-            if self.options.dungeon_hint_location.value == 0 and self.options.dungeon_hint_type == "hint_boss":
-                self.options.start_location_hints.value.update(self.required_bosses)
+            # Exclude post boss locations if needed
+            if self.options.exclude_non_required_dungeons:
+                excluded_boss_keys = {BOSS_LOCATION_TO_DUNGEON[boss] for boss in BOSS_LOCATION_TO_DUNGEON if
+                                      boss not in self.required_bosses}
+                for dung in excluded_boss_keys:
+                    for loc in self.boss_room_name_groups.get(dung, set()) | self.post_dungeon_name_groups.get(dung, set()):
+                        self.multiworld.get_location(loc, self.player).progress_type = LocationProgressType.EXCLUDED
+                        self.locations_to_exclude.add(loc)
+
+                    if not self.options.shuffle_houses and dung == "Temple of Fire":
+                        self.multiworld.get_location("Shipyard Chest", self.player).progress_type = LocationProgressType.EXCLUDED
+                        self.locations_to_exclude.add("Shipyard Chest")
+
+        else:
+            self.required_bosses = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung] for dung in
+                                    self.required_dungeons]
+
+        if "_gs" in self.required_bosses:
+            self.required_bosses.remove("_gs")
+            self.required_bosses.append(
+                GHOST_SHIP_BOSS_ITEM_LOCATION[self.options.ghost_ship_in_dungeon_pool.value])
+
+        # Add dungeon hints to start
+        if self.options.dungeon_hint_location.value == 0 and self.options.dungeon_hint_type == "hint_boss":
+            self.options.start_location_hints.value.update(self.required_bosses)
 
     # Based on the messenger's plando connection by Aaron Wagner
     def connect_plando(self, plando_connections: "PhantomHourglassEntrancePlando") -> None:
@@ -1009,6 +1019,12 @@ class PhantomHourglassWorld(World):
 
     def build_item_pool_dict(self):
         removed_item_quantities = self.options.remove_items_from_pool.value.copy()
+        def force_vanilla():
+            item_obj = self.create_item(item_name)
+            loc_obj = self.multiworld.get_location(loc_name, self.player)
+            loc_obj.place_locked_item(item_obj)
+            loc_obj.progress_type = LocationProgressType.DEFAULT
+
         item_pool_dict = {}
         filler_item_count = 0
         boss_reward_item_count = len(self.boss_reward_items_pool)
@@ -1029,29 +1045,20 @@ class PhantomHourglassWorld(World):
             if self.options.keysanity == "vanilla":
                 # Place small key in vanilla location
                 if "Small Key" in item_name:
-                    key_item = self.create_item(item_name)
-                    self.multiworld.get_location(loc_name, self.player).place_locked_item(key_item)
+                    force_vanilla()
                     continue
             if self.options.randomize_boss_keys == "vanilla" and "Boss Key" in item_name:
-                key_item = self.create_item(item_name)
-                self.multiworld.get_location(loc_name, self.player).place_locked_item(key_item)
+                force_vanilla()
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
-                forced_item = self.create_item(item_name)
-                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                force_vanilla()
                 continue
             if 'dungeon' in ITEMS_DATA[item_name]:
                 dung = item_name.rsplit('(', 1)[1][:-1]
                 # If pedestal item location is vanilla, lock them there
                 if (self.options.randomize_pedestal_items.value in [0, 1]
                         and item_name in ITEM_GROUPS["Regular Pedestal Items"]):
-                    forced_item = self.create_item(item_name)
-                    self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
-                    continue
-                # if dungeon is excluded, place keys in vanilla locations
-                if self.options.exclude_non_required_dungeons and dung in self.excluded_dungeons:
-                    forced_item = self.create_item(item_name)
-                    self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                    force_vanilla()
                     continue
                 if (loc_name in ["Mountain Passage 1F Entrance Chest", "Mountain Passage 2F Rat Key"]
                         and self.options.accessibility.value in [0, 1] # full accessibility
@@ -1108,8 +1115,6 @@ class PhantomHourglassWorld(World):
         # Add pedestal items
         if self.options.randomize_pedestal_items.value > 1:
             add_items |= add_pedestal_items(self.options.randomize_pedestal_items, self.options.pedestal_item_options, self.excluded_dungeons)
-        # Add sand items to pool
-        add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment, self.options.ph_time_logic)
         # Add treasure maps
         if self.options.randomize_salvage.value:
             add_items |= {i: 1 for i in ITEM_GROUPS["Treasure Maps"]}
@@ -1124,14 +1129,16 @@ class PhantomHourglassWorld(World):
         for item, count in self.options.add_items_to_pool.items():
             add_items.setdefault(item, 0)
             add_items[item] += count
+        # Add sand items to pool
+        add_items |= add_sand(self.options.ph_starting_time, self.options.ph_time_increment,
+                              self.options.ph_time_logic)
+        # Add ships last cause they can be overwritten
+        for i in ITEM_GROUPS["Ships"]:
+            add_items.setdefault(i, 0)
+            add_items[i] += 1
         # add items to item pool
         for i, count in add_items.items():
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
-        # Add ships if enough room in filler pool
-        if filler_item_count >= 8:
-            for i in ITEM_GROUPS["Ships"]:
-                item_pool_dict[i] = 1
-            filler_item_count -= 8
         # Add as many filler items as required
         for _ in range(filler_item_count):
             random_filler_item = self.get_filler_item_name()
@@ -1177,7 +1184,21 @@ class PhantomHourglassWorld(World):
                 extra_items_list.extend([item] * count)
 
         extra_item_count = len(self.locations_to_exclude) - filler_count + 20
-        # print(f"Filler items needed: {len(self.locations_to_exclude)} | have: {filler_count} | available: {len(extra_items_list)}")
+        # print(f"Filler items basic: {len(self.locations_to_exclude)} | have: {filler_count} | "
+        #       f"available: {len(extra_items_list)} | total: {extra_item_count}")
+
+        # since item pool is created before items are filtered to dungeon pool,
+        # remove the worst case scenario for excluded key items to lighten the pool
+        ed = len(self.excluded_dungeons)
+        extra_item_count -= ([0] + list(range(8)))[ed] if self.options.randomize_boss_keys.value in [0, 1] else 0  # boss keys iod
+        extra_item_count -= [0, 0, 0, 1, 3, 6, 9, 12][ed] if self.options.keysanity.value in [0, 1] else 0  # keys iod
+        extra_item_count -= [0, 0, 0, 0, 0, 0, 1, 3][ed] if (self.options.randomize_pedestal_items.value in [0, 1, 2]
+                                                             and self.options.pedestal_item_options in [0, 1]) else 0
+        extra_item_count -= ed if not self.options.require_specific_bosses else 0  # boss rewards on rsb
+        if self.options.shuffle_bosses == 1 and not self.options.decouple_entrances:  # boss exclusion happens later
+            extra_item_count += [0, 5, 10, 14, 18, 21, 24, 27][ed]  # worst case boss room + post dungeon locs
+
+        # print(f"Filler items advanced: {extra_item_count}")
         if extra_item_count > 0:
             self.random.shuffle(extra_items_list)
             self.extra_filler_items = extra_items_list[:extra_item_count]
@@ -1208,7 +1229,8 @@ class PhantomHourglassWorld(World):
         self.pre_fill_items.extend(confined_dungeon_items)
 
     def pre_fill_boss_rewards(self):
-
+        if self.is_ut:
+            print(f"UT is creating boss rewards! stop it!")
         # Pre-fill dungeon rewards
         if self.options.goal_requirements == "defeat_bosses":
             boss_reward_locations = [loc for loc in self.multiworld.get_locations(self.player)
@@ -1222,11 +1244,13 @@ class PhantomHourglassWorld(World):
             collection_state = self.multiworld.get_all_state()
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(boss_reward_locations)
-            print(f"Pre-Filling boss rewards: {boss_reward_locations} \n {boss_reward_items}")
+            # print(f"Pre-Filling boss rewards: {boss_reward_locations} \n {boss_reward_items}")
             fill_restrictive(self.multiworld, collection_state, boss_reward_locations, boss_reward_items,
                              single_player_placement=True, lock=True, allow_excluded=True)
 
     def pre_fill_dungeon_items(self):
+        if self.is_ut:
+            print(f"UT is creating dungeon items! stop it!")
 
         global_crystal_dungeons = {}
         def global_pedestal_helper(crystal, dungeon):
@@ -1287,7 +1311,7 @@ class PhantomHourglassWorld(World):
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(dungeon_locations)
             fill_restrictive(self.multiworld, collection_state, dungeon_locations, confined_dungeon_items,
-                             single_player_placement=True, lock=True)
+                             single_player_placement=True, lock=True, allow_excluded=True)
 
     def get_filler_item_name(self) -> str:
         filler_item_names = [
@@ -1373,16 +1397,29 @@ class PhantomHourglassWorld(World):
         return slot_data
 
     def write_spoiler(self, spoiler_handle):
-        spoiler_handle.write(f"\n\nRequired Dungeons ({self.multiworld.player_name[self.player]}):\n")
-        for dung in self.required_dungeons:
-            spoiler_handle.write(f"\t- {dung}\n")
+        spoiler_handle.write(f"\n")
+        if self.options.goal_requirements == "defeat_bosses":
+            spoiler_handle.write(f"\nRequired Dungeons ({self.multiworld.player_name[self.player]}):\n")
+            for dung in self.required_dungeons:
+                spoiler_handle.write(f"\t- {dung}\n")
 
-        if self.er_placement_state:
-            spoiler_handle.write(f"\n\n Entrance Rando\n")
+        if self.excluded_dungeons:
+            spoiler_handle.write(f"\nExcluded Dungeons ({self.multiworld.player_name[self.player]}):\n")
+            for dung in self.excluded_dungeons:
+                spoiler_handle.write(f"\t- {dung}\n")
+
+        if self.options.goal_requirements == "defeat_bosses" and self.options.shuffle_bosses:
+            spoiler_handle.write(f"\nRequired Bosses ({self.multiworld.player_name[self.player]}):\n")
+            for boss in self.required_bosses:
+                spoiler_handle.write(f"\t- {boss}\n")
+
+        if self.er_placement_state.pairings:
+            spoiler_handle.write(f"\n\nEntrance Rando ({self.multiworld.player_name[self.player]}):\n")
             prev = None
+            arrow = "=>" if self.options.decouple_entrances else "<=>"
             for i in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
-                if not (i[1], i[0]) == prev:
-                    text = i[0] + " <=> " + i[1]
+                if (i[1], i[0]) != prev or self.options.decouple_entrances:
+                    text = i[0] + f" {arrow} " + i[1]
                     spoiler_handle.write(f"\t{text}\n")
                 prev = i
 
@@ -1427,32 +1464,10 @@ class PhantomHourglassWorld(World):
                     pairing = self.ut_pairings.get(str(i), None)
                     # print(f"UT pairings {self.ut_pairings}")
                     if pairing is not None:
-                        dangling_entrance: "Entrance" = self.disconnected_entrances_map.get(i, None)
-                        dangling_exit: "Entrance" = self.disconnected_exits_map.get(i, None)
-
-                        entrance_region = self.get_region(entrance_id_to_region[i])
-                        exit_region = self.get_region(entrance_id_to_region[pairing])
-
-                        print(f"Connecting: {entrance_region} => {exit_region} | {dangling_exit} | {dangling_entrance} | {i}")
-                        try:
-                            print(f"Theoretical get_entrance: {self.get_entrance(entrance_id_to_entrance[i].name)} {self.get_entrance(entrance_id_to_entrance[pairing].name)}")
-                        except KeyError:
-                            print(f"Could not find entrance {entrance_id_to_entrance[i].name} {entrance_id_to_entrance[pairing].name}")
-                        name_check = f"{entrance_region.name} -> {exit_region.name}"
-                        if name_check in [i.name for i in entrance_region.exits]:
-                            print(f"exit {exit_region} already existed for {entrance_region}")
-                        else:
-                            entrance_region.connect(exit_region)
-                            print(f"Connecting {entrance_region} => {exit_region}")
-
-
-                        if dangling_exit is not None:
-                            dangling_exit.connect(exit_region)
-                            # print(f"dangling_exit's region: {dangling_exit.name} => {dangling_exit.connected_region}")
-                        if dangling_entrance is not None:
-                            if not self.options.decouple_entrances:
-                                dangling_entrance.connect(entrance_region)
-                                # print(f"dangling_entrance's region: {dangling_entrance.name} => {dangling_entrance.connected_region}")
+                        _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[i].name)
+                        entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                        print(f"Connecting: {_exit} => {entrance_region} | {i}: {pairing}")
+                        _exit.connect(entrance_region)
 
 
                 self.ut_connected_entrances |= new_entrances
@@ -1481,7 +1496,7 @@ class PhantomHourglassWorld(World):
                 print(f"Excluding {self.location_id_to_name[i]}")
                 self.multiworld.get_location(self.location_id_to_name[i], self.player).progress_type = LocationProgressType.EXCLUDED
 
-        elif "ph_ut_events" in key and stored_data:
+        if "ph_ut_events" in key and stored_data and self.settings['ut_get_logical_path_shortcuts']:
             # Used to create an event item for specific tracker logic
             def manage_ut_event(stored_name, region_name, event_item_name):
                 if stored_name in stored_data and not stored_name in self.ut_created_events:
@@ -1523,3 +1538,29 @@ class PhantomHourglassWorld(World):
             connect_existing_regions("gtw", "GT 1F", "GT B4")
             connect_existing_regions("tiw", "ToI 1F", "ToI Blue Warp")
             connect_existing_regions("mtw", "MT 1F", "MT B3")
+
+            # map warp connections
+            connect_existing_regions("wsw", "Menu", "SW Ocean East", "Warp to SW Ocean")
+            connect_existing_regions("wse", "Menu", "SE Ocean", "Warp to SE Ocean")
+            connect_existing_regions("wnw", "Menu", "NW Ocean", "Warp to NW Ocean")
+            connect_existing_regions("wne", "Menu", "NE Ocean", "Warp to NE Ocean")
+
+            connect_existing_regions("wmc", "Menu", "Mercay SE", "Warp to Mercay Island")
+            connect_existing_regions("wc", "Menu", "Cannon Island", "Warp to Cannon Island")
+            connect_existing_regions("we", "Menu", "Ember Port", "Warp to Isle of Ember")
+            connect_existing_regions("wml", "Menu", "Molida South", "Warp to Molida Island")
+            connect_existing_regions("ws", "Menu", "Spirit Island", "Warp to Spirit Island")
+
+            connect_existing_regions("wgu", "Menu", "Gust South", "Warp to Isle of Gust")
+            connect_existing_regions("wb", "Menu", "Bannan Island", "Warp to Bannan Island")
+            connect_existing_regions("wz", "Menu", "Zauz's Island", "Warp to Zauz' Island")
+            connect_existing_regions("wu", "Menu", "Uncharted Island", "Warp to Uncharted Island")
+
+            connect_existing_regions("wgo", "Menu", "Goron SW", "Warp to Goron Island")
+            connect_existing_regions("wf", "Menu", "Frost SW", "Warp to Isle of Frost")
+            connect_existing_regions("wh", "Menu", "Harrow Island", "Warp to Harrow Island")
+            connect_existing_regions("wds", "Menu", "Dee Ess Island", "Warp to Dee Ess Island")
+
+            connect_existing_regions("wd", "Menu", "IotD Port", "Warp to Isle of the Dead")
+            connect_existing_regions("wr", "Menu", "Ruins SW Port", "Warp to Isle of Ruins")
+            connect_existing_regions("wmz", "Menu", "Maze Island", "Warp to Maze Island")

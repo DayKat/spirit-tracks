@@ -16,7 +16,7 @@ The Legend of Zelda - Phantom Hourglass:
 
   entrance_directionality: 0
   shuffle_between_islands: 0
-  decouple_entrances: 0
+  # decouple_entrances: 0
 
   ph_starting_time: 60
   ph_time_increment: 10

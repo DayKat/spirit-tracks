@@ -497,7 +497,8 @@ class PhantomHourglassClient(DSZeldaClient):
                         or item_count(ctx, "Round Crystals")):
                     await write_memory_value(ctx, 0x25762C, 0x2)
                 if (item_count(ctx, "Triangle Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Triangle Crystals")):
+                        or item_count(ctx, "Triangle Crystals")
+                        or item_count(ctx, "Triangle Pedestal B8 (Temple of the Ocean King)")):
                     await write_memory_value(ctx, 0x25762C, 0x4)
             elif current_scene == 0x250C:  # B9
                 if (item_count(ctx, "Round Crystal (Temple of the Ocean King)")
@@ -1034,7 +1035,7 @@ class PhantomHourglassClient(DSZeldaClient):
             elif self.was_alive_last_frame and is_dead:
                 # Our player just died...
                 self.was_alive_last_frame = False
-                print(f"health address: {hex(self.main_read_list['link_health'])}")
+                print(f"health address: {hex(self.main_read_list['link_health'][0])}")
                 if self.is_expecting_received_death:
                     # ...because of a received deathlink, so let's not make a circular chain of deaths please
                     self.is_expecting_received_death = False
@@ -1267,6 +1268,8 @@ class PhantomHourglassClient(DSZeldaClient):
             return
         if not ctx.slot_data["shuffle_caves"] and map_type_lookup.get(scene) == "cave":
             print(f"Not map switching due to cave: {hex(scene)}")
+            return
+        if map_type_lookup.get(scene) == "ship":
             return
 
         if scene in range(4):  # Sea overview if port shuffle

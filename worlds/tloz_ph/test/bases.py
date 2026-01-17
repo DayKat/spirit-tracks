@@ -50,9 +50,15 @@ class DefaultSettings(WorldTestBase):
 
 class TestExcludedCrystals(WorldTestBase):
     game = "The Legend of Zelda - Phantom Hourglass"
-    options = {"dungeons_required": 0,
+    options = {"dungeons_required": 8,
+               "totok_in_dungeon_pool": False,
+               "ghost_ship_in_dungeon_pool": False,
                "randomize_pedestal_items": "anywhere",
                "pedestal_item_options": "unique_pedestals",
+               "shuffle_bosses": "shuffle",
+               "randomize_boss_keys": "in_own_dungeon",
+               # "shuffle_houses": "shuffle",
+               "entrance_directionality": "disregard_all"
                }
 
 class TestFullER(WorldTestBase):
@@ -82,16 +88,16 @@ class TestFullER(WorldTestBase):
         "ph_time_increment": 60,
         "randomize_beedle_membership": "no_beedle_points",
         # Entrance types
-        "shuffle_dungeon_entrances": "simple_mixed_pool",
+        "shuffle_dungeon_entrances": "shuffle",
         "shuffle_ports": "simple_mixed_pool",
-        "shuffle_caves": "simple_mixed_pool",
-        "shuffle_houses": "simple_mixed_pool",
-        "shuffle_overworld_transitions": "simple_mixed_pool",
+        "shuffle_caves": "no_shuffle",
+        "shuffle_houses": "no_shuffle",
+        # "shuffle_overworld_transitions": "shuffle_on_own_island",
         "shuffle_bosses": "simple_mixed_pool",
         # entrance options
-        "entrance_directionality": "disregard_all",
+        "entrance_directionality": "preserve_all",
         "shuffle_between_islands": "shuffle_anywhere",
-        "decouple_entrances": "couple_all",
+        "decouple_entrances": 0,
 
         "ut_smart_keys": True,
                }
