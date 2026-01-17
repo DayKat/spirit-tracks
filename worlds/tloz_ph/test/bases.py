@@ -50,11 +50,15 @@ class DefaultSettings(WorldTestBase):
 
 class TestExcludedCrystals(WorldTestBase):
     game = "The Legend of Zelda - Phantom Hourglass"
-    options = {"dungeons_required": 0,
+    options = {"dungeons_required": 8,
+               "totok_in_dungeon_pool": False,
+               "ghost_ship_in_dungeon_pool": False,
                "randomize_pedestal_items": "anywhere",
                "pedestal_item_options": "unique_pedestals",
                "shuffle_bosses": "shuffle",
-               "shuffle_houses": "shuffle",
+               "randomize_boss_keys": "in_own_dungeon",
+               # "shuffle_houses": "shuffle",
+               "entrance_directionality": "disregard_all"
                }
 
 class TestFullER(WorldTestBase):
