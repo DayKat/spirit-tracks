@@ -829,8 +829,9 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Potion data: {self.last_potions} {item_data['value']}")
             for i, pot, addr in zip([0, 1], self.last_potions, [0x1BA5D8, 0x1BA5D9]):
                 if not pot:
+                    prev = await read_memory_value(ctx, 0x1BA645, silent=True)
                     res += [(addr, [item_data["value"]], "Main RAM")]
-                    res += [(0x1BA645, [0x6], "Main RAM")]  # has potion, fill all
+                    res += [(0x1BA645, [prev | 0x6], "Main RAM")]  # has potion, fill all
                     self.last_potions[i] = item_data["value"]
                     break
         return res

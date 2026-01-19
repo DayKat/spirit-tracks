@@ -1105,7 +1105,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(0x1B55A2, 0x40)]
     },
     "Uncharted unset frog flag": {
-        "on_scenes": [0x1a0b],
+        "on_scenes": [0x1a0b, 0x1a00],
         "unset_if_true": [(0x1B55A2, 0x40)]
     },
     # Doyland
