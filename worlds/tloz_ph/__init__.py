@@ -764,7 +764,7 @@ class PhantomHourglassWorld(World):
                 # Workaround cause ER likes to link dead ends to each other when ignoring directions.
                 # Concept borrowed from CodeGorilla's Crystalis implementation
                 try:
-                    self.manual_er()
+                    if not self.options.decouple_entrances: self.manual_er()
                     self.er_placement_state = randomize_entrances(self, coupled, groups, on_connect=on_connect)
                     break
 
@@ -805,8 +805,10 @@ class PhantomHourglassWorld(World):
                     if (BOSS_STAIRCASES[e1] == "Ghost Ship"
                             and self.options.ghost_ship_in_dungeon_pool == "rescue_tetra"):
                         self.required_bosses.append("Ghost Ship Rescue Tetra")
-                    else:
+                    elif e2 in BOSS_ENTRANCE_LOOKUP:
                         self.required_bosses.append(BOSS_ENTRANCE_LOOKUP[e2])
+                    else:
+                        raise KeyError(f"Weird boss entrance attempted, {e1} <=> {e2}")
             if "Temple of the Ocean King" in self.required_dungeons:
                 self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
 
