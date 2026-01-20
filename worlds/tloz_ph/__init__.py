@@ -518,7 +518,7 @@ class PhantomHourglassWorld(World):
         self.create_event("Goron NE Event", "_goron_maze_switch")
         self.create_event("Eddo Event", "_eddo_door")
         self.create_event("ToI B1 Switch", "_toi_b1_switch")
-
+        self.create_event("Ghost Ship B3", "_rescue_4th_sister")
         # Blue warps
         self.create_event("ToI Blue Warp", "_toi_blue_warp")
         # Mountain passage
@@ -797,7 +797,7 @@ class PhantomHourglassWorld(World):
             if self.options.ghost_ship_in_dungeon_pool.value == 2:
                 self.required_bosses.remove("_gs")
             if not self.options.totok_in_dungeon_pool:
-                self.required_bosses.remove("TotOK B13 NE Sea Chart Chest")
+                self.required_bosses.remove("TotOK B13 Sea Chart Chest")
         elif self.options.shuffle_bosses.value == 1 and not self.options.decouple_entrances:
             self.required_bosses = []
             for e1, e2 in self.er_placement_state.pairings:
@@ -810,7 +810,7 @@ class PhantomHourglassWorld(World):
                     else:
                         raise KeyError(f"Weird boss entrance attempted, {e1} <=> {e2}")
             if "Temple of the Ocean King" in self.required_dungeons:
-                self.required_bosses.append("TotOK B13 NE Sea Chart Chest")
+                self.required_bosses.append("TotOK B13 Sea Chart Chest")
 
             # Exclude post boss locations if needed
             if self.options.exclude_non_required_dungeons:

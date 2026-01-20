@@ -100,7 +100,7 @@ options_decoupled_bosses= {
     "entrance_directionality": "disregard_all"
 }
 
-options_full_er =     options = {
+options_full_er = {
         "keysanity": "anywhere",
         "phantom_combat_difficulty": "require_traps",
         "logic": "normal",
@@ -152,4 +152,4 @@ options_excluded_crystals = {"dungeons_required": 8,
 
 class TestPH(WorldTestBase):
     game = "The Legend of Zelda - Phantom Hourglass"
-    options = options_decoupled_bosses
+    options = options_full_er

@@ -542,6 +542,20 @@ ITEM_GROUPS |= {
     "Map 30": {"Treasure Map #30 (Ruins S)"},
     "Map 31": {"Treasure Map #31 (Dead S)"},
 
+    "Small Key TotOK": {"Small Key (Temple of the Ocean King)"},
+    "Small Key MP": {"Small Key (Mountain Passage)"},
+    "Small Key ToF": {"Small Key (Temple of Fire)"},
+    "Small Key ToW": {"Small Key (Temple of Wind)"},
+    "Small Key ToC": {"Small Key (Temple of Courage)"},
+    "Small Key ToI": {"Small Key (Temple of Ice)"},
+    "Small Key MT": {"Small Key (Mutoh's Temple)"},
+
+    "Boss Key ToF": {"Boss Key (Temple of Fire)"},
+    "Boss Key ToW": {"Boss Key (Temple of Wind)"},
+    "Boss Key ToC": {"Boss Key (Temple of Courage)"},
+    "Boss Key GT": {"Boss Key (Goron Temple)"},
+    "Boss Key ToI": {"Boss Key (Temple of Ice)"},
+    "Boss Key MT": {"Boss Key (Mutoh's Temple)"},
 
 }
 
@@ -688,7 +702,7 @@ STAGE_LOCATION_GROUPS = {
 		"TotOK B12 Hammer Chest",
 		"TotOK B12 Kill Everything Chest",
 		"TotOK B12 Phantom Chest",
-		"TotOK B13 NE Sea Chart Chest",
+		"TotOK B13 Sea Chart Chest",
 		"GOAL: Triforce Door",
 	],
 	"Ocean": [
@@ -1318,7 +1332,7 @@ DUNGEON_NAMES = [
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
-    "Temple of the Ocean King": "TotOK B13 NE Sea Chart Chest",
+    "Temple of the Ocean King": "TotOK B13 Sea Chart Chest",
     "Temple of Fire": "Blaaz Boss Reward",
     "Temple of Wind": "Cyclok Boss Reward",
     "Temple of Courage": "Crayk Boss Reward",
@@ -1329,7 +1343,7 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
 }
 
 BOSS_LOCATION_TO_DUNGEON = {
-    "TotOK B13 NE Sea Chart Chest": "Temple of the Ocean King",
+    "TotOK B13 Sea Chart Chest": "Temple of the Ocean King",
     "Blaaz Boss Reward": "Temple of Fire",
     "Cyclok Boss Reward": "Temple of Wind",
     "Crayk Boss Reward": "Temple of Courage",
@@ -1644,7 +1658,7 @@ region_aliases = {
     "ToF 1F": [
         "Temple of Fire",
         "ToF"],
-    "ToW 1F": ["Temple of Wind", "Tow", "Temple of Wind 1F"],
+    "ToW 1F": ["Temple of Wind", "ToW", "Temple of Wind 1F"],
     "ToC 1F": ["Temple of Courage", "ToC", "Temple of Courage 1F"],
     "Ghost Ship 1F": ["Ghost Ship", "GS", "Ghost Ship Deck", "GS 1F"],
     "GT 1F": ["Goron Temple", "GT"],
@@ -1676,6 +1690,8 @@ region_aliases = {
 
     "Sun Lake Cave": ["Molida Cave"],
     "Keese Passage West": ["Bannan Cave West", "Bannan Cave", "Keese Passage"],
+    "Mountain Passage 1": ["MP", "Mountain Passage", "Mountain Passage 1F"],
+    "Mountain Passage 3": ["Mountain Passage 2F"]
 }
 
 map_type_lookup = {

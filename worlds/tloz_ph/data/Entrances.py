@@ -1787,7 +1787,7 @@ ENTRANCE_DATA = {
 
    # ============= SW Ocean ==================
     "Ocean SW Mercay": {
-        "return_name": "Mercay SE Boat",
+        "return_name": "Mercay SE Board Ship",
         "entrance": (0x0, 0x0, 0x2),
         "exit": (0xB, 0x3, 0x2),
         "entrance_region": "Mercay Boat",
@@ -1798,7 +1798,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.MERCAY,
     },
     "Ocean SW Cannon": {
-        "return_name": "Cannon Boat",
+        "return_name": "Cannon Board Ship",
         "entrance_region": "Cannon Boat",
         "exit_region": "Cannon Island",
         "entrance": (0x0, 0x0, 0x4),
@@ -1809,7 +1809,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.CANNON,
     },
     "Ocean SW Ember": {
-        "return_name": "Ember Boat",
+        "return_name": "Ember West Board Ship",
         "entrance_region": "Ember Boat",
         "exit_region": "Ember Port",
         "entrance": (0x0, 0x0, 0x3),
@@ -1820,7 +1820,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.EMBER,
     },
     "Ocean SW Molida": {
-        "return_name": "Molida Boat",
+        "return_name": "Molida South Board Ship",
         "entrance_region": "Molida Boat",
         "exit_region": "Molida South",
         "entrance": (0x0, 0x0, 0x1),
@@ -1831,7 +1831,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.MOLIDA,
     },
     "Ocean SW Spirit": {
-        "return_name": "Spirit Boat",
+        "return_name": "Spirit Board Ship",
         "entrance_region": "Spirit Boat",
         "exit_region": "Spirit Island",
         "entrance": (0x0, 0x0, 0x5),
@@ -1845,7 +1845,7 @@ ENTRANCE_DATA = {
     # ============= NW Ocean ==================
 
     "Ocean NW Gust": {
-        "return_name": "Gust Boat",
+        "return_name": "Gust South Board Ship",
         "entrance_region": "Gust Boat",
         "exit_region": "Gust South",
         "entrance": (0x0, 0x1, 0x0),
@@ -1856,7 +1856,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.GUST,
     },
     "Ocean NW Bannan": {
-        "return_name": "Bannan Boat",
+        "return_name": "Bannan West Board Ship",
         "entrance_region": "Bannan Boat",
         "exit_region": "Bannan Island",
         "entrance": (0x0, 0x1, 0x3),
@@ -1867,7 +1867,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.BANNAN,
     },
     "Ocean NW Zauz": {
-        "return_name": "Zauz Boat",
+        "return_name": "Zauz Board Ship",
         "entrance_region": "Zauz Boat",
         "exit_region": "Zauz's Island",
         "entrance": (0x0, 0x1, 0x4),
@@ -1878,7 +1878,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.ZAUZ,
     },
     "Ocean NW Uncharted": {
-        "return_name": "Uncharted Boat",
+        "return_name": "Uncharted Board Ship",
         "entrance_region": "Uncharted Boat",
         "exit_region": "Uncharted Island",
         "entrance": (0x0, 0x1, 0x7),
@@ -1890,7 +1890,7 @@ ENTRANCE_DATA = {
     },
 
     # ========== Ghost Ship ==========
-    "Board Ghost Ship": {
+    "Ocean NW Board Ghost Ship": {
         "return_name": "GS Exit",
         "entrance": (0, 0x1, 0xFA),
         "exit": (0x29, 0x3, 0x0),
@@ -1935,7 +1935,7 @@ ENTRANCE_DATA = {
     # ============= SE Ocean ==================
 
     "Ocean SE Goron": {
-        "return_name": "Goron Boat",
+        "return_name": "Goron SW Board Ship",
         "entrance_region": "Goron Boat",
         "exit_region": "Goron SW",
         "entrance": (0x0, 0x2, 0x2),
@@ -1946,7 +1946,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.GORON,
     },
     "Ocean SE Harrow": {
-        "return_name": "Harrow Boat",
+        "return_name": "Harrow Board Ship",
         "entrance_region": "Harrow Boat",
         "exit_region": "Harrow Island",
         "entrance": (0x0, 0x2, 0x4),
@@ -1957,7 +1957,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.NONE,
     },
     "Ocean SE Dee Ess": {
-        "return_name": "Dee Ess Boat",
+        "return_name": "Dee Ess Board Ship",
         "entrance_region": "Dee Ess Boat",
         "exit_region": "Dee Ess Island",
         "entrance": (0x0, 0x2, 0x5),
@@ -1968,7 +1968,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.NONE,
     },
     "Ocean SE Frost": {
-        "return_name": "Frost Boat",
+        "return_name": "Frost SW Board Ship",
         "entrance_region": "Frost Boat",
         "exit_region": "Frost SW",
         "entrance": (0x0, 0x2, 0x3),
@@ -1982,7 +1982,7 @@ ENTRANCE_DATA = {
     # ============= NE Ocean ==================
 
     "Ocean NE IotD": {
-        "return_name": "IotD Boat",
+        "return_name": "IotD Board Ship",
         "entrance_region": "IotD Boat",
         "exit_region": "IotD Port",
         "entrance": (0x0, 0x3, 0x1),
@@ -1993,7 +1993,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.DEAD,
     },
     "Ocean NE Ruins": {
-        "return_name": "Ruins Boat",
+        "return_name": "Ruins SW Board Ship",
         "entrance_region": "Ruins Boat",
         "exit_region": "Ruins SW Port",
         "entrance": (0x0, 0x3, 0x2),
@@ -2004,7 +2004,7 @@ ENTRANCE_DATA = {
         "return_island": EntranceGroups.RUINS,
     },
     "Ocean NE Maze": {
-        "return_name": "Maze Boat",
+        "return_name": "Maze Board Ship",
         "entrance_region": "Maze Boat",
         "exit_region": "Maze Island",
         "entrance": (0x0, 0x3, 0x3),

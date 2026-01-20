@@ -833,7 +833,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "id": 72,
     },
-    "TotOK B13 NE Sea Chart Chest": {
+    "TotOK B13 Sea Chart Chest": {
         "region_id": "TotOK B13 Chest",
         "vanilla_item": "NE Sea Chart",
         "item_override": "Rare Metal",
