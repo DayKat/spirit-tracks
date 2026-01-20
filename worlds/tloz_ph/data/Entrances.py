@@ -408,7 +408,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.CANNON
     },
     "Cannon Bee Cave": {
-        "return_name": "Cannon Cave Exit",
+        "return_name": "Bomb Flower Cave Exit",
         "entrance_region": "Cannon Island",
         "exit_region": "Bomb Flower Cave South",
         "entrance": (0x13, 0x0, 0x1),
@@ -418,7 +418,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.CANNON
     },
     "Cannon Bomb Garden Cave": {
-        "return_name": "Cannon Cave Staircase",
+        "return_name": "Bomb Flower Cave Staircase",
         "entrance_region": "Cannon Bomb Garden",
         "exit_region": "Bomb Flower Cave North",
         "entrance": (0x13, 0x0, 0x2),
@@ -1192,7 +1192,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.FROST
     },
-    "Frost NW Dobo's House": {
+    "Frost NW Dobo's House (SW)": {
         "return_name": "Dobo's Exit",
         "entrance_region": "Frost NW",
         "exit_region": "Dobo's House",
@@ -1202,7 +1202,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost NW Kumu's House": {
+    "Frost NW Kumu's House (South)": {
         "return_name": "Kumu's Exit",
         "entrance_region": "Frost NW",
         "exit_region": "Kumu's House",
@@ -1212,7 +1212,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost NW Fofo's House": {
+    "Frost NW Fofo's House (SE)": {
         "return_name": "Fofo's Exit",
         "entrance_region": "Frost NW",
         "exit_region": "Fofo's House",
@@ -1222,7 +1222,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost NW Mazo's House": {
+    "Frost NW Mazo's House (NE)": {
         "return_name": "Mazo's Exit",
         "entrance_region": "Frost NW",
         "exit_region": "Mazo's House",
@@ -1232,7 +1232,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost NW Aroo's House": {
+    "Frost NW Aroo's House (North)": {
         "return_name": "Aroo's Exit",
         "entrance_region": "Frost NW",
         "exit_region": "Aroo's House",
@@ -1242,7 +1242,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.FROST
     },
-    "Frost NW Gumo's House": {
+    "Frost NW Gumo's House (NW)": {
         "return_name": "Gumo's Exit",
         "entrance_region": "Frost NW",
         "exit_region": "Gumo's House",

@@ -414,7 +414,7 @@ class PhantomHourglassClient(DSZeldaClient):
             if await read_memory_value(ctx, *RAM_ADDRS["flipped_clog"], silent=True) & 1:
                 if not self.warp_to_start_flag:
                     logger.info(f"Primed a warp to start. Enter a transition to warp to {STAGES[0xB]}.")
-                self.warp_to_start_flag = True
+                    self.warp_to_start_flag = True
             else:
                 if self.warp_to_start_flag and await read_memory_value(ctx, *RAM_ADDRS["opened_clog"], silent=True):
                     logger.info("Canceled warp to start.")
@@ -430,6 +430,9 @@ class PhantomHourglassClient(DSZeldaClient):
             if self.is_dead:
                 self.warp_to_start_flag = False
                 logger.info("Canceled warp to start, death is not a valid warp method")
+            if self.starting_entrance[:2] == (self.current_stage, read_result["room"]):
+                logger.info(f"In starting scene, canceling warp to start")
+                self.warp_to_start_flag = False
 
     async def enter_game(self, ctx):
         self.save_slot = await read_memory_value(ctx, RAM_ADDRS["save_slot"][0], silent=True)

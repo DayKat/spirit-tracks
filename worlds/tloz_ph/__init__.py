@@ -1334,6 +1334,37 @@ class PhantomHourglassWorld(World):
         item_name = self.random.choice(filler_item_names)
         return item_name
 
+    def extend_hint_information(self, hint_data: Dict[int, Dict[int, str]]):
+        player_hint_data = dict()
+
+        pairings = dict()
+        if self.er_placement_state:
+            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
+                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        if not pairings:  # If not er, don't bother trying anything else
+            return
+        reverse_pairings = {e2: int(e1) for e1, e2 in pairings.items()}
+        dead_end_ids = [e.id for name, e in ENTRANCES.items() if name in DEAD_END_ENTRANCES]
+
+        for loc, loc_data in LOCATIONS_DATA.items():
+            if "hint_entrance" in loc_data:
+                hint_entrances = loc_data["hint_entrance"]
+                hint_entrances = [hint_entrances] if isinstance(hint_entrances, str) else hint_entrances
+                hint_entrances_ids = [e.id for name, e in ENTRANCES.items() if name in hint_entrances]
+
+                entrance_list = set()
+                for entrance_id in hint_entrances_ids:
+                    reverse_id = reverse_pairings.get(entrance_id, None)
+                    if reverse_id is not None and (reverse_id not in dead_end_ids or self.options.decouple_entrances):
+                        entrance_list.add(entrance_id_to_entrance[reverse_id].name)
+
+                if entrance_list:
+                    player_hint_data[loc_data["id"]] = ", ".join(entrance_list)
+                if len(entrance_list) > 1:
+                    print(f"Long Entrance: {self.location_id_to_name[loc_data['id']]}")
+
+        hint_data[self.player] = player_hint_data
+
     def fill_slot_data(self) -> dict:
         options = [
             # Goal

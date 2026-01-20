@@ -18,6 +18,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x43c,
         "sram_value": 0x1,
         "id": 1,
+        "hint_entrance": "Sword Cave Exit"
     },
     "Mercay SW Clear Rocks": {
         "region_id": "Mercay SW",
@@ -66,6 +67,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x418,
         "sram_value": 0x1,
         "id": 6,
+        "hint_entrance": "Eye Bridge Cave North Exit"
     },
     "Mercay SE Ledge Chest West": {
         "region_id": "Mercay SE Ledge",
@@ -77,6 +79,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x3c4,
         "sram_value": 0x2,
         "id": 7,
+        "hint_entrance": ["Mercay SE Ledge North", "Mercay SE OOB West", "Mercay SE OOB North"]
     },
     "Mercay SE Ledge Chest East": {
         "region_id": "Mercay SE Ledge",
@@ -88,6 +91,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x3c4,
         "sram_value": 0x4,
         "id": 8,
+        "hint_entrance": ["Mercay SE Ledge North", "Mercay SE OOB West", "Mercay SE OOB North"]
     },
     "TotOK Lobby Phantom Hourglass": {
         "region_id": "TotOK Lobby",
@@ -98,6 +102,7 @@ LOCATIONS_DATA = {
         "y": 0x399a,
         "vanilla_item": "Nothing!",
         "id": 9,
+        "hint_entrance": "TotOK Lobby Exit"
     },
     "Long Bridge Cave Chest": {
         "region_id": "Long Bridge Cave Chest",
@@ -107,6 +112,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x430,
         "sram_value": 0x1,
         "id": 10,
+        "hint_entrance": ["Long Bridge Cave West", "Long Bridge Cave East"]
     },
     "Mercay NE Freedle Island Chest": {
         "region_id": "Mercay NW Freedle Island",
@@ -118,6 +124,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x3ac,
         "sram_value": 0x40,
         "id": 11,
+        "hint_entrance": "Mercay NE Freedle Island Cave"
     },
     "Mercay NE Freedle Gift Item": {
         "region_id": "Mercay NW Freedle Gift",
@@ -127,6 +134,7 @@ LOCATIONS_DATA = {
         "x_max": 0x25000,
         "vanilla_item": "Treasure Map #12 (Dee Ess N)",
         "id": 12,
+        "hint_entrance": "Mercay NE Freedle Island Cave"
     },
     "Mercay SE Ojibe (Docks Guy) Item": {
         "region_id": "Mercay SE Ojibe",
@@ -144,6 +152,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Ship Part",
         # "post_dungeon": "Temple of Fire", hard code
         "id": 14,
+        "hint_entrance": "Shipyard Exit"
     },
     "Oshus Spirit Gem": {
         "region_id": "Oshus Gem",
@@ -154,6 +163,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "delay_reset": True,
         "id": 15,
+        "hint_entrance": "Oshus' Exit"
     },
     "Oshus Phantom Sword": {
         "region_id": "Oshus Phantom Blade",
@@ -164,6 +174,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba648,
         "value": 0x20,
         "id": 16,
+        "hint_entrance": "Oshus' Exit"
     },
 
     # ========== Mountain Passage ============
@@ -179,7 +190,9 @@ LOCATIONS_DATA = {
         "sram_value": 0x8,
         "dungeon": "Mountain Passage",
         "id": 17,
-        "do_special": "keylock"
+        "do_special": "keylock",
+        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase",
+                          "Mountain Passage 2F Staircase","Mountain Passage 2F Exit"]
     },
     "Mountain Passage 1F Side Chest": {
         "region_id": "Mountain Passage 2",
@@ -192,7 +205,9 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 18,
-        "do_special": "keylock"
+        "do_special": "keylock",
+        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase",
+                          "Mountain Passage 2F Staircase", "Mountain Passage 2F Exit"]
     },
     "Mountain Passage 1F Key Drop": {
         "region_id": "Mountain Passage 2",
@@ -204,7 +219,9 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "dungeon": "Mountain Passage",
         "id": 19,
-        "do_special": "keylock"
+        "do_special": "keylock",
+        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase",
+                          "Mountain Passage 2F Staircase", "Mountain Passage 2F Exit"]
     },
     "Mountain Passage 2F Rat Key": {
         "region_id": "Mountain Passage Rat",
@@ -215,7 +232,8 @@ LOCATIONS_DATA = {
         "sram_value": 0x20,
         "dungeon": "Mountain Passage",
         "id": 20,
-        "do_special": "keylock"
+        "do_special": "keylock",
+        "hint_entrance": ["Mountain Passage 2F Staircase", "Mountain Passage 2F Exit"]
     },
 
     # ========== Island Shops ============
@@ -231,6 +249,7 @@ LOCATIONS_DATA = {
         "island_shop": True,
         "delay_reset": True,
         "id": 21,
+        "hint_entrance": ["Mercay Shop Exit", "Molida Shop Exit", "Goron Shop Exit"]
     },
     "Island Shop Quiver": {
         "region_id": "Island Shop Quiver",
@@ -243,6 +262,7 @@ LOCATIONS_DATA = {
         "island_shop": True,
         "delay_reset": True,
         "id": 22,
+        "hint_entrance": ["Mercay Shop Exit", "Molida Shop Exit", "Goron Shop Exit"]
     },
     "Island Shop Bombchu Bag": {
         "region_id": "Island Shop Bombchu Bag",
@@ -255,6 +275,7 @@ LOCATIONS_DATA = {
         "island_shop": True,
         "delay_reset": True,
         "id": 23,
+        "hint_entrance": ["Mercay Shop Exit", "Molida Shop Exit", "Goron Shop Exit"]
     },
     "Island Shop Heart Container": {
         "region_id": "Island Shop Heart Container",
@@ -266,6 +287,7 @@ LOCATIONS_DATA = {
         "value": 0x80,
         "island_shop": True,
         "id": 24,
+        "hint_entrance": ["Mercay Shop Exit", "Molida Shop Exit", "Goron Shop Exit"]
     },
 
     # ========== Beedle ============
@@ -375,6 +397,7 @@ LOCATIONS_DATA = {
         "set_bit": [(0x1b557d, 0x2)],
         "id": 29,
         "do_special": "ut_event",
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK 1F Linebeck Key": {
         "region_id": "TotOK 1F",
@@ -387,6 +410,7 @@ LOCATIONS_DATA = {
         "set_bit": [(0x1b557d, 0x2)],
         "dungeon": "Temple of the Ocean King",
         "id": 30,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK 1F Empty Chest": {
         "region_id": "TotOK 1F Chest",
@@ -396,6 +420,7 @@ LOCATIONS_DATA = {
         "x_min": 0x4000,
         "dungeon": "Temple of the Ocean King",
         "id": 31,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B1 Small Key": {
         "region_id": "TotOK B1 Key",
@@ -405,6 +430,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of the Ocean King",
         "id": 32,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B1 Shoot Eye Chest": {
         "region_id": "TotOK B1 Bow",
@@ -415,6 +441,7 @@ LOCATIONS_DATA = {
         "x_max": 0x10000,
         "dungeon": "Temple of the Ocean King",
         "id": 33,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B1 Phantom Chest": {
         "region_id": "TotOK B1 Phantom",
@@ -427,6 +454,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "dungeon": "Temple of the Ocean King",
         "id": 34,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B2 Bombchu Chest": {
         "region_id": "TotOK B2 Chu",
@@ -439,6 +467,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B2 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 35,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B2 Phantom Chest": {
         "region_id": "TotOK B2 Phantom",
@@ -451,6 +480,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B2 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 36,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B2 Small Key": {
         "region_id": "TotOK B2 Key",
@@ -459,6 +489,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x2,
         "dungeon": "Temple of the Ocean King",
         "id": 37,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B3 Bow Chest": {
         "region_id": "TotOK B3 Bow",
@@ -470,6 +501,7 @@ LOCATIONS_DATA = {
         "z_min": -0x9c40,
         "dungeon": "Temple of the Ocean King",
         "id": 38,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B3 Phantom Chest": {
         "region_id": "TotOK B3 Phantom",
@@ -482,6 +514,7 @@ LOCATIONS_DATA = {
         "z_max": 0xd000,
         "dungeon": "Temple of the Ocean King",
         "id": 39,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B3 NW Chest": {
         "region_id": "TotOK B3 NW Chest",
@@ -494,6 +527,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B3 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 40,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B3 SW Chest": {
         "region_id": "TotOK B3 SW Chest",
@@ -507,6 +541,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B3 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 41,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B3 SE Chest": {
         "region_id": "TotOK B3 SE Chest",
@@ -519,6 +554,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B3 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 42,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B3 Small Key": {
         "region_id": "TotOK B3 Key",
@@ -527,6 +563,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x3,
         "dungeon": "Temple of the Ocean King",
         "id": 43,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B3.5 Sea Chart Chest": {
         "region_id": "TotOK B3.5",
@@ -535,6 +572,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x4,
         "dungeon": "Temple of the Ocean King",
         "id": 44,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B4 Phantom Eye Chest": {
         "region_id": "TotOK B4 Eyes",
@@ -546,6 +584,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B4 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 45,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B4 Phantom Chest": {
         "region_id": "TotOK B4 Phantom",
@@ -557,6 +596,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "delay_pickup": "TotOK B4 Small Key",
         "id": 46,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B4 Small Key": {
         "region_id": "TotOK B4 Key",
@@ -566,6 +606,7 @@ LOCATIONS_DATA = {
         "dungeon": "Temple of the Ocean King",
         "delay_pickup": "TotOK B4 Small Key",
         "id": 47,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B5 Alt Path Chest": {
         "region_id": "TotOK B5 Alt Path Chest",
@@ -575,6 +616,7 @@ LOCATIONS_DATA = {
         "x_max": -0x3a98,
         "dungeon": "Temple of the Ocean King",
         "id": 48,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B5 Chest": {
         "region_id": "TotOK B5 Chest",
@@ -585,6 +627,7 @@ LOCATIONS_DATA = {
         "x_max": 0xc000,
         "dungeon": "Temple of the Ocean King",
         "id": 49,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B6 Phantom Chest": {
         "region_id": "TotOK B6 Phantom",
@@ -596,6 +639,7 @@ LOCATIONS_DATA = {
         "z_max": 0xf000,
         "dungeon": "Temple of the Ocean King",
         "id": 50,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B6 Bow Chest": {
         "region_id": "TotOK B6 Bow",
@@ -605,6 +649,7 @@ LOCATIONS_DATA = {
         "z_max": -0x9c40,
         "dungeon": "Temple of the Ocean King",
         "id": 51,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B6 Courage Crest": {
         "region_id": "TotOK B6 Crest",
@@ -616,6 +661,7 @@ LOCATIONS_DATA = {
         "value": 0x4,
         "dungeon": "Temple of the Ocean King",
         "id": 52,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B7 North Chest": {
         "region_id": "TotOK B7 Crystal",
@@ -627,6 +673,7 @@ LOCATIONS_DATA = {
         "z_max": -0xc350,
         "dungeon": "Temple of the Ocean King",
         "id": 53,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B7 Peg Chest": {
         "region_id": "TotOK B7 Switch",
@@ -638,6 +685,7 @@ LOCATIONS_DATA = {
         "z_max": 0x2af8,
         "dungeon": "Temple of the Ocean King",
         "id": 54,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B7 Phantom Chest": {
         "region_id": "TotOK B7 Phantom",
@@ -649,6 +697,7 @@ LOCATIONS_DATA = {
         "z_max": -0xc350,
         "dungeon": "Temple of the Ocean King",
         "id": 55,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B8 2 Crystals Chest": {
         "region_id": "TotOK B8 2 Crystals Chest",
@@ -659,6 +708,7 @@ LOCATIONS_DATA = {
         "z_max": -0x7530,
         "dungeon": "Temple of the Ocean King",
         "id": 56,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B8 Phantom Chest": {
         "region_id": "TotOK B8 Phantom",
@@ -672,6 +722,7 @@ LOCATIONS_DATA = {
         "z_min": -0x2710,
         "dungeon": "Temple of the Ocean King",
         "id": 57,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B9 NW Chest": {
         "region_id": "TotOK B9 Corner Chest",
@@ -682,6 +733,7 @@ LOCATIONS_DATA = {
         "z_max": -0x7530,
         "dungeon": "Temple of the Ocean King",
         "id": 58,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B9 Wizzrobe Chest": {
         "region_id": "TotOK B9 Wizzrobes",
@@ -694,6 +746,7 @@ LOCATIONS_DATA = {
         "z_max": 0x4e20,
         "dungeon": "Temple of the Ocean King",
         "id": 59,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B9 Phantom Chest": {
         "region_id": "TotOK B9 Phantom",
@@ -705,6 +758,7 @@ LOCATIONS_DATA = {
         "z_min": 0xafc8,
         "dungeon": "Temple of the Ocean King",
         "id": 60,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B9.5 Sea Chart Chest": {
         "region_id": "TotOK B10",
@@ -713,6 +767,7 @@ LOCATIONS_DATA = {
         "floor_id": 0xd,
         "dungeon": "Temple of the Ocean King",
         "id": 61,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B10 Hammer Switch Chest": {
         "region_id": "TotOK B10 Hammer",
@@ -727,6 +782,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B10 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 62,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B10 Phantom Chest": {
         "region_id": "TotOK B10 Phantom",
@@ -742,6 +798,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "TotOK B10 Small Key",
         "dungeon": "Temple of the Ocean King",
         "id": 63,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B10 Phantom Eye Chest": {
         "region_id": "TotOK B10 Eyes",
@@ -751,6 +808,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of the Ocean King",
         "id": 64,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B10 Small Key": {
         "region_id": "TotOK B10 Key",
@@ -759,6 +817,7 @@ LOCATIONS_DATA = {
         "floor_id": 0xe,
         "dungeon": "Temple of the Ocean King",
         "id": 65,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B11 Phantom Eye Chest": {
         "region_id": "TotOK B11 Eyes",
@@ -769,6 +828,7 @@ LOCATIONS_DATA = {
         "z_max": -0xafc8,
         "dungeon": "Temple of the Ocean King",
         "id": 66,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B11 Phantom Chest": {
         "region_id": "TotOK B11 Phantom",
@@ -780,6 +840,7 @@ LOCATIONS_DATA = {
         "z_min": 0x9c40,
         "dungeon": "Temple of the Ocean King",
         "id": 67,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B12 NE Chest": {
         "region_id": "TotOK B12 NW Chest",
@@ -790,6 +851,7 @@ LOCATIONS_DATA = {
         "z_max": -0xc350,
         "dungeon": "Temple of the Ocean King",
         "id": 68,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B12 NW Chest": {
         "region_id": "TotOK B12 NE Chest",
@@ -800,6 +862,7 @@ LOCATIONS_DATA = {
         "z_max": -0xc350,
         "dungeon": "Temple of the Ocean King",
         "id": 69,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B12 Hammer Chest": {
         "region_id": "TotOK B12 Hammer",
@@ -809,6 +872,7 @@ LOCATIONS_DATA = {
         "x_min": 0xfde8,
         "dungeon": "Temple of the Ocean King",
         "id": 70,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B12 Kill Everything Chest": {
         "region_id": "TotOK B12 Ghost",
@@ -819,6 +883,7 @@ LOCATIONS_DATA = {
         "x_max": -0xfde8,
         "dungeon": "Temple of the Ocean King",
         "id": 71,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B12 Phantom Chest": {
         "region_id": "TotOK B12 Phantom",
@@ -832,6 +897,7 @@ LOCATIONS_DATA = {
         "z_max": 0x61a8,
         "dungeon": "Temple of the Ocean King",
         "id": 72,
+        "hint_entrance": "TotOK Lobby Exit",
     },
     "TotOK B13 Sea Chart Chest": {
         "region_id": "TotOK B13 Chest",
@@ -842,6 +908,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "dungeon": "Temple of the Ocean King",
         "id": 73,
+        "hint_entrance": "TotOK Lobby Exit",
     },
 
     # ========== Ocean SW ============
@@ -913,6 +980,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x28,
         "floor_id": 0x0,
         "id": 80,
+        "hint_entrance": ["Bomb Flower Cave South", "Bomb Flower Cave North"]
     },
     "Cannon Island Cliff Chest": {
         "region_id": "Cannon Bomb Garden",
@@ -921,6 +989,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "y": 0x2666,
         "id": 81,
+        "hint_entrance": ["Cannon Bomb Garden Cave", "Cannon Workshop East"]
     },
     "Cannon Island SE Dig": {
         "region_id": "Cannon Bomb Garden Dig",
@@ -932,6 +1001,7 @@ LOCATIONS_DATA = {
         "z_min": 0x9088,
         "conditional": True,
         "id": 82,
+        "hint_entrance": ["Cannon Bomb Garden Cave", "Cannon Workshop East"]
     },
     "Cannon Island Bonk Tree": {
         "region_id": "Cannon Bomb Garden",
@@ -945,6 +1015,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x6dc,
         "sram_value": 0x1,
         "id": 83,
+        "hint_entrance": ["Cannon Bomb Garden Cave", "Cannon Workshop East"]
     },
     "Cannon Island East Dig": {
         "region_id": "Cannon Bomb Garden Dig",
@@ -958,6 +1029,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "conditional": True,
         "id": 84,
+        "hint_entrance": ["Cannon Bomb Garden Cave", "Cannon Workshop East"]
     },
     "Eddo's Cannon": {
         "region_id": "Eddo's Workshop",
@@ -968,6 +1040,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba649,
         "value": 0x2,
         "id": 85,
+        "hint_entrance": ["Eddo's Exit", "Eddo's Interior Door"]
     },
     "Eddo's Salvage Arm": {
         "region_id": "Eddo Salvage Arm",
@@ -977,6 +1050,7 @@ LOCATIONS_DATA = {
         "address": 0x1b558d,
         "value": 0x10,
         "id": 86,
+        "hint_entrance": ["Eddo's Exit", "Eddo's Interior Door"]
     },
 
     # ========== Ember Island ============
@@ -987,6 +1061,7 @@ LOCATIONS_DATA = {
         "stage_id": 0xd,
         "floor_id": 0x14,
         "id": 87,
+        "hint_entrance": "Astrid's Basement Stairs"
     },
     "Isle of Ember West Grapple Chest": {
         "region_id": "Ember Grapple",
@@ -1012,6 +1087,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "y": 0x399a,
         "id": 90,
+        "hint_entrance": ["Ember West Summit North", "Ember West Summit South", "Ember West Heights South"]
     },
     "Astrid After Fire Temple Gift": {
         "region_id": "Astrid Post ToF",
@@ -1023,6 +1099,7 @@ LOCATIONS_DATA = {
         "value": 0x20,
         "post_dungeon": "Temple of Fire",
         "id": 91,
+        "hint_entrance": ["Astrid's Exit", "Astrid's Stairs"]
     },
 
     # ========== Temple of Fire ============
@@ -1036,6 +1113,7 @@ LOCATIONS_DATA = {
         "z_max": 0xf000,
         "dungeon": "Temple of Fire",
         "id": 92,
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
     },
     "Temple of Fire 1F Maze Chest": {
         "region_id": "ToF 1F Maze",
@@ -1046,6 +1124,7 @@ LOCATIONS_DATA = {
         "z_max": -0x9c40,
         "dungeon": "Temple of Fire",
         "id": 93,
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
     },
     "Temple of Fire 2F Boomerang Chest": {
         "region_id": "ToF 2F",
@@ -1056,6 +1135,7 @@ LOCATIONS_DATA = {
         "x_min": 0x2710,
         "dungeon": "Temple of Fire",
         "id": 94,
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
     },
     "Temple of Fire 2F Fire Keese Chest": {
         "region_id": "ToF 2F South",
@@ -1070,6 +1150,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "Temple of Fire 2F Rat Key",
         "dungeon": "Temple of Fire",
         "id": 95,
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
     },
     "Temple of Fire 2F Rat Key": {
         "region_id": "ToF 2F South",
@@ -1078,6 +1159,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x1,
         "dungeon": "Temple of Fire",
         "id": 96,
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
     },
     "Temple of Fire 3F Key Drop": {
         "region_id": "ToF 3F Key Drop",
@@ -1087,6 +1169,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "dungeon": "Temple of Fire",
         "id": 97,
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
     },
     "Temple of Fire 3F Boss Key Chest": {
         "region_id": "ToF 3F Boss Key",
@@ -1096,6 +1179,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of Fire",
         "id": 98,
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
     },
     "Blaaz Heart Container": {
         "region_id": "Post Blaaz",
@@ -1104,6 +1188,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "boss_room": "Temple of Fire",
         "id": 99,
+        "hint_entrance": "Blaaz Exit"
     },
     "Blaaz Boss Reward": {
         "region_id": "Post Blaaz",
@@ -1119,6 +1204,7 @@ LOCATIONS_DATA = {
         "id": 100,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Blaaz"},
+        "hint_entrance": "Blaaz Exit"
     },
 
     # ========== Molida Island ============
@@ -1129,6 +1215,7 @@ LOCATIONS_DATA = {
         "stage_id": 0xc,
         "floor_id": 0xd,
         "id": 101,
+        "hint_entrance": "Potato's Exit"
     },
     "Molida Island South Romanos Tree Dig": {
         "region_id": "Molida Dig",
@@ -1150,6 +1237,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "x_max": -0x61a8,
         "id": 103,
+        "hint_entrance": ["Sun Lake Cave South Drop", "Sun Lake Cave Chest Drop"]
     },
     "Sun Lake Cave Grapple Chest": {
         "region_id": "Sun Lake Cave Grapple",
@@ -1159,6 +1247,9 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "x_min": 0x9c40,
         "id": 104,
+        "hint_entrance": ["Sun Lake Cave South Drop", "Sun Lake Cave Chest Drop",
+                          "Sun Lake Cave Sun Staircase", "Sun Lake Cave Exit",
+                          "Sun Lake Cave Staircase", "Sun Lake Cave Bomb Cave", "Sun Lake Cave Back Cave"]
     },
     "Sun Lake Cave Geozard Dig": {
         "region_id": "Sun Lake Cave Geozard Dig",
@@ -1169,6 +1260,10 @@ LOCATIONS_DATA = {
         "x_min": 0x3a98,
         "conditional": True,
         "id": 105,
+        "hint_entrance": ["Sun Lake Cave South Drop", "Sun Lake Cave Chest Drop",
+                          "Sun Lake Cave Sun Staircase", "Sun Lake Cave Exit",
+                          "Sun Lake Cave Staircase", "Sun Lake Cave Bomb Cave",
+                          "Sun Lake Cave Back Cave", "Sun Lake Cave Geozard Cave"]
     },
     "Shovel Hideout Chest": {
         "region_id": "Shovel Hideout",
@@ -1179,6 +1274,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x49c,
         "sram_value": 0x1,
         "id": 106,
+        "hint_entrance": "Shovel Hideout Exit",
     },
     "Shovel Hideout Dig": {
         "region_id": "Shovel Hideout Dig",
@@ -1189,6 +1285,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x100,
         "conditional": True,
         "id": 107,
+        "hint_entrance": "Shovel Hideout Exit",
     },
     "Molida Island North Cliff Chest": {
         "region_id": "Molida Cliff North",
@@ -1199,6 +1296,7 @@ LOCATIONS_DATA = {
         "x_max": -0x4650,
         "z_min": -0x7530,
         "id": 108,
+        "hint_entrance": ["Molida North Cliff Staircase", "Molida North Cliff South"]
     },
     "Molida Island South Cucco Grapple Tree Dig": {
         "region_id": "Molida Cucco Dig",
@@ -1208,6 +1306,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "x_min": 0x15f90,
         "id": 109,
+        "hint_entrance": "Molida South Cliff North",
     },
     "Molida Island South Cucco Grapple Small Island Dig": {
         "region_id": "Molida Cucco Dig",
@@ -1219,6 +1318,7 @@ LOCATIONS_DATA = {
         "x_min": 0x9c40,
         "conditional": True,
         "id": 110,
+        "hint_entrance": "Molida South Cliff North",
     },
     "Sun Lake Cave North Drop Chest": {
         "region_id": "Sun Lake Cave North Drop",
@@ -1228,6 +1328,7 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "z_max": -0xfde8,
         "id": 111,
+        "hint_entrance": "Sun Lake Cave Chest Drop"
     },
     "Molida Island North Grapple Chest": {
         "region_id": "Molida North Grapple",
@@ -1237,6 +1338,7 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "x_max": 0x0,
         "id": 112,
+        "hint_entrance": ["Molida North Enter Temple", "Molida North Staircase"]
     },
     "Archery Minigame 1700": {
         "region_id": "Archery Game",
@@ -1249,6 +1351,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "conditional": True,
         "id": 113,
+        "hint_entrance": "Romanos' Exit"
     },
     "Archery Minigame 2000": {
         "region_id": "Archery Game",
@@ -1261,6 +1364,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "conditional": True,
         "id": 114,
+        "hint_entrance": "Romanos' Exit"
     },
 
     # ========== Temple of Courage ============
@@ -1275,6 +1379,7 @@ LOCATIONS_DATA = {
         "x_min": 0x4e20,
         "dungeon": "Temple of Courage",
         "id": 115,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 1F Raised Platform Chest": {
         "region_id": "ToC 1F",
@@ -1285,6 +1390,7 @@ LOCATIONS_DATA = {
         "x_min": 0x3a98,
         "dungeon": "Temple of Courage",
         "id": 116,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 1F Map Room Chest East": {
         "region_id": "ToC 1F Map Room",
@@ -1296,6 +1402,7 @@ LOCATIONS_DATA = {
         "x_max": -0xd6d8,
         "dungeon": "Temple of Courage",
         "id": 117,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 1F Map Room Chest West": {
         "region_id": "ToC 1F Map Room",
@@ -1306,6 +1413,7 @@ LOCATIONS_DATA = {
         "x_max": -0x11d28,
         "dungeon": "Temple of Courage",
         "id": 118,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 1F Pols Voice Key": {
         "region_id": "ToC 1F West",
@@ -1316,6 +1424,7 @@ LOCATIONS_DATA = {
         "x_max": 0x0,
         "dungeon": "Temple of Courage",
         "id": 119,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 2F Beamos Maze Chest": {
         "region_id": "ToC 2F Beamos Room",
@@ -1326,6 +1435,7 @@ LOCATIONS_DATA = {
         "x_max": -0xc350,
         "dungeon": "Temple of Courage",
         "id": 120,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage B1 Maze Chest": {
         "region_id": "ToC B1 Invisible Maze",
@@ -1336,6 +1446,7 @@ LOCATIONS_DATA = {
         "x_max": 0x0,
         "dungeon": "Temple of Courage",
         "id": 121,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage B1 Bow Chest": {
         "region_id": "ToC B1 Invisible Maze",
@@ -1345,6 +1456,7 @@ LOCATIONS_DATA = {
         "x_max": -0x13880,
         "dungeon": "Temple of Courage",
         "id": 122,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 2F Moving Platform Chest": {
         "region_id": "ToC 2F Moving Platform Room",
@@ -1357,6 +1469,7 @@ LOCATIONS_DATA = {
         "z_min": 0x7530,
         "dungeon": "Temple of Courage",
         "id": 123,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 2F Spike Corridor Chest": {
         "region_id": "ToC 2F Spike Corridor",
@@ -1368,6 +1481,7 @@ LOCATIONS_DATA = {
         "z_min": 0x7530,
         "dungeon": "Temple of Courage",
         "id": 124,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage B1 Torch Room Secret Chest": {
         "region_id": "ToC B1 Torches Chest",
@@ -1377,6 +1491,7 @@ LOCATIONS_DATA = {
         "x_min": 0x11170,
         "dungeon": "Temple of Courage",
         "id": 125,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 1F Pols Voice Key 2": {
         "region_id": "ToC 1F Pols NW",
@@ -1387,6 +1502,7 @@ LOCATIONS_DATA = {
         "z_max": -0x7530,
         "dungeon": "Temple of Courage",
         "id": 126,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 2F Boss Key Chest": {
         "region_id": "ToC 2F Scribble Platform Chest",
@@ -1397,6 +1513,7 @@ LOCATIONS_DATA = {
         "z_max": -0x7530,
         "dungeon": "Temple of Courage",
         "id": 127,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Temple of Courage 3F Before Boss Chest": {
         "region_id": "ToC 3F Chest",
@@ -1405,6 +1522,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x3,
         "dungeon": "Temple of Courage",
         "id": 128,
+        "hint_entrance": ["ToC Exit", "ToC Enter Boss"],
     },
     "Crayk Boss Reward": {
         "region_id": "Post Crayk",
@@ -1420,6 +1538,7 @@ LOCATIONS_DATA = {
         "id": 129,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Crayk"},
+        "hint_entrance": "Crayk Exit",
     },
     "Crayk Sand of Hours": {
         "region_id": "Post Crayk",
@@ -1431,6 +1550,7 @@ LOCATIONS_DATA = {
         "boss_room": "Temple of Courage",
         "delay_reset": True,
         "id": 130,
+        "hint_entrance": "Crayk Exit",
     },
     "Crayk Heart Container": {
         "region_id": "Post Crayk",
@@ -1439,6 +1559,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "boss_room": "Temple of Courage",
         "id": 131,
+        "hint_entrance": "Crayk Exit",
     },
 
     # ========== Spirit Island ============
@@ -1451,6 +1572,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "x_min": -0x1f40,
         "id": 132,
+        "hint_entrance": ["Spirit Island Cave", "Spirit Board Ship"],
     },
     "Spirit Island Gauntlet Chest": {
         "region_id": "Spirit Island Gauntlet",
@@ -1459,6 +1581,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "y": 0x2666,
         "id": 133,
+        "hint_entrance": ["Spirit Island Cave", "Spirit Board Ship"],
     },
     "Spirit Shrine Power Upgrade Level 1": {
         "region_id": "Spirit Power 1",
@@ -1468,6 +1591,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba647,
         "value": 0x1,
         "id": 134,
+        "hint_entrance": "Spirit Shrine Exit",
     },
     "Spirit Shrine Power Upgrade Level 2": {
         "region_id": "Spirit Power 2",
@@ -1477,6 +1601,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba647,
         "value": 0x8,
         "id": 135,
+        "hint_entrance": "Spirit Shrine Exit",
     },
     "Spirit Shrine Wisdom Upgrade Level 1": {
         "region_id": "Spirit Wisdom 1",
@@ -1486,6 +1611,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba647,
         "value": 0x2,
         "id": 136,
+        "hint_entrance": "Spirit Shrine Exit",
     },
     "Spirit Shrine Wisdom Upgrade Level 2": {
         "region_id": "Spirit Wisdom 2",
@@ -1495,6 +1621,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba647,
         "value": 0x10,
         "id": 137,
+        "hint_entrance": "Spirit Shrine Exit",
     },
     "Spirit Shrine Courage Upgrade Level 1": {
         "region_id": "Spirit Courage 1",
@@ -1504,6 +1631,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba646,
         "value": 0x80,
         "id": 138,
+        "hint_entrance": "Spirit Shrine Exit",
     },
     "Spirit Shrine Courage Upgrade Level 2": {
         "region_id": "Spirit Courage 2",
@@ -1513,6 +1641,7 @@ LOCATIONS_DATA = {
         "address": 0x1ba647,
         "value": 0x4,
         "id": 139,
+        "hint_entrance": "Spirit Shrine Exit",
     },
 
     # ========== Ocean NW ============
@@ -1545,6 +1674,7 @@ LOCATIONS_DATA = {
         "stage_id": 0xe,
         "floor_id": 0xa,
         "id": 142,
+        "hint_entrance": "Tiled Hideout Exit",
     },
     "Miniblin Cave North Chest": {
         "region_id": "Miniblin Cave Damage",
@@ -1553,6 +1683,8 @@ LOCATIONS_DATA = {
         "floor_id": 0xb,
         "z_max": -0x55f0,
         "id": 143,
+        "hint_entrance": ["Miniblin Cave East", "Miniblin Cave West"],
+
     },
     "Miniblin Cave South Chest": {
         "region_id": "Miniblin Cave",
@@ -1561,6 +1693,7 @@ LOCATIONS_DATA = {
         "floor_id": 0xb,
         "z_min": -0x55f0,
         "id": 144,
+        "hint_entrance": ["Miniblin Cave East", "Miniblin Cave West"],
     },
     "Isle of Gust South NE Dig": {
         "region_id": "Gust South Cliffs Dig",
@@ -1588,6 +1721,7 @@ LOCATIONS_DATA = {
         "x_max": -0x14c08,
         "conditional": True,
         "id": 147,
+        "hint_entrance": "Gust NW Coast South",
     },
     "Isle of Gust North Sandworm Chest": {
         "region_id": "Gust North Sandworms",
@@ -1597,6 +1731,7 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "z_min": -0x7530,
         "id": 148,
+        "hint_entrance": "Gust NW Coast South",
     },
 
     # ========== Temple of Wind ============
@@ -1610,6 +1745,7 @@ LOCATIONS_DATA = {
         "x_min": 0x13880,
         "dungeon": "Temple of Wind",
         "id": 149,
+        "hint_entrance": ["ToW Exit", "ToW Enter Boss"],
     },
     "Temple of Wind B1 Ledge Chest": {
         "region_id": "ToW B1",
@@ -1619,6 +1755,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of Wind",
         "id": 150,
+        "hint_entrance": ["ToW Exit", "ToW Enter Boss"],
     },
     "Temple of Wind B2 Chest": {
         "region_id": "ToW B2",
@@ -1628,6 +1765,7 @@ LOCATIONS_DATA = {
         "x_max": -0xfde8,
         "dungeon": "Temple of Wind",
         "id": 151,
+        "hint_entrance": ["ToW Exit", "ToW Enter Boss"],
     },
     "Temple of Wind B2 Bombable Wall Item": {
         "region_id": "ToW B2 Bombs",
@@ -1636,6 +1774,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x3,
         "dungeon": "Temple of Wind",
         "id": 152,
+        "hint_entrance": ["ToW Exit", "ToW Enter Boss"],
     },
     "Temple of Wind B1 Key Drop": {
         "region_id": "ToW B2 Dig",
@@ -1645,6 +1784,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "dungeon": "Temple of Wind",
         "id": 153,
+        "hint_entrance": ["ToW Exit", "ToW Enter Boss"],
     },
     "Temple of Wind B2 Bomb Bag Chest": {
         "region_id": "ToW B2 Key",
@@ -1654,6 +1794,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of Wind",
         "id": 154,
+        "hint_entrance": ["ToW Exit", "ToW Enter Boss"],
     },
     "Temple of Wind 1F Boss Key Chest": {
         "region_id": "ToW 1F NE",
@@ -1663,6 +1804,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of Wind",
         "id": 155,
+        "hint_entrance": ["ToW Exit", "ToW Enter Boss"],
     },
     "Cyclok Sand of Hours": {
         "region_id": "Post Cyclok",
@@ -1674,6 +1816,7 @@ LOCATIONS_DATA = {
         "boss_room": "Temple of Wind",
         "delay_reset": True,
         "id": 156,
+        "hint_entrance": "Crayk Exit",
     },
     "Cyclok Boss Reward": {
         "region_id": "Post Cyclok",
@@ -1689,6 +1832,7 @@ LOCATIONS_DATA = {
         "id": 157,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Cyclok"},
+        "hint_entrance": "Crayk Exit",
     },
     "Cyclok Heart Container": {
         "region_id": "Post Cyclok",
@@ -1697,6 +1841,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "boss_room": "Temple of Wind",
         "id": 158,
+        "hint_entrance": "Crayk Exit",
     },
 
     # ========== Bannan Island ============
@@ -1708,6 +1853,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "z_min": 0x4e20,
         "id": 159,
+        "hint_entrance": ["Bannan West Hut", "Bannan West Cave", "Bannan West Board Ship"],
     },
     "Bannan Island West Wayfarer Dig": {
         "region_id": "Bannan Dig",
@@ -1717,6 +1863,7 @@ LOCATIONS_DATA = {
         "z_max": -0x7530,
         "x_max": 0x2710,
         "id": 160,
+        "hint_entrance": ["Bannan West Hut", "Bannan West Cave", "Bannan West Board Ship"],
     },
     "Wayfarer's Gift": {
         "region_id": "Wayfarer's House",
@@ -1730,7 +1877,8 @@ LOCATIONS_DATA = {
         "id": 161,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Meet Wayfarer"},
-        "set_bit": [(0x1b5581, 0x8)]
+        "set_bit": [(0x1b5581, 0x8)],
+        "hint_entrance": "Wayfarer's Exit",
     },
     "Wayfarer Give Loovar": {
         "region_id": 'Wayfarer Give Loovar',
@@ -1742,6 +1890,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "conditional": True,
         "id": 162,
+        "hint_entrance": "Wayfarer's Exit",
     },
     "Wayfarer Give Rusty Swordfish": {
         "region_id": 'Wayfarer Give Rusty Swordfish',
@@ -1754,6 +1903,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "conditional": True,
         "id": 163,
+        "hint_entrance": "Wayfarer's Exit",
     },
     "Wayfarer Give Legendary Neptoona": {
         "region_id": 'Wayfarer Give Legendary Neptoona',
@@ -1765,6 +1915,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "conditional": True,
         "id": 164,
+        "hint_entrance": "Wayfarer's Exit",
     },
     "Wayfarer Give Stowfish": {
         "region_id": 'Wayfarer Give Stowfish',
@@ -1777,6 +1928,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "conditional": True,
         "id": 165,
+        "hint_entrance": "Wayfarer's Exit",
     },
     "Joanne Give Letter": {
         "region_id": 'Joanne Give Letter',
@@ -1787,6 +1939,7 @@ LOCATIONS_DATA = {
         "address": 0x1b558f,
         "value": 0x2,
         "id": 321,
+        "hint_entrance": "Wayfarer's Exit",
     },
     "Bannan Island East Grapple Chest East": {
         "region_id": "Bannan East Grapple",
@@ -1799,6 +1952,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x4,
         "delay_pickup": ["Bannan Island East Grapple Dig", "Bannan Island East Grapple Chest West"],
         "id": 166,
+        "hint_entrance": "Bannan East Cave",
     },
     "Bannan Island East Grapple Chest West": {
         "region_id": "Bannan East Grapple",
@@ -1812,6 +1966,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "delay_pickup": ["Bannan Island East Grapple Dig", "Bannan Island East Grapple Chest East"],
         "id": 167,
+        "hint_entrance": "Bannan East Cave",
     },
     "Bannan Island East Grapple Dig": {
         "region_id": "Bannan East Grapple Dig",
@@ -1822,6 +1977,7 @@ LOCATIONS_DATA = {
         "x_max": 0x186a0,
         "z_max": -0x61a8,
         "id": 168,
+        "hint_entrance": "Bannan East Cave",
     },
     "Bannan Island East Cannon Game": {
         "region_id": "Bannan Cannon Game",
@@ -1834,6 +1990,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "farmable": True,
         "id": 169,
+        "hint_entrance": "Bannan East Cave",
     },
     "Wayfarer Trade Quest Chest": {
         "region_id": "Wayfarer Trade Quest",
@@ -1843,6 +2000,7 @@ LOCATIONS_DATA = {
         "address": 0x1b5592,
         "value": 0x10,
         "id": 170,
+        "hint_entrance": "Wayfarer's Exit",
     },
 
     # ========== Uncharted Island ============
@@ -1854,6 +2012,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "x_min": -0x124f8,
         "id": 171,
+        "hint_entrance": ["Uncharted Cave", "Uncharted Board Ship"],
     },
     "Descending Cave Grapple Chest": {
         "region_id": "Descending Cave Grapple",
@@ -1861,6 +2020,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x1a,
         "floor_id": 0xa,
         "id": 172,
+        "hint_entrance": ["Descending Cave Exit", "Descending Cave Lower Cave"],
     },
     "Golden Chief Gift": {
         "region_id": "Golden Chief Cave",
@@ -1870,6 +2030,7 @@ LOCATIONS_DATA = {
         "address": 0x1b55a2,
         "value": 0x40,
         "id": 173,
+        "hint_entrance": "Golden Chief Exit",
     },
 
     # ========== Zauz's Island ============
@@ -1881,6 +2042,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "y": 0x1333,
         "id": 174,
+        "hint_entrance": ["Zauz Board Ship", "Zauz' House"],
     },
     "Zauz's Island Secret Dig": {
         "region_id": "Zauz Dig",
@@ -1889,6 +2051,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "y": 0x0,
         "id": 175,
+        "hint_entrance": ["Zauz Board Ship", "Zauz' House"],
     },
     "Zauz's House Triforce Crest": {
         "region_id": "Zauz's Crest",
@@ -1901,6 +2064,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "post_dungeon": "Ghost Ship",
         "id": 176,
+        "hint_entrance": "Zauz' Exit",
     },
     "Zauz's House Phantom Blade": {
         "region_id": "Zauz's Blade",
@@ -1910,6 +2074,7 @@ LOCATIONS_DATA = {
         "address": 0x1b5592,
         "value": 0x20,
         "id": 177,
+        "hint_entrance": "Zauz' Exit",
     },
 
     # ========== Ghost Ship ============
@@ -1923,6 +2088,7 @@ LOCATIONS_DATA = {
         "z_min": 0x1388,
         "dungeon": "Ghost Ship",
         "id": 178,
+        "hint_entrance": ["GS Exit", "Ghost Ship Cubus Sisters Reunion"],
     },
     "Ghost Ship B1 Second Sister Chest": {
         "region_id": "Ghost Ship B1 Barrel",
@@ -1933,6 +2099,7 @@ LOCATIONS_DATA = {
         "z_max": -0x1388,
         "dungeon": "Ghost Ship",
         "id": 179,
+        "hint_entrance": ["GS Exit", "Ghost Ship Cubus Sisters Reunion"],
     },
     "Ghost Ship B2 Third Sister Right Chest": {
         "region_id": "Ghost Ship B2 Chests",
@@ -1946,6 +2113,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x4,
         "delay_pickup": "Ghost Ship B2 Third Sister Left Chest",
         "id": 180,
+        "hint_entrance": ["GS Exit", "Ghost Ship Cubus Sisters Reunion"],
     },
     "Ghost Ship B2 Third Sister Left Chest": {
         "region_id": "Ghost Ship B2 Chests",
@@ -1958,6 +2126,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x1,
         "delay_pickup": "Ghost Ship B2 Third Sister Right Chest",
         "id": 181,
+        "hint_entrance": ["GS Exit", "Ghost Ship Cubus Sisters Reunion"],
     },
     "Ghost Ship B2 Spike Chest": {
         "region_id": "Ghost Ship B2 Chests",
@@ -1967,6 +2136,7 @@ LOCATIONS_DATA = {
         "z_min": -0x1f40,
         "dungeon": "Ghost Ship",
         "id": 182,
+        "hint_entrance": ["GS Exit", "Ghost Ship Cubus Sisters Reunion"],
     },
     "Ghost Ship B3 Chest": {
         "region_id": "Ghost Ship B3",
@@ -1975,6 +2145,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Red Potion",
         "dungeon": "Ghost Ship",
         "id": 183,
+        "hint_entrance": ["GS Exit", "Ghost Ship Cubus Sisters Reunion"],
     },
     "Cubus Sisters Ghost Key": {
         "region_id": "Post Cubus Sisters",
@@ -1983,6 +2154,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Ghost Key",
         "boss_room": "Ghost Ship",
         "id": 184,
+        "hint_entrance": "Cubus Sisters Blue Warp",
     },
     "Cubus Sisters Heart Container": {
         "region_id": "Post Cubus Sisters",
@@ -1993,6 +2165,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "boss_room": "Ghost Ship",
         "id": 185,
+        "hint_entrance": "Cubus Sisters Blue Warp",
     },
     "Ghost Ship Rescue Tetra": {
         "region_id": "Ghost Ship Tetra",
@@ -2006,6 +2179,7 @@ LOCATIONS_DATA = {
         "id": 186,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Rescue Tetra"},
+        "hint_entrance": ["GS Exit", "Ghost Ship Cubus Sisters Reunion"],
     },
 
     # ========== Ocean SE ============
@@ -2051,7 +2225,8 @@ LOCATIONS_DATA = {
         "id": 190,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Goron SW Kill Yellow Chus"},
-        "set_bit": [(0x1ba652, 0x10)]
+        "set_bit": [(0x1ba652, 0x10)],
+        "hint_entrance": "Goron SW Mountains East",
     },
     "Goron Island SW Grapple Chest": {
         "region_id": "Goron SW Grapple",
@@ -2061,6 +2236,7 @@ LOCATIONS_DATA = {
         "z_min": 0x124f8,
         "x_max": -0x15f90,
         "id": 191,
+        "hint_entrance": "Goron SW Mountains East",
     },
     "Goron Chief Goron Quiz": {
         "region_id": "Goron Quiz",
@@ -2070,6 +2246,7 @@ LOCATIONS_DATA = {
         "address": 0x1b558b,
         "value": 0x10,
         "id": 192,
+        "hint_entrance": "Goron Chief House Exit",
     },
     "Goron Island NE Bombchu Switch Chest": {
         "region_id": "Goron NE Chu Chest",
@@ -2087,6 +2264,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Green Rupee (100)",
         "x_max": 0xc350,
         "id": 194,
+        "hint_entrance": "Goron North Dead End",
     },
     "Goron Island NE Spike Chest": {
         "region_id": "Goron NE Spike Chest",
@@ -2095,6 +2273,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Power Gem",
         "x_max": 0x35000,
         "id": 195,
+        "hint_entrance": "Goron Spikes Dead End",
     },
     "Goron Chief Post Dungeon Item": {
         "region_id": "Goron Chief Post Dungeon",
@@ -2105,6 +2284,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "post_dungeon": "Goron Temple",
         "id": 196,
+        "hint_entrance": "Goron Chief House Exit",
     },
 
     # ========== Goron Temple ============
@@ -2117,6 +2297,8 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "dungeon": "Goron Temple",
         "id": 197,
+        "hint_entrance": ["GT Exit", "GT Enter Boss"],
+
     },
     "Goron Temple 1F Bow Chest": {
         "region_id": "GT 1F Bow",
@@ -2126,6 +2308,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Goron Temple",
         "id": 198,
+        "hint_entrance": ["GT Exit", "GT Enter Boss"],
     },
     "Goron Temple B1 Bombchu Bag Chest": {
         "region_id": "GT B1",
@@ -2135,6 +2318,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Goron Temple",
         "id": 199,
+        "hint_entrance": ["GT Exit", "GT Enter Boss"],
     },
     "Goron Temple B1 Kill Eyeslugs Chest": {
         "region_id": "GT B1",
@@ -2145,6 +2329,7 @@ LOCATIONS_DATA = {
         "z_min": 0x7530,
         "dungeon": "Goron Temple",
         "id": 200,
+        "hint_entrance": ["GT Exit", "GT Enter Boss"],
     },
     "Goron Temple B3 Kill Miblins Chest": {
         "region_id": "GT B3",
@@ -2154,6 +2339,7 @@ LOCATIONS_DATA = {
         "x_max": -0x4e20,
         "dungeon": "Goron Temple",
         "id": 201,
+        "hint_entrance": ["GT Exit", "GT Enter Boss"],
     },
     "Goron Temple B2 Kill Eyeslugs Chest": {
         "region_id": "GT B2 Back Chest",
@@ -2163,6 +2349,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "dungeon": "Goron Temple",
         "id": 202,
+        "hint_entrance": ["GT Exit", "GT Enter Boss"],
     },
     "Goron Temple B2 Boss Key Chest": {
         "region_id": "GT B2 Back Chest",
@@ -2172,6 +2359,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Goron Temple",
         "id": 203,
+        "hint_entrance": ["GT Exit", "GT Enter Boss"],
     },
     "Dongorongo Sand of Hours": {
         "region_id": "Post Dongorongo",
@@ -2183,6 +2371,7 @@ LOCATIONS_DATA = {
         "boss_room": "Goron Temple",
         "delay_reset": True,
         "id": 204,
+        "hint_entrance": "Dongo Exit",
     },
     "Dongorongo Heart Container": {
         "region_id": "Post Dongorongo",
@@ -2191,6 +2380,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "boss_room": "Goron Temple",
         "id": 205,
+        "hint_entrance": "Dongo Exit",
     },
     "Dongorongo Boss Reward": {
         "region_id": "Post Dongorongo",
@@ -2203,6 +2393,7 @@ LOCATIONS_DATA = {
         "id": 206,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Dongorongo"},
+        "hint_entrance": "Dongo Exit",
     },
 
     # ========== Harrow Island ============
@@ -2217,6 +2408,7 @@ LOCATIONS_DATA = {
         "value": 0x1,
         "conditional": True,
         "id": 207,
+        "hint_entrance": "Harrow Board Ship",
     },
     "Harrow Island Dig 2": {
         "region_id": "Harrow Minigame",
@@ -2228,6 +2420,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "conditional": True,
         "id": 208,
+        "hint_entrance": "Harrow Board Ship",
     },
     "Harrow Island Dig 3": {
         "region_id": "Harrow Minigame NE Chart",
@@ -2239,6 +2432,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "conditional": True,
         "id": 209,
+        "hint_entrance": "Harrow Board Ship",
     },
     "Harrow Island Dig 4": {
         "region_id": "Harrow Minigame NE Chart",
@@ -2250,6 +2444,7 @@ LOCATIONS_DATA = {
         "value": 0x4,
         "conditional": True,
         "id": 210,
+        "hint_entrance": "Harrow Board Ship",
     },
 
     # ========== Dee Ess Island ============
@@ -2263,6 +2458,7 @@ LOCATIONS_DATA = {
         "x_max": -0x61a8,
         "z_min": 0xafc8,
         "id": 211,
+        "hint_entrance": "Dee Ess Board Ship",
     },
     "Dee Ess Blow in Microphone Chest": {
         "region_id": "Dee Ess Island",
@@ -2274,6 +2470,7 @@ LOCATIONS_DATA = {
         "z_min": 0x2710,
         "z_max": 0x7530,
         "id": 212,
+        "hint_entrance": "Dee Ess Board Ship",
     },
     "Dee Ess Left Speakers Dig SSW": {
         "region_id": "Dee Ess Dig",
@@ -2285,6 +2482,7 @@ LOCATIONS_DATA = {
         "x_max": -0xc350,
         "conditional": True,
         "id": 213,
+        "hint_entrance": "Dee Ess Board Ship",
     },
     "Dee Ess Right Speakers Dig SE": {
         "region_id": "Dee Ess Dig",
@@ -2295,6 +2493,7 @@ LOCATIONS_DATA = {
         "x_min": 0xafc8,
         "conditional": True,
         "id": 214,
+        "hint_entrance": "Dee Ess Board Ship",
     },
     "Dee Ess Left Speakers Dig West": {
         "region_id": "Dee Ess Dig",
@@ -2305,6 +2504,7 @@ LOCATIONS_DATA = {
         "x_max": -0x107ac,
         "conditional": True,
         "id": 215,
+        "hint_entrance": "Dee Ess Board Ship",
     },
     "Dee Ess Win Goron Game": {
         "region_id": "Dee Ess Goron Race",
@@ -2317,6 +2517,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "conditional": True,
         "id": 216,
+        "hint_entrance": "Dee Ess Board Ship",
     },
     "Dee Ess Eye Brute Chest": {
         "region_id": "Dee Ess Eye Brutes",
@@ -2326,6 +2527,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "z_max": -0x4e20,
         "id": 217,
+        "hint_entrance": "Dee Ess Board Ship",
     },
 
     # ========== Frost Island ============
@@ -2454,6 +2656,7 @@ LOCATIONS_DATA = {
         "z_max": -0x7530,
         "dungeon": "Temple of Ice",
         "id": 229,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice 3F Switch State Chest": {
         "region_id": "ToI 3F Switch State",
@@ -2463,6 +2666,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of Ice",
         "id": 230,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice 3F Key Drop": {
         "region_id": "ToI 3F Boomerang Key",
@@ -2472,6 +2676,7 @@ LOCATIONS_DATA = {
         "y": 0x2666,
         "dungeon": "Temple of Ice",
         "id": 231,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice 2F Grappling Hook Chest": {
         "region_id": "ToI 2F Post Arena",
@@ -2480,6 +2685,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Grappling Hook",
         "dungeon": "Temple of Ice",
         "id": 232,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice B1 Entrance Chest": {
         "region_id": "ToI B1 South",
@@ -2489,6 +2695,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Yellow Potion",
         "dungeon": "Temple of Ice",
         "id": 233,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice B1 SE Chest": {
         "region_id": "ToI B1 Right",
@@ -2499,6 +2706,7 @@ LOCATIONS_DATA = {
         "z_min": 45000,
         "dungeon": "Temple of Ice",
         "id": 234,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice B1 Locked Room Chest": {
         "region_id": "ToI B1 Switch Room",
@@ -2508,6 +2716,7 @@ LOCATIONS_DATA = {
         "z_max": -0x4e20,
         "dungeon": "Temple of Ice",
         "id": 235,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice B2 Bow Bounce Chest": {
         "region_id": "ToI B2 Bow",
@@ -2517,6 +2726,7 @@ LOCATIONS_DATA = {
         "z_max": -0xc350,
         "dungeon": "Temple of Ice",
         "id": 236,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice B2 Fight Chest": {
         "region_id": "ToI B2 East Arena",
@@ -2526,6 +2736,7 @@ LOCATIONS_DATA = {
         "x_min": 0x7530,
         "dungeon": "Temple of Ice",
         "id": 237,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Temple of Ice B2 Boss Key Chest": {
         "region_id": "ToI B2 BK Chest",
@@ -2535,6 +2746,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of Ice",
         "id": 238,
+        "hint_entrance": ["ToI Exit", "ToI Enter Boss"],
     },
     "Gleeok Sand of Hours": {
         "region_id": "Post Gleeok",
@@ -2546,6 +2758,7 @@ LOCATIONS_DATA = {
         "boss_room": "Temple of Ice",
         "delay_reset": True,
         "id": 239,
+        "hint_entrance": "Gleeok Exit",
     },
     "Gleeok Heart Container": {
         "region_id": "Post Gleeok",
@@ -2554,6 +2767,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "boss_room": "Temple of Ice",
         "id": 240,
+        "hint_entrance": "Gleeok Exit",
     },
     "Gleeok Boss Reward": {
         "region_id": "Post Gleeok",
@@ -2566,6 +2780,7 @@ LOCATIONS_DATA = {
         "id": 241,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Gleeok"},
+        "hint_entrance": "Gleeok Exit",
     },
 
     # ========== Ocean NE ============
@@ -2592,6 +2807,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x4,
         "delay_pickup": ["Rupoor Cave 3", "Rupoor Cave 2"],
         "id": 243,
+        "hint_entrance": "Rupoor Cave Exit",
     },
     "Rupoor Cave 4": {
         "region_id": "Rupoor Cave",
@@ -2604,6 +2820,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x1,
         "delay_pickup": ["Rupoor Cave 3", "Rupoor Cave 2"],
         "id": 244,
+        "hint_entrance": "Rupoor Cave Exit",
     },
     "Rupoor Cave 2": {
         "region_id": "Rupoor Cave",
@@ -2616,6 +2833,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x2,
         "delay_pickup": "Rupoor Cave 3",
         "id": 245,
+        "hint_entrance": "Rupoor Cave Exit",
     },
     "Rupoor Cave 3": {
         "region_id": "Rupoor Cave",
@@ -2628,6 +2846,7 @@ LOCATIONS_DATA = {
         "sram_value": 0x1,
         "delay_pickup": "Rupoor Cave 2",
         "id": 246,
+        "hint_entrance": "Rupoor Cave Exit",
     },
     "Stone Treasure Cave Chest": {
         "region_id": "Stone Treasure Cave",
@@ -2635,6 +2854,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x15,
         "floor_id": 0x4,
         "id": 247,
+        "hint_entrance": "Stone Treasure Cave Exit",
     },
     "Isle of the Dead Face Chest": {
         "region_id": "IotD Face",
@@ -2643,6 +2863,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "y": 0x4ccd,
         "id": 248,
+        "hint_entrance": "IotD Face Staircase",
     },
     "Isle of the Dead Crown Chest": {
         "region_id": "IotD Crown",
@@ -2651,7 +2872,8 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "y": 0x2666,
         "id": 249,
-        "delay_reset": True
+        "delay_reset": True,
+        "hint_entrance": "IotD Crown Staircase",
     },
 
     # ========== Ruins Island ============
@@ -2687,6 +2909,7 @@ LOCATIONS_DATA = {
         "address": 0x1b5585,
         "value": 0x4,
         "id": 252,
+        "hint_entrance": "Doylan's Chamber Exit",
     },
     "Grassy Treasure Cave Chest": {
         "region_id": "Grassy Treasure Cave",
@@ -2694,6 +2917,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x12,
         "floor_id": 0xb,
         "id": 253,
+        "hint_entrance": "Grassy Rupee Cave Exit",
     },
     "Isle of Ruins NW Lower Maze Chest": {
         "region_id": "Ruins NW Maze Lower Chest",
@@ -2724,6 +2948,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "z_min": -0x7530,
         "id": 256,
+        "hint_entrance": "Ruins NE Secret Chest South",
     },
     "Isle of Ruins NE Outside Pyramid Chest": {
         "region_id": "Ruins NE Behind Pyramids",
@@ -2768,6 +2993,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x1,
         "dungeon": "Mutoh's Temple",
         "id": 259,
+        "hint_entrance": ["MT Exit", "MT Enter Boss"],
     },
     "Mutoh's Temple 3F Hammer Chest": {
         "region_id": "MT Landing",
@@ -2776,6 +3002,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x2,
         "dungeon": "Mutoh's Temple",
         "id": 260,
+        "hint_entrance": ["MT Exit", "MT Enter Boss"],
     },
     "Mutoh's Temple B2 Spike Roller Chest": {
         "region_id": "MT Hammer",
@@ -2785,6 +3012,7 @@ LOCATIONS_DATA = {
         "y": 0x0,
         "dungeon": "Mutoh's Temple",
         "id": 261,
+        "hint_entrance": ["MT Exit", "MT Enter Boss"],
     },
     "Mutoh's Temple B2 Ledge Chest": {
         "region_id": "MT Hammer",
@@ -2794,6 +3022,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Mutoh's Temple",
         "id": 262,
+        "hint_entrance": ["MT Exit", "MT Enter Boss"],
     },
     "Mutoh's Temple B1 Lower Water Chest": {
         "region_id": "MT Lower Water",
@@ -2804,6 +3033,7 @@ LOCATIONS_DATA = {
         "z_min": -0x61a8,
         "dungeon": "Mutoh's Temple",
         "id": 263,
+        "hint_entrance": ["MT Exit", "MT Enter Boss"],
     },
     "Mutoh's Temple B1 Push Boulder Chest": {
         "region_id": "MT Lower Water",
@@ -2814,6 +3044,7 @@ LOCATIONS_DATA = {
         "z_max": -0x61a8,
         "dungeon": "Mutoh's Temple",
         "id": 264,
+        "hint_entrance": ["MT Exit", "MT Enter Boss"],
     },
     "Mutoh's Temple B1 Boss Key Chest": {
         "region_id": "MT BK Chest",
@@ -2823,6 +3054,7 @@ LOCATIONS_DATA = {
         "y": 0x4ccd,
         "dungeon": "Mutoh's Temple",
         "id": 265,
+        "hint_entrance": ["MT Exit", "MT Enter Boss"],
     },
     "Eox Sand of Hours": {
         "region_id": "Post Eox",
@@ -2834,6 +3066,7 @@ LOCATIONS_DATA = {
         "boss_room": "Mutoh's Temple",
         "delay_reset": True,
         "id": 266,
+        "hint_entrance": "Eox Exit",
     },
     "Eox Heart Container": {
         "region_id": "Post Eox",
@@ -2842,6 +3075,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "boss_room": "Mutoh's Temple",
         "id": 267,
+        "hint_entrance": "Eox Exit",
     },
     "Eox Boss Reward": {
         "region_id": "Post Eox",
@@ -2854,6 +3088,7 @@ LOCATIONS_DATA = {
         "id": 268,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Eox"},
+        "hint_entrance": "Eox Exit",
     },
 
     # ========== Maze Island ============
@@ -2868,6 +3103,7 @@ LOCATIONS_DATA = {
         "z_max": 0x5dc0,
         "z_min": -0x6590,
         "id": 269,
+        "hint_entrance": "Maze Board Ship",
     },
     "Maze Island SE Dig": {
         "region_id": "Maze Island Dig",
@@ -2881,6 +3117,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x1c1,
         "sram_value": 0x8,
         "id": 270,
+        "hint_entrance": "Maze Board Ship",
     },
     "Maze Island NE Dig": {
         "region_id": "Maze Island Dig",
@@ -2894,6 +3131,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x1c1,
         "sram_value": 0x10,
         "id": 271,
+        "hint_entrance": "Maze Board Ship",
     },
     "Maze Island NW Dig": {
         "region_id": "Maze Island Dig",
@@ -2907,6 +3145,7 @@ LOCATIONS_DATA = {
         "sram_addr": 0x1c1,
         "sram_value": 0x80,
         "id": 272,
+        "hint_entrance": "Maze Board Ship",
     },
     "Maze Island Beginner": {
         "region_id": "Maze Island Minigame",
@@ -2917,6 +3156,7 @@ LOCATIONS_DATA = {
         "value": 0x1,
         "conditional": True,
         "id": 273,
+        "hint_entrance": "Maze Board Ship",
     },
     "Maze Island Normal": {
         "region_id": "Maze Island Minigame Normal",
@@ -2927,6 +3167,7 @@ LOCATIONS_DATA = {
         "value": 0x40,
         "conditional": True,
         "id": 274,
+        "hint_entrance": "Maze Board Ship",
     },
     "Maze Island Expert": {
         "region_id": "Maze Island Minigame Expert",
@@ -2937,6 +3178,7 @@ LOCATIONS_DATA = {
         "value": 0x80,
         "conditional": True,
         "id": 275,
+        "hint_entrance": "Maze Board Ship",
     },
     "Maze Island Bonus Reward": {
         "region_id": "Maze Island Minigame Expert",
@@ -2947,6 +3189,7 @@ LOCATIONS_DATA = {
         "z_min": 0xc350,
         "conditional": True,
         "id": 276,
+        "hint_entrance": "Maze Board Ship",
     },
 
     # ========== Goal Locations ============
