@@ -336,13 +336,13 @@ DYNAMIC_FLAGS = {
     "Courage Gem cap": {
         "on_scenes": [0x1701],
         "has_items": [("Courage Gem", 20)],
-        "overwrite_if_true": [(0x1BA542, 0x14)],
+        "overwrite_if_true": [(0x1BA540, 0x14)],
         "reset_flags": ["RESET Courage Gem cap"]
     },
     "Wisdom Gem cap": {
         "on_scenes": [0x1701],
         "has_items": [("Wisdom Gem", 20)],
-        "overwrite_if_true": [(0x1BA540, 0x14)],
+        "overwrite_if_true": [(0x1BA542, 0x14)],
         "reset_flags": ["RESET Wisdom Gem cap"]
     },
     "Power Gem cap packs": {
@@ -353,12 +353,12 @@ DYNAMIC_FLAGS = {
     "Courage Gem cap packs": {
         "on_scenes": [0x1701],
         "count_gems": "Courage",
-        "overwrite_if_true": [(0x1BA542, 0x14)],
+        "overwrite_if_true": [(0x1BA540, 0x14)],
     },
     "Wisdom Gem cap packs": {
         "on_scenes": [0x1701],
         "count_gems": "Wisdom",
-        "overwrite_if_true": [(0x1BA540, 0x14)],
+        "overwrite_if_true": [(0x1BA542, 0x14)],
     },
     "RESET Power Gem cap": {
         "overwrite_if_true": [(0x1BA541, "Power Gem")],
@@ -675,7 +675,6 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Ghost Ship Rescue Tetra"],
         "unset_if_true": [(0x1B557E, 0x10)]
     },
-
     # Goron Chief
     "Beat goron temple goron chief": {
         "on_scenes": [0x100A],

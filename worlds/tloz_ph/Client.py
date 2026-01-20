@@ -943,6 +943,10 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Pots {self.last_potions}")
             if not all(self.last_potions):
                 await write_memory_values(ctx, 0x1BA5D8, self.last_potions, overwrite=True)
+            else:
+                rupee_item = ITEMS_DATA[vanilla_item]["overflow_item"]
+                print(f"Removing potion rupees")
+                await write_memory_value(ctx, 0x1ba53e, ITEMS_DATA[rupee_item]["value"], size=2, incr=False)
         elif "Oshus' Sword" in vanilla_item:
             data = ITEMS_DATA[vanilla_item]
             await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)

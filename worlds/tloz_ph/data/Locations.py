@@ -79,7 +79,8 @@ LOCATIONS_DATA = {
         "sram_addr": 0x3c4,
         "sram_value": 0x2,
         "id": 7,
-        "hint_entrance": ["Mercay SE Ledge North", "Mercay SE OOB West", "Mercay SE OOB North"]
+        "hint_entrance": ["Mercay SE Ledge North", "Mercay SE OOB West", "Mercay SE OOB North"],
+        "hint_entrance_secondary": "Mercay NE Ledge Cave",
     },
     "Mercay SE Ledge Chest East": {
         "region_id": "Mercay SE Ledge",
@@ -91,7 +92,8 @@ LOCATIONS_DATA = {
         "sram_addr": 0x3c4,
         "sram_value": 0x4,
         "id": 8,
-        "hint_entrance": ["Mercay SE Ledge North", "Mercay SE OOB West", "Mercay SE OOB North"]
+        "hint_entrance": ["Mercay SE Ledge North", "Mercay SE OOB West", "Mercay SE OOB North"],
+        "hint_entrance_secondary": "Mercay NE Ledge Cave",
     },
     "TotOK Lobby Phantom Hourglass": {
         "region_id": "TotOK Lobby",
@@ -191,8 +193,9 @@ LOCATIONS_DATA = {
         "dungeon": "Mountain Passage",
         "id": 17,
         "do_special": "keylock",
-        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase",
-                          "Mountain Passage 2F Staircase","Mountain Passage 2F Exit"]
+        "hint_entrance": "Mountain Passage 1F Exit",
+        "hint_entrance_secondary": ["Mountain Passage 1F Staircase",
+                          "Mountain Passage 2F Staircase","Mountain Passage 2F Exit"],
     },
     "Mountain Passage 1F Side Chest": {
         "region_id": "Mountain Passage 2",
@@ -206,8 +209,8 @@ LOCATIONS_DATA = {
         "dungeon": "Mountain Passage",
         "id": 18,
         "do_special": "keylock",
-        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase",
-                          "Mountain Passage 2F Staircase", "Mountain Passage 2F Exit"]
+        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase"],
+        "hint_entrance_secondary": ["Mountain Passage 2F Staircase","Mountain Passage 2F Exit"],
     },
     "Mountain Passage 1F Key Drop": {
         "region_id": "Mountain Passage 2",
@@ -220,8 +223,8 @@ LOCATIONS_DATA = {
         "dungeon": "Mountain Passage",
         "id": 19,
         "do_special": "keylock",
-        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase",
-                          "Mountain Passage 2F Staircase", "Mountain Passage 2F Exit"]
+        "hint_entrance": ["Mountain Passage 1F Exit", "Mountain Passage 1F Staircase"],
+        "hint_entrance_secondary": ["Mountain Passage 2F Staircase","Mountain Passage 2F Exit"],
     },
     "Mountain Passage 2F Rat Key": {
         "region_id": "Mountain Passage Rat",
@@ -233,7 +236,8 @@ LOCATIONS_DATA = {
         "dungeon": "Mountain Passage",
         "id": 20,
         "do_special": "keylock",
-        "hint_entrance": ["Mountain Passage 2F Staircase", "Mountain Passage 2F Exit"]
+        "hint_entrance": "Mountain Passage 2F Staircase",
+        "hint_entrance_secondary": "Mountain Passage 2F Exit",
     },
 
     # ========== Island Shops ============
@@ -963,6 +967,8 @@ LOCATIONS_DATA = {
         "x_min": -0xc350,
         "y": 0x1333,
         "id": 78,
+        "hint_entrance": ["Cannon Bomb Garden Cave", "Cannon Bee Cave",
+                          "Cannon Workshop East", "Cannon Workshop West", "Cannon Board Ship"]
     },
     "Cannon Island Bee Dig": {
         "region_id": "Cannon Island Dig",
@@ -973,6 +979,8 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "conditional": True,
         "id": 79,
+        "hint_entrance": ["Cannon Bomb Garden Cave", "Cannon Bee Cave",
+                          "Cannon Workshop East", "Cannon Workshop West", "Cannon Board Ship"]
     },
     "Bomb Flower Cave Chest": {
         "region_id": "Bomb Flower Cave South",
@@ -980,7 +988,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x28,
         "floor_id": 0x0,
         "id": 80,
-        "hint_entrance": ["Bomb Flower Cave South", "Bomb Flower Cave North"]
+        "hint_entrance": "Bomb Flower Cave South",
+        "hint_entrance_secondary": "Bomb Flower Cave North",
     },
     "Cannon Island Cliff Chest": {
         "region_id": "Cannon Bomb Garden",
@@ -1040,7 +1049,8 @@ LOCATIONS_DATA = {
         "address": 0x1ba649,
         "value": 0x2,
         "id": 85,
-        "hint_entrance": ["Eddo's Exit", "Eddo's Interior Door"]
+        "hint_entrance": ["Eddo's Exit", "Eddo's Interior Door"],
+        "hint_entrance_secondary": ["Cannon Bomb Garden Cave", "Cannon Bee Cave", "Cannon Board Ship"]
     },
     "Eddo's Salvage Arm": {
         "region_id": "Eddo Salvage Arm",
@@ -1050,7 +1060,8 @@ LOCATIONS_DATA = {
         "address": 0x1b558d,
         "value": 0x10,
         "id": 86,
-        "hint_entrance": ["Eddo's Exit", "Eddo's Interior Door"]
+        "hint_entrance": ["Eddo's Exit", "Eddo's Interior Door"],
+        "hint_entrance_secondary": ["Cannon Bomb Garden Cave", "Cannon Bee Cave", "Cannon Board Ship"]
     },
 
     # ========== Ember Island ============
@@ -1061,7 +1072,8 @@ LOCATIONS_DATA = {
         "stage_id": 0xd,
         "floor_id": 0x14,
         "id": 87,
-        "hint_entrance": "Astrid's Basement Stairs"
+        "hint_entrance": "Astrid's Basement Stairs",
+        "hint_entrance_secondary": "Astrid's Exit",
     },
     "Isle of Ember West Grapple Chest": {
         "region_id": "Ember Grapple",
@@ -1079,6 +1091,8 @@ LOCATIONS_DATA = {
         "floor_id": 0x1,
         "y": 0x2666,
         "id": 89,
+        "hint_entrance": ["Ember East Summit North", "Ember East Summit South",
+                          "Ember East Heights North", "Ember East Heights South"]  # ignore dungeon
     },
     "Isle of Ember West Summit Chest": {
         "region_id": "Ember Summit West",
@@ -1179,7 +1193,7 @@ LOCATIONS_DATA = {
         "y": 0x1333,
         "dungeon": "Temple of Fire",
         "id": 98,
-        "hint_entrance": ["ToF Exit", "ToF Enter Boss"]
+        "hint_entrance": ["ToF Exit", "ToF Enter Boss"],
     },
     "Blaaz Heart Container": {
         "region_id": "Post Blaaz",
@@ -1188,7 +1202,8 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "boss_room": "Temple of Fire",
         "id": 99,
-        "hint_entrance": "Blaaz Exit"
+        "hint_entrance": "Blaaz Exit",
+        "hint_entrance_secondary": "ToF Exit",
     },
     "Blaaz Boss Reward": {
         "region_id": "Post Blaaz",
@@ -1204,7 +1219,8 @@ LOCATIONS_DATA = {
         "id": 100,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Blaaz"},
-        "hint_entrance": "Blaaz Exit"
+        "hint_entrance": "Blaaz Exit",
+        "hint_entrance_secondary": "ToF Exit",
     },
 
     # ========== Molida Island ============
@@ -1296,7 +1312,7 @@ LOCATIONS_DATA = {
         "x_max": -0x4650,
         "z_min": -0x7530,
         "id": 108,
-        "hint_entrance": ["Molida North Cliff Staircase", "Molida North Cliff South"]
+        "hint_entrance": ["Molida North Cliff Staircase", "Molida North Cliff South"],
     },
     "Molida Island South Cucco Grapple Tree Dig": {
         "region_id": "Molida Cucco Dig",
@@ -1307,6 +1323,7 @@ LOCATIONS_DATA = {
         "x_min": 0x15f90,
         "id": 109,
         "hint_entrance": "Molida South Cliff North",
+        "hint_entrance_secondary": "Molida North Cliff Staircase"
     },
     "Molida Island South Cucco Grapple Small Island Dig": {
         "region_id": "Molida Cucco Dig",
@@ -1319,6 +1336,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 110,
         "hint_entrance": "Molida South Cliff North",
+        "hint_entrance_secondary": "Molida North Cliff Staircase"
     },
     "Sun Lake Cave North Drop Chest": {
         "region_id": "Sun Lake Cave North Drop",
@@ -1539,6 +1557,7 @@ LOCATIONS_DATA = {
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Crayk"},
         "hint_entrance": "Crayk Exit",
+        "hint_entrance_secondary": "ToC Exit",
     },
     "Crayk Sand of Hours": {
         "region_id": "Post Crayk",
@@ -1551,6 +1570,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 130,
         "hint_entrance": "Crayk Exit",
+        "hint_entrance_secondary": "ToC Exit",
     },
     "Crayk Heart Container": {
         "region_id": "Post Crayk",
@@ -1560,6 +1580,7 @@ LOCATIONS_DATA = {
         "boss_room": "Temple of Courage",
         "id": 131,
         "hint_entrance": "Crayk Exit",
+        "hint_entrance_secondary": "ToC Exit",
     },
 
     # ========== Spirit Island ============
@@ -1592,6 +1613,7 @@ LOCATIONS_DATA = {
         "value": 0x1,
         "id": 134,
         "hint_entrance": "Spirit Shrine Exit",
+        "hint_entrance_secondary": "Spirit Board Ship"
     },
     "Spirit Shrine Power Upgrade Level 2": {
         "region_id": "Spirit Power 2",
@@ -1602,6 +1624,7 @@ LOCATIONS_DATA = {
         "value": 0x8,
         "id": 135,
         "hint_entrance": "Spirit Shrine Exit",
+        "hint_entrance_secondary": "Spirit Board Ship"
     },
     "Spirit Shrine Wisdom Upgrade Level 1": {
         "region_id": "Spirit Wisdom 1",
@@ -1612,6 +1635,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "id": 136,
         "hint_entrance": "Spirit Shrine Exit",
+        "hint_entrance_secondary": "Spirit Board Ship"
     },
     "Spirit Shrine Wisdom Upgrade Level 2": {
         "region_id": "Spirit Wisdom 2",
@@ -1622,6 +1646,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "id": 137,
         "hint_entrance": "Spirit Shrine Exit",
+        "hint_entrance_secondary": "Spirit Board Ship"
     },
     "Spirit Shrine Courage Upgrade Level 1": {
         "region_id": "Spirit Courage 1",
@@ -1632,6 +1657,7 @@ LOCATIONS_DATA = {
         "value": 0x80,
         "id": 138,
         "hint_entrance": "Spirit Shrine Exit",
+        "hint_entrance_secondary": "Spirit Board Ship"
     },
     "Spirit Shrine Courage Upgrade Level 2": {
         "region_id": "Spirit Courage 2",
@@ -1642,6 +1668,7 @@ LOCATIONS_DATA = {
         "value": 0x4,
         "id": 139,
         "hint_entrance": "Spirit Shrine Exit",
+        "hint_entrance_secondary": "Spirit Board Ship"
     },
 
     # ========== Ocean NW ============
@@ -1817,6 +1844,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 156,
         "hint_entrance": "Crayk Exit",
+        "hint_entrance_secondary": "ToW Exit",
     },
     "Cyclok Boss Reward": {
         "region_id": "Post Cyclok",
@@ -1833,6 +1861,7 @@ LOCATIONS_DATA = {
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Cyclok"},
         "hint_entrance": "Crayk Exit",
+        "hint_entrance_secondary": "ToW Exit",
     },
     "Cyclok Heart Container": {
         "region_id": "Post Cyclok",
@@ -1842,6 +1871,7 @@ LOCATIONS_DATA = {
         "boss_room": "Temple of Wind",
         "id": 158,
         "hint_entrance": "Crayk Exit",
+        "hint_entrance_secondary": "ToW Exit",
     },
 
     # ========== Bannan Island ============
@@ -1879,6 +1909,7 @@ LOCATIONS_DATA = {
                        "event_name": "EVENT: Meet Wayfarer"},
         "set_bit": [(0x1b5581, 0x8)],
         "hint_entrance": "Wayfarer's Exit",
+        "hint_entrance_secondary": ["Bannan West Cave", "Bannan West Board Ship"],
     },
     "Wayfarer Give Loovar": {
         "region_id": 'Wayfarer Give Loovar',
@@ -1891,6 +1922,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 162,
         "hint_entrance": "Wayfarer's Exit",
+        "hint_entrance_secondary": ["Bannan West Cave", "Bannan West Board Ship"],
     },
     "Wayfarer Give Rusty Swordfish": {
         "region_id": 'Wayfarer Give Rusty Swordfish',
@@ -1904,6 +1936,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 163,
         "hint_entrance": "Wayfarer's Exit",
+        "hint_entrance_secondary": ["Bannan West Cave", "Bannan West Board Ship"],
     },
     "Wayfarer Give Legendary Neptoona": {
         "region_id": 'Wayfarer Give Legendary Neptoona',
@@ -1916,6 +1949,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 164,
         "hint_entrance": "Wayfarer's Exit",
+        "hint_entrance_secondary": ["Bannan West Cave", "Bannan West Board Ship"],
     },
     "Wayfarer Give Stowfish": {
         "region_id": 'Wayfarer Give Stowfish',
@@ -1929,6 +1963,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "id": 165,
         "hint_entrance": "Wayfarer's Exit",
+        "hint_entrance_secondary": ["Bannan West Cave", "Bannan West Board Ship"],
     },
     "Joanne Give Letter": {
         "region_id": 'Joanne Give Letter',
@@ -1940,6 +1975,7 @@ LOCATIONS_DATA = {
         "value": 0x2,
         "id": 321,
         "hint_entrance": "Wayfarer's Exit",
+        "hint_entrance_secondary": ["Bannan West Cave", "Bannan West Board Ship"],
     },
     "Bannan Island East Grapple Chest East": {
         "region_id": "Bannan East Grapple",
@@ -1953,6 +1989,7 @@ LOCATIONS_DATA = {
         "delay_pickup": ["Bannan Island East Grapple Dig", "Bannan Island East Grapple Chest West"],
         "id": 166,
         "hint_entrance": "Bannan East Cave",
+        "hint_entrance_secondary": ["Bannan West Hut", "Bannan West Board Ship"],
     },
     "Bannan Island East Grapple Chest West": {
         "region_id": "Bannan East Grapple",
@@ -1967,6 +2004,7 @@ LOCATIONS_DATA = {
         "delay_pickup": ["Bannan Island East Grapple Dig", "Bannan Island East Grapple Chest East"],
         "id": 167,
         "hint_entrance": "Bannan East Cave",
+        "hint_entrance_secondary": ["Bannan West Hut", "Bannan West Board Ship"],
     },
     "Bannan Island East Grapple Dig": {
         "region_id": "Bannan East Grapple Dig",
@@ -1978,6 +2016,7 @@ LOCATIONS_DATA = {
         "z_max": -0x61a8,
         "id": 168,
         "hint_entrance": "Bannan East Cave",
+        "hint_entrance_secondary": ["Bannan West Hut", "Bannan West Board Ship"],
     },
     "Bannan Island East Cannon Game": {
         "region_id": "Bannan Cannon Game",
@@ -1991,6 +2030,7 @@ LOCATIONS_DATA = {
         "farmable": True,
         "id": 169,
         "hint_entrance": "Bannan East Cave",
+        "hint_entrance_secondary": ["Bannan West Hut", "Bannan West Board Ship"],
     },
     "Wayfarer Trade Quest Chest": {
         "region_id": "Wayfarer Trade Quest",
@@ -2001,6 +2041,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "id": 170,
         "hint_entrance": "Wayfarer's Exit",
+        "hint_entrance_secondary": ["Bannan West Cave", "Bannan West Board Ship"],
     },
 
     # ========== Uncharted Island ============
@@ -2021,6 +2062,7 @@ LOCATIONS_DATA = {
         "floor_id": 0xa,
         "id": 172,
         "hint_entrance": ["Descending Cave Exit", "Descending Cave Lower Cave"],
+        "hint_entrance_secondary": "Uncharted Board Ship",
     },
     "Golden Chief Gift": {
         "region_id": "Golden Chief Cave",
@@ -2031,6 +2073,7 @@ LOCATIONS_DATA = {
         "value": 0x40,
         "id": 173,
         "hint_entrance": "Golden Chief Exit",
+        "hint_entrance_secondary": "Uncharted Board Ship",
     },
 
     # ========== Zauz's Island ============
@@ -2065,6 +2108,7 @@ LOCATIONS_DATA = {
         "post_dungeon": "Ghost Ship",
         "id": 176,
         "hint_entrance": "Zauz' Exit",
+        "hint_entrance_secondary": "Zauz Board Ship",
     },
     "Zauz's House Phantom Blade": {
         "region_id": "Zauz's Blade",
@@ -2075,6 +2119,7 @@ LOCATIONS_DATA = {
         "value": 0x20,
         "id": 177,
         "hint_entrance": "Zauz' Exit",
+        "hint_entrance_secondary": "Zauz Board Ship",
     },
 
     # ========== Ghost Ship ============
@@ -2105,7 +2150,7 @@ LOCATIONS_DATA = {
         "region_id": "Ghost Ship B2 Chests",
         "stage_id": 0x29,
         "floor_id": 0x1,
-        "vanilla_item": "Red Potion",
+        "vanilla_item": "Yellow Potion",
         "x_min": -0xd000,
         "x_max": -0x7530,
         "dungeon": "Ghost Ship",
@@ -2155,6 +2200,7 @@ LOCATIONS_DATA = {
         "boss_room": "Ghost Ship",
         "id": 184,
         "hint_entrance": "Cubus Sisters Blue Warp",
+        "hint_entrance_secondary": "GS Exit",
     },
     "Cubus Sisters Heart Container": {
         "region_id": "Post Cubus Sisters",
@@ -2166,6 +2212,7 @@ LOCATIONS_DATA = {
         "boss_room": "Ghost Ship",
         "id": 185,
         "hint_entrance": "Cubus Sisters Blue Warp",
+        "hint_entrance_secondary": "GS Exit",
     },
     "Ghost Ship Rescue Tetra": {
         "region_id": "Ghost Ship Tetra",
@@ -2372,6 +2419,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 204,
         "hint_entrance": "Dongo Exit",
+        "hint_entrance_secondary": "GT Exit",
     },
     "Dongorongo Heart Container": {
         "region_id": "Post Dongorongo",
@@ -2381,6 +2429,7 @@ LOCATIONS_DATA = {
         "boss_room": "Goron Temple",
         "id": 205,
         "hint_entrance": "Dongo Exit",
+        "hint_entrance_secondary": "GT Exit",
     },
     "Dongorongo Boss Reward": {
         "region_id": "Post Dongorongo",
@@ -2394,6 +2443,7 @@ LOCATIONS_DATA = {
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Dongorongo"},
         "hint_entrance": "Dongo Exit",
+        "hint_entrance_secondary": "GT Exit",
     },
 
     # ========== Harrow Island ============
@@ -2759,6 +2809,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 239,
         "hint_entrance": "Gleeok Exit",
+        "hint_entrance_secondary": "ToI Exit",
     },
     "Gleeok Heart Container": {
         "region_id": "Post Gleeok",
@@ -2768,6 +2819,7 @@ LOCATIONS_DATA = {
         "boss_room": "Temple of Ice",
         "id": 240,
         "hint_entrance": "Gleeok Exit",
+        "hint_entrance_secondary": "ToI Exit",
     },
     "Gleeok Boss Reward": {
         "region_id": "Post Gleeok",
@@ -2781,6 +2833,7 @@ LOCATIONS_DATA = {
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Gleeok"},
         "hint_entrance": "Gleeok Exit",
+        "hint_entrance_secondary": "ToI Exit",
     },
 
     # ========== Ocean NE ============
@@ -2808,6 +2861,7 @@ LOCATIONS_DATA = {
         "delay_pickup": ["Rupoor Cave 3", "Rupoor Cave 2"],
         "id": 243,
         "hint_entrance": "Rupoor Cave Exit",
+        "hint_entrance_secondary": ["IotD Board Ship", "IotD Pyramid"],
     },
     "Rupoor Cave 4": {
         "region_id": "Rupoor Cave",
@@ -2821,6 +2875,7 @@ LOCATIONS_DATA = {
         "delay_pickup": ["Rupoor Cave 3", "Rupoor Cave 2"],
         "id": 244,
         "hint_entrance": "Rupoor Cave Exit",
+        "hint_entrance_secondary": ["IotD Board Ship", "IotD Pyramid"],
     },
     "Rupoor Cave 2": {
         "region_id": "Rupoor Cave",
@@ -2834,6 +2889,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "Rupoor Cave 3",
         "id": 245,
         "hint_entrance": "Rupoor Cave Exit",
+        "hint_entrance_secondary": ["IotD Board Ship", "IotD Pyramid"],
     },
     "Rupoor Cave 3": {
         "region_id": "Rupoor Cave",
@@ -2847,6 +2903,7 @@ LOCATIONS_DATA = {
         "delay_pickup": "Rupoor Cave 2",
         "id": 246,
         "hint_entrance": "Rupoor Cave Exit",
+        "hint_entrance_secondary": ["IotD Board Ship", "IotD Pyramid"],
     },
     "Stone Treasure Cave Chest": {
         "region_id": "Stone Treasure Cave",
@@ -2855,6 +2912,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x4,
         "id": 247,
         "hint_entrance": "Stone Treasure Cave Exit",
+        "hint_entrance_secondary": ["IotD Board Ship", "IotD Pyramid"],
     },
     "Isle of the Dead Face Chest": {
         "region_id": "IotD Face",
@@ -2864,6 +2922,7 @@ LOCATIONS_DATA = {
         "y": 0x4ccd,
         "id": 248,
         "hint_entrance": "IotD Face Staircase",
+        "hint_entrance_secondary": ["IotD Board Ship", "IotD Pyramid"],
     },
     "Isle of the Dead Crown Chest": {
         "region_id": "IotD Crown",
@@ -2874,6 +2933,7 @@ LOCATIONS_DATA = {
         "id": 249,
         "delay_reset": True,
         "hint_entrance": "IotD Crown Staircase",
+        "hint_entrance_secondary": "Brant's Exit",
     },
 
     # ========== Ruins Island ============
@@ -3067,6 +3127,7 @@ LOCATIONS_DATA = {
         "delay_reset": True,
         "id": 266,
         "hint_entrance": "Eox Exit",
+        "hint_entrance_secondary": "MT Exit",
     },
     "Eox Heart Container": {
         "region_id": "Post Eox",
@@ -3076,6 +3137,7 @@ LOCATIONS_DATA = {
         "boss_room": "Mutoh's Temple",
         "id": 267,
         "hint_entrance": "Eox Exit",
+        "hint_entrance_secondary": "MT Exit",
     },
     "Eox Boss Reward": {
         "region_id": "Post Eox",
@@ -3089,6 +3151,7 @@ LOCATIONS_DATA = {
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Eox"},
         "hint_entrance": "Eox Exit",
+        "hint_entrance_secondary": "MT Exit",
     },
 
     # ========== Maze Island ============

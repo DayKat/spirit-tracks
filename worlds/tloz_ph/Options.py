@@ -294,7 +294,7 @@ class PhantomHourglassDungeonHintType(Choice):
     - hint_dungeon: hint the required dungeon, in plain text, to avoid spoiling randomized bosses.
     If bosses are shuffled with other location types, this will not hint for dungeons.
     Use excluded_dungeon_hints instead.
-    - hint_boss: hint the required boss reward, as an archipelago hint
+    - hint_boss: hint the required boss reward, as an archipelago hint. Will include info on where the boss/dungeon was randomized to.
     """
     option_no_hints = 0
     option_hint_dungeon = 1

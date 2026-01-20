@@ -430,16 +430,19 @@ ITEMS_DATA = {
         "classification": ItemClassification.filler,
         "value": 1,
         "id": 50,
+        "overflow_item": "Big Green Rupee (100)"
     },
     "Purple Potion": {
         "classification": ItemClassification.filler,
         "value": 2,
         "id": 51,
+        "overflow_item": "Big Green Rupee (100)"
     },
     "Yellow Potion": {
         "classification": ItemClassification.filler,
         "value": 3,
         "id": 52,
+        "overflow_item": "Big Red Rupee (200)"
     },
     "Nothing!": {
         "classification": ItemClassification.filler,

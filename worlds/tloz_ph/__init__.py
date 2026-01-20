@@ -1343,25 +1343,29 @@ class PhantomHourglassWorld(World):
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
         if not pairings:  # If not er, don't bother trying anything else
             return
+
+        def create_hint_entrances(key):
+            hint_entrances = loc_data[key]
+            hint_entrances = [hint_entrances] if isinstance(hint_entrances, str) else hint_entrances
+            hint_entrances_ids = [e.id for name, e in ENTRANCES.items() if name in hint_entrances]
+
+            for entrance_id in hint_entrances_ids:
+                reverse_id = reverse_pairings.get(entrance_id, None)
+                if reverse_id is not None and (reverse_id not in dead_end_ids or self.options.decouple_entrances):
+                    entrance_list.add(entrance_id_to_entrance[reverse_id].name)
+
         reverse_pairings = {e2: int(e1) for e1, e2 in pairings.items()}
         dead_end_ids = [e.id for name, e in ENTRANCES.items() if name in DEAD_END_ENTRANCES]
 
         for loc, loc_data in LOCATIONS_DATA.items():
             if "hint_entrance" in loc_data:
-                hint_entrances = loc_data["hint_entrance"]
-                hint_entrances = [hint_entrances] if isinstance(hint_entrances, str) else hint_entrances
-                hint_entrances_ids = [e.id for name, e in ENTRANCES.items() if name in hint_entrances]
-
                 entrance_list = set()
-                for entrance_id in hint_entrances_ids:
-                    reverse_id = reverse_pairings.get(entrance_id, None)
-                    if reverse_id is not None and (reverse_id not in dead_end_ids or self.options.decouple_entrances):
-                        entrance_list.add(entrance_id_to_entrance[reverse_id].name)
+                create_hint_entrances("hint_entrance")
+                if not entrance_list and "hint_entrance_secondary" in loc_data:
+                    create_hint_entrances("hint_entrance_secondary")
 
                 if entrance_list:
                     player_hint_data[loc_data["id"]] = ", ".join(entrance_list)
-                if len(entrance_list) > 1:
-                    print(f"Long Entrance: {self.location_id_to_name[loc_data['id']]}")
 
         hint_data[self.player] = player_hint_data
 
