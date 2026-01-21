@@ -1,10 +1,8 @@
 from typing import TYPE_CHECKING
-from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, storage_key, get_stored_data, \
-    write_memory_values
+from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, storage_key, get_stored_data
 from .data.Items import ITEMS
 from .data.Entrances import ENTRANCES, entrance_id_to_entrance
 import worlds._bizhawk as bizhawk
-import logging
 
 if TYPE_CHECKING:
     from .Client import PhantomHourglassClient
@@ -126,7 +124,7 @@ ow_er_lookup = {
 
 
 def item_count(ctx, item_name) -> int:
-    return sum([1 for i in ctx.items_received if i.item == ITEMS[item_name].id])
+    return ITEMS[item_name].get_count(ctx)
 
 safe_entrances_common = {
     0x1F: ["Ocean SW Mercay",

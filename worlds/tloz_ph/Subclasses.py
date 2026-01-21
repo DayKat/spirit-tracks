@@ -111,13 +111,12 @@ async def remove_vanilla_throwable_keys(client: "PhantomHourglassClient", ctx: "
 
 class PHItem(DSItem):
 
-    def __init__(self, name, data):
-        super().__init__(name, data)
+    def __init__(self, name, data, all_items):
+        super().__init__(name, data, all_items)
 
     def get_receive_function(self):
         receive_func = super().get_receive_function()
         if receive_func is None:
-            print(f"special item: {self.name}")
             if hasattr(self, "ship"):
                 return receive_ship
             if self.name == "Refill: Health":
