@@ -9,7 +9,7 @@
 
 ## Recommended Software
 
-* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases). Contains a detailed map tracker by @palex00, @catzador and @carrotinator. Has special setup instructions for this game, see below.
+* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases). Contains a detailed map tracker by @palex00, @catzador and @carrotinator. Has [special setup instructions](https://github.com/carrotinator/Archipelago/wiki/UT-Map-Tracker/) for this game.
 * [Item Tracker](https://github.com/ZobeePlays/PH-AP-Item-Tracker/tree/main), a poptracker pack by @ZobeePlays. No map tracking.
 
 ## Game Setup
