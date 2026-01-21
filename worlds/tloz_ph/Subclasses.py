@@ -2,11 +2,148 @@ from typing import TYPE_CHECKING
 from BaseClasses import Entrance, Region
 from enum import IntEnum
 
-from .DSZeldaClient.subclasses import DSTransition
+from .DSZeldaClient.subclasses import DSTransition, read_memory_value, split_bits, write_memory_value
+from .DSZeldaClient.ItemClass import DSItem, remove_vanilla_normal
 from .data.SwitchLogic import *
+from .data.Constants import EQUIPPED_SHIP_PARTS_ADDR, BOSS_DOOR_DATA, ITEM_GROUPS
 
 if TYPE_CHECKING:
     from entrance_rando import ERPlacementState
+    from .Client import PhantomHourglassClient
+    from worlds._bizhawk.context import BizHawkClientContext
+
+async def receive_ship(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    res = []
+    if not (await read_memory_value(ctx, 0x1ba661) & 2):
+        for addr in EQUIPPED_SHIP_PARTS_ADDR:
+            res += [(addr, [item.ship], item.domain)]
+
+async def receive_boss_key(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    res = []
+    if (ctx.slot_data.get("boss_key_behaviour", True)
+            and client.current_stage in BOSS_DOOR_DATA
+            and BOSS_DOOR_DATA[client.current_stage]["name"] in item.name):  # TODO: Add boss door data to boss key items?
+        data = BOSS_DOOR_DATA[client.current_stage]
+        last_value = await read_memory_value(ctx, data["address"], size=4)
+        new_value = last_value | data["value"]
+        res += [(data["address"], split_bits(new_value, 4), "Main RAM")]
+    return res
+
+async def receive_potion(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    res = []
+    await client.update_potion_tracker(ctx)
+    print(f"Potion data: {client.last_potions} {item.value}")
+    for slot, pot, addr in zip([0, 1], client.last_potions, [0x1BA5D8, 0x1BA5D9]):
+        if not pot:
+            prev = await read_memory_value(ctx, 0x1BA645, silent=True)
+            res += [(addr, [item.value], item.domain)]
+            res += [(0x1BA645, [prev | 0x6], item.domain)]  # has potion, fill all
+            client.last_potions[i] = item.value
+            break
+    return res
+
+async def remove_vanilla_treasure(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    treasure_write_list = split_bits(client.last_treasures, 8)
+    return [(0x1BA5AC, treasure_write_list, item.domain)]
+
+async def remove_vanilla_ship_part(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    await client.remove_ship_parts(ctx)
+    if client.last_scene == 0xB0D:
+        await client.edit_ship(ctx)
+    return []
+
+async def remove_vanilla_potion(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    print(f"Pots {client.last_potions}")
+    if not all(client.last_potions):
+        return [(0x1BA5D8, client.last_potions, item.domain)]
+    else:
+        rupee_item = client.item_data[item.overflow_item]
+        print(f"Removing potion rupees")
+        prev_rupees = await read_memory_value(ctx, 0x1ba53e, size=2)
+        return [(0x1ba53e, split_bits(prev_rupees - rupee_item.value, 2), item.domain)]
+
+async def remove_vanilla_oshus_sword(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    res = [(item.ammo_address, split_bits(0, 2), item.domain)]
+    res += await remove_vanilla_normal(client, ctx, item, _)
+    return res
+
+async def remove_vanilla_sea_charts(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    if ctx.slot_data.get("map_warp_options", 0):
+        return []
+    return await remove_vanilla_normal(client, ctx, item, _)
+
+async def remove_vanilla_throwable_keys(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
+    # Don't do anything if vanilla bk behaviour
+    if "Boss Key" in item.name and not ctx.slot_data["boss_key_behaviour"]:
+        return []
+    # Don't do anything if vanilla pedestal item behaviour
+    if ("Crystal" in item.name or "Force Gem" in item.name) and not ctx.slot_data.get("randomize_pedestal_items", 0):
+        return []
+
+    # Read actor id in link's held item address. For some reason it's somewhere else in GT
+    if client.current_stage == 0x20:
+        bk_id = await read_memory_value(ctx, 0x1CD770, silent=True, size=2)
+    elif client.current_stage == 0x25:
+        bk_id = await read_memory_value(ctx, 0x1CDAE0, silent=True, size=2)
+    else:
+        bk_id = await read_memory_value(ctx, 0x1CD510, silent=True, size=2)
+
+    # Get the actor table
+    actor_table_addr = await read_memory_value(ctx, 0x1BA8C4, size=4, silent=True) - 0x2000000
+    actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=250, silent=True))
+    actor_table = "0" + actor_table[2:]
+    print(f"Removing throwable key {item.name} with bk_id {bk_id}")
+
+    # Loop through the actor table checking if each actor has the bk_id.
+    for _i in range(len(actor_table) // 8):
+        actor_data = actor_table[_i * 8:(_i + 1) * 8]
+        if actor_data[1] == "0":  # filter out empty slots
+            continue
+        actor_id_addr = int(actor_data, 16) + 8 - 0x2000000
+        actor_id = await read_memory_value(ctx, actor_id_addr, size=4, silent=True)
+        # If you find the boss key, delete its pointer
+        if actor_id == bk_id:
+            little_endian_lol = actor_table_addr + len(actor_table) // 2 - (_i + 1) * 4
+            print(f"Found bk pointer: {hex(actor_table_addr)} at index {_i}")
+            await write_memory_value(ctx, little_endian_lol, 0, overwrite=True, size=4)
+            break
+    return []
+
+class PHItem(DSItem):
+
+    def __init__(self, name, data):
+        super().__init__(name, data)
+
+    def get_receive_function(self):
+        receive_func = super().get_receive_function()
+        if receive_func is None:
+            print(f"special item: {self.name}")
+            if hasattr(self, "ship"):
+                return receive_ship
+            if self.name == "Refill: Health":
+                return lambda client, ctx, item: client.full_heal(ctx)
+            if "Boss Key" in self.name:
+                return receive_boss_key
+            if "Potion" in self.name:
+                return receive_potion
+            return lambda *args: []
+        return receive_func
+
+    def get_remove_vanilla_function(self):
+        if self.name == "Treasure":
+            return remove_vanilla_treasure
+        if self.name  == "Ship Part":
+            return remove_vanilla_ship_part
+        if "Potion" in self.name:
+            return remove_vanilla_potion
+        if "Oshus' Sword" in self.name:
+            return remove_vanilla_oshus_sword
+        if "Sea Chart" in self.name:
+            return remove_vanilla_sea_charts
+        if self.name in ITEM_GROUPS["Throwable Keys"]:
+            return remove_vanilla_throwable_keys
+        return super().get_remove_vanilla_function()
+
 
 class PHEntrance(Entrance):
     switch_state = {"TotOK": 0b1, "ToF": 0b1, "ToC": 0b1, "GT": 0b1, "ToI": 0b1}

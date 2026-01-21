@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
-from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, item_count, storage_key, get_stored_data, \
+from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, storage_key, get_stored_data, \
     write_memory_values
+from .data.Items import ITEMS
 from .data.Entrances import ENTRANCES, entrance_id_to_entrance
 import worlds._bizhawk as bizhawk
 import logging
@@ -122,6 +123,10 @@ ow_er_lookup = {
     0x31: [0x1900],
     0x32: [0x1A00],
 }
+
+
+def item_count(ctx, item_name) -> int:
+    return sum([1 for i in ctx.items_received if i.item == ITEMS[item_name].id])
 
 safe_entrances_common = {
     0x1F: ["Ocean SW Mercay",

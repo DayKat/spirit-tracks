@@ -1,7 +1,11 @@
 from random import randint
 from .DSZeldaClient.DSZeldaClient import *
+from .DSZeldaClient.subclasses import (read_memory_value, read_memory_values, write_memory_value, write_memory_values,
+                                        split_bits, get_address_from_heap, storage_key, get_stored_data)
+from .data.Items import ITEMS
 from .MapWarp import map_mode
 from .data.Entrances import entrance_id_to_entrance
+from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -109,12 +113,14 @@ class PhantomHourglassClient(DSZeldaClient):
         self.starting_entrance = (11, 3, 5)  # stage, room, entrance
         self.scene_addr = (RAM_ADDRS["stage"][0], RAM_ADDRS["room"][0], RAM_ADDRS["floor"][0], RAM_ADDRS["entrance"][0])  # Stage, room, floor, entrance
         self.exit_coords_addr = (0x1B2EC8, 0x1B2ECC, 0x1B2ED0)  # x, y, z. what coords to spawn link at when entering a
+        self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
         # continuous transition
         self.er_y_offest = 164  # In ph i use coords who's y is 164 off the entrance y
         self.ADDR_gMapManager = POINTERS["ADDR_gMapManager"]
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
         self.hint_data = HINT_DATA
         self.entrances = ENTRANCES
+        self.item_data = ITEMS
 
         # Ph variables
         self.goal_room = 0x3600
@@ -211,7 +217,7 @@ class PhantomHourglassClient(DSZeldaClient):
         return coords
 
     def update_metal_count(self, ctx):
-        metal_ids = [ITEMS_DATA[i]["id"] for i in ITEM_GROUPS["Metals"]]
+        metal_ids = [self.item_data[i].id for i in ITEM_GROUPS["Metals"]]
         self.metal_count = sum(1 for i in ctx.items_received if i.item in metal_ids)
 
     async def update_treasure_tracker(self, ctx):
@@ -280,7 +286,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def full_heal(self, ctx, bonus=0):
         if not self.at_sea:
-            hearts = item_count(ctx, "Heart Container") + 3 + bonus
+            hearts = self.item_count(ctx, "Heart Container") + 3 + bonus
             health_address = await read_memory_value(ctx, POINTERS["ADDR_gPlayer"], 4, "Data TCM") + 0xA - 0x2000000
             print(f"Sent full heal hearts {hearts} addr {hex(health_address)}")
             await write_memory_values(ctx, health_address, split_bits(hearts * 4, 2), overwrite=True)
@@ -289,7 +295,7 @@ class PhantomHourglassClient(DSZeldaClient):
         items = [i + " (Progressive)" for i in ["Bombs", "Bombchus", "Bow"]]
 
         # Count upgrades
-        counts = {ITEMS_DATA[i]["id"]: 0 for i in items}
+        counts = {self.item_data[i].id: 0 for i in items}
         for i in ctx.items_received:
             for k in counts:
                 if k == i.item:
@@ -298,8 +304,8 @@ class PhantomHourglassClient(DSZeldaClient):
         # Write Upgrades
         write_list = []
         for i, count in enumerate(counts.values()):
-            data = ITEMS_DATA[items[i]]
-            write_list += [(data["ammo_address"], [data["give_ammo"][count - 1]], "Main RAM")]
+            data = self.item_data[items[i]]
+            write_list += [(data.ammo_address, [data.give_ammo[count - 1]], data.domain)]
         await bizhawk.write(ctx.bizhawk_ctx, write_list)
         await self.full_heal(ctx)
         if text == "milk_bar":
@@ -494,35 +500,35 @@ class PhantomHourglassClient(DSZeldaClient):
 
             # === TotOK ===
             if current_scene == 0x2503:  # B3
-                if item_count(ctx, "Force Gem (B3)") >= 3 or item_count(ctx, "Force Gems"):
+                if self.item_count(ctx, "Force Gem (B3)") >= 3 or self.item_count(ctx, "Force Gems"):
                     await write_memory_values(ctx, 0x2572EC, [0xFE, 0x0F])
             elif current_scene == 0x250B:  # B8
-                if (item_count(ctx, "Round Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Round Pedestal B8 (Temple of the Ocean King)")
-                        or item_count(ctx, "Round Crystals")):
+                if (self.item_count(ctx, "Round Crystal (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Round Pedestal B8 (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Round Crystals")):
                     await write_memory_value(ctx, 0x25762C, 0x2)
-                if (item_count(ctx, "Triangle Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Triangle Crystals")
-                        or item_count(ctx, "Triangle Pedestal B8 (Temple of the Ocean King)")):
+                if (self.item_count(ctx, "Triangle Crystal (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Triangle Crystals")
+                        or self.item_count(ctx, "Triangle Pedestal B8 (Temple of the Ocean King)")):
                     await write_memory_value(ctx, 0x25762C, 0x4)
             elif current_scene == 0x250C:  # B9
-                if (item_count(ctx, "Round Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Round Pedestal B9 (Temple of the Ocean King)")
-                        or item_count(ctx, "Round Crystals")):
+                if (self.item_count(ctx, "Round Crystal (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Round Pedestal B9 (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Round Crystals")):
                     await write_memory_value(ctx, 0x257694, 0x4)
-                if (item_count(ctx, "Triangle Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Triangle Pedestal B9 (Temple of the Ocean King)")
-                        or item_count(ctx, "Triangle Crystals")):
+                if (self.item_count(ctx, "Triangle Crystal (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Triangle Pedestal B9 (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Triangle Crystals")):
                     await write_memory_value(ctx, 0x257694, 0x8)
-                if (item_count(ctx, "Square Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Square Crystals")):
+                if (self.item_count(ctx, "Square Crystal (Temple of the Ocean King)")
+                        or self.item_count(ctx, "Square Crystals")):
                     await write_memory_value(ctx, 0x257694, 0x22)
-                if item_count(ctx, "Square Pedestal West (Temple of the Ocean King)"):
+                if self.item_count(ctx, "Square Pedestal West (Temple of the Ocean King)"):
                     await write_memory_value(ctx, 0x257694, 0x20)
-                if item_count(ctx, "Square Pedestal Center (Temple of the Ocean King)"):
+                if self.item_count(ctx, "Square Pedestal Center (Temple of the Ocean King)"):
                     await write_memory_value(ctx, 0x257694, 0x2)
             elif current_scene == 0x2510:  # B12
-                gem_count = item_count(ctx, "Force Gem (B12)") | item_count(ctx, "Force Gems")*3
+                gem_count = self.item_count(ctx, "Force Gem (B12)") | self.item_count(ctx, "Force Gems")*3
                 if gem_count >= 3:
                     await write_memory_values(ctx, 0x257834, [0xFE, 0x0F])
                 elif gem_count == 2:
@@ -535,22 +541,22 @@ class PhantomHourglassClient(DSZeldaClient):
 
             # === Temple of Courage ===
             elif current_scene == 0x1E00:
-                if (item_count(ctx, "Square Pedestal North (Temple of Courage)")
-                        or item_count(ctx, "Square Crystal (Temple of Courage)")
-                        or item_count(ctx, "Square Crystals")):
+                if (self.item_count(ctx, "Square Pedestal North (Temple of Courage)")
+                        or self.item_count(ctx, "Square Crystal (Temple of Courage)")
+                        or self.item_count(ctx, "Square Crystals")):
                     await write_memory_value(ctx, 0x252264 , 0x10)
-                if (item_count(ctx, "Square Pedestal South (Temple of Courage)")
-                        or item_count(ctx, "Square Crystal (Temple of Courage)")
-                        or item_count(ctx, "Square Crystals")):
+                if (self.item_count(ctx, "Square Pedestal South (Temple of Courage)")
+                        or self.item_count(ctx, "Square Crystal (Temple of Courage)")
+                        or self.item_count(ctx, "Square Crystals")):
                     await write_memory_value(ctx, self.stage_address, 0x80)
 
             # === Ghost Ship ===
             elif current_scene == 0x2900:
-                if (item_count(ctx, "Triangle Crystal (Ghost Ship)")
-                        or item_count(ctx, "Triangle Crystals")):
+                if (self.item_count(ctx, "Triangle Crystal (Ghost Ship)")
+                        or self.item_count(ctx, "Triangle Crystals")):
                     await write_memory_value(ctx, self.stage_address+1, 0x8)
-                if (item_count(ctx, "Round Crystal (Ghost Ship)")
-                        or item_count(ctx, "Round Crystals")):
+                if (self.item_count(ctx, "Round Crystal (Ghost Ship)")
+                        or self.item_count(ctx, "Round Crystals")):
                     await write_memory_value(ctx, self.stage_address+3, 0x2)
 
     async def write_totok_midway_keys(self, ctx):
@@ -614,8 +620,8 @@ class PhantomHourglassClient(DSZeldaClient):
             item_id = i.item
             item_name = self.item_id_to_name[item_id]
             if "Ship:" in item_name:
-                item_data = ITEMS_DATA[item_name]
-                ships[item_data.get("ship", 0)] = 1
+                item_data = self.item_data[item_name]
+                ships[item_data.ship] = 1
         # Give ship parts
         ship_write_list = [] + ships * 8
         print(ships, ship_write_list)
@@ -654,7 +660,7 @@ class PhantomHourglassClient(DSZeldaClient):
                          "Beedle Points (20)": 20,
                          "Beedle Points (50)": 50}
             # Count points
-            reference = {ITEMS_DATA[k]["id"]: c for k, c in reference.items()}
+            reference = {self.item_data[k].id: c for k, c in reference.items()}
             points = 0
             for i in ctx.items_received:
                 if i.item in reference:
@@ -665,7 +671,7 @@ class PhantomHourglassClient(DSZeldaClient):
         def count_spirit_gems(d):
             if "count_gems" in d:
                 pack_size = ctx.slot_data["spirit_gem_packs"]
-                gem_count = item_count(ctx, f"{d['count_gems']} Gem Pack")
+                gem_count = self.item_count(ctx, f"{d['count_gems']} Gem Pack")
                 count = pack_size * gem_count
                 print(count, d["count_gems"])
                 if count < 20:
@@ -706,7 +712,7 @@ class PhantomHourglassClient(DSZeldaClient):
         # Unlock boss door if have bk
         data = BOSS_DOOR_DATA.get(stage, False)
         if data and ctx.slot_data.get("boss_key_behaviour", True):
-            if item_count(ctx, f"Boss Key ({data['name']})"):
+            if self.item_count(ctx, f"Boss Key ({data['name']})"):
                 await write_memory_value(ctx, data["address"], data["value"], size=4)
 
     # Enter stage
@@ -725,7 +731,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 new_keys -= 1  # Opening the SW sea chart door uses a key permanently! No savescums!
             if self.current_scene == 0x2504:  # Set B3.5 key count
                 new_keys -= 2
-                if not item_count(ctx, "Grappling Hook") and ctx.slot_data["randomize_pedestal_items"] == 0:
+                if not self.item_count(ctx, "Grappling Hook") and ctx.slot_data["randomize_pedestal_items"] == 0:
                     new_keys -= 1
             return new_keys, False
         elif current_stage == 372:
@@ -738,11 +744,11 @@ class PhantomHourglassClient(DSZeldaClient):
     # Called during location processing to determine what vanilla item to remove
     async def unset_special_vanilla_items(self, ctx, location, item):
         # Multiple sword items don't detect each other by default
-        if item in ["Oshus' Sword", "Phantom Sword"] and item_count(ctx, "Sword (Progressive)"):
+        if item in ["Oshus' Sword", "Phantom Sword"] and self.item_count(ctx, "Sword (Progressive)"):
             self.last_vanilla_item.pop()
 
         # Don't remove heart containers if already at max
-        if item == "Heart Container" and item_count(ctx, item) >= 13:
+        if item == "Heart Container" and self.item_count(ctx, item) >= 13:
             self.last_vanilla_item.pop()
 
         # Farmable locations don't remove vanilla
@@ -780,7 +786,7 @@ class PhantomHourglassClient(DSZeldaClient):
         if "Sand" in item_data['value']:
 
             if item_data.get("value") == "Sand":
-                if not ctx.slot_data["ph_required"] or item_count(ctx, "Phantom Hourglass"):
+                if not ctx.slot_data["ph_required"] or self.item_count(ctx, "Phantom Hourglass"):
                     value = ctx.slot_data["ph_time_increment"] * 60
                 else:
                     value = 0
@@ -788,10 +794,10 @@ class PhantomHourglassClient(DSZeldaClient):
                 value = ctx.slot_data["ph_starting_time"] * 60
 
                 # If ph is required, add all time so far on finding
-                if ctx.slot_data["ph_required"] and item_count(ctx, "Phantom Hourglass") < 2:
-                    value += (ctx.slot_data["ph_time_increment"] * 60 * item_count(ctx, "Sand of Hours")
-                              + item_count(ctx, "Sand of Hours (Small)") * 3600
-                              + item_count(ctx, "Sand of Hours (Boss)") * 7200)
+                if ctx.slot_data["ph_required"] and self.item_count(ctx, "Phantom Hourglass") < 2:
+                    value += (ctx.slot_data["ph_time_increment"] * 60 * self.item_count(ctx, "Sand of Hours")
+                              + self.item_count(ctx, "Sand of Hours (Small)") * 3600
+                              + self.item_count(ctx, "Sand of Hours (Boss)") * 7200)
             else:
                 value = item_data.get("value")
             last_time = await read_memory_value(ctx, item_data["address"], size=4)
@@ -807,39 +813,6 @@ class PhantomHourglassClient(DSZeldaClient):
         else:
             value = "Error!"
         return value
-
-    async def receive_special_items(self, ctx, item_name, item_data) -> list[tuple[int, list, str]]:
-        # Set ship
-        print(f"special item: {item_name} {self.current_stage}")
-        res = []
-        if "ship" in item_data:
-            if not (await read_memory_value(ctx, 0x1ba661) & 2):
-                for addr in EQUIPPED_SHIP_PARTS_ADDR:
-                    res += [(addr, [item_data["ship"]], "Main RAM")]
-
-        elif item_name == "Refill: Health":
-            await self.full_heal(ctx)
-
-        # Open boss door if got bk in own dungeon
-        elif "Boss Key" in item_name and ctx.slot_data.get("boss_key_behaviour", True):
-            if self.current_stage in BOSS_DOOR_DATA and BOSS_DOOR_DATA[self.current_stage]["name"] in item_name:
-                data = BOSS_DOOR_DATA[self.current_stage]
-                last_value = await read_memory_value(ctx, data["address"], size=4)
-                new_value = last_value | data["value"]
-                res += [(data["address"], split_bits(new_value, 4), "Main RAM")]
-
-        # Handle Potions
-        elif "Potion" in item_name:
-            await self.update_potion_tracker(ctx)
-            print(f"Potion data: {self.last_potions} {item_data['value']}")
-            for i, pot, addr in zip([0, 1], self.last_potions, [0x1BA5D8, 0x1BA5D9]):
-                if not pot:
-                    prev = await read_memory_value(ctx, 0x1BA645, silent=True)
-                    res += [(addr, [item_data["value"]], "Main RAM")]
-                    res += [(0x1BA645, [prev | 0x6], "Main RAM")]  # has potion, fill all
-                    self.last_potions[i] = item_data["value"]
-                    break
-        return res
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
         # If treasure, update treasure tracker
@@ -884,7 +857,7 @@ class PhantomHourglassClient(DSZeldaClient):
                         addr = self.stage_address
                         print(f"Stage address: {addr}")
                     if args and "count" in args[0]:
-                        if item_count(ctx, item_name) < args[0]["count"]:
+                        if self.item_count(ctx, item_name) < args[0]["count"]:
                             continue
                     if isinstance(value, int):
                         value = [value]
@@ -931,72 +904,6 @@ class PhantomHourglassClient(DSZeldaClient):
             # Enable items menu
             await write_memory_value(ctx, equipped_item_pointer + EQUIP_TIMER_OFFSET, 20, size=2, overwrite=True)
             await write_memory_value(ctx, equipped_item_pointer, inventory_id, size=4, overwrite=True)
-
-    async def remove_special_vanilla_item(self, ctx, vanilla_item: str):
-        if vanilla_item == "Treasure":
-            treasure_write_list = split_bits(self.last_treasures, 8)
-            print(f"Treasure Write List: {treasure_write_list}")
-            await write_memory_values(ctx, 0x1BA5AC, treasure_write_list, overwrite=True)
-        elif vanilla_item == "Ship Part":
-            await self.remove_ship_parts(ctx)
-            if self.last_scene == 0xB0D:
-                await self.edit_ship(ctx)
-        elif "Potion" in vanilla_item:
-            print(f"Pots {self.last_potions}")
-            if not all(self.last_potions):
-                await write_memory_values(ctx, 0x1BA5D8, self.last_potions, overwrite=True)
-            else:
-                rupee_item = ITEMS_DATA[vanilla_item]["overflow_item"]
-                print(f"Removing potion rupees")
-                await write_memory_value(ctx, 0x1ba53e, ITEMS_DATA[rupee_item]["value"], size=2, incr=False)
-        elif "Oshus' Sword" in vanilla_item:
-            data = ITEMS_DATA[vanilla_item]
-            await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)
-            return False
-
-        elif ctx.slot_data.get("map_warp_options", 0) and "Sea Chart" in vanilla_item:
-            # Do nothing with sea charts if map warp is enabled
-            return True
-
-        elif vanilla_item in ITEM_GROUPS["Throwable Keys"]:
-            # Don't do anything if vanilla bk behaviour
-            if "Boss Key" in vanilla_item and not ctx.slot_data["boss_key_behaviour"]:
-                return True
-            # Don't do anything if vanilla pedestal item behaviour
-            if ("Crystal" in vanilla_item or "Force Gem" in vanilla_item) and not ctx.slot_data.get("randomize_pedestal_items", 0):
-                return True
-
-            # Read actor id in link's held item address. For some reason it's somewhere else in GT
-            if self.current_stage == 0x20:
-                bk_id = await read_memory_value(ctx, 0x1CD770, silent=True, size=2)
-            elif self.current_stage == 0x25:
-                bk_id = await read_memory_value(ctx, 0x1CDAE0, silent=True, size=2)
-            else:
-                bk_id = await read_memory_value(ctx, 0x1CD510,silent=True, size=2)
-
-            # Get the actor table
-            actor_table_addr = await read_memory_value(ctx, 0x1BA8C4, size=4, silent=True) - 0x2000000
-            actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=250, silent=True))
-            actor_table = "0" + actor_table[2:]
-            print(f"Removing throwable key {vanilla_item} with bk_id {bk_id}")
-
-            # Loop through the actor table checking if each actor has the bk_id.
-            for i in range(len(actor_table)//8):
-                actor_data = actor_table[i*8:(i+1)*8]
-                if actor_data[1] == "0":  # filter out empty slots
-                    continue
-                actor_id_addr = int(actor_data, 16) + 8 - 0x2000000
-                actor_id = await read_memory_value(ctx, actor_id_addr, size=4, silent=True)
-                # If you find the boss key, delete its pointer
-                if actor_id == bk_id:
-                    little_endian_lol = actor_table_addr + len(actor_table)//2 - (i+1)*4
-                    print(f"Found bk pointer: {hex(actor_table_addr)} at index {i}")
-                    await write_memory_value(ctx, little_endian_lol, 0, overwrite=True, size=4)
-                    break
-
-        else:
-            return False
-        return True  # Removed vanilla item, don't do more processing
 
     def set_ending_room(self, ctx):
         if ctx.slot_data["goal_requirements"] == 0:
@@ -1153,8 +1060,8 @@ class PhantomHourglassClient(DSZeldaClient):
             if "need_sea_chart" in exit_data.extra_data["conditional"] and exit_data.stage == 0 and ctx.slot_data["boat_requires_sea_chart"]:
                 quadrant = exit_data.room
                 chart = SEA_CHARTS[quadrant]
-                print(f"chart: {chart} {item_count(ctx, chart)}")
-                if not item_count(ctx, chart):
+                print(f"chart: {chart} {self.item_count(ctx, chart)}")
+                if not self.item_count(ctx, chart):
                     if not silent: logger.info(f"Missing correct sea chart ({chart})")
                     return False
         return True
@@ -1162,7 +1069,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def conditional_bounce(self, ctx, scene, entrance) -> "PHTransition" or None:
         if scene in [0, 1, 2, 3] and ctx.slot_data["boat_requires_sea_chart"]:
             chart = SEA_CHARTS[scene]
-            if not item_count(ctx, chart):
+            if not self.item_count(ctx, chart):
                 for e in self.entrances.values():
                     if e.detect_exit_scene(scene, entrance):
                         logger.info(f"Missing correct sea chart ({chart})")

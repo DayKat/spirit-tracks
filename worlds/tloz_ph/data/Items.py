@@ -1,6 +1,5 @@
 from BaseClasses import ItemClassification
-from worlds.tloz_ph.data.Constants import *
-
+from ..Subclasses import PHItem
 
 """backwards-compatible fallback for AP v0.6.2 and prior
 Code idea from @eternalcode0s minish cap implementation
@@ -83,6 +82,7 @@ ITEMS_DATA = {
         "set_bit": [(0x1ba644, 0x10)],
         "id": 6,
         "inventory_id": 4,
+        "tags": ["progressive_overwrite"],
     },
     "Bombchus (Progressive)": {
         "classification": ItemClassification.progression,
@@ -90,6 +90,7 @@ ITEMS_DATA = {
         "give_ammo": [0xa, 0x14, 0x1e],
         "ammo_address": 0x1ba6c6,
         "progressive_overwrite": True,
+        "tags": ["progressive_overwrite"],
         "set_bit": [(0x1ba644, 0x80)],
         "id": 7,
         "inventory_id": 7,
@@ -100,6 +101,7 @@ ITEMS_DATA = {
         "give_ammo": [0x14, 0x1e, 0x32],
         "ammo_address": 0x1ba6c2,
         "progressive_overwrite": True,
+        "tags": ["progressive_overwrite"],
         "set_bit": [(0x1ba644, 0x20)],
         "id": 8,
         "inventory_id": 5,
@@ -158,6 +160,7 @@ ITEMS_DATA = {
         "address": 0x1ba388,
         "value": 0x4,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 2,
         "id": 16,
     },
@@ -166,6 +169,7 @@ ITEMS_DATA = {
         "address": 0x1ba528,
         "value": "Sand PH",
         "incremental": True,
+        "tags": ["incremental"],
         "size": 4,
         "id": 17,
     },
@@ -175,6 +179,7 @@ ITEMS_DATA = {
         "address": 0x1ba528,
         "value": 0x1c20,
         "incremental": True,
+        "tags": ["incremental", "backup_filler"],
         "size": 4,
         "id": 18,
     },
@@ -184,6 +189,7 @@ ITEMS_DATA = {
         "address": 0x1ba528,
         "value": 0xe10,
         "incremental": True,
+        "tags": ["incremental", "backup_filler"],
         "size": 4,
         "id": 19,
     },
@@ -192,6 +198,7 @@ ITEMS_DATA = {
         "address": 0x1ba528,
         "value": "Sand",
         "incremental": True,
+        "tags": ["incremental"],
         "size": 4,
         "id": 20,
     },
@@ -297,6 +304,7 @@ ITEMS_DATA = {
         "address": 0x1ba541,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 32,
     },
     "Wisdom Gem": {
@@ -304,6 +312,7 @@ ITEMS_DATA = {
         "address": 0x1ba542,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 33,
     },
     "Courage Gem": {
@@ -311,6 +320,7 @@ ITEMS_DATA = {
         "address": 0x1ba540,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 34,
     },
     "Power Gem Pack": {
@@ -318,6 +328,7 @@ ITEMS_DATA = {
         "address": 0x1ba541,
         "value": "pack_size",
         "incremental": True,
+        "tags": ["incremental"],
         "id": 35,
     },
     "Wisdom Gem Pack": {
@@ -325,6 +336,7 @@ ITEMS_DATA = {
         "address": 0x1ba542,
         "value": "pack_size",
         "incremental": True,
+        "tags": ["incremental"],
         "id": 36,
     },
     "Courage Gem Pack": {
@@ -332,6 +344,7 @@ ITEMS_DATA = {
         "address": 0x1ba540,
         "value": "pack_size",
         "incremental": True,
+        "tags": ["incremental"],
         "id": 37,
     },
 
@@ -341,6 +354,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 2,
         "id": 38,
     },
@@ -349,6 +363,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": 0x5,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 2,
         "id": 39,
     },
@@ -357,6 +372,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": 0x14,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 2,
         "id": 40,
     },
@@ -366,6 +382,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": 0x64,
         "incremental": True,
+        "tags": ["incremental", "backup_filler"],
         "size": 2,
         "id": 41,
     },
@@ -375,6 +392,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": 0xc8,
         "incremental": True,
+        "tags": ["incremental", "backup_filler"],
         "size": 2,
         "id": 42,
     },
@@ -384,6 +402,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": 0x12c,
         "incremental": True,
+        "tags": ["incremental", "backup_filler"],
         "size": 2,
         "id": 43
     },
@@ -392,6 +411,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": -0xa,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 2,
         "id": 44,
     },
@@ -400,6 +420,7 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": -0x32,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 2,
         "id": 45,
     },
@@ -408,17 +429,19 @@ ITEMS_DATA = {
         "address": 0x1ba53e,
         "value": 0x1388,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 2,
         "id": 46,
     },
     "Treasure": {
         "classification": ItemClassification.filler,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 47,
     },
     "Ship Part": {
         "classification": ItemClassification.filler,
-        "ship_part": True,
+        "tags": ["ship_part"],
         "id": 48,
     },
     "Potion": {
@@ -475,6 +498,7 @@ ITEMS_DATA = {
         "address": 0x1ba661,
         "value": 0x20,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 57,
         "max": 0xFF
     },
@@ -491,6 +515,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5ac,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 58,
     },
     "Treasure: White Pearl Loop": {
@@ -499,6 +524,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5ad,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 59,
     },
     "Treasure: Dark Pearl Loop": {
@@ -507,6 +533,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5ae,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 60,
     },
     "Treasure: Zora Scale": {
@@ -515,6 +542,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5af,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 61,
     },
     "Treasure: Goron Amber": {
@@ -523,6 +551,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5b0,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 62,
     },
     "Treasure: Ruto Crown": {
@@ -531,6 +560,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5b1,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 63,
     },
     "Treasure: Helmaroc Plume": {
@@ -539,6 +569,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5b2,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 64,
     },
     "Treasure: Regal Ring": {
@@ -547,6 +578,7 @@ ITEMS_DATA = {
         "treasure": True,
         "address": 0x1ba5b3,
         "incremental": True,
+        "tags": ["incremental", "treasure", "backup_filler"],
         "id": 65,
     },
 
@@ -781,84 +813,98 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "dungeon": 0x27,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 98,
     },
     "Small Key (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "dungeon": 0x25,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 99,
     },
     "Small Key (Temple of Fire)": {
         "classification": ItemClassification.progression,
         "dungeon": 0x1c,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 100,
     },
     "Small Key (Temple of Wind)": {
         "classification": ItemClassification.progression,
         "dungeon": 0x1d,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 101,
     },
     "Small Key (Temple of Courage)": {
         "classification": ItemClassification.progression,
         "dungeon": 0x1e,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 102,
     },
     "Small Key (Temple of Ice)": {
         "classification": ItemClassification.progression,
         "dungeon": 0x1f,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 103,
     },
     "Small Key (Mutoh's Temple)": {
         "classification": ItemClassification.progression,
         "dungeon": 0x21,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 104,
     },
     "Boss Key (Temple of Fire)": {
         "classification": ItemClassification.progression,
-        "dungeon": True,
+        "dungeon": 0x1c,
         "id": 105,
-        "always_process": True
+        "always_process": True,
+        "tags": ["always_process"]
     },
     "Boss Key (Temple of Wind)": {
         "classification": ItemClassification.progression,
         "dungeon": 0x1d,
         "id": 106,
-        "always_process": True
+        "always_process": True,
+        "tags": ["always_process"],
     },
     "Boss Key (Temple of Courage)": {
         "classification": ItemClassification.progression,
-        "dungeon": True,
+        "dungeon": 0x1e,
         "id": 107,
-        "always_process": True
+        "always_process": True,
+        "tags": ["always_process"],
     },
     "Boss Key (Goron Temple)": {
         "classification": ItemClassification.progression,
-        "dungeon": True,
+        "dungeon": 0x20,
         "id": 108,
-        "always_process": True
+        "always_process": True,
+        "tags": ["always_process"],
     },
     "Boss Key (Temple of Ice)": {
         "classification": ItemClassification.progression,
-        "dungeon": True,
+        "dungeon": 0x1f,
         "id": 109,
-        "always_process": True
+        "always_process": True,
+        "tags": ["always_process"],
     },
     "Boss Key (Mutoh's Temple)": {
         "classification": ItemClassification.progression,
-        "dungeon": True,
+        "dungeon": 0x21,
         "id": 110,
-        "always_process": True
+        "always_process": True,
+        "tags": ["always_process"],
     },
     "Square Crystal (Temple of Courage)": {
         "classification": ItemClassification.progression,
-        "dungeon": True,
+        "dungeon": 0x1e,
         "always_process": True,
+        "tags": ["always_process"],
         "id": 111,
         "set_bit_in_room": {0x1E00: [(0x252264, 0x10),
                                      ("stage_flag", 0x80)]}
@@ -866,34 +912,39 @@ ITEMS_DATA = {
     "Square Pedestal North (Temple of Courage)": {
         "classification": ItemClassification.progression,
         "always_process": True,
-        "dungeon": True,
+        "tags": ["always_process"],
+        "dungeon": 0x1e,
         "id": 194,
         "set_bit_in_room": {0x1E00: [(0x252264, 0x10)]}
     },
     "Square Pedestal South (Temple of Courage)": {
         "classification": ItemClassification.progression,
         "always_process": True,
-        "dungeon": True,
+        "tags": ["always_process"],
+        "dungeon": 0x1e,
         "id": 195,
         "set_bit_in_room": {0x1E00: [("stage_flag", 0x80)]}
     },
     "Triangle Crystal (Ghost Ship)": {
         "classification": ItemClassification.progression,
         "always_process": True,
-        "dungeon": True,
+        "tags": ["always_process"],
+        "dungeon": 0x29,
         "id": 112,
         "set_bit_in_room": {0x2900: [("stage_flag", [0, 8])]}
     },
     "Round Crystal (Ghost Ship)": {
         "classification": ItemClassification.progression,
         "always_process": True,
-        "dungeon": True,
+        "tags": ["always_process"],
+        "dungeon": 0x29,
         "id": 113,
         "set_bit_in_room": {0x2900: [("stage_flag", [0, 0, 0, 2])]}
     },
     "Round Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 114,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x2)],  # format: dict[room, list[tuple[addr, value, *dict(extra data)]]]
@@ -902,6 +953,7 @@ ITEMS_DATA = {
     "Round Pedestal B8 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 196,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x2)]}
@@ -909,6 +961,7 @@ ITEMS_DATA = {
     "Round Pedestal B9 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 197,
         "set_bit_in_room": {0x250C: [(0x257694, 0x4)]}
@@ -916,6 +969,7 @@ ITEMS_DATA = {
     "Round Crystals": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 204,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x2)],
@@ -925,6 +979,7 @@ ITEMS_DATA = {
     "Triangle Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 115,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x4)],
@@ -933,6 +988,7 @@ ITEMS_DATA = {
     "Triangle Pedestal B8 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 198,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x4)]}
@@ -940,6 +996,7 @@ ITEMS_DATA = {
     "Triangle Pedestal B9 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 199,
         "set_bit_in_room": {0x250C: [(0x257694, 0x8)]}
@@ -947,7 +1004,8 @@ ITEMS_DATA = {
     "Triangle Crystals": {
         "classification": ItemClassification.progression,
         "always_process": True,
-        "dungeon": 0x25,
+        "tags": ["always_process"],
+        "dungeon": True,
         "id": 203,
         "set_bit_in_room": {0x250B: [(0x25762C, 0x4)],
                             0x250C: [(0x257694, 0x8)],
@@ -956,6 +1014,7 @@ ITEMS_DATA = {
     "Square Crystal (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": True,
         "id": 116,
         "set_bit_in_room": {0x250C: [(0x257694, 0x22)]}
@@ -963,6 +1022,7 @@ ITEMS_DATA = {
     "Square Pedestal West (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": True,
         "id": 200,
         "set_bit_in_room": {0x250C: [(0x257694, 0x20)]}
@@ -970,6 +1030,7 @@ ITEMS_DATA = {
     "Square Pedestal Center (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": True,
         "id": 201,
         "set_bit_in_room": {0x250C: [(0x257694, 0x2)]}
@@ -978,6 +1039,7 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "dungeon": True,
         "always_process": True,
+        "tags": ["always_process"],
         "id": 202,
         "set_bit_in_room": {0x250C: [(0x257694, 0x22)],
                             0x1E00: [(0x252264, 0x10),
@@ -986,6 +1048,7 @@ ITEMS_DATA = {
     "Force Gem (B3)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 117,
         "set_bit_in_room": {0x2503: [(0x2572EC, 0xFE, {"count": 3}),
@@ -994,6 +1057,7 @@ ITEMS_DATA = {
     "Force Gem (B12)": {
         "classification": ItemClassification.progression,
         "always_process": True,
+        "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 118,
         "set_bit_in_room": {0x2510: [(0x257834, 0xFE, {"count": 3}),
@@ -1005,6 +1069,7 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "id": 205,
         "always_process": True,
+        "tags": ["always_process"],
         "set_bit_in_room": {0x2503: [(0x2572EC, 0xFE),
                                      (0x2572ED, 0xF)],
                             0x2510: [(0x257834, 0xFE),
@@ -1245,11 +1310,12 @@ ITEMS_DATA = {
 
     # Letters and cards
     "Freebie Card": {
-        "classification": ItemClassification.progression,
+        "classification": DEPRIORITIZED_FALLBACK,
         "address": 0x1b558a,
         "value": 0x40,
         "id": 162,
-        "backup_filler": True
+        "backup_filler": True,
+        "tags": ["backup_filler"]
     },
     "Member's Card (Progressive)": {
         "classification": ItemClassification.progression,
@@ -1284,6 +1350,7 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "address": 0x1B2773,
         "incremental": True,
+        "tags": ["incremental"],
         "value": 10,
         "id": 167,
     },
@@ -1292,6 +1359,7 @@ ITEMS_DATA = {
         "address": 0x1B2773,
         "value": 20,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 191,
     },
     "Beedle Points (50)": {
@@ -1299,6 +1367,7 @@ ITEMS_DATA = {
         "address": 0x1B2773,
         "value": 50,
         "incremental": True,
+        "tags": ["incremental"],
         "id": 192,
     },
 
@@ -1348,48 +1417,56 @@ ITEMS_DATA = {
     "Ship: Bright Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x1,
         "id": 175,
     },
     "Ship: Iron Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x2,
         "id": 176,
     },
     "Ship: Stone Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x3,
         "id": 177,
     },
     "Ship: Vintage Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x4,
         "id": 178,
     },
     "Ship: Demon Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x5,
         "id": 179,
     },
     "Ship: Tropical Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x6,
         "id": 180,
     },
     "Ship: Dignified Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x7,
         "id": 181,
     },
     "Ship: Golden Ship": {
         "classification": ItemClassification.useful,
         "backup_filler": True,
+        "tags": ["backup_filler"],
         "ship": 0x8,
         "id": 182,
     },
@@ -1400,6 +1477,7 @@ ITEMS_DATA = {
         "address": 0x1ba5b4,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 1,
         "id": 183,
     },
@@ -1408,6 +1486,7 @@ ITEMS_DATA = {
         "address": 0x1ba5b5,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 1,
         "id": 184,
     },
@@ -1416,6 +1495,7 @@ ITEMS_DATA = {
         "address": 0x1ba5b6,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 1,
         "id": 185,
     },
@@ -1424,6 +1504,7 @@ ITEMS_DATA = {
         "address": 0x1ba5b7,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 1,
         "id": 186,
     },
@@ -1432,6 +1513,7 @@ ITEMS_DATA = {
         "address": 0x1ba5b8,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 1,
         "id": 187,
     },
@@ -1440,6 +1522,7 @@ ITEMS_DATA = {
         "address": 0x1ba5b9,
         "value": 0x1,
         "incremental": True,
+        "tags": ["incremental"],
         "size": 1,
         "id": 188,
     },
@@ -1453,104 +1536,124 @@ ITEMS_DATA = {
         "dummy": True,
         "id": 206,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Cannon": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 207,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Ember": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 208,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Molida": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 209,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Spirit": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 210,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Gust": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 211,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Bannan": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 212,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Uncharted": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 213,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Zauz": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 214,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Goron": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 215,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Frost": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 216,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Harrow": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 217,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Dee Ess": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 218,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Isle of the Dead": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 219,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Ruins": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 220,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
     "Map Warp: Maze": {
         "classification": ItemClassification.useful,
         "dummy": True,
         "id": 221,
         "backup_filler": True,
+        "tags": ["backup_filler"],
     },
 }
+ITEMS: dict[str, "PHItem"] = dict()
+item_id_to_name_dict: dict[int, str] = dict()
 
 id_check = []
-for data in ITEMS_DATA.values():
+for name, data in ITEMS_DATA.items():
     if data["id"] in id_check:
         raise f"Duplicate ID Detected: {data['id']}"
     id_check.append(data["id"])
+    item_id_to_name_dict[data["id"]] = name
+    ITEMS[name] = PHItem(name, data)
 
 # IDs are now fixed!!!
 """for i, k in enumerate(ITEMS_DATA):
@@ -1558,9 +1661,12 @@ for data in ITEMS_DATA.values():
 
 # bulk data editing / export
 if __name__ == "__main__":
+    attributes = set()
     for name, data in ITEMS_DATA.items():
-        if name in ITEM_GROUPS["Pedestal Items"]:
-            print(f"{name}: {data['id']}")
+        for attribute in data:
+            attributes.add(attribute)
+    for attribute in attributes:
+        print(f"self.{attribute}: ")
 """
     keys = set()
     for name, data in ITEMS_DATA.items():
