@@ -64,7 +64,7 @@ class PhantomHourglassTimeIncrement(Range):
     """
     How much time to get for each sand of hours upgrade, in seconds. It will try and create more upgrades items than you need.
     You don't need to have found the Phantom Hourglass to make use of the upgrades
-    If you exclude as many locations as possible, and have 30 metal items, generation breaks at 6 seconds
+    If you exclude as many locations as possible, and have 30 metal items, generation breaks at 6 seconds on easy time logic.
     """
     display_name = "Increment for each Sand of Hours"
     range_start = 1
@@ -86,7 +86,7 @@ class PhantomHourglassLogic(Choice):
     Logic options:
     - Normal: Glitches not in logic.
     - Hard: Includes some cool unconventional uses of pots, tricky enemy fights and Molida Archery 2000
-    - Glitched: Hammer clips, chu camera displacement and clever use of items in logic
+    - Glitched: Hammer clips, chu camera displacement and clever use of items are in logic
     Be careful, using glitches on normal logic can cause key-related softlocks
     Full coverage of tricks included can be found here https://github.com/carrotinator/Archipelago/blob/main/worlds/tloz_ph/docs/tricks_and_skips.md
     """
@@ -102,8 +102,7 @@ class PhantomHourglassPhantomCombatDifficulty(Choice):
     Option for what you need to kill phantoms in logic
     - require_phantom_sword: need phantom sword
     - require_traps: need a pit trap or boulder
-    - require_stun: require a method of stunning, and an open pit to push into. Includes bow, hammer,
-    and sword + 2 progressive spirits of power
+    - require_stun: require a method of stunning, and an open pit to push into. Includes bow, hammer, and sword + 2 progressive spirits of power
     - require_weapon: all of the above plus grappling hook
     """
     display_name = "phantom_combat_difficulty"
@@ -166,14 +165,10 @@ class PhantomHourglassDungeonsRequired(Range):
 class PhantomHourglassBellumAccess(Choice):
     """
     What unlocks after you reach your goal requirement. For bellum options, game completion is sent on entering the credits.
-    - spawn_phantoms_on_b13: getting your goal requirement spawns the phantoms on TotOK B13,
-    and killing them gives you bellum access. You will have to run TotOK to the bottom after getting your goal requirement
-    - unlock_staircase: getting your goal requirement unlocks the staircase to bellum. The phantoms on B13 spawn by
-    default, and killing them unlocks the warp for later
-    - warp_to_bellum: getting your goal requirement spawns the warp to bellum in TotOK. The phantoms are spawned by
-    default, and the staircase to bellum is blocked off until reaching the goal
-    - spawn_bellumbeck: getting your goal requirement spawns the ruins of the ghost ship in the SW quadrant, and you
-    can skip bellum 1 and the ghost ship fight
+    - spawn_phantoms_on_b13: getting your goal requirement spawns the phantoms on TotOK B13, and killing them gives you bellum access. You will have to run TotOK to the bottom after getting your goal requirement
+    - unlock_staircase: getting your goal requirement unlocks the staircase to bellum. The phantoms on B13 spawn by default, and killing them unlocks the warp for later
+    - warp_to_bellum: getting your goal requirement spawns the warp to bellum in TotOK. The phantoms are spawned by default, and the staircase to bellum is blocked off until reaching the goal
+    - spawn_bellumbeck: getting your goal requirement spawns the ruins of the ghost ship in the SW quadrant, and you can skip bellum 1 and the ghost ship fight
     - win: reaching your goal requirement wins the game
     """
     display_name = "bellum_access"
@@ -189,8 +184,9 @@ class PhantomHourglassFrogRandomization(Choice):
     """
     Ramdomize golden cyclone frogs
     - vanilla: shooting a frog gives their warp spot
-    - start_with: start with all warps unlocked. Frogs are not checks. You don't start with cyclone slate unless it's
-    in starting_items. You also need their respective sea charts to actually warp.
+    - start_with: start with all warps unlocked. Frogs are not checks.
+    You don't start with cyclone slate unless it's in starting_items.
+    You also need their respective sea charts to actually warp.
     - randomize: frog glyphs are random and frogs are checks
     """
     display_name = "randomize_frogs"
@@ -244,10 +240,8 @@ class PhantomHourglassRandomizeHarrow(Choice):
 class PhantomHourglassGhostShipInDungeonPool(Choice):
     """
     Choose whether the ghost ship can be in the boss/dungeon reward pool.
-    Has *interactions* with boss_shuffle.
     - rescue_tetra: the dungeon reward, if rolled, will be on using the ghost key and climbing the staircase.
-    - cubus_sisters: the dungeon reward will be on defeating the Cubus Sisters,
-    or whatever boss gets randomized there with boss shuffle.
+    - cubus_sisters: the dungeon reward will be on defeating the Cubus Sisters, or whatever boss gets randomized there with boss shuffle.
     - false: the ghost ship cannot be rolled for the required dungeon pool.
     """
     display_name = "Ghost Ship in Dungeon Pool"
@@ -312,7 +306,7 @@ class PhantomHourglassExcludeNonRequriedDungeons(Toggle):
     Non-required dungeons won't have progression or useful items.
     Does not apply to TotOK.
     If you don't require specific bosses, this will still exclude a number of dungeons.
-    They will still count towards dungeon completions.
+    Their bosses will still count towards boss completions.
     """
     display_name = "exclude_non_required_dungeons"
     default = 1
@@ -368,8 +362,7 @@ class PhantomHourglassRandomizeMinigames(Choice):
 
 class PhantomHourglassSkipOceanFights(Toggle):
     """
-    The Massive Eye fight before Goron Island, ice pillars around Isle of Frost and Giant Eye Plant before Bannan trade
-    quest item are removed, and cannon isn't required for those locations
+    The Massive Eye fight before Goron Island, ice pillars around Isle of Frost and Giant Eye Plant before Bannan trade quest item are removed, and cannon isn't required for those locations
     """
     display_name = "skip_ocean_fights"
     default = 1
@@ -378,7 +371,7 @@ class PhantomHourglassSkipOceanFights(Toggle):
 class PhantomHourglassRandomizeFishing(Choice):
     """
     Adds checks for catching the 6 fish you can catch at sea, and handing in 4 fish to the wayfarer on bannan island.
-    The hint option also gives free hints for the catching fish checks on entering the wayfarers hut on bannan island.
+    The hint option gives free hints for the catching fish checks on entering the wayfarers hut on bannan island.
     """
     display_name = "randomize_fishing"
     option_no_fish = 0
@@ -414,7 +407,7 @@ class PhantomHourglassAdditionalSpiritGems(Range):
 class PhantomHourglassRandomizeSalvage(Choice):
     """
     Randomize all 31 treasure maps and salvage locations!
-    Hint option gives you a hint for the location on receiving the map item
+    Hint option gives you a hint for each location on receiving their map item
     """
     display_name = "randomize_salvage"
     option_no_salvage = 0
@@ -435,11 +428,12 @@ class PhantomHourglassZauzRequiredMetals(Range):
 
 class PhantomHourglassAdditionalMetalNames(Choice):
     """
-    What to call the dungeon reward/metal hunt metal.
+    What to call the dungeon reward/metal hunt metals.
     - vanilla_only: additional metals are duplicate vanilla metals
     - additional_rare_metal: additional metals are all called "Additional Rare Metal"
-    - custom: metal names are chosen randomly from a pre-defined list of names I made up. The names are
-    based on color words ending in "ine". Some examples are "Verdantine", "Lavendine" and "Amberine". Currently there are 30 metal names defined.
+    - custom: metal names are chosen randomly from a pre-defined list of names I made up.
+    The names are based on color words ending in "ine". Some examples are "Verdantine", "Lavendine" and "Amberine".
+    Currently there are 30 metal names defined.
     - custom_prefer_vanilla: metals will default to vanilla names, and only use custom names if you have more than 3.
     """
     display_name = "additional_metal_names"
@@ -447,7 +441,7 @@ class PhantomHourglassAdditionalMetalNames(Choice):
     option_additional_rare_metal = 1
     option_custom = 2
     option_custom_prefer_vanilla = 3
-    default = 1
+    default = 0
 
 class PhantomHourglassTimeLogic(Choice):
     """
@@ -473,7 +467,7 @@ class PhantomHourglassTimeLogic(Choice):
 
 class PhantomHourglassHeartLogic(Range):
     """
-    How much to value hearts as sand in Temple of the Ocean King, in seconds.
+    How many seconds hears are valued at in Temple of the Ocean King.
     Counts 2 out of your 3 starting hearts.
     Standing in the open, each heart depletes after 9 seconds.
     Keep in mind that hearts in pots respawn infinitely
@@ -485,8 +479,7 @@ class PhantomHourglassHeartLogic(Range):
 
 class PhantomHourglassRandomizeBeedlePoints(Choice):
     """
-    Adds locations to the five membership cards in Beedle's shop, point items to help reach their thresholds and adds
-    the Freebie Card, Complimentary Card and Compliment card to the pool
+    Adds locations to the five membership cards in Beedle's shop, point items to help reach their thresholds and adds the Freebie Card, Complimentary Card and Compliment card to the pool
     Point thresholds are at 0, 20, 50, 100 and 200.
     - no_beedle_points: don't randomize this
     - cards_only: adds the Freebie, Compliment and Complimentary cards to the item pool, but doesn't randomize Membership thresholds
@@ -606,7 +599,7 @@ class PhantomHourglassShuffleOverworldTransitions(Choice):
 
 class PhantomHourglassShuffleBetweenIslands(Choice):
     """
-    Either preserve or disregard directionality for entrances shuffled in other options.
+    Limit shuffling entrances to their own island.
     CAUTION: When combined with pools that have a lot of dead ends, it can cause a high chance of generation failure.
     Please test generate before submitting to a public game.
     - shuffle_anywhere: entrances in a pool can connect to other entrances in that pool no matter their island.
@@ -798,7 +791,6 @@ class PhantomHourglassMapWarp(Choice):
     - warp_to_start_only: the only warp method is warp to start. Open the collection screen and flip it to prime a warp to start, and enter any entrance to trigger it.
     - ports_require_items: creates an unlock item for each island, that is required to warp there. You can only warp to an island's port. Oceans are warpable without items.
     - ports_open: you can warp to any island's port as soon as you've been there.
-    - detailed: coming soon! maybe. lets you select island quadrants or even dungeons from the map menu.
     """
     default = 0
     option_warp_to_start_only = 0
