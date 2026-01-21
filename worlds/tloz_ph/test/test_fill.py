@@ -1,4 +1,4 @@
 from .bases import *
 
-test = DefaultSettings()
+test = TestPH()
 test.test_fill()

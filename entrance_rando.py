@@ -461,12 +461,13 @@ def randomize_entrances(
                     do_placement(source_exit, target_entrance)
                     if coupled:
                         pass
-                        # print(f"Pairing Successful! {source_exit} <=> {target_entrance}")
+                        # print(f"\tPairing Successful! {source_exit} <=> {target_entrance}")
                     else:
                         pass
-                        # print(f"Pairing Successful! {source_exit} => {target_entrance}")
+                        # print(f"\tPairing Successful! {source_exit} => {target_entrance}")
                     return True
         else:
+            # print(f"Deadlock >:(")
             # no source exits had any valid target so this stage is deadlocked. retries may be implemented if early
             # deadlocking is a frequent issue.
             lookup = er_state.entrance_lookup.dead_ends if dead_end else er_state.entrance_lookup.others
