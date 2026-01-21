@@ -1,5 +1,7 @@
 from random import randint
 from .DSZeldaClient.DSZeldaClient import *
+from .MapWarp import map_mode
+from .data.Entrances import entrance_id_to_entrance
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -50,6 +52,9 @@ RAM_ADDRS = {
     "flipped_clog": (0x0FA37B, 1, "Main RAM"),
 
     "in_short_cs": (0x1B6FE8, 1, "Main RAM"),
+    "saving": (0x19B7CF, 1, "Main RAM"),
+
+    "in_map": (0x1B2D60, 1, "Main RAM"),
 
 }
 
@@ -69,15 +74,26 @@ SMALL_KEY_OFFSET = 0x260
 STAGE_FLAGS_OFFSET = 0x268
 
 # Addresses to read each cycle
-read_keys_always = ["game_state", "in_cutscene", "received_item_index", "stage", "room", "slot_id",
-                    "entrance", "in_short_cs",
-                    "loading_room", "opened_clog"]
+read_keys_always = ["game_state", "in_cutscene", "loading_room",
+                    "received_item_index", "slot_id",
+                    "stage", "room", "entrance",
+                    "in_short_cs", "opened_clog", "saving"
+                     ]
 
 read_keys_deathlink = ["link_health"]
-read_keys_land = ["getting_item", "getting_ship_part"]
+read_keys_land = ["getting_item", "getting_ship_part", "in_map"]
 read_keys_sea = ["shot_frog"]
 read_keys_deathlink_sea = ["boat_health", "drawing_sea_route"]
 read_keys_deathlink_salvage = ["salvage_health"]
+
+# datastore_keys
+checked_key = "ph_checked_entrances"
+disconnect_key = "ph_disconnect_entrances"
+traversal_key = "ph_traversed_entrances"
+ut_events_key = "ph_ut_events"
+ut_exclude_key = "ph_keylocking"
+save_scene_key = "ph_save_scene"
+visited_scenes_key = "ph_visited_scenes"
 
 class PhantomHourglassClient(DSZeldaClient):
     game = "The Legend of Zelda - Phantom Hourglass"
@@ -102,16 +118,39 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Ph variables
         self.goal_room = 0x3600
+        self.goal_event_connect = None
+        self.sent_goal = False
         self.last_treasures = 0
         self.last_potions = [0, 0]
         self.last_ship_parts = []
         self.at_sea = False
         self.lowered_water = False
         self.visited_entrances = set()
+        self.redisconnected_entrances = set()
+        self.checked_entrances = set()
 
         self.boss_warp_entrance = None
         self.last_warp_stage = None
         self.item_location_combo = None
+
+        self.sent_event = False
+        self.event_read_list = {}
+        self.event_data = []
+        self.last_saved_scene = None
+        self.lss_retry_attempts = 4
+        self.death_check = False
+        self.death_precision = None
+        self.last_health_pointer = 0
+        self.save_spam_protection = False
+        self.death_warning_spam_protect = False
+
+        # Map warp vars
+        self.map_mode: bool = False  # if in warp menu
+        self.map_warp: "PHTransition" or None = None  # destination entrance
+        self.map_warp_reselector: bool = True  # Spam prevention
+        self.pen_mode_pointer = None
+        self.last_pen_mode = 0x18
+
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
@@ -155,6 +194,10 @@ class PhantomHourglassClient(DSZeldaClient):
         if ctx.slot_data["dungeon_hint_location"] == 0:
             self.dungeon_hints(ctx)
 
+        # Start with sea maps if map warping
+        if ctx.slot_data["map_warp_options"]:
+            write_list += [(0x1ba648, [0x1F], "Main RAM")]
+
         return write_list
 
     async def get_coords(self, ctx, multi=False):
@@ -179,6 +222,7 @@ class PhantomHourglassClient(DSZeldaClient):
         address = 0x1BA5AC + randint(0, 7)
         await write_memory_value(ctx, address, 1, incr=True)
         await self.update_treasure_tracker(ctx)
+        logger.info(f"Got random treasure from farmable location.")
 
     async def update_potion_tracker(self, ctx):
         read_list = {"left": (0x1BA5D8, 1, "Main RAM"),
@@ -228,6 +272,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 addr, offset = pointer
                 pointer_1 = await read_memory_value(ctx, POINTERS[addr], 4, "Data TCM")
                 death_link_reads[name] = (pointer_1 + offset - 0x2000000, 2, "Main RAM")
+                self.last_health_pointer = pointer_1
             self.main_read_list = {k: v for k, v in RAM_ADDRS.items() if k in read_keys} | death_link_reads
         else:
             self.at_sea = None
@@ -240,7 +285,7 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Sent full heal hearts {hearts} addr {hex(health_address)}")
             await write_memory_values(ctx, health_address, split_bits(hearts * 4, 2), overwrite=True)
 
-    async def refill_ammo(self, ctx):
+    async def refill_ammo(self, ctx, text=""):
         items = [i + " (Progressive)" for i in ["Bombs", "Bombchus", "Bow"]]
 
         # Count upgrades
@@ -257,15 +302,12 @@ class PhantomHourglassClient(DSZeldaClient):
             write_list += [(data["ammo_address"], [data["give_ammo"][count - 1]], "Main RAM")]
         await bizhawk.write(ctx.bizhawk_ctx, write_list)
         await self.full_heal(ctx)
-        logger.info(f"You drink a glass of milk. You feel refreshed, and your ammo has been refilled.")
+        if text == "milk_bar":
+            logger.info(f"You drink a glass of milk. You feel refreshed, and your ammo has been refilled.")
 
     def get_progress(self, ctx, scene=0):
         # Count current metals
-        progress = 0
-        metals = [ITEMS_DATA[i]["id"] for i in ITEM_GROUPS["Metals"]]
-        for i in ctx.items_received:
-            if i.item in metals:
-                progress += 1
+        self.update_metal_count(ctx)
 
         # Figure out totals
         if ctx.slot_data["goal_requirements"] < 2:
@@ -284,11 +326,11 @@ class PhantomHourglassClient(DSZeldaClient):
                             "opens the blue warp to Bellum in TotOK.",
                             "spawns the ruins of the Ghost Ship in the SW Quadrant.",
                             "wins the game."]
-            logger.info(f"You have {progress} out of {required} rare metals. There are {total} metals in total.\n"
+            logger.info(f"You have {self.metal_count} out of {required} rare metals. There are {total} metals in total.\n"
                         f"Finding the metals {bellum_texts[ctx.slot_data['bellum_access']]}")
         elif scene == 0x160A:
             zauz_required = ctx.slot_data["zauz_required_metals"]
-            logger.info(f"Zauz needs {zauz_required} rare metals to give an item. You have {progress}/{total} metals.")
+            logger.info(f"Zauz needs {zauz_required} rare metals to give an item. You have {self.metal_count}/{total} metals.")
 
     def process_loading_variable(self, read_result) -> bool:
         return read_result["loading_room"]
@@ -312,11 +354,61 @@ class PhantomHourglassClient(DSZeldaClient):
         await self.update_potion_tracker(ctx)
         await self.update_treasure_tracker(ctx)
 
-    async def process_in_game(self, ctx, read_result: dict):
-
+    async def process_in_game(self, ctx: "BizHawkClientContext", read_result: dict):
         # Detect lowering of water and update ER Map
         if not self.lowered_water and self.current_stage == 0x24:
-            await self.lower_water(ctx)
+            await self.lower_water(ctx, True)
+        await self.detect_ut_event(ctx, self.current_scene)
+
+        if self.current_stage == 3 and read_result.get("salvage_health", 5) <= 1:
+            await self.instant_repair_salvage_arm(ctx)
+
+        if read_result.get("saving") == 0x46 and not self.save_spam_protection:
+            print(f"Saving scene {hex(self.current_scene)}")
+            self.last_saved_scene = self.current_scene
+            await self.store_data(ctx, storage_key(ctx, save_scene_key), self.last_saved_scene, "replace", default=0)
+            self.save_spam_protection = True
+
+        # Map warp entrypoint
+        if read_result.get("in_map", 0):
+            await map_mode(self, ctx, read_result)
+        if not read_result.get("in_map", 0) and self.map_mode:
+            self.map_mode = False
+            self.map_warp = None
+            self.map_warp_reselector = True
+            logger.info(f"Illegal map menu exit, canceling all map warps")
+        if self.warp_to_start_flag and self.map_warp:
+            self.map_warp = None
+            logger.info(f"Canceled map warp due to starting a warp to start")
+        if self.map_warp and self.is_dead:
+            self.map_warp = None
+            logger.info(f"Map warp canceled due to death")
+
+        if self.is_dead and ctx.slot_data["shuffle_bosses"] and self.current_scene in BOSS_WARP_SCENE_LOOKUP and not self.death_warning_spam_protect:
+            if read_result["in_cutscene"]:
+                logger.info(f"WARNING! Clicking continue in a boss room will put you out of logic. Please save and quit before continuing.")
+            self.death_warning_spam_protect = True
+        elif not self.is_dead:
+            self.death_warning_spam_protect = False
+
+        # if self.is_dead and not self.death_check:
+        #     self.death_check = True
+        #     print(f"Death Check! {hex(self.current_scene)}")
+        #     if self.current_scene in BOSS_WARP_SCENE_LOOKUP:
+        #         self.death_precision = self.update_boss_warp(ctx, self.current_stage, self.current_scene)
+        # elif self.death_check and not self.is_dead:
+        #     self.death_check = False
+        #     print(f"death check reset")
+        # elif self.death_precision:
+        #     print(f"death precision check")
+        #     read_list = {"continue": (0x1BA6FC, 1, "Main RAM"), "no_quit": (0x1B2C35, 1, "Main RAM")}
+        #     cont = await read_memory_values(ctx, read_list)
+        #     print(f"death precision check {cont}")
+        #     if any(cont.values()):
+        #         self.precision_mode = [0x1B2E94, self.current_stage, "warp", self.death_precision.copy()]
+        #         ctx.watcher_timeout = 0.1
+        #         self.death_precision = None
+
 
     async def detect_warp_to_start(self, ctx, read_result: dict):
         # Opened clog warp to start check
@@ -324,7 +416,7 @@ class PhantomHourglassClient(DSZeldaClient):
             if await read_memory_value(ctx, *RAM_ADDRS["flipped_clog"], silent=True) & 1:
                 if not self.warp_to_start_flag:
                     logger.info(f"Primed a warp to start. Enter a transition to warp to {STAGES[0xB]}.")
-                self.warp_to_start_flag = True
+                    self.warp_to_start_flag = True
             else:
                 if self.warp_to_start_flag and await read_memory_value(ctx, *RAM_ADDRS["opened_clog"], silent=True):
                     logger.info("Canceled warp to start.")
@@ -334,12 +426,15 @@ class PhantomHourglassClient(DSZeldaClient):
         if self.warp_to_start_flag:
             # Cyclone slate warp to start crashes, prevent that from working
             if self.at_sea:
-                if await read_memory_value(ctx, 0x1B636C) == 1:  # is 0x65 if never used cyclone slate
+                if await read_memory_value(ctx, 0x1B636C, silent=True) == 1:  # is 0x65 if never used cyclone slate
                     self.warp_to_start_flag = False
                     logger.info("Canceled warp to start, Cyclone Slate is not a valid warp method")
             if self.is_dead:
                 self.warp_to_start_flag = False
                 logger.info("Canceled warp to start, death is not a valid warp method")
+            if self.starting_entrance[:2] == (self.current_stage, read_result["room"]):
+                logger.info(f"In starting scene, canceling warp to start")
+                self.warp_to_start_flag = False
 
     async def enter_game(self, ctx):
         self.save_slot = await read_memory_value(ctx, RAM_ADDRS["save_slot"][0], silent=True)
@@ -347,6 +442,8 @@ class PhantomHourglassClient(DSZeldaClient):
         self.set_ending_room(ctx)
         await self.lower_water(ctx)
         await write_memory_value(ctx,0x0EC754, 2, overwrite=True)  # Set text speed to fast, no matter settings
+        # Set treasure prices so they match seed (save file resets it on menu)
+        await write_memory_value(ctx, 0x0EC7D8, ctx.slot_data.get("treasure_price_index", 0), overwrite=True, size=4)
         await self.update_stored_entrances(ctx)
 
         # Set warp to start location
@@ -355,9 +452,15 @@ class PhantomHourglassClient(DSZeldaClient):
 
 
     async def watched_intro_cs(self, ctx):
-        return await read_memory_value(ctx, 0x1b55a8, silent=True) & 2
+        watched_intro = await read_memory_value(ctx, 0x1b55a8, silent=True) & 2
+        return watched_intro
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
+        self.sent_event = False  # Reset per-room UT events
+        self.event_data = []
+        self.event_read_list = {}
+        self.save_spam_protection = False  # Reset save spam protection
+
         # Yellow warp in TotOK saves keys
         # TODO: allow this to work with ER
         if self.last_scene is not None:
@@ -370,7 +473,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Milk bar refills all ammo
         if current_scene in [0xb0C]:
-            await self.refill_ammo(ctx)
+            await self.refill_ammo(ctx, "milk_bar")
 
         # Oshus gives metal info
         if current_scene in [0xB0A, 0x160A]:
@@ -381,6 +484,10 @@ class PhantomHourglassClient(DSZeldaClient):
             await self.edit_ship(ctx)
         if current_scene in [0xB03]:
             await self.remove_ship_parts(ctx)
+
+        if current_scene == 0x1401:  # Bannan chest needs to happen after load
+            if await read_memory_value(ctx, 0x1B5592) & 0x8:
+                await write_memory_value(ctx, 0x20DAA1, 0x80)
 
         # Open pedestal doors. sucks that you can't trigger it with dynaflags. slow code but game is slower
         if ctx.slot_data.get("randomize_pedestal_items", 0) > 0:
@@ -395,8 +502,8 @@ class PhantomHourglassClient(DSZeldaClient):
                         or item_count(ctx, "Round Crystals")):
                     await write_memory_value(ctx, 0x25762C, 0x2)
                 if (item_count(ctx, "Triangle Crystal (Temple of the Ocean King)")
-                        or item_count(ctx, "Triangle Pedestal B8 (Temple of the Ocean King)")
-                        or item_count(ctx, "Triangle Crystals")):
+                        or item_count(ctx, "Triangle Crystals")
+                        or item_count(ctx, "Triangle Pedestal B8 (Temple of the Ocean King)")):
                     await write_memory_value(ctx, 0x25762C, 0x4)
             elif current_scene == 0x250C:  # B9
                 if (item_count(ctx, "Round Crystal (Temple of the Ocean King)")
@@ -452,7 +559,7 @@ class PhantomHourglassClient(DSZeldaClient):
         keys = keys * data["value"]
         keys = data["filter"] if keys > data["filter"] else keys
         await write_memory_value(ctx, 0x1BA64F, keys)
-        await write_memory_value(ctx, 0x1BA661, 0x40)  # Set bit to write future TotOK keys to post midway
+        await write_memory_value(ctx, 0x1BA661, 0x1)  # Set bit to write future TotOK keys to post midway
 
     @staticmethod
     async def repair_salvage_arm(ctx, scene=0x500):
@@ -460,12 +567,13 @@ class PhantomHourglassClient(DSZeldaClient):
                      "rupees": (0x1BA53E, 2, "Main RAM"),
                      "repair_kits": (0x1BA661, 1, "Main RAM"), }
         prev = await read_memory_values(ctx, read_list)
-        prev["repair_kits"] &= 0x7
+        repair_kits = (prev["repair_kits"] & 0xE0) >> 5
+        print(f"Repair kits: {repair_kits}")
         if prev["salvage_health"] <= 2:
             write_list = []
             text = f"Repaired Salvage Arm for "
-            if prev["repair_kits"] > 0:
-                write_list.append((0x1BA661, [prev["repair_kits"] - 1], "Main RAM"))
+            if repair_kits > 0:
+                write_list.append((0x1BA661, [prev["repair_kits"] - 0x20], "Main RAM"))
                 text += f"1 Salvage Repair Kit. You have {prev['repair_kits']} remaining."
             else:
                 # Repair cost, doesn't care if you're out of rupees out of qol
@@ -479,15 +587,16 @@ class PhantomHourglassClient(DSZeldaClient):
             print(write_list)
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
         else:
-            text = f"This room automatically repairs your Salvage Arm, for a cost, when at 2 health or below."
+            text = f"This room automatically repairs your Salvage Arm, for a cost or a kit, when at 2 health or below."
         # Send a client message about the repair
         logger.info(text)
 
     @staticmethod
     async def instant_repair_salvage_arm(ctx):
-        salvage_kits = await read_memory_value(ctx, 0x1BA661) & 7
+        salvage_data = await read_memory_value(ctx, 0x1BA661)
+        salvage_kits = (salvage_data & 0xE0) >> 5
         if salvage_kits > 0:
-            write_list = [(0x1BA661, [salvage_kits - 1], "Main RAM"),
+            write_list = [(0x1BA661, [salvage_data - 0x20], "Main RAM"),
                           (RAM_ADDRS["salvage_health"][0], [5], "Main RAM"),
                           (0x1BA390, [5], "Main RAM")]  # Global salvage health
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
@@ -511,20 +620,20 @@ class PhantomHourglassClient(DSZeldaClient):
         ship_write_list = [] + ships * 8
         print(ships, ship_write_list)
         await bizhawk.write(ctx.bizhawk_ctx, [(0x1BA564, ship_write_list, "Main RAM")])
-        await write_memory_value(ctx, 0x1ba661, 0x80)
+        await write_memory_value(ctx, 0x1ba661, 0x2)
 
     # Dynamic flags/ Entrances
     async def has_special_dynamic_requirements(self, ctx, data) -> bool:
         # Special case of metals
         def check_metals(d):
             if "zauz_metals" in d or "goal_requirement" in d:
-                metals_ids = [ITEMS_DATA[metal]["id"] for metal in ITEM_GROUPS["Metals"]]
-                current_metals = sum([1 for i in ctx.items_received if i.item in metals_ids])
-                print(f"Metal check: {current_metals} metals out of {ctx.slot_data['zauz_required_metals']}")
+                self.update_metal_count(ctx)
+
 
                 # Zauz Check
                 if "zauz_metals" in d:
-                    if current_metals < ctx.slot_data["zauz_required_metals"]:
+                    print(f"Metal check: {self.metal_count} metals out of {ctx.slot_data['zauz_required_metals']}")
+                    if self.metal_count < ctx.slot_data["zauz_required_metals"]:
                         if d["zauz_metals"]:
                             return False
                     else:
@@ -533,7 +642,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
                 # Goal Check
                 if "goal_requirement" in d:
-                    return current_metals >= ctx.slot_data["required_metals"]
+                    print(f"Metal check: {self.metal_count} metals out of {ctx.slot_data['required_metals']}")
+                    return self.metal_count >= ctx.slot_data["required_metals"]
             return True
 
         # Beedle points
@@ -611,12 +721,14 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def update_special_key_count(self, ctx, current_stage: int, new_keys, key_data: dict, key_values, key_address: int) -> tuple[int, bool]:
         if current_stage == 0x25:
-            if self.location_name_to_id["TotOK 1F SW Sea Chart Chest"] in ctx.checked_locations:
+            if self.location_name_to_id["TotOK 1F Sea Chart Chest"] in ctx.checked_locations:
                 new_keys -= 1  # Opening the SW sea chart door uses a key permanently! No savescums!
             if self.current_scene == 0x2504:  # Set B3.5 key count
                 new_keys -= 2
-                if not item_count(ctx, "Grappling Hook"):
+                if not item_count(ctx, "Grappling Hook") and ctx.slot_data["randomize_pedestal_items"] == 0:
                     new_keys -= 1
+            return new_keys, False
+        elif current_stage == 372:
             return new_keys, False
         return new_keys, True
 
@@ -639,6 +751,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 await self.give_random_treasure(ctx)
             else:
                 self.last_vanilla_item.pop()
+                logger.info(f"Got farmable location")
 
     async def receive_key_in_own_dungeon(self, ctx, item_name: str, write_keys_to_storage):
         # TotOK - adds to key increment if you get it in the dungeon, otherwise do as usual
@@ -658,7 +771,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def received_special_small_keys(self, ctx, item_name, write_keys_to_storage):
         # TotOK Midway special data
         if "Temple of the Ocean King" in item_name:
-            if await read_memory_value(ctx, 0x1BA661) & 0x40:
+            if await read_memory_value(ctx, 0x1BA661) & 0x1:
                 return [await write_keys_to_storage(372)]
         return []
 
@@ -700,7 +813,7 @@ class PhantomHourglassClient(DSZeldaClient):
         print(f"special item: {item_name} {self.current_stage}")
         res = []
         if "ship" in item_data:
-            if not (await read_memory_value(ctx, 0x1ba661) & 0x80):
+            if not (await read_memory_value(ctx, 0x1ba661) & 2):
                 for addr in EQUIPPED_SHIP_PARTS_ADDR:
                     res += [(addr, [item_data["ship"]], "Main RAM")]
 
@@ -714,6 +827,18 @@ class PhantomHourglassClient(DSZeldaClient):
                 last_value = await read_memory_value(ctx, data["address"], size=4)
                 new_value = last_value | data["value"]
                 res += [(data["address"], split_bits(new_value, 4), "Main RAM")]
+
+        # Handle Potions
+        elif "Potion" in item_name:
+            await self.update_potion_tracker(ctx)
+            print(f"Potion data: {self.last_potions} {item_data['value']}")
+            for i, pot, addr in zip([0, 1], self.last_potions, [0x1BA5D8, 0x1BA5D9]):
+                if not pot:
+                    prev = await read_memory_value(ctx, 0x1BA645, silent=True)
+                    res += [(addr, [item_data["value"]], "Main RAM")]
+                    res += [(0x1BA645, [prev | 0x6], "Main RAM")]  # has potion, fill all
+                    self.last_potions[i] = item_data["value"]
+                    break
         return res
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
@@ -733,7 +858,7 @@ class PhantomHourglassClient(DSZeldaClient):
             self.metal_count += 1
             await self.process_game_completion(ctx)
 
-        exclude_key = f"ph_keylocking_{ctx.slot}_{ctx.team}"
+        exclude_key = storage_key(ctx, ut_exclude_key)
         # Exclude forced vanilla items on not needing them any more
         if item_name == "Grappling Hook" and ctx.slot_data.get("randomize_pedestal_items", 0) in [0, 1]:
             print(f"TotOK B3 has no more useful force gems")
@@ -743,7 +868,7 @@ class PhantomHourglassClient(DSZeldaClient):
         # Run code if you got a certain item from a certain location
         if self.item_location_combo:
             if "Mountain Passage" in self.item_location_combo["name"]:
-                if ctx.slot_data["keysanity"] < 2 and "Small Key" not in item_name:
+                if ctx.slot_data["keysanity"] < 2 and "Small Key" not in item_name and ctx.slot_data["shuffle_caves"] == 0:
                     print(f"Mountain Passage has no more useful items")
                     data = [self.location_name_to_id[i] for i in LOCATION_GROUPS["Mountain Passage"]]
                     await self.store_data(ctx, exclude_key, data)
@@ -765,6 +890,37 @@ class PhantomHourglassClient(DSZeldaClient):
                         value = [value]
                     await write_memory_values(ctx, addr, value)
 
+        # disconnect port entrances
+        if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2 and ctx.slot_data["boat_requires_sea_chart"] and "disconnect_entrances" in item_data:
+            disconnects_ids = [ENTRANCES[e].id for e in item_data["disconnect_entrances"] if str(ENTRANCES[e].id) in ctx.slot_data["er_pairings"]]
+            await self.redisconnect(ctx, disconnects_ids)
+
+    async def redisconnect(self, ctx, data):
+        reciprocals = [ctx.slot_data["er_pairings"][str(i)] for i in data if
+                       str(i) in ctx.slot_data["er_pairings"]]
+        all_ids = set(data + reciprocals) if not ctx.slot_data["decouple_entrances"] else set(reciprocals)
+
+        # Don't disconnect still blocked entrances
+        for i in reciprocals:
+            if not await self.conditional_er(ctx, entrance_id_to_entrance[i], silent=True):
+                print(f"not redisconnecting blocked entrance {entrance_id_to_entrance[i].name}")
+                all_ids.remove(i)
+                if not ctx.slot_data["decouple_entrances"]:
+                    print(f"\treciprocal{entrance_id_to_entrance[ctx.slot_data['er_pairings'][str(i)]].name}")
+                    all_ids.remove(ctx.slot_data["er_pairings"][str(i)])
+        # Don't disconnect undiscovered entrances
+        self.checked_entrances |= set(get_stored_data(ctx, checked_key, set()))
+        for i in all_ids.copy():
+            if i not in self.checked_entrances:
+                print(f"not redisconnecting unfound entrance: {entrance_id_to_entrance[i].name}")
+                all_ids.remove(i)
+
+        print(f"Redisconnecting {[self.entrance_id_to_entrance[i].name for i in all_ids]}")
+        # store redisconnects
+        key = storage_key(ctx, disconnect_key)
+        self.redisconnected_entrances |= set(get_stored_data(ctx, disconnect_key, set()))
+        await self.store_data(ctx, key, all_ids)
+        self.redisconnected_entrances.update(all_ids)
 
     @staticmethod
     async def enable_items(ctx: "BizHawkClientContext", inventory_id: int):
@@ -789,10 +945,18 @@ class PhantomHourglassClient(DSZeldaClient):
             print(f"Pots {self.last_potions}")
             if not all(self.last_potions):
                 await write_memory_values(ctx, 0x1BA5D8, self.last_potions, overwrite=True)
+            else:
+                rupee_item = ITEMS_DATA[vanilla_item]["overflow_item"]
+                print(f"Removing potion rupees")
+                await write_memory_value(ctx, 0x1ba53e, ITEMS_DATA[rupee_item]["value"], size=2, incr=False)
         elif "Oshus' Sword" in vanilla_item:
             data = ITEMS_DATA[vanilla_item]
             await write_memory_value(ctx, data["ammo_address"], 0, size=2, overwrite=True)
             return False
+
+        elif ctx.slot_data.get("map_warp_options", 0) and "Sea Chart" in vanilla_item:
+            # Do nothing with sea charts if map warp is enabled
+            return True
 
         elif vanilla_item in ITEM_GROUPS["Throwable Keys"]:
             # Don't do anything if vanilla bk behaviour
@@ -835,19 +999,29 @@ class PhantomHourglassClient(DSZeldaClient):
         return True  # Removed vanilla item, don't do more processing
 
     def set_ending_room(self, ctx):
-        if ctx.slot_data["goal_requirements"] == "beat_bellumbeck":
-            self.goal_room = 0x3600
-        elif ctx.slot_data["goal_requirements"] == "triforce_door":
+        if ctx.slot_data["goal_requirements"] == 0:
             self.goal_room = 0x2509
+            if ctx.slot_data["ut_events"] > 0:
+                self.goal_event_connect = ENTRANCES["GOAL: Triforce Door"]
+        elif ctx.slot_data["bellum_access"] < 4:
+            self.goal_room = 0x3600
+            if ctx.slot_data["ut_events"] > 0:
+                self.goal_event_connect = ENTRANCES["GOAL: Bellumbeck"]
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         current_scene = self.read_result["stage"] * 0x100 + self.read_result["room"]
         game_clear = False
-        current_scene = current_scene * 0x100 if current_scene < 0x100 else current_scene
+        current_scene = current_scene * 0x100 if current_scene < 0x100 else current_scene  # ???
         if ctx.slot_data["bellum_access"] == 4:
             game_clear = self.metal_count >= ctx.slot_data["required_metals"]
+            if game_clear and not self.sent_goal:
+                await self.store_visited_entrances(ctx, ENTRANCES["GOAL"], ENTRANCES["GOAL"].vanilla_reciprocal)
+                self.sent_goal = True
         else:
-            game_clear = (current_scene == self.goal_room)  # Enter End Credits
+            game_clear = current_scene == self.goal_room  # Enter End Credits
+            if game_clear and self.goal_event_connect and not self.sent_goal:
+                await self.store_visited_entrances(ctx, self.goal_event_connect, self.goal_event_connect.vanilla_reciprocal)
+                self.sent_goal = True
         return game_clear
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
@@ -860,7 +1034,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 elif stage == 3:
                     await write_memory_value(ctx, RAM_ADDRS["salvage_health"][0], 0, overwrite=True)
                 else:
-                    await write_memory_value(ctx, RAM_ADDRS["link_health"][0], 0, size=2, overwrite=True)
+                    await write_memory_value(ctx, self.main_read_list["link_health"], 0, size=2, overwrite=True)
 
                 self.is_expecting_received_death = True
                 self.last_deathlink = ctx.last_death_link
@@ -870,7 +1044,15 @@ class PhantomHourglassClient(DSZeldaClient):
                 self.was_alive_last_frame = True
             elif self.was_alive_last_frame and is_dead:
                 # Our player just died...
+                if stage not in [0, 3]:
+                    health_pointer = await read_memory_value(ctx, POINTERS["ADDR_gPlayer"], domain="Data TCM", size=4,)
+                    if self.last_health_pointer != health_pointer:
+                        print(f"Deathlink triggered with wrong health pointer. Updating main read list")
+                        await self.update_main_read_list(ctx, stage, True)
+                        return
+
                 self.was_alive_last_frame = False
+                print(f"health address: {hex(self.main_read_list['link_health'][0])}")
                 if self.is_expecting_received_death:
                     # ...because of a received deathlink, so let's not make a circular chain of deaths please
                     self.is_expecting_received_death = False
@@ -909,7 +1091,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         return er_map
 
-    async def lower_water(self, ctx):
+    async def lower_water(self, ctx, allow_redisconnect=False):
         if await read_memory_value(ctx, 0x1B5582, silent=True) & 0x4:
             print(f"Water has been lowered...")
             for scene, data in self.er_map.items():
@@ -917,15 +1099,54 @@ class PhantomHourglassClient(DSZeldaClient):
                     if exit_data.stage == 0x11:
                         exit_data.set_stage(0x12)
                         self.er_map[scene][detect_data] = exit_data
+            if allow_redisconnect and not self.lowered_water and ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2:
+                print(f"Allowing redisconnect")
+                water_entrances = [i.id for i in ENTRANCES.values() if "ruins_water" in i.extra_data.get("conditional", [])]
+                await self.redisconnect(ctx, water_entrances)
+
             self.lowered_water = True
 
-    async def conditional_er(self, ctx, exit_data) -> bool:
+    async def detect_ut_event(self, ctx, scene):
+        """
+        Send UT event locations on certain flags being set in certain scenes.
+        """
+        if scene in UT_EVENT_DATA and not self.sent_event:
+            if not self.event_read_list:
+                data = UT_EVENT_DATA[scene]
+                data = [data] if isinstance(data, dict) else data
+                self.event_data = data
+                for event in data:
+                    key = event.get("entrance", event.get("event"))
+                    address = self.stage_address + event.get("offset", 0) if event["address"] == "stage_flags" else event["address"]
+                    self.event_read_list[key] = (address, event.get("size", 1), "Main RAM")
+
+            read_results = await read_memory_values(ctx, self.event_read_list)
+            for event, res in zip(self.event_data, read_results.values()):
+                if event["value"] & res:
+                    if "entrance" in event:
+                        print(f"Event detection Success!, {event['entrance']}")
+                        entrance = ENTRANCES[event["entrance"]]
+                        await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
+                    elif "event" in event:
+                        print(f"Event detection Success!, {event['event']}")
+                        key = storage_key(ctx, ut_events_key)
+                        await self.store_data(ctx, key, [event["event"]])
+
+                    self.event_read_list.pop(event.get("event", event.get("entrance")))
+                    self.event_data.remove(event)
+            if not self.event_data:
+                print(f"All events sent!")
+                self.sent_event = True
+
+        else:
+            self.sent_event = True
+
+    async def conditional_er(self, ctx, exit_data, silent=False) -> bool:
         print(f"\tcond. {exit_data.name} {exit_data.extra_data} lowered water: {self.lowered_water}")
         if "conditional" in exit_data.extra_data:
             # Bounce back if the entrance connects to a lower room
-            if ("ruins_water" in exit_data.extra_data["conditional"] and not self.lowered_water
-                    and exit_data.room < 0x9):
-                logger.info(f"This entrance is flooded (Isle of Ruins)")
+            if "ruins_water" in exit_data.extra_data["conditional"] and not self.lowered_water:
+                if not silent: logger.info(f"This entrance is flooded (Isle of Ruins)")
                 return False
             # Can't enter the sea without the correct chart
             print(f"{exit_data.extra_data['conditional']}, {exit_data.stage}, {ctx.slot_data['boat_requires_sea_chart']}")
@@ -934,7 +1155,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 chart = SEA_CHARTS[quadrant]
                 print(f"chart: {chart} {item_count(ctx, chart)}")
                 if not item_count(ctx, chart):
-                    logger.info(f"Missing correct sea chart ({chart})")
+                    if not silent: logger.info(f"Missing correct sea chart ({chart})")
                     return False
         return True
 
@@ -951,34 +1172,36 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def update_stored_entrances(self, ctx: "BizHawkClientContext"):
         self.visited_entrances.clear()
-        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
-        stored_entrances = await ctx.send_msgs([{
+        self.redisconnected_entrances.clear()
+        self.visited_scenes.clear()
+        self.checked_entrances.clear()
+        await ctx.send_msgs([{
                 "cmd": "Get",
-                "keys": [storage_key],
+                "keys": [storage_key(ctx, disconnect_key),
+                         storage_key(ctx, traversal_key),
+                         storage_key(ctx, visited_scenes_key),
+                         storage_key(ctx, checked_key)],
             }])
-        print(f"fetched datapackage: {stored_entrances}")
-        if stored_entrances:
-            self.visited_entrances = set(stored_entrances)
 
     # UT store entrances to remove
-    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data):
+    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data, interaction="traverse"):
+        self.visited_entrances |= set(get_stored_data(ctx, traversal_key, set()))
         old_visited_entrances = self.visited_entrances.copy()
-        storage_key = f"ph_checked_entrances_{ctx.slot}_{ctx.team}"
-        self.visited_entrances.add(detect_data.id)
-        self.visited_entrances.add(exit_data.id)
-        print(f"visited: {self.visited_entrances} old {old_visited_entrances}")
-        print(f"sending entrances: {self.visited_entrances-old_visited_entrances}")
-        if len(old_visited_entrances) != len(self.visited_entrances):
-            await self.store_data(ctx, storage_key, self.visited_entrances-old_visited_entrances)
+        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data["decouple_entrances"] else {detect_data.id}
 
-    @staticmethod
-    async def store_data(ctx: "BizHawkClientContext", key, data):
-        await ctx.send_msgs([{
-            "cmd": "Set",
-            "key": key,
-            "default": set(),
-            "operations": [{"operation": "update", "value": list(data)}]
-        }])
+        if interaction == "traverse" or ctx.slot_data.get("ut_blocked_entrances_behaviour", 1) == 0:
+            key = storage_key(ctx, traversal_key)
+            self.visited_entrances.update(new_data)
+            new_data = self.visited_entrances-old_visited_entrances
+        elif interaction == "check":
+            key = storage_key(ctx, checked_key)
+            self.checked_entrances.update(new_data)
+        else:
+            raise ValueError(f"store_visited_entrances() had an unhandled interaction value {interaction}")
+
+        if new_data:
+            await self.store_data(ctx, key, new_data)
+
 
     def write_respawn_entrance(self, exit_data: "PHTransition"):
         # If ER:ing to sea, set respawn entrance to where you came from cause that doesn't change by itself when warping
@@ -991,10 +1214,13 @@ class PhantomHourglassClient(DSZeldaClient):
         await super().game_watcher(ctx)
 
     def update_boss_warp(self, ctx, stage, scene_id):
-        if stage in range(42, 49) or scene_id in [0x1F06, 0x2106, 0x200A]:  # Boss rooms
+        if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
             reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
             reverse_exit_id = self.entrances[reverse_exit].id
-            pair = ctx.slot_data["er_pairings"][f"{reverse_exit_id}"]
+            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", None)
+            if pair is None:
+                print(f"Boss Entrance not Randomized")
+                return None
             self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
 
             # If last room was a dungeon, warp to dungeon entrance
@@ -1042,7 +1268,90 @@ class PhantomHourglassClient(DSZeldaClient):
                 print(f"Got item in Mountain passage: {ctx.items_received[-1]}")
                 self.item_location_combo = location
             if location["do_special"] == "ut_event":
-                key = f"ph_ut_events_{ctx.slot}_{ctx.team}"
+                key = storage_key(ctx, ut_events_key)
                 print(f"got ut_event location for key {key} loc {location['name']}")
-                if location["name"] == "TotOK 1F SW Sea Chart Chest":
+                if location["name"] == "TotOK 1F Sea Chart Chest":
                     await self.store_data(ctx, key, ["1f"])
+            if isinstance(location["do_special"], dict):
+                event_type = location["do_special"].get("event_type", None)
+                if event_type == "ut_connect":
+                    event_name = location["do_special"]["event_name"]
+                    entr = ENTRANCES[event_name]
+                    await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
+
+    async def ut_bounce_scene(self, ctx, scene):
+        if not ctx.slot_data["shuffle_houses"] and map_type_lookup.get(scene) == "house":
+            print(f"Not map switching due to house: {hex(scene)}")
+            return
+        if not ctx.slot_data["shuffle_caves"] and map_type_lookup.get(scene) == "cave":
+            print(f"Not map switching due to cave: {hex(scene)}")
+            return
+        if map_type_lookup.get(scene) == "ship":
+            return
+
+        if scene in range(4):  # Sea overview if port shuffle
+            tab_scene = 1 if ctx.slot_data["shuffle_ports"] else 0
+        else:
+            tab_scene = scene | (1 << 16) if ctx.slot_data.get("shuffle_overworld_transitions", False) else scene
+        print(f"Storing new scene for UT {hex(tab_scene)}")
+        await ctx.send_msgs([{
+            "cmd": "Set",
+            "key": f"{ctx.slot}_{ctx.team}_UT_MAP",
+            "default": 0,
+            "operations": [{"operation": "replace", "value": tab_scene}]
+        }])
+
+        # Save visited scenes
+        if ctx.slot_data.get("map_warp_options", 0):
+            self.visited_scenes.add(scene)
+            await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [scene])
+
+    async def process_in_menu(self, ctx: "BizHawkClientContext", read_result):
+        self.death_precision = None
+
+        if (not read_result.get("in_map", 0) and self.map_mode) or self.map_warp:
+            self.map_mode = False
+            self.map_warp = None
+            self.map_warp_reselector = True
+            logger.info(f"Illegal map menu exit, canceling all map warps")
+
+        if self.last_saved_scene is None:
+            key = storage_key(ctx, save_scene_key)
+            await ctx.send_msgs([{
+                "cmd": "Get",
+                "keys": [key]
+            }])
+            last_saved_scene = get_stored_data(ctx, save_scene_key)
+            print(f"fetched last saved scene: {last_saved_scene}")
+            self.last_saved_scene = last_saved_scene if self.lss_retry_attempts >= 0 else 0 # if last_saved_scene is not None else False
+            self.lss_retry_attempts -= 1
+
+        if self.current_stage & 0xFF == 0x6E:
+            started_save_file = await read_memory_value(ctx, 0x1B7FB8, silent=True)
+            if started_save_file:
+                print(f"Started save file with saved scene {hex(self.last_saved_scene)}")
+                if self.warp_to_start_flag:
+                    print(f"Started save file with warp to start active, warping to start")
+                    self.warp_to_start_flag = False
+                    self.precision_mode = [0x1B2E94, 0x6E, "wts"]
+                    ctx.watcher_timeout = 0.1
+
+                elif self.last_saved_scene in BOSS_WARP_SCENE_LOOKUP:
+                    print(f"Problem entrance detected")
+                    warp_exit = self.update_boss_warp(ctx, self.current_stage, self.last_saved_scene)
+                    if warp_exit is not None:
+                        self.precision_mode = [0x1B2E94, 0x6E, "warp", warp_exit]
+                        ctx.watcher_timeout = 0.1
+
+
+
+    async def precision_backup(self, ctx, precision_read):
+        if len(self.precision_mode) > 2 and self.precision_mode[2] == "warp":
+            if precision_read == 0x34:
+                print(f"New file, cancel precision")
+                return True
+        return False
+
+    def clear_variables(self):
+        self.last_saved_scene = None
+        self.lss_retry_attempts = 4

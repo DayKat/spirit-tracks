@@ -246,12 +246,26 @@ ITEMS_DATA = {
         "address": 0x1ba648,
         "value": 0x2,
         "id": 28,
+        "disconnect_entrances": [
+            "Ocean SW Mercay",
+            "Ocean SW Cannon",
+            "Ocean SW Ember",
+            "Ocean SW Molida",
+            "Ocean SW Spirit",
+        ],
     },
     "NW Sea Chart": {
         "classification": ItemClassification.progression,
         "address": 0x1ba648,
         "value": 0x4,
         "id": 29,
+        "disconnect_entrances": [
+            "Ocean NW Gust",
+            "Ocean NW Bannan",
+            "Ocean NW Zauz",
+            "Ocean NW Uncharted",
+            "Board Ghost Ship",
+        ]
     },
     "SE Sea Chart": {
         "classification": ItemClassification.progression,
@@ -259,14 +273,24 @@ ITEMS_DATA = {
         "value": 0x8,
         "set_bit": [(0x1b557d, 0x8)],
         "id": 30,
+        "disconnect_entrances": [
+            "Ocean SE Goron",
+            "Ocean SE Harrow",
+            "Ocean SE Dee Ess",
+            "Ocean SE Frost",
+        ],
     },
     "NE Sea Chart": {
         "classification": ItemClassification.progression,
         "address": 0x1ba648,
         "value": 0x10,
         "id": 31,
+        "disconnect_entrances": [
+            "Ocean NE IotD",
+            "Ocean NE Ruins",
+            "Ocean NE Maze",
+        ],
     },
-
     # Spirit gems
     "Power Gem": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
@@ -404,18 +428,21 @@ ITEMS_DATA = {
     },
     "Red Potion": {
         "classification": ItemClassification.filler,
-        "value": 0x64,
+        "value": 1,
         "id": 50,
+        "overflow_item": "Big Green Rupee (100)"
     },
     "Purple Potion": {
         "classification": ItemClassification.filler,
-        "value": 0x64,
+        "value": 2,
         "id": 51,
+        "overflow_item": "Big Green Rupee (100)"
     },
     "Yellow Potion": {
         "classification": ItemClassification.filler,
-        "value": 0xc8,
+        "value": 3,
         "id": 52,
+        "overflow_item": "Big Red Rupee (200)"
     },
     "Nothing!": {
         "classification": ItemClassification.filler,
@@ -446,9 +473,10 @@ ITEMS_DATA = {
     "Salvage Repair Kit": {
         "classification": ItemClassification.filler,
         "address": 0x1ba661,
-        "value": 0x1,
+        "value": 0x20,
+        "incremental": True,
         "id": 57,
-        "max": 0x7
+        "max": 0xFF
     },
     "Refill: Health": {
         "classification": ItemClassification.filler,
@@ -933,14 +961,14 @@ ITEMS_DATA = {
         "set_bit_in_room": {0x250C: [(0x257694, 0x22)]}
     },
     "Square Pedestal West (Temple of the Ocean King)": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 200,
         "set_bit_in_room": {0x250C: [(0x257694, 0x20)]}
     },
     "Square Pedestal Center (Temple of the Ocean King)": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "always_process": True,
         "dungeon": True,
         "id": 201,
@@ -1255,6 +1283,7 @@ ITEMS_DATA = {
     "Beedle Points (10)": {
         "classification": ItemClassification.progression,
         "address": 0x1B2773,
+        "incremental": True,
         "value": 10,
         "id": 167,
     },
@@ -1262,12 +1291,14 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "address": 0x1B2773,
         "value": 20,
+        "incremental": True,
         "id": 191,
     },
     "Beedle Points (50)": {
         "classification": ItemClassification.progression,
         "address": 0x1B2773,
         "value": 50,
+        "incremental": True,
         "id": 192,
     },
 
@@ -1291,13 +1322,13 @@ ITEMS_DATA = {
         "id": 170,
     },
     "Golden Frog Glyph Omega": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "address": 0x1b55a3,
         "value": 0x4,
         "id": 171,
     },
     "Golden Frog Glyph W": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.progression,
         "address": 0x1b55a3,
         "value": 0x8,
         "id": 172,
@@ -1417,7 +1448,102 @@ ITEMS_DATA = {
         "dummy": True,
         "id": 189,
     },
-
+    "Map Warp: Mercay": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 206,
+        "backup_filler": True,
+    },
+    "Map Warp: Cannon": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 207,
+        "backup_filler": True,
+    },
+    "Map Warp: Ember": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 208,
+        "backup_filler": True,
+    },
+    "Map Warp: Molida": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 209,
+        "backup_filler": True,
+    },
+    "Map Warp: Spirit": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 210,
+        "backup_filler": True,
+    },
+    "Map Warp: Gust": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 211,
+        "backup_filler": True,
+    },
+    "Map Warp: Bannan": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 212,
+        "backup_filler": True,
+    },
+    "Map Warp: Uncharted": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 213,
+        "backup_filler": True,
+    },
+    "Map Warp: Zauz": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 214,
+        "backup_filler": True,
+    },
+    "Map Warp: Goron": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 215,
+        "backup_filler": True,
+    },
+    "Map Warp: Frost": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 216,
+        "backup_filler": True,
+    },
+    "Map Warp: Harrow": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 217,
+        "backup_filler": True,
+    },
+    "Map Warp: Dee Ess": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 218,
+        "backup_filler": True,
+    },
+    "Map Warp: Isle of the Dead": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 219,
+        "backup_filler": True,
+    },
+    "Map Warp: Ruins": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 220,
+        "backup_filler": True,
+    },
+    "Map Warp: Maze": {
+        "classification": ItemClassification.useful,
+        "dummy": True,
+        "id": 221,
+        "backup_filler": True,
+    },
 }
 
 id_check = []

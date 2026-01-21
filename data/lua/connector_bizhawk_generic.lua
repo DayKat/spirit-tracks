@@ -24,7 +24,7 @@ local SCRIPT_VERSION = 1
 
 -- Set to log incoming requests
 -- Will cause lag due to large console output
-local DEBUG = false
+local DEBUG = true
 
 --[[
 This script expects to receive JSON and will send JSON back. A message should
