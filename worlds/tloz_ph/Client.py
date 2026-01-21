@@ -140,6 +140,7 @@ class PhantomHourglassClient(DSZeldaClient):
         self.lss_retry_attempts = 4
         self.death_check = False
         self.death_precision = None
+        self.last_health_pointer = 0
         self.save_spam_protection = False
         self.death_warning_spam_protect = False
 
@@ -271,6 +272,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 addr, offset = pointer
                 pointer_1 = await read_memory_value(ctx, POINTERS[addr], 4, "Data TCM")
                 death_link_reads[name] = (pointer_1 + offset - 0x2000000, 2, "Main RAM")
+                self.last_health_pointer = pointer_1
             self.main_read_list = {k: v for k, v in RAM_ADDRS.items() if k in read_keys} | death_link_reads
         else:
             self.at_sea = None
@@ -866,7 +868,7 @@ class PhantomHourglassClient(DSZeldaClient):
         # Run code if you got a certain item from a certain location
         if self.item_location_combo:
             if "Mountain Passage" in self.item_location_combo["name"]:
-                if ctx.slot_data["keysanity"] < 2 and "Small Key" not in item_name:
+                if ctx.slot_data["keysanity"] < 2 and "Small Key" not in item_name and ctx.slot_data["shuffle_caves"] == 0:
                     print(f"Mountain Passage has no more useful items")
                     data = [self.location_name_to_id[i] for i in LOCATION_GROUPS["Mountain Passage"]]
                     await self.store_data(ctx, exclude_key, data)
@@ -1042,6 +1044,13 @@ class PhantomHourglassClient(DSZeldaClient):
                 self.was_alive_last_frame = True
             elif self.was_alive_last_frame and is_dead:
                 # Our player just died...
+                if stage not in [0, 3]:
+                    health_pointer = await read_memory_value(ctx, POINTERS["ADDR_gPlayer"], domain="Data TCM", size=4,)
+                    if self.last_health_pointer != health_pointer:
+                        print(f"Deathlink triggered with wrong health pointer. Updating main read list")
+                        await self.update_main_read_list(ctx, stage, True)
+                        return
+
                 self.was_alive_last_frame = False
                 print(f"health address: {hex(self.main_read_list['link_health'][0])}")
                 if self.is_expecting_received_death:
