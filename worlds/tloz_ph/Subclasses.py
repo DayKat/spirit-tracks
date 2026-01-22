@@ -17,6 +17,7 @@ async def receive_ship(client: "PhantomHourglassClient", ctx: "BizHawkClientCont
     if not (await read_memory_value(ctx, 0x1ba661) & 2):
         for addr in EQUIPPED_SHIP_PARTS_ADDR:
             res += [(addr, [item.ship], item.domain)]
+    return res
 
 async def receive_boss_key(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
     res = []
@@ -41,6 +42,8 @@ async def receive_potion(client: "PhantomHourglassClient", ctx: "BizHawkClientCo
             client.last_potions[i] = item.value
             break
     return res
+
+async def receive_dummy(*args): return []
 
 async def remove_vanilla_treasure(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
     treasure_write_list = split_bits(client.last_treasures, 8)
@@ -125,7 +128,7 @@ class PHItem(DSItem):
                 return receive_boss_key
             if "Potion" in self.name:
                 return receive_potion
-            return lambda *args: []
+            return receive_dummy
         return receive_func
 
     def get_remove_vanilla_function(self):

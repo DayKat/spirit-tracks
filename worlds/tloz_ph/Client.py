@@ -635,7 +635,6 @@ class PhantomHourglassClient(DSZeldaClient):
             if "zauz_metals" in d or "goal_requirement" in d:
                 self.update_metal_count(ctx)
 
-
                 # Zauz Check
                 if "zauz_metals" in d:
                     print(f"Metal check: {self.metal_count} metals out of {ctx.slot_data['zauz_required_metals']}")
@@ -783,49 +782,50 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def received_special_incremental(self, ctx, item_data) -> int:
         # Sand of hours check
-        if "Sand" in item_data['value']:
+        _value = 0
+        if "Sand" in item_data.value:
 
-            if item_data.get("value") == "Sand":
+            if item_data.value == "Sand":
                 if not ctx.slot_data["ph_required"] or self.item_count(ctx, "Phantom Hourglass"):
-                    value = ctx.slot_data["ph_time_increment"] * 60
+                    _value = ctx.slot_data["ph_time_increment"] * 60
                 else:
-                    value = 0
-            elif item_data.get("value") == "Sand PH":
-                value = ctx.slot_data["ph_starting_time"] * 60
+                    _value = 0
+            elif item_data.value == "Sand PH":
+                _value = ctx.slot_data["ph_starting_time"] * 60
 
                 # If ph is required, add all time so far on finding
                 if ctx.slot_data["ph_required"] and self.item_count(ctx, "Phantom Hourglass") < 2:
-                    value += (ctx.slot_data["ph_time_increment"] * 60 * self.item_count(ctx, "Sand of Hours")
+                    _value += (ctx.slot_data["ph_time_increment"] * 60 * self.item_count(ctx, "Sand of Hours")
                               + self.item_count(ctx, "Sand of Hours (Small)") * 3600
                               + self.item_count(ctx, "Sand of Hours (Boss)") * 7200)
             else:
-                value = item_data.get("value")
-            last_time = await read_memory_value(ctx, item_data["address"], size=4)
-            if last_time + value > 359940:
-                print(f"Time: Last time {last_time} value {value} new {359940 - last_time} max {359940}")
-                value = 359940 - last_time
-            print(f"Sand stage {self.current_stage} {value}")
+                _value = item_data.value
+            last_time = await read_memory_value(ctx, item_data.address, size=4)
+            if last_time + _value > 359940:
+                print(f"Time: Last time {last_time} value {_value} new {359940 - last_time} max {359940}")
+                _value = 359940 - last_time
+            print(f"Sand stage {self.current_stage} {_value}")
             if self.current_stage == 0x25:
-                await write_memory_value(ctx, 0x1E2A48, value, incr=True, size=4)
+                await write_memory_value(ctx, 0x1E2A48, _value, incr=True, size=4)
 
-        elif item_data.get("value") == "pack_size":
-            value = ctx.slot_data["spirit_gem_packs"]
+        elif item_data.value == "pack_size":
+            _value = ctx.slot_data["spirit_gem_packs"]
         else:
-            value = "Error!"
-        return value
+            raise ValueError(f"Special item value {item_data.value} is not supported")
+        return _value
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
         # If treasure, update treasure tracker
-        if "inventory_id" in item_data:
-            await self.enable_items(ctx, item_data["inventory_id"])
-        if "treasure" in item_data:
+        if hasattr(item_data, "inventory_id"):
+            await self.enable_items(ctx, item_data.inventory_id)
+        if "treasure" in item_data.tags:
             await self.update_treasure_tracker(ctx)
         if "Potion" in item_name:
             await self.update_potion_tracker(ctx)
         # If hint on receive, send hint (currently only treasure maps)
-        if "hint_on_receive" in item_data:
+        if hasattr(item_data, "hint_on_receive"):
             if ctx.slot_data["randomize_salvage"] == 1:
-                await self.scout_location(ctx, item_data["hint_on_receive"])
+                await self.scout_location(ctx, item_data.hint_on_receive)
         # Increment metal count
         if item_name in ITEM_GROUPS["Metals"]:
             self.metal_count += 1
@@ -848,10 +848,10 @@ class PhantomHourglassClient(DSZeldaClient):
 
             self.item_location_combo = None
 
-        if "set_bit_in_room" in item_data and ctx.slot_data.get("randomize_pedestal_items", 0):
+        if hasattr(item_data, "set_bit_in_room") and ctx.slot_data.get("randomize_pedestal_items", 0):
             print(f"Trying to set bit in room, room {hex(self.current_scene)}")
-            if self.current_scene in item_data["set_bit_in_room"]:
-                for addr, value, *args in item_data["set_bit_in_room"][self.current_scene]:
+            if self.current_scene in item_data.set_bit_in_room:
+                for addr, _value, *args in item_data.set_bit_in_room[self.current_scene]:
                     print(f"args {args}")
                     if addr == "stage_flag":
                         addr = self.stage_address
@@ -859,13 +859,13 @@ class PhantomHourglassClient(DSZeldaClient):
                     if args and "count" in args[0]:
                         if self.item_count(ctx, item_name) < args[0]["count"]:
                             continue
-                    if isinstance(value, int):
-                        value = [value]
-                    await write_memory_values(ctx, addr, value)
+                    if isinstance(_value, int):
+                        _value = [_value]
+                    await write_memory_values(ctx, addr, _value)
 
         # disconnect port entrances
-        if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2 and ctx.slot_data["boat_requires_sea_chart"] and "disconnect_entrances" in item_data:
-            disconnects_ids = [ENTRANCES[e].id for e in item_data["disconnect_entrances"] if str(ENTRANCES[e].id) in ctx.slot_data["er_pairings"]]
+        if ctx.slot_data.get("ut_blocked_entrances_behaviour", 0) == 2 and ctx.slot_data["boat_requires_sea_chart"] and hasattr(item_data, "disconnect_entrances"):
+            disconnects_ids = [ENTRANCES[e].id for e in item_data.disconnect_entrances if str(ENTRANCES[e].id) in ctx.slot_data["er_pairings"]]
             await self.redisconnect(ctx, disconnects_ids)
 
     async def redisconnect(self, ctx, data):
