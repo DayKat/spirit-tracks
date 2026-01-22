@@ -49,8 +49,8 @@ RAM_ADDRS = {
     "equipped_item": (0x1BA520, 4, "Main RAM"),
     "got_item_menu": (0x19A5B0, 1, "Main RAM"),
 
-    "loading_stage": (0x1B2E78, 1, "Main RAM"),  # 0 when loading stage, some sorta pointer
-    "loading_room": (0x10BD6F, 1, "Main RAM"),  # 0 when not loading room
+    "loading_stage": (0x1B2E78, 1, "Main RAM"),
+    "loading_room": (0x10BD6F, 1, "Main RAM"),
 
     "opened_clog": (0x0FC5BC, 1, "Main RAM"),
     "flipped_clog": (0x0FA37B, 1, "Main RAM"),
@@ -111,12 +111,12 @@ class PhantomHourglassClient(DSZeldaClient):
         self.slot_id_addr = RAM_ADDRS["slot_id"][0]
         self.received_item_index_addr = RAM_ADDRS["received_item_index"][0]
         self.starting_entrance = (11, 3, 5)  # stage, room, entrance
-        self.scene_addr = (RAM_ADDRS["stage"][0], RAM_ADDRS["room"][0], RAM_ADDRS["floor"][0], RAM_ADDRS["entrance"][0])  # Stage, room, floor, entrance
-        self.exit_coords_addr = (0x1B2EC8, 0x1B2ECC, 0x1B2ED0)  # x, y, z. what coords to spawn link at when entering a
+        self.scene_addr = (addr_stage, addr_room, addr_floor, addr_entrance)  # Stage, room, floor, entrance
+        self.exit_coords_addr = (addr_transition_x, addr_transition_y, addr_transition_z)  # x, y, z. what coords to spawn link at when entering a
         self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
         # continuous transition
         self.er_y_offest = 164  # In ph i use coords who's y is 164 off the entrance y
-        self.ADDR_gMapManager = POINTERS["ADDR_gMapManager"]
+        self.ADDR_gMapManager = addr_gMapManager
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
         self.hint_data = HINT_DATA
         self.entrances = ENTRANCES
@@ -146,6 +146,7 @@ class PhantomHourglassClient(DSZeldaClient):
         self.lss_retry_attempts = 4
         self.death_check = False
         self.death_precision = None
+        self.health_address: "Address" = addr_null
         self.last_health_pointer = 0
         self.save_spam_protection = False
         self.death_warning_spam_protect = False
@@ -177,11 +178,10 @@ class PhantomHourglassClient(DSZeldaClient):
         :return: write_list
         """
         # Reset save slot
-        write_list = [(0x1BA64C, [0, 0], "Main RAM")]
+        write_list = addr_received_item_index.get_write_list(0)
 
         # Reset starting time for PH
-        ph_time_bits = split_bits(0, 4)
-        write_list.append((0x1BA528, ph_time_bits, "Main RAM"))
+        write_list += addr_phantom_hourglass_max.get_write_list(0)
 
         # Set Frog flags if not randomizing frogs
         if ctx.slot_data["randomize_frogs"] == 1:
@@ -191,10 +191,10 @@ class PhantomHourglassClient(DSZeldaClient):
         if len(fog_bits) > 0:
             write_list += [(a, [v], "Main RAM") for a, v in fog_bits]
         if ctx.slot_data["skip_ocean_fights"] == 1:
-            write_list += [(0x1B5592, [0x84], "Main RAM")]
+            write_list += addr_adv_flags_22.get_write_list(0x84)
         # Ban player from harrow if not randomized
         if ctx.slot_data["randomize_harrow"] == 0:
-            write_list += [(0x1B559A, [0x18], "Main RAM")]
+            write_list += addr_adv_flags_30.get_write_list(0x18)
 
         # Print starting hints
         if ctx.slot_data["dungeon_hint_location"] == 0:
@@ -202,7 +202,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Start with sea maps if map warping
         if ctx.slot_data["map_warp_options"]:
-            write_list += [(0x1ba648, [0x1F], "Main RAM")]
+            write_list += addr_inventory_5.get_write_list(0x1F)
 
         return write_list
 
@@ -236,14 +236,14 @@ class PhantomHourglassClient(DSZeldaClient):
         reads = await read_memory_values(ctx, read_list)
         self.last_potions = list(reads.values())
 
-    def get_coord_address(self, at_sea=None, multi=False) -> dict[str, tuple[int, int, str]]:
+    def get_coord_address(self, at_sea=None, multi=False) -> list["Address"]:
         if not multi:
             at_sea = self.at_sea if at_sea is None else at_sea
             if at_sea:
-                return {k: v for k, v in RAM_ADDRS.items() if k in ["boat_x", "boat_z"]}
+                return [addr_boat_x, addr_boat_z]
             elif not at_sea:
-                return {k: v for k, v in RAM_ADDRS.items() if k in ["link_x", "link_y", "link_z"]}
-        return {k: v for k, v in RAM_ADDRS.items() if k in ["link_x", "link_y", "link_z"] + ["boat_x", "boat_z"]}
+                return [addr_link_x, addr_link_y, addr_link_z]
+        return [addr_link_x, addr_link_y, addr_link_z, addr_boat_x, addr_boat_z]
 
     async def update_main_read_list(self, ctx, stage, in_game=True):
         read_keys = read_keys_always.copy()
@@ -253,31 +253,30 @@ class PhantomHourglassClient(DSZeldaClient):
         if stage is not None:
             if stage == 0:
                 read_keys += read_keys_sea
-                death_link_keys = read_keys_deathlink_sea
+                death_link_addr = read_keys_deathlink_sea
+                self.health_address = addr_boat_health
                 self.at_sea = True
             elif stage == 3:
-                death_link_keys = read_keys_deathlink_salvage
+                death_link_addr = read_keys_deathlink_salvage
                 # Add separate reads for instant-repairs
                 read_keys += read_keys_deathlink_salvage
+                self.health_address = addr_salvage_health
             else:
                 read_keys += read_keys_land
                 if in_game:
-                    death_link_pointers["link_health"] = ("ADDR_gPlayer", 0xa)
+                    death_link_pointers["link_health"] = (addr_ADDR_gPlayer, 0xa)
                 self.at_sea = False
 
             # Read health for deathlink and cancelling warp to start on death
             for key in death_link_keys:
-                value = RAM_ADDRS[key]
-                if key in ["boat_health", "salvage_health"]:
-                    key = "link_health"
                 death_link_reads[key] = value
 
             death_link_reads |= {key: value for key, value in RAM_ADDRS.items() if key in death_link_keys}
 
             for name, pointer in death_link_pointers.items():
                 addr, offset = pointer
-                pointer_1 = await read_memory_value(ctx, POINTERS[addr], 4, "Data TCM")
-                death_link_reads[name] = (pointer_1 + offset - 0x2000000, 2, "Main RAM")
+                pointer_1 = await addr.read(ctx)
+                death_link_reads[name] = Address(pointer_1 + offset - 0x2000000, size=2)
                 self.last_health_pointer = pointer_1
             self.main_read_list = {k: v for k, v in RAM_ADDRS.items() if k in read_keys} | death_link_reads
         else:
