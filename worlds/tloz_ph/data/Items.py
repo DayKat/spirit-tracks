@@ -1,5 +1,6 @@
 from BaseClasses import ItemClassification
 from ..Subclasses import PHItem
+from .Addresses import *
 
 """backwards-compatible fallback for AP v0.6.2 and prior
 Code idea from @eternalcode0s minish cap implementation
@@ -41,13 +42,13 @@ ITEMS_DATA = {
     # Link items
     "Sword (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(0x1ba644, 0x1), (0x1ba648, 0x20)],
-        "set_bit": [(0x1ba644, 0x1), (0x1ba6b8, 1)],
+        "progressive": [(addr_items_1, 0x1), (0x1ba648, 0x20)],
+        "set_bit": [(addr_items_1, 0x1), (0x1ba6b8, 1)],
         "id": 1,
     },
     "Oshus' Sword": {
         "classification": ItemClassification.progression,
-        "address": 0x1ba644,
+        "address": addr_items_1,
         "value": 0x1,
         "ammo_address": 0x1ba6b8,  # used to remove sword model
         "set_bit": [(0x1ba6b8, 1)],
@@ -61,13 +62,13 @@ ITEMS_DATA = {
     },
     "Shield": {
         "classification": ItemClassification.progression,
-        "address": 0x1ba644,
+        "address": addr_items_1,
         "value": 0x2,
         "id": 4,
     },
     "Boomerang": {
         "classification": ItemClassification.progression,
-        "address": 0x1ba644,
+        "address": addr_items_1,
         "value": 0x4,
         "set_bit": [(0x1ba6bc, 0x1)],
         "id": 5,
