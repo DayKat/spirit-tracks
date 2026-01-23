@@ -66,7 +66,7 @@ STARTING_FLAGS = [
     # Starting items, Phantom Hourglass
     [addr_inventory_5, 0x01],
     # Show treasure/ship part prices
-    [addr_show_ship_prices, 0xFFFFFFFFFFFFFFFFFF],
+    [addr_show_ship_prices, [0xFF]*9],
     [addr_show_treasure_prices, 0xFF],
     # Starting treasure at 0 so incr works properly
     [addr_pink_coral_count, 0],

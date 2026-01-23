@@ -140,7 +140,7 @@ class PhantomHourglassClient(DSZeldaClient):
         self.item_location_combo = None
 
         self.sent_event = False
-        self.event_read_list = {}
+        self.event_reads = []
         self.event_data = []
         self.last_saved_scene = None
         self.lss_retry_attempts = 4
@@ -160,7 +160,8 @@ class PhantomHourglassClient(DSZeldaClient):
 
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
-        rom_name_bytes = await addr_game_identifier.read_bytes(ctx)
+        rom_name_bytes = (await addr_game_identifier.read_bytes(ctx))[0]
+        print(f"{rom_name_bytes}")
         rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
         print(f"Rom Name: {rom_name}")
         if rom_name != "ZELDA_DS:PHAZEP":  # EU
@@ -185,11 +186,11 @@ class PhantomHourglassClient(DSZeldaClient):
 
         # Set Frog flags if not randomizing frogs
         if ctx.slot_data["randomize_frogs"] == 1:
-            write_list += [(a, [v], "Main RAM") for a, v in STARTING_FROG_FLAGS]
+            write_list += [a.get_inner_write_list(v) for a, v in STARTING_FROG_FLAGS]
         # Set Fog Flags
         fog_bits = FOG_SETTINGS_FLAGS[ctx.slot_data["fog_settings"]]
         if len(fog_bits) > 0:
-            write_list += [(a, [v], "Main RAM") for a, v in fog_bits]
+            write_list += [a.get_inner_write_list(v) for a, v in fog_bits]
         if ctx.slot_data["skip_ocean_fights"] == 1:
             write_list += addr_adv_flags_22.get_write_list(0x84)
         # Ban player from harrow if not randomized
@@ -204,15 +205,16 @@ class PhantomHourglassClient(DSZeldaClient):
         if ctx.slot_data["map_warp_options"]:
             write_list += addr_inventory_5.get_write_list(0x1F)
 
+        print(f"ssf write list: {write_list}")
         return write_list
 
     async def get_coords(self, ctx, multi=False):
-        coords = await read_memory_values(ctx, self.get_coord_address(multi=multi), signed=True)
+        coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
         if not multi:
             return {
-                "x": coords.get("link_x", coords.get("boat_x", 0)),
-                "y": coords.get("link_y", 0),
-                "z": coords.get("link_z", coords.get("boat_z", 0))
+                "x": coords.get(addr_link_x, coords.get(addr_boat_x)),
+                "y": coords.get(addr_link_y, addr_null),
+                "z": coords.get(addr_link_z, coords.get(addr_boat_z, 0))
             }
         return coords
 
@@ -231,9 +233,7 @@ class PhantomHourglassClient(DSZeldaClient):
         logger.info(f"Got random treasure from farmable location.")
 
     async def update_potion_tracker(self, ctx):
-        read_list = {"left": (0x1BA5D8, 1, "Main RAM"),
-                     "right": (0x1BA5D9, 1, "Main RAM")}
-        reads = await read_memory_values(ctx, read_list)
+        reads = await read_multiple(ctx, [addr_potion_left, addr_potion_right])
         self.last_potions = list(reads.values())
 
     def get_coord_address(self, at_sea=None, multi=False) -> list["Address"]:
@@ -277,7 +277,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 death_link_reads[name] = Address(pointer_1 + offset - 0x2000000, size=2, name="link_health")
                 self.last_health_pointer = pointer_1
                 self.health_address = death_link_reads[name]
-            self.main_read_list = [a.get_read_list(ctx) for a in read_keys]
+            self.main_read_list = read_keys
         else:
             self.at_sea = None
         return self.main_read_list
@@ -431,13 +431,13 @@ class PhantomHourglassClient(DSZeldaClient):
 
 
     async def watched_intro_cs(self, ctx):
-        watched_intro = addr_watched_intro.read(ctx, silent=True) & 2
+        watched_intro = await addr_watched_intro.read(ctx, silent=True) & 2
         return watched_intro
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         self.sent_event = False  # Reset per-room UT events
         self.event_data = []
-        self.event_read_list = {}
+        self.event_reads = []
         self.save_spam_protection = False  # Reset save spam protection
 
         # Yellow warp in TotOK saves keys
@@ -660,7 +660,8 @@ class PhantomHourglassClient(DSZeldaClient):
         return True
 
     async def set_stage_flags(self, ctx, stage):
-        self.stage_address = Address(await addr_gMapManager.read(ctx) + STAGE_FLAGS_OFFSET, size=4)
+        print(f"Setting stage flags")
+        self.stage_address = await get_address_from_heap(ctx, addr_gMapManager, STAGE_FLAGS_OFFSET)
         self.key_address = Address(self.stage_address + SMALL_KEY_OFFSET)
         if stage in STAGE_FLAGS:
             flags = STAGE_FLAGS[stage]
@@ -704,7 +705,7 @@ class PhantomHourglassClient(DSZeldaClient):
             return new_keys, False
         return new_keys, True
 
-    async def get_small_key_address(self, ctx) -> int:
+    async def get_small_key_address(self, ctx) -> "Address":
         return await get_address_from_heap(ctx, self.ADDR_gMapManager, SMALL_KEY_OFFSET)
 
     # Called during location processing to determine what vanilla item to remove
@@ -864,7 +865,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     @staticmethod
     async def enable_items(ctx: "BizHawkClientContext", inventory_id: int):
-        equipped_item_pointer = Address(await addr_gItemManager.read(ctx), size=4, offset=-0x02000000)
+        equipped_item_pointer = Address(await addr_gItemManager.read(ctx)-0x02000000, size=4)
         equipped_item = await equipped_item_pointer.read(ctx, silent=True)
         if equipped_item == 0xffffffff:
             print("Items menu not visible, enabling")
@@ -883,7 +884,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 self.goal_event_connect = ENTRANCES["GOAL: Bellumbeck"]
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
-        current_scene = self.read_result["stage"] * 0x100 + self.read_result["room"]
+        current_scene = self.read_result[addr_stage] * 0x100 + self.read_result[addr_room]
         game_clear = False
         current_scene = current_scene * 0x100 if current_scene < 0x100 else current_scene  # ???
         if ctx.slot_data["bellum_access"] == 4:
@@ -899,7 +900,7 @@ class PhantomHourglassClient(DSZeldaClient):
         return game_clear
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        if (not read_result.get("drawing_sea_route", False) and read_result["in_cutscene"]
+        if (not read_result.get(addr_drawing_sea_route, False) and read_result[addr_in_cutscene]
                 and self.current_scene not in [0x1701]):
             if ctx.last_death_link > self.last_deathlink and not is_dead:
                 # A death was received from another player, make our player die as well
@@ -980,16 +981,18 @@ class PhantomHourglassClient(DSZeldaClient):
         Send UT event locations on certain flags being set in certain scenes.
         """
         if scene in UT_EVENT_DATA and not self.sent_event:
-            if not self.event_read_list:
+            if not self.event_reads:
                 data = UT_EVENT_DATA[scene]
                 data = [data] if isinstance(data, dict) else data
                 self.event_data = data
-                for event in data:
-                    key = event.get("entrance", event.get("event"))
-                    address = self.stage_address + event.get("offset", 0) if event["address"] == "stage_flags" else event["address"]
-                    self.event_read_list[key] = (address, event.get("size", 1), "Main RAM")
+                for i, event in enumerate(data):
+                    address = Address(self.stage_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
+                    print(f"event data {self.event_data}")
+                    self.event_data[i]["address"] = address
+                    print(f"event data {self.event_data}")
+                    self.event_reads.append(address)
 
-            read_results = await read_memory_values(ctx, self.event_read_list)
+            read_results = await read_multiple(ctx, self.event_reads)
             for event, res in zip(self.event_data, read_results.values()):
                 if event["value"] & res:
                     if "entrance" in event:
@@ -1001,7 +1004,7 @@ class PhantomHourglassClient(DSZeldaClient):
                         key = storage_key(ctx, ut_events_key)
                         await self.store_data(ctx, key, [event["event"]])
 
-                    self.event_read_list.pop(event.get("event", event.get("entrance")))
+                    self.event_reads.remove(event["address"])
                     self.event_data.remove(event)
             if not self.event_data:
                 print(f"All events sent!")

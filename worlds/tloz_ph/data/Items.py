@@ -269,7 +269,7 @@ ITEMS_DATA = {
         "classification": ItemClassification.progression,
         "address": addr_inventory_5,
         "value": 0x8,
-        "set_bit": [(0x1b557d, 0x8)],
+        "set_bit": [(addr_adv_flags_1, 0x8)],
         "id": 30,
         "disconnect_entrances": [
             "Ocean SE Goron",

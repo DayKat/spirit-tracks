@@ -39,11 +39,15 @@ async def receive_potion(client: "PhantomHourglassClient", ctx: "BizHawkClientCo
             prev = await read_memory_value(ctx, 0x1BA645, silent=True)
             res += [(addr, [item.value], item.domain)]
             res += [(0x1BA645, [prev | 0x6], item.domain)]  # has potion, fill all
-            client.last_potions[i] = item.value
+            client.last_potions[slot] = item.value
             break
     return res
 
 async def receive_dummy(*args): return []
+
+async def receive_full_heal(client, ctx, item, rii):
+    await client.full_heal(ctx)
+    return []
 
 async def remove_vanilla_treasure(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
     treasure_write_list = split_bits(client.last_treasures, 8)
@@ -123,7 +127,7 @@ class PHItem(DSItem):
             if hasattr(self, "ship"):
                 return receive_ship
             if self.name == "Refill: Health":
-                return lambda client, ctx, item: client.full_heal(ctx)
+                return receive_full_heal
             if "Boss Key" in self.name:
                 return receive_boss_key
             if "Potion" in self.name:
