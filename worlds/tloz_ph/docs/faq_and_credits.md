@@ -23,7 +23,7 @@ This version of the randomizer was made by me, @Carrotinator. Some features were
  * The standalone [Phantom Hourglass Randomizer](https://github.com/phst-randomizer/ph-randomizer)
  * @Dinopony & @Ishigh1, whose [Archipelago implementation for Zelda: Oracle of Seasons](https://github.com/Dinopony/ArchipelagoOoS/releases) I used as a starting point and a reference for how to make an Archipelago client using the bizhawk tools. And for making their code easy to understand!
  * @alwaysintreble, whose entrance randomizer code from [The Messenger](https://github.com/alwaysintreble/TheMessengerRandomizerModAP) helped me figure that stuff out
- * Codegorilla/@Ars-Ignis, who's [crystalis implementation](https://github.com/Ars-Ignis/Archipelago) was extensively referenced for doing advanced universal tracker stuff.
+ * Codegorilla/@Ars-Ignis, whose [crystalis implementation](https://github.com/Ars-Ignis/Archipelago) was extensively referenced for doing advanced universal tracker stuff.
  * The Manual for Archipelago discord, for lowering the entry threshold to Archipelago development.
  * Everyone who worked on Archipelago as a whole, for upholding high standards in code readability, and for creating such an amazing system.
  * Everyone who playtested the early versions of this, for giving enthusiasm and bug reports!
