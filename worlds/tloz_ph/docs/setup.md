@@ -9,7 +9,7 @@
 
 ## Recommended Software
 
-* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases). Contains a detailed map tracker by @palex00, @catzador and @carrotinator. Has [special setup instructions](https://github.com/carrotinator/Archipelago/wiki/UT-Map-Tracker/) for this game.
+* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases) version v0.2.25 or later. Contains a detailed map tracker by @palex00, @catzador and @carrotinator.
 * [Item Tracker](https://github.com/ZobeePlays/PH-AP-Item-Tracker/tree/main), a poptracker pack by @ZobeePlays. No map tracking.
 
 ## Game Setup
@@ -21,14 +21,6 @@
 5. Open the `generic bizhawk client` in Archipelago, and connect to the server
 6. Launch the vanilla game in bizhawk, and open the lua console. Add the `connector_bizhawk_generic.lua` script that can be found in `Archipelago\data\lua`. 
 7. You are now ready to play! Start a new savefile and go! You can check that everything worked by checking if the bridge has been repaired.
-
-## Map Tracker Setup
-1. Get [this specific version of universal tracker](https://github.com/FarisTheAncient/Archipelago/releases/tag/Tracker_v0.2.24.1) and put it in archipelago/custom_worlds
-2. Download [TrackerClient.py](https://github.com/user-attachments/files/24471143/TrackerClient.py).
-3. Open your tracker.apworld with any zip editor, and replace it's TrackerClient.py with the one you just downloaded.
-4. Done! Now you can launch UT as usual through the archipelago launcher.
-
-[More details on the Universal tracker mod and what it does](https://github.com/carrotinator/Archipelago/wiki/UT-Map-Tracker/)
 
 ## External patches
 - Works with controller patches!
