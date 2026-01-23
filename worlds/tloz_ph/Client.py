@@ -391,7 +391,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def detect_warp_to_start(self, ctx, read_result: dict):
         # Opened clog warp to start check
-        if read_result.get("opened_clog", False):
+        if read_result.get(addr_opened_clog, False):
             if await addr_flipped_clog.read(ctx, silent=True) & 1:
                 if not self.warp_to_start_flag:
                     logger.info(f"Primed a warp to start. Enter a transition to warp to {STAGES[0xB]}.")
@@ -411,7 +411,7 @@ class PhantomHourglassClient(DSZeldaClient):
             if self.is_dead:
                 self.warp_to_start_flag = False
                 logger.info("Canceled warp to start, death is not a valid warp method")
-            if self.starting_entrance[:2] == (self.current_stage, read_result["room"]):
+            if self.starting_entrance[:2] == (self.current_stage, read_result[addr_room]):
                 logger.info(f"In starting scene, canceling warp to start")
                 self.warp_to_start_flag = False
 
@@ -1181,7 +1181,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def process_in_menu(self, ctx: "BizHawkClientContext", read_result):
         self.death_precision = None
 
-        if (not read_result.get("in_map", 0) and self.map_mode) or self.map_warp:
+        if (not read_result.get(addr_in_map, 0) and self.map_mode) or self.map_warp:
             self.map_mode = False
             self.map_warp = None
             self.map_warp_reselector = True
