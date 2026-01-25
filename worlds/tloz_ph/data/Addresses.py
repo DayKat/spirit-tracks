@@ -1,4 +1,4 @@
-from ..DSZeldaClient.subclasses import Address
+from ..DSZeldaClient.subclasses import Address, Pointer, SRAM
 
 addr_null = Address(0, 0)
 
@@ -43,6 +43,7 @@ addr_stage_small = Address(0x1B2E94, size=1)  # Used for precision rads
 addr_saving = Address(0x19B7CF)
 addr_changing_map_scene = Address(0x1BA700)
 addr_pen_mode_pointer = Address(0x1CCCEC, size=4)
+addr_lower_water = Address(0x1B5582)
 
 addr_text_speed = Address(0x0EC754)  # Sus
 addr_treasure_price_index = Address(0x0EC7D8, size=4)
@@ -63,12 +64,12 @@ addr_in_short_cs = Address(0x1B6FE8)
 addr_started_save_file = Address(0x1B7FB8)  # Used to trigger precision stuff from menu
 
 # Pointers
-addr_gItemManager = Address(0x0fb4, 0x0fb4, size=4, domain="Data TCM")
-addr_gPlayerManager = Address(0x0fbc, 0x0fbc, size=4, domain="Data TCM")
-addr_gAdventureFlags = Address(0x0f74, 0x0f74, size=4, domain="Data TCM")
-addr_ADDR_gPlayer = Address(0x0f90, 0x0f90, size=4, domain="Data TCM")
-addr_gOverlayManager_mLoadedOverlays_4 = Address(0x0910, 0x0910, size=4, domain="Data TCM")
-addr_gMapManager = Address(0x0e60, 0x0e60, size=4, domain="Data TCM")
+addr_gItemManager = Pointer(0x0fb4)
+addr_gPlayerManager = Pointer(0x0fbc)
+addr_gAdventureFlags = Pointer(0x0f74)
+addr_gPlayer = Pointer(0x0f90)
+# addr_gOverlayManager_mLoadedOverlays_4 = Pointer(0x0910)
+addr_gMapManager = Pointer(0x0e60)
 
 # Adventure flags
 addr_adv_flags = Address(0x1B557C, size=52)
@@ -178,6 +179,7 @@ addr_show_ship_prices = Address(0x1BA658, size=9)
 addr_show_treasure_prices = Address(0x1BA664)
 addr_ship_part_counts = Address(0x1BA564, size=72)
 
+addr_all_treasure_count = Address(0x1BA5AC, size=8)
 addr_pink_coral_count = Address(0x1BA5AC)
 addr_wpl_count = Address(0x1BA5AD)
 addr_dpl_count = Address(0x1BA5AE)
@@ -241,6 +243,16 @@ addr_island_visible_ds = Address(0x1B4D6C)
 addr_island_visible_ruins = Address(0x1B4D94)
 addr_island_visible_iotd = Address(0x1B4DBC)
 addr_island_visible_maze = Address(0x1B4DE4)
+
+# SRAM
+sram_mercay_se_chests = SRAM(0x3c4)
+sram_mountain_passage_chests = SRAM(0xae4)
+sram_mountain_passage = SRAM(0x230)
+sram_bannan = SRAM(0x198)
+sram_gs = SRAM(0xb14)
+sram_frost = SRAM(0x544)
+sram_iotd = SRAM(0x73c)
+sram_maze = SRAM(0x1c1)
 
 # addr_island_visible_ = Address()
 # addr_island_visible_ = Address()

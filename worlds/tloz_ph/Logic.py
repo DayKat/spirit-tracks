@@ -501,7 +501,7 @@ def make_overworld_logic():
         ["Ghost Ship B2 Chests", "Ghost Ship B3", False, "can_kill_bat"],
         ["Ghost Ship B3", "Ghost Ship Warp", False, None],
         ["Ghost Ship Warp", "Cubus Sisters", False, "has", "_rescue_4th_sister"],
-        ["Cubus Sisters", "Ghost Ship Warp", False, None],
+        ["Cubus Sisters", "Ghost Ship Warp", False, "sword"],
         ["Ghost Ship Warp", "Ghost Ship 1F", False, None],
         ["Cubus Sisters", "Post Cubus Sisters", False, "sword"],
         ["Ghost Ship B2", "Ghost Ship Tetra", False, "ghost_key"],

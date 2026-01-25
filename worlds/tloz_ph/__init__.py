@@ -19,8 +19,8 @@ from .data.Constants import *
 from .data.Items import ITEMS
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
-from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region, EVENTS, entrance_id_to_entrance
-from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
+from .data.Entrances import ENTRANCES, entrance_id_to_region, EVENTS, entrance_id_to_entrance
+from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic, EntranceGroups, OPPOSITE_ENTRANCE_GROUPS
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 from .tracker.TrackerUtil import TRACKER_WORLD
 

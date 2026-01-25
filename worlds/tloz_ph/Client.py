@@ -1,7 +1,6 @@
 from random import randint
 from .DSZeldaClient.DSZeldaClient import *
-from .DSZeldaClient.subclasses import (read_memory_value, read_memory_values, write_memory_value, write_memory_values,
-                                        split_bits, get_address_from_heap, storage_key, get_stored_data)
+from .DSZeldaClient.subclasses import (get_address_from_heap, storage_key, get_stored_data, AddrFromPointer)
 from .data.Items import ITEMS
 from .MapWarp import map_mode
 from .data.Entrances import entrance_id_to_entrance
@@ -116,7 +115,6 @@ class PhantomHourglassClient(DSZeldaClient):
         self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
         # continuous transition
         self.er_y_offest = 164  # In ph i use coords who's y is 164 off the entrance y
-        self.ADDR_gMapManager = addr_gMapManager
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
         self.hint_data = HINT_DATA
         self.entrances = ENTRANCES
@@ -223,12 +221,12 @@ class PhantomHourglassClient(DSZeldaClient):
         self.metal_count = sum(1 for i in ctx.items_received if i.item in metal_ids)
 
     async def update_treasure_tracker(self, ctx):
-        self.last_treasures = await read_memory_value(ctx, 0x1BA5AC, 8)
+        self.last_treasures = await addr_all_treasure_count.read(ctx)
         # print(f"Treasure Tracker! {split_bits(self.last_treasures, 8)}")
 
     async def give_random_treasure(self, ctx):
-        address = 0x1BA5AC + randint(0, 7)
-        await write_memory_value(ctx, address, 1, incr=True)
+        address = AddrFromPointer(addr_pink_coral_count + randint(0, 7))
+        await address.add(ctx, 1)
         await self.update_treasure_tracker(ctx)
         logger.info(f"Got random treasure from farmable location.")
 
@@ -249,7 +247,7 @@ class PhantomHourglassClient(DSZeldaClient):
         read_keys = read_keys_always.copy()
         death_link_addr = []
         death_link_reads = {}
-        death_link_pointers = {}
+        death_link_pointer = None
         if stage is not None:
             if stage == 0:
                 read_keys += read_keys_sea
@@ -264,19 +262,19 @@ class PhantomHourglassClient(DSZeldaClient):
             else:
                 read_keys += read_keys_land
                 if in_game:
-                    death_link_pointers["link_health"] = (addr_ADDR_gPlayer, 0xa)
+                    death_link_pointer = (addr_gPlayer, 0xa)
                 self.at_sea = False
 
             # Reads that only need to be done during deathlink, like health
             if self._set_deathlink:
                 read_keys += death_link_addr
 
-            for name, pointer in death_link_pointers.items():
-                addr, offset = pointer
+            if death_link_pointer:
+                addr, offset = death_link_pointer
                 pointer_1 = await addr.read(ctx)
-                death_link_reads[name] = Address(pointer_1 + offset - 0x2000000, size=2, name="link_health")
+                death_link_reads["link_health"] = AddrFromPointer(pointer_1 + offset - 0x2000000, size=2, name="link_health")
                 self.last_health_pointer = pointer_1
-                self.health_address = death_link_reads[name]
+                self.health_address = death_link_reads["link_health"]
             self.main_read_list = read_keys
         else:
             self.at_sea = None
@@ -527,14 +525,14 @@ class PhantomHourglassClient(DSZeldaClient):
             elif current_scene == 0x2900:
                 if (self.item_count(ctx, "Triangle Crystal (Ghost Ship)")
                         or self.item_count(ctx, "Triangle Crystals")):
-                    await write_memory_value(ctx, self.stage_address+1, 0x8)
+                    await self.stage_address.set_bits(ctx, 0x8, offset=1)
                 if (self.item_count(ctx, "Round Crystal (Ghost Ship)")
                         or self.item_count(ctx, "Round Crystals")):
-                    await write_memory_value(ctx, self.stage_address+3, 0x2)
+                    await self.stage_address.set_bits(ctx, 0x2, offset=3)
 
     async def write_totok_midway_keys(self, ctx):
         data = DUNGEON_KEY_DATA[372]
-        keys = await read_memory_value(ctx, self.key_address)
+        keys = await self.key_address.read(ctx)
         keys = keys * data["value"]
         keys = data["filter"] if keys > data["filter"] else keys
         await addr_small_key_storage_2.set_bits(ctx, keys)
@@ -578,7 +576,7 @@ class PhantomHourglassClient(DSZeldaClient):
     @staticmethod
     async def remove_ship_parts(ctx):
         ship_write_list = ([1] + [0] * 8) * 8
-        await write_memory_values(ctx, addr_ship_part_counts.addr, ship_write_list, overwrite=True)
+        await addr_ship_part_counts.overwrite(ctx, ship_write_list)
 
     async def edit_ship(self, ctx):
         # Figure out what ships player has
@@ -662,7 +660,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def set_stage_flags(self, ctx, stage):
         print(f"Setting stage flags")
         self.stage_address = await get_address_from_heap(ctx, addr_gMapManager, STAGE_FLAGS_OFFSET)
-        self.key_address = Address(self.stage_address + SMALL_KEY_OFFSET)
+        self.key_address = AddrFromPointer(self.stage_address + SMALL_KEY_OFFSET)
         if stage in STAGE_FLAGS:
             flags = STAGE_FLAGS[stage]
 
@@ -706,7 +704,7 @@ class PhantomHourglassClient(DSZeldaClient):
         return new_keys, True
 
     async def get_small_key_address(self, ctx) -> "Address":
-        return await get_address_from_heap(ctx, self.ADDR_gMapManager, SMALL_KEY_OFFSET)
+        return await get_address_from_heap(ctx, addr_gMapManager, SMALL_KEY_OFFSET)
 
     # Called during location processing to determine what vanilla item to remove
     async def unset_special_vanilla_items(self, ctx, location, item):
@@ -865,12 +863,13 @@ class PhantomHourglassClient(DSZeldaClient):
 
     @staticmethod
     async def enable_items(ctx: "BizHawkClientContext", inventory_id: int):
-        equipped_item_pointer = Address(await addr_gItemManager.read(ctx)-0x02000000, size=4)
+        equipped_item_pointer = AddrFromPointer(await addr_gItemManager.read(ctx)-0x02000000, size=4)
         equipped_item = await equipped_item_pointer.read(ctx, silent=True)
         if equipped_item == 0xffffffff:
             print("Items menu not visible, enabling")
             # Enable items menu
-            await write_memory_value(ctx, equipped_item_pointer + EQUIP_TIMER_OFFSET, 20, size=2, overwrite=True)
+            equipped_item_timer = AddrFromPointer(equipped_item + EQUIP_TIMER_OFFSET, size=2)
+            await equipped_item_timer.overwrite(ctx, 20)
             await equipped_item_pointer.overwrite(ctx, inventory_id)
 
     def set_ending_room(self, ctx):
@@ -962,7 +961,7 @@ class PhantomHourglassClient(DSZeldaClient):
         return er_map
 
     async def lower_water(self, ctx, allow_redisconnect=False):
-        if await read_memory_value(ctx, 0x1B5582, silent=True) & 0x4:
+        if await addr_lower_water.read(ctx, silent=True) & 0x4:
             print(f"Water has been lowered...")
             for scene, data in self.er_map.items():
                 for detect_data, exit_data in data.items():
@@ -986,7 +985,7 @@ class PhantomHourglassClient(DSZeldaClient):
                 data = [data] if isinstance(data, dict) else data
                 self.event_data = data
                 for i, event in enumerate(data):
-                    address = Address(self.stage_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
+                    address = AddrFromPointer(self.stage_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
                     print(f"event data {self.event_data}")
                     self.event_data[i]["address"] = address
                     print(f"event data {self.event_data}")
