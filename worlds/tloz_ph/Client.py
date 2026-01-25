@@ -866,9 +866,9 @@ class PhantomHourglassClient(DSZeldaClient):
         equipped_item_pointer = AddrFromPointer(await addr_gItemManager.read(ctx)-0x02000000, size=4)
         equipped_item = await equipped_item_pointer.read(ctx, silent=True)
         if equipped_item == 0xffffffff:
-            print("Items menu not visible, enabling")
+            print(f"Items menu not visible, enabling: {hex(equipped_item_pointer + EQUIP_TIMER_OFFSET)}")
             # Enable items menu
-            equipped_item_timer = AddrFromPointer(equipped_item + EQUIP_TIMER_OFFSET, size=2)
+            equipped_item_timer = AddrFromPointer(equipped_item_pointer + EQUIP_TIMER_OFFSET, size=2)
             await equipped_item_timer.overwrite(ctx, 20)
             await equipped_item_pointer.overwrite(ctx, inventory_id)
 

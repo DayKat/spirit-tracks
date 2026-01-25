@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
-from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, storage_key, get_stored_data
+from .DSZeldaClient.DSZeldaClient import logger
+from .DSZeldaClient.subclasses import get_stored_data, storage_key
 from .data.Items import ITEMS
 from .data.Entrances import ENTRANCES, entrance_id_to_entrance
 import worlds._bizhawk as bizhawk
@@ -279,8 +280,9 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         # Setup pen mode stuff
         pen_mode_pointer = await addr_pen_mode_pointer.read(ctx, silent=True)
         print(f"pen mode pointer {hex(pen_mode_pointer)}")
-        client.pen_mode_pointer = Address(pen_mode_pointer+25*4-0x2000000, size=4)
-        if client.pen_mode_pointer.addr < 0xFFFFFF:
+        pen_mode_check = pen_mode_pointer+25*4-0x2000000
+        if pen_mode_check < 0x400000:
+            client.pen_mode_pointer = Address(pen_mode_check, size=4)
             client.last_pen_mode = await client.pen_mode_pointer.read(ctx)
         else: client.pen_mode_pointer = None
 

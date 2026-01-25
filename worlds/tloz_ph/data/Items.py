@@ -440,6 +440,7 @@ ITEMS_DATA = {
     },
     "Nothing!": {
         "classification": ItemClassification.filler,
+        "dummy": True,
         "id": 53,
     },
     "Refill: Bombs": {

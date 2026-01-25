@@ -273,13 +273,13 @@ class PhantomHourglassWorld(World):
                                   and event.name in ["GOAL: Bellumbeck"]):
                                 continue
 
-                        if self.options.exclude_non_required_dungeons:
-                            loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
-                            if loc_lookup:
-                                print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
-                                loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
-                                if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
-                                    continue
+                        # if self.options.exclude_non_required_dungeons:
+                        #     loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
+                        #     if loc_lookup:
+                        #         print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
+                        #         loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
+                        #         if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
+                        #             continue
                         print(f"Adding Event: {event.name}")
                         self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
