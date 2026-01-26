@@ -1,6 +1,10 @@
 from BaseClasses import ItemClassification
+from .Addresses import *
+from ..Subclasses import STItem
+from typing import Any
 
-ITEMS_DATA = {
+
+ITEMS_DATA: dict[str, dict[str, Any]] = {
     #   "No Item": {
     #   'classification': ItemClassification,   # classification category
     #   'address': int,                         # address in memory
@@ -17,51 +21,51 @@ ITEMS_DATA = {
 
     "Sword (Progressive)": {
         'classification': ItemClassification.progression,
-        'progressive': [[0x265322, 0x02], [0x265322, 0x04]],
+        'progressive': [[addr_items_2, 0x02], [addr_items_2, 0x04]],
         #'set_bit': [(0x1BA644, 1)]  # Means that sending sword if sword breaks gives the base layer
     },
     "Shield": {
         'classification': ItemClassification.progression,
-        'address': 0x265322,
+        'address': addr_items_2,
         'value': 0x01
     },
     "Whirlwind": {
         'classification': ItemClassification.progression,
-        'address': 0x265320,
+        'address': addr_items_0,
         'value': 0x01,
     },
     "Bombs (Progressive)": {
         'classification': ItemClassification.progression,
-        "progressive": [[0x265320, 0x10], [0x265331, 0x20]],
-        "progressive_overwrite": True,
+        "progressive": [[addr_items_0, 0x10], [0x265331, 0x20]],
+        "tags": ["progressive_overwrite"],
         "give_ammo": [10, 20, 30],
-        "ammo_address": 0x265333
+        "ammo_address": addr_bomb_count
     },
     "Bow (Progressive)": {
         'classification': ItemClassification.progression,
-        "progressive": [[0x265320, 0x08], [0x265330, 0x20]],
-        "progressive_overwrite": True,
+        "progressive": [[addr_items_0, 0x08], [addr_arrow_capacity, 0x20]],
         "give_ammo": [20, 30, 50],
-        "ammo_address": 0x265332,
+        "ammo_address": addr_arrow_count,
+        "tags": ["progressive_overwrite"]
     },
     "Whip": {
         'classification': ItemClassification.progression,
-        'address': 0x265320,
+        'address': addr_items_0,
         'value': 0x04,
     },
     "Boomerang": {
         'classification': ItemClassification.progression,
-        'address': 0x265320,
+        'address': addr_items_0,
         'value': 0x02,
     },
     "Sand Wand": {
         'classification': ItemClassification.progression,
-        'address': 0x265320,
+        'address': addr_items_0,
         'value': 0x20,
     },
     "Spirit Flute": {
         'classification': ItemClassification.progression,
-        'address': 0x265322,
+        'address': addr_items_2,
         'value': 0x80,
     },
 
@@ -81,22 +85,22 @@ ITEMS_DATA = {
     },
     "Compass of Light": {
         'classification': ItemClassification.progression,
-        'address': 0x265739,
-        'value': 0x20,
+        'address': addr_rail_restorations,
+        'value': 0x40,  # also set adv flag?
     },
     "Royal Engineer's Certificate": {
         'classification': ItemClassification,
-        'address': 0x265717,
+        'address': addr_adv_flags_3,
         'value': 0x01,
     },
     "Rabbit Net": {
         'classification': ItemClassification.progression,
-        'address': 0x26572E,
+        'address': addr_adv_flags_1a,
         'value': 0x40,
     },
     "Stamp Book": {
         'classification': ItemClassification.progression,
-        'address': 0x265739,
+        'address': addr_adv_flags_25,
         'value': 0x02,
     },
 
@@ -104,27 +108,27 @@ ITEMS_DATA = {
 
     "Song of Awakening": {
         'classification': ItemClassification.progression,
-        'address': 0x268FB0,
+        'address': addr_songs,
         'value': 0x01,
     },
     "Song of Healing": {
         'classification': ItemClassification.useful,
-        'address': 0x268FB0,
+        'address': addr_songs,
         'value': 0x02,
     },
     "Song of Birds": {
         'classification': ItemClassification.progression,
-        'address': 0x268FB0,
+        'address': addr_songs,
         'value': 0x04,
     },
     "Song of Light": {
         'classification': ItemClassification.progression,
-        'address': 0x268FB0,
+        'address': addr_songs,
         'value': 0x08,
     },
     "Song of Discovery": {
         'classification': ItemClassification.progression,
-        'address': 0x268FB0,
+        'address': addr_songs,
         'value': 0x10,
     },
 
@@ -134,19 +138,18 @@ ITEMS_DATA = {
     "Heart Container": {
         'classification': ItemClassification.useful,
         'backup_filler': True,
-        'address': 0x2651BD,
+        'address': addr_heart_count,
         'value': 4,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental"]
     },
     "Sword Beam Swordsman's Scroll": {
         'classification': ItemClassification.useful,
-        'address': 0x265322,
+        'address': addr_items_2,
         'value': 0x0010,
     },
     "Great Spin Swordsman's Scroll": {
         'classification': ItemClassification.useful,
-        'address': 0x265322,
+        'address': addr_items_2,
         'value': 0x0020,
     },
 
@@ -154,7 +157,7 @@ ITEMS_DATA = {
 
     "Cannon": {
         'classification': ItemClassification.progression,
-        'address': 0x265717,
+        'address': addr_adv_flags_3,
         'value': 0x80
     },
     # "SW Snow Realm Portal": {
@@ -167,92 +170,92 @@ ITEMS_DATA = {
 
     "Forest Glyph": {
         'classification': ItemClassification.progression,
-        'address': 0x265715,
+        'address': addr_adv_flags_1,
         'value': 0x80,
     },
     "Snow Glyph": {
         'classification': ItemClassification.progression,
-        'address': 0x265716,
+        'address': addr_adv_flags_2,
         'value': 0x01,
     },
     "Ocean Glyph": {
         'classification': ItemClassification.progression,
-        'address': 0x265716,
+        'address': addr_adv_flags_2,
         'value': 0x02,
     },
     "Fire Glyph": {
         'classification': ItemClassification.progression,
-        'address': 0x265716,
+        'address': addr_adv_flags_2,
         'value': 0x04,
     },
     "Wooded Temple Tracks":{
         'classification': ItemClassification.progression,
-        'address': 0x2653B0,
+        'address': addr_rail_restorations,
         'value': 0x02,
     },
     "Blizzard Temple Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B0,
+        'address': addr_rail_restorations,
         'value': 0x04,
     },
     "Snowdrift Station Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B5,
+        'address': addr_tracks_1,
         'value': 0x04,
     },
     "Slippery Station Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B5,
+        'address': addr_tracks_1,
         'value': 0x20,
     },
     "Forest Realm Ocean Shortcut Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B4,
+        'address': addr_tracks_0,
         'value': 0x02,
     },
     "E Mayscore Bridge Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B4,
+        'address': addr_tracks_0,
         'value': 0x04,
     },
     "Forest Realm SE Portal Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B4,
+        'address': addr_tracks_0,
         'value': 0x08,
     },
     "W Castle Town Tracks": {
         'classification': ItemClassification.useful,
-        'address': 0x2653B4,
+        'address': addr_tracks_0,
         'value': 0x20,
     },
     "W Forest Realm Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B4,
+        'address': addr_tracks_0,
         'value': 0x40,
     },
     "Forest Realm SW Cave Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B4,
+        'address': addr_tracks_0,
         'value': 0x80,
     },
     "W Wooded Temple Tracks": {
         'classification': ItemClassification.useful,
-        'address': 0x2653B5,
+        'address': addr_tracks_1,
         'value': 0x01,
     },
     "N Castle Town Tracks": {
         'classification': ItemClassification.useful,
-        'address': 0x2653B5,
+        'address': addr_tracks_1,
         'value': 0x02,
     },
     "Snow Realm Bridge Tracks": { # has portal to ocean realm
         'classification': ItemClassification.progression,
-        'address': 0x2653B5,
+        'address': addr_tracks_1,
         'value': 0x08,
     },
     "N Icy Spring Tracks": {
         'classification': ItemClassification.progression,
-        'address': 0x2653B5,
+        'address': addr_tracks_1,
         'value': 0x10,
     },
 
@@ -260,27 +263,27 @@ ITEMS_DATA = {
 
     "Forest Source": {
       'classification': ItemClassification.progression,
-        "address": 0x265714,
+        "address": addr_adv_flags_0,
         'value': 0x10,
-        'set_bit': [[0x2653B8, 2]]
+        'set_bit': [[addr_source_rails, 2]]
     },
     "Snow Source": {
       'classification': ItemClassification.progression,
-        "address": 0x265714,
+        "address": addr_adv_flags_0,
         'value': 0x20,
-        'set_bit': [[0x2653B8, 4]]
+        'set_bit': [[addr_source_rails, 4]]
     },
     "Ocean Source": {
       'classification': ItemClassification.progression,
-        "address": 0x265714,
+        "address": addr_adv_flags_0,
         'value': 0x40,
-        'set_bit': [[0x2653B8, 8]]
+        'set_bit': [[addr_source_rails, 8]]
     },
     "Fire Source": {
       'classification': ItemClassification.progression,
-        "address": 0x265714,
+        "address": addr_adv_flags_0,
         'value': 0x80,
-        'set_bit': [[0x2653B8, 0x10]]
+        'set_bit': [[addr_source_rails, 0x10]]
     },
 
     # TODO bridge repair 265752 0x10
@@ -296,12 +299,12 @@ ITEMS_DATA = {
 
     "Forest Rabbit": {
         'classification': ItemClassification.progression,
-        'incremental': True,
+        "tags": ["incremental"],
         'dummy': True,
     },
     "Snow Rabbit": {
         'classification': ItemClassification.progression,
-        'incremental': True,
+        "tags": ["incremental"],
         'dummy': True,
     },
     # "Water Rabbit": {
@@ -332,53 +335,43 @@ ITEMS_DATA = {
         'classification': ItemClassification.filler,
         'address': 0x265328,
         'value': 1,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental"]
     },
     "Blue Rupee (5)": {
         'classification': ItemClassification.filler,
-        'address': 0x265328,
+        'address': addr_rupees,
         'value': 5,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental"]
     },
     "Red Rupee (20)": {
         'classification': ItemClassification.filler,
-        'address': 0x265328,
+        'address': addr_rupees,
         'value': 20,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental"]
     },
     "Big Green Rupee (100)": {
         'classification': ItemClassification.progression_skip_balancing,
-        'backup_filler': True,
-        'address': 0x265328,
+        'address': addr_rupees,
         'value': 100,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental", 'backup_filler']
     },
     "Big Red Rupee (200)": {
         'classification': ItemClassification.progression_skip_balancing,
-        'backup_filler': True,
-        'address': 0x265328,
+        'address': addr_rupees,
         'value': 200,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental", 'backup_filler']
     },
     "Gold Rupee (300)": {
         'classification': ItemClassification.progression_skip_balancing,
-        'backup_filler': True,
-        'address': 0x265328,
+        'address': addr_rupees,
         'value': 300,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental", 'backup_filler']
     },
     "Pre-Alpha Rupee (5000)": {
         'classification': ItemClassification.progression,
-        'address': 0x265328,
+        'address': addr_rupees,
         'value': 5000,
-        'incremental': True,
-        'size': 2
+        "tags": ["incremental"]
     },
     "Train Part": {
         'classification': ItemClassification.filler,
@@ -386,21 +379,18 @@ ITEMS_DATA = {
     },
     "Red Potion": {
         'classification': ItemClassification.filler,
-        'address': 0x265334, #this is potion slot 1
+        'address': addr_potion_0, #this is potion slot 1
         'value': 1,
-        'size': 1
     },
     "Purple Potion": {
         'classification': ItemClassification.filler,
-        'address': 0x265334, #this is potion slot 1
+        'address': addr_potion_0, #this is potion slot 1
         'value': 2,
-        'size': 1
     },
     "Yellow Potion": {
         'classification': ItemClassification.filler,
-        'address': 0x265334, #this is potion slot 1
+        'address': addr_potion_0, #this is potion slot 1
         'value': 3,
-        'size': 1
     },
     "Nothing!": {
         'classification': ItemClassification.filler,
@@ -408,26 +398,24 @@ ITEMS_DATA = {
     },
     "Tear of Light": {
         'classification': ItemClassification.filler,
-        "address": 0x26532E,
+        "address": addr_tears_of_light,
         "dummy": True,
         'value': 1,
-        'incremental': True,
-        'size': 1
+        "tags": ["incremental"]
     },
     "Refill: Bombs": {
         'classification': ItemClassification.filler,
         "give_ammo": [10, 20, 30],
-        "address": 0x265333,
+        "address": addr_bomb_count,
         "refill": "Bombs (Progressive)",
-        "incremental": True,
-        "size": 2
+        "tags": ["incremental"]
     },
     "Refill: Arrows": {
         'classification': ItemClassification.filler,
         "give_ammo": [20, 30, 50],
-        "address": 0x265332,
+        "address": addr_arrow_count,
         "refill": "Bow (Progressive)",
-        "incremental": True,
+        "tags": ["incremental"]
     },
 
     # ========= Treasure ============= TODO collection menu still seems inaccurate to what you should/shouldn't have
@@ -438,147 +426,83 @@ ITEMS_DATA = {
     },
     "Treasure: Demon Fossil": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269000,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        "tags": ['treasure', 'backup_filler', 'incremental'],
+        'address': addr_demon_fossil_count,
     },
     "Treasure: Stalfos Skull": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269002,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_stalfos_skull_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Star Fragment": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269004,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        "tags": ['treasure', 'backup_filler', 'incremental'],
+        'address': addr_star_fragment_count,
     },
     "Treasure: Bee Larvae": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269006,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_bee_larvae_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Wood Heart": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269008,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        "tags": ['treasure', 'backup_filler', 'incremental'],
+        'address': addr_wood_heart_count,
     },
     "Treasure: Dark Pearl Loop": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x26900A,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_dark_pearl_loop_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: White Pearl Loop": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x26900C,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        "tags": ['treasure', 'backup_filler', 'incremental'],
+        'address': addr_white_pearl_loop_count,
     },
     "Treasure: Ruto Crown": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x26900E,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_ruto_crown_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Dragon Scale": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269010,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        "tags": ['treasure', 'backup_filler', 'incremental'],
+        'address': addr_dragon_scale_count,
     },
     "Treasure: Pirate's Necklace": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269012,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_pirates_necklace_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Palace Dish": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269014,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        "tags": ['treasure', 'backup_filler', 'incremental'],
+        'address': addr_palace_dish_count,
     },
     "Treasure: Goron Amber": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269016,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_goron_amber_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Mystic Jade": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x269018,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_mystic_jade_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Ancient Coin": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x26901A,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_ancient_coin_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Priceless Stone": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x26901C,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_priceless_stone_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Regal Ring": {
         'classification': ItemClassification.filler,
-        'backup_filler': True,
-        'treasure': True,
-        'address': 0x26901E,
-        'incremental': True,
-        'value': 1,
-        'size': 2,
+        'address': addr_regal_ring_count,
+        "tags": ['treasure', 'backup_filler', 'incremental']
     },
 
     # =========== Keys ============
@@ -614,8 +538,7 @@ ITEMS_DATA = {
     },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
-        'dungeon': 0x1A,
-        'incremental': False
+        'dungeon': 0x1A
     },
     # "Regal Necklace": {
     #     'classification': ItemClassification.progression,
@@ -676,8 +599,11 @@ ITEMS_DATA = {
     },
 }
 
+ITEMS: dict[str, "STItem"] = {}
 
-# Oops apparently not a constant lul (it will be after this)
-for i, k in enumerate(ITEMS_DATA.keys()):
-    ITEMS_DATA[k]["id"] = i+1
+# IDs need to be stabilized at some point, not today
+for i, k in enumerate(ITEMS_DATA.items()):
+    item_name, item_data = k
+    item_data["id"] = i+1
+    ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
 

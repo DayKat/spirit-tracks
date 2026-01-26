@@ -13,7 +13,7 @@ from .Options import *
 from .Logic import create_connections
 from .data import LOCATIONS_DATA
 from .data.Constants import *
-from .data.Items import ITEMS_DATA
+from .data.Items import ITEMS
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import ENTRANCES
@@ -238,7 +238,7 @@ class SpiritTracksWorld(World):
         self.multiworld.completion_condition[self.player] = lambda state: state.has("_beaten_game", self.player)
 
     def create_item(self, name: str) -> Item:
-        classification = ITEMS_DATA[name]['classification']
+        classification = ITEMS[name].classification
         if name in self.extra_filler_items:
             self.extra_filler_items.remove(name)
             classification = ItemClassification.filler
@@ -315,9 +315,9 @@ class SpiritTracksWorld(World):
         filler_count = 0
         extra_items_list = []
         for item, count in item_pool_dict.items():
-            if 'backup_filler' in ITEMS_DATA[item]:
+            if 'backup_filler' in ITEMS[item].tags:
                 extra_items_list.extend([item] * count)
-            if ITEMS_DATA[item]["classification"] in [ItemClassification.filler, ItemClassification.trap]:
+            if ITEMS[item].classification in [ItemClassification.filler, ItemClassification.trap]:
                 filler_count += count
 
         extra_item_count = len(self.locations_to_exclude) - filler_count + 20

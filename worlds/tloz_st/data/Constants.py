@@ -152,11 +152,10 @@ ITEM_GROUPS = {
         "Treasure: Pirate's Necklace",
     ],
     "Rare Treasures": [
-        "Treasure: Ancient Coin",
-        "Treasure: Mystic Jade",
-        "Treasure: Goron Amber",
         "Treasure: Palace Dish",
-
+        "Treasure: Goron Amber",
+        "Treasure: Mystic Jade",
+        "Treasure: Ancient Coin",
     ],
     "Super Rare Treasures": [
         "Treasure: Priceless Stone",
@@ -166,6 +165,12 @@ ITEM_GROUPS = {
         "Refill: Bombs",
         "Refill: Arrows",
      ]
+}
+
+ITEM_GROUPS |= {
+    "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
+                    ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"]
+
 }
 
 # RABBITS = {
