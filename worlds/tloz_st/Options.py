@@ -1,0 +1,148 @@
+from dataclasses import dataclass
+from datetime import datetime
+
+from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
+    ItemDict, ItemsAccessibility, ItemSet, Visibility
+from worlds.tloz_st.data.Items import ITEMS_DATA
+
+# YAML options
+
+class SpiritTracksGoal(Choice):
+    """
+    The goal to accomplish in order to complete the seed.
+    - ToS Section 1: Finish the 1st section of Tower of Spirits and retrieve the Forest Glyph
+    - ToS Section 2: Finish the 2nd section of Tower of Spirits and retrieve the Snow Glyph
+    """
+    display_name = "Goal"
+    option_beat_ToS_section_1 = 0
+    option_beat_ToS_section_2 = 1
+    option_beat_wooded_temple = 2
+    option_beat_blizzard_temple = 3
+    default = 1
+
+
+class SpiritTracksRemoveItemsFromPool(ItemDict):
+    """
+    Removes specified amount of given items from the item pool, replacing them with random filler items.
+    This option has significant chances to break generation if used carelessly, so test your preset several times
+    before using it on long generations. Use at your own risk!
+    """
+    display_name = "remove_items_from_pool"
+    verify_item_name = False
+
+
+class SpiritTracksLogic(Choice):
+    """
+    Logic options:
+    - Normal: Glitches not in logic.
+    - Hard: Includes some cool uses of pots aren't hard, but unconventional
+    - Glitched: Clever use of items in logic and glitches
+    Be careful, using glitches on normal logic can cause key-related softlocks
+
+    Please let me (@DayKat) know if you know of any glitches or non-normal logic!
+    """
+    display_name = "logic"
+    option_normal = 0
+    option_hard = 1
+    option_glitched = 2
+    default = 0
+
+
+class SpiritTracksKeyRandomization(Choice):
+    """
+    Small Key Logic options:
+    - vanilla: Keys are not randomized
+    - in_own_dungeon: Keys can be found in their own dungeon
+    - anywhere: Keysanity. Keys can be found anywhere
+    """
+    display_name = "Key Settings"
+    option_vanilla = 0
+    option_in_own_dungeon = 1
+    option_anywhere = 2
+    default = 1
+
+
+# class SpiritTracksDungeonsRequired(Range):
+#     """
+#     How many dungeons are required to access the endgame.
+#     Max is 6 unless you add Ghost ship and TotOK with their own options below
+#     """
+#     display_name = "dungeons_required"
+#     range_start = 0
+#     range_end = 8
+#     default = 3
+
+
+# class SpiritTracksDungeonHints(Choice):
+#     """
+#     Receive hints for your required dungeons
+#     - false: no hints
+#     - oshus: oshus gives dungeon hints
+#     - totok: entering totok gives dungeon hints
+#     """
+#     display_name = "dungeon_hints"
+#     option_false = 0
+#     option_oshus = 1
+#     option_totok = 2
+#     default = 1
+
+#
+# class SpiritTracksShopHints(Toggle):
+#     """
+#     NOT IMPLEMENTED YET
+#
+#     Get hints for shop items you currently can buy
+#     Includes island shops, Beedle, masked Beedle and Eddo
+#     """
+#     display_name = "hint_shops"
+#     default = 1
+
+#
+# class SpiritTracksExcludeNonRequiredDungeons(Toggle):
+#     """
+#     NOT IMPLEMENTED YET
+#
+#     Non-required dungeons won't have progression or useful items. Does not apply to TotOK.
+#     """
+#     display_name = "exclude_non_required_dungeons"
+#     default = 1
+
+class SpiritTracksRabbitsanity(Toggle):
+    """
+    Rabbits received are separated into realms, while each rabbit catch is a check. Also includes Bunnio's rewards.
+    """
+    display_name = "Rabbitsanity"
+    default = 1
+
+
+@dataclass
+class SpiritTracksOptions(PerGameCommonOptions):
+    # Accessibility
+    accessibility: ItemsAccessibility
+
+    # Goal
+    goal: SpiritTracksGoal
+
+    #dungeons_required: SpiritTracksDungeonsRequired
+    #exclude_non_required_dungeons: SpiritTracksExcludeNonRequiredDungeons
+
+    # Logic options
+    logic: SpiritTracksLogic
+    #phantom_combat_difficulty: SpiritTracksPhantomCombatDifficulty
+    #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
+
+    # Item Randomization
+    keysanity: SpiritTracksKeyRandomization
+    #randomize_frogs: SpiritTracksFrogRandomization
+
+    # Hint Options
+    #dungeon_hints: SpiritTracksDungeonHints
+    #shop_hints: SpiritTracksShopHints
+
+    # World Options
+    rabbitsanity: SpiritTracksRabbitsanity
+
+    # Generic
+    start_inventory_from_pool: StartInventoryPool
+    remove_items_from_pool: SpiritTracksRemoveItemsFromPool
+    death_link: DeathLink
