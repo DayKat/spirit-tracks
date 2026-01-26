@@ -381,16 +381,19 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.filler,
         'address': STAddr.potion_0, #this is potion slot 1
         'value': 1,
+        'overflow_item': "Big Green Rupee (100)"
     },
     "Purple Potion": {
         'classification': ItemClassification.filler,
         'address': STAddr.potion_0, #this is potion slot 1
         'value': 2,
+        'overflow_item': "Big Green Rupee (100)"
     },
     "Yellow Potion": {
         'classification': ItemClassification.filler,
         'address': STAddr.potion_0, #this is potion slot 1
         'value': 3,
+        'overflow_item': "Big Red Rupee (200)"
     },
     "Nothing!": {
         'classification': ItemClassification.filler,
@@ -509,13 +512,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
 
      "Small Key (Tunnel to ToS)": {
          'classification': ItemClassification.progression,
-         'address': 0x26532F,
+         'address': STAddr.small_keys,
          'dungeon': 0x18,
          'incremental': True
      },
     "Small Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
-        'address': 0x26532F,
+        'address': STAddr.small_keys,
         'dungeon': 0x19,
         'incremental': True
      },
@@ -526,13 +529,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
      },
     "Small Key (ToS)": {
         'classification': ItemClassification.progression,
-        'address': 0x26532F,
+        'address': STAddr.small_keys,
         'dungeon': 0x13,
         'incremental': True
     },
     "Small Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
-        'address': 0x26532F,
+        'address': STAddr.small_keys,
         'dungeon': 0x1A,
         'incremental': True
     },

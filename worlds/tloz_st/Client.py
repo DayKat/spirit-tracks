@@ -3,6 +3,7 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import AddrFromPointer
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
+from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -86,13 +87,15 @@ class SpiritTracksClient(DSZeldaClient):
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
 
         self.update_rabbits = False
-        self.in_stamp_stand = False
+        self.in_stamp_stand: bool = False
         self.scene_to_stamp = build_scene_to_stamp()
         self.rabbit_id_to_name = build_rabbit_location_id_to_name_dict()
         self.goal_locations = build_location_to_goal()
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
         self.treasure_tracker = []
+        self.item_data = ITEMS
+        self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
 
         self.addr_game_state = STAddr.game_state
         self.addr_slot_id = STAddr.slot_id
@@ -106,7 +109,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
         rom_name_bytes = await STAddr.game_identifier.read_bytes(ctx)
-        rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
+        rom_name = bytes([byte for byte in rom_name_bytes[0] if byte != 0]).decode("ascii")
         print(f"Rom Name: {rom_name}")
         if rom_name == "SPIRITTRACKSBKIP":  # EU
             return True
@@ -116,7 +119,8 @@ class SpiritTracksClient(DSZeldaClient):
         return STAddr.link_x, STAddr.link_y, STAddr.link_z
 
     async def get_coords(self, ctx, multi=False):
-        coords = await read_multiple(ctx, self.get_coord_address(multi=multi))
+        coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
+        print(f"Coords: {coords}")
         return {
             "x": coords[STAddr.link_x],
             "y": coords[STAddr.link_y],
@@ -134,7 +138,7 @@ class SpiritTracksClient(DSZeldaClient):
         read_keys = read_keys_always
         read_keys += read_keys_land  # TODO: don't bother reading on train
         self.main_read_list = read_keys
-        print(self.main_read_list)
+        # print(self.main_read_list)
 
     def process_loading_variable(self, read_result) -> bool:
         mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
@@ -149,7 +153,7 @@ class SpiritTracksClient(DSZeldaClient):
         return not read_result.get(STAddr.loading_room, 27)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
-        current_menu = read_result[STAddr.menu]
+        current_menu: "Address" = read_result[STAddr.menu]
         self.in_stamp_stand = current_menu == 0x0E
         self.getting_location = not read_result[STAddr.getting_location]
 
@@ -164,19 +168,38 @@ class SpiritTracksClient(DSZeldaClient):
             await STAddr.room.overwrite(ctx, 1)
 
     async def update_treasure_tracker(self, ctx):
-        read_list = []
-        for name in ITEM_GROUPS["All Treasures"]:
-            read_list += ITEMS[name].address
-        read_res = await read_multiple(ctx, read_list)
-        self.treasure_tracker = read_res.values()
+        read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
+        self.treasure_tracker = await read_multiple(ctx, read_list)
         print(f"Updated Treasure Tracker: {self.treasure_tracker}")
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
         if "Treasure" in item_name:
             await self.update_treasure_tracker(ctx)
+        if "Rabbit" in item_name:
+            await self.update_rabbit_count(ctx)
+        if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
+            await STAddr.adv_flags_25.unset_bits(ctx, 2)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx)
+        await self.update_rabbit_count(ctx)
+
+
+    async def update_rabbit_count(self, ctx):
+        if self.current_stage in [4, 5, 6, 7]:
+            rabbit_bits = 0
+            for _id, name in self.rabbit_id_to_name.items():
+                if _id in ctx.checked_locations:
+                    loc_data = LOCATIONS_DATA[name]
+                    offset = loc_data["address"] - STAddr.rabbits
+                    rabbit_bits += loc_data["value"] << (offset*8)
+        else:
+            self.item_count(ctx, "Forest Rabbit") + self.item_count(ctx, "Snow Rabbit")
+            rabbit_bits = 2 ** self.item_count(ctx, "Forest Rabbit") - 1  # convert decimal to that number of bits
+            rabbit_bits += (2 ** self.item_count(ctx, "Snow Rabbit") - 1) << 10
+            # rabbit_total += (2 ** self.item_count(ctx, "Water Rabbit") - 1) << 20
+        print(f"Updating rabbit bits {hex(rabbit_bits)}")
+        await STAddr.rabbits.overwrite(ctx, rabbit_bits)
 
     async def process_in_game(self, ctx, read_result: dict):
         # Detect stamp stand locations
@@ -184,24 +207,6 @@ class SpiritTracksClient(DSZeldaClient):
             self.receiving_location = True
             stamp_location = self.scene_to_stamp[self.current_scene] #TODO error when loading into slot (in fs) after receiving stamp book offline, scene refresh fixed
             await self._process_checked_locations(ctx, stamp_location)
-
-        # Rabbits, move to on stage load? And add in_menu thingy
-        if self.current_scene == 0x3E00 and not self.update_rabbits:
-            self.update_rabbits = True
-            rabbit_total = self.item_count(ctx, "Forest Rabbit") + self.item_count(ctx, "Snow Rabbit")
-            # TODO: Rabbit count wants to count the correct kind of rabbit in rabbit haven
-            rabbit_total = 2 ** rabbit_total - 1  # convert decimal to that number of bits
-            print(f"updating rabbit count {rabbit_total}")
-            await STAddr.rabbits.overwrite(ctx, rabbit_total)
-        if self.update_rabbits and self.current_scene != 0x3E00: # TODO going on train gives rabbit locations
-            rabbit_bits = 0
-            for _id, name in self.rabbit_id_to_name.items():
-                if _id in ctx.checked_locations:
-                    loc_data = LOCATIONS_DATA[name]
-                    offset = loc_data["address"] - STAddr.rabbits
-                    rabbit_bits += loc_data["value"] << (offset*8)
-            await STAddr.rabbits.overwrite(ctx, rabbit_bits)
-            self.update_rabbits = False
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
@@ -241,7 +246,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:
-            stage_address = await STAddr.stage_flag_pointer.read()
+            stage_address = await STAddr.stage_flag_pointer.read(ctx)
             stage_flag_address = AddrFromPointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])

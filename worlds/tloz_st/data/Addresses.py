@@ -7,7 +7,7 @@ class STAddr:
     null = addr_null
     
     # Fundamentals
-    game_identifier = Address(0, 0, 4, "ROM")
+    game_identifier = Address(0, 0, 16, "ROM")
     
     game_state = Address(0x060C48)
     loading_room = Address(0x0c2FF0)

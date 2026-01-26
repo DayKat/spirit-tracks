@@ -163,6 +163,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x28,
         "room_id": 0,
         "entrance_id": 6,
+        "y": 9830,
+        "x_max": -70000,
         "item_override": "Bow (Progressive)"
     },
     "Hyrule Castle 2F Indoors Chest": {
@@ -295,7 +297,7 @@ LOCATIONS_DATA = {
         "room_id": 3,
         "x_min": -8703,
         "x_max": 6560,
-        "z_min": 1650,
+        "z_min": 1600,
         "z_max": 10670,
         'dungeon': "ToS",
         "require_item": ["Forest Source"]
@@ -330,11 +332,8 @@ LOCATIONS_DATA = {
         "vanilla_item": "Small Key (ToS)",
         "stage_id": 0x13,
         "room_id": 4,
-        #"delay_pickup"
-        "x_min": -100790,
-        "x_max": -46720,
-        "z_min": 9850,
-        "z_max": 63920,
+        "x_max": -45000,
+        "z_min": 0,
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
     },
@@ -637,18 +636,13 @@ LOCATIONS_DATA = {
     #     "dungeon": "Wooded Temple",
     #     "require_item": ["Whirlwind"],
     # }, TODO heart container processes on loop, causing heart loss. doesn't occur for other ones
-    # "Wooded Temple Boss Heart Container": {
-    #     "region_id": "wt heart container",
-    #     "vanilla_item": "Heart Container",
-    #     "stage_id": 0x1E,
-    #     "room_id": 0,
-    #     "x_min": -12452,
-    #     "x_max": 13862,
-    #     "z_min": 875,
-    #     "z_max": 28042,
-    #     "dungeon": "Wooded Temple",
-    #     "require_item": ["Whirlwind", "Sword (Progressive)"],
-    # },
+    "Wooded Temple Boss Heart Container": {
+        "region_id": "wt heart container",
+        "vanilla_item": "Heart Container",
+        "stage_id": 0x1E,
+        "room_id": 0,
+        "dungeon": "Wooded Temple",
+    },
     "Wooded Temple Dungeon Reward": {
         "region_id": "wt stagnox",
         "vanilla_item": "Forest Source",
@@ -667,7 +661,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Rabbit Net",
         "stage_id": 0x3E,
         "room_id": 0,
-        "address": 0x26572E,
+        "address": STAddr.adv_flags_1a,
         "value": 0x40,
     },
     "Rabbit Haven Chest": {

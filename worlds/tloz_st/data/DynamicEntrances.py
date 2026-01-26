@@ -18,11 +18,19 @@ DYNAMIC_ENTRANCES = {
     "Bounce Outset without glyph": {
         "entrance": "Outset to Forest Realm",
         "destination": "Outset to Forest Realm",
-        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)]
+        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
+        "message": "You need Forest Glyph and Cannon to board the train here"
     },
     "Bounce Tutorial": {
         "entrance": "Outset to Tutorial",
         "destination": "Outset to Tutorial",
+        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
+        "message": "You need Forest Glyph and Cannon to board the train here"
+    },
+    "Bounce Tutorial to rail": {
+        "entrance": "Outset to Tutorial",
+        "destination": "Forest Realm to Outset",
+        "has_items": [("Forest Glyph", 1), ("Cannon", 1)]
     },
 
     # Portal Bounces
