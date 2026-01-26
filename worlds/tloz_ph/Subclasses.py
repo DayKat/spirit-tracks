@@ -2,10 +2,11 @@ from typing import TYPE_CHECKING
 from BaseClasses import Entrance, Region
 from enum import IntEnum
 
-from .DSZeldaClient.subclasses import DSTransition, read_memory_value, split_bits, write_memory_value
+from .DSZeldaClient.subclasses import DSTransition, split_bits, AddrFromPointer
 from .DSZeldaClient.ItemClass import DSItem, remove_vanilla_normal
 from .data.SwitchLogic import *
 from .data.Constants import EQUIPPED_SHIP_PARTS_ADDR, BOSS_DOOR_DATA, ITEM_GROUPS
+from .data.Addresses import PHAddr
 
 if TYPE_CHECKING:
     from entrance_rando import ERPlacementState
@@ -14,9 +15,9 @@ if TYPE_CHECKING:
 
 async def receive_ship(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
     res = []
-    if not (await read_memory_value(ctx, 0x1ba661) & 2):
+    if not (await PHAddr.custom_storage.read(ctx) & 2):
         for addr in EQUIPPED_SHIP_PARTS_ADDR:
-            res += [(addr, [item.ship], item.domain)]
+            res += addr.get_write_list(item.ship)
     return res
 
 async def receive_boss_key(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
@@ -25,20 +26,20 @@ async def receive_boss_key(client: "PhantomHourglassClient", ctx: "BizHawkClient
             and client.current_stage in BOSS_DOOR_DATA
             and BOSS_DOOR_DATA[client.current_stage]["name"] in item.name):  # TODO: Add boss door data to boss key items?
         data = BOSS_DOOR_DATA[client.current_stage]
-        last_value = await read_memory_value(ctx, data["address"], size=4)
+        last_value = await data["address"].read(ctx)
         new_value = last_value | data["value"]
-        res += [(data["address"], split_bits(new_value, 4), "Main RAM")]
+        res += data["address"].get_write_list(new_value)
     return res
 
 async def receive_potion(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
     res = []
     await client.update_potion_tracker(ctx)
     print(f"Potion data: {client.last_potions} {item.value}")
-    for slot, pot, addr in zip([0, 1], client.last_potions, [0x1BA5D8, 0x1BA5D9]):
+    for slot, pot, addr in zip([0, 1], client.last_potions, [PHAddr.potion_left, PHAddr.potion_right]):
         if not pot:
-            prev = await read_memory_value(ctx, 0x1BA645, silent=True)
-            res += [(addr, [item.value], item.domain)]
-            res += [(0x1BA645, [prev | 0x6], item.domain)]  # has potion, fill all
+            res += addr.get_write_list(item.value)
+            prev = await PHAddr.inventory_2.read(ctx, silent=True)
+            res += PHAddr.inventory_2.get_write_list(prev | 0x6)
             client.last_potions[slot] = item.value
             break
     return res
@@ -61,13 +62,16 @@ async def remove_vanilla_ship_part(client: "PhantomHourglassClient", ctx: "BizHa
 
 async def remove_vanilla_potion(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
     print(f"Pots {client.last_potions}")
-    if not all(client.last_potions):
-        return [(0x1BA5D8, client.last_potions, item.domain)]
-    else:
-        rupee_item = client.item_data[item.overflow_item]
-        print(f"Removing potion rupees")
-        prev_rupees = await read_memory_value(ctx, 0x1ba53e, size=2)
-        return [(0x1ba53e, split_bits(prev_rupees - rupee_item.value, 2), item.domain)]
+    for _i, slot in enumerate(client.last_potions):
+        if not slot:
+            addr = [PHAddr.potion_left, PHAddr.potion_right][_i]
+            return addr.get_write_list(0)
+    # else:
+    rupee_item = client.item_data[item.overflow_item]
+    print(f"Removing potion rupees")
+    prev_rupees = await PHAddr.rupee_count.read()
+    rupee_count = max(prev_rupees - rupee_item.value, 0)
+    return PHAddr.rupee_count.get_write_list(ctx, rupee_count)
 
 async def remove_vanilla_oshus_sword(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", item: "PHItem", _):
     res = [(item.ammo_address, split_bits(0, 2), item.domain)]
@@ -89,15 +93,15 @@ async def remove_vanilla_throwable_keys(client: "PhantomHourglassClient", ctx: "
 
     # Read actor id in link's held item address. For some reason it's somewhere else in GT
     if client.current_stage == 0x20:
-        bk_id = await read_memory_value(ctx, 0x1CD770, silent=True, size=2)
+        bk_id = await PHAddr.link_held_item_goron.read(ctx, silent=True)
     elif client.current_stage == 0x25:
-        bk_id = await read_memory_value(ctx, 0x1CDAE0, silent=True, size=2)
+        bk_id = await PHAddr.link_held_item_2.read(ctx, silent=True)
     else:
-        bk_id = await read_memory_value(ctx, 0x1CD510, silent=True, size=2)
+        bk_id = await PHAddr.link_held_item.read(ctx, silent=True)
 
     # Get the actor table
-    actor_table_addr = await read_memory_value(ctx, 0x1BA8C4, size=4, silent=True) - 0x2000000
-    actor_table = hex(await read_memory_value(ctx, actor_table_addr, size=250, silent=True))
+    actor_table_addr =  AddrFromPointer(await PHAddr.actor_table_pointer.read(ctx, silent=True) - 0x2000000, size=250)
+    actor_table = hex(await actor_table_addr.read(ctx, silent=True))
     actor_table = "0" + actor_table[2:]
     print(f"Removing throwable key {item.name} with bk_id {bk_id}")
 
@@ -106,13 +110,13 @@ async def remove_vanilla_throwable_keys(client: "PhantomHourglassClient", ctx: "
         actor_data = actor_table[_i * 8:(_i + 1) * 8]
         if actor_data[1] == "0":  # filter out empty slots
             continue
-        actor_id_addr = int(actor_data, 16) + 8 - 0x2000000
-        actor_id = await read_memory_value(ctx, actor_id_addr, size=4, silent=True)
+        actor_id_addr = AddrFromPointer(int(actor_data, 16) + 8 - 0x2000000, size=4)
+        actor_id = await actor_id_addr.read(ctx,  silent=True)
         # If you find the boss key, delete its pointer
         if actor_id == bk_id:
-            little_endian_lol = actor_table_addr + len(actor_table) // 2 - (_i + 1) * 4
-            print(f"Found bk pointer: {hex(actor_table_addr)} at index {_i}")
-            await write_memory_value(ctx, little_endian_lol, 0, overwrite=True, size=4)
+            little_endian_lol = AddrFromPointer(actor_table_addr + len(actor_table) // 2 - (_i + 1) * 4, size=4)
+            print(f"Found bk pointer: {actor_table_addr} at index {_i}")
+            await little_endian_lol.overwrite(ctx, 0, silent=True)
             break
     return []
 

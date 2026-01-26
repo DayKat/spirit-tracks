@@ -42,89 +42,89 @@ ITEMS_DATA = {
     # Link items
     "Sword (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_inventory_1, 0x1), (addr_inventory_5, 0x20)],
-        "set_bit": [(addr_inventory_1, 0x1), (addr_sword_count, 1)],
+        "progressive": [(PHAddr.inventory_1, 0x1), (PHAddr.inventory_5, 0x20)],
+        "set_bit": [(PHAddr.inventory_1, 0x1), (PHAddr.sword_count, 1)],
         "id": 1,
     },
     "Oshus' Sword": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_1,
+        "address": PHAddr.inventory_1,
         "value": 0x1,
-        "ammo_address": addr_sword_count,  # used to remove sword model
-        "set_bit": [(addr_sword_count, 1)],
+        "ammo_address": PHAddr.sword_count,  # used to remove sword model
+        "set_bit": [(PHAddr.sword_count, 1)],
         "id": 2,
     },
     "Phantom Sword": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_5,
+        "address": PHAddr.inventory_5,
         "value": 0x20,
         "id": 3,
     },
     "Shield": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_1,
+        "address": PHAddr.inventory_1,
         "value": 0x2,
         "id": 4,
     },
     "Boomerang": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_1,
+        "address": PHAddr.inventory_1,
         "value": 0x4,
-        "set_bit": [(addr_boomerang_bit, 0x1)],
+        "set_bit": [(PHAddr.boomerang_bit, 0x1)],
         "id": 5,
         "inventory_id": 2,
     },
     "Bombs (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_inventory_1, 0x10), (addr_bomb_upgrades, 0x1), (addr_bomb_upgrades, 0x2)],
+        "progressive": [(PHAddr.inventory_1, 0x10), (PHAddr.bomb_upgrades, 0x1), (PHAddr.bomb_upgrades, 0x2)],
         "give_ammo": [0xa, 0x14, 0x1e],
-        "ammo_address": addr_bomb_count,
-        "set_bit": [(addr_inventory_1, 0x10)],
+        "ammo_address": PHAddr.bomb_count,
+        "set_bit": [(PHAddr.inventory_1, 0x10)],
         "id": 6,
         "inventory_id": 4,
         "tags": ["progressive_overwrite"],
     },
     "Bombchus (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_inventory_1, 0x80), (addr_chu_upgrades, 0x1), (addr_chu_upgrades, 0x2)],
+        "progressive": [(PHAddr.inventory_1, 0x80), (PHAddr.chu_upgrades, 0x1), (PHAddr.chu_upgrades, 0x2)],
         "give_ammo": [0xa, 0x14, 0x1e],
-        "ammo_address": addr_chu_count,
+        "ammo_address": PHAddr.chu_count,
         "tags": ["progressive_overwrite"],
-        "set_bit": [(addr_inventory_1, 0x80)],
+        "set_bit": [(PHAddr.inventory_1, 0x80)],
         "id": 7,
         "inventory_id": 7,
     },
     "Bow (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_inventory_1, 0x20), (addr_quiver_upgrades, 0x1), (addr_quiver_upgrades, 0x2)],
+        "progressive": [(PHAddr.inventory_1, 0x20), (PHAddr.quiver_upgrades, 0x1), (PHAddr.quiver_upgrades, 0x2)],
         "give_ammo": [0x14, 0x1e, 0x32],
-        "ammo_address": addr_arrow_count,
+        "ammo_address": PHAddr.arrow_count,
         "tags": ["progressive_overwrite"],
-        "set_bit": [(addr_inventory_1, 0x20)],
+        "set_bit": [(PHAddr.inventory_1, 0x20)],
         "id": 8,
         "inventory_id": 5,
     },
     "Grappling Hook": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_1,
+        "address": PHAddr.inventory_1,
         "value": 0x40,
-        "set_bit": [(addr_grapple_bit, 0x1)],
+        "set_bit": [(PHAddr.grapple_bit, 0x1)],
         "id": 9,
         "inventory_id": 6,
     },
     "Shovel": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_1,
+        "address": PHAddr.inventory_1,
         "value": 0x8,
-        "set_bit": [(addr_shovel_bit, 0x1)],
+        "set_bit": [(PHAddr.shovel_bit, 0x1)],
         "id": 10,
         "inventory_id": 3,
     },
     "Hammer": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_2,
+        "address": PHAddr.inventory_2,
         "value": 0x1,
-        "set_bit": [(addr_hammer_bit, 0x1)],
+        "set_bit": [(PHAddr.hammer_bit, 0x1)],
         "id": 11,
         "inventory_id": 8,
     },
@@ -132,22 +132,22 @@ ITEMS_DATA = {
     # Spirits
     "Spirit of Power (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_fairies_0, 0x20), (addr_fairies_1, 0x1), (addr_fairies_1, 0x8)],
+        "progressive": [(PHAddr.fairies_0, 0x20), (PHAddr.fairies_1, 0x1), (PHAddr.fairies_1, 0x8)],
         "id": 12,
     },
     "Spirit of Wisdom (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_fairies_0, 0x40), (addr_fairies_1, 0x2), (addr_fairies_1, 0x10)],
+        "progressive": [(PHAddr.fairies_0, 0x40), (PHAddr.fairies_1, 0x2), (PHAddr.fairies_1, 0x10)],
         "id": 13,
     },
     "Spirit of Courage (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_fairies_0, 0x10), (addr_fairies_0, 0x80), (addr_fairies_1, 0x4)],
+        "progressive": [(PHAddr.fairies_0, 0x10), (PHAddr.fairies_0, 0x80), (PHAddr.fairies_1, 0x4)],
         "id": 14,
     },
     "Spirit of Courage (White)": {  # Used to remove spirit from Temple of Courage
         "classification": ItemClassification.progression,
-        "address": addr_fairies_1,
+        "address": PHAddr.fairies_1,
         "value": 0x20,
         "id": 15,
     },
@@ -155,7 +155,7 @@ ITEMS_DATA = {
     # Upgrades
     "Heart Container": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_heart_containers,
+        "address": PHAddr.heart_containers,
         "value": 0x4,
         "tags": ["incremental"],
         "size": 2,
@@ -163,7 +163,7 @@ ITEMS_DATA = {
     },
     "Phantom Hourglass": {
         "classification": ItemClassification.progression,
-        "address": addr_phantom_hourglass_max,
+        "address": PHAddr.phantom_hourglass_max,
         "value": "Sand PH",
         "tags": ["incremental"],
         "size": 4,
@@ -171,7 +171,7 @@ ITEMS_DATA = {
     },
     "Sand of Hours (Boss)": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_phantom_hourglass_max,
+        "address": PHAddr.phantom_hourglass_max,
         "value": 0x1c20,
         "tags": ["incremental", "backup_filler"],
         "size": 4,
@@ -179,7 +179,7 @@ ITEMS_DATA = {
     },
     "Sand of Hours (Small)": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_phantom_hourglass_max,
+        "address": PHAddr.phantom_hourglass_max,
         "value": 0xe10,
         "tags": ["incremental", "backup_filler"],
         "size": 4,
@@ -187,7 +187,7 @@ ITEMS_DATA = {
     },
     "Sand of Hours": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_phantom_hourglass_max,
+        "address": PHAddr.phantom_hourglass_max,
         "value": "Sand",
         "tags": ["incremental"],
         "size": 4,
@@ -195,7 +195,7 @@ ITEMS_DATA = {
     },
     "Swordsman's Scroll": {
         "classification": ItemClassification.useful,
-        "address": addr_inventory_6,
+        "address": PHAddr.inventory_6,
         "value": 0x20,
         "id": 21,
     },
@@ -203,37 +203,37 @@ ITEMS_DATA = {
     # Ship Items
     "Cannon": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_cannon,
+        "address": PHAddr.flags_cannon,
         "value": 0x1,
         "id": 22,
     },
     "Salvage Arm": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_6,
+        "address": PHAddr.inventory_6,
         "value": 0x10,
         "id": 23,
     },
     "Fishing Rod": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_6,
+        "address": PHAddr.inventory_6,
         "value": 0x1,
         "id": 24,
     },
     "Big Catch Lure": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_6,
+        "address": PHAddr.inventory_6,
         "value": 0x80,
         "id": 25,
     },
     "Swordfish Shadows": {
         "classification": ItemClassification.progression,
-        "address": addr_adv_flags_43,
+        "address": PHAddr.adv_flags_43,
         "value": 0x10,
         "id": 26,
     },
     "Cyclone Slate": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_6,
+        "address": PHAddr.inventory_6,
         "value": 0x40,
         "id": 27,
     },
@@ -241,7 +241,7 @@ ITEMS_DATA = {
     # Sea Charts
     "SW Sea Chart": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_5,
+        "address": PHAddr.inventory_5,
         "value": 0x2,
         "id": 28,
         "disconnect_entrances": [
@@ -254,7 +254,7 @@ ITEMS_DATA = {
     },
     "NW Sea Chart": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_5,
+        "address": PHAddr.inventory_5,
         "value": 0x4,
         "id": 29,
         "disconnect_entrances": [
@@ -267,9 +267,9 @@ ITEMS_DATA = {
     },
     "SE Sea Chart": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_5,
+        "address": PHAddr.inventory_5,
         "value": 0x8,
-        "set_bit": [(addr_adv_flags_1, 0x8)],
+        "set_bit": [(PHAddr.adv_flags_1, 0x8)],
         "id": 30,
         "disconnect_entrances": [
             "Ocean SE Goron",
@@ -280,7 +280,7 @@ ITEMS_DATA = {
     },
     "NE Sea Chart": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_5,
+        "address": PHAddr.inventory_5,
         "value": 0x10,
         "id": 31,
         "disconnect_entrances": [
@@ -292,42 +292,42 @@ ITEMS_DATA = {
     # Spirit gems
     "Power Gem": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_power_gem_count,
+        "address": PHAddr.power_gem_count,
         "value": 0x1,
         "tags": ["incremental"],
         "id": 32,
     },
     "Wisdom Gem": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_wisdom_gem_count,
+        "address": PHAddr.wisdom_gem_count,
         "value": 0x1,
         "tags": ["incremental"],
         "id": 33,
     },
     "Courage Gem": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_courage_gem_count,
+        "address": PHAddr.courage_gem_count,
         "value": 0x1,
         "tags": ["incremental"],
         "id": 34,
     },
     "Power Gem Pack": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_power_gem_count,
+        "address": PHAddr.power_gem_count,
         "value": "pack_size",
         "tags": ["incremental"],
         "id": 35,
     },
     "Wisdom Gem Pack": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_wisdom_gem_count,
+        "address": PHAddr.wisdom_gem_count,
         "value": "pack_size",
         "tags": ["incremental"],
         "id": 36,
     },
     "Courage Gem Pack": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_courage_gem_count,
+        "address": PHAddr.courage_gem_count,
         "value": "pack_size",
         "tags": ["incremental"],
         "id": 37,
@@ -336,7 +336,7 @@ ITEMS_DATA = {
     # Rupees and filler
     "Green Rupee (1)": {
         "classification": ItemClassification.filler,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": 0x1,
         "tags": ["incremental"],
         "size": 2,
@@ -344,7 +344,7 @@ ITEMS_DATA = {
     },
     "Blue Rupee (5)": {
         "classification": ItemClassification.filler,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": 0x5,
         "tags": ["incremental"],
         "size": 2,
@@ -352,7 +352,7 @@ ITEMS_DATA = {
     },
     "Red Rupee (20)": {
         "classification": ItemClassification.filler,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": 0x14,
         "tags": ["incremental"],
         "size": 2,
@@ -360,7 +360,7 @@ ITEMS_DATA = {
     },
     "Big Green Rupee (100)": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": 0x64,
         "tags": ["incremental", "backup_filler"],
         "size": 2,
@@ -368,7 +368,7 @@ ITEMS_DATA = {
     },
     "Big Red Rupee (200)": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": 0xc8,
         "tags": ["incremental", "backup_filler"],
         "size": 2,
@@ -376,7 +376,7 @@ ITEMS_DATA = {
     },
     "Gold Rupee (300)": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": 0x12c,
         "tags": ["incremental", "backup_filler"],
         "size": 2,
@@ -384,7 +384,7 @@ ITEMS_DATA = {
     },
     "Rupoor (-10)": {
         "classification": ItemClassification.trap,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": -0xa,
         "tags": ["incremental"],
         "size": 2,
@@ -392,7 +392,7 @@ ITEMS_DATA = {
     },
     "Big Rupoor (-50)": {
         "classification": ItemClassification.trap,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": -0x32,
         "tags": ["incremental"],
         "size": 2,
@@ -400,7 +400,7 @@ ITEMS_DATA = {
     },
     "Pre-Alpha Rupee (5000)": {
         "classification": ItemClassification.progression,
-        "address": addr_rupee_count,
+        "address": PHAddr.rupee_count,
         "value": 0x1388,
         "tags": ["incremental"],
         "size": 2,
@@ -446,27 +446,27 @@ ITEMS_DATA = {
     "Refill: Bombs": {
         "classification": ItemClassification.filler,
         "give_ammo": [0xa, 0x14, 0x1e],
-        "address": addr_bomb_count,
+        "address": PHAddr.bomb_count,
         "refill": "Bombs (Progressive)",
         "id": 54,
     },
     "Refill: Arrows": {
         "classification": ItemClassification.filler,
         "give_ammo": [0x14, 0x1e, 0x32],
-        "address": addr_arrow_count,
+        "address": PHAddr.arrow_count,
         "refill": "Bow (Progressive)",
         "id": 55,
     },
     "Refill: Bombchus": {
         "classification": ItemClassification.filler,
         "give_ammo": [0xa, 0x14, 0x1e],
-        "address": addr_chu_count,
+        "address": PHAddr.chu_count,
         "refill": "Bombchus (Progressive)",
         "id": 56,
     },
     "Salvage Repair Kit": {
         "classification": ItemClassification.filler,
-        "address": addr_custom_storage,
+        "address": PHAddr.custom_storage,
         "value": 0x20,
         "tags": ["incremental"],
         "id": 57,
@@ -481,49 +481,49 @@ ITEMS_DATA = {
     # Treasure
     "Treasure: Pink Coral": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_pink_coral_count,
+        "address": PHAddr.pink_coral_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 58,
     },
     "Treasure: White Pearl Loop": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_wpl_count,
+        "address": PHAddr.wpl_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 59,
     },
     "Treasure: Dark Pearl Loop": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_dpl_count,
+        "address": PHAddr.dpl_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 60,
     },
     "Treasure: Zora Scale": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_zora_scale_count,
+        "address": PHAddr.zora_scale_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 61,
     },
     "Treasure: Goron Amber": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_goron_amber_count,
+        "address": PHAddr.goron_amber_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 62,
     },
     "Treasure: Ruto Crown": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_ruto_crown_count,
+        "address": PHAddr.ruto_crown_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 63,
     },
     "Treasure: Helmaroc Plume": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_roc_feather_count,
+        "address": PHAddr.roc_feather_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 64,
     },
     "Treasure: Regal Ring": {
         "classification": DEPRIORITIZED_SKIP_BALANCING_FALLBACK,
-        "address": addr_regal_ring_count,
+        "address": PHAddr.regal_ring_count,
         "tags": ["incremental", "treasure", "backup_filler"],
         "id": 65,
     },
@@ -531,224 +531,224 @@ ITEMS_DATA = {
     # Salvage
     "Courage Crest": {
         "classification": ItemClassification.progression,
-        "address": addr_adv_flags_16,
+        "address": PHAddr.adv_flags_16,
         "value": 0x4,
-        "set_bit": [(addr_treasure_maps_0, 0x1)],
+        "set_bit": [(PHAddr.treasure_maps_0, 0x1)],
         "id": 66,
     },
     "Treasure Map #1 (Molida SW)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_0,
+        "address": PHAddr.treasure_maps_0,
         "value": 0x80,
         "id": 67,
         "hint_on_receive": ["Ocean SW Salvage #1 Molida SW"],
     },
     "Treasure Map #2 (Mercay NE)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_0,
+        "address": PHAddr.treasure_maps_0,
         "value": 0x10,
         "id": 68,
         "hint_on_receive": ["Ocean SW Salvage #2 Mercay NE"],
     },
     "Treasure Map #3 (Gusts SW)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x20,
         "id": 69,
         "hint_on_receive": ["Ocean NW Salvage #3 Gusts SW"],
     },
     "Treasure Map #4 (Bannan SE)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x80,
         "id": 70,
         "hint_on_receive": ["Ocean NW Salvage #4 Bannan SE"],
     },
     "Treasure Map #5 (Molida N)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_0,
+        "address": PHAddr.treasure_maps_0,
         "value": 0x40,
         "id": 71,
         "hint_on_receive": ["Ocean SW Salvage #5 Molida N"],
     },
     "Treasure Map #6 (Bannan W)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x1,
         "id": 72,
         "hint_on_receive": ["Ocean NW Salvage #6 Bannan W"],
     },
     "Treasure Map #7 (Gusts E)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x8,
         "id": 73,
         "hint_on_receive": ["Ocean NW Salvage #7 Gusts E"],
     },
     "Treasure Map #8 (Mercay SE)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_0,
+        "address": PHAddr.treasure_maps_0,
         "value": 0x8,
         "id": 74,
         "hint_on_receive": ["Ocean SW Salvage #8 Mercay SE"],
     },
     "Treasure Map #9 (Cannon W)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_0,
+        "address": PHAddr.treasure_maps_0,
         "value": 0x2,
         "id": 75,
         "hint_on_receive": ["Ocean SW Salvage #9 Cannon W"],
     },
     "Treasure Map #10 (Gusts SE)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x10,
         "id": 76,
         "hint_on_receive": ["Ocean NW Salvage #10 Gusts SE"],
     },
     "Treasure Map #11 (Gusts N)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x2,
         "id": 77,
         "hint_on_receive": ["Ocean NW Salvage #11 Gusts N"],
     },
     "Treasure Map #12 (Dee Ess N)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x20,
         "id": 78,
         "hint_on_receive": ["Ocean SE Salvage #12 Dee Ess N"],
     },
     "Treasure Map #13 (Harrow E)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x4,
         "id": 79,
         "hint_on_receive": ["Ocean SE Salvage #13 Harrow E"],
     },
     "Treasure Map #14 (Goron NW)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x1,
         "id": 80,
         "hint_on_receive": ["Ocean SE Salvage #14 Goron NW"],
     },
     "Treasure Map #15 (Goron W)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x2,
         "id": 81,
         "hint_on_receive": ["Ocean SE Salvage #15 Goron W"],
     },
     "Treasure Map #16 (Goron NE)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x10,
         "id": 82,
         "hint_on_receive": ["Ocean SE Salvage #16 Goron NE"],
     },
     "Treasure Map #17 (Frost S)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x40,
         "id": 83,
         "hint_on_receive": ["Ocean SE Salvage #17 Frost S"],
     },
     "Treasure Map #18 (Cannon S)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_0,
+        "address": PHAddr.treasure_maps_0,
         "value": 0x4,
         "id": 84,
         "hint_on_receive": ["Ocean SW Salvage #18 Cannon S"],
     },
     "Treasure Map #19 (Gusts NE)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x4,
         "id": 85,
         "hint_on_receive": ["Ocean NW Salvage #19 Gusts NE"],
     },
     "Treasure Map #20 (Bannan E)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_1,
+        "address": PHAddr.treasure_maps_1,
         "value": 0x40,
         "id": 86,
         "hint_on_receive": ["Ocean NW Salvage #20 Bannan E"],
     },
     "Treasure Map #21 (Molida NW)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_0,
+        "address": PHAddr.treasure_maps_0,
         "value": 0x20,
         "id": 87,
         "hint_on_receive": ["Ocean SW Salvage #21 Molida NW"],
     },
     "Treasure Map #22 (Harrow S)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x8,
         "id": 88,
         "hint_on_receive": ["Ocean SE Salvage #22 Harrow S"],
     },
     "Treasure Map #23 (Frost NW)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_2,
+        "address": PHAddr.treasure_maps_2,
         "value": 0x80,
         "id": 89,
         "hint_on_receive": ["Ocean SE Salvage #23 Frost NW"],
     },
     "Treasure Map #24 (Ruins W)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x20,
         "id": 90,
         "hint_on_receive": ["Ocean NE Salvage #24 Ruins W"],
     },
     "Treasure Map #25 (Dead E)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x4,
         "id": 91,
         "hint_on_receive": ["Ocean NE Salvage #25 Dead E"],
     },
     "Treasure Map #26 (Ruins SW)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x2,
         "id": 92,
         "hint_on_receive": ["Ocean NE Salvage #26 Ruins SW"],
     },
     "Treasure Map #27 (Maze E)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x8,
         "id": 93,
         "hint_on_receive": ["Ocean NE Salvage #27 Maze E"],
     },
     "Treasure Map #28 (Ruins NW)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x1,
         "id": 94,
         "hint_on_receive": ["Ocean NE Salvage #28 Ruins NW"],
     },
     "Treasure Map #29 (Maze W)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x10,
         "id": 95,
         "hint_on_receive": ["Ocean NE Salvage #29 Maze W"],
     },
     "Treasure Map #30 (Ruins S)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x40,
         "id": 96,
         "hint_on_receive": ["Ocean NE Salvage #30 Ruins S"],
     },
     "Treasure Map #31 (Dead S)": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_treasure_maps_3,
+        "address": PHAddr.treasure_maps_3,
         "value": 0x80,
         "id": 97,
         "hint_on_receive": ["Ocean NE Salvage #31 Dead S"],
@@ -838,7 +838,7 @@ ITEMS_DATA = {
         "dungeon": 0x1e,
         "tags": ["always_process"],
         "id": 111,
-        "set_bit_in_room": {0x1E00: [(addr_toc_crystal_state, 0x10),
+        "set_bit_in_room": {0x1E00: [(PHAddr.toc_crystal_state, 0x10),
                                      ("stage_flag", 0x80)]}
     },
     "Square Pedestal North (Temple of Courage)": {
@@ -846,7 +846,7 @@ ITEMS_DATA = {
         "tags": ["always_process"],
         "dungeon": 0x1e,
         "id": 194,
-        "set_bit_in_room": {0x1E00: [(addr_toc_crystal_state, 0x10)]}
+        "set_bit_in_room": {0x1E00: [(PHAddr.toc_crystal_state, 0x10)]}
     },
     "Square Pedestal South (Temple of Courage)": {
         "classification": ItemClassification.progression,
@@ -874,30 +874,30 @@ ITEMS_DATA = {
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 114,
-        "set_bit_in_room": {0x250B: [(addr_totok_b8_state, 0x2)],  # format: dict[room, list[tuple[addr, value, *dict(extra data)]]]
-                            0x250C: [(addr_totok_b9_state, 0x4)]}
+        "set_bit_in_room": {0x250B: [(PHAddr.totok_b8_state, 0x2)],  # format: dict[room, list[tuple[addr, value, *dict(extra data)]]]
+                            0x250C: [(PHAddr.totok_b9_state, 0x4)]}
     },
     "Round Pedestal B8 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 196,
-        "set_bit_in_room": {0x250B: [(addr_totok_b8_state, 0x2)]}
+        "set_bit_in_room": {0x250B: [(PHAddr.totok_b8_state, 0x2)]}
     },
     "Round Pedestal B9 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 197,
-        "set_bit_in_room": {0x250C: [(addr_totok_b9_state, 0x4)]}
+        "set_bit_in_room": {0x250C: [(PHAddr.totok_b9_state, 0x4)]}
     },
     "Round Crystals": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 204,
-        "set_bit_in_room": {0x250B: [(addr_totok_b8_state, 0x2)],
-                            0x250C: [(addr_totok_b9_state, 0x4)],
+        "set_bit_in_room": {0x250B: [(PHAddr.totok_b8_state, 0x2)],
+                            0x250C: [(PHAddr.totok_b9_state, 0x4)],
                             0x2900: [("stage_flag", [0, 0, 0, 2])]}
     },
     "Triangle Crystal (Temple of the Ocean King)": {
@@ -905,30 +905,30 @@ ITEMS_DATA = {
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 115,
-        "set_bit_in_room": {0x250B: [(addr_totok_b8_state, 0x4)],
-                            0x250C: [(addr_totok_b9_state, 0x8)]}
+        "set_bit_in_room": {0x250B: [(PHAddr.totok_b8_state, 0x4)],
+                            0x250C: [(PHAddr.totok_b9_state, 0x8)]}
     },
     "Triangle Pedestal B8 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 198,
-        "set_bit_in_room": {0x250B: [(addr_totok_b8_state, 0x4)]}
+        "set_bit_in_room": {0x250B: [(PHAddr.totok_b8_state, 0x4)]}
     },
     "Triangle Pedestal B9 (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 199,
-        "set_bit_in_room": {0x250C: [(addr_totok_b9_state, 0x8)]}
+        "set_bit_in_room": {0x250C: [(PHAddr.totok_b9_state, 0x8)]}
     },
     "Triangle Crystals": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": True,
         "id": 203,
-        "set_bit_in_room": {0x250B: [(addr_totok_b8_state, 0x4)],
-                            0x250C: [(addr_totok_b9_state, 0x8)],
+        "set_bit_in_room": {0x250B: [(PHAddr.totok_b8_state, 0x4)],
+                            0x250C: [(PHAddr.totok_b9_state, 0x8)],
                             0x2900: [("stage_flag", [0, 8])]}
     },
     "Square Crystal (Temple of the Ocean King)": {
@@ -936,29 +936,29 @@ ITEMS_DATA = {
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 116,
-        "set_bit_in_room": {0x250C: [(addr_totok_b9_state, 0x22)]}
+        "set_bit_in_room": {0x250C: [(PHAddr.totok_b9_state, 0x22)]}
     },
     "Square Pedestal West (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 200,
-        "set_bit_in_room": {0x250C: [(addr_totok_b9_state, 0x20)]}
+        "set_bit_in_room": {0x250C: [(PHAddr.totok_b9_state, 0x20)]}
     },
     "Square Pedestal Center (Temple of the Ocean King)": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 201,
-        "set_bit_in_room": {0x250C: [(addr_totok_b9_state, 0x2)]}
+        "set_bit_in_room": {0x250C: [(PHAddr.totok_b9_state, 0x2)]}
     },
     "Square Crystals": {
         "classification": ItemClassification.progression,
         "dungeon": True,
         "tags": ["always_process"],
         "id": 202,
-        "set_bit_in_room": {0x250C: [(addr_totok_b9_state, 0x22)],
-                            0x1E00: [(addr_toc_crystal_state, 0x10),
+        "set_bit_in_room": {0x250C: [(PHAddr.totok_b9_state, 0x22)],
+                            0x1E00: [(PHAddr.toc_crystal_state, 0x10),
                                      ("stage_flag", 0x80)]}
     },
     "Force Gem (B3)": {
@@ -966,55 +966,55 @@ ITEMS_DATA = {
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 117,
-        "set_bit_in_room": {0x2503: [(addr_totok_b3_state, 0xFE, {"count": 3}),
-                                     (addr_totok_b3_state_1, 0xF, {"count": 3})]}
+        "set_bit_in_room": {0x2503: [(PHAddr.totok_b3_state, 0xFE, {"count": 3}),
+                                     (PHAddr.totok_b3_state_1, 0xF, {"count": 3})]}
     },
     "Force Gem (B12)": {
         "classification": ItemClassification.progression,
         "tags": ["always_process"],
         "dungeon": 0x25,
         "id": 118,
-        "set_bit_in_room": {0x2510: [(addr_totok_b12_state, 0xFE, {"count": 3}),
-                                     (addr_totok_b12_state_1, 0xF, {"count": 3}),
-                                     (addr_totok_b12_state, 0xC, {"count": 2}),
-                                     (addr_totok_b12_state, 0x4, {"count": 1})]}
+        "set_bit_in_room": {0x2510: [(PHAddr.totok_b12_state, 0xFE, {"count": 3}),
+                                     (PHAddr.totok_b12_state_1, 0xF, {"count": 3}),
+                                     (PHAddr.totok_b12_state, 0xC, {"count": 2}),
+                                     (PHAddr.totok_b12_state, 0x4, {"count": 1})]}
     },
     "Force Gems": {
         "classification": ItemClassification.progression,
         "id": 205,
         "tags": ["always_process"],
-        "set_bit_in_room": {0x2503: [(addr_totok_b3_state, 0xFE),
-                                     (addr_totok_b3_state_1, 0xF)],
-                            0x2510: [(addr_totok_b12_state, 0xFE),
-                                     (addr_totok_b12_state_1, 0xF)]}
+        "set_bit_in_room": {0x2503: [(PHAddr.totok_b3_state, 0xFE),
+                                     (PHAddr.totok_b3_state_1, 0xF)],
+                            0x2510: [(PHAddr.totok_b12_state, 0xFE),
+                                     (PHAddr.totok_b12_state_1, 0xF)]}
     },
     "Triforce Crest": {
         "classification": ItemClassification.progression,
-        "address": addr_adv_flags_4,
+        "address": PHAddr.adv_flags_4,
         "value": 0x2,
         "id": 119,
     },
     "Sun Key": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_5,
+        "address": PHAddr.inventory_5,
         "value": 0x40,
         "id": 120,
     },
     "Ghost Key": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_6,
+        "address": PHAddr.inventory_6,
         "value": 0x8,
         "id": 121,
     },
     "King's Key": {
         "classification": ItemClassification.progression,
-        "address": addr_inventory_6,
+        "address": PHAddr.inventory_6,
         "value": 0x4,
         "id": 122,
     },
     "Regal Necklace": {
         "classification": ItemClassification.progression,
-        "address": addr_adv_flags_6,
+        "address": PHAddr.adv_flags_6,
         "value": 0x8,
         "id": 123,
     },
@@ -1022,19 +1022,19 @@ ITEMS_DATA = {
     # Metals
     "Crimzonine": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_metals,
+        "address": PHAddr.flags_metals,
         "value": 0x40,
         "id": 124,
     },
     "Azurine": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_metals,
+        "address": PHAddr.flags_metals,
         "value": 0x20,
         "id": 125,
     },
     "Aquanine": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_metals,
+        "address": PHAddr.flags_metals,
         "value": 0x80,
         "id": 126,
     },
@@ -1192,31 +1192,31 @@ ITEMS_DATA = {
     # Trade Quest
     "Hero's New Clothes": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_trade_quest,
+        "address": PHAddr.flags_trade_quest,
         "value": 0x4,
         "id": 157,
     },
     "Kaleidoscope": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_trade_quest,
+        "address": PHAddr.flags_trade_quest,
         "value": 0x8,
         "id": 158,
     },
     "Guard Notebook": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_trade_quest,
+        "address": PHAddr.flags_trade_quest,
         "value": 0x10,
         "id": 159,
     },
     "Wood Heart": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_trade_quest,
+        "address": PHAddr.flags_trade_quest,
         "value": 0x80,
         "id": 160,
     },
     "Phantom Blade": {
         "classification": ItemClassification.progression,
-        "address": addr_adv_flags_22,
+        "address": PHAddr.adv_flags_22,
         "value": 0x20,
         "id": 161,
     },
@@ -1224,57 +1224,57 @@ ITEMS_DATA = {
     # Letters and cards
     "Freebie Card": {
         "classification": DEPRIORITIZED_FALLBACK,
-        "address": addr_adv_flags_14,
+        "address": PHAddr.adv_flags_14,
         "value": 0x40,
         "id": 162,
         "tags": ["backup_filler"]
     },
     "Member's Card (Progressive)": {
         "classification": ItemClassification.progression,
-        "progressive": [(addr_adv_flags_12, 0x40), (addr_adv_flags_18, 0x20), (addr_adv_flags_18, 0x40), (addr_adv_flags_18, 0x80), (addr_adv_flags_19, 0x1)],
+        "progressive": [(PHAddr.adv_flags_12, 0x40), (PHAddr.adv_flags_18, 0x20), (PHAddr.adv_flags_18, 0x40), (PHAddr.adv_flags_18, 0x80), (PHAddr.adv_flags_19, 0x1)],
         "id": 163,
     },
     "Complimentary Card": {
         "classification": ItemClassification.filler,
-        "address": addr_adv_flags_14,
+        "address": PHAddr.adv_flags_14,
         "value": 0x20,
         "id": 164,
     },
     "Compliment Card": {
         "classification": ItemClassification.filler,
-        "address": addr_adv_flags_14,
+        "address": PHAddr.adv_flags_14,
         "value": 0x80,
         "id": 190,
     },
     "Jolene's Letter": {
         "classification": ItemClassification.progression,
-        "address": addr_flags_trade_quest,
+        "address": PHAddr.flags_trade_quest,
         "value": 0x20,
         "id": 165,
     },
     "Prize Postcard": {
         "classification": ItemClassification.filler,
-        "address": addr_adv_flags_19,
+        "address": PHAddr.adv_flags_19,
         "value": 0x8,
         "id": 166,
     },
     "Beedle Points (10)": {
         "classification": ItemClassification.progression,
-        "address": addr_beedle_points,
+        "address": PHAddr.beedle_points,
         "tags": ["incremental"],
         "value": 10,
         "id": 167,
     },
     "Beedle Points (20)": {
         "classification": ItemClassification.progression,
-        "address": addr_beedle_points,
+        "address": PHAddr.beedle_points,
         "value": 20,
         "tags": ["incremental"],
         "id": 191,
     },
     "Beedle Points (50)": {
         "classification": ItemClassification.progression,
-        "address": addr_beedle_points,
+        "address": PHAddr.beedle_points,
         "value": 50,
         "tags": ["incremental"],
         "id": 192,
@@ -1283,37 +1283,37 @@ ITEMS_DATA = {
     # Frogs
     "Golden Frog Glyph X": {
         "classification": ItemClassification.progression,
-        "address": addr_adv_flags_38,
+        "address": PHAddr.adv_flags_38,
         "value": 0x80,
         "id": 168,
     },
     "Golden Frog Glyph Phi": {
         "classification": ItemClassification.progression,
-        "address": addr_frog_glyphs,
+        "address": PHAddr.frog_glyphs,
         "value": 0x1,
         "id": 169,
     },
     "Golden Frog Glyph N": {
         "classification": ItemClassification.progression,
-        "address": addr_frog_glyphs,
+        "address": PHAddr.frog_glyphs,
         "value": 0x2,
         "id": 170,
     },
     "Golden Frog Glyph Omega": {
         "classification": ItemClassification.progression,
-        "address": addr_frog_glyphs,
+        "address": PHAddr.frog_glyphs,
         "value": 0x4,
         "id": 171,
     },
     "Golden Frog Glyph W": {
         "classification": ItemClassification.progression,
-        "address": addr_frog_glyphs,
+        "address": PHAddr.frog_glyphs,
         "value": 0x8,
         "id": 172,
     },
     "Golden Frog Glyph Square": {
         "classification": ItemClassification.progression,
-        "address": addr_frog_glyphs,
+        "address": PHAddr.frog_glyphs,
         "value": 0x10,
         "id": 173,
     },
@@ -1375,7 +1375,7 @@ ITEMS_DATA = {
     # Fish
     "Fish: Skippyjack": {
         "classification": ItemClassification.filler,
-        "address": addr_skippyjack_count,
+        "address": PHAddr.skippyjack_count,
         "value": 0x1,
         "tags": ["incremental"],
         "size": 1,
@@ -1383,7 +1383,7 @@ ITEMS_DATA = {
     },
     "Fish: Toona": {
         "classification": ItemClassification.filler,
-        "address": addr_toona_count,
+        "address": PHAddr.toona_count,
         "value": 0x1,
         "tags": ["incremental"],
         "size": 1,
@@ -1391,7 +1391,7 @@ ITEMS_DATA = {
     },
     "Fish: Loovar": {
         "classification": ItemClassification.progression_skip_balancing,
-        "address": addr_loovar_count,
+        "address": PHAddr.loovar_count,
         "value": 0x1,
         "tags": ["incremental"],
         "size": 1,
@@ -1399,7 +1399,7 @@ ITEMS_DATA = {
     },
     "Fish: Rusty Swordfish": {
         "classification": ItemClassification.progression_skip_balancing,
-        "address": addr_rsf_count,
+        "address": PHAddr.rsf_count,
         "value": 0x1,
         "tags": ["incremental"],
         "size": 1,
@@ -1407,7 +1407,7 @@ ITEMS_DATA = {
     },
     "Fish: Legendary Neptoona": {
         "classification": ItemClassification.progression_skip_balancing,
-        "address": addr_neptoona_count,
+        "address": PHAddr.neptoona_count,
         "value": 0x1,
         "tags": ["incremental"],
         "size": 1,
@@ -1415,7 +1415,7 @@ ITEMS_DATA = {
     },
     "Fish: Stowfish": {
         "classification": ItemClassification.progression_skip_balancing,
-        "address": addr_stowfish_count,
+        "address": PHAddr.stowfish_count,
         "value": 0x1,
         "tags": ["incremental"],
         "size": 1,

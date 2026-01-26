@@ -172,7 +172,7 @@ DYNAMIC_ENTRANCES = {
         "destination": "TotOK B3.5 Blue Warp",
         "has_locations": ["TotOK B3.5 Sea Chart Chest"],
         "has_slot_data": [("totok_checkpoints", 1)],
-        "check_bits": [(addr_custom_storage, 0x2, "not")]
+        "check_bits": [(PHAddr.custom_storage, 0x2, "not")]
     },
     "TotOK cc room backup": {
         "entrance": "TotOK CC Room Warp",

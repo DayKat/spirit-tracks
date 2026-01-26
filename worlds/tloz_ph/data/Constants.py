@@ -6,88 +6,88 @@ ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 STARTING_FLAGS = [
     # Starting flags (these are in the same memory block so can be simplified, but it's called once and this is
     # easier to bugfix)
-    [addr_adv_flags_0, 0xef],
-    [addr_adv_flags_1, 0x34],
-    [addr_adv_flags_2, 0x2e],
-    [addr_adv_flags_3, 0x3],
-    [addr_adv_flags_4, 0xed],
-    [addr_adv_flags_5, 0xb0],
-    [addr_adv_flags_6, 0x40],
-    [addr_adv_flags_7, 0xab],
-    [addr_adv_flags_8, 0xff],
-    [addr_adv_flags_9, 0xfb],
-    [addr_adv_flags_10, 0x2f],
-    [addr_adv_flags_11, 0xfc],
-    [addr_adv_flags_12, 0x3b],
-    [addr_adv_flags_13, 0x0],
-    [addr_adv_flags_14, 0x4],
-    [addr_adv_flags_15, 0x0],
-    [addr_adv_flags_16, 0xd9],
-    [addr_adv_flags_17, 0x4f],
-    [addr_adv_flags_18, 0x12],
-    [addr_adv_flags_19, 0x4],
-    [addr_adv_flags_20, 0x2],
-    [addr_adv_flags_21, 0x7e],
-    [addr_adv_flags_22, 0x4],
-    [addr_adv_flags_23, 0xea],
-    [addr_adv_flags_24, 0x47],
-    [addr_adv_flags_25, 0x0],
-    [addr_adv_flags_26, 0xf8],
-    [addr_adv_flags_27, 0xdf],
-    [addr_adv_flags_28, 0x35],
-    [addr_adv_flags_29, 0xe0],
-    [addr_adv_flags_30, 0x10],
-    [addr_adv_flags_31, 0xe0],
-    [addr_adv_flags_32, 0x4e],
-    [addr_adv_flags_33, 0xf9],
-    [addr_adv_flags_34, 0xf],
-    [addr_adv_flags_35, 0x5],
-    [addr_adv_flags_36, 0x31],
-    [addr_adv_flags_37, 0x0],
-    [addr_adv_flags_38, 0x60],
-    [addr_adv_flags_39, 0x20],
-    [addr_adv_flags_40, 0x26],
-    [addr_adv_flags_41, 0xcc],
-    [addr_adv_flags_42, 0x0],
-    [addr_adv_flags_43, 0xc8],
-    [addr_adv_flags_44, 0x1f],
-    [addr_adv_flags_45, 0x0],
-    [addr_adv_flags_46, 0x8],
-    [addr_adv_flags_47, 0x48],
-    [addr_adv_flags_48, 0x78],
-    [addr_adv_flags_49, 0x0],
-    [addr_adv_flags_50, 0x0],
-    [addr_adv_flags_51, 0x0],
+    [PHAddr.adv_flags_0, 0xef],
+    [PHAddr.adv_flags_1, 0x34],
+    [PHAddr.adv_flags_2, 0x2e],
+    [PHAddr.adv_flags_3, 0x3],
+    [PHAddr.adv_flags_4, 0xed],
+    [PHAddr.adv_flags_5, 0xb0],
+    [PHAddr.adv_flags_6, 0x40],
+    [PHAddr.adv_flags_7, 0xab],
+    [PHAddr.adv_flags_8, 0xff],
+    [PHAddr.adv_flags_9, 0xfb],
+    [PHAddr.adv_flags_10, 0x2f],
+    [PHAddr.adv_flags_11, 0xfc],
+    [PHAddr.adv_flags_12, 0x3b],
+    [PHAddr.adv_flags_13, 0x0],
+    [PHAddr.adv_flags_14, 0x4],
+    [PHAddr.adv_flags_15, 0x0],
+    [PHAddr.adv_flags_16, 0xd9],
+    [PHAddr.adv_flags_17, 0x4f],
+    [PHAddr.adv_flags_18, 0x12],
+    [PHAddr.adv_flags_19, 0x4],
+    [PHAddr.adv_flags_20, 0x2],
+    [PHAddr.adv_flags_21, 0x7e],
+    [PHAddr.adv_flags_22, 0x4],
+    [PHAddr.adv_flags_23, 0xea],
+    [PHAddr.adv_flags_24, 0x47],
+    [PHAddr.adv_flags_25, 0x0],
+    [PHAddr.adv_flags_26, 0xf8],
+    [PHAddr.adv_flags_27, 0xdf],
+    [PHAddr.adv_flags_28, 0x35],
+    [PHAddr.adv_flags_29, 0xe0],
+    [PHAddr.adv_flags_30, 0x10],
+    [PHAddr.adv_flags_31, 0xe0],
+    [PHAddr.adv_flags_32, 0x4e],
+    [PHAddr.adv_flags_33, 0xf9],
+    [PHAddr.adv_flags_34, 0xf],
+    [PHAddr.adv_flags_35, 0x5],
+    [PHAddr.adv_flags_36, 0x31],
+    [PHAddr.adv_flags_37, 0x0],
+    [PHAddr.adv_flags_38, 0x60],
+    [PHAddr.adv_flags_39, 0x20],
+    [PHAddr.adv_flags_40, 0x26],
+    [PHAddr.adv_flags_41, 0xcc],
+    [PHAddr.adv_flags_42, 0x0],
+    [PHAddr.adv_flags_43, 0xc8],
+    [PHAddr.adv_flags_44, 0x1f],
+    [PHAddr.adv_flags_45, 0x0],
+    [PHAddr.adv_flags_46, 0x8],
+    [PHAddr.adv_flags_47, 0x48],
+    [PHAddr.adv_flags_48, 0x78],
+    [PHAddr.adv_flags_49, 0x0],
+    [PHAddr.adv_flags_50, 0x0],
+    [PHAddr.adv_flags_51, 0x0],
     # Set item can use flags
-    [addr_boomerang_bit, 0x01],
-    [addr_shovel_bit, 0x01],
-    [addr_grapple_bit, 0x01],
-    [addr_hammer_bit, 0x01],
+    [PHAddr.boomerang_bit, 0x01],
+    [PHAddr.shovel_bit, 0x01],
+    [PHAddr.grapple_bit, 0x01],
+    [PHAddr.hammer_bit, 0x01],
     # Starting items, Phantom Hourglass
-    [addr_inventory_5, 0x01],
+    [PHAddr.inventory_5, 0x01],
     # Show treasure/ship part prices
-    [addr_show_ship_prices, [0xFF]*9],
-    [addr_show_treasure_prices, 0xFF],
+    [PHAddr.show_ship_prices, [0xFF]*9],
+    [PHAddr.show_treasure_prices, 0xFF],
     # Starting treasure at 0 so incr works properly
-    [addr_pink_coral_count, 0],
-    [addr_wpl_count, 0],
-    [addr_dpl_count, 0],
-    [addr_zora_scale_count, 0],
-    [addr_goron_amber_count, 0],
-    [addr_ruto_crown_count, 0],
-    [addr_roc_feather_count, 0],
-    [addr_regal_ring_count, 0],
+    [PHAddr.pink_coral_count, 0],
+    [PHAddr.wpl_count, 0],
+    [PHAddr.dpl_count, 0],
+    [PHAddr.zora_scale_count, 0],
+    [PHAddr.goron_amber_count, 0],
+    [PHAddr.ruto_crown_count, 0],
+    [PHAddr.roc_feather_count, 0],
+    [PHAddr.regal_ring_count, 0],
 ]
 
 STARTING_FROG_FLAGS = [
-    [addr_adv_flags_38, 0xE0],
-    [addr_adv_flags_39, 0x3F]
+    [PHAddr.adv_flags_38, 0xE0],
+    [PHAddr.adv_flags_39, 0x3F]
 ]
 
 FOG_SETTINGS_FLAGS = [
-    [[addr_adv_flags_6, 0xC0], [addr_adv_flags_47, 0x58]],
+    [[PHAddr.adv_flags_6, 0xC0], [PHAddr.adv_flags_47, 0x58]],
     [],
-    [[addr_adv_flags_2, 0x3E]]
+    [[PHAddr.adv_flags_2, 0x3E]]
 ]
 
 STAGE_FLAGS = {
@@ -399,10 +399,10 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Force Gem (B3)",
         "Force Gem (B12)",
     },
-    "Force Gems": {
+    "All Force Gems": {
         "Force Gem (B3)",
         "Force Gem (B12)",
-        "Force Gem"
+        "Force Gems"
     },
     "Collection Screen Keys": {
         "Sun Key",
@@ -1388,56 +1388,56 @@ BOSS_ENTRANCE_LOOKUP = {
 DUNGEON_KEY_DATA = {
     39: {
         "name": "Mountain Passage",
-        "address": addr_small_key_storage_1,
+        "address": PHAddr.small_key_storage_1,
         "filter": 0x0C,
         "value": 4,
         "size": 2,
     },
     37: {
         "name": "Temple of the Ocean King",
-        "address": addr_small_key_storage_1,
+        "address": PHAddr.small_key_storage_1,
         "filter": 0xE0,
         "value": 0x20,
         "size": 3,
     },
     372: {
         "name": "Temple of the Ocean King",
-        "address": addr_small_key_storage_2,
+        "address": PHAddr.small_key_storage_2,
         "filter": 0xC0,
         "value": 0x40,
         "size": 2,
     },
     0x1C: {
         "name": "Temple of Fire",
-        "address": addr_small_key_storage_1,
+        "address": PHAddr.small_key_storage_1,
         "value": 1,
         "size": 2,
         "filter": 0x03,
     },
     0x1E: {
         "name": "Temple of Courage",
-        "address": addr_small_key_storage_2,
+        "address": PHAddr.small_key_storage_2,
         "value": 0x10,
         "size": 2,
         "filter": 0x30,
     },
     0x1D: {
         "name": "Temple of Wind",
-        "address": addr_small_key_storage_1,
+        "address": PHAddr.small_key_storage_1,
         "value": 0x10,
         "size": 1,
         "filter": 0x10
     },
     0x1F: {
         "name": "Temple of Ice",
-        "address": addr_small_key_storage_2,
+        "address": PHAddr.small_key_storage_2,
         "value": 0x1,
         "size": 2,
         "filter": 0x03
     },
     0x21: {
         "name": "Mutoh's Temple",
-        "address": addr_small_key_storage_2,
+        "address": PHAddr.small_key_storage_2,
         "value": 0x4,
         "size": 2,
         "filter": 0x0C
@@ -1447,32 +1447,32 @@ DUNGEON_KEY_DATA = {
 BOSS_DOOR_DATA = {
     0x1C: {
         "name": "Temple of Fire",
-        "address": addr_tof_doors,
+        "address": PHAddr.tof_doors,
         "value": 0x1
     },
     0x1D: {
         "name": "Temple of Wind",
-        "address": addr_tow_doors,
+        "address": PHAddr.tow_doors,
         "value": 0x400
     },
     0x1E: {
         "name": "Temple of Courage",
-        "address": addr_toc_boss_door,
+        "address": PHAddr.toc_boss_door,
         "value": 0x2
     },
     0x20: {
         "name": "Goron Temple",
-        "address": addr_gt_boss_door,
+        "address": PHAddr.gt_boss_door,
         "value": 0x1
     },
     0x1F: {
         "name": "Temple of Ice",
-        "address": addr_toi_doors,
+        "address": PHAddr.toi_doors,
         "value": 0x80
     },
     0x21: {
         "name": "Mutoh's Temple",
-        "address": addr_mt_doors,
+        "address": PHAddr.mt_doors,
         "value": 0x1
     },
 }
@@ -1482,21 +1482,21 @@ BOSS_DOOR_DATA = {
 COLOR_SWITCH_DATA = {
     0x1F: {
         "name": "Temple of Ice",
-        "address": addr_color_switch_toi,
+        "address": PHAddr.color_switch_toi,
         "value": 0x1
     },
     0x1E: {
         "name": "Temple of Courage",
-        "address": addr_color_switch_toc,
+        "address": PHAddr.color_switch_toc,
         "value": 0x1
     },
 }
 
 UT_EVENT_DATA = {
-    0x2400: {"address": addr_adv_flags_6,
+    0x2400: {"address": PHAddr.adv_flags_6,
            "value": 0x4,
            "entrance": "EVENT: Bremeur's Temple Lower Water"},
-    0x800: {"address": addr_adv_flags_22,
+    0x800: {"address": PHAddr.adv_flags_22,
            "value": 0x8,
            "entrance": "EVENT: SS Wayfarer Give Wood Heart"},
     0x1001: [
@@ -1504,21 +1504,21 @@ UT_EVENT_DATA = {
          "value": 0x4,
          "entrance": "EVENT: Goron NE Spike Switch",
          "offset": 1},
-        {"address": addr_goron_bomb_blocks,
+        {"address": PHAddr.goron_bomb_blocks,
           "value": 0x8,
           "event": "gms"},
-        {"address": addr_goron_bomb_blocks,
+        {"address": PHAddr.goron_bomb_blocks,
          "value": 0x1,
          "event": "gss"}],
     0x1003: [
-        {"address": addr_adv_flags_35,
+        {"address": PHAddr.adv_flags_35,
             "value": 0x2,
             "entrance": "EVENT: Goron SE Shout to Bridge Goron"},
     ],
-    0x1002: {"address": addr_adv_flags_34,
+    0x1002: {"address": PHAddr.adv_flags_34,
              "value": 0x20,
              "entrance": "EVENT: Goron SW Kill Yellow Chus"},
-    0x130B: {"address": addr_adv_flags_6,
+    0x130B: {"address": PHAddr.adv_flags_6,
              "value": 0x2,
              "entrance": "EVENT: Open Eddo's Door",},
     0xe01: {"address": "stage_flags",
@@ -1543,7 +1543,7 @@ UT_EVENT_DATA = {
              "value": 0x10,
              "event": "fif",
              "offset": 2},
-    0x1A00: {"address": addr_adv_flags_38,
+    0x1A00: {"address": PHAddr.adv_flags_38,
             "value": 0x10,
             "event": "ub"},
     0xd01: {"address": "stage_flags",
@@ -1553,27 +1553,27 @@ UT_EVENT_DATA = {
             "value": 0x80,
             "event": "tfw",
              "offset": 1},
-    0x1d04: {"address": addr_tow_warp,
+    0x1d04: {"address": PHAddr.tow_warp,
              "value": 0x1,
              "event": "tww"},
-    0x1e03: {"address": addr_toc_warp,
+    0x1e03: {"address": PHAddr.toc_warp,
              "value": 0x1,
              "event": "tcw"},
     0x2004: {"address": "stage_flags",
              "value": 0x80,
              "event": "gtw",
              "offset": 3},
-    0x1f02: {"address": addr_toi_warp,
+    0x1f02: {"address": PHAddr.toi_warp,
              "value": 0x1,
              "event": "tiw"},
     0x2105: {"address": "stage_flags",
              "value": 0x10,
              "event": "mtw",
              "offset": 1},
-    0x1300: {"address": addr_cannon_bomb_blocks,
+    0x1300: {"address": PHAddr.cannon_bomb_blocks,
              "value": 0x1,
              "event": "cb"},
-    0xC0A: {"address": addr_molida_bomb_blocks,
+    0xC0A: {"address": PHAddr.molida_bomb_blocks,
              "value": 0x1,
              "event": "mcb"},
 }
@@ -1692,17 +1692,17 @@ BOSS_WARP_SCENE_LOOKUP = {
 }
 
 EQUIPPED_SHIP_PARTS_ADDR = [
-    0x1BA544,
-    0x1BA548,
-    0x1BA54C,
-    0x1BA550,
-    0x1BA554,
-    0x1BA558,
-    0x1BA55C,
-    0x1BA560,
+    PHAddr.equipped_ship_parts_0,
+    PHAddr.equipped_ship_parts_1,
+    PHAddr.equipped_ship_parts_2,
+    PHAddr.equipped_ship_parts_3,
+    PHAddr.equipped_ship_parts_4,
+    PHAddr.equipped_ship_parts_5,
+    PHAddr.equipped_ship_parts_6,
+    PHAddr.equipped_ship_parts_7,
 ]
 
-TREASURE_READ_LIST = {i: (addr_pink_coral_count + i * 4, 4, "Main RAM") for i in range(8)}
+TREASURE_READ_LIST = {i: (PHAddr.pink_coral_count + i * 4, 4, "Main RAM") for i in range(8)}
 
 TREASURE_PRICES = {
     "Treasure: Pink Coral": [1500, 50, 150, 50, 150, 150, 1500, 50, 50, 1500, 50],

@@ -153,22 +153,22 @@ safe_entrances_ow = safe_entrances_common | {
 }
 
 island_visibility_addr = {
-    "Map Warp: Mercay": addr_island_visible_mercay,
-    "Map Warp: Molida": addr_island_visible_molida,
-    "Map Warp: Ember": addr_island_visible_ember,
-    "Map Warp: Cannon": addr_island_visible_cannon,
-    "Map Warp: Spirit": addr_island_visible_spirit,
-    "Map Warp: Gust": addr_island_visible_gust,
-    "Map Warp: Bannan": addr_island_visible_bannan,
-    "Map Warp: Zauz": addr_island_visible_zauz,
-    "Map Warp: Uncharted": addr_island_visible_uncharted,
-    "Map Warp: Goron": addr_island_visible_goron,
-    "Map Warp: Frost": addr_island_visible_frost,
-    "Map Warp: Harrow": addr_island_visible_harrow,
-    "Map Warp: Dee Ess": addr_island_visible_ds,
-    "Map Warp: Ruins": addr_island_visible_ruins,
-    "Map Warp: Isle of the Dead": addr_island_visible_iotd,
-    "Map Warp: Maze": addr_island_visible_maze,
+    "Map Warp: Mercay": PHAddr.island_visible_mercay,
+    "Map Warp: Molida": PHAddr.island_visible_molida,
+    "Map Warp: Ember": PHAddr.island_visible_ember,
+    "Map Warp: Cannon": PHAddr.island_visible_cannon,
+    "Map Warp: Spirit": PHAddr.island_visible_spirit,
+    "Map Warp: Gust": PHAddr.island_visible_gust,
+    "Map Warp: Bannan": PHAddr.island_visible_bannan,
+    "Map Warp: Zauz": PHAddr.island_visible_zauz,
+    "Map Warp: Uncharted": PHAddr.island_visible_uncharted,
+    "Map Warp: Goron": PHAddr.island_visible_goron,
+    "Map Warp: Frost": PHAddr.island_visible_frost,
+    "Map Warp: Harrow": PHAddr.island_visible_harrow,
+    "Map Warp: Dee Ess": PHAddr.island_visible_ds,
+    "Map Warp: Ruins": PHAddr.island_visible_ruins,
+    "Map Warp: Isle of the Dead": PHAddr.island_visible_iotd,
+    "Map Warp: Maze": PHAddr.island_visible_maze,
 }
 
 safe_entrances_no_ow = safe_entrances_common | {}
@@ -232,7 +232,7 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         logger.info(f"Canceled warp to start due to opening map warp menu")
 
     # read transition mode
-    transition_mode = await addr_changing_map_scene.read(ctx, silent=True)
+    transition_mode = await PHAddr.changing_map_scene.read(ctx, silent=True)
 
     client.visited_scenes |= set(get_stored_data(ctx, 'ph_visited_scenes', []))
 
@@ -278,7 +278,7 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         client.map_warp_reselector = False
 
         # Setup pen mode stuff
-        pen_mode_pointer = await addr_pen_mode_pointer.read(ctx, silent=True)
+        pen_mode_pointer = await PHAddr.pen_mode_pointer.read(ctx, silent=True)
         print(f"pen mode pointer {hex(pen_mode_pointer)}")
         pen_mode_check = pen_mode_pointer+25*4-0x2000000
         if pen_mode_check < 0x400000:
