@@ -1,5 +1,6 @@
 
 from .Constants import ITEM_GROUPS
+from .Addresses import STAddr
 
 # TODO: Add sram data for saveslot 2
 # TODO: Add the rest of sram data in bulk
@@ -12,7 +13,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x2F,
         "room_id": 0,
-        "address": 0x265743,
+        "address": STAddr.adv_flags_2f,
         "value": 0x20,
     },
     "Outset Bee Tree": {
@@ -63,7 +64,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
         "room_id": 0x0A,
-        "address": 0x265739,
+        "address": STAddr.adv_flags_25,
         "value": 0x2,
         "x_min": -9816,
         "x_max": 12156,
@@ -651,7 +652,7 @@ LOCATIONS_DATA = {
     "Wooded Temple Dungeon Reward": {
         "region_id": "wt stagnox",
         "vanilla_item": "Forest Source",
-        "address": 0x265714,
+        "address": STAddr.adv_flags_0,
         "value": 0x10,
         "stage_id": 0x1E,
         "room_id": 0,
@@ -744,7 +745,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x37,
         "room_id": 0x02,
-        "address": 0x265752,
+        "address": STAddr.adv_flags_3e,
         "value": 0x10,
         "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
         "item_override": "W Wooded Temple Tracks",
@@ -955,7 +956,7 @@ LOCATIONS_DATA = {
     "Blizzard Temple Dungeon Reward": {
         "region_id": "bt fraaz",
         "vanilla_item": "Snow Source", #TODO tracks did not get removed, and check sent on room entry
-        "address": 0x265714,
+        "address": STAddr.adv_flags_0,
         "value": 0x20,
         "stage_id": 0x1F,
         "room_id": 0,
@@ -1053,7 +1054,7 @@ LOCATIONS_DATA = {
         "region_id": "w castle town rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 1,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1062,7 +1063,7 @@ LOCATIONS_DATA = {
         "region_id": "forest ocean shortcut rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 2,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1071,7 +1072,7 @@ LOCATIONS_DATA = {
         "region_id": "e mayscore rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 4,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1080,7 +1081,7 @@ LOCATIONS_DATA = {
         "region_id": "sw trading post rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 8,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1089,7 +1090,7 @@ LOCATIONS_DATA = {
         "region_id": "e outset rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 0x10,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1098,7 +1099,7 @@ LOCATIONS_DATA = {
         "region_id": "sw rabbit haven rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 0x20,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1107,7 +1108,7 @@ LOCATIONS_DATA = {
         "region_id": "wt rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 0x40,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1116,7 +1117,7 @@ LOCATIONS_DATA = {
         "region_id": "nr rabbit haven rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262030,
+        "address": STAddr.rabbits_0,
         "value": 0x80,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1125,7 +1126,7 @@ LOCATIONS_DATA = {
         "region_id": "forest after bridge rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 1,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1134,7 +1135,7 @@ LOCATIONS_DATA = {
         "region_id": "s rabbit haven rabbit",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 2,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1144,7 +1145,7 @@ LOCATIONS_DATA = {
         "region_id": "ne blizzard rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 4,
     "rabbit": True,
     "require_item": ["Rabbit Net", "Cannon"]
@@ -1153,7 +1154,7 @@ LOCATIONS_DATA = {
         "region_id": "se blizzard rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 8,
     "rabbit": True,
     "require_item": ["Rabbit Net", "Cannon"]
@@ -1162,7 +1163,7 @@ LOCATIONS_DATA = {
         "region_id": "w anouki village rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 0x10,
     "rabbit": True,
     "require_item": ["Rabbit Net", "Cannon"]
@@ -1171,7 +1172,7 @@ LOCATIONS_DATA = {
         "region_id": "sw blizzard rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 0x20,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1180,7 +1181,7 @@ LOCATIONS_DATA = {
         "region_id": "e anouki village rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 0x40,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1189,7 +1190,7 @@ LOCATIONS_DATA = {
         "region_id": "snowdrift station rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262031,
+        "address": STAddr.rabbits_1,
         "value": 0x80,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1198,7 +1199,7 @@ LOCATIONS_DATA = {
         "region_id": "w icyspring rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262032,
+        "address": STAddr.rabbits_2,
         "value": 1,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1207,7 +1208,7 @@ LOCATIONS_DATA = {
         "region_id": "n icyspring rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262032,
+        "address": STAddr.rabbits_2,
         "value": 2,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1216,7 +1217,7 @@ LOCATIONS_DATA = {
         "region_id": "nw blizzard rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262032,
+        "address": STAddr.rabbits_2,
         "value": 4,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
@@ -1225,7 +1226,7 @@ LOCATIONS_DATA = {
         "region_id": "central blizzard rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
-        "address": 0x262032,
+        "address": STAddr.rabbits_2,
         "value": 8,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]

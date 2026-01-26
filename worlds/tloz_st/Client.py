@@ -1,7 +1,7 @@
 import random
 from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import AddrFromPointer
-from .data.Addresses import *
+from .data.Addresses import STAddr
 from .data.Items import ITEMS
 
 if TYPE_CHECKING:
@@ -45,23 +45,22 @@ if TYPE_CHECKING:
 # }
 #
 # POINTERS = {
-#     "ADDR_gItemManager": 0x0fb4,
-#     "ADDR_gPlayerManager": 0x0fbc,
-#     "ADDR_gAdventureFlags": 0x0f74,
-#     "ADDR_gPlayer": 0x0fec,
-#     "ADDR_gOverlayManager_mLoadedOverlays_4": 0x0910,
-#     "ADDR_gMapManager": 0x0e60
+#     "STAddr.gItemManager": 0x0fb4,
+#     "STAddr.gPlayerManager": 0x0fbc,
+#     "STAddr.gAdventureFlags": 0x0f74,
+#     "STAddr.gPlayer": 0x0fec,
+#     "STAddr.gOverlayManager_mLoadedOverlays_4": 0x0910,
+#     "STAddr.gMapManager": 0x0e60
 # }
 
 # gMapManager -> mCourse -> mSmallKeys
 SMALL_KEY_OFFSET = 0x260
 STAGE_FLAGS_OFFSET = 176
-STAGE_FLAG_POINTER = 0x265164
 
 # Addresses to read each cycle
-read_keys_always = [addr_game_state, addr_received_item_index, addr_stage, addr_room, addr_entrance, addr_slot_id, addr_menu,
-                    addr_loading_room, addr_mid_load]
-read_keys_land = [addr_getting_location, addr_getting_train_part]
+read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
+                    STAddr.loading_room, STAddr.mid_load]
+read_keys_land = [STAddr.getting_location, STAddr.getting_train_part]
 
 
 class SpiritTracksClient(DSZeldaClient):
@@ -71,17 +70,19 @@ class SpiritTracksClient(DSZeldaClient):
     def __init__(self) -> None:
         super().__init__()
 
+
+
         # Required variables from inherit
         self.starting_flags = STARTING_FLAGS
         self.dungeon_key_data = DUNGEON_KEY_DATA
-        self.slot_id_addr = addr_slot_id
-        self.received_item_index_addr = addr_received_item_index
+        self.slot_id_addr = STAddr.slot_id
+        self.received_item_index_addr = STAddr.received_item_index
         self.starting_entrance = (0x2F, 0, 1)  # stage, room, entrance
-        self.scene_addr = (addr_stage, addr_room, addr_floor, addr_entrance)  # Stage, room, floor, entrance
+        self.scene_addr = (STAddr.stage, STAddr.room, STAddr.floor, STAddr.entrance)  # Stage, room, floor, entrance
         self.exit_coords_addr = ()  # TODO: x, y, z. what coords to spawn link at when entering a
         # continuous transition
         self.er_y_offest = 164  # In ph i use coords who's y is 164 off the entrance y
-        self.ADDR_gMapManager = addr_gMapManager
+        self.ADDR_gMapManager = STAddr.gMapManager
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
 
         self.update_rabbits = False
@@ -93,11 +94,18 @@ class SpiritTracksClient(DSZeldaClient):
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
         self.treasure_tracker = []
 
+        self.addr_game_state = STAddr.game_state
+        self.addr_slot_id = STAddr.slot_id
+        self.addr_stage = STAddr.stage
+        self.addr_room = STAddr.room
+        self.addr_entrance = STAddr.entrance
+        self.addr_received_item_index = STAddr.received_item_index
+
     async def get_small_key_address(self, ctx) -> int:
-        return 0x26532F
+        return STAddr.small_keys
 
     async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
-        rom_name_bytes = await addr_game_identifier.read_bytes(ctx)
+        rom_name_bytes = await STAddr.game_identifier.read_bytes(ctx)
         rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
         print(f"Rom Name: {rom_name}")
         if rom_name == "SPIRITTRACKSBKIP":  # EU
@@ -105,22 +113,22 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     def get_coord_address(self, at_sea=None, multi=False):
-        return addr_link_x, addr_link_y, addr_link_z
+        return STAddr.link_x, STAddr.link_y, STAddr.link_z
 
     async def get_coords(self, ctx, multi=False):
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi))
         return {
-            "x": coords[addr_link_x],
-            "y": coords[addr_link_y],
-            "z": coords[addr_link_z]
+            "x": coords[STAddr.link_x],
+            "y": coords[STAddr.link_y],
+            "z": coords[STAddr.link_z]
         }
 
     async def full_heal(self, ctx, bonus=0):
-        hearts = await addr_heart_count.read(ctx)
-        await addr_health.overwrite(ctx, hearts+bonus)
+        hearts = await STAddr.heart_count.read(ctx)
+        await STAddr.health.overwrite(ctx, hearts+bonus)
 
     async def watched_intro_cs(self, ctx):
-        return await addr_watched_intro.read(ctx) & 1
+        return await STAddr.watched_intro.read(ctx) & 1
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always
@@ -129,7 +137,7 @@ class SpiritTracksClient(DSZeldaClient):
         print(self.main_read_list)
 
     def process_loading_variable(self, read_result) -> bool:
-        mid_load = read_result.get(addr_mid_load, True) == 0xFF
+        mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
         if self._loading_scene and not self.loading_stage:
             if mid_load:
                 self.loading_stage = True
@@ -138,22 +146,22 @@ class SpiritTracksClient(DSZeldaClient):
             if not mid_load:
                 self.loading_stage = False
                 return mid_load
-        return not read_result.get(addr_loading_room, 27)
+        return not read_result.get(STAddr.loading_room, 27)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
-        current_menu = read_result[addr_menu]
+        current_menu = read_result[STAddr.menu]
         self.in_stamp_stand = current_menu == 0x0E
-        self.getting_location = not read_result[addr_getting_location]
+        self.getting_location = not read_result[STAddr.getting_location]
 
         # Fix for stamp stand not counting as getting item
         if self.in_stamp_stand and self.receiving_location:
             self.getting_location = True
 
-        if read_result[addr_stage] == 0x79:
-            read_result[addr_stage] = 0x14
-            read_result[addr_room] = 0x1
-            await addr_stage.overwrite(ctx, 0x14)
-            await addr_room.overwrite(ctx, 1)
+        if read_result[STAddr.stage] == 0x79:
+            read_result[STAddr.stage] = 0x14
+            read_result[STAddr.room] = 0x1
+            await STAddr.stage.overwrite(ctx, 0x14)
+            await STAddr.room.overwrite(ctx, 1)
 
     async def update_treasure_tracker(self, ctx):
         read_list = []
@@ -184,15 +192,15 @@ class SpiritTracksClient(DSZeldaClient):
             # TODO: Rabbit count wants to count the correct kind of rabbit in rabbit haven
             rabbit_total = 2 ** rabbit_total - 1  # convert decimal to that number of bits
             print(f"updating rabbit count {rabbit_total}")
-            await addr_rabbits.overwrite(ctx, rabbit_total)
+            await STAddr.rabbits.overwrite(ctx, rabbit_total)
         if self.update_rabbits and self.current_scene != 0x3E00: # TODO going on train gives rabbit locations
             rabbit_bits = 0
             for _id, name in self.rabbit_id_to_name.items():
                 if _id in ctx.checked_locations:
                     loc_data = LOCATIONS_DATA[name]
-                    offset = loc_data["address"] - addr_rabbits
+                    offset = loc_data["address"] - STAddr.rabbits
                     rabbit_bits += loc_data["value"] << (offset*8)
-            await addr_rabbits.overwrite(ctx, rabbit_bits)
+            await STAddr.rabbits.overwrite(ctx, rabbit_bits)
             self.update_rabbits = False
 
     def cancel_location_read(self, location) -> bool:
@@ -233,7 +241,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:
-            stage_address = await addr_stage_flag_pointer.read()
+            stage_address = await STAddr.stage_flag_pointer.read()
             stage_flag_address = AddrFromPointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])

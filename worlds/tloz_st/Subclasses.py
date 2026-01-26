@@ -1,21 +1,12 @@
 from .DSZeldaClient.subclasses import DSTransition
 from .DSZeldaClient.ItemClass import DSItem, receive_normal
-from .DSZeldaClient.DSZeldaClient import read_multiple, write_multiple
 from enum import IntEnum
-from .data.Constants import ITEM_GROUPS
-from .data.Items import ITEMS
 
 
 async def remove_treasure(client, ctx, item, rii):
     res = []
-    # read_list = []
-    # for name in ITEM_GROUPS["All Treasures"]:
-    #     treasure = ITEMS[name]
-    #     read_list += treasure.address
-    # read_res = await read_multiple(ctx, read_list)
-    for name, value in zip(ITEM_GROUPS["All Treasures"], client.treasure_tracker):
-        treasure = ITEMS[name]
-        res += treasure.address.get_write_list(value)
+    for addr, value in client.treasure_tracker.items():
+        res += addr.get_write_list(value)
     return res
 
 class STItem(DSItem):

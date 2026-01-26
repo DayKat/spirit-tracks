@@ -1,3 +1,5 @@
+from .Addresses import STAddr
+
 VERSION = "0.3.0"
 ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 
@@ -6,56 +8,41 @@ STARTING_FLAGS = [
     # Starting flags (these are in the same memory block so can be simplified, but it's called once and this is
     # easier to bugfix)
 
-    [0x265714, 0x04],  # restore spirit train cutscene skip
-    [0x265715, 0x01],  # forest restoration duet done
-    [0x265716, 0xF0],  # sword tutorial and intro stuff
-    [0x265717, 0x47],  # split ToS and zelda 1st convo
-    [0x265718, 0x34],  # load train to ToS
-    [0x265719, 0x74],  # train quill tutorial skip
-    [0x26571A, 0xFC],  # Intro stuff
-    [0x26571B, 0x13],  # postman & get zelda's letter
-    [0x26571F, 0x98],  # blizzard stuff
-    [0x265720, 0xE2],  # convos
-    [0x265723, 0xC0],  # ToS 4F 1st time entry
-    [0x265724, 0x50],  # anjean section text
-    [0x265726, 0x1B],  # zelda 1st phantom possession + mayascore bugs
-    [0x265729, 0x58],  # post fleeing ToS 1F
-    [0x26572A, 0x08],  # ready for FS duet
-    [0x26572B, 0x40],  # Skip an Anjean dialogue
-    [0x26572C, 0x07],  # HC intro Zelda
-    [0x26572D, 0x01],  # steem
-    [0x26572F, 0x02],  # initial train cutscene skip
-    [0x26572E, 0x1C],  # rabbitland rock text
-    [0x265738, 0x08],  # move HC guards
-    [0x265743, 0x40],  # linebeck 1st convo
-    [0x26574B, 0x10],  # teacher text skip
-    [0x265751, 0x60],  # ToS safe zone tutorial
-    [0x265754, 0x04],  # 1st portal text
-    [0x265756, 0x80],  # board with zelda
-    [0x26575C, 0x10],  # alfonzo giving cannon
-    [0x265762, 0x80],  # blizzard void out
-    [0x265766, 0x80],  # ToS Staircase cutscene skip
-    [0x265767, 0x01],  # ToS Staircase 2 zelda text skip
-    [0x265768, 0x28],  # first spirit train journey+portal
-    [0x26576B, 0x40],  # first song statue text
+    [STAddr.adv_flags_0, 0x04],  # restore spirit train cutscene skip
+    [STAddr.adv_flags_1, 0x01],  # forest restoration duet done
+    [STAddr.adv_flags_2, 0xF0],  # sword tutorial and intro stuff
+    [STAddr.adv_flags_3, 0x47],  # split ToS and zelda 1st convo
+    [STAddr.adv_flags_4, 0x34],  # load train to ToS
+    [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
+    [STAddr.adv_flags_6, 0xFC],  # Intro stuff
+    [STAddr.adv_flags_7, 0x13],  # postman & get zelda's letter
+    [STAddr.adv_flags_b, 0x98],  # blizzard stuff
+    [STAddr.adv_flags_c, 0xE2],  # convos
+    [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
+    [STAddr.adv_flags_10, 0x50],  # anjean section text
+    [STAddr.adv_flags_12, 0x1B],  # zelda 1st phantom possession + mayascore bugs
+    [STAddr.adv_flags_15, 0x58],  # post fleeing ToS 1F
+    [STAddr.adv_flags_16, 0x08],  # ready for FS duet
+    [STAddr.adv_flags_17, 0x40],  # Skip an Anjean dialogue
+    [STAddr.adv_flags_18, 0x07],  # HC intro Zelda
+    [STAddr.adv_flags_19, 0x01],  # steem
+    [STAddr.adv_flags_1b, 0x02],  # initial train cutscene skip
+    [STAddr.adv_flags_1a, 0x1C],  # rabbitland rock text
+    [STAddr.adv_flags_24, 0x08],  # move HC guards
+    [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
+    [STAddr.adv_flags_37, 0x10],  # teacher text skip
+    [STAddr.adv_flags_3d, 0x60],  # ToS safe zone tutorial
+    [STAddr.adv_flags_40, 0x04],  # 1st portal text
+    [STAddr.adv_flags_42, 0x80],  # board with zelda
+    [STAddr.adv_flags_48, 0x10],  # alfonzo giving cannon
+    [STAddr.adv_flags_4e, 0x80],  # blizzard void out
+    [STAddr.adv_flags_52, 0x80],  # ToS Staircase cutscene skip
+    [STAddr.adv_flags_53, 0x01],  # ToS Staircase 2 zelda text skip
+    [STAddr.adv_flags_54, 0x28],  # first spirit train journey+portal
+    [STAddr.adv_flags_57, 0x40],  # first song statue text
 
     # Set treasures to 0
-    [0x269000, 0, 0],
-    [0x269002, 0, 0],
-    [0x269004, 0, 0],
-    [0x269006, 0, 0],
-    [0x269008, 0, 0],
-    [0x26900A, 0, 0],
-    [0x26900C, 0, 0],
-    [0x26900E, 0, 0],
-    [0x269010, 0, 0],
-    [0x269012, 0, 0],
-    [0x269014, 0, 0],
-    [0x269016, 0, 0],
-    [0x269018, 0, 0],
-    [0x26901A, 0, 0],
-    [0x26901C, 0, 0],
-    [0x26901E, 0, 0]
+    [STAddr.all_treasure_count, [0]*32],
 ]
 
 # You can find the stage flags for a stage by checking the stage data pointer of 0x265164 and adding an offset of 176 (note decimal) to its value
@@ -250,7 +237,7 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
 DUNGEON_KEY_DATA = {
     0x13: {
         "name": "ToS",
-        "address": 0x265785,
+        "address": STAddr.key_storage_tos,
         "filter": 0xFF,
         "value": 1,
         "size": 8,
@@ -266,7 +253,7 @@ DUNGEON_KEY_DATA = {
     },
     0x18: {
         "name": "Tunnel to ToS",
-        "address": 0x265784,
+        "address": STAddr.key_storage_0,
         "filter": 0x01,
         "value": 1,
         "size": 1,
@@ -282,7 +269,7 @@ DUNGEON_KEY_DATA = {
     },
     0x19: {
         "name": "Wooded Temple",
-        "address": 0x265784,
+        "address": STAddr.key_storage_0,
         "filter": 0x06,
         "value": 0x02,
         "size": 2,
@@ -295,7 +282,7 @@ DUNGEON_KEY_DATA = {
     },
     0x1A: {
         "name": "Blizzard Temple",
-        "address": 0x265784,
+        "address": STAddr.key_storage_0,
         "filter": 0x08,
         "value": 0x08,
         "size": 1,

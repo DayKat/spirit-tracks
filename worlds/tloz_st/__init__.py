@@ -48,21 +48,6 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
     return item_pool_dict, filler_item_count
 
 
-"""TODO def add_additional_spirit_gems(item_pool_dict: dict, filler_item_count: int):
-    def add_gems(gem: str, filler_count: int):
-        gems = 20 - item_pool_dict[gem]
-        if filler_count >= gems:
-            filler_count -= gems
-            item_pool_dict[gem] = 20
-        return filler_count
-
-    filler_item_count = add_gems("Power Gem", filler_item_count)
-    filler_item_count = add_gems("Wisdom Gem", filler_item_count)
-    filler_item_count = add_gems("Courage Gem", filler_item_count)
-
-    return [item_pool_dict, filler_item_count] """
-
-
 class SpiritTracksWorld(World):
     """
     The Legend of Zelda: Spirit Tracks is the train bound handheld sequel to Phantom Hourglass.
