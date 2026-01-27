@@ -157,7 +157,7 @@ class PhantomHourglassClient(DSZeldaClient):
         if not multi:
             return {
                 "x": coords.get(PHAddr.link_x, coords.get(PHAddr.boat_x)),
-                "y": coords.get(PHAddr.link_y, PHAddr.null),
+                "y": coords.get(PHAddr.link_y, 0),
                 "z": coords.get(PHAddr.link_z, coords.get(PHAddr.boat_z, 0))
             }
         return coords
