@@ -262,7 +262,7 @@ ITEMS_DATA = {
             "Ocean NW Bannan",
             "Ocean NW Zauz",
             "Ocean NW Uncharted",
-            "Board Ghost Ship",
+            "Ocean NW Board Ghost Ship",
         ]
     },
     "SE Sea Chart": {
