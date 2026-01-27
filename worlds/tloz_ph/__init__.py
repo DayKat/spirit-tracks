@@ -16,11 +16,11 @@ from .Options import *
 from .Logic import create_connections
 from .data import LOCATIONS_DATA
 from .data.Constants import *
-from .data.Items import ITEMS_DATA
+from .data.Items import ITEMS
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
-from .data.Entrances import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, ENTRANCES, entrance_id_to_region, EVENTS, entrance_id_to_entrance
-from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic
+from .data.Entrances import ENTRANCES, entrance_id_to_region, EVENTS, entrance_id_to_entrance
+from .Subclasses import PHRegion, decode_entrance_groups, update_switch_logic, EntranceGroups, OPPOSITE_ENTRANCE_GROUPS
 from .Client import PhantomHourglassClient  # Unused, but required to register with BizHawkClient
 from .tracker.TrackerUtil import TRACKER_WORLD
 
@@ -158,46 +158,6 @@ class PhantomHourglassWorld(World):
                                        "ph_ut_events_{player}_{team}",
                                        "ph_disconnect_entrances_{player}_{team}",
                                        "ph_traversed_entrances_{player}_{team}"]
-                                       
-    # This is all code you still need to implement. I am writing down logic.
-    # 
-    # Maps:
-    #     Load when *no* ER is on:
-    #         maps/maps_any_er_false.json
-    #     Load when *any* ER is on:
-    #         maps/maps_any_er_true.json
-    #     Load when Overworld-Transition-ER is on:
-    #         maps/maps_ow_er_true.json
-    #     Load when Overworld-Transition-ER is off:
-    #         maps/maps_ow_er_false.json
-    #         
-    # Locations:
-    #     Always load:
-    #         locations/locations.json
-    #         locations/interior_checks.json
-    #     Load when Dungeons AND Bosses are vanilla:
-    #         locations/overview_dungeons_full.json
-    #     Load when Dungeons are vanilla BUT NOT bosses:
-    #         locations/overview_dungeons.json
-    #     Load when Bosses are vanilla (regardless of Dungeon-ER):
-    #         locations/overview_bosses.json
-    #     Load when Caves are vanilla:
-    #         locations/caves.json
-    #     Load when Houses are vanilla:
-    #         locations/houses.json
-    #     Special Cases incoming yey :)
-    #     Load when BOTH Houses and Caves are vanilla (additionally to the above):
-    #         locations/overview_astrid_full.json
-    #     Load when Houses are vanilla but Caves are NOT (additionally to the above):
-    #         locations/overview_astrid_houses
-    #         
-    # Entrances:
-    #     Load the obviously named files in tracker/entrances/ depending on which ER is enabled
-    #     Load them as locations
-    # 
-    # That's all!
-        
-                                       
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -273,15 +233,16 @@ class PhantomHourglassWorld(World):
                                   and event.name in ["GOAL: Bellumbeck"]):
                                 continue
 
-                        if self.options.exclude_non_required_dungeons:
-                            loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
-                            if loc_lookup:
-                                print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
-                                loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
-                                if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
-                                    continue
-                        print(f"Adding Event: {event.name}")
-                        self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
+
+                        # if self.options.exclude_non_required_dungeons:  i want to link this to UT show excluded in the host.yaml
+                        #     loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
+                        #     if loc_lookup:
+                        #         print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
+                        #         loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
+                        #         if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
+                        #             continue
+                        # print(f"Adding Event: {event.name}")
+                        # self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
             # Hide stuff in UT map page based on what entrances are randomized
             if not self.ut_map_page_hidden_locations or not self.ut_map_page_hidden_entrances:
@@ -757,7 +718,6 @@ class PhantomHourglassWorld(World):
 
             # Connect plando first, cause they will not be redone if failed
             self.connect_plando(self.options.plando_transitions)
-            disconnect_on_retry = [i for i in randomized_entrances if i not in plando_disconnects]
             # Do ER
             ph_max_er_attempts = 10
             for i in range(ph_max_er_attempts):
@@ -1004,7 +964,7 @@ class PhantomHourglassWorld(World):
         self.multiworld.completion_condition[self.player] = lambda state: state.has("_beaten_game", self.player)
 
     def create_item(self, name: str) -> Item:
-        classification = ITEMS_DATA[name]['classification']
+        classification = ITEMS[name].classification
         if name in self.extra_filler_items:
             self.extra_filler_items.remove(name)
             classification = ItemClassification.filler
@@ -1020,13 +980,13 @@ class PhantomHourglassWorld(World):
         return Item(name, classification, ap_code, self.player)
 
     def build_item_pool_dict(self):
-        removed_item_quantities = self.options.remove_items_from_pool.value.copy()
         def force_vanilla():
             item_obj = self.create_item(item_name)
             loc_obj = self.multiworld.get_location(loc_name, self.player)
             loc_obj.place_locked_item(item_obj)
             loc_obj.progress_type = LocationProgressType.DEFAULT
 
+        removed_item_quantities = self.options.remove_items_from_pool.value.copy()
         item_pool_dict = {}
         filler_item_count = 0
         boss_reward_item_count = len(self.boss_reward_items_pool)
@@ -1044,6 +1004,10 @@ class PhantomHourglassWorld(World):
             if item_name == "Filler Item":
                 filler_item_count += 1
                 continue
+            if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
+                removed_item_quantities[item_name] -= 1
+                filler_item_count += 1
+                continue
             if self.options.keysanity == "vanilla":
                 # Place small key in vanilla location
                 if "Small Key" in item_name:
@@ -1055,8 +1019,8 @@ class PhantomHourglassWorld(World):
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
                 force_vanilla()
                 continue
-            if 'dungeon' in ITEMS_DATA[item_name]:
-                dung = item_name.rsplit('(', 1)[1][:-1]
+            if hasattr(ITEMS[item_name], 'dungeon'):
+                # dung = item_name.rsplit('(', 1)[1][:-1]
                 # If pedestal item location is vanilla, lock them there
                 if (self.options.randomize_pedestal_items.value in [0, 1]
                         and item_name in ITEM_GROUPS["Regular Pedestal Items"]):
@@ -1173,9 +1137,9 @@ class PhantomHourglassWorld(World):
         filler_count = 0
         extra_items_list = []
         for item, count in item_pool_dict.items():
-            if 'backup_filler' in ITEMS_DATA[item]:
+            if 'backup_filler' in ITEMS[item].tags:
                 extra_items_list.extend([item] * count)
-            if ITEMS_DATA[item]["classification"] in [ItemClassification.filler, ItemClassification.trap]:
+            if ITEMS[item].classification in [ItemClassification.filler, ItemClassification.trap]:
                 filler_count += count
             # Add sand of hours to extra filler list only if not progression
             if self.options.ph_time_logic > 2:
@@ -1463,7 +1427,7 @@ class PhantomHourglassWorld(World):
 
     # UT stuff
     @staticmethod
-    def interpret_slot_data(slot_data: dict[str, any]):
+    def interpret_slot_data(slot_data: dict[str, Any]):
         return slot_data
 
     # UT reconnect entrances

@@ -150,6 +150,6 @@ options_excluded_crystals = {"dungeons_required": 8,
                "entrance_directionality": "disregard_all"
                }
 
-class TestPH(WorldTestBase):
+class TestPHGeneration(WorldTestBase):
     game = "The Legend of Zelda - Phantom Hourglass"
     options = options_full_er

@@ -202,9 +202,8 @@ fuzz.py
 
 # Test and reference worlds
 /worlds/tloz_oos
-/worlds/tloz_ph/test
 /worlds/ladx_beta/
 
 # Pycashe
 __pycashe__
-/worlds/tloz_ph/
+/worlds/pokemon_crystal/
