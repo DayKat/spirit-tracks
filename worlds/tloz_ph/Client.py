@@ -25,9 +25,8 @@ read_keys_always = [PHAddr.game_state, PHAddr.in_cutscene, PHAddr.loading_room,
 
 read_keys_deathlink = []
 read_keys_land = [PHAddr.getting_location, PHAddr.getting_ship_part, PHAddr.in_map]
-read_keys_sea = [PHAddr.shot_frog]
-read_keys_deathlink_sea = [PHAddr.boat_health, PHAddr.drawing_sea_route]
-read_keys_deathlink_salvage = [PHAddr.salvage_health]
+read_keys_sea = [PHAddr.shot_frog, PHAddr.boat_health, PHAddr.drawing_sea_route]
+read_keys_salvage = [PHAddr.salvage_health]
 
 # datastore_keys
 checked_key = "ph_checked_entrances"
@@ -192,19 +191,15 @@ class PhantomHourglassClient(DSZeldaClient):
 
     async def update_main_read_list(self, ctx, stage, in_game=True):
         read_keys = read_keys_always.copy()
-        death_link_addr = []
-        death_link_reads = {}
         death_link_pointer = None
         if stage is not None:
             if stage == 0:
                 read_keys += read_keys_sea
-                death_link_addr = read_keys_deathlink_sea
                 self.health_address = PHAddr.boat_health
                 self.at_sea = True
             elif stage == 3:
-                death_link_addr = read_keys_deathlink_salvage
                 # Add separate reads for instant-repairs
-                read_keys += read_keys_deathlink_salvage
+                read_keys += read_keys_salvage
                 self.health_address = PHAddr.salvage_health
             else:
                 read_keys += read_keys_land
@@ -212,16 +207,13 @@ class PhantomHourglassClient(DSZeldaClient):
                     death_link_pointer = (PHAddr.gPlayer, 0xa)
                 self.at_sea = False
 
-            # Reads that only need to be done during deathlink, like health
-            if self._set_deathlink:
-                read_keys += death_link_addr
-
             if death_link_pointer:
                 addr, offset = death_link_pointer
                 pointer_1 = await addr.read(ctx)
-                death_link_reads["link_health"] = AddrFromPointer(pointer_1 + offset - 0x2000000, size=2, name="link_health")
+                self.health_address = AddrFromPointer(pointer_1 + offset - 0x2000000, size=2, name="link_health")
                 self.last_health_pointer = pointer_1
-                self.health_address = death_link_reads["link_health"]
+                read_keys.append(self.health_address)
+            print(f"Health Address = {self.health_address}")
             self.main_read_list = read_keys
         else:
             self.at_sea = None
@@ -494,13 +486,13 @@ class PhantomHourglassClient(DSZeldaClient):
             write_list = []
             text = f"Repaired Salvage Arm for "
             if repair_kits > 0:
-                write_list += PHAddr.custom_storage.get_write_list(ctx, prev[PHAddr.custom_storage] - 0x20)
+                write_list += PHAddr.custom_storage.get_write_list(prev[PHAddr.custom_storage] - 0x20)
                 text += f"1 Salvage Repair Kit. You have {prev[PHAddr.custom_storage]} remaining."
             else:
                 # Repair cost, doesn't care if you're out of rupees out of qol
                 cost = 100 if prev[PHAddr.global_salvage_health] == 0 else (6 - prev[PHAddr.global_salvage_health]) * 10
                 rupees = 0 if prev[PHAddr.rupee_count] - cost <= 0 else prev[PHAddr.rupee_count] - cost
-                write_list += PHAddr.rupee_count.get_write_list(ctx, rupees)
+                write_list += PHAddr.rupee_count.get_write_list(rupees)
                 text += f"{cost} rupees."
             write_list += PHAddr.global_salvage_health.get_write_list(5)
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
@@ -511,7 +503,7 @@ class PhantomHourglassClient(DSZeldaClient):
 
     @staticmethod
     async def instant_repair_salvage_arm(ctx):
-        salvage_data = await PHAddr.custom_storage.read(ctx)
+        salvage_data = await PHAddr.custom_storage.read(ctx, silent=True)
         salvage_kits = (salvage_data & 0xE0) >> 5
         if salvage_kits > 0:
             write_list = (PHAddr.custom_storage.get_write_list(salvage_data - 0x20) +
@@ -861,7 +853,7 @@ class PhantomHourglassClient(DSZeldaClient):
             elif self.was_alive_last_frame and is_dead:
                 # Our player just died...
                 if stage not in [0, 3]:
-                    health_pointer = await PHAddr.gPlayerManager.read(ctx)
+                    health_pointer = await PHAddr.gPlayer.read(ctx)
                     if self.last_health_pointer != health_pointer:
                         print(f"Deathlink triggered with wrong health pointer. Updating main read list")
                         await self.update_main_read_list(ctx, stage, True)
@@ -1108,7 +1100,7 @@ class PhantomHourglassClient(DSZeldaClient):
         if map_type_lookup.get(scene) == "ship":
             return
 
-        if scene in range(4):  # Sea overview if port shuffle
+        if scene in range(4) or scene in [0x300]:  # Sea overview if port shuffle
             tab_scene = 1 if ctx.slot_data["shuffle_ports"] else 0
         else:
             tab_scene = scene | (1 << 16) if ctx.slot_data.get("shuffle_overworld_transitions", False) else scene

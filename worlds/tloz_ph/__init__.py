@@ -158,46 +158,6 @@ class PhantomHourglassWorld(World):
                                        "ph_ut_events_{player}_{team}",
                                        "ph_disconnect_entrances_{player}_{team}",
                                        "ph_traversed_entrances_{player}_{team}"]
-                                       
-    # This is all code you still need to implement. I am writing down logic.
-    # 
-    # Maps:
-    #     Load when *no* ER is on:
-    #         maps/maps_any_er_false.json
-    #     Load when *any* ER is on:
-    #         maps/maps_any_er_true.json
-    #     Load when Overworld-Transition-ER is on:
-    #         maps/maps_ow_er_true.json
-    #     Load when Overworld-Transition-ER is off:
-    #         maps/maps_ow_er_false.json
-    #         
-    # Locations:
-    #     Always load:
-    #         locations/locations.json
-    #         locations/interior_checks.json
-    #     Load when Dungeons AND Bosses are vanilla:
-    #         locations/overview_dungeons_full.json
-    #     Load when Dungeons are vanilla BUT NOT bosses:
-    #         locations/overview_dungeons.json
-    #     Load when Bosses are vanilla (regardless of Dungeon-ER):
-    #         locations/overview_bosses.json
-    #     Load when Caves are vanilla:
-    #         locations/caves.json
-    #     Load when Houses are vanilla:
-    #         locations/houses.json
-    #     Special Cases incoming yey :)
-    #     Load when BOTH Houses and Caves are vanilla (additionally to the above):
-    #         locations/overview_astrid_full.json
-    #     Load when Houses are vanilla but Caves are NOT (additionally to the above):
-    #         locations/overview_astrid_houses
-    #         
-    # Entrances:
-    #     Load the obviously named files in tracker/entrances/ depending on which ER is enabled
-    #     Load them as locations
-    # 
-    # That's all!
-        
-                                       
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -273,15 +233,16 @@ class PhantomHourglassWorld(World):
                                   and event.name in ["GOAL: Bellumbeck"]):
                                 continue
 
-                        # if self.options.exclude_non_required_dungeons:
+
+                        # if self.options.exclude_non_required_dungeons:  i want to link this to UT show excluded in the host.yaml
                         #     loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
                         #     if loc_lookup:
                         #         print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
                         #         loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
                         #         if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
                         #             continue
-                        print(f"Adding Event: {event.name}")
-                        self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
+                        # print(f"Adding Event: {event.name}")
+                        # self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
             # Hide stuff in UT map page based on what entrances are randomized
             if not self.ut_map_page_hidden_locations or not self.ut_map_page_hidden_entrances:
