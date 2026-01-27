@@ -1,5 +1,6 @@
 from .Entrances import ENTRANCES
 from .Constants import LOCATION_GROUPS
+from .Addresses import *
 
 def create_scene_id(entrance):
     e_stage, e_room, e_entrance = entrance
@@ -171,7 +172,7 @@ DYNAMIC_ENTRANCES = {
         "destination": "TotOK B3.5 Blue Warp",
         "has_locations": ["TotOK B3.5 Sea Chart Chest"],
         "has_slot_data": [("totok_checkpoints", 1)],
-        "check_bits": [(0x1BA661, 0x40, "not")]
+        "check_bits": [(PHAddr.custom_storage, 0x2, "not")]
     },
     "TotOK cc room backup": {
         "entrance": "TotOK CC Room Warp",

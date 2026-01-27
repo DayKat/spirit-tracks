@@ -1,9 +1,10 @@
 from typing import TYPE_CHECKING
-from .DSZeldaClient.DSZeldaClient import read_memory_value, logger, item_count, storage_key, get_stored_data, \
-    write_memory_values
+from .DSZeldaClient.DSZeldaClient import logger
+from .DSZeldaClient.subclasses import get_stored_data, storage_key
+from .data.Items import ITEMS
 from .data.Entrances import ENTRANCES, entrance_id_to_entrance
 import worlds._bizhawk as bizhawk
-import logging
+from .data.Addresses import *
 
 if TYPE_CHECKING:
     from .Client import PhantomHourglassClient
@@ -123,6 +124,10 @@ ow_er_lookup = {
     0x32: [0x1A00],
 }
 
+
+def item_count(ctx, item_name) -> int:
+    return ITEMS[item_name].get_count(ctx)
+
 safe_entrances_common = {
     0x1F: ["Ocean SW Mercay",
            "Ocean SW Cannon",
@@ -148,22 +153,22 @@ safe_entrances_ow = safe_entrances_common | {
 }
 
 island_visibility_addr = {
-    "Map Warp: Mercay": 0x1b4b8c,
-    "Map Warp: Molida": 0x1b4bb4,
-    "Map Warp: Ember": 0x1B4BDC,
-    "Map Warp: Cannon": 0x1B4C04,
-    "Map Warp: Spirit": 0x1B4C2C,
-    "Map Warp: Gust": 0x1B4C54,
-    "Map Warp: Bannan": 0x1B4C7C,
-    "Map Warp: Zauz": 0x1B4CA4,
-    "Map Warp: Uncharted": 0x1B4CCC,
-    "Map Warp: Goron": 0x1B4CF4,
-    "Map Warp: Frost": 0x1B4D1C,
-    "Map Warp: Harrow": 0x1B4D44,
-    "Map Warp: Dee Ess": 0x1B4D6C,
-    "Map Warp: Ruins": 0x1B4D94,
-    "Map Warp: Isle of the Dead": 0x1B4DBC,
-    "Map Warp: Maze": 0x1B4DE4,
+    "Map Warp: Mercay": PHAddr.island_visible_mercay,
+    "Map Warp: Molida": PHAddr.island_visible_molida,
+    "Map Warp: Ember": PHAddr.island_visible_ember,
+    "Map Warp: Cannon": PHAddr.island_visible_cannon,
+    "Map Warp: Spirit": PHAddr.island_visible_spirit,
+    "Map Warp: Gust": PHAddr.island_visible_gust,
+    "Map Warp: Bannan": PHAddr.island_visible_bannan,
+    "Map Warp: Zauz": PHAddr.island_visible_zauz,
+    "Map Warp: Uncharted": PHAddr.island_visible_uncharted,
+    "Map Warp: Goron": PHAddr.island_visible_goron,
+    "Map Warp: Frost": PHAddr.island_visible_frost,
+    "Map Warp: Harrow": PHAddr.island_visible_harrow,
+    "Map Warp: Dee Ess": PHAddr.island_visible_ds,
+    "Map Warp: Ruins": PHAddr.island_visible_ruins,
+    "Map Warp: Isle of the Dead": PHAddr.island_visible_iotd,
+    "Map Warp: Maze": PHAddr.island_visible_maze,
 }
 
 safe_entrances_no_ow = safe_entrances_common | {}
@@ -213,9 +218,9 @@ async def set_visibility(ctx: "BizHawkClientContext"):
     write_list = []
     for item, addr in island_visibility_addr.items():
         if item_count(ctx, item):
-            write_list.append((addr, [0x1], "Main RAM"))
+            write_list += addr.get_write_list(1)
         else:
-            write_list.append((addr, [0], "Main RAM"))
+            write_list += addr.get_write_list(0)
     await bizhawk.write(ctx.bizhawk_ctx, write_list)
 
 async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext", read_list):
@@ -227,12 +232,12 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         logger.info(f"Canceled warp to start due to opening map warp menu")
 
     # read transition mode
-    transition_mode = await read_memory_value(ctx, 0x1BA700, silent=True)
+    transition_mode = await PHAddr.changing_map_scene.read(ctx, silent=True)
 
     client.visited_scenes |= set(get_stored_data(ctx, 'ph_visited_scenes', []))
 
     if client.pen_mode_pointer: # Do fun stuff with the pen and eraser buttons
-        current_pen_mode = await read_memory_value(ctx, client.pen_mode_pointer, silent=True)
+        current_pen_mode = await client.pen_mode_pointer.read(ctx, silent=True)
         if current_pen_mode in [0x18, 0x19] and current_pen_mode != client.last_pen_mode:
             if current_pen_mode == 0x19:
                 def quick_entrance_log(key):
@@ -273,11 +278,12 @@ async def map_mode(client: "PhantomHourglassClient", ctx: "BizHawkClientContext"
         client.map_warp_reselector = False
 
         # Setup pen mode stuff
-        pen_mode_pointer = await read_memory_value(ctx, 0x1CCCEC, silent=True, size=4)
+        pen_mode_pointer = await PHAddr.pen_mode_pointer.read(ctx, silent=True)
         print(f"pen mode pointer {hex(pen_mode_pointer)}")
-        client.pen_mode_pointer = pen_mode_pointer+25*4-0x2000000
-        if client.pen_mode_pointer < 0xFFFFFF:
-            client.last_pen_mode = await read_memory_value(ctx, client.pen_mode_pointer)
+        pen_mode_check = pen_mode_pointer+25*4-0x2000000
+        if pen_mode_check < 0x400000:
+            client.pen_mode_pointer = Address(pen_mode_check, size=4)
+            client.last_pen_mode = await client.pen_mode_pointer.read(ctx)
         else: client.pen_mode_pointer = None
 
         # Do detailed warp instructions

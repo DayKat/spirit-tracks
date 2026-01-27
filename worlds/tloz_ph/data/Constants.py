@@ -1,4 +1,4 @@
-
+from .Addresses import *
 
 VERSION = "0.3.0"
 ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
@@ -6,96 +6,88 @@ ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 STARTING_FLAGS = [
     # Starting flags (these are in the same memory block so can be simplified, but it's called once and this is
     # easier to bugfix)
-    [0x1B557C, 0xEF],
-    [0x1B557D, 0x34],
-    [0x1B557E, 0x2E],
-    [0x1B557F, 0x03],
-    [0x1B5580, 0xED],
-    [0x1B5581, 0xB0],
-    [0x1B5582, 0x40],
-    [0x1B5583, 0xAB],
-    [0x1B5584, 0xFF],
-    [0x1B5585, 0xFB],
-    [0x1B5586, 0x2F],
-    [0x1B5587, 0xFC],
-    [0x1B5588, 0x3B],
-    [0x1B5589, 0x00],
-    [0x1B558A, 0x04],
-    [0x1B558B, 0x00],
-    [0x1B558C, 0xD9],
-    [0x1B558D, 0x4F],
-    [0x1B558E, 0x12],
-    [0x1B558F, 0x04],
-    [0x1B5590, 0x02],
-    [0x1B5591, 0x7E],
-    [0x1B5592, 0x04],
-    [0x1B5593, 0xEA],
-    [0x1B5594, 0x47],
-    [0x1B5595, 0x00],
-    [0x1B5596, 0xF8],
-    [0x1B5597, 0xDF],
-    [0x1B5598, 0x35],
-    [0x1B5599, 0xE0],
-    [0x1B559A, 0x10],
-    [0x1B559B, 0xE0],
-    [0x1B559C, 0x4E],
-    [0x1B559D, 0xF9],
-    [0x1B559E, 0x0F],
-    [0x1B559F, 0x05],
-    [0x1B55A0, 0x31],
-    [0x1B55A1, 0x00],
-    [0x1B55A2, 0x60],
-    [0x1B55A3, 0x20],
-    [0x1B55A4, 0x26],
-    [0x1B55A5, 0xCC],
-    [0x1B55A6, 0x00],
-    [0x1B55A7, 0xC8],
-    [0x1B55A8, 0x1F],
-    [0x1B55A9, 0x00],
-    [0x1B55AA, 0x08],
-    [0x1B55AB, 0x48],
-    [0x1B55AC, 0x78],
-    [0x1B55AD, 0x00],
-    [0x1B55AE, 0x00],
-    [0x1B55AF, 0x00],
+    [PHAddr.adv_flags_0, 0xef],
+    [PHAddr.adv_flags_1, 0x34],
+    [PHAddr.adv_flags_2, 0x2e],
+    [PHAddr.adv_flags_3, 0x3],
+    [PHAddr.adv_flags_4, 0xed],
+    [PHAddr.adv_flags_5, 0xb0],
+    [PHAddr.adv_flags_6, 0x40],
+    [PHAddr.adv_flags_7, 0xab],
+    [PHAddr.adv_flags_8, 0xff],
+    [PHAddr.adv_flags_9, 0xfb],
+    [PHAddr.adv_flags_10, 0x2f],
+    [PHAddr.adv_flags_11, 0xfc],
+    [PHAddr.adv_flags_12, 0x3b],
+    [PHAddr.adv_flags_13, 0x0],
+    [PHAddr.adv_flags_14, 0x4],
+    [PHAddr.adv_flags_15, 0x0],
+    [PHAddr.adv_flags_16, 0xd9],
+    [PHAddr.adv_flags_17, 0x4f],
+    [PHAddr.adv_flags_18, 0x12],
+    [PHAddr.adv_flags_19, 0x4],
+    [PHAddr.adv_flags_20, 0x2],
+    [PHAddr.adv_flags_21, 0x7e],
+    [PHAddr.adv_flags_22, 0x4],
+    [PHAddr.adv_flags_23, 0xea],
+    [PHAddr.adv_flags_24, 0x47],
+    [PHAddr.adv_flags_25, 0x0],
+    [PHAddr.adv_flags_26, 0xf8],
+    [PHAddr.adv_flags_27, 0xdf],
+    [PHAddr.adv_flags_28, 0x35],
+    [PHAddr.adv_flags_29, 0xe0],
+    [PHAddr.adv_flags_30, 0x10],
+    [PHAddr.adv_flags_31, 0xe0],
+    [PHAddr.adv_flags_32, 0x4e],
+    [PHAddr.adv_flags_33, 0xf9],
+    [PHAddr.adv_flags_34, 0xf],
+    [PHAddr.adv_flags_35, 0x5],
+    [PHAddr.adv_flags_36, 0x31],
+    [PHAddr.adv_flags_37, 0x0],
+    [PHAddr.adv_flags_38, 0x60],
+    [PHAddr.adv_flags_39, 0x20],
+    [PHAddr.adv_flags_40, 0x26],
+    [PHAddr.adv_flags_41, 0xcc],
+    [PHAddr.adv_flags_42, 0x0],
+    [PHAddr.adv_flags_43, 0xc8],
+    [PHAddr.adv_flags_44, 0x1f],
+    [PHAddr.adv_flags_45, 0x0],
+    [PHAddr.adv_flags_46, 0x8],
+    [PHAddr.adv_flags_47, 0x48],
+    [PHAddr.adv_flags_48, 0x78],
+    [PHAddr.adv_flags_49, 0x0],
+    [PHAddr.adv_flags_50, 0x0],
+    [PHAddr.adv_flags_51, 0x0],
     # Set item can use flags
-    [0x1BA6BC, 0x01],
-    [0x1BA6BE, 0x01],
-    [0x1BA6C4, 0x01],
-    [0x1BA6C8, 0x01],
+    [PHAddr.boomerang_bit, 0x01],
+    [PHAddr.shovel_bit, 0x01],
+    [PHAddr.grapple_bit, 0x01],
+    [PHAddr.hammer_bit, 0x01],
     # Starting items, Phantom Hourglass
-    [0x1BA648, 0x01],
+    [PHAddr.inventory_5, 0x01],
     # Show treasure/ship part prices
-    [0x1BA658, 0xFF],
-    [0x1BA659, 0xFF],
-    [0x1BA65A, 0xFF],
-    [0x1BA65B, 0xFF],
-    [0x1BA65C, 0xFF],
-    [0x1BA65D, 0xFF],
-    [0x1BA65E, 0xFF],
-    [0x1BA65F, 0xFF],
-    [0x1BA660, 0xFF],
-    [0x1BA664, 0xFF],
+    [PHAddr.show_ship_prices, [0xFF]*9],
+    [PHAddr.show_treasure_prices, 0xFF],
     # Starting treasure at 0 so incr works properly
-    [0x1BA5AC, 0],
-    [0x1BA5AD, 0],
-    [0x1BA5AE, 0],
-    [0x1BA5AF, 0],
-    [0x1BA5B0, 0],
-    [0x1BA5B1, 0],
-    [0x1BA5B2, 0],
-    [0x1BA5B3, 0],
+    [PHAddr.pink_coral_count, 0],
+    [PHAddr.wpl_count, 0],
+    [PHAddr.dpl_count, 0],
+    [PHAddr.zora_scale_count, 0],
+    [PHAddr.goron_amber_count, 0],
+    [PHAddr.ruto_crown_count, 0],
+    [PHAddr.roc_feather_count, 0],
+    [PHAddr.regal_ring_count, 0],
 ]
 
 STARTING_FROG_FLAGS = [
-    [0x1B55A2, 0xE0],
-    [0x1B55A3, 0x3F]
+    [PHAddr.adv_flags_38, 0xE0],
+    [PHAddr.adv_flags_39, 0x3F]
 ]
 
 FOG_SETTINGS_FLAGS = [
-    [[0x1B5582, 0xC0], [0x1B55AB, 0x58]],
+    [[PHAddr.adv_flags_6, 0xC0], [PHAddr.adv_flags_47, 0x58]],
     [],
-    [[0x1B557E, 0x3E]]
+    [[PHAddr.adv_flags_2, 0x3E]]
 ]
 
 STAGE_FLAGS = {
@@ -407,10 +399,10 @@ ITEM_GROUPS: dict[str, set[str]] = {
         "Force Gem (B3)",
         "Force Gem (B12)",
     },
-    "Force Gems": {
+    "All Force Gems": {
         "Force Gem (B3)",
         "Force Gem (B12)",
-        "Force Gem"
+        "Force Gems"
     },
     "Collection Screen Keys": {
         "Sun Key",
@@ -569,10 +561,11 @@ ITEM_GROUPS |= {
         ITEM_GROUPS["Items With Ammo"] |
         ITEM_GROUPS["Items Without Ammo"],
     "Fishing Items": {
-                         "Fishing Rod",
-                         "Big Catch Lure"
-                     } |
-                     ITEM_GROUPS["Fish"],
+                        "Fishing Rod",
+                        "Big Catch Lure",
+                        "Swordfish Shadows",
+                    } |
+                    ITEM_GROUPS["Fish"],
     "Regular Pedestal Items":
         ITEM_GROUPS["Regular Crystal Items"] |
         ITEM_GROUPS["Unique Force Gems"],
@@ -1395,56 +1388,56 @@ BOSS_ENTRANCE_LOOKUP = {
 DUNGEON_KEY_DATA = {
     39: {
         "name": "Mountain Passage",
-        "address": 0x1BA64E,
+        "address": PHAddr.small_key_storage_1,
         "filter": 0x0C,
         "value": 4,
         "size": 2,
     },
     37: {
         "name": "Temple of the Ocean King",
-        "address": 0x1BA64E,
+        "address": PHAddr.small_key_storage_1,
         "filter": 0xE0,
         "value": 0x20,
         "size": 3,
     },
     372: {
         "name": "Temple of the Ocean King",
-        "address": 0x1BA64F,
+        "address": PHAddr.small_key_storage_2,
         "filter": 0xC0,
         "value": 0x40,
         "size": 2,
     },
     0x1C: {
         "name": "Temple of Fire",
-        "address": 0x1BA64E,
+        "address": PHAddr.small_key_storage_1,
         "value": 1,
         "size": 2,
         "filter": 0x03,
     },
     0x1E: {
         "name": "Temple of Courage",
-        "address": 0x1BA64F,
+        "address": PHAddr.small_key_storage_2,
         "value": 0x10,
         "size": 2,
         "filter": 0x30,
     },
     0x1D: {
         "name": "Temple of Wind",
-        "address": 0x1BA64E,
+        "address": PHAddr.small_key_storage_1,
         "value": 0x10,
         "size": 1,
         "filter": 0x10
     },
     0x1F: {
         "name": "Temple of Ice",
-        "address": 0x1BA64F,
+        "address": PHAddr.small_key_storage_2,
         "value": 0x1,
         "size": 2,
         "filter": 0x03
     },
     0x21: {
         "name": "Mutoh's Temple",
-        "address": 0x1BA64F,
+        "address": PHAddr.small_key_storage_2,
         "value": 0x4,
         "size": 2,
         "filter": 0x0C
@@ -1454,32 +1447,32 @@ DUNGEON_KEY_DATA = {
 BOSS_DOOR_DATA = {
     0x1C: {
         "name": "Temple of Fire",
-        "address": 0x258D20,
+        "address": PHAddr.tof_doors,
         "value": 0x1
     },
     0x1D: {
         "name": "Temple of Wind",
-        "address": 0x24D740,
+        "address": PHAddr.tow_doors,
         "value": 0x400
     },
     0x1E: {
         "name": "Temple of Courage",
-        "address": 0x252360,
+        "address": PHAddr.toc_boss_door,
         "value": 0x2
     },
     0x20: {
         "name": "Goron Temple",
-        "address": 0x25D9B0,
+        "address": PHAddr.gt_boss_door,
         "value": 0x1
     },
     0x1F: {
         "name": "Temple of Ice",
-        "address": 0x259CA0,
+        "address": PHAddr.toi_doors,
         "value": 0x80
     },
     0x21: {
         "name": "Mutoh's Temple",
-        "address": 0x24DED0,
+        "address": PHAddr.mt_doors,
         "value": 0x1
     },
 }
@@ -1489,21 +1482,21 @@ BOSS_DOOR_DATA = {
 COLOR_SWITCH_DATA = {
     0x1F: {
         "name": "Temple of Ice",
-        "address": 0x20DBE0,
+        "address": PHAddr.color_switch_toi,
         "value": 0x1
     },
     0x1E: {
         "name": "Temple of Courage",
-        "address": 0x207CA8,
+        "address": PHAddr.color_switch_toc,
         "value": 0x1
     },
 }
 
 UT_EVENT_DATA = {
-    0x2400: {"address": 0x1B5582,
+    0x2400: {"address": PHAddr.adv_flags_6,
            "value": 0x4,
            "entrance": "EVENT: Bremeur's Temple Lower Water"},
-    0x800: {"address": 0x1B5592,
+    0x800: {"address": PHAddr.adv_flags_22,
            "value": 0x8,
            "entrance": "EVENT: SS Wayfarer Give Wood Heart"},
     0x1001: [
@@ -1511,21 +1504,21 @@ UT_EVENT_DATA = {
          "value": 0x4,
          "entrance": "EVENT: Goron NE Spike Switch",
          "offset": 1},
-        {"address": 0x262888,
+        {"address": PHAddr.goron_bomb_blocks,
           "value": 0x8,
           "event": "gms"},
-        {"address": 0x262888,
+        {"address": PHAddr.goron_bomb_blocks,
          "value": 0x1,
          "event": "gss"}],
     0x1003: [
-        {"address": 0x1B559F,
+        {"address": PHAddr.adv_flags_35,
             "value": 0x2,
             "entrance": "EVENT: Goron SE Shout to Bridge Goron"},
     ],
-    0x1002: {"address": 0x1B559E,
+    0x1002: {"address": PHAddr.adv_flags_34,
              "value": 0x20,
              "entrance": "EVENT: Goron SW Kill Yellow Chus"},
-    0x130B: {"address": 0x1B5582,
+    0x130B: {"address": PHAddr.adv_flags_6,
              "value": 0x2,
              "entrance": "EVENT: Open Eddo's Door",},
     0xe01: {"address": "stage_flags",
@@ -1550,7 +1543,7 @@ UT_EVENT_DATA = {
              "value": 0x10,
              "event": "fif",
              "offset": 2},
-    0x1A00: {"address": 0x1B55A2,
+    0x1A00: {"address": PHAddr.adv_flags_38,
             "value": 0x10,
             "event": "ub"},
     0xd01: {"address": "stage_flags",
@@ -1560,27 +1553,27 @@ UT_EVENT_DATA = {
             "value": 0x80,
             "event": "tfw",
              "offset": 1},
-    0x1d04: {"address": 0x25A224,
+    0x1d04: {"address": PHAddr.tow_warp,
              "value": 0x1,
              "event": "tww"},
-    0x1e03: {"address": 0x25AF1C,
+    0x1e03: {"address": PHAddr.toc_warp,
              "value": 0x1,
              "event": "tcw"},
     0x2004: {"address": "stage_flags",
              "value": 0x80,
              "event": "gtw",
              "offset": 3},
-    0x1f02: {"address": 0x264FE4,
+    0x1f02: {"address": PHAddr.toi_warp,
              "value": 0x1,
              "event": "tiw"},
     0x2105: {"address": "stage_flags",
              "value": 0x10,
              "event": "mtw",
              "offset": 1},
-    0x1300: {"address": 0x2562F0,
+    0x1300: {"address": PHAddr.cannon_bomb_blocks,
              "value": 0x1,
              "event": "cb"},
-    0xC0A: {"address": 0x258B6C,
+    0xC0A: {"address": PHAddr.molida_bomb_blocks,
              "value": 0x1,
              "event": "mcb"},
 }
@@ -1699,17 +1692,17 @@ BOSS_WARP_SCENE_LOOKUP = {
 }
 
 EQUIPPED_SHIP_PARTS_ADDR = [
-    0x1BA544,
-    0x1BA548,
-    0x1BA54C,
-    0x1BA550,
-    0x1BA554,
-    0x1BA558,
-    0x1BA55C,
-    0x1BA560,
+    PHAddr.equipped_ship_parts_0,
+    PHAddr.equipped_ship_parts_1,
+    PHAddr.equipped_ship_parts_2,
+    PHAddr.equipped_ship_parts_3,
+    PHAddr.equipped_ship_parts_4,
+    PHAddr.equipped_ship_parts_5,
+    PHAddr.equipped_ship_parts_6,
+    PHAddr.equipped_ship_parts_7,
 ]
 
-TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}
+TREASURE_READ_LIST = {i: (PHAddr.pink_coral_count + i * 4, 4, "Main RAM") for i in range(8)}
 
 TREASURE_PRICES = {
     "Treasure: Pink Coral": [1500, 50, 150, 50, 150, 150, 1500, 50, 50, 1500, 50],

@@ -1746,11 +1746,16 @@ def ph_toi_key_door_1(state, player):
         all([
             ph_option_smart_key_logic(state, player),
             ph_toi_key_door_1_ut(state, player)
+        ]),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Temple of Ice", 1)
         ])
     ])
 
 def ph_toi_all_key_doors_ut(state, player):
     return all([
+        ph_option_smart_key_logic(state, player),
         ph_ut_small_key_own_dungeon(state, player),
         ph_has_grapple(state, player),
         ph_has_explosives(state, player),
@@ -1792,12 +1797,15 @@ def ph_toi_key_doors(state, player, glitched: int, not_glitched: int = None):
 def ph_toi_key_door_2(state, player):
     return any([
         ph_toi_key_doors(state, player, 3, 2),
-        # UT
-        ph_toi_all_key_doors_ut(state, player),
+        ph_toi_all_key_doors_ut(state, player),  # smart keys
         all([
             ph_option_not_glitched_logic(state, player),
             ph_ut_small_key_own_dungeon(state, player),
             ph_quick_switches(state, player)
+        ]),
+        all([  # Keyscumming
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Temple of Ice", 1)
         ])
     ])
 
@@ -1807,6 +1815,10 @@ def ph_toi_key_door_3(state, player):
         ph_toi_key_doors(state, player, 3),
         # UT
         ph_toi_all_key_doors_ut(state, player),
+        all([
+            ph_UT_glitched_logic(state, player),
+            ph_has_small_keys(state, player, "Temple of Ice", 1)
+        ])
     ])
 
 def ph_toi_b2_north(state, player):
@@ -1878,7 +1890,12 @@ def ph_mutoh_key_doors(state, player, glitched: int, not_glitched: int):
 def ph_mutoh_bk_chest(state, player):
     return any([
             ph_has_small_keys(state, player, "Mutoh's Temple", 2),
-            ph_ut_small_key_own_dungeon(state, player)])
+            ph_ut_small_key_own_dungeon(state, player),
+            all([
+                ph_has_small_keys(state, player, "Mutoh's Temple", 1),
+                ph_UT_glitched_logic(state, player)
+            ])
+    ])
 
 def ph_mutoh_boss_door(state, player):
     return any([

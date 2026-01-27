@@ -1,6 +1,7 @@
 null:
   progression_balancing: 50
 The Legend of Zelda - Phantom Hourglass:
+  accessibility: full
   plando_items: []
   remove_items_from_pool: {}
   death_link: 'false'
@@ -15,7 +16,7 @@ The Legend of Zelda - Phantom Hourglass:
   item_links: []
 
   # entrance_directionality: 0
-  # shuffle_between_islands: 0
+  shuffle_between_islands: 0
   # decouple_entrances: 0
 
   ph_starting_time: 60
