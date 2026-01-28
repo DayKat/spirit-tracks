@@ -140,7 +140,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'backup_filler': True,
         'address': STAddr.heart_count,
         'value': 4,
-        "tags": ["incremental"]
+        "tags": ["monotone_incremental"],
+        "base_count": 12
     },
     "Sword Beam Swordsman's Scroll": {
         'classification': ItemClassification.useful,
