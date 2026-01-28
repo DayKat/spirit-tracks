@@ -1844,7 +1844,7 @@ LOCATIONS_DATA = {
         "boss_room": "Temple of Wind",
         "delay_reset": True,
         "id": 156,
-        "hint_entrance": "Crayk Exit",
+        "hint_entrance": "Cyclok Exit",
         "hint_entrance_secondary": "ToW Exit",
     },
     "Cyclok Boss Reward": {
@@ -1861,7 +1861,7 @@ LOCATIONS_DATA = {
         "id": 157,
         "do_special": {"event_type": "ut_connect",
                        "event_name": "EVENT: Defeat Cyclok"},
-        "hint_entrance": "Crayk Exit",
+        "hint_entrance": "Cyclok Exit",
         "hint_entrance_secondary": "ToW Exit",
     },
     "Cyclok Heart Container": {
@@ -1871,7 +1871,7 @@ LOCATIONS_DATA = {
         "floor_id": 0x0,
         "boss_room": "Temple of Wind",
         "id": 158,
-        "hint_entrance": "Crayk Exit",
+        "hint_entrance": "Cyclok Exit",
         "hint_entrance_secondary": "ToW Exit",
     },
 
