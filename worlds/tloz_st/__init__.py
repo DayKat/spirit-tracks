@@ -1,3 +1,4 @@
+import math
 import os
 import logging
 import random
@@ -255,6 +256,100 @@ class SpiritTracksWorld(World):
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
 
         return item_pool_dict
+
+    def choose_rabbit_locations(self):
+        if not self.options.rabbitsanity:
+            return []
+        rabbit_locations = []
+        # Figure out rabbit counts for different pools
+        max_count = self.options.rabbit_max_location_count.value
+        rabbit_counts = [max_count, max_count]
+        if self.options.rabbit_location_count_distribution.value == 0:
+            rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
+            self.rabbit_counts = rabbit_counts
+
+        # Figure out pools
+        if self.options.rabbitsanity.value in [1, 2]: # Vanilla or unique
+            forest_rabbits = LOCATION_GROUPS["Unique Forest Rabbits"]
+            snow_rabbits = LOCATION_GROUPS["Unique Snow Rabbits"]
+        else:
+            forest_rabbits = LOCATION_GROUPS["Total Forest Rabbits"]
+            snow_rabbits = LOCATION_GROUPS["Total Snow Rabbits"]
+            if self.options.rabbit_location_count_distribution.value != 0:
+                interval = self.options.rabbit_location_count_distribution.value
+                rabbit_locations = [j for i in [forest_rabbits, snow_rabbits] for j in i[interval-1:max_count:interval]]
+        # Randomly choose locations
+        if not rabbit_locations:
+            rabbit_loc_lists = [forest_rabbits, snow_rabbits]
+            [self.random.shuffle(i) for i in rabbit_loc_lists]
+            rabbit_locations = [loc for rl, c in zip(rabbit_loc_lists, rabbit_counts) for loc in rl[:c]]
+        print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
+        return rabbit_locations
+
+    def choose_rabbit_items(self):
+        if not self.options.rabbitsanity:
+            return {}
+
+        def get_rabbit_pack_name(realm, count):
+            if count == 1:
+                return f"{realm} Rabbit (1)"
+            return f"{realm} Rabbits ({count})"
+
+        def create_items_from_count_list(realm, clist):
+            res = {}
+            for count in clist:
+                item_name = get_rabbit_pack_name(realm, count)
+                res.setdefault(item_name, 0)
+                res[item_name] += 1
+            print(f"Creating rabbit items: {res}")
+            return res
+
+        def fill_vanilla(realm, max_count):
+            count_distr = [1]*max_count
+            if max_count == 1:
+                return {get_rabbit_pack_name(realm, 10): 1}
+
+            res_counts = []
+            for i in range(max_count):
+                randindex = self.random.randint(0, len(count_distr))
+                count_distr[randindex] += 1
+                if count_distr[randindex] == 5:
+                    res_counts.append(count_distr.pop(randindex))
+            res_counts += count_distr
+            res_counts += [1]*self.options.rabbit_extra_items.value  # Add bonus items
+
+            return create_items_from_count_list(realm, res_counts)
+
+        def fill_mixed(realm):
+            res_counts = []
+            while sum(res_counts) < 10:
+                res_counts.append(math.ceil(self.random.triangular(1, 6, 2)))
+            for i in range(self.options.rabbit_extra_items.value):
+                res_counts.append(math.ceil(self.random.triangular(1, 6, 2)))
+            return create_items_from_count_list(realm, res_counts)
+
+        realms = ["Forest", "Snow"]
+        rabbit_items = {}
+        if self.options.rabbitsanity.value == 1:  # Vanilla
+            self.options.rabbit_pack_size.value = 1
+            for r, c in zip(realms, self.rabbit_counts):
+                rabbit_items |= fill_vanilla(r, c)
+            return rabbit_items
+
+        if self.options.rabbit_pack_size == -1:  # random_mixed
+            for r in realms:
+                rabbit_items |= fill_mixed(r)
+            return rabbit_items
+
+        # Uniform packs
+        if self.options.rabbit_pack_size == 0:  # Random uniform
+            pack_sizes = [self.random.randint(1, 5), self.random.randint(1, 5)]
+        else:
+            pack_sizes = [self.options.rabbit_pack_size.value]*2
+        for r, s in zip(realms, pack_sizes):
+            item_count = 10 // s + 1 + self.options.rabbit_extra_items.value
+            rabbit_items |= create_items_from_count_list(r, [s]*item_count)
+        return rabbit_items
 
     def create_items(self):
         item_pool_dict = self.build_item_pool_dict()

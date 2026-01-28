@@ -1225,6 +1225,108 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"]
     },
+
+    # Total count rabbits
+    "Catch 1 Forest Rabbit": {
+        "region_id": "Forest Rabbit Count 1",
+        "rabbit": True,
+        "count": 1,
+    },
+    "Catch 2 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 2",
+        "rabbit": True,
+        "count": 2,
+    },
+    "Catch 3 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 3",
+        "rabbit": True,
+        "count": 3,
+    },
+    "Catch 4 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 4",
+        "rabbit": True,
+        "count": 4,
+    },
+    "Catch 5 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 5",
+        "rabbit": True,
+        "count": 5,
+    },
+    "Catch 6 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 6",
+        "rabbit": True,
+        "count": 6,
+    },
+    "Catch 7 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 7",
+        "rabbit": True,
+        "count": 7,
+    },
+    "Catch 8 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 8",
+        "rabbit": True,
+        "count": 8,
+    },
+    "Catch 9 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 9",
+        "rabbit": True,
+        "count": 9,
+    },
+    "Catch 10 Forest Rabbits": {
+        "region_id": "Forest Rabbit Count 10",
+        "rabbit": True,
+        "count": 10,
+    },
+    "Catch 1 Snow Rabbit": {
+        "region_id": "Snow Rabbit Count 1",
+        "rabbit": True,
+        "count": 1,
+    },
+    "Catch 2 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 2",
+        "rabbit": True,
+        "count": 2,
+    },
+    "Catch 3 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 3",
+        "rabbit": True,
+        "count": 3,
+    },
+    "Catch 4 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 4",
+        "rabbit": True,
+        "count": 4,
+    },
+    "Catch 5 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 5",
+        "rabbit": True,
+        "count": 5,
+    },
+    "Catch 6 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 6",
+        "rabbit": True,
+        "count": 6,
+    },
+    "Catch 7 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 7",
+        "rabbit": True,
+        "count": 7,
+    },
+    "Catch 8 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 8",
+        "rabbit": True,
+        "count": 8,
+    },
+    "Catch 9 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 9",
+        "rabbit": True,
+        "count": 9,
+    },
+    "Catch 10 Snow Rabbits": {
+        "region_id": "Snow Rabbit Count 10",
+        "rabbit": True,
+        "count": 10,
+    },
 }
 ## ========== remember to add item override!! =============
 

@@ -300,13 +300,68 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
 
     "Forest Rabbit": {
         'classification': ItemClassification.progression,
-        "tags": ["incremental"],
+        "tags": ["rabbit"],
         'dummy': True,
     },
-    "Snow Rabbit": {
+    "Forest Rabbits (2)": {
         'classification': ItemClassification.progression,
-        "tags": ["incremental"],
+        "tags": ["rabbit"],
         'dummy': True,
+        'value': 2
+    },
+    "Forest Rabbits (3)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 3
+    },
+    "Forest Rabbits (4)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 4
+    },
+    "Forest Rabbits (5)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 5
+    },
+    "Forest Rabbits (10)": {  # 10 item is only used for vanilla rabbits 1 location
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 10
+    },
+    "Snow Rabbits (2)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 2
+    },
+    "Snow Rabbits (3)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 3
+    },
+    "Snow Rabbits (4)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 4
+    },
+    "Snow Rabbits (5)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 5
+    },
+    "Snow Rabbits (10)": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        'value': 10
     },
     # "Water Rabbit": {
     #     'classification': ItemClassification.progression,
