@@ -33,7 +33,7 @@ class SpiritTracksWeb(WebWorld):
     )
 
     tutorials = [setup_en]
-
+    option_groups = st_option_groups
 
 # Adds a consistent count of items to pool, independent of how many are from locations
 def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
@@ -128,34 +128,6 @@ class SpiritTracksWorld(World):
         if not location_data.get("conditional", False):
             return True
         return False
-
-    """TODO def pick_required_dungeons(self):
-        implemented_dungeons = ["Temple of Fire",
-                                "Temple of Wind",
-                                "Temple of Courage",
-                                "Goron Temple",
-                                "Temple of Ice",
-                                "Mutoh's Temple",
-                                "Ghost Ship",
-                                "Temple of the Ocean King"] 
-        # Remove optional dungeons from pool
-        if self.options.ghost_ship_in_dungeon_pool == "false":
-            implemented_dungeons.remove("Ghost Ship")
-        if not self.options.totok_in_dungeon_pool:
-            implemented_dungeons.remove("Temple of the Ocean King")
-        self.random.shuffle(implemented_dungeons)
-        # Cap dungeons required if over the number of eligible dungeons
-        dungeons_required = len(implemented_dungeons) if self.options.dungeons_required > len(implemented_dungeons) \
-            else self.options.dungeons_required.value
-        self.options.dungeons_required.value = dungeons_required
-        self.required_dungeons = implemented_dungeons[:dungeons_required]
-
-        # Extend mcguffin list
-        boss_reward_pool = ITEM_GROUPS["Vanilla Metals"]
-        self.random.shuffle(boss_reward_pool)
-        while self.options.dungeons_required > len(boss_reward_pool):
-            boss_reward_pool.append("Additional Rare Metal")
-        self.boss_reward_items_pool = boss_reward_pool[:self.options.dungeons_required]"""
 
     def create_events(self):
         # if "Temple of Fire" in self.required_dungeons:

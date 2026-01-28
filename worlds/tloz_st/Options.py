@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-    ItemDict, ItemsAccessibility, ItemSet, Visibility
+    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup
 from worlds.tloz_st.data.Items import ITEMS_DATA
 
 # YAML options
@@ -62,58 +62,83 @@ class SpiritTracksKeyRandomization(Choice):
     default = 1
 
 
-# class SpiritTracksDungeonsRequired(Range):
-#     """
-#     How many dungeons are required to access the endgame.
-#     Max is 6 unless you add Ghost ship and TotOK with their own options below
-#     """
-#     display_name = "dungeons_required"
-#     range_start = 0
-#     range_end = 8
-#     default = 3
-
-
-# class SpiritTracksDungeonHints(Choice):
-#     """
-#     Receive hints for your required dungeons
-#     - false: no hints
-#     - oshus: oshus gives dungeon hints
-#     - totok: entering totok gives dungeon hints
-#     """
-#     display_name = "dungeon_hints"
-#     option_false = 0
-#     option_oshus = 1
-#     option_totok = 2
-#     default = 1
-
-#
-# class SpiritTracksShopHints(Toggle):
-#     """
-#     NOT IMPLEMENTED YET
-#
-#     Get hints for shop items you currently can buy
-#     Includes island shops, Beedle, masked Beedle and Eddo
-#     """
-#     display_name = "hint_shops"
-#     default = 1
-
-#
-# class SpiritTracksExcludeNonRequiredDungeons(Toggle):
-#     """
-#     NOT IMPLEMENTED YET
-#
-#     Non-required dungeons won't have progression or useful items. Does not apply to TotOK.
-#     """
-#     display_name = "exclude_non_required_dungeons"
-#     default = 1
-
-class SpiritTracksRabbitsanity(Toggle):
+class SpiritTracksRabbitsanity(Choice):
     """
-    Rabbits received are separated into realms, while each rabbit catch is a check. Also includes Bunnio's rewards.
+    Rabbits received are separated into realms, while each rabbit catch is a check based on options.
+    Also includes Bunnio's rewards for 5 total rabbits, 10 of each rabbit type and 50 total rabbits. Might manually add locations for 5 of each rabbit type hmm...
+    - no_rabbits: rabbits are not randomized
+    - vanilla: rabbit locations always give rabbit items of their rabbit type. They still count as locations in archipelago for hint cost purposes.
+    - unique_checks: each rabbit in the overworld is a unique location.
+    - on_total: the total number of rabbits caught of each type gives a check, ex. "Catch 3 Snow Rabbits".
     """
     display_name = "Rabbitsanity"
+    default = 0
+    option_no_rabbits = 0
+    option_vanilla = 1
+    option_unique_checks = 2
+    option_on_total = 3
+
+class SpiritTracksMaxRabbitLocationCount(Range):
+    """
+    The maximum number of rabbit locations for each type if rabbitsanity is enabled.
+    Also affects rabbit_location_count_distribution.
+    If rabbitsanity option is unique_checks or vanilla, it will pick this many unique locations of each type at random.
+    If rabbitsanity is vanilla, rabbit pack size gets assigned automatically to make everything work.
+    """
+    display_name = "Rabbitsanity Max Location Count"
+    range_start = 1
+    range_end = 10
+    default = 10
+
+class SpiritTracksRabbitCountDistribution(Choice):
+    """
+    How to distribute rabbit count with the on_total rabbitsanity option, for a maximum defined in rabbit_max_location_count.
+    - for_each: creates one location per rabbit.
+    - on_twos: creates a location for every 2 rabbits.
+    - on_threes: creates a location for every 3 rabbits.
+    - random_mixed: will first roll how many locations to create for each rabbit type, from 1 to rabbit_max_location_count, and then randomly pick from available rabbit locations.
+    If rabbitsanity is vanilla or unique_checks, it defaults to for_each, but if combined with random_mixed it will randomize unique location count between 1 and rabbit_max_location_count for each rabbit type individually.
+    """
+    display_name = "Rabbitsanity Location Count Distribution"
+    option_for_each = 1
+    option_on_twos = 2
+    option_on_threes = 3
+    option_random_mixed = 0
     default = 1
 
+class SpiritTracksRabbitHints(Toggle):
+    """
+    Get hints for Bunnio's locations on entering rabbit haven.
+    """
+    default = 0
+
+class SpiritTracksRabbitPackSize(NamedRange):
+    """
+    Number of rabbits received per rabbit item for each rabbit type with rabbitsanity.
+    Setting it to 0 or random_uniform will randomize between 1 and 5 for each rabbit type.
+    Setting it to -1 or random_mixed will keep rolling random pack size items for each rabbit type until you have enough. It rolls a discrete triangular distribution between 1 and 5 with mode 2.
+    If rabbitsanity is vanilla, this is ignored as vanilla assigns it's own pack sizes.
+    """
+    display_name = "Rabbit Pack Size"
+    range_end = 5
+    range_start = 1
+    option_random_uniform = 0
+    option_random_mixed = -1
+    default = 1
+    special_range_names = {
+        "random_uniform": 0,
+        "random_mixed": -1
+    }
+
+class SpiritTracksExtraRabbits(Range):
+    """
+    How many extra rabbit items to create for each rabbit type.
+    Is affected by rabbit_pack_size
+    If rabbitsanity is vanilla, this will add extra rabbit items to the normal item pool.
+    """
+    default = 0
+    range_start = 0
+    range_end = 5
 
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
@@ -140,9 +165,28 @@ class SpiritTracksOptions(PerGameCommonOptions):
     #shop_hints: SpiritTracksShopHints
 
     # World Options
+
+    # Rabbit Options
     rabbitsanity: SpiritTracksRabbitsanity
+    rabbit_max_location_count: SpiritTracksMaxRabbitLocationCount
+    rabbit_location_count_distribution: SpiritTracksRabbitCountDistribution
+    rabbit_pack_size: SpiritTracksRabbitPackSize
+    rabbit_extra_items: SpiritTracksExtraRabbits
+    rabbit_hints: SpiritTracksRabbitHints
 
     # Generic
     start_inventory_from_pool: StartInventoryPool
     remove_items_from_pool: SpiritTracksRemoveItemsFromPool
     death_link: DeathLink
+
+st_option_groups = [
+    OptionGroup("Rabbit Options", [
+        SpiritTracksRabbitsanity,
+        SpiritTracksMaxRabbitLocationCount,
+        SpiritTracksRabbitCountDistribution,
+        SpiritTracksRabbitPackSize,
+        SpiritTracksExtraRabbits,
+        SpiritTracksRabbitHints
+    ])
+]
+

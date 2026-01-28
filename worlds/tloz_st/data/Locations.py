@@ -335,7 +335,7 @@ LOCATIONS_DATA = {
         "x_max": -45000,
         "z_min": 0,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+        # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
     },
     "ToS 5F Bomb Wall Chest": {
         "region_id": "tos 5f secret chest",
@@ -347,7 +347,7 @@ LOCATIONS_DATA = {
         "z_min": -17693,
         "z_max": 8481,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang", "Bombs (Progressive)"]
+        # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang", "Bombs (Progressive)"]
     },
     "ToS 6F Enemy Chest 1": {
         "region_id": "tos 6f ne chest 1",
@@ -389,7 +389,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
-    "ToS 6F Enemy Big Chest": { #TODO didn't send
+    "ToS 6F Enemy Big Chest": {
         "region_id": "tos 6f ne big chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Refill: Arrows",
@@ -414,7 +414,7 @@ LOCATIONS_DATA = {
         "z_min": 26220,
         "z_max": 68000,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+        # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
     },
     "ToS Snow Rail Glyph": {
         "region_id": "tos 7f rail map",
