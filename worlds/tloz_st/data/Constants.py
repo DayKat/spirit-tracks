@@ -151,13 +151,30 @@ ITEM_GROUPS = {
      "Ammo Refills": [
         "Refill: Bombs",
         "Refill: Arrows",
-     ]
+     ],
+    "Forest Rabbits": [
+        "Forest Rabbit",
+        "Forest Rabbits (2)",
+        "Forest Rabbits (3)",
+        "Forest Rabbits (4)",
+        "Forest Rabbits (5)",
+        "Forest Rabbits (10)"
+    ],
+    "Snow Rabbits": [
+        "Snow Rabbit",
+        "Snow Rabbits (2)",
+        "Snow Rabbits (3)",
+        "Snow Rabbits (4)",
+        "Snow Rabbits (5)",
+        "Snow Rabbits (10)"
+    ],
+
 }
 
 ITEM_GROUPS |= {
     "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
-                    ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"]
-
+                    ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"],
+    "Rabbits": ITEM_GROUPS["Forest Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
 }
 
 # RABBITS = {
@@ -218,6 +235,9 @@ LOCATION_GROUPS = {
     "Snowdrift Station": [],
     "Slippery Station": [],
     "Bridge Worker's Home": [],
+
+    "Unique Forest Rabbits": [],
+    "Unique Snow Rabbits": []
 }
 
 DUNGEON_NAMES = [

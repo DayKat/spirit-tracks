@@ -48,7 +48,6 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
 
     return item_pool_dict, filler_item_count
 
-
 class SpiritTracksWorld(World):
     """
     The Legend of Zelda: Spirit Tracks is the train bound handheld sequel to Phantom Hourglass.
@@ -80,11 +79,16 @@ class SpiritTracksWorld(World):
         self.ut_locations_to_exclude = set()
         self.extra_filler_items = []
         self.excluded_dungeons = []
+        self.active_rabbit_locations: list[str] = []
+        self.rabbit_counts: list[int] = []
+        self.rabbit_item_dict: dict[str, int] = {}
 
     def generate_early(self):
         # self.pick_required_dungeons()
         self.restrict_non_local_items()
-        pass
+        self.active_rabbit_locations = self.choose_rabbit_locations()
+        self.rabbit_item_dict = self.choose_rabbit_items()
+        print(f"Rabbit items: {self.rabbit_item_dict}")
 
     def restrict_non_local_items(self):
         # Restrict non_local_items option in cases where it's incompatible with other options that enforce items
@@ -126,8 +130,11 @@ class SpiritTracksWorld(World):
         location.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
 
     def location_is_active(self, location_name, location_data):
-        if not location_data.get("conditional", False):
+        if not location_data.get("conditional", False) and not location_data.get("rabbit", False):
             return True
+        if location_data.get("rabbit", False):
+            return location_name in self.active_rabbit_locations
+
         return False
 
     def create_events(self):
@@ -204,27 +211,39 @@ class SpiritTracksWorld(World):
         ap_code = self.item_name_to_id[name]
         return Item(name, classification, ap_code, self.player)
 
-    def build_item_pool_dict(self): #TODO take rabbits out of item pool if option not on? start inv not working?
+    def build_item_pool_dict(self):
         removed_item_quantities = self.options.remove_items_from_pool.value.copy()
         item_pool_dict = {}
         filler_item_count = 0
-        rupee_item_count = 0
-        #boss_reward_item_count = self.options.dungeons_required
+
+        def pop_random_item_from_dict(item_dict):
+            i_name = self.random.choice([i for i in item_dict])
+            item_dict[i_name] -= 1
+            if item_dict[i_name] <= 0:
+                item_dict.pop(i_name)
+            return i_name
+
         for loc_name, loc_data in LOCATIONS_DATA.items():
-            print(f"New Location: {loc_name}")
+            # print(f"New Location: {loc_name}")
             if not self.location_is_active(loc_name, loc_data):
-                print(f"{loc_name} is not active")
+                # print(f"{loc_name} is not active")
                 continue
             # If no defined vanilla item, fill with filler
             if "vanilla_item" not in loc_data:
-                print(f"{loc_name} has no defined vanilla item")
+                # print(f"{loc_name} has no defined vanilla item")
                 filler_item_count += 1
                 continue
 
             item_name = loc_data.get("item_override", loc_data["vanilla_item"])
             if isinstance(item_name, list):
                 item_name = self.random.choice(item_name)
-            if not self.options.rabbitsanity and (item_name == "Forest Rabbit" or  item_name == "Snow Rabbit"):
+            item_data = ITEMS[item_name]
+
+            if "rabbit" in item_data.tags:
+                if self.options.rabbitsanity == "vanilla":  # Force vanilla rabbits randomly
+                    forced_item = self.create_item(pop_random_item_from_dict(self.rabbit_item_dict))
+                    self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                    continue
                 removed_item_quantities[item_name] -= 1
                 filler_item_count += 1
                 continue
@@ -247,6 +266,7 @@ class SpiritTracksWorld(World):
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
         add_items = [("Heart Container", 13)]
+        add_items += [i for i in self.rabbit_item_dict.items()]
         for i, count in add_items:
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
 
@@ -264,9 +284,9 @@ class SpiritTracksWorld(World):
         # Figure out rabbit counts for different pools
         max_count = self.options.rabbit_max_location_count.value
         rabbit_counts = [max_count, max_count]
-        if self.options.rabbit_location_count_distribution.value == 0:
+        if self.options.rabbit_location_count_distribution.value == -1:
             rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
-            self.rabbit_counts = rabbit_counts
+        self.rabbit_counts = rabbit_counts
 
         # Figure out pools
         if self.options.rabbitsanity.value in [1, 2]: # Vanilla or unique
@@ -275,14 +295,21 @@ class SpiritTracksWorld(World):
         else:
             forest_rabbits = LOCATION_GROUPS["Total Forest Rabbits"]
             snow_rabbits = LOCATION_GROUPS["Total Snow Rabbits"]
-            if self.options.rabbit_location_count_distribution.value != 0:
-                interval = self.options.rabbit_location_count_distribution.value
-                rabbit_locations = [j for i in [forest_rabbits, snow_rabbits] for j in i[interval-1:max_count:interval]]
+            interval = self.options.rabbit_location_count_distribution.value
+            if interval >= 0:
+                intervals = [interval]*2 if interval else [self.random.randint(1, 3) for _ in range(2)]
+                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits]):
+                    if i > max_count:
+                        rabbit_locations.append(realm_locs[max_count-1])
+                    else:
+                        rabbit_locations += realm_locs[i-1:max_count:i]
+                print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
+                return rabbit_locations
+
         # Randomly choose locations
-        if not rabbit_locations:
-            rabbit_loc_lists = [forest_rabbits, snow_rabbits]
-            [self.random.shuffle(i) for i in rabbit_loc_lists]
-            rabbit_locations = [loc for rl, c in zip(rabbit_loc_lists, rabbit_counts) for loc in rl[:c]]
+        rabbit_loc_lists = [forest_rabbits, snow_rabbits]
+        [self.random.shuffle(i) for i in rabbit_loc_lists]
+        rabbit_locations = [loc for rl, c in zip(rabbit_loc_lists, rabbit_counts) for loc in rl[:c]]
         print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
 
@@ -292,7 +319,7 @@ class SpiritTracksWorld(World):
 
         def get_rabbit_pack_name(realm, count):
             if count == 1:
-                return f"{realm} Rabbit (1)"
+                return f"{realm} Rabbit"
             return f"{realm} Rabbits ({count})"
 
         def create_items_from_count_list(realm, clist):
@@ -301,7 +328,7 @@ class SpiritTracksWorld(World):
                 item_name = get_rabbit_pack_name(realm, count)
                 res.setdefault(item_name, 0)
                 res[item_name] += 1
-            print(f"Creating rabbit items: {res}")
+            # print(f"Creating rabbit items: {res}")
             return res
 
         def fill_vanilla(realm, max_count):
@@ -310,33 +337,35 @@ class SpiritTracksWorld(World):
                 return {get_rabbit_pack_name(realm, 10): 1}
 
             res_counts = []
-            for i in range(max_count):
-                randindex = self.random.randint(0, len(count_distr))
+            print(f"Filling vanilla rabbits {realm} {max_count}")
+            while sum(count_distr) + sum(res_counts) < 10:
+                randindex = self.random.randint(0, len(count_distr)-1)
                 count_distr[randindex] += 1
                 if count_distr[randindex] == 5:
                     res_counts.append(count_distr.pop(randindex))
             res_counts += count_distr
             res_counts += [1]*self.options.rabbit_extra_items.value  # Add bonus items
-
             return create_items_from_count_list(realm, res_counts)
 
         def fill_mixed(realm):
             res_counts = []
             while sum(res_counts) < 10:
-                res_counts.append(math.ceil(self.random.triangular(1, 6, 2)))
+                res_counts.append(round(self.random.triangular(0.5, 5.5, 2)))
             for i in range(self.options.rabbit_extra_items.value):
-                res_counts.append(math.ceil(self.random.triangular(1, 6, 2)))
+                res_counts.append(round(self.random.triangular(0.5, 5.5, 2)))
             return create_items_from_count_list(realm, res_counts)
 
         realms = ["Forest", "Snow"]
         rabbit_items = {}
         if self.options.rabbitsanity.value == 1:  # Vanilla
+            print(f"Vanilla rabbits {self.rabbit_counts}")
             self.options.rabbit_pack_size.value = 1
             for r, c in zip(realms, self.rabbit_counts):
                 rabbit_items |= fill_vanilla(r, c)
             return rabbit_items
 
         if self.options.rabbit_pack_size == -1:  # random_mixed
+            print(f"Random Mixed")
             for r in realms:
                 rabbit_items |= fill_mixed(r)
             return rabbit_items
@@ -346,8 +375,9 @@ class SpiritTracksWorld(World):
             pack_sizes = [self.random.randint(1, 5), self.random.randint(1, 5)]
         else:
             pack_sizes = [self.options.rabbit_pack_size.value]*2
+        print(f"Uniform Packs {pack_sizes}")
         for r, s in zip(realms, pack_sizes):
-            item_count = 10 // s + 1 + self.options.rabbit_extra_items.value
+            item_count = math.ceil(10 / s) + self.options.rabbit_extra_items.value
             rabbit_items |= create_items_from_count_list(r, [s]*item_count)
         return rabbit_items
 

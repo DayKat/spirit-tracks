@@ -224,4 +224,6 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
 
+] + [
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Forest", "Snow"]
 ]

@@ -333,6 +333,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'dummy': True,
         'value': 10
     },
+    "Snow Rabbit": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+    },
     "Snow Rabbits (2)": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],

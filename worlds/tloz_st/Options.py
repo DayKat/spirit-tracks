@@ -96,6 +96,7 @@ class SpiritTracksRabbitCountDistribution(Choice):
     - for_each: creates one location per rabbit.
     - on_twos: creates a location for every 2 rabbits.
     - on_threes: creates a location for every 3 rabbits.
+    - random_uniform: will roll an interval between 1 and 3 for each rabbit type
     - random_mixed: will first roll how many locations to create for each rabbit type, from 1 to rabbit_max_location_count, and then randomly pick from available rabbit locations.
     If rabbitsanity is vanilla or unique_checks, it defaults to for_each, but if combined with random_mixed it will randomize unique location count between 1 and rabbit_max_location_count for each rabbit type individually.
     """
@@ -103,7 +104,8 @@ class SpiritTracksRabbitCountDistribution(Choice):
     option_for_each = 1
     option_on_twos = 2
     option_on_threes = 3
-    option_random_mixed = 0
+    option_random_uniform = 0
+    option_random_mixed = -1
     default = 1
 
 class SpiritTracksRabbitHints(Toggle):

@@ -133,8 +133,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["rabbit haven", "rabbit haven chest", False, None],
         ["rabbit haven", "rabbit haven net", False, None],
         ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
-        ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_forest_rabbits(state, player, 10)],
-        ["rabbit haven", "rabbit haven 10 snow rabbits", False, lambda state: st_has_snow_rabbits(state, player, 10)],
+        ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_rabbit_items(state, player, "Forest")],
+        ["rabbit haven", "rabbit haven 10 snow rabbits", False, lambda state: st_has_rabbit_items(state, player, "Snow")],
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # # ============ Snow Realm ===============

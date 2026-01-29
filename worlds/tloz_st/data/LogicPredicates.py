@@ -1,7 +1,7 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
 from .Constants import *
-
+from .Items import ITEMS
 
 # =========== Item States =============
 
@@ -52,17 +52,18 @@ def st_has_net(state: CollectionState, player: int):
 
 ## ========== Rabbits ===========
 
+def st_has_rabbit_items(state, player, realm, count=10):
+    item_group = f"{realm} Rabbits"
+    rabbit_count = 0
+    for i in ITEM_GROUPS[item_group]:
+        rabbit_count += state.count(i, player) * ITEMS[i].value
+    return rabbit_count >= count
+
 def st_has_total_rabbits(state: CollectionState, player: int, count):
-    rabbit_total = state.count("Forest Rabbit", player) + state.count("Snow Rabbit", player)
+    rabbit_total = 0
+    for i in ITEM_GROUPS["Rabbits"]:
+        rabbit_total += state.count(i, player) * ITEMS[i].value
     return rabbit_total >= count
-
-def st_has_forest_rabbits(state: CollectionState, player: int, count):
-    rabbits = state.count("Forest Rabbit", player)
-    return rabbits >= count
-
-def st_has_snow_rabbits(state: CollectionState, player: int, count):
-    rabbits = state.count("Snow Rabbit", player)
-    return rabbits >= count
 
 ## ========= Rail Items =============
 

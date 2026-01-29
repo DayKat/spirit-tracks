@@ -1,5 +1,5 @@
 
-from .Constants import ITEM_GROUPS
+from .Constants import ITEM_GROUPS, LOCATION_GROUPS
 from .Addresses import STAddr
 
 # TODO: Add sram data for saveslot 2
@@ -637,7 +637,7 @@ LOCATIONS_DATA = {
     #     "require_item": ["Whirlwind"],
     # }, TODO heart container processes on loop, causing heart loss. doesn't occur for other ones
     "Wooded Temple Boss Heart Container": {
-        "region_id": "wt heart container",
+        "region_id": "wt stagnox",
         "vanilla_item": "Heart Container",
         "stage_id": 0x1E,
         "room_id": 0,
@@ -1051,7 +1051,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 1,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit near Ocean Shortcut": {
         "region_id": "forest ocean shortcut rabbit",
@@ -1060,7 +1061,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 2,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit E Mayscore": {
         "region_id": "e mayscore rabbit",
@@ -1069,7 +1071,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 4,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit SW Trading Post": {
         "region_id": "sw trading post rabbit",
@@ -1078,7 +1081,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 8,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit E Outset": {
         "region_id": "e outset rabbit",
@@ -1087,7 +1091,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x10,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit SW Rabbit Haven": {
         "region_id": "sw rabbit haven rabbit",
@@ -1096,7 +1101,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x20,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit near Wooded Temple": {
         "region_id": "wt rabbit",
@@ -1105,7 +1111,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x40,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit near Rabbit Haven": {
         "region_id": "nr rabbit haven rabbit",
@@ -1114,7 +1121,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x80,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit past wooden bridge": {
         "region_id": "forest after bridge rabbit",
@@ -1123,7 +1131,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 1,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit S Rabbit Haven": {
         "region_id": "s rabbit haven rabbit",
@@ -1132,7 +1141,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 2,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Forest Rabbits"]
     },
 
     "Rabbit NE Blizzard": {
@@ -1141,8 +1151,9 @@ LOCATIONS_DATA = {
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
         "value": 4,
-    "rabbit": True,
-    "require_item": ["Rabbit Net", "Cannon"]
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit SE Blizzard": {
         "region_id": "se blizzard rabbit",
@@ -1150,8 +1161,9 @@ LOCATIONS_DATA = {
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
         "value": 8,
-    "rabbit": True,
-    "require_item": ["Rabbit Net", "Cannon"]
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"],
+            "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit W Anouki Village": {
         "region_id": "w anouki village rabbit",
@@ -1159,8 +1171,9 @@ LOCATIONS_DATA = {
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
         "value": 0x10,
-    "rabbit": True,
-    "require_item": ["Rabbit Net", "Cannon"]
+        "rabbit": True,
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit SW Blizzard": {
         "region_id": "sw blizzard rabbit",
@@ -1169,7 +1182,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 0x20,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit E Anouki Village": {
         "region_id": "e anouki village rabbit",
@@ -1178,7 +1192,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 0x40,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit near Snowdrift Station": {
         "region_id": "snowdrift station rabbit",
@@ -1187,7 +1202,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 0x80,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit W Icy Spring Station": {
         "region_id": "w icyspring rabbit",
@@ -1196,7 +1212,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 1,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit N Icy Spring Station": {
         "region_id": "n icyspring rabbit",
@@ -1205,7 +1222,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 2,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit NW Blizzard": {
         "region_id": "nw blizzard rabbit",
@@ -1214,7 +1232,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 4,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit Central Blizzard": {
         "region_id": "central blizzard rabbit",
@@ -1223,7 +1242,8 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 8,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"]
+        "require_item": ["Rabbit Net", "Cannon"],
+        "location_groups": ["Unique Snow Rabbits"]
     },
 
     # Total count rabbits
@@ -1231,108 +1251,136 @@ LOCATIONS_DATA = {
         "region_id": "Forest Rabbit Count 1",
         "rabbit": True,
         "count": 1,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 2 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 2",
         "rabbit": True,
         "count": 2,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 3 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 3",
         "rabbit": True,
         "count": 3,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 4 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 4",
         "rabbit": True,
         "count": 4,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 5 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 5",
         "rabbit": True,
         "count": 5,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 6 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 6",
         "rabbit": True,
         "count": 6,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 7 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 7",
         "rabbit": True,
         "count": 7,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 8 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 8",
         "rabbit": True,
         "count": 8,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 9 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 9",
         "rabbit": True,
         "count": 9,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 10 Forest Rabbits": {
         "region_id": "Forest Rabbit Count 10",
         "rabbit": True,
         "count": 10,
+        "location_groups": ["Total Forest Rabbits"]
     },
     "Catch 1 Snow Rabbit": {
         "region_id": "Snow Rabbit Count 1",
         "rabbit": True,
         "count": 1,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 2 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 2",
         "rabbit": True,
         "count": 2,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 3 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 3",
         "rabbit": True,
         "count": 3,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 4 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 4",
         "rabbit": True,
         "count": 4,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 5 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 5",
         "rabbit": True,
         "count": 5,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 6 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 6",
         "rabbit": True,
         "count": 6,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 7 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 7",
         "rabbit": True,
         "count": 7,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 8 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 8",
         "rabbit": True,
         "count": 8,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 9 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 9",
         "rabbit": True,
         "count": 9,
+        "location_groups": ["Total Snow Rabbits"]
     },
     "Catch 10 Snow Rabbits": {
         "region_id": "Snow Rabbit Count 10",
         "rabbit": True,
         "count": 10,
+        "location_groups": ["Total Snow Rabbits"]
     },
 }
 ## ========== remember to add item override!! =============
 
 
-for i, name in enumerate(LOCATIONS_DATA):
+for i, loc_data in enumerate(LOCATIONS_DATA.items()):
+    name, data = loc_data
     LOCATIONS_DATA[name]["id"] = i+1
+    loc_groups = data.get("location_groups", [])
+    for loc_group in loc_groups:
+        LOCATION_GROUPS.setdefault(loc_group, []).append(name)
+
+# print(f"Location Groups:")
+# for group, locs in LOCATION_GROUPS.items():
+#     print(f"\t{group}: {locs}")
 
 if __name__ == "__main__":
     for location, data in LOCATIONS_DATA.items():
