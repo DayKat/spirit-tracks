@@ -4,6 +4,7 @@ REGIONS = [
 
     # Forest Realm
     "forest realm",
+    "forest realm rabbits",
     "forest realm se portal track",
     "w castle town rabbit",
     "forest ocean shortcut rabbit",
@@ -144,6 +145,7 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm
     "snow realm",
+    "snow realm rabbits",
     "snow realm post song",
     "ne blizzard rabbit",
     "se blizzard rabbit",

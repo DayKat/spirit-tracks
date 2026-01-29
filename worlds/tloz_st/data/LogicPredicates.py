@@ -65,6 +65,9 @@ def st_has_total_rabbits(state: CollectionState, player: int, count):
         rabbit_total += state.count(i, player) * ITEMS[i].value
     return rabbit_total >= count
 
+def st_caught_rabbits(state, player, realm, count):
+    return state.has(f"_caught_{realm.lower()}_rabbits", player, count)
+
 ## ========= Rail Items =============
 
 def st_has_glyph(state: CollectionState, player: int, realm: str):

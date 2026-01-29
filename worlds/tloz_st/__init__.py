@@ -150,6 +150,31 @@ class SpiritTracksWorld(World):
             goal_loc = "goal_fraaz"
         self.create_event(goal_loc, "_beaten_game")
 
+        if self.options.rabbitsanity == "on_total":
+            forest_regions = ["w castle town rabbit",
+                              "forest ocean shortcut rabbit",
+                              "e mayscore rabbit",
+                              "sw trading post rabbit",
+                              "e outset rabbit",
+                              "sw rabbit haven rabbit",
+                              "wt rabbit",
+                              "nr rabbit haven rabbit",
+                              "forest after bridge rabbit",
+                              "s rabbit haven rabbit"]
+            snow_regions = ["ne blizzard rabbit",
+                            "se blizzard rabbit",
+                            "w anouki village rabbit",
+                            "sw blizzard rabbit",
+                            "e anouki village rabbit",
+                            "snowdrift station rabbit",
+                            "w icyspring rabbit",
+                            "n icyspring rabbit",
+                            "nw blizzard rabbit",
+                            "central blizzard rabbit"]
+            [self.create_event(reg, f"_caught_{realm}_rabbits")
+             for regions, realm in zip([forest_regions, snow_regions], ["forest", "snow"])
+             for reg in regions]
+
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
 
