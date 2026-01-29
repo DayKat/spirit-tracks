@@ -45,6 +45,7 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
     else:
         item_pool_dict[item] += filler_item_count
         filler_item_count = 0
+        print(f"Ran out of filler items! at {item}")
 
     return item_pool_dict, filler_item_count
 
@@ -134,6 +135,8 @@ class SpiritTracksWorld(World):
             return True
         if location_data.get("rabbit", False):
             return location_name in self.active_rabbit_locations
+        if location_name == "Slippery Station Champion Reward":
+            return self.options.logic
 
         return False
 
@@ -263,36 +266,45 @@ class SpiritTracksWorld(World):
             if isinstance(item_name, list):
                 item_name = self.random.choice(item_name)
             item_data = ITEMS[item_name]
+            if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
+                # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
+                removed_item_quantities[item_name] -= 1
+                filler_item_count += 1
+                continue
 
             if "rabbit" in item_data.tags:
                 if self.options.rabbitsanity == "vanilla":  # Force vanilla rabbits randomly
                     forced_item = self.create_item(pop_random_item_from_dict(self.rabbit_item_dict))
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
-                removed_item_quantities[item_name] -= 1
                 filler_item_count += 1
                 continue
-            if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
-                # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
-                removed_item_quantities[item_name] -= 1
-                filler_item_count += 1
-                continue
-            if item_name == "Filler Item":
+            if item_name in ["Filler Item", "Treasure"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
+            if item_data.classification == ItemClassification.filler:  # Regen all filler items for now
+                if item_name not in ITEM_GROUPS["Super Rare Treasures"]:
+                    filler_item_count += 1
+                    continue
+                else:
+                    print(f"Saved item {item_name}")
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
             #print(f"Location {loc_name} has {item_name} item")
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Heart Container", 13)]
+        add_items = []
+        add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
         add_items += [i for i in self.rabbit_item_dict.items()]
+        add_items += [("Heart Container", 13)]
+        print(f"Add items: ({sum([i for _, i in add_items])}/{filler_item_count})")
         for i, count in add_items:
+            # print(f"\t{i}: {count}")
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
 
         # Add as many filler items as required
@@ -504,13 +516,21 @@ class SpiritTracksWorld(World):
                              single_player_placement=True, lock=True, allow_excluded=True)
 
     def get_filler_item_name(self) -> str:
-        filler_item_names = [
-            "Blue Rupee (5)",
-            "Red Rupee (20)",
+        filler_item_names = (ITEM_GROUPS["Common Treasures"] +
+                             ITEM_GROUPS["Uncommon Treasures"] +
+                             ITEM_GROUPS["Ammo Refills"] +
+                             ["Green Rupee (1)",
+                              "Blue Rupee (5)",
+                              "Red Rupee (20)",
+                              "Big Green Rupee (100)"]
+                             )
+        rare_filler_items = ITEM_GROUPS["Rare Treasures"] + [
+            "Big Red Rupee (200)", "Gold Rupee (300)",
         ]
-
-        item_name = self.random.choice(filler_item_names)
-        return item_name
+        # 1/20 chance to roll a rare filler item
+        if self.random.randint(1, 20) == 1:
+            return self.random.choice(rare_filler_items)
+        return self.random.choice(filler_item_names)
 
     def fill_slot_data(self) -> dict:
         options = ["keysanity", "goal", "logic"]

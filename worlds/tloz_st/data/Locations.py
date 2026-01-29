@@ -440,8 +440,7 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
-        "vanilla_item": "Treasure",
-        "item_override": "Refill: Bombs"
+        "vanilla_item": "Treasure"
     },
     # "Mayscore Whip Race 1st Reward": { TODO make minigame option & find win address
     #     "region_id": "mayscore whip race bomb bag",
@@ -483,7 +482,6 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
-        "item_override": "Wooded Temple Tracks"
     },
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
@@ -742,7 +740,6 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_3e,
         "value": 0x10,
         "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
-        "item_override": "W Wooded Temple Tracks",
     },
 
     # Anouki Village
@@ -753,7 +750,6 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
-        "item_override": "Snowdrift Station Tracks",
     },
     "Anouki Village Song Statue": {
         "region_id": "anouki village discovery song statue",
@@ -800,7 +796,6 @@ LOCATIONS_DATA = {
         "z_min": -55900,
         "z_max": -47180,
         "require_item": ["Boomerang"],
-        "item_override": "Slippery Station Tracks",
     },
 
     # Snow Sanctuary
@@ -811,7 +806,6 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
-        "item_override": "Blizzard Temple Tracks",
     },
     # "Snow Sanctuary Steem Duet": {
     #     "region_id": "ss steem duet",
@@ -836,7 +830,6 @@ LOCATIONS_DATA = {
         "z_max": 47530,
         "dungeon": "Blizzard Temple",
         "require_item": ["Whirlwind"],
-        "item_override": "Forest Realm SE Portal Tracks",
     },
     "Blizzard Temple B1 E Enemy Chest": {
         "region_id": "bt b1 e enemy chest",
@@ -873,7 +866,6 @@ LOCATIONS_DATA = {
         "z_max": -58982,
         "dungeon": "Blizzard Temple",
         "require_item": [],
-        "item_override": "N Castle Town Tracks",
     },
     "Blizzard Temple B1 SW Chest": {
         "region_id": "bt b1 sw chest",
@@ -895,7 +887,6 @@ LOCATIONS_DATA = {
         "stamp": True,
         "dungeon": "Blizzard Temple",
         "require_item": ["Stamp Book", "Boomerang", "Small Key (Blizzard Temple)"],
-        "item_override": "Snow Realm Bridge Tracks",
     },
     "Blizzard Temple B1 NW Enemy Chest": {
         "region_id": "bt b1 nw enemy chest",
@@ -908,7 +899,6 @@ LOCATIONS_DATA = {
         "z_max": -42615,
         "dungeon": "Blizzard Temple",
         "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
-        "item_override": "N Icy Spring Tracks",
     },
     "Blizzard Temple 1F NW Chest": {
         "region_id": "bt 1f nw chest",
@@ -921,7 +911,6 @@ LOCATIONS_DATA = {
         "z_max": -56082,
         "dungeon": "Blizzard Temple",
         "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
-        "item_override": "W Castle Town Tracks",
     },
     "Blizzard Temple 1F Torch Chest": {
         "region_id": "bt 1f torch chest",
@@ -1027,6 +1016,7 @@ LOCATIONS_DATA = {
         "z_min": 45579,
         "z_max": 64500,
         "require_item": ["Slippery Station Tracks", "Snow Source"],
+        "conditional": True
     },
 
     # Bridge Worker's Home

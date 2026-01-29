@@ -107,6 +107,14 @@ STAGES = {
 }
 
 ITEM_GROUPS = {
+     "Rupees": [
+        "Green Rupee (1)",
+        "Blue Rupee (5)",
+        "Red Rupee (20)",
+        "Big Green Rupee (100)",
+        "Big Red Rupee (200)",
+        "Gold Rupee (300)"
+     ],
      "Small Keys": [
          "Small Key (Tunnel to ToS)",
          "Small Key (Wooded Temple)",
@@ -168,13 +176,37 @@ ITEM_GROUPS = {
         "Snow Rabbits (5)",
         "Snow Rabbits (10)"
     ],
-
+    "Glyphs": [
+        "Forest Glyph",
+        "Snow Glyph",
+        "Ocean Glyph"
+    ],
+    "Forest Tracks": [
+        "Forest Realm Ocean Shortcut Tracks",
+        "E Mayscore Bridge Tracks",
+        "Forest Realm SE Portal Tracks",
+        "W Castle Town Tracks",
+        "W Forest Realm Tracks",
+        "Forest Realm SW Cave Tracks",
+        "W Wooded Temple Tracks",
+        "N Castle Town Tracks",
+        "Wooded Temple Tracks"
+    ],
+    "Snow Tracks": [
+        "Snowdrift Station Tracks",
+        "Slippery Station Tracks",
+        "Snow Realm Bridge Tracks",
+        "N Icy Spring Tracks",
+        "Blizzard Temple Tracks"
+    ]
 }
 
+# Combo groups
 ITEM_GROUPS |= {
     "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
                     ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"],
     "Rabbits": ITEM_GROUPS["Forest Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
+    "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"]
 }
 
 # RABBITS = {

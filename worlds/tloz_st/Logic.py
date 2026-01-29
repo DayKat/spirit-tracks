@@ -225,8 +225,6 @@ def create_connections(multiworld: MultiWorld, player: int, origin_name: str, op
     all_logic = [
         make_overworld_logic(player, origin_name, options)
     ]
-    if options.rabbitsanity == "on_total":
-        all_logic.append()
 
     # Create connections
     for logic_array in all_logic:

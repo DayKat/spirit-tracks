@@ -482,7 +482,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["incremental"]
     },
 
-    # ========= Treasure ============= TODO collection menu still seems inaccurate to what you should/shouldn't have
+    # ========= Treasure =============
 
     "Treasure": {
         'classification': ItemClassification.filler,
