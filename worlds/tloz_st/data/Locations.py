@@ -1153,7 +1153,7 @@ LOCATIONS_DATA = {
         "value": 8,
         "rabbit": True,
         "require_item": ["Rabbit Net", "Cannon"],
-            "location_groups": ["Unique Snow Rabbits"]
+        "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit W Anouki Village": {
         "region_id": "w anouki village rabbit",

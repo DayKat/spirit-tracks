@@ -131,9 +131,9 @@ class SpiritTracksWorld(World):
         location.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
 
     def location_is_active(self, location_name, location_data):
-        if not location_data.get("conditional", False) and not location_data.get("rabbit", False):
+        if not location_data.get("conditional", False) and "rabbit" not in location_data:
             return True
-        if location_data.get("rabbit", False):
+        if "rabbit" in location_data:
             return location_name in self.active_rabbit_locations
         if location_name == "Slippery Station Champion Reward":
             return self.options.logic
@@ -279,7 +279,7 @@ class SpiritTracksWorld(World):
                     continue
                 filler_item_count += 1
                 continue
-            if item_name in ["Filler Item", "Treasure"]:
+            if item_name in ["Filler Item", "Treasure", "Heart Container"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
@@ -533,7 +533,8 @@ class SpiritTracksWorld(World):
         return self.random.choice(filler_item_names)
 
     def fill_slot_data(self) -> dict:
-        options = ["keysanity", "goal", "logic"]
+        options = ["keysanity", "goal", "logic",
+                   "rabbitsanity", "rabbit_hints"]
         slot_data = self.options.as_dict(*options)
         return slot_data
 

@@ -1,58 +1,12 @@
 import random
 from .DSZeldaClient.DSZeldaClient import *
-from .DSZeldaClient.subclasses import AddrFromPointer
+from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
-
-
-# ROM_ADDRS = {
-#     "game_identifier": (0x00000000, 16, "ROM"),
-#     "slot_name": (0xFFFC0, 64, "ROM"),
-# }
-#
-# RAM_ADDRS = {
-#     "game_state": (0x060C48, 1, "Main RAM"),
-#     "is_dead": (0xC2EE, 1, "ARM7 System Bus"),
-#
-#     "received_item_index": (0x265780, 2, "Main RAM"),
-#     "slot_id": (0x265782, 2, "Main RAM"),
-#
-#     "stage": (0x2690E0, 4, "Main RAM"),
-#     "floor": (0x1B2E98, 4, "Main RAM"),  # TODO: Find floor value
-#     "room": (0x2690EA, 1, "Main RAM"),
-#     "entrance": (0x2690EB, 1, "Main RAM"),
-#
-#     "loading_room": (0x0c2FF0, 1, "Main RAM"),
-#     "mid_load": (0x265190, 1, "Main RAM"),
-#
-#     "getting_location": (0x04B9B8, 1, "Main RAM"),
-#     "getting_train_part": (0x11F5E4, 1, "Main RAM"),
-#     "menu": (0x260958, 1, "Main RAM"),
-#
-#     "link_x": (0x05CC, 4, "Data TCM"),
-#     "link_y": (0x05D0, 4, "Data TCM"),
-#     "link_z": (0x05D4, 4, "Data TCM"),
-#
-#     "equipped_item": (0x265318, 4, "Main RAM"),
-#     "train_gear": (0x2CA24C, 4, "Main RAM"),
-#
-#     "health": (0x2651BC, 1, "Main RAM"),
-#     "heart_count": (0x2651BD, 1, "Main RAM"),
-#     "rabbits": (0x262030, 7, "Main RAM"),
-# }
-#
-# POINTERS = {
-#     "STAddr.gItemManager": 0x0fb4,
-#     "STAddr.gPlayerManager": 0x0fbc,
-#     "STAddr.gAdventureFlags": 0x0f74,
-#     "STAddr.gPlayer": 0x0fec,
-#     "STAddr.gOverlayManager_mLoadedOverlays_4": 0x0910,
-#     "STAddr.gMapManager": 0x0e60
-# }
 
 # gMapManager -> mCourse -> mSmallKeys
 SMALL_KEY_OFFSET = 0x260
@@ -63,6 +17,14 @@ read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage,
                     STAddr.loading_room, STAddr.mid_load]
 read_keys_land = [STAddr.getting_location, STAddr.getting_train_part]
 
+rabbit_storage_key = "rabbit_locs"
+
+def count_bits(n):
+    count = 0
+    while n:
+        n &= n-1
+        count += 1
+    return count
 
 class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
@@ -70,8 +32,6 @@ class SpiritTracksClient(DSZeldaClient):
 
     def __init__(self) -> None:
         super().__init__()
-
-
 
         # Required variables from inherit
         self.starting_flags = STARTING_FLAGS
@@ -103,6 +63,9 @@ class SpiritTracksClient(DSZeldaClient):
         self.addr_room = STAddr.room
         self.addr_entrance = STAddr.entrance
         self.addr_received_item_index = STAddr.received_item_index
+
+        self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
+        self.rabbit_counter = []  # list of counts for each rabbit type caught in the overworld
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -187,12 +150,8 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def update_rabbit_count(self, ctx):
         if self.current_stage in [4, 5, 6, 7]:
-            rabbit_bits = 0
-            for _id, name in self.rabbit_id_to_name.items():
-                if _id in ctx.checked_locations:
-                    loc_data = LOCATIONS_DATA[name]
-                    offset = loc_data["address"] - STAddr.rabbits
-                    rabbit_bits += loc_data["value"] << (offset*8)
+            self.update_rabbit_tracker(ctx)
+            rabbit_bits = self.rabbit_tracker
         else:
             self.item_count(ctx, "Forest Rabbit") + self.item_count(ctx, "Snow Rabbit")
             rabbit_bits = 2 ** self.item_count(ctx, "Forest Rabbit") - 1  # convert decimal to that number of bits
@@ -225,6 +184,8 @@ class SpiritTracksClient(DSZeldaClient):
                 self.has_goal_location = True
             if goal == 3 and location.get("region_id") == "bt fraaz":
                 self.has_goal_location = True
+        if "rabbit" in location:
+            await self.store_rabbit(ctx, location)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -240,6 +201,33 @@ class SpiritTracksClient(DSZeldaClient):
             return True
         return False
 
+    async def store_rabbit(self, ctx, loc_data):
+        key = storage_key(ctx, rabbit_storage_key)
+        index = loc_data["address"] - STAddr.rabbits_1
+        self.rabbit_tracker[index] |= loc_data.values()
+        self.update_rabbit_tracker(ctx)
+        await self.store_data(ctx, key, self.rabbit_tracker, operation="overwrite")
+
+        # Send total location
+        if ctx.slot_data["rabbitsanity"] == 3:
+            rabbit_type = loc_data["vanilla_item"]
+            rabbit_type_lookup = ["Forest Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
+            rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
+            plural = "s" if rabbit_count > 1 else ""
+            total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
+            await self._process_checked_locations(ctx, total_loc)
+
+    def update_rabbit_tracker(self, ctx):
+        self.rabbit_tracker = [s | c for s, c in zip(ctx.stored_data[storage_key(ctx, rabbit_storage_key)], self.rabbit_tracker)]
+        all_rabbits = sum([r << 8*i for i, r in enumerate(self.rabbit_tracker)])
+        self.rabbit_counter = [count_bits(all_rabbits & (0x3FF << n*10)) for n in range(7)]
+
+    async def on_connect(self, ctx):
+        self.rabbit_tracker.clear()
+        await ctx.send_msgs([{
+                "cmd": "Get",
+                "keys": [storage_key(ctx, rabbit_storage_key)],
+            }])
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
         pass
