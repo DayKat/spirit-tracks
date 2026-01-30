@@ -338,6 +338,8 @@ class SpiritTracksWorld(World):
                         rabbit_locations += realm_locs[i-1:max_count:i]
                 print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
                 return rabbit_locations
+            if self.options.rabbitsanity == "both":  # Randomize each pool count separately
+                self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
             rabbit_locations += picK_random_locs([forest_rabbits, snow_rabbits])
 
         print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")

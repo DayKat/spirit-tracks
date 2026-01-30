@@ -411,19 +411,19 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["incremental"]
     },
     "Big Green Rupee (100)": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'address': STAddr.rupees,
         'value': 100,
         "tags": ["incremental", 'backup_filler']
     },
     "Big Red Rupee (200)": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'address': STAddr.rupees,
         'value': 200,
         "tags": ["incremental", 'backup_filler']
     },
     "Gold Rupee (300)": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'address': STAddr.rupees,
         'value': 300,
         "tags": ["incremental", 'backup_filler']

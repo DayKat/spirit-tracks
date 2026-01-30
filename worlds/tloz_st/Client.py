@@ -137,12 +137,12 @@ class SpiritTracksClient(DSZeldaClient):
         print(f"Updated Treasure Tracker: {self.treasure_tracker}")
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
-        if "Treasure" in item_name:
-            await self.update_treasure_tracker(ctx)
         if "Rabbit" in item_name:
             await self.update_rabbit_count(ctx)
         if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
             await STAddr.adv_flags_25.unset_bits(ctx, 2)
+        if item_name in ["Forest Glyph", "Cannon"]:
+            await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx)
@@ -181,9 +181,6 @@ class SpiritTracksClient(DSZeldaClient):
 
         if "rabbit" in location and "address" in location:
             await self.store_rabbit(ctx, location)
-
-        if location["name"] in ["Outset Clear Rocks", "Outset Bee Tree"]:
-            await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -242,6 +239,9 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
         pass
+
+    async def process_post_receive(self, ctx):
+        await self.update_treasure_tracker(ctx)  # always update treasure tracker, lots of random treasures on ground!
 
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:

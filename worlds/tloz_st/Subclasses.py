@@ -4,10 +4,10 @@ from enum import IntEnum
 
 
 async def remove_treasure(client, ctx, item, rii):
-    res = []
-    for addr, value in client.treasure_tracker.items():
-        res += addr.get_write_list(value)
-    return res
+    addr = item.address
+    value = client.treasure_tracker[addr]
+    print(f"Removing treasure {item}")
+    return addr.get_write_list(value)
 
 async def dummy(*args):
     print(f"Receiving dummy item")

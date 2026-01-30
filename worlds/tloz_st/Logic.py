@@ -199,6 +199,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
     # Generate rabbit total items
     if options.rabbitsanity in ["on_total", "both"]:
+        print(f"Creating total rabbit logic")
         # overworld_logic += [  silly lambda instancing
         #     [f"{realm.lower()} realm rabbits", f"{realm} Rabbit Count {i}", False,
         #      lambda state: st_caught_rabbits(state, player, realm, i)] for i in range(1, 11)

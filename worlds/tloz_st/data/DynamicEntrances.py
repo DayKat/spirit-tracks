@@ -27,12 +27,18 @@ DYNAMIC_ENTRANCES = {
         "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
+    "Bounce Tutorial missing locs": {
+        "entrance": "Outset to Tutorial",
+        "destination": "Outset to Tutorial",
+        "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
+        "any_not_has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
+        "message": "You need to get the bee tree and clear rocks locations before leaving"
+    },
     "Bounce Tutorial to rail": {
         "entrance": "Outset to Tutorial",
         "destination": "Forest Realm to Outset",
         "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
-        "any_not_has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
-        "message": "You need to get the bee tree and clear rocks locations before leaving"
+        "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
     },
 
     # Portal Bounces
