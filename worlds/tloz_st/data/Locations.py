@@ -9,7 +9,7 @@ LOCATIONS_DATA = {
 
     #Outset Village
     "Outset Clear Rocks": {
-        "region_id": "outset village rocks",
+        "region_id": "outset village",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x2F,
         "room_id": 0,
@@ -17,7 +17,7 @@ LOCATIONS_DATA = {
         "value": 0x20,
     },
     "Outset Bee Tree": {
-        "region_id": "outset village bees",
+        "region_id": "outset village",
         "vanilla_item": ITEM_GROUPS["Common Treasures"], #TODO check removal of treasure
         "stage_id": 0x2F,
         "room_id": 0,
@@ -38,7 +38,7 @@ LOCATIONS_DATA = {
         # 02271CF4 is bitfield of all stamps found
     },
     "Outset Far Right Tree": {
-        "region_id": "outset village right tree",
+        "region_id": "outset village trees",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
         "room_id": 0,
@@ -49,7 +49,7 @@ LOCATIONS_DATA = {
         "require_item": ["Spirit Flute", "Song of Discovery"]
     },
     "Outset Niko's House Tree": {
-        "region_id": "outset village left tree",
+        "region_id": "outset village trees",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
         "room_id": 0,
@@ -86,7 +86,7 @@ LOCATIONS_DATA = {
         "item_override": "Song of Birds"
     },
     "Castle Town Left Wall Chest": {
-        "region_id": "castle town L wall chest",
+        "region_id": "castle town wall",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x29,
         "room_id": 0,
@@ -98,7 +98,7 @@ LOCATIONS_DATA = {
         "item_override": "Whip"
     },
     "Castle Town Right Wall Chest": {
-        "region_id": "castle town R wall chest",
+        "region_id": "castle town wall",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x29,
         "room_id": 0,
@@ -110,7 +110,7 @@ LOCATIONS_DATA = {
         "item_override": "Spirit Flute"
     },
     "Castle Town Minigame Roof": {
-        "region_id": "castle town minigame roof",
+        "region_id": "castle town cuccos",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
@@ -121,7 +121,7 @@ LOCATIONS_DATA = {
         "require_item": ["Bombs (Progressive)", "Song of Birds", "Spirit Flute"],
     },
     "Castle Town Ramp House Chest": {
-        "region_id": "castle town ramp house chest",
+        "region_id": "castle town cuccos",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
@@ -133,7 +133,7 @@ LOCATIONS_DATA = {
         "item_override": "Sword (Progressive)"
     },
     "Castle Town Empty House Roof Chest": {
-        "region_id": "castle town empty house roof",
+        "region_id": "castle town cuccos",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x29,
         "room_id": 0,
@@ -143,18 +143,6 @@ LOCATIONS_DATA = {
         "z_max": -33114,
         "require_item": ["Bombs (Progressive)", "Song of Birds" "Spirit Flute"],
     },
-
-    # # Shops
-    # "Masked Beedle Courage Gem": {
-    #     "region_id": "masked ship gem",
-    #     "vanilla_item": "Courage Gem",
-    #     "stage_id": 5,
-    #     "room_id": 0,
-    #     "address": 0x1B558A,
-    #     "value": 0x02,
-    #     "conditional": True,
-    #     "delay_reset": True
-    # },
 
     # Hyrule Castle
     "Hyrule Castle NW Outside Chest": {
@@ -655,7 +643,7 @@ LOCATIONS_DATA = {
 
     # Rabbit Haven
     "Rabbit Haven Net Gift": {
-        "region_id": "rabbit haven net",
+        "region_id": "rabbit haven",
         "vanilla_item": "Rabbit Net",
         "stage_id": 0x3E,
         "room_id": 0,
@@ -663,7 +651,7 @@ LOCATIONS_DATA = {
         "value": 0x40,
     },
     "Rabbit Haven Chest": {
-        "region_id": "rabbit haven chest",
+        "region_id": "rabbit haven",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
@@ -758,7 +746,7 @@ LOCATIONS_DATA = {
         "require_item": ["Stamp Book"],
     },
     "Anouki Village Song Statue": {
-        "region_id": "anouki village discovery song statue",
+        "region_id": "anouki village song statue",
         "vanilla_item": "Song of Discovery",
         "stage_id": 0x2B,
         "room_id": 0,
@@ -770,7 +758,7 @@ LOCATIONS_DATA = {
         "require_item": ["Spirit Flute"],
     },
     "Anouki Village Song Statue Chest": { #TODO check if consistently sending check
-        "region_id": "anouki village song statue chest",
+        "region_id": "anouki village song statue",
         "vanilla_item": ["Red Potion", "Big Green Rupee (100)"],
         "stage_id": 0x2B,
         "room_id": 0,
@@ -1041,7 +1029,7 @@ LOCATIONS_DATA = {
     # ========= Rabbits ==========
 
     "Rabbit near Castle Town": {
-        "region_id": "w castle town rabbit",
+        "region_id": "forest realm rabbits",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
         "address": STAddr.rabbits_0,
@@ -1061,7 +1049,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit E Mayscore": {
-        "region_id": "e mayscore rabbit",
+        "region_id": "e mayscore rabbits",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
         "address": STAddr.rabbits_0,
@@ -1081,7 +1069,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit E Outset": {
-        "region_id": "e outset rabbit",
+        "region_id": "forest realm rabbits",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
         "address": STAddr.rabbits_0,
@@ -1091,7 +1079,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit SW Rabbit Haven": {
-        "region_id": "sw rabbit haven rabbit",
+        "region_id": "s rabbit haven rabbits",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
         "address": STAddr.rabbits_0,
@@ -1121,7 +1109,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit past wooden bridge": {
-        "region_id": "forest after bridge rabbit",
+        "region_id": "e mayscore rabbits",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
         "address": STAddr.rabbits_1,
@@ -1131,7 +1119,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit S Rabbit Haven": {
-        "region_id": "s rabbit haven rabbit",
+        "region_id": "s rabbit haven rabbits",
         "vanilla_item": "Forest Rabbit",
         "stage_id": 0x04,
         "address": STAddr.rabbits_1,
@@ -1142,7 +1130,7 @@ LOCATIONS_DATA = {
     },
 
     "Rabbit NE Blizzard": {
-        "region_id": "ne blizzard rabbit",
+        "region_id": "snow realm early blizzard rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
@@ -1152,7 +1140,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit SE Blizzard": {
-        "region_id": "se blizzard rabbit",
+        "region_id": "snow realm blizzard rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
@@ -1162,7 +1150,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit W Anouki Village": {
-        "region_id": "w anouki village rabbit",
+        "region_id": "snow realm rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
@@ -1172,7 +1160,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit SW Blizzard": {
-        "region_id": "sw blizzard rabbit",
+        "region_id": "snow realm blizzard rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
@@ -1182,7 +1170,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit E Anouki Village": {
-        "region_id": "e anouki village rabbit",
+        "region_id": "blizzard temple tracks rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_1,
@@ -1202,7 +1190,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit W Icy Spring Station": {
-        "region_id": "w icyspring rabbit",
+        "region_id": "icyspring rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_2,
@@ -1212,7 +1200,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit N Icy Spring Station": {
-        "region_id": "n icyspring rabbit",
+        "region_id": "icyspring rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_2,
@@ -1222,7 +1210,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit NW Blizzard": {
-        "region_id": "nw blizzard rabbit",
+        "region_id": "snow realm early blizzard rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_2,
@@ -1232,7 +1220,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit Central Blizzard": {
-        "region_id": "central blizzard rabbit",
+        "region_id": "snow realm early blizzard rabbits",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
         "address": STAddr.rabbits_2,

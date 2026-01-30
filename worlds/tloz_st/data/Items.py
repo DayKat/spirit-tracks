@@ -394,7 +394,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
 
     "Green Rupee (1)": {
         'classification': ItemClassification.filler,
-        'address': 0x265328,
+        'address': STAddr.rupees,
         'value': 1,
         "tags": ["incremental"]
     },

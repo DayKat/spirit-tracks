@@ -130,6 +130,14 @@ class SpiritTracksWorld(World):
         region.locations.append(location)
         location.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
 
+    # When you want multiple copies of the same event in the same region
+    def create_multiple_events(self, region_name, event_item_name, count):
+        region = self.multiworld.get_region(region_name, self.player)
+        locations = [Location(self.player, region_name + f"{i}.event", None, region) for i in range(count)]
+        for loc in locations:
+            region.locations.append(loc)
+            loc.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
+
     def location_is_active(self, location_name, location_data):
         if not location_data.get("conditional", False) and "rabbit" not in location_data:
             return True
@@ -154,29 +162,22 @@ class SpiritTracksWorld(World):
         self.create_event(goal_loc, "_beaten_game")
 
         if self.options.rabbitsanity == "on_total":
-            forest_regions = ["w castle town rabbit",
-                              "forest ocean shortcut rabbit",
-                              "e mayscore rabbit",
-                              "sw trading post rabbit",
-                              "e outset rabbit",
-                              "sw rabbit haven rabbit",
-                              "wt rabbit",
-                              "nr rabbit haven rabbit",
-                              "forest after bridge rabbit",
-                              "s rabbit haven rabbit"]
-            snow_regions = ["ne blizzard rabbit",
-                            "se blizzard rabbit",
-                            "w anouki village rabbit",
-                            "sw blizzard rabbit",
-                            "e anouki village rabbit",
-                            "snowdrift station rabbit",
-                            "w icyspring rabbit",
-                            "n icyspring rabbit",
-                            "nw blizzard rabbit",
-                            "central blizzard rabbit"]
-            [self.create_event(reg, f"_caught_{realm}_rabbits")
+            forest_regions = {"forest ocean shortcut rabbit": 1,
+                              "e mayscore rabbits": 2,
+                              "sw trading post rabbit": 1,
+                              "wt rabbit": 1,
+                              "s rabbit haven rabbits": 2,
+                              "nr rabbit haven rabbit": 1,
+                              "forest realm rabbits": 2}
+            snow_regions = {"snow realm blizzard rabbits": 2,
+                            "snow realm early blizzard rabbits": 3,
+                            "blizzard temple tracks rabbits": 1,
+                            "snow realm rabbits": 1,
+                            "snowdrift station rabbit": 1,
+                            "icyspring rabbits": 2}
+            [self.create_multiple_events(reg, f"_caught_{realm}_rabbits", count)
              for regions, realm in zip([forest_regions, snow_regions], ["forest", "snow"])
-             for reg in regions]
+             for reg, count in regions.items()]
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()

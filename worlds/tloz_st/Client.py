@@ -148,17 +148,6 @@ class SpiritTracksClient(DSZeldaClient):
         await self.update_treasure_tracker(ctx)
         await self.update_rabbit_count(ctx)
 
-    async def update_rabbit_count(self, ctx):
-        if self.current_stage in [4, 5, 6, 7]:
-            self.update_rabbit_tracker(ctx)
-            rabbit_bits = self.rabbit_tracker
-        else:
-            realms = ["Forest", "Snow"]
-            rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
-            rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
-            print(f"Updating rabbit bits {hex(rabbit_bits)}")
-        await STAddr.rabbits.overwrite(ctx, rabbit_bits)
-
     async def process_in_game(self, ctx, read_result: dict):
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:
@@ -169,9 +158,12 @@ class SpiritTracksClient(DSZeldaClient):
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
             return True
+        if "rabbit" in location:
+            return True
         return False
 
     async def check_location_post_processing(self, ctx, location: dict):
+        print(f"Post processing loc {location}")
         if not location:
             return
 
@@ -198,6 +190,17 @@ class SpiritTracksClient(DSZeldaClient):
             return True
         return False
 
+    async def update_rabbit_count(self, ctx):
+        if self.current_stage in [4, 5, 6, 7]:
+            self.update_rabbit_tracker(ctx)
+            rabbit_bits = self.rabbit_tracker
+        else:
+            realms = ["Forest", "Snow"]
+            rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
+            rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
+            print(f"Updating rabbit bits {hex(rabbit_bits)}")
+        await STAddr.rabbits.overwrite(ctx, rabbit_bits)
+
     async def store_rabbit(self, ctx, loc_data):
         key = storage_key(ctx, rabbit_storage_key)
         index = loc_data["address"] - STAddr.rabbits
@@ -209,7 +212,7 @@ class SpiritTracksClient(DSZeldaClient):
         if ctx.slot_data["rabbitsanity"] == 3:
             rabbit_type = loc_data["vanilla_item"]
             rabbit_type_lookup = ["Forest Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
-            rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)] + 1
+            rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
             print(f"Sending rabbit total location {total_loc}")
@@ -218,8 +221,11 @@ class SpiritTracksClient(DSZeldaClient):
     def update_rabbit_tracker(self, ctx):
         rabbit_storage = ctx.stored_data[storage_key(ctx, rabbit_storage_key)]
         rabbit_storage = [0]*7 if not rabbit_storage else rabbit_storage
+        print(f"\tRabbit storage: {rabbit_storage}")
         self.rabbit_tracker = [s | c for s, c in zip(rabbit_storage, self.rabbit_tracker)]
+        print(f"\trabbit tracker {self.rabbit_tracker}")
         all_rabbits = sum([r << 8*i for i, r in enumerate(self.rabbit_tracker)])
+        print(f"\tall rabbits: {hex(all_rabbits)}")
         self.rabbit_counter = [count_bits(all_rabbits & (0x3FF << n*10)) for n in range(5)]
         print(f"Updating Rabbit tracker: {[hex(i) for i in self.rabbit_tracker]} {self.rabbit_counter}")
 

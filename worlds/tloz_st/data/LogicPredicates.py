@@ -98,19 +98,19 @@ def st_has_portal(state, player, portal):
 # ============== Songs =======================
 
 def st_has_awakening_song(state: CollectionState, player: int):
-    return state.has("Song of Awakening", player)
+    return state.has("Song of Awakening", player) and st_has_spirit_flute(state, player)
 
 def st_has_healing_song(state: CollectionState, player: int):
-    return state.has("Song of Healing", player)
+    return state.has("Song of Healing", player) and st_has_spirit_flute(state, player)
 
 def st_has_birds_song(state: CollectionState, player: int):
-    return state.has("Song of Birds", player)
+    return state.has("Song of Birds", player) and st_has_spirit_flute(state, player)
 
 def st_has_light_song(state: CollectionState, player: int):
-    return state.has("Song of Light", player)
+    return state.has("Song of Light", player) and st_has_spirit_flute(state, player)
 
 def st_has_discovery_song(state: CollectionState, player: int):
-    return state.has("Song of Discovery", player)
+    return state.has("Song of Discovery", player) and st_has_spirit_flute(state, player)
 
 
 # =========== Combined item states ================
@@ -469,41 +469,11 @@ def st_can_sword_scroll_clip(state, player):
 
 # ====== Specific locations =============
 
-# TotOK
-# def st_totok_b1_all_checks_ut(state, player):
-#     return all([
-#         st_ut_small_key_own_dungeon(state, player),
-#         st_has_spirit(state, player, "Power"),
-#         st_has_bow(state, player),
-#         st_has_whip(state, player),
-#         st_can_kill_stantoms(state, player),
-#     ])
-
 
 # Overworld
 
 def st_castle_town_cuccos(state, player):
-    return (st_has_bombs(state, player)
-            and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player))
-                 or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))))
+    return st_has_birds_song(state, player) or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))
 
-# Handles keylocking due to lack of locations
-# def st_can_reach_MP2(state: CollectionState, player: int):
-#     return any([
-#         all([
-#             st_option_keysanity(state, player),
-#             st_has_small_keys(state, player, "Mountain Passage", 2)
-#         ]),
-#         all([
-#             st_option_keys_in_own_dungeon(state, player),
-#             any([
-#                 st_can_cut_small_trees(state, player),
-#                 st_option_glitched_logic(state, player)  # SW in back entrance / reversse cuccoo jump
-#             ]),
-#             any([
-#                 st_has_small_keys(state, player, "Mountain Passage"),
-#                 st_is_ut(state, player)
-#             ])
-#         ])
-#     ])
+
 
