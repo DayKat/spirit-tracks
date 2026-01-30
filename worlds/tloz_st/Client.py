@@ -53,7 +53,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.goal_locations = build_location_to_goal()
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
-        self.treasure_tracker = []
+        self.treasure_tracker = {}
         self.item_data = ITEMS
         self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
 
@@ -63,6 +63,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.addr_room = STAddr.room
         self.addr_entrance = STAddr.entrance
         self.addr_received_item_index = STAddr.received_item_index
+        self.health_address = STAddr.health
 
         self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
         self.rabbit_counter = []  # list of counts for each rabbit type caught in the overworld
@@ -91,7 +92,7 @@ class SpiritTracksClient(DSZeldaClient):
         }
 
     async def full_heal(self, ctx, bonus=0):
-        hearts = await STAddr.heart_count.read(ctx)
+        hearts = (self.item_count(ctx, "Heart Container") + 3)*4
         await STAddr.health.overwrite(ctx, hearts+bonus)
 
     async def watched_intro_cs(self, ctx):
@@ -147,17 +148,15 @@ class SpiritTracksClient(DSZeldaClient):
         await self.update_treasure_tracker(ctx)
         await self.update_rabbit_count(ctx)
 
-
     async def update_rabbit_count(self, ctx):
         if self.current_stage in [4, 5, 6, 7]:
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
-            self.item_count(ctx, "Forest Rabbit") + self.item_count(ctx, "Snow Rabbit")
-            rabbit_bits = 2 ** self.item_count(ctx, "Forest Rabbit") - 1  # convert decimal to that number of bits
-            rabbit_bits += (2 ** self.item_count(ctx, "Snow Rabbit") - 1) << 10
-            # rabbit_total += (2 ** self.item_count(ctx, "Water Rabbit") - 1) << 20
-        print(f"Updating rabbit bits {hex(rabbit_bits)}")
+            realms = ["Forest", "Snow"]
+            rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
+            rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
+            print(f"Updating rabbit bits {hex(rabbit_bits)}")
         await STAddr.rabbits.overwrite(ctx, rabbit_bits)
 
     async def process_in_game(self, ctx, read_result: dict):
@@ -173,6 +172,9 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     async def check_location_post_processing(self, ctx, location: dict):
+        if not location:
+            return
+
         if location is not None and "goal" in location:
             # Finished game?
             goal = ctx.slot_data.get("goal")
@@ -184,17 +186,12 @@ class SpiritTracksClient(DSZeldaClient):
                 self.has_goal_location = True
             if goal == 3 and location.get("region_id") == "bt fraaz":
                 self.has_goal_location = True
-        if "rabbit" in location:
+        if "rabbit" in location and "address" in location:
             await self.store_rabbit(ctx, location)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
-    #     if self.current_scene == (0x0400 or 0x0500 or 0x0600 or 0x0700):
-    #         current_gear = await read_memory_value(ctx, 0x2CA24C, 4)
-    #         if current_gear == 0xC1:
-    #             await write_memory_value(ctx, 0x2CA250, 0xFFFFFFFF)
-    #             print(await read_memory_value(ctx, 0x2CA250, 4))
 
     async def process_game_completion(self, ctx: "BizHawkClientContext"):
         if self.has_goal_location:
@@ -203,27 +200,31 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def store_rabbit(self, ctx, loc_data):
         key = storage_key(ctx, rabbit_storage_key)
-        index = loc_data["address"] - STAddr.rabbits_1
-        self.rabbit_tracker[index] |= loc_data.values()
+        index = loc_data["address"] - STAddr.rabbits
+        self.rabbit_tracker[index] |= loc_data["value"]
         self.update_rabbit_tracker(ctx)
-        await self.store_data(ctx, key, self.rabbit_tracker, operation="overwrite")
+        await self.store_data(ctx, key, self.rabbit_tracker, operation="replace")
 
         # Send total location
         if ctx.slot_data["rabbitsanity"] == 3:
             rabbit_type = loc_data["vanilla_item"]
             rabbit_type_lookup = ["Forest Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
-            rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
+            rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)] + 1
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
+            print(f"Sending rabbit total location {total_loc}")
             await self._process_checked_locations(ctx, total_loc)
 
     def update_rabbit_tracker(self, ctx):
-        self.rabbit_tracker = [s | c for s, c in zip(ctx.stored_data[storage_key(ctx, rabbit_storage_key)], self.rabbit_tracker)]
+        rabbit_storage = ctx.stored_data[storage_key(ctx, rabbit_storage_key)]
+        rabbit_storage = [0]*7 if not rabbit_storage else rabbit_storage
+        self.rabbit_tracker = [s | c for s, c in zip(rabbit_storage, self.rabbit_tracker)]
         all_rabbits = sum([r << 8*i for i, r in enumerate(self.rabbit_tracker)])
-        self.rabbit_counter = [count_bits(all_rabbits & (0x3FF << n*10)) for n in range(7)]
+        self.rabbit_counter = [count_bits(all_rabbits & (0x3FF << n*10)) for n in range(5)]
+        print(f"Updating Rabbit tracker: {[hex(i) for i in self.rabbit_tracker]} {self.rabbit_counter}")
 
     async def on_connect(self, ctx):
-        self.rabbit_tracker.clear()
+        self.rabbit_tracker = [0]*7
         await ctx.send_msgs([{
                 "cmd": "Get",
                 "keys": [storage_key(ctx, rabbit_storage_key)],

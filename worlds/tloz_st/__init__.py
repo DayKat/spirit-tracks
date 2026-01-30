@@ -214,15 +214,6 @@ class SpiritTracksWorld(World):
             current_goal = "Blizzard Temple Dungeon Reward"
             self.locations_to_exclude.add(current_goal)
 
-        # Exclude Rabbit locations
-        if self.options.rabbitsanity:
-            for loc in LOCATIONS_DATA:
-                if "rabbit" in loc:
-                    self.locations_to_exclude.add(loc)
-            self.locations_to_exclude.add("Rabbit Haven Rescue 5 Rabbits")
-            self.locations_to_exclude.add("Rabbit Haven Rescue 10 Forest Rabbits")
-            self.locations_to_exclude.add("Rabbit Haven Rescue 10 Snow Rabbits")
-
         for name in locations_to_exclude:
             self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
 

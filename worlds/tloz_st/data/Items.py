@@ -575,30 +575,29 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
          'classification': ItemClassification.progression,
          'address': STAddr.small_keys,
          'dungeon': 0x18,
-         'incremental': True
+         "tags": ["incremental"],
      },
     "Small Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x19,
-        'incremental': True
+         "tags": ["incremental"],
      },
     "Boss Key (Wooded Temple)": {
          'classification': ItemClassification.progression,
-         'dungeon': 0x19,
-         'incremental': False
+         'dungeon': 0x19
      },
     "Small Key (ToS)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x13,
-        'incremental': True
+         "tags": ["incremental"],
     },
     "Small Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x1A,
-        'incremental': True
+         "tags": ["incremental"],
     },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
@@ -617,42 +616,42 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     # Trains
     "Train: Bright Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 1
     },
     "Train: Iron Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 2
     },
     "Train: Stone Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 3
     },
     "Train: Vintage Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 4
     },
     "Train: Demon Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 5
     },
     "Train: Tropical Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 6
     },
     "Train: Dignified Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 7
     },
     "Train: Golden Train": {
         'classification': ItemClassification.useful,
-        'backup_filler': True,
+         "tags": ["backup_filler"],
         'train': 8
     },
 

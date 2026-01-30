@@ -9,10 +9,20 @@ async def remove_treasure(client, ctx, item, rii):
         res += addr.get_write_list(value)
     return res
 
+async def dummy(*args):
+    print(f"Receiving dummy item")
+    return []
+
 class STItem(DSItem):
 
     def __init__(self, name, data, all_items):
         super().__init__(name, data, all_items)
+
+    def get_receive_function(self):
+        res = super().get_receive_function()
+        if res is None:
+            return dummy
+        return res
 
     def get_remove_vanilla_function(self):
         if "treasure" in self.tags:

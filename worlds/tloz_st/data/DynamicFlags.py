@@ -86,9 +86,9 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3E00],
         "not_has_locations": ["Rabbit Haven Net Gift"],
         "unset_if_true": [(STAddr.adv_flags_1a, 0x40)],
-        "reset_flags": ["RESET Rabbit Net Read"]
     },
-    "RESET Rabbit Net Read": {
+    "Skip intro Rabbit Net dialogue": {
+        "on_scenes": [0x3E00],
         "has_locations": ["Rabbit Haven Net Gift"],
         "set_if_true": [(STAddr.adv_flags_1a, 0x40)],
     },
@@ -131,12 +131,16 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1F00],
         "not_has_locations": ["Blizzard Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET fraaz reward"]
+        "reset_flags": ["RESET fraaz reward", "RESET fraaz don't have source"]
     },
     "RESET fraaz reward": {
         "has_locations": ["Blizzard Temple Dungeon Reward"],
         "has_items": [["Snow Source", 1]],
         "set_if_true": [(STAddr.adv_flags_0, 0x20)]
+    },
+    "RESET fraaz don't have source": {
+        "has_items": [["Snow Source", 0]],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20)]
     },
     "Remove Snow Source": {
         "on_scenes": [0x1F03, 0x1F04], #TODO check

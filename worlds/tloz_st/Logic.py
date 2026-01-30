@@ -146,7 +146,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["snow realm post song", "se blizzard rabbit", False, lambda state: st_has_net(state, player)],
         ["snow realm rabbits", "w anouki village rabbit", False, None],
         ["snow realm post song", "sw blizzard rabbit", False, lambda state: st_has_net(state, player)],
-        ["snow realm rabbits", "e anouki village rabbit", False, None],
+        ["snow realm post song", "e anouki village rabbit", False, lambda state: st_has_net(state, player)],
         ["snow realm post song", "snowdrift station rabbit", False, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station") and st_has_net(state, player)],
         ["snow realm post song", "w icyspring rabbit", False, lambda state: st_has_misc_tracks(state, player, "N Icy Spring") and st_has_net(state, player)],
         ["snow realm post song", "n icyspring rabbit", False, lambda state: st_has_misc_tracks(state, player, "N Icy Spring") and st_has_net(state, player)],
@@ -209,10 +209,52 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
     # Generate rabbit total items
     if options.rabbitsanity == "on_total":
-        overworld_logic += [
-            [f"{realm.lower()} realm rabbits", f"{realm} Rabbit Count {i}", False,
-             lambda state: st_caught_rabbits(state, player, realm, i)] for i in range(1, 11)
-            for realm in ["Forest", "Snow"]
+        # overworld_logic += [  silly lambda instancing
+        #     [f"{realm.lower()} realm rabbits", f"{realm} Rabbit Count {i}", False,
+        #      lambda state: st_caught_rabbits(state, player, realm, i)] for i in range(1, 11)
+        #     for realm in ["Forest", "Snow"]
+        # ]
+        overworld_logic +=[
+            ["forest realm rabbits", "Forest Rabbit Count 1", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 1)],
+            ["forest realm rabbits", "Forest Rabbit Count 2", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 2)],
+            ["forest realm rabbits", "Forest Rabbit Count 3", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 3)],
+            ["forest realm rabbits", "Forest Rabbit Count 4", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 4)],
+            ["forest realm rabbits", "Forest Rabbit Count 5", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 5)],
+            ["forest realm rabbits", "Forest Rabbit Count 6", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 6)],
+            ["forest realm rabbits", "Forest Rabbit Count 7", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 7)],
+            ["forest realm rabbits", "Forest Rabbit Count 8", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 8)],
+            ["forest realm rabbits", "Forest Rabbit Count 9", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 9)],
+            ["forest realm rabbits", "Forest Rabbit Count 10", False,
+             lambda state: st_caught_rabbits(state, player, "Forest", 10)],
+            ["snow realm rabbits", "Snow Rabbit Count 1", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 1)],
+            ["snow realm rabbits", "Snow Rabbit Count 2", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 2)],
+            ["snow realm rabbits", "Snow Rabbit Count 3", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 3)],
+            ["snow realm rabbits", "Snow Rabbit Count 4", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 4)],
+            ["snow realm rabbits", "Snow Rabbit Count 5", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 5)],
+            ["snow realm rabbits", "Snow Rabbit Count 6", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 6)],
+            ["snow realm rabbits", "Snow Rabbit Count 7", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 7)],
+            ["snow realm rabbits", "Snow Rabbit Count 8", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 8)],
+            ["snow realm rabbits", "Snow Rabbit Count 9", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 9)],
+            ["snow realm rabbits", "Snow Rabbit Count 10", False,
+             lambda state: st_caught_rabbits(state, player, "Snow", 10)],
         ]
 
     return overworld_logic

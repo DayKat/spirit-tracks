@@ -678,6 +678,8 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "stage_id": 0x3E,
         "room_id": 0,
+        'address': STAddr.adv_flags_51,
+        'value': 0x8
     },
     "Rabbit Haven Rescue 10 Forest Rabbits": {
         "region_id": "rabbit haven 10 forest rabbits",
@@ -685,6 +687,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x3E,
         "room_id": 0,
         "require_item": ["Forest Rabbit"],
+        'address': STAddr.adv_flags_51,
+        'value': 0x20
     },
     "Rabbit Haven Rescue 10 Snow Rabbits": {
         "region_id": "rabbit haven 10 snow rabbits",
@@ -692,6 +696,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x3E,
         "room_id": 0,
         "require_item": ["Snow Rabbit"],
+        'address': STAddr.adv_flags_51,
+        'value': 0x40
     },
     # "Rabbit Haven Rescue 50 Rabbits": {
     #     "region_id": "rabbit haven 50 rabbits",
