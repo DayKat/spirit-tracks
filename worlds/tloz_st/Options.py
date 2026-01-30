@@ -70,6 +70,7 @@ class SpiritTracksRabbitsanity(Choice):
     - vanilla: rabbit locations always give rabbit items of their rabbit type. They still count as locations in archipelago for hint cost purposes.
     - unique_checks: each rabbit in the overworld is a unique location.
     - on_total: the total number of rabbits caught of each type gives a check, ex. "Catch 3 Snow Rabbits".
+    - both: get locations both on specific rabbits and total rabbits.
     """
     display_name = "Rabbitsanity"
     default = 0
@@ -77,6 +78,7 @@ class SpiritTracksRabbitsanity(Choice):
     option_vanilla = 1
     option_unique_checks = 2
     option_on_total = 3
+    option_both = 4
 
 class SpiritTracksMaxRabbitLocationCount(Range):
     """

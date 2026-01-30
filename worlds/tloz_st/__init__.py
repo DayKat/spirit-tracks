@@ -161,7 +161,7 @@ class SpiritTracksWorld(World):
             goal_loc = "goal_fraaz"
         self.create_event(goal_loc, "_beaten_game")
 
-        if self.options.rabbitsanity == "on_total":
+        if self.options.rabbitsanity.value in [3, 4]:
             forest_regions = {"forest ocean shortcut rabbit": 1,
                               "e mayscore rabbits": 2,
                               "sw trading post rabbit": 1,
@@ -282,8 +282,6 @@ class SpiritTracksWorld(World):
                 if item_name not in ITEM_GROUPS["Super Rare Treasures"]:
                     filler_item_count += 1
                     continue
-                else:
-                    print(f"Saved item {item_name}")
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
             #print(f"Location {loc_name} has {item_name} item")
@@ -317,11 +315,17 @@ class SpiritTracksWorld(World):
             rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
         self.rabbit_counts = rabbit_counts
 
+        def picK_random_locs(loc_lists):
+            [self.random.shuffle(i) for i in loc_lists]
+            return [loc for rl, c in zip(loc_lists, rabbit_counts) for loc in rl[:c]]
+
         # Figure out pools
-        if self.options.rabbitsanity.value in [1, 2]: # Vanilla or unique
+        if self.options.rabbitsanity.value in [1, 2, 4]: # Vanilla or unique
             forest_rabbits = LOCATION_GROUPS["Unique Forest Rabbits"]
             snow_rabbits = LOCATION_GROUPS["Unique Snow Rabbits"]
-        else:
+            rabbit_locations += picK_random_locs([forest_rabbits, snow_rabbits])
+
+        if self.options.rabbitsanity.value in [3, 4]:  # total count
             forest_rabbits = LOCATION_GROUPS["Total Forest Rabbits"]
             snow_rabbits = LOCATION_GROUPS["Total Snow Rabbits"]
             interval = self.options.rabbit_location_count_distribution.value
@@ -334,11 +338,8 @@ class SpiritTracksWorld(World):
                         rabbit_locations += realm_locs[i-1:max_count:i]
                 print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
                 return rabbit_locations
+            rabbit_locations += picK_random_locs([forest_rabbits, snow_rabbits])
 
-        # Randomly choose locations
-        rabbit_loc_lists = [forest_rabbits, snow_rabbits]
-        [self.random.shuffle(i) for i in rabbit_loc_lists]
-        rabbit_locations = [loc for rl, c in zip(rabbit_loc_lists, rabbit_counts) for loc in rl[:c]]
         print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
 
@@ -394,7 +395,6 @@ class SpiritTracksWorld(World):
             return rabbit_items
 
         if self.options.rabbit_pack_size == -1:  # random_mixed
-            print(f"Random Mixed")
             for r in realms:
                 rabbit_items |= fill_mixed(r)
             return rabbit_items

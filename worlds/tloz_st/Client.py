@@ -178,8 +178,12 @@ class SpiritTracksClient(DSZeldaClient):
                 self.has_goal_location = True
             if goal == 3 and location.get("region_id") == "bt fraaz":
                 self.has_goal_location = True
+
         if "rabbit" in location and "address" in location:
             await self.store_rabbit(ctx, location)
+
+        if location["name"] in ["Outset Clear Rocks", "Outset Bee Tree"]:
+            await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -209,7 +213,7 @@ class SpiritTracksClient(DSZeldaClient):
         await self.store_data(ctx, key, self.rabbit_tracker, operation="replace")
 
         # Send total location
-        if ctx.slot_data["rabbitsanity"] == 3:
+        if ctx.slot_data["rabbitsanity"] in [3, 4]:
             rabbit_type = loc_data["vanilla_item"]
             rabbit_type_lookup = ["Forest Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]

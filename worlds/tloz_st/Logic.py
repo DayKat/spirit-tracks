@@ -73,17 +73,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ============ Shops ====================
 
-        # ["mercay island", "shop power gem", False, lambda state: st_can_buy_gem(state, player)],
-        # ["mercay island", "shop quiver", False, lambda state: st_can_buy_quiver(state, player)],
-        # ["mercay island", "shop bombchu bag", False, lambda state: st_can_buy_chu_bag(state, player)],
-        # ["mercay island", "shop heart container", False, lambda state: st_can_buy_heart(state, player)],
-
         # # ======== Mayscore =========
 
         ["forest realm", "mayscore", False, None],
         ["mayscore", "mayscore stamp station", False, lambda state: st_has_stamp_book(state, player)],
-        #["mayscore", "mayscore whip race bomb bag", False, lambda state: st_has_whip(state, player)],
-        #["mayscore", "mayscore whip race heart container", False, lambda state: st_has_whip(state, player)],
+        # ["mayscore", "mayscore whip race bomb bag", False, lambda state: st_has_whip(state, player)],
+        # ["mayscore", "mayscore whip race heart container", False, lambda state: st_has_whip(state, player)],
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
 
         # # ======== Forest Sanctuary =========
@@ -91,7 +86,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "fos", False, None],
         ["fos", "fos stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["fos", "fos song statue", False, lambda state: st_has_spirit_flute(state, player)],
-        #["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
+        # ["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
         ["fos", "fos chest", False, lambda state: st_has_whirlwind(state, player) or st_has_birds_song(state, player)],
 
         # # ======== Wooded Temple =========
@@ -203,7 +198,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     ]
 
     # Generate rabbit total items
-    if options.rabbitsanity == "on_total":
+    if options.rabbitsanity in ["on_total", "both"]:
         # overworld_logic += [  silly lambda instancing
         #     [f"{realm.lower()} realm rabbits", f"{realm} Rabbit Count {i}", False,
         #      lambda state: st_caught_rabbits(state, player, realm, i)] for i in range(1, 11)

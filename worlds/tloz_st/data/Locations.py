@@ -1357,6 +1357,7 @@ LOCATIONS_DATA = {
 
 for i, loc_data in enumerate(LOCATIONS_DATA.items()):
     name, data = loc_data
+    LOCATIONS_DATA[name]["name"] = name
     LOCATIONS_DATA[name]["id"] = i+1
     loc_groups = data.get("location_groups", [])
     for loc_group in loc_groups:
