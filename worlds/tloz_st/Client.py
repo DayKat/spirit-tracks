@@ -49,7 +49,6 @@ class SpiritTracksClient(DSZeldaClient):
         self.update_rabbits = False
         self.in_stamp_stand: bool = False
         self.scene_to_stamp = build_scene_to_stamp()
-        self.rabbit_id_to_name = build_rabbit_location_id_to_name_dict()
         self.goal_locations = build_location_to_goal()
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late

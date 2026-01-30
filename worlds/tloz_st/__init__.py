@@ -65,8 +65,10 @@ class SpiritTracksWorld(World):
     location_name_to_id = build_location_name_to_id_dict()
     item_name_to_id = build_item_name_to_id_dict()
     item_name_groups = ITEM_GROUPS
+    location_name_groups = LOCATION_GROUPS
     origin_region_name = "outset village"
     glitches_item_name = "_UT_Glitched_Logic"
+    ut_can_gen_without_yaml = True
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -85,11 +87,27 @@ class SpiritTracksWorld(World):
         self.rabbit_item_dict: dict[str, int] = {}
 
     def generate_early(self):
-        # self.pick_required_dungeons()
-        self.restrict_non_local_items()
-        self.active_rabbit_locations = self.choose_rabbit_locations()
-        self.rabbit_item_dict = self.choose_rabbit_items()
-        print(f"Rabbit items: {self.rabbit_item_dict}")
+        re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
+        if re_gen_passthrough and self.game in re_gen_passthrough:
+            # Get the passed through slot data from the real generation
+            slot_data: dict[str, Any] = re_gen_passthrough[self.game]
+            print(slot_data)
+            # slot_options: dict[str, Any] = slot_data.get("options", {})
+            # Set all your options here instead of getting them from the yaml
+            for key, value in slot_data.items():
+                opt = getattr(self.options, key, None)
+                if opt is not None:
+                    # You can also set .value directly but that won't work if you have OptionSets
+                    setattr(self.options, key, opt.from_any(value))
+            lookup = build_rabbit_location_id_to_name_dict()
+            self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
+
+        else:
+            # self.pick_required_dungeons()
+            self.restrict_non_local_items()
+            self.active_rabbit_locations = self.choose_rabbit_locations()
+            self.rabbit_item_dict = self.choose_rabbit_items()
+            print(f"Rabbit items: {self.rabbit_item_dict}")
 
     def restrict_non_local_items(self):
         # Restrict non_local_items option in cases where it's incompatible with other options that enforce items
@@ -527,9 +545,11 @@ class SpiritTracksWorld(World):
         return self.random.choice(filler_item_names)
 
     def fill_slot_data(self) -> dict:
-        options = ["keysanity", "goal", "logic",
-                   "rabbitsanity", "rabbit_hints"]
+        options = ["goal", "logic", "keysanity",
+                   "rabbitsanity", "rabbit_hints",
+                   "exclude_locations"]
         slot_data = self.options.as_dict(*options)
+        slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         return slot_data
 
     def write_spoiler(self, spoiler_handle):
@@ -541,6 +561,6 @@ class SpiritTracksWorld(World):
 
     # UT stuff
     @staticmethod
-    def interpret_slot_data(slot_data: dict[str, any]) -> None:
+    def interpret_slot_data(slot_data: dict[str, Any]):
         return slot_data
 
