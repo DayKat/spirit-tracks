@@ -990,7 +990,7 @@ class PhantomHourglassClient(DSZeldaClient):
     async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data, interaction="traverse"):
         self.visited_entrances |= set(get_stored_data(ctx, traversal_key, set()))
         old_visited_entrances = self.visited_entrances.copy()
-        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data["decouple_entrances"] else {detect_data.id}
+        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data["decouple_entrances"] and detect_data.two_way else {detect_data.id}
         print(f"New Storage Data: {new_data} {ctx.slot_data['decouple_entrances']}")
 
         if interaction == "traverse" or ctx.slot_data.get("ut_blocked_entrances_behaviour", 1) == 0:
