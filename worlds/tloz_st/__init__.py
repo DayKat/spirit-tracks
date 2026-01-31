@@ -69,6 +69,9 @@ class SpiritTracksWorld(World):
     origin_region_name = "outset village"
     glitches_item_name = "_UT_Glitched_Logic"
     ut_can_gen_without_yaml = True
+    tracker_world = {"map_page_folder": "tracker",
+                     "map_page_maps": "maps/maps.json",
+                     "map_page_locations": "locations/overworld.json"}
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)

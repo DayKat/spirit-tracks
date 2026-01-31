@@ -129,6 +129,9 @@ class SpiritTracksClient(DSZeldaClient):
             read_result[STAddr.room] = 0x1
             await STAddr.stage.overwrite(ctx, 0x14)
             await STAddr.room.overwrite(ctx, 1)
+        if read_result[STAddr.stage] == 0x4:
+            read_result[STAddr.room] = 0
+            self.current_scene = 0x400
 
     async def update_treasure_tracker(self, ctx):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]

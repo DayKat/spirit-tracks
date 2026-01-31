@@ -10,9 +10,11 @@ DYNAMIC_ENTRANCES = {
     "Exit ToS to snow without source": {
         "entrance": "Tower of Spirits to Snow Realm",
         "destination": "Tower of Spirits to Snow Realm",
-        "not_has_all_items": [("Snow Glyph", 0), ("Snow Source", 0),
-                              # ("Blizzard Temple Tracks", 0) # Fixed!a
-                              ]
+        "not_has_all_items": [# ("Snow Glyph", 0),  # only crashes if you also remove blizzard lol
+                              ("Snow Source", 0),
+                              # ("Blizzard Temple Tracks", 0) # Fixed!
+                              ],
+        "message": "You don't have the snow source!"
     },
     # Outset pre-glyph bounce
     "Bounce Outset without glyph": {
@@ -45,17 +47,20 @@ DYNAMIC_ENTRANCES = {
     "Bounce forest portal north": {
         "entrance": "Forest Realm North Portal",
         "destination": "Forest Realm North Portal",
-        "has_items": [("Snow Glyph", 0)]
+        "has_items": [("Snow Glyph", 0)],
+        "message": "You don't have the Snow Glyph!"
     },
     "Bounce forest portal south": {
         "entrance": "Forest Realm South Portal",
         "destination": "Forest Realm South Portal",
-        "not_has_all_items": [("Blizzard Temple Tracks", 0), ("Snow Glyph", 0)]
+        "not_has_all_items": [("Blizzard Temple Tracks", 0)],
+        "message": "You don't have the Blizzard Temple Tracks!"
     },
     "Bounce snow portal east": {
         "entrance": "Snow Realm East Portal",
         "destination": "Snow Realm East Portal",
-        "has_items": [("Forest Realm SE Portal Tracks", 0)]
+        "has_items": [("Forest Realm SE Portal Tracks", 0)],
+        "message": "You don't have the Forest Realm SE Portal Tracks!"
     },
     "Bounce snow portal west": {
         "entrance": "Snow Realm West Portal",

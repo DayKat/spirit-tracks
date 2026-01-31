@@ -22,6 +22,12 @@ DYNAMIC_FLAGS = {
         "has_items": [["Snow Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)] # activates portal to sw snow realm
     },
+    "Allow snow realm E to Forest S portal": {
+      "on_scenes": [0x400, 0x500],
+        "has_items": [["Forest Realm SE Portal Tracks", 1], ["Blizzard Temple Tracks", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x40)]
+
+    },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
         "not_has_locations": ["Forest Sanctuary Song Statue"],

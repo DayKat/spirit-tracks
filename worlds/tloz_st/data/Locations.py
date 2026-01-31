@@ -1369,4 +1369,5 @@ for i, loc_data in enumerate(LOCATIONS_DATA.items()):
 
 if __name__ == "__main__":
     for location, data in LOCATIONS_DATA.items():
-        print(f"{location} | {data['region_id']} | id: {data['id']} | stage: {data['stage_id']} | room: {data['room_id']}")
+        # print(f"{location} | {data['region_id']} | id: {data['id']} | stage: {data['stage_id']} | room: {data['room_id']}")
+        print(location)
