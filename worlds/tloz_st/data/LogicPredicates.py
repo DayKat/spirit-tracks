@@ -92,7 +92,7 @@ def st_has_misc_tracks(state, player, tracks):
     return state.has(f"{tracks} Tracks", player)
 
 def st_has_portal(state, player, portal):
-    return state.has(f"{portal} Portal", player)
+    return True and state.has(f"Portal: {portal}", player)
 
 # ============== Songs =======================
 
@@ -180,7 +180,6 @@ def st_totok_stantom_steal_object(state, player):
         st_clever_pots(state, player),
         st_can_kill_bat(state, player)
     ])
-
 
 def st_has_range(state: CollectionState, player: int):
     return state.has_any(["Boomerang", "Bow (Progressive)", "Whirlwind"], player)

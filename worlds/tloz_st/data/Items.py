@@ -161,11 +161,16 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.adv_flags_3,
         'value': 0x80
     },
-    # "SW Snow Realm Portal": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x265744,
-    #     'value': 0x08,
-    # },
+    "Portal: Hyrule Castle to Anouki Village": {
+        'classification': ItemClassification.progression,
+        'address': 0x265744,
+        'value': 0x08,
+    },
+    "Portal: Trading Post to E Snow Realm": {
+        'classification': ItemClassification.progression,
+        'address': 0x265744,
+        'value': 0x40,
+    },
 
     # ========== Rail Maps ============
 

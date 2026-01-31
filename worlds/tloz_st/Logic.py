@@ -19,17 +19,35 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "forest realm se portal track", False, lambda state: st_has_misc_tracks(state, player, "Forest Realm SE Portal")],
         ["forest realm", "forest realm rabbits", False, lambda state: st_has_net(state, player)],
+        ["forest realm", "wtt", False, lambda state: st_has_temple_tracks(state, player, "Wooded")],
+        ["forest realm", "forest source", False, lambda state: st_has_source(state, player, "Forest")],
+        ["forest realm", "w castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "W Castle Town")],
+        ["forest realm", "n castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "N Castle Town")],
+        ["wtt", "snow realm", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_glyph(state, player, "Snow")],
+        ["forest realm", "snow realm", False, lambda state: st_has_portal(state, player, "Hyrule Castle to Anouki Village")],
 
+        # cave
+        ["forest realm", "forest cave tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SW Cave")],
+        ["forest cave tracks", "w forest tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SW Cave") and st_has_misc_tracks(state, player,"W Forest Realm")],
+        ["w forest tracks", "snow realm", True, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player, "W Forest Realm")],
+        ["w forest tracks", "wtt", True, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player, "W Forest Realm")],
+
+        # Rabbits
         ["forest realm rabbits", "forest ocean shortcut rabbit", False, lambda state: st_has_misc_tracks(state, player, "Forest Realm Ocean Shortcut")],
         ["forest realm rabbits", "e mayscore rabbits", False, lambda state: st_has_misc_tracks(state, player, "E Mayscore Bridge")],
         ["forest realm se portal track", "sw trading post rabbit", False, lambda state: st_has_net(state, player)],
         ["forest realm rabbits", "sw trading post rabbit", False, lambda state: st_has_glyph(state, player, "Ocean")],
-        ["forest realm rabbits", "wt rabbit", False, lambda state: st_has_temple_tracks(state, player, "Wooded") or st_has_source(state, player, "Forest")],
-        ["forest realm rabbits", "s rabbit haven rabbits", False, lambda state: st_has_misc_tracks(state, player, "W Forest Realm")
-                                                                                and (st_has_temple_tracks(state, player, "Wooded")
-                                                                                     or st_has_glyph(state, player,"Snow")
-                                                                                     or st_has_misc_tracks(state, player, "Forest Realm SW Cave"))],
+        ["wtt", "wt rabbit", False, lambda state: st_has_net(state, player)],
+        ["forest source", "wt rabbit", False, lambda state: st_has_net(state, player)],
+        ["w forest tracks", "s rabbit haven rabbits", False, lambda state: st_has_net(state, player)],
         ["snow realm rabbits", "nr rabbit haven rabbit", False, None],
+
+        # Snow bridge
+        ["w castle town tracks", "snow bridge", True, lambda state: st_has_misc_tracks(state, player, "W Castle Town") and st_has_misc_tracks(state, player, "Snow Realm Bridge")],
+        ["n castle town tracks", "snow bridge", True, lambda state: st_has_misc_tracks(state, player, "N Castle Town") and st_has_misc_tracks(state, player, "Snow Realm Bridge")],
+        ["wtt", "snow bridge", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_misc_tracks(state, player,"Snow Realm Bridge")],
+        ["snow bridge", "snow realm", True, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player,"Snow Realm Bridge")],
+        ["snow bridge", "snow realm source", True, lambda state: st_has_source(state, player, "Snow") and st_has_misc_tracks(state, player, "Snow Realm Bridge")],
 
         # # ======== Castle Town =========
 
@@ -95,7 +113,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ======== Wooded Temple =========
 
-        ["forest realm", "wt", False, lambda state: st_has_temple_tracks(state, player, "Wooded") or st_has_source(state, player, "Forest")],
+        ["wtt", "wt", False, None],
+        ["forest source", "wt", False, None],
         ["wt", "wt stamp station", False, lambda state: st_has_stamp_book(state, player) and (st_has_whirlwind(state, player) or st_option_hard_logic(state, player))],
         ["wt", "wt song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["wt", "wt 1f enemy chest", False, lambda state: st_has_damage(state, player)],
@@ -132,7 +151,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # # ============ Snow Realm ===============
 
-        ["forest realm", "snow realm", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["snow realm", "blizzard temple tracks", True, lambda state: st_has_temple_tracks(state, player, "Blizzard") and st_has_glyph(state, player, "Snow")],
         ["snow realm", "snow realm rabbits", False, lambda state: st_has_net(state, player)],
         ["blizzard temple tracks", "blizzard temple tracks rabbits", False, lambda state: st_has_net(state, player)],
@@ -142,7 +160,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["blizzard temple tracks rabbits", "snowdrift station rabbit", False, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station")],
         ["blizzard temple tracks rabbits", "icyspring rabbits", False, lambda state: st_has_misc_tracks(state, player, "N Icy Spring")],
 
-        ["forest realm se portal track", "blizzard temple tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SE Portal") and st_has_temple_tracks(state, player, "Blizzard")],
+        ["forest realm se portal track", "blizzard temple tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SE Portal") and st_has_temple_tracks(state, player, "Blizzard") and st_has_portal(state, player, "Trading Post to E Snow Realm")],
         ["forest realm", "snow realm source", True, lambda state: st_has_source(state, player, "Snow")],
         ["snow realm source", "blizzard temple tracks", True, lambda state: st_has_source(state, player, "Snow") and st_has_temple_tracks(state, player, "Blizzard")],
 
