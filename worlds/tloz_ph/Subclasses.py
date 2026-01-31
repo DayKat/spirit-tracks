@@ -69,7 +69,7 @@ async def remove_vanilla_potion(client: "PhantomHourglassClient", ctx: "BizHawkC
     # else:
     rupee_item = client.item_data[item.overflow_item]
     print(f"Removing potion rupees")
-    prev_rupees = await PHAddr.rupee_count.read()
+    prev_rupees = await PHAddr.rupee_count.read(ctx)
     rupee_count = max(prev_rupees - rupee_item.value, 0)
     return PHAddr.rupee_count.get_write_list(ctx, rupee_count)
 

@@ -233,16 +233,15 @@ class PhantomHourglassWorld(World):
                                   and event.name in ["GOAL: Bellumbeck"]):
                                 continue
 
-
-                        # if self.options.exclude_non_required_dungeons:  i want to link this to UT show excluded in the host.yaml
+                        # if self.options.exclude_non_required_dungeons:  #i want to link this to UT show excluded in the host.yaml
                         #     loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
                         #     if loc_lookup:
                         #         print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
                         #         loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
                         #         if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
                         #             continue
-                        # print(f"Adding Event: {event.name}")
-                        # self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
+                        print(f"Adding Event: {event.name}")
+                        self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
             # Hide stuff in UT map page based on what entrances are randomized
             if not self.ut_map_page_hidden_locations or not self.ut_map_page_hidden_entrances:
