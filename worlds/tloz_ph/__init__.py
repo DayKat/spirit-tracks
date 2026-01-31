@@ -147,6 +147,7 @@ class PhantomHourglassWorld(World):
     location_name_to_id = build_location_name_to_id_dict()
     item_name_to_id = build_item_name_to_id_dict()
     item_name_groups = ITEM_GROUPS
+    location_name_groups = LOCATION_GROUPS
     origin_region_name = "Menu"
 
     glitches_item_name = "_UT_Glitched_Logic"
@@ -185,7 +186,6 @@ class PhantomHourglassWorld(World):
         self.ut_redisconnected_entrances = set()
         self.ut_traversed_entrances = set()
         self.ut_reconnected_entrances = set()
-        self.disconnected_entrances_map = {}
         self.disconnected_exits_map = {}
         self.ut_excluded = []
         self.ut_created_events = []
@@ -221,28 +221,23 @@ class PhantomHourglassWorld(World):
             print(f"UT Pairings: {self.ut_pairings}")
             if self.options.ut_events:
                 for event in EVENTS.values():
-                    if "GOAL" in event.name or "EVENT" in event.name:
-                        if self.options.ut_events == "unique_events" and event.extra_data.get("shared_event", False):
+                    if self.options.ut_events == "unique_events" and event.extra_data.get("shared_event", False):
+                        continue
+                    if "GOAL" in event.name:
+                        if self.options.goal_requirements != "triforce_door" and event.name in ["GOAL: Triforce Door"]:
                             continue
-                        if "GOAL" in event.name:
-                            if self.options.goal_requirements != "triforce_door" and event.name in ["GOAL: Triforce Door"]:
-                                continue
-                            if self.options.bellum_access != "win" and event.name in ["GOAL"]:
-                                continue
-                            if ((self.options.goal_requirements == "triforce_door" or self.options.bellum_access == "win")
-                                  and event.name in ["GOAL: Bellumbeck"]):
-                                continue
+                        if self.options.bellum_access != "win" and event.name in ["GOAL"]:
+                            continue
+                        if ((self.options.goal_requirements == "triforce_door" or self.options.bellum_access == "win")
+                              and event.name in ["GOAL: Bellumbeck"]):
+                            continue
+                    if not self.options.shuffle_houses and event.name == "EVENT: Open Eddo's Door":
+                        continue
+                    if not self.options.shuffle_overworld_transitions and event.name == "EVENT: Gust Windmills":
+                        continue
 
-
-                        # if self.options.exclude_non_required_dungeons:  i want to link this to UT show excluded in the host.yaml
-                        #     loc_lookup = BOSS_EVENT_TO_LOCATION.get(event.name, None)
-                        #     if loc_lookup:
-                        #         print(f"Boss Event Lookup: {event.name} in {slot_data['required_dungeon_locations']}")
-                        #         loc_lookup = [loc_lookup] if isinstance(loc_lookup, str) else loc_lookup
-                        #         if not [1 for loc in loc_lookup if loc in slot_data["required_dungeon_locations"]]:
-                        #             continue
-                        # print(f"Adding Event: {event.name}")
-                        # self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
+                    print(f"Adding Event: {event.name}")
+                    self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
             # Hide stuff in UT map page based on what entrances are randomized
             if not self.ut_map_page_hidden_locations or not self.ut_map_page_hidden_entrances:
@@ -606,12 +601,6 @@ class PhantomHourglassWorld(World):
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
             if hasattr(self.multiworld, "enforce_deferred_connections"):
                 if getattr(self.multiworld, "enforce_deferred_connections") == "off":
-                    entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
-                    self.disconnected_entrances_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
-                                                       for e in region.entrances if not e.parent_region}
-                    self.disconnected_exits_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
-                                                   for e in region.exits if not e.connected_region}
-
                     for i, pairing in self.ut_pairings.items():
                         _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
                         entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
@@ -1440,14 +1429,6 @@ class PhantomHourglassWorld(World):
             print(f"Don't defer entrances when off")
 
         elif "ph_checked_entrances" in key or "ph_traversed_entrances" in key:
-            # Create a lookup for disconnected entrances if you haven't already.
-            if not self.disconnected_entrances_map:
-                entrance_name_to_id = {name: e.id for name, e in ENTRANCES.items()}
-                self.disconnected_entrances_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
-                                                   for e in region.entrances if not e.parent_region}
-                self.disconnected_exits_map = {entrance_name_to_id[e.name]: e for region in self.get_regions()
-                                                   for e in region.exits if not e.connected_region}
-
             if stored_data:
                 if "ph_traversed_entrances" in key:
                     self.ut_traversed_entrances.update(stored_data)
@@ -1463,13 +1444,13 @@ class PhantomHourglassWorld(World):
 
                 for i in new_entrances:
                     pairing = self.ut_pairings.get(str(i), None)
+                    # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
                     # print(f"UT pairings {self.ut_pairings}")
                     if pairing is not None:
                         _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[i].name)
                         entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
                         print(f"Connecting: {_exit} => {entrance_region} | {i}: {pairing}")
                         _exit.connect(entrance_region)
-
 
                 self.ut_connected_entrances |= new_entrances
 
@@ -1489,7 +1470,6 @@ class PhantomHourglassWorld(World):
                     e.connected_region = None
                     # Create target
                     parent_region.create_er_target(e.name)
-                    self.disconnected_entrances_map.clear()
 
         if "ph_keylocking" in key and stored_data:
             print(f"Attempting to keylock stuff!")
