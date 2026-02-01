@@ -48,25 +48,56 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Forest Realm North Portal",
         "destination": "Forest Realm North Portal",
         "has_items": [("Snow Glyph", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
         "message": "You don't have the Snow Glyph!"
     },
+    "Bounce forest portal north item": {
+        "entrance": "Forest Realm North Portal",
+        "destination": "Forest Realm North Portal",
+        "not_has_all_items": [("Snow Glyph", 1), ("Portal Unlock: Hyrule Castle to Anouki Village", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
     "Bounce forest portal south": {
         "entrance": "Forest Realm South Portal",
         "destination": "Forest Realm South Portal",
-        "not_has_all_items": [("Blizzard Temple Tracks", 0)],
+        "not_has_all_items": [("Blizzard Temple Tracks", 1)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
         "message": "You don't have the Blizzard Temple Tracks!"
     },
+    "Bounce forest portal south item": {
+        "entrance": "Forest Realm South Portal",
+        "destination": "Forest Realm South Portal",
+        "not_has_all_items": [("Blizzard Temple Tracks", 1), ("Portal Unlock: Trading Post to E Snow Realm", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
     "Bounce snow portal east": {
         "entrance": "Snow Realm East Portal",
         "destination": "Snow Realm East Portal",
         "has_items": [("Forest Realm SE Portal Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
         "message": "You don't have the Forest Realm SE Portal Tracks!"
     },
-    "Bounce snow portal west": {
+    "Bounce snow portal east item": {
+        "entrance": "Snow Realm East Portal",
+        "destination": "Snow Realm East Portal",
+        "not_has_all_items": [("Forest Realm SE Portal Tracks", 1),
+                              ("Portal Unlock: Trading Post to E Snow Realm", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce snow portal west item": {  # No need for other bounce condition, unlocked with forest glyph
         "entrance": "Snow Realm West Portal",
         "destination": "Snow Realm West Portal",
-        "not_has_all_items": [("Snow Glyph", 0)]
+        "has_slot_data": [["portal_behavior", 2]],
+        "not_has_all_items": [("Portal Unlock: Hyrule Castle to Anouki Village", 1)],
+        "message": "You don't have access to this portal!"
     },
+
     "Bounce snow portal north": {
         "entrance": "Snow Realm North Portal",
         "destination": "Snow Realm North Portal",
@@ -74,6 +105,10 @@ DYNAMIC_ENTRANCES = {
     "Bounce snow portal bridge": {
         "entrance": "Snow Realm Bridge Portal",
         "destination": "Snow Realm Bridge Portal",
+    },
+    "Bounce forest portal cave": {
+        "entrance": "Forest Realm Cave Portal",
+        "destination": "Forest Realm Cave Portal",
     },
 }
 

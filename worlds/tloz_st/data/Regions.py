@@ -4,8 +4,15 @@ REGIONS = [
 
     # Forest Realm
     "forest realm",
-    "forest realm rabbits",
+    "wtt",
+    "forest source",
+    "w castle town tracks",
+    "n castle town tracks",
     "forest realm se portal track",
+    "forest cave tracks",
+    "w forest tracks",
+
+    "forest realm rabbits",
     "forest ocean shortcut rabbit",
     "e mayscore rabbits",
     "sw trading post rabbit",
@@ -21,12 +28,6 @@ REGIONS = [
     #"outset village cuccos gem",
     #"outset village joe gem",
     #"outset village cannon",
-    
-    # Shop Regions
-    #"shop power gem",
-    #"shop bombchu bag",
-    #"shop quiver",
-    #"shop heart container",
 
     #"beedle gem",
     #"beedle bomb bag",
@@ -135,14 +136,17 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm
     "snow realm",
-    "snow realm rabbits",
+    "snow realm source",
     "blizzard temple tracks",
+    "snow bridge",
+    "icyspring tracks",
+
+    "snow realm rabbits",
     "blizzard temple tracks rabbits",
     "snow realm blizzard rabbits",
     "snow realm early blizzard rabbits",
     "snowdrift station rabbit",
     "icyspring rabbits",
-    "snow realm source",
 
 
     # Anouki Village

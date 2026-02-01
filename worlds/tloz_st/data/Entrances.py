@@ -102,6 +102,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "Forest Realm Cave Portal": {
+        "return_name": "Fire Realm Portal 2",
+        "entrance": (0x4, 0, 0xC),
+        "exit": (0x7, 0x0, 0x12),
+        "entrance_region": "forest cave tracks",
+        "exit_region": "fire realm",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 }
 
 

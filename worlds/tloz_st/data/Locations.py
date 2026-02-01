@@ -1351,6 +1351,48 @@ LOCATIONS_DATA = {
         "count": 10,
         "location_groups": ["Total Snow Rabbits"]
     },
+
+    # Portal Checks
+    "Forest Realm Shoot SW Portal": {
+        "stage_id": 0x04,
+        "region_id": "forest cave tracks",
+        "address": STAddr.activate_portals,
+        "value": 0x80,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
+    "Forest Realm Shoot SE Portal": {
+        "stage_id": 0x04,
+        "region_id": "forest realm se portal track",
+        "address": STAddr.activate_portals,
+        "value": 0x40,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
+    "Snow Realm Shoot SW Portal": {
+        "stage_id": 0x05,
+        "region_id": "snow realm",
+        "address": STAddr.activate_portals,
+        "value": 0x8,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
+    "Snow Realm Shoot Bridge Portal": {
+        "stage_id": 0x05,
+        "region_id": "snow bridge",
+        "address": STAddr.activate_portals,
+        "value": 0x10,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
+    "Snow Realm Shoot N Portal": {
+        "stage_id": 0x05,
+        "region_id": "icyspring tracks",
+        "address": STAddr.adv_flags_31,
+        "value": 0x2,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
 }
 ## ========== remember to add item override!! =============
 

@@ -91,8 +91,12 @@ def st_has_temple_tracks(state, player, temple):
 def st_has_misc_tracks(state, player, tracks):
     return state.has(f"{tracks} Tracks", player)
 
-def st_has_portal(state, player, portal):
-    return True and state.has(f"Portal: {portal}", player)
+def st_has_portal(state, player, portal, forward):
+    if state.multiworld.worlds[player].options.portal_behavior.value == 1:
+        return True
+    if state.multiworld.worlds[player].options.portal_behavior.value == 0:
+        return forward
+    return state.has(f"Portal Unlock: {portal}", player)
 
 # ============== Songs =======================
 

@@ -17,17 +17,6 @@ DYNAMIC_FLAGS = {
         "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_0, 0x04)]
     },
-    "Allow Portal near castle town use": {
-        "on_scenes": [0x0400],
-        "has_items": [["Snow Glyph", 1]],
-        "set_if_true": [(STAddr.adv_flags_30, 0x08)] # activates portal to sw snow realm
-    },
-    "Allow snow realm E to Forest S portal": {
-      "on_scenes": [0x400, 0x500],
-        "has_items": [["Forest Realm SE Portal Tracks", 1], ["Blizzard Temple Tracks", 1]],
-        "set_if_true": [(STAddr.adv_flags_30, 0x40)]
-
-    },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
         "not_has_locations": ["Forest Sanctuary Song Statue"],
@@ -168,7 +157,7 @@ DYNAMIC_FLAGS = {
     "RESET snow realm crash": {
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
         "has_items": [["Snow Source", 1]],
-    }
+    },
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
@@ -179,6 +168,60 @@ DYNAMIC_FLAGS = {
     #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
     #     "set_if_true": [(0x265715, 0x01)]
     # },
+
+    # Portals
+    "Allow Portal near castle town always open": {
+        "on_scenes": [0x0400],
+        "has_items": [["Snow Glyph", 1]],
+        "has_slot_data": [["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    },
+    "Allow Portal near castle town item": {
+        "on_scenes": [0x0400],
+        "has_items": [["Snow Glyph", 1],
+                      ["Portal Unlock: Hyrule Castle to Anouki Village", 1]],
+        "has_slot_data": [["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    },
+    "Keep portal loc open anouki village": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Snow Realm Shoot SW Portal"],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    },
+    "Close Castle town portal no item": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [["portal_behavior", 2]],
+        "has_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 0]],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    },
+
+    "Allow portal snow realm E to Forest S always open": {
+        "on_scenes": [0x500],
+        "has_items": [["Forest Realm SE Portal Tracks", 1]],
+        "has_slot_data": [["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x40)]
+    },
+    "Allow portal snow realm E to Forest S item": {
+        "on_scenes": [0x500],
+        "has_items": [["Forest Realm SE Portal Tracks", 1],
+                      ["Portal Unlock: Trading Post to E Snow Realm", 1]],
+        "has_slot_data": [["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x40)]
+    },
+    "Keep portal loc open s trading post": {
+        "on_scenes": [0x400],
+        "not_has_locations": ["Forest Realm Shoot SE Portal"],
+        "has_slot_data": [["portal_checks", 1]],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x40)]
+    },
+    "Close portal e snow realm items": {
+        "on_scenes": [0x500],
+        "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 0]],
+        "has_slot_data": [["portal_behavior", 2]],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x40)]
+    },
+
 }
 """
 "Dynamic Flag Name": {

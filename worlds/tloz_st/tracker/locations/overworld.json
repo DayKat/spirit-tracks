@@ -37,5 +37,11 @@
 {"name": "Rabbit NW Blizzard", "sections": [{"name": "Rabbit NW Blizzard"}], "map_locations":[{"map": "Overview", "x": 176, "y": 86}]},
 {"name": "Rabbit Central Blizzard", "sections": [{"name": "Rabbit Central Blizzard"}], "map_locations":[{"map": "Overview", "x": 194, "y": 166}]},
 {"name": "Total Forest Rabbits", "sections": [{"name": "Catch 1 Forest Rabbit"}, {"name": "Catch 2 Forest Rabbits"}, {"name": "Catch 3 Forest Rabbits"}, {"name": "Catch 4 Forest Rabbits"}, {"name": "Catch 5 Forest Rabbits"}, {"name": "Catch 6 Forest Rabbits"}, {"name": "Catch 7 Forest Rabbits"}, {"name": "Catch 8 Forest Rabbits"}, {"name": "Catch 9 Forest Rabbits"}, {"name": "Catch 10 Forest Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 490}]},
-{"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 474}]}
+{"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 474}]},
+
+  {"name": "Forest Realm Shoot SW Portal", "sections": [{"name": "Forest Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 158, "y": 662}]},
+{"name": "Forest Realm Shoot SE Portal", "sections": [{"name": "Forest Realm Shoot SE Portal"}], "map_locations":[{"map": "Overview", "x": 424, "y": 734}]},
+{"name": "Snow Realm Shoot SW Portal", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 128, "y": 350}]},
+{"name": "Snow Realm Shoot Bridge Portal", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations":[{"map": "Overview", "x": 290, "y": 326}]},
+{"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 138}]}
 ]

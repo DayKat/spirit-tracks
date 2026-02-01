@@ -121,7 +121,7 @@ class SpiritTracksRabbitPackSize(NamedRange):
     Number of rabbits received per rabbit item for each rabbit type with rabbitsanity.
     Setting it to 0 or random_uniform will randomize between 1 and 5 for each rabbit type.
     Setting it to -1 or random_mixed will keep rolling random pack size items for each rabbit type until you have enough. It rolls a discrete triangular distribution between 1 and 5 with mode 2.
-    If rabbitsanity is vanilla, this is ignored as vanilla assigns it's own pack sizes.
+    If rabbitsanity is vanilla, this is ignored as vanilla assigns its own pack sizes.
     """
     display_name = "Rabbit Pack Size"
     range_end = 5
@@ -144,6 +144,27 @@ class SpiritTracksExtraRabbits(Range):
     range_start = 0
     range_end = 5
 
+class SpiritTracksRandomizePortals(Choice):
+    """
+    How to handle the train portals.
+    - always_open: You can always take the portals, as long as you have the tracks on both sides
+    - open_one_way: You can always take the portals, but you have to unlock them from the side with the gem first
+    - open_with_items: creates an item for each portal pair, that is required to use each portal.
+    """
+    display_name = "Portal Behavior"
+    option_open_one_way = 0
+    option_always_open = 1
+    option_open_with_items = 2
+    default = 0
+
+class SpiritTracksPortalLocations(Toggle):
+    """
+    Creates locations on shooting the gem on each portal.
+    Also works with portals not yet implemented
+    """
+    display_name = "Portal Checks"
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -157,12 +178,16 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Logic options
     logic: SpiritTracksLogic
-    #phantom_combat_difficulty: SpiritTracksPhantomCombatDifficulty
+
     #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
-    #randomize_frogs: SpiritTracksFrogRandomization
+
+    # Portals
+    portal_behavior: SpiritTracksRandomizePortals
+    portal_checks: SpiritTracksPortalLocations
+
 
     # Hint Options
     #dungeon_hints: SpiritTracksDungeonHints
@@ -176,14 +201,21 @@ class SpiritTracksOptions(PerGameCommonOptions):
     rabbit_location_count_distribution: SpiritTracksRabbitCountDistribution
     rabbit_pack_size: SpiritTracksRabbitPackSize
     rabbit_extra_items: SpiritTracksExtraRabbits
-    rabbit_hints: SpiritTracksRabbitHints
+    # rabbit_hints: SpiritTracksRabbitHints
 
     # Generic
     start_inventory_from_pool: StartInventoryPool
     remove_items_from_pool: SpiritTracksRemoveItemsFromPool
-    death_link: DeathLink
+    # death_link: DeathLink
 
 st_option_groups = [
+    OptionGroup("World Options", [
+        SpiritTracksGoal,
+        SpiritTracksLogic,
+        SpiritTracksKeyRandomization,
+        SpiritTracksRandomizePortals,
+        SpiritTracksPortalLocations
+    ]),
     OptionGroup("Rabbit Options", [
         SpiritTracksRabbitsanity,
         SpiritTracksMaxRabbitLocationCount,
@@ -191,6 +223,7 @@ st_option_groups = [
         SpiritTracksRabbitPackSize,
         SpiritTracksExtraRabbits,
         SpiritTracksRabbitHints
-    ])
+    ]),
+
 ]
 

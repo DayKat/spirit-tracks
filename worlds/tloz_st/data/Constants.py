@@ -198,6 +198,10 @@ ITEM_GROUPS = {
         "Snow Realm Bridge Tracks",
         "N Icy Spring Tracks",
         "Blizzard Temple Tracks"
+    ],
+    "Portal Unlocks": [
+        "Portal Unlock: Hyrule Castle to Anouki Village",
+        "Portal Unlock: Trading Post to E Snow Realm"
     ]
 }
 

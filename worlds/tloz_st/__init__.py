@@ -166,6 +166,8 @@ class SpiritTracksWorld(World):
             return location_name in self.active_rabbit_locations
         if location_name == "Slippery Station Champion Reward":
             return self.options.logic
+        if "Portal" in location_name:
+            return self.options.portal_checks
 
         return False
 
@@ -311,6 +313,8 @@ class SpiritTracksWorld(World):
         # so add progression items first
         add_items = []
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
+        if self.options.portal_behavior.value == 2:
+            add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
         add_items += [i for i in self.rabbit_item_dict.items()]
         add_items += [("Heart Container", 13)]
         print(f"Add items: ({sum([i for _, i in add_items])}/{filler_item_count})")
@@ -549,8 +553,9 @@ class SpiritTracksWorld(World):
 
     def fill_slot_data(self) -> dict:
         options = ["goal", "logic", "keysanity",
-                   "rabbitsanity", "rabbit_hints",
-                   "exclude_locations"]
+                   "rabbitsanity", # "rabbit_hints",
+                   "exclude_locations",
+                   "portal_behavior", "portal_checks"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         return slot_data

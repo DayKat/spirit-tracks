@@ -124,7 +124,7 @@ class STAddr:
     adv_flags_2d = Address(0x265741)
     adv_flags_2e = Address(0x265742)
     adv_flags_2f = Address(0x265743)
-    adv_flags_30 = Address(0x265744)
+    adv_flags_30 = activate_portals = Address(0x265744)
     adv_flags_31 = Address(0x265745)
     adv_flags_32 = Address(0x265746)
     adv_flags_33 = Address(0x265747)
