@@ -124,7 +124,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["wt", "wt 1f switch chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
         ["wt", "wt 3f chestnut chest", False, lambda state: st_can_kill_bubble(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Wooded Temple", 1)],
         ["wt", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) and st_can_kill_bubble(state, player) and st_has_small_keys(state, player,"Wooded Temple", 2)],
-       #["wt", "wt 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
+        #["wt", "wt 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         #["wt", "wt heart container", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         ["wt", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         ["wt stagnox", "goal_stagnox", False, None],
@@ -227,6 +227,25 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ========== Bridge Worker's Home =======
         ["snow realm source", "bridge workers", True, lambda state: st_has_source(state, player, "Snow")],
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
+
+        # ========== Ocean Sanctuary =============
+        ["ocean realm", "ocs", False, None],
+        ["ocs", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
+                                                         and st_has_birds_song(state, player) and st_has_whip(state, player)],
+        ["ocs", "ocs cucco chest", False, lambda state: st_has_boomerang(state, player)], # Spreadsheet shows Whirlwind needed too,
+                                                                                          # but not sure why looking at walkthrough?
+        ["ocs", "ocs S island chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
+        ["ocs", "ocs nw chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
+
+        # ========== Papuchia Village =============
+        ["ocean realm", "papuchia village", False, None],
+        ["papuchia village", "papuchia village song statue", False, lambda state: st_has_discovery_song(state, player)],
+        ["papuchia village", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player)
+                                                                        and st_has_birds_song(state, player) and st_has_whip(state, player)],
+        ["papuchia village", "papuchia village ne chest", False, None],
+        ["papuchia village", "papuchia village sw chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
+        ["papuchia village", "papuchia village s center chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
+
 
     ]
 

@@ -1026,6 +1026,116 @@ LOCATIONS_DATA = {
         "require_item": ["Spirit Flute", "Song of Discovery", "Snow Source"],
     },
 
+    # ========== Ocean Realm ============
+
+    # Ocean Sanctuary
+    "Ocean Sanctuary Stamp Station": {
+        "region_id": "ocs stamp station",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x32,
+        "room_id": 0,
+        "stamp": True,
+        "require_item": ["Stamp Book", "Song of Birds", "Whip"],
+    },
+
+    "Ocean Sanctuary Cucco Chest": {
+        "region_id": "ocs cucco chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x32,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Boomerang"], #Possibly also need whirlwind
+    },
+
+    "Ocean Sanctuary S Island Chest": {
+        "region_id": "ocs S island chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x32,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Whip"],
+    },
+
+    "Ocean Sanctuary NW Chest": {
+        "region_id": "ocs nw chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x32,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Whip"],
+    },
+
+    # Papuchia Village
+    "Papuchia Village Song Statue": {
+        "region_id": "papuchia village song statue",
+        "vanilla_item": "Song of Birds",
+        "stage_id": 0x2C,
+        "room_id": 0,
+        "x_min": -0,
+        "x_max": -0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Spirit Flute", "Song of Discovery"],
+    },
+
+    "Papuchia Village Stamp Station": {
+        "region_id": "papuchia village stamp station",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x2C,
+        "room_id": 0,
+        "stamp": True,
+        "require_item": ["Stamp Book", "Song of Birds", "Whip"],
+    },
+
+    "Papuchia Village NE Chest": {
+        "region_id": "papuchia village ne chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x2C,
+        "room_id": 0,
+        "x_min": -0,
+        "x_max": -0,
+        "z_min": 0,
+        "z_max": 0,
+    },
+
+    "Papuchia Village SW Chest": {
+        "region_id": "papuchia village sw chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x2C,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Spirit Flute", "Song of Birds", "Whip"],
+    },
+
+    "Papuchia Village S Center Chest": {
+        "region_id": "papuchia village s center chest",
+        "vanilla_item": "Big Green Rupee (100)",
+        "stage_id": 0x2C,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Spirit Flute", "Song of Birds", "Whip"],
+    },
+
+
+
+
+    # Ocean Temple
+
     # ========= Rabbits ==========
 
     "Rabbit near Castle Town": {
@@ -1394,6 +1504,7 @@ LOCATIONS_DATA = {
         "conditional": True
     },
 }
+
 ## ========== remember to add item override!! =============
 
 

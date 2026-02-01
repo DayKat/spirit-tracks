@@ -201,7 +201,23 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm
 
-    #"ocean realm",
+    "ocean realm",
+
+    #Ocean Sanctuary
+    "ocs",
+    "ocs stamp station",
+    "ocs cucco chest",
+    "ocs S island chest",
+    "ocs nw chest",
+
+    #Papuchia Village
+    "papuchia village",
+    "papuchia village song statue",
+    "papuchia village stamp station",
+    "papuchia village ne chest",
+    "papuchia village sw chest",
+    "papuchia village s center chest",
+
     #"ocean realm frogs",
     #"ocean realm trade",
     #"pirate ambush",
