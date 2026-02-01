@@ -349,7 +349,7 @@ class SpiritTracksWorld(World):
             rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
         self.rabbit_counts = rabbit_counts
 
-        def picK_random_locs(loc_lists):
+        def pick_random_locs(loc_lists):
             [self.random.shuffle(i) for i in loc_lists]
             return [loc for rl, c in zip(loc_lists, rabbit_counts) for loc in rl[:c]]
 
@@ -357,7 +357,7 @@ class SpiritTracksWorld(World):
         if self.options.rabbitsanity.value in [1, 2, 4]: # Vanilla or unique
             forest_rabbits = LOCATION_GROUPS["Unique Forest Rabbits"]
             snow_rabbits = LOCATION_GROUPS["Unique Snow Rabbits"]
-            rabbit_locations += picK_random_locs([forest_rabbits, snow_rabbits])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits])
 
         if self.options.rabbitsanity.value in [3, 4]:  # total count
             forest_rabbits = LOCATION_GROUPS["Total Forest Rabbits"]
@@ -374,7 +374,7 @@ class SpiritTracksWorld(World):
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
                 self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
-            rabbit_locations += picK_random_locs([forest_rabbits, snow_rabbits])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits])
 
         print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
@@ -523,7 +523,7 @@ class SpiritTracksWorld(World):
         # before anything else.
         for dung_name in DUNGEON_NAMES:
             # Build a list of locations in this dungeon
-            print(f"Pre-filling {dung_name}")
+            # print(f"Pre-filling {dung_name}")
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
                                       if "dungeon" in loc and loc["dungeon"] == dung_name]
             dungeon_locations = [loc for loc in self.multiworld.get_locations(self.player)

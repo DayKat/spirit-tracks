@@ -1357,7 +1357,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x04,
         "region_id": "forest cave tracks",
         "address": STAddr.activate_portals,
-        "value": 0x80,
+        "value": 0x40,
         "location_groups": ["Portal Checks"],
         "conditional": True
     },
@@ -1365,7 +1365,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x04,
         "region_id": "forest realm se portal track",
         "address": STAddr.activate_portals,
-        "value": 0x40,
+        "value": 0x20,
         "location_groups": ["Portal Checks"],
         "conditional": True
     },

@@ -36,7 +36,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     },
     "Bombs (Progressive)": {
         'classification': ItemClassification.progression,
-        "progressive": [[STAddr.items_0, 0x10], [0x265331, 0x20]],
+        "progressive": [[STAddr.items_0, 0x10], [STAddr.bomb_capacity, 0x20]],
         "tags": ["progressive_overwrite"],
         "give_ammo": [10, 20, 30],
         "ammo_address": STAddr.bomb_count
@@ -163,13 +163,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     },
     "Portal Unlock: Hyrule Castle to Anouki Village": {
         'classification': ItemClassification.progression,
-        'address': 0x265744,
-        'value': 0x08,
+        # 'address': 0x265744,
+        # 'value': 0x08,
     },
     "Portal Unlock: Trading Post to E Snow Realm": {
         'classification': ItemClassification.progression,
-        'address': 0x265744,
-        'value': 0x40,
+        # 'address': 0x265744,
+        # 'value': 0x40,
     },
 
     # ========== Rail Maps ============

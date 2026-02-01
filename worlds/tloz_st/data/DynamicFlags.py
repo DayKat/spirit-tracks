@@ -200,26 +200,26 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x500],
         "has_items": [["Forest Realm SE Portal Tracks", 1]],
         "has_slot_data": [["portal_behavior", 1]],
-        "set_if_true": [(STAddr.adv_flags_30, 0x40)]
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Allow portal snow realm E to Forest S item": {
         "on_scenes": [0x500],
         "has_items": [["Forest Realm SE Portal Tracks", 1],
                       ["Portal Unlock: Trading Post to E Snow Realm", 1]],
         "has_slot_data": [["portal_behavior", 2]],
-        "set_if_true": [(STAddr.adv_flags_30, 0x40)]
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Keep portal loc open s trading post": {
         "on_scenes": [0x400],
         "not_has_locations": ["Forest Realm Shoot SE Portal"],
         "has_slot_data": [["portal_checks", 1]],
-        "unset_if_true": [(STAddr.adv_flags_30, 0x40)]
+        "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Close portal e snow realm items": {
         "on_scenes": [0x500],
         "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 0]],
         "has_slot_data": [["portal_behavior", 2]],
-        "unset_if_true": [(STAddr.adv_flags_30, 0x40)]
+        "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
 
 }

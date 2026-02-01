@@ -129,9 +129,6 @@ class SpiritTracksClient(DSZeldaClient):
             read_result[STAddr.room] = 0x1
             await STAddr.stage.overwrite(ctx, 0x14)
             await STAddr.room.overwrite(ctx, 1)
-        if read_result[STAddr.stage] == 0x4:
-            read_result[STAddr.room] = 0
-            self.current_scene = 0x400
 
     async def update_treasure_tracker(self, ctx):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
@@ -143,7 +140,9 @@ class SpiritTracksClient(DSZeldaClient):
             await self.update_rabbit_count(ctx)
         if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
             await STAddr.adv_flags_25.unset_bits(ctx, 2)
-        if item_name in ["Forest Glyph", "Cannon"]:
+        if item_name in ["Forest Glyph", "Cannon",
+                         "Portal Unlock: Hyrule Castle to Anouki Village",
+                         "Portal Unlock: Trading Post to E Snow Realm"]:
             await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
