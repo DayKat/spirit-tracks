@@ -43,5 +43,5 @@
 {"name": "Forest Realm Shoot SE Portal", "sections": [{"name": "Forest Realm Shoot SE Portal"}], "map_locations":[{"map": "Overview", "x": 424, "y": 734}]},
 {"name": "Snow Realm Shoot SW Portal", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 128, "y": 350}]},
 {"name": "Snow Realm Shoot Bridge Portal", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations":[{"map": "Overview", "x": 290, "y": 326}]},
-{"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 138}]}
+{"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 131}]}
 ]

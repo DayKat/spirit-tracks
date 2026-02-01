@@ -88,6 +88,7 @@ class SpiritTracksWorld(World):
         self.active_rabbit_locations: list[str] = []
         self.rabbit_counts: list[int] = []
         self.rabbit_item_dict: dict[str, int] = {}
+        self.rabbit_realm_items: dict[str, dict[str, int]] = {"Forest": {}, "Snow": {}}
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -259,11 +260,14 @@ class SpiritTracksWorld(World):
         item_pool_dict = {}
         filler_item_count = 0
 
+        def pop_item_from_dict(item_dict, item):
+            item_dict[item] -= 1
+            if item_dict[item] <= 0:
+                item_dict.pop(item)
+
         def pop_random_item_from_dict(item_dict):
             i_name = self.random.choice([i for i in item_dict])
-            item_dict[i_name] -= 1
-            if item_dict[i_name] <= 0:
-                item_dict.pop(i_name)
+            pop_item_from_dict(item_dict, i_name)
             return i_name
 
         for loc_name, loc_data in LOCATIONS_DATA.items():
@@ -288,8 +292,13 @@ class SpiritTracksWorld(World):
                 continue
 
             if "rabbit" in item_data.tags:
-                if self.options.rabbitsanity == "vanilla":  # Force vanilla rabbits randomly
-                    forced_item = self.create_item(pop_random_item_from_dict(self.rabbit_item_dict))
+                if self.options.rabbitsanity == "vanilla" and not hasattr(self.multiworld, "generation_is_fake"):  # Force vanilla rabbits randomly
+                    realm = item_name.split()[0]
+                    realm_pool = self.rabbit_realm_items[realm]
+                    popped_item = pop_random_item_from_dict(realm_pool)
+                    pop_item_from_dict(self.rabbit_item_dict, popped_item)
+
+                    forced_item = self.create_item(popped_item)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
                 filler_item_count += 1
@@ -418,7 +427,9 @@ class SpiritTracksWorld(World):
             print(f"Vanilla rabbits {self.rabbit_counts}")
             self.options.rabbit_pack_size.value = 1
             for r, c in zip(realms, self.rabbit_counts):
-                rabbit_items |= fill_vanilla(r, c)
+                vanilla_pool = fill_vanilla(r, c)
+                rabbit_items |= vanilla_pool
+                self.rabbit_realm_items[r] = vanilla_pool
             return rabbit_items
 
         if self.options.rabbit_pack_size == -1:  # random_mixed
