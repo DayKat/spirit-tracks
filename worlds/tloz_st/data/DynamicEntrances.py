@@ -101,14 +101,17 @@ DYNAMIC_ENTRANCES = {
     "Bounce snow portal north": {
         "entrance": "Snow Realm North Portal",
         "destination": "Snow Realm North Portal",
+        "message": "You don't have access to this portal!"
     },
     "Bounce snow portal bridge": {
         "entrance": "Snow Realm Bridge Portal",
         "destination": "Snow Realm Bridge Portal",
+        "message": "You don't have access to this portal!"
     },
     "Bounce forest portal cave": {
         "entrance": "Forest Realm Cave Portal",
         "destination": "Forest Realm Cave Portal",
+        "message": "You don't have access to this portal!"
     },
 }
 

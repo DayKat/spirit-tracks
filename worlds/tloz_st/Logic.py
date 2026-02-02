@@ -214,7 +214,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             st_has_bow(state, player)]) and
                                                                any([st_has_shield(state, player),
                                                                     st_option_hard_logic(state, player)])
-                                                               and st_has_damage(state, player)],
+                                                               and any([st_has_sword(state, player),
+                                                                        st_has_whip(state, player),
+                                                                        st_has_bombs(state, player)
+                                                                    ])],
 
         # ========== Slippery Station ==========
         ["blizzard temple tracks", "slippery", True,
