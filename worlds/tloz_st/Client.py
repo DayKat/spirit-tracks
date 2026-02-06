@@ -14,10 +14,11 @@ STAGE_FLAGS_OFFSET = 176
 
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
-                    STAddr.loading_room, STAddr.mid_load]
+                    STAddr.loading_room, STAddr.mid_load, STAddr.saving]
 read_keys_land = [STAddr.getting_location, STAddr.getting_train_part]
 
 rabbit_storage_key = "rabbit_locs"
+saved_scene_key = "last_saved_scene"
 
 def count_bits(n):
     count = 0
@@ -66,6 +67,8 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
         self.rabbit_counter = []  # list of counts for each rabbit type caught in the overworld
+        self.last_saved_scene = 0
+        self.lss_retry_attempts = 4
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -124,11 +127,14 @@ class SpiritTracksClient(DSZeldaClient):
         if self.in_stamp_stand and self.receiving_location:
             self.getting_location = True
 
-        if read_result[STAddr.stage] == 0x79:
-            read_result[STAddr.stage] = 0x14
-            read_result[STAddr.room] = 0x1
-            await STAddr.stage.overwrite(ctx, 0x14)
-            await STAddr.room.overwrite(ctx, 1)
+        if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
+            print(f"Overwriting weird scene: {hex(self.last_saved_scene)}")
+            stage, room = (self.last_saved_scene & 0xFF00) >> 8, self.last_saved_scene & 0xFF
+            self.current_scene = self.last_saved_scene
+            self.current_stage = read_result[STAddr.stage] = stage
+            read_result[STAddr.room] = room
+            await STAddr.stage.overwrite(ctx, stage)
+            await STAddr.room.overwrite(ctx, room)
 
     async def update_treasure_tracker(self, ctx):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
@@ -155,6 +161,8 @@ class SpiritTracksClient(DSZeldaClient):
             self.receiving_location = True
             stamp_location = self.scene_to_stamp[self.current_scene] #TODO error when loading into slot (in fs) after receiving stamp book offline, scene refresh fixed
             await self._process_checked_locations(ctx, stamp_location)
+
+        await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
@@ -250,3 +258,6 @@ class SpiritTracksClient(DSZeldaClient):
             stage_flag_address = AddrFromPointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
+
+    async def process_in_menu(self, ctx, read_result):
+        await self.get_saved_scene(ctx, saved_scene_key)

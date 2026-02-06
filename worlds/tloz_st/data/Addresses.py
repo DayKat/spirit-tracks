@@ -23,6 +23,7 @@ class STAddr:
     
     getting_location = Address(0x04B9B8)
     getting_train_part = Address(0x11F5E4)
+    saving = Address(0x049BD8)
     
     link_x = Pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
     link_y = Pointer(0x05D0)
