@@ -158,6 +158,7 @@ ITEMS_DATA = {
         "address": PHAddr.heart_containers,
         "value": 0x4,
         "tags": ["monotone_incremental"],
+        "base_count": 12,
         "size": 2,
         "id": 16,
     },
