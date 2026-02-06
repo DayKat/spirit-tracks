@@ -495,8 +495,8 @@ class PhantomHourglassWorld(World):
             # print(f"Excluded dungeons: {self.excluded_dungeons}")
             for dungeon in excluded_dungeons:
                 locations_to_exclude.update(self.dungeon_name_groups[dungeon])
-                # hold off on excluding boss rooms/post boss locations if bosses are shuffled. mixed pool bosses don't inherrit dungeon status
-                if self.options.shuffle_bosses != 1 or self.options.decouple_entrances:
+                # hold off on excluding boss rooms/post boss locations if bosses are shuffled. mixed pool bosses don't inherit dungeon status
+                if self.options.shuffle_bosses != 1 or self.options.decouple_entrances or dungeon == "Ghost Ship":
                     locations_to_exclude.update(self.boss_room_name_groups.get(dungeon, []))
                     locations_to_exclude.update(self.post_dungeon_name_groups.get(dungeon, []))
                     if not self.options.shuffle_houses and dungeon == "Temple of Fire":
@@ -767,8 +767,9 @@ class PhantomHourglassWorld(World):
                                       boss not in self.required_bosses}
                 for dung in excluded_boss_keys:
                     for loc in self.boss_room_name_groups.get(dung, set()) | self.post_dungeon_name_groups.get(dung, set()):
-                        self.multiworld.get_location(loc, self.player).progress_type = LocationProgressType.EXCLUDED
-                        self.locations_to_exclude.add(loc)
+                        if dung != "Ghost Ship":
+                            self.multiworld.get_location(loc, self.player).progress_type = LocationProgressType.EXCLUDED
+                            self.locations_to_exclude.add(loc)
 
                     if not self.options.shuffle_houses and dung == "Temple of Fire":
                         self.multiworld.get_location("Shipyard Chest", self.player).progress_type = LocationProgressType.EXCLUDED
