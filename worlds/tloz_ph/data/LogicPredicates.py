@@ -1436,15 +1436,23 @@ def ph_toc_key_door_1(state, player):
 
 def ph_toc_key_door_2(state, player):
     return any([
-        ph_toc_key_doors(state, player, 3, 2),
-        # UT stuff
+        ph_toc_key_doors(state, player, 3, 3),
         all([
+            ph_toc_key_doors(state, player, 3, 2),
+            any([
+                ph_option_pedestals_vanilla_any(state, player),
+                not ph_has_shape_crystal(state, player, "Temple of Courage", "North")
+            ])
+        ]),
+        # UT stuff
+        all([  # savescumming keys
             ph_UT_glitched_logic(state, player),
             ph_has_hammer(state, player),
             ph_toc_key_doors(state, player, 1, 2),
         ]),
         all([
             ph_option_not_glitched_logic(state, player),
+            ph_option_smart_key_logic(state, player),
             any([
                 # Keys in own dungeon
                 all([

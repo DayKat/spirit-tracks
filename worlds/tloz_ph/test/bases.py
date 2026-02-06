@@ -144,12 +144,12 @@ options_excluded_crystals = {"dungeons_required": 8,
                "ghost_ship_in_dungeon_pool": False,
                "randomize_pedestal_items": "anywhere",
                "pedestal_item_options": "unique_pedestals",
-               "shuffle_bosses": "shuffle",
+               "shuffle_bosses": "no_shuffle",
                "randomize_boss_keys": "in_own_dungeon",
                # "shuffle_houses": "shuffle",
-               "entrance_directionality": "disregard_all"
+               "entrance_directionality": "disregard_all",
                }
 
 class TestPHGeneration(WorldTestBase):
     game = "The Legend of Zelda - Phantom Hourglass"
-    options = options_full_er
+    options = options_excluded_crystals

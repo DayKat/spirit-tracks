@@ -246,7 +246,7 @@
 { "name": "TotOK B12 NW Chest", "sections": [{ "name": "TotOK B12 NW Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 84, "y": 30}] },
 { "name": "TotOK B12 NE Chest", "sections": [{ "name": "TotOK B12 NE Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 172, "y": 30}] },
 { "name": "TotOK B12 Phantom Chest", "sections": [{ "name": "TotOK B12 Phantom Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B12", "x": 128, "y": 110}] },
-{ "name": "TotOK B13 NE Sea Chart Chest", "sections": [{ "name": "TotOK B13 NE Sea Chart Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B13", "x": 128, "y": 106}] },
+{ "name": "TotOK B13 Sea Chart Chest", "sections": [{ "name": "TotOK B13 Sea Chart Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B13", "x": 128, "y": 106}] },
 { "name": "TotOK B2 Bombchu Chest", "sections": [{ "name": "TotOK B2 Bombchu Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B2", "x": 188, "y": 98}] },
 { "name": "TotOK B2 Phantom Chest", "sections": [{ "name": "TotOK B2 Phantom Chest" }], "map_locations": [{ "map": "Temple of the Ocean King B2", "x": 104, "y": 134}] },
 { "name": "TotOK B2 Small Key", "sections": [{ "name": "TotOK B2 Small Key" }], "map_locations": [{ "map": "Temple of the Ocean King B2", "x": 144, "y": 100}] },
