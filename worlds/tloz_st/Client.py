@@ -1,4 +1,4 @@
-import random
+
 from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
 from .data.Addresses import STAddr
@@ -34,20 +34,16 @@ class SpiritTracksClient(DSZeldaClient):
     def __init__(self) -> None:
         super().__init__()
 
-        # Required variables from inherit
+        # Required variables
         self.starting_flags = STARTING_FLAGS
         self.dungeon_key_data = DUNGEON_KEY_DATA
-        self.slot_id_addr = STAddr.slot_id
-        self.received_item_index_addr = STAddr.received_item_index
         self.starting_entrance = (0x2F, 0, 1)  # stage, room, entrance
         self.scene_addr = (STAddr.stage, STAddr.room, STAddr.floor, STAddr.entrance)  # Stage, room, floor, entrance
-        self.exit_coords_addr = ()  # TODO: x, y, z. what coords to spawn link at when entering a
-        # continuous transition
-        self.er_y_offest = 164  # In ph i use coords who's y is 164 off the entrance y
-        self.ADDR_gMapManager = STAddr.gMapManager
+
+        self.exit_coords_addr = ()  # TODO: x, y, z. what coords to spawn link at when entering a continuous transition
+        self.er_y_offest = 0  # In ph i use coords who's y is 164 off the entrance y
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
 
-        self.update_rabbits = False
         self.in_stamp_stand: bool = False
         self.scene_to_stamp = build_scene_to_stamp()
         self.goal_locations = build_location_to_goal()
@@ -57,6 +53,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.item_data = ITEMS
         self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
 
+        # Mandatory addresses
         self.addr_game_state = STAddr.game_state
         self.addr_slot_id = STAddr.slot_id
         self.addr_stage = STAddr.stage
@@ -65,10 +62,9 @@ class SpiritTracksClient(DSZeldaClient):
         self.addr_received_item_index = STAddr.received_item_index
         self.health_address = STAddr.health
 
+        self.update_rabbits = False
         self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
         self.rabbit_counter = []  # list of counts for each rabbit type caught in the overworld
-        self.last_saved_scene = 0
-        self.lss_retry_attempts = 4
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
