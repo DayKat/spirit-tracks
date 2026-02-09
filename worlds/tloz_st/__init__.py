@@ -112,6 +112,9 @@ class SpiritTracksWorld(World):
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             print(f"Rabbit items: {self.rabbit_item_dict}")
+            if self.options.start_with_train:
+                self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1, "Cannon": 1})
+
 
     def pick_required_dungeons(self) -> list[str]:
         if self.options.goal != "defeat_malladus" or self.options.dark_realm_access != "dungeons":
@@ -190,6 +193,8 @@ class SpiritTracksWorld(World):
             return self.options.logic
         if "Portal" in location_name:
             return self.options.portal_checks
+        if "Rabbit Haven" in location_name:
+            return self.options.rabbitsanity
 
         return False
 
@@ -197,6 +202,7 @@ class SpiritTracksWorld(World):
         if self.options.goal == "defeat_malladus":
             for loc in self.required_dungeons:
                 self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
+            self.create_event("malladus goal", "_beaten_game")
         else:
             if self.options.goal == "beat_ToS_section_1":
                 goal_loc = "goal_forest_glyph"
@@ -337,7 +343,7 @@ class SpiritTracksWorld(World):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = []
+        add_items = [("Compass of Light", 1), ("Bow of Light", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
@@ -584,8 +590,7 @@ class SpiritTracksWorld(World):
                    "rabbitsanity", # "rabbit_hints",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
-                   "dark_realm_access", "endgame_scope", "dungeons_required",
-                   "require_specific_dungeons", "dungeon_hints"]
+                   "dark_realm_access", "endgame_scope", "dungeons_required"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons

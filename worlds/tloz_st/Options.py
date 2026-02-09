@@ -25,18 +25,20 @@ class SpiritTracksGoal(Choice):
 class SpiritTracksDarkRealmUnlock(Choice):
     """
     What unlocks the dark realm?
-    - compass_of_light: only the compass of light is required. malladus also requires the locomo sword, bow of light and spirit pipes.
+    - compass_of_light: only the compass of light is required. malladus also requires a sword, bow of light and spirit pipes.
     - dungeons: find the compass of light and finish a specified number of dungeons to gain access to the dark realm.
-    - shattered_compass: triforce hunt! find a specified number of compass shards to unlock the dark realm.
+    - shattered_compass: triforce hunt! find a specified number of compass shards to unlock the dark realm. Not implemented!
     """
     display_name = "Dark Realm Unlock"
     option_compass_of_light = 0
     option_dungeons = 1
-    option_shattered_compass = 2
+    # option_shattered_compass = 2
+    default = 1
 
 class SpiritTracksDungeonCount(Range):
     """
     How many dungeons are required to unlock the dark realm?
+    Will not go higher than the number of valid locations in dungeon pool
     """
     range_start = 1
     range_end = 4
@@ -46,7 +48,7 @@ class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     """
     How does tower of spirits count towards the dungeon pool?
     - not_in_dungeon_pool: tower of spirits does not count as a dungeon
-    - final_section: the last implemented section of ToS gets added to the dungeon pool
+    - final_section: the last implemented section of ToS gets added to the dungeon pool. Currently B7.
     - all_sections: completing each implemented section of ToS gets added to the dungeon pool. Currently, that is 2.
     """
     option_not_in_dungeon_pool = 0
@@ -228,6 +230,14 @@ class SpiritTracksPortalLocations(Toggle):
     display_name = "Portal Checks"
     default = 0
 
+class SpiritTracksStartWithTrain(Toggle):
+    """
+    Starts you with forest glyph and cannon, giving you train access from the start.
+    On by default to give people more checks in the beginning
+    """
+    display_name = "Start With Train"
+    default = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -248,6 +258,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
+    start_with_train: SpiritTracksStartWithTrain
 
     # Portals
     portal_behavior: SpiritTracksRandomizePortals
@@ -286,7 +297,8 @@ st_option_groups = [
         SpiritTracksLogic,
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizePortals,
-        SpiritTracksPortalLocations
+        SpiritTracksPortalLocations,
+        SpiritTracksStartWithTrain
     ]),
     OptionGroup("Rabbit Options", [
         SpiritTracksRabbitsanity,

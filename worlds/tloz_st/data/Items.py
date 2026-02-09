@@ -48,6 +48,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "ammo_address": STAddr.arrow_count,
         "tags": ["progressive_overwrite"]
     },
+    "Bow of Light": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.adv_flags_16,
+        "value": 1
+    },
     "Whip": {
         'classification': ItemClassification.progression,
         'address': STAddr.items_0,
@@ -87,6 +92,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x40,  # also set adv flag?
+        'set_bits': [()]
     },
     "Royal Engineer's Certificate": {
         'classification': ItemClassification,

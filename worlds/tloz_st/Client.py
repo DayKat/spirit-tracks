@@ -77,7 +77,7 @@ class SpiritTracksClient(DSZeldaClient):
             return True
         return False
 
-    def set_special_starting_flags(self, ctx: "BizHawkClientContext") -> list[tuple[int, list, str]]:
+    async def set_special_starting_flags(self, ctx: "BizHawkClientContext") -> list[tuple[int, list, str]]:
         res = []
         if ctx.slot_data.get("endgame_scope", 0) > 0:
             res += STAddr.adv_flags_57.get_write_list(0x91)
@@ -96,16 +96,20 @@ class SpiritTracksClient(DSZeldaClient):
         }
 
     async def has_special_dynamic_requirements(self, ctx: "BizHawkClientContext", data) -> bool:
-        if ctx.slot_data["dark_realm_access"] != 1:
+        def check_dungeon_reqs():
+            if "dungeons" in data:
+                if ctx.slot_data["dark_realm_access"] != 1:
+                    return data["dungeons"]  # Case where dungeons are not required for dark realm
+                dungeon_locs = {self.location_name_to_id[i] for i in ctx.slot_data["required_dungeons"]}
+                has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
+                comp = has_locs >= ctx.slot_data["dungeons_required"]
+                print(f"Checking dungeons: {has_locs} >= {ctx.slot_data['dungeons_required']} for comp {data['dungeons']}")
+                return comp == data["dungeons"]
             return True
-        if "dungeons" in data:
-            if ctx.slot_data["dark_realm_access"] != 1:
-                return data["dungeons"]  # Case where dungeons are not required for dark realm
-            dungeon_locs = {self.location_name_to_id[i] for i in ctx.slot_data["required_dungeons"]}
-            has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
-            comp = has_locs >= ctx.slot_data["dungeons_required"]
-            print(f"Checking dungeons: {has_locs} >= {ctx.slot_data['dungeons_required']} for comp {data['dungeons']}")
-            return comp == data["dungeons"]
+
+        if not check_dungeon_reqs():
+            print(f"\t{data['name']} does not have dungeon requirements")
+            return False
         return True
 
 
@@ -151,6 +155,11 @@ class SpiritTracksClient(DSZeldaClient):
             read_result[STAddr.room] = room
             await STAddr.stage.overwrite(ctx, stage)
             await STAddr.room.overwrite(ctx, room)
+
+        # print(f"Goal check {ctx.slot_data['goal']} last {self.last_stage} current {hex(self.current_stage)}")
+        if ctx.slot_data["goal"] == -1 and self.last_stage == 0x27 and self.current_stage == 0x25:
+            self.has_goal_location = True
+            await self._process_game_completion(ctx)
 
     async def update_treasure_tracker(self, ctx):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]

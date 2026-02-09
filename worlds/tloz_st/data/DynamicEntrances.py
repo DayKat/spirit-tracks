@@ -117,31 +117,31 @@ DYNAMIC_ENTRANCES = {
     # Dark realm options
     "Bounce Dark realm missing endgame requirements": {
         "entrance": "Enter Dark Realm Portal",
-        "exit": "Enter Dark Realm Portal",
+        "destination": "Enter Dark Realm Portal",
         "message": "You are missing dark realm requirements",
         "dungeons": False
     },
     "Dark realm Skip dark trains": {
         "entrance": "Enter Dark Realm Portal",
-        "exit": "Enter Demon Train",
+        "destination": "Enter Demon Train",
         "has_slot_data": [["endgame_scope", 1]],
         "dungeons": True
     },
     "Dark realm Skip demon train": {
         "entrance": "Enter Dark Realm Portal",
-        "exit": "Enter Cole Fight",
+        "destination": "Enter Cole Fight",
         "has_slot_data": [["endgame_scope", 2]],
         "dungeons": True
     },
     "Dark realm Skip Cole": {
         "entrance": "Enter Dark Realm Portal",
-        "exit": "Enter Malladus 1",
+        "destination": "Enter Malladus 1",
         "has_slot_data": [["endgame_scope", 3]],
         "dungeons": True
     },
     "Dark realm Skip Malladus 1": {
         "entrance": "Enter Dark Realm Portal",
-        "exit": "Enter Malladus 2",
+        "destination": "Enter Malladus 2",
         "has_slot_data": [["endgame_scope", 4]],
         "dungeons": True
     },
