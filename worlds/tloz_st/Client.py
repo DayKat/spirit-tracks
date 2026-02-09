@@ -77,6 +77,12 @@ class SpiritTracksClient(DSZeldaClient):
             return True
         return False
 
+    def set_special_starting_flags(self, ctx: "BizHawkClientContext") -> list[tuple[int, list, str]]:
+        res = []
+        if ctx.slot_data.get("endgame_scope", 0) > 0:
+            res += STAddr.adv_flags_57.get_write_list(0x91)
+        return res
+
     def get_coord_address(self, at_sea=None, multi=False):
         return STAddr.link_x, STAddr.link_y, STAddr.link_z
 
@@ -88,6 +94,20 @@ class SpiritTracksClient(DSZeldaClient):
             "y": coords[STAddr.link_y],
             "z": coords[STAddr.link_z]
         }
+
+    async def has_special_dynamic_requirements(self, ctx: "BizHawkClientContext", data) -> bool:
+        if ctx.slot_data["dark_realm_access"] != 1:
+            return True
+        if "dungeons" in data:
+            if ctx.slot_data["dark_realm_access"] != 1:
+                return data["dungeons"]  # Case where dungeons are not required for dark realm
+            dungeon_locs = {self.location_name_to_id[i] for i in ctx.slot_data["required_dungeons"]}
+            has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
+            comp = has_locs >= ctx.slot_data["dungeons_required"]
+            print(f"Checking dungeons: {has_locs} >= {ctx.slot_data['dungeons_required']} for comp {data['dungeons']}")
+            return comp == data["dungeons"]
+        return True
+
 
     async def full_heal(self, ctx, bonus=0):
         hearts = (self.item_count(ctx, "Heart Container") + 3)*4

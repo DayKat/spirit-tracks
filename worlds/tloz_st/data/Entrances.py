@@ -112,6 +112,62 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+
+    # Dark Realm
+    "Enter Dark Realm Portal": {
+        "return_name": "Enter Dark Trains",
+        "entrance": (0x4, 0, 0x9),
+        "exit": (0xF, 0x0, 0x0),
+        "entrance_region": "dark realm portal",
+        "exit_region": "dark realm trains",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Defeat Dark Trains": {
+        "return_name": "Enter Demon Train",
+        "entrance": (0xF, 0, 0x0),
+        "exit": (0x10, 0xFF, 0x0),
+        "two_way": False,
+        "entrance_region": "dark realm trains",
+        "exit_region": "demon train",
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Defeat Demon Train": {
+        "return_name": "Enter Cole Fight",
+        "entrance": (0x12, 0xFF, 0x0),
+        "exit": (0x24, 0x00, 0x0),
+        "two_way": False,
+        "entrance_region": "demon train",
+        "exit_region": "cole fight",
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Defeat Cole": {
+        "return_name": "Enter Malladus 1",
+        "entrance": (0x50, 0xA, 0x0),
+        "exit": (0x25, 0x0, 0x0),
+        "two_way": False,
+        "entrance_region": "cole fight",
+        "exit_region": "malladus 1",
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Defeat Malladus 1": {
+        "return_name": "Enter Malladus 2",
+        "entrance": (0x26, 0x0, 0x0),
+        "exit": (0x27, 0x0, 0x0),
+        "two_way": False,
+        "entrance_region": "malladus 1",
+        "exit_region": "malladus 2",
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 }
 
 

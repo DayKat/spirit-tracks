@@ -264,7 +264,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Bombs (progressive)"]
     },
-    "ToS Forest Rail Glyph": {
+    "ToS 3F Forest Rail Glyph": {
         "region_id": "tos 3f rail map",
         "vanilla_item": "Forest Glyph",
         "stage_id": 0x13,
@@ -404,7 +404,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
     },
-    "ToS Snow Rail Glyph": {
+    "ToS 7F Snow Rail Glyph": {
         "region_id": "tos 7f rail map",
         "vanilla_item": "Snow Glyph",
         "stage_id": 0x13,

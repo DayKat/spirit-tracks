@@ -289,6 +289,12 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
 }
 
+BOSS_LOCATION_TO_EVENT_REGION = {
+    "Wooded Temple Dungeon Reward",
+    "Blizzard Temple Dungeon Reward",
+    "ToS 3F Forest Rail Glyph",
+    "ToS 7F Snow Rail Glyph"
+}
 
 DUNGEON_KEY_DATA = {
     0x13: {

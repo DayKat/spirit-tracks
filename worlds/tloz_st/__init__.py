@@ -105,13 +105,34 @@ class SpiritTracksWorld(World):
                     setattr(self.options, key, opt.from_any(value))
             lookup = build_rabbit_location_id_to_name_dict()
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
-
+            self.required_dungeons = slot_data["required_dungeons"]
         else:
-            # self.pick_required_dungeons()
+            self.required_dungeons = self.pick_required_dungeons()
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             print(f"Rabbit items: {self.rabbit_item_dict}")
+
+    def pick_required_dungeons(self) -> list[str]:
+        if self.options.goal != "defeat_malladus" or self.options.dark_realm_access != "dungeons":
+            return []
+
+        required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward"]
+        implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph"]
+        if self.options.tos_dungeon_options == "final_section":
+            required_dungeons.append(implemented_tos[-1])
+        elif self.options.tos_dungeon_options == "all_sections":
+            required_dungeons += implemented_tos
+
+        if not self.options.require_specific_dungeons:
+            return required_dungeons
+
+        self.options.dungeons_required.value = min(self.options.dungeons_required.value, len(required_dungeons))
+        self.random.shuffle(required_dungeons)
+        required_dungeons = required_dungeons[:self.options.dungeons_required.value]
+        if self.options.dungeon_hints:
+            self.options.start_location_hints.value.update(required_dungeons)
+        return required_dungeons
 
     def restrict_non_local_items(self):
         # Restrict non_local_items option in cases where it's incompatible with other options that enforce items
@@ -173,17 +194,19 @@ class SpiritTracksWorld(World):
         return False
 
     def create_events(self):
-        # if "Temple of Fire" in self.required_dungeons:
-        #     self.create_event("tof blaaz", "_required_dungeon")
-        if self.options.goal == 0:
-            goal_loc = "goal_forest_glyph"
-        elif self.options.goal == 1:
-            goal_loc = "goal_snow_glyph"
-        elif self.options.goal == 2:
-            goal_loc = "goal_stagnox"
-        elif self.options.goal == 3:
-            goal_loc = "goal_fraaz"
-        self.create_event(goal_loc, "_beaten_game")
+        if self.options.goal == "defeat_malladus":
+            for loc in self.required_dungeons:
+                self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
+        else:
+            if self.options.goal == "beat_ToS_section_1":
+                goal_loc = "goal_forest_glyph"
+            elif self.options.goal == "beat_ToS_section_2":
+                goal_loc = "goal_snow_glyph"
+            elif self.options.goal == "beat_wooded_temple":
+                goal_loc = "goal_stagnox"
+            elif self.options.goal == "beat_blizzard_temple":
+                goal_loc = "goal_fraaz"
+            self.create_event(goal_loc, "_beaten_game")
 
         if self.options.rabbitsanity.value in [3, 4]:
             forest_regions = {"forest ocean shortcut rabbit": 1,
@@ -217,20 +240,14 @@ class SpiritTracksWorld(World):
         #         locations_to_exclude.update(self.dungeon_name_groups[dungeon])
 
         self.ut_locations_to_exclude = locations_to_exclude.copy()
-        # Unexclude locations that have vanilla small keys/dung items cause in excluded dungeons, keys are vanilla
-        for location in locations_to_exclude.copy():
-            if ("Small Key" in LOCATIONS_DATA[location]["vanilla_item"] or
-                    "Boss Key" in LOCATIONS_DATA[location]["vanilla_item"]):
-                locations_to_exclude.remove(location)
-
         self.locations_to_exclude = locations_to_exclude
 
         # Take item off goal location
         if self.options.goal == SpiritTracksGoal(0):
-            current_goal = "ToS Forest Rail Glyph"
+            current_goal = "ToS 3F Forest Rail Glyph"
             self.locations_to_exclude.add(current_goal)
         elif self.options.goal == SpiritTracksGoal(1):
-            current_goal = "ToS Snow Rail Glyph"
+            current_goal = "ToS 7F Snow Rail Glyph"
             self.locations_to_exclude.add(current_goal)
         elif self.options.goal == SpiritTracksGoal(2):
             current_goal = "Wooded Temple Dungeon Reward"
@@ -566,17 +583,20 @@ class SpiritTracksWorld(World):
         options = ["goal", "logic", "keysanity",
                    "rabbitsanity", # "rabbit_hints",
                    "exclude_locations",
-                   "portal_behavior", "portal_checks"]
+                   "portal_behavior", "portal_checks",
+                   "dark_realm_access", "endgame_scope", "dungeons_required",
+                   "require_specific_dungeons", "dungeon_hints"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
+        slot_data["required_dungeons"] = self.required_dungeons
         return slot_data
 
     def write_spoiler(self, spoiler_handle):
-        return
-        
-        spoiler_handle.write(f"\n\nRequired Dungeons ({self.multiworld.player_name[self.player]}):\n")
-        for dung in self.required_dungeons:
-            spoiler_handle.write(f"\t- {dung}\n")
+        if self.options.dark_realm_access == "dungeons":
+            title_str = "Required Dungeons" if self.options.require_specific_dungeons else "Dungeon Locations"
+            spoiler_handle.write(f"\n\n{title_str} ({self.multiworld.player_name[self.player]}):\n")
+            for dung in self.required_dungeons:
+                spoiler_handle.write(f"\t- {dung}\n")
 
     # UT stuff
     @staticmethod

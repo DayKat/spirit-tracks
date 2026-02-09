@@ -50,6 +50,12 @@ def st_has_wood_heart(state: CollectionState, player: int):
 def st_has_net(state: CollectionState, player: int):
     return state.has("Rabbit Net", player)
 
+def st_has_compass_of_light(state, player):
+    return state.has("Compass of Light", player)
+
+def st_has_bow_of_light(state, player):
+    return state.has("Bow of Light", player) and st_has_bow(state, player)
+
 ## ========== Rabbits ===========
 
 def st_has_rabbit_items(state, player, realm, count=10):
@@ -477,5 +483,9 @@ def st_can_sword_scroll_clip(state, player):
 def st_castle_town_cuccos(state, player):
     return st_has_birds_song(state, player) or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))
 
-
+def st_has_dungeon_rewards(state, player):
+    if state.multiworld.worlds[player].options.dark_realm_access != "dungeons":
+        return True
+    dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
+    return state.has("_dungeon_reward", player, dungeon_count)
 

@@ -216,6 +216,15 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
 
+    # Dark realm
+    "dark realm portal",
+    "dark realm trains",
+    "demon train",
+    "cole fight",
+    "malladus 1",
+    "malladus 2",
+    "malladus goal",
+
 ] + [
     f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Forest", "Snow"]
 ]

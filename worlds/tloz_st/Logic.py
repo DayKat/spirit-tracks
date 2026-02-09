@@ -25,6 +25,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "n castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "N Castle Town")],
         ["wtt", "snow realm", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_glyph(state, player, "Snow")],
         ["forest realm", "snow realm", False, lambda state: st_has_portal(state, player, "Hyrule Castle to Anouki Village", False)],
+        ["forest realm", "dark realm portal", True, lambda state: st_has_compass_of_light(state, player)],
 
         # cave
         ["forest realm", "forest cave tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SW Cave")],
@@ -230,6 +231,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ========== Bridge Worker's Home =======
         ["snow realm source", "bridge workers", True, lambda state: st_has_source(state, player, "Snow")],
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
+
+        # ===== Dark Realm =====
+        ["dark realm portal", "dark realm trains", False, lambda state: st_has_dungeon_rewards(state, player)],
+        ["dark realm trains", "demon train", False, None],
+        ["demon train", "cole fight", False, None],
+        ["cole fight", "malladus 1", False, lambda state: st_has_bow_of_light(state, player) and st_has_sword(state, player) and st_has_boomerang(state, player)],
+        ["malladus 1", "malladus 2", False, lambda state: st_has_spirit_flute(state, player) and st_has_sword(state, player)],
+        ["malladus 2", "malladus goal", False, lambda state: st_has_sword(state, player) and st_has_bow_of_light(state, player)]
 
     ]
 

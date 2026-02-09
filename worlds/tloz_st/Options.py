@@ -10,16 +10,79 @@ from worlds.tloz_st.data.Items import ITEMS_DATA
 class SpiritTracksGoal(Choice):
     """
     The goal to accomplish in order to complete the seed.
+    - defeat_malladus: enter the dark realm and defeat the demon king.
     - ToS Section 1: Finish the 1st section of Tower of Spirits and retrieve the Forest Glyph
     - ToS Section 2: Finish the 2nd section of Tower of Spirits and retrieve the Snow Glyph
     """
     display_name = "Goal"
+    option_defeat_malladus = -1
     option_beat_ToS_section_1 = 0
     option_beat_ToS_section_2 = 1
     option_beat_wooded_temple = 2
     option_beat_blizzard_temple = 3
+    default = -1
+
+class SpiritTracksDarkRealmUnlock(Choice):
+    """
+    What unlocks the dark realm?
+    - compass_of_light: only the compass of light is required. malladus also requires the locomo sword, bow of light and spirit pipes.
+    - dungeons: find the compass of light and finish a specified number of dungeons to gain access to the dark realm.
+    - shattered_compass: triforce hunt! find a specified number of compass shards to unlock the dark realm.
+    """
+    display_name = "Dark Realm Unlock"
+    option_compass_of_light = 0
+    option_dungeons = 1
+    option_shattered_compass = 2
+
+class SpiritTracksDungeonCount(Range):
+    """
+    How many dungeons are required to unlock the dark realm?
+    """
+    range_start = 1
+    range_end = 4
+    default = 2
+
+class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
+    """
+    How does tower of spirits count towards the dungeon pool?
+    - not_in_dungeon_pool: tower of spirits does not count as a dungeon
+    - final_section: the last implemented section of ToS gets added to the dungeon pool
+    - all_sections: completing each implemented section of ToS gets added to the dungeon pool. Currently, that is 2.
+    """
+    option_not_in_dungeon_pool = 0
+    option_final_section = 1
+    option_all_sections = 2
+
+class SpiritTracksEndgameScope(Choice):
+    """
+    How much of the dark realm do you get to play?
+    - full_dark_realm: everything!
+    - skip_dark_trains: skip the first phase with the dark trains
+    - skip_demon_train: only fight cole and malladus, skipping the demon train fight
+    - malladus_only: only fight the final boss
+    - malladus_p2: skip the boulder phase and the spirit duet, and go straight to the final phase
+    """
+    display_name = "Endgame Scope"
+    option_full_dark_realm = 0
+    option_skip_dark_trains = 1
+    option_skip_demon_train = 2
+    option_malladus_only = 3
+    option_malladus_p2 = 4
+    default = 0
+
+class SpiritTracksRequireSpecificDungeons(Toggle):
+    """
+    Specific dungeons are required to enter the dark realm.
+    """
+    display_name = "Require Specific Dungeons"
     default = 1
 
+class SpiritTracksRequiredDungeonHints(Toggle):
+    """
+    Get hints for what dungeons are required.
+    """
+    display_name = "Dungeon Hints"
+    default = 1
 
 class SpiritTracksRemoveItemsFromPool(ItemDict):
     """
@@ -170,15 +233,17 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
     accessibility: ItemsAccessibility
 
-    # Goal
+    # Goal options
     goal: SpiritTracksGoal
-
-    #dungeons_required: SpiritTracksDungeonsRequired
-    #exclude_non_required_dungeons: SpiritTracksExcludeNonRequiredDungeons
+    dark_realm_access: SpiritTracksDarkRealmUnlock
+    endgame_scope: SpiritTracksEndgameScope
+    dungeons_required: SpiritTracksDungeonCount
+    tos_dungeon_options: SpiritTracksTowerOfSpiritsDungeonOptions
+    require_specific_dungeons: SpiritTracksRequireSpecificDungeons
+    dungeon_hints: SpiritTracksRequiredDungeonHints
 
     # Logic options
     logic: SpiritTracksLogic
-
     #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
 
     # Item Randomization
@@ -187,7 +252,6 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Portals
     portal_behavior: SpiritTracksRandomizePortals
     portal_checks: SpiritTracksPortalLocations
-
 
     # Hint Options
     #dungeon_hints: SpiritTracksDungeonHints
@@ -209,8 +273,16 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # death_link: DeathLink
 
 st_option_groups = [
-    OptionGroup("World Options", [
+    OptionGroup("Goal Options", [
         SpiritTracksGoal,
+        SpiritTracksDarkRealmUnlock,
+        SpiritTracksDungeonCount,
+        SpiritTracksRequireSpecificDungeons,
+        SpiritTracksEndgameScope,
+        SpiritTracksTowerOfSpiritsDungeonOptions,
+        SpiritTracksRequiredDungeonHints,
+    ]),
+    OptionGroup("World Options", [
         SpiritTracksLogic,
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizePortals,

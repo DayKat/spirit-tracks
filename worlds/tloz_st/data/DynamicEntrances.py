@@ -113,6 +113,38 @@ DYNAMIC_ENTRANCES = {
         "destination": "Forest Realm Cave Portal",
         "message": "You don't have access to this portal!"
     },
+
+    # Dark realm options
+    "Bounce Dark realm missing endgame requirements": {
+        "entrance": "Enter Dark Realm Portal",
+        "exit": "Enter Dark Realm Portal",
+        "message": "You are missing dark realm requirements",
+        "dungeons": False
+    },
+    "Dark realm Skip dark trains": {
+        "entrance": "Enter Dark Realm Portal",
+        "exit": "Enter Demon Train",
+        "has_slot_data": [["endgame_scope", 1]],
+        "dungeons": True
+    },
+    "Dark realm Skip demon train": {
+        "entrance": "Enter Dark Realm Portal",
+        "exit": "Enter Cole Fight",
+        "has_slot_data": [["endgame_scope", 2]],
+        "dungeons": True
+    },
+    "Dark realm Skip Cole": {
+        "entrance": "Enter Dark Realm Portal",
+        "exit": "Enter Malladus 1",
+        "has_slot_data": [["endgame_scope", 3]],
+        "dungeons": True
+    },
+    "Dark realm Skip Malladus 1": {
+        "entrance": "Enter Dark Realm Portal",
+        "exit": "Enter Malladus 2",
+        "has_slot_data": [["endgame_scope", 4]],
+        "dungeons": True
+    },
 }
 
 # Reorganize above data to the form {scene: data} or something
