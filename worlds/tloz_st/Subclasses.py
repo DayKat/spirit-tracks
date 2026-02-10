@@ -48,6 +48,7 @@ class EntranceGroups(IntEnum):
     DUNGEON_ROOM = 7 << 3
     WARP_PORTAL = 8 << 3
     TRAIN_PORTAL = 9 << 3
+    EVENT = 10 << 3
 
 OPPOSITE_ENTRANCE_GROUPS = {
     EntranceGroups.RIGHT: EntranceGroups.LEFT,

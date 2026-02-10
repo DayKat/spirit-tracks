@@ -168,9 +168,9 @@ LOCATIONS_DATA = {
         "room_id": 1,
         "entrance_id": 7,
         "x_min": 20640,
-        "x_max": 39330,
-        "z_min": -51620,
-        "z_max": -40336,
+        "x_max": 40000,
+        "z_min": -55000,
+        "z_max": -35000,
         "item_override": "Sand Wand"
     },
     # "Hyrule Castle Sword Training Minigame": {
@@ -275,7 +275,8 @@ LOCATIONS_DATA = {
         "z_min": -8438,
         "z_max": 4506,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)"]
+        "require_item": ["Sword (Progressive)"],
+        "ut_connect": "EVENT: Reach ToS 3F",
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS 4F Central Chest": {
@@ -416,6 +417,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"],
         "goal": True,
+        "ut_connect": "EVENT: Reach ToS 7F"
     },
 
     # =============================================
@@ -569,8 +571,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x19,
         "room_id": 1,
         "x_min": 63078,
-        "x_max": 76186,
-        "z_min": -63898,
         "z_max": -53204,
         "dungeon": "Wooded Temple",
     },
@@ -638,7 +638,8 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "dungeon": "Wooded Temple",
         "require_item": ["Whirlwind", "Sword (Progressive)"],
-        "goal": True
+        "goal": True,
+        "ut_connect": "EVENT: Defeat Stagnox"
     },
 
     # Rabbit Haven
@@ -942,7 +943,8 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "dungeon": "Blizzard Temple",
         "require_item": ["Boomerang", "Sword (Progressive)", "Small Key (Blizzard Temple)"],
-        "goal": True
+        "goal": True,
+        "ut_connect": "EVENT: Defeat Fraaz"
     },
 
     # Icy Spring

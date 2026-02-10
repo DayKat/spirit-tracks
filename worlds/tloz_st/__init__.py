@@ -1,7 +1,7 @@
 import math
 from typing import List, Union, ClassVar, Any, Optional, Tuple
 import settings
-from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification
+from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
@@ -14,22 +14,20 @@ from .data.Constants import *
 from .data.Items import ITEMS
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
-from .data.Entrances import ENTRANCES
+from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
+                             location_event_lookup, goal_event_lookup)
+from entrance_rando import disconnect_entrance_for_randomization
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
+from .Subclasses import EntranceGroups
 
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
-    raise ModuleNotFoundError
 except ModuleNotFoundError:
     print(f"Using legacy logic")
     WorldParent = World
     from .Logic import create_connections
-
-
-
-
 
 class SpiritTracksWeb(WebWorld):
     theme = "grass"
@@ -82,6 +80,7 @@ class SpiritTracksWorld(WorldParent):
     tracker_world = {"map_page_folder": "tracker",
                      "map_page_maps": "maps/maps.json",
                      "map_page_locations": "locations/overworld.json"}
+    found_entrances_datastorage_key = ["st_checked_entrances_{player}_{team}"]
 
     # Rule builder attributes
     item_mapping = ITEM_MAPPING
@@ -104,6 +103,12 @@ class SpiritTracksWorld(WorldParent):
         self.rabbit_realm_items: dict[str, dict[str, int]] = {"Forest": {}, "Snow": {}}
         self.item_mapping_collect: dict[str, tuple[str, int]] = {}
 
+        self.ut_checked_entrances = set()
+        self.ut_pairings = {}
+        self.ut_events = []
+        self.is_ut = getattr(self.multiworld, "generation_is_fake", False)
+
+        self.ut_map_page_hidden_entrances = []
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -121,6 +126,7 @@ class SpiritTracksWorld(WorldParent):
             lookup = build_rabbit_location_id_to_name_dict()
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
             self.required_dungeons = slot_data["required_dungeons"]
+            self.pick_ut_events()
         else:
             self.required_dungeons = self.pick_required_dungeons()
             self.restrict_non_local_items()
@@ -129,7 +135,29 @@ class SpiritTracksWorld(WorldParent):
             print(f"Rabbit items: {self.rabbit_item_dict}")
             if self.options.start_with_train:
                 self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1, "Cannon": 1})
-            self.create_item_mappings()
+        self.create_item_mappings()
+
+    def pick_ut_events(self):
+        events = ["EVENT: Pick up Alfonzo",
+                  goal_event_lookup[self.options.goal.value]]
+
+
+        if self.options.goal == "defeat_malladus":
+            if self.options.dungeon_hints or not self.options.require_specific_dungeons:
+                events += [location_event_lookup[loc] for loc in self.required_dungeons]
+            else:
+                events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz"]
+                if self.options.tos_dungeon_options == "final_section":
+                    events += ["EVENT: Reach ToS 7F"]
+                elif self.options.tos_dungeon_options == "all_sections":
+                    events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F"]
+
+        self.ut_events = events
+        self.ut_map_page_hidden_entrances = {"Overview": [e.name for e in ENTRANCES.values() if
+                                             e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events]}
+        for e in events:
+            event = ENTRANCES[e]
+            self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
 
     def create_item_mappings(self):
         self.item_mapping_collect = {
@@ -255,6 +283,10 @@ class SpiritTracksWorld(WorldParent):
             [self.create_multiple_events(reg, f"_caught_{realm}_rabbits", count)
              for regions, realm in zip([forest_regions, snow_regions], ["forest", "snow"])
              for reg, count in regions.items()]
+
+        # UT Events
+        self.create_event("alfonzo event", "_picked_up_alfonzo")
+
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
@@ -520,6 +552,15 @@ class SpiritTracksWorld(WorldParent):
             self.random.shuffle(extra_items_list)
             self.extra_filler_items = extra_items_list[:extra_item_count]
 
+    def connect_entrances(self) -> None:
+        if self.is_ut:
+            disconnect_ids = {int(i) for i in self.ut_pairings.keys()}
+            for event in self.ut_events:
+                e = self.get_entrance(event)
+                if ENTRANCES[e.name].id in disconnect_ids:
+                    target_name = ENTRANCES[e.name].vanilla_reciprocal.name
+                    disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
+
     def get_pre_fill_items(self):
         return self.pre_fill_items
 
@@ -655,3 +696,23 @@ class SpiritTracksWorld(WorldParent):
     def interpret_slot_data(slot_data: dict[str, Any]):
         return slot_data
 
+    def reconnect_found_entrances(self, key, stored_data):
+        print(f"UT Tried to defer entrances! key {key}"
+              f" {stored_data}"
+              )
+
+        if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
+            print(f"Don't defer entrances when off")
+
+        if "st_checked_entrances" in key and stored_data:
+            new_connections = set(stored_data) - self.ut_checked_entrances
+            self.ut_checked_entrances |= new_connections
+
+            for i in new_connections:
+                pairing = self.ut_pairings.get(str(i), None)
+                # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
+                if pairing is not None:
+                    _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[i].name)
+                    entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                    print(f"Connecting: {_exit} => {entrance_region} | {i}: {pairing}")
+                    _exit.connect(entrance_region)

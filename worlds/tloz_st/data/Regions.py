@@ -39,6 +39,8 @@ REGIONS = [
     #"castle town minigame",
     "castle town cuccos",
     #"castle town fish gem",
+    "pick up alfonzo",
+    "alfonzo event",
 
     # Hyrule Castle
     "hyrule castle",
@@ -63,6 +65,7 @@ REGIONS = [
     "tos 2f bomb wall",
     "tos 3f rail map",
     "goal_forest_glyph",
+    "event_3f",
 
     "tos 4f",
     "tos 4f ne chest",
@@ -74,6 +77,7 @@ REGIONS = [
     "tos 6f chests",
     "tos 7f rail map",
     "goal_snow_glyph",
+    "event_7f",
 
     # Mayscore
     "mayscore",
@@ -120,6 +124,7 @@ REGIONS = [
     #"wt heart container",
     "wt stagnox",
     "goal_stagnox",
+    "event_stagnox",
     "wt stamp station",
     "post wt",
 
@@ -174,6 +179,7 @@ REGIONS = [
     "bt 1f torch chest",
     "bt fraaz",
     "goal_fraaz",
+    "event_fraaz",
     "post bt",
 
     # Icy Spring
@@ -221,6 +227,7 @@ REGIONS = [
     "malladus 1",
     "malladus 2",
     "malladus goal",
+    "malladus event",
 
 
 ] + [

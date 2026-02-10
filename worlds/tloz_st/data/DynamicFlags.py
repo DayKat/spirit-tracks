@@ -221,6 +221,14 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [["portal_behavior", 2]],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
+    "Dark realm restart for dynamic entrances": {
+        "on_scenes": [0x400],
+        "unset_if_true": [(STAddr.adv_flags_57, 0x30)]
+    },
+    "Dark realm spawn demon train quick": {
+        "on_scenes": [0x1000, 0x10FF],
+        "set_if_true": [(STAddr.adv_flags_57, 0x30)]
+    }
 
 }
 """

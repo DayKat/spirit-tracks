@@ -426,4 +426,10 @@ CLASSIFICATION = {
     0: "Filler"
                   }
 
+UT_EVENT_DATA = {
+    0x2900: {"address": STAddr.adv_flags_11,
+           "value": 0x40,
+           "entrance": "EVENT: Pick up Alfonzo"}
+}
+
 #TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}

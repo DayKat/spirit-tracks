@@ -1,5 +1,6 @@
 from BaseClasses import MultiWorld, Item
 from .data.Rules import *
+from .data.Entrances import ENTRANCES
 
 
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
@@ -8,7 +9,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ====== Outset Village ==============
 
         #[region 1, region 2, two-directional, logic requirements],
-        ["outset village", "outset village stamp book", False, has_train & has_glyph("Snow")],
+        ["outset village", "outset village stamp book", False, Has("_picked_up_alfonzo")],
         ["outset village", "outset village stamp station", False, has_stamp_book],
         ["outset village", "outset village trees", False, has_sod],
         ["outset village", "forest realm", False, has_train],
@@ -22,7 +23,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "w castle town tracks", False, Has("W Castle Town Tracks")],
         ["forest realm", "n castle town tracks", False, Has("N Castle Town Tracks")],
         ["wtt", "snow realm", True, has_temple_tracks("Wooded") & has_glyph("Snow")],
-        ["forest realm", "snow realm", False, has_portal("Hyrule Castle to Anouki Village", False)],
+        ["forest realm", "snow realm", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
         ["forest realm", "dark realm portal", True, has_compass],
 
         # cave
@@ -52,6 +53,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "castle town", True, None],
         ["castle town", "castle town wall", False, has_bombs],
+        ["castle town", "pick up alfonzo", False, has_glyph("Snow")],
+        ["pick up alfonzo", "alfonzo event", False, None],
         ["castle town wall", "castle town stamp station", False, has_stamp_book],
         ["castle town wall", "castle town cuccos", False, ct_cuccos],
 
@@ -78,6 +81,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 2f", "tos 2f bomb wall", False, has_bombs],
         ["tos 2f", "tos 3f rail map", False, None],
         ["tos 3f rail map", "goal_forest_glyph", False, None],
+        ["tos 3f rail map", "event_3f", False, None],
 
         ["tos", "tos 4f", False, has_source("Forest")],
         ["tos 4f", "tos 5f island chest", False, has_sword],
@@ -89,6 +93,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 5f spinnit key", "tos 6f key", False, has_small_keys("ToS", 1)],  # already have whirlwind
         ["tos 6f key", "tos 7f rail map", False, has_small_keys("ToS", 2)],
         ["tos 7f rail map", "goal_snow_glyph", False, None],
+        ["tos 7f rail map", "event_7f", False, None],
 
         # # ============ Shops ====================
 
@@ -127,6 +132,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         #["wt", "wt heart container", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         ["wt 3f", "wt stagnox", False, has_sword & has_whirlwind],
         ["wt stagnox", "goal_stagnox", False, None],
+        ["wt stagnox", "event_stagnox", False, None],
 
         # # ============ Trading Post =============
 
@@ -189,6 +195,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bt b1 nw enemy chest", "bt 1f torch chest", False, None],
         ["bt b1 nw enemy chest", "bt fraaz", False, has_sword],
         ["bt fraaz", "goal_fraaz", False, None],
+        ["bt fraaz", "event_fraaz", False, None],
 
         # ========== Icy Spring ==========
 
@@ -199,7 +206,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ============ Snowdrift Station =========
 
         ["blizzard temple tracks", "snowdrift", True, Has("Snowdrift Station Tracks")],
-        ["snowdrift", "snowdrift reward", False, has_short_range & (has_shield | hard_logic) & (has_sword | has_whip | has_bombs)], # and maybe bow?
+        ["snowdrift", "snowdrift reward", False, has_range & (has_shield | hard_logic) & (has_sword | has_whip | has_bombs)], # and maybe bow?
 
         # ========== Slippery Station ==========
         ["blizzard temple tracks", "slippery", True, Has("Slippery Station Tracks") & (has_source("Snow") | Has("N Icy Spring Tracks"))],
@@ -217,7 +224,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["demon train", "cole fight", False, None],
         ["cole fight", "malladus 1", False, has_bow_of_light & has_sword],
         ["malladus 1", "malladus 2", False, has_spirit_flute & has_sword],
-        ["malladus 2", "malladus goal", False, has_bow_of_light & has_sword]
+        ["malladus 2", "malladus goal", False, has_bow_of_light & has_sword],
+        ["malladus 2", "malladus event", False, has_bow_of_light & has_sword],
 
     ]
 
@@ -282,17 +290,23 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
     all_logic = [
         make_overworld_logic(player, origin_name, options)
     ]
+
+    entrance_lookup = {(e.entrance_region, e.exit_region): e.name for e in ENTRANCES.values()}
+    world.set_completion_rule(Has("_beaten_game"))
+
     # Create connections
     for logic_array in all_logic:
         for reg1, reg2, is_two_way, rule in logic_array:
             region_1 = world.get_region(reg1)
             region_2 = world.get_region(reg2)
+            name = entrance_lookup.get((reg1, reg2), None)
             # print(f"Creating connection {reg1} -> {reg2}")
 
-            entrance = region_1.connect(region_2, None)
+            entrance = region_1.connect(region_2, name)
             if rule is not None:
                 world.set_rule(entrance, rule)
             if is_two_way:
-                entrance = region_2.connect(region_1, None)
+                name = entrance_lookup.get((reg2, reg1), None)
+                entrance = region_2.connect(region_1, name)
                 if rule is not None:
                     world.set_rule(entrance, rule)

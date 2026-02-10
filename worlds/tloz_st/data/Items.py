@@ -92,7 +92,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x40,  # also set adv flag?
-        'set_bits': [()]
+        'set_bit': [(STAddr.adv_flags_26, 0x60)]
     },
     "Royal Engineer's Certificate": {
         'classification': ItemClassification,

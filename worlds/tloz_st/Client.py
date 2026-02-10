@@ -4,6 +4,7 @@ from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
+from .data.Entrances import ENTRANCES
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -19,6 +20,7 @@ read_keys_land = [STAddr.getting_location, STAddr.getting_train_part]
 
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
+checked_entrances_key = "st_checked_entrances"
 
 def count_bits(n):
     count = 0
@@ -65,6 +67,14 @@ class SpiritTracksClient(DSZeldaClient):
         self.update_rabbits = False
         self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
         self.rabbit_counter = []  # list of counts for each rabbit type caught in the overworld
+
+        self.visited_entrances = set()
+        self.event_reads = []
+        self.sent_event = False
+        self.event_data = []
+        self.entrances = ENTRANCES
+
+        self.reset_cycles = 0
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -141,7 +151,15 @@ class SpiritTracksClient(DSZeldaClient):
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu: "Address" = read_result[STAddr.menu]
         self.in_stamp_stand = current_menu == 0x0E
-        self.getting_location = not read_result[STAddr.getting_location]
+        getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving]
+        self.getting_location = getting_location or self.reset_cycles
+
+        if getting_location:  # add extra time after receiving items cause finding a good flag is hard
+            self.reset_cycles = 2
+
+        if self.reset_cycles > 0 and not getting_location:
+            self.reset_cycles -= 1
+
 
         # Fix for stamp stand not counting as getting item
         if self.in_stamp_stand and self.receiving_location:
@@ -159,7 +177,11 @@ class SpiritTracksClient(DSZeldaClient):
         # print(f"Goal check {ctx.slot_data['goal']} last {self.last_stage} current {hex(self.current_stage)}")
         if ctx.slot_data["goal"] == -1 and self.last_stage == 0x27 and self.current_stage == 0x25:
             self.has_goal_location = True
-            await self._process_game_completion(ctx)
+            await self.store_event(ctx, "GOAL: Defeat Malladus")
+
+    async def store_event(self, ctx, event_name):
+        entr = self.entrances[event_name]
+        await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
 
     async def update_treasure_tracker(self, ctx):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
@@ -188,6 +210,7 @@ class SpiritTracksClient(DSZeldaClient):
             await self._process_checked_locations(ctx, stamp_location)
 
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
+        await self.detect_ut_event(ctx, self.current_scene)
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
@@ -205,16 +228,25 @@ class SpiritTracksClient(DSZeldaClient):
             # Finished game?
             goal = ctx.slot_data.get("goal")
             if goal == 0 and location.get("region_id") == "tos 3f rail map":
+                await self.store_event(ctx, "GOAL: Reach ToS 3F")
                 self.has_goal_location = True
             if goal == 1 and location.get("region_id") == "tos 7f rail map":
+                await self.store_event(ctx, "GOAL: Reach ToS 7F")
                 self.has_goal_location = True
             if goal == 2 and location.get("region_id") == "wt stagnox":
+                await self.store_event(ctx, "GOAL: Defeat Stagnox")
                 self.has_goal_location = True
             if goal == 3 and location.get("region_id") == "bt fraaz":
+                await self.store_event(ctx, "GOAL: Defeat Fraaz")
                 self.has_goal_location = True
 
         if "rabbit" in location and "address" in location:
             await self.store_rabbit(ctx, location)
+
+        # Connect event
+        if "ut_connect" in location:
+            event_name = location["ut_connect"]
+            await self.store_event(ctx, event_name)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -286,3 +318,52 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_in_menu(self, ctx, read_result):
         await self.get_saved_scene(ctx, saved_scene_key)
+
+    # UT store entrances to defer
+    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data,
+                                      interaction="traverse"):
+        self.visited_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
+        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
+            "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
+        print(f"New Storage Data: {new_data}")
+
+        if new_data:
+            key = storage_key(ctx, checked_entrances_key)
+            await self.store_data(ctx, key, new_data)
+
+    async def detect_ut_event(self, ctx, scene):
+        """
+        Send UT event locations on certain flags being set in certain scenes.
+        """
+        if scene in UT_EVENT_DATA and not self.sent_event:
+            if not self.event_reads:
+                data = UT_EVENT_DATA[scene]
+                data = [data] if isinstance(data, dict) else data
+                self.event_data = data
+                for i, event in enumerate(data):
+                    address = AddrFromPointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
+                    print(f"event data {self.event_data}")
+                    self.event_data[i]["address"] = address
+                    print(f"event data {self.event_data}")
+                    self.event_reads.append(address)
+
+            read_results = await read_multiple(ctx, self.event_reads)
+            for event, res in zip(self.event_data, read_results.values()):
+                if event["value"] & res:
+                    if "entrance" in event:
+                        print(f"Event detection Success!, {event['entrance']}")
+                        entrance = self.entrances[event["entrance"]]
+                        await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
+                    # elif "event" in event:  # not implemented yet
+                    #     print(f"Event detection Success!, {event['event']}")
+                    #     key = storage_key(ctx, ut_events_key)
+                    #     await self.store_data(ctx, key, [event["event"]])
+
+                    self.event_reads.remove(event["address"])
+                    self.event_data.remove(event)
+            if not self.event_data:
+                print(f"All events sent!")
+                self.sent_event = True
+
+        else:
+            self.sent_event = True

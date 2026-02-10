@@ -21,7 +21,7 @@ class STAddr:
     room = Address(0x2690EA)
     entrance = Address(0x2690EB)
     
-    getting_location = Address(0x04B9B8)
+    getting_location = Address(0x04B114)
     getting_train_part = Address(0x11F5E4)
     saving = Address(0x049BD8)
     
