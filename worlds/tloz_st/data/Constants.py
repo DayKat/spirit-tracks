@@ -122,7 +122,8 @@ ITEM_GROUPS = {
         "Red Rupee (20)",
         "Big Green Rupee (100)",
         "Big Red Rupee (200)",
-        "Gold Rupee (300)"
+        "Gold Rupee (300)",
+        "Pre-Alpha Rupee (5000)"
      ],
      "Small Keys": [
          "Small Key (Tunnel to ToS)",

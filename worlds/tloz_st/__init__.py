@@ -6,11 +6,9 @@ from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
 
-from Utils import version_tuple
-
 from .Util import *
 from .Options import *
-from .Logic import create_connections
+
 from .data import LOCATIONS_DATA
 from .data.Constants import *
 from .data.Items import ITEMS
@@ -22,8 +20,12 @@ from .Client import SpiritTracksClient  # Unused, but required to register with 
 
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
-except ImportError:
+    from .LogicRB import create_connections
+    raise ModuleNotFoundError
+except ModuleNotFoundError:
+    print(f"Using legacy logic")
     WorldParent = World
+    from .Logic import create_connections
 
 
 
@@ -100,6 +102,8 @@ class SpiritTracksWorld(WorldParent):
         self.rabbit_counts: list[int] = []
         self.rabbit_item_dict: dict[str, int] = {}
         self.rabbit_realm_items: dict[str, dict[str, int]] = {"Forest": {}, "Snow": {}}
+        self.item_mapping_collect: dict[str, tuple[str, int]] = {}
+
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -125,7 +129,16 @@ class SpiritTracksWorld(WorldParent):
             print(f"Rabbit items: {self.rabbit_item_dict}")
             if self.options.start_with_train:
                 self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1, "Cannon": 1})
+            self.create_item_mappings()
 
+    def create_item_mappings(self):
+        self.item_mapping_collect = {
+            i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupees"]
+        } | {
+            r: ("Forest Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Forest Rabbits"]
+        } | {
+            r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"]
+        }
 
     def pick_required_dungeons(self) -> list[str]:
         if self.options.goal != "defeat_malladus" or self.options.dark_realm_access != "dungeons":
@@ -594,6 +607,30 @@ class SpiritTracksWorld(WorldParent):
         if self.random.randint(1, 20) == 1:
             return self.random.choice(rare_filler_items)
         return self.random.choice(filler_item_names)
+
+    def collect(self, state: CollectionState, item: Item) -> bool:
+        # Code borrowed from Ishigh's early Rule Builder implementation
+        change = super().collect(state, item)
+        if not change:
+            return False
+
+        mapping = self.item_mapping_collect.get(item.name, None)
+        if mapping is not None:
+            #print(f"Mapping {mapping} {state.prog_items[self.player][mapping[0]]} for item {item.name}")
+            state.prog_items[self.player][mapping[0]] += mapping[1]
+
+        return True
+
+    def remove(self, state: CollectionState, item: Item) -> bool:
+        change = super().remove(state, item)
+        if not change:
+            return False
+
+        mapping = self.item_mapping_collect.get(item.name, None)
+        if mapping is not None:
+            state.prog_items[self.player][mapping[0]] -= mapping[1]
+
+        return True
 
     def fill_slot_data(self) -> dict:
         options = ["goal", "logic", "keysanity",

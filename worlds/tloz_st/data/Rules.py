@@ -1,6 +1,4 @@
-import dataclasses
 
-from rule_builder.rules import Filtered
 from .Items import ITEMS
 from .Constants import ITEM_GROUPS
 from ..Options import *
@@ -40,61 +38,15 @@ def has_small_keys(dungeon, count):
 has_net = Has("Rabbit Net")
 
 def has_rabbit_items(realm, count):
-    return HasRabbitItems(realm, count)
+    return Has(f"{realm} Rabbit", count)
 
 def caught_rabbits(realm, count):
     return Has(f"_caught_{realm.lower()}_rabbits", count)
 
+def has_total_rabbits(count):
+    return HasFromList("Forest Rabbit", "Snow Rabbit", count=count)
+
 rabbit_count_lookup = {r: ITEMS[r].value for r in ITEM_GROUPS["Rabbits"]}
-
-@dataclasses.dataclass
-class HasRabbitItems(Rule["SpiritTracksWorld"], game="The Legend of Zelda - Spirit Tracks"):
-    realm: str
-    count: int
-
-    @override
-    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
-        return self.Resolved(
-            self.realm,
-            self.count,
-            player=world.player,
-            caching_enabled=getattr(world, "rule_caching_enabled", False),
-        )
-
-    class Resolved(Rule.Resolved):
-        realm: str
-        count: int
-
-        @override
-        def _evaluate(self, state: CollectionState) -> bool:
-            rabbit_lookup = {r: ITEMS[r].value for r in ITEM_GROUPS[f"{self.realm} Rabbits"]}
-            rabbit_total = 0
-            for r, v in rabbit_lookup.items():
-                rabbit_total += state.count(r, self.player) * v
-            return rabbit_total >= self.count
-
-
-@dataclasses.dataclass
-class HasRabbitsTotal(Rule["SpiritTracksWorld"], game="The Legend of Zelda - Spirit Tracks"):
-    count: int
-
-    @override
-    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
-        return self.Resolved(
-            self.count,
-            player=world.player,
-            caching_enabled=getattr(world, "rule_caching_enabled", False),
-        )
-
-    class Resolved(Rule.Resolved):
-        count: int
-
-        @override
-        def _evaluate(self, state: CollectionState) -> bool:
-            rabbit_total = 0
-            for r, v in rabbit_count_lookup.items():
-                rabbit_total += state.count(r, self.player) * v
-            return rabbit_total >= self.count
 
 # Tracks
 has_compass = Has("Compass of Light")
@@ -137,23 +89,12 @@ ct_cuccos = has_sob | (has_whirlwind & hard_logic)
 def has_rupees(count):
     return Has("Rupees", count)
 
+def has_dungeon_rewards(count: int):
+    option = SpiritTracksDarkRealmUnlock
+    return ([
+                OptionFilter(option, option.option_dungeons, operator="ne")]
+            | Has("_dungeon_reward", count, options=[OptionFilter(option, option.option_dungeons)]))
 
-class HasRequiredDungeons(Rule["SpiritTracksWorld"], game="The Legend of Zelda - Spirit Tracks"):
-    @override
-    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
-        # caching_enabled only needs to be passed in when your world inherits from CachedRuleBuilderWorld
-        return self.Resolved(world.options.dungeons_required.value, player=world.player, caching_enabled=False)
-
-    class Resolved(Rule.Resolved):
-        dungeons_required: int
-
-        @override
-        def _evaluate(self, state: CollectionState) -> bool:
-            # print(f"\tDungeons required: {self.dungeons_required} {state.count('_dungeon_reward', self.player)} {state.has('_dungeon_reward', self.player, count=self.dungeons_required)}")
-            return state.has("_dungeon_reward", self.player, count=self.dungeons_required)
-
-
-has_dungeon_rewards = [OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons, operator="ne")] | HasRequiredDungeons(options=[OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons)])
 
 def st_has_dungeon_rewards(state, player):
     if state.multiworld.worlds[player].options.dark_realm_access != "dungeons":
