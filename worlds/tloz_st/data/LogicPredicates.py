@@ -132,42 +132,10 @@ def st_has_damage(state: CollectionState, player: int):
         state.has("Whip", player),
     ])
 
-
-def st_has_cave_damage(state: CollectionState, player: int):
-    return any([
-        state.has("Sword (Progressive)", player),
-        state.has("Bombs (Progressive)", player),
-        state.has("Bow (Progressive)", player),
-        state.has("Whip", player),
-    ])
-
-
 def st_can_kill_bat(state: CollectionState, player: int):
     return any([
         st_has_damage(state, player),
         st_has_boomerang(state, player)
-    ])
-
-
-def st_can_kill_blue_chu(state: CollectionState, player: int):
-    return any([
-        st_has_bombs(state, player),  # Only place this is relevant is in "cave"
-        st_has_bow(state, player),
-        st_has_whip(state, player),
-        st_has_beam_sword(state, player),
-        all([
-            st_has_sword(state, player),
-            any([
-                st_has_boomerang(state, player),
-            ])
-        ])
-    ])
-
-
-def st_can_kill_eye_brute(state: CollectionState, player: int):
-    return any([
-        st_option_hard_logic(state, player),
-        st_has_bow(state, player),
     ])
 
 
@@ -182,13 +150,6 @@ def st_can_kill_bubble(state: CollectionState, player: int):
                 st_has_whirlwind(state, player),
             ])
         ])
-    ])
-
-
-def st_totok_stantom_steal_object(state, player):
-    return any([
-        st_clever_pots(state, player),
-        st_can_kill_bat(state, player)
     ])
 
 def st_has_range(state: CollectionState, player: int):
@@ -210,40 +171,6 @@ def st_has_beam_sword(state: CollectionState, player: int):
         st_has_sword(state, player),
         st_has_sword_beam_scroll(state, player)
     ])
-
-
-def st_can_hit_spin_switches(state: CollectionState, player: int):
-    return any([
-        st_has_sword(state, player),
-        all([
-            st_option_hard_logic(state, player),
-            any([
-                st_has_bombs(state, player),
-                st_has_boomerang(state, player)
-            ])
-        ])
-    ])
-
-
-def st_spiral_wall_switches(state: CollectionState, player: int):
-    return any([
-        st_has_boomerang(state, player),
-        st_has_bombs(state, player)
-    ])
-
-
-def st_quick_switches(state, player):
-    return any([
-        st_has_boomerang(state, player),
-        all([
-            st_has_bow(state, player),
-            st_option_hard_logic(state, player)
-        ])
-    ])
-
-
-def st_can_cut_small_trees(state: CollectionState, player: int):
-    return any([st_has_sword(state, player), st_has_bombs(state, player)])
 
 def st_can_ring_bell(state: CollectionState, player: int):
     return any([st_has_sword(state, player), st_has_boomerang(state, player)])

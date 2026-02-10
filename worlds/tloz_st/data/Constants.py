@@ -299,10 +299,10 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
-    "Wooded Temple Dungeon Reward",
-    "Blizzard Temple Dungeon Reward",
-    "ToS 3F Forest Rail Glyph",
-    "ToS 7F Snow Rail Glyph"
+    "Wooded Temple Dungeon Reward": "wt stagnox",
+    "Blizzard Temple Dungeon Reward": "bt fraaz",
+    "ToS 3F Forest Rail Glyph": "tos 3f rail map",
+    "ToS 7F Snow Rail Glyph": "tos 7f rail map"
 }
 
 DUNGEON_KEY_DATA = {
@@ -404,6 +404,14 @@ TRAINS = [
     "Train: Dignified Train",
     "Train: Golden Train",
 ]
+
+# Used by rule builder
+ITEM_MAPPING = {
+        i: "Rupees" for i in ITEM_GROUPS["Rupees"]
+    } | {
+        f"Forest Rabbits ({i})": "Forest Rabbit" for i in list(range(2, 6)) + [10]
+    } | {
+        f"Snow Rabbits ({i})": "Snow Rabbit" for i in list(range(2, 6)) + [10]}
 
 # Stamp stuff
 STAMPS = []

@@ -1,13 +1,12 @@
 import math
-import os
-import logging
-import random
 from typing import List, Union, ClassVar, Any, Optional, Tuple
 import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
+from rule_builder.cached_world import CachedRuleBuilderWorld
+from Utils import version_tuple
 
 from .Util import *
 from .Options import *
@@ -20,6 +19,9 @@ from .data.LogicPredicates import *
 from .data.Entrances import ENTRANCES
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
+
+
+world_parent = World if version_tuple < (0, 7, 6) else CachedRuleBuilderWorld
 
 
 class SpiritTracksWeb(WebWorld):
@@ -49,7 +51,7 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
 
     return item_pool_dict, filler_item_count
 
-class SpiritTracksWorld(World):
+class SpiritTracksWorld(world_parent):
     """
     The Legend of Zelda: Spirit Tracks is the train bound handheld sequel to Phantom Hourglass.
     """
@@ -62,6 +64,7 @@ class SpiritTracksWorld(World):
 
     settings_key = "tloz_st_options"
 
+    # UT Attributes
     location_name_to_id = build_location_name_to_id_dict()
     item_name_to_id = build_item_name_to_id_dict()
     item_name_groups = ITEM_GROUPS
@@ -72,6 +75,9 @@ class SpiritTracksWorld(World):
     tracker_world = {"map_page_folder": "tracker",
                      "map_page_maps": "maps/maps.json",
                      "map_page_locations": "locations/overworld.json"}
+
+    # Rule builder attributes
+    item_mapping = ITEM_MAPPING
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -171,14 +177,14 @@ class SpiritTracksWorld(World):
         self.exclude_locations_automatically()
 
     def create_event(self, region_name, event_item_name):
-        region = self.multiworld.get_region(region_name, self.player)
+        region = self.get_region(region_name)
         location = Location(self.player, region_name + ".event", None, region)
         region.locations.append(location)
         location.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
 
     # When you want multiple copies of the same event in the same region
     def create_multiple_events(self, region_name, event_item_name, count):
-        region = self.multiworld.get_region(region_name, self.player)
+        region = self.get_region(region_name)
         locations = [Location(self.player, region_name + f"{i}.event", None, region) for i in range(count)]
         for loc in locations:
             region.locations.append(loc)
@@ -204,9 +210,9 @@ class SpiritTracksWorld(World):
                 self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
             self.create_event("malladus goal", "_beaten_game")
         else:
-            if self.options.goal == "beat_ToS_section_1":
+            if self.options.goal == "beat_tos_section_1":
                 goal_loc = "goal_forest_glyph"
-            elif self.options.goal == "beat_ToS_section_2":
+            elif self.options.goal == "beat_tos_section_2":
                 goal_loc = "goal_snow_glyph"
             elif self.options.goal == "beat_wooded_temple":
                 goal_loc = "goal_stagnox"
@@ -266,8 +272,7 @@ class SpiritTracksWorld(World):
             self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
 
     def set_rules(self):
-        create_connections(self.multiworld, self.player, self.origin_region_name, self.options)
-        self.multiworld.completion_condition[self.player] = lambda state: state.has("_beaten_game", self.player)
+        create_connections(self, self.player, self.origin_region_name, self.options)
 
     def create_item(self, name: str) -> Item:
         classification = ITEMS[name].classification
@@ -501,7 +506,7 @@ class SpiritTracksWorld(World):
         return self.pre_fill_items
 
     def pre_fill(self) -> None:
-        self.pre_fill_boss_rewards()
+        # self.pre_fill_boss_rewards()
         self.pre_fill_dungeon_items()
         pass
 

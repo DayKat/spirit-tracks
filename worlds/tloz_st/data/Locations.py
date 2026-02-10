@@ -227,7 +227,7 @@ LOCATIONS_DATA = {
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS 2F Raised Chest": {
-        "region_id": "tos 2f raised chest",
+        "region_id": "tos 2f raised chests",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Cannon",
         "stage_id": 0x13,
@@ -241,7 +241,7 @@ LOCATIONS_DATA = {
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS 2F Whirlwind Chest": {
-        "region_id": "tos 2f whirlwind",
+        "region_id": "tos 2f raised chests",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x13,
         "room_id": 1,
@@ -279,7 +279,7 @@ LOCATIONS_DATA = {
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS 4F Central Chest": {
-        "region_id": "tos 4f central chest",
+        "region_id": "tos 4f",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 3,
@@ -338,7 +338,7 @@ LOCATIONS_DATA = {
         # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang", "Bombs (Progressive)"]
     },
     "ToS 6F Enemy Chest 1": {
-        "region_id": "tos 6f ne chest 1",
+        "region_id": "tos 6f chests",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 5,
@@ -352,7 +352,7 @@ LOCATIONS_DATA = {
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Chest 2": {
-        "region_id": "tos 6f ne chest 2",
+        "region_id": "tos 6f chests",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 5,
@@ -365,7 +365,7 @@ LOCATIONS_DATA = {
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Chest 3": {
-        "region_id": "tos 6f ne chest 3",
+        "region_id": "tos 6f chests",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 5,
@@ -378,7 +378,7 @@ LOCATIONS_DATA = {
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Big Chest": {
-        "region_id": "tos 6f ne big chest",
+        "region_id": "tos 6f chests",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "item_override": "Refill: Arrows",
         "stage_id": 0x13,
@@ -922,7 +922,7 @@ LOCATIONS_DATA = {
         "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
     },
     "Blizzard Temple Boss Heart Container": {
-        "region_id": "bt heart container",
+        "region_id": "bt fraaz",
         "vanilla_item": "Heart Container",
         "stage_id": 0x1F,
         "room_id": 0,

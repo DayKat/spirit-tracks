@@ -16,8 +16,8 @@ class SpiritTracksGoal(Choice):
     """
     display_name = "Goal"
     option_defeat_malladus = -1
-    option_beat_ToS_section_1 = 0
-    option_beat_ToS_section_2 = 1
+    option_beat_tos_section_1 = 0
+    option_beat_tos_section_2 = 1
     option_beat_wooded_temple = 2
     option_beat_blizzard_temple = 3
     default = -1
