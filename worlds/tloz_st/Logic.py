@@ -82,6 +82,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 2f", "tos 2f bomb wall", False, lambda state: st_has_bombs(state, player)],
         ["tos 2f", "tos 3f rail map", False, None],
         ["tos 3f rail map", "goal_forest_glyph", False, None],
+        ["tos 3f rail map", "event_3f", False, None],
 
         ["tos", "tos 4f", False, lambda state: (st_has_source(state, player, "Forest"))],
         ["tos 4f", "tos 5f island chest", False, lambda state: st_has_sword(state, player)],
@@ -93,6 +94,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 5f spinnit key", "tos 6f key", False, lambda state: st_has_small_keys(state, player, "ToS", 1)],
         ["tos 6f key", "tos 7f rail map", False, lambda state: st_has_small_keys(state, player, "ToS", 2)],
         ["tos 7f rail map", "goal_snow_glyph", False, None],
+        ["tos 7f rail map", "event_7f", False, None],
 
         # # ============ Shops ====================
 
@@ -129,6 +131,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         #["wt", "wt heart container", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         ["wt", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         ["wt stagnox", "goal_stagnox", False, None],
+        ["wt stagnox", "event_stagnox", False, None],
 
         # # ============ Trading Post =============
 
@@ -199,6 +202,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bt b1 nw enemy chest", "bt 1f torch chest", False, None],
         ["bt b1 nw enemy chest", "bt fraaz", False, lambda state: st_has_sword(state, player)],
         ["bt fraaz", "goal_fraaz", False, None],
+        ["bt fraaz", "event_fraaz", False, None],
 
         # ========== Icy Spring ==========
 
@@ -237,7 +241,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["demon train", "cole fight", False, None],
         ["cole fight", "malladus 1", False, lambda state: st_has_bow_of_light(state, player) and st_has_sword(state, player) and st_has_boomerang(state, player)],
         ["malladus 1", "malladus 2", False, lambda state: st_has_spirit_flute(state, player) and st_has_sword(state, player)],
-        ["malladus 2", "malladus goal", False, lambda state: st_has_sword(state, player) and st_has_bow_of_light(state, player)]
+        ["malladus 2", "malladus goal", False, lambda state: st_has_sword(state, player) and st_has_bow_of_light(state, player)],
+
+        ["malladus 2", "malladus event", False, lambda state: st_has_sword(state, player) and st_has_bow_of_light(state, player)],
 
     ]
 

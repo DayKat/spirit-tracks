@@ -255,7 +255,7 @@ ENTRANCE_DATA = {
     "GOAL: Defeat Malladus": {
         "two_way": False,
         "entrance_region": "malladus 2",
-        "exit_region": "malladus event",
+        "exit_region": "malladus goal",
         "entrance": (0x29, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
