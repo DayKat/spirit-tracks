@@ -5,7 +5,7 @@ from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, 
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
-from rule_builder.cached_world import CachedRuleBuilderWorld
+
 from Utils import version_tuple
 
 from .Util import *
@@ -20,8 +20,13 @@ from .data.Entrances import ENTRANCES
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
 
+try:  # Backwards compatibility yay
+    from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
+except ImportError:
+    WorldParent = World
 
-world_parent = World if version_tuple < (0, 7, 6) else CachedRuleBuilderWorld
+
+
 
 
 class SpiritTracksWeb(WebWorld):
@@ -51,7 +56,7 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
 
     return item_pool_dict, filler_item_count
 
-class SpiritTracksWorld(world_parent):
+class SpiritTracksWorld(WorldParent):
     """
     The Legend of Zelda: Spirit Tracks is the train bound handheld sequel to Phantom Hourglass.
     """
