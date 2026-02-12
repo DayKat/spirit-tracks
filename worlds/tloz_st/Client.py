@@ -7,16 +7,20 @@ from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 from .data.Entrances import ENTRANCES
 
 if TYPE_CHECKING:
-    from worlds._bizhawk.context import BizHawkClientContext
+    from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
 
 # gMapManager -> mCourse -> mSmallKeys
 SMALL_KEY_OFFSET = 0x260
 STAGE_FLAGS_OFFSET = 176
+TRAIN_SPEED_OFFSET = 0x94
+
+train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving]
 read_keys_land = [STAddr.getting_location, STAddr.getting_train_part]
+read_keys_train = [STAddr.train_gear]
 
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
@@ -29,9 +33,35 @@ def count_bits(n):
         count += 1
     return count
 
+def _cmd_train_speed(self: "BizHawkClientCommandProcessor", gear: int or str = 3, speed: int or str = 0):
+    """Set train speed in game. Gears are ints from 0 to 3, where 0 is reverse and 3 is fast."""
+    try:
+        gear, speed = int(gear), int(speed)
+    except ValueError:
+        self.output(f"Command Failed: Gear and speed must be ints")
+        return False
+
+    if gear not in range(4):
+        self.output(f"Gear is out of range, must be between 0 and 3")
+        return False
+
+
+    ctx = self.ctx
+    from worlds._bizhawk.context import BizHawkClientContext
+    assert isinstance(ctx, BizHawkClientContext)
+    client = ctx.client_handler
+    assert isinstance(client, SpiritTracksClient)
+    client.train_speed[gear] = speed
+    client.update_train_speed = True
+    self.output(f"Train speeds {client.train_speed}")
+    return True
+
 class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
     system = "NDS"
+    train_speed_addr: "Address"
+    update_train_speed: bool = False
+    train_speed = [-300, 0, 250, 400]
 
     def __init__(self) -> None:
         super().__init__()
@@ -75,6 +105,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.entrances = ENTRANCES
 
         self.reset_cycles = 0
+        self.last_train_gear = 2
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -84,6 +115,11 @@ class SpiritTracksClient(DSZeldaClient):
         rom_name = bytes([byte for byte in rom_name_bytes[0] if byte != 0]).decode("ascii")
         print(f"Rom Name: {rom_name}")
         if rom_name == "SPIRITTRACKSBKIP":  # EU
+
+            # Set commands
+            if "train_speed" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["train_speed"] = _cmd_train_speed
+
             return True
         return False
 
@@ -133,6 +169,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always
         read_keys += read_keys_land  # TODO: don't bother reading on train
+        read_keys += read_keys_train
         self.main_read_list = read_keys
         # print(self.main_read_list)
 
@@ -211,6 +248,8 @@ class SpiritTracksClient(DSZeldaClient):
 
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
         await self.detect_ut_event(ctx, self.current_scene)
+        await self.process_train_speed(ctx, read_result)
+
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
@@ -367,3 +406,27 @@ class SpiritTracksClient(DSZeldaClient):
 
         else:
             self.sent_event = True
+
+    async def process_hard_coded_rooms(self, ctx, current_scene):
+        if self.current_stage in range(4, 8):
+            await write_multiple(ctx, train_speed_addresses, self.train_speed)
+            self.last_train_gear = -1  # force a quick speed increase
+            pointer = await STAddr.train_speed_pointer.read(ctx)
+            self.train_speed_addr = AddrFromPointer(pointer-0x2000000+TRAIN_SPEED_OFFSET, size=4)
+
+    async def process_train_speed(self, ctx, read_result):
+        if self.update_train_speed:
+            await write_multiple(ctx, train_speed_addresses, self.train_speed)
+            self.update_train_speed = False
+
+        if self.current_stage in range(4, 8):
+            current_gear = read_result[STAddr.train_gear]
+            if current_gear != self.last_train_gear:
+                self.last_train_gear = current_gear
+
+                if current_gear == 1:
+                    await STAddr.train_action.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
+                else:
+                    # Instant-set train speed
+                    await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10)
+
