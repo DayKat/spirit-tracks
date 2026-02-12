@@ -633,7 +633,10 @@ def ph_option_phantoms_hard(state: CollectionState, player: int):
             state.multiworld.worlds[player].options.phantom_combat_difficulty in ["require_weapon"],
             ph_UT_glitched_logic(state, player)
         ]),
-        ph_has_grapple(state, player)
+        any([
+            ph_has_grapple(state, player),
+            ph_has_boomerang(state, player)
+        ]),
     ])
 
 

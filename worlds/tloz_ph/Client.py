@@ -677,32 +677,26 @@ class PhantomHourglassClient(DSZeldaClient):
         # Sand of hours check
         _value = 0
         if "Sand" in item_data.value:
+            if ctx.slot_data["ph_required"] and not self.item_count(ctx, "Phantom Hourglass"):
+                return 0
+            sand_lookup = {
+                "Phantom Hourglass": ctx.slot_data["ph_starting_time"] * 60,
+                "Sand of Hours": ctx.slot_data["ph_time_increment"] * 60,
+                "Sand of Hours (Small)": 3600,
+                "Sand of Hours (Boss)": 7200
+            }
+            _value = sum([self.item_count(ctx, i)*v for i, v in sand_lookup.items()])
 
-            if item_data.value == "Sand":
-                if not ctx.slot_data["ph_required"] or self.item_count(ctx, "Phantom Hourglass"):
-                    _value = ctx.slot_data["ph_time_increment"] * 60
-                else:
-                    _value = 0
-            elif item_data.value == "Sand PH":
-                _value = ctx.slot_data["ph_starting_time"] * 60
-
-                # If ph is required, add all time so far on finding
-                if ctx.slot_data["ph_required"] and self.item_count(ctx, "Phantom Hourglass") < 2:
-                    _value += (ctx.slot_data["ph_time_increment"] * 60 * self.item_count(ctx, "Sand of Hours")
-                              + self.item_count(ctx, "Sand of Hours (Small)") * 3600
-                              + self.item_count(ctx, "Sand of Hours (Boss)") * 7200)
-            else:
-                _value = item_data.value
-            last_time = await item_data.address.read(ctx)
-            if last_time + _value > 359940:
-                print(f"Time: Last time {last_time} value {_value} new {359940 - last_time} max {359940}")
-                _value = 359940 - last_time
+            if _value > 359940:
+                _value = 359940
             print(f"Sand stage {self.current_stage} {_value}")
             if self.current_stage == 0x25:
-                await PHAddr.phantom_hourglass_current.add(ctx, _value)
+                add_value = sand_lookup[item_data.name]
+                await PHAddr.phantom_hourglass_current.add(ctx, add_value)
 
         elif item_data.value == "pack_size":
-            _value = ctx.slot_data["spirit_gem_packs"]
+            _value = ctx.slot_data["spirit_gem_packs"] * self.item_count(ctx, item_data.name)
+            _value += self.item_count(ctx, item_data.name.removesuffix(" Pack"))
         else:
             raise ValueError(f"Special item value {item_data.value} is not supported")
         return _value
