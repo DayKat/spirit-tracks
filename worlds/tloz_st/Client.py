@@ -35,6 +35,7 @@ def count_bits(n):
 
 def _cmd_train_speed(self: "BizHawkClientCommandProcessor", gear: int or str = 3, speed: int or str = 0):
     """Set train speed in game. Gears are ints from 0 to 3, where 0 is reverse and 3 is fast."""
+    # Thanks to
     try:
         gear, speed = int(gear), int(speed)
     except ValueError:
