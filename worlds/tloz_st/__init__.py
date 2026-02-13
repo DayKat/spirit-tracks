@@ -185,9 +185,9 @@ class SpiritTracksWorld(WorldParent):
         self.item_mapping_collect = {
             i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupees"]
         } | {
-            r: ("Forest Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Forest Rabbits"]
+            r: ("Forest Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Forest Rabbits"][1:]
         } | {
-            r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"]
+            r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"][1:]
         }
 
     def pick_required_dungeons(self) -> list[str]:

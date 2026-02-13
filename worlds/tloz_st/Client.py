@@ -1,3 +1,5 @@
+from Scripts.pywin32_postinstall import silent
+
 import settings
 from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
@@ -109,7 +111,8 @@ def cmd_train_speed(self: "BizHawkClientCommandProcessor",
             set_speed(default_train_speed)
             return True
 
-    valid_gears = {"reverse": 0, "stop": 1, "slow": 2, "fast": 3, "back": 0, "backwards": 0, "pause": 1, "mid": 2, "max": 2,
+    valid_gears = {"reverse": 0, "stop": 1, "slow": 2, "fast": 3,
+                   "back": 0, "backwards": 0, "pause": 1, "neutral": 1, "mid": 2, "max": 2,
                    "-1": 0, "0": 1, "1": 2, "2": 3}
     if gear.lower() in valid_gears:
         gear_int = valid_gears[gear]
@@ -274,7 +277,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.getting_location = getting_location or self.reset_cycles
 
         if getting_location:  # add extra time after receiving items cause finding a good flag is hard
-            self.reset_cycles = 2
+            self.reset_cycles = 3
 
         if self.reset_cycles > 0 and not getting_location:
             self.reset_cycles -= 1
@@ -444,7 +447,8 @@ class SpiritTracksClient(DSZeldaClient):
         pass
 
     async def process_post_receive(self, ctx):
-        await self.update_treasure_tracker(ctx)  # always update treasure tracker, lots of random treasures on ground!
+        if not self.delay_pickup or self.delay_reset:
+            await self.update_treasure_tracker(ctx)  # always update treasure tracker, lots of random treasures on ground!
 
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:
@@ -474,7 +478,7 @@ class SpiritTracksClient(DSZeldaClient):
         """
         if scene in UT_EVENT_DATA and not self.sent_event:
             if not self.event_reads:
-                data = UT_EVENT_DATA[scene]
+                data = UT_EVENT_DATA[scene].copy()
                 data = [data] if isinstance(data, dict) else data
                 self.event_data = data
                 for i, event in enumerate(data):
@@ -529,5 +533,5 @@ class SpiritTracksClient(DSZeldaClient):
                     await train_action_addr.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
                 # Instant-set train speed
                 if self.train_snap_speed and current_gear != 1:
-                    await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10)
+                    await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10, silent=True)
 

@@ -206,7 +206,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ============ Snowdrift Station =========
 
         ["blizzard temple tracks", "snowdrift", True, Has("Snowdrift Station Tracks")],
-        ["snowdrift", "snowdrift reward", False, has_range & (has_shield | hard_logic) & (has_sword | has_whip | has_bombs)], # and maybe bow?
+        ["snowdrift", "snowdrift reward", False, has_range & (has_shield | has_bow_of_light | hard_logic) & (has_sword | has_whip | has_bombs | has_bow)], # and maybe bow?
 
         # ========== Slippery Station ==========
         ["blizzard temple tracks", "slippery", True, Has("Slippery Station Tracks") & (has_source("Snow") | Has("N Icy Spring Tracks"))],

@@ -92,7 +92,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x40,  # also set adv flag?
-        'set_bit': [(STAddr.adv_flags_26, 0x60)]
+        'set_bit': [(STAddr.adv_flags_25, 0x60)]
     },
     "Royal Engineer's Certificate": {
         'classification': ItemClassification,
@@ -236,7 +236,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x08,
     },
     "W Castle Town Tracks": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x20,
     },
@@ -256,7 +256,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x01,
     },
     "N Castle Town Tracks": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x02,
     },

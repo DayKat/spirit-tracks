@@ -81,6 +81,7 @@ STAGES = {
     0x6: "Ocean Realm",
     0x7: "Fire Realm",
     0x8: "Train Tutorial",
+    # 0xb: "SR Roktite Tunnel",
     0xF: "Dark Realm",
     0x10: "Demon Train",
     0x11: "Demon Train P2",
