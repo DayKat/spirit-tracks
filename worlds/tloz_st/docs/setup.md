@@ -21,10 +21,12 @@
 6. Launch the vanilla game in bizhawk, and open the lua console. Add the 'connector_bizhawk_generic.lua' script that can be found in 'Archipelago\data\lua'. 
 7. You are now ready to play! Start a new savefile and go!
 
-## Important:
+## FAQ
+### I can't leave Outset/Aboda
+You need to get two locations, `Outset Clear Rocks` and `Outset Bee Item` and reload the room before Zelda will spawn to let you on the train, and you need the `Forest Glyph` and `Cannon` to use the train.
 
-- When starting a new savefile, connect the lua to the client before starting. Using an in-progress file should be fine in either order.
-- On a new seed, DO NOT TALK TO ALFONSO to start the tutorial until zelda appears at the station. She'll appear after doing the "Outset Clear Rocks" and "Outset Bee Tree" checks, and if you have received both Forest Glyph and Cannon.
-- If you feel you are stuck when you should be able to do something and the game is not allowing it, going in and out of a loading zone (e.g a house) might fix it so try that first.
+### My train is slow
+You can adjust the train speed with `/train` in your bizhawk client
 
-
+### Is there a map tracker?
+Yes! Get [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases) and it will create a simple map page!
