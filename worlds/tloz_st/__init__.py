@@ -29,6 +29,19 @@ except ModuleNotFoundError:
     WorldParent = World
     from .Logic import create_connections
 
+# Adds a consistent count of items to pool, independent of how many are from locations
+def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
+    count_addable = count-item_pool_dict.setdefault(item,0)
+    if filler_item_count >= count_addable:
+        item_pool_dict[item] += count_addable
+        filler_item_count = filler_item_count - count_addable
+    else:
+        item_pool_dict[item] += filler_item_count
+        filler_item_count = 0
+        print(f"Ran out of filler items! at {item}")
+
+    return item_pool_dict, filler_item_count
+
 class SpiritTracksWeb(WebWorld):
     theme = "grass"
     setup_en = Tutorial(
@@ -43,18 +56,26 @@ class SpiritTracksWeb(WebWorld):
     tutorials = [setup_en]
     option_groups = st_option_groups
 
-# Adds a consistent count of items to pool, independent of how many are from locations
-def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
-    count_addable = count-item_pool_dict.setdefault(item,0)
-    if filler_item_count >= count_addable:
-        item_pool_dict[item] += count_addable
-        filler_item_count = filler_item_count - count_addable
-    else:
-        item_pool_dict[item] += filler_item_count
-        filler_item_count = 0
-        print(f"Ran out of filler items! at {item}")
+class SpiritTracksSettings(settings.Group):
+    class STTrainSpeed(list[int]):
+        """
+        Train speed for each of the 4 gears, from lowest (reverse) to highest.
+        defaults are -143, 0, 115, 193
+        """
+    class STTrainInstantStation(str):
+        """
+        Allows entering stations immediately on the stop gear, no matter your speed.
+        """
+    class STTrainSnapSpeed(str):
+        """
+        The train will instantly switch to the new speed when changing gears, no acceleration required.
+        Does not apply to your stop gear.
+        """
 
-    return item_pool_dict, filler_item_count
+    train_speed: STTrainSpeed = STTrainSpeed([-143, 0, 115, 193])
+    train_snap_speed: Union[STTrainSnapSpeed, bool] = True
+    train_quick_station: Union[STTrainInstantStation, bool] = True
+
 
 class SpiritTracksWorld(WorldParent):
     """
@@ -63,6 +84,7 @@ class SpiritTracksWorld(WorldParent):
     game = "The Legend of Zelda - Spirit Tracks"
     options_dataclass = SpiritTracksOptions
     options: SpiritTracksOptions
+    settings: ClassVar[SpiritTracksSettings]
     required_client_version = (0, 6, 1)
     web = SpiritTracksWeb()
     topology_present = True

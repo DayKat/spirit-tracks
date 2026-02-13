@@ -31,7 +31,6 @@ class STAddr:
     
     menu = Address(0x260958)
     equipped_item = Address(0x265318, size=4)
-    train_gear = Address(0x2CA438)
     
     health = Address(0x2651BC)
     heart_count = Address(0x2651BD)
@@ -56,7 +55,9 @@ class STAddr:
     train_speed_stop = Address(0x135FF4, size=4)  # 0
     train_speed_reverse = Address(0x135FEC, size=4) # -143
     train_speed_pointer = Address(0x13F578, size=4)  # + 0x94 to get actual train speed
-    train_action = Address(0x2CA23C)
+
+    train_action = Address(0x2CA23C) # forest, but near train speed pointer
+    train_gear = Address(0x2CA438)  # forest, find pointer
 
     # Inventory
     items_0 = Address(0x265320)

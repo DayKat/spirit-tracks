@@ -1,18 +1,22 @@
-
+import settings
 from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 from .data.Entrances import ENTRANCES
+from settings import get_settings
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
+    from . import SpiritTracksSettings
 
 # gMapManager -> mCourse -> mSmallKeys
 SMALL_KEY_OFFSET = 0x260
 STAGE_FLAGS_OFFSET = 176
 TRAIN_SPEED_OFFSET = 0x94
+TRAIN_GEAR_OFFSET = 0x27c
+TRAIN_QUICK_STATION_OFFSET = 0x80
 
 train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
@@ -33,36 +37,79 @@ def count_bits(n):
         count += 1
     return count
 
-def _cmd_train_speed(self: "BizHawkClientCommandProcessor", gear: int or str = 3, speed: int or str = 0):
-    """Set train speed in game. Gears are ints from 0 to 3, where 0 is reverse and 3 is fast."""
-    # Thanks to
-    try:
-        gear, speed = int(gear), int(speed)
-    except ValueError:
-        self.output(f"Command Failed: Gear and speed must be ints")
-        return False
-
-    if gear not in range(4):
-        self.output(f"Gear is out of range, must be between 0 and 3")
-        return False
-
-
+def get_client_as_command_processor(self: "BizHawkClientCommandProcessor"):
     ctx = self.ctx
     from worlds._bizhawk.context import BizHawkClientContext
     assert isinstance(ctx, BizHawkClientContext)
     client = ctx.client_handler
     assert isinstance(client, SpiritTracksClient)
-    client.train_speed[gear] = speed
+    return client
+
+def cmd_train_option(self: "BizHawkClientCommandProcessor", option: str, value: str="True"):
+    """
+    Change various train options. Currently implemented:
+      - snap_speed (True): instantly switch to new speeds on changing gear. Never active for stopping speed
+      - quick_station (True): enter stations at any speed if gear is on stop
+    """
+    valid_options = ["snap_speed", "quick_station"]
+    option = option.lower()
+    if option not in valid_options:
+        self.output(f"  \"{option}\" is not a valid option!")
+        return False
+
+    value = value.lower()
+    valid_bool_values = {"0": False, "1": True, "false": False, "true": True}
+    value_bool = valid_bool_values.get(value, None)
+    if value is None:
+        self.output(f"  \"{value}\" is not a valid boolean!")
+        return False
+
+    client = get_client_as_command_processor(self)
+    setattr(client, f"train_{option}", value_bool)
+    host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
+    host_settings.update({f"train_{option}": value_bool})
+    self.output(f"  Set option {option} to {value_bool}")
+    return True
+
+def cmd_train_speed(self: "BizHawkClientCommandProcessor", gear: int or str = 3, speed: int or str = 0):
+    """Set train speed in game. Gears are ints from 0 to 3, where 0 is reverse and 3 is fast."""
+    # Thanks to Silvris's mm2 implementation for help with bizhawk command processing
+    valid_gears = {"reverse": 0, "stop": 1, "slow": 2, "fast": 3, "back": 0, "backwards": 0, "pause": 1, "mid": 2, "max": 2}
+    if gear.lower() in valid_gears:
+        gear_int = valid_gears[gear]
+    else:
+        try:
+            gear_int = int(gear)
+        except ValueError:
+            self.output(f"  Gear \"{gear}\" is invalid, must be an int or in {', '.join([s for s in valid_gears])}")
+            return False
+
+    try:
+        speed = min(int(speed), 9999)
+        speed = max(speed, -9999)  # soft cap of 9999
+    except ValueError:
+        self.output(f"  Command Failed: Speed must be an int")
+        return False
+
+
+    if gear_int not in range(4):
+        self.output(f"  Gear is out of range, must be between 0 and 3")
+        return False
+
+    client = get_client_as_command_processor(self)
+    client.train_speed[gear_int] = speed
     client.update_train_speed = True
-    self.output(f"Train speeds {client.train_speed}")
+    self.output(f"  Train speeds {client.train_speed}")
+    host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
+    host_settings.update({f"train_speed": client.train_speed})
     return True
 
 class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
     system = "NDS"
     train_speed_addr: "Address"
-    update_train_speed: bool = False
-    train_speed = [-300, 0, 250, 400]
+    train_speed_pointer: "Address"
+    train_gear_addr: "Address"
 
     def __init__(self) -> None:
         super().__init__()
@@ -105,8 +152,14 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_data = []
         self.entrances = ENTRANCES
 
+        # Train speed stuff
         self.reset_cycles = 0
         self.last_train_gear = 2
+        self.reload_on_item = False
+        self.train_snap_speed = True
+        self.train_quick_station = True
+        self.update_train_speed: bool = False
+        self.train_speed = [-143, 0, 115, 193]
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -119,7 +172,8 @@ class SpiritTracksClient(DSZeldaClient):
 
             # Set commands
             if "train_speed" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["train_speed"] = _cmd_train_speed
+                ctx.command_processor.commands["train_speed"] = cmd_train_speed
+                ctx.command_processor.commands["train_option"] = cmd_train_option
 
             return True
         return False
@@ -170,7 +224,12 @@ class SpiritTracksClient(DSZeldaClient):
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always
         read_keys += read_keys_land  # TODO: don't bother reading on train
-        read_keys += read_keys_train
+        # read_keys += read_keys_train
+        if stage in range(4, 8):
+            self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+            self.train_gear_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
+            read_keys.append(self.train_gear_addr)
+
         self.main_read_list = read_keys
         # print(self.main_read_list)
 
@@ -236,6 +295,11 @@ class SpiritTracksClient(DSZeldaClient):
                          "Portal Unlock: Trading Post to E Snow Realm"]:
             await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
+        if self.reload_on_item:
+            self.reload_on_item = False
+            await self._set_dynamic_entrances(ctx, self.current_scene)
+            await self._set_dynamic_flags(ctx, self.current_scene)
+
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx)
         await self.update_rabbit_count(ctx)
@@ -287,6 +351,9 @@ class SpiritTracksClient(DSZeldaClient):
         if "ut_connect" in location:
             event_name = location["ut_connect"]
             await self.store_event(ctx, event_name)
+
+        if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
+            self.reload_on_item = True
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -342,6 +409,14 @@ class SpiritTracksClient(DSZeldaClient):
                 "cmd": "Get",
                 "keys": [storage_key(ctx, rabbit_storage_key)],
             }])
+
+        # Get train settings from host.yaml
+        host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
+        print(f"SETTINGS: {host_settings.get('train_speed', self.train_speed)}")
+        self.train_speed = host_settings.get("train_speed", self.train_speed)
+        self.train_snap_speed = host_settings.get("train_snap_speed", self.train_snap_speed)
+        self.train_quick_station = host_settings.get("train_quick_station", self.train_quick_station)
+
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
         pass
@@ -412,22 +487,23 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_stage in range(4, 8):
             await write_multiple(ctx, train_speed_addresses, self.train_speed)
             self.last_train_gear = -1  # force a quick speed increase
-            pointer = await STAddr.train_speed_pointer.read(ctx)
-            self.train_speed_addr = AddrFromPointer(pointer-0x2000000+TRAIN_SPEED_OFFSET, size=4)
+            self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+            self.train_speed_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
 
     async def process_train_speed(self, ctx, read_result):
-        if self.update_train_speed:
-            await write_multiple(ctx, train_speed_addresses, self.train_speed)
-            self.update_train_speed = False
-
         if self.current_stage in range(4, 8):
-            current_gear = read_result[STAddr.train_gear]
+            if self.update_train_speed:
+                await write_multiple(ctx, train_speed_addresses, self.train_speed)
+                self.update_train_speed = False
+
+            current_gear = read_result[self.train_gear_addr]
             if current_gear != self.last_train_gear:
                 self.last_train_gear = current_gear
 
-                if current_gear == 1:
-                    await STAddr.train_action.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
-                else:
-                    # Instant-set train speed
+                if self.train_quick_station and current_gear == 1:
+                    train_action_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
+                    await train_action_addr.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
+                # Instant-set train speed
+                if self.train_snap_speed and current_gear != 1:
                     await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10)
 
