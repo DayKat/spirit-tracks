@@ -123,7 +123,7 @@ the [releases page](https://github.com/ArchipelagoMW/Archipelago/releases), then
 installer, or AppImage for Linux-based systems.
 
 If you are a developer or are running on a platform with no compiled releases available, please see our doc on
-[running Archipelago from source](docs/running%20from%20source.md).
+[running Archipelago from source](docs/running from source.md).
 
 ## Related Repositories
 

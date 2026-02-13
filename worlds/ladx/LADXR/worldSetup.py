@@ -126,11 +126,11 @@ class WorldSetup:
 
     def loadFromRom(self, rom):
         import patches.overworld
-        if patches.overworld.isNormalOverworld(rom):
+        if worlds.ladx.LADXR.patches.overworld.isNormalOverworld(rom):
             import patches.entrances
-            self.entrance_mapping = patches.entrances.readEntrances(rom)
+            self.entrance_mapping = worlds.ladx.LADXR.patches.entrances.readEntrances(rom)
         else:
             self.entrance_mapping = {"d%d" % (n): "d%d" % (n) for n in range(9)}
-        self.boss_mapping = patches.enemies.readBossMapping(rom)
-        self.miniboss_mapping = patches.enemies.readMiniBossMapping(rom)
+        self.boss_mapping = worlds.ladx.LADXR.patches.enemies.readBossMapping(rom)
+        self.miniboss_mapping = worlds.ladx.LADXR.patches.enemies.readMiniBossMapping(rom)
         self.goal = 8 # Better then nothing

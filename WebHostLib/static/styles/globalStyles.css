@@ -1,31 +1,31 @@
 @font-face{
     font-family: LexendDeca-ExtraLight;
-    src: url("../../static/static/fonts/LexendDeca-ExtraLight.ttf");
+    src: url("../static/fonts/LexendDeca-ExtraLight.ttf");
 }
 
 @font-face{
     font-family: LexendDeca-Light;
-    src: url("../../static/static/fonts/LexendDeca-Light.ttf");
+    src: url("../static/fonts/LexendDeca-Light.ttf");
 }
 
 @font-face{
     font-family: LexendDeca-Regular;
-    src: url("../../static/static/fonts/LexendDeca-Regular.ttf");
+    src: url("../static/fonts/LexendDeca-Regular.ttf");
 }
 
 @font-face{
     font-family: LexendDeca-Medium;
-    src: url("../../static/static/fonts/LexendDeca-Medium.ttf");
+    src: url("../static/fonts/LexendDeca-Medium.ttf");
 }
 
 @font-face{
     font-family: LondrinaSolid-Regular;
-    src: url("../../static/static/fonts/LondrinaSolid-Regular.ttf");
+    src: url("../static/fonts/LondrinaSolid-Regular.ttf");
 }
 
 @font-face{
     font-family: LondrinaSolid-Light;
-    src: url("../../static/static/fonts/LondrinaSolid-Light.ttf");
+    src: url("../static/fonts/LondrinaSolid-Light.ttf");
 }
 
 html{

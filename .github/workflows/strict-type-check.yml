@@ -3,15 +3,15 @@ name: type check
 on:
   pull_request:
     paths:
-      - "**.py"
-      - ".github/pyright-config.json"
-      - ".github/workflows/strict-type-check.yml"
+      - "../../Fill.py"
+      - "../pyright-config.json"
+      - "strict-type-check.yml"
       - "**.pyi"
   push:
     paths:
-      - "**.py"
-      - ".github/pyright-config.json"
-      - ".github/workflows/strict-type-check.yml"
+      - "../../Fill.py"
+      - "../pyright-config.json"
+      - "strict-type-check.yml"
       - "**.pyi"
 
 jobs:

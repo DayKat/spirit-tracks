@@ -681,9 +681,11 @@ class CommonContext:
         self.location_names.update_game(game, game_package["location_name_to_id"])
         self.checksums[game] = game_package.get("checksum")
 
+
     def update_data_package(self, data_package: dict):
         for game, game_data in data_package["games"].items():
             self.update_game(game_data, game)
+
 
     def consume_network_data_package(self, data_package: dict):
         self.update_data_package(data_package)
@@ -969,7 +971,6 @@ async def process_server_cmd(ctx: CommonContext, args: dict):
             # update data package
             data_package_checksums = args.get("datapackage_checksums", {})
             await ctx.prepare_data_package(set(args["games"]), data_package_checksums)
-
             await ctx.server_auth(args['password'])
 
     elif cmd == 'DataPackage':
@@ -1188,6 +1189,7 @@ def run_as_textclient(*args):
                 await super(TextContext, self).server_auth(password_requested)
             await self.get_username()
             await self.send_connect(game="")
+            print("Finished server_auth")
 
         def on_package(self, cmd: str, args: dict):
             if cmd == "Connected":

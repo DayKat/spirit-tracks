@@ -27,7 +27,7 @@ class Hylics2World(World):
     web = Hylics2Web()
 
     all_items = {**Items.item_table, **Items.gesture_item_table, **Items.party_item_table,
-        **Items.medallion_item_table}
+                 **Items.medallion_item_table}
     all_locations = {**Locations.location_table, **Locations.tv_location_table, **Locations.party_location_table,
         **Locations.medallion_location_table}
 

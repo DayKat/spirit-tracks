@@ -24,7 +24,7 @@ local SCRIPT_VERSION = 1
 
 -- Set to log incoming requests
 -- Will cause lag due to large console output
-local DEBUG = false
+local DEBUG = true
 
 --[[
 This script expects to receive JSON and will send JSON back. A message should
@@ -358,6 +358,7 @@ request_handlers = {
 
         res["type"] = "SYSTEM_RESPONSE"
         res["value"] = emu.getsystemid()
+		print(res["value"])
 
         return res
     end,
@@ -382,6 +383,7 @@ request_handlers = {
 
         res["type"] = "HASH_RESPONSE"
         res["value"] = rom_hash
+		print(rom_hash)
 
         return res
     end,
@@ -513,7 +515,7 @@ function send_receive ()
 
     -- Process received data
     if DEBUG then
-        print("Received Message ["..emu.framecount().."]: "..'"'..message..'"')
+        print("Received Message ["..emu.framecount().."]: "..'"'..message..'"'.."edited")
     end
 
     if message == "VERSION" then

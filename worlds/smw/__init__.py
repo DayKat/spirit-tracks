@@ -111,11 +111,16 @@ class SMWWorld(World):
         connect_regions(self, self.active_level_dict)
 
         # Add Boss Token amount requirements for Worlds
-        add_rule(self.multiworld.get_region(LocationName.donut_plains_1_tile, self.player).entrances[0], lambda state: state.has(ItemName.koopaling, self.player, 1))
-        add_rule(self.multiworld.get_region(LocationName.vanilla_dome_1_tile, self.player).entrances[0], lambda state: state.has(ItemName.koopaling, self.player, 2))
-        add_rule(self.multiworld.get_region(LocationName.forest_of_illusion_1_tile, self.player).entrances[0], lambda state: state.has(ItemName.koopaling, self.player, 4))
-        add_rule(self.multiworld.get_region(LocationName.chocolate_island_1_tile, self.player).entrances[0], lambda state: state.has(ItemName.koopaling, self.player, 5))
-        add_rule(self.multiworld.get_region(LocationName.valley_of_bowser_1_tile, self.player).entrances[0], lambda state: state.has(ItemName.koopaling, self.player, 6))
+        add_rule(self.multiworld.get_region(LocationName.donut_plains_1_tile, self.player).entrances[0], lambda state: state.has(
+            ItemName.koopaling, self.player, 1))
+        add_rule(self.multiworld.get_region(LocationName.vanilla_dome_1_tile, self.player).entrances[0], lambda state: state.has(
+            ItemName.koopaling, self.player, 2))
+        add_rule(self.multiworld.get_region(LocationName.forest_of_illusion_1_tile, self.player).entrances[0], lambda state: state.has(
+            ItemName.koopaling, self.player, 4))
+        add_rule(self.multiworld.get_region(LocationName.chocolate_island_1_tile, self.player).entrances[0], lambda state: state.has(
+            ItemName.koopaling, self.player, 5))
+        add_rule(self.multiworld.get_region(LocationName.valley_of_bowser_1_tile, self.player).entrances[0], lambda state: state.has(
+            ItemName.koopaling, self.player, 6))
 
         exclusion_pool = set()
         if self.options.exclude_special_zone:
@@ -167,12 +172,14 @@ class SMWWorld(World):
 
             itempool += [self.create_item(ItemName.yoshi_egg) for _ in range(self.actual_egg_count)]
 
-            self.multiworld.get_location(LocationName.yoshis_house, self.player).place_locked_item(self.create_item(ItemName.victory))
+            self.multiworld.get_location(LocationName.yoshis_house, self.player).place_locked_item(self.create_item(
+                ItemName.victory))
         else:
             self.actual_egg_count = 0
             self.required_egg_count = 0
 
-            self.multiworld.get_location(LocationName.bowser, self.player).place_locked_item(self.create_item(ItemName.victory))
+            self.multiworld.get_location(LocationName.bowser, self.player).place_locked_item(self.create_item(
+                ItemName.victory))
 
         junk_count = total_required_locations - len(itempool)
         trap_weights = []
@@ -208,7 +215,8 @@ class SMWWorld(World):
                                LocationName.valley_koopaling, LocationName.vanilla_reznor, LocationName.forest_reznor, LocationName.chocolate_reznor, LocationName.valley_reznor]
 
         for location_name in boss_location_names:
-            self.multiworld.get_location(location_name, self.player).place_locked_item(self.create_item(ItemName.koopaling))
+            self.multiworld.get_location(location_name, self.player).place_locked_item(self.create_item(
+                ItemName.koopaling))
 
         self.multiworld.itempool += itempool
 

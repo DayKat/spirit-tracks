@@ -3,10 +3,10 @@ name: Analyze modified files
 on:
   pull_request:
     paths:
-      - "**.py"
+      - "../../Fill.py"
   push:
     paths:
-      - "**.py"
+      - "../../Fill.py"
 
 env:
   BASE: ${{ github.event.pull_request.base.sha }}

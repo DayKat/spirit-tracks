@@ -1,0 +1,24 @@
+null:
+  progression_balancing: 50
+The Legend of Zelda - Phantom Hourglass:
+  accessibility: full
+  plando_items: []
+  remove_items_from_pool: {}
+  death_link: 'false'
+  local_items: []
+  non_local_items: []
+  start_inventory: {}
+  start_inventory_from_pool: {}
+  start_hints: []
+  start_location_hints: []
+  exclude_locations: []
+  priority_locations: []
+  item_links: []
+
+  # entrance_directionality: 0
+  shuffle_between_islands: 0
+  # decouple_entrances: 0
+
+  ph_starting_time: 60
+  ph_time_increment: 10
+

@@ -31,11 +31,11 @@ follow [reST style](https://peps.python.org/pep-0287/).
 Example:
 
 ```python
-from worlds.AutoWorld import World
+from worlds import World
 
 
 class MyGameWorld(World):
-    """This is the description of My Game that will be displayed on the AP website."""
+  """This is the description of My Game that will be displayed on the AP website."""
 ```
 
 ## Definitions
@@ -76,8 +76,8 @@ webhost:
 * `game_info_languages` (optional) list of strings for defining the existing game info pages your game supports. The
   documents must be prefixed with the same string as defined here. Default already has 'en'.
 
-* `options_presets` (optional) `dict[str, dict[str, Any]]` where the keys are the names of the presets and the values
-  are the options to be set for that preset. The options are defined as a `dict[str, Any]` where the keys are the names
+* `options_presets` (optional) `Dict[str, Dict[str, Any]]` where the keys are the names of the presets and the values
+  are the options to be set for that preset. The options are defined as a `Dict[str, Any]` where the keys are the names
   of the options and the values are the values to be set for that option. These presets will be available for users to
   select from on the game's options page.
 
@@ -203,7 +203,7 @@ via `self.options.as_dict(<option_names>)`,
 passing the desired option names as strings.
 
 Common option types are `Toggle`, `DefaultOnToggle`, `Choice`, and `Range`.
-For more information, see the [options api doc](options%20api.md).
+For more information, see the [options api doc](options api.md).
 
 ### World Settings
 
@@ -260,14 +260,6 @@ another flag like "progression", it means "an especially useful progression item
   combined with `progression`; see below)
 * `progression_skip_balancing`: the combination of `progression` and `skip_balancing`, i.e., a progression item that
   will not be moved around by progression balancing; used, e.g., for currency or tokens, to not flood early spheres
-* `deprioritized`: denotes that an item should not be placed on priority locations
-  (to be combined with `progression`; see below)
-* `progression_deprioritized`: the combination of `progression` and `deprioritized`, i.e. a progression item that
-  should not be placed on priority locations, despite being progression;
-  like skip_balancing, this is commonly used for currency or tokens.
-* `progression_deprioritized_skip_balancing`: the combination of `progression`, `deprioritized` and `skip_balancing`.
-  Since there is overlap between the kind of items that want `skip_balancing` and `deprioritized`,
-  this combined classification exists for convenience
 
 ### Regions
 
@@ -413,7 +405,7 @@ When imported names pile up, it may be easier to use `from . import options` and
 `options.MyGameOptions`.
 
 Imports from directories outside your world should use absolute imports. Correct use of relative / absolute imports is
-required for zipped worlds to function, see [apworld specification.md](apworld%20specification.md).
+required for zipped worlds to function, see [apworld specification.md](apworld specification.md).
 
 ### Your Item Type
 
@@ -637,54 +629,54 @@ def create_items(self) -> None:
 ### Setting Rules
 
 ```python
-from worlds.generic.Rules import add_rule, set_rule, forbid_item, add_item_rule
+from worlds import add_rule, set_rule, forbid_item, add_item_rule
 from .items import get_item_type
 
 
 def set_rules(self) -> None:
-    # For some worlds this step can be omitted if either a Logic mixin 
-    # (see below) is used or it's easier to apply the rules from data during
-    # location generation
+  # For some worlds this step can be omitted if either a Logic mixin 
+  # (see below) is used or it's easier to apply the rules from data during
+  # location generation
 
-    # set a simple rule for an region
-    set_rule(self.multiworld.get_entrance("Boss Door", self.player),
-             lambda state: state.has("Boss Key", self.player))
-    # location.access_rule = ... is likely to be a bit faster
-    # combine rules to require two items
-    add_rule(self.multiworld.get_location("Chest2", self.player),
-             lambda state: state.has("Sword", self.player))
-    add_rule(self.multiworld.get_location("Chest2", self.player),
-             lambda state: state.has("Shield", self.player))
-    # or simply combine yourself
-    set_rule(self.multiworld.get_location("Chest2", self.player),
-             lambda state: state.has("Sword", self.player) and
-                           state.has("Shield", self.player))
-    # require two of an item
-    set_rule(self.multiworld.get_location("Chest3", self.player),
-             lambda state: state.has("Key", self.player, 2))
-    # require one item from an item group
-    add_rule(self.multiworld.get_location("Chest3", self.player),
-             lambda state: state.has_group("weapons", self.player))
-    # state also has .count() for items, .has_any() and .has_all() for multiple
-    # and .count_group() for groups
-    # set_rule is likely to be a bit faster than add_rule
+  # set a simple rule for an region
+  set_rule(self.multiworld.get_entrance("Boss Door", self.player),
+           lambda state: state.has("Boss Key", self.player))
+  # location.access_rule = ... is likely to be a bit faster
+  # combine rules to require two items
+  add_rule(self.multiworld.get_location("Chest2", self.player),
+           lambda state: state.has("Sword", self.player))
+  add_rule(self.multiworld.get_location("Chest2", self.player),
+           lambda state: state.has("Shield", self.player))
+  # or simply combine yourself
+  set_rule(self.multiworld.get_location("Chest2", self.player),
+           lambda state: state.has("Sword", self.player) and
+                         state.has("Shield", self.player))
+  # require two of an item
+  set_rule(self.multiworld.get_location("Chest3", self.player),
+           lambda state: state.has("Key", self.player, 2))
+  # require one item from an item group
+  add_rule(self.multiworld.get_location("Chest3", self.player),
+           lambda state: state.has_group("weapons", self.player))
+  # state also has .count() for items, .has_any() and .has_all() for multiple
+  # and .count_group() for groups
+  # set_rule is likely to be a bit faster than add_rule
 
-    # disallow placing a specific local item at a specific location
-    forbid_item(self.multiworld.get_location("Chest4", self.player), "Sword")
-    # disallow placing items with a specific property
-    add_item_rule(self.multiworld.get_location("Chest5", self.player),
-                  lambda item: get_item_type(item) == "weapon")
-    # get_item_type needs to take player/world into account
-    # if MyGameItem has a type property, a more direct implementation would be
-    add_item_rule(self.multiworld.get_location("Chest5", self.player),
-                  lambda item: item.player != self.player or
-                               item.my_type == "weapon")
-    # location.item_rule = ... is likely to be a bit faster
+  # disallow placing a specific local item at a specific location
+  forbid_item(self.multiworld.get_location("Chest4", self.player), "Sword")
+  # disallow placing items with a specific property
+  add_item_rule(self.multiworld.get_location("Chest5", self.player),
+                lambda item: get_item_type(item) == "weapon")
+  # get_item_type needs to take player/world into account
+  # if MyGameItem has a type property, a more direct implementation would be
+  add_item_rule(self.multiworld.get_location("Chest5", self.player),
+                lambda item: item.player != self.player or
+                             item.my_type == "weapon")
+  # location.item_rule = ... is likely to be a bit faster
 
-    # place "Victory" at "Final Boss" and set collection as win condition
-    self.multiworld.get_location("Final Boss", self.player).place_locked_item(self.create_event("Victory"))
+  # place "Victory" at "Final Boss" and set collection as win condition
+  self.multiworld.get_location("Final Boss", self.player).place_locked_item(self.create_event("Victory"))
 
-    self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
+  self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
 # for debugging purposes, you may want to visualize the layout of your world. Uncomment the following code to
 # write a PlantUML diagram to the file "my_world.puml" that can help you see whether your regions and locations
@@ -719,15 +711,15 @@ def mygame_has_key(self, state: CollectionState, player: int) -> bool:
 ```python
 # __init__.py
 
-from worlds.generic.Rules import set_rule
+from worlds import set_rule
 from . import logic
 
 
 class MyGameWorld(World):
-    # ...
-    def set_rules(self) -> None:
-        set_rule(self.multiworld.get_location("A Door", self.player),
-                 lambda state: logic.mygame_has_key(state, self.player))
+  # ...
+  def set_rules(self) -> None:
+    set_rule(self.multiworld.get_location("A Door", self.player),
+             lambda state: logic.mygame_has_key(state, self.player))
 ```
 
 ### Logic Mixin
@@ -753,23 +745,24 @@ as well as `init_mixin` and `copy_mixin` functions so that this variable gets in
 
 ```python
 from BaseClasses import CollectionState, MultiWorld
-from worlds.AutoWorld import LogicMixin
+from worlds import LogicMixin
+
 
 class MyGameState(LogicMixin):
-    mygame_defeatable_enemies: dict[int, set[str]]  # per player
+  mygame_defeatable_enemies: Dict[int, Set[str]]  # per player
 
-    def init_mixin(self, multiworld: MultiWorld) -> None:
-        # Initialize per player with the corresponding "nothing" value, such as 0 or an empty set.
-        # You can also use something like Collections.defaultdict
-        self.mygame_defeatable_enemies = {
-            player: set() for player in multiworld.get_game_players("My Game")
-        }
+  def init_mixin(self, multiworld: MultiWorld) -> None:
+    # Initialize per player with the corresponding "nothing" value, such as 0 or an empty set.
+    # You can also use something like Collections.defaultdict
+    self.mygame_defeatable_enemies = {
+      player: set() for player in multiworld.get_game_players("My Game")
+    }
 
-    def copy_mixin(self, new_state: CollectionState) -> CollectionState:
-        # Be careful to make a "deep enough" copy here!
-        new_state.mygame_defeatable_enemies = {
-            player: enemies.copy() for player, enemies in self.mygame_defeatable_enemies.items()
-        }
+  def copy_mixin(self, new_state: CollectionState) -> CollectionState:
+    # Be careful to make a "deep enough" copy here!
+    new_state.mygame_defeatable_enemies = {
+      player: enemies.copy() for player, enemies in self.mygame_defeatable_enemies.items()
+    }
 ```
 
 After doing this, you can now access `state.mygame_defeatable_enemies[player]` from your access rules.
@@ -877,19 +870,19 @@ If a client or tracker needs to know information about the generated seed, a pre
 is through the slot data. This is filled with the `fill_slot_data` method of your world by returning a `dict` with 
 `str` keys that can be serialized with json. However, to not waste resources, it should be limited to data that is 
 absolutely necessary. Slot data is sent to your client once it has successfully 
-[connected](network%20protocol.md#connected).
+[connected](network protocol.md#connected).
 
 If you need to know information about locations in your world, instead of propagating the slot data, it is preferable
-to use [LocationScouts](network%20protocol.md#locationscouts), since that data already exists on the server. Adding 
+to use [LocationScouts](network protocol.md#locationscouts), since that data already exists on the server. Adding 
 item/location pairs is unnecessary since the AP server already retains and freely gives that information to clients 
 that request it. The most common usage of slot data is sending option results that the client needs to be aware of.
 
 ```python
-def fill_slot_data(self) -> dict[str, Any]:
+def fill_slot_data(self) -> Dict[str, Any]:
     # In order for our game client to handle the generated seed correctly we need to know what the user selected
     # for their difficulty and final boss HP.
     # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
-    # The options dataclass has a method to return a `dict[str, Any]` of each option name provided and the relevant
+    # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
     # option's value.
     return self.options.as_dict("difficulty", "final_boss_hp")
 ```
