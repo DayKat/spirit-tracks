@@ -1,5 +1,33 @@
 from .DSZeldaClient.subclasses import DSTransition
+from .DSZeldaClient.ItemClass import DSItem, receive_normal
 from enum import IntEnum
+
+
+async def remove_treasure(client, ctx, item, rii):
+    addr = item.address
+    value = client.treasure_tracker[addr]
+    print(f"Removing treasure {item}")
+    return addr.get_write_list(value)
+
+async def dummy(*args):
+    print(f"Receiving dummy item")
+    return []
+
+class STItem(DSItem):
+
+    def __init__(self, name, data, all_items):
+        super().__init__(name, data, all_items)
+
+    def get_receive_function(self):
+        res = super().get_receive_function()
+        if res is None:
+            return dummy
+        return res
+
+    def get_remove_vanilla_function(self):
+        if "treasure" in self.tags:
+            return remove_treasure
+        return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):
     NONE = 0
@@ -20,6 +48,7 @@ class EntranceGroups(IntEnum):
     DUNGEON_ROOM = 7 << 3
     WARP_PORTAL = 8 << 3
     TRAIN_PORTAL = 9 << 3
+    EVENT = 10 << 3
 
 OPPOSITE_ENTRANCE_GROUPS = {
     EntranceGroups.RIGHT: EntranceGroups.LEFT,

@@ -1,7 +1,7 @@
 # Deploy Using Containers
 
 If you just want to play and there is a compiled version available on the [Archipelago releases page](https://github.com/ArchipelagoMW/Archipelago/releases), use that version.
-To build the full Archipelago software stack, refer to [Running From Source](running%20from%20source.md).
+To build the full Archipelago software stack, refer to [Running From Source](running from source.md).
 Follow these steps to build and deploy a containerized instance of the web host software, optionally integrating [Gunicorn](https://gunicorn.org/) WSGI HTTP Server running behind the [nginx](https://nginx.org/) reverse proxy.
 
 
@@ -89,4 +89,4 @@ Enemizer is not currently available for `aarch64`.
 ## Optional: Git
 
 Building the image requires a local copy of the ArchipelagoMW source code.
-Refer to [Running From Source](running%20from%20source.md#optional-git).
+Refer to [Running From Source](running from source.md#optional-git).

@@ -4,29 +4,30 @@ REGIONS = [
 
     # Forest Realm
     "forest realm",
+    "wtt",
+    "forest source",
+    "w castle town tracks",
+    "n castle town tracks",
     "forest realm se portal track",
-    #"forest realm nr rabbit haven rabbit",
-    #"forest realm s whittleton rabbit",
-    #"forest realm w castle town rabbit",
-    #"forest realm wt rabbit",
+    "forest cave tracks",
+    "w forest tracks",
+
+    "forest realm rabbits",
+    "forest ocean shortcut rabbit",
+    "e mayscore rabbits",
+    "sw trading post rabbit",
+    "wt rabbit",
+    "s rabbit haven rabbits",
+    "nr rabbit haven rabbit",
 
     # Outset Village
     "outset village",
     "outset village stamp book",
     "outset village stamp station",
-    "outset village rocks",
-    "outset village bees",
-    "outset village left tree",
-    "outset village right tree",
+    "outset village trees",
     #"outset village cuccos gem",
     #"outset village joe gem",
     #"outset village cannon",
-    
-    # Shop Regions
-    #"shop power gem",
-    #"shop bombchu bag",
-    #"shop quiver",
-    #"shop heart container",
 
     #"beedle gem",
     #"beedle bomb bag",
@@ -34,13 +35,12 @@ REGIONS = [
     # Castle Town
     "castle town",
     "castle town stamp station",
-    "castle town L wall chest",
-    "castle town R wall chest",
+    "castle town wall",
     #"castle town minigame",
-    "castle town minigame roof",
-    "castle town ramp house chest",
-    "castle town empty house roof",
+    "castle town cuccos",
     #"castle town fish gem",
+    "pick up alfonzo",
+    "alfonzo event",
 
     # Hyrule Castle
     "hyrule castle",
@@ -58,29 +58,26 @@ REGIONS = [
     # Tower of Spirits
     "tos",
     "tear 1f top",
-    "tos section 1",
+    "tos 1f",
     "tos 1f chest",
-    "tos 2f raised chest",
-    "tos 2f whirlwind",
+    "tos 2f",
+    "tos 2f raised chests",
     "tos 2f bomb wall",
-    #"tos left tear",
-    #"tos up tear",
-    #"tos right tear",
     "tos 3f rail map",
     "goal_forest_glyph",
-    "tos section 2",
-    "tos 4f central chest",
+    "event_3f",
+
+    "tos 4f",
     "tos 4f ne chest",
     "tos 5f island chest",
     "tos 5f spinnit key",
+    "tos 5f alt path",
     "tos 5f secret chest",
     "tos 6f key",
-    "tos 6f ne chest 1",
-    "tos 6f ne chest 2",
-    "tos 6f ne chest 3",
-    "tos 6f ne big chest",
+    "tos 6f chests",
     "tos 7f rail map",
     "goal_snow_glyph",
+    "event_7f",
 
     # Mayscore
     "mayscore",
@@ -95,6 +92,13 @@ REGIONS = [
     "rabbit haven",
     "rabbit haven chest",
     "rabbit haven net",
+    "rabbit haven 5 rabbits",
+    "rabbit haven 10 forest rabbits",
+    "rabbit haven 10 snow rabbits",
+    # "rabbit haven 10 ocean rabbits"
+    # "rabbit haven 10 fire rabbits"
+    # "rabbit haven 10 sand rabbits"
+    # "rabbit haven 50 rabbits"
 
     # Forest Sanctuary
     "fos",
@@ -111,12 +115,16 @@ REGIONS = [
     "wt 1f switch chest",
     "wt 2f enemy chest",
     "wt 2f poison chest",
+    "wt 2f left",
+    "wt 3f left",
     "wt 3f chestnut chest",
+    "wt 3f",
     "wt 3f se chest",
     "wt 3f boss key chest",
     #"wt heart container",
     "wt stagnox",
     "goal_stagnox",
+    "event_stagnox",
     "wt stamp station",
     "post wt",
 
@@ -131,23 +139,23 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm
     "snow realm",
-    "snow realm post song",
-    # "w anouki village rabbit",
-    # "e anouki village rabbit",
-    # "sw blizzard rabbit",
-    # "snowdrift station rabbit",
-    # "central blizzard rabbit",
-    # "nw blizzard rabbit",
-    # "ne blizzard rabbit",
-    # "e blizzard rabbit",
-    # "w icyspring rabbit",
-    # "n icyspring rabbit",
-    
+    "snow realm source",
+    "blizzard temple tracks",
+    "snow bridge",
+    "icyspring tracks",
+
+    "snow realm rabbits",
+    "blizzard temple tracks rabbits",
+    "snow realm blizzard rabbits",
+    "snow realm early blizzard rabbits",
+    "snowdrift station rabbit",
+    "icyspring rabbits",
+
+
     # Anouki Village
     "anouki village",
     "anouki village stamp station",
-    "anouki village discovery song statue",
-    "anouki village song statue chest",
+    "anouki village song statue",
     "anouki village bomb cave chest",
     "anouki village lake chest",
     #"anouki village worker to anouki gem",
@@ -170,8 +178,8 @@ REGIONS = [
     "bt 1f nw chest",
     "bt 1f torch chest",
     "bt fraaz",
-    "bt heart container",
     "goal_fraaz",
+    "event_fraaz",
     "post bt",
 
     # Icy Spring
@@ -211,4 +219,17 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
 
+    # Dark realm
+    "dark realm portal",
+    "dark realm trains",
+    "demon train",
+    "cole fight",
+    "malladus 1",
+    "malladus 2",
+    "malladus goal",
+    "malladus event",
+
+
+] + [
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Forest", "Snow"]
 ]

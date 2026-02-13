@@ -198,7 +198,7 @@ from typing import TYPE_CHECKING
 
 from NetUtils import ClientStatus
 
-import worlds._bizhawk as bizhawk
+import worlds as bizhawk
 from worlds._bizhawk.client import BizHawkClient
 
 if TYPE_CHECKING:

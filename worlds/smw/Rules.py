@@ -14,6 +14,7 @@ def set_rules(world: World):
         add_rule(world.multiworld.get_location(LocationName.yoshis_house, world.player),
                  lambda state: state.has(ItemName.yoshi_egg, world.player, required_yoshi_eggs))
     else:
-        add_rule(world.multiworld.get_location(LocationName.bowser, world.player), lambda state: state.has(ItemName.mario_carry, world.player))
+        add_rule(world.multiworld.get_location(LocationName.bowser, world.player), lambda state: state.has(
+            ItemName.mario_carry, world.player))
 
     world.multiworld.completion_condition[world.player] = lambda state: state.has(ItemName.victory, world.player)

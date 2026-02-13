@@ -28,7 +28,7 @@ class WorldSetup:
         self.boss_mapping = list(range(9))
         self.miniboss_mapping = {
             # Main minibosses
-            0: "ROLLING_BONES", 1: "HINOX", 2: "DODONGO", 3: "CUE_BALL", 4: "GHOMA", 5: "SMASHER", 6: "GRIM_CREEPER", 7: "BLAINO",
+            '0': "ROLLING_BONES", '1': "HINOX", '2': "DODONGO", '3': "CUE_BALL", '4': "GHOMA", '5': "SMASHER", '6': "GRIM_CREEPER", '7': "BLAINO",
             # Color dungeon needs to be special, as always.
             "c1": "AVALAUNCH", "c2": "GIANT_BUZZ_BLOB",
             # Overworld
@@ -126,11 +126,11 @@ class WorldSetup:
 
     def loadFromRom(self, rom):
         import patches.overworld
-        if patches.overworld.isNormalOverworld(rom):
+        if worlds.ladx.LADXR.patches.overworld.isNormalOverworld(rom):
             import patches.entrances
-            self.entrance_mapping = patches.entrances.readEntrances(rom)
+            self.entrance_mapping = worlds.ladx.LADXR.patches.entrances.readEntrances(rom)
         else:
             self.entrance_mapping = {"d%d" % (n): "d%d" % (n) for n in range(9)}
-        self.boss_mapping = patches.enemies.readBossMapping(rom)
-        self.miniboss_mapping = patches.enemies.readMiniBossMapping(rom)
+        self.boss_mapping = worlds.ladx.LADXR.patches.enemies.readBossMapping(rom)
+        self.miniboss_mapping = worlds.ladx.LADXR.patches.enemies.readMiniBossMapping(rom)
         self.goal = 8 # Better then nothing

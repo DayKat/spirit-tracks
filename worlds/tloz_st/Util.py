@@ -1,7 +1,8 @@
 from typing import Dict
-from .data import LOCATIONS_DATA, ITEMS_DATA, DYNAMIC_FLAGS
+from .data.Locations import LOCATIONS_DATA
+from .data.DynamicFlags import DYNAMIC_FLAGS
+from .data.Items import ITEMS
 from .data.Constants import HINTS_ON_SCENE
-
 
 def build_hint_scene_to_watches() -> dict[int, list]:
     return {}
@@ -50,18 +51,26 @@ def build_location_name_to_id_dict() -> Dict[str, int]:
         location_name_to_id[loc_name] = location["id"]
     return location_name_to_id
 
+def build_rabbit_location_id_to_name_dict() -> Dict[int, str]:
+    location_id_to_name: Dict[int, str] = {}
+    for loc_name, location in LOCATIONS_DATA.items():
+        if "rabbit" in location:
+            index = location["id"]
+            location_id_to_name[index] = loc_name
+    return location_id_to_name
+
 
 def build_item_name_to_id_dict() -> Dict[str, int]:
     item_name_to_id: Dict[str, int] = {}
-    for item_name, item in ITEMS_DATA.items():
-        item_name_to_id[item_name] = item["id"]
+    for item_name, item in ITEMS.items():
+        item_name_to_id[item_name] = item.id
     return item_name_to_id
 
 
 def build_item_id_to_name_dict() -> Dict[int, str]:
     item_id_to_name: Dict[int, str] = {}
-    for item_name, item in ITEMS_DATA.items():
-        index = item["id"]
+    for item_name, item in ITEMS.items():
+        index = item.id
         item_id_to_name[index] = item_name
     return item_id_to_name
 

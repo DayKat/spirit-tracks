@@ -1,7 +1,7 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
 from .Constants import *
-
+from .Items import ITEMS
 
 # =========== Item States =============
 
@@ -44,12 +44,34 @@ def st_has_sword_beam_scroll(state: CollectionState, player: int):
 def st_has_regal_necklace(state: CollectionState, player: int):
     return state.has("Regal Necklace", player)
 
-
 def st_has_wood_heart(state: CollectionState, player: int):
     return state.has("Wood Heart", player)
 
+def st_has_net(state: CollectionState, player: int):
+    return state.has("Rabbit Net", player)
 
-# ========= Rail Items =============
+def st_has_compass_of_light(state, player):
+    return state.has("Compass of Light", player)
+
+def st_has_bow_of_light(state, player):
+    return state.has("Bow of Light", player) and st_has_bow(state, player)
+
+## ========== Rabbits ===========
+
+def st_has_rabbit_items(state, player, realm, count=10):
+    rabbit_count = state.count(f"{realm} Rabbit", player)
+    return rabbit_count >= count
+
+def st_has_total_rabbits(state: CollectionState, player: int, count):
+    rabbit_total = 0
+    for i in ITEM_GROUPS["Rabbits"]:
+        rabbit_total += state.count(i, player) * ITEMS[i].value
+    return rabbit_total >= count
+
+def st_caught_rabbits(state, player, realm, count):
+    return state.has(f"_caught_{realm.lower()}_rabbits", player, count)
+
+## ========= Rail Items =============
 
 def st_has_glyph(state: CollectionState, player: int, realm: str):
     return state.has(f"{realm} Glyph", player)
@@ -72,25 +94,29 @@ def st_has_temple_tracks(state, player, temple):
 def st_has_misc_tracks(state, player, tracks):
     return state.has(f"{tracks} Tracks", player)
 
-def st_has_portal(state, player, portal):
-    return state.has(f"{portal} Portal", player)
+def st_has_portal(state, player, portal, forward):
+    if state.multiworld.worlds[player].options.portal_behavior.value == 1:
+        return True
+    if state.multiworld.worlds[player].options.portal_behavior.value == 0:
+        return forward
+    return state.has(f"Portal Unlock: {portal}", player)
 
 # ============== Songs =======================
 
 def st_has_awakening_song(state: CollectionState, player: int):
-    return state.has("Song of Awakening", player)
+    return state.has("Song of Awakening", player) and st_has_spirit_flute(state, player)
 
 def st_has_healing_song(state: CollectionState, player: int):
-    return state.has("Song of Healing", player)
+    return state.has("Song of Healing", player) and st_has_spirit_flute(state, player)
 
 def st_has_birds_song(state: CollectionState, player: int):
-    return state.has("Song of Birds", player)
+    return state.has("Song of Birds", player) and st_has_spirit_flute(state, player)
 
 def st_has_light_song(state: CollectionState, player: int):
-    return state.has("Song of Light", player)
+    return state.has("Song of Light", player) and st_has_spirit_flute(state, player)
 
 def st_has_discovery_song(state: CollectionState, player: int):
-    return state.has("Song of Discovery", player)
+    return state.has("Song of Discovery", player) and st_has_spirit_flute(state, player)
 
 
 # =========== Combined item states ================
@@ -103,42 +129,10 @@ def st_has_damage(state: CollectionState, player: int):
         state.has("Whip", player),
     ])
 
-
-def st_has_cave_damage(state: CollectionState, player: int):
-    return any([
-        state.has("Sword (Progressive)", player),
-        state.has("Bombs (Progressive)", player),
-        state.has("Bow (Progressive)", player),
-        state.has("Whip", player),
-    ])
-
-
 def st_can_kill_bat(state: CollectionState, player: int):
     return any([
         st_has_damage(state, player),
         st_has_boomerang(state, player)
-    ])
-
-
-def st_can_kill_blue_chu(state: CollectionState, player: int):
-    return any([
-        st_has_bombs(state, player),  # Only place this is relevant is in "cave"
-        st_has_bow(state, player),
-        st_has_whip(state, player),
-        st_has_beam_sword(state, player),
-        all([
-            st_has_sword(state, player),
-            any([
-                st_has_boomerang(state, player),
-            ])
-        ])
-    ])
-
-
-def st_can_kill_eye_brute(state: CollectionState, player: int):
-    return any([
-        st_option_hard_logic(state, player),
-        st_has_bow(state, player),
     ])
 
 
@@ -154,14 +148,6 @@ def st_can_kill_bubble(state: CollectionState, player: int):
             ])
         ])
     ])
-
-
-def st_totok_stantom_steal_object(state, player):
-    return any([
-        st_clever_pots(state, player),
-        st_can_kill_bat(state, player)
-    ])
-
 
 def st_has_range(state: CollectionState, player: int):
     return state.has_any(["Boomerang", "Bow (Progressive)", "Whirlwind"], player)
@@ -182,40 +168,6 @@ def st_has_beam_sword(state: CollectionState, player: int):
         st_has_sword(state, player),
         st_has_sword_beam_scroll(state, player)
     ])
-
-
-def st_can_hit_spin_switches(state: CollectionState, player: int):
-    return any([
-        st_has_sword(state, player),
-        all([
-            st_option_hard_logic(state, player),
-            any([
-                st_has_bombs(state, player),
-                st_has_boomerang(state, player)
-            ])
-        ])
-    ])
-
-
-def st_spiral_wall_switches(state: CollectionState, player: int):
-    return any([
-        st_has_boomerang(state, player),
-        st_has_bombs(state, player)
-    ])
-
-
-def st_quick_switches(state, player):
-    return any([
-        st_has_boomerang(state, player),
-        all([
-            st_has_bow(state, player),
-            st_option_hard_logic(state, player)
-        ])
-    ])
-
-
-def st_can_cut_small_trees(state: CollectionState, player: int):
-    return any([st_has_sword(state, player), st_has_bombs(state, player)])
 
 def st_can_ring_bell(state: CollectionState, player: int):
     return any([st_has_sword(state, player), st_has_boomerang(state, player)])
@@ -449,41 +401,15 @@ def st_can_sword_scroll_clip(state, player):
 
 # ====== Specific locations =============
 
-# TotOK
-# def st_totok_b1_all_checks_ut(state, player):
-#     return all([
-#         st_ut_small_key_own_dungeon(state, player),
-#         st_has_spirit(state, player, "Power"),
-#         st_has_bow(state, player),
-#         st_has_whip(state, player),
-#         st_can_kill_stantoms(state, player),
-#     ])
-
 
 # Overworld
 
 def st_castle_town_cuccos(state, player):
-    return (st_has_bombs(state, player)
-            and ((st_has_birds_song(state, player) and st_has_spirit_flute(state, player))
-                 or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))))
+    return st_has_birds_song(state, player) or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))
 
-# Handles keylocking due to lack of locations
-# def st_can_reach_MP2(state: CollectionState, player: int):
-#     return any([
-#         all([
-#             st_option_keysanity(state, player),
-#             st_has_small_keys(state, player, "Mountain Passage", 2)
-#         ]),
-#         all([
-#             st_option_keys_in_own_dungeon(state, player),
-#             any([
-#                 st_can_cut_small_trees(state, player),
-#                 st_option_glitched_logic(state, player)  # SW in back entrance / reversse cuccoo jump
-#             ]),
-#             any([
-#                 st_has_small_keys(state, player, "Mountain Passage"),
-#                 st_is_ut(state, player)
-#             ])
-#         ])
-#     ])
+def st_has_dungeon_rewards(state, player):
+    if state.multiworld.worlds[player].options.dark_realm_access != "dungeons":
+        return True
+    dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
+    return state.has("_dungeon_reward", player, dungeon_count)
 
