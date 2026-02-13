@@ -1,6 +1,4 @@
-from Scripts.pywin32_postinstall import silent
 
-import settings
 from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
 from .data.Addresses import STAddr

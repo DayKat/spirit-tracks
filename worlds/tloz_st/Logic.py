@@ -2,9 +2,11 @@ from BaseClasses import MultiWorld, Item
 from typing import TYPE_CHECKING
 from .data.LogicPredicates import *
 from .Options import SpiritTracksOptions
+from .data.Entrances import ENTRANCES
 
 if TYPE_CHECKING:
     from worlds.tloz_st import SpiritTracksWorld
+
 
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
     overworld_logic = [
@@ -12,7 +14,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ====== Outset Village ==============
 
         #[region 1, region 2, two-directional, logic requirements],
-        ["outset village", "outset village stamp book", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_glyph(state, player, "Snow") and st_has_cannon(state, player)],
+        ["outset village", "outset village stamp book", False, lambda state: state.has("_picked_up_alfonzo", player)],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
         ["outset village", "forest realm", False, lambda state: st_has_glyph(state, player, "Forest") and st_has_cannon(state, player)],
@@ -55,6 +57,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== Castle Town =========
 
         ["forest realm", "castle town", True, None],
+        ["castle town", "pick up alfonzo", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["pick up alfonzo", "alfonzo event", False, None],
         ["castle town wall", "castle town stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["castle town", "castle town wall", False, lambda state: (st_has_bombs(state, player))],
         ["castle town wall", "castle town cuccos", False, lambda state: st_castle_town_cuccos(state, player)],
@@ -310,15 +314,17 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
     all_logic = [
         make_overworld_logic(player, origin_name, options)
     ]
+    entrance_lookup = {(e.entrance_region, e.exit_region): e.name for e in ENTRANCES.values()}
+    world.multiworld.completion_condition[player] = lambda state: state.has("_beaten_game", player)
 
     # Create connections
     for logic_array in all_logic:
-        for entrance_desc in logic_array:
-            region_1 = world.get_region(entrance_desc[0])
-            region_2 = world.get_region(entrance_desc[1])
-            is_two_way = entrance_desc[2]
-            rule = entrance_desc[3]
+        for reg1, reg2, is_two_way, rule in logic_array:
+            region_1 = world.get_region(reg1)
+            region_2 = world.get_region(reg2)
+            name = entrance_lookup.get((reg1, reg2), None)
 
-            region_1.connect(region_2, None, rule)
+            region_1.connect(region_2, name, rule)
             if is_two_way:
-                region_2.connect(region_1, None, rule)
+                name = entrance_lookup.get((reg2, reg1), None)
+                region_2.connect(region_1, name, rule)

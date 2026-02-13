@@ -59,10 +59,7 @@ def st_has_bow_of_light(state, player):
 ## ========== Rabbits ===========
 
 def st_has_rabbit_items(state, player, realm, count=10):
-    item_group = f"{realm} Rabbits"
-    rabbit_count = 0
-    for i in ITEM_GROUPS[item_group]:
-        rabbit_count += state.count(i, player) * ITEMS[i].value
+    rabbit_count = state.count(f"{realm} Rabbit", player)
     return rabbit_count >= count
 
 def st_has_total_rabbits(state: CollectionState, player: int, count):

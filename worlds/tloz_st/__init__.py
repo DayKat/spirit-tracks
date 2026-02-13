@@ -24,6 +24,7 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
+    raise ModuleNotFoundError
 except ModuleNotFoundError:
     print(f"Using legacy logic")
     WorldParent = World

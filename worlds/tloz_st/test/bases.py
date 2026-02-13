@@ -10,6 +10,8 @@ class TestGeneration(WorldTestBase):
         "rabbit_location_count_distribution": "random_mixed",
         "rabbit_pack_size": "random_mixed",
         "rabbit_extra_items": 0,
-        "goal": "beat_wooded_temple",
+        "goal": "defeat_malladus",
         "dark_realm_access": "dungeons",
+        "dungeons_required": 4,
+        "tos_dungeon_options": "all_sections"
     }
