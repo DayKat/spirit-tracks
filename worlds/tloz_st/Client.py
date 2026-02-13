@@ -6,6 +6,7 @@ from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 from .data.Entrances import ENTRANCES
 from settings import get_settings
+from typing import Literal
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
@@ -17,6 +18,7 @@ STAGE_FLAGS_OFFSET = 176
 TRAIN_SPEED_OFFSET = 0x94
 TRAIN_GEAR_OFFSET = 0x27c
 TRAIN_QUICK_STATION_OFFSET = 0x80
+default_train_speed = (-143, 0, 115, 193)
 
 train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
@@ -45,63 +47,85 @@ def get_client_as_command_processor(self: "BizHawkClientCommandProcessor"):
     assert isinstance(client, SpiritTracksClient)
     return client
 
-def cmd_train_option(self: "BizHawkClientCommandProcessor", option: str, value: str="True"):
+def cmd_train_option(self: "BizHawkClientCommandProcessor",
+                     option: Literal["snap_speed", "quick_station", "speed", "options"] = "options",
+                     *args: str):
     """
     Change various train options. Currently implemented:
-      - snap_speed (True): instantly switch to new speeds on changing gear. Never active for stopping speed
+      - speed <speed: int | "default" | "reset" | "list"> <gear>
+      - snap_speed (True): instantly switch to new speeds on changing gear. Never active for stopping gear
       - quick_station (True): enter stations at any speed if gear is on stop
+      - options: lists current option values
     """
-    valid_options = ["snap_speed", "quick_station"]
+    # Thanks to Silvris's mm2 implementation for help with bizhawk command processing
+    valid_options = ["snap_speed", "quick_station", "speed", "options"]
     option = option.lower()
     if option not in valid_options:
-        self.output(f"  \"{option}\" is not a valid option!")
+        self.output(f"  \"{option}\" is not a valid option! {valid_options}")
         return False
 
-    value = value.lower()
-    valid_bool_values = {"0": False, "1": True, "false": False, "true": True}
+    if option == "speed":
+        return cmd_train_speed(self, *args)
+
+    client = get_client_as_command_processor(self)
+    if option == "options":
+        self.output(f"  Current train options:")
+        self.output(f"    speed: {client.train_speed}")
+        self.output(f"    snap_speed: {client.train_snap_speed}")
+        self.output(f"    quick_station: {client.train_quick_station}")
+        return True
+
+    value = args[0].lower() if args else "true"
+    valid_bool_values = {"0": False, "1": True, "false": False, "true": True, "default": True, "reset": True}
     value_bool = valid_bool_values.get(value, None)
-    if value is None:
+    if value_bool is None:
         self.output(f"  \"{value}\" is not a valid boolean!")
         return False
 
-    client = get_client_as_command_processor(self)
     setattr(client, f"train_{option}", value_bool)
     host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
     host_settings.update({f"train_{option}": value_bool})
     self.output(f"  Set option {option} to {value_bool}")
     return True
 
-def cmd_train_speed(self: "BizHawkClientCommandProcessor", gear: int or str = 3, speed: int or str = 0):
-    """Set train speed in game. Gears are ints from 0 to 3, where 0 is reverse and 3 is fast."""
-    # Thanks to Silvris's mm2 implementation for help with bizhawk command processing
-    valid_gears = {"reverse": 0, "stop": 1, "slow": 2, "fast": 3, "back": 0, "backwards": 0, "pause": 1, "mid": 2, "max": 2}
+def cmd_train_speed(self: "BizHawkClientCommandProcessor",
+                    speed: int or str = "list",
+                    gear: str = "2"):
+
+    def set_speed(speed_list):
+        client.train_speed = list(speed_list)
+        client.update_train_speed = True
+        self.output(f"  Setting train speeds: {speed_list}")
+        host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
+        host_settings.update({f"train_speed": speed_list})
+
+    client = get_client_as_command_processor(self)
+    special_speeds = ["list", "default", "reset"]
+    if speed in special_speeds:
+        if speed == "list":
+            self.output(f"  Current train speeds: {client.train_speed}")
+            return True
+        elif speed in ["default", "reset"]:
+            set_speed(default_train_speed)
+            return True
+
+    valid_gears = {"reverse": 0, "stop": 1, "slow": 2, "fast": 3, "back": 0, "backwards": 0, "pause": 1, "mid": 2, "max": 2,
+                   "-1": 0, "0": 1, "1": 2, "2": 3}
     if gear.lower() in valid_gears:
         gear_int = valid_gears[gear]
     else:
-        try:
-            gear_int = int(gear)
-        except ValueError:
-            self.output(f"  Gear \"{gear}\" is invalid, must be an int or in {', '.join([s for s in valid_gears])}")
-            return False
+        self.output(f"  \"{gear}\" is not a valid gear! {[s for s in valid_gears]}")
+        return False
 
     try:
         speed = min(int(speed), 9999)
         speed = max(speed, -9999)  # soft cap of 9999
     except ValueError:
-        self.output(f"  Command Failed: Speed must be an int")
+        self.output(f"  \"{speed}\" is not a valid speed, must be an int or in {special_speeds}")
         return False
 
-
-    if gear_int not in range(4):
-        self.output(f"  Gear is out of range, must be between 0 and 3")
-        return False
-
-    client = get_client_as_command_processor(self)
     client.train_speed[gear_int] = speed
-    client.update_train_speed = True
-    self.output(f"  Train speeds {client.train_speed}")
-    host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
-    host_settings.update({f"train_speed": client.train_speed})
+    set_speed(client.train_speed)
     return True
 
 class SpiritTracksClient(DSZeldaClient):
@@ -172,9 +196,7 @@ class SpiritTracksClient(DSZeldaClient):
 
             # Set commands
             if "train_speed" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["train_speed"] = cmd_train_speed
-                ctx.command_processor.commands["train_option"] = cmd_train_option
-
+                ctx.command_processor.commands["train"] = cmd_train_option
             return True
         return False
 
@@ -492,12 +514,14 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):
+            instant_switch = False
             if self.update_train_speed:
                 await write_multiple(ctx, train_speed_addresses, self.train_speed)
                 self.update_train_speed = False
+                instant_switch = True
 
             current_gear = read_result[self.train_gear_addr]
-            if current_gear != self.last_train_gear:
+            if current_gear != self.last_train_gear or instant_switch:
                 self.last_train_gear = current_gear
 
                 if self.train_quick_station and current_gear == 1:
