@@ -46,7 +46,6 @@ LOCATIONS_DATA = {
         "x_max": 43663,
         "z_min": 11490,
         "z_max": 33968,
-        "require_item": ["Spirit Flute", "Song of Discovery"]
     },
     "Outset Niko's House Tree": {
         "region_id": "outset village trees",
@@ -57,7 +56,6 @@ LOCATIONS_DATA = {
         "x_max": -41317,
         "z_min": 10523,
         "z_max": 28762,
-        "require_item": ["Spirit Flute", "Song of Discovery"],
     },
     "Outset Receive Stamp Book": { # TODO: if using address read it triggers if you receive stamp book at start
         "region_id": "outset village stamp book",
@@ -70,8 +68,6 @@ LOCATIONS_DATA = {
         "x_max": 12156,
         "z_min": -22938,
         "z_max": 2247,
-        "require_item": ["Forest Glyph", "Snow Glyph"],
-        #"delay_pickup": "Outset Niko's House Tree"
     },
 
     # Castle Town
@@ -118,7 +114,6 @@ LOCATIONS_DATA = {
         "x_max": 74138,
         "z_min": 13914,
         "z_max": 24835,
-        "require_item": ["Bombs (Progressive)", "Song of Birds", "Spirit Flute"],
     },
     "Castle Town Ramp House Chest": {
         "region_id": "castle town cuccos",
@@ -141,7 +136,6 @@ LOCATIONS_DATA = {
         "x_max": -32916,
         "z_min": -43563,
         "z_max": -33114,
-        "require_item": ["Bombs (Progressive)", "Song of Birds" "Spirit Flute"],
     },
 
     # Hyrule Castle
@@ -237,7 +231,6 @@ LOCATIONS_DATA = {
         "z_min": -39322,
         "z_max": -29710,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind"]
         #'set_bit': [(0x265715, 0x80)]
     },
     "ToS 2F Whirlwind Chest": {
@@ -250,7 +243,6 @@ LOCATIONS_DATA = {
         "z_min": -63898,
         "z_max": -54886,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind"]
     },
     "ToS 2F Bomb Wall Chest": {
         "region_id": "tos 2f bomb wall",
@@ -262,7 +254,6 @@ LOCATIONS_DATA = {
         "z_min": -18842,
         "z_max": 10650,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Bombs (progressive)"]
     },
     "ToS 3F Forest Rail Glyph": {
         "region_id": "tos 3f rail map",
@@ -289,7 +280,6 @@ LOCATIONS_DATA = {
         "z_min": 1600,
         "z_max": 10670,
         'dungeon': "ToS",
-        "require_item": ["Forest Source"]
     },
     "ToS 4F NE Chest": {
         "region_id": "tos 4f ne chest",
@@ -302,7 +292,6 @@ LOCATIONS_DATA = {
         "z_min": -55720,
         "z_max": -42600,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind", "Boomerang", "Bombs (Progressive)"]
     },
     "ToS 5F Island Chest": {
         "region_id": "tos 5f island chest",
@@ -314,7 +303,6 @@ LOCATIONS_DATA = {
         "z_min": 42350,
         "z_max": 52230,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Forest Source", "Whirlwind"]
     },
     "ToS 5F Spinnit Key": {
         "region_id": "tos 5f spinnit key",
@@ -324,7 +312,6 @@ LOCATIONS_DATA = {
         "x_max": -45000,
         "z_min": 0,
         'dungeon': "ToS",
-        # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
     },
     "ToS 5F Bomb Wall Chest": {
         "region_id": "tos 5f secret chest",
@@ -336,7 +323,6 @@ LOCATIONS_DATA = {
         "z_min": -17693,
         "z_max": 8481,
         'dungeon': "ToS",
-        # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang", "Bombs (Progressive)"]
     },
     "ToS 6F Enemy Chest 1": {
         "region_id": "tos 6f chests",
@@ -350,7 +336,6 @@ LOCATIONS_DATA = {
         "z_max": -4354,
         "delay_pickup": ["ToS 6F Enemy Big Chest"],
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Chest 2": {
         "region_id": "tos 6f chests",
@@ -363,7 +348,6 @@ LOCATIONS_DATA = {
         "z_min": -4151,
         "z_max": 6570,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Chest 3": {
         "region_id": "tos 6f chests",
@@ -376,7 +360,6 @@ LOCATIONS_DATA = {
         "z_min": -10660,
         "z_max": -4152,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Enemy Big Chest": {
         "region_id": "tos 6f chests",
@@ -391,7 +374,6 @@ LOCATIONS_DATA = {
         "z_max": 6560,
         "delay_pickup": ["ToS 6F Enemy Chest 1"],
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source", "Boomerang"]
     },
     "ToS 6F Key": {
         "region_id": "tos 6f key",
@@ -460,7 +442,6 @@ LOCATIONS_DATA = {
         "x_max": -46389,
         "z_min": -59335,
         "z_max": -41068,
-        "require_item": ["Whip"],
     },
 
     # Forest Sanctuary
@@ -471,7 +452,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x30,
         "room_id": 0,
         "stamp": True,
-        "require_item": ["Stamp Book"],
     },
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
@@ -482,7 +462,6 @@ LOCATIONS_DATA = {
         "x_max": -18104,
         "z_min": 5734,
         "z_max": 18842,
-        "require_item": ["Spirit Flute"],
     },
     # "Forest Sanctuary Gage Duet": {
     #     "region_id": "fos gage",
@@ -503,7 +482,6 @@ LOCATIONS_DATA = {
         "z_max": 52120,
         "stage_id": 0x30,
         "room_id": 0,
-        "require_item": ["Whirlwind", "Spirit Flute", "Song of Birds"],
     },
 
     # Wooded Temple
@@ -518,7 +496,6 @@ LOCATIONS_DATA = {
         "z_min": -51620,
         "z_max": -39275,
         "dungeon": "Wooded Temple",
-        "require_item": ["Spirit Flute"],
     },
     "Wooded Temple Stamp Station": {
         "region_id": "wt stamp station",
@@ -528,7 +505,6 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind", "Stamp Book"],
     },
     "Wooded Temple 1F Enemy Chest": {
         "region_id": "wt 1f enemy chest",
@@ -550,7 +526,6 @@ LOCATIONS_DATA = {
         "z_min": -63898,
         "z_max": -20000,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind"],
     },
     "Wooded Temple 1F Switch Chest": {
         "region_id": "wt 1f switch chest",
@@ -562,7 +537,6 @@ LOCATIONS_DATA = {
         "z_min": -39322,
         "z_max": -30077,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind"],
     },
     "Wooded Temple 2F Enemy Chest": {
         "region_id": "wt 2f enemy chest",
@@ -583,7 +557,6 @@ LOCATIONS_DATA = {
         "z_min": -14900,
         "z_max": -258,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind"],
     },
     "Wooded Temple 3F Chestnut Chest": {
         "region_id": "wt 3f chestnut chest",
@@ -595,7 +568,6 @@ LOCATIONS_DATA = {
         "z_min": -59820,
         "z_max": -52296,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind"],
     },
     "Wooded Temple 3F SE Chest": {
         "region_id": "wt 3f se chest",
@@ -607,7 +579,6 @@ LOCATIONS_DATA = {
         "z_min": -2458,
         "z_max": 7485,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind"],
     },
     # "Wooded Temple 3F Boss Key Chest": {
     #     "region_id": "wt 3f boss key chest",
@@ -636,7 +607,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x1E,
         "room_id": 0,
         "dungeon": "Wooded Temple",
-        "require_item": ["Whirlwind", "Sword (Progressive)"],
         "goal": True,
         "ut_connect": "EVENT: Defeat Stagnox"
     },
@@ -705,7 +675,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x37,
         "room_id": 0x01,
         "stamp": True,
-        "require_item": ["Stamp Book", "Bombs (Progressive)"],
     },
     # "Trading Post 1st Song Statue": { *only if not already have song*
     #     "region_id": "trading post discovery song statue",
@@ -727,7 +696,6 @@ LOCATIONS_DATA = {
         "x_max": -45666,
         "z_min": -55626,
         "z_max": -35679,
-        "require_item": ["Spirit Flute"],
     },
     "Trading Post Chest": {
         "region_id": "trading post chest",
@@ -736,7 +704,6 @@ LOCATIONS_DATA = {
         "room_id": 0x02,
         "address": STAddr.adv_flags_3e,
         "value": 0x10,
-        "require_item": ["Boomerang", "Song of Discovery", "Song of Light", "Spirit Flute", "Bombs (Progressive)"],
     },
 
     # Anouki Village
@@ -746,7 +713,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x2B,
         "room_id": 0,
         "stamp": True,
-        "require_item": ["Stamp Book"],
     },
     "Anouki Village Song Statue": {
         "region_id": "anouki village song statue",
@@ -758,7 +724,6 @@ LOCATIONS_DATA = {
         "z_min": -59643,
         "z_max": -43683,
         "delay_pickup": ["Anouki Village Song Statue Chest"],
-        "require_item": ["Spirit Flute"],
     },
     "Anouki Village Song Statue Chest": { #TODO check if consistently sending check
         "region_id": "anouki village song statue",
@@ -770,7 +735,6 @@ LOCATIONS_DATA = {
         "z_min": -59643,
         "z_max": -43683,
         "delay_pickup": ["Anouki Village Song Statue"],
-        "require_item": ["Spirit Flute"],
     },
     "Anouki Village Bomb Cave Chest": {
         "region_id": "anouki village bomb cave chest",
@@ -781,7 +745,6 @@ LOCATIONS_DATA = {
         "x_max": 23020,
         "z_min": -42922,
         "z_max": -19997,
-        "require_item": ["Bombs (Progressive)"],
     },
     "Anouki Village Lake Chest": {
         "region_id": "anouki village lake chest",
@@ -792,7 +755,6 @@ LOCATIONS_DATA = {
         "x_max": -83560,
         "z_min": -55900,
         "z_max": -47180,
-        "require_item": ["Boomerang"],
     },
 
     # Snow Sanctuary
@@ -802,7 +764,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x31,
         "room_id": 0,
         "stamp": True,
-        "require_item": ["Stamp Book"],
     },
     # "Snow Sanctuary Steem Duet": {
     #     "region_id": "ss steem duet",
@@ -826,7 +787,6 @@ LOCATIONS_DATA = {
         "z_min": 39300,
         "z_max": 47530,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Whirlwind"],
     },
     "Blizzard Temple B1 E Enemy Chest": {
         "region_id": "bt b1 e enemy chest",
@@ -838,7 +798,6 @@ LOCATIONS_DATA = {
         "z_min": -28212,
         "z_max": -13300,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Whirlwind"],
     },
     "Blizzard Temple B1 NE Enemy Chest": {
         "region_id": "bt b1 ne enemy chest",
@@ -850,7 +809,6 @@ LOCATIONS_DATA = {
         "z_min": -72090,
         "z_max": -53453,
         "dungeon": "Blizzard Temple",
-        "require_item": [],
     },
     "Blizzard Temple 1F NE Chest": {
         "region_id": "bt 1f ne chest",
@@ -862,7 +820,6 @@ LOCATIONS_DATA = {
         "z_min": -68000,
         "z_max": -58982,
         "dungeon": "Blizzard Temple",
-        "require_item": [],
     },
     "Blizzard Temple B1 SW Chest": {
         "region_id": "bt b1 sw chest",
@@ -874,7 +831,6 @@ LOCATIONS_DATA = {
         "z_min": 51643,
         "z_max": 72090,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Boomerang"],
     },
     "Blizzard Temple Stamp Station": {
         "region_id": "bt stamp station",
@@ -883,7 +839,6 @@ LOCATIONS_DATA = {
         "room_id": 1,
         "stamp": True,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Stamp Book", "Boomerang", "Small Key (Blizzard Temple)"],
     },
     "Blizzard Temple B1 NW Enemy Chest": {
         "region_id": "bt b1 nw enemy chest",
@@ -895,7 +850,6 @@ LOCATIONS_DATA = {
         "z_min": -62715,
         "z_max": -42615,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
     },
     "Blizzard Temple 1F NW Chest": {
         "region_id": "bt 1f nw chest",
@@ -907,7 +861,6 @@ LOCATIONS_DATA = {
         "z_min": -68000,
         "z_max": -56082,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
     },
     "Blizzard Temple 1F Torch Chest": {
         "region_id": "bt 1f torch chest",
@@ -919,7 +872,6 @@ LOCATIONS_DATA = {
         "z_min": -68020,
         "z_max": -58982,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Boomerang", "Small Key (Blizzard Temple)"],
     },
     "Blizzard Temple Boss Heart Container": {
         "region_id": "bt fraaz",
@@ -931,7 +883,6 @@ LOCATIONS_DATA = {
         "z_min": 4707,
         "z_max": 24840,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Boomerang", "Sword (Progressive)", "Small Key (Blizzard Temple)"],
     },
     "Blizzard Temple Dungeon Reward": {
         "region_id": "bt fraaz",
@@ -941,7 +892,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x1F,
         "room_id": 0,
         "dungeon": "Blizzard Temple",
-        "require_item": ["Boomerang", "Sword (Progressive)", "Small Key (Blizzard Temple)"],
         "goal": True,
         "ut_connect": "EVENT: Defeat Fraaz"
     },
@@ -956,7 +906,6 @@ LOCATIONS_DATA = {
         "x_max": 64770,
         "z_min": -58730,
         "z_max": -42650,
-        "require_item": ["Whip"],
     },
     "Icy Spring Stamp Station": {
         "region_id": "icyspring stamp station",
@@ -964,7 +913,6 @@ LOCATIONS_DATA = {
         "stage_id": 0x35,
         "room_id": 0,
         "stamp": True,
-        "require_item": ["Stamp Book", "Boomerang"],
         "item_override": "Shield",
     },
 
@@ -978,7 +926,6 @@ LOCATIONS_DATA = {
         "x_max": 10650,
         "z_min": -55800,
         "z_max": -38083,
-        "require_item": ["Boomerang", "Snowdrift Station Tracks", "Shield", "Snow Source"],
     },
 
     # Slippery Station
@@ -991,7 +938,6 @@ LOCATIONS_DATA = {
         "x_max": 14746,
         "z_min": -68303,
         "z_max": -50810,
-        "require_item": ["Slippery Station Tracks", "Snow Source"],
     },
     "Slippery Station Pro Reward": {
         "region_id": "slippery pro",
@@ -1002,7 +948,6 @@ LOCATIONS_DATA = {
         "x_max": 104858,
         "z_min": -65036,
         "z_max": -46800,
-        "require_item": ["Slippery Station Tracks", "Snow Source"],
     },
     "Slippery Station Champion Reward": {
         "region_id": "slippery champion",
@@ -1013,7 +958,6 @@ LOCATIONS_DATA = {
         "x_max": 88000,
         "z_min": 45579,
         "z_max": 64500,
-        "require_item": ["Slippery Station Tracks", "Snow Source"],
         "conditional": True
     },
 
@@ -1027,7 +971,6 @@ LOCATIONS_DATA = {
         "x_max": 72232,
         "z_min": -43618,
         "z_max": -28439,
-        "require_item": ["Spirit Flute", "Song of Discovery", "Snow Source"],
     },
 
     # ========= Rabbits ==========
@@ -1039,7 +982,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 1,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit near Ocean Shortcut": {
@@ -1049,7 +991,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 2,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit E Mayscore": {
@@ -1059,7 +1000,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 4,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit SW Trading Post": {
@@ -1069,7 +1009,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 8,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit E Outset": {
@@ -1079,7 +1018,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x10,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit SW Rabbit Haven": {
@@ -1089,7 +1027,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x20,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit near Wooded Temple": {
@@ -1099,7 +1036,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x40,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit near Rabbit Haven": {
@@ -1109,7 +1045,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_0,
         "value": 0x80,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit past wooden bridge": {
@@ -1119,7 +1054,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 1,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
     "Rabbit S Rabbit Haven": {
@@ -1129,7 +1063,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 2,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Forest Rabbits"]
     },
 
@@ -1140,7 +1073,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 4,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit SE Blizzard": {
@@ -1150,7 +1082,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 8,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit W Anouki Village": {
@@ -1160,7 +1091,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 0x10,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit SW Blizzard": {
@@ -1170,7 +1100,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 0x20,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit E Anouki Village": {
@@ -1180,7 +1109,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 0x40,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit near Snowdrift Station": {
@@ -1190,7 +1118,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_1,
         "value": 0x80,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit W Icy Spring Station": {
@@ -1200,7 +1127,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 1,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit N Icy Spring Station": {
@@ -1210,7 +1136,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 2,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit NW Blizzard": {
@@ -1220,7 +1145,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 4,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
     "Rabbit Central Blizzard": {
@@ -1230,7 +1154,6 @@ LOCATIONS_DATA = {
         "address": STAddr.rabbits_2,
         "value": 8,
         "rabbit": True,
-        "require_item": ["Rabbit Net", "Cannon"],
         "location_groups": ["Unique Snow Rabbits"]
     },
 
