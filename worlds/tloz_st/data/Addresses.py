@@ -25,9 +25,9 @@ class STAddr:
     getting_train_part = Address(0x11F5E4)
     saving = Address(0x049BD8)
     
-    link_x = Pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
-    link_y = Pointer(0x05D0)
-    link_z = Pointer(0x05D4)
+    link_x = Address.pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
+    link_y = Address.pointer(0x05D0)
+    link_z = Address.pointer(0x05D4)
     
     menu = Address(0x260958)
     equipped_item = Address(0x265318, size=4)
@@ -41,11 +41,11 @@ class STAddr:
     rabbits_3 = Address(0x262033)
     rabbits_4 = Address(0x262034)
     
-    gItemManager = Pointer(0x0fb4)
-    gPlayerManager = Pointer(0x0fbc)
-    gAdventureFlags = Pointer(0x0f74)
-    gPlayer = Pointer(0x0fec)
-    gMapManager = Pointer(0x0e60)
+    gItemManager = Address.pointer(0x0fb4)
+    gPlayerManager = Address.pointer(0x0fbc)
+    gAdventureFlags = Address.pointer(0x0f74)
+    gPlayer = Address.pointer(0x0fec)
+    gMapManager = Address.pointer(0x0e60)
     stage_flag_pointer = Address(0x265164, size=4)
     
     watched_intro = Address(0x265726)

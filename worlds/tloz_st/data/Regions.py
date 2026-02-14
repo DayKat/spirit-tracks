@@ -79,6 +79,11 @@ REGIONS = [
     "goal_snow_glyph",
     "event_7f",
 
+    "tos 8f",
+    "tos 8f bombs",
+    "tos 9f nw",
+    "tos 11f",
+
     # Mayscore
     "mayscore",
     "mayscore stamp station",

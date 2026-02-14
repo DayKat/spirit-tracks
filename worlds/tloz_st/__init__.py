@@ -548,6 +548,26 @@ class SpiritTracksWorld(WorldParent):
             rabbit_items |= create_items_from_count_list(r, [s]*item_count)
         return rabbit_items
 
+    def choose_tear_items(self):
+        size_index = self.options.tear_size.value
+        spirit_weapon = self.options.spirit_weapons.value
+        size_str = ["", "Big "][size_index]
+        sections = [1, 4, 9]
+        add_items = []
+        tear_group = self.options.tear_groups.value
+        count_normal = [3, 1][size_index]
+
+        if tear_group == 0:  # unique section
+            add_items += [(f"{size_str}Tear of Light ({floor}F)", count_normal) for floor in sections]
+        elif tear_group == 1:  # All Sections
+            add_items += (f"{size_str}Tear of Light (All Sections)", count_normal + spirit_weapon)
+        elif tear_group == 2: # progressive
+            count_prog = [15, 5][size_index]
+            add_items += (f"{size_str}Tear of Light (Progressive)", count_prog + spirit_weapon)
+
+        return add_items
+
+
     def create_items(self):
         item_pool_dict = self.build_item_pool_dict()
         self.get_extra_filler_items(item_pool_dict)

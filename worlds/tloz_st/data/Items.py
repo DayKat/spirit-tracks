@@ -472,11 +472,9 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'dummy': True
     },
     "Tear of Light": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
-        "dummy": True,
-        'value': 1,
-        "tags": ["incremental"]
+        'value': 1
     },
     "Refill: Bombs": {
         'classification': ItemClassification.filler,
@@ -614,11 +612,6 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'dungeon': 0x1A
     },
-    # "Regal Necklace": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x1B5582,
-    #     'value': 0x08
-    # },
 
     # Trade Quest and misc
 
@@ -671,6 +664,61 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "dummy": True,
         "id": 189,
     },
+
+    # IDs are not fixed yet, but determined by order. Put new items here until an update that breaks compatibility, and move them then.
+    "Tear of Light (1F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [0, 1, 0x28]
+    },
+    "Tear of Light (4F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [3, 4, 5, 0x29]
+    },
+    "Tear of Light (9F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
+    },
+    "Tear of Light (All Sections)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": range(0x30)
+    },
+    "Tear of Light (Progressive)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+    },
+    "Big Tear of Light (1F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [0, 1, 0x28]
+    },
+    "Big Tear of Light (4F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [3, 4, 5, 0x29]
+    },
+    "Big Tear of Light (9F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
+    },
+    "Big Tear of Light (Progressive)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3
+    },
+    "Big Tear of Light (All Sections)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": range(0x30),
+        "value": 3
+    }
 }
 
 ITEMS: dict[str, "STItem"] = {}

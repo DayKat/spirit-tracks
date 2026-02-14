@@ -629,7 +629,6 @@ LOCATIONS_DATA = {
         "x_max": 23070,
         "z_min": -18940,
         "z_max": -9020,
-        "item_override": "Ocean Glyph"
     },
     "Rabbit Haven Rescue 5 Rabbits": {
         "region_id": "rabbit haven 5 rabbits",
@@ -1320,8 +1319,76 @@ LOCATIONS_DATA = {
         "location_groups": ["Portal Checks"],
         "conditional": True
     },
+
+    # New locations to not mess locations ids until we're ready
+    "ToS 8F N Bombable Wall Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x15,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "tos 8f"
+    },
+    "ToS 8F S Bombable Wall Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x2A,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "tos 8f bombs"
+    },
+    "ToS 9F NE Tear of Light": {
+        "stage_id": 0x13,
+        "room_id": 0x8,
+        "vanilla_item": "Tear of Light",
+        "x_min": 35000,
+        "z_max": -5000,
+        "x_max": 55000,
+        "z_min": -25000,
+        "region_id": "tos 8f"
+    },
+    "ToS 9F NW Tear of Light": {
+        "stage_id": 0x13,
+        "room_id": 0x8,
+        "vanilla_item": "Tear of Light",
+        "region_id": "tos 8f"
+    },
+    "ToS 9F NE Bombable Wall Tear": {
+        "stage_id": 0x13,
+        "room_id": 0x16,
+        "vanilla_item": "Tear of Light",
+        "region_id": "tos 8f"
+    },
+    "ToS 9F NW Secret Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x8,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "x_max": -65000,
+        "z_max": -40000,
+        "region_id": "tos 9f nw"
+    },
+    "ToS 10F NW Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x9,
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "x_max": -75000,
+        "z_max": -25000,
+        "region_id": "tos 9f phantom"
+    },
+    "ToS 11F Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x9,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "tos 11f"
+    },
+    "ToS 12F Ocean Rail Glyph": {
+        "stage_id": 0x13,
+        "room_id": 0xA,
+        "vanilla_item": "Ocean Glyph",
+        "region_id": "tos 11f"
+    },
+
+
 }
 ## ========== remember to add item override!! =============
+
+
 
 
 for i, loc_data in enumerate(LOCATIONS_DATA.items()):

@@ -68,6 +68,17 @@ def has_portal(portal, forward):
     return ([OptionFilter(option, 1)]
         | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
 
+tear_lookup = {1: 3, 4: 6, 9: 9}
+def has_tears(floor: int):
+    return Or(
+        Has(f"Tear of Light ({floor}F)", 3),
+        Has(f"Big Tear of Light ({floor}F)"),
+        Has(f"Tear of Light (Progressive)", tear_lookup[floor])
+    )
+
+def can_possess_phantom(floor):
+    return (has_tears(floor) & has_sword) | has_bow_of_light
+
 # Isolated options
 hard_logic_filter = [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_hard), OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_glitched)]
 hard_logic = Has("_UT_Glitched_Logic") | hard_logic_filter

@@ -100,6 +100,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 7f rail map", "goal_snow_glyph", False, None],
         ["tos 7f rail map", "event_7f", False, None],
 
+        ["tos", "tos 8f", False, lambda state: st_has_source(state, player, "Snow")],
+        ["tos 8f", "tos 8f bombs", False, lambda state: st_has_bombs(state, player)],
+        ["tos 8f", "tos 9f nw", False, lambda state: st_has_whirlwind(state, player)],
+        ["tos 8f", "tos 11f", False, lambda state: st_has_damage(state, player)],
+
         # # ============ Shops ====================
 
         # # ======== Mayscore =========

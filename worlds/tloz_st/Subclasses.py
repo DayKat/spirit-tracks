@@ -1,7 +1,21 @@
+
 from .DSZeldaClient.subclasses import DSTransition
 from .DSZeldaClient.ItemClass import DSItem, receive_normal
 from enum import IntEnum
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .Client import SpiritTracksClient
 
+async def receive_tear_of_light(client: SpiritTracksClient, ctx, item: "STItem", rii):
+    if client.current_stage == 0x13:
+        if client.current_room in item.rooms:
+            last_count = await item.address.read(ctx)
+            new_count = last_count + item.value
+            if new_count > 3:
+                new_count = 3  # delay pickup will have to count treasures or something
+            return item.address.get_write_list(new_count)
+
+    return []
 
 async def remove_treasure(client, ctx, item, rii):
     addr = item.address
@@ -9,11 +23,16 @@ async def remove_treasure(client, ctx, item, rii):
     print(f"Removing treasure {item}")
     return addr.get_write_list(value)
 
+async def remove_tear_of_light(client, ctx, item: "STItem", rii):
+    await item.address.add(ctx, -1)
+    return []
+
 async def dummy(*args):
     print(f"Receiving dummy item")
     return []
 
 class STItem(DSItem):
+    rooms: list[int]
 
     def __init__(self, name, data, all_items):
         super().__init__(name, data, all_items)
@@ -22,11 +41,15 @@ class STItem(DSItem):
         res = super().get_receive_function()
         if res is None:
             return dummy
+        if "Tear of Light" in self.name:
+            return receive_tear_of_light
         return res
 
     def get_remove_vanilla_function(self):
         if "treasure" in self.tags:
             return remove_treasure
+        if self.name == "Tear of Light":
+            return remove_tear_of_light
         return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):

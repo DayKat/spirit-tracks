@@ -1,6 +1,6 @@
 
 from .DSZeldaClient.DSZeldaClient import *
-from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
+from .DSZeldaClient.subclasses import storage_key
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
@@ -250,7 +250,7 @@ class SpiritTracksClient(DSZeldaClient):
         # read_keys += read_keys_train
         if stage in range(4, 8):
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-            self.train_gear_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
+            self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
             read_keys.append(self.train_gear_addr)
 
         self.main_read_list = read_keys
@@ -451,7 +451,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:
             stage_address = await STAddr.stage_flag_pointer.read(ctx)
-            stage_flag_address = AddrFromPointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
+            stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
 
@@ -480,7 +480,7 @@ class SpiritTracksClient(DSZeldaClient):
                 data = [data] if isinstance(data, dict) else data
                 self.event_data = data
                 for i, event in enumerate(data):
-                    address = AddrFromPointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
+                    address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
                     print(f"event data {self.event_data}")
                     self.event_data[i]["address"] = address
                     print(f"event data {self.event_data}")
@@ -512,7 +512,7 @@ class SpiritTracksClient(DSZeldaClient):
             await write_multiple(ctx, train_speed_addresses, self.train_speed)
             self.last_train_gear = -1  # force a quick speed increase
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-            self.train_speed_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
+            self.train_speed_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):
@@ -527,7 +527,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.last_train_gear = current_gear
 
                 if self.train_quick_station and current_gear == 1:
-                    train_action_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
+                    train_action_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
                     await train_action_addr.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
                 # Instant-set train speed
                 if self.train_snap_speed and current_gear != 1:
