@@ -81,7 +81,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "tos", False, None],
         ["tos", "tos 1f", False, None],
         ["tos 1f", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player))],
-        ["tos 1f", "tos 2f", False, lambda state: st_has_sword(state, player)],
+        ["tos 1f", "tos 2f", False, lambda state: st_has_sword(state, player) or st_has_bow_of_light(state, player)],
         ["tos 2f", "tos 2f raised chests", False, lambda state: st_has_whirlwind(state, player)],
         ["tos 2f", "tos 2f bomb wall", False, lambda state: st_has_bombs(state, player)],
         ["tos 2f", "tos 3f rail map", False, None],
@@ -89,7 +89,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 3f rail map", "event_3f", False, None],
 
         ["tos", "tos 4f", False, lambda state: (st_has_source(state, player, "Forest"))],
-        ["tos 4f", "tos 5f island chest", False, lambda state: st_has_sword(state, player)],
+        ["tos 4f", "tos 5f island chest", False, lambda state: st_has_sword(state, player) and (st_has_whirlwind(state, player) or st_has_bow_of_light(state, player))],
         ["tos 5f island chest", "tos 5f spinnit key", False, lambda state: st_has_whirlwind(state, player)],
         ["tos 5f spinnit key", "tos 5f alt path", False, lambda state: st_has_boomerang(state, player)],
         ["tos 5f alt path", "tos 5f secret chest", False, lambda state: st_has_bombs(state, player)],

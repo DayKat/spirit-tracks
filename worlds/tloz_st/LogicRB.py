@@ -76,7 +76,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "tos", False, None],
         ["tos", "tos 1f", False, None],
         ["tos 1f", "tos 1f chest", False, has_range],
-        ["tos 1f", "tos 2f", False, has_sword],
+        ["tos 1f", "tos 2f", False, has_sword | has_bow_of_light],
         ["tos 2f", "tos 2f raised chests", False, has_whirlwind],
         ["tos 2f", "tos 2f bomb wall", False, has_bombs],
         ["tos 2f", "tos 3f rail map", False, None],
@@ -84,7 +84,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 3f rail map", "event_3f", False, None],
 
         ["tos", "tos 4f", False, has_source("Forest")],
-        ["tos 4f", "tos 5f island chest", False, has_sword],
+        ["tos 4f", "tos 5f island chest", False, has_sword & (has_whirlwind | has_bow_of_light)],
         ["tos 5f island chest", "tos 5f spinnit key", False, has_whirlwind],
         ["tos 5f spinnit key", "tos 5f alt path", False, has_boomerang],
         ["tos 5f alt path", "tos 5f secret chest", False, has_bombs],
