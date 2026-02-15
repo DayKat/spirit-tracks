@@ -80,7 +80,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "tos", False, None],
         ["tos", "tos 1f", False, None],
-        ["tos 1f", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player))],
+        ["tos 1f", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player) or st_has_beam_sword(state, player))],
         ["tos 1f", "tos 1f switch", False, lambda state: st_can_kill_bat(state, player) or st_can_possess_phantoms(state, player, 1)],
         ["tos 1f", "tos 2f", False, lambda state: st_can_possess_phantoms(state, player, 1) or st_vanilla_tears(state, player)],
         ["tos 2f", "tos 2f raised chests", False, lambda state: st_has_whirlwind(state, player)],
@@ -138,11 +138,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["wt 1f enemy chest", "wt 2f enemy chest", False, None],
         ["wt 1f enemy chest", "wt 2f poison chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
         ["wt", "wt 1f switch chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
-        ["wt", "wt 3f chestnut chest", False, lambda state: st_can_kill_bubble(state, player) and st_has_range(state, player) and st_has_small_keys(state, player, "Wooded Temple", 1)],
-        ["wt", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) and st_can_kill_bubble(state, player) and st_has_small_keys(state, player,"Wooded Temple", 2)],
-       #["wt", "wt 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
-        #["wt", "wt heart container", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
-        ["wt", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
+        ["wt", "wt 2f left", False, lambda state: st_can_kill_bubble(state, player) and st_has_small_keys(state, player, "Wooded Temple", 1)],
+        ["wt 2f left", "wt 3f chestnut chest", False, lambda state: st_has_range(state, player) or st_has_beam_sword(state, player)],
+        ["wt 2f left", "wt 3f", False, lambda state: st_has_small_keys(state, player, "Wooded Temple", 2)],
+        ["wt 3f", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
+        ["wt 3f", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player)],
         ["wt stagnox", "goal_stagnox", False, None],
         ["wt stagnox", "event_stagnox", False, None],
 
@@ -153,7 +153,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["trading post", "trading post light song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["trading post", "trading post chest", False,
          lambda state: st_has_bombs(state, player)
-                       and (st_has_boomerang(state, player) or st_has_bow(state, player))
+                       and (st_has_boomerang(state, player) or st_has_bow(state, player) or st_has_beam_sword(state, player))
                        and st_has_discovery_song(state, player)
                        and (st_has_light_song(state, player) or st_option_hard_logic(state, player))],
         ["trading post", "trading post stamp station", False, lambda state: st_has_bombs(state, player) and st_has_stamp_book(state, player)],
@@ -199,18 +199,19 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["anouki village", "ss", False, None],
         ["ss", "ss stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["ss", "ss song", False, lambda state: st_has_spirit_flute(state, player)],
 
         ## ========== Blizzard Temple =========
 
         ["snow realm source", "bt", True, lambda state: st_has_source(state, player, 'Snow')],
         ["blizzard temple tracks", "bt", True, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
-        ["bt", "bt b1 se chest", False, lambda state: st_can_ring_bell(state, player) and st_has_whirlwind(state, player) and (st_has_range(state, player) or st_has_whip(state, player) or st_has_bombs(state, player))],
-        ["bt b1 se chest", "bt b1 e enemy chest", False, None],
-        ["bt b1 se chest", "bt b1 ne enemy chest", False, lambda state: st_can_kill_bubble(state, player)],
-        ["bt b1 se chest", "bt 1f ne chest", False, lambda state: st_has_boomerang(state, player) or (st_has_whip(state, player) and st_has_whirlwind(state, player))],
+        ["bt", "bt b1 se", False, lambda state: st_can_ring_bell(state, player) and st_has_whirlwind(state, player)],
+        ["bt b1 se", "bt b1 e enemy chest", False, None],
+        ["bt b1 se", "bt b1 ne enemy chest", False, lambda state: st_can_kill_bubble(state, player)],
+        ["bt b1 se", "bt 1f ne chest", False, lambda state: st_has_mid_range(state, player) or st_has_bombs(state, player)],
         ["bt 1f ne chest", "bt b1 sw chest", False, lambda state: st_has_boomerang(state, player)],
-        ["bt 1f ne chest", "bt stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_small_keys(state, player, "Blizzard Temple", 1)],
-        ["bt 1f ne chest", "bt b1 nw enemy chest", False, lambda state: st_has_small_keys(state, player, "Blizzard Temple", 1)],
+        ["bt b1 sw chest", "bt b1 nw enemy chest", False, lambda state: st_has_small_keys(state, player, "Blizzard Temple", 1) and st_can_kill_freezards_torch(state, player)],
+        ["bt b1 nw enemy chest", "bt stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["bt b1 nw enemy chest", "bt 1f nw chest", False, None],
         ["bt b1 nw enemy chest", "bt 1f torch chest", False, None],
         ["bt b1 nw enemy chest", "bt fraaz", False, lambda state: st_has_sword(state, player)],
@@ -226,17 +227,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ============ Snowdrift Station =========
 
         ["blizzard temple tracks", "snowdrift", True, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station")],
-        ["snowdrift", "snowdrift reward", False, lambda state: any([
-            st_has_boomerang(state, player), st_has_whip(state, player),
-            st_has_bow(state, player)]) and
-                                                               any([st_has_shield(state, player),
-                                                                    st_has_bow_of_light(state, player),
-                                                                    st_option_hard_logic(state, player)])
-                                                               and any([st_has_sword(state, player),
-                                                                        st_has_whip(state, player),
-                                                                        st_has_bombs(state, player),
-                                                                        st_has_bow(state, player)
-                                                                    ])],
+        ["snowdrift", "snowdrift reward", False, lambda state: st_can_kill_freezards(state, player) and (
+            st_has_range(state, player) or (st_has_beam_sword(state, player) and st_option_hard_logic(state, player)))],
 
         # ========== Slippery Station ==========
         ["blizzard temple tracks", "slippery", True,
@@ -254,11 +246,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["dark realm portal", "dark realm trains", False, lambda state: st_has_dungeon_rewards(state, player)],
         ["dark realm trains", "demon train", False, None],
         ["demon train", "cole fight", False, None],
-        ["cole fight", "malladus 1", False, lambda state: st_has_bow_of_light(state, player) and st_has_sword(state, player) and st_has_boomerang(state, player)],
+        ["cole fight", "malladus 1", False, lambda state: st_can_fight_malladus(state, player)],
         ["malladus 1", "malladus 2", False, lambda state: st_has_spirit_flute(state, player) and st_has_sword(state, player)],
-        ["malladus 2", "malladus goal", False, lambda state: st_has_sword(state, player) and st_has_bow_of_light(state, player)],
+        ["malladus 2", "malladus goal", False, lambda state: st_can_fight_malladus(state, player)],
 
-        ["malladus 2", "malladus event", False, lambda state: st_has_sword(state, player) and st_has_bow_of_light(state, player)],
+        ["malladus 2", "malladus event", False, lambda state: st_can_fight_malladus(state, player)],
 
     ]
 

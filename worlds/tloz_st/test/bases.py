@@ -12,7 +12,7 @@ class TestGeneration(WorldTestBase):
         "rabbit_extra_items": 0,
         "goal": "defeat_malladus",
         "dark_realm_access": "dungeons",
-        "dungeons_required": 4,
+        "dungeons_required": 5,
         "tos_dungeon_options": "all_sections",
         "randomize_tears": "in_tos",
         "tear_size": "small",

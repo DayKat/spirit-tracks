@@ -9,7 +9,7 @@ STARTING_FLAGS = [
     # easier to bugfix)
 
     [STAddr.adv_flags_0, 0x04],  # restore spirit train cutscene skip
-    [STAddr.adv_flags_1, 0x01],  # forest restoration duet done
+    [STAddr.adv_flags_1, 0x00],  # forest restoration duet done
     [STAddr.adv_flags_2, 0xF0],  # sword tutorial and intro stuff
     [STAddr.adv_flags_3, 0x47],  # split ToS and zelda 1st convo
     [STAddr.adv_flags_4, 0x34],  # load train to ToS
@@ -22,10 +22,10 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_10, 0x50],  # anjean section text
     [STAddr.adv_flags_12, 0x1B],  # zelda 1st phantom possession + mayascore bugs
     [STAddr.adv_flags_15, 0x58],  # post fleeing ToS 1F
-    [STAddr.adv_flags_16, 0x08],  # ready for FS duet
+    [STAddr.adv_flags_16, 0x38],  # ready for FS duet
     [STAddr.adv_flags_17, 0x40],  # Skip an Anjean dialogue
     [STAddr.adv_flags_18, 0x07],  # HC intro Zelda
-    [STAddr.adv_flags_19, 0x01],  # steem
+    [STAddr.adv_flags_19, 0x63],  # steem
     [STAddr.adv_flags_1a, 0x1C],  # rabbitland rock text
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
@@ -62,7 +62,7 @@ STAGE_FLAGS = {
     0x19: [0x00, 0x00, 0x00, 0x0D],  # Wooded Temple
     # 0x1E: [0x00, 0x00, 0x00, 0x1E], # Stagnox
     0x2A: [0x02, 0x00, 0x00, 0x00],  # Mayscore/Whittleton
-    0x30: [0x0C, 0x00, 0x00, 0x20],  # Forest Sanctuary
+    0x30: [0x1C, 0x00, 0x00, 0x20],  # Forest Sanctuary
     # 0x38: [0x00, 0x00, 0x00, 0x38],  # Mayscore Forest
     0x3E: [0x00, 0x08, 0x00, 0x00],  # Rabbit Haven
     0x37: [0x86, 0x00, 0x00, 0x00],  # Trading Post
@@ -318,7 +318,8 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
-    "ToS 7F Snow Rail Glyph": "tos 7f rail map"
+    "ToS 7F Snow Rail Glyph": "tos 7f rail map",
+    "ToS 12F Ocean Rail Glyph": "tos 11f",
 }
 
 DUNGEON_KEY_DATA = {

@@ -171,12 +171,12 @@ REGIONS = [
     # Snow Sanctuary
     "ss",
     "ss stamp station",
-    #"ss steem duet",
+    "ss song",
     #"ss shop hc", (costs 2000)
 
     # Blizzard Temple
     "bt",
-    "bt b1 se chest",
+    "bt b1 se",
     "bt b1 e enemy chest",
     "bt b1 ne enemy chest",
     "bt 1f ne chest",

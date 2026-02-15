@@ -302,6 +302,26 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
+    "Forest Sanctuary Enter Sanctuary": {
+        "return_name": "Gage Exit",
+        "entrance": (0x30, 0, 1),
+        "exit": (0x30, 0x1, 0),
+        "entrance_region": "fos",
+        "exit_region": "fos song statue",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Snow Sanctuary Enter Inner Sanctuary": {
+        "return_name": "Steem Exit",
+        "entrance": (0x31, 1, 1),
+        "exit": (0x31, 0x2, 0),
+        "entrance_region": "ss",
+        "exit_region": "ss song",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
 
 
 }

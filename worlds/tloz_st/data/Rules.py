@@ -16,7 +16,7 @@ has_boomerang = Has("Boomerang")
 has_whip = Has("Whip")
 has_bow = Has("Bow (Progressive)")
 has_bombs = Has("Bombs (Progressive)")
-has_sword_beam = has_sword & Has("Sword Beam Swordsman's Scroll")
+has_sword_beam = has_sword & Has("Sword Beam Scroll")
 has_stamp_book = Has("Stamp Book")
 
 has_cannon = Has("Cannon")
@@ -106,6 +106,8 @@ has_short_range = has_range | has_whip | has_sword_beam | has_bombs
 can_ring_bell = has_sword | has_boomerang
 has_cuccos = has_sob | has_whirlwind
 ct_cuccos = has_sob | (has_whirlwind & hard_logic)
+can_kill_freezards = (has_shield | has_bow_of_light | hard_logic) & has_damage
+can_kill_freezards_torch = (has_boomerang | has_shield | has_bow_of_light | hard_logic) & has_damage
 
 # Rupees
 def has_rupees(count):

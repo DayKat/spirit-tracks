@@ -75,7 +75,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "tos", False, None],
         ["tos", "tos 1f", False, None],
-        ["tos 1f", "tos 1f chest", False, has_range],
+        ["tos 1f", "tos 1f chest", False, has_range | has_sword_beam],
         ["tos 1f", "tos 1f switch", False, can_kill_bat | can_possess_phantom(1)],  # Phantom can hit switch
         ["tos 1f", "tos 2f", False, can_possess_phantom(1) | vanilla_tears],
         ["tos 2f", "tos 2f raised chests", False, has_whirlwind],
@@ -134,11 +134,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["wt 1f enemy chest", "wt 2f poison chest", False, has_whirlwind | hard_logic],
         ["wt", "wt 1f switch chest", False, has_whirlwind | hard_logic],
         ["wt", "wt 2f left", False, can_kill_bubble & has_small_keys("Wooded Temple", 1)],
-        ["wt 2f left", "wt 3f chestnut chest", False, has_range_objects],
+        ["wt 2f left", "wt 3f chestnut chest", False, has_range_objects | has_sword_beam],
         ["wt 2f left", "wt 3f", False, has_small_keys("Wooded Temple", 2)],
         ["wt 3f", "wt 3f se chest", False, has_whirlwind | hard_logic],
-       #["wt", "wt 3f boss key chest", False, lambda state: st_has_damage(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
-        #["wt", "wt heart container", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_small_keys(state, player,"Wooded Temple",2)],
         ["wt 3f", "wt stagnox", False, has_sword & has_whirlwind],
         ["wt stagnox", "goal_stagnox", False, None],
         ["wt stagnox", "event_stagnox", False, None],
@@ -148,7 +146,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "trading post", False, has_glyph("Ocean")],
         #["trading post", "trading post discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["trading post", "trading post light song statue", False, has_spirit_flute],
-        ["trading post", "trading post chest", False, has_bombs & has_range & has_sod & (has_sol | hard_logic)],
+        ["trading post", "trading post chest", False, has_bombs & (has_range | has_sword_beam) & has_sod & (has_sol | hard_logic)],
         ["trading post", "trading post stamp station", False, has_bombs & has_stamp_book],
 
         # # ========== Rabbit Haven ========
@@ -188,17 +186,18 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["anouki village", "ss", False, None],
         ["ss", "ss stamp station", False, has_stamp_book],
+        ["ss", "ss song", False, has_spirit_flute],
 
         ## ========== Blizzard Temple =========
 
         ["snow realm source", "bt", True, has_source('Snow')],
         ["blizzard temple tracks", "bt", True, has_temple_tracks("Blizzard")],
-        ["bt", "bt b1 se chest", False, can_ring_bell & has_whirlwind & has_short_range],
-        ["bt b1 se chest", "bt b1 e enemy chest", False, None],
-        ["bt b1 se chest", "bt b1 ne enemy chest", False, can_kill_bubble],
-        ["bt b1 se chest", "bt 1f ne chest", False, has_boomerang | (has_whip & has_whirlwind)],
+        ["bt", "bt b1 se", False, can_ring_bell & has_whirlwind],
+        ["bt b1 se", "bt b1 e enemy chest", False, None],
+        ["bt b1 se", "bt b1 ne enemy chest", False, can_kill_bubble],
+        ["bt b1 se", "bt 1f ne chest", False, has_short_range | has_boomerang],
         ["bt 1f ne chest", "bt b1 sw chest", False, has_boomerang],
-        ["bt 1f ne chest", "bt b1 nw enemy chest", False, has_small_keys("Blizzard Temple", 1)],
+        ["bt b1 sw chest", "bt b1 nw enemy chest", False, has_small_keys("Blizzard Temple", 1) & can_kill_freezards_torch],
         ["bt b1 nw enemy chest", "bt stamp station", False, has_stamp_book],
         ["bt b1 nw enemy chest", "bt 1f nw chest", False, None],
         ["bt b1 nw enemy chest", "bt 1f torch chest", False, None],
@@ -215,7 +214,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ============ Snowdrift Station =========
 
         ["blizzard temple tracks", "snowdrift", True, Has("Snowdrift Station Tracks")],
-        ["snowdrift", "snowdrift reward", False, has_range & (has_shield | has_bow_of_light | hard_logic) & (has_sword | has_whip | has_bombs | has_bow)], # and maybe bow?
+        ["snowdrift", "snowdrift reward", False, (has_range | (has_sword_beam & hard_logic)) & can_kill_freezards],
 
         # ========== Slippery Station ==========
         ["blizzard temple tracks", "slippery", True, Has("Slippery Station Tracks") & (has_source("Snow") | Has("N Icy Spring Tracks"))],

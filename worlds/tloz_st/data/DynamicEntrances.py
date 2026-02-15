@@ -159,6 +159,20 @@ DYNAMIC_ENTRANCES = {
         "has_items": [("Snow Source", 0)],
         "message": "You need the Snow Source to enter this section!"
     },
+
+    # Sanctuary Bounces
+    "Bounce FoS": {
+        "entrance": "Forest Sanctuary Enter Sanctuary",
+        "destination": "Forest Sanctuary Enter Sanctuary",
+        "has_items": [("Spirit Flute", 0)],
+        "message": "You need the Spirit Flute to enter here"
+    },
+    "Bounce Snow Sanc": {
+        "entrance": "Snow Sanctuary Enter Inner Sanctuary",
+        "destination": "Snow Sanctuary Enter Inner Sanctuary",
+        "has_items": [("Spirit Flute", 0)],
+        "message": "You need the Spirit Flute to enter here"
+    },
 }
 
 # Reorganize above data to the form {scene: data} or something

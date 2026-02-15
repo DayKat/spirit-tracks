@@ -149,12 +149,12 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["monotone_incremental"],
         "base_count": 12
     },
-    "Sword Beam Swordsman's Scroll": {
-        'classification': ItemClassification.useful,
+    "Sword Beam Scroll": {
+        'classification': ItemClassification.progression,
         'address': STAddr.items_2,
         'value': 0x0010,
     },
-    "Great Spin Swordsman's Scroll": {
+    "Great Spin Scroll": {
         'classification': ItemClassification.useful,
         'address': STAddr.items_2,
         'value': 0x0020,

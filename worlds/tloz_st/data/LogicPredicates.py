@@ -34,12 +34,7 @@ def st_has_boomerang(state: CollectionState, player: int):
     return state.has("Boomerang", player)
 
 def st_has_sword_beam_scroll(state: CollectionState, player: int):
-    return state.has("Sword Beam Swordsman's Scroll", player)
-
-# def st_has_spirit_gems(state: CollectionState, player: int, spirit: str, count: int = 1):
-#     return all([state.has(f"{spirit} Gem", player, count),
-#                 st_has_spirit(state, player, spirit)])
-
+    return state.has("Sword Beam Scroll", player)
 
 def st_has_regal_necklace(state: CollectionState, player: int):
     return state.has("Regal Necklace", player)
@@ -130,7 +125,7 @@ def st_has_bow_of_light(state, player):
         state.has("Bow of Light", player) and st_has_bow(state, player),
         state.has(f"Tear of Light (Progressive)", player, 10),
         state.has(f"Big Tear of Light (Progressive)", player, 4),
-        state.has(f"Tear of Light (All Sections)", player, 5),
+        state.has(f"Tear of Light (All Sections)", player, 4),
         state.has(f"Big Tear of Light (All Sections)", player, 2),
     ])
 
@@ -175,8 +170,10 @@ def st_can_kill_bubble(state: CollectionState, player: int):
     ])
 
 def st_has_range(state: CollectionState, player: int):
-    return state.has_any(["Boomerang", "Bow (Progressive)", "Whirlwind"], player)
+    return state.has_any(["Boomerang", "Bow (Progressive)"], player)
 
+def st_has_range_objects(state, player):
+    return state.has_any(["Boomerang", "Bow (Progressive)", "Whirlwind"], player)
 
 def st_has_short_range(state: CollectionState, player: int):
     return any([st_has_mid_range(state, player),
@@ -196,6 +193,27 @@ def st_has_beam_sword(state: CollectionState, player: int):
 
 def st_can_ring_bell(state: CollectionState, player: int):
     return any([st_has_sword(state, player), st_has_boomerang(state, player)])
+
+def st_can_kill_freezards(state, player):
+    return all([
+        any([
+            st_has_shield(state, player),
+            st_has_bow_of_light(state, player),
+            st_option_hard_logic(state, player)
+        ]),
+        st_has_damage(state, player)
+    ])
+
+def st_can_kill_freezards_torch(state, player):
+    return all([
+        any([
+            st_has_boomerang(state, player),
+            st_has_shield(state, player),
+            st_has_bow_of_light(state, player),
+            st_option_hard_logic(state, player),
+        ]),
+        st_has_damage(state, player)
+    ])
 
 # ================ Rupee States ==================
 
@@ -437,4 +455,7 @@ def st_has_dungeon_rewards(state, player):
         return True
     dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
     return state.has("_dungeon_reward", player, dungeon_count)
+
+def st_can_fight_malladus(state, player):
+    return st_has_sword(state, player) and st_has_bow_of_light(state, player)
 

@@ -24,7 +24,7 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
-    # raise ModuleNotFoundError
+    raise ModuleNotFoundError
 except ModuleNotFoundError:
     print(f"Using legacy logic")
     WorldParent = World
@@ -204,7 +204,7 @@ class SpiritTracksWorld(WorldParent):
             return []
 
         required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward"]
-        implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph"]
+        implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph", "ToS 12F Ocean Rail Glyph"]
         if self.options.tos_dungeon_options == "final_section":
             required_dungeons.append(implemented_tos[-1])
         elif self.options.tos_dungeon_options == "all_sections":
@@ -443,7 +443,7 @@ class SpiritTracksWorld(WorldParent):
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
         add_items += self.choose_tear_items()
         add_items += [i for i in self.rabbit_item_dict.items()]
-        add_items += [("Heart Container", 13)]
+        add_items += [("Sword Beam Scroll", 1), ("Great Spin Scroll", 1), ("Heart Container", 13)]
         print(f"Add items: ({sum([i for _, i in add_items])}/{filler_item_count})")
         for i, count in add_items:
             # print(f"\t{i}: {count}")
@@ -588,7 +588,7 @@ class SpiritTracksWorld(WorldParent):
         else:
             add_items += [("Sword", 1)]
 
-        print(f"New Tear Items: {add_items}")
+        # print(f"New Tear Items: {add_items}")
         return add_items
 
 
@@ -660,7 +660,7 @@ class SpiritTracksWorld(WorldParent):
                                       if item.name.endswith(f"({floor_lookup[section]}F)")]
             if len(section_locations) == 0:
                 continue
-            print(f"Pre filling section {section}: {section_items}")
+            # print(f"Pre filling section {section}: {section_items}")
             # Remove from the all_state the items we're about to place
             for item in section_items:
                 self.pre_fill_items.remove(item)
@@ -691,7 +691,7 @@ class SpiritTracksWorld(WorldParent):
             if self.options.randomize_tears == "in_tos" and dung_name == "ToS":
                 confined_dungeon_items += [item for item in self.pre_fill_items
                                       if "Tear of Light" in item.name]
-            print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            # print(f"pre filling {dung_name}: {confined_dungeon_items}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 

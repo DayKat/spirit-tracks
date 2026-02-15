@@ -405,7 +405,6 @@ LOCATIONS_DATA = {
         "z_min": -8450,
         "z_max": 4515,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"],
         "goal": True,
         "ut_connect": "EVENT: Reach ToS 7F",
         "tos_section": 2
@@ -773,20 +772,10 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
     },
-    # "Snow Sanctuary Steem Duet": {
-    #     "region_id": "ss steem duet",
-    #     "stage_id": 0x31,
-    #     "room_id": 2,
-    #     "address": 0x0B92D8,
-    #     "value": 18,
-    #     "vanilla_item": "Blizzard Temple Tracks",
-    #     "require_item": ["Spirit Flute"],
-    #     "duet": True,
-    # },
 
     # Blizzard Temple
     "Blizzard Temple B1 SE Chest": {
-        "region_id": "bt b1 se chest",
+        "region_id": "bt b1 se",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 1,
@@ -1471,7 +1460,20 @@ LOCATIONS_DATA = {
         "tos_section": 3,
         "ut_connect": "EVENT: Reach ToS 12F",
     },
-
+    "Forest Sanctuary Song of Restoration": {
+        "stage_id": 0x30,
+        "room_id": 0x1,
+        "region_id": "fos song statue",
+        "address": STAddr.adv_flags_1,
+        "value": 1,
+    },
+    "Snow Sanctuary Song of Restoration": {
+        "stage_id": 0x31,
+        "room_id": 0x2,
+        "address": STAddr.adv_flags_1,
+        "value": 2,
+        "region_id": "ss song"
+    },
 
 }
 ## ========== remember to add item override!! =============

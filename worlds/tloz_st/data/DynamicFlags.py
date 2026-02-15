@@ -228,7 +228,24 @@ DYNAMIC_FLAGS = {
     "Dark realm spawn demon train quick": {
         "on_scenes": [0x1000, 0x10FF],
         "set_if_true": [(STAddr.adv_flags_57, 0x30)]
-    }
+    },
+    # Sanctuaries
+    "Gage Reset flags": {
+        "on_scenes": [0x3001],
+        "reset_flags": ["FoS Reset FTT"]
+    },
+    "FoS Reset FTT": {
+        "has_items": [("Wooded Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.tracks_0, 0x2)]
+    },
+    "Steem Reset flags": {
+        "on_scenes": [0x3102],
+        "reset_flags": ["SS Reset FTT"]
+    },
+    "SS Reset BTT": {
+        "has_items": [("Blizzard Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.tracks_0, 0x4)]
+    },
 
 }
 """
