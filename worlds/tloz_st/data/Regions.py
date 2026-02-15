@@ -57,9 +57,9 @@ REGIONS = [
 
     # Tower of Spirits
     "tos",
-    "tear 1f top",
     "tos 1f",
     "tos 1f chest",
+    "tos 1f switch",
     "tos 2f",
     "tos 2f raised chests",
     "tos 2f bomb wall",
@@ -68,8 +68,9 @@ REGIONS = [
     "event_3f",
 
     "tos 4f",
+    "tos 4f whirlwind",
     "tos 4f ne chest",
-    "tos 5f island chest",
+    "tos 5f phantom",
     "tos 5f spinnit key",
     "tos 5f alt path",
     "tos 5f secret chest",
@@ -82,7 +83,9 @@ REGIONS = [
     "tos 8f",
     "tos 8f bombs",
     "tos 9f nw",
+    "tos 9f phantom",
     "tos 11f",
+    "event_12f",
 
     # Mayscore
     "mayscore",

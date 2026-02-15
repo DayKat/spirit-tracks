@@ -76,7 +76,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "tos", False, None],
         ["tos", "tos 1f", False, None],
         ["tos 1f", "tos 1f chest", False, has_range],
-        ["tos 1f", "tos 2f", False, has_sword | has_bow_of_light],
+        ["tos 1f", "tos 1f switch", False, can_kill_bat | can_possess_phantom(1)],  # Phantom can hit switch
+        ["tos 1f", "tos 2f", False, can_possess_phantom(1) | vanilla_tears],
         ["tos 2f", "tos 2f raised chests", False, has_whirlwind],
         ["tos 2f", "tos 2f bomb wall", False, has_bombs],
         ["tos 2f", "tos 3f rail map", False, None],
@@ -84,8 +85,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 3f rail map", "event_3f", False, None],
 
         ["tos", "tos 4f", False, has_source("Forest")],
-        ["tos 4f", "tos 5f island chest", False, has_sword & (has_whirlwind | has_bow_of_light)],
-        ["tos 5f island chest", "tos 5f spinnit key", False, has_whirlwind],
+        ["tos 4f", "tos 4f whirlwind", False, has_whirlwind],
+        ["tos 4f", "tos 5f phantom", False, can_possess_phantom(4) | (vanilla_tears & has_whirlwind)],
+        ["tos 5f phantom", "tos 5f spinnit key", False, has_whirlwind],
         ["tos 5f spinnit key", "tos 5f alt path", False, has_boomerang],
         ["tos 5f alt path", "tos 5f secret chest", False, has_bombs],
         ["tos 5f alt path", "tos 4f ne chest", False, has_bombs],  # needs whirlwind and boomerang to get here
@@ -97,9 +99,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos", "tos 8f", False, has_source("Snow")],
         ["tos 8f", "tos 8f bombs", False, has_bombs],
-        ["tos 8f", "tos 9f phantom", False, can_possess_phantom(9)],
+        ["tos 8f", "tos 9f phantom", False, can_possess_phantom(9) | vanilla_tears],
         ["tos 9f phantom", "tos 9f nw", False, has_whirlwind],
         ["tos 9f phantom", "tos 11f", False, has_damage],
+        ["tos 11f", "event_12f", False, None],
 
         # # ============ Shops ====================
 

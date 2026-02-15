@@ -124,8 +124,6 @@ LOCATIONS_DATA = {
         "x_max": -66503,
         "z_min": 18672,
         "z_max": 28116,
-        "require_item": ["Bombs (Progressive)", "Song of Birds" "Spirit Flute"],
-        "item_override": "Sword (Progressive)"
     },
     "Castle Town Empty House Roof Chest": {
         "region_id": "castle town cuccos",
@@ -192,19 +190,19 @@ LOCATIONS_DATA = {
 
     # # ========== Tower of Spirits ==============
 
-    "Tear 1F Top":{
-        "region_id": "tear 1f top",
-        "vanilla_item": "Tear of Light",
+    "ToS 1F N Tear of Light":{
+        "region_id": "tos 1f",
+        "vanilla_item": "Tear of Light (1F)",
         "stage_id": 0x13,
         "room_id": 0,
-        "x_min": -6554,
-        "x_max": 6554,
-        "z_min": -72090,
-        "z_max": -59101,
+        "x_min": -10000,
+        "x_max": 10000,
+        "z_min": -75000,
+        "z_max": -55000,
         'dungeon': "ToS",
-        "conditional": True,
-        "item_override": "Tear of Light",
-        "delay_pickup": "ToS 1F Chest"
+        "conditional": "tears",
+        "delay_pickup": "ToS 1F Chest",
+        "tos_section": 1
     },
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
@@ -217,8 +215,8 @@ LOCATIONS_DATA = {
         "z_min": -72090,
         "z_max": -59101,
         'dungeon': "ToS",
-        "delay_pickup": "Tear 1F Top"
-        #'set_bit': [(0x265715, 0x80)]
+        "delay_pickup": "Tear 1F Top",
+        "tos_section": 1
     },
     "ToS 2F Raised Chest": {
         "region_id": "tos 2f raised chests",
@@ -231,7 +229,7 @@ LOCATIONS_DATA = {
         "z_min": -39322,
         "z_max": -29710,
         'dungeon': "ToS",
-        #'set_bit': [(0x265715, 0x80)]
+        "tos_section": 1
     },
     "ToS 2F Whirlwind Chest": {
         "region_id": "tos 2f raised chests",
@@ -243,6 +241,7 @@ LOCATIONS_DATA = {
         "z_min": -63898,
         "z_max": -54886,
         'dungeon': "ToS",
+        "tos_section": 1
     },
     "ToS 2F Bomb Wall Chest": {
         "region_id": "tos 2f bomb wall",
@@ -254,6 +253,7 @@ LOCATIONS_DATA = {
         "z_min": -18842,
         "z_max": 10650,
         'dungeon': "ToS",
+        "tos_section": 1
     },
     "ToS 3F Forest Rail Glyph": {
         "region_id": "tos 3f rail map",
@@ -266,20 +266,20 @@ LOCATIONS_DATA = {
         "z_min": -8438,
         "z_max": 4506,
         'dungeon': "ToS",
-        "require_item": ["Sword (Progressive)"],
         "ut_connect": "EVENT: Reach ToS 3F",
-        #'set_bit': [(0x265715, 0x80)]
+        "tos_section": 1
     },
     "ToS 4F Central Chest": {
         "region_id": "tos 4f",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x13,
         "room_id": 3,
-        "x_min": -8703,
+        "x_min": -10000,
         "x_max": 6560,
         "z_min": 1600,
         "z_max": 10670,
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 4F NE Chest": {
         "region_id": "tos 4f ne chest",
@@ -292,9 +292,10 @@ LOCATIONS_DATA = {
         "z_min": -55720,
         "z_max": -42600,
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 5F Island Chest": {
-        "region_id": "tos 5f island chest",
+        "region_id": "tos 5f phantom",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x13,
         "room_id": 4,
@@ -303,6 +304,7 @@ LOCATIONS_DATA = {
         "z_min": 42350,
         "z_max": 52230,
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 5F Spinnit Key": {
         "region_id": "tos 5f spinnit key",
@@ -312,6 +314,7 @@ LOCATIONS_DATA = {
         "x_max": -45000,
         "z_min": 0,
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 5F Bomb Wall Chest": {
         "region_id": "tos 5f secret chest",
@@ -323,6 +326,7 @@ LOCATIONS_DATA = {
         "z_min": -17693,
         "z_max": 8481,
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 6F Enemy Chest 1": {
         "region_id": "tos 6f chests",
@@ -336,6 +340,7 @@ LOCATIONS_DATA = {
         "z_max": -4354,
         "delay_pickup": ["ToS 6F Enemy Big Chest"],
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 6F Enemy Chest 2": {
         "region_id": "tos 6f chests",
@@ -348,6 +353,7 @@ LOCATIONS_DATA = {
         "z_min": -4151,
         "z_max": 6570,
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 6F Enemy Chest 3": {
         "region_id": "tos 6f chests",
@@ -360,6 +366,7 @@ LOCATIONS_DATA = {
         "z_min": -10660,
         "z_max": -4152,
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 6F Enemy Big Chest": {
         "region_id": "tos 6f chests",
@@ -374,6 +381,7 @@ LOCATIONS_DATA = {
         "z_max": 6560,
         "delay_pickup": ["ToS 6F Enemy Chest 1"],
         'dungeon': "ToS",
+        "tos_section": 2
     },
     "ToS 6F Key": {
         "region_id": "tos 6f key",
@@ -385,7 +393,7 @@ LOCATIONS_DATA = {
         "z_min": 26220,
         "z_max": 68000,
         'dungeon': "ToS",
-        # "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"]
+        "tos_section": 2
     },
     "ToS 7F Snow Rail Glyph": {
         "region_id": "tos 7f rail map",
@@ -399,7 +407,8 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "require_item": ["Sword (Progressive)", "Whirlwind", "Forest Source"],
         "goal": True,
-        "ut_connect": "EVENT: Reach ToS 7F"
+        "ut_connect": "EVENT: Reach ToS 7F",
+        "tos_section": 2
     },
 
     # =============================================
@@ -1321,39 +1330,109 @@ LOCATIONS_DATA = {
     },
 
     # New locations to not mess locations ids until we're ready
+    "ToS 1F W Tear of Light":{
+        "region_id": "tos 1f",
+        "vanilla_item": "Tear of Light (1F)",
+        "stage_id": 0x13,
+        "room_id": 0,
+        'dungeon': "ToS",
+        "tos_section": 1,
+        "x_max": -45000,
+        "conditional": "tears",
+    },
+    "ToS 1F E Tear of Light": {
+        "region_id": "tos 1f switch",
+        "vanilla_item": "Tear of Light (1F)",
+        "stage_id": 0x13,
+        "room_id": 0,
+        'dungeon': "ToS",
+        "tos_section": 1,
+        "x_min": 50000,
+        "conditional": "tears",
+    },
+    "ToS 4F Lava Tear": {
+        "region_id": "tos 4f whirlwind",
+        "vanilla_item": "Tear of Light (4F)",
+        "stage_id": 0x13,
+        "room_id": 3,
+        'dungeon': "ToS",
+        "tos_section": 2,
+        "x_min": -75000,
+        "x_max": -10000,
+        "conditional": "tears",
+    },
+    "ToS 4F W Tear of Light": {
+        "region_id": "tos 4f",
+        "vanilla_item": "Tear of Light (4F)",
+        "stage_id": 0x13,
+        "room_id": 3,
+        'dungeon': "ToS",
+        "tos_section": 2,
+        "x_max": -75000,
+        "conditional": "tears",
+    },
+    "ToS 4F E Tear of Light": {
+        "region_id": "tos 4f",
+        "vanilla_item": "Tear of Light (4F)",
+        "stage_id": 0x13,
+        "room_id": 3,
+        'dungeon': "ToS",
+        "tos_section": 2,
+        "x_min": -10000,
+        "z_max": -20000,
+        "x_max": 10000,
+        "conditional": "tears",
+    },
     "ToS 8F N Bombable Wall Chest": {
         "stage_id": 0x13,
         "room_id": 0x15,
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "region_id": "tos 8f"
+        "region_id": "tos 8f",
+        'dungeon': "ToS",
+        "tos_section": 3,
     },
     "ToS 8F S Bombable Wall Chest": {
         "stage_id": 0x13,
         "room_id": 0x2A,
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "region_id": "tos 8f bombs"
+        "region_id": "tos 8f bombs",
+        'dungeon': "ToS",
+        "tos_section": 3,
     },
     "ToS 9F NE Tear of Light": {
         "stage_id": 0x13,
         "room_id": 0x8,
-        "vanilla_item": "Tear of Light",
+        "vanilla_item": "Tear of Light (9F)",
         "x_min": 35000,
         "z_max": -5000,
         "x_max": 55000,
         "z_min": -25000,
-        "region_id": "tos 8f"
+        "region_id": "tos 8f",
+        'dungeon': "ToS",
+        "tos_section": 3,
+        "conditional": "tears",
     },
     "ToS 9F NW Tear of Light": {
         "stage_id": 0x13,
         "room_id": 0x8,
-        "vanilla_item": "Tear of Light",
-        "region_id": "tos 8f"
+        "vanilla_item": "Tear of Light (9F)",
+        "region_id": "tos 8f",
+        'dungeon': "ToS",
+        "tos_section": 3,
+        "conditional": "tears",
+        "x_max": -60000,
+        "x_min": -78000,
+        "z_max": -10000,
+        "z_min": -30000
     },
     "ToS 9F NE Bombable Wall Tear": {
         "stage_id": 0x13,
         "room_id": 0x16,
-        "vanilla_item": "Tear of Light",
-        "region_id": "tos 8f"
+        "vanilla_item": "Tear of Light (9F)",
+        "region_id": "tos 8f",
+        'dungeon': "ToS",
+        "tos_section": 3,
+        "conditional": "tears",
     },
     "ToS 9F NW Secret Chest": {
         "stage_id": 0x13,
@@ -1361,7 +1440,9 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "x_max": -65000,
         "z_max": -40000,
-        "region_id": "tos 9f nw"
+        "region_id": "tos 9f nw",
+        'dungeon': "ToS",
+        "tos_section": 3,
     },
     "ToS 10F NW Chest": {
         "stage_id": 0x13,
@@ -1369,19 +1450,26 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "x_max": -75000,
         "z_max": -25000,
-        "region_id": "tos 9f phantom"
+        "region_id": "tos 9f phantom",
+        'dungeon': "ToS",
+        "tos_section": 3,
     },
     "ToS 11F Chest": {
         "stage_id": 0x13,
         "room_id": 0x9,
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "region_id": "tos 11f"
+        "region_id": "tos 11f",
+        'dungeon': "ToS",
+        "tos_section": 3,
     },
     "ToS 12F Ocean Rail Glyph": {
         "stage_id": 0x13,
         "room_id": 0xA,
         "vanilla_item": "Ocean Glyph",
-        "region_id": "tos 11f"
+        "region_id": "tos 11f",
+        'dungeon': "ToS",
+        "tos_section": 3,
+        "ut_connect": "EVENT: Reach ToS 12F",
     },
 
 

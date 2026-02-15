@@ -666,15 +666,22 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     },
 
     # IDs are not fixed yet, but determined by order. Put new items here until an update that breaks compatibility, and move them then.
+    "Sword": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.items_2,
+        "value": 0x02,
+    },
     "Tear of Light (1F)": {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
-        "rooms": [0, 1, 0x28]
+        "rooms": [0, 1, 0x28],
+        "tags": ["always_process"]
     },
     "Tear of Light (4F)": {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
-        "rooms": [3, 4, 5, 0x29]
+        "rooms": [3, 4, 5, 0x29],
+        "tags": ["always_process"]
     },
     "Tear of Light (9F)": {
         'classification': ItemClassification.progression,

@@ -5,15 +5,11 @@ from enum import IntEnum
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .Client import SpiritTracksClient
+from .data.Addresses import STAddr
 
-async def receive_tear_of_light(client: SpiritTracksClient, ctx, item: "STItem", rii):
+async def receive_tear_of_light(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     if client.current_stage == 0x13:
-        if client.current_room in item.rooms:
-            last_count = await item.address.read(ctx)
-            new_count = last_count + item.value
-            if new_count > 3:
-                new_count = 3  # delay pickup will have to count treasures or something
-            return item.address.get_write_list(new_count)
+        await client.set_tears(ctx)
 
     return []
 
@@ -24,7 +20,10 @@ async def remove_treasure(client, ctx, item, rii):
     return addr.get_write_list(value)
 
 async def remove_tear_of_light(client, ctx, item: "STItem", rii):
-    await item.address.add(ctx, -1)
+    for i in range(20):
+        if not await STAddr.getting_tear_safety.read(ctx, silent=True):
+            break
+    await client.set_tears(ctx)
     return []
 
 async def dummy(*args):
@@ -48,7 +47,7 @@ class STItem(DSItem):
     def get_remove_vanilla_function(self):
         if "treasure" in self.tags:
             return remove_treasure
-        if self.name == "Tear of Light":
+        if "Tear of Light" in self.name:
             return remove_tear_of_light
         return super().get_remove_vanilla_function()
 

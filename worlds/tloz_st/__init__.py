@@ -24,6 +24,7 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
+    # raise ModuleNotFoundError
 except ModuleNotFoundError:
     print(f"Using legacy logic")
     WorldParent = World
@@ -112,8 +113,6 @@ class SpiritTracksWorld(WorldParent):
 
         self.pre_fill_items: List[Item] = []
         self.required_dungeons = []
-        self.boss_reward_items_pool = []
-        self.boss_reward_location_names = []
         self.dungeon_name_groups = {}
         self.locations_to_exclude = set()
         self.ut_locations_to_exclude = set()
@@ -154,9 +153,19 @@ class SpiritTracksWorld(WorldParent):
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
-            print(f"Rabbit items: {self.rabbit_item_dict}")
+            # print(f"Rabbit items: {self.rabbit_item_dict}")
+
+            # Tear conditions
             if self.options.start_with_train:
                 self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1, "Cannon": 1})
+            if self.options.randomize_tears.value <= 0:  # Vanilla/no tears
+                self.options.tear_size.value = 0  # force small tears
+                self.options.tear_sections.value = 0  # force per-section grouping when vanilla
+            if self.options.tear_sections.value == 0:
+                self.options.spirit_weapons.value = 0  # no spirit weapons if not progressive/all sections
+            if self.options.tear_sections.value > 0 and self.options.randomize_tears == "in_own_section":
+                self.options.randomize_tears.value = 2  # all sections/progressive can't be in own section, make in_tos
+
         self.create_item_mappings()
 
     def pick_ut_events(self):
@@ -170,9 +179,9 @@ class SpiritTracksWorld(WorldParent):
             else:
                 events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz"]
                 if self.options.tos_dungeon_options == "final_section":
-                    events += ["EVENT: Reach ToS 7F"]
+                    events += ["EVENT: Reach ToS 12F"]
                 elif self.options.tos_dungeon_options == "all_sections":
-                    events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F"]
+                    events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F", "EVENT: Reach ToS 12F"]
 
         self.ut_events = events
         self.ut_map_page_hidden_entrances = {"Overview": [e.name for e in ENTRANCES.values() if
@@ -217,7 +226,6 @@ class SpiritTracksWorld(WorldParent):
         if not self.options.keysanity == "anywhere":
             self.options.non_local_items.value -= self.item_name_groups["Small Keys"]
             self.options.non_local_items.value -= self.item_name_groups["Boss Keys"]
-        self.options.non_local_items.value -= set(self.boss_reward_items_pool)
 
     def create_location(self, region_name: str, location_name: str, local: bool):
         region = self.multiworld.get_region(region_name, self.player)
@@ -269,6 +277,8 @@ class SpiritTracksWorld(WorldParent):
             return self.options.portal_checks
         if "Rabbit Haven" in location_name:
             return self.options.rabbitsanity
+        if location_data["conditional"] == "tears":
+            return self.options.randomize_tears.value != -1  # not vanilla
 
         return False
 
@@ -403,7 +413,14 @@ class SpiritTracksWorld(WorldParent):
                     continue
                 filler_item_count += 1
                 continue
-            if item_name in ["Filler Item", "Treasure", "Heart Container"]:
+            if "Tear of Light" in item_name:
+                if self.options.randomize_tears.value < 0:
+                    forced_item = self.create_item(item_name)
+                    self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                    continue
+                filler_item_count += 1
+                continue
+            if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
@@ -420,10 +437,11 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Compass of Light", 1), ("Bow of Light", 1)]
+        add_items = [("Compass of Light", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
+        add_items += self.choose_tear_items()
         add_items += [i for i in self.rabbit_item_dict.items()]
         add_items += [("Heart Container", 13)]
         print(f"Add items: ({sum([i for _, i in add_items])}/{filler_item_count})")
@@ -470,13 +488,13 @@ class SpiritTracksWorld(WorldParent):
                         rabbit_locations.append(realm_locs[max_count-1])
                     else:
                         rabbit_locations += realm_locs[i-1:max_count:i]
-                print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
+                # print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
                 self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
             rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits])
 
-        print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
+        # print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
 
     def choose_rabbit_items(self):
@@ -503,7 +521,7 @@ class SpiritTracksWorld(WorldParent):
                 return {get_rabbit_pack_name(realm, 10): 1}
 
             res_counts = []
-            print(f"Filling vanilla rabbits {realm} {max_count}")
+            # print(f"Filling vanilla rabbits {realm} {max_count}")
             while sum(count_distr) + sum(res_counts) < 10:
                 randindex = self.random.randint(0, len(count_distr)-1)
                 count_distr[randindex] += 1
@@ -524,7 +542,7 @@ class SpiritTracksWorld(WorldParent):
         realms = ["Forest", "Snow"]
         rabbit_items = {}
         if self.options.rabbitsanity.value == 1:  # Vanilla
-            print(f"Vanilla rabbits {self.rabbit_counts}")
+            # print(f"Vanilla rabbits {self.rabbit_counts}")
             self.options.rabbit_pack_size.value = 1
             for r, c in zip(realms, self.rabbit_counts):
                 vanilla_pool = fill_vanilla(r, c)
@@ -542,7 +560,7 @@ class SpiritTracksWorld(WorldParent):
             pack_sizes = [self.random.randint(1, 5), self.random.randint(1, 5)]
         else:
             pack_sizes = [self.options.rabbit_pack_size.value]*2
-        print(f"Uniform Packs {pack_sizes}")
+        # print(f"Uniform Packs {pack_sizes}")
         for r, s in zip(realms, pack_sizes):
             item_count = math.ceil(10 / s) + self.options.rabbit_extra_items.value
             rabbit_items |= create_items_from_count_list(r, [s]*item_count)
@@ -554,17 +572,23 @@ class SpiritTracksWorld(WorldParent):
         size_str = ["", "Big "][size_index]
         sections = [1, 4, 9]
         add_items = []
-        tear_group = self.options.tear_groups.value
+        tear_sections = self.options.tear_sections.value
         count_normal = [3, 1][size_index]
 
-        if tear_group == 0:  # unique section
+        if tear_sections == 0 and self.options.randomize_tears not in ["no_tears", "vanilla"]:  # unique section
             add_items += [(f"{size_str}Tear of Light ({floor}F)", count_normal) for floor in sections]
-        elif tear_group == 1:  # All Sections
-            add_items += (f"{size_str}Tear of Light (All Sections)", count_normal + spirit_weapon)
-        elif tear_group == 2: # progressive
-            count_prog = [15, 5][size_index]
-            add_items += (f"{size_str}Tear of Light (Progressive)", count_prog + spirit_weapon)
+        elif tear_sections == 1:  # All Sections
+            add_items += [(f"{size_str}Tear of Light (All Sections)", count_normal + spirit_weapon)]
+        elif tear_sections == 2: # progressive
+            count_prog = [9, 3][size_index]
+            add_items += [(f"{size_str}Tear of Light (Progressive)", count_prog + spirit_weapon)]
 
+        if not spirit_weapon:
+            add_items += [("Sword (Progressive)", 2), ("Bow of Light", 1)]
+        else:
+            add_items += [("Sword", 1)]
+
+        print(f"New Tear Items: {add_items}")
         return add_items
 
 
@@ -607,9 +631,8 @@ class SpiritTracksWorld(WorldParent):
         return self.pre_fill_items
 
     def pre_fill(self) -> None:
-        # self.pre_fill_boss_rewards()
         self.pre_fill_dungeon_items()
-        pass
+        self.pre_fill_tos_sections()
 
     def filter_confined_dungeon_items_from_pool(self, items: List[Item]):
         confined_dungeon_items = []
@@ -619,30 +642,33 @@ class SpiritTracksWorld(WorldParent):
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key")])
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
 
-        # Remove boss reward items from pool for pre filling
-        confined_dungeon_items.extend([item for item in items if item.name in self.boss_reward_items_pool])
+        if self.options.randomize_tears in ["in_own_section", "in_tos"]:
+            confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Tears of Light"]])
 
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
 
-    def pre_fill_boss_rewards(self):
-        boss_reward_location_names = [DUNGEON_TO_BOSS_ITEM_LOCATION[dung_name] for dung_name in self.required_dungeons]
-        self.boss_reward_location_names = boss_reward_location_names
-
-        boss_reward_locations = [loc for loc in self.multiworld.get_locations(self.player)
-                                 if loc.name in boss_reward_location_names]
-        boss_reward_items = [item for item in self.pre_fill_items if item.name in self.boss_reward_items_pool]
-
-        # Remove from the all_state the items we're about to place
-        for item in boss_reward_items:
-            self.pre_fill_items.remove(item)
-
-        collection_state = self.multiworld.get_all_state(False)
-        # Perform a prefill to place confined items inside locations of this dungeon
-        self.random.shuffle(boss_reward_locations)
-        fill_restrictive(self.multiworld, collection_state, boss_reward_locations, boss_reward_items,
-                         single_player_placement=True, lock=True, allow_excluded=True)
+    def pre_fill_tos_sections(self):
+        floor_lookup = {1: 1, 2: 4, 3: 9}
+        for section in range(1, 4):
+            section_names = [name for name, loc in LOCATIONS_DATA.items()
+                             if loc.get("tos_section", 0) == section]
+            section_locations = [loc for loc in self.multiworld.get_locations(self.player)
+                                 if loc.name in section_names and not loc.locked]
+            section_items = [item for item in self.pre_fill_items
+                                      if item.name.endswith(f"({floor_lookup[section]}F)")]
+            if len(section_locations) == 0:
+                continue
+            print(f"Pre filling section {section}: {section_items}")
+            # Remove from the all_state the items we're about to place
+            for item in section_items:
+                self.pre_fill_items.remove(item)
+            collection_state = self.multiworld.get_all_state(False)
+            # Perform a prefill to place confined items inside locations of this dungeon
+            self.random.shuffle(section_locations)
+            fill_restrictive(self.multiworld, collection_state, section_locations, section_items,
+                             single_player_placement=True, lock=True, allow_excluded=True)
 
     def pre_fill_dungeon_items(self):
         # If keysanity is off, dungeon items can only be put inside local dungeon locations, and there are not so many
@@ -662,6 +688,10 @@ class SpiritTracksWorld(WorldParent):
             # dungeon we are currently processing.
             confined_dungeon_items = [item for item in self.pre_fill_items
                                       if item.name.endswith(f"({dung_name})")]
+            if self.options.randomize_tears == "in_tos" and dung_name == "ToS":
+                confined_dungeon_items += [item for item in self.pre_fill_items
+                                      if "Tear of Light" in item.name]
+            print(f"pre filling {dung_name}: {confined_dungeon_items}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 
@@ -720,6 +750,7 @@ class SpiritTracksWorld(WorldParent):
                    "rabbitsanity", # "rabbit_hints",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
+                   "randomize_tears", "spirit_weapons",
                    "dark_realm_access", "endgame_scope", "dungeons_required"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]

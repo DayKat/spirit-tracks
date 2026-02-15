@@ -323,6 +323,17 @@ class SpiritTracksClient(DSZeldaClient):
             await self._set_dynamic_entrances(ctx, self.current_scene)
             await self._set_dynamic_flags(ctx, self.current_scene)
 
+        if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
+            if any([
+                self.item_count(ctx, "Tear of Light (All Sections)") >= 4,
+                self.item_count(ctx, "Tear of Light (Progressive)") >= 10,
+                self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
+                self.item_count(ctx, "Big Tear of Light (Progressive)") >= 4]):
+                await STAddr.adv_flags_16.set_bits(ctx, 1)
+                await STAddr.items_2.set_bits(ctx, 4)
+                logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
+
+
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx)
         await self.update_rabbit_count(ctx)
@@ -377,6 +388,9 @@ class SpiritTracksClient(DSZeldaClient):
 
         if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
             self.reload_on_item = True
+
+        if "Tear of Light" in location.get("vanilla_item", ""):
+            await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -454,6 +468,29 @@ class SpiritTracksClient(DSZeldaClient):
             stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
+
+        # Give tears of light when entering ToS
+        if stage == 0x13:
+            await self.set_tears(ctx)
+
+    async def set_tears(self, ctx):
+        set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
+                     or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
+
+        if not set_tears:
+            section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
+            floor = [1, 4, 9][section - 1]
+            big_prog_sub = section - 1
+            set_tears = (self.item_count(ctx, f"Tear of Light ({floor}F)")
+                         or self.item_count(ctx, f"Big Tear of Light ({floor}F)") * 3
+                         or max(0, (self.item_count(ctx, "Big Tear of Light (Progressive)") - big_prog_sub) * 3)
+                         or max(0, self.item_count(ctx, "Tear of Light (Progressive)") - big_prog_sub * 3)
+                         )
+            print(f"Setting tears for floor {floor} section {section} tears {set_tears}")
+        else:
+            print(f"Setting tears {set_tears}")
+
+        await STAddr.tears_of_light.overwrite(ctx, set_tears)
 
     async def process_in_menu(self, ctx, read_result):
         await self.get_saved_scene(ctx, saved_scene_key)

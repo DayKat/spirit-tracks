@@ -1,6 +1,6 @@
 
 from .Items import ITEMS
-from .Constants import ITEM_GROUPS
+from .Constants import ITEM_GROUPS, tear_lookup, big_tear_lookup
 from ..Options import *
 
 from rule_builder.rules import *
@@ -9,14 +9,13 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from ..__init__ import SpiritTracksWorld
 
-has_sword = Has("Sword (Progressive)")
+has_sword = Has("Sword (Progressive)") | Has("Sword")
 has_shield = Has("Shield")
 has_whirlwind = Has("Whirlwind")
 has_boomerang = Has("Boomerang")
 has_whip = Has("Whip")
 has_bow = Has("Bow (Progressive)")
 has_bombs = Has("Bombs (Progressive)")
-has_bow_of_light = Has("Bow of Light") & has_bow
 has_sword_beam = has_sword & Has("Sword Beam Swordsman's Scroll")
 has_stamp_book = Has("Stamp Book")
 
@@ -68,16 +67,28 @@ def has_portal(portal, forward):
     return ([OptionFilter(option, 1)]
         | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
 
-tear_lookup = {1: 3, 4: 6, 9: 9}
 def has_tears(floor: int):
     return Or(
         Has(f"Tear of Light ({floor}F)", 3),
         Has(f"Big Tear of Light ({floor}F)"),
-        Has(f"Tear of Light (Progressive)", tear_lookup[floor])
+        Has(f"Tear of Light (Progressive)", tear_lookup[floor]),
+        Has(f"Big Tear of Light (Progressive)", big_tear_lookup[floor]),
+        Has(f"Tear of Light (All Sections)", 3),
+        Has(f"Big Tear of Light (All Sections)"),
     )
 
+has_bow_of_light = Or(
+    Has("Bow of Light") & has_bow,
+    Has(f"Tear of Light (Progressive)", 10),  # TODO: Increase when we have all tear locs
+    Has(f"Big Tear of Light (Progressive)", 4),
+    Has(f"Tear of Light (All Sections)", 4),
+    Has(f"Big Tear of Light (All Sections)", 2),
+                      )
+
 def can_possess_phantom(floor):
-    return (has_tears(floor) & has_sword) | has_bow_of_light
+    return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & has_tears(floor))
+
+vanilla_tears = has_sword & OptionFilter(SpiritTracksRandomizeTears, -1)
 
 # Isolated options
 hard_logic_filter = [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_hard), OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_glitched)]

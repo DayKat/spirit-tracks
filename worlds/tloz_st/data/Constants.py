@@ -26,8 +26,9 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_17, 0x40],  # Skip an Anjean dialogue
     [STAddr.adv_flags_18, 0x07],  # HC intro Zelda
     [STAddr.adv_flags_19, 0x01],  # steem
-    [STAddr.adv_flags_1b, 0x02],  # initial train cutscene skip
     [STAddr.adv_flags_1a, 0x1C],  # rabbitland rock text
+    [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
+    [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_24, 0x08],  # move HC guards
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
@@ -213,6 +214,19 @@ ITEM_GROUPS = {
     "Portal Unlocks": [
         "Portal Unlock: Hyrule Castle to Anouki Village",
         "Portal Unlock: Trading Post to E Snow Realm"
+    ],
+    "Tears of Light": [
+        "Tear of Light",
+        "Tear of Light (1F)",
+        "Tear of Light (4F)",
+        "Tear of Light (9F)",
+        "Tear of Light (All Sections)",
+        "Tear of Light (Progressive)",
+        "Big Tear of Light (1F)",
+        "Big Tear of Light (4F)",
+        "Big Tear of Light (9F)",
+        "Big Tear of Light (All Sections)",
+        "Big Tear of Light (Progressive)",
     ]
 }
 
@@ -407,6 +421,9 @@ TRAINS = [
     "Train: Golden Train",
 ]
 
+tear_lookup = {1: 3, 4: 6, 9: 9}
+big_tear_lookup = {1:1, 4:2, 9: 3}
+
 # Used by rule builder
 ITEM_MAPPING = {
         i: "Rupees" for i in ITEM_GROUPS["Rupees"]
@@ -431,6 +448,28 @@ UT_EVENT_DATA = {
     0x2900: {"address": STAddr.adv_flags_11,
            "value": 0x40,
            "entrance": "EVENT: Pick up Alfonzo"}
+}
+
+TOS_FLOOR_TO_SECTION = {
+    0: 1,
+    1: 1,
+    2: 1,
+    3: 2,
+    4: 2,
+    5: 2,
+    6: 2,
+    7: 3,
+    8: 3,
+    9: 3,
+    0xA: 3,
+    0xB: 3,
+
+    0x15: 3,
+    0x16: 3,
+
+    0x28: 1,
+    0x29: 2,
+    0x2A: 3
 }
 
 #TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}

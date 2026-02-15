@@ -12,7 +12,7 @@ def st_has_spirit_flute(state, player):
     return state.has("Spirit Flute", player)
 
 def st_has_sword(state: CollectionState, player: int):
-    return state.has("Sword (Progressive)", player)
+    return state.has("Sword (Progressive)", player) or state.has("Sword", player)
 
 def st_has_shield(state: CollectionState, player: int):
     # Shield can be bought from shop
@@ -52,9 +52,6 @@ def st_has_net(state: CollectionState, player: int):
 
 def st_has_compass_of_light(state, player):
     return state.has("Compass of Light", player)
-
-def st_has_bow_of_light(state, player):
-    return state.has("Bow of Light", player) and st_has_bow(state, player)
 
 ## ========== Rabbits ===========
 
@@ -118,6 +115,34 @@ def st_has_light_song(state: CollectionState, player: int):
 def st_has_discovery_song(state: CollectionState, player: int):
     return state.has("Song of Discovery", player) and st_has_spirit_flute(state, player)
 
+def st_has_tears(state: CollectionState, player: int, floor: int):
+    return any([
+        state.has(f"Tear of Light ({floor}F)", player, 3),
+        state.has(f"Big Tear of Light ({floor}F)", player),
+        state.has(f"Tear of Light (Progressive)", player, tear_lookup[floor]),
+        state.has(f"Big Tear of Light (Progressive)", player, big_tear_lookup[floor]),
+        state.has(f"Tear of Light (All Sections)", player, 3),
+        state.has(f"Big Tear of Light (All Sections)", player),
+    ])
+
+def st_has_bow_of_light(state, player):
+    return any([
+        state.has("Bow of Light", player) and st_has_bow(state, player),
+        state.has(f"Tear of Light (Progressive)", player, 10),
+        state.has(f"Big Tear of Light (Progressive)", player, 4),
+        state.has(f"Tear of Light (All Sections)", player, 5),
+        state.has(f"Big Tear of Light (All Sections)", player, 2),
+    ])
+
+def st_can_possess_phantoms(state: CollectionState, player: int, floor: int):
+    return any([
+        state.has("Sword (Progressive)", player, 2),
+        st_has_bow_of_light(state, player),
+        st_has_sword(state, player) and st_has_tears(state, player, floor)
+    ])
+
+def st_vanilla_tears(state: CollectionState, player: int):
+    return st_has_sword(state, player) and state.multiworld.worlds[player].options.randomize_tears.value == -1
 
 # =========== Combined item states ================
 

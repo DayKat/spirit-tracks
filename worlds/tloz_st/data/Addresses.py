@@ -24,6 +24,7 @@ class STAddr:
     getting_location = Address(0x04B114)
     getting_train_part = Address(0x11F5E4)
     saving = Address(0x049BD8)
+    getting_tear_safety = Address(0x327B8C)
     
     link_x = Address.pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
     link_y = Address.pointer(0x05D0)

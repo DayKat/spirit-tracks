@@ -41,7 +41,7 @@ class SpiritTracksDungeonCount(Range):
     Will not go higher than the number of valid locations in dungeon pool
     """
     range_start = 1
-    range_end = 4
+    range_end = 5
     default = 2
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
@@ -241,7 +241,7 @@ class SpiritTracksStartWithTrain(Toggle):
 class SpiritTracksRandomizeTears(Choice):
     """
     Randomize Tears of Light
-    - vanilla: tears of light are vanilla
+    - vanilla: tears of light are not randomized
     - vanilla_items: tears of light are vanilla, but you don't need to collect them more than once and they count as archipelago locations for hint costs.
     - in_own_section: tears of light are randomized in their own tower sections. progressive tears count towards all sections
     - in_tos: tears of light are randomized anywhere in Tower of Spirits
@@ -271,20 +271,20 @@ class SpiritTracksTearSize(Choice):
 class SpiritTracksTearGroup(Choice):
     """
     tears_of_light_grouping:
-    - unique_section: tears of light only work in one section
-    - progressive: tears fill each section from bottom to top, totalling 15 small items or 5 big ones.
-    - progressive_spirit_items: tears fill each section from bottom to top, the final one unlocking locomo sword and bow of light, required for malladus
+    - unique_sections: tears of light only work in one section
+    - all_sections: tears fill each section from bottom to top, totalling 15 small items or 5 big ones.
+    - progressive_spirit_items: tears fill each section from bottom to top, the final one unlocking Lokomo sword and bow of light, required for malladus
     """
-    display_name = "Tears of Light Progressiveness"
-    option_unique_section = 0
+    display_name = "Tears of Light Sectionality"
+    option_unique_sections = 0
     option_all_sections = 1
     option_progressive = 2
 
 class SpiritTracksSpiritItems(Choice):
     """
-    Locomo Sword and Bow of Light can be combined with certain tear of light groupings
-    - items: Locomo Sword is the second progressive sword; and Bow of Light is its own item, but requires a progressive bow to use.
-    - final_tear: if tear_group is all_sections or progressive, the final tear item will unlock both the Locomo Sword and the Bow of Light.
+    Lokomo Sword and Bow of Light can be combined with certain tear of light groupings
+    - items: Lokomo Sword is the second progressive sword; and Bow of Light is its own item, but requires a progressive bow to use.
+    - final_tear: if tear_group is all_sections or progressive, the final tear item will unlock both the Lokomo Sword and the Bow of Light.
     """
     display_name = "Tears of Light Progressiveness"
     option_items = 0
@@ -313,7 +313,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     start_with_train: SpiritTracksStartWithTrain
     randomize_tears: SpiritTracksRandomizeTears
     tear_size: SpiritTracksTearSize
-    tear_groups: SpiritTracksTearGroup
+    tear_sections: SpiritTracksTearGroup
     spirit_weapons: SpiritTracksSpiritItems
 
 

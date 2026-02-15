@@ -210,7 +210,16 @@ ENTRANCE_DATA = {
         "two_way": False,
         "entrance_region": "tos 7f rail map",
         "exit_region": "event_7f",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x6, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 12F": {
+        "two_way": False,
+        "entrance_region": "tos 11f",
+        "exit_region": "event_12f",
+        "entrance": (0x29, 0xB, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -261,6 +270,40 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+
+    # Order later
+    "Tower of Spirits Enter Section 1": {
+        "return_name": "ToS 1F Exit",
+        "entrance": (0x17, 0, 1),
+        "exit": (0x13, 0x0, 0),
+        "entrance_region": "tos",
+        "exit_region": "tos 1f",
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Enter Section 2": {
+        "return_name": "ToS 4F Exit",
+        "entrance": (0x17, 0, 2),
+        "exit": (0x13, 0x3, 0),
+        "entrance_region": "tos",
+        "exit_region": "tos 4f",
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Enter Section 3": {
+        "return_name": "ToS 8F Exit",
+        "entrance": (0x17, 0, 3),
+        "exit": (0x13, 0x7, 0),
+        "entrance_region": "tos",
+        "exit_region": "tos 8f",
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+
+
 }
 
 

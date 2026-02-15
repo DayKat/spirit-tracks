@@ -145,6 +145,20 @@ DYNAMIC_ENTRANCES = {
         "has_slot_data": [["endgame_scope", 4]],
         "dungeons": True
     },
+
+    # ToS Bounces
+    "Bounce ToS Section 2": {
+        "entrance": "Tower of Spirits Enter Section 2",
+        "destination": "Tower of Spirits Enter Section 2",
+        "has_items": [("Forest Source", 0)],
+        "message": "You need the Forest Source to enter this section!"
+    },
+    "Bounce ToS Section 3": {
+        "entrance": "Tower of Spirits Enter Section 3",
+        "destination": "Tower of Spirits Enter Section 3",
+        "has_items": [("Snow Source", 0)],
+        "message": "You need the Snow Source to enter this section!"
+    },
 }
 
 # Reorganize above data to the form {scene: data} or something
