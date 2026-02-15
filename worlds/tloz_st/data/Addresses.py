@@ -84,7 +84,13 @@ class STAddr:
     source_rails = Address(0x2653B8)
     key_storage_0 = Address(0x265784)
     key_storage_tos = Address(0x265785)
-    
+
+    train_parts = Address(0x2653A8, size=4)
+    equipped_engine = Address(0x265388, size=4)
+    equipped_cannon = Address(0x26538C, size=4)
+    equipped_car = Address(0x265390, size=4)
+    equipped_cart = Address(0x265394, size=4)
+
     # Adventure Flags
     adv_flags_0 = Address(0x265714)
     adv_flags_1 = Address(0x265715)

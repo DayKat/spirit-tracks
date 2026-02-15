@@ -290,6 +290,26 @@ class SpiritTracksSpiritItems(Choice):
     option_items = 0
     option_final_tear = 1
 
+class SpiritTracksStartingTrain(Choice):
+    """
+    What train to start with. Train parts will be randomized later.
+    Different trains have different health, but i want this to more be a fun cosmetic thing.
+    - all_parts: start with all parts, and customize freely in Alfonzo's Workshop on outset.
+    - random_train: picks 1 random train to start with
+    """
+    display_name = "Starting Train"
+    option_all_parts = -1
+    option_random_train = -2
+    option_spirit_train = 0
+    option_wooden_train = 1
+    option_refined_train = 2
+    option_demon_train = 3
+    option_stagecoach = 4
+    option_dragon_train = 5
+    option_sweet_train = 6
+    option_golden_train = 7
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -311,11 +331,11 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
     start_with_train: SpiritTracksStartWithTrain
+
     randomize_tears: SpiritTracksRandomizeTears
     tear_size: SpiritTracksTearSize
     tear_sections: SpiritTracksTearGroup
     spirit_weapons: SpiritTracksSpiritItems
-
 
     # Portals
     portal_behavior: SpiritTracksRandomizePortals
@@ -335,6 +355,9 @@ class SpiritTracksOptions(PerGameCommonOptions):
     rabbit_extra_items: SpiritTracksExtraRabbits
     # rabbit_hints: SpiritTracksRabbitHints
 
+    # Cosmetic
+    starting_train: SpiritTracksStartingTrain
+
     # Generic
     start_inventory_from_pool: StartInventoryPool
     remove_items_from_pool: SpiritTracksRemoveItemsFromPool
@@ -350,15 +373,17 @@ st_option_groups = [
         SpiritTracksTowerOfSpiritsDungeonOptions,
         SpiritTracksRequiredDungeonHints,
     ]),
-    OptionGroup("World Options", [
+    OptionGroup("Item Options", [
         SpiritTracksLogic,
         SpiritTracksKeyRandomization,
-        SpiritTracksRandomizeTears,
-        SpiritTracksTearSize,
-        SpiritTracksTearGroup,
         SpiritTracksRandomizePortals,
         SpiritTracksPortalLocations,
         SpiritTracksStartWithTrain,
+    ]),
+    OptionGroup("Tear Options", [
+        SpiritTracksRandomizeTears,
+        SpiritTracksTearSize,
+        SpiritTracksTearGroup,
         SpiritTracksSpiritItems
     ]),
     OptionGroup("Rabbit Options", [
@@ -369,6 +394,9 @@ st_option_groups = [
         SpiritTracksExtraRabbits,
         SpiritTracksRabbitHints
     ]),
+    OptionGroup("Cosmetic Options", [
+        SpiritTracksStartingTrain
+    ])
 
 ]
 

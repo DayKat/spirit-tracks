@@ -185,6 +185,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.train_quick_station = True
         self.update_train_speed: bool = False
         self.train_speed = [-143, 0, 115, 193]
+        self.has_set_starting_train = False
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -544,12 +545,30 @@ class SpiritTracksClient(DSZeldaClient):
         else:
             self.sent_event = True
 
+    @staticmethod
+    async def set_starting_train(ctx):
+        res = []
+        train = ctx.slot_data["starting_train"]
+        if train == -1:  # all parts
+            res += STAddr.train_parts.get_write_list(0xFFFFFFFF)
+            train = 0
+        else:
+            res += STAddr.train_parts.get_write_list(0xF << (train*4))
+        res += [a.get_inner_write_list(train) for a in [
+            STAddr.equipped_engine, STAddr.equipped_cannon, STAddr.equipped_car, STAddr.equipped_cart,
+        ]]
+        await bizhawk.write(ctx.bizhawk_ctx, res)
+
     async def process_hard_coded_rooms(self, ctx, current_scene):
         if self.current_stage in range(4, 8):
             await write_multiple(ctx, train_speed_addresses, self.train_speed)
             self.last_train_gear = -1  # force a quick speed increase
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
             self.train_speed_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
+        if current_scene == 0x2f00 and not self.set_starting_train:
+            if self.location_name_to_id["Outset Bee Tree"] not in ctx.checked_locations:
+                await self.set_starting_train(ctx)
+            self.has_set_starting_train = True
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):

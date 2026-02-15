@@ -166,6 +166,8 @@ class SpiritTracksWorld(WorldParent):
             if self.options.tear_sections.value > 0 and self.options.randomize_tears == "in_own_section":
                 self.options.randomize_tears.value = 2  # all sections/progressive can't be in own section, make in_tos
 
+            if self.options.starting_train == "random_train":
+                self.options.starting_train.value = self.random.randint(0, 7)
         self.create_item_mappings()
 
     def pick_ut_events(self):
@@ -751,7 +753,8 @@ class SpiritTracksWorld(WorldParent):
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
                    "randomize_tears", "spirit_weapons",
-                   "dark_realm_access", "endgame_scope", "dungeons_required"]
+                   "dark_realm_access", "endgame_scope", "dungeons_required",
+                   "starting_train"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons
