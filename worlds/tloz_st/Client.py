@@ -25,7 +25,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving]
-read_keys_land = [STAddr.getting_location, STAddr.getting_train_part]
+read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety]
 read_keys_train = [STAddr.train_gear]
 
 rabbit_storage_key = "rabbit_locs"
@@ -187,6 +187,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.train_speed = [-143, 0, 115, 193]
         self.has_set_starting_train = False
 
+        self.hint_data = HINT_DATA
+
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
 
@@ -275,11 +277,11 @@ class SpiritTracksClient(DSZeldaClient):
         getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving]
         self.getting_location = getting_location or self.reset_cycles
 
-        if getting_location:  # add extra time after receiving items cause finding a good flag is hard
-            self.reset_cycles = 3
+        if self.getting_location:
+            self.reset_cycles = True
 
-        if self.reset_cycles > 0 and not getting_location:
-            self.reset_cycles -= 1
+        if self.reset_cycles and not getting_location and not read_result[STAddr.getting_item_safety]:
+            self.reset_cycles = False
 
 
         # Fix for stamp stand not counting as getting item
@@ -514,14 +516,13 @@ class SpiritTracksClient(DSZeldaClient):
         """
         if scene in UT_EVENT_DATA and not self.sent_event:
             if not self.event_reads:
-                data = UT_EVENT_DATA[scene].copy()
+                data = UT_EVENT_DATA[scene]
                 data = [data] if isinstance(data, dict) else data
+                print(f"Event Data {UT_EVENT_DATA} {data}")
                 self.event_data = data
                 for i, event in enumerate(data):
                     address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
-                    print(f"event data {self.event_data}")
                     self.event_data[i]["address"] = address
-                    print(f"event data {self.event_data}")
                     self.event_reads.append(address)
 
             read_results = await read_multiple(ctx, self.event_reads)
@@ -565,8 +566,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.last_train_gear = -1  # force a quick speed increase
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
             self.train_speed_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
-        if current_scene == 0x2f00 and not self.set_starting_train:
+        if current_scene == 0x2f00 and not self.has_set_starting_train:
             if self.location_name_to_id["Outset Bee Tree"] not in ctx.checked_locations:
+                print(f"Setting starting train")
                 await self.set_starting_train(ctx)
             self.has_set_starting_train = True
 

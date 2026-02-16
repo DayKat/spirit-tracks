@@ -230,21 +230,53 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_57, 0x30)]
     },
     # Sanctuaries
+    "Gage don't have spirit flute": {
+        "on_scenes": [0x3001],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 1)]
+    },
+    "Gage can play duet": {
+        "on_scenes": [0x3001],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Forest Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 1)]
+    },
     "Gage Reset flags": {
         "on_scenes": [0x3001],
-        "reset_flags": ["FoS Reset FTT"]
+        "unset_if_true": [(STAddr.tracks_0, 0x2)],
+        "reset_flags": ["FoS Reset FTT", "FoS Reset FTT not has"]
     },
-    "FoS Reset FTT": {
+    "FoS Reset FTT not has": {
         "has_items": [("Wooded Temple Tracks", 0)],
         "unset_if_true": [(STAddr.tracks_0, 0x2)]
     },
-    "Steem Reset flags": {
-        "on_scenes": [0x3102],
-        "reset_flags": ["SS Reset FTT"]
+    "FoS Reset FTT": {
+        "has_items": [("Wooded Temple Tracks", 1)],
+        "set_if_true": [(STAddr.tracks_0, 0x2)]
     },
-    "SS Reset BTT": {
+    "Steem don't have spirit flute": {
+        "on_scenes": [0x3102],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 2)]
+    },
+    "Steem can play duet": {
+        "on_scenes": [0x3102],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Snow Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 2)]
+    },
+    "Always remove btt in snow sanc room": {
+        "on_scenes": [0x3102],
+        "unset_if_true": [(STAddr.tracks_0, 0x4)],
+        "reset_flags": ["Snow sanc Reset BTT not has", "Snow sanc Reset BTT"]
+    },
+    "Snow sanc Reset BTT not has": {
         "has_items": [("Blizzard Temple Tracks", 0)],
         "unset_if_true": [(STAddr.tracks_0, 0x4)]
+    },
+    "Snow sanc Reset BTT": {
+        "has_items": [("Blizzard Temple Tracks", 1)],
+        "set_if_true": [(STAddr.tracks_0, 0x4)]
     },
 
 }

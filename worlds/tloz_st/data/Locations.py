@@ -138,7 +138,7 @@ LOCATIONS_DATA = {
 
     # Hyrule Castle
     "Hyrule Castle NW Outside Chest": {
-        "region_id": "hyrule castle nw chest",
+        "region_id": "hyrule castle",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x28,
         "room_id": 0,
@@ -148,13 +148,13 @@ LOCATIONS_DATA = {
         "item_override": "Bow (Progressive)"
     },
     "Hyrule Castle 2F Indoors Chest": {
-        "region_id": "hyrule castle 2f indoors chest",
+        "region_id": "hyrule castle",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x28,
         "room_id": 2,
     },
     "Hyrule Castle 1F Back Chest": {
-        "region_id": "hyrule castle 1f back chest",
+        "region_id": "hyrule castle",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x28,
         "room_id": 1,
@@ -165,12 +165,6 @@ LOCATIONS_DATA = {
         "z_max": -35000,
         "item_override": "Sand Wand"
     },
-    # "Hyrule Castle Sword Training Minigame": {
-    #     "region_id": "hyrule castle sword training",
-    #     "vanilla_item": "Red Rupee (20)",
-    #     "stage_id": 0x28,
-    #     "room_id": 0,
-    # }, TODO check flags
 
     # Tunnel to Tower
     "Tunnel to ToS Block Chest": {
@@ -422,25 +416,6 @@ LOCATIONS_DATA = {
         "require_item": ["Stamp Book"],
         "vanilla_item": "Treasure"
     },
-    # "Mayscore Whip Race 1st Reward": { TODO make minigame option & find win address
-    #     "region_id": "mayscore whip race bomb bag",
-    #     "vanilla_item": "Bombs (Progressive)",
-    #     "minigame": True,
-    #     "stage_id": 0x38,
-    #     "room_id": 0,
-    #     "entrance_id": 2,
-    #     "require_item": ["Whip"],
-    #     "item_override": "Refill: Arrows"
-    #},
-    # "Mayscore Whip Race 2nd Reward": {
-    #     "region_id": "mayscore whip race heart container",
-    #     "vanilla_item": "Heart Container",
-    #     "minigame": True,
-    #     "stage_id": 0x38,
-    #     "room_id": 0,
-    #     "entrance_id": 2,
-    #     "require_item": ["Whip"],
-    # },
     "Mayscore Whip Chest": {
         "region_id": "mayscore whip chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
@@ -929,6 +904,8 @@ LOCATIONS_DATA = {
     "Slippery Station Amateur Reward": {
         "region_id": "slippery amateur",
         "vanilla_item": "Gold Rupee (300)",
+        "minigame": True,
+        "conditional": True,
         "stage_id": 0x3F,
         "room_id": 0x06,
         "x_min": -1930,
@@ -945,6 +922,8 @@ LOCATIONS_DATA = {
         "x_max": 104858,
         "z_min": -65036,
         "z_max": -46800,
+        "minigame": True,
+        "conditional": True,
     },
     "Slippery Station Champion Reward": {
         "region_id": "slippery champion",
@@ -955,6 +934,7 @@ LOCATIONS_DATA = {
         "x_max": 88000,
         "z_min": 45579,
         "z_max": 64500,
+        "minigame": True,
         "conditional": True
     },
 
@@ -1464,15 +1444,49 @@ LOCATIONS_DATA = {
         "stage_id": 0x30,
         "room_id": 0x1,
         "region_id": "fos song statue",
-        "address": STAddr.adv_flags_1,
-        "value": 1,
+        "address": STAddr.tracks_0,
+        "value": 2,
+        "minigame": True,
+        "conditional": True,
     },
     "Snow Sanctuary Song of Restoration": {
         "stage_id": 0x31,
         "room_id": 0x2,
-        "address": STAddr.adv_flags_1,
-        "value": 2,
+        "address": STAddr.tracks_0,
+        "value": 4,
+        "minigame": True,
+        "conditional": True,
         "region_id": "ss song"
+    },
+    "Mayscore Whip Race Heart Container": {
+        "region_id": "mayscore whip chest",
+        "vanilla_item": "Heart Container",
+        "minigame": True,
+        "conditional": True,
+        "stage_id": 0x38,
+        "room_id": 0,
+        "address": STAddr.adv_flags_26,
+        "value": 2
+    },
+    "Castle Town Take 'em All On Easy": {
+        "region_id": "teao 1",
+        "vanilla_item": "Heart Container",
+        "minigame": True,
+        "conditional": True,
+        "stage_id": 0x29,
+        "room_id": 0xB,
+        "address": STAddr.adv_flags_2a,
+        "value": 4
+    },
+    "Hyrule Castle Sword Minigame": {
+        "region_id": "hyrule castle sword minigame",
+        "vanilla_item": "Heart Container",
+        "minigame": True,
+        "conditional": True,
+        "stage_id": 0x28,
+        "room_id": 0x7,
+        "address": STAddr.adv_flags_24,
+        "value": 0x40
     },
 
 }

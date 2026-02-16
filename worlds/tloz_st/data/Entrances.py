@@ -334,7 +334,8 @@ entrance_id_to_region = {e.id: e.entrance_region for e in ENTRANCES.values()}
 location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox",
                          "Blizzard Temple Dungeon Reward": "EVENT: Defeat Fraaz",
                          "ToS 3F Forest Rail Glyph": "EVENT: Reach ToS 3F",
-                         "ToS 7F Snow Rail Glyph": "EVENT: Reach ToS 7F"}
+                         "ToS 7F Snow Rail Glyph": "EVENT: Reach ToS 7F",
+                         "ToS 12F Ocean Rail Glyph": "EVENT: Reach ToS 12F"}
 goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
                          3: "GOAL: Defeat Fraaz",
                          0: "GOAL: Reach ToS 3F",

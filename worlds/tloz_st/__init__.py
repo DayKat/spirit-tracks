@@ -273,14 +273,17 @@ class SpiritTracksWorld(WorldParent):
             return True
         if "rabbit" in location_data:
             return location_name in self.active_rabbit_locations
-        if location_name == "Slippery Station Champion Reward":
-            return self.options.logic
+
         if "Portal" in location_name:
             return self.options.portal_checks
         if "Rabbit Haven" in location_name:
             return self.options.rabbitsanity
         if location_data["conditional"] == "tears":
             return self.options.randomize_tears.value != -1  # not vanilla
+        if "minigame" in location_data and self.options.randomize_minigames:
+            if location_name == "Slippery Station Champion Reward":
+                return self.options.logic
+            return True
 
         return False
 
@@ -748,7 +751,8 @@ class SpiritTracksWorld(WorldParent):
         return True
 
     def fill_slot_data(self) -> dict:
-        options = ["goal", "logic", "keysanity",
+        options = ["goal", "logic",
+                   "keysanity", "randomize_minigames",
                    "rabbitsanity", # "rabbit_hints",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",

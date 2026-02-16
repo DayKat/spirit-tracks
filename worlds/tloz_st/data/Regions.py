@@ -36,19 +36,14 @@ REGIONS = [
     "castle town",
     "castle town stamp station",
     "castle town wall",
-    #"castle town minigame",
     "castle town cuccos",
-    #"castle town fish gem",
     "pick up alfonzo",
     "alfonzo event",
+    "teao 1",
 
     # Hyrule Castle
     "hyrule castle",
-    # "hyrule castle spirit flute",
-    "hyrule castle nw chest",
-    "hyrule castle 2f indoors chest",
-    "hyrule castle 1f back chest",
-    "hyrule castle sword training",
+    "hyrule castle sword minigame",
 
     # Tunnel to Tower
     "tower tunnel",

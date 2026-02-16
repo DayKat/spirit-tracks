@@ -62,13 +62,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town wall", "castle town stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["castle town", "castle town wall", False, lambda state: (st_has_bombs(state, player))],
         ["castle town wall", "castle town cuccos", False, lambda state: st_castle_town_cuccos(state, player)],
+        ["castle town", "teao 1", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_source(state, player, "Snow")],
 
         # # ======== Hyrule Castle =========
 
         ["castle town", "hyrule castle", False, None],
-        ["hyrule castle", "hyrule castle nw chest", False, None],
-        ["hyrule castle", "hyrule castle 2f indoors chest", False, None],
-        ["hyrule castle", "hyrule castle 1f back chest", False, None],
+        ["hyrule castle", "hyrule castle sword minigame", False, lambda state: st_has_sword(state, player) and st_has_source(state, player, "Snow")],
 
         # # ======== ToS Tunnel =========
 
@@ -105,8 +104,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos", "tos 8f", False, lambda state: st_has_source(state, player, "Snow")],
         ["tos 8f", "tos 8f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 8f", "tos 9f phantom", False, lambda state: st_can_possess_phantoms(state, player, 9) or st_vanilla_tears(state, player)],
-        ["tos 8f", "tos 9f nw", False, lambda state: st_has_whirlwind(state, player)],
-        ["tos 8f", "tos 11f", False, lambda state: st_has_damage(state, player)],
+        ["tos 9f phantom", "tos 9f nw", False, lambda state: st_has_whirlwind(state, player)],
+        ["tos 9f phantom", "tos 11f", False, lambda state: st_has_damage(state, player)],
         ["tos 11f", "event_12f", False, None],
 
         # # ============ Shops ====================

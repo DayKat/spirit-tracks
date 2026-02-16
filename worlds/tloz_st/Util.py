@@ -3,9 +3,16 @@ from .data.Locations import LOCATIONS_DATA
 from .data.DynamicFlags import DYNAMIC_FLAGS
 from .data.Items import ITEMS
 from .data.Constants import HINTS_ON_SCENE
+from .data.Hints import HINT_DATA
 
 def build_hint_scene_to_watches() -> dict[int, list]:
-    return {}
+    res = {}
+    for hint_name, hint_data in HINT_DATA.items():
+        loc_names = hint_data.get("locations", [hint_name])
+        for scene in hint_data.get("scenes", []):
+            for loc in loc_names:
+                res.setdefault(scene, []).append(loc)
+    return res
 
 def build_entrance_id_to_data():
     return {}, {}

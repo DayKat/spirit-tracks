@@ -58,12 +58,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town wall", "castle town stamp station", False, has_stamp_book],
         ["castle town wall", "castle town cuccos", False, ct_cuccos],
 
+        ["castle town", "teao 1", False, has_sword & has_whirlwind & has_source("Forest")],
+
         # # ======== Hyrule Castle =========
 
         ["castle town", "hyrule castle", False, None],
-        ["hyrule castle", "hyrule castle nw chest", False, None],
-        ["hyrule castle", "hyrule castle 2f indoors chest", False, None],
-        ["hyrule castle", "hyrule castle 1f back chest", False, None],
+        ["hyrule castle", "hyrule castle sword minigame", False, has_sword & has_source("Snow")],
 
         # # ======== ToS Tunnel =========
 
@@ -110,8 +110,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "mayscore", False, None],
         ["mayscore", "mayscore stamp station", False, has_stamp_book],
-        # ["mayscore", "mayscore whip race bomb bag", False, lambda state: st_has_whip(state, player)],
-        # ["mayscore", "mayscore whip race heart container", False, lambda state: st_has_whip(state, player)],
         ["mayscore", "mayscore whip chest", False, has_whip],
 
         # # ======== Forest Sanctuary =========

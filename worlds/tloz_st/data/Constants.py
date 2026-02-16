@@ -21,9 +21,10 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
     [STAddr.adv_flags_10, 0x50],  # anjean section text
     [STAddr.adv_flags_12, 0x1B],  # zelda 1st phantom possession + mayascore bugs
+    [STAddr.adv_flags_13, 0x08],  # whip minigame tutorial
     [STAddr.adv_flags_15, 0x58],  # post fleeing ToS 1F
     [STAddr.adv_flags_16, 0x38],  # ready for FS duet
-    [STAddr.adv_flags_17, 0x40],  # Skip an Anjean dialogue
+    [STAddr.adv_flags_17, 0xC0],  # Skip an Anjean dialogue
     [STAddr.adv_flags_18, 0x07],  # HC intro Zelda
     [STAddr.adv_flags_19, 0x63],  # steem
     [STAddr.adv_flags_1a, 0x1C],  # rabbitland rock text
@@ -54,7 +55,7 @@ STAGE_FLAGS = {
     0x04: [0x02, 0x00, 0x00, 0x00], # Forest Realm
     0x2F: [0x9E, 0x00, 0x00, 0x00], # Outset Village
     0x29: [0x10, 0x00, 0x00, 0x00], # Castle Town
-    0x28: [0x08, 0x00, 0x00, 0x00],  # Hyrule Castle
+    0x28: [0x08, 0x01, 0x00, 0x00],  # Hyrule Castle
     0x13: [0xFE, 0x06, 0x00, 0x00],  # Tower of Spirits (Main)
     # 0x14: [0x00, 0x00, 0x00, 0x14], # Tower of Spirits (Base)
     # 0x17: [0x00, 0x00, 0x00, 0x17],  # Tower of Spirits (Stairs)
@@ -62,7 +63,7 @@ STAGE_FLAGS = {
     0x19: [0x00, 0x00, 0x00, 0x0D],  # Wooded Temple
     # 0x1E: [0x00, 0x00, 0x00, 0x1E], # Stagnox
     0x2A: [0x02, 0x00, 0x00, 0x00],  # Mayscore/Whittleton
-    0x30: [0x1C, 0x00, 0x00, 0x20],  # Forest Sanctuary
+    0x30: [0x3C, 0x00, 0x00, 0x20],  # Forest Sanctuary
     # 0x38: [0x00, 0x00, 0x00, 0x38],  # Mayscore Forest
     0x3E: [0x00, 0x08, 0x00, 0x00],  # Rabbit Haven
     0x37: [0x86, 0x00, 0x00, 0x00],  # Trading Post
@@ -82,7 +83,7 @@ STAGES = {
     0x6: "Ocean Realm",
     0x7: "Fire Realm",
     0x8: "Train Tutorial",
-    # 0xb: "SR Roktite Tunnel",
+    0xb: "SR Rocktite Tunnel",
     0xF: "Dark Realm",
     0x10: "Demon Train",
     0x11: "Demon Train P2",
@@ -114,6 +115,8 @@ STAGES = {
     0x3F: "Snowdrift/Slippery Station",
     # 0x44: "Train Interior CS",
     # 0x50: "Train roof CS",
+    0x46: "Take 'em all on 1",
+    0x4B: "TEAO Stagnox 1",
     0x79: "From Menu",
 }
 
@@ -377,6 +380,7 @@ DUNGEON_KEY_DATA = {
     },
 }
 
+
 HINTS_ON_SCENE = {
     # 0xB11: {  # Mercay Shop
     #     "island_shop": True
@@ -446,9 +450,9 @@ CLASSIFICATION = {
                   }
 
 UT_EVENT_DATA = {
-    0x2900: {"address": STAddr.adv_flags_11,
+    0x2900: [{"address": STAddr.adv_flags_11,
            "value": 0x40,
-           "entrance": "EVENT: Pick up Alfonzo"}
+           "entrance": "EVENT: Pick up Alfonzo"}]
 }
 
 TOS_FLOOR_TO_SECTION = {

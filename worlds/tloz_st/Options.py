@@ -310,6 +310,17 @@ class SpiritTracksStartingTrain(Choice):
     option_golden_train = 7
     default = 0
 
+class SpiritTracksRandomizeMinigames(Choice):
+    """
+    Randomize Minigames.
+    Includes Mayscore Whip game, Take 'em All On, Hyrule Castle Sword Training, Slippery Station and Restoration Duets.
+    """
+    display_name = "Randomize Minigames"
+    option_no_minigames = 0
+    option_randomize_with_hints = 1
+    option_randomize_without_hints = 2
+    default = 2
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -330,6 +341,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
+    randomize_minigames: SpiritTracksRandomizeMinigames
     start_with_train: SpiritTracksStartWithTrain
 
     randomize_tears: SpiritTracksRandomizeTears
@@ -373,9 +385,10 @@ st_option_groups = [
         SpiritTracksTowerOfSpiritsDungeonOptions,
         SpiritTracksRequiredDungeonHints,
     ]),
-    OptionGroup("Item Options", [
+    OptionGroup("Misc Options", [
         SpiritTracksLogic,
         SpiritTracksKeyRandomization,
+        SpiritTracksRandomizeMinigames,
         SpiritTracksRandomizePortals,
         SpiritTracksPortalLocations,
         SpiritTracksStartWithTrain,
