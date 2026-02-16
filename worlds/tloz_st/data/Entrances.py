@@ -264,7 +264,7 @@ ENTRANCE_DATA = {
     "GOAL: Defeat Malladus": {
         "two_way": False,
         "entrance_region": "malladus 2",
-        "exit_region": "malladus goal",
+        "exit_region": "malladus event",
         "entrance": (0x29, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
@@ -319,6 +319,36 @@ ENTRANCE_DATA = {
         "entrance_region": "ss",
         "exit_region": "ss song",
         "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 3F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 2, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 3f rail map",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 7F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 6, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 7f rail map",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 12F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 0xB, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 11f",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },

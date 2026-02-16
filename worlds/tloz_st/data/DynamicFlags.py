@@ -4,18 +4,29 @@ DYNAMIC_FLAGS = {
     "Outset Rei": {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Clear Rocks"],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x04)]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)],
+        "reset_flags": ["RESET forest glyph"]
     },
     "Outset Bee Boy": {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Bee Tree"],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x04)]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)],
+        "reset_flags": ["RESET forest glyph"]
     },
     "Allow leaving Outset": {
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
         "has_items": [["Forest Glyph", 1]],
-        "set_if_true": [(STAddr.adv_flags_0, 0x04)]
+        "set_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)]
+    },
+    "RESET forest glyph": {
+        "has_items": [["Forest Glyph", 1]],
+        "set_if_true": [(STAddr.adv_flags_1, 0x80)]
+    },
+    "Safety forest glyph on forest glyph map": {
+        "on_scenes": [0x400],
+        "has_items": [["Forest Glyph", 1]],
+        "set_if_true": [(STAddr.adv_flags_1, 0x81)]  # also prevents tree maze to fs
     },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
@@ -113,12 +124,15 @@ DYNAMIC_FLAGS = {
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
-        "unset_if_true": [(STAddr.adv_flags_25, 0x02)],
+        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET Stamp Book Check"]
     },
     "RESET Stamp Book Check": {
-        "on_scenes": [0x2F00],
         "has_items": [["Stamp Book", 1]],
+        "set_if_true": [(STAddr.adv_flags_25, 0x02)],
+    },
+    "RESET Snow Restoration": {
+        "has_items": [["Blizzard Temple Tracks", 1]],
         "set_if_true": [(STAddr.adv_flags_25, 0x02)],
     },
 
@@ -243,16 +257,16 @@ DYNAMIC_FLAGS = {
     },
     "Gage Reset flags": {
         "on_scenes": [0x3001],
-        "unset_if_true": [(STAddr.tracks_0, 0x2)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x2)],
         "reset_flags": ["FoS Reset FTT", "FoS Reset FTT not has"]
     },
     "FoS Reset FTT not has": {
         "has_items": [("Wooded Temple Tracks", 0)],
-        "unset_if_true": [(STAddr.tracks_0, 0x2)]
+        "unset_if_true": [(STAddr.rail_restorations, 0x2)]
     },
     "FoS Reset FTT": {
         "has_items": [("Wooded Temple Tracks", 1)],
-        "set_if_true": [(STAddr.tracks_0, 0x2)]
+        "set_if_true": [(STAddr.rail_restorations, 0x2)]
     },
     "Steem don't have spirit flute": {
         "on_scenes": [0x3102],
@@ -267,16 +281,16 @@ DYNAMIC_FLAGS = {
     },
     "Always remove btt in snow sanc room": {
         "on_scenes": [0x3102],
-        "unset_if_true": [(STAddr.tracks_0, 0x4)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x4)],
         "reset_flags": ["Snow sanc Reset BTT not has", "Snow sanc Reset BTT"]
     },
     "Snow sanc Reset BTT not has": {
         "has_items": [("Blizzard Temple Tracks", 0)],
-        "unset_if_true": [(STAddr.tracks_0, 0x4)]
+        "unset_if_true": [(STAddr.rail_restorations, 0x4)]
     },
     "Snow sanc Reset BTT": {
         "has_items": [("Blizzard Temple Tracks", 1)],
-        "set_if_true": [(STAddr.tracks_0, 0x4)]
+        "set_if_true": [(STAddr.rail_restorations, 0x4)]
     },
 
 }

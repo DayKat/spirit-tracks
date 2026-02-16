@@ -265,7 +265,7 @@ LOCATIONS_DATA = {
     },
     "ToS 4F Central Chest": {
         "region_id": "tos 4f",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x13,
         "room_id": 3,
         "x_min": -10000,
@@ -382,7 +382,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Small Key (ToS)",
         "stage_id": 0x13,
         "room_id": 5,
-        "x_min": 46710,
+        "x_min": 20000,
         "x_max": 80290,
         "z_min": 26220,
         "z_max": 68000,
@@ -1425,7 +1425,7 @@ LOCATIONS_DATA = {
     },
     "ToS 11F Chest": {
         "stage_id": 0x13,
-        "room_id": 0x9,
+        "room_id": 0xA,
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "region_id": "tos 11f",
         'dungeon': "ToS",
@@ -1433,7 +1433,7 @@ LOCATIONS_DATA = {
     },
     "ToS 12F Ocean Rail Glyph": {
         "stage_id": 0x13,
-        "room_id": 0xA,
+        "room_id": 0xB,
         "vanilla_item": "Ocean Glyph",
         "region_id": "tos 11f",
         'dungeon': "ToS",
@@ -1444,7 +1444,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x30,
         "room_id": 0x1,
         "region_id": "fos song statue",
-        "address": STAddr.tracks_0,
+        "address": STAddr.rail_restorations,
         "value": 2,
         "minigame": True,
         "conditional": True,
@@ -1452,7 +1452,7 @@ LOCATIONS_DATA = {
     "Snow Sanctuary Song of Restoration": {
         "stage_id": 0x31,
         "room_id": 0x2,
-        "address": STAddr.tracks_0,
+        "address": STAddr.rail_restorations,
         "value": 4,
         "minigame": True,
         "conditional": True,

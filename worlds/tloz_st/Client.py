@@ -154,7 +154,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.goal_locations = build_location_to_goal()
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
-        self.treasure_tracker = {}
+        self.treasure_tracker: dict = {}
         self.item_data = ITEMS
         self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
 
@@ -306,10 +306,13 @@ class SpiritTracksClient(DSZeldaClient):
         entr = self.entrances[event_name]
         await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
 
-    async def update_treasure_tracker(self, ctx):
+    async def update_treasure_tracker(self, ctx, last_loc=None):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
-        self.treasure_tracker = await read_multiple(ctx, read_list)
-        print(f"Updated Treasure Tracker: {self.treasure_tracker}")
+        new_treasure = await read_multiple(ctx, read_list)
+        diff = {t: n - o for n, o, t in
+                 zip(new_treasure.values(), self.treasure_tracker.values(), ITEM_GROUPS["All Treasures"]) if n-o > 0}
+        self.treasure_tracker = new_treasure
+        print(f"Updated Treasure Tracker: {diff}")
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
         if "Rabbit" in item_name:
@@ -338,7 +341,7 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
-        await self.update_treasure_tracker(ctx)
+        await self.update_treasure_tracker(ctx, "room_load")
         await self.update_rabbit_count(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
@@ -363,6 +366,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def check_location_post_processing(self, ctx, location: dict):
         print(f"Post processing loc {location}")
         if not location:
+            await self.update_treasure_tracker(ctx, "no_loc")
             return
 
         if location is not None and "goal" in location:
@@ -462,7 +466,7 @@ class SpiritTracksClient(DSZeldaClient):
         pass
 
     async def process_post_receive(self, ctx):
-        if not self.delay_pickup or self.delay_reset:
+        if not self.delay_pickup:
             await self.update_treasure_tracker(ctx)  # always update treasure tracker, lots of random treasures on ground!
 
     async def set_stage_flags(self, ctx, stage):

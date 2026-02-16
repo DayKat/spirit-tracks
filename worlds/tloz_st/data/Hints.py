@@ -25,8 +25,11 @@ HINT_DATA = {
         "scenes": [0x3f06],
         "slot_data": [("randomize_minigames", 1)],
         "locations": ["Slippery Station Amateur Reward",
-                      "Slippery Station Pro Reward",
-                      "Slippery Station Champion Reward"]
+                      "Slippery Station Pro Reward"]
+    },
+    "Slippery Station Champion Reward": {
+        "scenes": [0x3f06],
+        "slot_data": [("randomize_minigames", 1), ("logic", [1, 2])],
     },
 
 }

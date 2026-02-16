@@ -29,18 +29,18 @@ DYNAMIC_ENTRANCES = {
         "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
-    "Bounce Tutorial missing locs": {
-        "entrance": "Outset to Tutorial",
-        "destination": "Outset to Tutorial",
-        "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
-        "any_not_has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
-        "message": "You need to get the bee tree and clear rocks locations before leaving"
-    },
+    # "Bounce Tutorial missing locs": {
+    #     "entrance": "Outset to Tutorial",
+    #     "destination": "Outset to Tutorial",
+    #     "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
+    #     "any_not_has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
+    #     "message": "You need to get the bee tree and clear rocks locations before leaving"
+    # },
     "Bounce Tutorial to rail": {
         "entrance": "Outset to Tutorial",
         "destination": "Forest Realm to Outset",
         "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
-        "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
+        # "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
     },
 
     # Portal Bounces
@@ -158,6 +158,20 @@ DYNAMIC_ENTRANCES = {
         "destination": "Tower of Spirits Enter Section 3",
         "has_items": [("Snow Source", 0)],
         "message": "You need the Snow Source to enter this section!"
+    },
+
+    # ToS Blue Warp shortcuts
+    "Exit ToS 3F": {
+        "entrance": "ToS 3F Blue Portal",
+        "destination": "Tower of Spirits Enter Section 1",
+    },
+    "Exit ToS 7F": {
+        "entrance": "ToS 7F Blue Portal",
+        "destination": "Tower of Spirits Enter Section 2",
+    },
+    "Exit ToS 12F": {
+        "entrance": "ToS 12F Blue Portal",
+        "destination": "Tower of Spirits Enter Section 3",
     },
 
     # Sanctuary Bounces  (solved with dynaflags instead)
