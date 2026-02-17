@@ -90,12 +90,14 @@ STAGES = {
     0x12: "Demon Train P3",
     0x13: "ToS",
     0x14: "ToS Base",
+    0x15: "ToS Summit",
     0x17: "ToS Stairs",
     0x18: "Tunnel to ToS",
     0x19: "Wooded Temple",
     0x1A: "Blizzard Temple",
     0x1E: "Stagnox",
     0x1F: "Fraaz",
+    0x23: "Staven Fight",
     0x24: "Cole Fight",
     0x25: "Malladus 1",
     0x26: "Malladus Spirit Duet",
@@ -426,8 +428,8 @@ TRAINS = [
     "Train: Golden Train",
 ]
 
-tear_lookup = {1: 3, 4: 6, 9: 9}
-big_tear_lookup = {1:1, 4:2, 9: 3}
+tear_lookup = {1: 3, 4: 6, 9: 9, 13: 12, 18: 15, 30: 16}
+big_tear_lookup = {1:1, 4:2, 9: 3, 13: 4, 18: 5, 30: 6}
 
 # Used by rule builder
 ITEM_MAPPING = {

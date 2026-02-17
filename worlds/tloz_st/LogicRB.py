@@ -104,6 +104,44 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 9f phantom", "tos 11f", False, has_damage],
         ["tos 11f", "event_12f", False, None],
 
+        ["tos", "tos 13f", False, has_source("Ocean")],
+        ["tos 13f", "tos 13f whip", False, has_whip],
+        ["tos 13f", "tos 13f boomerang", False, has_boomerang],
+        ["tos 13f", "tos 14f east", False, has_small_keys("ToS", 4)],
+        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(13) | (vanilla_tears & has_whip & has_small_keys("ToS", 4))],
+        ["tos 13f phantom", "tos 13f phantom whip", False, has_whip],
+        ["tos 13f phantom", "tos 14f west", False, has_small_keys("ToS", 4)],
+
+        ["tos 14f east", "tos 14f phantom", False, can_possess_phantom(13) | (vanilla_tears & has_whip)],
+        ["tos 14f east", "tos 15f", False, None],
+        ["tos 15f", "tos 16f", False, (has_range | has_sword_beam) & has_whirlwind & has_small_keys("ToS", 5)],
+
+        ["tos", "tos 18f", False, has_source("Fire")],
+        ["tos 18f", "tos 18f whip", False, has_whip],
+        ["tos 18f", "tos 19f", False, has_small_keys("ToS", 6)],
+        ["tos 18f", "tos 18f phantom", False, can_possess_phantom(18)],
+
+        ["tos 19f", "tos 19f south", False, has_bow & (has_boomerang | (can_possess_phantom(18) & can_rotate_repeater))],
+        ["tos 19f south", "tos 20f tear", False, has_boomerang | has_sword_beam],
+        ["tos 19f", "tos 19f center", False, can_possess_phantom(18) | (vanilla_tears & has_bow & has_boomerang)],
+        ["tos 19f center", "tos 19f center chest", False, has_bow & (has_boomerang | has_sword_beam)],
+        ["tos 19f center", "tos 18f phantom", False, None],
+        ["tos 19f center", "tos 20f", False, has_small_keys("ToS", 7)],
+
+        ["tos 20f", "tos 19f center 2", False, has_bow & can_rotate_repeater],
+        ["tos 20f", "tos 22f", False, has_bow & can_rotate_repeater & has_whip],
+        ["tos 22f", "tos staven", False, has_sword],
+        ["tos staven", "tos stamp stand", False, has_stamp_book],
+
+        ["tos staven", "tos 30f", False, has_bow_of_light],
+        ["tos 30f", "tos 30f bomb wall", False, has_bombs],
+        ["tos 30f", "tos 29f", False, can_possess_phantom(30) & has_boomerang & has_whirlwind],
+        ["tos 29f", "tos 29f sand wand", False, has_sand_wand],
+        ["tos 29f sand wand", "tos 29f se", False, has_bombs],
+
+        ["tos 29f se", "tos 27f", False, has_small_keys("ToS", 10)],
+        ["tos 27f", "tos 24f", False, has_whip],
+
         # # ============ Shops ====================
 
         # # ======== Mayscore =========

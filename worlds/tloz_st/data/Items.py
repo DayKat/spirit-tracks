@@ -689,6 +689,16 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.tears_of_light,
         "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
     },
+    "Tear of Light (13F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10]
+    },
+    "Tear of Light (18F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18]
+    },
     "Tear of Light (All Sections)": {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
@@ -715,6 +725,18 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.tears_of_light,
         'value': 3,
         "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
+    },
+    "Big Tear of Light (13F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10]
+    },
+    "Big Tear of Light (18F)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18]
     },
     "Big Tear of Light (Progressive)": {
         'classification': ItemClassification.progression,

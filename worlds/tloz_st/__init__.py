@@ -24,7 +24,7 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
-    raise ModuleNotFoundError
+    # raise ModuleNotFoundError
 except ModuleNotFoundError:
     print(f"Using legacy logic")
     WorldParent = World
@@ -442,7 +442,7 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Compass of Light", 1)]
+        add_items = [("Ocean Source", 1), ("Fire Source", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]

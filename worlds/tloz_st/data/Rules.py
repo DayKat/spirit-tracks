@@ -16,6 +16,7 @@ has_boomerang = Has("Boomerang")
 has_whip = Has("Whip")
 has_bow = Has("Bow (Progressive)")
 has_bombs = Has("Bombs (Progressive)")
+has_sand_wand = Has("Sand Wand")
 has_sword_beam = has_sword & Has("Sword Beam Scroll")
 has_stamp_book = Has("Stamp Book")
 
@@ -79,8 +80,8 @@ def has_tears(floor: int):
 
 has_bow_of_light = Or(
     Has("Bow of Light") & has_bow,
-    Has(f"Tear of Light (Progressive)", 10),  # TODO: Increase when we have all tear locs
-    Has(f"Big Tear of Light (Progressive)", 4),
+    Has(f"Tear of Light (Progressive)", 16),
+    Has(f"Big Tear of Light (Progressive)", 6),
     Has(f"Tear of Light (All Sections)", 4),
     Has(f"Big Tear of Light (All Sections)", 2),
                       )
@@ -104,6 +105,7 @@ has_range = has_bow | has_boomerang
 has_range_objects = has_range | has_whirlwind  # range with
 has_short_range = has_range | has_whip | has_sword_beam | has_bombs
 can_ring_bell = has_sword | has_boomerang
+can_rotate_repeater = has_sword | has_boomerang | has_whip
 has_cuccos = has_sob | has_whirlwind
 ct_cuccos = has_sob | (has_whirlwind & hard_logic)
 can_kill_freezards = (has_shield | has_bow_of_light | hard_logic) & has_damage
