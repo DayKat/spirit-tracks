@@ -21,12 +21,12 @@ DYNAMIC_FLAGS = {
     },
     "RESET forest glyph": {
         "has_items": [["Forest Glyph", 1]],
-        "set_if_true": [(STAddr.adv_flags_1, 0x80)]
+        "set_if_true": [(STAddr.adv_flags_1, 0x80), (STAddr.adv_flags_0, 0x04)]
     },
     "Safety forest glyph on forest glyph map": {
         "on_scenes": [0x400],
         "has_items": [["Forest Glyph", 1]],
-        "set_if_true": [(STAddr.adv_flags_1, 0x81)]  # also prevents tree maze to fs
+        "set_if_true": [(STAddr.adv_flags_1, 0x81), (STAddr.adv_flags_0, 0x04)]  # also prevents tree maze to fs
     },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
@@ -168,9 +168,19 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET snow realm crash"]
     },
+    "Snow realm crashes fire glyph and no blizzard tracks": {
+        "on_scenes": [0x500],
+        "has_items": [["Fire Glyph", 1], ["Blizzard Temple Tracks", 0]],
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "reset_flags": ["RESET fire glyph"]
+    },
     "RESET snow realm crash": {
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
         "has_items": [["Snow Source", 1]],
+    },
+    "RESET fire glyph": {
+        "set_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "has_items": [["Fire Glyph", 1]],
     },
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
@@ -286,11 +296,11 @@ DYNAMIC_FLAGS = {
     },
     "Snow sanc Reset BTT not has": {
         "has_items": [("Blizzard Temple Tracks", 0)],
-        "unset_if_true": [(STAddr.rail_restorations, 0x4)]
+        "unset_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 2)]
     },
     "Snow sanc Reset BTT": {
         "has_items": [("Blizzard Temple Tracks", 1)],
-        "set_if_true": [(STAddr.rail_restorations, 0x4)]
+        "set_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 2)]
     },
     "ToS Summit maladus cs": {
         "on_scenes": [0x1500],

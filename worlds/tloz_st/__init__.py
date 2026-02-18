@@ -643,8 +643,8 @@ class SpiritTracksWorld(WorldParent):
         return self.pre_fill_items
 
     def pre_fill(self) -> None:
-        self.pre_fill_dungeon_items()
         self.pre_fill_tos_sections()
+        self.pre_fill_dungeon_items()
 
     def filter_confined_dungeon_items_from_pool(self, items: List[Item]):
         confined_dungeon_items = []
@@ -668,11 +668,17 @@ class SpiritTracksWorld(WorldParent):
                              if loc.get("tos_section", 0) == section]
             section_locations = [loc for loc in self.multiworld.get_locations(self.player)
                                  if loc.name in section_names and not loc.locked]
-            section_items = [item for item in self.pre_fill_items
-                                      if item.name.endswith(f"({floor_lookup[section]}F)") or item.name.endswith(f"ToS {section})")]
+
+            section_items = []
+            if self.options.keysanity == "in_own_section":
+                section_items += [item for item in self.pre_fill_items if item.name.endswith(f"ToS {section})")]
+            if self.options.randomize_tears == "in_own_section":
+                section_items += [item for item in self.pre_fill_items if item.name.endswith(f"({floor_lookup[section]}F)")]
+
             if len(section_locations) == 0:
                 continue
-            # print(f"Pre filling section {section}: {section_items}")
+            print(f"Pre filling section {section}: {section_items}")
+            print(f"\tlocations {section_locations}")
             # Remove from the all_state the items we're about to place
             for item in section_items:
                 self.pre_fill_items.remove(item)
@@ -707,7 +713,8 @@ class SpiritTracksWorld(WorldParent):
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
-            # print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            print(f"\tlocations {dungeon_location_names}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 

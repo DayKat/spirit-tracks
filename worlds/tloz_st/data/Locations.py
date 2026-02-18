@@ -446,19 +446,9 @@ LOCATIONS_DATA = {
         "z_min": 5734,
         "z_max": 18842,
     },
-    # "Forest Sanctuary Gage Duet": {
-    #     "region_id": "fos gage",
-    #     "stage_id": 0x30,
-    #     "room_id": 1,
-    #     "address": 0x0B92D8,
-    #     "value": 18,
-    #     "vanilla_item": "Wooded Temple Tracks",
-    #     "require_item": ["Spirit Flute"],
-    #     "duet": True,
-    # },
     "Forest Sanctuary Chest": {
         "region_id": "fos chest",
-        "vanilla_item": "Big Red Rupee (200)",
+        "vanilla_item": "Red Rupee (20)",
         "x_min": 9228,
         "x_max": 18778,
         "z_min": 39028,
@@ -1630,7 +1620,7 @@ LOCATIONS_DATA = {
         "region_id": "tos 19f south",
         'dungeon': "ToS",
         "tos_section": 5,
-        "z_min": -45000,
+        "z_min": 30000,
         "x_max": 70000,
         "x_min": -15000,
     },
@@ -1700,6 +1690,8 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_20,
         "value": 0x1,
         "ut_connect": "EVENT: Defeat Staven",
+        'dungeon': "ToS",
+        "tos_section": 5,
     },
     "ToS Stamp Stand": {
         "stage_id": 0x15,
@@ -1707,6 +1699,7 @@ LOCATIONS_DATA = {
         "region_id": "tos stamp stand",
         'dungeon': "ToS",
         "tos_section": 5,
+        "stamp": True
     },
     # ToS 6
     "ToS 30F W Chest": {
@@ -1769,6 +1762,14 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 6,
         "ut_connect": "EVENT: Reach ToS 24F",
+    },
+    "ToS 16F Bombable Wall Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x2B,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "tos 16f bombs",
+        'dungeon': "ToS",
+        "tos_section": 4,
     },
 
 }

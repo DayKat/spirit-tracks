@@ -16,17 +16,29 @@ DYNAMIC_ENTRANCES = {
                               ],
         "message": "You don't have the snow source!"
     },
+    "Exit ToS to ocean without source": {
+        "entrance": "Tower of Spirits to Ocean Realm",
+        "destination": "Tower of Spirits to Ocean Realm",
+        "has_items": [("Ocean Source", 0),],
+        "message": "You don't have the Ocean source!"
+    },
+    "Exit ToS to fire without source": {
+        "entrance": "Tower of Spirits to Fire Realm",
+        "destination": "Tower of Spirits to Fire Realm",
+        "has_items": [("Fire Source", 0)],
+        "message": "You don't have the Fire source!"
+    },
     # Outset pre-glyph bounce
     "Bounce Outset without glyph": {
         "entrance": "Outset to Forest Realm",
         "destination": "Outset to Forest Realm",
-        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
+        "not_has_all_items": [("Forest Glyph", 1), ("Cannon", 1)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
     "Bounce Tutorial": {
         "entrance": "Outset to Tutorial",
         "destination": "Outset to Tutorial",
-        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
+        "not_has_all_items": [("Forest Glyph", 1), ("Cannon", 1)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
     # "Bounce Tutorial missing locs": {
@@ -159,6 +171,18 @@ DYNAMIC_ENTRANCES = {
         "has_items": [("Snow Source", 0)],
         "message": "You need the Snow Source to enter this section!"
     },
+    "Bounce ToS Section 4": {
+        "entrance": "Tower of Spirits Enter Section 4",
+        "destination": "Tower of Spirits Enter Section 4",
+        "has_items": [("Ocean Source", 0)],
+        "message": "You need the Ocean Source to enter this section!"
+    },
+    "Bounce ToS Section 5": {
+        "entrance": "Tower of Spirits Enter Section 5",
+        "destination": "Tower of Spirits Enter Section 5",
+        "has_items": [("Fire Source", 0)],
+        "message": "You need the Fire Source to enter this section!"
+    },
 
     # ToS Blue Warp shortcuts
     "Exit ToS 3F": {
@@ -172,6 +196,14 @@ DYNAMIC_ENTRANCES = {
     "Exit ToS 12F": {
         "entrance": "ToS 12F Blue Portal",
         "destination": "Tower of Spirits Enter Section 3",
+    },
+    "Exit ToS 17F": {
+        "entrance": "ToS 17F Blue Portal",
+        "destination": "Tower of Spirits Enter Section 4",
+    },
+    "Exit ToS 24F": {
+        "entrance": "ToS 24F Blue Portal",
+        "destination": "Tower of Spirits Enter Section 5",
     },
 
     # Sanctuary Bounces  (solved with dynaflags instead)

@@ -186,6 +186,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.update_train_speed: bool = False
         self.train_speed = [-143, 0, 115, 193]
         self.has_set_starting_train = False
+        self.key_address = STAddr.small_keys
 
         self.hint_data = HINT_DATA
 
@@ -289,8 +290,15 @@ class SpiritTracksClient(DSZeldaClient):
             self.getting_location = True
 
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
+            stage = (self.last_saved_scene & 0xFF00) >> 8
+            if stage in DUNGEON_STAGES_TO_ENTRANCE_SCENE:
+                self.last_saved_scene = DUNGEON_STAGES_TO_ENTRANCE_SCENE[stage]
+
             print(f"Overwriting weird scene: {hex(self.last_saved_scene)}")
             stage, room = (self.last_saved_scene & 0xFF00) >> 8, self.last_saved_scene & 0xFF
+            if stage in DUNGEON_STAGES_TO_ENTRANCE_SCENE:
+                self.last_saved_scene = DUNGEON_STAGES_TO_ENTRANCE_SCENE[stage]
+
             self.current_scene = self.last_saved_scene
             self.current_stage = read_result[STAddr.stage] = stage
             read_result[STAddr.room] = room
@@ -315,6 +323,8 @@ class SpiritTracksClient(DSZeldaClient):
         print(f"Updated Treasure Tracker: {diff}")
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
+        print(f"Post Processing {item_name}")
+
         if "Rabbit" in item_name:
             await self.update_rabbit_count(ctx)
         if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
@@ -322,9 +332,11 @@ class SpiritTracksClient(DSZeldaClient):
         if item_name in ["Forest Glyph", "Cannon",
                          "Portal Unlock: Hyrule Castle to Anouki Village",
                          "Portal Unlock: Trading Post to E Snow Realm"]:
+            print(f"Reloading dynamic entrances")
             await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
         if self.reload_on_item:
+            print(f"Reloading dynamic entrances")
             self.reload_on_item = False
             await self._set_dynamic_entrances(ctx, self.current_scene)
             await self._set_dynamic_flags(ctx, self.current_scene)
@@ -338,6 +350,9 @@ class SpiritTracksClient(DSZeldaClient):
                 await STAddr.adv_flags_16.set_bits(ctx, 1)
                 await STAddr.items_2.set_bits(ctx, 4)
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
+
+        if item_name in ["Cannon"]:
+            await self.set_starting_train(ctx)
 
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
@@ -486,6 +501,8 @@ class SpiritTracksClient(DSZeldaClient):
 
         if not set_tears:
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
+            if section == 6:
+                return
             floor = [1, 4, 9, 13, 18, 30][section - 1]
             big_prog_sub = section - 1
             set_tears = (self.item_count(ctx, f"Tear of Light ({floor}F)")
@@ -516,13 +533,16 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def detected_new_scene(self, ctx):
         await self.save_tos_keycount(ctx)
+        self.event_reads = []
+        self.sent_event = False
 
     async def save_scene(self, ctx, *args):
-        if super().save_scene(ctx, *args):
+        if await super().save_scene(ctx, *args):
             await self.save_tos_keycount(ctx)
 
     async def save_tos_keycount(self, ctx):
         """ToS keycount is not dependent on stage, so save current count on room change or save"""
+        print(f"Saving Keycount {self.last_stage} {self.last_scene}")
         if self.last_stage != 0x13:
             return
 
@@ -541,14 +561,16 @@ class SpiritTracksClient(DSZeldaClient):
         if stage == 0x13:
             section = TOS_FLOOR_TO_SECTION[self.current_room]
             key_code = 0x130 + section
+            print(f"Special Keycode: {key_code} {DUNGEON_KEY_DATA.get(key_code)}")
             if key_code in DUNGEON_KEY_DATA:
                 key_data = DUNGEON_KEY_DATA[key_code]
                 key_storage = await STAddr.key_storage_tos.read(ctx)
                 current_keys = (key_storage & key_data["filter"]) // key_data["value"]
-                if current_keys:
-                    await self.key_address.overwrite(ctx, current_keys)
+                print(f"Current Keys = {current_keys} | {(key_storage & key_data['filter'])} / {key_data['value']}")
+                await self.key_address.overwrite(ctx, current_keys)
             else:
                 await self.key_address.overwrite(ctx, 0)
+            return True
 
         return False
 
@@ -569,6 +591,7 @@ class SpiritTracksClient(DSZeldaClient):
 
             read_results = await read_multiple(ctx, self.event_reads)
             for event, res in zip(self.event_data, read_results.values()):
+                # print(read_results)
                 if event["value"] & res:
                     if "entrance" in event:
                         print(f"Event detection Success!, {event['entrance']}")
@@ -600,6 +623,7 @@ class SpiritTracksClient(DSZeldaClient):
         res += [a.get_inner_write_list(train) for a in [
             STAddr.equipped_engine, STAddr.equipped_cannon, STAddr.equipped_car, STAddr.equipped_cart,
         ]]
+        print(f"Setting starting train {res}")
         await bizhawk.write(ctx.bizhawk_ctx, res)
 
     async def process_hard_coded_rooms(self, ctx, current_scene):

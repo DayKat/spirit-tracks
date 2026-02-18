@@ -116,6 +116,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 14f east", "tos 15f", False, None],
         ["tos 15f", "tos 16f", False, (has_range | has_sword_beam) & has_whirlwind & has_small_keys("ToS 4", 3)],
         ["tos 16f", "event_17f", False, None],
+        ["tos 16f", "tos 16f bombs", False, has_bombs],
 
         ["tos", "tos 18f", False, has_source("Fire")],
         ["tos 18f", "tos 18f whip", False, has_whip],
@@ -139,7 +140,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 30f", "tos 30f bomb wall", False, has_bombs],
         ["tos 30f", "tos 29f", False, can_possess_phantom(30) & has_boomerang & has_whirlwind],
         ["tos 29f", "tos 29f sand wand", False, has_sand_wand],
-        ["tos 29f sand wand", "tos 29f se", False, has_bombs],
+        ["tos 29f sand wand", "tos 29f se", False, None],
 
         ["tos 29f se", "tos 27f", False, has_small_keys("ToS 6", 3)],
         ["tos 27f", "tos 24f", False, has_whip],

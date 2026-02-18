@@ -65,7 +65,7 @@ class SpiritTracksDungeonPoolPlando(OptionSet):
     """
     display_name = "Plando Dungeon Pool"
     default = set()
-    valid_keys = list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
+    valid_keys = [k.lower() for k in DUNGEON_TO_BOSS_ITEM_LOCATION] + list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
 
 
 class SpiritTracksEndgameScope(Choice):

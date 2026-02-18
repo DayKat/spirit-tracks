@@ -60,6 +60,26 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.OUTSIDE,
         "island": EntranceGroups.NONE
     },
+    "Tower of Spirits to Ocean Realm": {
+        "return_name": "Ocean Realm to Tower of Spirits",
+        "entrance": (0x14, 1, 0),
+        "exit": (0x6, 0x0, 4),
+        "entrance_region": "tos",
+        "exit_region": "snow realm",
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.OUTSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits to Fire Realm": {
+        "return_name": "Ocean Realm to Tower of Spirits",
+        "entrance": (0x14, 1, 0),
+        "exit": (0x7, 0x0, 2),
+        "entrance_region": "tos",
+        "exit_region": "snow realm",
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.OUTSIDE,
+        "island": EntranceGroups.NONE
+    },
 
     # ===== Warp Portals =====
     "Forest Realm North Portal": {
@@ -379,8 +399,48 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
+    "ToS 17F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 0xF, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 16f",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 24F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 0x23, 0),
+        "exit": (0x14, 0x1, 1),
+        "entrance_region": "tos 24f",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
 
-
+    # More ToS Entrances
+    "Tower of Spirits Enter Section 4": {
+        "return_name": "ToS 8F Exit",
+        "entrance": (0x17, 0, 4),
+        "exit": (0x13, 0xC, 0),
+        "entrance_region": "tos",
+        "exit_region": "tos 13f",
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Enter Section 5": {
+        "return_name": "ToS 18F Exit",
+        "entrance": (0x17, 0, 5),
+        "exit": (0x13, 0x11, 0),
+        "entrance_region": "tos",
+        "exit_region": "tos 18f",
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
 }
 
 

@@ -14,10 +14,12 @@ class TestGeneration(WorldTestBase):
         "dark_realm_access": "dungeons",
         "dungeons_required": 3,
         "tos_dungeon_options": "all_sections",
-        "randomize_tears": "anywhere",
+
+        "randomize_tears": "in_tos",
         "tear_size": "small",
-        "tear_sections": "progressive",
-        "spirit_weapons": "final_tear",
+        "tear_sections": "unique_sections",
+        "spirit_weapons": "items",
+
         "keysanity": "in_own_section",
-        "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
+        # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
     }

@@ -64,6 +64,7 @@
       {"name": "ToS 13F SE Raised Chest"},
       {"name": "ToS 13F E Swing Chest"},
       {"name": "ToS 15F NE Chest"},
+      {"name": "ToS 16F Bombable Wall Chest"},
       {"name": "ToS 17F Fire Rail Glyph"}], "map_locations":[{"map": "Overview", "x": 512, "y": 340}]},
   {"name": "ToS 4 Events", "sections": [{"name": "EVENT: Reach ToS 17F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 340}]},
   {"name": "ToS 5", "sections": [

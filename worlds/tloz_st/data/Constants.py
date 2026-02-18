@@ -24,22 +24,26 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_13, 0x08],  # whip minigame tutorial
     [STAddr.adv_flags_15, 0x58],  # post fleeing ToS 1F
     [STAddr.adv_flags_16, 0x38],  # ready for FS duet
-    [STAddr.adv_flags_17, 0xC0],  # Skip an Anjean dialogue
+    [STAddr.adv_flags_17, 0xCA],  # Skip an Anjean dialogue
     [STAddr.adv_flags_18, 0x07],  # HC intro Zelda
     [STAddr.adv_flags_19, 0x63],  # steem
     [STAddr.adv_flags_1a, 0x1C],  # rabbitland rock text
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
+    [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
     [STAddr.adv_flags_24, 0x08],  # move HC guards
+    [STAddr.adv_flags_2a, 0x02],  # ToS 6 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_3d, 0x60],  # ToS safe zone tutorial
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
-    [STAddr.adv_flags_42, 0x80],  # board with zelda
+    [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text
+    [STAddr.adv_flags_42, 0x86],  # board with zelda
     [STAddr.adv_flags_48, 0x10],  # alfonzo giving cannon
     [STAddr.adv_flags_4e, 0x80],  # blizzard void out
+    [STAddr.adv_flags_51, 0x03],  # ToS Staircase cutscene skip
     [STAddr.adv_flags_52, 0x80],  # ToS Staircase cutscene skip
-    [STAddr.adv_flags_53, 0x01],  # ToS Staircase 2 zelda text skip
+    [STAddr.adv_flags_53, 0x77],  # ToS Staircase 2 zelda text skip
     [STAddr.adv_flags_54, 0x28],  # first spirit train journey+portal
     [STAddr.adv_flags_57, 0x40],  # first song statue text
 
@@ -69,7 +73,7 @@ STAGE_FLAGS = {
     0x37: [0x86, 0x00, 0x00, 0x00],  # Trading Post
     # 0x05: [0x00, 0x00, 0x00, 0x05], # Snow Realm
     0x2B: [0x02, 0x04, 0x00, 0x00], # Anouki Village
-    0x31: [0x02, 0x00, 0x00, 0x00], # Snow Sanctuary
+    0x31: [0x0A, 0x00, 0x00, 0x00], # Snow Sanctuary
     0x1A: [0x00, 0x40, 0x20, 0x40], # Blizzard Temple
     0x1F: [0x00, 0x00, 0x00, 0xC0], # Fraaz
     0x35: [0x10, 0x00, 0x00, 0x00], # Icy Spring
@@ -225,11 +229,15 @@ ITEM_GROUPS = {
         "Tear of Light (1F)",
         "Tear of Light (4F)",
         "Tear of Light (9F)",
+        "Tear of Light (13F)",
+        "Tear of Light (18F)",
         "Tear of Light (All Sections)",
         "Tear of Light (Progressive)",
         "Big Tear of Light (1F)",
         "Big Tear of Light (4F)",
         "Big Tear of Light (9F)",
+        "Big Tear of Light (13F)",
+        "Big Tear of Light (18F)",
         "Big Tear of Light (All Sections)",
         "Big Tear of Light (Progressive)",
     ]
@@ -443,6 +451,17 @@ TRAINS = [
 tear_lookup = {1: 3, 4: 6, 9: 9, 13: 12, 18: 15, 30: 16}
 big_tear_lookup = {1:1, 4:2, 9: 3, 13: 4, 18: 5, 30: 6}
 
+DUNGEON_STAGES_TO_ENTRANCE_SCENE = {
+    0x13: 0x1401,
+    0x15: 0x1401,
+    0x17: 0x1401,
+    0x23: 0x1401,
+    0x1A: 0x1A00,
+    0x19: 0x1900,
+    0x1E: 0x1900,
+    0x1F: 0x1A00
+}
+
 # Used by rule builder
 ITEM_MAPPING = {
         i: "Rupees" for i in ITEM_GROUPS["Rupees"]
@@ -490,9 +509,9 @@ TOS_FLOOR_TO_SECTION = {
     0x11: 5,
     0x12: 5,
     0x13: 5,
-    0x14: 5,
-    0x17: 5,
-    0x18: 5,
+    0x14: 5,  # 23F
+    0x17: 5,  # 21F
+    0x18: 5,  # 22F
 
     0x15: 3,
     0x16: 3,
@@ -500,7 +519,18 @@ TOS_FLOOR_TO_SECTION = {
     0x28: 1,
     0x29: 2,
     0x2A: 3,
-0x19: 6, 0x20: 6, 0x21: 6, 0x22: 6, 0x23: 6, 0x24: 6
+    0x2B: 4,
+    0x2C: 6,
+    0x2D: 6,
+
+    0x1d: 6,  # 31F
+    0x1e: 6,  # 30F
+    0x1f: 6,  # 29F
+    0x20: 6,  # 28F
+    0x21: 6,  # 27F
+    0x22: 6,  # 26F
+    0x23: 6,  # 24F
+    0x24: 6,  # 25F
 }
 
 #TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}
