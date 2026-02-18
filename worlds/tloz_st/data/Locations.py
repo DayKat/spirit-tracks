@@ -1599,6 +1599,7 @@ LOCATIONS_DATA = {
         "region_id": "tos 16f",
         'dungeon': "ToS",
         "tos_section": 4,
+        "ut_connect": "EVENT: Reach ToS 17F",
     },
 
     # ToS 5
@@ -1692,6 +1693,14 @@ LOCATIONS_DATA = {
         "z_min": -15000,
         "x_min": 10000,
     },
+    "ToS 23F Defeat Staven": {
+        "stage_id": 0x23,
+        "room_id": 0x0,
+        "region_id": "tos staven",
+        "address": STAddr.adv_flags_20,
+        "value": 0x1,
+        "ut_connect": "EVENT: Defeat Staven",
+    },
     "ToS Stamp Stand": {
         "stage_id": 0x15,
         "room_id": 0x0,
@@ -1759,6 +1768,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Compass of Light",
         'dungeon': "ToS",
         "tos_section": 6,
+        "ut_connect": "EVENT: Reach ToS 24F",
     },
 
 }

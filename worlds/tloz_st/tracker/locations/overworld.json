@@ -65,7 +65,8 @@
       {"name": "ToS 13F E Swing Chest"},
       {"name": "ToS 15F NE Chest"},
       {"name": "ToS 17F Fire Rail Glyph"}], "map_locations":[{"map": "Overview", "x": 512, "y": 340}]},
-    {"name": "ToS 5", "sections": [
+  {"name": "ToS 4 Events", "sections": [{"name": "EVENT: Reach ToS 17F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 340}]},
+  {"name": "ToS 5", "sections": [
       {"name": "ToS 18F N Chest"},
       {"name": "ToS 18F SE Tear of Light"},
       {"name": "ToS 19F S Tear of Light"},
@@ -74,14 +75,17 @@
       {"name": "ToS 18F Center Chest"},
       {"name": "ToS 18F SW Chest"},
       {"name": "ToS 19F Center E Chest"},
+      {"name": "ToS 23F Defeat Staven"},
       {"name": "ToS Stamp Stand"}], "map_locations":[{"map": "Overview", "x": 512, "y": 324}]},
-    {"name": "ToS 6", "sections": [
+  {"name": "ToS 5 Events", "sections": [{"name": "EVENT: Defeat Staven"}], "map_locations":[{"map": "Overview", "x": 528, "y": 324}]},
+  {"name": "ToS 6", "sections": [
       {"name": "ToS 30F W Chest"},
       {"name": "ToS 28F W Raised Chest"},
       {"name": "ToS 28F E Raised Chest"},
       {"name": "ToS 29F SE Chest"},
       {"name": "ToS 30F SE Wrecker Chest"},
       {"name": "ToS 24F Final Chest"}], "map_locations":[{"map": "Overview", "x": 512, "y": 308}]},
+  {"name": "ToS 4 Events", "sections": [{"name": "EVENT: Reach ToS 24F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 308}]},
   {"name": "Mayscore", "sections": [{"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"}, {"name": "Mayscore Whip Race Heart Container"}], "map_locations":[{"map": "Overview", "x": 332, "y": 594}]},
 {"name": "Forest Sanctuary", "sections": [{"name": "Forest Sanctuary Stamp Station"}, {"name": "Forest Sanctuary Song Statue"}, {"name": "Forest Sanctuary Chest"}, {"name": "Forest Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 212, "y": 574}]},
 {"name": "Wooded Temple", "sections": [{"name": "Wooded Temple Song Statue"}, {"name": "Wooded Temple Stamp Station"}, {"name": "Wooded Temple 1F Enemy Chest"}, {"name": "Wooded Temple 1F Key"}, {"name": "Wooded Temple 1F Switch Chest"}, {"name": "Wooded Temple 2F Enemy Chest"}, {"name": "Wooded Temple 2F Poison Chest"}, {"name": "Wooded Temple 3F Chestnut Chest"}, {"name": "Wooded Temple 3F SE Chest"}, {"name": "Wooded Temple Boss Heart Container"}, {"name": "Wooded Temple Dungeon Reward"}], "map_locations":[{"map": "Overview", "x": 214, "y": 420}]},

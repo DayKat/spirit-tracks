@@ -748,7 +748,39 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.tears_of_light,
         "rooms": range(0x30),
         "value": 3
-    }
+    },
+    "Small Key (ToS 2)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [3, 4, 5, 6, 0x29],
+        "section": 2,
+    },
+    "Small Key (ToS 4)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
+        "section": 4,
+    },
+    "Small Key (ToS 5)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
+        "section": 5,
+    },
+    "Small Key (ToS 6)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0x19, 0x20, 0x21, 0x22, 0x23, 0x24],
+        "section": 6,
+    },
 }
 
 ITEMS: dict[str, "STItem"] = {}

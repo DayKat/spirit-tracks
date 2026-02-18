@@ -92,8 +92,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 5f alt path", "tos 5f secret chest", False, has_bombs],
         ["tos 5f alt path", "tos 4f ne chest", False, has_bombs],  # needs whirlwind and boomerang to get here
         ["tos 5f alt path", "tos 6f chests", False, None],  # geozards only need sword + phantom
-        ["tos 5f spinnit key", "tos 6f key", False, has_small_keys("ToS", 1)],  # already have whirlwind
-        ["tos 6f key", "tos 7f rail map", False, has_small_keys("ToS", 2)],
+        ["tos 5f spinnit key", "tos 6f key", False, has_small_keys("ToS 2", 1)],  # already have whirlwind
+        ["tos 6f key", "tos 7f rail map", False, has_small_keys("ToS 2", 2)],
         ["tos 7f rail map", "goal_snow_glyph", False, None],
         ["tos 7f rail map", "event_7f", False, None],
 
@@ -107,18 +107,19 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos", "tos 13f", False, has_source("Ocean")],
         ["tos 13f", "tos 13f whip", False, has_whip],
         ["tos 13f", "tos 13f boomerang", False, has_boomerang],
-        ["tos 13f", "tos 14f east", False, has_small_keys("ToS", 4)],
-        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(13) | (vanilla_tears & has_whip & has_small_keys("ToS", 4))],
+        ["tos 13f", "tos 14f east", False, has_small_keys("ToS 4", 3) | (vanilla_tears & has_small_keys("ToS 4", 2))],
+        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(13) | (vanilla_tears & has_whip & has_small_keys("ToS 4", 2))],
         ["tos 13f phantom", "tos 13f phantom whip", False, has_whip],
-        ["tos 13f phantom", "tos 14f west", False, has_small_keys("ToS", 4)],
+        ["tos 13f phantom", "tos 14f west", False, has_small_keys("ToS 4", 4)],
 
         ["tos 14f east", "tos 14f phantom", False, can_possess_phantom(13) | (vanilla_tears & has_whip)],
         ["tos 14f east", "tos 15f", False, None],
-        ["tos 15f", "tos 16f", False, (has_range | has_sword_beam) & has_whirlwind & has_small_keys("ToS", 5)],
+        ["tos 15f", "tos 16f", False, (has_range | has_sword_beam) & has_whirlwind & has_small_keys("ToS 4", 3)],
+        ["tos 16f", "event_17f", False, None],
 
         ["tos", "tos 18f", False, has_source("Fire")],
         ["tos 18f", "tos 18f whip", False, has_whip],
-        ["tos 18f", "tos 19f", False, has_small_keys("ToS", 6)],
+        ["tos 18f", "tos 19f", False, has_small_keys("ToS 5", 1)],
         ["tos 18f", "tos 18f phantom", False, can_possess_phantom(18)],
 
         ["tos 19f", "tos 19f south", False, has_bow & (has_boomerang | (can_possess_phantom(18) & can_rotate_repeater))],
@@ -126,12 +127,13 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 19f", "tos 19f center", False, can_possess_phantom(18) | (vanilla_tears & has_bow & has_boomerang)],
         ["tos 19f center", "tos 19f center chest", False, has_bow & (has_boomerang | has_sword_beam)],
         ["tos 19f center", "tos 18f phantom", False, None],
-        ["tos 19f center", "tos 20f", False, has_small_keys("ToS", 7)],
+        ["tos 19f center", "tos 20f", False, has_small_keys("ToS 5", 2)],
 
         ["tos 20f", "tos 19f center 2", False, has_bow & can_rotate_repeater],
         ["tos 20f", "tos 22f", False, has_bow & can_rotate_repeater & has_whip],
         ["tos 22f", "tos staven", False, has_sword],
         ["tos staven", "tos stamp stand", False, has_stamp_book],
+        ["tos staven", "event_staven", False, None],
 
         ["tos staven", "tos 30f", False, has_bow_of_light],
         ["tos 30f", "tos 30f bomb wall", False, has_bombs],
@@ -139,8 +141,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 29f", "tos 29f sand wand", False, has_sand_wand],
         ["tos 29f sand wand", "tos 29f se", False, has_bombs],
 
-        ["tos 29f se", "tos 27f", False, has_small_keys("ToS", 10)],
+        ["tos 29f se", "tos 27f", False, has_small_keys("ToS 6", 3)],
         ["tos 27f", "tos 24f", False, has_whip],
+        ["tos 24f", "event_24f", False, None],
 
         # # ============ Shops ====================
 

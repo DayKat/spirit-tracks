@@ -12,10 +12,12 @@ class TestGeneration(WorldTestBase):
         "rabbit_extra_items": 0,
         "goal": "defeat_malladus",
         "dark_realm_access": "dungeons",
-        "dungeons_required": 5,
+        "dungeons_required": 3,
         "tos_dungeon_options": "all_sections",
-        "randomize_tears": "in_tos",
+        "randomize_tears": "anywhere",
         "tear_size": "small",
-        "tear_sections": "all_sections",
+        "tear_sections": "progressive",
         "spirit_weapons": "final_tear",
+        "keysanity": "in_own_section",
+        "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
     }

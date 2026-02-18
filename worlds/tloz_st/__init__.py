@@ -150,6 +150,7 @@ class SpiritTracksWorld(WorldParent):
             self.pick_ut_events()
         else:
             self.required_dungeons = self.pick_required_dungeons()
+            # print(f"Required Dungeons: {self.required_dungeons}")
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
@@ -204,13 +205,18 @@ class SpiritTracksWorld(WorldParent):
     def pick_required_dungeons(self) -> list[str]:
         if self.options.goal != "defeat_malladus" or self.options.dark_realm_access != "dungeons":
             return []
-
-        required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward"]
-        implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph", "ToS 12F Ocean Rail Glyph"]
-        if self.options.tos_dungeon_options == "final_section":
-            required_dungeons.append(implemented_tos[-1])
-        elif self.options.tos_dungeon_options == "all_sections":
-            required_dungeons += implemented_tos
+        if self.options.plando_dungeon_pool:
+            case_compare = {k.lower(): v for k, v in DUNGEON_TO_BOSS_ITEM_LOCATION.items()}
+            required_dungeons = [case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value]
+        else:
+            required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward"]
+            implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph",
+                               "ToS 12F Ocean Rail Glyph", "ToS 17F Fire Rail Glyph",
+                               "ToS 23F Defeat Staven", "ToS 24F Final Chest"]
+            if self.options.tos_dungeon_options == "final_section":
+                required_dungeons.append(implemented_tos[-1])
+            elif self.options.tos_dungeon_options == "all_sections":
+                required_dungeons += implemented_tos
 
         if not self.options.require_specific_dungeons:
             return required_dungeons
@@ -425,7 +431,7 @@ class SpiritTracksWorld(WorldParent):
                     continue
                 filler_item_count += 1
                 continue
-            if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light"]:
+            if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
@@ -443,6 +449,7 @@ class SpiritTracksWorld(WorldParent):
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
         add_items = [("Ocean Source", 1), ("Fire Source", 1)]
+        add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
@@ -575,7 +582,7 @@ class SpiritTracksWorld(WorldParent):
         size_index = self.options.tear_size.value
         spirit_weapon = self.options.spirit_weapons.value
         size_str = ["", "Big "][size_index]
-        sections = [1, 4, 9]
+        sections = [1, 4, 9, 13, 18]
         add_items = []
         tear_sections = self.options.tear_sections.value
         count_normal = [3, 1][size_index]
@@ -585,7 +592,7 @@ class SpiritTracksWorld(WorldParent):
         elif tear_sections == 1:  # All Sections
             add_items += [(f"{size_str}Tear of Light (All Sections)", count_normal + spirit_weapon)]
         elif tear_sections == 2: # progressive
-            count_prog = [9, 3][size_index]
+            count_prog = [15, 5][size_index]
             add_items += [(f"{size_str}Tear of Light (Progressive)", count_prog + spirit_weapon)]
 
         if not spirit_weapon:
@@ -643,7 +650,7 @@ class SpiritTracksWorld(WorldParent):
         confined_dungeon_items = []
 
         # Confine small keys and boss key to own dungeon if option is enabled
-        if self.options.keysanity == "in_own_dungeon":
+        if self.options.keysanity in ["in_own_dungeon", "in_own_section"]:
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key")])
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
 
@@ -655,14 +662,14 @@ class SpiritTracksWorld(WorldParent):
         self.pre_fill_items.extend(confined_dungeon_items)
 
     def pre_fill_tos_sections(self):
-        floor_lookup = {1: 1, 2: 4, 3: 9}
-        for section in range(1, 4):
+        floor_lookup = {1: 1, 2: 4, 3: 9, 4: 13, 5: 18, 6: 29}
+        for section in range(1, 7):
             section_names = [name for name, loc in LOCATIONS_DATA.items()
                              if loc.get("tos_section", 0) == section]
             section_locations = [loc for loc in self.multiworld.get_locations(self.player)
                                  if loc.name in section_names and not loc.locked]
             section_items = [item for item in self.pre_fill_items
-                                      if item.name.endswith(f"({floor_lookup[section]}F)")]
+                                      if item.name.endswith(f"({floor_lookup[section]}F)") or item.name.endswith(f"ToS {section})")]
             if len(section_locations) == 0:
                 continue
             # print(f"Pre filling section {section}: {section_items}")
@@ -693,9 +700,13 @@ class SpiritTracksWorld(WorldParent):
             # dungeon we are currently processing.
             confined_dungeon_items = [item for item in self.pre_fill_items
                                       if item.name.endswith(f"({dung_name})")]
-            if self.options.randomize_tears == "in_tos" and dung_name == "ToS":
-                confined_dungeon_items += [item for item in self.pre_fill_items
-                                      if "Tear of Light" in item.name]
+            if dung_name == "ToS":
+                if self.options.keysanity == "in_own_dungeon":
+                    confined_dungeon_items += [item for item in self.pre_fill_items
+                                          if item.name.startswith("Small Key (ToS")]
+                if self.options.randomize_tears == "in_tos":
+                    confined_dungeon_items += [item for item in self.pre_fill_items
+                                          if "Tear of Light" in item.name]
             # print(f"pre filling {dung_name}: {confined_dungeon_items}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options

@@ -201,7 +201,7 @@ ENTRANCE_DATA = {
         "two_way": False,
         "entrance_region": "tos 3f rail map",
         "exit_region": "event_3f",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x13, 0x2, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -210,7 +210,7 @@ ENTRANCE_DATA = {
         "two_way": False,
         "entrance_region": "tos 7f rail map",
         "exit_region": "event_7f",
-        "entrance": (0x29, 0x6, 0x0),
+        "entrance": (0x13, 0x6, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -219,7 +219,34 @@ ENTRANCE_DATA = {
         "two_way": False,
         "entrance_region": "tos 11f",
         "exit_region": "event_12f",
-        "entrance": (0x29, 0xB, 0x0),
+        "entrance": (0x13, 0xB, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 17F": {
+        "two_way": False,
+        "entrance_region": "tos 16f",
+        "exit_region": "event_17f",
+        "entrance": (0x13, 0xF, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Staven": {
+        "two_way": False,
+        "entrance_region": "tos staven",
+        "exit_region": "event_staven",
+        "entrance": (0x23, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 24F": {
+        "two_way": False,
+        "entrance_region": "tos 24f",
+        "exit_region": "event_24f",
+        "entrance": (0x13, 0x23, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -365,7 +392,10 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "Blizzard Temple Dungeon Reward": "EVENT: Defeat Fraaz",
                          "ToS 3F Forest Rail Glyph": "EVENT: Reach ToS 3F",
                          "ToS 7F Snow Rail Glyph": "EVENT: Reach ToS 7F",
-                         "ToS 12F Ocean Rail Glyph": "EVENT: Reach ToS 12F"}
+                         "ToS 12F Ocean Rail Glyph": "EVENT: Reach ToS 12F",
+                         "ToS 17F Fire Rail Glyph": "EVENT: Reach ToS 17F",
+                         "ToS 23F Defeat Staven": "EVENT: Defeat Staven",
+                         "ToS 24F Final Chest": "EVENT: Reach ToS 24F"}
 goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
                          3: "GOAL: Defeat Fraaz",
                          0: "GOAL: Reach ToS 3F",

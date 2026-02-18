@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup
+    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet
 from worlds.tloz_st.data.Items import ITEMS_DATA
+from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION
 
 # YAML options
 
@@ -41,7 +42,7 @@ class SpiritTracksDungeonCount(Range):
     Will not go higher than the number of valid locations in dungeon pool
     """
     range_start = 1
-    range_end = 5
+    range_end = 8
     default = 2
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
@@ -54,6 +55,18 @@ class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     option_not_in_dungeon_pool = 0
     option_final_section = 1
     option_all_sections = 2
+
+class SpiritTracksDungeonPoolPlando(OptionSet):
+    """
+    Choose what dungeons appear in the required dungeon pool.
+    Leave blank to ignore.
+    Valid options are: 'Wooded Temple', 'Blizzard Temple', 'Marine Temple', 'ToS 1'...'ToS 6'
+    Overrides tos_dungeon_options.
+    """
+    display_name = "Plando Dungeon Pool"
+    default = set()
+    valid_keys = list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
+
 
 class SpiritTracksEndgameScope(Choice):
     """
@@ -117,11 +130,13 @@ class SpiritTracksKeyRandomization(Choice):
     """
     Small Key Logic options:
     - vanilla: Keys are not randomized
+    - in_own_section: Keys can be found in their own dungeon or tower of spirits section
     - in_own_dungeon: Keys can be found in their own dungeon
     - anywhere: Keysanity. Keys can be found anywhere
     """
     display_name = "Key Settings"
     option_vanilla = 0
+    option_in_own_section = 3
     option_in_own_dungeon = 1
     option_anywhere = 2
     default = 1
@@ -332,6 +347,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     endgame_scope: SpiritTracksEndgameScope
     dungeons_required: SpiritTracksDungeonCount
     tos_dungeon_options: SpiritTracksTowerOfSpiritsDungeonOptions
+    plando_dungeon_pool: SpiritTracksDungeonPoolPlando
     require_specific_dungeons: SpiritTracksRequireSpecificDungeons
     dungeon_hints: SpiritTracksRequiredDungeonHints
 
@@ -383,6 +399,7 @@ st_option_groups = [
         SpiritTracksRequireSpecificDungeons,
         SpiritTracksEndgameScope,
         SpiritTracksTowerOfSpiritsDungeonOptions,
+        SpiritTracksDungeonPoolPlando,
         SpiritTracksRequiredDungeonHints,
     ]),
     OptionGroup("Misc Options", [

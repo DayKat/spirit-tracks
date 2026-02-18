@@ -314,7 +314,12 @@ DUNGEON_NAMES = [
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
-    "ToS": "ToS Forest Rail Glyph",
+    "ToS 1": "ToS 3F Forest Rail Glyph",
+    "ToS 2": "ToS 7F Snow Rail Glyph",
+    "ToS 3": "ToS 12F Ocean Rail Glyph",
+    "ToS 4": "ToS 17F Fire Rail Glyph",
+    "ToS 5": "ToS 23F Defeat Staven",
+    "ToS 6": "ToS 24F Final Chest",
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
 }
@@ -325,6 +330,9 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",
+    "ToS 17F Fire Rail Glyph": "tos 16f",
+    "ToS 23F Defeat Staven": "tos staven",
+    "ToS 24F Final Chest": "tos 24f"
 }
 
 DUNGEON_KEY_DATA = {
@@ -334,15 +342,34 @@ DUNGEON_KEY_DATA = {
         "filter": 0xFF,
         "value": 1,
         "size": 8,
-        # 'entrances': {
-        #     0xB01: {
-        #         "max_z": 0x12800,
-        #         # "max_z": 0xFFFF7000
-        #     },
-        #     0xB03: {
-        #         "max_z": 0xB200,
-        #         "min_z": 0x5000
-        #     }}
+    },
+    0x132: {
+        "name": "ToS 2",
+        "address": STAddr.key_storage_tos,
+        "filter": 0x3,
+        "value": 1,
+        "size": 2,
+    },
+    0x134: {
+        "name": "ToS 4",
+        "address": STAddr.key_storage_tos,
+        "filter": 0xC,
+        "value": 4,
+        "size": 2,
+    },
+    0x135: {
+        "name": "ToS 5",
+        "address": STAddr.key_storage_tos,
+        "filter": 0x30,
+        "value": 0x10,
+        "size": 2,
+    },
+    0x136: {
+        "name": "ToS 6",
+        "address": STAddr.key_storage_tos,
+        "filter": 0xC0,
+        "value": 0x40,
+        "size": 2,
     },
     0x18: {
         "name": "Tunnel to ToS",
@@ -350,15 +377,6 @@ DUNGEON_KEY_DATA = {
         "filter": 0x01,
         "value": 1,
         "size": 1,
-        # 'entrances': {
-        #     0xB01: {
-        #         "max_z": 0x12800,
-        #         # "max_z": 0xFFFF7000
-        #     },
-        #     0xB03: {
-        #         "max_z": 0xB200,
-        #         "min_z": 0x5000
-        #     }}
     },
     0x19: {
         "name": "Wooded Temple",
@@ -366,12 +384,6 @@ DUNGEON_KEY_DATA = {
         "filter": 0x06,
         "value": 0x02,
         "size": 2,
-        # 'entrances': {
-        #     0x2600: {
-        #         "max_z": 0x11800,
-        #         "min_z": 0x0
-        #     }
-        # }
     },
     0x1A: {
         "name": "Blizzard Temple",
@@ -470,6 +482,17 @@ TOS_FLOOR_TO_SECTION = {
     9: 3,
     0xA: 3,
     0xB: 3,
+    0xC: 4,
+    0xD: 4,
+    0xE: 4,
+    0xF: 4,
+    0x10: 4,
+    0x11: 5,
+    0x12: 5,
+    0x13: 5,
+    0x14: 5,
+    0x17: 5,
+    0x18: 5,
 
     0x15: 3,
     0x16: 3,

@@ -92,6 +92,7 @@ REGIONS = [
     "tos 14f phantom",
     "tos 15f",
     "tos 16f",
+    "event_17f",
 
     "tos 18f",
     "tos 18f whip",
@@ -106,6 +107,7 @@ REGIONS = [
     "tos 22f",
     "tos staven",
     "tos stamp stand",
+    "event_staven",
 
     "tos 30f",
     "tos 30f bomb wall",
@@ -114,6 +116,7 @@ REGIONS = [
     "tos 29f se",
     "tos 27f",
     "tos 24f",
+    "event_24f",
 
     # Mayscore
     "mayscore",

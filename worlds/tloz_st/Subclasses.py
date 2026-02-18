@@ -3,9 +3,34 @@ from .DSZeldaClient.subclasses import DSTransition
 from .DSZeldaClient.ItemClass import DSItem, receive_normal
 from enum import IntEnum
 from typing import TYPE_CHECKING
+from .data.Constants import DUNGEON_KEY_DATA
 if TYPE_CHECKING:
     from .Client import SpiritTracksClient
 from .data.Addresses import STAddr
+
+async def receive_tos_key(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    async def write_keys_to_storage(dungeon) -> tuple[int, list, str]:
+        key_data = DUNGEON_KEY_DATA[dungeon]
+        prev = await key_data["address"].read(ctx)
+        bit_filter = key_data["filter"]
+        new_v = prev | bit_filter if (prev & bit_filter) + key_data[
+            "value"] > bit_filter else prev + key_data["value"]
+        print(f"Writing {key_data['name']} key to storage: {hex(prev)} -> {hex(new_v)}")
+        return key_data["address"].get_inner_write_list(new_v)
+
+    res = []
+    if client.current_stage == item.dungeon and client.current_room in item.rooms:
+        print("Getting ToS key in correct section")
+        if client.last_vanilla_item and client.last_vanilla_item[-1] == "Small Key (ToS)":
+            client.last_vanilla_item.pop()
+        else:
+            key_value = await client.key_address.read(ctx)
+            key_value = 7 if key_value > 7 else key_value
+            res += client.key_address.get_write_list(key_value + 1)
+    else:
+        dungeon_key = (item.dungeon << 8) + item.section
+        res.append(await write_keys_to_storage(dungeon_key))
+    return res
 
 async def receive_tear_of_light(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     if client.current_stage == 0x13:
@@ -32,6 +57,7 @@ async def dummy(*args):
 
 class STItem(DSItem):
     rooms: list[int]
+    section: int
 
     def __init__(self, name, data, all_items):
         super().__init__(name, data, all_items)
@@ -42,6 +68,8 @@ class STItem(DSItem):
             return dummy
         if "Tear of Light" in self.name:
             return receive_tear_of_light
+        if self.name.startswith("Small Key (ToS"):
+            return receive_tos_key
         return res
 
     def get_remove_vanilla_function(self):
