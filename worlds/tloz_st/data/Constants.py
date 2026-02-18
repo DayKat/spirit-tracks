@@ -499,7 +499,8 @@ TOS_FLOOR_TO_SECTION = {
 
     0x28: 1,
     0x29: 2,
-    0x2A: 3
+    0x2A: 3,
+0x19: 6, 0x20: 6, 0x21: 6, 0x22: 6, 0x23: 6, 0x24: 6
 }
 
 #TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}

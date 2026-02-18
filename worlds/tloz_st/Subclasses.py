@@ -23,12 +23,8 @@ async def receive_tos_key(client: "SpiritTracksClient", ctx, item: "STItem", rii
         print("Getting ToS key in correct section")
         if client.last_vanilla_item and client.last_vanilla_item[-1] == "Small Key (ToS)":
             client.last_vanilla_item.pop()
-        else:
-            key_value = await client.key_address.read(ctx)
-            key_value = 7 if key_value > 7 else key_value
-            res += client.key_address.get_write_list(key_value + 1)
     else:
-        dungeon_key = (item.dungeon << 8) + item.section
+        dungeon_key = 0x130 + item.section
         res.append(await write_keys_to_storage(dungeon_key))
     return res
 

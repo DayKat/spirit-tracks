@@ -486,7 +486,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         if not set_tears:
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
-            floor = [1, 4, 9][section - 1]
+            floor = [1, 4, 9, 13, 18, 30][section - 1]
             big_prog_sub = section - 1
             set_tears = (self.item_count(ctx, f"Tear of Light ({floor}F)")
                          or self.item_count(ctx, f"Big Tear of Light ({floor}F)") * 3
@@ -513,6 +513,44 @@ class SpiritTracksClient(DSZeldaClient):
         if new_data:
             key = storage_key(ctx, checked_entrances_key)
             await self.store_data(ctx, key, new_data)
+
+    async def detected_new_scene(self, ctx):
+        await self.save_tos_keycount(ctx)
+
+    async def save_scene(self, ctx, *args):
+        if super().save_scene(ctx, *args):
+            await self.save_tos_keycount(ctx)
+
+    async def save_tos_keycount(self, ctx):
+        """ToS keycount is not dependent on stage, so save current count on room change or save"""
+        if self.last_stage != 0x13:
+            return
+
+        current_keys = await self.key_address.read(ctx)
+        current_section = TOS_FLOOR_TO_SECTION[self.last_scene & 0xFF]  # triggers after scene change
+        section_key = 0x130 + current_section
+        if section_key in DUNGEON_KEY_DATA:
+            key_data = await STAddr.key_storage_tos.read(ctx)
+            blank_data = key_data & (0xFF - DUNGEON_KEY_DATA[section_key]["filter"])
+            new_data = blank_data + DUNGEON_KEY_DATA[section_key]["value"]*current_keys
+            if new_data != key_data:
+                print(f"Saving ToS key count: {hex(new_data)}")
+                await STAddr.key_storage_tos.overwrite(ctx, new_data)
+
+    async def enter_special_key_room(self, ctx, stage, scene_id):
+        if stage == 0x13:
+            section = TOS_FLOOR_TO_SECTION[self.current_room]
+            key_code = 0x130 + section
+            if key_code in DUNGEON_KEY_DATA:
+                key_data = DUNGEON_KEY_DATA[key_code]
+                key_storage = await STAddr.key_storage_tos.read(ctx)
+                current_keys = (key_storage & key_data["filter"]) // key_data["value"]
+                if current_keys:
+                    await self.key_address.overwrite(ctx, current_keys)
+            else:
+                await self.key_address.overwrite(ctx, 0)
+
+        return False
 
     async def detect_ut_event(self, ctx, scene):
         """

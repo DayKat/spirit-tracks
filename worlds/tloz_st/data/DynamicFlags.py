@@ -292,6 +292,10 @@ DYNAMIC_FLAGS = {
         "has_items": [("Blizzard Temple Tracks", 1)],
         "set_if_true": [(STAddr.rail_restorations, 0x4)]
     },
+    "ToS Summit maladus cs": {
+        "on_scenes": [0x1500],
+        "set_if_true": [(STAddr.adv_flags_20, 0x4)]
+    }
 
 }
 """
