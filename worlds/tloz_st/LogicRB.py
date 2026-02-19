@@ -59,6 +59,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town wall", "castle town cuccos", False, ct_cuccos],
 
         ["castle town", "teao 1", False, has_sword & has_whirlwind & has_source("Forest")],
+        ["teao 1", "teao 2", False, And(has_source("Ocean"), has_boomerang, has_whip)],
+
+        ["teao 2", "teao 3", False, And(has_source("Sand"), has_bow, has_sand_wand)],
 
         # # ======== Hyrule Castle =========
 
@@ -73,8 +76,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ========== ToS ===================
 
-        ["forest realm", "tos", False, None],
-        ["tos", "tos 1f", False, None],
+        ["forest realm", "tos", True, can_enter_tos],
+        ["tos", "tos 1f", True, None],
+        ["tos", "tos 2", False, can_enter_tos_section(2)],
+        ["tos", "tos 3", False, can_enter_tos_section(3)],
+        ["tos", "tos 4", False, can_enter_tos_section(4)],
+        ["tos", "tos 5", False, can_enter_tos_section(5)],
+
+
         ["tos 1f", "tos 1f chest", False, has_range | has_sword_beam],
         ["tos 1f", "tos 1f switch", False, can_kill_bat | can_possess_phantom(1)],  # Phantom can hit switch
         ["tos 1f", "tos 2f", False, can_possess_phantom(1) | vanilla_tears],
@@ -84,7 +93,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 3f rail map", "goal_forest_glyph", False, None],
         ["tos 3f rail map", "event_3f", False, None],
 
-        ["tos", "tos 4f", False, has_source("Forest")],
+        ["tos 2", "tos 4f", True, None],
         ["tos 4f", "tos 4f whirlwind", False, has_whirlwind],
         ["tos 4f", "tos 5f phantom", False, can_possess_phantom(4) | (vanilla_tears & has_whirlwind)],
         ["tos 5f phantom", "tos 5f spinnit key", False, has_whirlwind],
@@ -97,14 +106,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 7f rail map", "goal_snow_glyph", False, None],
         ["tos 7f rail map", "event_7f", False, None],
 
-        ["tos", "tos 8f", False, has_source("Snow")],
+        ["tos 3", "tos 8f", False, None],
         ["tos 8f", "tos 8f bombs", False, has_bombs],
         ["tos 8f", "tos 9f phantom", False, can_possess_phantom(9) | vanilla_tears],
         ["tos 9f phantom", "tos 9f nw", False, has_whirlwind],
         ["tos 9f phantom", "tos 11f", False, has_damage],
         ["tos 11f", "event_12f", False, None],
 
-        ["tos", "tos 13f", False, has_source("Ocean")],
+        ["tos 4", "tos 13f", False, None],
         ["tos 13f", "tos 13f whip", False, has_whip],
         ["tos 13f", "tos 13f boomerang", False, has_boomerang],
         ["tos 13f", "tos 14f east", False, has_small_keys("ToS 4", 3) | (vanilla_tears & has_small_keys("ToS 4", 2))],
@@ -118,7 +127,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 16f", "event_17f", False, None],
         ["tos 16f", "tos 16f bombs", False, has_bombs],
 
-        ["tos", "tos 18f", False, has_source("Fire")],
+        ["tos 5", "tos 18f", False, None],
         ["tos 18f", "tos 18f whip", False, has_whip],
         ["tos 18f", "tos 19f", False, has_small_keys("ToS 5", 1)],
         ["tos 18f", "tos 18f phantom", False, can_possess_phantom(18)],
@@ -133,14 +142,17 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 20f", "tos 19f center 2", False, has_bow & can_rotate_repeater],
         ["tos 20f", "tos 22f", False, has_bow & can_rotate_repeater & has_whip],
         ["tos 22f", "tos staven", False, has_sword],
-        ["tos staven", "tos stamp stand", False, has_stamp_book],
         ["tos staven", "event_staven", False, None],
 
-        ["tos staven", "tos 30f", False, has_bow_of_light],
+        ["tos staven", "tos summit", True, None],
+        ["tos summit", "tos stamp stand", False, has_stamp_book],
+        ["tos summit", "tos 6", False, has_bow_of_light],
+        ["tos 30f", "tos 6", True, None],
+
         ["tos 30f", "tos 30f bomb wall", False, has_bombs],
         ["tos 30f", "tos 29f", False, can_possess_phantom(30) & has_boomerang & has_whirlwind],
         ["tos 29f", "tos 29f sand wand", False, has_sand_wand],
-        ["tos 29f sand wand", "tos 29f se", False, None],
+        ["tos 29f sand wand", "tos 29f se", False, has_bow_of_light],
 
         ["tos 29f se", "tos 27f", False, has_small_keys("ToS 6", 3)],
         ["tos 27f", "tos 24f", False, has_whip],
@@ -193,7 +205,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["snow realm", "rabbit haven", True, has_glyph("Snow")],
         ["rabbit haven", "rabbit haven 5 rabbits", False, has_total_rabbits(5)],
-        ["rabbit haven", "rabbit haven 10 forest rabbits", False, has_rabbit_items("Forest", 10)],
+        ["rabbit haven", "rabbit haven 10 forest rabbits", False, has_rabbit_items("Grass", 10)],
         ["rabbit haven", "rabbit haven 10 snow rabbits", False, has_rabbit_items("Snow", 10)],
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -211,7 +223,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm se portal track", "blizzard temple tracks", False, has_temple_tracks("Blizzard") & has_portal("Trading Post to E Snow Realm", True)],
         ["blizzard temple tracks", "forest realm se portal track", False, Has("Forest Realm SE Portal Tracks") & has_portal("Trading Post to E Snow Realm", False)],
-        ["forest realm", "snow realm source", True, has_source("Snow")],
+        ["tos", "snow realm source", True, has_source("Snow") & can_enter_tos],
         ["snow realm source", "blizzard temple tracks", True, has_source("Snow") & has_temple_tracks("Blizzard")],
 
         # ======== Anouki Village ========
@@ -281,9 +293,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     if options.rabbitsanity in ["on_total", "both"]:
         print(f"Creating total rabbit logic")
         overworld_logic += [
-            [f"{realm.lower()} realm rabbits", f"{realm} Rabbit Count {i}", False,
-             caught_rabbits(realm, i)] for i in range(1, 11)
-            for realm in ["Forest", "Snow"]
+            [f"{realm.lower()} realm rabbits", f"{rabbit} Rabbit Count {i}", False,
+             caught_rabbits(rabbit, i)] for i in range(1, 11)
+            for realm, rabbit in zip(["Forest", "Snow"], ["Grass", "Snow"])
         ]
 
     return overworld_logic

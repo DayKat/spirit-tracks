@@ -68,12 +68,12 @@ def has_portal(portal, forward):
     return ([OptionFilter(option, 1)]
         | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
 
-def has_tears(floor: int):
+def has_tears(section: int):
     return Or(
-        Has(f"Tear of Light ({floor}F)", 3),
-        Has(f"Big Tear of Light ({floor}F)"),
-        Has(f"Tear of Light (Progressive)", tear_lookup[floor]),
-        Has(f"Big Tear of Light (Progressive)", big_tear_lookup[floor]),
+        Has(f"Tear of Light (ToS {section})", 3),
+        Has(f"Big Tear of Light (ToS {section})"),
+        Has(f"Tear of Light (Progressive)", section*3),
+        Has(f"Big Tear of Light (Progressive)", section),
         Has(f"Tear of Light (All Sections)", 3),
         Has(f"Big Tear of Light (All Sections)"),
     )
@@ -110,6 +110,20 @@ has_cuccos = has_sob | has_whirlwind
 ct_cuccos = has_sob | (has_whirlwind & hard_logic)
 can_kill_freezards = (has_shield | has_bow_of_light | hard_logic) & has_damage
 can_kill_freezards_torch = (has_boomerang | has_shield | has_bow_of_light | hard_logic) & has_damage
+
+can_enter_tos = Or([OptionFilter(SpiritTracksToSBase, 0)] |
+                   Has("Tower of Spirits Base", options=[OptionFilter(SpiritTracksToSBase, 1)]),
+                   Has("Progressive ToS Section", options=[OptionFilter(SpiritTracksToSBase, 1)])
+                   )
+
+def can_enter_tos_section(section):
+    sources = [None, "Forest", "Snow", "Ocean", "Fire"]
+    if section == 1:
+        return can_enter_tos
+    return Or([OptionFilter(SpiritTracksToSSectionUnlocks, 0)] |
+              Filtered(has_source(sources[section-1]), options=[OptionFilter(SpiritTracksToSSectionUnlocks, 1)]),
+              Has("Progressive ToS Section", section, options=[OptionFilter(SpiritTracksToSSectionUnlocks, 2), OptionFilter(SpiritTracksToSBase, 1)]),
+              Has("Progressive ToS Section", section-1, options=[OptionFilter(SpiritTracksToSSectionUnlocks, 2), OptionFilter(SpiritTracksToSBase, 0)]))
 
 # Rupees
 def has_rupees(count):

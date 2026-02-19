@@ -305,7 +305,94 @@ DYNAMIC_FLAGS = {
     "ToS Summit maladus cs": {
         "on_scenes": [0x1500],
         "set_if_true": [(STAddr.adv_flags_20, 0x4)]
-    }
+    },
+
+    # ToS climb flags
+    "ToS open sections": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 0]],
+        "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Remove Fire source"]
+    },
+    "ToS progressive sections 1": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 1, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x10)],
+        "reset_flags": ["RESET Remove Forest source"]
+    },
+    "ToS progressive sections 2": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 2, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x30)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source"]
+    },
+    "ToS progressive sections 3": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 3, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source"]
+    },
+    "ToS progressive sections 4": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 4)],
+        "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Remove Fire source"]
+    },
+    "ToS progressive sections 1 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 2, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x10)],
+        "reset_flags": ["RESET Remove Forest source"]
+    },
+    "ToS progressive sections 2 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 3, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x30)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source"]
+    },
+    "ToS progressive sections 3 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 4, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source"]
+    },
+    "ToS progressive sections 5": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 5)],
+        "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Remove Fire source"]
+    },
+
+    "RESET Remove Forest source": {
+        "has_items": [("Forest Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x10)],
+    },
+    "RESET Remove Snow source": {
+        "has_items": [("Snow Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
+    },
+    "RESET Remove Ocean source": {
+        "has_items": [("Ocean Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+    },
+    "RESET Remove Fire source": {
+        "has_items": [("Fire Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+    },
+
 
 }
 """

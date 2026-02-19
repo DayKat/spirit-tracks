@@ -181,13 +181,13 @@ ITEM_GROUPS = {
         "Refill: Bombs",
         "Refill: Arrows",
      ],
-    "Forest Rabbits": [
-        "Forest Rabbit",
-        "Forest Rabbits (2)",
-        "Forest Rabbits (3)",
-        "Forest Rabbits (4)",
-        "Forest Rabbits (5)",
-        "Forest Rabbits (10)"
+    "Grass Rabbits": [
+        "Grass Rabbit",
+        "Grass Rabbits (2)",
+        "Grass Rabbits (3)",
+        "Grass Rabbits (4)",
+        "Grass Rabbits (5)",
+        "Grass Rabbits (10)"
     ],
     "Snow Rabbits": [
         "Snow Rabbit",
@@ -226,18 +226,18 @@ ITEM_GROUPS = {
     ],
     "Tears of Light": [
         "Tear of Light",
-        "Tear of Light (1F)",
-        "Tear of Light (4F)",
-        "Tear of Light (9F)",
-        "Tear of Light (13F)",
-        "Tear of Light (18F)",
+        "Tear of Light (ToS 1)",
+        "Tear of Light (ToS 2)",
+        "Tear of Light (ToS 3)",
+        "Tear of Light (ToS 4)",
+        "Tear of Light (ToS 5)",
         "Tear of Light (All Sections)",
         "Tear of Light (Progressive)",
-        "Big Tear of Light (1F)",
-        "Big Tear of Light (4F)",
-        "Big Tear of Light (9F)",
-        "Big Tear of Light (13F)",
-        "Big Tear of Light (18F)",
+        "Big Tear of Light (ToS 1)",
+        "Big Tear of Light (ToS 2)",
+        "Big Tear of Light (ToS 3)",
+        "Big Tear of Light (ToS 4)",
+        "Big Tear of Light (ToS 5)",
         "Big Tear of Light (All Sections)",
         "Big Tear of Light (Progressive)",
     ]
@@ -247,71 +247,31 @@ ITEM_GROUPS = {
 ITEM_GROUPS |= {
     "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
                     ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"],
-    "Rabbits": ITEM_GROUPS["Forest Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
+    "Rabbits": ITEM_GROUPS["Grass Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
     "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"]
 }
 
 # RABBITS = {
-#     "Forest Rabbits": [0x262030, 0xFF, 0x262031, 0x03],
+#     "Grass Rabbits": [0x262030, 0xFF, 0x262031, 0x03],
 #     "Snow Rabbits": [0x262031, 0xFC, 0x262032, 0x0F],
 #     # "Water Rabbits": [0x262032, 0xF0, 0x262033, 0x3F],
 #     # "Fire Rabbits": [0x262033, 0xC0, 0x262034, 0xFF],
 #     # "Sand Rabbits": [0x262034, 0xFF, 0x262035, 0x03],
 # }
 
-LOCATION_GROUPS = {
-    "Forest Realm": [],
-    "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree", "Outset Niko's House Tree", "Outset Receive Stamp Book"],
-    "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
-    "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
-    "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
-    "ToS": [
-        "ToS 1F Chest",
-        "ToS 2F Raised Chest",
-        "ToS 2F Whirlwind Chest",
-        "ToS 2F Bomb Wall Chest",
-        "ToS Forest Rail Glyph",
-        "ToS 4F Central Chest",
-        "ToS 4F NE Chest",
-        "ToS 5F Island Chest",
-        "ToS 5F Spinnit Key",
-        "ToS 5F Bomb Wall Chest",
-        "ToS 6F Enemy Chest 1",
-        "ToS 6F Enemy Chest 2",
-        "ToS 6F Enemy Chest 3",
-        "ToS 6F Enemy Big Chest",
-        "ToS 6F Key",
-        "ToS Snow Rail Glyph"
-    ],
-    "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
-    "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
-    "Wooded Temple": [
-        "Wooded Temple Song Statue",
-        "Wooded Temple Stamp Station",
-        "Wooded Temple 1F Enemy Chest",
-        "Wooded Temple 1F Key",
-        "Wooded Temple 1F Switch Chest",
-        "Wooded Temple 2F Enemy Chest",
-        "Wooded Temple 2F Poison Chest",
-        "Wooded Temple 3F Chestnut Chest",
-        "Wooded Temple 3F SE Chest",
-        #"Wooded Temple 3F Boss Key Chest",
-        #"Wooded Temple Boss Heart Container",
-        "Wooded Temple Dungeon Reward"
-    ],
-    "Rabbit Haven": ["Rabbit Haven Net Gift", "Rabbit Haven Chest"],
-    "Trading Post": ["Trading Post Stamp Station", "Trading Post Chest"],
-    "Snow Realm": [],
-    "Anouki Village": [],
-    "Snow Sanctuary": [],
-    "Blizzard Temple": [],
-    "Icy Spring": [],
-    "Snowdrift Station": [],
-    "Slippery Station": [],
-    "Bridge Worker's Home": [],
-
-    "Unique Forest Rabbits": [],
-    "Unique Snow Rabbits": []
+LOCATION_GROUPS: dict[str, set[str]] = {
+    # "Outset Village": {"Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree",
+    #                    "Outset Niko's House Tree", "Outset Receive Stamp Book"},
+    # "Castle Town": {"Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest",
+    #                 "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"},
+    # "Hyrule Castle": {"Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"},
+    # "Tunnel to ToS": {"Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"},
+    # "Mayscore": {"Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward",
+    #              "Mayscore Whip Chest"},
+    # "Forest Sanctuary": {"Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet",
+    #                      "Forest Sanctuary Chest"},
+    # "Rabbit Haven": {"Rabbit Haven Net Gift", "Rabbit Haven Chest"},
+    # "Trading Post": {"Trading Post Stamp Station", "Trading Post Chest"},
 }
 
 DUNGEON_NAMES = [
@@ -466,7 +426,7 @@ DUNGEON_STAGES_TO_ENTRANCE_SCENE = {
 ITEM_MAPPING = {
         i: "Rupees" for i in ITEM_GROUPS["Rupees"]
     } | {
-        f"Forest Rabbits ({i})": "Forest Rabbit" for i in list(range(2, 6)) + [10]
+        f"Grass Rabbits ({i})": "Grass Rabbit" for i in list(range(2, 6)) + [10]
     } | {
         f"Snow Rabbits ({i})": "Snow Rabbit" for i in list(range(2, 6)) + [10]}
 

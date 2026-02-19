@@ -336,6 +336,36 @@ class SpiritTracksRandomizeMinigames(Choice):
     option_randomize_without_hints = 2
     default = 2
 
+class SpiritTracksToSSectionUnlocks(Choice):
+    """
+    What unlocks tower of spirits sections?
+    open: all sections are open from the start
+    sources: each source unlocks a new section
+    progressive: adds "Progressive Tower Section" items, that unlock sections one at a time. ToS 1 is always available.
+    """
+    display_name = "ToS Section Unlocks"
+    option_open = 0
+    option_sources = 1
+    option_progressive = 2
+    default = 1
+
+class SpiritTracksToSBase(Toggle):
+    """
+    If True, Prevents Tower of Spirit access until you have the "Tower of Spirits Base" item
+    Instead creates an additional progressive tower section item if you play with progressive tower sections.
+    """
+    display_name = "ToS Unlock Base Item"
+    default = 0
+
+class SpiritTracksShuffleToSSections(Choice):
+    """
+    Shuffle Tower of Spirits Sections.
+    Also includes the summit as its own section.
+    """
+    display_name = "Shuffle ToS Sections"
+    option_no_shuffle = 0
+    option_shuffle = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -359,6 +389,10 @@ class SpiritTracksOptions(PerGameCommonOptions):
     keysanity: SpiritTracksKeyRandomization
     randomize_minigames: SpiritTracksRandomizeMinigames
     start_with_train: SpiritTracksStartWithTrain
+
+    tos_section_unlocks: SpiritTracksToSSectionUnlocks
+    tos_unlock_base_item: SpiritTracksToSBase
+    shuffle_tos_sections: SpiritTracksShuffleToSSections
 
     randomize_tears: SpiritTracksRandomizeTears
     tear_size: SpiritTracksTearSize
@@ -410,7 +444,10 @@ st_option_groups = [
         SpiritTracksPortalLocations,
         SpiritTracksStartWithTrain,
     ]),
-    OptionGroup("Tear Options", [
+    OptionGroup("ToS Options", [
+        SpiritTracksToSSectionUnlocks,
+        SpiritTracksToSBase,
+        SpiritTracksShuffleToSSections,
         SpiritTracksRandomizeTears,
         SpiritTracksTearSize,
         SpiritTracksTearGroup,

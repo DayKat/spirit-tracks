@@ -22,7 +22,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     "Sword (Progressive)": {
         'classification': ItemClassification.progression,
         'progressive': [[STAddr.items_2, 0x02], [STAddr.items_2, 0x04]],
-        #'set_bit': [(0x1BA644, 1)]  # Means that sending sword if sword breaks gives the base layer
+    },
+    "Sword": {  # Used when lokomo sword is not progressive, and tied to tears
+        'classification': ItemClassification.progression,
+        'address': STAddr.items_2,
+        "value": 0x02,
     },
     "Shield": {
         'classification': ItemClassification.progression,
@@ -114,7 +118,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     # ======= Songs ==========
 
     "Song of Awakening": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.useful,
         'address': STAddr.songs,
         'value': 0x01,
     },
@@ -298,6 +302,12 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x80,
         'set_bit': [[STAddr.source_rails, 0x10]]
     },
+    "Sand Source": {  # Only used for TEAO4 unlock?
+        'classification': ItemClassification.progression,
+        "address": STAddr.adv_flags_1a,
+        'value': 0x1,
+        'set_bit': [[STAddr.source_rails, 0x20]]
+    },
 
     # TODO bridge repair 265752 0x10
 
@@ -310,36 +320,36 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
 
     # ========== Rabbits ============
 
-    "Forest Rabbit": {
+    "Grass Rabbit": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
     },
-    "Forest Rabbits (2)": {
+    "Grass Rabbits (2)": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
         'value': 2
     },
-    "Forest Rabbits (3)": {
+    "Grass Rabbits (3)": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
         'value': 3
     },
-    "Forest Rabbits (4)": {
+    "Grass Rabbits (4)": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
         'value': 4
     },
-    "Forest Rabbits (5)": {
+    "Grass Rabbits (5)": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
         'value': 5
     },
-    "Forest Rabbits (10)": {  # 10 item is only used for vanilla rabbits 1 location
+    "Grass Rabbits (10)": {  # 10 item is only used for vanilla rabbits 1 location
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
@@ -472,11 +482,6 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.filler,
         'dummy': True
     },
-    "Tear of Light": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        'value': 1
-    },
     "Refill: Bombs": {
         'classification': ItemClassification.filler,
         "give_ammo": [10, 20, 30],
@@ -603,6 +608,38 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'dungeon': 0x13,
          "tags": ["incremental"],
     },
+    "Small Key (ToS 2)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [3, 4, 5, 6, 0x29],
+        "section": 2,
+    },
+    "Small Key (ToS 4)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
+        "section": 4,
+    },
+    "Small Key (ToS 5)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
+        "section": 5,
+    },
+    "Small Key (ToS 6)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0x19, 0x20, 0x21, 0x22, 0x23, 0x24],
+        "section": 6,
+    },
     "Small Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -612,6 +649,90 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'dungeon': 0x1A
+    },
+
+    # Tears
+    "Tear of Light": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 1
+    },
+    "Tear of Light (ToS 1)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [0, 1, 0x28],
+        "tags": ["always_process"]
+    },
+    "Tear of Light (ToS 2)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [3, 4, 5, 0x29],
+        "tags": ["always_process"]
+    },
+    "Tear of Light (ToS 3)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
+    },
+    "Tear of Light (ToS 4)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10]
+    },
+    "Tear of Light (ToS 5)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18]
+    },
+    "Tear of Light (All Sections)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": range(0x30)
+    },
+    "Tear of Light (Progressive)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+    },
+    "Big Tear of Light (ToS 1)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [0, 1, 0x28]
+    },
+    "Big Tear of Light (ToS 2)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [3, 4, 5, 0x29]
+    },
+    "Big Tear of Light (ToS 3)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
+    },
+    "Big Tear of Light (ToS 4)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10]
+    },
+    "Big Tear of Light (ToS 5)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18]
+    },
+    "Big Tear of Light (Progressive)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3
+    },
+    "Big Tear of Light (All Sections)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": range(0x30),
+        "value": 3
     },
 
     # Trade Quest and misc
@@ -663,124 +784,19 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     "_UT_Glitched_Logic": {  # Shows yellow logic in UT
         "classification": ItemClassification.progression,
         "dummy": True,
-        "id": 189,
     },
 
+
     # IDs are not fixed yet, but determined by order. Put new items here until an update that breaks compatibility, and move them then.
-    "Sword": {
-        'classification': ItemClassification.progression,
-        'address': STAddr.items_2,
-        "value": 0x02,
+    "Tower of Spirits Base": {
+        "classification": ItemClassification.progression,
+        "dummy": True
     },
-    "Tear of Light (1F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        "rooms": [0, 1, 0x28],
-        "tags": ["always_process"]
+    "Progressive ToS Section": {
+        "classification": ItemClassification.progression,
+        "dummy": True
     },
-    "Tear of Light (4F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        "rooms": [3, 4, 5, 0x29],
-        "tags": ["always_process"]
-    },
-    "Tear of Light (9F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
-    },
-    "Tear of Light (13F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10]
-    },
-    "Tear of Light (18F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18]
-    },
-    "Tear of Light (All Sections)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        "rooms": range(0x30)
-    },
-    "Tear of Light (Progressive)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-    },
-    "Big Tear of Light (1F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        'value': 3,
-        "rooms": [0, 1, 0x28]
-    },
-    "Big Tear of Light (4F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        'value': 3,
-        "rooms": [3, 4, 5, 0x29]
-    },
-    "Big Tear of Light (9F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        'value': 3,
-        "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A]
-    },
-    "Big Tear of Light (13F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        'value': 3,
-        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10]
-    },
-    "Big Tear of Light (18F)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        'value': 3,
-        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18]
-    },
-    "Big Tear of Light (Progressive)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        'value': 3
-    },
-    "Big Tear of Light (All Sections)": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.tears_of_light,
-        "rooms": range(0x30),
-        "value": 3
-    },
-    "Small Key (ToS 2)": {
-        'classification': ItemClassification.progression,
-        'address': STAddr.small_keys,
-        'dungeon': 0x13,
-        "tags": ["incremental"],
-        "rooms": [3, 4, 5, 6, 0x29],
-        "section": 2,
-    },
-    "Small Key (ToS 4)": {
-        'classification': ItemClassification.progression,
-        'address': STAddr.small_keys,
-        'dungeon': 0x13,
-        "tags": ["incremental"],
-        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
-        "section": 4,
-    },
-    "Small Key (ToS 5)": {
-        'classification': ItemClassification.progression,
-        'address': STAddr.small_keys,
-        'dungeon': 0x13,
-        "tags": ["incremental"],
-        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
-        "section": 5,
-    },
-    "Small Key (ToS 6)": {
-        'classification': ItemClassification.progression,
-        'address': STAddr.small_keys,
-        'dungeon': 0x13,
-        "tags": ["incremental"],
-        "rooms": [0x19, 0x20, 0x21, 0x22, 0x23, 0x24],
-        "section": 6,
-    },
+
 }
 
 ITEMS: dict[str, "STItem"] = {}

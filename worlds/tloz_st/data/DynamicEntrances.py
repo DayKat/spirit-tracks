@@ -163,24 +163,28 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Tower of Spirits Enter Section 2",
         "destination": "Tower of Spirits Enter Section 2",
         "has_items": [("Forest Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
         "message": "You need the Forest Source to enter this section!"
     },
     "Bounce ToS Section 3": {
         "entrance": "Tower of Spirits Enter Section 3",
         "destination": "Tower of Spirits Enter Section 3",
         "has_items": [("Snow Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
         "message": "You need the Snow Source to enter this section!"
     },
     "Bounce ToS Section 4": {
         "entrance": "Tower of Spirits Enter Section 4",
         "destination": "Tower of Spirits Enter Section 4",
         "has_items": [("Ocean Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
         "message": "You need the Ocean Source to enter this section!"
     },
     "Bounce ToS Section 5": {
         "entrance": "Tower of Spirits Enter Section 5",
         "destination": "Tower of Spirits Enter Section 5",
         "has_items": [("Fire Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
         "message": "You need the Fire Source to enter this section!"
     },
 

@@ -121,7 +121,7 @@ class SpiritTracksWorld(WorldParent):
         self.active_rabbit_locations: list[str] = []
         self.rabbit_counts: list[int] = []
         self.rabbit_item_dict: dict[str, int] = {}
-        self.rabbit_realm_items: dict[str, dict[str, int]] = {"Forest": {}, "Snow": {}}
+        self.rabbit_realm_items: dict[str, dict[str, int]] = {"Grass": {}, "Snow": {}}
         self.item_mapping_collect: dict[str, tuple[str, int]] = {}
 
         self.ut_checked_entrances = set()
@@ -197,7 +197,7 @@ class SpiritTracksWorld(WorldParent):
         self.item_mapping_collect = {
             i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupees"]
         } | {
-            r: ("Forest Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Forest Rabbits"][1:]
+            r: ("Grass Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Grass Rabbits"][1:]
         } | {
             r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"][1:]
         }
@@ -324,7 +324,7 @@ class SpiritTracksWorld(WorldParent):
                             "snowdrift station rabbit": 1,
                             "icyspring rabbits": 2}
             [self.create_multiple_events(reg, f"_caught_{realm}_rabbits", count)
-             for regions, realm in zip([forest_regions, snow_regions], ["forest", "snow"])
+             for regions, realm in zip([forest_regions, snow_regions], ["grass", "snow"])
              for reg, count in regions.items()]
 
         # UT Events
@@ -431,7 +431,8 @@ class SpiritTracksWorld(WorldParent):
                     continue
                 filler_item_count += 1
                 continue
-            if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)"]:
+            if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)",
+                             "Rabbit Net"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
@@ -449,7 +450,9 @@ class SpiritTracksWorld(WorldParent):
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
         add_items = [("Ocean Source", 1), ("Fire Source", 1)]
+        if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
+        add_items += self.choose_tos_items()
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
@@ -468,6 +471,17 @@ class SpiritTracksWorld(WorldParent):
 
         return item_pool_dict
 
+    def choose_tos_items(self):
+        res = []
+        if self.options.tos_section_unlocks in ["progressive"]:
+            prog_count = 4
+            if self.options.tos_unlock_base_item:
+                prog_count = 5
+            res += [("Progressive ToS Section", prog_count)]
+        elif self.options.tos_unlock_base_item:
+            res += [("Tower of Spirits Base", 1)]
+        return res
+
     def choose_rabbit_locations(self):
         if not self.options.rabbitsanity:
             return []
@@ -485,13 +499,17 @@ class SpiritTracksWorld(WorldParent):
 
         # Figure out pools
         if self.options.rabbitsanity.value in [1, 2, 4]: # Vanilla or unique
-            forest_rabbits = LOCATION_GROUPS["Unique Forest Rabbits"]
-            snow_rabbits = LOCATION_GROUPS["Unique Snow Rabbits"]
+            forest_rabbits = list(LOCATION_GROUPS["Unique Grass Rabbits"])
+            snow_rabbits = list(LOCATION_GROUPS["Unique Snow Rabbits"])
             rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits])
 
         if self.options.rabbitsanity.value in [3, 4]:  # total count
-            forest_rabbits = LOCATION_GROUPS["Total Forest Rabbits"]
-            snow_rabbits = LOCATION_GROUPS["Total Snow Rabbits"]
+            forest_rabbits = list(LOCATION_GROUPS["Total Grass Rabbits"])
+            snow_rabbits = list(LOCATION_GROUPS["Total Snow Rabbits"])
+            sort_func = lambda loc: f"0{loc.split()[1]}"[-2:]  # wth python
+            forest_rabbits.sort(key=sort_func)
+            snow_rabbits.sort(key=sort_func)
+            print(f"Sorted Grass Rabbits: {forest_rabbits}")
             interval = self.options.rabbit_location_count_distribution.value
             if interval >= 0:
                 intervals = [interval]*2 if interval else [self.random.randint(1, 3) for _ in range(2)]
@@ -551,7 +569,7 @@ class SpiritTracksWorld(WorldParent):
                 res_counts.append(round(self.random.triangular(0.5, 5.5, 2)))
             return create_items_from_count_list(realm, res_counts)
 
-        realms = ["Forest", "Snow"]
+        realms = ["Grass", "Snow"]
         rabbit_items = {}
         if self.options.rabbitsanity.value == 1:  # Vanilla
             # print(f"Vanilla rabbits {self.rabbit_counts}")
@@ -582,13 +600,13 @@ class SpiritTracksWorld(WorldParent):
         size_index = self.options.tear_size.value
         spirit_weapon = self.options.spirit_weapons.value
         size_str = ["", "Big "][size_index]
-        sections = [1, 4, 9, 13, 18]
+        sections = range(1, 6)
         add_items = []
         tear_sections = self.options.tear_sections.value
         count_normal = [3, 1][size_index]
 
         if tear_sections == 0 and self.options.randomize_tears not in ["no_tears", "vanilla"]:  # unique section
-            add_items += [(f"{size_str}Tear of Light ({floor}F)", count_normal) for floor in sections]
+            add_items += [(f"{size_str}Tear of Light (ToS {section})", count_normal) for section in sections]
         elif tear_sections == 1:  # All Sections
             add_items += [(f"{size_str}Tear of Light (All Sections)", count_normal + spirit_weapon)]
         elif tear_sections == 2: # progressive
@@ -671,9 +689,9 @@ class SpiritTracksWorld(WorldParent):
 
             section_items = []
             if self.options.keysanity == "in_own_section":
-                section_items += [item for item in self.pre_fill_items if item.name.endswith(f"ToS {section})")]
+                section_items += [item for item in self.pre_fill_items if item.name == f"Small Key (ToS {section})"]
             if self.options.randomize_tears == "in_own_section":
-                section_items += [item for item in self.pre_fill_items if item.name.endswith(f"({floor_lookup[section]}F)")]
+                section_items += [item for item in self.pre_fill_items if item.name.endswith(f"Tear of Light (ToS {section})")]
 
             if len(section_locations) == 0:
                 continue

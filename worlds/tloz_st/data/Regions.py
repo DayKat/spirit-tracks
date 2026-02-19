@@ -40,6 +40,8 @@ REGIONS = [
     "pick up alfonzo",
     "alfonzo event",
     "teao 1",
+    "teao 2",
+    "teao 3",
 
     # Hyrule Castle
     "hyrule castle",
@@ -52,6 +54,11 @@ REGIONS = [
 
     # Tower of Spirits
     "tos",
+    "tos 2",
+    "tos 3",
+    "tos 4",
+    "tos 5",
+
     "tos 1f",
     "tos 1f chest",
     "tos 1f switch",
@@ -92,6 +99,7 @@ REGIONS = [
     "tos 14f phantom",
     "tos 15f",
     "tos 16f",
+    "tos 16f bombs",
     "event_17f",
 
     "tos 18f",
@@ -106,8 +114,11 @@ REGIONS = [
     "tos 19f center 2",
     "tos 22f",
     "tos staven",
-    "tos stamp stand",
     "event_staven",
+
+    "tos summit",
+    "tos 6",
+    "tos stamp stand",
 
     "tos 30f",
     "tos 30f bomb wall",
@@ -270,5 +281,5 @@ REGIONS = [
 
 
 ] + [
-    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Forest", "Snow"]
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow"]
 ]

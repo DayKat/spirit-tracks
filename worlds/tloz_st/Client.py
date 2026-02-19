@@ -428,7 +428,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
-            realms = ["Forest", "Snow"]
+            realms = ["Grass", "Snow"]
             rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
             rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
             print(f"Updating rabbit bits {hex(rabbit_bits)}")
@@ -444,7 +444,7 @@ class SpiritTracksClient(DSZeldaClient):
         # Send total location
         if ctx.slot_data["rabbitsanity"] in [3, 4]:
             rabbit_type = loc_data["vanilla_item"]
-            rabbit_type_lookup = ["Forest Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
+            rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
@@ -503,14 +503,13 @@ class SpiritTracksClient(DSZeldaClient):
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
             if section == 6:
                 return
-            floor = [1, 4, 9, 13, 18, 30][section - 1]
             big_prog_sub = section - 1
-            set_tears = (self.item_count(ctx, f"Tear of Light ({floor}F)")
-                         or self.item_count(ctx, f"Big Tear of Light ({floor}F)") * 3
+            set_tears = (self.item_count(ctx, f"Tear of Light (ToS {section})")
+                         or self.item_count(ctx, f"Big Tear of Light (ToS {section})") * 3
                          or max(0, (self.item_count(ctx, "Big Tear of Light (Progressive)") - big_prog_sub) * 3)
                          or max(0, self.item_count(ctx, "Tear of Light (Progressive)") - big_prog_sub * 3)
                          )
-            print(f"Setting tears for floor {floor} section {section} tears {set_tears}")
+            print(f"Setting tears for section {section} tears {set_tears}")
         else:
             print(f"Setting tears {set_tears}")
 
