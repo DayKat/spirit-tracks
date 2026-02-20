@@ -288,6 +288,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["malladus 2", "malladus goal", False, has_bow_of_light & has_sword],
         ["malladus 2", "malladus event", False, has_bow_of_light & has_sword],
 
+        ["ss", "snow sanc shop", False, has_rupees(2000)],
+
+        ["forest realm", "beedle", False, has_source("Snow")],
+        ["beedle", "beedle bomb bag", False, has_rupees(500)],
+        ["beedle", "beedle uncommon treasure", False, has_rupees(300)],
+        ["beedle", "beedle rare treasure", False, has_rupees(1000)],
+
+        ["mayscore", "mayscore shop", False, has_rupees(100)],
     ]
 
     # Generate rabbit total items

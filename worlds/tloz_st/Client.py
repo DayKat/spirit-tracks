@@ -177,6 +177,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_data = []
         self.entrances = ENTRANCES
         self.boss_warp_entrance = None
+        self.tos_section_shuffle_lookup = {}
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -342,10 +343,11 @@ class SpiritTracksClient(DSZeldaClient):
             await self._set_dynamic_entrances(ctx, self.current_scene)
             await self._set_dynamic_flags(ctx, self.current_scene)
 
+        # Get spirit weapons from final tear of light
         if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
             if any([
-                self.item_count(ctx, "Tear of Light (All Sections)") >= 4,
-                self.item_count(ctx, "Tear of Light (Progressive)") >= 10,
+                self.item_count(ctx, "Tear of Light (All Sections)") >= 6,
+                self.item_count(ctx, "Tear of Light (Progressive)") >= 16,
                 self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
                 self.item_count(ctx, "Big Tear of Light (Progressive)") >= 4]):
                 await STAddr.adv_flags_16.set_bits(ctx, 1)
@@ -496,12 +498,34 @@ class SpiritTracksClient(DSZeldaClient):
         if stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
             await self.set_tears(ctx)
 
+    def _generate_er_map(self, ctx):
+        super()._generate_er_map(ctx)
+        if ctx.slot_data["shuffle_tos_sections"]:
+            self.tos_section_shuffle_lookup = self.get_reordered_tos_sections(ctx)
+
+
+    def get_reordered_tos_sections(self, ctx):
+        """Create a lookup from section number to order in the tower, for setting progressive tears from bottom to top with section shuffle"""
+        sort_filter = {}  # section: ordering
+        for entr, pair in ctx.slot_data["er_pairings"].items():
+            entr = self.entrance_id_to_entrance[int(entr)]
+            pair = self.entrance_id_to_entrance[pair]
+            if entr.name in EXIT_TO_TOS_SECTION and pair.name in ENTRANCE_TO_TOS_ORDER:
+                sort_filter[EXIT_TO_TOS_SECTION[entr.name]] = ENTRANCE_TO_TOS_ORDER[pair.name]
+        to_sort = [i for i in sort_filter]
+        to_sort.sort(key=lambda i: sort_filter[i])
+        res = {section: i+1 for i, section in enumerate(to_sort)}
+        return res
+
     async def set_tears(self, ctx):
         set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
                      or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
-
         if not set_tears:
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
+            if ctx.slot_data["shuffle_tos_sections"]:
+                print(f"Section {section} is order {self.tos_section_shuffle_lookup[section]}! | {self.tos_section_shuffle_lookup}")
+                section = self.tos_section_shuffle_lookup[section]
+
             if section == 6:
                 return
             big_prog_sub = section - 1

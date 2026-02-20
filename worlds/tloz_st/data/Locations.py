@@ -169,17 +169,17 @@ LOCATIONS_DATA = {
         "value": 8,
         "location_groups": ["Castle Town"],
     },
-    "Castle Town Take 'em All On Level 3": {
-        "region_id": "teao 3",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        # "minigame": True,
-        "conditional": True,
-        "stage_id": 0x29,
-        "room_id": 0xB,
-        "address": STAddr.adv_flags_2a,
-        "value": 0x10,
-        "location_groups": ["Castle Town"],
-    },
+    # "Castle Town Take 'em All On Level 3": {
+    #     "region_id": "teao 3",
+    #     "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+    #     # "minigame": True,
+    #     "conditional": True,
+    #     "stage_id": 0x29,
+    #     "room_id": 0xB,
+    #     "address": STAddr.adv_flags_2a,
+    #     "value": 0x10,
+    #     "location_groups": ["Castle Town"],
+    # },
     "Castle Town Take 'em All On Level 3 Capbone Chest": {
         "region_id": "teao 3",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
@@ -756,6 +756,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Tear of Light (ToS 5)",
         "region_id": "tos 18f",
         'dungeon': "ToS",
+        "conditional": "tears",
         "tos_section": 5,
         "z_min": -60000,
         "x_min": 75000,
@@ -766,6 +767,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Tear of Light (ToS 5)",
         "region_id": "tos 19f south",
         'dungeon': "ToS",
+        "conditional": "tears",
         "tos_section": 5,
         "z_min": 30000,
         "x_max": 70000,
@@ -778,6 +780,7 @@ LOCATIONS_DATA = {
         "region_id": "tos 20f tear",
         'dungeon': "ToS",
         "tos_section": 5,
+        "conditional": "tears",
         "z_max": 10000,
         "x_max": -60000,
         "z_min": -10000,
@@ -1868,6 +1871,51 @@ LOCATIONS_DATA = {
     },
 
     # New locations to not mess locations ids until we're ready
+    "Snow Sanctuary Shop Heart Container": {
+        "stage_id": 0x31,
+        "room_id": 3,
+        "vanilla_item": "Heart Container",
+        "region_id": "snow sanc shop",
+        "address": STAddr.adv_flags_21,
+        "value": 0x40,
+        "location_groups": ["Shop Locations", "Snow Sanctuary"],
+        "conditional": True
+    },
+    "Beedle Buy Bomb Bag": {
+        "stage_id": 0x45,
+        "room_id": 3,
+        "region_id": "beedle bomb bag",
+        "address": STAddr.adv_flags_22,
+        "vanilla_item": "Bombs (Progressive)",
+        "value": 0x2,
+        "location_groups": ["Shop Locations", "Beedle"],
+        "conditional": True
+    },
+    "Beedle Buy Uncommon Treasure": {
+        "region_id": "beedle uncommon treasure",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Beedle"],
+        "conditional": True
+    },
+    "Beedle Buy Rare Treasure": {
+        "region_id": "beedle rare treasure",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Beedle"],
+        "conditional": True
+    },
+    "Mayscore Shop Treasure 1": {
+        "region_id": "mayscore shop",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Mayscore"],
+        "conditional": True
+    },
+    "Mayscore Shop Treasure 2": {
+        "region_id": "mayscore shop",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Mayscore"],
+        "conditional": True
+    },
+
 
 }
 ## ========== remember to add item override!! =============

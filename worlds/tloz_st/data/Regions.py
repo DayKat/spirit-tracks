@@ -29,8 +29,6 @@ REGIONS = [
     #"outset village joe gem",
     #"outset village cannon",
 
-    #"beedle gem",
-    #"beedle bomb bag",
 
     # Castle Town
     "castle town",
@@ -135,6 +133,7 @@ REGIONS = [
     "mayscore whip race bomb bag",
     "mayscore whip race heart container",
     "mayscore whip chest",
+    "mayscore shop",
     #"mayscore axe gem",
     #"mayscore leaf pile",
 
@@ -214,7 +213,7 @@ REGIONS = [
     "ss",
     "ss stamp station",
     "ss song",
-    #"ss shop hc", (costs 2000)
+    "snow sanc shop",
 
     # Blizzard Temple
     "bt",
@@ -250,6 +249,12 @@ REGIONS = [
     # Bridge Worker's Home
     "bridge workers",
     "bridge workers chest",
+
+    # Beedle
+    "beedle",
+    "beedle bomb bag",
+    "beedle uncommon treasure",
+    "beedle rare treasure",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm

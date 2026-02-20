@@ -40,7 +40,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     },
     "Bombs (Progressive)": {
         'classification': ItemClassification.progression,
-        "progressive": [[STAddr.items_0, 0x10], [STAddr.bomb_capacity, 0x20]],
+        "progressive": [[STAddr.items_0, 0x10], [STAddr.bomb_capacity, 0x1], [STAddr.bomb_capacity, 0x2]],
         "tags": ["progressive_overwrite"],
         "give_ammo": [10, 20, 30],
         "ammo_address": STAddr.bomb_count,

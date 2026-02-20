@@ -441,6 +441,18 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_0, 0x80)],
     },
 
+    # Shop stuff
+    "Remove beedle bomb flag": {
+        "on_scenes": [0x4503],
+        "not_has_locations": [],
+        "unset_if_true": [(STAddr.adv_flags_22, 0x02)],
+        "reset_flags": ["RESET beedle bomb bag flag"]
+    },
+    "RESET beedle bomb bag flag": {
+        "has_items": [("Bombs (Progressive)", 1)],
+        "set_if_true": [(STAddr.adv_flags_22, 0x02)],
+    },
+
 
 }
 """

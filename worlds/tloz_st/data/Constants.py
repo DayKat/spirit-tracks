@@ -34,12 +34,14 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_24, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
     [STAddr.adv_flags_2a, 0x02],  # ToS 6 zelda text
+    [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_3d, 0x60],  # ToS safe zone tutorial
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
     [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text
     [STAddr.adv_flags_42, 0x86],  # board with zelda
+    [STAddr.adv_flags_46, 0x20],  # 7f zelda collapse
     [STAddr.adv_flags_48, 0x10],  # alfonzo giving cannon
     [STAddr.adv_flags_4e, 0x80],  # blizzard void out
     [STAddr.adv_flags_51, 0x03],  # ToS Staircase cutscene skip
@@ -122,6 +124,7 @@ STAGES = {
     0x3F: "Snowdrift/Slippery Station",
     # 0x44: "Train Interior CS",
     # 0x50: "Train roof CS",
+    0x45: "Beedle, Train NPCs",
     0x46: "Take 'em all on Forest theme",
     0x47: "Take 'em all on Snow theme",
     0x48: "Take 'em all on Ocean theme",
@@ -457,10 +460,23 @@ UT_EVENT_DATA = {
            "entrance": "EVENT: Pick up Alfonzo"}]
 }
 
-ENTRANCE_TO_HIDDEN_LOCS_GROUP = {
-    "ToS 1F Exit": "ToS 1",
-    "ToS 4F Exit": "ToS 2",
-    "ToS 8F Exit": "ToS 3",
+ENTRANCE_TO_TOS_ORDER = {
+"Tower of Spirits Enter Section 1": 1,
+"Tower of Spirits Enter Section 2": 2,
+"Tower of Spirits Enter Section 3": 3,
+"Tower of Spirits Enter Section 4": 4,
+"Tower of Spirits Enter Section 5": 5,
+"Tower of Spirits Exit Staven": 6,
+"Tower of Spirits Summit Enter Altar": 7,
+}
+
+EXIT_TO_TOS_SECTION = {
+    "ToS 30F Exit": 6,
+    "ToS 18F Exit": 5,
+    "ToS 13F Exit": 4,
+    "ToS 8F Exit": 3,
+    "ToS 4F Exit": 2,
+    "ToS 1F Exit": 1,
 }
 
 BOSS_WARP_SCENE_LOOKUP = {
@@ -468,6 +484,7 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x1306: "ToS 4F Exit",
     0x130b: "ToS 8F Exit",
     0x130f: "ToS 13F Exit",
+    0x1314: "ToS 18F Exit",
     0x1323: "ToS 30F Exit",
 }
 

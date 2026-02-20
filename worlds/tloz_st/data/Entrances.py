@@ -461,6 +461,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
+    "ToS 23F Blue Warp Before Stavem": {
+        "return_name": "ToS Top of Staircase Blue Warp",
+        "entrance": (0x13, 0x14, 2),
+        "exit": (0x17, 0x0, 6),
+        "entrance_region": "tos 22f",
+        "exit_region": "tos 5",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
 
 }

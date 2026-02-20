@@ -139,7 +139,7 @@ class SpiritTracksKeyRandomization(Choice):
     option_in_own_section = 3
     option_in_own_dungeon = 1
     option_anywhere = 2
-    default = 1
+    default = 3
 
 
 class SpiritTracksRabbitsanity(Choice):
@@ -288,7 +288,7 @@ class SpiritTracksTearGroup(Choice):
     tears_of_light_grouping:
     - unique_sections: tears of light only work in one section
     - all_sections: tears fill each section from bottom to top, totalling 15 small items or 5 big ones.
-    - progressive_spirit_items: tears fill each section from bottom to top, the final one unlocking Lokomo sword and bow of light, required for malladus
+    - progressive_spirit_items: tears fill each section from bottom to top. Works with shuffle_tos_section.
     """
     display_name = "Tears of Light Sectionality"
     option_unique_sections = 0
@@ -361,6 +361,7 @@ class SpiritTracksShuffleToSSections(Choice):
     """
     Shuffle Tower of Spirits Sections.
     Also includes the summit as its own section.
+    Progressive tears will respect the new ordering.
     """
     display_name = "Shuffle ToS Sections"
     option_no_shuffle = 0
