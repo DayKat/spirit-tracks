@@ -132,7 +132,14 @@ def can_enter_tos_section(section):
 
 # Rupees
 def has_rupees(count):
-    return Has("Rupees", count)
+    wild_rupees = Has("_rupee_farming_spot", options=[OptionFilter(SpiritTracksExcessTreasures, 2), OptionFilter(SpiritTracksRupeeFarming, 1)])
+    treasure_farming = HasAll("_rupee_farming_spot", "_can_sell_treasure", options=[OptionFilter(SpiritTracksExcessTreasures, 1), OptionFilter(SpiritTracksRupeeFarming, 1)])
+
+    return Or(Has("_UT_Glitched_Logic"),
+              wild_rupees,
+              treasure_farming,
+              Has("Rupees", count),
+              Has("Treasure", count + 2500) & Has("_can_sell_treasure"))
 
 def has_dungeon_rewards(count: int):
     option = SpiritTracksDarkRealmUnlock

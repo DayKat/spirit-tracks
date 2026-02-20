@@ -1878,7 +1878,7 @@ LOCATIONS_DATA = {
         "region_id": "snow sanc shop",
         "address": STAddr.adv_flags_21,
         "value": 0x40,
-        "location_groups": ["Shop Locations", "Snow Sanctuary"],
+        "location_groups": ["Shop Unique Locations", "Snow Sanctuary"],
         "conditional": True
     },
     "Beedle Buy Bomb Bag": {
@@ -1888,7 +1888,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_22,
         "vanilla_item": "Bombs (Progressive)",
         "value": 0x2,
-        "location_groups": ["Shop Locations", "Beedle"],
+        "location_groups": ["Shop Unique Locations", "Beedle"],
         "conditional": True
     },
     "Beedle Buy Uncommon Treasure": {
@@ -1915,7 +1915,21 @@ LOCATIONS_DATA = {
         "location_groups": ["Shop Treasure Locations", "Mayscore"],
         "conditional": True
     },
-
+    "Castle Town Shop Treasure 1": {
+        "region_id": "castle town shop",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Castle Town"],
+        "conditional": True
+    },
+    "Castle Town Shop Treasure 2": {
+        "region_id": "castle town shop",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Castle Town"],
+        "conditional": True
+    },
+    "TESTLOCATION": {
+        "region_id": "linebeck trading"
+    }
 
 }
 ## ========== remember to add item override!! =============
@@ -1946,7 +1960,7 @@ for i, loc_data in enumerate(LOCATIONS_DATA.items()):
 # Combo groups
 # LOCATION_GROUPS["Tower of Spirits"] = {loc for i in range(1, 7) for loc in LOCATION_GROUPS[f"ToS {i}"] }
 LOCATION_GROUPS["Castle Station"] = LOCATION_GROUPS[f"Castle Town"] | LOCATION_GROUPS[f"Hyrule Castle"] | LOCATION_GROUPS[f"Tunnel to ToS"]
-
+LOCATION_GROUPS["Shop Locations"] = LOCATION_GROUPS["Shop Treasure Locations"] | LOCATION_GROUPS["Shop Unique Locations"]
 LOCATION_GROUPS["Unique Rabbits"] = LOCATION_GROUPS["Unique Grass Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"]
 LOCATION_GROUPS["Total Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Total Snow Rabbits"]
 LOCATION_GROUPS["Grass Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Unique Grass Rabbits"]

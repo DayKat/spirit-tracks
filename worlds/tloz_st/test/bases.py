@@ -5,7 +5,7 @@ from test.bases import *
 class TestGeneration(WorldTestBase):
     game = "The Legend of Zelda - Spirit Tracks"
     options = {
-        "rabbitsanity": "both",
+        "rabbitsanity": "no_rabbits",
         "rabbit_max_location_count": 10,
         "rabbit_location_count_distribution": "random_mixed",
         "rabbit_pack_size": "random_mixed",
@@ -21,6 +21,10 @@ class TestGeneration(WorldTestBase):
         "spirit_weapons": "items",
 
         "keysanity": "in_own_section",
-        "shuffle_tos_sections": "shuffle"
+        "shuffle_tos_sections": "shuffle",
         # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
+
+        "shopsanity": "all_above",
+        # "rupee_farming_logic": "unlimited_farming"
+        "excess_random_treasure": "nothing"
     }

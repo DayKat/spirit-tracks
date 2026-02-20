@@ -31,6 +31,13 @@ except ModuleNotFoundError:
     WorldParent = World
     from .Logic import create_connections
 
+try:
+    DEPRIORITIZED_SKIP_BALANCING_FALLBACK = ItemClassification.progression_deprioritized_skip_balancing
+    DEPRIORITIZED_FALLBACK = ItemClassification.progression_deprioritized
+except AttributeError:
+    DEPRIORITIZED_SKIP_BALANCING_FALLBACK = ItemClassification.progression_skip_balancing
+    DEPRIORITIZED_FALLBACK = ItemClassification.progression
+
 # Adds a consistent count of items to pool, independent of how many are from locations
 def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: str, count: int):
     count_addable = count-item_pool_dict.setdefault(item,0)
@@ -208,11 +215,13 @@ class SpiritTracksWorld(WorldParent):
 
     def create_item_mappings(self):
         self.item_mapping_collect = {
-            i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupees"]
+            i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupee Items"]
         } | {
             r: ("Grass Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Grass Rabbits"][1:]
         } | {
             r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"][1:]
+        } | {
+            t: ("Treasure", value) for treasure_type, value in zip(["Common", "Uncommon", "Rare", "Super Rare"], [50, 150, 500, 2500]) for t in ITEM_GROUPS[treasure_type + " Treasures"]
         }
 
     def pick_required_dungeons(self) -> list[str]:
@@ -303,6 +312,11 @@ class SpiritTracksWorld(WorldParent):
             if location_name == "Slippery Station Champion Reward":
                 return self.options.logic
             return True
+        if self.options.shopsanity:
+            if location_name in LOCATION_GROUPS["Shop Treasure Locations"]:
+                return self.options.shopsanity.value in [2, 3]
+            if location_name in LOCATION_GROUPS["Shop Unique Locations"]:
+                return self.options.shopsanity.value in [1, 3]
 
         return False
 
@@ -340,8 +354,14 @@ class SpiritTracksWorld(WorldParent):
              for regions, realm in zip([forest_regions, snow_regions], ["grass", "snow"])
              for reg, count in regions.items()]
 
+        # Create rupee farming events
+        rupee_farming_regions = ["mayscore whip chest", "mayscore leaves", "trading post leaves",
+                                 "hyrule castle sword minigame", "castle town"]
+        [self.create_event(reg, "_rupee_farming_spot") for reg in rupee_farming_regions]
+
         # UT Events
         self.create_event("alfonzo event", "_picked_up_alfonzo")
+        self.create_event("linebeck trading", "_can_sell_treasure")
 
 
     def exclude_locations_automatically(self):
@@ -385,6 +405,9 @@ class SpiritTracksWorld(WorldParent):
         if name in self.extra_filler_items:
             self.extra_filler_items.remove(name)
             classification = ItemClassification.filler
+        if self.options.shopsanity and name in ITEM_GROUPS["Uncommon Plus Treasure"] + ITEM_GROUPS["Big Rupees"]:
+            # print(f"Changing classification for item {name}")
+            classification = DEPRIORITIZED_SKIP_BALANCING_FALLBACK
 
         ap_code = self.item_name_to_id[name]
         return Item(name, classification, ap_code, self.player)
@@ -464,6 +487,7 @@ class SpiritTracksWorld(WorldParent):
         # so add progression items first
         add_items = [("Ocean Source", 1), ("Fire Source", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
+        if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
@@ -703,7 +727,7 @@ class SpiritTracksWorld(WorldParent):
 
         # Get target groups
         groups = self.create_er_target_groups(type_option_lookup)
-        print(f"Shuffling Entrances {entrances_to_shuffle} with groups {groups}")
+        # print(f"Shuffling Entrances {entrances_to_shuffle} with groups {groups}")
 
         # Entrance Rando
         self.er_placement_state = randomize_entrances(self, True, groups)
@@ -821,7 +845,7 @@ class SpiritTracksWorld(WorldParent):
 
         mapping = self.item_mapping_collect.get(item.name, None)
         if mapping is not None:
-            #print(f"Mapping {mapping} {state.prog_items[self.player][mapping[0]]} for item {item.name}")
+            # print(f"Mapping {mapping} {state.prog_items[self.player][mapping[0]]} for item {item.name}")
             state.prog_items[self.player][mapping[0]] += mapping[1]
 
         return True
@@ -846,7 +870,8 @@ class SpiritTracksWorld(WorldParent):
                    "randomize_tears", "spirit_weapons",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
                    "starting_train",
-                   "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections"]
+                   "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections",
+                   "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons

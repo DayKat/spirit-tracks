@@ -453,6 +453,19 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
     },
 
+    # Linebeck Trade
+    "Has Regal Ring for Linebeck": {
+        "on_scenes": [0x3700],
+        "has_items": [("Regal Ring", 1)],
+        "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
+        "set_bits": [(STAddr.adv_flags_3e, 0x10)]
+    },
+    "Reset linebeck regal ring stuff in cave": {
+        "on_scenes": [0x3702],
+        "not_has_locations": ["Trading Post Chest"],
+        "unset_bits": [(STAddr.adv_flags_3e, 0x10)]
+    },
+
 
 }
 """

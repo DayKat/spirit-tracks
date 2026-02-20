@@ -579,9 +579,9 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ['treasure', 'backup_filler', 'incremental']
     },
     "Treasure: Regal Ring": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression,
         'address': STAddr.regal_ring_count,
-        "tags": ['treasure', 'backup_filler', 'incremental']
+        "tags": ['treasure', 'incremental']
     },
 
     # =========== Keys ============
@@ -795,6 +795,17 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     "Progressive ToS Section": {
         "classification": ItemClassification.progression,
         "dummy": True
+    },
+    # Overworld eventy things
+    "Repair Trading Post Bridge": {  # Ahh complicated
+        "classification": ItemClassification.progression,
+        "address": STAddr.adv_flags_17,
+        "value": 0x10,
+    },
+    "Open Snow Sanctuary Rocktite Cave": {  # Ahh complicated
+        "classification": ItemClassification.progression,
+        "address": STAddr.adv_flags_b,
+        "value": 0x10,
     },
 
 }

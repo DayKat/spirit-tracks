@@ -472,6 +472,17 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
 
+    # Linebeck/bridge worker events
+    "EVENT: Give Regal Ring to Linebeck": {
+        "two_way": False,
+        "entrance_region": "trading post",
+        "exit_region": "linebeck trading",
+        "entrance": (0x37, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    }
+
 
 }
 

@@ -367,6 +367,55 @@ class SpiritTracksShuffleToSSections(Choice):
     option_no_shuffle = 0
     option_shuffle = 1
 
+class SpiritTracksShopsanity(Choice):
+    """
+    Randomize Shops.
+    - no_shops: don't randomize shops. Unique items give nothing.
+    - major_items: only unique items like bomb bags or heart containers are locations
+    - treasures: only treasures from shops are locations
+    - all_above: all possible shop items are locations
+    """
+    display_name = "Shopsanity"
+    option_no_shops = 0
+    option_major_items = 1
+    option_treasures = 2
+    option_all_above = 3
+    default = 0
+
+class SpiritTracksShopHints(Toggle):
+    """
+    Know what you're buying before you buy
+    """
+    display_name = "Shop Hints"
+    default = 1
+
+class SpiritTracksRupeeFarming(Choice):
+    """
+    What is required for rupee farming?
+    - no_farming: All rupees are accounted for in the item pool.
+    - unlimited_farming: Once you have access to Linebeck, or rupees from excess treasures, you are logically expected to farm for rupees.
+    - capped_farming: The amount of rupees you're expected to farm depends on how many farming hotspots you have in logic.
+    """
+    display_name = "Rupee Farming Logic"
+    option_no_farming = 0
+    option_unlimited_farming = 1
+    # option_capped_farming = 2
+    default = 0
+
+class SpiritTracksExcessTreasures(Choice):
+    """
+    There are random treasures everywhere, in pots, leaves, from minigames, shops and prize postcards.
+    What happens when you get them?
+    - nothing: random treasures give you nothing.
+    - vanilla: You get what you get
+    - convert_to_rupees: Instantly converts to Linebeck's sell price.
+    """
+    display_name = "Excess Random Treasure"
+    option_nothing = 0
+    option_vanilla = 1
+    option_convert_to_rupees = 2
+    default = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -409,6 +458,12 @@ class SpiritTracksOptions(PerGameCommonOptions):
     #shop_hints: SpiritTracksShopHints
 
     # World Options
+
+    # Shops, treasure and rupees
+    shopsanity: SpiritTracksShopsanity
+    shop_hints: SpiritTracksShopHints
+    rupee_farming_logic: SpiritTracksRupeeFarming
+    excess_random_treasure: SpiritTracksExcessTreasures
 
     # Rabbit Options
     rabbitsanity: SpiritTracksRabbitsanity
@@ -453,6 +508,12 @@ st_option_groups = [
         SpiritTracksTearSize,
         SpiritTracksTearGroup,
         SpiritTracksSpiritItems
+    ]),
+    OptionGroup("Shops, Treasure and Rupees", [
+        SpiritTracksShopsanity,
+        SpiritTracksShopHints,
+        SpiritTracksRupeeFarming,
+        SpiritTracksExcessTreasures
     ]),
     OptionGroup("Rabbit Options", [
         SpiritTracksRabbitsanity,

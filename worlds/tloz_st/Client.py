@@ -522,7 +522,7 @@ class SpiritTracksClient(DSZeldaClient):
                      or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
         if not set_tears:
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
-            if ctx.slot_data["shuffle_tos_sections"]:
+            if ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data["tear_sections"] == 2:
                 print(f"Section {section} is order {self.tos_section_shuffle_lookup[section]}! | {self.tos_section_shuffle_lookup}")
                 section = self.tos_section_shuffle_lookup[section]
 

@@ -139,27 +139,22 @@ STAGES = {
 }
 
 ITEM_GROUPS = {
-     "Rupees": [
-        "Green Rupee (1)",
-        "Blue Rupee (5)",
-        "Red Rupee (20)",
+     "Small Rupees": [
+         "Green Rupee (1)",
+         "Blue Rupee (5)",
+         "Red Rupee (20)",
+     ],
+    "Big Rupees": [
         "Big Green Rupee (100)",
         "Big Red Rupee (200)",
         "Gold Rupee (300)",
         "Pre-Alpha Rupee (5000)"
-     ],
+    ],
      "Small Keys": [
          "Small Key (Tunnel to ToS)",
          "Small Key (Wooded Temple)",
          "Small Key (ToS)",
          "Small Key (Blizzard Temple)",
-
-         #     "Small Key (Temple of Fire)",
-    #     "Small Key (Temple of Fire)",
-    #     "Small Key (Temple of Wind)",
-    #     "Small Key (Temple of Courage)",
-    #     "Small Key (Temple of Ice)",
-    #     "Small Key (Mutoh's Temple)"
      ],
     "Boss Keys": [
         "Boss Key (Wooded Temple)",
@@ -262,6 +257,8 @@ ITEM_GROUPS |= {
     "Rabbits": ITEM_GROUPS["Grass Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
     "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"]
 }
+ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] + ITEM_GROUPS["Big Rupees"]
+ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] + ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"]
 
 # RABBITS = {
 #     "Grass Rabbits": [0x262030, 0xFF, 0x262031, 0x03],
@@ -436,11 +433,14 @@ DUNGEON_STAGES_TO_ENTRANCE_SCENE = {
 
 # Used by rule builder
 ITEM_MAPPING = {
-        i: "Rupees" for i in ITEM_GROUPS["Rupees"]
+        i: "Rupees" for i in ITEM_GROUPS["Rupee Items"]
     } | {
         f"Grass Rabbits ({i})": "Grass Rabbit" for i in list(range(2, 6)) + [10]
     } | {
-        f"Snow Rabbits ({i})": "Snow Rabbit" for i in list(range(2, 6)) + [10]}
+        f"Snow Rabbits ({i})": "Snow Rabbit" for i in list(range(2, 6)) + [10]
+    } | {
+        t : "Treasure" for t in ITEM_GROUPS["All Treasures"]
+    }
 
 # Stamp stuff
 STAMPS = []
@@ -457,7 +457,10 @@ CLASSIFICATION = {
 UT_EVENT_DATA = {
     0x2900: [{"address": STAddr.adv_flags_11,
            "value": 0x40,
-           "entrance": "EVENT: Pick up Alfonzo"}]
+           "entrance": "EVENT: Pick up Alfonzo"}],
+    0x3700: [{"address": STAddr.adv_flags_24,
+              "value": 0x10,
+              "entrance": "EVENT: Give Regal Ring to Linebeck"}]
 }
 
 ENTRANCE_TO_TOS_ORDER = {

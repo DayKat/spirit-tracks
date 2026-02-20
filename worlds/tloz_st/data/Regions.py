@@ -35,6 +35,7 @@ REGIONS = [
     "castle town stamp station",
     "castle town wall",
     "castle town cuccos",
+    "castle town shop",
     "pick up alfonzo",
     "alfonzo event",
     "teao 1",
@@ -134,8 +135,8 @@ REGIONS = [
     "mayscore whip race heart container",
     "mayscore whip chest",
     "mayscore shop",
+    "mayscore leaves",
     #"mayscore axe gem",
-    #"mayscore leaf pile",
 
     # Rabbit Haven
     "rabbit haven",
@@ -183,6 +184,8 @@ REGIONS = [
     "trading post light song statue",
     "trading post chest",
     "trading post stamp station",
+    "linebeck trading",
+    "trading post leaves",
     #"trading post ore gem",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

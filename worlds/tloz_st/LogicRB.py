@@ -166,6 +166,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "mayscore", False, None],
         ["mayscore", "mayscore stamp station", False, has_stamp_book],
         ["mayscore", "mayscore whip chest", False, has_whip],
+        ["mayscore", "mayscore leaves", False, has_whirlwind],
 
         # # ======== Forest Sanctuary =========
 
@@ -199,8 +200,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "trading post", False, has_glyph("Ocean")],
         #["trading post", "trading post discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["trading post", "trading post light song statue", False, has_spirit_flute],
-        ["trading post", "trading post chest", False, has_bombs & (has_range | has_sword_beam) & has_sod & (has_sol | hard_logic)],
+        ["trading post", "trading post chest", False, (has_range | has_sword_beam) & has_sod & (has_sol | hard_logic)],
         ["trading post", "trading post stamp station", False, has_bombs & has_stamp_book],
+        ["trading post", "linebeck trading", False, Has("Treasure: Regal Ring")],
+        ["trading post", "trading post leaves", False, has_whirlwind],
 
         # # ========== Rabbit Haven ========
 
@@ -288,14 +291,16 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["malladus 2", "malladus goal", False, has_bow_of_light & has_sword],
         ["malladus 2", "malladus event", False, has_bow_of_light & has_sword],
 
-        ["ss", "snow sanc shop", False, has_rupees(2000)],
+        # Shops
+        ["ss", "snow sanc shop", False, has_rupees(4600)],
 
         ["forest realm", "beedle", False, has_source("Snow")],
-        ["beedle", "beedle bomb bag", False, has_rupees(500)],
-        ["beedle", "beedle uncommon treasure", False, has_rupees(300)],
-        ["beedle", "beedle rare treasure", False, has_rupees(1000)],
+        ["beedle", "beedle bomb bag", False, has_rupees(4600)],
+        ["beedle", "beedle uncommon treasure", False, has_rupees(4600)],
+        ["beedle", "beedle rare treasure", False, has_rupees(4600)],
 
-        ["mayscore", "mayscore shop", False, has_rupees(100)],
+        ["mayscore", "mayscore shop", False, has_rupees(4600)],
+        ["castle town", "castle town shop", False, has_rupees(4600)],
     ]
 
     # Generate rabbit total items
