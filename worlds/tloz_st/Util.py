@@ -4,6 +4,7 @@ from .data.DynamicFlags import DYNAMIC_FLAGS
 from .data.Items import ITEMS
 from .data.Constants import HINTS_ON_SCENE
 from .data.Hints import HINT_DATA
+from .data.Entrances import ENTRANCES
 
 def build_hint_scene_to_watches() -> dict[int, list]:
     res = {}
@@ -15,7 +16,10 @@ def build_hint_scene_to_watches() -> dict[int, list]:
     return res
 
 def build_entrance_id_to_data():
-    return {}, {}
+    entrances = {}
+    for i in ENTRANCES.values():
+        entrances[i.id] = i
+    return entrances
 
 def build_location_room_to_watches() -> Dict[int, dict[str, dict]]:
     location_room_to_watches: Dict[int, dict[str, dict]] = {}

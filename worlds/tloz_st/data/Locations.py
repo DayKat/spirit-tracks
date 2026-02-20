@@ -147,7 +147,7 @@ LOCATIONS_DATA = {
         "z_max": -33114,
         "location_groups": ["Castle Town"],
     },
-    "Castle Town Take 'em All Level 1": {
+    "Castle Town Take 'em All On Level 1": {
         "region_id": "teao 1",
         "vanilla_item": "Heart Container",
         "minigame": True,
@@ -155,7 +155,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x29,
         "room_id": 0xB,
         "address": STAddr.adv_flags_2a,
-        "value": 4,
+        "value": 0x4,
         "location_groups": ["Castle Town"],
     },
     "Castle Town Take 'em All On Level 2": {
@@ -166,7 +166,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x29,
         "room_id": 0xB,
         "address": STAddr.adv_flags_2a,
-        "value": 4,
+        "value": 8,
         "location_groups": ["Castle Town"],
     },
     "Castle Town Take 'em All On Level 3": {
@@ -177,7 +177,16 @@ LOCATIONS_DATA = {
         "stage_id": 0x29,
         "room_id": 0xB,
         "address": STAddr.adv_flags_2a,
-        "value": 4,
+        "value": 0x10,
+        "location_groups": ["Castle Town"],
+    },
+    "Castle Town Take 'em All On Level 3 Capbone Chest": {
+        "region_id": "teao 3",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        # "minigame": True,
+        "conditional": True,
+        "stage_id": 0x4F,
+        "room_id": 0x1,
         "location_groups": ["Castle Town"],
     },
 
@@ -1125,6 +1134,7 @@ LOCATIONS_DATA = {
     "Rabbit Haven Net Gift": {
         "region_id": "rabbit haven",
         "vanilla_item": "Rabbit Net",
+        "item_override": "Nothing!",
         "stage_id": 0x3E,
         "room_id": 0,
         "address": STAddr.adv_flags_1a,
@@ -1872,6 +1882,7 @@ for i, loc_data in enumerate(LOCATIONS_DATA.items()):
     dungeon = data.get("dungeon", None)
     if dungeon == "ToS":
         loc_groups.append(f"ToS {data['tos_section']}")
+        loc_groups.append("Tower of Spirits")
     elif dungeon:
         loc_groups.append(dungeon)
     if data.get("minigame", False):
@@ -1885,7 +1896,7 @@ for i, loc_data in enumerate(LOCATIONS_DATA.items()):
         LOCATION_GROUPS.setdefault(loc_group, set()).add(name)
 
 # Combo groups
-LOCATION_GROUPS["Tower of Spirits"] = {loc for i in range(1, 6) for loc in LOCATION_GROUPS[f"ToS {i}"] }
+# LOCATION_GROUPS["Tower of Spirits"] = {loc for i in range(1, 7) for loc in LOCATION_GROUPS[f"ToS {i}"] }
 LOCATION_GROUPS["Castle Station"] = LOCATION_GROUPS[f"Castle Town"] | LOCATION_GROUPS[f"Hyrule Castle"] | LOCATION_GROUPS[f"Tunnel to ToS"]
 
 LOCATION_GROUPS["Unique Rabbits"] = LOCATION_GROUPS["Unique Grass Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"]
@@ -1897,8 +1908,14 @@ LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATI
 # print(f"Location Groups:")
 # for group, locs in LOCATION_GROUPS.items():
 #     print(f"\t{group}: {locs}")
+# print(LOCATION_GROUPS["Tower of Spirits"])
 
 if __name__ == "__main__":
-    for location, data in LOCATIONS_DATA.items():
-        # print(f"{location} | {data['region_id']} | id: {data['id']} | stage: {data['stage_id']} | room: {data['room_id']}")
-        print(location)
+    tos = list(LOCATION_GROUPS["Tower of Spirits"])
+    tos.sort(key=lambda _: f"0{loc.split()[1]}"[-3:])
+    for loc in LOCATION_GROUPS["Tower of Spirits"]:
+        print(loc)
+
+    # for location, data in LOCATIONS_DATA.items():
+    #     # print(f"{location} | {data['region_id']} | id: {data['id']} | stage: {data['stage_id']} | room: {data['room_id']}")
+    #     print(location)

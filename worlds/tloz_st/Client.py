@@ -176,6 +176,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.sent_event = False
         self.event_data = []
         self.entrances = ENTRANCES
+        self.boss_warp_entrance = None
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -411,7 +412,7 @@ class SpiritTracksClient(DSZeldaClient):
         if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
             self.reload_on_item = True
 
-        if "Tear of Light" in location.get("vanilla_item", ""):
+        if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
             await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
 
     # fixes conflict with bizhawk_UT
@@ -492,7 +493,7 @@ class SpiritTracksClient(DSZeldaClient):
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
 
         # Give tears of light when entering ToS
-        if stage == 0x13:
+        if stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
             await self.set_tears(ctx)
 
     async def set_tears(self, ctx):
@@ -542,7 +543,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def save_tos_keycount(self, ctx):
         """ToS keycount is not dependent on stage, so save current count on room change or save"""
         print(f"Saving Keycount {self.last_stage} {self.last_scene}")
-        if self.last_stage != 0x13:
+        if self.last_stage != 0x13 or self.last_scene is None:
             return
 
         current_keys = await self.key_address.read(ctx)
@@ -655,4 +656,20 @@ class SpiritTracksClient(DSZeldaClient):
                 # Instant-set train speed
                 if self.train_snap_speed and current_gear != 1:
                     await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10, silent=True)
+
+
+    def update_boss_warp(self, ctx, stage, scene_id):
+        if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
+            reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
+            reverse_exit_id = self.entrances[reverse_exit].id
+            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", None)
+            if pair is None:
+                print(f"Boss Entrance not Randomized")
+                self.boss_warp_entrance = reverse_exit
+            self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
+            print(f"Warp Stage: {stage}, current warp {self.boss_warp_entrance}")
+            return self.boss_warp_entrance
+
+        return None
+
 

@@ -5,6 +5,7 @@ from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, 
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
+from entrance_rando import randomize_entrances
 
 from .Util import *
 from .Options import *
@@ -102,7 +103,7 @@ class SpiritTracksWorld(WorldParent):
     ut_can_gen_without_yaml = True
     tracker_world = {"map_page_folder": "tracker",
                      "map_page_maps": "maps/maps.json",
-                     "map_page_locations": "locations/overworld.json"}
+                     "map_page_locations": ["locations/overworld.json", "entrances/entrances.json"]}
     found_entrances_datastorage_key = ["st_checked_entrances_{player}_{team}"]
 
     # Rule builder attributes
@@ -129,7 +130,10 @@ class SpiritTracksWorld(WorldParent):
         self.ut_events = []
         self.is_ut = getattr(self.multiworld, "generation_is_fake", False)
 
-        self.ut_map_page_hidden_entrances = []
+        self.ut_map_page_hidden_entrances = {"Overview": []}
+
+        self.er_placement_state = None
+        self.valid_entrances: list["Entrance"] = []
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -147,6 +151,8 @@ class SpiritTracksWorld(WorldParent):
             lookup = build_rabbit_location_id_to_name_dict()
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
             self.required_dungeons = slot_data["required_dungeons"]
+            self.ut_pairings = slot_data["er_pairings"]
+            self.hide_ut_map_stuff()
             self.pick_ut_events()
         else:
             self.required_dungeons = self.pick_required_dungeons()
@@ -171,6 +177,12 @@ class SpiritTracksWorld(WorldParent):
                 self.options.starting_train.value = self.random.randint(0, 7)
         self.create_item_mappings()
 
+    def hide_ut_map_stuff(self):
+        self.tracker_world["map_page_locations"].append("locations/tos_singles.json")
+        if not self.options.shuffle_tos_sections:
+            self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values()
+                                                              if e.category_group == EntranceGroups.TOS_SECTION]
+
     def pick_ut_events(self):
         events = ["EVENT: Pick up Alfonzo",
                   goal_event_lookup[self.options.goal.value]]
@@ -187,8 +199,9 @@ class SpiritTracksWorld(WorldParent):
                     events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F", "EVENT: Reach ToS 12F"]
 
         self.ut_events = events
-        self.ut_map_page_hidden_entrances = {"Overview": [e.name for e in ENTRANCES.values() if
-                                             e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events]}
+        self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if
+                                             e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events]
+        print(self.ut_map_page_hidden_entrances)
         for e in events:
             event = ENTRANCES[e]
             self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
@@ -648,14 +661,52 @@ class SpiritTracksWorld(WorldParent):
             self.random.shuffle(extra_items_list)
             self.extra_filler_items = extra_items_list[:extra_item_count]
 
+    @staticmethod
+    def create_er_target_groups(type_option_lookup):
+        directions = [5, 6]
+        entr_types = [11 << 3]
+
+        return {5 + (11 << 3): [6 + (11 << 3)],
+                6 + (11 << 3): [5 + (11 << 3)]}
+
     def connect_entrances(self) -> None:
         if self.is_ut:
             disconnect_ids = {int(i) for i in self.ut_pairings.keys()}
-            for event in self.ut_events:
-                e = self.get_entrance(event)
+            for e in self.valid_entrances:
                 if ENTRANCES[e.name].id in disconnect_ids:
+                    # print(f"Disconnecting {e.name}")
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
+            if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
+                # print(f"Reconnecting entrances")
+                for i, pairing in self.ut_pairings.items():
+                    _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
+                    entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                    _exit.connect(entrance_region)
+            return
+
+        # Choose entrances to shuffle based on settings
+        type_option_lookup = {
+            11: self.options.shuffle_tos_sections
+        }
+        entrances_to_shuffle: list["Entrance"] = []
+        for e in self.valid_entrances:
+            # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
+            if type_option_lookup.get((e.randomization_group & EntranceGroups.AREA_MASK) >> 3, False):
+                entrances_to_shuffle.append(e)
+
+
+        # Disconnect entrances to shuffle
+        for entrance in entrances_to_shuffle:
+            target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
+            disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
+
+        # Get target groups
+        groups = self.create_er_target_groups(type_option_lookup)
+        print(f"Shuffling Entrances {entrances_to_shuffle} with groups {groups}")
+
+        # Entrance Rando
+        self.er_placement_state = randomize_entrances(self, True, groups)
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
@@ -695,8 +746,8 @@ class SpiritTracksWorld(WorldParent):
 
             if len(section_locations) == 0:
                 continue
-            print(f"Pre filling section {section}: {section_items}")
-            print(f"\tlocations {section_locations}")
+            # print(f"Pre filling section {section}: {section_items}")
+            # print(f"\tlocations {section_locations}")
             # Remove from the all_state the items we're about to place
             for item in section_items:
                 self.pre_fill_items.remove(item)
@@ -731,8 +782,8 @@ class SpiritTracksWorld(WorldParent):
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
-            print(f"pre filling {dung_name}: {confined_dungeon_items}")
-            print(f"\tlocations {dungeon_location_names}")
+            # print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            # print(f"\tlocations {dungeon_location_names}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 
@@ -794,10 +845,20 @@ class SpiritTracksWorld(WorldParent):
                    "portal_behavior", "portal_checks",
                    "randomize_tears", "spirit_weapons",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
-                   "starting_train"]
+                   "starting_train",
+                   "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons
+
+        pairings = {}
+        if self.er_placement_state:
+            for e1, e2 in self.er_placement_state.pairings:
+                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        slot_data["er_pairings"] = pairings
+        print(f"ER Pairings: {pairings}")
+
+
         return slot_data
 
     def write_spoiler(self, spoiler_handle):

@@ -261,7 +261,7 @@ class SpiritTracksRandomizeTears(Choice):
     - in_own_section: tears of light are randomized in their own tower sections. progressive tears count towards all sections
     - in_tos: tears of light are randomized anywhere in Tower of Spirits
     - anywhere: tears of light are randomized anywhere
-    - no_tears: you need to find either two swords or bow of light + bow to possess phantoms
+    - no_tears: you need to find either two swords or bow of light + bow to possess phantoms, tears are still locations.
     """
     display_name = "Randomize Tears of Light"
     option_vanilla = -1

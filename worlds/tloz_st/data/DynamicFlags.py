@@ -174,6 +174,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
         "reset_flags": ["RESET fire glyph"]
     },
+    "Forest realm crashes fire glyph and no ocean glyph": {
+        "on_scenes": [0x400],
+        "has_items": [["Fire Glyph", 1], ["Ocean Glyph", 0]],
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "reset_flags": ["RESET fire glyph"]
+    },
     "RESET snow realm crash": {
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
         "has_items": [["Snow Source", 1]],
@@ -315,27 +321,40 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
                         "RESET Remove Ocean source", "RESET Remove Fire source"]
     },
+    "ToS progressive sections 0": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
     "ToS progressive sections 1": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
         "has_items": [("Progressive ToS Section", 1, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
-        "reset_flags": ["RESET Remove Forest source"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 2": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
         "has_items": [("Progressive ToS Section", 2, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x30)],
-        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0xC0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 3": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
         "has_items": [("Progressive ToS Section", 3, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
-                        "RESET Remove Ocean source"]
+                        "RESET Remove Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 4": {
         "on_scenes": [0x1700],
@@ -345,27 +364,40 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
                         "RESET Remove Ocean source", "RESET Remove Fire source"]
     },
+    "ToS progressive sections 0 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 1, "has_exact")],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
     "ToS progressive sections 1 base": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
         "has_items": [("Progressive ToS Section", 2, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
-        "reset_flags": ["RESET Remove Forest source"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 2 base": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
         "has_items": [("Progressive ToS Section", 3, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x30)],
-        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 3 base": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
         "has_items": [("Progressive ToS Section", 4, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
-                        "RESET Remove Ocean source"]
+                        "RESET Remove Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 5": {
         "on_scenes": [0x1700],
@@ -391,6 +423,22 @@ DYNAMIC_FLAGS = {
     "RESET Remove Fire source": {
         "has_items": [("Fire Source", 0)],
         "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+    },
+    "RESET Add Forest source": {
+        "has_items": [("Forest Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x10)],
+    },
+    "RESET Add Snow source": {
+        "has_items": [("Snow Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
+    },
+    "RESET Add Ocean source": {
+        "has_items": [("Ocean Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+    },
+    "RESET Add Fire source": {
+        "has_items": [("Fire Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x80)],
     },
 
 

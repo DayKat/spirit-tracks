@@ -1,6 +1,7 @@
-from BaseClasses import MultiWorld, Item
+from BaseClasses import MultiWorld, Item, EntranceType, Entrance
 from .data.Rules import *
 from .data.Entrances import ENTRANCES
+from .Subclasses import STTransition
 
 
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
@@ -95,7 +96,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 2", "tos 4f", True, None],
         ["tos 4f", "tos 4f whirlwind", False, has_whirlwind],
-        ["tos 4f", "tos 5f phantom", False, can_possess_phantom(4) | (vanilla_tears & has_whirlwind)],
+        ["tos 4f", "tos 5f phantom", False, can_possess_phantom(2) | (vanilla_tears & has_whirlwind)],
         ["tos 5f phantom", "tos 5f spinnit key", False, has_whirlwind],
         ["tos 5f spinnit key", "tos 5f alt path", False, has_boomerang],
         ["tos 5f alt path", "tos 5f secret chest", False, has_bombs],
@@ -106,35 +107,35 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 7f rail map", "goal_snow_glyph", False, None],
         ["tos 7f rail map", "event_7f", False, None],
 
-        ["tos 3", "tos 8f", False, None],
+        ["tos 3", "tos 8f", True, None],
         ["tos 8f", "tos 8f bombs", False, has_bombs],
-        ["tos 8f", "tos 9f phantom", False, can_possess_phantom(9) | vanilla_tears],
+        ["tos 8f", "tos 9f phantom", False, vanilla_tears | can_possess_phantom(3)], #
         ["tos 9f phantom", "tos 9f nw", False, has_whirlwind],
         ["tos 9f phantom", "tos 11f", False, has_damage],
         ["tos 11f", "event_12f", False, None],
 
-        ["tos 4", "tos 13f", False, None],
+        ["tos 4", "tos 13f", True, None],
         ["tos 13f", "tos 13f whip", False, has_whip],
         ["tos 13f", "tos 13f boomerang", False, has_boomerang],
         ["tos 13f", "tos 14f east", False, has_small_keys("ToS 4", 3) | (vanilla_tears & has_small_keys("ToS 4", 2))],
-        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(13) | (vanilla_tears & has_whip & has_small_keys("ToS 4", 2))],
+        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(4) | (vanilla_tears & has_whip & has_small_keys("ToS 4", 2))],
         ["tos 13f phantom", "tos 13f phantom whip", False, has_whip],
         ["tos 13f phantom", "tos 14f west", False, has_small_keys("ToS 4", 4)],
 
-        ["tos 14f east", "tos 14f phantom", False, can_possess_phantom(13) | (vanilla_tears & has_whip)],
+        ["tos 14f east", "tos 14f phantom", False, can_possess_phantom(4) | (vanilla_tears & has_whip)],
         ["tos 14f east", "tos 15f", False, None],
         ["tos 15f", "tos 16f", False, (has_range | has_sword_beam) & has_whirlwind & has_small_keys("ToS 4", 3)],
         ["tos 16f", "event_17f", False, None],
         ["tos 16f", "tos 16f bombs", False, has_bombs],
 
-        ["tos 5", "tos 18f", False, None],
+        ["tos 5", "tos 18f", True, None],
         ["tos 18f", "tos 18f whip", False, has_whip],
         ["tos 18f", "tos 19f", False, has_small_keys("ToS 5", 1)],
-        ["tos 18f", "tos 18f phantom", False, can_possess_phantom(18)],
+        ["tos 18f", "tos 18f phantom", False, can_possess_phantom(5)],
 
-        ["tos 19f", "tos 19f south", False, has_bow & (has_boomerang | (can_possess_phantom(18) & can_rotate_repeater))],
+        ["tos 19f", "tos 19f south", False, has_bow & (has_boomerang | (can_possess_phantom(5) & can_rotate_repeater))],
         ["tos 19f south", "tos 20f tear", False, has_boomerang | has_sword_beam],
-        ["tos 19f", "tos 19f center", False, can_possess_phantom(18) | (vanilla_tears & has_bow & has_boomerang)],
+        ["tos 19f", "tos 19f center", False, can_possess_phantom(5) | (vanilla_tears & has_bow & has_boomerang)],
         ["tos 19f center", "tos 19f center chest", False, has_bow & (has_boomerang | has_sword_beam)],
         ["tos 19f center", "tos 18f phantom", False, None],
         ["tos 19f center", "tos 20f", False, has_small_keys("ToS 5", 2)],
@@ -150,7 +151,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 30f", "tos 6", True, None],
 
         ["tos 30f", "tos 30f bomb wall", False, has_bombs],
-        ["tos 30f", "tos 29f", False, can_possess_phantom(30) & has_boomerang & has_whirlwind],
+        ["tos 30f", "tos 29f", False, can_possess_phantom(6) & has_boomerang & has_whirlwind],
         ["tos 29f", "tos 29f sand wand", False, has_sand_wand],
         ["tos 29f sand wand", "tos 29f se", False, has_bow_of_light],
 
@@ -309,22 +310,32 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
         make_overworld_logic(player, origin_name, options)
     ]
 
-    entrance_lookup = {(e.entrance_region, e.exit_region): e.name for e in ENTRANCES.values()}
+    entrance_lookup = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}
     world.set_completion_rule(Has("_beaten_game"))
 
+    def create_entrance(r1, r2, rule_):
+        entrance_data: "STTransition" or None = entrance_lookup.get((r1.name, r2.name), None)
+        name = entrance_data.name if entrance_data else None
+
+        entrance = r1.connect(r2, name)
+        if rule_ is not None:
+            # print(f"Setting rule {rule_}")
+            world.set_rule(entrance, rule_)
+
+        if entrance_data:
+            # print(f"Creating connection {r1} -> {r2} | {entrance_data.name}")
+            rando_type_bool = entrance_data.two_way
+            entrance.randomization_type = EntranceType.TWO_WAY if rando_type_bool else EntranceType.ONE_WAY
+            entrance.randomization_group = entrance_data.direction | entrance_data.category_group | entrance_data.island
+            world.valid_entrances.append(entrance)
+
     # Create connections
+    # print(f"Creating entrances: ")
     for logic_array in all_logic:
         for reg1, reg2, is_two_way, rule in logic_array:
             region_1 = world.get_region(reg1)
             region_2 = world.get_region(reg2)
-            name = entrance_lookup.get((reg1, reg2), None)
-            # print(f"Creating connection {reg1} -> {reg2}")
 
-            entrance = region_1.connect(region_2, name)
-            if rule is not None:
-                world.set_rule(entrance, rule)
+            create_entrance(region_1, region_2, rule)
             if is_two_way:
-                name = entrance_lookup.get((reg2, reg1), None)
-                entrance = region_2.connect(region_1, name)
-                if rule is not None:
-                    world.set_rule(entrance, rule)
+                create_entrance(region_2, region_1, rule)

@@ -28,6 +28,36 @@ DYNAMIC_ENTRANCES = {
         "has_items": [("Fire Source", 0)],
         "message": "You don't have the Fire source!"
     },
+
+    "Bounce ToS from forest without base prog": {
+        "entrance": "Forest Realm to Tower of Spirits",
+        "destination": "Forest Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "message": "You need 1 Progressive ToS Section to enter!"
+    },
+    "Bounce ToS from forest without base": {
+        "entrance": "Forest Realm to Tower of Spirits",
+        "destination": "Forest Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", [0, 1]], ["tos_unlock_base_item", 1]],
+        "has_items": [("Tower of Spirits Base", 0)],
+        "message": "You need the Tower of Spirits Base to enter!"
+    },
+    "Bounce ToS from snow without base prog": {
+        "entrance": "Snow Realm to Tower of Spirits",
+        "destination": "Snow Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "message": "You need 1 Progressive ToS Section to enter!"
+    },
+    "Bounce ToS from snow without base": {
+        "entrance": "Snow Realm to Tower of Spirits",
+        "destination": "Snow Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", [0, 1]], ["tos_unlock_base_item", 1]],
+        "has_items": [("Tower of Spirits Base", 0)],
+        "message": "You need the Tower of Spirits Base to enter!"
+    },
+
     # Outset pre-glyph bounce
     "Bounce Outset without glyph": {
         "entrance": "Outset to Forest Realm",
@@ -41,18 +71,10 @@ DYNAMIC_ENTRANCES = {
         "not_has_all_items": [("Forest Glyph", 1), ("Cannon", 1)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
-    # "Bounce Tutorial missing locs": {
-    #     "entrance": "Outset to Tutorial",
-    #     "destination": "Outset to Tutorial",
-    #     "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
-    #     "any_not_has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
-    #     "message": "You need to get the bee tree and clear rocks locations before leaving"
-    # },
     "Bounce Tutorial to rail": {
         "entrance": "Outset to Tutorial",
         "destination": "Forest Realm to Outset",
         "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
-        # "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
     },
 
     # Portal Bounces
@@ -191,23 +213,23 @@ DYNAMIC_ENTRANCES = {
     # ToS Blue Warp shortcuts
     "Exit ToS 3F": {
         "entrance": "ToS 3F Blue Portal",
-        "destination": "Tower of Spirits Enter Section 1",
+        "destination": "_connected_dungeon_entrance",
     },
     "Exit ToS 7F": {
         "entrance": "ToS 7F Blue Portal",
-        "destination": "Tower of Spirits Enter Section 2",
+        "destination": "_connected_dungeon_entrance",
     },
     "Exit ToS 12F": {
         "entrance": "ToS 12F Blue Portal",
-        "destination": "Tower of Spirits Enter Section 3",
+        "destination": "_connected_dungeon_entrance",
     },
     "Exit ToS 17F": {
         "entrance": "ToS 17F Blue Portal",
-        "destination": "Tower of Spirits Enter Section 4",
+        "destination": "_connected_dungeon_entrance",
     },
     "Exit ToS 24F": {
         "entrance": "ToS 24F Blue Portal",
-        "destination": "Tower of Spirits Enter Section 5",
+        "destination": "_connected_dungeon_entrance",
     },
 
     # Sanctuary Bounces  (solved with dynaflags instead)

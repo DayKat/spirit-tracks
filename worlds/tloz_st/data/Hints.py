@@ -5,9 +5,11 @@ HINT_DATA = {
         "scenes": [0x2807],
         "slot_data": [("randomize_minigames", 1)],
     },
-    "Castle Town Take 'em All On Easy": {
+    "Castle Town Take 'em All On": {
         "scenes": [0x290B],
         "slot_data": [("randomize_minigames", 1)],
+        "locations": ["Castle Town Take 'em All On Level 1",
+                      "Castle Town Take 'em All On Level 2"]
     },
     "Mayscore Whip Race Heart Container": {
         "scenes": [0x3800],

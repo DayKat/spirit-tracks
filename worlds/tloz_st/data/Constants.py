@@ -31,6 +31,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
+    [STAddr.adv_flags_24, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
     [STAddr.adv_flags_2a, 0x02],  # ToS 6 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
@@ -121,8 +122,16 @@ STAGES = {
     0x3F: "Snowdrift/Slippery Station",
     # 0x44: "Train Interior CS",
     # 0x50: "Train roof CS",
-    0x46: "Take 'em all on 1",
-    0x4B: "TEAO Stagnox 1",
+    0x46: "Take 'em all on Forest theme",
+    0x47: "Take 'em all on Snow theme",
+    0x48: "Take 'em all on Ocean theme",
+    0x49: "Take 'em all on Fire theme",
+    0x4A: "Take 'em all on Sand theme",
+    0x4B: "TEAO Stagnox",
+    0x4C: "TEAO Fraaz",
+    0x4D: "TEAO Cactops",
+    0x4E: "TEAO Vulcano",
+    0x4F: "TEAO Capbone",
     0x79: "From Menu",
 }
 
@@ -446,6 +455,20 @@ UT_EVENT_DATA = {
     0x2900: [{"address": STAddr.adv_flags_11,
            "value": 0x40,
            "entrance": "EVENT: Pick up Alfonzo"}]
+}
+
+ENTRANCE_TO_HIDDEN_LOCS_GROUP = {
+    "ToS 1F Exit": "ToS 1",
+    "ToS 4F Exit": "ToS 2",
+    "ToS 8F Exit": "ToS 3",
+}
+
+BOSS_WARP_SCENE_LOOKUP = {
+    0x1302: "ToS 1F Exit",
+    0x1306: "ToS 4F Exit",
+    0x130b: "ToS 8F Exit",
+    0x130f: "ToS 13F Exit",
+    0x1323: "ToS 30F Exit",
 }
 
 TOS_FLOOR_TO_SECTION = {

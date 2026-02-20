@@ -68,28 +68,32 @@ def has_portal(portal, forward):
     return ([OptionFilter(option, 1)]
         | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
 
+no_tear_items = [OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_no_tears, "ne"),
+                OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_vanilla, "ne")]
+
 def has_tears(section: int):
-    return Or(
+    return Filtered(Or(
         Has(f"Tear of Light (ToS {section})", 3),
         Has(f"Big Tear of Light (ToS {section})"),
         Has(f"Tear of Light (Progressive)", section*3),
         Has(f"Big Tear of Light (Progressive)", section),
         Has(f"Tear of Light (All Sections)", 3),
         Has(f"Big Tear of Light (All Sections)"),
-    )
+    ), options=no_tear_items)
 
 has_bow_of_light = Or(
     Has("Bow of Light") & has_bow,
-    Has(f"Tear of Light (Progressive)", 16),
-    Has(f"Big Tear of Light (Progressive)", 6),
-    Has(f"Tear of Light (All Sections)", 4),
-    Has(f"Big Tear of Light (All Sections)", 2),
-                      )
+    Filtered(
+        Or(Has(f"Tear of Light (Progressive)", 16),
+           Has(f"Big Tear of Light (Progressive)", 6),
+            Has(f"Tear of Light (All Sections)", 4),
+            Has(f"Big Tear of Light (All Sections)", 2)),
+        options=no_tear_items))
 
 def can_possess_phantom(floor):
     return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & has_tears(floor))
 
-vanilla_tears = has_sword & OptionFilter(SpiritTracksRandomizeTears, -1)
+vanilla_tears = Filtered(has_sword, options=[OptionFilter(SpiritTracksRandomizeTears, -1)])
 
 # Isolated options
 hard_logic_filter = [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_hard), OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_glitched)]
@@ -111,10 +115,11 @@ ct_cuccos = has_sob | (has_whirlwind & hard_logic)
 can_kill_freezards = (has_shield | has_bow_of_light | hard_logic) & has_damage
 can_kill_freezards_torch = (has_boomerang | has_shield | has_bow_of_light | hard_logic) & has_damage
 
-can_enter_tos = Or([OptionFilter(SpiritTracksToSBase, 0)] |
-                   Has("Tower of Spirits Base", options=[OptionFilter(SpiritTracksToSBase, 1)]),
-                   Has("Progressive ToS Section", options=[OptionFilter(SpiritTracksToSBase, 1)])
-                   )
+can_enter_tos = (
+        [OptionFilter(SpiritTracksToSBase, 0)] |
+        Has("Tower of Spirits Base", options=[OptionFilter(SpiritTracksToSBase, 1)]) |
+        Has("Progressive ToS Section", options=[OptionFilter(SpiritTracksToSBase, 1)])
+        )
 
 def can_enter_tos_section(section):
     sources = [None, "Forest", "Snow", "Ocean", "Fire"]

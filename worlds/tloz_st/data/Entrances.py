@@ -325,7 +325,7 @@ ENTRANCE_DATA = {
         "exit": (0x13, 0x0, 0),
         "entrance_region": "tos",
         "exit_region": "tos 1f",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
@@ -335,7 +335,7 @@ ENTRANCE_DATA = {
         "exit": (0x13, 0x3, 0),
         "entrance_region": "tos 2",
         "exit_region": "tos 4f",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
@@ -345,7 +345,7 @@ ENTRANCE_DATA = {
         "exit": (0x13, 0x7, 0),
         "entrance_region": "tos 3",
         "exit_region": "tos 8f",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
@@ -356,7 +356,7 @@ ENTRANCE_DATA = {
         "exit": (0x13, 0xC, 0),
         "entrance_region": "tos 4",
         "exit_region": "tos 13f",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
@@ -366,27 +366,27 @@ ENTRANCE_DATA = {
         "exit": (0x13, 0x11, 0),
         "entrance_region": "tos 5",
         "exit_region": "tos 18f",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Exit Staven": {
         "return_name": "ToS Summit Lower Exit",
-        "entrance": (0x17, 0, 5),
-        "exit": (0x13, 0x11, 0),
+        "entrance": (0x23, 0, 1),
+        "exit": (0x15, 0x0, 0),
         "entrance_region": "tos staven",
         "exit_region": "tos summit",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Summit Enter Altar": {
         "return_name": "ToS 30F Exit",
-        "entrance": (0x17, 0, 5),
-        "exit": (0x13, 0x11, 0),
+        "entrance": (0x15, 0, 2),
+        "exit": (0x13, 0x1d, 0),
         "entrance_region": "tos 6",
         "exit_region": "tos 30f",
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },

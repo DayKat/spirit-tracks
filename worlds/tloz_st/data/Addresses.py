@@ -64,7 +64,6 @@ class STAddr:
     items_0 = Address(0x265320)
     items_2 = Address(0x265322)
     songs = Address(0x268FB0)
-    
     arrow_capacity = Address(0x265330)
     bomb_capacity = Address(0x265331)
     arrow_count = Address(0x265332)

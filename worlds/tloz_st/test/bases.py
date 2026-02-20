@@ -21,5 +21,6 @@ class TestGeneration(WorldTestBase):
         "spirit_weapons": "items",
 
         "keysanity": "in_own_section",
+        "shuffle_tos_sections": "shuffle"
         # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
     }

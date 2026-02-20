@@ -43,9 +43,8 @@ async def remove_treasure(client, ctx, item, rii):
     return addr.get_write_list(value)
 
 async def remove_tear_of_light(client, ctx, item: "STItem", rii):
-    for i in range(20):
-        if not await STAddr.getting_tear_safety.read(ctx, silent=True):
-            break
+    if ctx.slot_data["randomize_tears"] == -1:
+        return []
     await client.set_tears(ctx)
     return []
 
@@ -97,6 +96,9 @@ class EntranceGroups(IntEnum):
     WARP_PORTAL = 8 << 3
     TRAIN_PORTAL = 9 << 3
     EVENT = 10 << 3
+    TOS_SECTION = 11 << 3
+
+    AREA_MASK = 0xF << 3
 
 OPPOSITE_ENTRANCE_GROUPS = {
     EntranceGroups.RIGHT: EntranceGroups.LEFT,
