@@ -1132,9 +1132,135 @@ LOCATIONS_DATA = {
     },
 
 
-
-
     # Ocean Temple
+    "Ocean Temple Whip Chest": {
+        "region_id": "oct whip chest",
+        "vanilla_item": "Whip",
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": [],
+    },
+
+    "Ocean Temple 2F Log Chest": {
+        "region_id": "oct 2f log chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip"],
+    },
+
+    "Ocean Temple 1F Vines Chest": {
+        "region_id": "oct 1f vines chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip"],
+    },
+
+    "Ocean Temple 1F Lever Chest": {
+        "region_id": "oct 1f lever chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip"],
+    },
+
+    "Ocean Temple Stamp Station": {
+        "region_id": "oct stamp station",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "stamp": True,
+        "require_item": ["Stamp Book", "Whip"],
+    },
+
+    "Ocean Temple 3F Puzzle Chest": {
+        "region_id": "oct 3f puzzle chest",
+        "vanilla_item": "Small Key (Ocean Temple)",
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip"],
+    },
+
+    "Ocean Temple 3F NE Chest": {
+        "region_id": "oct 3f ne chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip"],
+    },
+
+    "Ocean Temple 5F Chest": {
+        "region_id": "oct 5f chest",
+        "vanilla_item": "Small Key (Ocean Temple)",
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip"],
+    },
+
+    "Ocean Temple 6F Chest": {
+        "region_id": "oct 6f chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x1B,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip"],
+    },
+
+    "Ocean Temple Heart Container": {
+        "region_id": "oct heart container",
+        "vanilla_item": "Heart Container",
+        "stage_id": 0x20,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
+    },
+
+    "Ocean Temple Dungeon Reward": {
+        "region_id": "oct phytops",
+        "vanilla_item": "Ocean Source",
+        "address": STAddr.adv_flags_0,
+        "value": 0x40,
+        "stage_id": 0x20,
+        "room_id": 0,
+        "dungeon": "Ocean Temple",
+        "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
+        "goal": True
+    },
 
     # ========= Rabbits ==========
 

@@ -246,6 +246,20 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "papuchia village sw chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
         ["papuchia village", "papuchia village s center chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
 
+        # ========= Ocean Temple ==================
+        ["ocean realm", "oct", False, None],
+        ["oct", "oct whip chest", False, lambda state: st_has_damage(state, player)], #needs testing, may require boomerang? Sheet shows Boom + Sword
+        ["oct", "oct 2f log chest", False, lambda state: st_has_whip(state, player)],
+        ["oct", "oct 1f vines chest", False, lambda state: st_has_whip(state, player)],
+        ["oct", "oct 1f lever chest", False, lambda state: st_has_whip(state, player)],
+        ["oct", "oct stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whip(state, player)],
+        ["oct", "oct 3f puzzle chest", False, lambda state: st_has_whip(state, player)],
+        ["oct", "oct 3f ne chest", False, lambda state: st_has_whip(state, player)],
+        ["oct", "oct 5f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean", 1)],
+        ["oct", "oct 6f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean", 1)],
+        ["oct", "oct phytops", False, lambda state: st_has_whip(state, player) and st_has_sword(state, player) and st_has_small_keys(state, player, "Ocean", 2)],
+        ["oct phytops", "oct heart container", False, None],
+
 
     ]
 
