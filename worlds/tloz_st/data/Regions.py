@@ -264,6 +264,9 @@ REGIONS = [
     # Ocean Realm
 
     "ocean realm",
+    "ocean temple tracks",
+    "ocean realm source",
+    "pirate hideout tracks",
 
     #Ocean Sanctuary
     "ocs",
@@ -295,6 +298,15 @@ REGIONS = [
     "oct heart container",
     "goal_phytops",
     "post oct",
+
+    #Pirate Hideout
+    "pirate hideout",
+    "pirate hideout stamp station",
+    "pirate hideout secret cave left treasure",
+    "pirate hideout secret cave mid treasure",
+    "pirate hideout secret cave right treasure",
+    #"pirate hideout minigame 1st reward",
+    #"pirate hideout minigame 2nd reward",
 
     #"ocean realm frogs",
     #"ocean realm trade",

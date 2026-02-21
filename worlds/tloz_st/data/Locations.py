@@ -1530,6 +1530,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x32,
         "room_id": 0,
+        #"item_override": "Ocean Temple Tracks",
         "stamp": True,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
     },
@@ -1586,8 +1587,9 @@ LOCATIONS_DATA = {
     "Papuchia Village Stamp Station": {
         "region_id": "papuchia village stamp station",
         "vanilla_item": "Treasure",
-        "stage_id": 0x2C,
+        "stage_id": 0x39,
         "room_id": 0,
+        #"item_override": "Pirate Hideout Tracks",
         "stamp": True,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
     },
@@ -1606,7 +1608,7 @@ LOCATIONS_DATA = {
     "Papuchia Village SW Chest": {
         "region_id": "papuchia village sw chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
-        "stage_id": 0x2C,
+        "stage_id": 0x39,
         "room_id": 0,
         "x_min": 0,
         "x_max": 0,
@@ -1618,7 +1620,7 @@ LOCATIONS_DATA = {
     "Papuchia Village S Center Chest": {
         "region_id": "papuchia village s center chest",
         "vanilla_item": "Big Green Rupee (100)",
-        "stage_id": 0x2C,
+        "stage_id": 0x39,
         "room_id": 0,
         "x_min": 0,
         "x_max": 0,
@@ -1757,6 +1759,69 @@ LOCATIONS_DATA = {
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "goal": True
     },
+
+    #Pirate Hideout
+    "Pirate Hideout Stamp Station": {
+        "region_id": "pirate hideout stamp station",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "stamp": True,
+        "require_item": ["Stamp Book", "Whip", "Song of Birds"],
+    },
+
+    "Pirate Hideout Secret Cave Left Treasure": {
+        "region_id": "pirate hideout secret cave left treasure",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Bombs (Progressive"],
+    },
+
+    "Pirate Hideout Secret Cave Mid Treasure": {
+        "region_id": "pirate hideout secret cave mid treasure",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Bombs (Progressive)"],
+    },
+
+    "Pirate Hideout Secret Cave Right Treasure": {
+        "region_id": "pirate hideout secret cave right treasure",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Bombs (Progressive)"],
+    },
+
+ #   "Pirate Hideout Minigame 1st Reward": { #TODO Minigame implementation (See mayscore above)
+ #      "region_id": "pirate hideout minigame 1st reward",
+ #       "vanilla_item": "Heart Container",
+ #       "stage_id": 0x3B,
+ #       "room_id": 0,
+ #       "require_item": ["Bow (Progressive)]"
+ #   },
+
+ #   "Pirate Hideout Minigame 2nd Reward": {
+ #       "region_id": "pirate hideout minigame 2nd reward",
+ #       "vanilla_item": "Bow (Progressive)",
+ #       "stage_id": 0x3B,
+ #       "room_id": 0,
+ #       "require_item": ["Bow (Progressive)]"
+ #   },
+
 
     # ========= Rabbits ==========
 

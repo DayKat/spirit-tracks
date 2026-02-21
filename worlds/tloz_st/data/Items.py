@@ -215,6 +215,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.rail_restorations,
         'value': 0x04,
     },
+    "Ocean Temple Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.rail_restorations,
+        'value': 0x08,
+    },
     "Snowdrift Station Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
@@ -224,6 +229,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x20,
+    },
+    "Pirate Hideout Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x1,
     },
     "Forest Realm Ocean Shortcut Tracks": {
         'classification': ItemClassification.progression,
@@ -646,15 +656,15 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'dungeon': 0x1A,
          "tags": ["incremental"],
     },
-    "Small Key (Ocean Temple)": {
-        'classification': ItemClassification.progression,
-        'address': STAddr.small_keys,
-        # 'dungeon': 0x1A,  # TODO: Add key data
-        "tags": ["incremental"],
-    },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'dungeon': 0x1A
+    },
+    "Small Key (Ocean Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x1B,  # TODO: Add key data
+        "tags": ["incremental"],
     },
 
     # Tears
@@ -823,4 +833,3 @@ for i, k in enumerate(ITEMS_DATA.items()):
     item_name, item_data = k
     item_data["id"] = i+1
     ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
-

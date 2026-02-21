@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 from .data.LogicPredicates import *
 from .Options import SpiritTracksOptions
 from .data.Entrances import ENTRANCES
+from ..stardew_valley.stardew_rule import state
 
 if TYPE_CHECKING:
     from . import SpiritTracksWorld
@@ -301,8 +302,23 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["snow realm source", "bridge workers", True, lambda state: st_has_source(state, player, "Snow")],
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
 
-        # ========== Ocean Sanctuary =============
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # # ============ Ocean Realm ===============
         ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
+        ["ocean realm", "ocean temple tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
+                                                                   and st_has_glyph(state, player, "Ocean")],
+        ["ocean temple tracks", "ocean realm source", True, lambda state: st_has_source(state, player, "Ocean")
+                                                                          and st_has_temple_tracks(state, player, "Ocean")],
+        ["ocean realm", "ocean realm source", True, lambda state: st_has_source(state, player, "Ocean")
+                                                                  and st_has_glyph(state, player, "Ocean")],
+        ["ocean realm", "pirate hideout tracks", True, lambda state: st_has_misc_tracks(state, player, "Pirate Hideout")],
+        ["ocean realm source", "pirate hideout tracks", True, lambda state: st_has_source(state, player, "Ocean")
+                                                                            and st_has_misc_tracks(state, player, "Pirate Hideout")],
+        ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Ocean")],
+
+
+
+        # ========== Ocean Sanctuary =============
         ["ocean realm", "ocs", False, None],
         ["ocs", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                          and st_has_birds_song(state, player) and st_has_whip(state, player)],
@@ -321,7 +337,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "papuchia village s center chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
 
         # ========= Ocean Temple ==================
-        ["ocean realm", "oct", False, None],
+        #["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Ocean")],
+        ["ocean realm source", "oct", False, lambda state: st_has_source(state, player, "Ocean")
+                                                          and st_has_temple_tracks(state, player, "Ocean")],
         ["oct", "oct whip chest", False, lambda state: st_has_damage(state, player)], #needs testing, may require boomerang? Sheet shows Boom + Sword
         ["oct", "oct 2f log chest", False, lambda state: st_has_whip(state, player)],
         ["oct", "oct 1f vines chest", False, lambda state: st_has_whip(state, player)],
@@ -329,10 +347,20 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct", "oct stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whip(state, player)],
         ["oct", "oct 3f puzzle chest", False, lambda state: st_has_whip(state, player)],
         ["oct", "oct 3f ne chest", False, lambda state: st_has_whip(state, player)],
-        ["oct", "oct 5f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean", 1)],
-        ["oct", "oct 6f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean", 1)],
-        ["oct", "oct phytops", False, lambda state: st_has_whip(state, player) and st_has_sword(state, player) and st_has_small_keys(state, player, "Ocean", 2)],
+        ["oct", "oct 5f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean Temple", 1)],
+        ["oct 5f chest", "oct 6f chest", False, None],
+        ["oct 5f chest", "oct phytops", False, lambda state: st_has_whip(state, player) and st_has_sword(state, player) and st_has_small_keys(state, player, "Ocean Temple", 2)],
         ["oct phytops", "oct heart container", False, None],
+
+        # ========= Pirate Hideout ==============
+        ["pirate hideout tracks", "pirate hideout", False, None],
+        ["pirate hideout", "pirate hideout stamp station", False, lambda state: st_has_stamp_book(state, player)
+                                                                                and st_has_whip(state, player) and st_has_birds_song(state, player)],
+        ["pirate hideout", "pirate hideout secret cave left treasure", False, lambda state: st_has_bombs(state, player)],
+        ["pirate hideout", "pirate hideout secret cave mid treasure", False, lambda state: st_has_bombs(state, player)],
+        ["pirate hideout", "pirate hideout secret cave right treasure", False, lambda state: st_has_bombs(state, player)],
+    #   ["pirate hideout", "pirate hideout minigame 1st reward", False, lambda state: st_has_bow(state, player)],
+    #   ["pirate hideout", "pirate hideout minigame 2nd reward", False, lambda state: st_has_bow(state, player)],
 
 
         # ===== Dark Realm =====
