@@ -116,6 +116,7 @@ REGIONS = [
     "event_staven",
 
     "tos summit",
+    "tos summit lower",
     "tos 6",
     "tos stamp stand",
 

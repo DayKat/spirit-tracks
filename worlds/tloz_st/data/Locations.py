@@ -848,7 +848,7 @@ LOCATIONS_DATA = {
         "room_id": 0x0,
         "region_id": "tos stamp stand",
         'dungeon': "ToS",
-        "tos_section": 5,
+        "tos_section": "summit",
         "stamp": True
     },
     # ToS 6

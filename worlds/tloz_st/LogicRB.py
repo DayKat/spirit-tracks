@@ -4,7 +4,8 @@ from .data.Entrances import ENTRANCES
 from .Subclasses import STTransition
 
 
-def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
+def make_overworld_logic(player: int, origin_name: str, world):
+    tower_section_lookup = world.tower_section_lookup
     overworld_logic = [
 
         # ====== Outset Village ==============
@@ -37,7 +38,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm rabbits", "forest ocean shortcut rabbit", False, Has("Forest Realm Ocean Shortcut Tracks")],
         ["forest realm rabbits", "e mayscore rabbits", False, Has("E Mayscore Bridge Tracks")],
         ["forest realm se portal track", "sw trading post rabbit", False, has_net],
-        ["forest realm rabbits", "sw trading post rabbit", False, has_glyph("Ocean")],
+        ["forest realm rabbits", "sw trading post rabbit", False, has_glyph("Ocean") & hard_logic],
         ["wtt", "wt rabbit", False, has_net],
         ["forest source", "wt rabbit", False, has_net],
         ["w forest tracks", "s rabbit haven rabbits", False, has_net],
@@ -53,9 +54,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== Castle Town =========
 
         ["forest realm", "castle town", True, None],
-        ["castle town", "castle town wall", False, has_bombs],
         ["castle town", "pick up alfonzo", False, has_glyph("Snow")],
         ["pick up alfonzo", "alfonzo event", False, None],
+        ["castle town", "castle town wall", False, has_bombs],
         ["castle town wall", "castle town stamp station", False, has_stamp_book],
         ["castle town wall", "castle town cuccos", False, ct_cuccos],
 
@@ -72,7 +73,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== ToS Tunnel =========
 
         ["hyrule castle", "tower tunnel", False, None],
-        ["tower tunnel", "tower tunnel block chest", False, has_damage | has_whirlwind | hard_logic],
+        ["tower tunnel", "tower tunnel block chest", False, can_kill_bat_pit | hard_logic],
         ["tower tunnel", "tower tunnel 2f chest", False, has_small_keys("Tunnel to ToS", 1)],
 
         # # ========== ToS ===================
@@ -86,8 +87,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
 
         ["tos 1f", "tos 1f chest", False, has_range | has_sword_beam],
-        ["tos 1f", "tos 1f switch", False, can_kill_bat | can_possess_phantom(1)],  # Phantom can hit switch
-        ["tos 1f", "tos 2f", False, can_possess_phantom(1) | vanilla_tears],
+        ["tos 1f", "tos 1f switch", False, can_kill_bat | can_possess_phantom(1, tower_section_lookup)],  # Phantom can hit switch
+        ["tos 1f", "tos 2f", False, can_possess_phantom(1, tower_section_lookup) | vanilla_tears],
         ["tos 2f", "tos 2f raised chests", False, has_whirlwind],
         ["tos 2f", "tos 2f bomb wall", False, has_bombs],
         ["tos 2f", "tos 3f rail map", False, None],
@@ -96,7 +97,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 2", "tos 4f", True, None],
         ["tos 4f", "tos 4f whirlwind", False, has_whirlwind],
-        ["tos 4f", "tos 5f phantom", False, can_possess_phantom(2) | (vanilla_tears & has_whirlwind)],
+        ["tos 4f", "tos 5f phantom", False, can_possess_phantom(2,tower_section_lookup) | (vanilla_tears & has_whirlwind)],
         ["tos 5f phantom", "tos 5f spinnit key", False, has_whirlwind],
         ["tos 5f spinnit key", "tos 5f alt path", False, has_boomerang],
         ["tos 5f alt path", "tos 5f secret chest", False, has_bombs],
@@ -109,7 +110,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 3", "tos 8f", True, None],
         ["tos 8f", "tos 8f bombs", False, has_bombs],
-        ["tos 8f", "tos 9f phantom", False, vanilla_tears | can_possess_phantom(3)], #
+        ["tos 8f", "tos 9f phantom", False, vanilla_tears | can_possess_phantom(3, tower_section_lookup)], #
         ["tos 9f phantom", "tos 9f nw", False, has_whirlwind],
         ["tos 9f phantom", "tos 11f", False, has_damage],
         ["tos 11f", "event_12f", False, None],
@@ -118,11 +119,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 13f", "tos 13f whip", False, has_whip],
         ["tos 13f", "tos 13f boomerang", False, has_boomerang],
         ["tos 13f", "tos 14f east", False, has_small_keys("ToS 4", 3) | (vanilla_tears & has_small_keys("ToS 4", 2))],
-        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(4) | (vanilla_tears & has_whip & has_small_keys("ToS 4", 2))],
+        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(4, tower_section_lookup) | (vanilla_tears & has_whip & has_small_keys("ToS 4", 2))],
         ["tos 13f phantom", "tos 13f phantom whip", False, has_whip],
         ["tos 13f phantom", "tos 14f west", False, has_small_keys("ToS 4", 4)],
 
-        ["tos 14f east", "tos 14f phantom", False, can_possess_phantom(4) | (vanilla_tears & has_whip)],
+        ["tos 14f east", "tos 14f phantom", False, can_possess_phantom(4, tower_section_lookup) | (vanilla_tears & has_whip)],
         ["tos 14f east", "tos 15f", False, None],
         ["tos 15f", "tos 16f", False, (has_range | has_sword_beam) & has_whirlwind & has_small_keys("ToS 4", 3)],
         ["tos 16f", "event_17f", False, None],
@@ -131,11 +132,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 5", "tos 18f", True, None],
         ["tos 18f", "tos 18f whip", False, has_whip],
         ["tos 18f", "tos 19f", False, has_small_keys("ToS 5", 1)],
-        ["tos 18f", "tos 18f phantom", False, can_possess_phantom(5)],
+        ["tos 18f", "tos 18f phantom", False, can_possess_phantom(5, tower_section_lookup)],
 
-        ["tos 19f", "tos 19f south", False, has_bow & (has_boomerang | (can_possess_phantom(5) & can_rotate_repeater))],
+        ["tos 19f", "tos 19f south", False, has_bow & (has_boomerang | (can_possess_phantom(5, tower_section_lookup) & can_rotate_repeater))],
         ["tos 19f south", "tos 20f tear", False, has_boomerang | has_sword_beam],
-        ["tos 19f", "tos 19f center", False, can_possess_phantom(5) | (vanilla_tears & has_bow & has_boomerang)],
+        ["tos 19f", "tos 19f center", False, can_possess_phantom(5, tower_section_lookup) | (vanilla_tears & has_bow & has_boomerang)],
         ["tos 19f center", "tos 19f center chest", False, has_bow & (has_boomerang | has_sword_beam)],
         ["tos 19f center", "tos 18f phantom", False, None],
         ["tos 19f center", "tos 20f", False, has_small_keys("ToS 5", 2)],
@@ -145,21 +146,20 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 22f", "tos staven", False, has_sword],
         ["tos staven", "event_staven", False, None],
 
-        ["tos staven", "tos summit", True, None],
+        ["tos staven", "tos summit lower", True, None],
+        ["tos summit lower", "tos summit", True, None],
         ["tos summit", "tos stamp stand", False, has_stamp_book],
         ["tos summit", "tos 6", False, has_bow_of_light],
         ["tos 30f", "tos 6", True, None],
 
         ["tos 30f", "tos 30f bomb wall", False, has_bombs],
-        ["tos 30f", "tos 29f", False, can_possess_phantom(6) & has_boomerang & has_whirlwind],
+        ["tos 30f", "tos 29f", False, can_possess_phantom(6, tower_section_lookup) & has_boomerang & has_whirlwind],
         ["tos 29f", "tos 29f sand wand", False, has_sand_wand],
         ["tos 29f sand wand", "tos 29f se", False, has_bow_of_light],
 
         ["tos 29f se", "tos 27f", False, has_small_keys("ToS 6", 3)],
         ["tos 27f", "tos 24f", False, has_whip],
         ["tos 24f", "event_24f", False, None],
-
-        # # ============ Shops ====================
 
         # # ======== Mayscore =========
 
@@ -173,7 +173,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "fos", False, None],
         ["fos", "fos stamp station", False, has_stamp_book],
         ["fos", "fos song statue", False, has_spirit_flute],
-        # ["fos", "fos gage", False, lambda state: st_has_spirit_flute(state, player)],
         ["fos", "fos chest", False, has_cuccos],
 
         # # ======== Wooded Temple =========
@@ -198,7 +197,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ============ Trading Post =============
 
         ["forest realm", "trading post", False, has_glyph("Ocean")],
-        #["trading post", "trading post discovery song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["trading post", "trading post light song statue", False, has_spirit_flute],
         ["trading post", "trading post chest", False, (has_range | has_sword_beam) & has_sod & (has_sol | hard_logic)],
         ["trading post", "trading post stamp station", False, has_bombs & has_stamp_book],
@@ -283,7 +281,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bridge workers", "bridge workers chest", False, has_sod],
 
         # ===== Dark Realm =====
-        ["dark realm portal", "dark realm trains", False, has_dungeon_rewards(options.dungeons_required.value)],
+        ["dark realm portal", "dark realm trains", False, has_dungeon_rewards(world.options.dungeons_required.value)],
         ["dark realm trains", "demon train", False, None],
         ["demon train", "cole fight", False, None],
         ["cole fight", "malladus 1", False, has_bow_of_light & has_sword],
@@ -295,9 +293,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     ]
 
     required_rupees = 0
-    if options.shopsanity.value == 1: required_rupees = 1500
-    elif options.shopsanity.value == 2: required_rupees = 2100
-    elif options.shopsanity.value == 3: required_rupees = 4600
+    if world.options.shopsanity.value == 1: required_rupees = 1500
+    elif world.options.shopsanity.value == 2: required_rupees = 2100
+    elif world.options.shopsanity.value == 3: required_rupees = 4600
 
     overworld_logic += [
         # Shops
@@ -312,7 +310,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     ]
 
     # Generate rabbit total items
-    if options.rabbitsanity in ["on_total", "both"]:
+    if world.options.rabbitsanity in ["on_total", "both"]:
         print(f"Creating total rabbit logic")
         overworld_logic += [
             [f"{realm.lower()} realm rabbits", f"{rabbit} Rabbit Count {i}", False,
@@ -328,7 +326,7 @@ def is_item(item: Item, player: int, item_name: str):
 
 def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str, options):
     all_logic = [
-        make_overworld_logic(player, origin_name, options)
+        make_overworld_logic(player, origin_name, world)
     ]
 
     entrance_lookup = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}

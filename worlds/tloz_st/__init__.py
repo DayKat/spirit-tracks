@@ -25,9 +25,9 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
-    # raise ModuleNotFoundError
+    raise ModuleNotFoundError
 except ModuleNotFoundError:
-    print(f"Using legacy logic")
+    print(f"Spirit Tracks is using legacy logic")
     WorldParent = World
     from .Logic import create_connections
 
@@ -85,6 +85,7 @@ class SpiritTracksSettings(settings.Group):
     train_snap_speed: Union[STTrainSnapSpeed, bool] = True
     train_quick_station: Union[STTrainInstantStation, bool] = True
 
+dev_prints = False
 
 class SpiritTracksWorld(WorldParent):
     """
@@ -141,6 +142,9 @@ class SpiritTracksWorld(WorldParent):
 
         self.er_placement_state = None
         self.valid_entrances: list["Entrance"] = []
+        self.plando_pairings = {}  # int: int pairing
+        self.tower_pairings = []  # zip object of entrance strings
+        self.tower_section_lookup = {i:i for i in range(1, 7)}  # tower section lookup for logic
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -159,6 +163,7 @@ class SpiritTracksWorld(WorldParent):
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
             self.required_dungeons = slot_data["required_dungeons"]
             self.ut_pairings = slot_data["er_pairings"]
+            self.tower_section_lookup = slot_data["tower_section_lookup"]
             self.hide_ut_map_stuff()
             self.pick_ut_events()
         else:
@@ -168,6 +173,7 @@ class SpiritTracksWorld(WorldParent):
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             # print(f"Rabbit items: {self.rabbit_item_dict}")
+            self.plando_tos_sections()
 
             # Tear conditions
             if self.options.start_with_train:
@@ -183,6 +189,27 @@ class SpiritTracksWorld(WorldParent):
             if self.options.starting_train == "random_train":
                 self.options.starting_train.value = self.random.randint(0, 7)
         self.create_item_mappings()
+
+    def plando_tos_sections(self):
+        """Plando ToS Shuffle early so we can use the ordering in logic"""
+        if not self.options.shuffle_tos_sections:
+            return
+        entrances = list(ENTRANCE_TO_TOS_ORDER.keys())
+        exits = list(EXIT_TO_TOS_SECTION.keys()) + ["ToS Summit Lower Exit"]
+        self.random.shuffle(entrances)
+        self.tower_pairings = list(zip(entrances, exits))
+        # print(f"Tower pairings: {list(self.tower_pairings)}")
+        self.plando_pairings |= {ENTRANCES[e1].id: ENTRANCES[e2].id for e1, e2 in self.tower_pairings}
+
+        # Get lookup table for logic progressive tear sections
+        sort_filter = {}
+        for pair, entr in self.tower_pairings:
+            if entr in EXIT_TO_TOS_SECTION and pair in ENTRANCE_TO_TOS_ORDER:
+                sort_filter[EXIT_TO_TOS_SECTION[entr]] = ENTRANCE_TO_TOS_ORDER[pair]
+        to_sort = [i for i in sort_filter]
+        to_sort.sort(key=lambda i: sort_filter[i])
+        self.tower_section_lookup = {section: i + 1 for i, section in enumerate(to_sort)}
+        # print(f"Section lookup: {self.tower_section_lookup}")
 
     def hide_ut_map_stuff(self):
         self.tracker_world["map_page_locations"].append("locations/tos_singles.json")
@@ -487,7 +514,7 @@ class SpiritTracksWorld(WorldParent):
         # so add progression items first
         add_items = [("Ocean Source", 1), ("Fire Source", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
-        if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 1)]
+        if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
@@ -685,6 +712,49 @@ class SpiritTracksWorld(WorldParent):
             self.random.shuffle(extra_items_list)
             self.extra_filler_items = extra_items_list[:extra_item_count]
 
+    # Based on the messenger's plando connection by Aaron Wagner
+    def connect_plando(self, plando_pairings) -> None:
+        def remove_dangling_exit(region: Region) -> None:
+            # find the disconnected exit and remove references to it
+            for _exit in region.exits:
+                if not _exit.connected_region:
+                    break
+            else:
+                raise ValueError(f"Unable to find randomized transition for {region}")
+
+            region.exits.remove(_exit)
+
+        def remove_dangling_entrance(region: Region) -> None:
+            # find the disconnected entrance and remove references to it
+            for _entrance in region.entrances:
+                if not _entrance.parent_region:
+                    break
+            else:
+                raise ValueError(f"Invalid target region for {region}")
+            region.entrances.remove(_entrance)
+
+        for entr_name, exit_name in plando_pairings:
+            # get the connecting regions
+            r1 = ENTRANCES[entr_name]
+            reg1 = self.get_region(r1.entrance_region)
+            remove_dangling_exit(reg1)
+
+            r2 = ENTRANCES[exit_name]
+            reg2 = self.get_region(r2.entrance_region)
+            remove_dangling_entrance(reg2)
+            # connect the regions
+            reg1.connect(reg2)
+            if dev_prints:
+                print(f"Plando Connecting {r1} => {r2} with regions {reg1} => {reg2}")
+
+            # pretend the user set the plando direction as "both" regardless of what they actually put on coupled
+            if True:
+                remove_dangling_exit(reg2)
+                remove_dangling_entrance(reg1)
+                reg2.connect(reg1)
+                if dev_prints:
+                    print(f"Connecting backwards {r2} => {r1}")
+
     @staticmethod
     def create_er_target_groups(type_option_lookup):
         directions = [5, 6]
@@ -722,6 +792,8 @@ class SpiritTracksWorld(WorldParent):
 
         # Disconnect entrances to shuffle
         for entrance in entrances_to_shuffle:
+            if dev_prints:
+                print(f"Disconnecting {entrance.name}")
             target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
             disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
 
@@ -730,6 +802,8 @@ class SpiritTracksWorld(WorldParent):
         # print(f"Shuffling Entrances {entrances_to_shuffle} with groups {groups}")
 
         # Entrance Rando
+        if self.tower_pairings:
+            self.connect_plando(self.tower_pairings)
         self.er_placement_state = randomize_entrances(self, True, groups)
 
     def get_pre_fill_items(self):
@@ -778,6 +852,7 @@ class SpiritTracksWorld(WorldParent):
             collection_state = self.multiworld.get_all_state(False)
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(section_locations)
+            # print(f"Pre filling section {section}: {section_items} to {section_locations}")
             fill_restrictive(self.multiworld, collection_state, section_locations, section_items,
                              single_player_placement=True, lock=True, allow_excluded=True)
 
@@ -880,7 +955,9 @@ class SpiritTracksWorld(WorldParent):
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        pairings |= self.plando_pairings
         slot_data["er_pairings"] = pairings
+        slot_data["tower_section_lookup"] = self.tower_section_lookup
         print(f"ER Pairings: {pairings}")
 
 

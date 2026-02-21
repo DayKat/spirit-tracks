@@ -33,6 +33,9 @@ def st_has_whip(state: CollectionState, player: int):
 def st_has_boomerang(state: CollectionState, player: int):
     return state.has("Boomerang", player)
 
+def st_has_sand_wand(state: CollectionState, player: int):
+    return state.has("Sand Wand", player)
+
 def st_has_sword_beam_scroll(state: CollectionState, player: int):
     return state.has("Sword Beam Scroll", player)
 
@@ -110,12 +113,17 @@ def st_has_light_song(state: CollectionState, player: int):
 def st_has_discovery_song(state: CollectionState, player: int):
     return state.has("Song of Discovery", player) and st_has_spirit_flute(state, player)
 
-def st_has_tears(state: CollectionState, player: int, floor: int):
+def st_has_tears(state: CollectionState, player: int, section: int):
+    options = state.multiworld.worlds[player].options
+    if options.shuffle_tos_sections and options.tear_sections == "progressive":
+        section = state.multiworld.worlds[player].tower_section_lookup[section]
+
     return any([
-        state.has(f"Tear of Light ({floor}F)", player, 3),
-        state.has(f"Big Tear of Light ({floor}F)", player),
-        state.has(f"Tear of Light (Progressive)", player, tear_lookup[floor]),
-        state.has(f"Big Tear of Light (Progressive)", player, big_tear_lookup[floor]),
+        state.has(f"Tear of Light (ToS {section})", player, 3),
+        state.has(f"Big Tear of Light (ToS {section})", player),
+        state.has(f"Tear of Light (Progressive)", player, section*3),
+        state.has(f"Tear of Light (Progressive)", player, 16),
+        state.has(f"Big Tear of Light (Progressive)", player, section),
         state.has(f"Tear of Light (All Sections)", player, 3),
         state.has(f"Big Tear of Light (All Sections)", player),
     ])
@@ -180,6 +188,13 @@ def st_has_short_range(state: CollectionState, player: int):
                 st_clever_bombs(state, player), ])
 
 
+def st_can_rotate_repeater(state, player):
+    return any([
+        st_has_sword(state, player),
+        st_has_boomerang(state, player),
+        st_has_whip(state, player)
+    ])
+
 def st_has_mid_range(state: CollectionState, player: int):
     return any([st_has_range(state, player), st_has_whip(state, player),
                 st_has_beam_sword(state, player)])
@@ -220,22 +235,23 @@ def st_can_kill_freezards_torch(state, player):
 
 def st_has_rupees(state: CollectionState, player: int, cost: int):
     # If has a farmable minigame and the means to sell, expensive things are in logic.
-    if st_can_farm_rupees(state, player):
-        return True
-
-    # Count up regular rupee items
-    rupees = state.count("Green Rupee (1)", player)
-    rupees += state.count("Blue Rupee (5)", player) * 5
-    rupees += state.count("Red Rupee (20)", player) * 20
-    rupees += state.count("Big Green Rupee (100)", player) * 100
-    rupees += state.count("Big Red Rupee (200)", player) * 200
-    rupees += state.count("Gold Rupee (300)", player) * 300
-
-    # # Sell Treasure for safe average 150 (can be 50, 150, 800 or 1500)
-    # if st_has_courage_crest(state, player):
-    #     rupees += state.count_group("Treasure Items", player) * 150
-
-    return rupees >= cost
+    options = state.multiworld.worlds[player].options
+    return any([
+        state.has("_UT_Glitched_Logic", player),
+        all([
+            state.has("_rupee_farming_spot", player),
+            options.excess_random_treasure.value == 2,
+            options.rupee_farming_logic.value == 1
+        ]),
+        all([
+            state.has("_rupee_farming_spot", player),
+            state.has("_can_sell_treasure", player),
+            options.excess_random_treasure.value == 1,
+            options.rupee_farming_logic.value == 1
+        ]),
+        state.has("Rupees", player, cost),
+        state.has("Treasure", player, cost + 2500) and state.has("_can_sell_treasure", player)
+    ])
 
 
 def st_can_farm_rupees(state: CollectionState, player: int):
@@ -441,6 +457,8 @@ def st_can_sword_scroll_clip(state, player):
         st_option_glitched_logic(state, player)
     ])
 
+def st_has_train(state, player):
+    return all([st_has_glyph(state, player, "Forest"), st_has_cannon(state, player)])
 
 # ====== Specific locations =============
 
@@ -459,3 +477,26 @@ def st_has_dungeon_rewards(state, player):
 def st_can_fight_malladus(state, player):
     return st_has_sword(state, player) and st_has_bow_of_light(state, player)
 
+def st_can_enter_tos(state, player):
+    options = state.multiworld.worlds[player].options
+    return any([
+        options.tos_unlock_base_item.value == 0,
+        options.tos_unlock_base_item.value == 1 and (
+            state.has("Tower of Spirits Base", player) or
+            state.has("Progressive ToS Section", player)
+        )
+    ])
+
+def st_can_enter_tos_section(state, player, section):
+    sources = [None, "Forest", "Snow", "Ocean", "Fire"]
+    if section == 1:
+        return st_can_enter_tos(state, player)
+    options = state.multiworld.worlds[player].options
+    return any([
+        options.tos_section_unlocks.value == 0,  # Open tower
+        st_has_source(state, player, sources[section-1]) and options.tos_section_unlocks.value == 1,
+        options.tos_section_unlocks.value == 2 and any([
+            state.has("Progressive ToS Section", player, section) and options.tos_unlock_base_item.value == 1,
+            state.has("Progressive ToS Section", player, section-1) and options.tos_unlock_base_item.value == 0,
+        ])
+    ])

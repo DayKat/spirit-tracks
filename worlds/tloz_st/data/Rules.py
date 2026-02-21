@@ -71,14 +71,20 @@ def has_portal(portal, forward):
 no_tear_items = [OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_no_tears, "ne"),
                 OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_vanilla, "ne")]
 
-def has_tears(section: int):
+progressive_shuffle = [OptionFilter(SpiritTracksShuffleToSSections, 1), OptionFilter(SpiritTracksTearGroup, 2)]
+not_tower_shuffle = [OptionFilter(SpiritTracksShuffleToSSections, 0), OptionFilter(SpiritTracksTearGroup, 2)]
+
+def has_tears(section: int, lookup):
     return Filtered(Or(
-        Has(f"Tear of Light (ToS {section})", 3),
-        Has(f"Big Tear of Light (ToS {section})"),
-        Has(f"Tear of Light (Progressive)", section*3),
-        Has(f"Big Tear of Light (Progressive)", section),
-        Has(f"Tear of Light (All Sections)", 3),
-        Has(f"Big Tear of Light (All Sections)"),
+        Has(f"Tear of Light (ToS {section})", 3, options=[OptionFilter(SpiritTracksTearGroup, 0), OptionFilter(SpiritTracksTearSize, 0)]),
+        Has(f"Big Tear of Light (ToS {section})", options=[OptionFilter(SpiritTracksTearGroup, 0), OptionFilter(SpiritTracksTearSize, 1)]),
+        Has(f"Tear of Light (Progressive)", lookup[section]*3, options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 0)]),
+        Has(f"Tear of Light (Progressive)", 16, options=[OptionFilter(SpiritTracksTearGroup, 2), OptionFilter(SpiritTracksTearSize, 0)]),
+        Has(f"Tear of Light (Progressive)", section * 3, options=not_tower_shuffle + [OptionFilter(SpiritTracksTearSize, 0)]),
+        Has(f"Big Tear of Light (Progressive)", lookup[section], options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 1)]),
+        Has(f"Big Tear of Light (Progressive)", section, options=not_tower_shuffle + [OptionFilter(SpiritTracksTearSize, 1)]),
+        Has(f"Tear of Light (All Sections)", 3, options=[OptionFilter(SpiritTracksTearGroup, 1), OptionFilter(SpiritTracksTearSize, 0)]),
+        Has(f"Big Tear of Light (All Sections)", options=[OptionFilter(SpiritTracksTearGroup, 1), OptionFilter(SpiritTracksTearSize, 1)]),
     ), options=no_tear_items)
 
 has_bow_of_light = Or(
@@ -90,8 +96,8 @@ has_bow_of_light = Or(
             Has(f"Big Tear of Light (All Sections)", 2)),
         options=no_tear_items))
 
-def can_possess_phantom(floor):
-    return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & has_tears(floor))
+def can_possess_phantom(floor, lookup):
+    return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & has_tears(floor, lookup))
 
 vanilla_tears = Filtered(has_sword, options=[OptionFilter(SpiritTracksRandomizeTears, -1)])
 

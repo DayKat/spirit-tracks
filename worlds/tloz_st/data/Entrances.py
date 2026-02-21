@@ -375,7 +375,7 @@ ENTRANCE_DATA = {
         "entrance": (0x23, 0, 1),
         "exit": (0x15, 0x0, 0),
         "entrance_region": "tos staven",
-        "exit_region": "tos summit",
+        "exit_region": "tos summit lower",
         "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
