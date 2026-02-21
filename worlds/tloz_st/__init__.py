@@ -11,8 +11,8 @@ from .Util import *
 from .Options import *
 
 from .data import LOCATIONS_DATA
-from .data.Constants import *
 from .data.Items import ITEMS
+from .data.Constants import *
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
@@ -25,7 +25,7 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
-    # raise ModuleNotFoundError
+    raise ModuleNotFoundError
 except ModuleNotFoundError:
     print(f"Spirit Tracks is using legacy logic")
     WorldParent = World
@@ -256,9 +256,9 @@ class SpiritTracksWorld(WorldParent):
         self.item_mapping_collect = {
             i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupee Items"]
         } | {
-            r: ("Grass Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Grass Rabbits"][1:]
+            r: ("Grass Rabbit", ITEMS[r].value) for r in grass_rabbits[1:]
         } | {
-            r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"][1:]
+            r: ("Snow Rabbit", ITEMS[r].value) for r in snow_rabbits[1:]
         } | {
             t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
         }
@@ -442,7 +442,7 @@ class SpiritTracksWorld(WorldParent):
         if name in self.extra_filler_items:
             self.extra_filler_items.remove(name)
             classification = ItemClassification.filler
-        if self.options.shopsanity and name in ITEM_GROUPS["Uncommon Plus Treasure"] + ITEM_GROUPS["Big Rupees"]:
+        if self.options.shopsanity and name in ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]:
             # print(f"Changing classification for item {name}")
             classification = DEPRIORITIZED_SKIP_BALANCING_FALLBACK
 
@@ -476,8 +476,8 @@ class SpiritTracksWorld(WorldParent):
                 continue
 
             item_name = loc_data.get("item_override", loc_data["vanilla_item"])
-            if isinstance(item_name, list):
-                item_name = self.random.choice(item_name)
+            if isinstance(item_name, list | set):
+                item_name = self.random.choice(list(item_name))
             item_data = ITEMS[item_name]
             if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
                 # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
@@ -527,7 +527,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
-        add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
+        add_items += [(i, 1) for i in ITEM_GROUPS["Add Rails to Pool"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
         add_items += self.choose_tear_items()
@@ -923,17 +923,14 @@ class SpiritTracksWorld(WorldParent):
                              single_player_placement=True, lock=True, allow_excluded=True)
 
     def get_filler_item_name(self) -> str:
-        filler_item_names = (ITEM_GROUPS["Common Treasures"] +
-                             ITEM_GROUPS["Uncommon Treasures"] +
-                             ITEM_GROUPS["Ammo Refills"] +
-                             ["Green Rupee (1)",
-                              "Blue Rupee (5)",
-                              "Red Rupee (20)",
-                              "Big Green Rupee (100)"]
-                             )
-        rare_filler_items = ITEM_GROUPS["Rare Treasures"] + [
-            "Big Red Rupee (200)", "Gold Rupee (300)",
-        ]
+        filler_item_names = list(ITEM_GROUPS["Common Treasures"] |
+                             ITEM_GROUPS["Uncommon Treasures"] |
+                             ITEM_GROUPS["Refill Items"] |
+                             ITEM_GROUPS["Small Rupees"]
+                             ) + ["Big Green Rupee (100)"]
+        rare_filler_items = list( ITEM_GROUPS["Rare Treasures"]) + [
+            "Big Red Rupee (200)", "Gold Rupee (300)"]
+
         # 1/20 chance to roll a rare filler item
         if self.random.randint(1, 20) == 1:
             return self.random.choice(rare_filler_items)

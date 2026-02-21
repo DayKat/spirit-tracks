@@ -3,13 +3,14 @@ from .DSZeldaClient.subclasses import DSTransition
 from .DSZeldaClient.ItemClass import DSItem, receive_normal
 from enum import IntEnum
 from typing import TYPE_CHECKING
-from .data.Constants import DUNGEON_KEY_DATA
+
 if TYPE_CHECKING:
     from .Client import SpiritTracksClient
 from .data.Addresses import STAddr
 
 async def receive_tos_key(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     async def write_keys_to_storage(dungeon) -> tuple[int, list, str]:
+        from .data.Constants import DUNGEON_KEY_DATA
         key_data = DUNGEON_KEY_DATA[dungeon]
         prev = await key_data["address"].read(ctx)
         bit_filter = key_data["filter"]
