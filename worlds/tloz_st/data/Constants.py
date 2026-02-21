@@ -155,6 +155,7 @@ ITEM_GROUPS = {
          "Small Key (Wooded Temple)",
          "Small Key (ToS)",
          "Small Key (Blizzard Temple)",
+         "Small Key (Ocean Temple)",
      ],
     "Boss Keys": [
         "Boss Key (Wooded Temple)",
@@ -227,6 +228,10 @@ ITEM_GROUPS = {
         "N Icy Spring Tracks",
         "Blizzard Temple Tracks"
     ],
+    "Ocean Tracks": [
+        "Ocean Temple Tracks",
+        "Pirate Hideout Tracks",
+    ],
     "Portal Unlocks": [
         "Portal Unlock: Hyrule Castle to Anouki Village",
         "Portal Unlock: Trading Post to E Snow Realm"
@@ -255,7 +260,7 @@ ITEM_GROUPS |= {
     "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
                     ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"],
     "Rabbits": ITEM_GROUPS["Grass Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
-    "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"]
+    "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"] + ITEM_GROUPS["Ocean Tracks"],
 }
 ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] + ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] + ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"]
@@ -289,7 +294,8 @@ DUNGEON_NAMES = [
     "Tunnel to ToS",
     "ToS", #Tower of Spirits
     "Wooded Temple",
-    "Blizzard Temple"
+    "Blizzard Temple",
+    "Ocean Temple",
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
@@ -301,11 +307,13 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "ToS 6": "ToS 24F Final Chest",
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
+    "Ocean Temple": "Ocean Temple Dungeon Reward",
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
+    "Ocean Temple Dungeon Reward": "oct phytops",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",
@@ -371,6 +379,13 @@ DUNGEON_KEY_DATA = {
         "value": 0x08,
         "size": 1,
     },
+    0x1B: {
+        "name": "Ocean Temple",
+        "address": STAddr.key_storage_0,
+        "filter": 0x30,
+        "value": 0x10,
+        "size": 2,
+    }
 }
 
 
