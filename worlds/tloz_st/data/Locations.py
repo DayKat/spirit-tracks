@@ -1893,43 +1893,40 @@ LOCATIONS_DATA = {
     },
     "Beedle Buy Uncommon Treasure": {
         "region_id": "beedle uncommon treasure",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
         "conditional": True
     },
     "Beedle Buy Rare Treasure": {
         "region_id": "beedle rare treasure",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        # "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
         "conditional": True
     },
     "Mayscore Shop Treasure 1": {
         "region_id": "mayscore shop",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "location_groups": ["Shop Treasure Locations", "Mayscore"],
         "conditional": True
     },
     "Mayscore Shop Treasure 2": {
         "region_id": "mayscore shop",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "location_groups": ["Shop Treasure Locations", "Mayscore"],
         "conditional": True
     },
     "Castle Town Shop Treasure 1": {
         "region_id": "castle town shop",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Castle Town"],
         "conditional": True
     },
     "Castle Town Shop Treasure 2": {
         "region_id": "castle town shop",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Castle Town"],
         "conditional": True
     },
-    "TESTLOCATION": {
-        "region_id": "linebeck trading"
-    }
 
 }
 ## ========== remember to add item override!! =============

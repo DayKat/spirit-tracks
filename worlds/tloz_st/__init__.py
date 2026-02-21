@@ -191,7 +191,7 @@ class SpiritTracksWorld(WorldParent):
                                                               if e.category_group == EntranceGroups.TOS_SECTION]
 
     def pick_ut_events(self):
-        events = ["EVENT: Pick up Alfonzo",
+        events = ["EVENT: Pick up Alfonzo", "EVENT: Give Regal Ring to Linebeck",
                   goal_event_lookup[self.options.goal.value]]
 
 
@@ -221,7 +221,7 @@ class SpiritTracksWorld(WorldParent):
         } | {
             r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"][1:]
         } | {
-            t: ("Treasure", value) for treasure_type, value in zip(["Common", "Uncommon", "Rare", "Super Rare"], [50, 150, 500, 2500]) for t in ITEM_GROUPS[treasure_type + " Treasures"]
+            t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
         }
 
     def pick_required_dungeons(self) -> list[str]:
@@ -487,7 +487,7 @@ class SpiritTracksWorld(WorldParent):
         # so add progression items first
         add_items = [("Ocean Source", 1), ("Fire Source", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
-        if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1)]
+        if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 1)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
         add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]

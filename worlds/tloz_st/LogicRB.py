@@ -72,7 +72,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== ToS Tunnel =========
 
         ["hyrule castle", "tower tunnel", False, None],
-        ["tower tunnel", "tower tunnel block chest", False, has_damage | hard_logic],
+        ["tower tunnel", "tower tunnel block chest", False, has_damage | has_whirlwind | hard_logic],
         ["tower tunnel", "tower tunnel 2f chest", False, has_small_keys("Tunnel to ToS", 1)],
 
         # # ========== ToS ===================
@@ -291,16 +291,24 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["malladus 2", "malladus goal", False, has_bow_of_light & has_sword],
         ["malladus 2", "malladus event", False, has_bow_of_light & has_sword],
 
-        # Shops
-        ["ss", "snow sanc shop", False, has_rupees(4600)],
-
         ["forest realm", "beedle", False, has_source("Snow")],
-        ["beedle", "beedle bomb bag", False, has_rupees(4600)],
-        ["beedle", "beedle uncommon treasure", False, has_rupees(4600)],
-        ["beedle", "beedle rare treasure", False, has_rupees(4600)],
+    ]
 
-        ["mayscore", "mayscore shop", False, has_rupees(4600)],
-        ["castle town", "castle town shop", False, has_rupees(4600)],
+    required_rupees = 0
+    if options.shopsanity.value == 1: required_rupees = 1500
+    elif options.shopsanity.value == 2: required_rupees = 2100
+    elif options.shopsanity.value == 3: required_rupees = 4600
+
+    overworld_logic += [
+        # Shops
+        ["ss", "snow sanc shop", False, has_rupees(required_rupees)],
+
+        ["beedle", "beedle bomb bag", False, has_rupees(required_rupees)],
+        ["beedle", "beedle uncommon treasure", False, has_rupees(required_rupees)],
+        ["beedle", "beedle rare treasure", False, has_rupees(required_rupees)],
+
+        ["mayscore", "mayscore shop", False, has_rupees(required_rupees)],
+        ["castle town", "castle town shop", False, has_rupees(required_rupees)],
     ]
 
     # Generate rabbit total items

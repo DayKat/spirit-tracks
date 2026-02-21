@@ -25,6 +25,6 @@ class TestGeneration(WorldTestBase):
         # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
 
         "shopsanity": "all_above",
-        # "rupee_farming_logic": "unlimited_farming"
+        "rupee_farming_logic": "unlimited_farming",
         "excess_random_treasure": "nothing"
     }

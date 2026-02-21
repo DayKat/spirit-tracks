@@ -268,6 +268,8 @@ ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] + ITEM
 #     # "Sand Rabbits": [0x262034, 0xFF, 0x262035, 0x03],
 # }
 
+TREASURE_PRICES = {t: value for treasure_type, value in zip(["Common", "Uncommon", "Rare", "Super Rare"], [50, 150, 500, 2500]) for t in ITEM_GROUPS[treasure_type + " Treasures"]}
+
 LOCATION_GROUPS: dict[str, set[str]] = {
     # "Outset Village": {"Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree",
     #                    "Outset Niko's House Tree", "Outset Receive Stamp Book"},
@@ -404,18 +406,25 @@ HINTS_ON_TRIGGER = {
     #"Masked Beedle": ["Masked Beedle Courage Gem", "Masked Beedle Heart Container"]
 }
 
-# Train sets
-TRAINS = [
-    "S.S. Linebeck",
-    "Train: Bright Train",
-    "Train: Iron Train",
-    "Train: Stone Train",
-    "Train: Vintage Train",
-    "Train: Demon Train",
-    "Train: Tropical Train",
-    "Train: Dignified Train",
-    "Train: Golden Train",
-]
+SHOP_TREASURE_DATA = {
+    0x290a: [{
+        "locations": ["Castle Town Shop Treasure 1", "Castle Town Shop Treasure 2"],
+        "group": "Uncommon"
+    }],
+    0x2a05: [{
+        "locations": ["Mayscore Shop Treasure 1", "Mayscore Shop Treasure 2"],
+        "group": "Common"
+    }],
+    0x4503: [{
+        "locations": ["Beedle Buy Uncommon Treasure"],
+        "group": "Uncommon"
+    }, {
+        "locations": ["Beedle Buy Rare Treasure"],
+        "group": "Rare"
+    }],
+}
+
+
 
 tear_lookup = {1: 3, 4: 6, 9: 9, 13: 12, 18: 15, 30: 16}
 big_tear_lookup = {1:1, 4:2, 9: 3, 13: 4, 18: 5, 30: 6}

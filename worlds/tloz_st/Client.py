@@ -191,6 +191,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.key_address = STAddr.small_keys
 
         self.hint_data = HINT_DATA
+        self.got_item_no_loc = False
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -316,13 +317,55 @@ class SpiritTracksClient(DSZeldaClient):
         entr = self.entrances[event_name]
         await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
 
-    async def update_treasure_tracker(self, ctx, last_loc=None):
+    async def update_treasure_tracker(self, ctx: "BizHawkClientContext", last_loc=None):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
         new_treasure = await read_multiple(ctx, read_list)
+        print(f"Updating Treasure Tracker: {last_loc}")
+
+        if last_loc == "no_loc":
+            self.treasure_tracker = new_treasure
+            self.got_item_no_loc = True
+            return
+        elif not (last_loc == "post_receive" and self.got_item_no_loc):
+            self.treasure_tracker = new_treasure
+            print(f"No special treasure")
+            return
+
+        self.got_item_no_loc = False
         diff = {t: n - o for n, o, t in
-                 zip(new_treasure.values(), self.treasure_tracker.values(), ITEM_GROUPS["All Treasures"]) if n-o > 0}
-        self.treasure_tracker = new_treasure
+                zip(new_treasure.values(), self.treasure_tracker.values(), ITEM_GROUPS["All Treasures"]) if n - o > 0}
+        if not diff:
+            return
+
+        single_item = [t for t in diff][0]
         print(f"Updated Treasure Tracker: {diff}")
+
+        async def remove_treasure():
+            reads = await read_multiple(ctx, [ITEMS[i].address for i in diff])
+            await write_multiple(ctx, [a for a in reads], [v-1 for v in reads.values()])
+
+        # Detect shop locations
+        if ctx.slot_data["shopsanity"] in [2, 3] and self.current_scene in SHOP_TREASURE_DATA:
+            for data in SHOP_TREASURE_DATA[self.current_scene]:
+                if single_item in ITEM_GROUPS[data["group"] + " Treasures"]:
+                    for location in data["locations"]:
+                        if self.location_name_to_id[location] not in ctx.checked_locations:
+                            await remove_treasure()
+                            await self._process_checked_locations(ctx, location)
+                            return
+
+        # Do stuff with excess treasure
+        if ctx.slot_data["excess_random_treasure"] in [0, 2]:
+            print(f"Removing {diff} from treasures")
+            await remove_treasure()
+            # self.last_vanilla_item.extend([t for t in diff])
+        if ctx.slot_data["excess_random_treasure"] == 2:
+            rupees = sum([TREASURE_PRICES[treasure]*count for treasure, count in diff.items()])
+            print(f"Getting {rupees} rupees")
+            await STAddr.rupees.add(ctx, rupees)
+
+
+        self.treasure_tracker = new_treasure
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
         print(f"Post Processing {item_name}")
@@ -485,7 +528,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_post_receive(self, ctx):
         if not self.delay_pickup:
-            await self.update_treasure_tracker(ctx)  # always update treasure tracker, lots of random treasures on ground!
+            await self.update_treasure_tracker(ctx, "post_receive")  # always update treasure tracker, lots of random treasures on ground!
 
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:
