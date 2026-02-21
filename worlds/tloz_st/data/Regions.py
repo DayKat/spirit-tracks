@@ -263,7 +263,39 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm
 
-    #"ocean realm",
+    "ocean realm",
+
+    #Ocean Sanctuary
+    "ocs",
+    "ocs stamp station",
+    "ocs cucco chest",
+    "ocs S island chest",
+    "ocs nw chest",
+
+    #Papuchia Village
+    "papuchia village",
+    "papuchia village song statue",
+    "papuchia village stamp station",
+    "papuchia village ne chest",
+    "papuchia village sw chest",
+    "papuchia village s center chest",
+
+    #Ocean Temple
+    "oct",
+    "oct whip chest",
+    "oct 2f log chest",
+    "oct 1f vines chest",
+    "oct 1f lever chest",
+    "oct stamp station",
+    "oct 3f puzzle chest",
+    "oct 3f ne chest",
+    "oct 5f chest",
+    "oct 6f chest",
+    "oct phytops",
+    "oct heart container",
+    "goal_phytops",
+    "post oct",
+
     #"ocean realm frogs",
     #"ocean realm trade",
     #"pirate ambush",
