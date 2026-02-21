@@ -169,9 +169,9 @@ class HasShuffledSection(Rule["SpiritTracksWorld"], game="The Legend of Zelda - 
     @override
     def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
 
-        shuffled_section = world.tower_section_lookup[str(self.section)]
-        print(f"Tower section lookup {world.tower_section_lookup} for section {self.section} => {shuffled_section} and item {self.item_name} {self.options}")
-
+        # print(f"Tower section lookup {world.tower_section_lookup} for section {self.section} and item {self.item_name} {self.options}")
+        tower_section_lookup = {int(i): v for i, v in world.tower_section_lookup.items()}
+        shuffled_section = tower_section_lookup[self.section]
         if self.item_name.startswith("Big"):
             return Has(self.item_name, shuffled_section).resolve(world)
         return Has(self.item_name, shuffled_section*3).resolve(world)

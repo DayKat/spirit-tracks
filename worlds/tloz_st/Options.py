@@ -329,12 +329,27 @@ class SpiritTracksRandomizeMinigames(Choice):
     """
     Randomize Minigames.
     Includes Mayscore Whip game, Take 'em All On, Hyrule Castle Sword Training, Slippery Station and Restoration Duets.
+    - no_minigames: minigames are not randomized
+    - easy: the easiest difficulty of each minigame is randomized
+    - hardest_reasonable: only the hardest difficulty of each minigame is randomized, excluding Take 'em all On 3
+    - all_reasonable: all minigame rewards are randomized, excluding Take 'em all On 3
+    - everything: all minigame rewards are randomized, including Take 'em all On 3
     """
     display_name = "Randomize Minigames"
     option_no_minigames = 0
-    option_randomize_with_hints = 1
-    option_randomize_without_hints = 2
-    default = 2
+    option_easy = 1
+    option_hardest_reasonable = 2
+    option_all_reasonable = 3
+    option_everything = 4
+
+    default = 1
+
+class SpiritTracksMinigameHints(Toggle):
+    """
+    Hint for minigames
+    """
+    display_name = "Minigame Hints"
+    default = 0
 
 class SpiritTracksToSSectionUnlocks(Choice):
     """
@@ -438,6 +453,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
     randomize_minigames: SpiritTracksRandomizeMinigames
+    minigame_hints: SpiritTracksMinigameHints
     start_with_train: SpiritTracksStartWithTrain
 
     tos_section_unlocks: SpiritTracksToSSectionUnlocks
@@ -496,6 +512,7 @@ st_option_groups = [
         SpiritTracksLogic,
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizeMinigames,
+        SpiritTracksMinigameHints,
         SpiritTracksRandomizePortals,
         SpiritTracksPortalLocations,
         SpiritTracksStartWithTrain,

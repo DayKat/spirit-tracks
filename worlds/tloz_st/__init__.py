@@ -348,9 +348,7 @@ class SpiritTracksWorld(WorldParent):
         if location_data["conditional"] == "tears":
             return self.options.randomize_tears.value != -1  # not vanilla
         if "minigame" in location_data and self.options.randomize_minigames:
-            if location_name == "Slippery Station Champion Reward":
-                return self.options.logic
-            return True
+            return self.options.randomize_minigames.value in location_data["minigame"]
         if self.options.shopsanity:
             if location_name in LOCATION_GROUPS["Shop Treasure Locations"]:
                 return self.options.shopsanity.value in [2, 3]
@@ -507,7 +505,7 @@ class SpiritTracksWorld(WorldParent):
                 filler_item_count += 1
                 continue
             if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)",
-                             "Rabbit Net"]:
+                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
@@ -524,7 +522,7 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Ocean Source", 1), ("Fire Source", 1)]
+        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
@@ -967,7 +965,8 @@ class SpiritTracksWorld(WorldParent):
 
     def fill_slot_data(self) -> dict:
         options = ["goal", "logic",
-                   "keysanity", "randomize_minigames",
+                   "keysanity",
+                   "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
