@@ -20,7 +20,7 @@ class TestGeneration(WorldTestBase):
         "tear_sections": "unique_sections",
         "spirit_weapons": "items",
 
-        "keysanity": "in_own_section",
+        "keysanity": "anywhere",
         "shuffle_tos_sections": "shuffle",
         # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
 

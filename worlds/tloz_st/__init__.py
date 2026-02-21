@@ -85,7 +85,7 @@ class SpiritTracksSettings(settings.Group):
     train_snap_speed: Union[STTrainSnapSpeed, bool] = True
     train_quick_station: Union[STTrainInstantStation, bool] = True
 
-dev_prints = False
+dev_prints = True
 
 class SpiritTracksWorld(WorldParent):
     """
