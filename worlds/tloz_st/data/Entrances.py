@@ -60,6 +60,26 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.OUTSIDE,
         "island": EntranceGroups.NONE
     },
+    "Tower of Spirits to Ocean Realm": {
+        "return_name": "Ocean Realm to Tower of Spirits",
+        "entrance": (0x14, 1, 0),
+        "exit": (0x6, 0x0, 4),
+        "entrance_region": "tos",
+        "exit_region": "snow realm",
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.OUTSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits to Fire Realm": {
+        "return_name": "Fire Realm to Tower of Spirits",
+        "entrance": (0x14, 1, 0),
+        "exit": (0x7, 0x0, 2),
+        "entrance_region": "tos",
+        "exit_region": "snow realm",
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.OUTSIDE,
+        "island": EntranceGroups.NONE
+    },
 
     # ===== Warp Portals =====
     "Forest Realm North Portal": {
@@ -201,7 +221,7 @@ ENTRANCE_DATA = {
         "two_way": False,
         "entrance_region": "tos 3f rail map",
         "exit_region": "event_3f",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x13, 0x2, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -210,7 +230,43 @@ ENTRANCE_DATA = {
         "two_way": False,
         "entrance_region": "tos 7f rail map",
         "exit_region": "event_7f",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x13, 0x6, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 12F": {
+        "two_way": False,
+        "entrance_region": "tos 11f",
+        "exit_region": "event_12f",
+        "entrance": (0x13, 0xB, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 17F": {
+        "two_way": False,
+        "entrance_region": "tos 16f",
+        "exit_region": "event_17f",
+        "entrance": (0x13, 0xF, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Staven": {
+        "two_way": False,
+        "entrance_region": "tos staven",
+        "exit_region": "event_staven",
+        "entrance": (0x23, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 24F": {
+        "two_way": False,
+        "entrance_region": "tos 24f",
+        "exit_region": "event_24f",
+        "entrance": (0x13, 0x23, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -255,12 +311,179 @@ ENTRANCE_DATA = {
     "GOAL: Defeat Malladus": {
         "two_way": False,
         "entrance_region": "malladus 2",
-        "exit_region": "malladus goal",
+        "exit_region": "malladus event",
         "entrance": (0x29, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+
+    # Order later
+    "Tower of Spirits Enter Section 1": {
+        "return_name": "ToS 1F Exit",
+        "entrance": (0x17, 0, 1),
+        "exit": (0x13, 0x0, 0),
+        "entrance_region": "tos",
+        "exit_region": "tos 1f",
+        "type": EntranceGroups.TOS_SECTION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Enter Section 2": {
+        "return_name": "ToS 4F Exit",
+        "entrance": (0x17, 0, 2),
+        "exit": (0x13, 0x3, 0),
+        "entrance_region": "tos 2",
+        "exit_region": "tos 4f",
+        "type": EntranceGroups.TOS_SECTION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Enter Section 3": {
+        "return_name": "ToS 8F Exit",
+        "entrance": (0x17, 0, 3),
+        "exit": (0x13, 0x7, 0),
+        "entrance_region": "tos 3",
+        "exit_region": "tos 8f",
+        "type": EntranceGroups.TOS_SECTION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    # More ToS Entrances
+    "Tower of Spirits Enter Section 4": {
+        "return_name": "ToS 13F Exit",
+        "entrance": (0x17, 0, 4),
+        "exit": (0x13, 0xC, 0),
+        "entrance_region": "tos 4",
+        "exit_region": "tos 13f",
+        "type": EntranceGroups.TOS_SECTION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Enter Section 5": {
+        "return_name": "ToS 18F Exit",
+        "entrance": (0x17, 0, 5),
+        "exit": (0x13, 0x11, 0),
+        "entrance_region": "tos 5",
+        "exit_region": "tos 18f",
+        "type": EntranceGroups.TOS_SECTION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Exit Staven": {
+        "return_name": "ToS Summit Lower Exit",
+        "entrance": (0x23, 0, 1),
+        "exit": (0x15, 0x0, 0),
+        "entrance_region": "tos staven",
+        "exit_region": "tos summit lower",
+        "type": EntranceGroups.TOS_SECTION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Summit Enter Altar": {
+        "return_name": "ToS 30F Exit",
+        "entrance": (0x15, 0, 2),
+        "exit": (0x13, 0x1d, 0),
+        "entrance_region": "tos 6",
+        "exit_region": "tos 30f",
+        "type": EntranceGroups.TOS_SECTION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+
+    "Forest Sanctuary Enter Sanctuary": {
+        "return_name": "Gage Exit",
+        "entrance": (0x30, 0, 1),
+        "exit": (0x30, 0x1, 0),
+        "entrance_region": "fos",
+        "exit_region": "fos song statue",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Snow Sanctuary Enter Inner Sanctuary": {
+        "return_name": "Steem Exit",
+        "entrance": (0x31, 1, 1),
+        "exit": (0x31, 0x2, 0),
+        "entrance_region": "ss",
+        "exit_region": "ss song",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 3F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 2, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 3f rail map",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 7F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 6, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 7f rail map",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 12F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 0xB, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 11f",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 17F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 0xF, 0),
+        "exit": (0x14, 0x1, 3),
+        "entrance_region": "tos 16f",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 24F Blue Portal": {
+        "two_way": False,
+        "entrance": (0x13, 0x23, 0),
+        "exit": (0x14, 0x1, 1),
+        "entrance_region": "tos 24f",
+        "exit_region": "tos",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "ToS 23F Blue Warp Before Stavem": {
+        "return_name": "ToS Top of Staircase Blue Warp",
+        "entrance": (0x13, 0x14, 2),
+        "exit": (0x17, 0x0, 6),
+        "entrance_region": "tos 22f",
+        "exit_region": "tos 5",
+        "type": EntranceGroups.WARP_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+
+    # Linebeck/bridge worker events
+    "EVENT: Give Regal Ring to Linebeck": {
+        "two_way": False,
+        "entrance_region": "trading post",
+        "exit_region": "linebeck trading",
+        "entrance": (0x37, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    }
+
+
 }
 
 
@@ -271,7 +494,11 @@ entrance_id_to_region = {e.id: e.entrance_region for e in ENTRANCES.values()}
 location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox",
                          "Blizzard Temple Dungeon Reward": "EVENT: Defeat Fraaz",
                          "ToS 3F Forest Rail Glyph": "EVENT: Reach ToS 3F",
-                         "ToS 7F Snow Rail Glyph": "EVENT: Reach ToS 7F"}
+                         "ToS 7F Snow Rail Glyph": "EVENT: Reach ToS 7F",
+                         "ToS 12F Ocean Rail Glyph": "EVENT: Reach ToS 12F",
+                         "ToS 17F Fire Rail Glyph": "EVENT: Reach ToS 17F",
+                         "ToS 23F Defeat Staven": "EVENT: Defeat Staven",
+                         "ToS 24F Final Chest": "EVENT: Reach ToS 24F"}
 goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
                          3: "GOAL: Defeat Fraaz",
                          0: "GOAL: Reach ToS 3F",

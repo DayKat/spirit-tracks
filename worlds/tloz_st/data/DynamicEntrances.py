@@ -16,31 +16,65 @@ DYNAMIC_ENTRANCES = {
                               ],
         "message": "You don't have the snow source!"
     },
+    "Exit ToS to ocean without source": {
+        "entrance": "Tower of Spirits to Ocean Realm",
+        "destination": "Tower of Spirits to Ocean Realm",
+        "has_items": [("Ocean Source", 0),],
+        "message": "You don't have the Ocean source!"
+    },
+    "Exit ToS to fire without source": {
+        "entrance": "Tower of Spirits to Fire Realm",
+        "destination": "Tower of Spirits to Fire Realm",
+        "has_items": [("Fire Source", 0)],
+        "message": "You don't have the Fire source!"
+    },
+
+    "Bounce ToS from forest without base prog": {
+        "entrance": "Forest Realm to Tower of Spirits",
+        "destination": "Forest Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "message": "You need 1 Progressive ToS Section to enter!"
+    },
+    "Bounce ToS from forest without base": {
+        "entrance": "Forest Realm to Tower of Spirits",
+        "destination": "Forest Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", [0, 1]], ["tos_unlock_base_item", 1]],
+        "has_items": [("Tower of Spirits Base", 0)],
+        "message": "You need the Tower of Spirits Base to enter!"
+    },
+    "Bounce ToS from snow without base prog": {
+        "entrance": "Snow Realm to Tower of Spirits",
+        "destination": "Snow Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "message": "You need 1 Progressive ToS Section to enter!"
+    },
+    "Bounce ToS from snow without base": {
+        "entrance": "Snow Realm to Tower of Spirits",
+        "destination": "Snow Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", [0, 1]], ["tos_unlock_base_item", 1]],
+        "has_items": [("Tower of Spirits Base", 0)],
+        "message": "You need the Tower of Spirits Base to enter!"
+    },
+
     # Outset pre-glyph bounce
     "Bounce Outset without glyph": {
         "entrance": "Outset to Forest Realm",
         "destination": "Outset to Forest Realm",
-        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
+        "not_has_all_items": [("Forest Glyph", 1), ("Cannon", 1)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
     "Bounce Tutorial": {
         "entrance": "Outset to Tutorial",
         "destination": "Outset to Tutorial",
-        "not_has_all_items": [("Forest Glyph", 0), ("Cannon", 0)],
+        "not_has_all_items": [("Forest Glyph", 1), ("Cannon", 1)],
         "message": "You need Forest Glyph and Cannon to board the train here"
-    },
-    "Bounce Tutorial missing locs": {
-        "entrance": "Outset to Tutorial",
-        "destination": "Outset to Tutorial",
-        "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
-        "any_not_has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
-        "message": "You need to get the bee tree and clear rocks locations before leaving"
     },
     "Bounce Tutorial to rail": {
         "entrance": "Outset to Tutorial",
         "destination": "Forest Realm to Outset",
         "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
-        "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
     },
 
     # Portal Bounces
@@ -145,6 +179,72 @@ DYNAMIC_ENTRANCES = {
         "has_slot_data": [["endgame_scope", 4]],
         "dungeons": True
     },
+
+    # ToS Bounces
+    "Bounce ToS Section 2": {
+        "entrance": "Tower of Spirits Enter Section 2",
+        "destination": "Tower of Spirits Enter Section 2",
+        "has_items": [("Forest Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "message": "You need the Forest Source to enter this section!"
+    },
+    "Bounce ToS Section 3": {
+        "entrance": "Tower of Spirits Enter Section 3",
+        "destination": "Tower of Spirits Enter Section 3",
+        "has_items": [("Snow Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "message": "You need the Snow Source to enter this section!"
+    },
+    "Bounce ToS Section 4": {
+        "entrance": "Tower of Spirits Enter Section 4",
+        "destination": "Tower of Spirits Enter Section 4",
+        "has_items": [("Ocean Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "message": "You need the Ocean Source to enter this section!"
+    },
+    "Bounce ToS Section 5": {
+        "entrance": "Tower of Spirits Enter Section 5",
+        "destination": "Tower of Spirits Enter Section 5",
+        "has_items": [("Fire Source", 0)],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "message": "You need the Fire Source to enter this section!"
+    },
+
+    # ToS Blue Warp shortcuts
+    "Exit ToS 3F": {
+        "entrance": "ToS 3F Blue Portal",
+        "destination": "_connected_dungeon_entrance",
+    },
+    "Exit ToS 7F": {
+        "entrance": "ToS 7F Blue Portal",
+        "destination": "_connected_dungeon_entrance",
+    },
+    "Exit ToS 12F": {
+        "entrance": "ToS 12F Blue Portal",
+        "destination": "_connected_dungeon_entrance",
+    },
+    "Exit ToS 17F": {
+        "entrance": "ToS 17F Blue Portal",
+        "destination": "_connected_dungeon_entrance",
+    },
+    "Exit ToS 24F": {
+        "entrance": "ToS 24F Blue Portal",
+        "destination": "_connected_dungeon_entrance",
+    },
+
+    # Sanctuary Bounces  (solved with dynaflags instead)
+    # "Bounce FoS": {
+    #     "entrance": "Forest Sanctuary Enter Sanctuary",
+    #     "destination": "Forest Sanctuary Enter Sanctuary",
+    #     "has_items": [("Spirit Flute", 0)],
+    #     "message": "You need the Spirit Flute to enter here"
+    # },
+    # "Bounce Snow Sanc": {
+    #     "entrance": "Snow Sanctuary Enter Inner Sanctuary",
+    #     "destination": "Snow Sanctuary Enter Inner Sanctuary",
+    #     "has_items": [("Spirit Flute", 0)],
+    #     "message": "You need the Spirit Flute to enter here"
+    # },
 }
 
 # Reorganize above data to the form {scene: data} or something

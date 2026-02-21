@@ -9,7 +9,7 @@ STARTING_FLAGS = [
     # easier to bugfix)
 
     [STAddr.adv_flags_0, 0x04],  # restore spirit train cutscene skip
-    [STAddr.adv_flags_1, 0x01],  # forest restoration duet done
+    [STAddr.adv_flags_1, 0x00],  # forest restoration duet done
     [STAddr.adv_flags_2, 0xF0],  # sword tutorial and intro stuff
     [STAddr.adv_flags_3, 0x47],  # split ToS and zelda 1st convo
     [STAddr.adv_flags_4, 0x34],  # load train to ToS
@@ -21,23 +21,32 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
     [STAddr.adv_flags_10, 0x50],  # anjean section text
     [STAddr.adv_flags_12, 0x1B],  # zelda 1st phantom possession + mayascore bugs
+    [STAddr.adv_flags_13, 0x08],  # whip minigame tutorial
     [STAddr.adv_flags_15, 0x58],  # post fleeing ToS 1F
-    [STAddr.adv_flags_16, 0x08],  # ready for FS duet
-    [STAddr.adv_flags_17, 0x40],  # Skip an Anjean dialogue
+    [STAddr.adv_flags_16, 0x38],  # ready for FS duet
+    [STAddr.adv_flags_17, 0xCA],  # Skip an Anjean dialogue
     [STAddr.adv_flags_18, 0x07],  # HC intro Zelda
-    [STAddr.adv_flags_19, 0x01],  # steem
-    [STAddr.adv_flags_1b, 0x02],  # initial train cutscene skip
+    [STAddr.adv_flags_19, 0x63],  # steem
     [STAddr.adv_flags_1a, 0x1C],  # rabbitland rock text
+    [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
+    [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
+    [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
+    [STAddr.adv_flags_24, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
+    [STAddr.adv_flags_2a, 0x02],  # ToS 6 zelda text
+    [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_3d, 0x60],  # ToS safe zone tutorial
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
-    [STAddr.adv_flags_42, 0x80],  # board with zelda
+    [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text
+    [STAddr.adv_flags_42, 0x86],  # board with zelda
+    [STAddr.adv_flags_46, 0x20],  # 7f zelda collapse
     [STAddr.adv_flags_48, 0x10],  # alfonzo giving cannon
     [STAddr.adv_flags_4e, 0x80],  # blizzard void out
+    [STAddr.adv_flags_51, 0x03],  # ToS Staircase cutscene skip
     [STAddr.adv_flags_52, 0x80],  # ToS Staircase cutscene skip
-    [STAddr.adv_flags_53, 0x01],  # ToS Staircase 2 zelda text skip
+    [STAddr.adv_flags_53, 0x77],  # ToS Staircase 2 zelda text skip
     [STAddr.adv_flags_54, 0x28],  # first spirit train journey+portal
     [STAddr.adv_flags_57, 0x40],  # first song statue text
 
@@ -53,7 +62,7 @@ STAGE_FLAGS = {
     0x04: [0x02, 0x00, 0x00, 0x00], # Forest Realm
     0x2F: [0x9E, 0x00, 0x00, 0x00], # Outset Village
     0x29: [0x10, 0x00, 0x00, 0x00], # Castle Town
-    0x28: [0x08, 0x00, 0x00, 0x00],  # Hyrule Castle
+    0x28: [0x08, 0x01, 0x00, 0x00],  # Hyrule Castle
     0x13: [0xFE, 0x06, 0x00, 0x00],  # Tower of Spirits (Main)
     # 0x14: [0x00, 0x00, 0x00, 0x14], # Tower of Spirits (Base)
     # 0x17: [0x00, 0x00, 0x00, 0x17],  # Tower of Spirits (Stairs)
@@ -61,13 +70,13 @@ STAGE_FLAGS = {
     0x19: [0x00, 0x00, 0x00, 0x0D],  # Wooded Temple
     # 0x1E: [0x00, 0x00, 0x00, 0x1E], # Stagnox
     0x2A: [0x02, 0x00, 0x00, 0x00],  # Mayscore/Whittleton
-    0x30: [0x0C, 0x00, 0x00, 0x20],  # Forest Sanctuary
+    0x30: [0x3C, 0x00, 0x00, 0x20],  # Forest Sanctuary
     # 0x38: [0x00, 0x00, 0x00, 0x38],  # Mayscore Forest
     0x3E: [0x00, 0x08, 0x00, 0x00],  # Rabbit Haven
     0x37: [0x86, 0x00, 0x00, 0x00],  # Trading Post
     # 0x05: [0x00, 0x00, 0x00, 0x05], # Snow Realm
     0x2B: [0x02, 0x04, 0x00, 0x00], # Anouki Village
-    0x31: [0x02, 0x00, 0x00, 0x00], # Snow Sanctuary
+    0x31: [0x0A, 0x00, 0x00, 0x00], # Snow Sanctuary
     0x1A: [0x00, 0x40, 0x20, 0x40], # Blizzard Temple
     0x1F: [0x00, 0x00, 0x00, 0xC0], # Fraaz
     0x35: [0x10, 0x00, 0x00, 0x00], # Icy Spring
@@ -81,19 +90,21 @@ STAGES = {
     0x6: "Ocean Realm",
     0x7: "Fire Realm",
     0x8: "Train Tutorial",
-    # 0xb: "SR Roktite Tunnel",
+    0xb: "SR Rocktite Tunnel",
     0xF: "Dark Realm",
     0x10: "Demon Train",
     0x11: "Demon Train P2",
     0x12: "Demon Train P3",
     0x13: "ToS",
     0x14: "ToS Base",
+    0x15: "ToS Summit",
     0x17: "ToS Stairs",
     0x18: "Tunnel to ToS",
     0x19: "Wooded Temple",
     0x1A: "Blizzard Temple",
     0x1E: "Stagnox",
     0x1F: "Fraaz",
+    0x23: "Staven Fight",
     0x24: "Cole Fight",
     0x25: "Malladus 1",
     0x26: "Malladus Spirit Duet",
@@ -113,31 +124,37 @@ STAGES = {
     0x3F: "Snowdrift/Slippery Station",
     # 0x44: "Train Interior CS",
     # 0x50: "Train roof CS",
+    0x45: "Beedle, Train NPCs",
+    0x46: "Take 'em all on Forest theme",
+    0x47: "Take 'em all on Snow theme",
+    0x48: "Take 'em all on Ocean theme",
+    0x49: "Take 'em all on Fire theme",
+    0x4A: "Take 'em all on Sand theme",
+    0x4B: "TEAO Stagnox",
+    0x4C: "TEAO Fraaz",
+    0x4D: "TEAO Cactops",
+    0x4E: "TEAO Vulcano",
+    0x4F: "TEAO Capbone",
     0x79: "From Menu",
 }
 
 ITEM_GROUPS = {
-     "Rupees": [
-        "Green Rupee (1)",
-        "Blue Rupee (5)",
-        "Red Rupee (20)",
+     "Small Rupees": [
+         "Green Rupee (1)",
+         "Blue Rupee (5)",
+         "Red Rupee (20)",
+     ],
+    "Big Rupees": [
         "Big Green Rupee (100)",
         "Big Red Rupee (200)",
         "Gold Rupee (300)",
         "Pre-Alpha Rupee (5000)"
-     ],
+    ],
      "Small Keys": [
          "Small Key (Tunnel to ToS)",
          "Small Key (Wooded Temple)",
          "Small Key (ToS)",
          "Small Key (Blizzard Temple)",
-
-         #     "Small Key (Temple of Fire)",
-    #     "Small Key (Temple of Fire)",
-    #     "Small Key (Temple of Wind)",
-    #     "Small Key (Temple of Courage)",
-    #     "Small Key (Temple of Ice)",
-    #     "Small Key (Mutoh's Temple)"
      ],
     "Boss Keys": [
         "Boss Key (Wooded Temple)",
@@ -171,13 +188,13 @@ ITEM_GROUPS = {
         "Refill: Bombs",
         "Refill: Arrows",
      ],
-    "Forest Rabbits": [
-        "Forest Rabbit",
-        "Forest Rabbits (2)",
-        "Forest Rabbits (3)",
-        "Forest Rabbits (4)",
-        "Forest Rabbits (5)",
-        "Forest Rabbits (10)"
+    "Grass Rabbits": [
+        "Grass Rabbit",
+        "Grass Rabbits (2)",
+        "Grass Rabbits (3)",
+        "Grass Rabbits (4)",
+        "Grass Rabbits (5)",
+        "Grass Rabbits (10)"
     ],
     "Snow Rabbits": [
         "Snow Rabbit",
@@ -213,6 +230,23 @@ ITEM_GROUPS = {
     "Portal Unlocks": [
         "Portal Unlock: Hyrule Castle to Anouki Village",
         "Portal Unlock: Trading Post to E Snow Realm"
+    ],
+    "Tears of Light": [
+        "Tear of Light",
+        "Tear of Light (ToS 1)",
+        "Tear of Light (ToS 2)",
+        "Tear of Light (ToS 3)",
+        "Tear of Light (ToS 4)",
+        "Tear of Light (ToS 5)",
+        "Tear of Light (All Sections)",
+        "Tear of Light (Progressive)",
+        "Big Tear of Light (ToS 1)",
+        "Big Tear of Light (ToS 2)",
+        "Big Tear of Light (ToS 3)",
+        "Big Tear of Light (ToS 4)",
+        "Big Tear of Light (ToS 5)",
+        "Big Tear of Light (All Sections)",
+        "Big Tear of Light (Progressive)",
     ]
 }
 
@@ -220,71 +254,35 @@ ITEM_GROUPS = {
 ITEM_GROUPS |= {
     "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
                     ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"],
-    "Rabbits": ITEM_GROUPS["Forest Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
+    "Rabbits": ITEM_GROUPS["Grass Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
     "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"]
 }
+ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] + ITEM_GROUPS["Big Rupees"]
+ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] + ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"]
 
 # RABBITS = {
-#     "Forest Rabbits": [0x262030, 0xFF, 0x262031, 0x03],
+#     "Grass Rabbits": [0x262030, 0xFF, 0x262031, 0x03],
 #     "Snow Rabbits": [0x262031, 0xFC, 0x262032, 0x0F],
 #     # "Water Rabbits": [0x262032, 0xF0, 0x262033, 0x3F],
 #     # "Fire Rabbits": [0x262033, 0xC0, 0x262034, 0xFF],
 #     # "Sand Rabbits": [0x262034, 0xFF, 0x262035, 0x03],
 # }
 
-LOCATION_GROUPS = {
-    "Forest Realm": [],
-    "Outset Village": ["Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree", "Outset Niko's House Tree", "Outset Receive Stamp Book"],
-    "Castle Town": ["Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest", "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"],
-    "Hyrule Castle": ["Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"],
-    "Tunnel to ToS": ["Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"],
-    "ToS": [
-        "ToS 1F Chest",
-        "ToS 2F Raised Chest",
-        "ToS 2F Whirlwind Chest",
-        "ToS 2F Bomb Wall Chest",
-        "ToS Forest Rail Glyph",
-        "ToS 4F Central Chest",
-        "ToS 4F NE Chest",
-        "ToS 5F Island Chest",
-        "ToS 5F Spinnit Key",
-        "ToS 5F Bomb Wall Chest",
-        "ToS 6F Enemy Chest 1",
-        "ToS 6F Enemy Chest 2",
-        "ToS 6F Enemy Chest 3",
-        "ToS 6F Enemy Big Chest",
-        "ToS 6F Key",
-        "ToS Snow Rail Glyph"
-    ],
-    "Mayscore": ["Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward", "Mayscore Whip Chest"],
-    "Forest Sanctuary": ["Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet", "Forest Sanctuary Chest"],
-    "Wooded Temple": [
-        "Wooded Temple Song Statue",
-        "Wooded Temple Stamp Station",
-        "Wooded Temple 1F Enemy Chest",
-        "Wooded Temple 1F Key",
-        "Wooded Temple 1F Switch Chest",
-        "Wooded Temple 2F Enemy Chest",
-        "Wooded Temple 2F Poison Chest",
-        "Wooded Temple 3F Chestnut Chest",
-        "Wooded Temple 3F SE Chest",
-        #"Wooded Temple 3F Boss Key Chest",
-        #"Wooded Temple Boss Heart Container",
-        "Wooded Temple Dungeon Reward"
-    ],
-    "Rabbit Haven": ["Rabbit Haven Net Gift", "Rabbit Haven Chest"],
-    "Trading Post": ["Trading Post Stamp Station", "Trading Post Chest"],
-    "Snow Realm": [],
-    "Anouki Village": [],
-    "Snow Sanctuary": [],
-    "Blizzard Temple": [],
-    "Icy Spring": [],
-    "Snowdrift Station": [],
-    "Slippery Station": [],
-    "Bridge Worker's Home": [],
+TREASURE_PRICES = {t: value for treasure_type, value in zip(["Common", "Uncommon", "Rare", "Super Rare"], [50, 150, 500, 2500]) for t in ITEM_GROUPS[treasure_type + " Treasures"]}
 
-    "Unique Forest Rabbits": [],
-    "Unique Snow Rabbits": []
+LOCATION_GROUPS: dict[str, set[str]] = {
+    # "Outset Village": {"Outset Clear Rocks", "Outset Bee Tree", "Outset Stamp Station", "Outset Far Right Tree",
+    #                    "Outset Niko's House Tree", "Outset Receive Stamp Book"},
+    # "Castle Town": {"Castle Town Stamp Station", "Castle Town Left Wall Chest", "Castle Town Right Wall Chest",
+    #                 "Castle Town Minigame Roof", "Castle Town Ramp House Chest", "Castle Town Empty House Roof Chest"},
+    # "Hyrule Castle": {"Hyrule Castle NW Outside Chest", "Hyrule Castle 2F Indoors Chest", "Hyrule Castle 1F Back Chest"},
+    # "Tunnel to ToS": {"Tunnel to ToS Block Chest", "Tunnel to ToS 2F Chest"},
+    # "Mayscore": {"Mayscore Stamp Station", "Mayscore Whip Race 1st Reward", "Mayscore Whip Race 2nd Reward",
+    #              "Mayscore Whip Chest"},
+    # "Forest Sanctuary": {"Forest Sanctuary Stamp Station", "Forest Sanctuary Song Statue", "Forest Sanctuary Gage Duet",
+    #                      "Forest Sanctuary Chest"},
+    # "Rabbit Haven": {"Rabbit Haven Net Gift", "Rabbit Haven Chest"},
+    # "Trading Post": {"Trading Post Stamp Station", "Trading Post Chest"},
 }
 
 DUNGEON_NAMES = [
@@ -295,7 +293,12 @@ DUNGEON_NAMES = [
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
-    "ToS": "ToS Forest Rail Glyph",
+    "ToS 1": "ToS 3F Forest Rail Glyph",
+    "ToS 2": "ToS 7F Snow Rail Glyph",
+    "ToS 3": "ToS 12F Ocean Rail Glyph",
+    "ToS 4": "ToS 17F Fire Rail Glyph",
+    "ToS 5": "ToS 23F Defeat Staven",
+    "ToS 6": "ToS 24F Final Chest",
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
 }
@@ -304,7 +307,11 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
-    "ToS 7F Snow Rail Glyph": "tos 7f rail map"
+    "ToS 7F Snow Rail Glyph": "tos 7f rail map",
+    "ToS 12F Ocean Rail Glyph": "tos 11f",
+    "ToS 17F Fire Rail Glyph": "tos 16f",
+    "ToS 23F Defeat Staven": "tos staven",
+    "ToS 24F Final Chest": "tos 24f"
 }
 
 DUNGEON_KEY_DATA = {
@@ -314,15 +321,34 @@ DUNGEON_KEY_DATA = {
         "filter": 0xFF,
         "value": 1,
         "size": 8,
-        # 'entrances': {
-        #     0xB01: {
-        #         "max_z": 0x12800,
-        #         # "max_z": 0xFFFF7000
-        #     },
-        #     0xB03: {
-        #         "max_z": 0xB200,
-        #         "min_z": 0x5000
-        #     }}
+    },
+    0x132: {
+        "name": "ToS 2",
+        "address": STAddr.key_storage_tos,
+        "filter": 0x3,
+        "value": 1,
+        "size": 2,
+    },
+    0x134: {
+        "name": "ToS 4",
+        "address": STAddr.key_storage_tos,
+        "filter": 0xC,
+        "value": 4,
+        "size": 2,
+    },
+    0x135: {
+        "name": "ToS 5",
+        "address": STAddr.key_storage_tos,
+        "filter": 0x30,
+        "value": 0x10,
+        "size": 2,
+    },
+    0x136: {
+        "name": "ToS 6",
+        "address": STAddr.key_storage_tos,
+        "filter": 0xC0,
+        "value": 0x40,
+        "size": 2,
     },
     0x18: {
         "name": "Tunnel to ToS",
@@ -330,15 +356,6 @@ DUNGEON_KEY_DATA = {
         "filter": 0x01,
         "value": 1,
         "size": 1,
-        # 'entrances': {
-        #     0xB01: {
-        #         "max_z": 0x12800,
-        #         # "max_z": 0xFFFF7000
-        #     },
-        #     0xB03: {
-        #         "max_z": 0xB200,
-        #         "min_z": 0x5000
-        #     }}
     },
     0x19: {
         "name": "Wooded Temple",
@@ -346,12 +363,6 @@ DUNGEON_KEY_DATA = {
         "filter": 0x06,
         "value": 0x02,
         "size": 2,
-        # 'entrances': {
-        #     0x2600: {
-        #         "max_z": 0x11800,
-        #         "min_z": 0x0
-        #     }
-        # }
     },
     0x1A: {
         "name": "Blizzard Temple",
@@ -361,6 +372,7 @@ DUNGEON_KEY_DATA = {
         "size": 1,
     },
 }
+
 
 HINTS_ON_SCENE = {
     # 0xB11: {  # Mercay Shop
@@ -394,26 +406,50 @@ HINTS_ON_TRIGGER = {
     #"Masked Beedle": ["Masked Beedle Courage Gem", "Masked Beedle Heart Container"]
 }
 
-# Train sets
-TRAINS = [
-    "S.S. Linebeck",
-    "Train: Bright Train",
-    "Train: Iron Train",
-    "Train: Stone Train",
-    "Train: Vintage Train",
-    "Train: Demon Train",
-    "Train: Tropical Train",
-    "Train: Dignified Train",
-    "Train: Golden Train",
-]
+SHOP_TREASURE_DATA = {
+    0x290a: [{
+        "locations": ["Castle Town Shop Treasure 1", "Castle Town Shop Treasure 2"],
+        "group": "Uncommon"
+    }],
+    0x2a05: [{
+        "locations": ["Mayscore Shop Treasure 1", "Mayscore Shop Treasure 2"],
+        "group": "Common"
+    }],
+    0x4503: [{
+        "locations": ["Beedle Buy Uncommon Treasure"],
+        "group": "Uncommon"
+    }, {
+        "locations": ["Beedle Buy Rare Treasure"],
+        "group": "Rare"
+    }],
+}
+
+
+
+tear_lookup = {1: 3, 4: 6, 9: 9, 13: 12, 18: 15, 30: 16}
+big_tear_lookup = {1:1, 4:2, 9: 3, 13: 4, 18: 5, 30: 6}
+
+DUNGEON_STAGES_TO_ENTRANCE_SCENE = {
+    0x13: 0x1401,
+    0x15: 0x1401,
+    0x17: 0x1401,
+    0x23: 0x1401,
+    0x1A: 0x1A00,
+    0x19: 0x1900,
+    0x1E: 0x1900,
+    0x1F: 0x1A00
+}
 
 # Used by rule builder
 ITEM_MAPPING = {
-        i: "Rupees" for i in ITEM_GROUPS["Rupees"]
+        i: "Rupees" for i in ITEM_GROUPS["Rupee Items"]
     } | {
-        f"Forest Rabbits ({i})": "Forest Rabbit" for i in list(range(2, 6)) + [10]
+        f"Grass Rabbits ({i})": "Grass Rabbit" for i in list(range(2, 6)) + [10]
     } | {
-        f"Snow Rabbits ({i})": "Snow Rabbit" for i in list(range(2, 6)) + [10]}
+        f"Snow Rabbits ({i})": "Snow Rabbit" for i in list(range(2, 6)) + [10]
+    } | {
+        t : "Treasure" for t in ITEM_GROUPS["All Treasures"]
+    }
 
 # Stamp stuff
 STAMPS = []
@@ -428,9 +464,85 @@ CLASSIFICATION = {
                   }
 
 UT_EVENT_DATA = {
-    0x2900: {"address": STAddr.adv_flags_11,
+    0x2900: [{"address": STAddr.adv_flags_11,
            "value": 0x40,
-           "entrance": "EVENT: Pick up Alfonzo"}
+           "entrance": "EVENT: Pick up Alfonzo"}],
+    0x3700: [{"address": STAddr.adv_flags_24,
+              "value": 0x10,
+              "entrance": "EVENT: Give Regal Ring to Linebeck"}]
+}
+
+ENTRANCE_TO_TOS_ORDER = {
+"Tower of Spirits Enter Section 1": 1,
+"Tower of Spirits Enter Section 2": 2,
+"Tower of Spirits Enter Section 3": 3,
+"Tower of Spirits Enter Section 4": 4,
+"Tower of Spirits Enter Section 5": 5,
+"Tower of Spirits Exit Staven": 6,
+"Tower of Spirits Summit Enter Altar": 7,
+}
+
+EXIT_TO_TOS_SECTION = {
+    "ToS 30F Exit": 6,
+    "ToS 18F Exit": 5,
+    "ToS 13F Exit": 4,
+    "ToS 8F Exit": 3,
+    "ToS 4F Exit": 2,
+    "ToS 1F Exit": 1,
+}
+
+BOSS_WARP_SCENE_LOOKUP = {
+    0x1302: "ToS 1F Exit",
+    0x1306: "ToS 4F Exit",
+    0x130b: "ToS 8F Exit",
+    0x130f: "ToS 13F Exit",
+    0x1314: "ToS 18F Exit",
+    0x1323: "ToS 30F Exit",
+}
+
+TOS_FLOOR_TO_SECTION = {
+    0: 1,
+    1: 1,
+    2: 1,
+    3: 2,
+    4: 2,
+    5: 2,
+    6: 2,
+    7: 3,
+    8: 3,
+    9: 3,
+    0xA: 3,
+    0xB: 3,
+    0xC: 4,
+    0xD: 4,
+    0xE: 4,
+    0xF: 4,
+    0x10: 4,
+    0x11: 5,
+    0x12: 5,
+    0x13: 5,
+    0x14: 5,  # 23F
+    0x17: 5,  # 21F
+    0x18: 5,  # 22F
+
+    0x15: 3,
+    0x16: 3,
+
+    0x28: 1,
+    0x29: 2,
+    0x2A: 3,
+    0x2B: 4,
+    0x2C: 6,
+    0x2D: 6,
+
+    0x1d: 6,  # 31F
+    0x1e: 6,  # 30F
+    0x1f: 6,  # 29F
+    0x20: 6,  # 28F
+    0x21: 6,  # 27F
+    0x22: 6,  # 26F
+    0x23: 6,  # 24F
+    0x24: 6,  # 25F
 }
 
 #TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}

@@ -29,26 +29,22 @@ REGIONS = [
     #"outset village joe gem",
     #"outset village cannon",
 
-    #"beedle gem",
-    #"beedle bomb bag",
 
     # Castle Town
     "castle town",
     "castle town stamp station",
     "castle town wall",
-    #"castle town minigame",
     "castle town cuccos",
-    #"castle town fish gem",
+    "castle town shop",
     "pick up alfonzo",
     "alfonzo event",
+    "teao 1",
+    "teao 2",
+    "teao 3",
 
     # Hyrule Castle
     "hyrule castle",
-    # "hyrule castle spirit flute",
-    "hyrule castle nw chest",
-    "hyrule castle 2f indoors chest",
-    "hyrule castle 1f back chest",
-    "hyrule castle sword training",
+    "hyrule castle sword minigame",
 
     # Tunnel to Tower
     "tower tunnel",
@@ -57,9 +53,14 @@ REGIONS = [
 
     # Tower of Spirits
     "tos",
-    "tear 1f top",
+    "tos 2",
+    "tos 3",
+    "tos 4",
+    "tos 5",
+
     "tos 1f",
     "tos 1f chest",
+    "tos 1f switch",
     "tos 2f",
     "tos 2f raised chests",
     "tos 2f bomb wall",
@@ -68,8 +69,9 @@ REGIONS = [
     "event_3f",
 
     "tos 4f",
+    "tos 4f whirlwind",
     "tos 4f ne chest",
-    "tos 5f island chest",
+    "tos 5f phantom",
     "tos 5f spinnit key",
     "tos 5f alt path",
     "tos 5f secret chest",
@@ -79,14 +81,63 @@ REGIONS = [
     "goal_snow_glyph",
     "event_7f",
 
+    "tos 8f",
+    "tos 8f bombs",
+    "tos 9f nw",
+    "tos 9f phantom",
+    "tos 11f",
+    "event_12f",
+
+    "tos 13f",
+    "tos 13f whip",
+    "tos 13f boomerang",
+    "tos 14f east",
+    "tos 13f phantom",
+    "tos 13f phantom whip",
+    "tos 14f west",
+    "tos 14f phantom",
+    "tos 15f",
+    "tos 16f",
+    "tos 16f bombs",
+    "event_17f",
+
+    "tos 18f",
+    "tos 18f whip",
+    "tos 19f",
+    "tos 18f phantom",
+    "tos 19f south",
+    "tos 20f tear",
+    "tos 19f center",
+    "tos 19f center chest",
+    "tos 20f",
+    "tos 19f center 2",
+    "tos 22f",
+    "tos staven",
+    "event_staven",
+
+    "tos summit",
+    "tos summit lower",
+    "tos 6",
+    "tos stamp stand",
+
+    "tos 30f",
+    "tos 30f bomb wall",
+    "tos 29f",
+    "tos 29f sand wand",
+    "tos 29f se",
+    "tos 27f",
+    "tos 24f",
+    "event_24f",
+
     # Mayscore
     "mayscore",
     "mayscore stamp station",
     "mayscore whip race bomb bag",
     "mayscore whip race heart container",
     "mayscore whip chest",
+    "mayscore shop",
+    "mayscore leaves",
     #"mayscore axe gem",
-    #"mayscore leaf pile",
 
     # Rabbit Haven
     "rabbit haven",
@@ -134,6 +185,8 @@ REGIONS = [
     "trading post light song statue",
     "trading post chest",
     "trading post stamp station",
+    "linebeck trading",
+    "trading post leaves",
     #"trading post ore gem",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,12 +216,12 @@ REGIONS = [
     # Snow Sanctuary
     "ss",
     "ss stamp station",
-    #"ss steem duet",
-    #"ss shop hc", (costs 2000)
+    "ss song",
+    "snow sanc shop",
 
     # Blizzard Temple
     "bt",
-    "bt b1 se chest",
+    "bt b1 se",
     "bt b1 e enemy chest",
     "bt b1 ne enemy chest",
     "bt 1f ne chest",
@@ -201,6 +254,12 @@ REGIONS = [
     "bridge workers",
     "bridge workers chest",
 
+    # Beedle
+    "beedle",
+    "beedle bomb bag",
+    "beedle uncommon treasure",
+    "beedle rare treasure",
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm
 
@@ -231,5 +290,5 @@ REGIONS = [
 
 
 ] + [
-    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Forest", "Snow"]
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow"]
 ]

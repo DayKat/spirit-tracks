@@ -4,18 +4,29 @@ DYNAMIC_FLAGS = {
     "Outset Rei": {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Clear Rocks"],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x04)]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)],
+        "reset_flags": ["RESET forest glyph"]
     },
     "Outset Bee Boy": {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Bee Tree"],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x04)]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)],
+        "reset_flags": ["RESET forest glyph"]
     },
     "Allow leaving Outset": {
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
         "has_items": [["Forest Glyph", 1]],
-        "set_if_true": [(STAddr.adv_flags_0, 0x04)]
+        "set_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)]
+    },
+    "RESET forest glyph": {
+        "has_items": [["Forest Glyph", 1]],
+        "set_if_true": [(STAddr.adv_flags_1, 0x80), (STAddr.adv_flags_0, 0x04)]
+    },
+    "Safety forest glyph on forest glyph map": {
+        "on_scenes": [0x400],
+        "has_items": [["Forest Glyph", 1]],
+        "set_if_true": [(STAddr.adv_flags_1, 0x81), (STAddr.adv_flags_0, 0x04)]  # also prevents tree maze to fs
     },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
@@ -113,12 +124,15 @@ DYNAMIC_FLAGS = {
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
-        "unset_if_true": [(STAddr.adv_flags_25, 0x02)],
+        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET Stamp Book Check"]
     },
     "RESET Stamp Book Check": {
-        "on_scenes": [0x2F00],
         "has_items": [["Stamp Book", 1]],
+        "set_if_true": [(STAddr.adv_flags_25, 0x02)],
+    },
+    "RESET Snow Restoration": {
+        "has_items": [["Blizzard Temple Tracks", 1]],
         "set_if_true": [(STAddr.adv_flags_25, 0x02)],
     },
 
@@ -154,9 +168,25 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET snow realm crash"]
     },
+    "Snow realm crashes fire glyph and no blizzard tracks": {
+        "on_scenes": [0x500],
+        "has_items": [["Fire Glyph", 1], ["Blizzard Temple Tracks", 0]],
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "reset_flags": ["RESET fire glyph"]
+    },
+    "Forest realm crashes fire glyph and no ocean glyph": {
+        "on_scenes": [0x400],
+        "has_items": [["Fire Glyph", 1], ["Ocean Glyph", 0]],
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "reset_flags": ["RESET fire glyph"]
+    },
     "RESET snow realm crash": {
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
         "has_items": [["Snow Source", 1]],
+    },
+    "RESET fire glyph": {
+        "set_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "has_items": [["Fire Glyph", 1]],
     },
     # "Forest Sanctuary reset duet":{ #TODO wrong flag?
     #     "on_scenes": [0x3001],
@@ -228,7 +258,214 @@ DYNAMIC_FLAGS = {
     "Dark realm spawn demon train quick": {
         "on_scenes": [0x1000, 0x10FF],
         "set_if_true": [(STAddr.adv_flags_57, 0x30)]
-    }
+    },
+    # Sanctuaries
+    "Gage don't have spirit flute": {
+        "on_scenes": [0x3001],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 1)]
+    },
+    "Gage can play duet": {
+        "on_scenes": [0x3001],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Forest Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 1)]
+    },
+    "Gage Reset flags": {
+        "on_scenes": [0x3001],
+        "unset_if_true": [(STAddr.rail_restorations, 0x2)],
+        "reset_flags": ["FoS Reset FTT", "FoS Reset FTT not has"]
+    },
+    "FoS Reset FTT not has": {
+        "has_items": [("Wooded Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x2)]
+    },
+    "FoS Reset FTT": {
+        "has_items": [("Wooded Temple Tracks", 1)],
+        "set_if_true": [(STAddr.rail_restorations, 0x2)]
+    },
+    "Steem don't have spirit flute": {
+        "on_scenes": [0x3102],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 2)]
+    },
+    "Steem can play duet": {
+        "on_scenes": [0x3102],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Snow Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 2)]
+    },
+    "Always remove btt in snow sanc room": {
+        "on_scenes": [0x3102],
+        "unset_if_true": [(STAddr.rail_restorations, 0x4)],
+        "reset_flags": ["Snow sanc Reset BTT not has", "Snow sanc Reset BTT"]
+    },
+    "Snow sanc Reset BTT not has": {
+        "has_items": [("Blizzard Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 2)]
+    },
+    "Snow sanc Reset BTT": {
+        "has_items": [("Blizzard Temple Tracks", 1)],
+        "set_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 2)]
+    },
+    "ToS Summit maladus cs": {
+        "on_scenes": [0x1500],
+        "set_if_true": [(STAddr.adv_flags_20, 0x4)]
+    },
+
+    # ToS climb flags
+    "ToS open sections": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 0]],
+        "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Remove Fire source"]
+    },
+    "ToS progressive sections 0": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 1": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 1, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 2": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 2, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x30)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xC0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 3": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 3, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 4": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
+        "has_items": [("Progressive ToS Section", 4)],
+        "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Remove Fire source"]
+    },
+    "ToS progressive sections 0 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 1, "has_exact")],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 1 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 2, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 2 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 3, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x30)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Add Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 3 base": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 4, "has_exact")],
+        "set_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Add Fire source"]
+    },
+    "ToS progressive sections 5": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 5)],
+        "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source", "RESET Remove Fire source"]
+    },
+
+    "RESET Remove Forest source": {
+        "has_items": [("Forest Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x10)],
+    },
+    "RESET Remove Snow source": {
+        "has_items": [("Snow Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
+    },
+    "RESET Remove Ocean source": {
+        "has_items": [("Ocean Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+    },
+    "RESET Remove Fire source": {
+        "has_items": [("Fire Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+    },
+    "RESET Add Forest source": {
+        "has_items": [("Forest Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x10)],
+    },
+    "RESET Add Snow source": {
+        "has_items": [("Snow Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
+    },
+    "RESET Add Ocean source": {
+        "has_items": [("Ocean Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+    },
+    "RESET Add Fire source": {
+        "has_items": [("Fire Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x80)],
+    },
+
+    # Shop stuff
+    "Remove beedle bomb flag": {
+        "on_scenes": [0x4503],
+        "not_has_locations": [],
+        "unset_if_true": [(STAddr.adv_flags_22, 0x02)],
+        "reset_flags": ["RESET beedle bomb bag flag"]
+    },
+    "RESET beedle bomb bag flag": {
+        "has_items": [("Bombs (Progressive)", 1)],
+        "set_if_true": [(STAddr.adv_flags_22, 0x02)],
+    },
+
+    # Linebeck Trade
+    "Has Regal Ring for Linebeck": {
+        "on_scenes": [0x3700],
+        "has_items": [("Regal Ring", 1)],
+        "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
+        "set_bits": [(STAddr.adv_flags_3e, 0x10)]
+    },
+    "Reset linebeck regal ring stuff in cave": {
+        "on_scenes": [0x3702],
+        "not_has_locations": ["Trading Post Chest"],
+        "unset_bits": [(STAddr.adv_flags_3e, 0x10)]
+    },
+
 
 }
 """

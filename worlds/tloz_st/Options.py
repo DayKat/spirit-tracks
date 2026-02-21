@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup
+    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet
 from worlds.tloz_st.data.Items import ITEMS_DATA
+from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION
 
 # YAML options
 
@@ -41,7 +42,7 @@ class SpiritTracksDungeonCount(Range):
     Will not go higher than the number of valid locations in dungeon pool
     """
     range_start = 1
-    range_end = 4
+    range_end = 8
     default = 2
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
@@ -54,6 +55,18 @@ class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     option_not_in_dungeon_pool = 0
     option_final_section = 1
     option_all_sections = 2
+
+class SpiritTracksDungeonPoolPlando(OptionSet):
+    """
+    Choose what dungeons appear in the required dungeon pool.
+    Leave blank to ignore.
+    Valid options are: 'Wooded Temple', 'Blizzard Temple', 'Marine Temple', 'ToS 1'...'ToS 6'
+    Overrides tos_dungeon_options.
+    """
+    display_name = "Plando Dungeon Pool"
+    default = set()
+    valid_keys = [k.lower() for k in DUNGEON_TO_BOSS_ITEM_LOCATION] + list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
+
 
 class SpiritTracksEndgameScope(Choice):
     """
@@ -117,14 +130,16 @@ class SpiritTracksKeyRandomization(Choice):
     """
     Small Key Logic options:
     - vanilla: Keys are not randomized
+    - in_own_section: Keys can be found in their own dungeon or tower of spirits section
     - in_own_dungeon: Keys can be found in their own dungeon
     - anywhere: Keysanity. Keys can be found anywhere
     """
     display_name = "Key Settings"
     option_vanilla = 0
+    option_in_own_section = 3
     option_in_own_dungeon = 1
     option_anywhere = 2
-    default = 1
+    default = 3
 
 
 class SpiritTracksRabbitsanity(Choice):
@@ -238,6 +253,169 @@ class SpiritTracksStartWithTrain(Toggle):
     display_name = "Start With Train"
     default = 1
 
+class SpiritTracksRandomizeTears(Choice):
+    """
+    Randomize Tears of Light
+    - vanilla: tears of light are not randomized
+    - vanilla_items: tears of light are vanilla, but you don't need to collect them more than once and they count as archipelago locations for hint costs.
+    - in_own_section: tears of light are randomized in their own tower sections. progressive tears count towards all sections
+    - in_tos: tears of light are randomized anywhere in Tower of Spirits
+    - anywhere: tears of light are randomized anywhere
+    - no_tears: you need to find either two swords or bow of light + bow to possess phantoms, tears are still locations.
+    """
+    display_name = "Randomize Tears of Light"
+    option_vanilla = -1
+    option_vanilla_items = -2
+    option_in_own_section = 1
+    option_in_tos = 2
+    option_anywhere = 3
+    option_no_tears = 0
+    default = -1
+
+class SpiritTracksTearSize(Choice):
+    """
+    Tears of light size
+    - small: you need 3 tears for each tower section
+    - large: you need one big tear per section
+    """
+    display_name = "Tears of Light Size"
+    option_small = 0
+    option_large = 1
+    default = 0
+
+class SpiritTracksTearGroup(Choice):
+    """
+    tears_of_light_grouping:
+    - unique_sections: tears of light only work in one section
+    - all_sections: tears fill each section from bottom to top, totalling 15 small items or 5 big ones.
+    - progressive_spirit_items: tears fill each section from bottom to top. Works with shuffle_tos_section.
+    """
+    display_name = "Tears of Light Sectionality"
+    option_unique_sections = 0
+    option_all_sections = 1
+    option_progressive = 2
+
+class SpiritTracksSpiritItems(Choice):
+    """
+    Lokomo Sword and Bow of Light can be combined with certain tear of light groupings
+    - items: Lokomo Sword is the second progressive sword; and Bow of Light is its own item, but requires a progressive bow to use.
+    - final_tear: if tear_group is all_sections or progressive, the final tear item will unlock both the Lokomo Sword and the Bow of Light.
+    """
+    display_name = "Tears of Light Progressiveness"
+    option_items = 0
+    option_final_tear = 1
+
+class SpiritTracksStartingTrain(Choice):
+    """
+    What train to start with. Train parts will be randomized later.
+    Different trains have different health, but i want this to more be a fun cosmetic thing.
+    - all_parts: start with all parts, and customize freely in Alfonzo's Workshop on outset.
+    - random_train: picks 1 random train to start with
+    """
+    display_name = "Starting Train"
+    option_all_parts = -1
+    option_random_train = -2
+    option_spirit_train = 0
+    option_wooden_train = 1
+    option_refined_train = 2
+    option_demon_train = 3
+    option_stagecoach = 4
+    option_dragon_train = 5
+    option_sweet_train = 6
+    option_golden_train = 7
+    default = 0
+
+class SpiritTracksRandomizeMinigames(Choice):
+    """
+    Randomize Minigames.
+    Includes Mayscore Whip game, Take 'em All On, Hyrule Castle Sword Training, Slippery Station and Restoration Duets.
+    """
+    display_name = "Randomize Minigames"
+    option_no_minigames = 0
+    option_randomize_with_hints = 1
+    option_randomize_without_hints = 2
+    default = 2
+
+class SpiritTracksToSSectionUnlocks(Choice):
+    """
+    What unlocks tower of spirits sections?
+    open: all sections are open from the start
+    sources: each source unlocks a new section
+    progressive: adds "Progressive Tower Section" items, that unlock sections one at a time. ToS 1 is always available.
+    """
+    display_name = "ToS Section Unlocks"
+    option_open = 0
+    option_sources = 1
+    option_progressive = 2
+    default = 1
+
+class SpiritTracksToSBase(Toggle):
+    """
+    If True, Prevents Tower of Spirit access until you have the "Tower of Spirits Base" item
+    Instead creates an additional progressive tower section item if you play with progressive tower sections.
+    """
+    display_name = "ToS Unlock Base Item"
+    default = 0
+
+class SpiritTracksShuffleToSSections(Choice):
+    """
+    Shuffle Tower of Spirits Sections.
+    Also includes the summit as its own section.
+    Progressive tears will respect the new ordering.
+    """
+    display_name = "Shuffle ToS Sections"
+    option_no_shuffle = 0
+    option_shuffle = 1
+
+class SpiritTracksShopsanity(Choice):
+    """
+    Randomize Shops.
+    - no_shops: don't randomize shops. Unique items give nothing.
+    - major_items: only unique items like bomb bags or heart containers are locations
+    - treasures: only treasures from shops are locations
+    - all_above: all possible shop items are locations
+    """
+    display_name = "Shopsanity"
+    option_no_shops = 0
+    option_major_items = 1
+    option_treasures = 2
+    option_all_above = 3
+    default = 0
+
+class SpiritTracksShopHints(Toggle):
+    """
+    Know what you're buying before you buy
+    """
+    display_name = "Shop Hints"
+    default = 1
+
+class SpiritTracksRupeeFarming(Choice):
+    """
+    What is required for rupee farming?
+    - no_farming: All rupees are accounted for in the item pool.
+    - unlimited_farming: Once you have access to Linebeck, or rupees from excess treasures, you are logically expected to farm for rupees.
+    - capped_farming: The amount of rupees you're expected to farm depends on how many farming hotspots you have in logic.
+    """
+    display_name = "Rupee Farming Logic"
+    option_no_farming = 0
+    option_unlimited_farming = 1
+    # option_capped_farming = 2
+    default = 0
+
+class SpiritTracksExcessTreasures(Choice):
+    """
+    There are random treasures everywhere, in pots, leaves, from minigames, shops and prize postcards.
+    What happens when you get them?
+    - nothing: random treasures give you nothing.
+    - vanilla: You get what you get
+    - convert_to_rupees: Instantly converts to Linebeck's sell price.
+    """
+    display_name = "Excess Random Treasure"
+    option_nothing = 0
+    option_vanilla = 1
+    option_convert_to_rupees = 2
+    default = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -249,6 +427,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     endgame_scope: SpiritTracksEndgameScope
     dungeons_required: SpiritTracksDungeonCount
     tos_dungeon_options: SpiritTracksTowerOfSpiritsDungeonOptions
+    plando_dungeon_pool: SpiritTracksDungeonPoolPlando
     require_specific_dungeons: SpiritTracksRequireSpecificDungeons
     dungeon_hints: SpiritTracksRequiredDungeonHints
 
@@ -258,7 +437,17 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
+    randomize_minigames: SpiritTracksRandomizeMinigames
     start_with_train: SpiritTracksStartWithTrain
+
+    tos_section_unlocks: SpiritTracksToSSectionUnlocks
+    tos_unlock_base_item: SpiritTracksToSBase
+    shuffle_tos_sections: SpiritTracksShuffleToSSections
+
+    randomize_tears: SpiritTracksRandomizeTears
+    tear_size: SpiritTracksTearSize
+    tear_sections: SpiritTracksTearGroup
+    spirit_weapons: SpiritTracksSpiritItems
 
     # Portals
     portal_behavior: SpiritTracksRandomizePortals
@@ -270,6 +459,12 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # World Options
 
+    # Shops, treasure and rupees
+    shopsanity: SpiritTracksShopsanity
+    shop_hints: SpiritTracksShopHints
+    rupee_farming_logic: SpiritTracksRupeeFarming
+    excess_random_treasure: SpiritTracksExcessTreasures
+
     # Rabbit Options
     rabbitsanity: SpiritTracksRabbitsanity
     rabbit_max_location_count: SpiritTracksMaxRabbitLocationCount
@@ -277,6 +472,9 @@ class SpiritTracksOptions(PerGameCommonOptions):
     rabbit_pack_size: SpiritTracksRabbitPackSize
     rabbit_extra_items: SpiritTracksExtraRabbits
     # rabbit_hints: SpiritTracksRabbitHints
+
+    # Cosmetic
+    starting_train: SpiritTracksStartingTrain
 
     # Generic
     start_inventory_from_pool: StartInventoryPool
@@ -291,14 +489,31 @@ st_option_groups = [
         SpiritTracksRequireSpecificDungeons,
         SpiritTracksEndgameScope,
         SpiritTracksTowerOfSpiritsDungeonOptions,
+        SpiritTracksDungeonPoolPlando,
         SpiritTracksRequiredDungeonHints,
     ]),
-    OptionGroup("World Options", [
+    OptionGroup("Misc Options", [
         SpiritTracksLogic,
         SpiritTracksKeyRandomization,
+        SpiritTracksRandomizeMinigames,
         SpiritTracksRandomizePortals,
         SpiritTracksPortalLocations,
-        SpiritTracksStartWithTrain
+        SpiritTracksStartWithTrain,
+    ]),
+    OptionGroup("ToS Options", [
+        SpiritTracksToSSectionUnlocks,
+        SpiritTracksToSBase,
+        SpiritTracksShuffleToSSections,
+        SpiritTracksRandomizeTears,
+        SpiritTracksTearSize,
+        SpiritTracksTearGroup,
+        SpiritTracksSpiritItems
+    ]),
+    OptionGroup("Shops, Treasure and Rupees", [
+        SpiritTracksShopsanity,
+        SpiritTracksShopHints,
+        SpiritTracksRupeeFarming,
+        SpiritTracksExcessTreasures
     ]),
     OptionGroup("Rabbit Options", [
         SpiritTracksRabbitsanity,
@@ -308,6 +523,9 @@ st_option_groups = [
         SpiritTracksExtraRabbits,
         SpiritTracksRabbitHints
     ]),
+    OptionGroup("Cosmetic Options", [
+        SpiritTracksStartingTrain
+    ])
 
 ]
 

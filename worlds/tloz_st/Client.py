@@ -1,6 +1,6 @@
 
 from .DSZeldaClient.DSZeldaClient import *
-from .DSZeldaClient.subclasses import AddrFromPointer, storage_key
+from .DSZeldaClient.subclasses import storage_key
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
@@ -25,7 +25,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving]
-read_keys_land = [STAddr.getting_location, STAddr.getting_train_part]
+read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety]
 read_keys_train = [STAddr.train_gear]
 
 rabbit_storage_key = "rabbit_locs"
@@ -154,7 +154,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.goal_locations = build_location_to_goal()
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
-        self.treasure_tracker = {}
+        self.treasure_tracker: dict = {}
         self.item_data = ITEMS
         self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
 
@@ -176,6 +176,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.sent_event = False
         self.event_data = []
         self.entrances = ENTRANCES
+        self.boss_warp_entrance = None
+        self.tos_section_shuffle_lookup = {}
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -185,6 +187,11 @@ class SpiritTracksClient(DSZeldaClient):
         self.train_quick_station = True
         self.update_train_speed: bool = False
         self.train_speed = [-143, 0, 115, 193]
+        self.has_set_starting_train = False
+        self.key_address = STAddr.small_keys
+
+        self.hint_data = HINT_DATA
+        self.got_item_no_loc = False
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -250,7 +257,7 @@ class SpiritTracksClient(DSZeldaClient):
         # read_keys += read_keys_train
         if stage in range(4, 8):
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-            self.train_gear_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
+            self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
             read_keys.append(self.train_gear_addr)
 
         self.main_read_list = read_keys
@@ -274,11 +281,11 @@ class SpiritTracksClient(DSZeldaClient):
         getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving]
         self.getting_location = getting_location or self.reset_cycles
 
-        if getting_location:  # add extra time after receiving items cause finding a good flag is hard
-            self.reset_cycles = 3
+        if self.getting_location:
+            self.reset_cycles = True
 
-        if self.reset_cycles > 0 and not getting_location:
-            self.reset_cycles -= 1
+        if self.reset_cycles and not getting_location and not read_result[STAddr.getting_item_safety]:
+            self.reset_cycles = False
 
 
         # Fix for stamp stand not counting as getting item
@@ -286,8 +293,15 @@ class SpiritTracksClient(DSZeldaClient):
             self.getting_location = True
 
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
+            stage = (self.last_saved_scene & 0xFF00) >> 8
+            if stage in DUNGEON_STAGES_TO_ENTRANCE_SCENE:
+                self.last_saved_scene = DUNGEON_STAGES_TO_ENTRANCE_SCENE[stage]
+
             print(f"Overwriting weird scene: {hex(self.last_saved_scene)}")
             stage, room = (self.last_saved_scene & 0xFF00) >> 8, self.last_saved_scene & 0xFF
+            if stage in DUNGEON_STAGES_TO_ENTRANCE_SCENE:
+                self.last_saved_scene = DUNGEON_STAGES_TO_ENTRANCE_SCENE[stage]
+
             self.current_scene = self.last_saved_scene
             self.current_stage = read_result[STAddr.stage] = stage
             read_result[STAddr.room] = room
@@ -303,12 +317,59 @@ class SpiritTracksClient(DSZeldaClient):
         entr = self.entrances[event_name]
         await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
 
-    async def update_treasure_tracker(self, ctx):
+    async def update_treasure_tracker(self, ctx: "BizHawkClientContext", last_loc=None):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
-        self.treasure_tracker = await read_multiple(ctx, read_list)
-        print(f"Updated Treasure Tracker: {self.treasure_tracker}")
+        new_treasure = await read_multiple(ctx, read_list)
+        print(f"Updating Treasure Tracker: {last_loc}")
+
+        if last_loc == "no_loc":
+            self.treasure_tracker = new_treasure
+            self.got_item_no_loc = True
+            return
+        elif not (last_loc == "post_receive" and self.got_item_no_loc):
+            self.treasure_tracker = new_treasure
+            print(f"No special treasure")
+            return
+
+        self.got_item_no_loc = False
+        diff = {t: n - o for n, o, t in
+                zip(new_treasure.values(), self.treasure_tracker.values(), ITEM_GROUPS["All Treasures"]) if n - o > 0}
+        if not diff:
+            return
+
+        single_item = [t for t in diff][0]
+        print(f"Updated Treasure Tracker: {diff}")
+
+        async def remove_treasure():
+            reads = await read_multiple(ctx, [ITEMS[i].address for i in diff])
+            await write_multiple(ctx, [a for a in reads], [v-1 for v in reads.values()])
+
+        # Detect shop locations
+        if ctx.slot_data["shopsanity"] in [2, 3] and self.current_scene in SHOP_TREASURE_DATA:
+            for data in SHOP_TREASURE_DATA[self.current_scene]:
+                if single_item in ITEM_GROUPS[data["group"] + " Treasures"]:
+                    for location in data["locations"]:
+                        if self.location_name_to_id[location] not in ctx.checked_locations:
+                            await remove_treasure()
+                            await self._process_checked_locations(ctx, location)
+                            return
+
+        # Do stuff with excess treasure
+        if ctx.slot_data["excess_random_treasure"] in [0, 2]:
+            print(f"Removing {diff} from treasures")
+            await remove_treasure()
+            # self.last_vanilla_item.extend([t for t in diff])
+        if ctx.slot_data["excess_random_treasure"] == 2:
+            rupees = sum([TREASURE_PRICES[treasure]*count for treasure, count in diff.items()])
+            print(f"Getting {rupees} rupees")
+            await STAddr.rupees.add(ctx, rupees)
+
+
+        self.treasure_tracker = new_treasure
 
     async def receive_item_post_processing(self, ctx, item_name, item_data):
+        print(f"Post Processing {item_name}")
+
         if "Rabbit" in item_name:
             await self.update_rabbit_count(ctx)
         if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
@@ -316,15 +377,32 @@ class SpiritTracksClient(DSZeldaClient):
         if item_name in ["Forest Glyph", "Cannon",
                          "Portal Unlock: Hyrule Castle to Anouki Village",
                          "Portal Unlock: Trading Post to E Snow Realm"]:
+            print(f"Reloading dynamic entrances")
             await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
         if self.reload_on_item:
+            print(f"Reloading dynamic entrances")
             self.reload_on_item = False
             await self._set_dynamic_entrances(ctx, self.current_scene)
             await self._set_dynamic_flags(ctx, self.current_scene)
 
+        # Get spirit weapons from final tear of light
+        if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
+            if any([
+                self.item_count(ctx, "Tear of Light (All Sections)") >= 6,
+                self.item_count(ctx, "Tear of Light (Progressive)") >= 16,
+                self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
+                self.item_count(ctx, "Big Tear of Light (Progressive)") >= 4]):
+                await STAddr.adv_flags_16.set_bits(ctx, 1)
+                await STAddr.items_2.set_bits(ctx, 4)
+                logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
+
+        if item_name in ["Cannon"]:
+            await self.set_starting_train(ctx)
+
+
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
-        await self.update_treasure_tracker(ctx)
+        await self.update_treasure_tracker(ctx, "room_load")
         await self.update_rabbit_count(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
@@ -349,6 +427,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def check_location_post_processing(self, ctx, location: dict):
         print(f"Post processing loc {location}")
         if not location:
+            await self.update_treasure_tracker(ctx, "no_loc")
             return
 
         if location is not None and "goal" in location:
@@ -378,6 +457,9 @@ class SpiritTracksClient(DSZeldaClient):
         if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
             self.reload_on_item = True
 
+        if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
+            await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
+
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
@@ -392,7 +474,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
-            realms = ["Forest", "Snow"]
+            realms = ["Grass", "Snow"]
             rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
             rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
             print(f"Updating rabbit bits {hex(rabbit_bits)}")
@@ -408,7 +490,7 @@ class SpiritTracksClient(DSZeldaClient):
         # Send total location
         if ctx.slot_data["rabbitsanity"] in [3, 4]:
             rabbit_type = loc_data["vanilla_item"]
-            rabbit_type_lookup = ["Forest Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
+            rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
@@ -445,15 +527,42 @@ class SpiritTracksClient(DSZeldaClient):
         pass
 
     async def process_post_receive(self, ctx):
-        if not self.delay_pickup or self.delay_reset:
-            await self.update_treasure_tracker(ctx)  # always update treasure tracker, lots of random treasures on ground!
+        if not self.delay_pickup:
+            await self.update_treasure_tracker(ctx, "post_receive")  # always update treasure tracker, lots of random treasures on ground!
 
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:
             stage_address = await STAddr.stage_flag_pointer.read(ctx)
-            stage_flag_address = AddrFromPointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
+            stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
+
+        # Give tears of light when entering ToS
+        if stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
+            await self.set_tears(ctx)
+
+    async def set_tears(self, ctx):
+        set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
+                     or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
+        if not set_tears:
+            section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
+            if ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data["tear_sections"] == 2:
+                print(f"Section {section} is order {ctx.slot_data['tower_section_lookup'][section]}! | {self.tos_section_shuffle_lookup}")
+                section = ctx.slot_data["tower_section_lookup"][section]
+
+            if section == 6:
+                return
+            big_prog_sub = section - 1
+            set_tears = (self.item_count(ctx, f"Tear of Light (ToS {section})")
+                         or self.item_count(ctx, f"Big Tear of Light (ToS {section})") * 3
+                         or max(0, (self.item_count(ctx, "Big Tear of Light (Progressive)") - big_prog_sub) * 3)
+                         or max(0, self.item_count(ctx, "Tear of Light (Progressive)") - big_prog_sub * 3)
+                         )
+            print(f"Setting tears for section {section} tears {set_tears}")
+        else:
+            print(f"Setting tears {set_tears}")
+
+        await STAddr.tears_of_light.overwrite(ctx, set_tears)
 
     async def process_in_menu(self, ctx, read_result):
         await self.get_saved_scene(ctx, saved_scene_key)
@@ -470,24 +579,67 @@ class SpiritTracksClient(DSZeldaClient):
             key = storage_key(ctx, checked_entrances_key)
             await self.store_data(ctx, key, new_data)
 
+    async def detected_new_scene(self, ctx):
+        await self.save_tos_keycount(ctx)
+        self.event_reads = []
+        self.sent_event = False
+
+    async def save_scene(self, ctx, *args):
+        if await super().save_scene(ctx, *args):
+            await self.save_tos_keycount(ctx)
+
+    async def save_tos_keycount(self, ctx):
+        """ToS keycount is not dependent on stage, so save current count on room change or save"""
+        print(f"Saving Keycount {self.last_stage} {self.last_scene}")
+        if self.last_stage != 0x13 or self.last_scene is None:
+            return
+
+        current_keys = await self.key_address.read(ctx)
+        current_section = TOS_FLOOR_TO_SECTION[self.last_scene & 0xFF]  # triggers after scene change
+        section_key = 0x130 + current_section
+        if section_key in DUNGEON_KEY_DATA:
+            key_data = await STAddr.key_storage_tos.read(ctx)
+            blank_data = key_data & (0xFF - DUNGEON_KEY_DATA[section_key]["filter"])
+            new_data = blank_data + DUNGEON_KEY_DATA[section_key]["value"]*current_keys
+            if new_data != key_data:
+                print(f"Saving ToS key count: {hex(new_data)}")
+                await STAddr.key_storage_tos.overwrite(ctx, new_data)
+
+    async def enter_special_key_room(self, ctx, stage, scene_id):
+        if stage == 0x13:
+            section = TOS_FLOOR_TO_SECTION[self.current_room]
+            key_code = 0x130 + section
+            print(f"Special Keycode: {key_code} {DUNGEON_KEY_DATA.get(key_code)}")
+            if key_code in DUNGEON_KEY_DATA:
+                key_data = DUNGEON_KEY_DATA[key_code]
+                key_storage = await STAddr.key_storage_tos.read(ctx)
+                current_keys = (key_storage & key_data["filter"]) // key_data["value"]
+                print(f"Current Keys = {current_keys} | {(key_storage & key_data['filter'])} / {key_data['value']}")
+                await self.key_address.overwrite(ctx, current_keys)
+            else:
+                await self.key_address.overwrite(ctx, 0)
+            return True
+
+        return False
+
     async def detect_ut_event(self, ctx, scene):
         """
         Send UT event locations on certain flags being set in certain scenes.
         """
         if scene in UT_EVENT_DATA and not self.sent_event:
             if not self.event_reads:
-                data = UT_EVENT_DATA[scene].copy()
+                data = UT_EVENT_DATA[scene]
                 data = [data] if isinstance(data, dict) else data
+                print(f"Event Data {UT_EVENT_DATA} {data}")
                 self.event_data = data
                 for i, event in enumerate(data):
-                    address = AddrFromPointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
-                    print(f"event data {self.event_data}")
+                    address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
                     self.event_data[i]["address"] = address
-                    print(f"event data {self.event_data}")
                     self.event_reads.append(address)
 
             read_results = await read_multiple(ctx, self.event_reads)
             for event, res in zip(self.event_data, read_results.values()):
+                # print(read_results)
                 if event["value"] & res:
                     if "entrance" in event:
                         print(f"Event detection Success!, {event['entrance']}")
@@ -507,12 +659,32 @@ class SpiritTracksClient(DSZeldaClient):
         else:
             self.sent_event = True
 
+    @staticmethod
+    async def set_starting_train(ctx):
+        res = []
+        train = ctx.slot_data["starting_train"]
+        if train == -1:  # all parts
+            res += STAddr.train_parts.get_write_list(0xFFFFFFFF)
+            train = 0
+        else:
+            res += STAddr.train_parts.get_write_list(0xF << (train*4))
+        res += [a.get_inner_write_list(train) for a in [
+            STAddr.equipped_engine, STAddr.equipped_cannon, STAddr.equipped_car, STAddr.equipped_cart,
+        ]]
+        print(f"Setting starting train {res}")
+        await bizhawk.write(ctx.bizhawk_ctx, res)
+
     async def process_hard_coded_rooms(self, ctx, current_scene):
         if self.current_stage in range(4, 8):
             await write_multiple(ctx, train_speed_addresses, self.train_speed)
             self.last_train_gear = -1  # force a quick speed increase
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-            self.train_speed_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
+            self.train_speed_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
+        if current_scene == 0x2f00 and not self.has_set_starting_train:
+            if self.location_name_to_id["Outset Bee Tree"] not in ctx.checked_locations:
+                print(f"Setting starting train")
+                await self.set_starting_train(ctx)
+            self.has_set_starting_train = True
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):
@@ -527,9 +699,25 @@ class SpiritTracksClient(DSZeldaClient):
                 self.last_train_gear = current_gear
 
                 if self.train_quick_station and current_gear == 1:
-                    train_action_addr = AddrFromPointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
+                    train_action_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
                     await train_action_addr.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
                 # Instant-set train speed
                 if self.train_snap_speed and current_gear != 1:
                     await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10, silent=True)
+
+
+    def update_boss_warp(self, ctx, stage, scene_id):
+        if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
+            reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
+            reverse_exit_id = self.entrances[reverse_exit].id
+            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", None)
+            if pair is None:
+                print(f"Boss Entrance not Randomized")
+                self.boss_warp_entrance = reverse_exit
+            self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
+            print(f"Warp Stage: {stage}, current warp {self.boss_warp_entrance}")
+            return self.boss_warp_entrance
+
+        return None
+
 

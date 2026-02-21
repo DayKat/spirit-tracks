@@ -22,12 +22,13 @@ class STAddr:
     entrance = Address(0x2690EB)
     
     getting_location = Address(0x04B114)
-    getting_train_part = Address(0x11F5E4)
     saving = Address(0x049BD8)
+    getting_tear_safety = Address(0x327B8C)
+    getting_item_safety = Address(0x264648)
     
-    link_x = Pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
-    link_y = Pointer(0x05D0)
-    link_z = Pointer(0x05D4)
+    link_x = Address.pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
+    link_y = Address.pointer(0x05D0)
+    link_z = Address.pointer(0x05D4)
     
     menu = Address(0x260958)
     equipped_item = Address(0x265318, size=4)
@@ -41,11 +42,11 @@ class STAddr:
     rabbits_3 = Address(0x262033)
     rabbits_4 = Address(0x262034)
     
-    gItemManager = Pointer(0x0fb4)
-    gPlayerManager = Pointer(0x0fbc)
-    gAdventureFlags = Pointer(0x0f74)
-    gPlayer = Pointer(0x0fec)
-    gMapManager = Pointer(0x0e60)
+    gItemManager = Address.pointer(0x0fb4)
+    gPlayerManager = Address.pointer(0x0fbc)
+    gAdventureFlags = Address.pointer(0x0f74)
+    gPlayer = Address.pointer(0x0fec)
+    gMapManager = Address.pointer(0x0e60)
     stage_flag_pointer = Address(0x265164, size=4)
     
     watched_intro = Address(0x265726)
@@ -63,7 +64,6 @@ class STAddr:
     items_0 = Address(0x265320)
     items_2 = Address(0x265322)
     songs = Address(0x268FB0)
-    
     arrow_capacity = Address(0x265330)
     bomb_capacity = Address(0x265331)
     arrow_count = Address(0x265332)
@@ -83,7 +83,13 @@ class STAddr:
     source_rails = Address(0x2653B8)
     key_storage_0 = Address(0x265784)
     key_storage_tos = Address(0x265785)
-    
+
+    train_parts = Address(0x2653A8, size=4)
+    equipped_engine = Address(0x265388, size=4)
+    equipped_cannon = Address(0x26538C, size=4)
+    equipped_car = Address(0x265390, size=4)
+    equipped_cart = Address(0x265394, size=4)
+
     # Adventure Flags
     adv_flags_0 = Address(0x265714)
     adv_flags_1 = Address(0x265715)
