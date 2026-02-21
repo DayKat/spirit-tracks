@@ -117,6 +117,7 @@ def st_has_tears(state: CollectionState, player: int, section: int):
     options = state.multiworld.worlds[player].options
     if options.shuffle_tos_sections and options.tear_sections == "progressive":
         section = state.multiworld.worlds[player].tower_section_lookup[section]
+        # print(f"Section lookup {state.multiworld.worlds[player].tower_section_lookup}")
 
     return any([
         state.has(f"Tear of Light (ToS {section})", player, 3),
@@ -406,22 +407,6 @@ def st_ut_small_key_own_dungeon(state, player):
 
 # ======== Harder Logic ===========
 
-# def st_can_kill_stantoms(state: CollectionState, player: int):
-#     return any([
-#         st_option_stantoms_hard(state, player),
-#         st_option_stantoms_med(state, player),
-#         st_option_stantoms_sword_only(state, player)
-#     ])
-
-
-# def st_can_kill_stantoms_traps(state: CollectionState, player: int):
-#     return any([
-#         st_option_stantoms_hard(state, player),
-#         st_option_stantoms_med(state, player),
-#         st_option_stantoms_easy(state, player),
-#         st_option_stantoms_sword_only(state, player)
-#     ])
-
 
 def st_can_hit_tricky_switches(state: CollectionState, player: int):
     return any([
@@ -489,14 +474,30 @@ def st_can_enter_tos(state, player):
 
 def st_can_enter_tos_section(state, player, section):
     sources = [None, "Forest", "Snow", "Ocean", "Fire"]
+    # print(f"Section: {section}")
     if section == 1:
         return st_can_enter_tos(state, player)
     options = state.multiworld.worlds[player].options
+    # print(f"Open Tower: {options.tos_section_unlocks.value == 0}\n"
+    #       f"Has Source {sources[section-1]} {st_has_source(state, player, sources[section-1])} and {options.tos_section_unlocks.value == 1}\n"
+    #       f"Progressive: {options.tos_section_unlocks.value == 2} and:\n"
+    #       f"\tProgressive Sections {state.has('Progressive ToS Section', player, section) and options.tos_unlock_base_item.value == 1}\n"
+    #       f"\tNo Base {state.has('Progressive ToS Section', player, section) and options.tos_unlock_base_item.value == 1}\n"
+    #       f"""Total: {any([
+    #     options.tos_section_unlocks.value == 0,
+    #     all([st_has_source(state, player, sources[section-1]), options.tos_section_unlocks.value == 1]),
+    #     options.tos_section_unlocks.value == 2 and any([
+    #         state.has("Progressive ToS Section", player, section) and options.tos_unlock_base_item.value == 1,
+    #         state.has("Progressive ToS Section", player, section-1) and options.tos_unlock_base_item.value == 0,
+    #     ])
+    # ])}""")
     return any([
         options.tos_section_unlocks.value == 0,  # Open tower
-        st_has_source(state, player, sources[section-1]) and options.tos_section_unlocks.value == 1,
+        all([st_has_source(state, player, sources[section-1]), options.tos_section_unlocks.value == 1]),
         options.tos_section_unlocks.value == 2 and any([
             state.has("Progressive ToS Section", player, section) and options.tos_unlock_base_item.value == 1,
             state.has("Progressive ToS Section", player, section-1) and options.tos_unlock_base_item.value == 0,
         ])
     ])
+
+

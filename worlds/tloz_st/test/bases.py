@@ -17,7 +17,7 @@ class TestGeneration(WorldTestBase):
 
         "randomize_tears": "in_tos",
         "tear_size": "small",
-        "tear_sections": "unique_sections",
+        "tear_sections": "progressive",
         "spirit_weapons": "items",
 
         "keysanity": "anywhere",

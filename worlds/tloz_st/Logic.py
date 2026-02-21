@@ -301,6 +301,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["snow realm source", "bridge workers", True, lambda state: st_has_source(state, player, "Snow")],
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
 
+        ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
+    ]
+
+    ocean_realm_logic = [
         # ========== Ocean Sanctuary =============
         ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
         ["ocean realm", "ocs", False, None],
@@ -333,8 +337,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct", "oct 6f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean", 1)],
         ["oct", "oct phytops", False, lambda state: st_has_whip(state, player) and st_has_sword(state, player) and st_has_small_keys(state, player, "Ocean", 2)],
         ["oct phytops", "oct heart container", False, None],
-
-
+    ]
+    overworld_logic += [
         # ===== Dark Realm =====
         ["dark realm portal", "dark realm trains", False, lambda state: st_has_dungeon_rewards(state, player)],
         ["dark realm trains", "demon train", False, None],

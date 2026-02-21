@@ -473,13 +473,13 @@ UT_EVENT_DATA = {
 }
 
 ENTRANCE_TO_TOS_ORDER = {
+"Tower of Spirits Exit Staven": 6,
+"Tower of Spirits Summit Enter Altar": 7,
 "Tower of Spirits Enter Section 1": 1,
 "Tower of Spirits Enter Section 2": 2,
 "Tower of Spirits Enter Section 3": 3,
 "Tower of Spirits Enter Section 4": 4,
 "Tower of Spirits Enter Section 5": 5,
-"Tower of Spirits Exit Staven": 6,
-"Tower of Spirits Summit Enter Altar": 7,
 }
 
 EXIT_TO_TOS_SECTION = {

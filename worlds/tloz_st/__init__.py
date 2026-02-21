@@ -25,7 +25,7 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
-    raise ModuleNotFoundError
+    # raise ModuleNotFoundError
 except ModuleNotFoundError:
     print(f"Spirit Tracks is using legacy logic")
     WorldParent = World
@@ -194,12 +194,24 @@ class SpiritTracksWorld(WorldParent):
         """Plando ToS Shuffle early so we can use the ordering in logic"""
         if not self.options.shuffle_tos_sections:
             return
+
+        # Sophisticated shuffle to avoid loops
         entrances = list(ENTRANCE_TO_TOS_ORDER.keys())
         exits = list(EXIT_TO_TOS_SECTION.keys()) + ["ToS Summit Lower Exit"]
-        self.random.shuffle(entrances)
-        self.tower_pairings = list(zip(entrances, exits))
+        banned_connections = {"Tower of Spirits Exit Staven": ["ToS 18F Exit"],
+                              "Tower of Spirits Summit Enter Altar": ["ToS Summit Lower Exit"]}
+        self.random.shuffle(exits)
+        for entrance in entrances:
+            if exits[0] in banned_connections.get(entrance, []):
+                self.tower_pairings.append((entrance, exits.pop(1)))
+            else:
+                self.tower_pairings.append((entrance, exits.pop(0)))
+            if entrance == "Tower of Spirits Exit Staven" and self.tower_pairings[0][1] == "ToS Summit Lower Exit":
+                banned_connections["Tower of Spirits Summit Enter Altar"].append("ToS 18F Exit")
+
         # print(f"Tower pairings: {list(self.tower_pairings)}")
         self.plando_pairings |= {ENTRANCES[e1].id: ENTRANCES[e2].id for e1, e2 in self.tower_pairings}
+        self.plando_pairings |= {e2: e1 for e1, e2 in self.plando_pairings.items()}
 
         # Get lookup table for logic progressive tear sections
         sort_filter = {}
@@ -772,7 +784,7 @@ class SpiritTracksWorld(WorldParent):
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
             if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
-                # print(f"Reconnecting entrances")
+                print(f"Reconnecting entrances {self.ut_pairings}")
                 for i, pairing in self.ut_pairings.items():
                     _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
                     entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
@@ -805,6 +817,23 @@ class SpiritTracksWorld(WorldParent):
         if self.tower_pairings:
             self.connect_plando(self.tower_pairings)
         self.er_placement_state = randomize_entrances(self, True, groups)
+        print(f"ER Placements: {self.er_placement_state.pairings}")
+
+        # Get lookup for logic stuff. Doesn't work cause logic is cemented earlier
+        # self.create_tower_section_lookup()
+
+    def create_tower_section_lookup(self):
+        # Get lookup for logic stuff
+        tower_pairings = {i: pair for i, pair in self.er_placement_state.pairings if i in ENTRANCE_TO_TOS_ORDER}
+        # print(f"Tower Pairings: {tower_pairings}")
+        sort_filter = {}
+        for pair, entr in tower_pairings.items():
+            if entr in EXIT_TO_TOS_SECTION and pair in ENTRANCE_TO_TOS_ORDER:
+                sort_filter[EXIT_TO_TOS_SECTION[entr]] = ENTRANCE_TO_TOS_ORDER[pair]
+        to_sort = [i for i in sort_filter]
+        to_sort.sort(key=lambda i: sort_filter[i])
+        self.tower_section_lookup = {section: i + 1 for i, section in enumerate(to_sort)}
+        # print(f"{self.tower_section_lookup}")
 
     def get_pre_fill_items(self):
         return self.pre_fill_items

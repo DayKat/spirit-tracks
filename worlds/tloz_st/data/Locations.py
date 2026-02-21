@@ -1203,17 +1203,6 @@ LOCATIONS_DATA = {
         "stamp": True,
         "location_groups": ["Trading Post"],
     },
-    # "Trading Post 1st Song Statue": { *only if not already have song*
-    #     "region_id": "trading post discovery song statue",
-    #     "vanilla_item": "Song of Discovery",
-    #     "stage_id": 0x37,
-    #     "room_id": 0,
-    #     "require_item": ["Spirit Flute"],
-    #     "x_min": -75630,
-    #     "x_max": -58636,
-    #     "z_min": 46500,
-    #     "z_max": 57443,
-    # },
     "Trading Post Song of Light Statue": {
         "region_id": "trading post light song statue",
         "vanilla_item": "Song of Light",
@@ -1521,9 +1510,10 @@ LOCATIONS_DATA = {
         "z_max": -28439,
         "location_groups": ["Bridge Worker's House"],
     },
-
+}
     # ========== Ocean Realm ============
 
+ocean_realm_locations = {
     # Ocean Sanctuary
     "Ocean Sanctuary Stamp Station": {
         "region_id": "ocs stamp station",
@@ -1757,9 +1747,9 @@ LOCATIONS_DATA = {
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "goal": True
     },
-
+}
     # ========= Rabbits ==========
-
+LOCATIONS_DATA |= {
     "Rabbit near Castle Town": {
         "region_id": "forest realm rabbits",
         "vanilla_item": "Grass Rabbit",
