@@ -646,6 +646,12 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'dungeon': 0x1A,
          "tags": ["incremental"],
     },
+    "Small Key (Ocean Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        # 'dungeon': 0x1A,  # TODO: Add key data
+        "tags": ["incremental"],
+    },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'dungeon': 0x1A

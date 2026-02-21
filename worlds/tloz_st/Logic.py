@@ -302,6 +302,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
 
         # ========== Ocean Sanctuary =============
+        ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
         ["ocean realm", "ocs", False, None],
         ["ocs", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                          and st_has_birds_song(state, player) and st_has_whip(state, player)],
