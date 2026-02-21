@@ -12,7 +12,7 @@ def st_has_spirit_flute(state, player):
     return state.has("Spirit Flute", player)
 
 def st_has_sword(state: CollectionState, player: int):
-    return state.has("Sword (Progressive)", player)
+    return state.has("Sword (Progressive)", player) or state.has("Sword", player)
 
 def st_has_shield(state: CollectionState, player: int):
     # Shield can be bought from shop
@@ -33,13 +33,11 @@ def st_has_whip(state: CollectionState, player: int):
 def st_has_boomerang(state: CollectionState, player: int):
     return state.has("Boomerang", player)
 
+def st_has_sand_wand(state: CollectionState, player: int):
+    return state.has("Sand Wand", player)
+
 def st_has_sword_beam_scroll(state: CollectionState, player: int):
-    return state.has("Sword Beam Swordsman's Scroll", player)
-
-# def st_has_spirit_gems(state: CollectionState, player: int, spirit: str, count: int = 1):
-#     return all([state.has(f"{spirit} Gem", player, count),
-#                 st_has_spirit(state, player, spirit)])
-
+    return state.has("Sword Beam Scroll", player)
 
 def st_has_regal_necklace(state: CollectionState, player: int):
     return state.has("Regal Necklace", player)
@@ -50,13 +48,13 @@ def st_has_wood_heart(state: CollectionState, player: int):
 def st_has_net(state: CollectionState, player: int):
     return state.has("Rabbit Net", player)
 
+def st_has_compass_of_light(state, player):
+    return state.has("Compass of Light", player)
+
 ## ========== Rabbits ===========
 
 def st_has_rabbit_items(state, player, realm, count=10):
-    item_group = f"{realm} Rabbits"
-    rabbit_count = 0
-    for i in ITEM_GROUPS[item_group]:
-        rabbit_count += state.count(i, player) * ITEMS[i].value
+    rabbit_count = state.count(f"{realm} Rabbit", player)
     return rabbit_count >= count
 
 def st_has_total_rabbits(state: CollectionState, player: int, count):
@@ -115,6 +113,39 @@ def st_has_light_song(state: CollectionState, player: int):
 def st_has_discovery_song(state: CollectionState, player: int):
     return state.has("Song of Discovery", player) and st_has_spirit_flute(state, player)
 
+def st_has_tears(state: CollectionState, player: int, section: int):
+    options = state.multiworld.worlds[player].options
+    if options.shuffle_tos_sections and options.tear_sections == "progressive":
+        section = state.multiworld.worlds[player].tower_section_lookup[section]
+
+    return any([
+        state.has(f"Tear of Light (ToS {section})", player, 3),
+        state.has(f"Big Tear of Light (ToS {section})", player),
+        state.has(f"Tear of Light (Progressive)", player, section*3),
+        state.has(f"Tear of Light (Progressive)", player, 16),
+        state.has(f"Big Tear of Light (Progressive)", player, section),
+        state.has(f"Tear of Light (All Sections)", player, 3),
+        state.has(f"Big Tear of Light (All Sections)", player),
+    ])
+
+def st_has_bow_of_light(state, player):
+    return any([
+        state.has("Bow of Light", player) and st_has_bow(state, player),
+        state.has(f"Tear of Light (Progressive)", player, 10),
+        state.has(f"Big Tear of Light (Progressive)", player, 4),
+        state.has(f"Tear of Light (All Sections)", player, 4),
+        state.has(f"Big Tear of Light (All Sections)", player, 2),
+    ])
+
+def st_can_possess_phantoms(state: CollectionState, player: int, floor: int):
+    return any([
+        state.has("Sword (Progressive)", player, 2),
+        st_has_bow_of_light(state, player),
+        st_has_sword(state, player) and st_has_tears(state, player, floor)
+    ])
+
+def st_vanilla_tears(state: CollectionState, player: int):
+    return st_has_sword(state, player) and state.multiworld.worlds[player].options.randomize_tears.value == -1
 
 # =========== Combined item states ================
 
@@ -126,42 +157,10 @@ def st_has_damage(state: CollectionState, player: int):
         state.has("Whip", player),
     ])
 
-
-def st_has_cave_damage(state: CollectionState, player: int):
-    return any([
-        state.has("Sword (Progressive)", player),
-        state.has("Bombs (Progressive)", player),
-        state.has("Bow (Progressive)", player),
-        state.has("Whip", player),
-    ])
-
-
 def st_can_kill_bat(state: CollectionState, player: int):
     return any([
         st_has_damage(state, player),
         st_has_boomerang(state, player)
-    ])
-
-
-def st_can_kill_blue_chu(state: CollectionState, player: int):
-    return any([
-        st_has_bombs(state, player),  # Only place this is relevant is in "cave"
-        st_has_bow(state, player),
-        st_has_whip(state, player),
-        st_has_beam_sword(state, player),
-        all([
-            st_has_sword(state, player),
-            any([
-                st_has_boomerang(state, player),
-            ])
-        ])
-    ])
-
-
-def st_can_kill_eye_brute(state: CollectionState, player: int):
-    return any([
-        st_option_hard_logic(state, player),
-        st_has_bow(state, player),
     ])
 
 
@@ -178,21 +177,23 @@ def st_can_kill_bubble(state: CollectionState, player: int):
         ])
     ])
 
-
-def st_totok_stantom_steal_object(state, player):
-    return any([
-        st_clever_pots(state, player),
-        st_can_kill_bat(state, player)
-    ])
-
 def st_has_range(state: CollectionState, player: int):
-    return state.has_any(["Boomerang", "Bow (Progressive)", "Whirlwind"], player)
+    return state.has_any(["Boomerang", "Bow (Progressive)"], player)
 
+def st_has_range_objects(state, player):
+    return state.has_any(["Boomerang", "Bow (Progressive)", "Whirlwind"], player)
 
 def st_has_short_range(state: CollectionState, player: int):
     return any([st_has_mid_range(state, player),
                 st_clever_bombs(state, player), ])
 
+
+def st_can_rotate_repeater(state, player):
+    return any([
+        st_has_sword(state, player),
+        st_has_boomerang(state, player),
+        st_has_whip(state, player)
+    ])
 
 def st_has_mid_range(state: CollectionState, player: int):
     return any([st_has_range(state, player), st_has_whip(state, player),
@@ -205,64 +206,52 @@ def st_has_beam_sword(state: CollectionState, player: int):
         st_has_sword_beam_scroll(state, player)
     ])
 
-
-def st_can_hit_spin_switches(state: CollectionState, player: int):
-    return any([
-        st_has_sword(state, player),
-        all([
-            st_option_hard_logic(state, player),
-            any([
-                st_has_bombs(state, player),
-                st_has_boomerang(state, player)
-            ])
-        ])
-    ])
-
-
-def st_spiral_wall_switches(state: CollectionState, player: int):
-    return any([
-        st_has_boomerang(state, player),
-        st_has_bombs(state, player)
-    ])
-
-
-def st_quick_switches(state, player):
-    return any([
-        st_has_boomerang(state, player),
-        all([
-            st_has_bow(state, player),
-            st_option_hard_logic(state, player)
-        ])
-    ])
-
-
-def st_can_cut_small_trees(state: CollectionState, player: int):
-    return any([st_has_sword(state, player), st_has_bombs(state, player)])
-
 def st_can_ring_bell(state: CollectionState, player: int):
     return any([st_has_sword(state, player), st_has_boomerang(state, player)])
+
+def st_can_kill_freezards(state, player):
+    return all([
+        any([
+            st_has_shield(state, player),
+            st_has_bow_of_light(state, player),
+            st_option_hard_logic(state, player)
+        ]),
+        st_has_damage(state, player)
+    ])
+
+def st_can_kill_freezards_torch(state, player):
+    return all([
+        any([
+            st_has_boomerang(state, player),
+            st_has_shield(state, player),
+            st_has_bow_of_light(state, player),
+            st_option_hard_logic(state, player),
+        ]),
+        st_has_damage(state, player)
+    ])
 
 # ================ Rupee States ==================
 
 
 def st_has_rupees(state: CollectionState, player: int, cost: int):
     # If has a farmable minigame and the means to sell, expensive things are in logic.
-    if st_can_farm_rupees(state, player):
-        return True
-
-    # Count up regular rupee items
-    rupees = state.count("Green Rupee (1)", player)
-    rupees += state.count("Blue Rupee (5)", player) * 5
-    rupees += state.count("Red Rupee (20)", player) * 20
-    rupees += state.count("Big Green Rupee (100)", player) * 100
-    rupees += state.count("Big Red Rupee (200)", player) * 200
-    rupees += state.count("Gold Rupee (300)", player) * 300
-
-    # # Sell Treasure for safe average 150 (can be 50, 150, 800 or 1500)
-    # if st_has_courage_crest(state, player):
-    #     rupees += state.count_group("Treasure Items", player) * 150
-
-    return rupees >= cost
+    options = state.multiworld.worlds[player].options
+    return any([
+        state.has("_UT_Glitched_Logic", player),
+        all([
+            state.has("_rupee_farming_spot", player),
+            options.excess_random_treasure.value == 2,
+            options.rupee_farming_logic.value == 1
+        ]),
+        all([
+            state.has("_rupee_farming_spot", player),
+            state.has("_can_sell_treasure", player),
+            options.excess_random_treasure.value == 1,
+            options.rupee_farming_logic.value == 1
+        ]),
+        state.has("Rupees", player, cost),
+        state.has("Treasure", player, cost + 2500) and state.has("_can_sell_treasure", player)
+    ])
 
 
 def st_can_farm_rupees(state: CollectionState, player: int):
@@ -468,6 +457,8 @@ def st_can_sword_scroll_clip(state, player):
         st_option_glitched_logic(state, player)
     ])
 
+def st_has_train(state, player):
+    return all([st_has_glyph(state, player, "Forest"), st_has_cannon(state, player)])
 
 # ====== Specific locations =============
 
@@ -477,5 +468,35 @@ def st_can_sword_scroll_clip(state, player):
 def st_castle_town_cuccos(state, player):
     return st_has_birds_song(state, player) or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))
 
+def st_has_dungeon_rewards(state, player):
+    if state.multiworld.worlds[player].options.dark_realm_access != "dungeons":
+        return True
+    dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
+    return state.has("_dungeon_reward", player, dungeon_count)
 
+def st_can_fight_malladus(state, player):
+    return st_has_sword(state, player) and st_has_bow_of_light(state, player)
 
+def st_can_enter_tos(state, player):
+    options = state.multiworld.worlds[player].options
+    return any([
+        options.tos_unlock_base_item.value == 0,
+        options.tos_unlock_base_item.value == 1 and (
+            state.has("Tower of Spirits Base", player) or
+            state.has("Progressive ToS Section", player)
+        )
+    ])
+
+def st_can_enter_tos_section(state, player, section):
+    sources = [None, "Forest", "Snow", "Ocean", "Fire"]
+    if section == 1:
+        return st_can_enter_tos(state, player)
+    options = state.multiworld.worlds[player].options
+    return any([
+        options.tos_section_unlocks.value == 0,  # Open tower
+        st_has_source(state, player, sources[section-1]) and options.tos_section_unlocks.value == 1,
+        options.tos_section_unlocks.value == 2 and any([
+            state.has("Progressive ToS Section", player, section) and options.tos_unlock_base_item.value == 1,
+            state.has("Progressive ToS Section", player, section-1) and options.tos_unlock_base_item.value == 0,
+        ])
+    ])
