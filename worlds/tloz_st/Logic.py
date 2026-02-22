@@ -315,6 +315,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean realm source", "pirate hideout tracks", True, lambda state: st_has_source(state, player, "Ocean")
                                                                             and st_has_misc_tracks(state, player, "Pirate Hideout")],
         ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Ocean")],
+        # ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
+        #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
 
 
 
@@ -326,6 +328,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                                                                                           # but not sure why looking at walkthrough?
         ["ocs", "ocs S island chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
         ["ocs", "ocs nw chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
+        ["ocs", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
 
         # ========== Papuchia Village =============
         ["ocean realm", "papuchia village", False, None],
@@ -337,7 +340,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "papuchia village s center chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
 
         # ========= Ocean Temple ==================
-        #["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Ocean")],
         ["ocean realm source", "oct", False, lambda state: st_has_source(state, player, "Ocean")
                                                           and st_has_temple_tracks(state, player, "Ocean")],
         ["oct", "oct whip chest", False, lambda state: st_has_damage(state, player)], #needs testing, may require boomerang? Sheet shows Boom + Sword
@@ -349,7 +351,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct", "oct 3f ne chest", False, lambda state: st_has_whip(state, player)],
         ["oct", "oct 5f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean Temple", 1)],
         ["oct 5f chest", "oct 6f chest", False, None],
-        ["oct 5f chest", "oct phytops", False, lambda state: st_has_whip(state, player) and st_has_sword(state, player) and st_has_small_keys(state, player, "Ocean Temple", 2)],
+        ["oct 5f chest", "oct phytops", False, lambda state: st_has_whip(state, player) and st_has_sword(state, player)
+                                                             and st_has_small_keys(state, player, "Ocean Temple", 2)],
         ["oct phytops", "oct heart container", False, None],
 
         # ========= Pirate Hideout ==============
@@ -361,6 +364,25 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["pirate hideout", "pirate hideout secret cave right treasure", False, lambda state: st_has_bombs(state, player)],
     #   ["pirate hideout", "pirate hideout minigame 1st reward", False, lambda state: st_has_bow(state, player)],
     #   ["pirate hideout", "pirate hideout minigame 2nd reward", False, lambda state: st_has_bow(state, player)],
+
+        # ======== Lost at Sea Station ==========
+        #["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
+        #                                                          and st_has_misc_tracks(state, player, "Lost at Sea Station")],
+        ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
+                                                    and st_has_misc_tracks(state, player,"Lost at Sea Station")],
+        ["las tracks", "lost at sea", True, lambda state: st_has_misc_tracks(state, player, "Lost at Sea Station")],
+        ["lost at sea", "las outside chest", False, lambda state: st_has_discovery_song(state, player)],
+        ["lost at sea", "las 1st room chest", False, lambda state: st_has_birds_song(state, player) and st_has_awakening_song(state, player)
+                                                           and st_has_whip(state, player)],
+        ["las 1st room chest", "las 2nd room chest", False, lambda state: st_has_boomerang(state, player)],
+        ["las 2nd room chest", "las 3rd room chest", False, lambda state: st_has_whirlwind(state, player)],
+        ["las 3rd room chest", "las 4th room sw chest", False, lambda state: st_has_whip(state, player)],
+        ["las 3rd room chest", "las 4th room ne chest", False, lambda state: st_has_whip(state, player)],
+        ["las 4th room ne chest", "las 5th room se chest", False, None],
+        ["las 4th room ne chest", "las 5th room ne chest", False, None],
+        ["las 4th room ne chest", "las 5th room sw chest", False, None],
+        ["las 4th room ne chest", "las 5th room nw chest", False, None],
+        ["las 4th room ne chest", "las 6th room chest", False, None],
 
 
         # ===== Dark Realm =====

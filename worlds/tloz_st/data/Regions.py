@@ -267,6 +267,7 @@ REGIONS = [
     "ocean temple tracks",
     "ocean realm source",
     "pirate hideout tracks",
+    "las tracks",
 
     #Ocean Sanctuary
     "ocs",
@@ -274,6 +275,7 @@ REGIONS = [
     "ocs cucco chest",
     "ocs S island chest",
     "ocs nw chest",
+    "ocs song",
 
     #Papuchia Village
     "papuchia village",
@@ -307,6 +309,20 @@ REGIONS = [
     "pirate hideout secret cave right treasure",
     #"pirate hideout minigame 1st reward",
     #"pirate hideout minigame 2nd reward",
+
+    #Lost at Sea Station
+    "lost at sea",
+    "las outside chest",
+    "las 1st room chest",
+    "las 2nd room chest",
+    "las 3rd room chest",
+    "las 4th room sw chest",
+    "las 4th room ne chest",
+    "las 5th room se chest",
+    "las 5th room ne chest",
+    "las 5th room sw chest",
+    "las 5th room nw chest",
+    "las 6th room chest",
 
     #"ocean realm frogs",
     #"ocean realm trade",

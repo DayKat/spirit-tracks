@@ -118,7 +118,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     # ======= Songs ==========
 
     "Song of Awakening": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'address': STAddr.songs,
         'value': 0x01,
     },
@@ -234,6 +234,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x1,
+    },
+    "Lost at Sea Station Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_1,
+        'value': 0x40,
     },
     "Forest Realm Ocean Shortcut Tracks": {
         'classification': ItemClassification.progression,

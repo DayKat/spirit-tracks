@@ -1530,7 +1530,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure",
         "stage_id": 0x32,
         "room_id": 0,
-        #"item_override": "Ocean Temple Tracks",
+        #"item_override": "Lost at Sea Station Tracks",
         "stamp": True,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
     },
@@ -1569,6 +1569,17 @@ LOCATIONS_DATA = {
         "z_min": 0,
         "z_max": 0,
         "require_item": ["Song of Birds", "Whip"],
+    },
+
+    "Ocean Sanctuary Song of Restoration": {
+        "stage_id": 0x32,
+        "room_id": 0x2,
+        "address": STAddr.rail_restorations,
+        "value": 8,
+        "minigame": True,
+        "conditional": True,
+        "region_id": "ocs song",
+        "location_groups": ["Ocean Sanctuary","Restoration Duets"],
     },
 
     # Papuchia Village
@@ -1821,6 +1832,119 @@ LOCATIONS_DATA = {
  #       "room_id": 0,
  #       "require_item": ["Bow (Progressive)]"
  #   },
+
+    # Lost at Sea Station
+    "Lost at Sea Outside Chest": {
+        "region_id": "las outside chest",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "require_item": ["Song of Discovery"], #Song of Light recommended for all checks
+    },
+
+    "Lost at Sea 1st Room Chest": {
+        "region_id": "las 1st room chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip"],
+    },
+
+    "Lost at Sea 2nd Room Chest": {
+        "region_id": "las 2nd room chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang"],
+    },
+
+    "Lost at Sea 3rd Room Chest": {
+        "region_id": "las 3rd room chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 4th Room SW Chest": {
+        "region_id": "las 4th room sw chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 4th Room NE Chest": {
+        "region_id": "las 4th room ne chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 5th Room SE Chest": {
+        "region_id": "las 5th room se chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"], #bombs recommended for 5th room chests
+    },
+
+    "Lost at Sea 5th Room NE Chest": {
+        "region_id": "las 5th room ne chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 5th Room SW Chest": {
+        "region_id": "las 5th room sw chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 5th Room NW Chest": {
+        "region_id": "las 5th room nw chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0,
+        "room_id": 0,
+        "x_min": 0,
+        "x_max": 0,
+        "z_min": 0,
+        "z_max": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 6th Room Chest": {
+        "region_id": "las 6th room chest",
+        "vanilla_item": "Treasure: Regal Ring",
+        "stage_id": 0,
+        "room_id": 0,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
 
 
     # ========= Rabbits ==========
