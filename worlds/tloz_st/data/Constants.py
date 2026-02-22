@@ -231,6 +231,7 @@ ITEM_GROUPS = {
     "Ocean Tracks": [
         "Ocean Temple Tracks",
         "Pirate Hideout Tracks",
+        "Lost at Sea Station Tracks",
     ],
     "Portal Unlocks": [
         "Portal Unlock: Hyrule Castle to Anouki Village",
