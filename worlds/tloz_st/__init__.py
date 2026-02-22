@@ -163,7 +163,7 @@ class SpiritTracksWorld(WorldParent):
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
             self.required_dungeons = slot_data["required_dungeons"]
             self.ut_pairings = slot_data["er_pairings"]
-            self.tower_section_lookup = slot_data["tower_section_lookup"]
+            self.tower_section_lookup = {int(k): v for k, v in slot_data["tower_section_lookup"].items()}
             self.hide_ut_map_stuff()
             self.pick_ut_events()
         else:
@@ -522,7 +522,8 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3)]
+        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
+                     ("Repair Trading Post Bridge", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
@@ -967,7 +968,7 @@ class SpiritTracksWorld(WorldParent):
                    "rabbitsanity", # "rabbit_hints",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
-                   "randomize_tears", "spirit_weapons",
+                   "randomize_tears", "spirit_weapons", "tear_sections",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
                    "starting_train",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections",

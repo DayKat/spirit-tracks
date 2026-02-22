@@ -238,7 +238,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # =========== Snow Sanctuary ==========
 
-        ["anouki village", "ss", False, None],
+        ["snow realm", "ss", False, Has("Snow Sanctuary Cave Key") | has_temple_tracks("Blizzard")],
         ["ss", "ss stamp station", False, has_stamp_book],
         ["ss", "ss song", False, has_spirit_flute],
 

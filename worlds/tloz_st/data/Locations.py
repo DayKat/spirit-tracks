@@ -1225,6 +1225,14 @@ LOCATIONS_DATA = {
     },
 
     # Anouki Village
+    "Anouki Village Pair Villagers": {
+        "region_id": "anouki village",
+        "vanilla_item": "Red Rupee (20)",
+        "item_override": "Snow Sanctuary Cave Key",
+        "stage_id": 0x2B,
+        "room_id": 1,
+        "location_groups": ["Anouki Village"],
+    },
     "Anouki Village Stamp Station": {
         "region_id": "anouki village stamp station",
         "vanilla_item": "Treasure",

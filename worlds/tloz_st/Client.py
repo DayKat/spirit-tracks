@@ -177,7 +177,6 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_data = []
         self.entrances = ENTRANCES
         self.boss_warp_entrance = None
-        self.tos_section_shuffle_lookup = {}
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -392,7 +391,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.item_count(ctx, "Tear of Light (All Sections)") >= 6,
                 self.item_count(ctx, "Tear of Light (Progressive)") >= 16,
                 self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
-                self.item_count(ctx, "Big Tear of Light (Progressive)") >= 4]):
+                self.item_count(ctx, "Big Tear of Light (Progressive)") >= 6]):
                 await STAddr.adv_flags_16.set_bits(ctx, 1)
                 await STAddr.items_2.set_bits(ctx, 4)
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
@@ -546,9 +545,9 @@ class SpiritTracksClient(DSZeldaClient):
                      or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
         if not set_tears:
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
-            if ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data["tear_sections"] == 2:
-                print(f"Section {section} is order {ctx.slot_data['tower_section_lookup'][section]}! | {self.tos_section_shuffle_lookup}")
-                section = ctx.slot_data["tower_section_lookup"][section]
+            if ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data.get("tear_sections", 2) == 2:
+                print(f"Section {section} is order {ctx.slot_data['tower_section_lookup']}!")
+                section = ctx.slot_data["tower_section_lookup"][str(section)]
 
             if section == 6:
                 return

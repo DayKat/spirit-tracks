@@ -140,12 +140,7 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1F00],
         "not_has_locations": ["Blizzard Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET fraaz reward", "RESET fraaz don't have source"]
-    },
-    "RESET fraaz reward": {
-        "has_locations": ["Blizzard Temple Dungeon Reward"],
-        "has_items": [["Snow Source", 1]],
-        "set_if_true": [(STAddr.adv_flags_0, 0x20)]
+        "reset_flags": ["RESET Add Snow Source", "RESET fraaz don't have source"]
     },
     "RESET fraaz don't have source": {
         "has_items": [["Snow Source", 0]],
@@ -166,7 +161,7 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x500],
         "has_items": [["Snow Source", 1], ["Blizzard Temple Tracks", 0]],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET snow realm crash"]
+        "reset_flags": ["RESET Add Snow Source"]
     },
     "Snow realm crashes fire glyph and no blizzard tracks": {
         "on_scenes": [0x500],
@@ -179,10 +174,6 @@ DYNAMIC_FLAGS = {
         "has_items": [["Fire Glyph", 1], ["Ocean Glyph", 0]],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
         "reset_flags": ["RESET fire glyph"]
-    },
-    "RESET snow realm crash": {
-        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "has_items": [["Snow Source", 1]],
     },
     "RESET fire glyph": {
         "set_if_true": [(STAddr.adv_flags_2, 0x04)],
@@ -326,7 +317,7 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
         "has_items": [("Progressive ToS Section", 0)],
         "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
-        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 1": {
@@ -335,7 +326,7 @@ DYNAMIC_FLAGS = {
         "has_items": [("Progressive ToS Section", 1, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
-        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 2": {
@@ -369,7 +360,7 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
         "has_items": [("Progressive ToS Section", 1, "has_exact")],
         "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
-        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 1 base": {
@@ -378,7 +369,7 @@ DYNAMIC_FLAGS = {
         "has_items": [("Progressive ToS Section", 2, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
-        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 2 base": {
@@ -428,7 +419,7 @@ DYNAMIC_FLAGS = {
         "has_items": [("Forest Source", 1)],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
     },
-    "RESET Add Snow source": {
+    "RESET Add Snow Source": {
         "has_items": [("Snow Source", 1)],
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
@@ -456,15 +447,43 @@ DYNAMIC_FLAGS = {
     # Linebeck Trade
     "Has Regal Ring for Linebeck": {
         "on_scenes": [0x3700],
-        "has_items": [("Regal Ring", 1)],
+        "has_items": [("Treasure: Regal Ring", 1)],
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
-        "set_bits": [(STAddr.adv_flags_3e, 0x10)]
+        "set_if_true": [(STAddr.adv_flags_3e, 0x10)]
     },
     "Reset linebeck regal ring stuff in cave": {
         "on_scenes": [0x3702],
         "not_has_locations": ["Trading Post Chest"],
-        "unset_bits": [(STAddr.adv_flags_3e, 0x10)]
+        "unset_if_true": [(STAddr.adv_flags_3e, 0x10)]
     },
+    # Anouki chief location
+    "Enter Anouki Chief house": {
+        "on_scenes": [0x2b01],
+        "not_has_locations": ["Anouki Village Pair Villagers"],
+        "set_if_true": [(STAddr.adv_flags_b, 0x2), # Started Quest
+                     (STAddr.adv_flags_18, 0x10), # Talked to all anouki
+                     ],
+        "unset_if_true": [(STAddr.adv_flags_b, 0x10),  # Remove finished quest flag
+                        (STAddr.adv_flags_0, 0x20),  # Remove snow source
+                        (STAddr.adv_flags_1, 0x02),  # Remove btt
+                        (STAddr.adv_flags_c, 0x08)] , # Don't advance dialogue after btt
+        "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source"]
+    },
+    "Anouki village remove icons": {
+        "on_scenes": [0x2b00],
+        "set_if_true": [(STAddr.adv_flags_b, 0x10)],
+    },
+    "Lock Snow Realm Rocktite Cave": {
+        "on_scenes": [0x500],
+        "has_items": [("Snow Sanctuary Cave Key", 0), ("Blizzard Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20), (STAddr.adv_flags_b, 0x10)],
+        "reset_flags": ["RESET Add Snow Source"]
+    },
+    "Unlock Snow Sanc Cave": {
+        "on_scenes": [0x500],
+        "has_items": [("Snow Sanctuary Cave Key", 1)],
+        "set_if_true": [(STAddr.adv_flags_b, 0x10)],
+    }
 
 
 }

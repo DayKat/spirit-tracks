@@ -198,7 +198,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["wt 1f enemy chest", "wt 2f poison chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
         ["wt", "wt 1f switch chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
         ["wt", "wt 2f left", False, lambda state: st_can_kill_bubble(state, player) and st_has_small_keys(state, player, "Wooded Temple", 1)],
-        ["wt 2f left", "wt 3f chestnut chest", False, lambda state: st_has_range(state, player) or st_has_beam_sword(state, player)],
+        ["wt 2f left", "wt 3f chestnut chest", False, lambda state: st_has_range(state, player) or st_has_beam_sword(state, player) or st_has_whirlwind(state, player)],
         ["wt 2f left", "wt 3f", False, lambda state: st_has_small_keys(state, player, "Wooded Temple", 2)],
         ["wt 3f", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
         ["wt 3f", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player)],
@@ -256,7 +256,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # =========== Snow Sanctuary ==========
 
-        ["anouki village", "ss", False, None],
+        ["snow realm", "ss", False, lambda state: st_has_temple_tracks(state, player, "Blizzard") or state.has("Snow Sanctuary Cave Key", player)],
         ["ss", "ss stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["ss", "ss song", False, lambda state: st_has_spirit_flute(state, player)],
 
@@ -301,7 +301,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["snow realm source", "bridge workers", True, lambda state: st_has_source(state, player, "Snow")],
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
 
-        ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
+        ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean") and (state.has("Repair Trading Post Bridge", player) or st_has_misc_tracks(state, player, "E Mayscore Bridge"))],
     ]
 
     ocean_realm_logic = [

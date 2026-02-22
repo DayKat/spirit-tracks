@@ -53,7 +53,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     },
     "Bow (Progressive)": {
         'classification': ItemClassification.progression,
-        "progressive": [[STAddr.items_0, 0x08], [STAddr.arrow_capacity, 0x20]],
+        "progressive": [[STAddr.items_0, 0x08], [STAddr.arrow_capacity, 0x1], [STAddr.arrow_capacity, 0x2]],
         "give_ammo": [20, 30, 50],
         "ammo_address": STAddr.arrow_count,
         "tags": ["progressive_overwrite"],
@@ -731,7 +731,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.small_keys,
         'dungeon': 0x13,
         "tags": ["incremental"],
-        "rooms": [0x19, 0x20, 0x21, 0x22, 0x23, 0x24],
+        "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         "section": 6,
         'item_groups': ["Small Keys"],
     },
@@ -923,7 +923,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_17,
         "value": 0x10,
     },
-    "Open Snow Sanctuary Rocktite Cave": {  # Ahh complicated
+    "Snow Sanctuary Cave Key": {  # Ahh complicated
         "classification": ItemClassification.progression,
         "address": STAddr.adv_flags_b,
         "value": 0x10,

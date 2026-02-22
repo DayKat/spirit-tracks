@@ -132,8 +132,8 @@ def st_has_tears(state: CollectionState, player: int, section: int):
 def st_has_bow_of_light(state, player):
     return any([
         state.has("Bow of Light", player) and st_has_bow(state, player),
-        state.has(f"Tear of Light (Progressive)", player, 10),
-        state.has(f"Big Tear of Light (Progressive)", player, 4),
+        state.has(f"Tear of Light (Progressive)", player, 16),
+        state.has(f"Big Tear of Light (Progressive)", player, 6),
         state.has(f"Tear of Light (All Sections)", player, 4),
         state.has(f"Big Tear of Light (All Sections)", player, 2),
     ])

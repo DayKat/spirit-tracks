@@ -10,7 +10,7 @@ DYNAMIC_ENTRANCES = {
     "Exit ToS to snow without source": {
         "entrance": "Tower of Spirits to Snow Realm",
         "destination": "Tower of Spirits to Snow Realm",
-        "not_has_all_items": [# ("Snow Glyph", 0),  # only crashes if you also remove blizzard lol
+        "has_items": [# ("Snow Glyph", 0),  # only crashes if you also remove blizzard lol
                               ("Snow Source", 0),
                               # ("Blizzard Temple Tracks", 0) # Fixed!
                               ],
