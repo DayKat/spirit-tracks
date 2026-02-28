@@ -436,7 +436,7 @@ DYNAMIC_FLAGS = {
     "Remove beedle bomb flag": {
         "on_scenes": [0x4503],
         "not_has_locations": ["Beedle Buy Bomb Bag"],
-        "has_slot_data": [("shopsanity", [1, 3])],
+        "has_slot_data": [("shopsanity", "uniques")],
         "unset_if_true": [(STAddr.adv_flags_22, 0x02)],
         "reset_flags": ["RESET beedle bomb bag flag"]
     },
@@ -446,7 +446,7 @@ DYNAMIC_FLAGS = {
     },
     "Add beedle bomb flag": {
         "on_scenes": [0x4503],
-        "has_slot_data": [("shopsanity", [0, 2])],
+        "has_slot_data": [("shopsanity", "uniques")],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
     },
     # Whip Race
@@ -503,7 +503,7 @@ DYNAMIC_FLAGS = {
     },
     "Anouki shop skip HC": {
         "on_scenes": [0x3103],
-        "has_slot_data": [("randomize_shops", [0, 2])],
+        "has_slot_data": [("shopsanity", [0, 2])],
         "set_if_true": [(STAddr.adv_flags_21, 0x40)],
     },
     # Take em all on stuff

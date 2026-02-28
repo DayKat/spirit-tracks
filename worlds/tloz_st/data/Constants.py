@@ -498,6 +498,15 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x1323: "ToS 30F Exit",
 }
 
+potion_location_lookup = {
+    0x4503: {1: "Beedle Buy Red Potion",
+             2: "Beedle Buy Purple Potion"},
+    0x2a05: {1: "Mayscore Shop Red Potion"},
+    0x290a: {1: "Castle Town Shop Red Potion"},
+    0x3103: {1: "Snow Sanctuary Shop Red Potion",
+             2: "Snow Sanctuary Shop Purple Potion"}
+}
+
 TOS_FLOOR_TO_SECTION = {
     0: 1,
     1: 1,

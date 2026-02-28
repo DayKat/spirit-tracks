@@ -50,29 +50,50 @@ HINT_DATA = {
     # Shops
     "Castle Town Shop Treasures": {
         "scenes": [0x290a],
-        "slot_data": [("shopsanity", [2, 3]), ("shop_hints", 1)],
+        "slot_data": [("shopsanity", "treasure"), ("shop_hints", 1)],
         "locations": ["Castle Town Shop Treasure 1", "Castle Town Shop Treasure 2"]
+    },
+    "Castle Town Shop Red Potion": {
+        "scenes": [0x290a],
+        "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
     },
     "Mayscore Shop Treasures": {
         "scenes": [0x2a05],
-        "slot_data": [("shopsanity", [2, 3]), ("shop_hints", 1)],
+        "slot_data": [("shopsanity", "treasure"), ("shop_hints", 1)],
         "locations": ["Mayscore Shop Treasure 1", "Mayscore Shop Treasure 2"]
+    },
+    "Mayscore Shop Red Potion": {
+        "scenes": [0x2a05],
+        "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
     },
     "Beedle Buy Rare Treasure": {
         "scenes": [0x4503],
-        "slot_data": [("shopsanity", [2, 3]), ("shop_hints", 1)]
+        "slot_data": [("shopsanity", "treasure"), ("shop_hints", 1)]
     },
     "Beedle Buy Uncommon Treasure": {
         "scenes": [0x4503],
-        "slot_data": [("shopsanity", [2, 3]), ("shop_hints", 1)]
+        "slot_data": [("shopsanity", "treasure"), ("shop_hints", 1)]
     },
     "Beedle Buy Bomb Bag": {
         "scenes": [0x4503],
-        "slot_data": [("shopsanity", [1, 3]), ("shop_hints", 1)]
+        "slot_data": [("shopsanity", "uniques"), ("shop_hints", 1)]
+    },
+    "Beedle Buy Red Potion": {
+        "scenes": [0x4503],
+        "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)]
+    },
+    "Beedle Buy Purple Potion": {
+        "scenes": [0x4503],
+        "slot_data": [("shopsanity", "potions"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
     },
     "Snow Sanctuary Shop Heart Container": {
         "scenes": [0x3103],
-        "slot_data": [("shopsanity", [1, 3]), ("shop_hints", 1)]
+        "slot_data": [("shopsanity", "uniques"), ("shop_hints", 1)]
     },
+    "Snow Sanc Shop potions": {
+        "scenes": [0x3103],
+        "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
+        "locations": ["Snow Sanctuary Shop Red Potion", "Snow Sanctuary Shop Purple Potion"]
+    }
 
 }

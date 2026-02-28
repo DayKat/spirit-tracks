@@ -24,7 +24,7 @@ class TestGeneration(WorldTestBase):
         "shuffle_tos_sections": "shuffle",
         # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
 
-        "shopsanity": "all_above",
+        "shopsanity": {"uniques", "treasure"},
         "rupee_farming_logic": "unlimited_farming",
         "excess_random_treasure": "nothing"
     }

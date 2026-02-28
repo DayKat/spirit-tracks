@@ -25,6 +25,10 @@ class STAddr:
     saving = Address(0x049BD8)
     getting_tear_safety = Address(0x327B8C)
     getting_item_safety = Address(0x264648)
+    entering_shop = Address(0x260A44)
+
+    # drinking_potion = Address(0x317ED0)  # 39 normal, 3b drinking
+    drinking_potion_pointer = Address(0x265338, size=4)
     
     link_x = Address.pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
     link_y = Address.pointer(0x05D0)

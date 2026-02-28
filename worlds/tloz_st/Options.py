@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet
+   ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet
 from worlds.tloz_st.data.Items import ITEMS_DATA
 from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION
 
@@ -386,20 +386,18 @@ class SpiritTracksShuffleToSSections(Choice):
     option_no_shuffle = 0
     option_shuffle = 1
 
-class SpiritTracksShopsanity(Choice):
+class SpiritTracksShopsanity(OptionSet):
     """
     Randomize Shops.
-    - no_shops: don't randomize shops. Unique items give nothing.
-    - major_items: only unique items like bomb bags or heart containers are locations
-    - treasures: only treasures from shops are locations
-    - all_above: all possible shop items are locations
+    Add the following to the list to randomize that type of shop location:
+    - uniques
+    - treasure
+    - potions
     """
     display_name = "Shopsanity"
-    option_no_shops = 0
-    option_major_items = 1
-    option_treasures = 2
-    option_all_above = 3
-    default = 0
+    default = set()
+    # supports_weighting = True
+    valid_keys = ["uniques", "treasure", "potions"]
 
 class SpiritTracksShopHints(Toggle):
     """

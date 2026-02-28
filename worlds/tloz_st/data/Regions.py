@@ -259,6 +259,7 @@ REGIONS = [
     "beedle bomb bag",
     "beedle uncommon treasure",
     "beedle rare treasure",
+    "beedle potion",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm

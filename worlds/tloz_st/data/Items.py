@@ -532,6 +532,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 1,
         'overflow_item': "Big Green Rupee (100)",
         'item_groups': ["Potions"],
+        'tags': ["always_process"]
     },
     "Purple Potion": {
         'classification': ItemClassification.filler,
@@ -539,6 +540,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 2,
         'overflow_item': "Big Green Rupee (100)",
         'item_groups': ["Potions"],
+        'tags': ["always_process"]
     },
     "Yellow Potion": {
         'classification': ItemClassification.filler,
@@ -546,6 +548,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 3,
         'overflow_item': "Big Red Rupee (200)",
         'item_groups': ["Potions"],
+        'tags': ["always_process"]
     },
     "Nothing!": {
         'classification': ItemClassification.filler,

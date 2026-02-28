@@ -85,7 +85,7 @@ class SpiritTracksSettings(settings.Group):
     train_snap_speed: Union[STTrainSnapSpeed, bool] = True
     train_quick_station: Union[STTrainInstantStation, bool] = True
 
-dev_prints = True
+dev_prints = False
 
 class SpiritTracksWorld(WorldParent):
     """
@@ -188,6 +188,7 @@ class SpiritTracksWorld(WorldParent):
 
             if self.options.starting_train == "random_train":
                 self.options.starting_train.value = self.random.randint(0, 7)
+            print(f"Shopsanity {self.options.shopsanity.value}")
         self.create_item_mappings()
 
     def plando_tos_sections(self):
@@ -350,10 +351,14 @@ class SpiritTracksWorld(WorldParent):
         if "minigame" in location_data and self.options.randomize_minigames:
             return self.options.randomize_minigames.value in location_data["minigame"]
         if self.options.shopsanity:
+            if location_name in LOCATION_GROUPS["Shop Restock Locations"]:  # Only restock rn is beedle bombbag -> purple potion
+                return "potions" in self.options.shopsanity.value and "uniques" not in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Treasure Locations"]:
-                return self.options.shopsanity.value in [2, 3]
+                return "treasure" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Unique Locations"]:
-                return self.options.shopsanity.value in [1, 3]
+                return "uniques" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Potion Locations"]:
+                return "potions" in self.options.shopsanity.value
 
         return False
 
@@ -927,7 +932,8 @@ class SpiritTracksWorld(WorldParent):
         filler_item_names = list(ITEM_GROUPS["Common Treasures"] |
                              ITEM_GROUPS["Uncommon Treasures"] |
                              ITEM_GROUPS["Refill Items"] |
-                             ITEM_GROUPS["Small Rupees"]
+                             ITEM_GROUPS["Small Rupees"] |
+                             ITEM_GROUPS["Potions"]
                              ) + ["Big Green Rupee (100)"]
         rare_filler_items = list( ITEM_GROUPS["Rare Treasures"]) + [
             "Big Red Rupee (200)", "Gold Rupee (300)"]

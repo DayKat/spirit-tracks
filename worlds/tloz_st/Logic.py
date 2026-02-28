@@ -64,9 +64,28 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town", "castle town wall", False, lambda state: st_has_bombs(state, player)],
         ["castle town wall", "castle town cuccos", False, lambda state: st_castle_town_cuccos(state, player)],
 
-        ["castle town", "teao 1", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player) and st_has_source(state, player, "Snow")],
-        ["teao 1", "teao 2", False, lambda state: st_has_source(state, player, "Ocean") and st_has_boomerang(state, player) and st_has_whip(state, player)],
-        ["teao 2", "teao 3", False, lambda state: st_has_source(state, player, "Sand") and st_has_bow(state, player) and st_has_sand_wand(state, player)],
+        ["castle town", "teao 1", False, lambda state:
+            st_has_sword(state, player) and
+            st_has_whirlwind(state, player) and
+            any([
+                st_has_source(state, player, "Forest"),
+                st_has_source(state, player, "Ocean"),
+                st_has_source(state, player, "Sand")])],
+        ["castle town", "teao 2", False, lambda state:
+            (st_has_source(state, player, "Ocean") or
+             st_has_source(state, player, "Sand")) and
+            st_has_sword(state, player) and
+            st_has_whirlwind(state, player) and
+            st_has_boomerang(state, player) and
+            st_has_whip(state, player)],
+        ["castle town", "teao 3", False, lambda state:
+            st_has_source(state, player, "Sand") and
+            st_has_bow(state, player) and
+            st_has_sand_wand(state, player) and
+            st_has_sword(state, player) and
+            st_has_whirlwind(state, player) and
+            st_has_boomerang(state, player) and
+            st_has_whip(state, player)],
 
         # # ======== Hyrule Castle =========
 
@@ -353,9 +372,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     ]
 
     required_rupees = 0
-    if options.shopsanity.value == 1: required_rupees = 1500
-    elif options.shopsanity.value == 2: required_rupees = 2100
-    elif options.shopsanity.value == 3: required_rupees = 4600
+    if "uniques" in options.shopsanity.value: required_rupees += 2500
+    if "treasure" in options.shopsanity.value: required_rupees += 2100
+    if "potions" in options.shopsanity.value: required_rupees += 700
 
     overworld_logic += [
         # Shops
@@ -364,6 +383,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["beedle", "beedle bomb bag", False, lambda state: st_has_rupees(state, player, required_rupees)],
         ["beedle", "beedle uncommon treasure", False, lambda state: st_has_rupees(state, player, required_rupees)],
         ["beedle", "beedle rare treasure", False, lambda state: st_has_rupees(state, player, required_rupees)],
+        ["beedle", "beedle potion", False, lambda state: st_has_rupees(state, player, required_rupees)],
 
         ["mayscore", "mayscore shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
         ["castle town", "castle town shop", False, lambda state: st_has_rupees(state, player, required_rupees)],

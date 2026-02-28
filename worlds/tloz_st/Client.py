@@ -26,7 +26,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety]
-read_keys_train = [STAddr.train_gear]
+read_keys_train = []
 
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
@@ -191,6 +191,9 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.hint_data = HINT_DATA
         self.got_item_no_loc = False
+        self.potion_tracker = [0, 0]
+        self.drinking_potion = False
+        self.addr_drinking_potion = None
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -258,6 +261,10 @@ class SpiritTracksClient(DSZeldaClient):
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
             self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
             read_keys.append(self.train_gear_addr)
+        else:
+            potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + 0xf64
+            self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
+            read_keys.append(self.addr_drinking_potion)
 
         self.main_read_list = read_keys
         # print(self.main_read_list)
@@ -316,6 +323,31 @@ class SpiritTracksClient(DSZeldaClient):
         entr = self.entrances[event_name]
         await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
 
+    async def update_potion_tracker(self, ctx, spec=""):
+        reads = await read_multiple(ctx, [STAddr.potion_0, STAddr.potion_1])
+        new_potions = list(reads.values())
+        res = False
+        if new_potions != self.potion_tracker:
+            print(F"New Potions: {new_potions} {spec}")
+            res = True
+        self.potion_tracker = new_potions
+        return res
+
+    async def check_potion_location(self, ctx):
+        """Checks for potion locations in shops if treasure tracker doesn't find a treasure on a location"""
+        if self.current_scene in potion_location_lookup and "potions" in ctx.slot_data["shopsanity"]:
+            empty_slots = [addr for addr, prev in zip([STAddr.potion_0, STAddr.potion_1], self.potion_tracker) if prev == 0]
+            if not empty_slots:
+                return
+            slot = await empty_slots[0].read(ctx)
+            if not slot:
+                return
+            location = potion_location_lookup.get(self.current_scene, {}).get(slot, None)
+            if location:
+                if self.location_name_to_id[location] not in ctx.checked_locations:
+                    await self._process_checked_locations(ctx, location)
+
+
     async def update_treasure_tracker(self, ctx: "BizHawkClientContext", last_loc=None):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
         new_treasure = await read_multiple(ctx, read_list)
@@ -334,6 +366,7 @@ class SpiritTracksClient(DSZeldaClient):
         diff = {t: n - o for n, o, t in
                 zip(new_treasure.values(), self.treasure_tracker.values(), ITEM_GROUPS["All Treasures"]) if n - o > 0}
         if not diff:
+            await self.check_potion_location(ctx)
             return
 
         single_item = [t for t in diff][0]
@@ -344,7 +377,7 @@ class SpiritTracksClient(DSZeldaClient):
             await write_multiple(ctx, [a for a in reads], [v-1 for v in reads.values()])
 
         # Detect shop locations
-        if ctx.slot_data["shopsanity"] in [2, 3] and self.current_scene in SHOP_TREASURE_DATA:
+        if "treasure" in ctx.slot_data["shopsanity"] and self.current_scene in SHOP_TREASURE_DATA:
             for data in SHOP_TREASURE_DATA[self.current_scene]:
                 if single_item in ITEM_GROUPS[data["group"] + " Treasures"]:
                     for location in data["locations"]:
@@ -404,6 +437,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
+        await self.update_potion_tracker(ctx, "room_load")
         await self.update_rabbit_count(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
@@ -416,7 +450,15 @@ class SpiritTracksClient(DSZeldaClient):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
         await self.detect_ut_event(ctx, self.current_scene)
         await self.process_train_speed(ctx, read_result)
+        await self.drink_potion(ctx, read_result)
 
+    async def drink_potion(self, ctx, read_results):
+        drinking_potion = read_results.get(self.addr_drinking_potion, 0)
+        if drinking_potion == 0x3b:
+            self.drinking_potion = True
+        if self.drinking_potion and drinking_potion == 0x39:
+            self.drinking_potion = False
+            await self.update_potion_tracker(ctx, "drunk_potion")
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
