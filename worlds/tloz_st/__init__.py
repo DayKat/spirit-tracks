@@ -359,6 +359,8 @@ class SpiritTracksWorld(WorldParent):
                 return "uniques" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Potion Locations"]:
                 return "potions" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Shield Locations"]:
+                return "shields" in self.options.shopsanity.value
 
         return False
 
@@ -510,7 +512,7 @@ class SpiritTracksWorld(WorldParent):
                 filler_item_count += 1
                 continue
             if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)",
-                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)"]:
+                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
@@ -528,7 +530,7 @@ class SpiritTracksWorld(WorldParent):
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
         add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Sand Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
-                     ("Repair Trading Post Bridge", 1)]
+                     ("Repair Trading Post Bridge", 1), ("Shield", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]

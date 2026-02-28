@@ -506,6 +506,16 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("shopsanity", [0, 2])],
         "set_if_true": [(STAddr.adv_flags_21, 0x40)],
     },
+    "Remove shield from shield shops": {
+        "on_scenes": [0x2a05, 0x290a, 0x3103],
+        "unset_if_true": [(STAddr.items_2, 1)],
+        "has_slot_data": [("shopsanity", "shields")],
+        "reset_flags": ["RESET add shield"]
+    },
+    "RESET add shield": {
+        "has_items": [("Shield", 1)],
+        "set_if_true": [(STAddr.items_2, 1)],
+    },
     # Take em all on stuff
     "TEAO Unlock 1": {
         "on_scenes": [0x290B],

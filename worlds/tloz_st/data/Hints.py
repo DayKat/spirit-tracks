@@ -94,6 +94,17 @@ HINT_DATA = {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
         "locations": ["Snow Sanctuary Shop Red Potion", "Snow Sanctuary Shop Purple Potion"]
-    }
-
+    },
+    "Snow Sanctuary Shop Shield": {
+        "scenes": [0x3103],
+        "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
+    },
+    "Castle Town Shop Shield": {
+        "scenes": [0x290a],
+        "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
+    },
+    "Mayscore Shop Shield": {
+        "scenes": [0x2a05],
+        "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
+    },
 }

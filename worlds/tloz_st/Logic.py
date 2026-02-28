@@ -375,6 +375,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     if "uniques" in options.shopsanity.value: required_rupees += 2500
     if "treasure" in options.shopsanity.value: required_rupees += 2100
     if "potions" in options.shopsanity.value: required_rupees += 700
+    if "shields" in options.shopsanity.value: required_rupees += 240
 
     overworld_logic += [
         # Shops

@@ -30,8 +30,6 @@ LOCATIONS_DATA = {
     },
     "Outset Stamp Station": {
         "region_id": "outset village stamp station",
-        #"vanilla_item": "Outset Village Stamp",
-        "vanilla_item": "Treasure",
         "stage_id": 0x2F,
         "room_id": 0,
         "stamp": True,
@@ -79,8 +77,6 @@ LOCATIONS_DATA = {
     # Castle Town
     "Castle Town Stamp Station": {
         "region_id": "castle town stamp station",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": "Castle Town Stamp",
         "stage_id": 0x29,
         "room_id": 0,
         "stamp": True,
@@ -925,12 +921,10 @@ LOCATIONS_DATA = {
     # Mayscore
     "Mayscore Stamp Station": {
         "region_id": "mayscore stamp station",
-        #"vanilla_item": "Mayscore Stamp",
         "stage_id": 0x38,
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book"],
-        "vanilla_item": "Treasure",
         "location_groups": ["Mayscore"],
     },
     "Mayscore Whip Chest": {
@@ -972,8 +966,6 @@ LOCATIONS_DATA = {
     # Forest Sanctuary
     "Forest Sanctuary Stamp Station": {
         "region_id": "fos stamp station",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": "Forest Sanctuary Stamp",
         "stage_id": 0x30,
         "room_id": 0,
         "stamp": True,
@@ -1027,8 +1019,6 @@ LOCATIONS_DATA = {
     },
     "Wooded Temple Stamp Station": {
         "region_id": "wt stamp station",
-        "vanilla_item": "Treasure",
-        #"vanilla_item": "Forest Station Stamp",
         "stage_id": 0x19,
         "room_id": 0,
         "stamp": True,
@@ -1204,8 +1194,6 @@ LOCATIONS_DATA = {
     # Trading Post
     "Trading Post Stamp Station": {
         "region_id": "trading post stamp station",
-        #"vanilla_item": "Trading Post Stamp",
-        "vanilla_item": "Treasure",
         "stage_id": 0x37,
         "room_id": 0x01,
         "stamp": True,
@@ -1243,7 +1231,6 @@ LOCATIONS_DATA = {
     },
     "Anouki Village Stamp Station": {
         "region_id": "anouki village stamp station",
-        "vanilla_item": "Treasure",
         "stage_id": 0x2B,
         "room_id": 0,
         "stamp": True,
@@ -1299,7 +1286,6 @@ LOCATIONS_DATA = {
     # Snow Sanctuary
     "Snow Sanctuary Stamp Station": {
         "region_id": "ss stamp station",
-        "vanilla_item": "Treasure",
         "stage_id": 0x31,
         "room_id": 0,
         "stamp": True,
@@ -1374,7 +1360,6 @@ LOCATIONS_DATA = {
     },
     "Blizzard Temple Stamp Station": {
         "region_id": "bt stamp station",
-        "vanilla_item": "Treasure",
         "stage_id": 0x1A,
         "room_id": 1,
         "stamp": True,
@@ -1452,11 +1437,9 @@ LOCATIONS_DATA = {
     },
     "Icy Spring Stamp Station": {
         "region_id": "icyspring stamp station",
-        "vanilla_item": "Treasure",
         "stage_id": 0x35,
         "room_id": 0,
         "stamp": True,
-        "item_override": "Shield",
         "location_groups": ["Icy Spring"],
     },
 
@@ -1536,7 +1519,6 @@ ocean_realm_locations = {
     # Ocean Sanctuary
     "Ocean Sanctuary Stamp Station": {
         "region_id": "ocs stamp station",
-        "vanilla_item": "Treasure",
         "stage_id": 0x32,
         "room_id": 0,
         "stamp": True,
@@ -1594,7 +1576,6 @@ ocean_realm_locations = {
 
     "Papuchia Village Stamp Station": {
         "region_id": "papuchia village stamp station",
-        "vanilla_item": "Treasure",
         "stage_id": 0x2C,
         "room_id": 0,
         "stamp": True,
@@ -1688,7 +1669,6 @@ ocean_realm_locations = {
 
     "Ocean Temple Stamp Station": {
         "region_id": "oct stamp station",
-        "vanilla_item": "Treasure",
         "stage_id": 0x1B,
         "room_id": 0,
         "stamp": True,
@@ -2123,9 +2103,34 @@ LOCATIONS_DATA |= {
         "region_id": "snow sanc shop",
         "address": STAddr.adv_flags_21,
         "value": 0x40,
-        "location_groups": ["Shop Unique Locations", "Snow Sanctuary"],
+        "location_groups": ["Shop Unique Locations", "Snow Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "uniques")],
+    },
+    "Snow Sanctuary Shop Red Potion": {
+        "region_id": "snow sanc shop",
+        "vanilla_item": "Red Potion",
+        "location_groups": ["Shop Potion Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "potions")],
+    },
+    "Snow Sanctuary Shop Purple Potion": {
+        "region_id": "snow sanc shop",
+        "vanilla_item": "Purple Potion",
+        "location_groups": ["Shop Potion Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "potions")],
+    },
+    "Snow Sanctuary Shop Shield": {
+        "stage_id": 0x31,
+        "room_id": 0x3,
+        "address": STAddr.items_2,
+        "value": 1,
+        "region_id": "snow sanc shop",
+        "vanilla_item": "Shield",
+        "location_groups": ["Shop Shield Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "shields")],
     },
     "Beedle Buy Bomb Bag": {
         "stage_id": 0x45,
@@ -2153,48 +2158,6 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "treasure")],
     },
-    "Mayscore Shop Treasure 1": {
-        "region_id": "mayscore shop",
-        # "vanilla_item": ITEM_GROUPS["Common Treasures"],
-        "location_groups": ["Shop Treasure Locations", "Mayscore"],
-        "conditional": True,
-        "slot_data": [("shopsanity", "treasure")],
-    },
-    "Mayscore Shop Treasure 2": {
-        "region_id": "mayscore shop",
-        # "vanilla_item": ITEM_GROUPS["Common Treasures"],
-        "location_groups": ["Shop Treasure Locations", "Mayscore"],
-        "conditional": True,
-        "slot_data": [("shopsanity", "treasure")],
-    },
-    "Mayscore Shop Red Potion": {
-        "region_id": "mayscore shop",
-        "vanilla_item": "Red Potion",
-        "location_groups": ["Shop Potion Locations", "Mayscore"],
-        "conditional": True,
-        "slot_data": [("shopsanity", "potions")],
-    },
-    "Castle Town Shop Treasure 1": {
-        "region_id": "castle town shop",
-        # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
-        "location_groups": ["Shop Treasure Locations", "Castle Town"],
-        "conditional": True,
-        "slot_data": [("shopsanity", "treasure")],
-    },
-    "Castle Town Shop Treasure 2": {
-        "region_id": "castle town shop",
-        # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
-        "location_groups": ["Shop Treasure Locations", "Castle Town"],
-        "conditional": True,
-        "slot_data": [("shopsanity", "treasure")],
-    },
-    "Castle Town Shop Red Potion": {
-        "region_id": "castle town shop",
-        "vanilla_item": "Red Potion",
-        "location_groups": ["Shop Potion Locations", "Castle Town"],
-        "conditional": True,
-        "slot_data": [("shopsanity", "potions")],
-    },
     "Beedle Buy Red Potion": {
         "region_id": "beedle potion",
         "vanilla_item": "Red Potion",
@@ -2209,19 +2172,69 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "potions"), ("shopsanity", "uniques", "not")],
     },
-    "Snow Sanctuary Shop Red Potion": {
-        "region_id": "snow sanc shop",
+    "Mayscore Shop Treasure 1": {
+        "region_id": "mayscore shop",
+        # "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Mayscore", "Mayscore Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "treasure")],
+    },
+    "Mayscore Shop Treasure 2": {
+        "region_id": "mayscore shop",
+        # "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Mayscore", "Mayscore Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "treasure")],
+    },
+    "Mayscore Shop Red Potion": {
+        "region_id": "mayscore shop",
         "vanilla_item": "Red Potion",
-        "location_groups": ["Shop Potion Locations", "Snow Sanctuary"],
+        "location_groups": ["Shop Potion Locations", "Mayscore", "Mayscore Shop"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")],
     },
-    "Snow Sanctuary Shop Purple Potion": {
-        "region_id": "snow sanc shop",
-        "vanilla_item": "Purple Potion",
-        "location_groups": ["Shop Potion Locations", "Snow Sanctuary"],
+    "Mayscore Shop Shield": {
+        "stage_id": 0x2a,
+        "room_id": 0x5,
+        "address": STAddr.items_2,
+        "value": 1,
+        "region_id": "mayscore shop",
+        "vanilla_item": "Shield",
+        "location_groups": ["Shop Shield Locations", "Mayscore", "Mayscore Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "shields")],
+    },
+    "Castle Town Shop Treasure 1": {
+        "region_id": "castle town shop",
+        # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Castle Town", "Castle Town Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "treasure")],
+    },
+    "Castle Town Shop Treasure 2": {
+        "region_id": "castle town shop",
+        # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Shop Treasure Locations", "Castle Town", "Castle Town Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "treasure")],
+    },
+    "Castle Town Shop Red Potion": {
+        "region_id": "castle town shop",
+        "vanilla_item": "Red Potion",
+        "location_groups": ["Shop Potion Locations", "Castle Town", "Castle Town Shop"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")],
+    },
+    "Castle Town Shop Shield": {
+        "stage_id": 0x29,
+        "room_id": 0xa,
+        "address": STAddr.items_2,
+        "value": 1,
+        "region_id": "castle town shop",
+        "vanilla_item": "Shield",
+        "location_groups": ["Shop Shield Locations", "Castle Town", "Castle Town Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "shields")],
     },
 }
 

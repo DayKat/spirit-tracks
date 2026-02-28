@@ -3,6 +3,8 @@
   {"name": "Castle Town", "sections": [
     {"name": "Castle Town Shop Treasure 1"},
     {"name": "Castle Town Shop Treasure 2"},
+        {"name": "Castle Town Shop Red Potion"},
+    {"name": "Castle Town Shop Shield"},
     {"name": "Castle Town Stamp Station"},
     {"name": "Castle Town Left Wall Chest"},
     {"name": "Castle Town Right Wall Chest"},
@@ -24,6 +26,7 @@
     {"name": "Tunnel to ToS 2F Chest"}], "map_locations":[{"map": "Overview", "x": 404, "y": 434}]},
   {"name": "Mayscore", "sections": [
     {"name": "Mayscore Shop Treasure 1"},{"name": "Mayscore Shop Treasure 2"},
+        {"name": "Mayscore Shop Red Potion"},{"name": "Mayscore Shop Shield"},
     {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"},
     {"name": "Mayscore Whip Race Bomb Bag"}, {"name": "Mayscore Whip Race Heart Container"}], "map_locations":[{"map": "Overview", "x": 332, "y": 594}]},
 {"name": "Forest Sanctuary", "sections": [{"name": "Forest Sanctuary Stamp Station"}, {"name": "Forest Sanctuary Song Statue"}, {"name": "Forest Sanctuary Chest"}, {"name": "Forest Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 212, "y": 574}]},
@@ -34,7 +37,13 @@
   {"name": "Trading Post Events", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations":[{"map": "Overview", "x": 420, "y": 670}]},
 
   {"name": "Anouki Village", "sections": [{"name": "Anouki Village Pair Villagers"},{"name": "Anouki Village Stamp Station"}, {"name": "Anouki Village Song Statue"}, {"name": "Anouki Village Song Statue Chest"}, {"name": "Anouki Village Bomb Cave Chest"}, {"name": "Anouki Village Lake Chest"}], "map_locations":[{"map": "Overview", "x": 164, "y": 280}]},
-  {"name": "Snow Sanctuary", "sections": [{"name": "Snow Sanctuary Shop Heart Container"}, {"name": "Snow Sanctuary Stamp Station"}, {"name": "Snow Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 140, "y": 236}]},
+  {"name": "Snow Sanctuary", "sections": [
+    {"name": "Snow Sanctuary Shop Heart Container"},
+    {"name": "Snow Sanctuary Shop Red Potion"},
+    {"name": "Snow Sanctuary Shop Purple Potion"},
+    {"name": "Snow Sanctuary Shop Shield"},
+    {"name": "Snow Sanctuary Stamp Station"},
+    {"name": "Snow Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 140, "y": 236}]},
   {"name": "Blizzard Temple", "sections": [{"name": "Blizzard Temple B1 SE Chest"}, {"name": "Blizzard Temple B1 E Enemy Chest"}, {"name": "Blizzard Temple B1 NE Enemy Chest"}, {"name": "Blizzard Temple 1F NE Chest"}, {"name": "Blizzard Temple B1 SW Chest"}, {"name": "Blizzard Temple Stamp Station"}, {"name": "Blizzard Temple B1 NW Enemy Chest"}, {"name": "Blizzard Temple 1F NW Chest"}, {"name": "Blizzard Temple 1F Torch Chest"}, {"name": "Blizzard Temple Boss Heart Container"}, {"name": "Blizzard Temple Dungeon Reward"}], "map_locations":[{"map": "Overview", "x": 115, "y": 46}]},
   {"name": "Blizzard Temple Events", "sections": [{"name": "EVENT: Defeat Fraaz"}, {"name": "GOAL: Defeat Fraaz"}], "map_locations":[{"map": "Overview", "x": 115, "y": 30}]},
   {"name": "Icy Spring", "sections": [{"name": "Icy Spring Whip Chest"}, {"name": "Icy Spring Stamp Station"}], "map_locations":[{"map": "Overview", "x": 356, "y": 212}]},
@@ -67,9 +76,14 @@
 
   {"name": "Forest Realm Shoot SW Portal", "sections": [{"name": "Forest Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 158, "y": 662}]},
 {"name": "Forest Realm Shoot SE Portal", "sections": [{"name": "Forest Realm Shoot SE Portal"}], "map_locations":[{"map": "Overview", "x": 424, "y": 734}]},
-{"name": "Snow Realm Shoot SW Portal", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 128, "y": 350}]},
+{"name": "Snow Realm Shoot SW Portal", "sections": [6{"name": "Snow Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 128, "y": 350}]},
 {"name": "Snow Realm Shoot Bridge Portal", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations":[{"map": "Overview", "x": 290, "y": 326}]},
 {"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 131}]},
   {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
-  {"name": "Beedle", "sections":  [{"name": "Beedle Buy Uncommon Treasure"}, {"name": "Beedle Buy Bomb Bag"}], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]}
+  {"name": "Beedle", "sections":  [
+    {"name": "Beedle Buy Uncommon Treasure"},
+    {"name": "Beedle Buy Rare Treasure"},
+    {"name": "Beedle Buy Bomb Bag"},
+    {"name": "Beedle Buy Red Potion"},
+    {"name": "Beedle Buy Purple Potion"}], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]}
 ]
