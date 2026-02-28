@@ -46,7 +46,7 @@ def st_has_wood_heart(state: CollectionState, player: int):
     return state.has("Wood Heart", player)
 
 def st_has_net(state: CollectionState, player: int):
-    return state.has("Rabbit Net", player)
+    return state.has("Rabbit Net", player) and st_has_cannon(state, player)
 
 def st_has_compass_of_light(state, player):
     return state.has("Compass of Light", player)
@@ -93,8 +93,11 @@ def st_has_portal(state, player, portal, forward):
     if state.multiworld.worlds[player].options.portal_behavior.value == 1:
         return True
     if state.multiworld.worlds[player].options.portal_behavior.value == 0:
-        return forward
-    return state.has(f"Portal Unlock: {portal}", player)
+        return forward and st_has_cannon(state, player)
+    return state.has(f"Portal Unlock: {portal}", player) and (not forward or st_has_cannon(state, player))
+
+def st_soft_cannon(state, player):
+    return st_has_cannon(state, player) or state.has("_UT_Glitched_Logic", player)
 
 # ============== Songs =======================
 

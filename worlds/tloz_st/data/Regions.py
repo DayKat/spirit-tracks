@@ -11,6 +11,9 @@ REGIONS = [
     "forest realm se portal track",
     "forest cave tracks",
     "w forest tracks",
+    "w wooded temple tracks",
+    "trading post portal",
+    "forest cave portal",
 
     "forest realm rabbits",
     "forest ocean shortcut rabbit",
@@ -20,6 +23,8 @@ REGIONS = [
     "s rabbit haven rabbits",
     "nr rabbit haven rabbit",
 
+    "trading post tracks",
+
     # Outset Village
     "outset village",
     "outset village stamp book",
@@ -28,7 +33,6 @@ REGIONS = [
     #"outset village cuccos gem",
     #"outset village joe gem",
     #"outset village cannon",
-
 
     # Castle Town
     "castle town",
@@ -192,10 +196,14 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm
     "snow realm",
+    "snow realm fr",
+    "anouki portal",
     "snow realm source",
     "blizzard temple tracks",
     "snow bridge",
     "icyspring tracks",
+    "snow bridge portal",
+    "icyspring portal",
 
     "snow realm rabbits",
     "blizzard temple tracks rabbits",

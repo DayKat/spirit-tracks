@@ -80,7 +80,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x29,
         "room_id": 0,
         "stamp": True,
-        "require_item": ["Stamp Book", "Bombs (Progressive)"],
+        "vanilla_item": "Nothing!",
         "item_override": "Song of Birds",
         "location_groups": ["Castle Town"],
     },
@@ -93,7 +93,6 @@ LOCATIONS_DATA = {
         "x_max": -34406,
         "z_min": 46694,
         "z_max": 59802,
-        "require_item": ["Bombs (Progressive)"],
         "item_override": "Whip",
         "location_groups": ["Castle Town"],
     },
@@ -106,7 +105,6 @@ LOCATIONS_DATA = {
         "x_max": 49328,
         "z_min": 46694,
         "z_max": 59802,
-        "require_item": ["Bombs (Progressive)"],
         "item_override": "Spirit Flute",
         "location_groups": ["Castle Town"],
     },
@@ -2056,7 +2054,7 @@ LOCATIONS_DATA |= {
     # Portal Checks
     "Forest Realm Shoot SW Portal": {
         "stage_id": 0x04,
-        "region_id": "forest cave tracks",
+        "region_id": "forest cave portal",
         "address": STAddr.activate_portals,
         "value": 0x40,
         "location_groups": ["Portal Checks"],
@@ -2064,7 +2062,7 @@ LOCATIONS_DATA |= {
     },
     "Forest Realm Shoot SE Portal": {
         "stage_id": 0x04,
-        "region_id": "forest realm se portal track",
+        "region_id": "trading post portal",
         "address": STAddr.activate_portals,
         "value": 0x20,
         "location_groups": ["Portal Checks"],
@@ -2072,7 +2070,7 @@ LOCATIONS_DATA |= {
     },
     "Snow Realm Shoot SW Portal": {
         "stage_id": 0x05,
-        "region_id": "snow realm",
+        "region_id": "anouki portal",
         "address": STAddr.activate_portals,
         "value": 0x8,
         "location_groups": ["Portal Checks"],
@@ -2080,7 +2078,7 @@ LOCATIONS_DATA |= {
     },
     "Snow Realm Shoot Bridge Portal": {
         "stage_id": 0x05,
-        "region_id": "snow bridge",
+        "region_id": "snow bridge portal",
         "address": STAddr.activate_portals,
         "value": 0x10,
         "location_groups": ["Portal Checks"],
@@ -2088,7 +2086,7 @@ LOCATIONS_DATA |= {
     },
     "Snow Realm Shoot N Portal": {
         "stage_id": 0x05,
-        "region_id": "icyspring tracks",
+        "region_id": "icyspring portal",
         "address": STAddr.adv_flags_31,
         "value": 0x2,
         "location_groups": ["Portal Checks"],

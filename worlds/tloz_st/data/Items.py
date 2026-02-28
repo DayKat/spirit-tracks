@@ -295,7 +295,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
     },
     "W Wooded Temple Tracks": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x01,
         'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
