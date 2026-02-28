@@ -349,7 +349,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'set_bit': [[STAddr.source_rails, 0x10]],
         'item_groups': ["Rail Items", "Sources", "Fire Tracks"],
     },
-    "Sand Source": {  # Only used for TEAO4 unlock?
+    "Sand Source": {  # Only used for TEAO3 unlock?
         'classification': ItemClassification.progression,
         "address": STAddr.adv_flags_1a,
         'value': 0x1,

@@ -435,13 +435,30 @@ DYNAMIC_FLAGS = {
     # Shop stuff
     "Remove beedle bomb flag": {
         "on_scenes": [0x4503],
-        "not_has_locations": [],
+        "not_has_locations": ["Beedle Buy Bomb Bag"],
+        "has_slot_data": [("shopsanity", [1, 3])],
         "unset_if_true": [(STAddr.adv_flags_22, 0x02)],
         "reset_flags": ["RESET beedle bomb bag flag"]
     },
     "RESET beedle bomb bag flag": {
         "has_items": [("Bombs (Progressive)", 1)],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
+    },
+    "Add beedle bomb flag": {
+        "on_scenes": [0x4503],
+        "has_slot_data": [("shopsanity", [0, 2])],
+        "set_if_true": [(STAddr.adv_flags_22, 0x02)],
+    },
+    # Whip Race
+    "Skip whip race HC": {
+        "on_scenes": [0x3800],
+        "has_slot_data": [("randomize_minigames", [0, 1])],
+        "set_if_true": [(STAddr.adv_flags_26, 0x02)],
+    },
+    "Skip whip race bomb bag": {
+        "on_scenes": [0x3800],
+        "has_slot_data": [("randomize_minigames", [0, 2])],
+        "set_if_true": [(STAddr.adv_flags_26, 0x01)],
     },
 
     # Linebeck Trade
@@ -483,9 +500,61 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x500],
         "has_items": [("Snow Sanctuary Cave Key", 1)],
         "set_if_true": [(STAddr.adv_flags_b, 0x10)],
-    }
-
-
+    },
+    "Anouki shop skip HC": {
+        "on_scenes": [0x3103],
+        "has_slot_data": [("randomize_shops", [0, 2])],
+        "set_if_true": [(STAddr.adv_flags_21, 0x40)],
+    },
+    # Take em all on stuff
+    "TEAO Unlock 1": {
+        "on_scenes": [0x290B],
+        "has_items": [("Ocean Source", 1)],
+        "has_slot_data": [("randomize_minigames", [2, 3, 4])],
+        "set_if_true": [(STAddr.adv_flags_2a, 0x4)],
+        "on_entrance": [0],
+        "reset_flags": ["RESET TEAO 1"]
+    },
+    "TEAO Unlock 2": {
+        "on_scenes": [0x290B],
+        "has_items": [("Sand Source", 1)],
+        "has_slot_data": [("randomize_minigames", [4])],
+        "set_if_true": [(STAddr.adv_flags_2a, 0xC)],
+        "on_entrance": [0],
+        "reset_flags": ["RESET TEAO 1", "RESET TEAO 2"]
+    },
+    "RESET TEAO 1": {
+        "not_has_locations": ["Castle Town Take 'em All On Level 1"],
+        "unset_if_true": [(STAddr.adv_flags_2a, 0x4)],
+    },
+    "RESET TEAO 2": {
+        "not_has_locations": ["Castle Town Take 'em All On Level 2"],
+        "unset_if_true": [(STAddr.adv_flags_2a, 0x8)],
+    },
+    "TEAO remove bow of light": {
+        "on_scenes": [0x290B],
+        "unset_if_true": [(STAddr.adv_flags_16, 0x1)],
+        "has_items": [("Sand Source", 0)],
+        "reset_flags": ["RESET Bow of Light"]
+    },
+    "TEAO give bow of light": {
+        "on_scenes": [0x290B],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+        "has_items": [("Sand Source", 1)],
+        "reset_flags": ["RESET remove Bow of Light"]
+    },
+    "RESET Bow of Light": {
+        "has_items": [("Bow of Light", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET remove Bow of Light": {
+        "has_items": [("Bow of Light", 0)],
+        "unset_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    # "TEAO test remove all blockers": {
+    #     "on_scenes": [0x4B00],
+    #     "overwrite_if_true": [(STAddr.item_restrictions, 0)]
+    # }
 }
 """
 "Dynamic Flag Name": {

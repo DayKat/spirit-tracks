@@ -233,10 +233,10 @@ def st_can_kill_freezards_torch(state, player):
 
 # ================ Rupee States ==================
 
-
 def st_has_rupees(state: CollectionState, player: int, cost: int):
     # If has a farmable minigame and the means to sell, expensive things are in logic.
     options = state.multiworld.worlds[player].options
+    treasure_count = state.count("Treasure", player) - 2500 if state.has("_can_sell_treasure", player) else 0
     return any([
         state.has("_UT_Glitched_Logic", player),
         all([
@@ -250,36 +250,8 @@ def st_has_rupees(state: CollectionState, player: int, cost: int):
             options.excess_random_treasure.value == 1,
             options.rupee_farming_logic.value == 1
         ]),
-        state.has("Rupees", player, cost),
-        state.has("Treasure", player, cost + 2500) and state.has("_can_sell_treasure", player)
+        state.count("Rupees", player) + treasure_count > cost
     ])
-
-
-def st_can_farm_rupees(state: CollectionState, player: int):
-    return any([
-        all([
-            #st_has_courage_crest(state, player),  # Can Sell Treasure
-            any([
-            ])
-        ]),
-    ])
-
-# def st_beedle_shop(state, player, price):
-#     other_costs = 550
-#     if st_has_bow(state, player):
-#         other_costs += 1000
-#         if st_has_chus(state, player):
-#             other_costs += 3000
-#     if st_has_bombs(state, player):
-#         other_costs += 1000
-#     if st_option_randomize_masked_beedle(state, player):
-#         other_costs += 1500
-#     return st_has_rupees(state, player, price + other_costs)
-
-#
-# def st_can_buy_quiver(state: CollectionState, player: int):
-#     return all([st_has_bow(state, player), st_island_shop(state, player, 1500)])
-
 
 # ============ Option states =============
 

@@ -32,9 +32,9 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
-    [STAddr.adv_flags_24, 0x40],  # teao tutorial
+    [STAddr.adv_flags_23, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
-    [STAddr.adv_flags_2a, 0x02],  # ToS 6 zelda text
+    [STAddr.adv_flags_2a, 0x03],  # ToS 6 zelda text
     [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_37, 0x10],  # teacher text skip

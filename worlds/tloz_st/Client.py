@@ -373,6 +373,8 @@ class SpiritTracksClient(DSZeldaClient):
             await self.update_rabbit_count(ctx)
         if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
             await STAddr.adv_flags_25.unset_bits(ctx, 2)
+        if item_name == "Bombs (Progressive)" and self.current_scene == 0x4503:
+            await STAddr.adv_flags_22.unset_bits(ctx, 2)
         if item_name in ["Forest Glyph", "Cannon",
                          "Portal Unlock: Hyrule Castle to Anouki Village",
                          "Portal Unlock: Trading Post to E Snow Realm"]:
@@ -684,6 +686,8 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Setting starting train")
                 await self.set_starting_train(ctx)
             self.has_set_starting_train = True
+        # if current_scene in range(0x4b00, 0x5000):  still too early
+        #     await STAddr.item_restrictions.overwrite(ctx, 0)
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):

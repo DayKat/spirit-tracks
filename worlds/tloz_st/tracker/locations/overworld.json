@@ -11,7 +11,7 @@
     {"name": "Castle Town Empty House Roof Chest"},
     {"name": "Castle Town Take 'em All On Level 1"},
     {"name": "Castle Town Take 'em All On Level 2"},
-    {"name": "Castle Town Take 'em All On Capbone Chest"},
+    {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"},
     {"name": "Castle Town Take 'em All On Level 3"}
     ], "map_locations":[{"map": "Overview", "x": 404, "y": 450}]},
   {"name":  "Castle Town Events", "sections":  [{"name": "EVENT: Pick up Alfonzo"}], "map_locations":[{"map": "Overview", "x": 420, "y": 450}]},

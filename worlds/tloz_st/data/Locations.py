@@ -156,7 +156,9 @@ LOCATIONS_DATA = {
         "room_id": 0xB,
         "address": STAddr.adv_flags_2a,
         "value": 0x4,
-        "location_groups": ["Castle Town"],
+        "location_groups": ["Castle Town", "Take 'em All On"],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
+        "from_entrances": [1],  # Only load if the current entrance matches
     },
     "Castle Town Take 'em All On Level 2": {
         "region_id": "teao 2",
@@ -167,7 +169,9 @@ LOCATIONS_DATA = {
         "room_id": 0xB,
         "address": STAddr.adv_flags_2a,
         "value": 8,
-        "location_groups": ["Castle Town"],
+        "location_groups": ["Castle Town", "Take 'em All On"],
+        "slot_data": [("randomize_minigames", [2, 3, 4])],
+        "from_entrances": [1],
     },
     "Castle Town Take 'em All On Level 3": {
         "region_id": "teao 3",
@@ -178,7 +182,9 @@ LOCATIONS_DATA = {
         "room_id": 0xB,
         "address": STAddr.adv_flags_2a,
         "value": 0x10,
-        "location_groups": ["Castle Town"],
+        "location_groups": ["Castle Town", "Take 'em All On"],
+        "slot_data": [("randomize_minigames", [4])],
+        "from_entrances": [1],
     },
     "Castle Town Take 'em All On Level 3 Capbone Chest": {
         "region_id": "teao 3",
@@ -187,7 +193,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "stage_id": 0x4F,
         "room_id": 0x1,
-        "location_groups": ["Castle Town"],
+        "location_groups": ["Castle Town", "Take 'em All On"],
     },
 
     # Hyrule Castle
@@ -948,6 +954,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_26,
         "value": 2,
         "location_groups": ["Mayscore"],
+        "slot_data": [("randomize_minigames", [2, 3, 4])],
     },
     "Mayscore Whip Race Bomb Bag": {
         "region_id": "mayscore whip chest",
@@ -959,6 +966,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_26,
         "value": 1,
         "location_groups": ["Mayscore"],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
     },
 
     # Forest Sanctuary
@@ -1478,6 +1486,7 @@ LOCATIONS_DATA = {
         "z_min": -68303,
         "z_max": -50810,
         "location_groups": ["Slippery Station"],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
     },
     "Slippery Station Pro Reward": {
         "region_id": "slippery pro",
@@ -1491,6 +1500,7 @@ LOCATIONS_DATA = {
         "minigame": [2, 3, 4],
         "conditional": True,
         "location_groups": ["Slippery Station"],
+        "slot_data": [("randomize_minigames", [2, 3, 4])],
     },
     "Slippery Station Champion Reward": {
         "region_id": "slippery champion",
@@ -1504,6 +1514,7 @@ LOCATIONS_DATA = {
         "minigame": [4],
         "conditional": True,
         "location_groups": ["Slippery Station"],
+        "slot_data": [("randomize_minigames", [4])],
     },
 
     # Bridge Worker's Home
@@ -2113,7 +2124,8 @@ LOCATIONS_DATA |= {
         "address": STAddr.adv_flags_21,
         "value": 0x40,
         "location_groups": ["Shop Unique Locations", "Snow Sanctuary"],
-        "conditional": True
+        "conditional": True,
+        "slot_data": [("randomize_shops", [1, 3])],
     },
     "Beedle Buy Bomb Bag": {
         "stage_id": 0x45,
@@ -2123,43 +2135,51 @@ LOCATIONS_DATA |= {
         "vanilla_item": "Bombs (Progressive)",
         "value": 0x2,
         "location_groups": ["Shop Unique Locations", "Beedle"],
-        "conditional": True
+        "conditional": True,
+        "delay_reset": True,
+        "slot_data": [("shopsanity", [1, 3])],
     },
     "Beedle Buy Uncommon Treasure": {
         "region_id": "beedle uncommon treasure",
         # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
-        "conditional": True
+        "conditional": True,
+        "slot_data": [("shopsanity", [2, 3])],
     },
     "Beedle Buy Rare Treasure": {
         "region_id": "beedle rare treasure",
         # "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
-        "conditional": True
+        "conditional": True,
+        "slot_data": [("shopsanity", [2, 3])],
     },
     "Mayscore Shop Treasure 1": {
         "region_id": "mayscore shop",
         # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "location_groups": ["Shop Treasure Locations", "Mayscore"],
-        "conditional": True
+        "conditional": True,
+        "slot_data": [("shopsanity", [2, 3])],
     },
     "Mayscore Shop Treasure 2": {
         "region_id": "mayscore shop",
         # "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "location_groups": ["Shop Treasure Locations", "Mayscore"],
-        "conditional": True
+        "conditional": True,
+        "slot_data": [("shopsanity", [2, 3])],
     },
     "Castle Town Shop Treasure 1": {
         "region_id": "castle town shop",
         # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Castle Town"],
-        "conditional": True
+        "conditional": True,
+        "slot_data": [("shopsanity", [2, 3])],
     },
     "Castle Town Shop Treasure 2": {
         "region_id": "castle town shop",
         # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Castle Town"],
-        "conditional": True
+        "conditional": True,
+        "slot_data": [("shopsanity", [2, 3])],
     },
 
 }

@@ -15,7 +15,7 @@ class SpiritTracksGoal(Choice):
     - ToS Section 1: Finish the 1st section of Tower of Spirits and retrieve the Forest Glyph
     - ToS Section 2: Finish the 2nd section of Tower of Spirits and retrieve the Snow Glyph
     """
-    display_name = "Goal"
+    display_name = "Goal Location"
     option_defeat_malladus = -1
     option_beat_tos_section_1 = 0
     option_beat_tos_section_2 = 1
@@ -41,6 +41,7 @@ class SpiritTracksDungeonCount(Range):
     How many dungeons are required to unlock the dark realm?
     Will not go higher than the number of valid locations in dungeon pool
     """
+    display_name = "Required Dungeon Count"
     range_start = 1
     range_end = 8
     default = 2
@@ -52,6 +53,7 @@ class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     - final_section: the last implemented section of ToS gets added to the dungeon pool. Currently B7.
     - all_sections: completing each implemented section of ToS gets added to the dungeon pool. Currently, that is 2.
     """
+    display_name = "Tower of Spirits Dungeon Reward Options"
     option_not_in_dungeon_pool = 0
     option_final_section = 1
     option_all_sections = 2
@@ -105,7 +107,7 @@ class SpiritTracksRemoveItemsFromPool(ItemDict):
     This option has significant chances to break generation if used carelessly, so test your preset several times
     before using it on long generations. Use at your own risk!
     """
-    display_name = "remove_items_from_pool"
+    display_name = "Remove Items From Pool"
     verify_item_name = False
 
 
@@ -119,7 +121,7 @@ class SpiritTracksLogic(Choice):
 
     Please let me (@DayKat) know if you know of any glitches or non-normal logic!
     """
-    display_name = "logic"
+    display_name = "Logic Difficulty"
     option_normal = 0
     option_hard = 1
     option_glitched = 2
@@ -194,6 +196,7 @@ class SpiritTracksRabbitHints(Toggle):
     """
     Get hints for Bunnio's locations on entering rabbit haven.
     """
+    display_name = "Rabbit Hints"
     default = 0
 
 class SpiritTracksRabbitPackSize(NamedRange):
@@ -220,6 +223,7 @@ class SpiritTracksExtraRabbits(Range):
     Is affected by rabbit_pack_size
     If rabbitsanity is vanilla, this will add extra rabbit items to the normal item pool.
     """
+    display_name = "Extra Rabbit Items"
     default = 0
     range_start = 0
     range_end = 5
@@ -301,7 +305,7 @@ class SpiritTracksSpiritItems(Choice):
     - items: Lokomo Sword is the second progressive sword; and Bow of Light is its own item, but requires a progressive bow to use.
     - final_tear: if tear_group is all_sections or progressive, the final tear item will unlock both the Lokomo Sword and the Bow of Light.
     """
-    display_name = "Tears of Light Progressiveness"
+    display_name = "Spirit Item Options"
     option_items = 0
     option_final_tear = 1
 

@@ -522,7 +522,7 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
+        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Sand Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
                      ("Repair Trading Post Bridge", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
