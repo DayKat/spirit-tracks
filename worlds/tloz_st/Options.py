@@ -391,15 +391,17 @@ class SpiritTracksShopsanity(OptionSet):
     Randomize Shops.
     Gives vanilla items after buying the randomized one.
     Add the following to the list to randomize that type of shop location:
-    - uniques: Heart containers, ammo upgrades etc. 2 locations, 2500 rupees
-    - treasure: 7 locations, 2100 rupees
+    - uniques: 2 locations, 2500 rupees
+    - treasure: 7 locations, 2400 rupees
     - potions: 6 locations, 700 rupees
     - shields: 3 locations, 310 rupees
+    - postcards: 3 locations 300 rupees
+    - all: same as adding all above
     """
     display_name = "Shopsanity"
     default = set()
     # supports_weighting = True
-    valid_keys = ["uniques", "treasure", "potions", "shields"]
+    valid_keys = ["uniques", "treasure", "potions", "shields", "postcards", "all"]
 
 class SpiritTracksShopHints(Toggle):
     """

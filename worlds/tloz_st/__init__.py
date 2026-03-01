@@ -191,6 +191,8 @@ class SpiritTracksWorld(WorldParent):
 
             if self.options.starting_train == "random_train":
                 self.options.starting_train.value = self.random.randint(0, 7)
+            if "all" in self.options.shopsanity.value:
+                self.options.shopsanity.value = self.options.shopsanity.valid_keys
             print(f"Shopsanity {self.options.shopsanity.value}")
         self.create_item_mappings()
 
@@ -369,6 +371,8 @@ class SpiritTracksWorld(WorldParent):
                 return "potions" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Shield Locations"]:
                 return "shields" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Postcard Locations"]:
+                return "postcards" in self.options.shopsanity.value
 
         return False
 
@@ -520,7 +524,7 @@ class SpiritTracksWorld(WorldParent):
                 filler_item_count += 1
                 continue
             if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)",
-                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield"]:
+                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield", "Prize Postcards (10)"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:

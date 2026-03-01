@@ -518,6 +518,11 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("shopsanity", "shields")],
         "reset_flags": ["RESET add shield"]
     },
+    "Remove prize postcards in shops": {
+        "on_scenes": [0x2a05, 0x290a, 0x3103],
+        "unset_if_true": [(STAddr.postcard_count, 0xFF)],
+        "has_slot_data": [("shopsanity", "postcards")],
+    },
     "RESET add shield": {
         "has_items": [("Shield", 1)],
         "set_if_true": [(STAddr.items_2, 1)],

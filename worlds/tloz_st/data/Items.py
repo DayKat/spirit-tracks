@@ -929,6 +929,12 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_b,
         "value": 0x10,
     },
+    "Prize Postcards (10)": {
+        "classification": ItemClassification.filler,
+        "address": STAddr.postcard_count,
+        "value": 10,
+        "tags": ["incremental"]
+    },
 
 }
 

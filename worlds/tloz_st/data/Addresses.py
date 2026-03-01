@@ -72,6 +72,7 @@ class STAddr:
     bomb_capacity = Address(0x265331)
     arrow_count = Address(0x265332)
     bomb_count = Address(0x265333)
+    postcard_count = Address(0x268FA2)
 
     item_restrictions = Address(0x26532C, size=2)
     
