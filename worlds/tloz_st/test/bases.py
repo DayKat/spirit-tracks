@@ -27,5 +27,6 @@ class TestGeneration(WorldTestBase):
         "shopsanity": {"uniques", "treasure"},
         "rupee_farming_logic": "unlimited_farming",
         "excess_random_treasure": "nothing",
-        "logic": "normal"
+        "logic": "normal",
+        "randomize_passengers": "vanilla_abstract"
     }

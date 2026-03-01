@@ -451,6 +451,40 @@ class SpiritTracksExcessTreasures(Choice):
     option_convert_to_rupees = 2
     default = 1
 
+class SpiritTracksRandomizePassengers(Choice):
+    """
+    Randomize Moving passengers from one station to another. NPCs can have obtuse unlock requirements, often related to sources.
+    - no_passengers: passengers are not randomized, and quests that affect future stuff are in their most convenient state.
+    - vanilla: passengers are picked up in their vanilla locations, and only a successful delivery is a location.
+    UT displays events for each quest step. You can carry 1 NPC at a time.
+    - vanilla_abstract: same as above, but NPCs give themselves as items, and you don't need to care about their comfort.
+    You can pick up multiple NPCs at the same time
+    - randomize: NPCs are items, and both picking them up and reaching their destination are locations.
+    """
+    display_name = "Randomize Passengers"
+    option_no_passengers = 0
+    option_vanilla = 1
+    option_vanilla_abstract = 2
+    option_randomize = 3
+    default = 0
+
+class SpiritTracksRandomizeCargo(Choice):
+    """
+    Randomize transporting cargo from one station to another. You need the wagon to buy cargo.
+    - no_cargo: Cargo deliveries are not randomized, and places affected are in their most convenient state, ex. Goron lava geyser are down.
+    - vanilla: cargo can be bought at their vanilla locations, and only a successful delivery is a location.
+    UT displays events for each quest step. You can carry 1 type of cargo at a time.
+    - vanilla_abstract: same as above, but buying cargo gives an unlimited cargo item that can be used at all useplaces.
+    You can pick up multiple cargo at the same time.
+    - randomize: Cargo become items, and buying cargo/delivering cargo are both locations.
+    """
+    display_name = "Randomize Cargo"
+    option_no_cargo = 0
+    option_vanilla = 1
+    option_vanilla_abstract = 2
+    option_randomize = 3
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -475,6 +509,9 @@ class SpiritTracksOptions(PerGameCommonOptions):
     randomize_minigames: SpiritTracksRandomizeMinigames
     minigame_hints: SpiritTracksMinigameHints
     start_with_train: SpiritTracksStartWithTrain
+
+    randomize_passengers: SpiritTracksRandomizePassengers
+    randomize_cargo: SpiritTracksRandomizeCargo
 
     tos_section_unlocks: SpiritTracksToSSectionUnlocks
     tos_unlock_base_item: SpiritTracksToSBase

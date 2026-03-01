@@ -470,6 +470,7 @@ DYNAMIC_FLAGS = {
     # Linebeck Trade
     "Has Regal Ring for Linebeck": {
         "on_scenes": [0x3700],
+        "has_slot_data": [("randomize_passengers", 0)],
         "has_items": [("Treasure: Regal Ring", 1)],
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
         "set_if_true": [(STAddr.adv_flags_3e, 0x10)]
@@ -478,6 +479,27 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3702],
         "not_has_locations": ["Trading Post Chest"],
         "unset_if_true": [(STAddr.adv_flags_3e, 0x10)]
+    },
+    "Bring Kenzo to TP": {
+        "on_scenes": [0x3700],
+        "has_items": [("Passenger: Kenzo", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "set_if_true": [(STAddr.adv_flags_18, 0x20)]
+    },
+    "Has Kenzo and Ring": {
+        "on_scenes": [0x3700],
+        "has_items": [("Treasure: Regal Ring", 1)],
+        "has_locations": ["Bring Kenzo to Trading Post"],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
+        "set_if_true": [(STAddr.adv_flags_3e, 0x10)]
+    },
+    "Remove Ocean Source for Kenzo Dialogue": {
+        "on_scenes": [0x3700],
+        "not_has_locations": ["Bring Kenzo to Trading Post"],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40), (STAddr.adv_flags_18, 0x82)],
+        "reset_flags": ["RESET Add Ocean source"]
     },
     # Anouki chief location
     "Enter Anouki Chief house": {
@@ -607,6 +629,29 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x400],
         "has_items": [("Repair Trading Post Bridge", 0)],
         "unset_if_true": [(STAddr.adv_flags_b, 0x10)]
+    },
+    # Passenger States
+    "Can pick up Kenzo": {
+        "on_scenes": [0x3601],
+        "has_items": [("Ocean Glyph", 1)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "set_if_true": [(STAddr.adv_flags_c, 0x80)],
+        "reset_flags": ["RESET abstract kenzo on train"]
+    },
+    "Can't pick up kenzo": {
+        "on_scenes": [0x3601],
+        "has_items": [("Ocean Glyph", 0)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_c, 0x80)]
+    },
+    "No randomized kenzo": {
+        "on_scenes": [0x3601],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_c, 0x80)]
+    },
+    "RESET abstract kenzo on train": {
+        "unset_if_true": [(STAddr.adv_flags_19, 0x20)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
     },
 }
 """

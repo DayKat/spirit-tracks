@@ -25,6 +25,7 @@ REGIONS = [
 
     "trading post tracks",
 
+
     # Outset Village
     "outset village",
     "outset village stamp book",
@@ -191,6 +192,7 @@ REGIONS = [
     "trading post stamp station",
     "linebeck trading",
     "trading post leaves",
+    "trading post bridge worker",
     #"trading post ore gem",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -261,6 +263,7 @@ REGIONS = [
     # Bridge Worker's Home
     "bridge workers",
     "bridge workers chest",
+    "pick up bridge worker",
 
     # Beedle
     "beedle",

@@ -97,6 +97,12 @@ class STAddr:
     equipped_car = Address(0x265390, size=4)
     equipped_cart = Address(0x265394, size=4)
 
+    # Passenger data
+    has_passenger_0 = Address(0x265598, size=4)
+    has_passenger_1 = Address(0x2655AC, size=4)
+    passenger_tag_0 = Address(0x265594, size=4)
+    passenger_tag_1 = Address(0x2655A8, size=4)
+
     # Adventure Flags
     adv_flags_0 = Address(0x265714)
     adv_flags_1 = Address(0x265715)

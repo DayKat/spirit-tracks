@@ -373,7 +373,15 @@ class SpiritTracksWorld(WorldParent):
                 return "shields" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Postcard Locations"]:
                 return "postcards" in self.options.shopsanity.value
-
+        if self.options.randomize_passengers:
+            if "slot_data" in location_data:
+                for option, values, *args in location_data["slot_data"]:
+                    if option != "randomize_passengers":
+                        continue
+                    values = values if isinstance(values, list) else [values]
+                    if self.options.randomize_passengers.value not in values:
+                        return False
+                    return True
         return False
 
     def create_events(self):
@@ -414,6 +422,8 @@ class SpiritTracksWorld(WorldParent):
         rupee_farming_regions = ["mayscore whip chest", "mayscore leaves", "trading post leaves",
                                  "hyrule castle sword minigame", "castle town"]
         [self.create_event(reg, "_rupee_farming_spot") for reg in rupee_farming_regions]
+        # Passenger Events
+        self.create_event("pick up bridge worker", "_kenzo_1")
 
         # UT Events
         self.create_event("alfonzo event", "_picked_up_alfonzo")
@@ -522,6 +532,10 @@ class SpiritTracksWorld(WorldParent):
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
                 filler_item_count += 1
+                continue
+            if item_name.startswith("Passenger:") and self.options.randomize_passengers == "vanilla_abstract":
+                forced_item = self.create_item(item_name)
+                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
             if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)",
                              "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield", "Prize Postcards (10)"]:
@@ -987,6 +1001,7 @@ class SpiritTracksWorld(WorldParent):
                    "keysanity",
                    "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
+                   "randomize_passengers", "randomize_cargo",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
                    "randomize_tears", "spirit_weapons", "tear_sections",

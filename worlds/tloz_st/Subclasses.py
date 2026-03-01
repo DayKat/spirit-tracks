@@ -69,6 +69,17 @@ async def remove_potion(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     await client.update_potion_tracker(ctx, "remove_vanilla")
     return []
 
+async def remove_passenger(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    if ctx.slot_data["randomize_passengers"] == 1:
+        return []
+    res = [
+        STAddr.has_passenger_0.get_inner_write_list(0xFFFFFFFF),
+        STAddr.has_passenger_1.get_inner_write_list(0xFFFFFFFF),
+        STAddr.passenger_tag_0.get_inner_write_list(0),
+        STAddr.passenger_tag_0.get_inner_write_list(1),
+    ]
+    return res
+
 async def dummy(*args):
     print(f"Receiving dummy item")
     return []
@@ -99,6 +110,8 @@ class STItem(DSItem):
             return remove_tear_of_light
         if "Potion" in self.name:
             return remove_potion
+        if "Passenger" in self.name:
+            return remove_passenger
         return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):

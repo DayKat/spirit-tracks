@@ -935,7 +935,74 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "value": 10,
         "tags": ["incremental"]
     },
-
+    "Wagon": {  # US Freight Car, Neutral Something else?
+        "classification": ItemClassification.progression,
+        "address": STAddr.adv_flags_4,
+        "value": 0x2,
+        'item_groups': ["Train Items"],
+    },
+    # Passengers
+    "Passenger: Kenzo": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Passengers"]
+    },
+    "Passenger: Joe": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Passengers"]
+    },
+    "Passenger: Noko": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Passengers"]
+    },
+    "Passenger: Mona": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Passengers"]
+    },
+    "Passenger: Ferrus": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Passengers"]
+    },
+    # Cargo
+    "Cargo: Wood": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Cargo"]
+    },
+    "Cargo: Mega Ice": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Cargo"]
+    },
+    "Cargo: Goron Steel": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Cargo"]
+    },
+    "Cargo: Fish": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Cargo"]
+    },
+    "Cargo: Vessel": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Cargo"]
+    },
+    "Cargo: Cuccos": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Cargo"]
+    },
+    "Cargo: Dark Ore": {
+        "classification": ItemClassification.progression,
+        'dummy': True,
+        "item_groups": ["Cargo"]
+    },
 }
 
 

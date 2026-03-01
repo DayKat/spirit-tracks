@@ -245,11 +245,13 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                        and st_has_discovery_song(state, player)
                        and (st_has_light_song(state, player) or st_option_hard_logic(state, player))],
         ["trading post", "trading post stamp station", False, lambda state: st_has_bombs(state, player) and st_has_stamp_book(state, player)],
-        ["trading post", "linebeck trading", False, lambda state: state.has("Treasure: Regal Ring", player)],
+        ["trading post", "trading post bridge worker", False, lambda state: state.has("Passenger: Kenzo", player) or state.has("_kenzo_1", player)],
+        ["trading post bridge worker", "linebeck trading", False, lambda state: state.has("Treasure: Regal Ring", player)],
+        ["trading post", "linebeck trading", False, lambda state: state.has("Treasure: Regal Ring", player) and options.randomize_passengers.value == 0],
         ["trading post", "trading post leaves", False, lambda state: st_has_whirlwind(state, player)],
-
+    ]
         # # ========== Rabbit Haven ========
-
+    overworld_logic += [
         ["snow realm fr", "rabbit haven", True, lambda state: st_has_glyph(state, player, "Snow")],
         ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_rabbit_items(state, player, "Grass")],
@@ -334,6 +336,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ========== Bridge Worker's Home =======
         ["snow realm source", "bridge workers", True, lambda state: st_has_source(state, player, "Snow")],
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
+        ["bridge workers", "pick up bridge worker", False, lambda state: st_has_glyph(state, player, "Ocean")],
 
         ["forest realm", "ocean realm", False, lambda state: st_has_glyph(state, player, "Ocean") and st_has_misc_tracks(state, player, "E Mayscore Bridge")],
         ["trading post tracks", "ocean realm", True, lambda state: state.has("Repair Trading Post Bridge", player)]

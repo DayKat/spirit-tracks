@@ -442,7 +442,7 @@ class SpiritTracksClient(DSZeldaClient):
                 await STAddr.items_2.set_bits(ctx, 4)
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
 
-        if item_name in ["Cannon"] and ctx.slot_data["starting_train"] != -1:
+        if item_name in ["Cannon", "Wagon"] and ctx.slot_data["starting_train"] != -1:
             self.set_train_in_overworld = True
             await self.set_starting_train(ctx)
 

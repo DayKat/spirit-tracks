@@ -2273,6 +2273,29 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "postcards")],
     },
+    # Passenger locations
+    "Bridge Worker's House Pick Up Kenzo": {
+        "stage_id": 0x36,
+        "room_id": 0x1,
+        "address": STAddr.adv_flags_18,
+        "value": 0x20,
+        "vanilla_item": "Passenger: Kenzo",
+        "location_groups": ["Bridge Worker's House", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "pick up bridge worker"
+    },
+    "Bring Kenzo to Trading Post": {
+        "stage_id": 0x37,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_18,
+        "value": 0x80,
+        # "vanilla_item": "Repair Trading Post Bridge",
+        "location_groups": ["Trading Post", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "trading post bridge worker"
+    },
 }
 
 ## ========== remember to add item override!! =============
