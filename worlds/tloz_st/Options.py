@@ -371,7 +371,7 @@ class SpiritTracksToSSectionUnlocks(Choice):
 class SpiritTracksToSBase(Toggle):
     """
     If True, Prevents Tower of Spirit access until you have the "Tower of Spirits Base" item
-    Instead creates an additional progressive tower section item if you play with progressive tower sections.
+    Creates an additional progressive tower section item instead if you play with progressive tower sections.
     """
     display_name = "ToS Unlock Base Item"
     default = 0
@@ -394,7 +394,7 @@ class SpiritTracksShopsanity(OptionSet):
     - uniques: Heart containers, ammo upgrades etc. 2 locations, 2500 rupees
     - treasure: 7 locations, 2100 rupees
     - potions: 6 locations, 700 rupees
-    - shields: 3 locations, 240 rupees
+    - shields: 3 locations, 310 rupees
     """
     display_name = "Shopsanity"
     default = set()
@@ -407,6 +407,20 @@ class SpiritTracksShopHints(Toggle):
     """
     display_name = "Shop Hints"
     default = 1
+
+class SpiritTracksCannonLogic(Choice):
+    """
+    When is cannon required?
+    - train_requires_cannon: you cannot board the train without the cannon
+    - open_train: cannonless train is not in logic, but you can use the train without cannon if you want to
+    - hard_logic: cannonless train is in logic, often requiring clever routing, damage tanking or dodging cannonballs by breaking. Should always be possible with vanilla train speed settings and a four heart spirit train.
+    - no_logic: ignores train enemies in logic. Cheesing enemies with train speed is usually necessary.
+    """
+    display_name = "Cannon Logic"
+    option_train_requires_cannon = 0
+    option_open_train = 1
+    option_hard_logic = 2
+    option_no_logic = 3
 
 class SpiritTracksRupeeFarming(Choice):
     """
@@ -452,7 +466,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Logic options
     logic: SpiritTracksLogic
-    #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
+    cannon_logic: SpiritTracksCannonLogic
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
@@ -514,6 +528,7 @@ st_option_groups = [
     ]),
     OptionGroup("Misc Options", [
         SpiritTracksLogic,
+        SpiritTracksCannonLogic,
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,

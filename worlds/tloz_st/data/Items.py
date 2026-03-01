@@ -357,8 +357,6 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Sources"],
     },
 
-    # TODO bridge repair 265752 0x10
-
     # Warp gates require cannon
     "Force Gem 1": {
         'classification': ItemClassification.progression,

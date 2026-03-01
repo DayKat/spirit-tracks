@@ -30,7 +30,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "n castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "N Castle Town")],
         ["wtt", "snow realm fr", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_glyph(state, player, "Snow") and st_has_cannon(state, player)],
         ["forest realm", "snow realm fr", False, lambda state: st_has_portal(state, player, "Hyrule Castle to Anouki Village", False) and st_has_glyph(state, player, "Snow")],
-        ["forest realm", "dark realm portal", True, lambda state: st_has_compass_of_light(state, player) and st_soft_cannon(state, player)],
+        ["forest realm", "dark realm portal", True, lambda state: st_has_compass_of_light(state, player)],
 
         # cave
         ["forest realm", "forest cave tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SW Cave")],
@@ -296,7 +296,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ## ========== Blizzard Temple =========
 
-        ["snow realm source", "bt", True, lambda state: st_has_source(state, player, 'Snow')],
+        ["snow realm source", "bt", True, lambda state: st_has_source(state, player, 'Snow') and st_soft_cannon(state, player)],
         ["blizzard temple tracks", "bt", True, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
         ["bt", "bt b1 se", False, lambda state: st_can_ring_bell(state, player) and st_has_whirlwind(state, player)],
         ["bt b1 se", "bt b1 e enemy chest", False, None],
@@ -377,7 +377,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ===== Dark Realm =====
         ["dark realm portal", "dark realm trains", False, lambda state: st_has_dungeon_rewards(state, player)],
         ["dark realm trains", "demon train", False, None],
-        ["demon train", "cole fight", False, None],
+        ["demon train", "cole fight", False, lambda state: st_has_cannon(state, player)],
         ["cole fight", "malladus 1", False, lambda state: st_can_fight_malladus(state, player)],
         ["malladus 1", "malladus 2", False, lambda state: st_has_spirit_flute(state, player) and st_has_sword(state, player)],
         ["malladus 2", "malladus goal", False, lambda state: st_can_fight_malladus(state, player)],
@@ -389,9 +389,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
     required_rupees = 0
     if "uniques" in options.shopsanity.value: required_rupees += 2500
-    if "treasure" in options.shopsanity.value: required_rupees += 2100
+    if "treasure" in options.shopsanity.value: required_rupees += 2400
     if "potions" in options.shopsanity.value: required_rupees += 700
-    if "shields" in options.shopsanity.value: required_rupees += 240
+    if "shields" in options.shopsanity.value: required_rupees += 310
 
     overworld_logic += [
         # Shops

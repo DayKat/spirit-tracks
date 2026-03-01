@@ -1306,10 +1306,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 1,
-        "x_min": 42800,
-        "x_max": 51630,
-        "z_min": 39300,
-        "z_max": 47530,
+        "x_min": 35000,
+        "x_max": 55000,
+        "z_min": 35000,
+        "z_max": 50000,
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple B1 E Enemy Chest": {
@@ -2129,6 +2129,12 @@ LOCATIONS_DATA |= {
         "location_groups": ["Shop Shield Locations", "Snow Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "shields")],
+    },
+    "Snow Sanctuary Shop Treasure": {
+        "region_id": "snow sanc shop",
+        "location_groups": ["Shop Treasure Locations", "Snow Sanctuary", "Snowfall Supermarket", "Shop Restock Locations"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "treasure"), ("shopsanity", "uniques", "not")],
     },
     "Beedle Buy Bomb Bag": {
         "stage_id": 0x45,

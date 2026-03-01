@@ -97,7 +97,10 @@ def st_has_portal(state, player, portal, forward):
     return state.has(f"Portal Unlock: {portal}", player) and (not forward or st_has_cannon(state, player))
 
 def st_soft_cannon(state, player):
-    return st_has_cannon(state, player) or state.has("_UT_Glitched_Logic", player)
+    return any([
+        st_has_cannon(state, player),
+        state.has("_UT_Glitched_Logic", player),
+        state.multiworld.worlds[player].options.cannon_logic == "no_logic"])
 
 # ============== Songs =======================
 
@@ -418,7 +421,12 @@ def st_can_sword_scroll_clip(state, player):
     ])
 
 def st_has_train(state, player):
-    return all([st_has_glyph(state, player, "Forest"), st_has_cannon(state, player)])
+    return all([st_has_glyph(state, player, "Forest"),
+                any([
+                    st_has_cannon(state, player),
+                    state.multiworld.worlds[player].options.cannon_logic.value > 0
+                ]),
+            ])
 
 # ====== Specific locations =============
 

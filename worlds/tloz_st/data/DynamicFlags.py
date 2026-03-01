@@ -194,14 +194,14 @@ DYNAMIC_FLAGS = {
     "Allow Portal near castle town always open": {
         "on_scenes": [0x0400],
         "has_items": [["Snow Glyph", 1]],
-        "has_slot_data": [["portal_behavior", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
     "Allow Portal near castle town item": {
         "on_scenes": [0x0400],
         "has_items": [["Snow Glyph", 1],
                       ["Portal Unlock: Hyrule Castle to Anouki Village", 1]],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
     "Keep portal loc open anouki village": {
@@ -212,7 +212,7 @@ DYNAMIC_FLAGS = {
     },
     "Close Castle town portal no item": {
         "on_scenes": [0x0400],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "has_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 0]],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
@@ -220,14 +220,14 @@ DYNAMIC_FLAGS = {
     "Allow portal snow realm E to Forest S always open": {
         "on_scenes": [0x500],
         "has_items": [["Forest Realm SE Portal Tracks", 1]],
-        "has_slot_data": [["portal_behavior", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Allow portal snow realm E to Forest S item": {
         "on_scenes": [0x500],
         "has_items": [["Forest Realm SE Portal Tracks", 1],
                       ["Portal Unlock: Trading Post to E Snow Realm", 1]],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Keep portal loc open s trading post": {
@@ -239,7 +239,7 @@ DYNAMIC_FLAGS = {
     "Close portal e snow realm items": {
         "on_scenes": [0x500],
         "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 0]],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Dark realm restart for dynamic entrances": {
@@ -311,6 +311,12 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
                         "RESET Remove Ocean source", "RESET Remove Fire source"]
+    },
+    "ToS Snow source sections": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "has_items": [("Snow Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
     "ToS progressive sections 0": {
         "on_scenes": [0x1700],
@@ -446,7 +452,7 @@ DYNAMIC_FLAGS = {
     },
     "Add beedle bomb flag": {
         "on_scenes": [0x4503],
-        "has_slot_data": [("shopsanity", "uniques")],
+        "has_slot_data": [("shopsanity", "uniques", "not")],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
     },
     # Whip Race
@@ -503,7 +509,7 @@ DYNAMIC_FLAGS = {
     },
     "Anouki shop skip HC": {
         "on_scenes": [0x3103],
-        "has_slot_data": [("shopsanity", [0, 2])],
+        "has_slot_data": [("shopsanity", "uniques", "not")],
         "set_if_true": [(STAddr.adv_flags_21, 0x40)],
     },
     "Remove shield from shield shops": {
@@ -545,7 +551,9 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x290B],
         "unset_if_true": [(STAddr.adv_flags_16, 0x1)],
         "has_items": [("Sand Source", 0)],
-        "reset_flags": ["RESET Bow of Light"]
+        "reset_flags": ["RESET Bow of Light",
+                        "RESET Bow of Light prog", "RESET Bow of Light big prog",
+                        "RESET Bow of Light global", "RESET Bow of Light big global"]
     },
     "TEAO give bow of light": {
         "on_scenes": [0x290B],
@@ -557,6 +565,26 @@ DYNAMIC_FLAGS = {
         "has_items": [("Bow of Light", 1)],
         "set_if_true": [(STAddr.adv_flags_16, 0x1)],
     },
+    "RESET Bow of Light prog": {
+        "has_items": [("Tear of Light (Progressive)", 16)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET Bow of Light big prog": {
+        "has_items": [("Big Tear of Light (Progressive)", 6)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET Bow of Light big global": {
+        "has_items": [("Big Tear of Light (All Sections)", 2)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET Bow of Light global": {
+        "has_items": [("Tear of Light (All Sections)", 4)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
     "RESET remove Bow of Light": {
         "has_items": [("Bow of Light", 0)],
         "unset_if_true": [(STAddr.adv_flags_16, 0x1)],
@@ -565,6 +593,16 @@ DYNAMIC_FLAGS = {
     #     "on_scenes": [0x4B00],
     #     "overwrite_if_true": [(STAddr.item_restrictions, 0)]
     # }
+    "Add trading post bridge": {
+        "on_scenes": [0x400],
+        "has_items": [("Repair Trading Post Bridge", 1)],
+        "set_if_true": [(STAddr.adv_flags_b, 0x10)]
+    },
+    "Remove trading post bridge": {
+        "on_scenes": [0x400],
+        "has_items": [("Repair Trading Post Bridge", 0)],
+        "unset_if_true": [(STAddr.adv_flags_b, 0x10)]
+    },
 }
 """
 "Dynamic Flag Name": {

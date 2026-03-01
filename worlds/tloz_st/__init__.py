@@ -175,9 +175,12 @@ class SpiritTracksWorld(WorldParent):
             # print(f"Rabbit items: {self.rabbit_item_dict}")
             self.plando_tos_sections()
 
-            # Tear conditions
+            # Starting Train
             if self.options.start_with_train:
-                self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1, "Cannon": 1})
+                self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1})
+                if self.options.cannon_logic.value in [0, 1]:
+                    self.options.start_inventory_from_pool.value.update({"Cannon": 1})
+            # Tear conditions
             if self.options.randomize_tears.value <= 0:  # Vanilla/no tears
                 self.options.tear_size.value = 0  # force small tears
                 self.options.tear_sections.value = 0  # force per-section grouping when vanilla
@@ -351,8 +354,13 @@ class SpiritTracksWorld(WorldParent):
         if "minigame" in location_data and self.options.randomize_minigames:
             return self.options.randomize_minigames.value in location_data["minigame"]
         if self.options.shopsanity:
-            if location_name in LOCATION_GROUPS["Shop Restock Locations"]:  # Only restock rn is beedle bombbag -> purple potion
-                return "potions" in self.options.shopsanity.value and "uniques" not in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
+                if "uniques" in self.options.shopsanity.value:
+                    return False
+                if location_name == "Beedle Buy Purple Potion":
+                    return "potions" in self.options.shopsanity.value
+                if location_name == "Snow Sanctuary Shop Treasure":
+                    return "treasure" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Treasure Locations"]:
                 return "treasure" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Unique Locations"]:
@@ -970,7 +978,8 @@ class SpiritTracksWorld(WorldParent):
         return True
 
     def fill_slot_data(self) -> dict:
-        options = ["goal", "logic",
+        options = ["goal",
+                   "logic", "cannon_logic",
                    "keysanity",
                    "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
@@ -984,7 +993,6 @@ class SpiritTracksWorld(WorldParent):
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons
-
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:

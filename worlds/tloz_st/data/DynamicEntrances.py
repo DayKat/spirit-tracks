@@ -59,22 +59,45 @@ DYNAMIC_ENTRANCES = {
     },
 
     # Outset pre-glyph bounce
-    "Bounce Outset without glyph": {
+    "Bounce Outset without glyph and cannon": {
         "entrance": "Outset to Forest Realm",
         "destination": "Outset to Forest Realm",
         "not_has_all_items": [("Forest Glyph", 1), ("Cannon", 1)],
+        "has_slot_data": [("cannon_logic", 0)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
-    "Bounce Tutorial": {
+    "Bounce Outset without glyph": {
+        "entrance": "Outset to Forest Realm",
+        "destination": "Outset to Forest Realm",
+        "not_has_all_items": [("Forest Glyph", 1)],
+        "has_slot_data": [("cannon_logic", [1, 2, 3])],
+        "message": "You need Forest Glyph to board the train here"
+    },
+    "Bounce Tutorial cannon": {
         "entrance": "Outset to Tutorial",
         "destination": "Outset to Tutorial",
         "not_has_all_items": [("Forest Glyph", 1), ("Cannon", 1)],
+        "has_slot_data": [("cannon_logic", 0)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
-    "Bounce Tutorial to rail": {
+    "Bounce Tutorial cannonless": {
+        "entrance": "Outset to Tutorial",
+        "destination": "Outset to Tutorial",
+        "not_has_all_items": [("Forest Glyph", 1)],
+        "has_slot_data": [("cannon_logic", [1, 2, 3])],
+        "message": "You need Forest Glyph to board the train here"
+    },
+    "Bounce Tutorial to rail cannon": {
         "entrance": "Outset to Tutorial",
         "destination": "Forest Realm to Outset",
+        "has_slot_data": [("cannon_logic", 0)],
         "has_items": [("Forest Glyph", 1), ("Cannon", 1)],
+    },
+    "Bounce Tutorial to rail cannonless": {
+        "entrance": "Outset to Tutorial",
+        "destination": "Forest Realm to Outset",
+        "has_items": [("Forest Glyph", 1)],
+        "has_slot_data": [("cannon_logic", [1, 2, 3])],
     },
 
     # Portal Bounces

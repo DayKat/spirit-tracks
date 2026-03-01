@@ -420,6 +420,10 @@ SHOP_TREASURE_DATA = {
         "locations": ["Beedle Buy Rare Treasure"],
         "group": "Rare"
     }],
+    0x3103: [{
+        "locations": ["Snow Sanctuary Shop Treasure"],
+        "group": "Uncommon"
+    }]
 }
 
 

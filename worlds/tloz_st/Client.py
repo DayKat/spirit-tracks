@@ -194,6 +194,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.potion_tracker = [0, 0]
         self.drinking_potion = False
         self.addr_drinking_potion = None
+        self.set_train_in_overworld: bool = False
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -258,16 +259,24 @@ class SpiritTracksClient(DSZeldaClient):
         read_keys += read_keys_land  # TODO: don't bother reading on train
         # read_keys += read_keys_train
         if stage in range(4, 8):
-            self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-            self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
-            read_keys.append(self.train_gear_addr)
+            train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+            print(f"Train speed thingy {hex(train_speed_thingy)}")
+            if 0x400000 > train_speed_thingy > 0:
+                self.train_speed_pointer = train_speed_thingy
+                self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
+                read_keys.append(self.train_gear_addr)
         else:
-            potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + 0xf64
-            self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
-            read_keys.append(self.addr_drinking_potion)
+            offset = 0xf80 if self.current_stage == 0x29 else 0xf64
+            potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + offset
+            if 0x400000 > potion_addr > 0:
+                self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
+                read_keys.append(self.addr_drinking_potion)
+            print(f"Potion pointer {hex(potion_addr)}")
 
         self.main_read_list = read_keys
-        # print(self.main_read_list)
+        print(f"read keys len: {len(read_keys)}")
+        # print(self.main_read_list, read_keys)
+        print(f"Slot data {ctx.slot_data}")
 
     def process_loading_variable(self, read_result) -> bool:
         mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
@@ -404,6 +413,8 @@ class SpiritTracksClient(DSZeldaClient):
 
         if "Rabbit" in item_name:
             await self.update_rabbit_count(ctx)
+        if "Treasure:" in item_name:
+            await self.update_treasure_tracker(ctx, "item_process")
         if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
             await STAddr.adv_flags_25.unset_bits(ctx, 2)
         if item_name == "Bombs (Progressive)" and self.current_scene == 0x4503:
@@ -431,7 +442,8 @@ class SpiritTracksClient(DSZeldaClient):
                 await STAddr.items_2.set_bits(ctx, 4)
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
 
-        if item_name in ["Cannon"]:
+        if item_name in ["Cannon"] and ctx.slot_data["starting_train"] != -1:
+            self.set_train_in_overworld = True
             await self.set_starting_train(ctx)
 
 
@@ -579,6 +591,9 @@ class SpiritTracksClient(DSZeldaClient):
             stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
+        if self.set_train_in_overworld:
+            await self.set_starting_train(ctx)
+            self.set_train_in_overworld = False
 
         # Give tears of light when entering ToS
         if stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
@@ -755,7 +770,7 @@ class SpiritTracksClient(DSZeldaClient):
         if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
             reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
             reverse_exit_id = self.entrances[reverse_exit].id
-            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", None)
+            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", self.entrances[reverse_exit].vanilla_reciprocal.id)
             if pair is None:
                 print(f"Boss Entrance not Randomized")
                 self.boss_warp_entrance = reverse_exit
