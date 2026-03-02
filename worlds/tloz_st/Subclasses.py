@@ -109,6 +109,8 @@ class STItem(DSItem):
         res = super().get_receive_function()
         if res is None:
             return dummy
+        if self.name.startswith("Passenger:"):
+            return dummy
         if "Tear of Light" in self.name:
             return receive_tear_of_light
         if self.name.startswith("Small Key (ToS"):

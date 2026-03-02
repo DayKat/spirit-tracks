@@ -31,6 +31,8 @@ REGIONS = [
     "outset village stamp book",
     "outset village stamp station",
     "outset village trees",
+    "outset joe",
+    "outset cuccos",
     #"outset village cuccos gem",
     #"outset village joe gem",
     #"outset village cannon",
@@ -41,6 +43,7 @@ REGIONS = [
     "castle town wall",
     "castle town cuccos",
     "castle town shop",
+    "castle town mona",
     "pick up alfonzo",
     "alfonzo event",
     "teao 1",
@@ -153,6 +156,7 @@ REGIONS = [
     "rabbit haven 5 rabbits",
     "rabbit haven 10 forest rabbits",
     "rabbit haven 10 snow rabbits",
+    "rabbit haven mona",
     # "rabbit haven 10 ocean rabbits"
     # "rabbit haven 10 fire rabbits"
     # "rabbit haven 10 sand rabbits"
@@ -277,6 +281,7 @@ REGIONS = [
 
     # Beedle
     "beedle",
+    "beedle joe",
     "beedle bomb bag",
     "beedle uncommon treasure",
     "beedle rare treasure",

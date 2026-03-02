@@ -440,12 +440,16 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("pick up bridge worker", "_kenzo_1")
             self.create_event("trading post pick up kenzo", "_kenzo_2")
             self.create_event("av noko", "_noko")
+            self.create_event("castle town mona", "_mona")
+            self.create_event("outset joe", "_joe")
+            self.create_event("alfonzo event", "_picked_up_alfonzo")
         if self.options.randomize_cargo == "vanilla":
             self.create_event("mayscore lumber", "_buy_lumber")
             self.create_event("icyspring ice", "_buy_ice")
+            self.create_event("castle town buy cuccos", "_buy_cuccos")
 
         # UT Events
-        self.create_event("alfonzo event", "_picked_up_alfonzo")
+        # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck trading", "_can_sell_treasure")
 
 

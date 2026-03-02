@@ -2319,7 +2319,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "av noko"
     },
-    "Icy Spring Noko Force Gem": {
+    "Icy Spring Noko's Force Gem": {
         "stage_id": 0x35,
         "room_id": 0x0,
         "address": STAddr.adv_flags_e,
@@ -2399,6 +2399,72 @@ LOCATIONS_DATA |= {
         "location_groups": ["Shop Shield Locations", "Trading Post"],
         "conditional": True,
         "slot_data": [("shopsanity", "shields")],
+    },
+    "Castle Town Pick Up Mona": {
+        "stage_id": 0x29,
+        "room_id": 0xc,
+        "address": STAddr.adv_flags_3b,
+        "value": 0x20,
+        "region_id": "castle town mona",  # Same Req
+        "vanilla_item": "Passenger: Mona",
+        "location_groups": ["Castle Town", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+    },
+    "Rabbit Haven Mona's Force Gem": {
+        "stage_id": 0x3e,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_3f,
+        "value": 0x40,
+        "vanilla_item": "W Forest Realm Tracks",
+        "location_groups": ["Rabbit Haven", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "rabbit haven mona"
+    },
+    "Castle Town Pick Up Alfonzo": {
+        "stage_id": 0x29,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_11,
+        "value": 0x40,
+        "region_id": "pick up alfonzo",
+        "vanilla_item": "Passenger: Alfonzo",
+        "location_groups": ["Castle Town", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+    },
+    "Outset Pick Up Joe": {
+        "stage_id": 0x2F,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_3c,
+        "value": 0x2,
+        "region_id": "outset joe",
+        "vanilla_item": "Passenger: Joe",
+        "location_groups": ["Outset Village", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+    },
+    "Beedle Joe's Force Gem": {
+        "stage_id": 0x45,
+        "room_id": 0x3,
+        "address": STAddr.adv_flags_3c,
+        "value": 0x08,
+        "vanilla_item": "W Castle Town Tracks",
+        "location_groups": ["Beedle", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "beedle joe"
+    },
+    "Outset Deliver Cuccos": {
+        "stage_id": 0x2F,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x40,
+        "vanilla_item": "Forest Realm SW Cave Tracks",
+        "location_groups": ["Outset Village", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "outset cuccos"
     },
 }
 

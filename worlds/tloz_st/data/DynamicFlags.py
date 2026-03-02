@@ -10,8 +10,8 @@ DYNAMIC_FLAGS = {
     "Outset Bee Boy": {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Bee Tree"],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)],
-        "reset_flags": ["RESET forest glyph"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x44), (STAddr.adv_flags_1, 0x80)],
+        "reset_flags": ["RESET forest glyph", "RESET Remove Ocean source"]
     },
     "Allow leaving Outset": {
         "on_scenes": [0x2F00],
@@ -111,8 +111,10 @@ DYNAMIC_FLAGS = {
     "Move Alfonso to castle town station": {
         "on_scenes": [0x2900],
         "not_has_locations": ["Outset Receive Stamp Book"],
-        "has_items": [["Snow Glyph", 1], ["Forest Glyph", 1]],
+        "has_items": [["Snow Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
+        "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "reset_flags": ["RESET Alfonso"]
     },
     "RESET Alfonso": {
@@ -124,15 +126,30 @@ DYNAMIC_FLAGS = {
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
+        "has_slot_data": [("randomize_passengers", 1)],
         "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET Stamp Book Check"]
+        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
+    },
+    "Allow Stamp Book check alfonzo item": {
+        "on_scenes": [0x2F0A],
+        "not_has_locations": ["Outset Receive Stamp Book"],
+        "has_items": [("Passenger: Alfonzo", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
+        "set_if_true": [(STAddr.adv_flags_11, 0x40)],
+        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
+    },
+    "Allow Stamp Book check no passengers": {
+        "on_scenes": [0x2F0A],
+        "not_has_locations": ["Outset Receive Stamp Book"],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "has_items": [["Snow Glyph", 1]],
+        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
+        "set_if_true": [(STAddr.adv_flags_11, 0x40)],
+        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
     },
     "RESET Stamp Book Check": {
         "has_items": [["Stamp Book", 1]],
-        "set_if_true": [(STAddr.adv_flags_25, 0x02)],
-    },
-    "RESET Snow Restoration": {
-        "has_items": [["Blizzard Temple Tracks", 1]],
         "set_if_true": [(STAddr.adv_flags_25, 0x02)],
     },
 
@@ -538,12 +555,17 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_b, 0x10),  # Remove finished quest flag
                         (STAddr.adv_flags_0, 0x20),  # Remove snow source
                         (STAddr.adv_flags_1, 0x02),  # Remove btt
-                        (STAddr.adv_flags_c, 0x08)] , # Don't advance dialogue after btt
-        "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source"]
+                        (STAddr.adv_flags_c, 0x08),  # Don't advance dialogue after btt
+                        (STAddr.adv_flags_4, 0x02)], # Remove Wagon, he gives ice hint
+        "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source", "RESET Wagon"]
     },
     "Anouki village remove icons": {
         "on_scenes": [0x2b00],
         "set_if_true": [(STAddr.adv_flags_b, 0x10)],
+    },
+    "RESET Wagon": {
+        "has_items": [("Wagon", 1)],
+        "set_if_true": [(STAddr.adv_flags_4, 0x02)],
     },
     "Lock Snow Realm Rocktite Cave": {
         "on_scenes": [0x500],
@@ -725,6 +747,63 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_passengers", 0)],
         "set_if_true": [(STAddr.adv_flags_3a, 0x50), (STAddr.adv_flags_3d, 0x10)],
     },
+    "Can pick up Mona": {
+        "on_scenes": [0x290c],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_items": [("Snow Glyph", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Remove Ocean source"]
+    },
+    "Mona missing glyph": {
+        "on_scenes": [0x290c],
+        "has_items": [("Snow Glyph", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Mona missing option": {
+        "on_scenes": [0x290c],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Bring Mona to Rabbit Haven": {
+        "on_scenes": [0x3E00],
+        "has_items": [("Passenger: Mona", 1)],
+        "check_bits": [(STAddr.adv_flags_3b, 0x80, "not")],
+        "set_if_true": [(STAddr.adv_flags_3b, 0x20)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x3e),
+                              (STAddr.passenger_tag_0, 0x43415742),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    "Can pick up Joe": {
+        "on_scenes": [0x2F00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_locations": ["Outset Bee Tree"],
+        "has_items": [("Snow Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Remove Ocean source"]
+    },
+    "Joe missing glyph": {
+        "on_scenes": [0x2F00],
+        "has_items": [("Snow Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Joe missing option": {
+        "on_scenes": [0x2F00],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Bring Joe to Beedle": {
+        "on_scenes": [0x4503],
+        "has_items": [("Passenger: Joe", 1)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x8, "not")],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x2)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x45),
+                              (STAddr.passenger_tag_0, 0x4E434341),
+                              (STAddr.has_passenger_0, 0)]
+    },
     # Cargo
     "AV skip fence text": {
         "on_scenes": [0x2b00],
@@ -751,7 +830,15 @@ DYNAMIC_FLAGS = {
     "RESET Cargo": {
         "set_if_true": [(STAddr.cargo_0, 0xFFFFFFFF),(STAddr.cargo_1, 0xFFFFFFFF)],
         "unset_if_true": [(STAddr.cargo_count_0, 0xFF), (STAddr.cargo_count_1, 0xFF)]
-    }
+    },
+    "Outset has Cuccos": {
+        "on_scenes": [0x2f00],
+        "has_items": [("Cargo: Cuccos", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Outset Deliver Cuccos"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
+    },
 }
 """
 "Dynamic Flag Name": {

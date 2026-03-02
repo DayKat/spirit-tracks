@@ -110,5 +110,21 @@ HINT_DATA = {
     "Trading Post Buy Shield": {
         "scenes": [0x370a],
         "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
-    }
+    },
+    "Mayscore Shop Postcards": {
+        "scenes": [0x2a05],
+        "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
+    },
+    "Castle Town Shop Postcards": {
+        "scenes": [0x290a],
+        "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
+    },
+    "Snow Sanctuary Shop Postcards": {
+        "scenes": [0x3103],
+        "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
+    },
+    "Snow Sanctuary Shop Treasure": {
+        "scenes": [0x3103],
+        "slot_data": [("shopsanity", "treasure"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
+    },
 }

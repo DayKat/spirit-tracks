@@ -10,15 +10,21 @@ if TYPE_CHECKING:
 
 
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
+        # # ========== Rabbit Haven ========
     overworld_logic = [
 
         # ====== Outset Village ==============
 
         #[region 1, region 2, two-directional, logic requirements],
-        ["outset village", "outset village stamp book", False, lambda state: state.has("_picked_up_alfonzo", player)],
+        ["outset village", "outset village stamp book", False, lambda state:
+            state.has("_picked_up_alfonzo", player) or
+            state.has("Passenger: Alfonzo", player) or
+            (st_has_glyph(state, player, "Snow") and not options.randomize_passengers)],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
         ["outset village", "forest realm", False, lambda state: st_has_train(state, player)],
+        ["outset village", "outset joe", False, lambda state: st_has_source(state, player, "Snow")],
+        ["outset village", "outset cuccos", False, lambda state: state.has("Cargo: Cuccos", player) or state.has("_buy_cuccos", player)],
 
         # ========= Forest Realm ==========
 
@@ -69,6 +75,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "castle town", True, None],
         ["castle town", "pick up alfonzo", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["pick up alfonzo", "alfonzo event", False, None],
+        ["pick up alfonzo", "castle town mona", False, None],
         ["castle town wall", "castle town stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["castle town", "castle town wall", False, lambda state: st_has_bombs(state, player)],
         ["castle town wall", "castle town cuccos", False, lambda state: st_castle_town_cuccos(state, player)],
@@ -251,12 +258,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["trading post", "trading post leaves", False, lambda state: st_has_whirlwind(state, player)],
         ["linebeck trading", "trading post pick up kenzo", False, lambda state: st_has_glyph(state, player, "Snow")],
     ]
-        # # ========== Rabbit Haven ========
     overworld_logic += [
         ["snow realm fr", "rabbit haven", True, lambda state: st_has_glyph(state, player, "Snow")],
         ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_rabbit_items(state, player, "Grass")],
         ["rabbit haven", "rabbit haven 10 snow rabbits", False, lambda state: st_has_rabbit_items(state, player, "Snow")],
+        ["rabbit haven", "rabbit haven mona", False, lambda state: state.has("Passenger: Mona", player) or state.has("_mona", player)],
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # # ============ Snow Realm ===============
@@ -397,6 +404,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["malladus 2", "malladus event", False, lambda state: st_can_fight_malladus(state, player)],
 
         ["forest realm", "beedle", False, lambda state: st_has_source(state, player, "Snow")],
+        ["beedle", "beedle joe", False, lambda state: state.has("Passenger: Joe", player) or state.has("_joe", player)],
     ]
 
     required_rupees = 0

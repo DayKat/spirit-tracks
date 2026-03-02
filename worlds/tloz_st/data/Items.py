@@ -988,6 +988,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "classification": ItemClassification.progression,
         "item_groups": ["Passengers"],
         'tags': ["always_process"],
+        "address": STAddr.adv_flags_11,
+        "value": 0x40
     },
     # Cargo
     "Cargo: Lumber": {

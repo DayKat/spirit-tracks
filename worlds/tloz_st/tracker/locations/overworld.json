@@ -1,18 +1,32 @@
 [
-  {"name": "Outset", "sections": [{"name": "Outset Clear Rocks"}, {"name": "Outset Bee Tree"}, {"name": "Outset Stamp Station"}, {"name": "Outset Far Right Tree"}, {"name": "Outset Niko's House Tree"}, {"name": "Outset Receive Stamp Book"}], "map_locations":[{"map": "Overview", "x": 236, "y": 728}]},
+  {"name": "Outset", "sections": [
+    {"name": "Outset Clear Rocks"},
+    {"name": "Outset Bee Tree"},
+    {"name": "Outset Stamp Station"},
+    {"name": "Outset Far Right Tree"},
+    {"name": "Outset Niko's House Tree"},
+    {"name": "Outset Pick Up Joe"},
+    {"name": "Outset Receive Stamp Book"},
+    {"name": "Outset Deliver Cuccos"}
+  ], "map_locations":[{"map": "Overview", "x": 236, "y": 728}]},
   {"name": "Castle Town", "sections": [
     {"name": "Castle Town Shop Treasure 1"},
     {"name": "Castle Town Shop Treasure 2"},
-        {"name": "Castle Town Shop Red Potion"},
+    {"name": "Castle Town Shop Red Potion"},
     {"name": "Castle Town Shop Shield"},
     {"name": "Castle Town Shop Postcards"},
+
     {"name": "Castle Town Stamp Station"},
     {"name": "Castle Town Left Wall Chest"},
     {"name": "Castle Town Right Wall Chest"},
     {"name": "Castle Town Minigame Roof"},
     {"name": "Castle Town Ramp House Chest"},
     {"name": "Castle Town Empty House Roof Chest"},
+
+    {"name": "Castle Town Pick Up Mona"},
+    {"name": "Castle Town Pick Up Alfonzo"},
     {"name": "Castle Town Buy Cuccos"},
+
     {"name": "Castle Town Take 'em All On Level 1"},
     {"name": "Castle Town Take 'em All On Level 2"},
     {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"},
@@ -28,7 +42,7 @@
     {"name": "Tunnel to ToS 2F Chest"}], "map_locations":[{"map": "Overview", "x": 404, "y": 434}]},
   {"name": "Mayscore", "sections": [
     {"name": "Mayscore Shop Treasure 1"},{"name": "Mayscore Shop Treasure 2"},
-        {"name": "Mayscore Shop Red Potion"},{"name": "Mayscore Shop Shield"},{"name": "Mayscore Shop Postcards"},
+    {"name": "Mayscore Shop Red Potion"},{"name": "Mayscore Shop Shield"},{"name": "Mayscore Shop Postcards"},
     {"name": "Mayscore Buy Lumber"},
     {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"},
     {"name": "Mayscore Whip Race Bomb Bag"}, {"name": "Mayscore Whip Race Heart Container"}
@@ -36,7 +50,13 @@
 {"name": "Forest Sanctuary", "sections": [{"name": "Forest Sanctuary Stamp Station"}, {"name": "Forest Sanctuary Song Statue"}, {"name": "Forest Sanctuary Chest"}, {"name": "Forest Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 212, "y": 574}]},
 {"name": "Wooded Temple", "sections": [{"name": "Wooded Temple Song Statue"}, {"name": "Wooded Temple Stamp Station"}, {"name": "Wooded Temple 1F Enemy Chest"}, {"name": "Wooded Temple 1F Key"}, {"name": "Wooded Temple 1F Switch Chest"}, {"name": "Wooded Temple 2F Enemy Chest"}, {"name": "Wooded Temple 2F Poison Chest"}, {"name": "Wooded Temple 3F Chestnut Chest"}, {"name": "Wooded Temple 3F SE Chest"}, {"name": "Wooded Temple Boss Heart Container"}, {"name": "Wooded Temple Dungeon Reward"}], "map_locations":[{"map": "Overview", "x": 214, "y": 420}]},
   {"name": "Wooded Temple", "sections": [{"name": "EVENT: Defeat Stagnox"}, {"name": "GOAL: Defeat Stagnox"}], "map_locations":[{"map": "Overview", "x": 214, "y": 404}]},
-  {"name": "Rabbit Haven", "sections": [{"name": "Rabbit Haven Net Gift"}, {"name": "Rabbit Haven Chest"}, {"name": "Rabbit Haven Rescue 5 Rabbits"}, {"name": "Rabbit Haven Rescue 10 Grass Rabbits"}, {"name": "Rabbit Haven Rescue 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 138, "y": 497}]},
+  {"name": "Rabbit Haven", "sections": [
+    {"name": "Rabbit Haven Net Gift"},
+    {"name": "Rabbit Haven Chest"},
+    {"name": "Rabbit Haven Mona's Force Gem"},
+    {"name": "Rabbit Haven Rescue 5 Rabbits"},
+    {"name": "Rabbit Haven Rescue 10 Grass Rabbits"},
+    {"name": "Rabbit Haven Rescue 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 138, "y": 497}]},
   {"name": "Trading Post", "sections": [
     {"name": "Bring Kenzo to Trading Post"},
     {"name": "Trading Post Pick Up Kenzo"},
@@ -45,7 +65,6 @@
     {"name": "Trading Post Song of Light Statue"},
     {"name": "Trading Post Chest"}], "map_locations":[{"map": "Overview", "x": 404, "y": 670}]},
   {"name": "Trading Post Events", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations":[{"map": "Overview", "x": 420, "y": 670}]},
-
   {"name": "Anouki Village", "sections": [
     {"name": "Anouki Village Pair Villagers"},
     {"name": "Anouki Village Stamp Station"},
@@ -71,7 +90,7 @@
   {"name": "Icy Spring", "sections": [
     {"name": "Icy Spring Whip Chest"},
     {"name": "Icy Spring Stamp Station"},
-  {"name": "Icy Spring Noko Force Gem"},
+  {"name": "Icy Spring Noko's Force Gem"},
   {"name": "Icy Spring Buy Mega Ice"}], "map_locations":[{"map": "Overview", "x": 356, "y": 212}]},
   {"name": "Snowdrift Station", "sections": [{"name": "Snowdrift Station Puzzle Reward"}], "map_locations":[{"map": "Overview", "x": 68, "y": 42}]},
   {"name": "Slippery Station", "sections": [{"name": "Slippery Station Amateur Reward"}, {"name": "Slippery Station Pro Reward"}, {"name": "Slippery Station Champion Reward"}], "map_locations":[{"map": "Overview", "x": 381, "y": 42}]},
@@ -111,5 +130,6 @@
     {"name": "Beedle Buy Rare Treasure"},
     {"name": "Beedle Buy Bomb Bag"},
     {"name": "Beedle Buy Red Potion"},
-    {"name": "Beedle Buy Purple Potion"}], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]}
+    {"name": "Beedle Buy Purple Potion"},
+    {"name": "Beedle Joe's Force Gem"}], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]}
 ]
