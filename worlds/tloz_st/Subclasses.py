@@ -72,11 +72,25 @@ async def remove_potion(client: "SpiritTracksClient", ctx, item: "STItem", rii):
 async def remove_passenger(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     if ctx.slot_data["randomize_passengers"] == 1:
         return []
+    prev_value = await item.address.read(ctx)
     res = [
         STAddr.has_passenger_0.get_inner_write_list(0xFFFFFFFF),
         STAddr.has_passenger_1.get_inner_write_list(0xFFFFFFFF),
         STAddr.passenger_tag_0.get_inner_write_list(0),
-        STAddr.passenger_tag_0.get_inner_write_list(1),
+        STAddr.passenger_tag_1.get_inner_write_list(0),
+        STAddr.passenger_goal.get_inner_write_list(0xFFFFFFFF),
+        item.address.get_inner_write_list(item.value & prev_value)
+    ]
+    return res
+
+async def remove_cargo(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    if ctx.slot_data["randomize_cargo"] == 1:
+        return []
+    res = [
+        STAddr.cargo_0.get_inner_write_list(0xFFFFFFFF),
+        STAddr.cargo_1.get_inner_write_list(0xFFFFFFFF),
+        STAddr.cargo_count_0.get_inner_write_list(0),
+        STAddr.cargo_count_1.get_inner_write_list(0),
     ]
     return res
 
@@ -110,8 +124,10 @@ class STItem(DSItem):
             return remove_tear_of_light
         if "Potion" in self.name:
             return remove_potion
-        if "Passenger" in self.name:
+        if self.name.startswith("Passenger:"):
             return remove_passenger
+        if self.name.startswith("Cargo:"):
+            return remove_cargo
         return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):

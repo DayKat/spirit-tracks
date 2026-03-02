@@ -2296,6 +2296,110 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "trading post bridge worker"
     },
+    "Trading Post Pick Up Kenzo": {
+        "stage_id": 0x37,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_3c,
+        "value": 0x10,
+        "vanilla_item": "Passenger: Kenzo 2",
+        "item_override": "Nothing!",  # Only 1 kenzo in pool
+        "location_groups": ["Trading Post", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", 3)],
+        "conditional": True,
+        "region_id": "trading post pick up kenzo"
+    },
+    "Anouki Village Pick Up Noko": {
+        "stage_id": 0x2B,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_3a,
+        "value": 0x10,
+        "vanilla_item": "Passenger: Noko",
+        "location_groups": ["Anouki Village", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "av noko"
+    },
+    "Icy Spring Noko Force Gem": {
+        "stage_id": 0x35,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_e,
+        "value": 0x4,
+        "vanilla_item": "Snow Realm Bridge Tracks",
+        "location_groups": ["Icy Spring", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "icyspring noko"
+    },
+    "Icy Spring Buy Mega Ice": {
+        "stage_id": 0x35,
+        "room_id": 0x0,
+        "address": STAddr.cargo_count_0,
+        "value": 20,
+        "vanilla_item": "Cargo: Mega Ice",
+        "location_groups": ["Icy Spring", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "region_id": "icyspring ice"
+    },
+    "Mayscore Buy Lumber": {
+        "stage_id": 0x2a,
+        "room_id": 0x0,
+        "address": STAddr.cargo_count_0,
+        "value": 20,
+        "vanilla_item": "Cargo: Lumber",
+        "location_groups": ["Mayscore", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "region_id": "mayscore lumber"
+    },
+    "Castle Town Buy Cuccos": {
+        "stage_id": 0x29,
+        "room_id": 0x0,
+        "address": STAddr.cargo_count_0,
+        "value": 5,
+        "vanilla_item": "Cargo: Cuccos",
+        "location_groups": ["Castle Town", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "region_id": "castle town buy cuccos"
+    },
+    "Anouki Village Repair Fence": {
+        "stage_id": 0x2B,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_e,
+        "value": 0x2,
+        "vanilla_item": "Snowdrift Station Tracks",
+        "location_groups": ["Anouki Village", "Deliver Passengers", "Deliver Cargo"],
+        "conditional": True,
+        "region_id": "av fence"
+    },
+    "Anouki Village Fence Progress Gift": {
+        "stage_id": 0x2B,
+        "room_id": 0x0,
+        "x_max": -10000,
+        "z_max": 35000,
+        "x_min": -35000,
+        "z_min": 5000,
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Anouki Village", "Deliver Passengers"],
+        "slot_data": [("randomize_cargo", [1, 2, 3]), ("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "av kenzo"
+    },
+    "Trading Post Buy Shield": {
+        "stage_id": 0x37,
+        "room_id": 0xa,
+        "address": STAddr.items_2,
+        "value": 1,
+        "region_id": "trading post shield",
+        "vanilla_item": "Shield",
+        "location_groups": ["Shop Shield Locations", "Trading Post"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "shields")],
+    },
 }
 
 ## ========== remember to add item override!! =============
@@ -2332,6 +2436,8 @@ LOCATION_GROUPS["Total Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCA
 LOCATION_GROUPS["Grass Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Unique Grass Rabbits"]
 LOCATION_GROUPS["Snow Rabbits"] = LOCATION_GROUPS["Total Snow Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"]
 LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATION_GROUPS["Total Rabbits"]
+LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"]
+LOCATION_GROUPS["Cargo Locations"] = LOCATION_GROUPS["Buy Cargo"] | LOCATION_GROUPS["Deliver Cargo"]
 
 # print(f"Location Groups:")
 # for group, locs in LOCATION_GROUPS.items():

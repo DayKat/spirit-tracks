@@ -107,4 +107,8 @@ HINT_DATA = {
         "scenes": [0x2a05],
         "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
     },
+    "Trading Post Buy Shield": {
+        "scenes": [0x370a],
+        "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
+    }
 }

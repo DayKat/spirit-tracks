@@ -46,6 +46,7 @@ REGIONS = [
     "teao 1",
     "teao 2",
     "teao 3",
+    "castle town buy cuccos",
 
     # Hyrule Castle
     "hyrule castle",
@@ -141,6 +142,7 @@ REGIONS = [
     "mayscore whip race heart container",
     "mayscore whip chest",
     "mayscore shop",
+    "mayscore lumber",
     "mayscore leaves",
     #"mayscore axe gem",
 
@@ -193,6 +195,8 @@ REGIONS = [
     "linebeck trading",
     "trading post leaves",
     "trading post bridge worker",
+    "trading post pick up kenzo",
+    "trading post shield",
     #"trading post ore gem",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,6 +225,9 @@ REGIONS = [
     "anouki village song statue",
     "anouki village bomb cave chest",
     "anouki village lake chest",
+    "av noko",
+    "av fence",
+    "av kenzo",
     #"anouki village worker to anouki gem",
 
     # Snow Sanctuary
@@ -249,6 +256,8 @@ REGIONS = [
     "icyspring",
     "icyspring stamp station",
     "icyspring whip chest",
+    "icyspring ice",
+    "icyspring noko",
 
     # Snowdrift Station
     "snowdrift",
@@ -264,6 +273,7 @@ REGIONS = [
     "bridge workers",
     "bridge workers chest",
     "pick up bridge worker",
+
 
     # Beedle
     "beedle",

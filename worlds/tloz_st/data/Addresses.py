@@ -102,6 +102,13 @@ class STAddr:
     has_passenger_1 = Address(0x2655AC, size=4)
     passenger_tag_0 = Address(0x265594, size=4)
     passenger_tag_1 = Address(0x2655A8, size=4)
+    passenger_goal = Address(0x26559C, size=4)
+
+    # Cargo Data
+    cargo_0 = Address(0x2655d8, size=4)
+    cargo_1 = Address(0x2655e4, size=4)
+    cargo_count_0 = Address(0x2655dc)
+    cargo_count_1 = Address(0x2655e8)
 
     # Adventure Flags
     adv_flags_0 = Address(0x265714)

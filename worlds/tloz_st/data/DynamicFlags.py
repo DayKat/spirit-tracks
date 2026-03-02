@@ -484,7 +484,11 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3700],
         "has_items": [("Passenger: Kenzo", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "set_if_true": [(STAddr.adv_flags_18, 0x20)]
+        "check_bits": [(STAddr.adv_flags_18, 0x40, "not")],
+        "set_if_true": [(STAddr.adv_flags_18, 0x20)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x37),
+                              (STAddr.passenger_tag_0, 0x43524654),
+                              (STAddr.has_passenger_0, 0)]
     },
     "Has Kenzo and Ring": {
         "on_scenes": [0x3700],
@@ -498,8 +502,31 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3700],
         "not_has_locations": ["Bring Kenzo to Trading Post"],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x40), (STAddr.adv_flags_18, 0x82)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40), (STAddr.adv_flags_18, 0x82), (STAddr.adv_flags_c, 0x20)],
         "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Allow Kenzo to leave for AV": {
+        "on_scenes": [0x3700],
+        "check_bits": [(STAddr.adv_flags_24, 0x10)],
+        "set_if_true": [(STAddr.adv_flags_3d, 2)],
+        "has_items": [("Snow Glyph", 1)],
+        "has_slot_data": [("randomize_passengers", [1, 3])],
+    },
+    "Prevent Kenzo from leaving TP": {
+        "on_scenes": [0x3700],
+        "has_slot_data": [("randomize_passengers", [0, 2])],
+        "unset_if_true": [(STAddr.adv_flags_3d, 2)],
+    },
+    "Prevent Kenzo from leaving TP snow glyph": {
+        "on_scenes": [0x3700],
+        "has_items": [("Snow Glyph", 0)],
+        "unset_if_true": [(STAddr.adv_flags_3d, 2)],
+    },
+    "Prep for TP kenzo loc": {
+        "on_scenes": [0x3700],
+        "not_has_locations": ["Trading Post Pick Up Kenzo"],
+        "has_slot_data": [("randomize_passengers", 3)],
+        "unset_if_true": [(STAddr.adv_flags_3c, 0x10)],
     },
     # Anouki chief location
     "Enter Anouki Chief house": {
@@ -535,7 +562,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_21, 0x40)],
     },
     "Remove shield from shield shops": {
-        "on_scenes": [0x2a05, 0x290a, 0x3103],
+        "on_scenes": [0x2a05, 0x290a, 0x3103, 0x370a],
         "unset_if_true": [(STAddr.items_2, 1)],
         "has_slot_data": [("shopsanity", "shields")],
         "reset_flags": ["RESET add shield"]
@@ -623,12 +650,12 @@ DYNAMIC_FLAGS = {
     "Add trading post bridge": {
         "on_scenes": [0x400],
         "has_items": [("Repair Trading Post Bridge", 1)],
-        "set_if_true": [(STAddr.adv_flags_b, 0x10)]
+        "set_if_true": [(STAddr.adv_flags_17, 0x10)]
     },
     "Remove trading post bridge": {
         "on_scenes": [0x400],
         "has_items": [("Repair Trading Post Bridge", 0)],
-        "unset_if_true": [(STAddr.adv_flags_b, 0x10)]
+        "unset_if_true": [(STAddr.adv_flags_17, 0x10)]
     },
     # Passenger States
     "Can pick up Kenzo": {
@@ -653,6 +680,78 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_19, 0x20)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
     },
+    "Anouki Quests": {
+        "on_scenes": [0x2b00],
+        "set_if_true": [(STAddr.adv_flags_1, 4)],  # Ocean restoration
+    },
+    "Can pick up noko": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_items": [("Blizzard Temple Tracks", 1)],
+        "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
+        "unset_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Can't pick up Noko glyph": {
+        "on_scenes": [0x2b00],
+        "has_items": [("Blizzard Temple Tracks", 0)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Can't pick up Noko": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Bring Kenzo to AV": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_items": [("Passenger: Kenzo", 1)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x40, "not")],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x10)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
+                              (STAddr.passenger_tag_0, 0x43524654),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    "Bring Noko to Icyspring": {
+        "on_scenes": [0x3500],
+        "has_items": [("Passenger: Noko", 1)],
+        "check_bits": [(STAddr.adv_flags_3a, 0x40, "not")],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x35),
+                              (STAddr.passenger_tag_0, 0x594B4350),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    "No paseengers icyspring": {
+        "on_scenes": [0x3500],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x50), (STAddr.adv_flags_3d, 0x10)],
+    },
+    # Cargo
+    "AV skip fence text": {
+        "on_scenes": [0x2b00],
+        "set_if_true": [(STAddr.adv_flags_3d, 0x2)],
+    },
+    "AV has lumber": {
+        "on_scenes": [0x2b00],
+        "has_items": [("Cargo: Lumber", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_54, 0x04, "not")],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 1), (STAddr.cargo_count_0, 15)]
+    },
+    "AV fence no cargo": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_cargo", 0), ("randomize_passengers", [1, 2, 3])],
+        "set_if_true": [(STAddr.adv_flags_54, 0x4), (STAddr.adv_flags_3d, 0x1)]
+    },
+    "AV fence no passengers": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_cargo", [1, 2, 3]), ("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x50), (STAddr.adv_flags_3d, 0x4)],
+    },
+    "RESET Cargo": {
+        "set_if_true": [(STAddr.cargo_0, 0xFFFFFFFF),(STAddr.cargo_1, 0xFFFFFFFF)],
+        "unset_if_true": [(STAddr.cargo_count_0, 0xFF), (STAddr.cargo_count_1, 0xFF)]
+    }
 }
 """
 "Dynamic Flag Name": {

@@ -373,7 +373,11 @@ class SpiritTracksWorld(WorldParent):
                 return "shields" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Postcard Locations"]:
                 return "postcards" in self.options.shopsanity.value
-        if self.options.randomize_passengers:
+        if location_name == "Anouki Village Repair Fence":
+            return self.options.randomize_passengers.value or self.options.randomize_cargo.value
+        if location_name == "Anouki Village Fence Progress Gift":
+            return self.options.randomize_passengers.value and self.options.randomize_cargo.value
+        if self.options.randomize_passengers and location_name in LOCATION_GROUPS["Passenger Locations"]:
             if "slot_data" in location_data:
                 for option, values, *args in location_data["slot_data"]:
                     if option != "randomize_passengers":
@@ -381,7 +385,16 @@ class SpiritTracksWorld(WorldParent):
                     values = values if isinstance(values, list) else [values]
                     if self.options.randomize_passengers.value not in values:
                         return False
-                    return True
+                return True
+        if self.options.randomize_cargo and location_name in LOCATION_GROUPS["Cargo Locations"]:
+            if "slot_data" in location_data:
+                for option, values, *args in location_data["slot_data"]:
+                    if option != "randomize_cargo":
+                        continue
+                    values = values if isinstance(values, list) else [values]
+                    if self.options.randomize_cargo.value not in values:
+                        return False
+                return True
         return False
 
     def create_events(self):
@@ -423,7 +436,13 @@ class SpiritTracksWorld(WorldParent):
                                  "hyrule castle sword minigame", "castle town"]
         [self.create_event(reg, "_rupee_farming_spot") for reg in rupee_farming_regions]
         # Passenger Events
-        self.create_event("pick up bridge worker", "_kenzo_1")
+        if self.options.randomize_passengers == "vanilla":
+            self.create_event("pick up bridge worker", "_kenzo_1")
+            self.create_event("trading post pick up kenzo", "_kenzo_2")
+            self.create_event("av noko", "_noko")
+        if self.options.randomize_cargo == "vanilla":
+            self.create_event("mayscore lumber", "_buy_lumber")
+            self.create_event("icyspring ice", "_buy_ice")
 
         # UT Events
         self.create_event("alfonzo event", "_picked_up_alfonzo")
@@ -533,7 +552,11 @@ class SpiritTracksWorld(WorldParent):
                     continue
                 filler_item_count += 1
                 continue
-            if item_name.startswith("Passenger:") and self.options.randomize_passengers == "vanilla_abstract":
+            if self.options.randomize_passengers == "vanilla_abstract" and item_name.startswith("Passenger:"):
+                forced_item = self.create_item(item_name)
+                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                continue
+            if self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:"):
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue

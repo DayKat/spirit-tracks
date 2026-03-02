@@ -944,64 +944,86 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     # Passengers
     "Passenger: Kenzo": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Passengers"]
+        'tags': ["always_process"],
+        "item_groups": ["Passengers"],
+        "address": STAddr.adv_flags_18,
+        "value": 0x20
+    },
+    "Passenger: Kenzo 2": {
+        "classification": ItemClassification.progression,
+        'tags': ["always_process"],
+        "item_groups": ["Passengers"],
+        "address": STAddr.adv_flags_3c,
+        "value": 0x10
     },
     "Passenger: Joe": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Passengers"]
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_3c,
+        "value": 0x2
     },
     "Passenger: Noko": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Passengers"]
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_3a,
+        "value": 0x10
     },
     "Passenger: Mona": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Passengers"]
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_3b,
+        "value": 0x20
     },
     "Passenger: Ferrus": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Passengers"]
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_3a,
+        "value": 0x80
+    },
+    "Passenger: Alfonzo": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
     },
     # Cargo
-    "Cargo: Wood": {
+    "Cargo: Lumber": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Cargo"]
+        "item_groups": ["Cargo"],
+        'tags': ["always_process"],
     },
     "Cargo: Mega Ice": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Cargo"]
+        "item_groups": ["Cargo"],
+        'tags': ["always_process"],
     },
     "Cargo: Goron Steel": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Cargo"]
+        "item_groups": ["Cargo"],
+        'tags': ["always_process"],
     },
     "Cargo: Fish": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Cargo"]
+        "item_groups": ["Cargo"],
+        'tags': ["always_process"],
     },
     "Cargo: Vessel": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Cargo"]
+        "item_groups": ["Cargo"],
+        'tags': ["always_process"],
     },
     "Cargo: Cuccos": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Cargo"]
+        "item_groups": ["Cargo"],
+        'tags': ["always_process"],
     },
     "Cargo: Dark Ore": {
         "classification": ItemClassification.progression,
-        'dummy': True,
-        "item_groups": ["Cargo"]
+        "item_groups": ["Cargo"],
+        'tags': ["always_process"],
     },
 }
 

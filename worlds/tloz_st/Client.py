@@ -589,6 +589,11 @@ class SpiritTracksClient(DSZeldaClient):
         if stage in STAGE_FLAGS:
             stage_address = await STAddr.stage_flag_pointer.read(ctx)
             stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
+            if ctx.slot_data["randomize_passengers"] == 0:
+                if stage == 0x35:
+                    STAGE_FLAGS[stage] = [0x16, 0x00, 0x00, 0x00]
+                elif stage == 0x35:
+                    STAGE_FLAGS[stage] = [0x16, 0x04, 0x00, 0x00]
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
         if self.set_train_in_overworld:

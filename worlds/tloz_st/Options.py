@@ -394,7 +394,7 @@ class SpiritTracksShopsanity(OptionSet):
     - uniques: 2 locations, 2500 rupees
     - treasure: 7 locations, 2400 rupees
     - potions: 6 locations, 700 rupees
-    - shields: 3 locations, 310 rupees
+    - shields: 4 locations, 410 rupees
     - postcards: 3 locations 300 rupees
     - all: same as adding all above
     """

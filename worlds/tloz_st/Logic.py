@@ -249,6 +249,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["trading post bridge worker", "linebeck trading", False, lambda state: state.has("Treasure: Regal Ring", player)],
         ["trading post", "linebeck trading", False, lambda state: state.has("Treasure: Regal Ring", player) and options.randomize_passengers.value == 0],
         ["trading post", "trading post leaves", False, lambda state: st_has_whirlwind(state, player)],
+        ["linebeck trading", "trading post pick up kenzo", False, lambda state: st_has_glyph(state, player, "Snow")],
     ]
         # # ========== Rabbit Haven ========
     overworld_logic += [
@@ -289,6 +290,13 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["anouki village", "anouki village song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["anouki village", "anouki village bomb cave chest", False, lambda state: st_has_bombs(state, player)],
         ["anouki village", "anouki village lake chest", False, lambda state: st_has_boomerang(state, player)],
+        ["anouki village", "av noko", False, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
+        ["anouki village", "av fence", False, lambda state:
+            (state.has("Passenger: Kenzo", player) or state.has("_kenzo_2", player) or options.randomize_passengers == "no_passengers")
+            and (state.has("Cargo: Lumber", player) or state.has("_buy_lumber", player) or options.randomize_cargo == "no_cargo")],
+        ["anouki village", "av kenzo", False, lambda state:
+            (state.has("Passenger: Kenzo", player) or state.has("_kenzo_2",  player) or options.randomize_passengers == "no_passengers")
+            or (state.has("Cargo: Lumber", player) or state.has("_buy_lumber", player) or options.randomize_cargo == "no_cargo")],
 
         # =========== Snow Sanctuary ==========
 
@@ -318,6 +326,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["blizzard temple tracks", "icyspring", True, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
         ["icyspring", "icyspring stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_boomerang(state, player)],
         ["icyspring", "icyspring whip chest", False, lambda state: st_has_whip(state, player)],
+        ["icyspring", "icyspring noko", False, lambda state: state.has("Passenger: Noko", player) or state.has("_noko", player) or options.randomize_passengers == "no_passengers"],
 
         # ============ Snowdrift Station =========
 
@@ -394,8 +403,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     if "uniques" in options.shopsanity.value: required_rupees += 2500
     if "treasure" in options.shopsanity.value: required_rupees += 2400
     if "potions" in options.shopsanity.value: required_rupees += 700
-    if "shields" in options.shopsanity.value: required_rupees += 310
+    if "shields" in options.shopsanity.value: required_rupees += 410
     if "postcards" in options.shopsanity.value: required_rupees += 300
+    if options.randomize_cargo == "vanilla": required_rupees += 200
+    elif options.randomize_cargo: required_rupees += 150
 
     overworld_logic += [
         # Shops
@@ -408,6 +419,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["mayscore", "mayscore shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
         ["castle town", "castle town shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
+        ["trading post", "trading post shield", False, lambda state: st_has_rupees(state, player, required_rupees)],
+
+        ["castle town", "castle town buy cuccos", False, lambda state: state.has("Wagon", player) and st_has_rupees(state, player, required_rupees)],
+        ["mayscore", "mayscore lumber", False, lambda state: state.has("Wagon", player) and st_has_rupees(state, player, required_rupees)],
+        ["icyspring noko", "icyspring ice", False, lambda state: state.has("Wagon", player) and st_has_rupees(state, player, required_rupees)],
     ]
 
     # Generate rabbit total items
