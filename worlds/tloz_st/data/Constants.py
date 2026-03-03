@@ -16,6 +16,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
     [STAddr.adv_flags_6, 0xFC],  # Intro stuff
     [STAddr.adv_flags_7, 0x13],  # postman & get zelda's letter
+    [STAddr.adv_flags_a, 0x55],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos
     [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
@@ -102,6 +103,7 @@ STAGES = {
     0x18: "Tunnel to ToS",
     0x19: "Wooded Temple",
     0x1A: "Blizzard Temple",
+    0x1B: "Marine Temple",
     0x1E: "Stagnox",
     0x1F: "Fraaz",
     0x23: "Staven Fight",
@@ -113,13 +115,16 @@ STAGES = {
     0x29: "Castle Town",
     0x2A: "Mayscore",
     0x2B: "Anouki Village",
+    0x2C: "Papuzia Village",
     0x2F: "Outset Village",
     0x30: "Forest Sanctuary",
     0x31: "Snow Sanctuary",
+    0x32: "Ocean Sanctuary",
     0x35: "Icy Spring",
     0x36: "Bridge Worker's Home",
     0x37: "Trading Post",
     0x38: "Mayscore Forest",
+    0x39: "Papuzia Village South",
     0x3E: "Rabbit Haven",
     0x3F: "Snowdrift/Slippery Station",
     # 0x44: "Train Interior CS",

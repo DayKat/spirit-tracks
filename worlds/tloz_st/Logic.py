@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 from .data.LogicPredicates import *
 from .Options import SpiritTracksOptions
 from .data.Entrances import ENTRANCES
-from ..stardew_valley.stardew_rule import state
 
 if TYPE_CHECKING:
     from . import SpiritTracksWorld
@@ -322,38 +321,37 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # ========== Ocean Sanctuary =============
         ["ocean realm", "ocs", False, None],
-        ["ocs", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
+        ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)],
+        ["ocs north", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                          and st_has_birds_song(state, player) and st_has_whip(state, player)],
         ["ocs", "ocs cucco chest", False, lambda state: st_has_boomerang(state, player)], # Spreadsheet shows Whirlwind needed too,
-                                                                                          # but not sure why looking at walkthrough?
-        ["ocs", "ocs S island chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
-        ["ocs", "ocs nw chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
+                                                                                          # but not sure why looking at walkthrough
+                                                                                          # probably wants you to whirlwind a bomb in the cave, but you can make the throw.
+        ["ocs", "ocs S island chest", False, lambda state: st_has_whip(state, player)],
+        ["ocs north", "ocs nw chest", False, lambda state: st_has_whip(state, player)],
         ["ocs", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
 
         # ========== Papuchia Village =============
         ["ocean realm", "papuchia village", False, None],
         ["papuchia village", "papuchia village song statue", False, lambda state: st_has_discovery_song(state, player)],
-        ["papuchia village", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player)
-                                                                        and st_has_birds_song(state, player) and st_has_whip(state, player)],
-        ["papuchia village", "papuchia village ne chest", False, None],
-        ["papuchia village", "papuchia village sw chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
-        ["papuchia village", "papuchia village s center chest", False, lambda state: st_has_birds_song(state, player) and st_has_whip(state, player)],
+        ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["papuchia village", "papuchia village south", False, lambda state: st_has_whip(state, player)],
 
         # ========= Ocean Temple ==================
         ["ocean realm source", "oct", False, lambda state: st_has_source(state, player, "Ocean")
                                                           and st_has_temple_tracks(state, player, "Ocean")],
-        ["oct", "oct whip chest", False, lambda state: st_has_damage(state, player)], #needs testing, may require boomerang? Sheet shows Boom + Sword
-        ["oct", "oct 2f log chest", False, lambda state: st_has_whip(state, player)],
-        ["oct", "oct 1f vines chest", False, lambda state: st_has_whip(state, player)],
-        ["oct", "oct 1f lever chest", False, lambda state: st_has_whip(state, player)],
-        ["oct", "oct stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whip(state, player)],
-        ["oct", "oct 3f puzzle chest", False, lambda state: st_has_whip(state, player)],
-        ["oct", "oct 3f ne chest", False, lambda state: st_has_whip(state, player)],
-        ["oct", "oct 5f chest", False, lambda state: st_has_whip(state, player) and st_has_small_keys(state, player, "Ocean Temple", 1)],
-        ["oct 5f chest", "oct 6f chest", False, None],
-        ["oct 5f chest", "oct phytops", False, lambda state: st_has_whip(state, player) and st_has_sword(state, player)
-                                                             and st_has_small_keys(state, player, "Ocean Temple", 2)],
-        ["oct phytops", "oct heart container", False, None],
+        ["oct", "oct song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["oct 2f", "oct whip chest", False, lambda state: st_has_sword(state, player)], # you can't escape stunlock without sword, and the fight scripts you into it from the start
+        ["oct", "oct whip", False, lambda state: st_has_whip(state, player)],
+        ["oct", "oct 2f", None, lambda state: any([
+            st_has_whip(state, player),
+            st_can_hit_switches(state, player),
+            st_option_hard_logic(state, player)  # damageboost through the boulders
+        ])],
+        ["oct", "oct stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whip(state, player) and st_has_bombs(state, player) and st_has_boomerang(state, player)],
+        ["oct whip chest", "oct 3f whip", False, lambda state: st_has_whip(state, player)],
+        ["oct 3f whip", "oct 6f chest", False, lambda state: st_has_small_keys(state, player, "Ocean Temple", 1)],
+        ["oct 6f chest", "oct phytops", False, lambda state: st_has_small_keys(state, player, "Ocean Temple", 2)],
 
         # ========= Pirate Hideout ==============
         ["pirate hideout tracks", "pirate hideout", False, None],
