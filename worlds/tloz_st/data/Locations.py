@@ -1518,20 +1518,18 @@ ocean_realm_locations = {
     "Ocean Sanctuary Stamp Station": {
         "region_id": "ocs stamp station",
         "stage_id": 0x32,
-        "room_id": 0,
+        "room_id": 2,
         "stamp": True,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
     },
 
     "Ocean Sanctuary Cucco Chest": {
-        "region_id": "ocs cucco chest",
+        "region_id": "ocs north",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x32,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 2,
+        "x_min": 65000,
+        "z_min": 15000,
         "require_item": ["Boomerang"], #Possibly also need whirlwind
     },
 
@@ -1540,10 +1538,7 @@ ocean_realm_locations = {
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x32,
         "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "y": 9830,
         "require_item": ["Song of Birds", "Whip"],
     },
 
@@ -1551,11 +1546,9 @@ ocean_realm_locations = {
         "region_id": "ocs nw chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x32,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 2,
+        "x_max": -90000,
+        "z_max": -40000,
         "require_item": ["Song of Birds", "Whip"],
     },
 
@@ -1565,171 +1558,156 @@ ocean_realm_locations = {
         "vanilla_item": "Song of Birds",
         "stage_id": 0x2C,
         "room_id": 0,
-        "x_min": -0,
-        "x_max": -0,
-        "z_min": 0,
-        "z_max": 0,
+        "x_min": 10000,
+        "x_max": 30000,
+        "z_min": 40000,
         "require_item": ["Spirit Flute", "Song of Discovery"],
     },
 
     "Papuchia Village Stamp Station": {
         "region_id": "papuchia village stamp station",
-        "stage_id": 0x2C,
+        "stage_id": 0x39,
         "room_id": 0,
         "stamp": True,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
     },
 
     "Papuchia Village NE Chest": {
-        "region_id": "papuchia village ne chest",
-        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
-        "stage_id": 0x2C,
-        "room_id": 0,
-        "x_min": -0,
-        "x_max": -0,
-        "z_min": 0,
-        "z_max": 0,
-    },
-
-    "Papuchia Village SW Chest": {
-        "region_id": "papuchia village sw chest",
+        "region_id": "papuchia village",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x2C,
         "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "x_min": 15000,
+        "x_max": 40000,
+        "z_max": -25000,
+    },
+
+    "Papuchia Village SW Chest": {
+        "region_id": "papuchia village south",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x39,
+        "room_id": 0,
+        "x_max": -40000,
+        "z_min": -20000,
+        "z_max": 15000,
         "require_item": ["Spirit Flute", "Song of Birds", "Whip"],
     },
 
     "Papuchia Village S Center Chest": {
-        "region_id": "papuchia village s center chest",
+        "region_id": "papuchia village south",
         "vanilla_item": "Big Green Rupee (100)",
-        "stage_id": 0x2C,
+        "stage_id": 0x39,
         "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "x_min": 5000,
+        "x_max": 40000,
+        "z_max": -45000,
         "require_item": ["Spirit Flute", "Song of Birds", "Whip"],
     },
 
 
     # Ocean Temple
-    "Ocean Temple Whip Chest": {
+    "Marine Temple Song Statue": {
+        "region_id": "oct song statue",
+        "vanilla_item": "Song of Healing",
+        "stage_id": 0x1B,
+        "room_id": 0xA,
+        "x_max": -16000,
+        "z_max": -35000,
+    },
+    "Ocean Temple 3F Whip Chest": {
         "region_id": "oct whip chest",
         "vanilla_item": "Whip",
         "stage_id": 0x1B,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 2,
+        "x_min": -250000,
+        "x_max": 25000,
+        "z_min": -25000,
+        "z_max": 25000,
         "require_item": [],
     },
 
     "Ocean Temple 2F Log Chest": {
-        "region_id": "oct 2f log chest",
+        "region_id": "oct whip",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x1B,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 1,
+        "x_min": -35000,
+        "z_max": 60000,
         "require_item": ["Whip"],
     },
 
     "Ocean Temple 1F Vines Chest": {
-        "region_id": "oct 1f vines chest",
+        "region_id": "oct whip",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x1B,
         "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "x_min": 55000,
+        "z_min": -10000,
         "require_item": ["Whip"],
     },
 
     "Ocean Temple 1F Lever Chest": {
-        "region_id": "oct 1f lever chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "region_id": "oct whip",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1B,
         "room_id": 0,
         "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "z_max": -45000,
         "require_item": ["Whip"],
     },
 
     "Ocean Temple Stamp Station": {
         "region_id": "oct stamp station",
         "stage_id": 0x1B,
-        "room_id": 0,
+        "room_id": 7,
         "stamp": True,
         "require_item": ["Stamp Book", "Whip"],
     },
 
     "Ocean Temple 3F Puzzle Chest": {
-        "region_id": "oct 3f puzzle chest",
+        "region_id": "oct 3f whip",
         "vanilla_item": "Small Key (Ocean Temple)",
         "stage_id": 0x1B,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 2,
+        "x_max": -30000,
+        "z_min": 30000,
         "require_item": ["Whip"],
     },
 
     "Ocean Temple 3F NE Chest": {
-        "region_id": "oct 3f ne chest",
+        "region_id": "oct 3f whip",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1B,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 2,
+        "x_min": 50000,
+        "z_max": -40000,
         "require_item": ["Whip"],
     },
-
-    "Ocean Temple 5F Chest": {
-        "region_id": "oct 5f chest",
+    "Ocean Temple 6F E Chest": {
+        "region_id": "oct 6f chest",
         "vanilla_item": "Small Key (Ocean Temple)",
         "stage_id": 0x1B,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 5,
+        "x_min": 75000,
+        "z_max": -5000,
         "require_item": ["Whip"],
     },
-
-    "Ocean Temple 6F Chest": {
+    "Ocean Temple 6F W Chest": {
         "region_id": "oct 6f chest",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1B,
-        "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "room_id": 5,
+        "x_max": -50000,
+        "z_max": -5000,
         "require_item": ["Whip"],
     },
 
     "Ocean Temple Heart Container": {
-        "region_id": "oct heart container",
+        "region_id": "oct phytops",
         "vanilla_item": "Heart Container",
         "stage_id": 0x20,
         "room_id": 0,
-        "x_min": 0,
-        "x_max": 0,
-        "z_min": 0,
-        "z_max": 0,
+        "y": 88472,
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
     },
 
@@ -1744,7 +1722,179 @@ ocean_realm_locations = {
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "goal": True
     },
-}
+
+    # Pirate Hideout
+    "Pirate Hideout Stamp Station": {
+        "region_id": "pirate hideout stamp station",
+        "vanilla_item": "Treasure",
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "stamp": True,
+        "require_item": ["Stamp Book", "Whip", "Song of Birds"],
+    },
+
+    "Pirate Hideout Secret Cave Left Treasure": {
+        "region_id": "pirate hideout secret cave",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 1,
+        "x_max": -3800,
+    },
+
+    "Pirate Hideout Secret Cave Mid Treasure": {
+        "region_id": "pirate hideout secret cave",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 1,
+        "x_min": -3800,
+        "x_max": 10000,
+    },
+
+    "Pirate Hideout Secret Cave Right Treasure": {
+        "region_id": "pirate hideout secret cave",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 1,
+        "x_min": 10000,
+    },
+
+      "Pirate Hideout Minigame 1st Reward": { #TODO Minigame implementation (See mayscore above)
+         "region_id": "pirate hideout minigame 1st reward",  # First time playing gives Wadatsumi, an NPC for NPC Rando lol,
+          "vanilla_item": "Heart Container",                 # This is going to be really complicated, have fun ;3
+          "stage_id": 0x3B,
+          "room_id": 0,
+          "require_item": ["Bow (Progressive)]"],  # Pirate hideout gives a free bow, decide if we want that or not.
+          "conditional": True
+      },
+
+    "Pirate Hideout Minigame 2nd Reward": {
+        "region_id": "pirate hideout minigame 2nd reward",
+        "vanilla_item": "Bow (Progressive)",
+        "stage_id": 0x3B,
+        "room_id": 0,
+        "conditional": True,
+        "require_item": ["Bow (Progressive)"]
+      },
+
+    # Lost at Sea Station
+
+    "Lost at Sea Outside Chest": {
+        "region_id": "las outside chest",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x39,
+        "room_id": 0xA,
+        "x_min": 0,
+        "z_min": 10000,
+        "x_max": 25000,
+        "z_max": 40000,
+        "require_item": ["Song of Discovery"],  # Song of Light recommended for all checks
+    },
+
+    "Lost at Sea 1st Room Chest": {
+        "region_id": "las 1st room chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x42,
+        "room_id": 0x2,
+        "x_max": -55000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip"],
+    },
+
+    "Lost at Sea 2nd Room Chest": {
+        "region_id": "las 2nd room chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x42,
+        "room_id": 0x3,
+        "x_min": 50000,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang"],
+    },
+
+    "Lost at Sea 3rd Room Chest": {
+        "region_id": "las 3rd room chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x42,
+        "room_id": 4,
+        "x_min": -45000,
+        "z_max": -15000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 4th Room SW Chest": {
+        "region_id": "las 4th room chest",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x42,
+        "room_id": 5,
+        "x_max": -85000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 4th Room NE Chest": {
+        "region_id": "las 4th room chest",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x42,
+        "room_id": 5,
+        "x_min": 85000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+
+    },
+    "Lost at Sea 5th Room SE Chest": {
+        "region_id": "las 5th room",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x42,
+        "room_id": 6,
+        "x_min": 40000,
+        "z_min": 20000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+        # bombs recommended for 5th room chests
+    },
+
+    "Lost at Sea 5th Room NE Chest": {
+        "region_id": "las 5th room",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "stage_id": 0x42,
+        "room_id": 6,
+        "x_min": 40000,
+        "z_max": -20000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 5th Room SW Chest": {
+        "region_id": "las 5th room",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x42,
+        "room_id": 6,
+        "x_min": 20000,
+        "x_max": -40000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 5th Room NW Chest": {
+        "region_id": "las 5th room",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "stage_id": 0x42,
+        "room_id": 6,
+        "x_max": -40000,
+        "z_max": -20000,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
+
+    "Lost at Sea 6th Room Chest": {
+        "region_id": "las 5th room",
+        "vanilla_item": "Treasure: Regal Ring",
+        "stage_id": 0x42,
+        "room_id": 7,
+        "farmable": True,
+        "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+
+    },
+
     # ========= Rabbits ==========
 LOCATIONS_DATA |= {
     "Rabbit near Castle Town": {

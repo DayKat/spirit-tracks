@@ -17,6 +17,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
     [STAddr.adv_flags_6, 0xFC],  # Intro stuff
     [STAddr.adv_flags_7, 0x13],  # postman & get zelda's letter
+    [STAddr.adv_flags_a, 0x55],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos
     [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
@@ -103,6 +104,7 @@ STAGES = {
     0x18: "Tunnel to ToS",
     0x19: "Wooded Temple",
     0x1A: "Blizzard Temple",
+    0x1B: "Marine Temple",
     0x1E: "Stagnox",
     0x1F: "Fraaz",
     0x23: "Staven Fight",
@@ -114,17 +116,23 @@ STAGES = {
     0x29: "Castle Town",
     0x2A: "Mayscore",
     0x2B: "Anouki Village",
+    0x2C: "Papuzia Village",
     0x2F: "Outset Village",
     0x30: "Forest Sanctuary",
     0x31: "Snow Sanctuary",
+    0x32: "Ocean Sanctuary",
     0x35: "Icy Spring",
     0x36: "Bridge Worker's Home",
     0x37: "Trading Post",
     0x38: "Mayscore Forest",
+    0x39: "Papuzia Village South",
+    0x3A: "Pirate Hideout",
+    0x3B: "Pirate Hideout Minigame",
     0x3E: "Rabbit Haven",
     0x3F: "Snowdrift/Slippery Station",
     # 0x44: "Train Interior CS",
     # 0x50: "Train roof CS",
+    0x42: "Lost at Sea Dungeon",
     0x45: "Beedle, Train NPCs",
     0x46: "Take 'em all on Forest theme",
     0x47: "Take 'em all on Snow theme",
@@ -287,7 +295,8 @@ DUNGEON_NAMES = [
     "Tunnel to ToS",
     "ToS", #Tower of Spirits
     "Wooded Temple",
-    "Blizzard Temple"
+    "Blizzard Temple",
+    "Ocean Temple",
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
@@ -299,11 +308,13 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "ToS 6": "ToS 24F Final Chest",
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
+    "Ocean Temple": "Ocean Temple Dungeon Reward",
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
+    "Ocean Temple Dungeon Reward": "oct phytops",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",
@@ -369,6 +380,13 @@ DUNGEON_KEY_DATA = {
         "value": 0x08,
         "size": 1,
     },
+    0x1B: {
+        "name": "Ocean Temple",
+        "address": STAddr.key_storage_0,
+        "filter": 0x30,
+        "value": 0x10,
+        "size": 2,
+    }
 }
 
 
