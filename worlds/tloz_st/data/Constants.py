@@ -87,6 +87,7 @@ STAGE_FLAGS = {
     # 0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
+    0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
     0x1d: [0x0, 0x3, 0x0, 0x0], # Desert Temple
 }
 
@@ -278,6 +279,13 @@ DUNGEON_KEY_DATA = {
         "address": STAddr.key_storage_0,
         "filter": 0x30,
         "value": 0x10,
+        "size": 2,
+    },
+    0x1D: {
+        "name": "Desert Temple",
+        "address": STAddr.key_storage_0,
+        "filter": 0xC0,
+        "value": 0x40,
         "size": 2,
     }
 }

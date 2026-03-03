@@ -1177,9 +1177,18 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
-        "require_item": ["Snow Rabbit"],
         'address': STAddr.adv_flags_51,
         'value': 0x40,
+        "conditional": True,
+        "location_groups": ["Rabbit Haven"],
+    },
+    "Rabbit Haven Rescue 10 Sand Rabbits": {
+        "region_id": "rabbit haven 10 sand rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        'address': STAddr.adv_flags_52,
+        'value': 0x2,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
     },
@@ -1928,6 +1937,12 @@ LOCATIONS_DATA = {
         "minigame": [1, 2, 3, 4],
         "conditional": True,
         "location_groups": ["Sand Sanctuary", "Restoration Duets"],
+    },
+    "Sand Sanctuary Stamp Stand": {
+        "stage_id": 0x34,
+        "region_id": "sand sanc stamp stand",
+        "stamp": True,
+        "location_groups": ["Sand Sanctuary"],
     },
     # Dark Ore Mine
     "Dark Ore Mine Song of Discovery Chest": {
@@ -3106,6 +3121,28 @@ LOCATIONS_DATA = {
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
         "region_id": "papuzia ice"
+    },
+    "Trading Post Give Dark Ore to Linebeck": {
+        "stage_id": 0x37,
+        "room_id": 0xa,
+        "address": STAddr.adv_flags_e,
+        "value": 0x20,
+        "vanilla_item": "Lost at Sea Station Tracks",
+        "location_groups": ["Trading Post", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "linebeck dark ore"
+    },
+    "Sand Sanctuary Deliver Cuccos to Rael": {
+        "stage_id": 0x34,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x8,
+        # "vanilla_item": "Ends of the Earth Tracks",
+        "location_groups": ["Sand Sanctuary", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "sand sanc cuccos"
     },
 }
 

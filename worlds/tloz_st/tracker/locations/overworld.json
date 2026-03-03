@@ -57,7 +57,9 @@
     {"name": "Rabbit Haven Mona's Force Gem"},
     {"name": "Rabbit Haven Rescue 5 Rabbits"},
     {"name": "Rabbit Haven Rescue 10 Grass Rabbits"},
-    {"name": "Rabbit Haven Rescue 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 138, "y": 497}]},
+    {"name": "Rabbit Haven Rescue 10 Snow Rabbits"},
+    {"name": "Rabbit Haven Rescue 10 Sand Rabbits"}
+  ], "map_locations":[{"map": "Overview", "x": 138, "y": 497}]},
   {"name": "Trading Post", "sections": [
     {"name": "Bring Kenzo to Trading Post"},
     {"name": "Trading Post Pick Up Kenzo"},

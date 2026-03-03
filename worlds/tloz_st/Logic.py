@@ -259,6 +259,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["trading post", "linebeck trading", False, lambda state: state.has("Treasure: Regal Ring", player) and options.randomize_passengers.value == 0],
         ["trading post", "trading post leaves", False, lambda state: st_has_whirlwind(state, player)],
         ["linebeck trading", "trading post pick up kenzo", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["linebeck trading", "linebeck dark ore", False, lambda state: st_has_cargo(state, player, "Dark Ore", "_buy_ore")],
     ]
     overworld_logic += [
         ["snow realm fr", "rabbit haven", True, lambda state: st_has_glyph(state, player, "Snow")],
@@ -448,6 +449,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc", False, None],
         ["sand sanc", "sand sanc song", False, lambda state: st_has_spirit_flute(state, player)],
+        ["sand sanc", "sand sanc cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")],
+        ["sand sanc cuccos", "sand sanc stamp stand", False, lambda state: st_has_stamp_book(state, player)],
 
         # ===== Desert Temple =====
         ["sand restoration", "desert temple", False, lambda state: st_has_cannon(state, player)],
@@ -495,7 +498,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     if "shields" in options.shopsanity.value: required_rupees += 410
     if "postcards" in options.shopsanity.value: required_rupees += 400
     if "ammo" in options.shopsanity.value: required_rupees += 300
-    if options.randomize_cargo == "vanilla": required_rupees += 500
+    if options.randomize_cargo == "vanilla": required_rupees += 550
     elif options.randomize_cargo: required_rupees += 450
 
     overworld_logic += [

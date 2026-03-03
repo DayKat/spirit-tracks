@@ -358,13 +358,13 @@ DYNAMIC_FLAGS = {
     "Rael don't have spirit flute": {
         "on_scenes": [0x3502],
         "has_items": [("Spirit Flute", 0)],
-        "set_if_true": [(STAddr.adv_flags_1, 0x10)]
+        "set_if_true": [[(STAddr.adv_flags_19, 0x8)]]
     },
     "Rael can play duet": {
         "on_scenes": [0x3502],
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Forest Sanctuary Song of Restoration"],
-        "unset_if_true": [(STAddr.adv_flags_1, 0x10)]
+        "unset_if_true": [[(STAddr.adv_flags_19, 0x8)]]
     },
     "Rael Reset flags": {
         "on_scenes": [0x3502],
@@ -913,6 +913,24 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Cargo"],
         "set_if_true": [(STAddr.adv_flags_1, 0x4)],  # ocean restoration moves him outside
         "overwrite_if_true": [(STAddr.cargo_0, 5), (STAddr.cargo_count_0, 1)]
+    },
+    "Linebeck has Ore": {
+        "on_scenes": [0x370a, 0x370a],
+        "has_items": [("Cargo: Dark Ore", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Trading Post Give Dark Ore to Linebeck"],
+        "check_bits": [(STAddr.adv_flags_24, 0x10)],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 6), (STAddr.cargo_count_0, 20)]
+    },
+    "Rael has Cuccos": {
+        "on_scenes": [0x3400],
+        "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Sand Sanctuary Deliver Cuccos to Rael"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)],
+        "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Papuzia has ice": {
         "on_scenes": [0x2c00],

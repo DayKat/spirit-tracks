@@ -147,6 +147,70 @@ DYNAMIC_ENTRANCES = {
         "message": "You don't have access to this portal!"
     },
 
+    "Bounce sand portal sanc": {
+        "entrance": "Sand Realm Sanctuary Portal",
+        "destination": "Sand Realm Sanctuary Portal",
+        "has_items": [("Desert Temple Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Desert Temple Tracks!"
+    },
+    "Bounce sand portal sanc item": {
+        "entrance": "Sand Realm Sanctuary Portal",
+        "destination": "Sand Realm Sanctuary Portal",
+        "not_has_all_items": [("Desert Temple Tracks", 1),
+                              ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce sand portal temple": {
+        "entrance": "Sand Realm Temple Portal",
+        "destination": "Sand Realm Temple Portal",
+        "has_items": [("Sand Realm Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Sand Realm Tracks!"
+    },
+    "Bounce sand portal temple item": {
+        "entrance": "Sand Realm Temple Portal",
+        "destination": "Sand Realm Temple Portal",
+        "not_has_all_items": [("Sand Realm Tracks", 1),
+                              ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce sand fire portal": {
+        "entrance": "Fire Realm Sand Portal",
+        "destination": "Fire Realm Sand Portal",
+        "has_items": [("Marine Temple Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Marine Temple Tracks!"
+    },
+    "Bounce sand fire portal item": {
+        "entrance": "Fire Realm Sand Portal",
+        "destination": "Fire Realm Sand Portal",
+        "not_has_all_items": [("Marine Temple Tracks", 1),
+                              ("Portal Unlock: Fire Sand Connection to Marine Temple", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce marine temple portal": {
+        "entrance": "Ocean Realm Temple Portal",
+        "destination": "Ocean Realm Temple Portal",
+        "has_items": [("Sand to Fire Connection Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Sand to Fire Connection Tracks!"
+    },
+    "Bounce marine temple portal item": {
+        "entrance": "Ocean Realm Temple Portal",
+        "destination": "Ocean Realm Temple Portal",
+        "not_has_all_items": [("Sand to Fire Connection Tracks", 1),
+                              ("Portal Unlock: Fire Sand Connection to Marine Temple", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
     "Bounce snow portal west item": {  # No need for other bounce condition, unlocked with forest glyph
         "entrance": "Snow Realm West Portal",
         "destination": "Snow Realm West Portal",

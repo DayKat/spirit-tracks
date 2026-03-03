@@ -132,6 +132,26 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "Sand Realm Temple Portal": {
+        "return_name": "Sand Realm Sanctuary Portal",
+        "entrance": (0x6, 0, 0xB),
+        "exit": (0x6, 0x0, 0xC),
+        "entrance_region": "sand realm restoration",
+        "exit_region": "sand realm",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Fire Realm Sand Portal": {
+        "return_name": "Ocean Realm Temple Portal",
+        "entrance": (0x7, 0, 0x13),
+        "exit": (0x6, 0x0, 0xA),
+        "entrance_region": "sand connection",
+        "exit_region": "ocean temple tracks",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
     # Dark Realm
     "Enter Dark Realm Portal": {
