@@ -1918,7 +1918,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
 
     },
-}
+
     # ========= Rabbits ==========
     "Rabbit near Castle Town": {
         "region_id": "forest realm rabbits",

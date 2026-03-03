@@ -131,5 +131,55 @@
     {"name": "Beedle Buy Bomb Bag"},
     {"name": "Beedle Buy Red Potion"},
     {"name": "Beedle Buy Purple Potion"},
-    {"name": "Beedle Joe's Force Gem"}], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]}
+    {"name": "Beedle Joe's Force Gem"}
+  ], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]},
+
+  {"name": "Papuzia Village", "sections": [
+    {"name": "Papuzia Village NE Chest"},
+    {"name": "Papuzia Village Song Statue"},
+    {"name": "Papuzia Village S Center Chest"},
+    {"name": "Papuzia Village SW Chest"},
+    {"name": "Papuzia Village Stamp Station"}
+  ], "map_locations":[{"map": "Overview", "x": 596, "y": 670}]},
+  {"name": "Ocean Sanctuary", "sections": [
+    {"name": "Ocean Sanctuary S Island Chest"},
+    {"name": "Ocean Sanctuary Cucco Chest"},
+    {"name": "Ocean Sanctuary NW Chest"},
+    {"name": "Ocean Sanctuary Stamp Station"}
+  ], "map_locations":[{"map": "Overview", "x": 716, "y": 670}]},
+  {"name": "Marine Temple", "sections": [
+    {"name": "Marine Temple Song Statue"},
+    {"name": "Marine Temple 1F Lever Chest"},
+    {"name": "Marine Temple 1F Vines Chest"},
+    {"name": "Marine Temple Stamp Station"},
+    {"name": "Marine Temple 2F Log Chest"},
+    {"name": "Marine Temple 3F Whip Chest"},
+    {"name": "Marine Temple 3F NE Chest"},
+    {"name": "Marine Temple 3F Puzzle Chest"},
+    {"name": "Marine Temple 6F E Chest"},
+    {"name": "Marine Temple 6F W Chest"},
+    {"name": "Marine Temple Heart Container"},
+    {"name": "Marine Temple Dungeon Reward"}
+  ], "map_locations":[{"map": "Overview", "x": 932, "y": 522}]},
+  {"name": "Pirate Hideout", "sections": [
+    {"name": "Pirate Hideout Stamp Station"},
+    {"name": "Pirate Hideout Secret Cave Left Treasure"},
+    {"name": "Pirate Hideout Secret Cave Mid Treasure"},
+    {"name": "Pirate Hideout Secret Cave Right Treasure"},
+        {"name": "Pirate Hideout Minigame 1st Reward"},
+        {"name": "Pirate Hideout Minigame 2nd Reward"}
+  ], "map_locations":[{"map": "Overview", "x": 592, "y": 564}]},
+  {"name": "Lost at Sea Station", "sections": [
+    {"name": "Lost at Sea Outside Chest"},
+    {"name": "Lost at Sea 1st Room Chest"},
+    {"name": "Lost at Sea 2nd Room Chest"},
+    {"name": "Lost at Sea 3rd Room Chest"},
+    {"name": "Lost at Sea 4th Room SW Chest"},
+    {"name": "Lost at Sea 4th Room NE Chest"},
+    {"name": "Lost at Sea 5th Room SE Chest"},
+    {"name": "Lost at Sea 5th Room NE Chest"},
+    {"name": "Lost at Sea 5th Room SW Chest"},
+    {"name": "Lost at Sea 5th Room NW Chest"},
+    {"name": "Lost at Sea 6th Room Chest"}
+  ], "map_locations":[{"map": "Overview", "x": 956, "y": 720}]}
 ]
