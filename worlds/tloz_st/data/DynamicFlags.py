@@ -45,8 +45,13 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.songs, 0x02)],
         "reset_flags": ["RESET wt statue"]
     },
+    "Allow learning healing song oct": {
+        "on_scenes": [0x1b0a],
+        "not_has_locations": ["Marine Temple Song Statue"],
+        "unset_if_true": [(STAddr.songs, 0x02)],
+        "reset_flags": ["RESET wt statue"]
+    },
     "RESET wt statue": {
-        #"has_locations": ["Wooded Temple Song Statue"],
         "has_items": [["Song of Healing", 1]],
         "set_if_true": [(STAddr.songs, 0x02)],
     },
@@ -77,6 +82,12 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Wooded Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x10)],
         "reset_flags": ["RESET stagnox reward"]
+    },
+    "Cactops location": {
+        "on_scenes": [0x2000],
+        "not_has_locations": ["Ocean Temple Dungeon Reward"],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean Source"]
     },
     "RESET stagnox reward": {
         "has_items": [["Forest Source", 1]],
@@ -839,6 +850,19 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
     },
+    # Papuzia
+    "Allow SoD statue": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuchia Village Song Statue"],
+        "unset_if_true": [(STAddr.songs, 0x4)],
+        "set_if_true": [(STAddr.adv_flags_a, 0xA0)],
+        "reset_flags": ["RESET SoB"]
+    },
+    "RESET SoB": {
+        "has_items": [("Song of Birds", 1)],
+        "set_if_true": [(STAddr.songs, 0x4)],
+    }
+
 }
 """
 "Dynamic Flag Name": {

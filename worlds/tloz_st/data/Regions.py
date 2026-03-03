@@ -291,37 +291,54 @@ REGIONS = [
     # Ocean Realm
 
     "ocean realm",
+    "ocean temple tracks",
+    "ocean realm source",
+    "pirate hideout tracks",
+    "las tracks",
 
     #Ocean Sanctuary
     "ocs",
+    "ocs north",
     "ocs stamp station",
     "ocs cucco chest",
     "ocs S island chest",
     "ocs nw chest",
+    "ocs song",
 
     #Papuchia Village
     "papuchia village",
+    "papuchia village south",
     "papuchia village song statue",
     "papuchia village stamp station",
-    "papuchia village ne chest",
-    "papuchia village sw chest",
-    "papuchia village s center chest",
 
     #Ocean Temple
     "oct",
+    "oct song statue",
+    "oct whip",
+    "oct 2f",
     "oct whip chest",
-    "oct 2f log chest",
-    "oct 1f vines chest",
-    "oct 1f lever chest",
     "oct stamp station",
-    "oct 3f puzzle chest",
-    "oct 3f ne chest",
-    "oct 5f chest",
+    "oct 3f whip",
     "oct 6f chest",
     "oct phytops",
-    "oct heart container",
     "goal_phytops",
     "post oct",
+
+    #Pirate Hideout
+    "pirate hideout",
+    "pirate hideout stamp station",
+    "pirate hideout secret cave",
+    #"pirate hideout minigame 1st reward",
+    #"pirate hideout minigame 2nd reward",
+
+    #Lost at Sea Station
+    "lost at sea",
+    "las outside chest",
+    "las 1st room chest",
+    "las 2nd room chest",
+    "las 3rd room chest",
+    "las 4th room chest",
+    "las 5th room",
 
     #"ocean realm frogs",
     #"ocean realm trade",
