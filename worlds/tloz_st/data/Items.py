@@ -49,7 +49,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "give_ammo": [10, 20, 30],
         "ammo_address": STAddr.bomb_count,
         "set_bit": [(STAddr.adv_flags_22, 0x2)],
-        'item_groups': ["Equipment", "Progressive Items", "Main Items"],
+        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Ammo Items"],
     },
     "Bow (Progressive)": {
         'classification': ItemClassification.progression,
@@ -57,7 +57,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "give_ammo": [20, 30, 50],
         "ammo_address": STAddr.arrow_count,
         "tags": ["progressive_overwrite"],
-        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Bows"],
+        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Bows", "Ammo Items"],
     },
     "Bow of Light": {
         'classification': ItemClassification.progression,
@@ -576,7 +576,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.bomb_count,
         "refill": "Bombs (Progressive)",
         "tags": ["incremental"],
-        'item_groups': ["Refill Items"],
+        'item_groups': ["Refill Items", "Ammo Items"],
     },
     "Refill: Arrows": {
         'classification': ItemClassification.filler,
@@ -584,7 +584,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.arrow_count,
         "refill": "Bow (Progressive)",
         "tags": ["incremental"],
-        'item_groups': ["Refill Items"],
+        'item_groups': ["Refill Items", "Ammo Items"],
     },
 
     # ========= Treasure =============

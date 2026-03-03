@@ -136,4 +136,13 @@ HINT_DATA = {
         "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
         "locations": ["Papuzia Shop Purple Potion", "Papuzia Shop Yellow Potion"]
     },
+    "Papuzia Shop Ammo": {
+        "scenes": [0x2c02],
+        "slot_data": [("shopsanity", "ammo"), ("shop_hints", 1)],
+        "locations": ["Papuzia Shop Bombs", "Papuzia Shop Arrows"]
+    },
+    "Beedle Buy Bomb Refill": {
+        "scenes": [0x4503],
+        "slot_data": [("shopsanity", "ammo"), ("shop_hints", 1)],
+    }
 }

@@ -192,6 +192,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.hint_data = HINT_DATA
         self.got_item_no_loc = False
         self.potion_tracker = [0, 0]
+        self.save_ammo = None
         self.drinking_potion = False
         self.addr_drinking_potion = None
         self.set_train_in_overworld: bool = False
@@ -357,6 +358,18 @@ class SpiritTracksClient(DSZeldaClient):
                     await self._process_checked_locations(ctx, location)
 
 
+    async def check_ammo_shop(self, ctx):
+        if self.save_ammo is None or "ammo" not in ctx.slot_data["shopsanity"]:
+            return
+        for addr, loc in ammo_shop_lookup.get(self.current_scene, {}).items():
+            current_ammo = await addr.read(ctx)
+            if current_ammo == 0:
+                continue
+            if self.location_name_to_id[loc] not in ctx.checked_locations:
+                await self._process_checked_locations(ctx, loc)
+                return
+            self.save_ammo[addr] = current_ammo
+
     async def update_treasure_tracker(self, ctx: "BizHawkClientContext", last_loc=None):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
         new_treasure = await read_multiple(ctx, read_list)
@@ -445,6 +458,12 @@ class SpiritTracksClient(DSZeldaClient):
         if item_name in ["Cannon", "Wagon"] and ctx.slot_data["starting_train"] != -1:
             self.set_train_in_overworld = True
             await self.set_starting_train(ctx)
+
+        if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup and item_name in ITEM_GROUPS["Ammo Items"]:
+            addr = item_data.ammo_address if hasattr(item_data, "ammo_address") else item_data.address
+            await addr.overwrite(ctx, 0)
+            item_count = self.item_count(ctx, item_data.refill) if item_name in ITEM_GROUPS["Refill Items"] else self.item_count(ctx, item_name)
+            self.save_ammo[addr] = item_data.give_ammo[item_count-1]
 
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
@@ -750,6 +769,14 @@ class SpiritTracksClient(DSZeldaClient):
             self.has_set_starting_train = True
         # if current_scene in range(0x4b00, 0x5000):  still too early
         #     await STAddr.item_restrictions.overwrite(ctx, 0)
+        if self.save_ammo:
+            await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))
+            self.save_ammo = None
+
+        if current_scene in ammo_shop_lookup and "ammo" in ctx.slot_data["shopsanity"]:
+            ammo_addresses = [STAddr.bomb_count, STAddr.arrow_count]
+            self.save_ammo = await read_multiple(ctx, ammo_addresses)
+            await write_multiple(ctx, ammo_addresses, [0, 0])
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):

@@ -284,10 +284,8 @@ REGIONS = [
     # Beedle
     "beedle",
     "beedle joe",
-    "beedle bomb bag",
-    "beedle uncommon treasure",
-    "beedle rare treasure",
-    "beedle potion",
+    "beedle shop",
+    "beedle shop bombs",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm
@@ -314,6 +312,8 @@ REGIONS = [
     "papuchia village stamp station",
     "papuzia buy cargo",
     "papuzia shop",
+    "papuzia shop bombs",
+    "papuzia shop arrows",
     "papuzia ice",
 
     #Ocean Temple

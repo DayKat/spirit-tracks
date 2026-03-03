@@ -119,6 +119,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["forest realm", "tos", True, lambda state: st_can_enter_tos(state, player)],
         ["snow realm source", "tos", True, lambda state: st_can_enter_tos(state, player) and st_has_source(state, player, "Snow") and st_soft_cannon(state, player)],
+        ["ocean realm source", "tos", True, lambda state: st_can_enter_tos(state, player) and st_has_source(state, player, "Ocean")],
 
         ["tos", "tos 1f", True, None],
         ["tos", "tos 2", False, lambda state: st_can_enter_tos_section(state, player, 2)],
@@ -359,25 +360,20 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bridge workers", "bridge workers chest", False, lambda state: st_has_discovery_song(state, player)],
         ["bridge workers", "pick up bridge worker", False, lambda state: st_has_glyph(state, player, "Ocean")],
 
+        # ========== Ocean Realm =============
         ["forest realm", "ocean realm", False, lambda state: st_has_glyph(state, player, "Ocean") and st_has_misc_tracks(state, player, "E Mayscore Bridge")],
+        ["forest realm", "pirate hideout tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm Ocean Shortcut") and
+                                                                      st_has_misc_tracks(state, player, "Pirate Hideout")],
         ["trading post tracks", "ocean realm", True, lambda state: state.has("Repair Trading Post Bridge", player)],
-
-        # ========== Ocean Sanctuary =============
-        # ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
-        ["ocean realm", "ocean temple tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
+        ["ocean realm", "ocean temple tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine")
                                                                    and st_has_glyph(state, player, "Ocean")],
         ["ocean temple tracks", "ocean realm source", True, lambda state: st_has_source(state, player, "Ocean")
-                                                                          and st_has_temple_tracks(state, player, "Ocean")],
-        ["ocean realm", "ocean realm source", True, lambda state: st_has_source(state, player, "Ocean")
-                                                                  and st_has_glyph(state, player, "Ocean")],
-        ["ocean realm", "pirate hideout tracks", True, lambda state: st_has_misc_tracks(state, player, "Pirate Hideout")],
+                                                                          and st_has_temple_tracks(state, player, "Marine")],
+        ["ocean realm", "pirate hideout tracks", True, lambda state: st_has_misc_tracks(state, player, "Pirate Hideout") and
+                                                                     st_has_glyph(state, player, "Ocean")],
         ["ocean realm source", "pirate hideout tracks", True, lambda state: st_has_source(state, player, "Ocean")
                                                                             and st_has_misc_tracks(state, player, "Pirate Hideout")],
         ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
-        # ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
-        #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
-
-
 
         # ========== Ocean Sanctuary =============
         ["ocean realm", "ocs", False, None],
@@ -398,8 +394,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "papuchia village south", False, lambda state: st_has_whip(state, player)],
 
         # ========= Ocean Temple ==================
-        ["ocean realm source", "oct", False, lambda state: st_has_source(state, player, "Ocean")
-                                                          and st_has_temple_tracks(state, player, "Marine")],
         ["oct", "oct song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["oct 2f", "oct whip chest", False, lambda state: st_has_sword(state, player)], # you can't escape stunlock without sword, and the fight scripts you into it from the start
         ["oct", "oct whip", False, lambda state: st_has_whip(state, player)],
@@ -452,9 +446,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     required_rupees = 0
     if "uniques" in options.shopsanity.value: required_rupees += 2500
     if "treasure" in options.shopsanity.value: required_rupees += 2400
-    if "potions" in options.shopsanity.value: required_rupees += 1050  # +2
+    if "potions" in options.shopsanity.value: required_rupees += 1050
     if "shields" in options.shopsanity.value: required_rupees += 410
     if "postcards" in options.shopsanity.value: required_rupees += 400
+    if "ammo" in options.shopsanity.value: required_rupees += 300
     if options.randomize_cargo == "vanilla": required_rupees += 300
     elif options.randomize_cargo: required_rupees += 250
 
@@ -462,14 +457,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # Shops
         ["ss", "snow sanc shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
 
-        ["beedle", "beedle bomb bag", False, lambda state: st_has_rupees(state, player, required_rupees)],
-        ["beedle", "beedle uncommon treasure", False, lambda state: st_has_rupees(state, player, required_rupees)],
-        ["beedle", "beedle rare treasure", False, lambda state: st_has_rupees(state, player, required_rupees)],
-        ["beedle", "beedle potion", False, lambda state: st_has_rupees(state, player, required_rupees)],
+        ["beedle", "beedle shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
+        ["beedle shop", "beedle shop bombs", False, lambda state: st_has_bombs(state, player)],
 
         ["mayscore", "mayscore shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
         ["castle town", "castle town shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
         ["papuchia village", "papuzia shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
+        ["papuzia shop", "papuzia shop arrows", False, lambda state: st_has_bow(state, player)],
+        ["papuzia shop", "papuzia shop bombs", False, lambda state: st_has_bombs(state, player)],
         ["trading post", "trading post shield", False, lambda state: st_has_rupees(state, player, required_rupees)],
 
         ["castle town", "castle town buy cuccos", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],

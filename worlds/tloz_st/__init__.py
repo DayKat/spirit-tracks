@@ -373,6 +373,8 @@ class SpiritTracksWorld(WorldParent):
                 return "shields" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Postcard Locations"]:
                 return "postcards" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Ammo Locations"]:
+                return "ammo" in self.options.shopsanity.value
         if location_name == "Anouki Village Repair Fence":
             return self.options.randomize_passengers.value or self.options.randomize_cargo.value
         if location_name == "Anouki Village Fence Progress Gift":

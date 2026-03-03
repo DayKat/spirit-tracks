@@ -134,6 +134,7 @@
     {"name": "Beedle Buy Bomb Bag"},
     {"name": "Beedle Buy Red Potion"},
     {"name": "Beedle Buy Purple Potion"},
+    {"name": "Beedle Buy Bomb Refill"},
     {"name": "Beedle Joe's Force Gem"}
   ], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]},
 
@@ -145,6 +146,8 @@
     {"name": "Papuzia Village Stamp Station"},
         {"name": "Papuzia Shop Purple Potion"},
         {"name": "Papuzia Shop Yellow Potion"},
+        {"name": "Papuzia Shop Bombs"},
+        {"name": "Papuzia Shop Arrows"},
         {"name": "Papuzia Shop Postcards"},
         {"name": "Papuzia Village Buy Fish"},
         {"name": "Papuzia Village Buy Vessel"},

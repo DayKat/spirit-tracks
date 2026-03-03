@@ -85,6 +85,7 @@ STAGE_FLAGS = {
     0x35: [0x12, 0x00, 0x00, 0x00], # Icy Spring
     # 0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
+    0x2c: [0x2, 0x0, 0x0, 0x0]  # Papuzia
 }
 
 STAGES = {
@@ -147,128 +148,6 @@ STAGES = {
     0x4F: "TEAO Capbone",
     0x79: "From Menu",
 }
-
-# ITEM_GROUPS = {
-    #  "Small Rupees": [
-    #      "Green Rupee (1)",
-    #      "Blue Rupee (5)",
-    #      "Red Rupee (20)",
-    #  ],
-    # "Big Rupees": [
-    #     "Big Green Rupee (100)",
-    #     "Big Red Rupee (200)",
-    #     "Gold Rupee (300)",
-    #     "Pre-Alpha Rupee (5000)"
-    # ],
-    #  "Small Keys": [
-    #      "Small Key (Tunnel to ToS)",
-    #      "Small Key (Wooded Temple)",
-    #      "Small Key (ToS)",
-    #      "Small Key (Blizzard Temple)",
-    #  ],
-    # "Boss Keys": [
-    #     "Boss Key (Wooded Temple)",
-    #     "Boss Key (Blizzard Temple)",
-    # ],
-    # "Common Treasures": [
-    #     "Treasure: Demon Fossil",
-    #     "Treasure: Stalfos Skull",
-    #     "Treasure: Star Fragment",
-    #     "Treasure: Bee Larvae",
-    #     "Treasure: Wood Heart",
-    # ],
-    # "Uncommon Treasures": [
-    #     "Treasure: Dark Pearl Loop",
-    #     "Treasure: White Pearl Loop",
-    #     "Treasure: Ruto Crown",
-    #     "Treasure: Dragon Scale",
-    #     "Treasure: Pirate's Necklace",
-    # ],
-    # "Rare Treasures": [
-    #     "Treasure: Palace Dish",
-    #     "Treasure: Goron Amber",
-    #     "Treasure: Mystic Jade",
-    #     "Treasure: Ancient Coin",
-    # ],
-    # "Super Rare Treasures": [
-    #     "Treasure: Priceless Stone",
-    #     "Treasure: Regal Ring",
-    # ],
-    #  "Ammo Refills": [
-    #     "Refill: Bombs",
-    #     "Refill: Arrows",
-    #  ],
-    # "Grass Rabbits": [
-    #     "Grass Rabbit",
-    #     "Grass Rabbits (2)",
-    #     "Grass Rabbits (3)",
-    #     "Grass Rabbits (4)",
-    #     "Grass Rabbits (5)",
-    #     "Grass Rabbits (10)"
-    # ],
-    # "Snow Rabbits": [
-    #     "Snow Rabbit",
-    #     "Snow Rabbits (2)",
-    #     "Snow Rabbits (3)",
-    #     "Snow Rabbits (4)",
-    #     "Snow Rabbits (5)",
-    #     "Snow Rabbits (10)"
-    # ],
-    # "Glyphs": [
-    #     "Forest Glyph",
-    #     "Snow Glyph",
-    #     "Ocean Glyph"
-    # ],
-    # "Forest Tracks": [
-    #     "Forest Realm Ocean Shortcut Tracks",
-    #     "E Mayscore Bridge Tracks",
-    #     "Forest Realm SE Portal Tracks",
-    #     "W Castle Town Tracks",
-    #     "W Forest Realm Tracks",
-    #     "Forest Realm SW Cave Tracks",
-    #     "W Wooded Temple Tracks",
-    #     "N Castle Town Tracks",
-    #     "Wooded Temple Tracks"
-    # ],
-    # "Snow Tracks": [
-    #     "Snowdrift Station Tracks",
-    #     "Slippery Station Tracks",
-    #     "Snow Realm Bridge Tracks",
-    #     "N Icy Spring Tracks",
-    #     "Blizzard Temple Tracks"
-    # ],
-    # "Portal Unlocks": [
-    #     "Portal Unlock: Hyrule Castle to Anouki Village",
-    #     "Portal Unlock: Trading Post to E Snow Realm"
-    # ],
-    # "Tears of Light": [
-    #     "Tear of Light",
-    #     "Tear of Light (ToS 1)",
-    #     "Tear of Light (ToS 2)",
-    #     "Tear of Light (ToS 3)",
-    #     "Tear of Light (ToS 4)",
-    #     "Tear of Light (ToS 5)",
-    #     "Tear of Light (All Sections)",
-    #     "Tear of Light (Progressive)",
-    #     "Big Tear of Light (ToS 1)",
-    #     "Big Tear of Light (ToS 2)",
-    #     "Big Tear of Light (ToS 3)",
-    #     "Big Tear of Light (ToS 4)",
-    #     "Big Tear of Light (ToS 5)",
-    #     "Big Tear of Light (All Sections)",
-    #     "Big Tear of Light (Progressive)",
-    # ]
-# }
-
-# Combo groups
-# ITEM_GROUPS |= {
-#     "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
-#                     ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"],
-#     "Rabbits": ITEM_GROUPS["Grass Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
-#     "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"]
-# }
-# ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] + ITEM_GROUPS["Big Rupees"]
-# ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] + ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"]
 
 
 TREASURE_PRICES = {t: value for treasure_type, value in zip(["Common", "Uncommon", "Rare", "Super Rare"], [50, 150, 500, 2500]) for t in ITEM_GROUPS[treasure_type + " Treasures"]}
@@ -447,7 +326,22 @@ SHOP_TREASURE_DATA = {
     }]
 }
 
+potion_location_lookup = {
+    0x4503: {1: "Beedle Buy Red Potion",
+             2: "Beedle Buy Purple Potion"},
+    0x2a05: {1: "Mayscore Shop Red Potion"},
+    0x290a: {1: "Castle Town Shop Red Potion"},
+    0x3103: {1: "Snow Sanctuary Shop Red Potion",
+             2: "Snow Sanctuary Shop Purple Potion"},
+    0x2c02: {3: "Papuzia Shop Yellow Potion",
+             2: "Papuzia Shop Purple Potion"}
+}
 
+ammo_shop_lookup = {
+    0x2c02: {STAddr.bomb_count: "Papuzia Shop Bombs",
+             STAddr.arrow_count: "Papuzia Shop Arrows"},
+    0x4503: {STAddr.bomb_count: "Beedle Buy Bomb Refill"}
+}
 
 tear_lookup = {1: 3, 4: 6, 9: 9, 13: 12, 18: 15, 30: 16}
 big_tear_lookup = {1:1, 4:2, 9: 3, 13: 4, 18: 5, 30: 6}
@@ -523,16 +417,7 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x1323: "ToS 30F Exit",
 }
 
-potion_location_lookup = {
-    0x4503: {1: "Beedle Buy Red Potion",
-             2: "Beedle Buy Purple Potion"},
-    0x2a05: {1: "Mayscore Shop Red Potion"},
-    0x290a: {1: "Castle Town Shop Red Potion"},
-    0x3103: {1: "Snow Sanctuary Shop Red Potion",
-             2: "Snow Sanctuary Shop Purple Potion"},
-    0x2c02: {3: "Papuzia Shop Yellow Potion",
-             2: "Papuzia Shop Purple Potion"}
-}
+
 
 TOS_FLOOR_TO_SECTION = {
     0: 1,
