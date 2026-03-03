@@ -355,12 +355,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bridge workers", "pick up bridge worker", False, lambda state: st_has_glyph(state, player, "Ocean")],
 
         ["forest realm", "ocean realm", False, lambda state: st_has_glyph(state, player, "Ocean") and st_has_misc_tracks(state, player, "E Mayscore Bridge")],
-        ["trading post tracks", "ocean realm", True, lambda state: state.has("Repair Trading Post Bridge", player)]
-    ]
+        ["trading post tracks", "ocean realm", True, lambda state: state.has("Repair Trading Post Bridge", player)],
 
-    ocean_realm_logic = [
         # ========== Ocean Sanctuary =============
-        ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
+        # ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
         ["ocean realm", "ocean temple tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
                                                                    and st_has_glyph(state, player, "Ocean")],
         ["ocean temple tracks", "ocean realm source", True, lambda state: st_has_source(state, player, "Ocean")
@@ -370,7 +368,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean realm", "pirate hideout tracks", True, lambda state: st_has_misc_tracks(state, player, "Pirate Hideout")],
         ["ocean realm source", "pirate hideout tracks", True, lambda state: st_has_source(state, player, "Ocean")
                                                                             and st_has_misc_tracks(state, player, "Pirate Hideout")],
-        ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Ocean")],
+        ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
         # ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
         #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
 
@@ -396,7 +394,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # ========= Ocean Temple ==================
         ["ocean realm source", "oct", False, lambda state: st_has_source(state, player, "Ocean")
-                                                          and st_has_temple_tracks(state, player, "Ocean")],
+                                                          and st_has_temple_tracks(state, player, "Marine")],
         ["oct", "oct song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["oct 2f", "oct whip chest", False, lambda state: st_has_sword(state, player)], # you can't escape stunlock without sword, and the fight scripts you into it from the start
         ["oct", "oct whip", False, lambda state: st_has_whip(state, player)],
@@ -407,8 +405,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ])],
         ["oct", "oct stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whip(state, player) and st_has_bombs(state, player) and st_has_boomerang(state, player)],
         ["oct whip chest", "oct 3f whip", False, lambda state: st_has_whip(state, player)],
-        ["oct 3f whip", "oct 6f chest", False, lambda state: st_has_small_keys(state, player, "Ocean Temple", 1)],
-        ["oct 6f chest", "oct phytops", False, lambda state: st_has_small_keys(state, player, "Ocean Temple", 2)],
+        ["oct 3f whip", "oct 6f chest", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 1)],
+        ["oct 6f chest", "oct phytops", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 2)],
 
         # ========= Pirate Hideout ==============
         ["pirate hideout tracks", "pirate hideout", False, None],
@@ -421,7 +419,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ======== Lost at Sea Station ==========
         #["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
         #                                                          and st_has_misc_tracks(state, player, "Lost at Sea Station")],
-        ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
+        ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine")
                                                     and st_has_misc_tracks(state, player,"Lost at Sea Station")],
         ["las tracks", "lost at sea", True, lambda state: st_has_misc_tracks(state, player, "Lost at Sea Station")],
         ["lost at sea", "las outside chest", False, lambda state: st_has_discovery_song(state, player) and (st_has_light_song(state, player) or st_option_hard_logic(state, player))],

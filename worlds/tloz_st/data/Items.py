@@ -246,10 +246,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x04,
         'item_groups': ["Restoration Tracks", "Rail Items", "Snow Tracks"],
     },
-    "Ocean Temple Tracks": {
+    "Marine Temple Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x08,
+        'item_groups': ["Restoration Tracks", "Rail Items", "Ocean Tracks"],
     },
     "Snowdrift Station Tracks": {
         'classification': ItemClassification.progression,
@@ -267,11 +268,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x1,
+        'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks"],
     },
     "Lost at Sea Station Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x40,
+        'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks"],
     },
     "Forest Realm Ocean Shortcut Tracks": {
         'classification': ItemClassification.progression,
@@ -758,14 +761,10 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
          "tags": ["incremental"],
         'item_groups': ["Small Keys"],
     },
-    "Boss Key (Blizzard Temple)": {
-        'classification': ItemClassification.progression,
-        'dungeon': 0x1A
-    },
-    "Small Key (Ocean Temple)": {
+    "Small Key (Marine Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
-        'dungeon': 0x1B,  # TODO: Add key data
+        'dungeon': 0x1B,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
     },
