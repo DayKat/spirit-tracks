@@ -447,7 +447,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("mayscore lumber", "_buy_lumber")
             self.create_event("icyspring ice", "_buy_ice")
             self.create_event("castle town buy cuccos", "_buy_cuccos")
-
+            self.create_event("papuzia buy cargo", "_buy_fish")
         # UT Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck trading", "_can_sell_treasure")

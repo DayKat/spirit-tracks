@@ -26,6 +26,7 @@
     {"name": "Castle Town Pick Up Mona"},
     {"name": "Castle Town Pick Up Alfonzo"},
     {"name": "Castle Town Buy Cuccos"},
+    {"name": "Castle Town Lucia Fish Force Gem"},
 
     {"name": "Castle Town Take 'em All On Level 1"},
     {"name": "Castle Town Take 'em All On Level 2"},
@@ -84,7 +85,9 @@
     {"name": "Snow Sanctuary Shop Postcards"},
     {"name": "Snow Sanctuary Shop Treasure"},
     {"name": "Snow Sanctuary Stamp Station"},
-    {"name": "Snow Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 140, "y": 236}]},
+    {"name": "Snow Sanctuary Song of Restoration"},
+    {"name": "Snow Sanctuary Deliver Vessel"}
+  ], "map_locations":[{"map": "Overview", "x": 140, "y": 236}]},
   {"name": "Blizzard Temple", "sections": [{"name": "Blizzard Temple B1 SE Chest"}, {"name": "Blizzard Temple B1 E Enemy Chest"}, {"name": "Blizzard Temple B1 NE Enemy Chest"}, {"name": "Blizzard Temple 1F NE Chest"}, {"name": "Blizzard Temple B1 SW Chest"}, {"name": "Blizzard Temple Stamp Station"}, {"name": "Blizzard Temple B1 NW Enemy Chest"}, {"name": "Blizzard Temple 1F NW Chest"}, {"name": "Blizzard Temple 1F Torch Chest"}, {"name": "Blizzard Temple Boss Heart Container"}, {"name": "Blizzard Temple Dungeon Reward"}], "map_locations":[{"map": "Overview", "x": 115, "y": 46}]},
   {"name": "Blizzard Temple Events", "sections": [{"name": "EVENT: Defeat Fraaz"}, {"name": "GOAL: Defeat Fraaz"}], "map_locations":[{"map": "Overview", "x": 115, "y": 30}]},
   {"name": "Icy Spring", "sections": [
@@ -139,7 +142,13 @@
     {"name": "Papuzia Village Song Statue"},
     {"name": "Papuzia Village S Center Chest"},
     {"name": "Papuzia Village SW Chest"},
-    {"name": "Papuzia Village Stamp Station"}
+    {"name": "Papuzia Village Stamp Station"},
+        {"name": "Papuzia Shop Purple Potion"},
+        {"name": "Papuzia Shop Yellow Potion"},
+        {"name": "Papuzia Shop Postcards"},
+        {"name": "Papuzia Village Buy Fish"},
+        {"name": "Papuzia Village Buy Vessel"},
+        {"name": "Papuzia Village Deliver Ice"}
   ], "map_locations":[{"map": "Overview", "x": 596, "y": 670}]},
   {"name": "Ocean Sanctuary", "sections": [
     {"name": "Ocean Sanctuary S Island Chest"},

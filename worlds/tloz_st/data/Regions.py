@@ -50,6 +50,7 @@ REGIONS = [
     "teao 2",
     "teao 3",
     "castle town buy cuccos",
+    "castle town fish",
 
     # Hyrule Castle
     "hyrule castle",
@@ -239,6 +240,7 @@ REGIONS = [
     "ss stamp station",
     "ss song",
     "snow sanc shop",
+    "snow sanc vessel",
 
     # Blizzard Temple
     "bt",
@@ -310,6 +312,9 @@ REGIONS = [
     "papuchia village south",
     "papuchia village song statue",
     "papuchia village stamp station",
+    "papuzia buy cargo",
+    "papuzia shop",
+    "papuzia ice",
 
     #Ocean Temple
     "oct",

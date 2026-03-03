@@ -127,4 +127,13 @@ HINT_DATA = {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "treasure"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
     },
+    "Papuzia Shop Postcards": {
+        "scenes": [0x2c02],
+        "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
+    },
+    "Papuzia Shop Potions": {
+        "scenes": [0x2c02],
+        "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
+        "locations": ["Papuzia Shop Purple Potion", "Papuzia Shop Yellow Potion"]
+    },
 }

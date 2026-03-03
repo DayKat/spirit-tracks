@@ -85,7 +85,7 @@ DYNAMIC_FLAGS = {
     },
     "Cactops location": {
         "on_scenes": [0x2000],
-        "not_has_locations": ["Ocean Temple Dungeon Reward"],
+        "not_has_locations": ["Marine Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
         "reset_flags": ["RESET Add Ocean Source"]
     },
@@ -306,13 +306,23 @@ DYNAMIC_FLAGS = {
     "Steem don't have spirit flute": {
         "on_scenes": [0x3102],
         "has_items": [("Spirit Flute", 0)],
-        "set_if_true": [(STAddr.adv_flags_1, 2)]
+        "set_if_true": [(STAddr.adv_flags_1, 6)]  # ocean restoration removes him
     },
     "Steem can play duet": {
         "on_scenes": [0x3102],
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Snow Sanctuary Song of Restoration"],
-        "unset_if_true": [(STAddr.adv_flags_1, 2)]
+        "unset_if_true": [(STAddr.adv_flags_1, 6)]
+    },
+    "Snow sanc remove vessel": {
+        "on_scenes": [0x3102],
+        "has_locations": ["Snow Sanctuary Deliver Vessel"],
+        "not_has_locations": ["Snow Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_40, 0x20), (STAddr.adv_flags_e, 0x10)],
+        "reset_flags": ["RESET snow sanc vessel"]
+    },
+    "RESET snow sanc vessel": {
+        "set_if_true": [(STAddr.adv_flags_40, 0x20), (STAddr.adv_flags_e, 0x10)],
     },
     "Always remove btt in snow sanc room": {
         "on_scenes": [0x3102],
@@ -601,7 +611,7 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET add shield"]
     },
     "Remove prize postcards in shops": {
-        "on_scenes": [0x2a05, 0x290a, 0x3103],
+        "on_scenes": [0x2a05, 0x290a, 0x3103, 0x2c02],
         "unset_if_true": [(STAddr.postcard_count, 0xFF)],
         "has_slot_data": [("shopsanity", "postcards")],
     },
@@ -822,7 +832,7 @@ DYNAMIC_FLAGS = {
     },
     "AV has lumber": {
         "on_scenes": [0x2b00],
-        "has_items": [("Cargo: Lumber", 1)],
+        "has_items": [("Cargo: Lumber", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
         "check_bits": [(STAddr.adv_flags_54, 0x04, "not")],
         "reset_flags": ["RESET Cargo"],
@@ -844,16 +854,41 @@ DYNAMIC_FLAGS = {
     },
     "Outset has Cuccos": {
         "on_scenes": [0x2f00],
-        "has_items": [("Cargo: Cuccos", 1)],
+        "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
         "not_has_locations": ["Outset Deliver Cuccos"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
     },
+    "CT has fish": {
+        "on_scenes": [0x2900],
+        "has_items": [("Cargo: Fish", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Castle Town Lucia Fish Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 3), (STAddr.cargo_count_0, 20)]
+    },
+    "Snow Sanc has vessel": {
+        "on_scenes": [0x3100],
+        "has_items": [("Cargo: Vessel", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_40, 0x20, "not")],
+        "reset_flags": ["RESET Cargo"],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)],  # ocean restoration moves him outside
+        "overwrite_if_true": [(STAddr.cargo_0, 5), (STAddr.cargo_count_0, 1)]
+    },
+    "Papuzia has ice": {
+        "on_scenes": [0x2c00],
+        "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Papuzia Village Deliver Ice"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
     # Papuzia
     "Allow SoD statue": {
         "on_scenes": [0x2c00],
-        "not_has_locations": ["Papuchia Village Song Statue"],
+        "not_has_locations": ["Papuzia Village Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x4)],
         "set_if_true": [(STAddr.adv_flags_a, 0xA0)],
         "reset_flags": ["RESET SoB"]
@@ -861,8 +896,19 @@ DYNAMIC_FLAGS = {
     "RESET SoB": {
         "has_items": [("Song of Birds", 1)],
         "set_if_true": [(STAddr.songs, 0x4)],
-    }
-
+    },
+    "Papuzia can buy vessel": {
+        "on_scenes": [0x2c04],
+        "has_items": [("Wagon", 1)],
+        "set_if_true": [(STAddr.adv_flags_9, 0x50), (STAddr.adv_flags_1, 0x04)],
+        "has_slot_data": [("randomize_cargo", [1, 2, 3])],
+        "reset_flags": ["RESET Papuzia not got carben"]
+    },
+    "RESET Papuzia not got carben": {
+        # "not_has_locations": ["Papuzia Pick Up Carben"],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x10)]
+        # TODO: has some nasty interactions with vanilla passengers
+    },
 }
 """
 "Dynamic Flag Name": {

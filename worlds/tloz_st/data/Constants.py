@@ -17,7 +17,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
     [STAddr.adv_flags_6, 0xFC],  # Intro stuff
     [STAddr.adv_flags_7, 0x13],  # postman & get zelda's letter
-    [STAddr.adv_flags_a, 0x55],  # ocean realm
+    [STAddr.adv_flags_a, 0x7B],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos
     [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
@@ -33,6 +33,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
+    [STAddr.adv_flags_22, 0x38],  # buy cargo first time
     [STAddr.adv_flags_23, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
     [STAddr.adv_flags_2a, 0x03],  # ToS 6 zelda text
@@ -528,7 +529,9 @@ potion_location_lookup = {
     0x2a05: {1: "Mayscore Shop Red Potion"},
     0x290a: {1: "Castle Town Shop Red Potion"},
     0x3103: {1: "Snow Sanctuary Shop Red Potion",
-             2: "Snow Sanctuary Shop Purple Potion"}
+             2: "Snow Sanctuary Shop Purple Potion"},
+    0x2c02: {3: "Papuzia Shop Yellow Potion",
+             2: "Papuzia Shop Purple Potion"}
 }
 
 TOS_FLOOR_TO_SECTION = {

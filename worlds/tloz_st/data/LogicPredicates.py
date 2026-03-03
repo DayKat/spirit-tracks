@@ -51,6 +51,14 @@ def st_has_net(state: CollectionState, player: int):
 def st_has_compass_of_light(state, player):
     return state.has("Compass of Light", player)
 
+def st_has_wagon(state, player):
+    return state.has("Wagon", player)
+
+def st_has_cargo(state, player, cargo, event):
+    return st_has_wagon(state, player) and (
+            state.has(f"Cargo: {cargo}", player)
+            or state.has(event, player))
+
 ## ========== Rabbits ===========
 
 def st_has_rabbit_items(state, player, realm, count=10):

@@ -2446,6 +2446,31 @@ LOCATIONS_DATA = {
         "conditional": True,
         "slot_data": [("shopsanity", "postcards")],
     },
+    "Papuzia Shop Purple Potion": {
+        "region_id": "papuzia shop",
+        "vanilla_item": "Purple Potion",
+        "location_groups": ["Shop Potion Locations", "Papuzia Shop", "Papuzia Village"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "potions")]
+    },
+    "Papuzia Shop Yellow Potion": {
+        "region_id": "papuzia shop",
+        "vanilla_item": "Yellow Potion",
+        "location_groups": ["Shop Potion Locations", "Papuzia Shop", "Papuzia Village"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "potions")]
+    },
+    "Papuzia Shop Postcards": {
+        "stage_id": 0x2c,
+        "room_id": 0x2,
+        "address": STAddr.postcard_count,
+        "value": 10,
+        "region_id": "papuzia shop",
+        "vanilla_item": "Prize Postcards (10)",
+        "location_groups": ["Shop Postcard Locations", "Papuzia Village", "Papuzia Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "postcards")],
+    },
     # Passenger locations
     "Bridge Worker's House Pick Up Kenzo": {
         "stage_id": 0x36,
@@ -2513,30 +2538,33 @@ LOCATIONS_DATA = {
         "slot_data": [("randomize_cargo", [0, 2, 3])],
         "conditional": True,
         "persistent": True,
+        "exact_read": True,
         "region_id": "icyspring ice"
     },
     "Mayscore Buy Lumber": {
         "stage_id": 0x2a,
         "room_id": 0x0,
-        "address": STAddr.cargo_count_0,
-        "value": 20,
+        "address": STAddr.cargo_0,
+        "value": 1,
         "vanilla_item": "Cargo: Lumber",
         "location_groups": ["Mayscore", "Buy Cargo"],
         "slot_data": [("randomize_cargo", [0, 2, 3])],
         "conditional": True,
         "persistent": True,
+        "exact_read": True,
         "region_id": "mayscore lumber"
     },
     "Castle Town Buy Cuccos": {
         "stage_id": 0x29,
         "room_id": 0x0,
-        "address": STAddr.cargo_count_0,
-        "value": 5,
+        "address": STAddr.cargo_0,
+        "value": 4,
         "vanilla_item": "Cargo: Cuccos",
         "location_groups": ["Castle Town", "Buy Cargo"],
         "slot_data": [("randomize_cargo", [0, 2, 3])],
         "conditional": True,
         "persistent": True,
+        "exact_read": True,
         "region_id": "castle town buy cuccos"
     },
     "Anouki Village Repair Fence": {
@@ -2638,6 +2666,65 @@ LOCATIONS_DATA = {
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
         "region_id": "outset cuccos"
+    },
+    "Papuzia Village Buy Fish": {
+        "stage_id": 0x2C,
+        "room_id": 0x0,
+        "address": STAddr.cargo_0,
+        "value": 3,
+        "vanilla_item": "Cargo: Fish",
+        "location_groups": ["Papuzia Village", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "exact_read": True,
+        "region_id": "papuzia buy cargo"
+    },
+    "Papuzia Village Buy Vessel": {
+        "stage_id": 0x2C,
+        "room_id": 0x4,
+        "address": STAddr.cargo_0,
+        "value": 5,
+        "vanilla_item": "Cargo: Vessel",
+        "location_groups": ["Papuzia Village", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "exact_read": True,
+        "region_id": "papuzia buy cargo"
+    },
+    "Castle Town Lucia Fish Force Gem": {
+        "stage_id": 0x29,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x01,
+        # "vanilla_item": "Forest Realm SW Cave Tracks",
+        "location_groups": ["Castle Town", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "castle town fish"
+    },
+    "Snow Sanctuary Deliver Vessel": {
+        "stage_id": 0x31,
+        "room_id": 0x2,
+        "address": STAddr.adv_flags_e,
+        "value": 0x10,
+        "vanilla_item": "Slippery Station Tracks",
+        "location_groups": ["Snow Sanctuary", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "snow sanc vessel"
+    },
+    "Papuzia Village Deliver Ice": {
+        "stage_id": 0x2c,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_e,
+        "value": 0x80,
+        # "vanilla_item": "Forest Realm SW Cave Tracks",
+        "location_groups": ["Papuzia Village", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "papuzia ice"
     },
 }
 
