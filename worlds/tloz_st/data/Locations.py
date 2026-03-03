@@ -2384,7 +2384,7 @@ LOCATIONS_DATA |= {
         "x_min": -35000,
         "z_min": 5000,
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
-        "location_groups": ["Anouki Village", "Deliver Passengers"],
+        "location_groups": ["Anouki Village", "Deliver Passengers", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3]), ("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "region_id": "av kenzo"
