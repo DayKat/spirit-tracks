@@ -321,12 +321,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # ========== Ocean Sanctuary =============
         ["ocean realm", "ocs", False, None],
-        ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)],
+        ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)], # Spreadsheet shows Whirlwind needed too,
+                                                                                  # but not sure why looking at walkthrough
+                                                                                  # probably wants you to whirlwind a bomb in the cave, but you can make the throw.
         ["ocs north", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                          and st_has_birds_song(state, player) and st_has_whip(state, player)],
-        ["ocs", "ocs cucco chest", False, lambda state: st_has_boomerang(state, player)], # Spreadsheet shows Whirlwind needed too,
-                                                                                          # but not sure why looking at walkthrough
-                                                                                          # probably wants you to whirlwind a bomb in the cave, but you can make the throw.
+
         ["ocs", "ocs S island chest", False, lambda state: st_has_whip(state, player)],
         ["ocs north", "ocs nw chest", False, lambda state: st_has_whip(state, player)],
         ["ocs", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],

@@ -271,6 +271,7 @@ REGIONS = [
 
     #Ocean Sanctuary
     "ocs",
+    "ocs north",
     "ocs stamp station",
     "ocs cucco chest",
     "ocs S island chest",
@@ -279,25 +280,20 @@ REGIONS = [
 
     #Papuchia Village
     "papuchia village",
+    "papuchia village south",
     "papuchia village song statue",
     "papuchia village stamp station",
-    "papuchia village ne chest",
-    "papuchia village sw chest",
-    "papuchia village s center chest",
 
     #Ocean Temple
     "oct",
+    "oct song statue",
+    "oct whip",
+    "oct 2f",
     "oct whip chest",
-    "oct 2f log chest",
-    "oct 1f vines chest",
-    "oct 1f lever chest",
     "oct stamp station",
-    "oct 3f puzzle chest",
-    "oct 3f ne chest",
-    "oct 5f chest",
+    "oct 3f whip",
     "oct 6f chest",
     "oct phytops",
-    "oct heart container",
     "goal_phytops",
     "post oct",
 
