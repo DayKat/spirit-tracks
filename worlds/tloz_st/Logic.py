@@ -357,9 +357,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["pirate hideout tracks", "pirate hideout", False, None],
         ["pirate hideout", "pirate hideout stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                                                 and st_has_whip(state, player) and st_has_birds_song(state, player)],
-        ["pirate hideout", "pirate hideout secret cave left treasure", False, lambda state: st_has_bombs(state, player)],
-        ["pirate hideout", "pirate hideout secret cave mid treasure", False, lambda state: st_has_bombs(state, player)],
-        ["pirate hideout", "pirate hideout secret cave right treasure", False, lambda state: st_has_bombs(state, player)],
+        ["pirate hideout", "pirate hideout secret cave", False, lambda state: st_has_bombs(state, player)],
     #   ["pirate hideout", "pirate hideout minigame 1st reward", False, lambda state: st_has_bow(state, player)],
     #   ["pirate hideout", "pirate hideout minigame 2nd reward", False, lambda state: st_has_bow(state, player)],
 
@@ -369,18 +367,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
                                                     and st_has_misc_tracks(state, player,"Lost at Sea Station")],
         ["las tracks", "lost at sea", True, lambda state: st_has_misc_tracks(state, player, "Lost at Sea Station")],
-        ["lost at sea", "las outside chest", False, lambda state: st_has_discovery_song(state, player)],
-        ["lost at sea", "las 1st room chest", False, lambda state: st_has_birds_song(state, player) and st_has_awakening_song(state, player)
-                                                           and st_has_whip(state, player)],
+        ["lost at sea", "las outside chest", False, lambda state: st_has_discovery_song(state, player) and (st_has_light_song(state, player) or st_option_hard_logic(state, player))],
+        ["lost at sea", "las 1st room chest", False, lambda state: st_has_awakening_song(state, player) and st_has_whip(state, player)],
         ["las 1st room chest", "las 2nd room chest", False, lambda state: st_has_boomerang(state, player)],
         ["las 2nd room chest", "las 3rd room chest", False, lambda state: st_has_whirlwind(state, player)],
-        ["las 3rd room chest", "las 4th room sw chest", False, lambda state: st_has_whip(state, player)],
-        ["las 3rd room chest", "las 4th room ne chest", False, lambda state: st_has_whip(state, player)],
-        ["las 4th room ne chest", "las 5th room se chest", False, None],
-        ["las 4th room ne chest", "las 5th room ne chest", False, None],
-        ["las 4th room ne chest", "las 5th room sw chest", False, None],
-        ["las 4th room ne chest", "las 5th room nw chest", False, None],
-        ["las 4th room ne chest", "las 6th room chest", False, None],
+        ["las 3rd room chest", "las 4th room chest", False, lambda state: st_has_whip(state, player)],
+        ["las 4th room chest", "las 5th room", False, lambda state: st_has_bombs(state, player) or st_option_hard_logic(state, player)],
 
 
         # ===== Dark Realm =====

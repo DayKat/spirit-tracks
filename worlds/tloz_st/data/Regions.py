@@ -300,9 +300,7 @@ REGIONS = [
     #Pirate Hideout
     "pirate hideout",
     "pirate hideout stamp station",
-    "pirate hideout secret cave left treasure",
-    "pirate hideout secret cave mid treasure",
-    "pirate hideout secret cave right treasure",
+    "pirate hideout secret cave",
     #"pirate hideout minigame 1st reward",
     #"pirate hideout minigame 2nd reward",
 
@@ -312,13 +310,8 @@ REGIONS = [
     "las 1st room chest",
     "las 2nd room chest",
     "las 3rd room chest",
-    "las 4th room sw chest",
-    "las 4th room ne chest",
-    "las 5th room se chest",
-    "las 5th room ne chest",
-    "las 5th room sw chest",
-    "las 5th room nw chest",
-    "las 6th room chest",
+    "las 4th room chest",
+    "las 5th room",
 
     #"ocean realm frogs",
     #"ocean realm trade",
