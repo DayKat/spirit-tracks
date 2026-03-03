@@ -274,6 +274,8 @@ TREASURE_PRICES = {t: value for treasure_type, value in zip(["Common", "Uncommon
 
 LOCATION_GROUPS: dict[str, set[str]] = {}
 
+rabbit_realms = ["Grass", "Snow"]
+
 grass_rabbits = [
     "Grass Rabbit",
     "Grass Rabbits (2)",
@@ -296,7 +298,7 @@ DUNGEON_NAMES = [
     "ToS", #Tower of Spirits
     "Wooded Temple",
     "Blizzard Temple",
-    "Ocean Temple",
+    "Marine Temple",
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
@@ -308,13 +310,13 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "ToS 6": "ToS 24F Final Chest",
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
-    "Ocean Temple": "Ocean Temple Dungeon Reward",
+    "Marine Temple": "Marine Temple Dungeon Reward",
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
-    "Ocean Temple Dungeon Reward": "oct phytops",
+    "Marine Temple Dungeon Reward": "oct phytops",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",
@@ -381,7 +383,7 @@ DUNGEON_KEY_DATA = {
         "size": 1,
     },
     0x1B: {
-        "name": "Ocean Temple",
+        "name": "Marine Temple",
         "address": STAddr.key_storage_0,
         "filter": 0x30,
         "value": 0x10,

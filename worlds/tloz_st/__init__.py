@@ -576,6 +576,9 @@ class SpiritTracksWorld(WorldParent):
                 if item_name not in ITEM_GROUPS["Super Rare Treasures"]:
                     filler_item_count += 1
                     continue
+            if item_name in ITEM_GROUPS["Add Rails to Pool"]:  # Prevent duplicate tracks
+                filler_item_count += 1
+                continue
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
             #print(f"Location {loc_name} has {item_name} item")
@@ -704,7 +707,7 @@ class SpiritTracksWorld(WorldParent):
                 res_counts.append(round(self.random.triangular(0.5, 5.5, 2)))
             return create_items_from_count_list(realm, res_counts)
 
-        realms = ["Grass", "Snow"]
+        realms = rabbit_realms
         rabbit_items = {}
         if self.options.rabbitsanity.value == 1:  # Vanilla
             # print(f"Vanilla rabbits {self.rabbit_counts}")
