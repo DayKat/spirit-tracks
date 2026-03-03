@@ -5,7 +5,7 @@ from test.bases import *
 class TestGeneration(WorldTestBase):
     game = "The Legend of Zelda - Spirit Tracks"
     options = {
-        "rabbitsanity": "no_rabbits",
+        "rabbitsanity": "unique_checks",
         "rabbit_max_location_count": 10,
         "rabbit_location_count_distribution": "random_mixed",
         "rabbit_pack_size": "random_mixed",

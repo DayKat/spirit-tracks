@@ -41,6 +41,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_3d, 0x60],  # ToS safe zone tutorial
+    [STAddr.adv_flags_3f, 0x07],  # Dark ore mine cs
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
     [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text
     [STAddr.adv_flags_42, 0x86],  # board with zelda
@@ -85,7 +86,8 @@ STAGE_FLAGS = {
     0x35: [0x12, 0x00, 0x00, 0x00], # Icy Spring
     # 0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
-    0x2c: [0x2, 0x0, 0x0, 0x0]  # Papuzia
+    0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
+    0x1d: [0x0, 0x3, 0x0, 0x0], # Desert Temple
 }
 
 STAGES = {
@@ -123,6 +125,7 @@ STAGES = {
     0x30: "Forest Sanctuary",
     0x31: "Snow Sanctuary",
     0x32: "Ocean Sanctuary",
+    0x34: "Sand Sanctuary",
     0x35: "Icy Spring",
     0x36: "Bridge Worker's Home",
     0x37: "Trading Post",
@@ -154,7 +157,7 @@ TREASURE_PRICES = {t: value for treasure_type, value in zip(["Common", "Uncommon
 
 LOCATION_GROUPS: dict[str, set[str]] = {}
 
-rabbit_realms = ["Grass", "Snow"]
+rabbit_realms = ["Grass", "Snow", "Sand"]
 
 grass_rabbits = [
     "Grass Rabbit",
@@ -171,7 +174,15 @@ snow_rabbits = [
     "Snow Rabbits (4)",
     "Snow Rabbits (5)",
     "Snow Rabbits (10)"
-],
+]
+sand_rabbits = [
+    "Sand Rabbit",
+    "Sand Rabbits (2)",
+    "Sand Rabbits (3)",
+    "Sand Rabbits (4)",
+    "Sand Rabbits (5)",
+    "Sand Rabbits (10)"
+]
 
 DUNGEON_NAMES = [
     "Tunnel to ToS",

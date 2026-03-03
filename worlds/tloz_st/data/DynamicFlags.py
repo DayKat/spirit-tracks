@@ -89,6 +89,20 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
         "reset_flags": ["RESET Add Ocean Source"]
     },
+    "Skeldritch location": {
+        "on_scenes": [0x2200, 0x2201],
+        "not_has_locations": ["Desert Temple Dungeon Reward"],
+        "unset_if_true": [(STAddr.adv_flags_1a, 0x01)],
+        "reset_flags": ["RESET Add Sand Source", "RESET Remove Sand Source"]
+    },
+    "RESET Add Sand Source": {
+        "has_items": [["Sand Source", 1]],
+        "set_if_true": [(STAddr.adv_flags_1a, 0x01)]
+    },
+    "RESET Remove Sand Source": {
+        "has_items": [["Sand Source", 0]],
+        "unset_if_true": [(STAddr.adv_flags_1a, 0x01)]
+    },
     "RESET stagnox reward": {
         "has_items": [["Forest Source", 1]],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)]
@@ -341,7 +355,30 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1500],
         "set_if_true": [(STAddr.adv_flags_20, 0x4)]
     },
-
+    "Rael don't have spirit flute": {
+        "on_scenes": [0x3502],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 0x10)]
+    },
+    "Rael can play duet": {
+        "on_scenes": [0x3502],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Forest Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x10)]
+    },
+    "Rael Reset flags": {
+        "on_scenes": [0x3502],
+        "unset_if_true": [(STAddr.rail_restorations, 0x10)],
+        "reset_flags": ["Sand Sanc Reset DTT not has", "Sand Sanc Reset DTT"]
+    },
+    "Sand Sanc Reset DTT not has": {
+        "has_items": [("Desert Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x10)]
+    },
+    "Sand Sanc Reset DTT": {
+        "has_items": [("Desert Temple Tracks", 1)],
+        "set_if_true": [(STAddr.rail_restorations, 0x10)]
+    },
     # ToS climb flags
     "ToS open sections": {
         "on_scenes": [0x1700],
@@ -908,6 +945,16 @@ DYNAMIC_FLAGS = {
         # "not_has_locations": ["Papuzia Pick Up Carben"],
         "unset_if_true": [(STAddr.adv_flags_9, 0x10)]
         # TODO: has some nasty interactions with vanilla passengers
+    },
+    "Desert Temple Prevent Earthquake": {
+        "on_scenes": [0x1D00],
+        "any_not_has_locations": ["Desert Temple 1F N Trap Chest", "Desert Temple 1F N Arena Chest"],
+        "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
+    },
+    "Desert Temple Cause Earthquake": {
+        "on_scenes": [0x1D00],
+        "has_locations": ["Desert Temple 1F N Trap Chest", "Desert Temple 1F N Arena Chest"],
+        "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
 }
 """

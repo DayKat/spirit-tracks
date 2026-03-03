@@ -359,6 +359,40 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
 
+    "sand realm",
+    "sand restoration",
+    "sand connection",
+    "sand realm rabbits",
+    "sand restoration rabbits",
+    "sand connection rabbit",
+    "sand realm portal",
+    "sand restoration portal",
+    "sand connection portal",
+
+    # Sand Sanc
+    "sand sanc",
+    "sand sanc song",
+
+    # Desert Temple
+    "desert temple",
+    "dt sw",
+    "dt 1f nw",
+    "dt 1f n",
+    "dt 1f n earthquake",
+    "dt 2f",
+    "dt 2f sw",
+    "dt 3f",
+    "dt b1",
+    "dt stamp stand",
+    "dt b1 2",
+    "dt b1 damage",
+    "skeldritch",
+
+    # Dark ore mine
+    "dark ore mine",
+    "dark ore mine ore",
+    "dark ore mine sod",
+
     # Dark realm
     "dark realm portal",
     "dark realm trains",
@@ -371,5 +405,5 @@ REGIONS = [
 
 
 ] + [
-    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow"]
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Sand"]
 ]

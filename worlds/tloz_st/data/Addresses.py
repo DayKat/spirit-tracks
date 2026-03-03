@@ -45,6 +45,8 @@ class STAddr:
     rabbits_2 = Address(0x262032)
     rabbits_3 = Address(0x262033)
     rabbits_4 = Address(0x262034)
+    rabbits_5 = Address(0x262035)
+    rabbits_6 = Address(0x262036)
     
     gItemManager = Address.pointer(0x0fb4)
     gPlayerManager = Address.pointer(0x0fbc)

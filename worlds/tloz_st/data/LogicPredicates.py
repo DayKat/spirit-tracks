@@ -164,11 +164,16 @@ def st_vanilla_tears(state: CollectionState, player: int):
 
 # =========== Combined item states ================
 
-def st_has_damage(state: CollectionState, player: int):
+def st_has_good_damage(state: CollectionState, player: int):
     return any([
         state.has("Sword (Progressive)", player),
         state.has("Bombs (Progressive)", player),
         state.has("Bow (Progressive)", player),
+    ])
+
+def st_has_damage(state: CollectionState, player: int):
+    return any([
+        st_has_good_damage(state, player),
         state.has("Whip", player),
     ])
 

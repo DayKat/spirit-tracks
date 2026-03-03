@@ -172,7 +172,7 @@ class SpiritTracksWorld(WorldParent):
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
-            # print(f"Rabbit items: {self.rabbit_item_dict}")
+            print(f"Rabbit items: {self.rabbit_item_dict}")
             self.plando_tos_sections()
 
             # Starting Train
@@ -266,8 +266,11 @@ class SpiritTracksWorld(WorldParent):
         } | {
             r: ("Snow Rabbit", ITEMS[r].value) for r in snow_rabbits[1:]
         } | {
+            r: ("Sand Rabbit", ITEMS[r].value) for r in sand_rabbits[1:]
+        } | {
             t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
         }
+        print(snow_rabbits)
 
     def pick_required_dungeons(self) -> list[str]:
         if self.options.goal != "defeat_malladus" or self.options.dark_realm_access != "dungeons":

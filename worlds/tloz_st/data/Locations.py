@@ -1916,7 +1916,175 @@ LOCATIONS_DATA = {
         "room_id": 7,
         "farmable": True,
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
 
+    # ========= Sand Realm ==========
+    "Sand Sanctuary Song of Restoration": {
+        "stage_id": 0x34,
+        "room_id": 0x2,
+        "region_id": "sand sanc song",
+        "address": STAddr.rail_restorations,
+        "value": 0x20,
+        "minigame": [1, 2, 3, 4],
+        "conditional": True,
+        "location_groups": ["Sand Sanctuary", "Restoration Duets"],
+    },
+    # Dark Ore Mine
+    "Dark Ore Mine Song of Discovery Chest": {
+        "stage_id": 0x3D,
+        "room_id": 0x1,
+        "z_max": -15000,
+        "x_min": 50000,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "dark ore mine sod",
+        "location_groups": ["Dark Ore Mine"],
+    },
+    # ========= Desert Temple ==========
+    "Desert Temple 1F Entrance Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": 10000,
+        "x_max": 15000,
+        "x_min": -10000,
+        "z_min": 5000,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "dt sw",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 1F NW Gerune Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": -60000,
+        "x_max": -25000,
+        "x_min": -50000,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt 1f nw",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 1F N Trap Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": -60000,
+        "x_max": 30000,
+        "x_min": 0,
+        "vanilla_item": "Green Rupee (1)",
+        "region_id": "dt 1f n",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 1F N Arena Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": -50000,
+        "x_max": 30000,
+        "x_min": 0,
+        "vanilla_item": "Small Key (Desert Temple)",
+        "region_id": "dt 1f n",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 3F Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x2,
+        "vanilla_item": "Sand Wand",
+        "region_id": "dt 3f",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 2F Left Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x1,
+        "x_max": 10000,
+        "x_min": -10000,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt 2f sw",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 2F Right Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x1,
+        "x_min": 35000,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "dt 2f sw",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 1F N Ergtorok Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "x_max": 0,
+        "x_min": -20000,
+        "z_max": -60000,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt 1f n earthquake",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple 1F N Burried Key": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "x_max": 0,
+        "x_min": -20000,
+        "z_max": -30000,
+        "z_min": -60000,
+        "vanilla_item": "Small Key (Desert Temple)",
+        "region_id": "dt 1f n earthquake",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple B1 Stamp Stand": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "stamp": True,
+        "region_id": "dt stamp stand",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple B1 Near Boss Door Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "x_min": 35000,
+        "x_max": 50000,
+        "z_min": -15000,
+        "z_max": 0,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt b1 2",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple B1 SW Stalfos Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "x_max": -75000,
+        "z_min": 45000,
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "region_id": "dt b1 damage",
+        "location_groups": ["Desert Temple"],
+    },
+    "Desert Temple B1 NW Buried Rupee": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "x_max": -90000,
+        "z_max": -60000,
+        "vanilla_item": "Big Green Rupee (100)",
+        "region_id": "dt b1 damage",
+        "location_groups": ["Desert Temple"],
+    },
+    "Skeldritch Heart Container": {
+        "stage_id": 22,
+        "room_id": 0x1,
+        "vanilla_item": "Heart Container",
+        "region_id": "skeldritch",
+        "location_groups": ["Desert Temple", "Skeldritch"],
+    },
+    "Desert Temple Boss Reward": {
+        "stage_id": 0x22,
+        "room_id": 0x1,
+        "vanilla_item": "Sand Source",
+        "address": STAddr.adv_flags_1a,
+        "value": 0x1,
+        "region_id": "skeldritch",
+        "location_groups": ["Desert Temple", "Skeldritch"],
+    },
+    "Desert Temple Bow of Light Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x5,
+        "y": 9830,
+        "vanilla_item": "Bow of Light",
+        "region_id": "skeldritch",
+        "location_groups": ["Desert Temple", "Skeldritch"],
     },
 
     # ========= Rabbits ==========
@@ -2101,6 +2269,97 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Snow Rabbits"]
     },
+    # Sand Rabbits
+    "Rabbit E Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x8,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit N Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x2,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit S Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x4,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit W Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x1,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit Near Desert Temple": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x10,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit E Desert Temple": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x20,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit E Sand Maze": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_6,
+        "value": 0x2,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit Mid Sand Maze": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_6,
+        "value": 0x1,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit W Sand Maze": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_5,
+        "value": 0x80,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit Fire Sand Connection": {
+        "region_id": "sand connection rabbit",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_5,
+        "value": 0x40,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
 
     # Total count rabbits
     "Catch 1 Grass Rabbit": {
@@ -2223,6 +2482,66 @@ LOCATIONS_DATA = {
         "count": 10,
         "location_groups": ["Total Snow Rabbits"]
     },
+    "Catch 1 Sand Rabbit": {
+        "region_id": "Sand Rabbit Count 1",
+        "rabbit": True,
+        "count": 1,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 2 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 2",
+        "rabbit": True,
+        "count": 2,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 3 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 3",
+        "rabbit": True,
+        "count": 3,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 4 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 4",
+        "rabbit": True,
+        "count": 4,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 5 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 5",
+        "rabbit": True,
+        "count": 5,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 6 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 6",
+        "rabbit": True,
+        "count": 6,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 7 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 7",
+        "rabbit": True,
+        "count": 7,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 8 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 8",
+        "rabbit": True,
+        "count": 8,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 9 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 9",
+        "rabbit": True,
+        "count": 9,
+        "location_groups": ["Total Sand Rabbits"]
+    },
+    "Catch 10 Sand Rabbits": {
+        "region_id": "Sand Rabbit Count 10",
+        "rabbit": True,
+        "count": 10,
+        "location_groups": ["Total Sand Rabbits"]
+    },
 
     # Portal Checks
     "Forest Realm Shoot SW Portal": {
@@ -2262,6 +2581,22 @@ LOCATIONS_DATA = {
         "region_id": "icyspring portal",
         "address": STAddr.adv_flags_31,
         "value": 0x2,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
+    "Sand Realm Shoot Temple Portal": {
+        "stage_id": 0x06,
+        "region_id": "sand restoration portal",
+        "address": STAddr.adv_flags_31,
+        "value": 0x1,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
+    "Fire Realm Shoot Sand Portal": {
+        "stage_id": 0x07,
+        "region_id": "sand connection portal",
+        "address": STAddr.adv_flags_30,
+        "value": 0x80,
         "location_groups": ["Portal Checks"],
         "conditional": True
     },
@@ -2599,6 +2934,19 @@ LOCATIONS_DATA = {
         "persistent": True,
         "exact_read": True,
         "region_id": "castle town buy cuccos"
+    },
+    "Dark Ore Mine Buy Ore": {
+        "stage_id": 0x3D,
+        "room_id": 0x1,
+        "address": STAddr.cargo_0,
+        "value": 6,
+        "vanilla_item": "Cargo: Dark Ore",
+        "location_groups": ["Dark Ore Mine", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "exact_read": True,
+        "region_id": "darke ore mine ore"
     },
     "Anouki Village Repair Fence": {
         "stage_id": 0x2B,

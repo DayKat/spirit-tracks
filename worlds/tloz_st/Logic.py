@@ -428,6 +428,51 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["las 3rd room chest", "las 4th room chest", False, lambda state: st_has_whip(state, player)],
         ["las 4th room chest", "las 5th room", False, lambda state: st_has_bombs(state, player) or st_option_hard_logic(state, player)],
 
+        # ===== Sand Realm =====
+        ["ocean realm source", "sand realm", True, lambda state: st_has_source(state, player, "Ocean") and st_has_misc_tracks(state, player, "Sand Realm")],
+        ["sand realm", "sand restoration", False, lambda state: st_has_temple_tracks(state, player, "Desert") and st_has_misc_tracks(state, player, "Sand Realm") and st_has_cannon(state, player)],
+        ["sand realm", "sand connection", True, lambda state: st_has_misc_tracks(state, player, "Sand Realm") and st_has_misc_tracks(state, player, "Sand to Fire Connection")],
+
+        ["sand realm", "sand realm rabbits", False, lambda state: st_has_net(state, player)],
+        ["sand restoration", "sand restoration rabbits", False, lambda state: st_has_net(state, player)],
+        ["sand connection", "sand connection rabbit", False, lambda state: st_has_net(state, player)],
+
+        ["sand restoration", "sand restoration portal", True, lambda state: st_has_cannon(state, player)],
+        ["sand connection", "sand connection portal", True, lambda state: st_has_cannon(state, player)],
+        ["sand realm", "sand realm portal", True, None],
+        ["sand restoration", "sand realm portal", False, lambda state: st_has_portal(state, player, "Desert Temple to Sand Realm", True) and st_has_misc_tracks(state, player, "Sand Realm")],
+        ["sand realm portal", "sand restoration", False, lambda state: st_has_portal(state, player, "Desert Temple to Sand Realm", False) and st_has_temple_tracks(state, player, "Desert")],
+        ["sand connection", "ocean temple tracks", False, lambda state: st_has_portal(state, player, "Fire Sand Connection to Marine Temple", True) and st_has_temple_tracks(state, player, "Marine")],
+        ["ocean temple tracks", "sand connection", False, lambda state: st_has_portal(state, player, "Fire Sand Connection to Marine Temple",False) and st_has_temple_tracks(state, player, "Marine")],
+
+        # ===== Sand Sanc =====
+        ["sand realm", "sand sanc", False, None],
+        ["sand sanc", "sand sanc song", False, lambda state: st_has_spirit_flute(state, player)],
+
+        # ===== Desert Temple =====
+        ["sand restoration", "desert temple", False, lambda state: st_has_cannon(state, player)],
+        ["desert temple", "dt sw", False, lambda state: st_has_sand_wand(state, player)],
+        ["dt sw", "dt 1f nw", False, lambda state: st_has_bow(state, player)],
+        ["desert temple", "dt 1f n", False, lambda state: st_has_bow(state, player)],
+
+        ["dt sw", "dt 1f n earthquake", False, lambda state: st_has_bow(state, player)],
+
+        ["desert temple", "dt 2f", False, lambda state: st_has_small_keys(state, player, "Desert Temple", 2)],
+        ["dt 2f", "dt 2f sw", False, lambda state: st_has_sand_wand(state, player)],
+        ["dt 2f", "dt 3f", False, lambda state: st_has_damage(state, player)],
+
+        ["dt sw", "dt b1", False, lambda state: st_has_small_keys(state, player, "Desert Temple", 2)],
+        ["dt b1", "dt stamp stand", False, lambda state: st_has_stamp_book(state, player)],
+        ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
+        ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
+        ["dt b1 damage", "skeldritch", False, lambda state: st_has_good_damage(state, player)],  # Whip is not good enough damage
+
+        # ===== Dark ore mine =====
+        ["sand restoration", "dark ore mine", False, lambda state: st_has_misc_tracks(state, player, "Dark Ore Mine")
+                                                                         and st_soft_cannon(state, player)],
+        ["dark ore mine", "sand restoration", False, lambda state: st_has_temple_tracks(state, player, "Desert")
+                                                                         and st_has_cannon(state, player)],
+        ["dark ore mine", "dark ore mine sod", False, lambda state: st_has_discovery_song(state, player)],
 
         # ===== Dark Realm =====
         ["dark realm portal", "dark realm trains", False, lambda state: st_has_dungeon_rewards(state, player)],
@@ -450,8 +495,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     if "shields" in options.shopsanity.value: required_rupees += 410
     if "postcards" in options.shopsanity.value: required_rupees += 400
     if "ammo" in options.shopsanity.value: required_rupees += 300
-    if options.randomize_cargo == "vanilla": required_rupees += 300
-    elif options.randomize_cargo: required_rupees += 250
+    if options.randomize_cargo == "vanilla": required_rupees += 500
+    elif options.randomize_cargo: required_rupees += 450
 
     overworld_logic += [
         # Shops
@@ -471,6 +516,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mayscore", "mayscore lumber", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["papuchia village", "papuzia buy cargo", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
+        ["dark ore mine", "dark ore mine ore", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
     ]
 
     # Generate rabbit total items
@@ -502,6 +548,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
              lambda state: st_caught_rabbits(state, player, "Grass", 9)],
             ["forest realm rabbits", "Grass Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Grass", 10)],
+
             ["snow realm rabbits", "Snow Rabbit Count 1", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 1)],
             ["snow realm rabbits", "Snow Rabbit Count 2", False,
@@ -522,6 +569,27 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
              lambda state: st_caught_rabbits(state, player, "Snow", 9)],
             ["snow realm rabbits", "Snow Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 10)],
+
+            ["sand realm rabbits", "Sand Rabbit Count 1", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 1)],
+            ["sand realm rabbits", "Sand Rabbit Count 2", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 2)],
+            ["sand realm rabbits", "Sand Rabbit Count 3", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 3)],
+            ["sand realm rabbits", "Sand Rabbit Count 4", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 4)],
+            ["sand realm rabbits", "Sand Rabbit Count 5", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 5)],
+            ["sand realm rabbits", "Sand Rabbit Count 6", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 6)],
+            ["sand realm rabbits", "Sand Rabbit Count 7", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 7)],
+            ["sand realm rabbits", "Sand Rabbit Count 8", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 8)],
+            ["sand realm rabbits", "Sand Rabbit Count 9", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 9)],
+            ["sand realm rabbits", "Sand Rabbit Count 10", False,
+             lambda state: st_caught_rabbits(state, player, "Sand", 10)],
         ]
 
     return overworld_logic
