@@ -26,7 +26,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety]
-read_keys_train = [STAddr.train_gear]
+read_keys_train = []
 
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
@@ -177,7 +177,6 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_data = []
         self.entrances = ENTRANCES
         self.boss_warp_entrance = None
-        self.tos_section_shuffle_lookup = {}
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -192,6 +191,10 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.hint_data = HINT_DATA
         self.got_item_no_loc = False
+        self.potion_tracker = [0, 0]
+        self.drinking_potion = False
+        self.addr_drinking_potion = None
+        self.set_train_in_overworld: bool = False
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -256,12 +259,24 @@ class SpiritTracksClient(DSZeldaClient):
         read_keys += read_keys_land  # TODO: don't bother reading on train
         # read_keys += read_keys_train
         if stage in range(4, 8):
-            self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-            self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
-            read_keys.append(self.train_gear_addr)
+            train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+            print(f"Train speed thingy {hex(train_speed_thingy)}")
+            if 0x400000 > train_speed_thingy > 0:
+                self.train_speed_pointer = train_speed_thingy
+                self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
+                read_keys.append(self.train_gear_addr)
+        else:
+            offset = 0xf80 if self.current_stage == 0x29 else 0xf64
+            potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + offset
+            if 0x400000 > potion_addr > 0:
+                self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
+                read_keys.append(self.addr_drinking_potion)
+            print(f"Potion pointer {hex(potion_addr)}")
 
         self.main_read_list = read_keys
-        # print(self.main_read_list)
+        print(f"read keys len: {len(read_keys)}")
+        # print(self.main_read_list, read_keys)
+        print(f"Slot data {ctx.slot_data}")
 
     def process_loading_variable(self, read_result) -> bool:
         mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
@@ -317,6 +332,31 @@ class SpiritTracksClient(DSZeldaClient):
         entr = self.entrances[event_name]
         await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
 
+    async def update_potion_tracker(self, ctx, spec=""):
+        reads = await read_multiple(ctx, [STAddr.potion_0, STAddr.potion_1])
+        new_potions = list(reads.values())
+        res = False
+        if new_potions != self.potion_tracker:
+            print(F"New Potions: {new_potions} {spec}")
+            res = True
+        self.potion_tracker = new_potions
+        return res
+
+    async def check_potion_location(self, ctx):
+        """Checks for potion locations in shops if treasure tracker doesn't find a treasure on a location"""
+        if self.current_scene in potion_location_lookup and "potions" in ctx.slot_data["shopsanity"]:
+            empty_slots = [addr for addr, prev in zip([STAddr.potion_0, STAddr.potion_1], self.potion_tracker) if prev == 0]
+            if not empty_slots:
+                return
+            slot = await empty_slots[0].read(ctx)
+            if not slot:
+                return
+            location = potion_location_lookup.get(self.current_scene, {}).get(slot, None)
+            if location:
+                if self.location_name_to_id[location] not in ctx.checked_locations:
+                    await self._process_checked_locations(ctx, location)
+
+
     async def update_treasure_tracker(self, ctx: "BizHawkClientContext", last_loc=None):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
         new_treasure = await read_multiple(ctx, read_list)
@@ -335,6 +375,7 @@ class SpiritTracksClient(DSZeldaClient):
         diff = {t: n - o for n, o, t in
                 zip(new_treasure.values(), self.treasure_tracker.values(), ITEM_GROUPS["All Treasures"]) if n - o > 0}
         if not diff:
+            await self.check_potion_location(ctx)
             return
 
         single_item = [t for t in diff][0]
@@ -345,7 +386,7 @@ class SpiritTracksClient(DSZeldaClient):
             await write_multiple(ctx, [a for a in reads], [v-1 for v in reads.values()])
 
         # Detect shop locations
-        if ctx.slot_data["shopsanity"] in [2, 3] and self.current_scene in SHOP_TREASURE_DATA:
+        if "treasure" in ctx.slot_data["shopsanity"] and self.current_scene in SHOP_TREASURE_DATA:
             for data in SHOP_TREASURE_DATA[self.current_scene]:
                 if single_item in ITEM_GROUPS[data["group"] + " Treasures"]:
                     for location in data["locations"]:
@@ -372,8 +413,12 @@ class SpiritTracksClient(DSZeldaClient):
 
         if "Rabbit" in item_name:
             await self.update_rabbit_count(ctx)
+        if "Treasure:" in item_name:
+            await self.update_treasure_tracker(ctx, "item_process")
         if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
             await STAddr.adv_flags_25.unset_bits(ctx, 2)
+        if item_name == "Bombs (Progressive)" and self.current_scene == 0x4503:
+            await STAddr.adv_flags_22.unset_bits(ctx, 2)
         if item_name in ["Forest Glyph", "Cannon",
                          "Portal Unlock: Hyrule Castle to Anouki Village",
                          "Portal Unlock: Trading Post to E Snow Realm"]:
@@ -392,17 +437,19 @@ class SpiritTracksClient(DSZeldaClient):
                 self.item_count(ctx, "Tear of Light (All Sections)") >= 6,
                 self.item_count(ctx, "Tear of Light (Progressive)") >= 16,
                 self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
-                self.item_count(ctx, "Big Tear of Light (Progressive)") >= 4]):
+                self.item_count(ctx, "Big Tear of Light (Progressive)") >= 6]):
                 await STAddr.adv_flags_16.set_bits(ctx, 1)
                 await STAddr.items_2.set_bits(ctx, 4)
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
 
-        if item_name in ["Cannon"]:
+        if item_name in ["Cannon", "Wagon"] and ctx.slot_data["starting_train"] != -1:
+            self.set_train_in_overworld = True
             await self.set_starting_train(ctx)
 
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
+        await self.update_potion_tracker(ctx, "room_load")
         await self.update_rabbit_count(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
@@ -415,7 +462,15 @@ class SpiritTracksClient(DSZeldaClient):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
         await self.detect_ut_event(ctx, self.current_scene)
         await self.process_train_speed(ctx, read_result)
+        await self.drink_potion(ctx, read_result)
 
+    async def drink_potion(self, ctx, read_results):
+        drinking_potion = read_results.get(self.addr_drinking_potion, 0)
+        if drinking_potion == 0x3b:
+            self.drinking_potion = True
+        if self.drinking_potion and drinking_potion == 0x39:
+            self.drinking_potion = False
+            await self.update_potion_tracker(ctx, "drunk_potion")
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
@@ -534,8 +589,16 @@ class SpiritTracksClient(DSZeldaClient):
         if stage in STAGE_FLAGS:
             stage_address = await STAddr.stage_flag_pointer.read(ctx)
             stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
+            if ctx.slot_data["randomize_passengers"] == 0:
+                if stage == 0x35:
+                    STAGE_FLAGS[stage] = [0x16, 0x00, 0x00, 0x00]
+                elif stage == 0x35:
+                    STAGE_FLAGS[stage] = [0x16, 0x04, 0x00, 0x00]
             print(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
             await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
+        if self.set_train_in_overworld:
+            await self.set_starting_train(ctx)
+            self.set_train_in_overworld = False
 
         # Give tears of light when entering ToS
         if stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
@@ -546,9 +609,9 @@ class SpiritTracksClient(DSZeldaClient):
                      or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
         if not set_tears:
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
-            if ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data["tear_sections"] == 2:
-                print(f"Section {section} is order {ctx.slot_data['tower_section_lookup'][section]}! | {self.tos_section_shuffle_lookup}")
-                section = ctx.slot_data["tower_section_lookup"][section]
+            if ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data.get("tear_sections", 2) == 2:
+                print(f"Section {section} is order {ctx.slot_data['tower_section_lookup']}!")
+                section = ctx.slot_data["tower_section_lookup"][str(section)]
 
             if section == 6:
                 return
@@ -685,6 +748,8 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Setting starting train")
                 await self.set_starting_train(ctx)
             self.has_set_starting_train = True
+        # if current_scene in range(0x4b00, 0x5000):  still too early
+        #     await STAddr.item_restrictions.overwrite(ctx, 0)
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):
@@ -710,7 +775,7 @@ class SpiritTracksClient(DSZeldaClient):
         if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
             reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
             reverse_exit_id = self.entrances[reverse_exit].id
-            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", None)
+            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", self.entrances[reverse_exit].vanilla_reciprocal.id)
             if pair is None:
                 print(f"Boss Entrance not Randomized")
                 self.boss_warp_entrance = reverse_exit

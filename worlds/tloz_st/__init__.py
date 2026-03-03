@@ -11,8 +11,8 @@ from .Util import *
 from .Options import *
 
 from .data import LOCATIONS_DATA
-from .data.Constants import *
 from .data.Items import ITEMS
+from .data.Constants import *
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
@@ -85,7 +85,7 @@ class SpiritTracksSettings(settings.Group):
     train_snap_speed: Union[STTrainSnapSpeed, bool] = True
     train_quick_station: Union[STTrainInstantStation, bool] = True
 
-dev_prints = True
+dev_prints = False
 
 class SpiritTracksWorld(WorldParent):
     """
@@ -163,7 +163,7 @@ class SpiritTracksWorld(WorldParent):
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
             self.required_dungeons = slot_data["required_dungeons"]
             self.ut_pairings = slot_data["er_pairings"]
-            self.tower_section_lookup = slot_data["tower_section_lookup"]
+            self.tower_section_lookup = {int(k): v for k, v in slot_data["tower_section_lookup"].items()}
             self.hide_ut_map_stuff()
             self.pick_ut_events()
         else:
@@ -175,9 +175,12 @@ class SpiritTracksWorld(WorldParent):
             # print(f"Rabbit items: {self.rabbit_item_dict}")
             self.plando_tos_sections()
 
-            # Tear conditions
+            # Starting Train
             if self.options.start_with_train:
-                self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1, "Cannon": 1})
+                self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1})
+                if self.options.cannon_logic.value in [0, 1]:
+                    self.options.start_inventory_from_pool.value.update({"Cannon": 1})
+            # Tear conditions
             if self.options.randomize_tears.value <= 0:  # Vanilla/no tears
                 self.options.tear_size.value = 0  # force small tears
                 self.options.tear_sections.value = 0  # force per-section grouping when vanilla
@@ -188,18 +191,33 @@ class SpiritTracksWorld(WorldParent):
 
             if self.options.starting_train == "random_train":
                 self.options.starting_train.value = self.random.randint(0, 7)
+            if "all" in self.options.shopsanity.value:
+                self.options.shopsanity.value = self.options.shopsanity.valid_keys
+            print(f"Shopsanity {self.options.shopsanity.value}")
         self.create_item_mappings()
 
     def plando_tos_sections(self):
         """Plando ToS Shuffle early so we can use the ordering in logic"""
         if not self.options.shuffle_tos_sections:
             return
+
+        # Sophisticated shuffle to avoid loops
         entrances = list(ENTRANCE_TO_TOS_ORDER.keys())
         exits = list(EXIT_TO_TOS_SECTION.keys()) + ["ToS Summit Lower Exit"]
-        self.random.shuffle(entrances)
-        self.tower_pairings = list(zip(entrances, exits))
+        banned_connections = {"Tower of Spirits Exit Staven": ["ToS 18F Exit"],
+                              "Tower of Spirits Summit Enter Altar": ["ToS Summit Lower Exit"]}
+        self.random.shuffle(exits)
+        for entrance in entrances:
+            if exits[0] in banned_connections.get(entrance, []):
+                self.tower_pairings.append((entrance, exits.pop(1)))
+            else:
+                self.tower_pairings.append((entrance, exits.pop(0)))
+            if entrance == "Tower of Spirits Exit Staven" and self.tower_pairings[0][1] == "ToS Summit Lower Exit":
+                banned_connections["Tower of Spirits Summit Enter Altar"].append("ToS 18F Exit")
+
         # print(f"Tower pairings: {list(self.tower_pairings)}")
         self.plando_pairings |= {ENTRANCES[e1].id: ENTRANCES[e2].id for e1, e2 in self.tower_pairings}
+        self.plando_pairings |= {e2: e1 for e1, e2 in self.plando_pairings.items()}
 
         # Get lookup table for logic progressive tear sections
         sort_filter = {}
@@ -244,9 +262,9 @@ class SpiritTracksWorld(WorldParent):
         self.item_mapping_collect = {
             i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupee Items"]
         } | {
-            r: ("Grass Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Grass Rabbits"][1:]
+            r: ("Grass Rabbit", ITEMS[r].value) for r in grass_rabbits[1:]
         } | {
-            r: ("Snow Rabbit", ITEMS[r].value) for r in ITEM_GROUPS["Snow Rabbits"][1:]
+            r: ("Snow Rabbit", ITEMS[r].value) for r in snow_rabbits[1:]
         } | {
             t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
         }
@@ -336,15 +354,47 @@ class SpiritTracksWorld(WorldParent):
         if location_data["conditional"] == "tears":
             return self.options.randomize_tears.value != -1  # not vanilla
         if "minigame" in location_data and self.options.randomize_minigames:
-            if location_name == "Slippery Station Champion Reward":
-                return self.options.logic
-            return True
+            return self.options.randomize_minigames.value in location_data["minigame"]
         if self.options.shopsanity:
+            if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
+                if "uniques" in self.options.shopsanity.value:
+                    return False
+                if location_name == "Beedle Buy Purple Potion":
+                    return "potions" in self.options.shopsanity.value
+                if location_name == "Snow Sanctuary Shop Treasure":
+                    return "treasure" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Treasure Locations"]:
-                return self.options.shopsanity.value in [2, 3]
+                return "treasure" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Unique Locations"]:
-                return self.options.shopsanity.value in [1, 3]
-
+                return "uniques" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Potion Locations"]:
+                return "potions" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Shield Locations"]:
+                return "shields" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Postcard Locations"]:
+                return "postcards" in self.options.shopsanity.value
+        if location_name == "Anouki Village Repair Fence":
+            return self.options.randomize_passengers.value or self.options.randomize_cargo.value
+        if location_name == "Anouki Village Fence Progress Gift":
+            return self.options.randomize_passengers.value and self.options.randomize_cargo.value
+        if self.options.randomize_passengers and location_name in LOCATION_GROUPS["Passenger Locations"]:
+            if "slot_data" in location_data:
+                for option, values, *args in location_data["slot_data"]:
+                    if option != "randomize_passengers":
+                        continue
+                    values = values if isinstance(values, list) else [values]
+                    if self.options.randomize_passengers.value not in values:
+                        return False
+                return True
+        if self.options.randomize_cargo and location_name in LOCATION_GROUPS["Cargo Locations"]:
+            if "slot_data" in location_data:
+                for option, values, *args in location_data["slot_data"]:
+                    if option != "randomize_cargo":
+                        continue
+                    values = values if isinstance(values, list) else [values]
+                    if self.options.randomize_cargo.value not in values:
+                        return False
+                return True
         return False
 
     def create_events(self):
@@ -385,9 +435,21 @@ class SpiritTracksWorld(WorldParent):
         rupee_farming_regions = ["mayscore whip chest", "mayscore leaves", "trading post leaves",
                                  "hyrule castle sword minigame", "castle town"]
         [self.create_event(reg, "_rupee_farming_spot") for reg in rupee_farming_regions]
+        # Passenger Events
+        if self.options.randomize_passengers == "vanilla":
+            self.create_event("pick up bridge worker", "_kenzo_1")
+            self.create_event("trading post pick up kenzo", "_kenzo_2")
+            self.create_event("av noko", "_noko")
+            self.create_event("castle town mona", "_mona")
+            self.create_event("outset joe", "_joe")
+            self.create_event("alfonzo event", "_picked_up_alfonzo")
+        if self.options.randomize_cargo == "vanilla":
+            self.create_event("mayscore lumber", "_buy_lumber")
+            self.create_event("icyspring ice", "_buy_ice")
+            self.create_event("castle town buy cuccos", "_buy_cuccos")
 
         # UT Events
-        self.create_event("alfonzo event", "_picked_up_alfonzo")
+        # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck trading", "_can_sell_treasure")
 
 
@@ -432,7 +494,7 @@ class SpiritTracksWorld(WorldParent):
         if name in self.extra_filler_items:
             self.extra_filler_items.remove(name)
             classification = ItemClassification.filler
-        if self.options.shopsanity and name in ITEM_GROUPS["Uncommon Plus Treasure"] + ITEM_GROUPS["Big Rupees"]:
+        if self.options.shopsanity and name in ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]:
             # print(f"Changing classification for item {name}")
             classification = DEPRIORITIZED_SKIP_BALANCING_FALLBACK
 
@@ -466,8 +528,8 @@ class SpiritTracksWorld(WorldParent):
                 continue
 
             item_name = loc_data.get("item_override", loc_data["vanilla_item"])
-            if isinstance(item_name, list):
-                item_name = self.random.choice(item_name)
+            if isinstance(item_name, list | set):
+                item_name = self.random.choice(list(item_name))
             item_data = ITEMS[item_name]
             if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
                 # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
@@ -494,8 +556,16 @@ class SpiritTracksWorld(WorldParent):
                     continue
                 filler_item_count += 1
                 continue
+            if self.options.randomize_passengers == "vanilla_abstract" and item_name.startswith("Passenger:"):
+                forced_item = self.create_item(item_name)
+                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                continue
+            if self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:"):
+                forced_item = self.create_item(item_name)
+                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                continue
             if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)",
-                             "Rabbit Net"]:
+                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield", "Prize Postcards (10)"]:
                 filler_item_count += 1
                 continue
             if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
@@ -512,12 +582,13 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Ocean Source", 1), ("Fire Source", 1)]
+        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Sand Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
+                     ("Repair Trading Post Bridge", 1), ("Shield", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
-        add_items += [(i, 1) for i in ITEM_GROUPS["All Tracks"]]
+        add_items += [(i, 1) for i in ITEM_GROUPS["Add Rails to Pool"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
         add_items += self.choose_tear_items()
@@ -772,7 +843,7 @@ class SpiritTracksWorld(WorldParent):
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
             if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
-                # print(f"Reconnecting entrances")
+                print(f"Reconnecting entrances {self.ut_pairings}")
                 for i, pairing in self.ut_pairings.items():
                     _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
                     entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
@@ -805,6 +876,23 @@ class SpiritTracksWorld(WorldParent):
         if self.tower_pairings:
             self.connect_plando(self.tower_pairings)
         self.er_placement_state = randomize_entrances(self, True, groups)
+        print(f"ER Placements: {self.er_placement_state.pairings}")
+
+        # Get lookup for logic stuff. Doesn't work cause logic is cemented earlier
+        # self.create_tower_section_lookup()
+
+    def create_tower_section_lookup(self):
+        # Get lookup for logic stuff
+        tower_pairings = {i: pair for i, pair in self.er_placement_state.pairings if i in ENTRANCE_TO_TOS_ORDER}
+        # print(f"Tower Pairings: {tower_pairings}")
+        sort_filter = {}
+        for pair, entr in tower_pairings.items():
+            if entr in EXIT_TO_TOS_SECTION and pair in ENTRANCE_TO_TOS_ORDER:
+                sort_filter[EXIT_TO_TOS_SECTION[entr]] = ENTRANCE_TO_TOS_ORDER[pair]
+        to_sort = [i for i in sort_filter]
+        to_sort.sort(key=lambda i: sort_filter[i])
+        self.tower_section_lookup = {section: i + 1 for i, section in enumerate(to_sort)}
+        # print(f"{self.tower_section_lookup}")
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
@@ -896,17 +984,15 @@ class SpiritTracksWorld(WorldParent):
                              single_player_placement=True, lock=True, allow_excluded=True)
 
     def get_filler_item_name(self) -> str:
-        filler_item_names = (ITEM_GROUPS["Common Treasures"] +
-                             ITEM_GROUPS["Uncommon Treasures"] +
-                             ITEM_GROUPS["Ammo Refills"] +
-                             ["Green Rupee (1)",
-                              "Blue Rupee (5)",
-                              "Red Rupee (20)",
-                              "Big Green Rupee (100)"]
-                             )
-        rare_filler_items = ITEM_GROUPS["Rare Treasures"] + [
-            "Big Red Rupee (200)", "Gold Rupee (300)",
-        ]
+        filler_item_names = list(ITEM_GROUPS["Common Treasures"] |
+                             ITEM_GROUPS["Uncommon Treasures"] |
+                             ITEM_GROUPS["Refill Items"] |
+                             ITEM_GROUPS["Small Rupees"] |
+                             ITEM_GROUPS["Potions"]
+                             ) + ["Big Green Rupee (100)"]
+        rare_filler_items = list( ITEM_GROUPS["Rare Treasures"]) + [
+            "Big Red Rupee (200)", "Gold Rupee (300)"]
+
         # 1/20 chance to roll a rare filler item
         if self.random.randint(1, 20) == 1:
             return self.random.choice(rare_filler_items)
@@ -937,12 +1023,15 @@ class SpiritTracksWorld(WorldParent):
         return True
 
     def fill_slot_data(self) -> dict:
-        options = ["goal", "logic",
-                   "keysanity", "randomize_minigames",
+        options = ["goal",
+                   "logic", "cannon_logic",
+                   "keysanity",
+                   "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
+                   "randomize_passengers", "randomize_cargo",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
-                   "randomize_tears", "spirit_weapons",
+                   "randomize_tears", "spirit_weapons", "tear_sections",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
                    "starting_train",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections",
@@ -950,7 +1039,6 @@ class SpiritTracksWorld(WorldParent):
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons
-
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:

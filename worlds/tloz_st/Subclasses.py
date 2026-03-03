@@ -1,15 +1,16 @@
 
 from .DSZeldaClient.subclasses import DSTransition
-from .DSZeldaClient.ItemClass import DSItem, receive_normal
+from .DSZeldaClient.ItemClass import DSItem, receive_normal, remove_vanilla_normal
 from enum import IntEnum
 from typing import TYPE_CHECKING
-from .data.Constants import DUNGEON_KEY_DATA
+
 if TYPE_CHECKING:
     from .Client import SpiritTracksClient
 from .data.Addresses import STAddr
 
 async def receive_tos_key(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     async def write_keys_to_storage(dungeon) -> tuple[int, list, str]:
+        from .data.Constants import DUNGEON_KEY_DATA
         key_data = DUNGEON_KEY_DATA[dungeon]
         prev = await key_data["address"].read(ctx)
         bit_filter = key_data["filter"]
@@ -36,6 +37,16 @@ async def receive_tear_of_light(client: "SpiritTracksClient", ctx, item: "STItem
 
     return []
 
+async def receive_potion(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    empty_slots = [addr for addr, prev in zip([STAddr.potion_0, STAddr.potion_1], client.potion_tracker) if prev == 0]
+    print(f"\tGetting potion {item.name} {empty_slots}")
+    if not empty_slots:
+        overflow_item = client.item_data[item.overflow_item]
+        return await receive_normal(client, ctx, overflow_item, rii)
+    await empty_slots[0].overwrite(ctx, item.value)
+    await client.update_potion_tracker(ctx, "receive_potion")
+    return []
+
 async def remove_treasure(client, ctx, item, rii):
     addr = item.address
     value = client.treasure_tracker[addr]
@@ -47,6 +58,41 @@ async def remove_tear_of_light(client, ctx, item: "STItem", rii):
         return []
     await client.set_tears(ctx)
     return []
+
+async def remove_potion(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    empty_slots = [addr for addr, prev in zip([STAddr.potion_0, STAddr.potion_1], client.potion_tracker) if prev == 0]
+    if not empty_slots:
+        overflow_item = client.item_data[item.overflow_item]
+        return await remove_vanilla_normal(client, ctx, overflow_item, rii)
+    # Remove potion
+    await empty_slots[0].overwrite(ctx, 0)
+    await client.update_potion_tracker(ctx, "remove_vanilla")
+    return []
+
+async def remove_passenger(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    if ctx.slot_data["randomize_passengers"] == 1:
+        return []
+    prev_value = await item.address.read(ctx)
+    res = [
+        STAddr.has_passenger_0.get_inner_write_list(0xFFFFFFFF),
+        STAddr.has_passenger_1.get_inner_write_list(0xFFFFFFFF),
+        STAddr.passenger_tag_0.get_inner_write_list(0),
+        STAddr.passenger_tag_1.get_inner_write_list(0),
+        STAddr.passenger_goal.get_inner_write_list(0xFFFFFFFF),
+        item.address.get_inner_write_list(item.value & prev_value)
+    ]
+    return res
+
+async def remove_cargo(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    if ctx.slot_data["randomize_cargo"] == 1:
+        return []
+    res = [
+        STAddr.cargo_0.get_inner_write_list(0xFFFFFFFF),
+        STAddr.cargo_1.get_inner_write_list(0xFFFFFFFF),
+        STAddr.cargo_count_0.get_inner_write_list(0),
+        STAddr.cargo_count_1.get_inner_write_list(0),
+    ]
+    return res
 
 async def dummy(*args):
     print(f"Receiving dummy item")
@@ -63,10 +109,14 @@ class STItem(DSItem):
         res = super().get_receive_function()
         if res is None:
             return dummy
+        if self.name.startswith("Passenger:"):
+            return dummy
         if "Tear of Light" in self.name:
             return receive_tear_of_light
         if self.name.startswith("Small Key (ToS"):
             return receive_tos_key
+        if "Potion" in self.name:
+            return receive_potion
         return res
 
     def get_remove_vanilla_function(self):
@@ -74,6 +124,12 @@ class STItem(DSItem):
             return remove_treasure
         if "Tear of Light" in self.name:
             return remove_tear_of_light
+        if "Potion" in self.name:
+            return remove_potion
+        if self.name.startswith("Passenger:"):
+            return remove_passenger
+        if self.name.startswith("Cargo:"):
+            return remove_cargo
         return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):

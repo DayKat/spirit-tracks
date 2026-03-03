@@ -11,6 +11,9 @@ REGIONS = [
     "forest realm se portal track",
     "forest cave tracks",
     "w forest tracks",
+    "w wooded temple tracks",
+    "trading post portal",
+    "forest cave portal",
 
     "forest realm rabbits",
     "forest ocean shortcut rabbit",
@@ -20,15 +23,19 @@ REGIONS = [
     "s rabbit haven rabbits",
     "nr rabbit haven rabbit",
 
+    "trading post tracks",
+
+
     # Outset Village
     "outset village",
     "outset village stamp book",
     "outset village stamp station",
     "outset village trees",
+    "outset joe",
+    "outset cuccos",
     #"outset village cuccos gem",
     #"outset village joe gem",
     #"outset village cannon",
-
 
     # Castle Town
     "castle town",
@@ -36,11 +43,13 @@ REGIONS = [
     "castle town wall",
     "castle town cuccos",
     "castle town shop",
+    "castle town mona",
     "pick up alfonzo",
     "alfonzo event",
     "teao 1",
     "teao 2",
     "teao 3",
+    "castle town buy cuccos",
 
     # Hyrule Castle
     "hyrule castle",
@@ -136,6 +145,7 @@ REGIONS = [
     "mayscore whip race heart container",
     "mayscore whip chest",
     "mayscore shop",
+    "mayscore lumber",
     "mayscore leaves",
     #"mayscore axe gem",
 
@@ -146,6 +156,7 @@ REGIONS = [
     "rabbit haven 5 rabbits",
     "rabbit haven 10 forest rabbits",
     "rabbit haven 10 snow rabbits",
+    "rabbit haven mona",
     # "rabbit haven 10 ocean rabbits"
     # "rabbit haven 10 fire rabbits"
     # "rabbit haven 10 sand rabbits"
@@ -187,15 +198,22 @@ REGIONS = [
     "trading post stamp station",
     "linebeck trading",
     "trading post leaves",
+    "trading post bridge worker",
+    "trading post pick up kenzo",
+    "trading post shield",
     #"trading post ore gem",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm
     "snow realm",
+    "snow realm fr",
+    "anouki portal",
     "snow realm source",
     "blizzard temple tracks",
     "snow bridge",
     "icyspring tracks",
+    "snow bridge portal",
+    "icyspring portal",
 
     "snow realm rabbits",
     "blizzard temple tracks rabbits",
@@ -211,6 +229,9 @@ REGIONS = [
     "anouki village song statue",
     "anouki village bomb cave chest",
     "anouki village lake chest",
+    "av noko",
+    "av fence",
+    "av kenzo",
     #"anouki village worker to anouki gem",
 
     # Snow Sanctuary
@@ -239,6 +260,8 @@ REGIONS = [
     "icyspring",
     "icyspring stamp station",
     "icyspring whip chest",
+    "icyspring ice",
+    "icyspring noko",
 
     # Snowdrift Station
     "snowdrift",
@@ -253,12 +276,16 @@ REGIONS = [
     # Bridge Worker's Home
     "bridge workers",
     "bridge workers chest",
+    "pick up bridge worker",
+
 
     # Beedle
     "beedle",
+    "beedle joe",
     "beedle bomb bag",
     "beedle uncommon treasure",
     "beedle rare treasure",
+    "beedle potion",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm

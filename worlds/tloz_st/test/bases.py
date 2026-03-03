@@ -17,14 +17,16 @@ class TestGeneration(WorldTestBase):
 
         "randomize_tears": "in_tos",
         "tear_size": "small",
-        "tear_sections": "unique_sections",
+        "tear_sections": "progressive",
         "spirit_weapons": "items",
 
         "keysanity": "anywhere",
         "shuffle_tos_sections": "shuffle",
         # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
 
-        "shopsanity": "all_above",
+        "shopsanity": {"uniques", "treasure"},
         "rupee_farming_logic": "unlimited_farming",
-        "excess_random_treasure": "nothing"
+        "excess_random_treasure": "nothing",
+        "logic": "normal",
+        "randomize_passengers": "vanilla_abstract"
     }

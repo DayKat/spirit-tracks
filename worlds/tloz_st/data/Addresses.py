@@ -25,6 +25,10 @@ class STAddr:
     saving = Address(0x049BD8)
     getting_tear_safety = Address(0x327B8C)
     getting_item_safety = Address(0x264648)
+    entering_shop = Address(0x260A44)
+
+    # drinking_potion = Address(0x317ED0)  # 39 normal, 3b drinking
+    drinking_potion_pointer = Address(0x265338, size=4)
     
     link_x = Address.pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
     link_y = Address.pointer(0x05D0)
@@ -68,6 +72,9 @@ class STAddr:
     bomb_capacity = Address(0x265331)
     arrow_count = Address(0x265332)
     bomb_count = Address(0x265333)
+    postcard_count = Address(0x268FA2)
+
+    item_restrictions = Address(0x26532C, size=2)
     
     rupees = Address(0x265328, size=2)
     tears_of_light = Address(0x26532E)
@@ -89,6 +96,19 @@ class STAddr:
     equipped_cannon = Address(0x26538C, size=4)
     equipped_car = Address(0x265390, size=4)
     equipped_cart = Address(0x265394, size=4)
+
+    # Passenger data
+    has_passenger_0 = Address(0x265598, size=4)
+    has_passenger_1 = Address(0x2655AC, size=4)
+    passenger_tag_0 = Address(0x265594, size=4)
+    passenger_tag_1 = Address(0x2655A8, size=4)
+    passenger_goal = Address(0x26559C, size=4)
+
+    # Cargo Data
+    cargo_0 = Address(0x2655d8, size=4)
+    cargo_1 = Address(0x2655e4, size=4)
+    cargo_count_0 = Address(0x2655dc)
+    cargo_count_1 = Address(0x2655e8)
 
     # Adventure Flags
     adv_flags_0 = Address(0x265714)

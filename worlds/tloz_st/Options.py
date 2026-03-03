@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet
+   ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet
 from worlds.tloz_st.data.Items import ITEMS_DATA
 from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION
 
@@ -15,7 +15,7 @@ class SpiritTracksGoal(Choice):
     - ToS Section 1: Finish the 1st section of Tower of Spirits and retrieve the Forest Glyph
     - ToS Section 2: Finish the 2nd section of Tower of Spirits and retrieve the Snow Glyph
     """
-    display_name = "Goal"
+    display_name = "Goal Location"
     option_defeat_malladus = -1
     option_beat_tos_section_1 = 0
     option_beat_tos_section_2 = 1
@@ -41,6 +41,7 @@ class SpiritTracksDungeonCount(Range):
     How many dungeons are required to unlock the dark realm?
     Will not go higher than the number of valid locations in dungeon pool
     """
+    display_name = "Required Dungeon Count"
     range_start = 1
     range_end = 8
     default = 2
@@ -52,6 +53,7 @@ class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     - final_section: the last implemented section of ToS gets added to the dungeon pool. Currently B7.
     - all_sections: completing each implemented section of ToS gets added to the dungeon pool. Currently, that is 2.
     """
+    display_name = "Tower of Spirits Dungeon Reward Options"
     option_not_in_dungeon_pool = 0
     option_final_section = 1
     option_all_sections = 2
@@ -105,7 +107,7 @@ class SpiritTracksRemoveItemsFromPool(ItemDict):
     This option has significant chances to break generation if used carelessly, so test your preset several times
     before using it on long generations. Use at your own risk!
     """
-    display_name = "remove_items_from_pool"
+    display_name = "Remove Items From Pool"
     verify_item_name = False
 
 
@@ -119,7 +121,7 @@ class SpiritTracksLogic(Choice):
 
     Please let me (@DayKat) know if you know of any glitches or non-normal logic!
     """
-    display_name = "logic"
+    display_name = "Logic Difficulty"
     option_normal = 0
     option_hard = 1
     option_glitched = 2
@@ -194,6 +196,7 @@ class SpiritTracksRabbitHints(Toggle):
     """
     Get hints for Bunnio's locations on entering rabbit haven.
     """
+    display_name = "Rabbit Hints"
     default = 0
 
 class SpiritTracksRabbitPackSize(NamedRange):
@@ -220,6 +223,7 @@ class SpiritTracksExtraRabbits(Range):
     Is affected by rabbit_pack_size
     If rabbitsanity is vanilla, this will add extra rabbit items to the normal item pool.
     """
+    display_name = "Extra Rabbit Items"
     default = 0
     range_start = 0
     range_end = 5
@@ -301,7 +305,7 @@ class SpiritTracksSpiritItems(Choice):
     - items: Lokomo Sword is the second progressive sword; and Bow of Light is its own item, but requires a progressive bow to use.
     - final_tear: if tear_group is all_sections or progressive, the final tear item will unlock both the Lokomo Sword and the Bow of Light.
     """
-    display_name = "Tears of Light Progressiveness"
+    display_name = "Spirit Item Options"
     option_items = 0
     option_final_tear = 1
 
@@ -329,12 +333,27 @@ class SpiritTracksRandomizeMinigames(Choice):
     """
     Randomize Minigames.
     Includes Mayscore Whip game, Take 'em All On, Hyrule Castle Sword Training, Slippery Station and Restoration Duets.
+    - no_minigames: minigames are not randomized
+    - easy: the easiest difficulty of each minigame is randomized
+    - hardest_reasonable: only the hardest difficulty of each minigame is randomized, excluding Take 'em all On 3
+    - all_reasonable: all minigame rewards are randomized, excluding Take 'em all On 3
+    - everything: all minigame rewards are randomized, including Take 'em all On 3
     """
     display_name = "Randomize Minigames"
     option_no_minigames = 0
-    option_randomize_with_hints = 1
-    option_randomize_without_hints = 2
-    default = 2
+    option_easy = 1
+    option_hardest_reasonable = 2
+    option_all_reasonable = 3
+    option_everything = 4
+
+    default = 1
+
+class SpiritTracksMinigameHints(Toggle):
+    """
+    Hint for minigames
+    """
+    display_name = "Minigame Hints"
+    default = 0
 
 class SpiritTracksToSSectionUnlocks(Choice):
     """
@@ -352,7 +371,7 @@ class SpiritTracksToSSectionUnlocks(Choice):
 class SpiritTracksToSBase(Toggle):
     """
     If True, Prevents Tower of Spirit access until you have the "Tower of Spirits Base" item
-    Instead creates an additional progressive tower section item if you play with progressive tower sections.
+    Creates an additional progressive tower section item instead if you play with progressive tower sections.
     """
     display_name = "ToS Unlock Base Item"
     default = 0
@@ -367,20 +386,22 @@ class SpiritTracksShuffleToSSections(Choice):
     option_no_shuffle = 0
     option_shuffle = 1
 
-class SpiritTracksShopsanity(Choice):
+class SpiritTracksShopsanity(OptionSet):
     """
     Randomize Shops.
-    - no_shops: don't randomize shops. Unique items give nothing.
-    - major_items: only unique items like bomb bags or heart containers are locations
-    - treasures: only treasures from shops are locations
-    - all_above: all possible shop items are locations
+    Gives vanilla items after buying the randomized one.
+    Add the following to the list to randomize that type of shop location:
+    - uniques: 2 locations, 2500 rupees
+    - treasure: 7 locations, 2400 rupees
+    - potions: 6 locations, 700 rupees
+    - shields: 4 locations, 410 rupees
+    - postcards: 3 locations 300 rupees
+    - all: same as adding all above
     """
     display_name = "Shopsanity"
-    option_no_shops = 0
-    option_major_items = 1
-    option_treasures = 2
-    option_all_above = 3
-    default = 0
+    default = set()
+    # supports_weighting = True
+    valid_keys = ["uniques", "treasure", "potions", "shields", "postcards", "all"]
 
 class SpiritTracksShopHints(Toggle):
     """
@@ -388,6 +409,20 @@ class SpiritTracksShopHints(Toggle):
     """
     display_name = "Shop Hints"
     default = 1
+
+class SpiritTracksCannonLogic(Choice):
+    """
+    When is cannon required?
+    - train_requires_cannon: you cannot board the train without the cannon
+    - open_train: cannonless train is not in logic, but you can use the train without cannon if you want to
+    - hard_logic: cannonless train is in logic, often requiring clever routing, damage tanking or dodging cannonballs by breaking. Should always be possible with vanilla train speed settings and a four heart spirit train.
+    - no_logic: ignores train enemies in logic. Cheesing enemies with train speed is usually necessary.
+    """
+    display_name = "Cannon Logic"
+    option_train_requires_cannon = 0
+    option_open_train = 1
+    option_hard_logic = 2
+    option_no_logic = 3
 
 class SpiritTracksRupeeFarming(Choice):
     """
@@ -416,6 +451,40 @@ class SpiritTracksExcessTreasures(Choice):
     option_convert_to_rupees = 2
     default = 1
 
+class SpiritTracksRandomizePassengers(Choice):
+    """
+    Randomize Moving passengers from one station to another. NPCs can have obtuse unlock requirements, often related to sources.
+    - no_passengers: passengers are not randomized, and quests that affect future stuff are in their most convenient state.
+    - vanilla: passengers are picked up in their vanilla locations, and only a successful delivery is a location.
+    UT displays events for each quest step. You can carry 1 NPC at a time.
+    - vanilla_abstract: same as above, but NPCs give themselves as items, and you don't need to care about their comfort.
+    You can pick up multiple NPCs at the same time
+    - randomize: NPCs are items, and both picking them up and reaching their destination are locations.
+    """
+    display_name = "Randomize Passengers"
+    option_no_passengers = 0
+    option_vanilla = 1
+    option_vanilla_abstract = 2
+    option_randomize = 3
+    default = 0
+
+class SpiritTracksRandomizeCargo(Choice):
+    """
+    Randomize transporting cargo from one station to another. You need the wagon to buy cargo.
+    - no_cargo: Cargo deliveries are not randomized, and places affected are in their most convenient state, ex. Goron lava geyser are down.
+    - vanilla: cargo can be bought at their vanilla locations, and only a successful delivery is a location.
+    UT displays events for each quest step. You can carry 1 type of cargo at a time.
+    - vanilla_abstract: same as above, but buying cargo gives an unlimited cargo item that can be used at all useplaces.
+    You can pick up multiple cargo at the same time.
+    - randomize: Cargo become items, and buying cargo/delivering cargo are both locations.
+    """
+    display_name = "Randomize Cargo"
+    option_no_cargo = 0
+    option_vanilla = 1
+    option_vanilla_abstract = 2
+    option_randomize = 3
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -433,12 +502,16 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Logic options
     logic: SpiritTracksLogic
-    #train_requires_forest_glyph: SpiritTracksTrainRequiresForestGlyph
+    cannon_logic: SpiritTracksCannonLogic
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
     randomize_minigames: SpiritTracksRandomizeMinigames
+    minigame_hints: SpiritTracksMinigameHints
     start_with_train: SpiritTracksStartWithTrain
+
+    randomize_passengers: SpiritTracksRandomizePassengers
+    randomize_cargo: SpiritTracksRandomizeCargo
 
     tos_section_unlocks: SpiritTracksToSSectionUnlocks
     tos_unlock_base_item: SpiritTracksToSBase
@@ -494,8 +567,10 @@ st_option_groups = [
     ]),
     OptionGroup("Misc Options", [
         SpiritTracksLogic,
+        SpiritTracksCannonLogic,
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizeMinigames,
+        SpiritTracksMinigameHints,
         SpiritTracksRandomizePortals,
         SpiritTracksPortalLocations,
         SpiritTracksStartWithTrain,

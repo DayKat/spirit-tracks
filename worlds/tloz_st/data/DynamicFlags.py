@@ -10,8 +10,8 @@ DYNAMIC_FLAGS = {
     "Outset Bee Boy": {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Bee Tree"],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)],
-        "reset_flags": ["RESET forest glyph"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x44), (STAddr.adv_flags_1, 0x80)],
+        "reset_flags": ["RESET forest glyph", "RESET Remove Ocean source"]
     },
     "Allow leaving Outset": {
         "on_scenes": [0x2F00],
@@ -122,8 +122,10 @@ DYNAMIC_FLAGS = {
     "Move Alfonso to castle town station": {
         "on_scenes": [0x2900],
         "not_has_locations": ["Outset Receive Stamp Book"],
-        "has_items": [["Snow Glyph", 1], ["Forest Glyph", 1]],
+        "has_items": [["Snow Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
+        "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "reset_flags": ["RESET Alfonso"]
     },
     "RESET Alfonso": {
@@ -135,15 +137,30 @@ DYNAMIC_FLAGS = {
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
+        "has_slot_data": [("randomize_passengers", 1)],
         "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET Stamp Book Check"]
+        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
+    },
+    "Allow Stamp Book check alfonzo item": {
+        "on_scenes": [0x2F0A],
+        "not_has_locations": ["Outset Receive Stamp Book"],
+        "has_items": [("Passenger: Alfonzo", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
+        "set_if_true": [(STAddr.adv_flags_11, 0x40)],
+        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
+    },
+    "Allow Stamp Book check no passengers": {
+        "on_scenes": [0x2F0A],
+        "not_has_locations": ["Outset Receive Stamp Book"],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "has_items": [["Snow Glyph", 1]],
+        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
+        "set_if_true": [(STAddr.adv_flags_11, 0x40)],
+        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
     },
     "RESET Stamp Book Check": {
         "has_items": [["Stamp Book", 1]],
-        "set_if_true": [(STAddr.adv_flags_25, 0x02)],
-    },
-    "RESET Snow Restoration": {
-        "has_items": [["Blizzard Temple Tracks", 1]],
         "set_if_true": [(STAddr.adv_flags_25, 0x02)],
     },
 
@@ -151,12 +168,7 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1F00],
         "not_has_locations": ["Blizzard Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET fraaz reward", "RESET fraaz don't have source"]
-    },
-    "RESET fraaz reward": {
-        "has_locations": ["Blizzard Temple Dungeon Reward"],
-        "has_items": [["Snow Source", 1]],
-        "set_if_true": [(STAddr.adv_flags_0, 0x20)]
+        "reset_flags": ["RESET Add Snow Source", "RESET fraaz don't have source"]
     },
     "RESET fraaz don't have source": {
         "has_items": [["Snow Source", 0]],
@@ -177,7 +189,7 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x500],
         "has_items": [["Snow Source", 1], ["Blizzard Temple Tracks", 0]],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET snow realm crash"]
+        "reset_flags": ["RESET Add Snow Source"]
     },
     "Snow realm crashes fire glyph and no blizzard tracks": {
         "on_scenes": [0x500],
@@ -190,10 +202,6 @@ DYNAMIC_FLAGS = {
         "has_items": [["Fire Glyph", 1], ["Ocean Glyph", 0]],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
         "reset_flags": ["RESET fire glyph"]
-    },
-    "RESET snow realm crash": {
-        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "has_items": [["Snow Source", 1]],
     },
     "RESET fire glyph": {
         "set_if_true": [(STAddr.adv_flags_2, 0x04)],
@@ -214,14 +222,14 @@ DYNAMIC_FLAGS = {
     "Allow Portal near castle town always open": {
         "on_scenes": [0x0400],
         "has_items": [["Snow Glyph", 1]],
-        "has_slot_data": [["portal_behavior", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
     "Allow Portal near castle town item": {
         "on_scenes": [0x0400],
         "has_items": [["Snow Glyph", 1],
                       ["Portal Unlock: Hyrule Castle to Anouki Village", 1]],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
     "Keep portal loc open anouki village": {
@@ -232,7 +240,7 @@ DYNAMIC_FLAGS = {
     },
     "Close Castle town portal no item": {
         "on_scenes": [0x0400],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "has_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 0]],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
@@ -240,14 +248,14 @@ DYNAMIC_FLAGS = {
     "Allow portal snow realm E to Forest S always open": {
         "on_scenes": [0x500],
         "has_items": [["Forest Realm SE Portal Tracks", 1]],
-        "has_slot_data": [["portal_behavior", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Allow portal snow realm E to Forest S item": {
         "on_scenes": [0x500],
         "has_items": [["Forest Realm SE Portal Tracks", 1],
                       ["Portal Unlock: Trading Post to E Snow Realm", 1]],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Keep portal loc open s trading post": {
@@ -259,7 +267,7 @@ DYNAMIC_FLAGS = {
     "Close portal e snow realm items": {
         "on_scenes": [0x500],
         "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 0]],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Dark realm restart for dynamic entrances": {
@@ -332,12 +340,18 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
                         "RESET Remove Ocean source", "RESET Remove Fire source"]
     },
+    "ToS Snow source sections": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "has_items": [("Snow Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
+    },
     "ToS progressive sections 0": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 0]],
         "has_items": [("Progressive ToS Section", 0)],
         "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
-        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 1": {
@@ -346,7 +360,7 @@ DYNAMIC_FLAGS = {
         "has_items": [("Progressive ToS Section", 1, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
-        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 2": {
@@ -380,7 +394,7 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
         "has_items": [("Progressive ToS Section", 1, "has_exact")],
         "unset_if_true": [(STAddr.adv_flags_0, 0xF0)],
-        "reset_flags": ["RESET Add Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Add Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 1 base": {
@@ -389,7 +403,7 @@ DYNAMIC_FLAGS = {
         "has_items": [("Progressive ToS Section", 2, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_0, 0xE0)],
-        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow source",
+        "reset_flags": ["RESET Remove Forest source", "RESET Add Snow Source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
     "ToS progressive sections 2 base": {
@@ -439,7 +453,7 @@ DYNAMIC_FLAGS = {
         "has_items": [("Forest Source", 1)],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
     },
-    "RESET Add Snow source": {
+    "RESET Add Snow Source": {
         "has_items": [("Snow Source", 1)],
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
@@ -455,7 +469,8 @@ DYNAMIC_FLAGS = {
     # Shop stuff
     "Remove beedle bomb flag": {
         "on_scenes": [0x4503],
-        "not_has_locations": [],
+        "not_has_locations": ["Beedle Buy Bomb Bag"],
+        "has_slot_data": [("shopsanity", "uniques")],
         "unset_if_true": [(STAddr.adv_flags_22, 0x02)],
         "reset_flags": ["RESET beedle bomb bag flag"]
     },
@@ -463,18 +478,377 @@ DYNAMIC_FLAGS = {
         "has_items": [("Bombs (Progressive)", 1)],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
     },
+    "Add beedle bomb flag": {
+        "on_scenes": [0x4503],
+        "has_slot_data": [("shopsanity", "uniques", "not")],
+        "set_if_true": [(STAddr.adv_flags_22, 0x02)],
+    },
+    # Whip Race
+    "Skip whip race HC": {
+        "on_scenes": [0x3800],
+        "has_slot_data": [("randomize_minigames", [0, 1])],
+        "set_if_true": [(STAddr.adv_flags_26, 0x02)],
+    },
+    "Skip whip race bomb bag": {
+        "on_scenes": [0x3800],
+        "has_slot_data": [("randomize_minigames", [0, 2])],
+        "set_if_true": [(STAddr.adv_flags_26, 0x01)],
+    },
 
     # Linebeck Trade
     "Has Regal Ring for Linebeck": {
         "on_scenes": [0x3700],
-        "has_items": [("Regal Ring", 1)],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "has_items": [("Treasure: Regal Ring", 1)],
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
-        "set_bits": [(STAddr.adv_flags_3e, 0x10)]
+        "set_if_true": [(STAddr.adv_flags_3e, 0x10)]
     },
     "Reset linebeck regal ring stuff in cave": {
         "on_scenes": [0x3702],
         "not_has_locations": ["Trading Post Chest"],
-        "unset_bits": [(STAddr.adv_flags_3e, 0x10)]
+        "unset_if_true": [(STAddr.adv_flags_3e, 0x10)]
+    },
+    "Bring Kenzo to TP": {
+        "on_scenes": [0x3700],
+        "has_items": [("Passenger: Kenzo", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_18, 0x40, "not")],
+        "set_if_true": [(STAddr.adv_flags_18, 0x20)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x37),
+                              (STAddr.passenger_tag_0, 0x43524654),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    "Has Kenzo and Ring": {
+        "on_scenes": [0x3700],
+        "has_items": [("Treasure: Regal Ring", 1)],
+        "has_locations": ["Bring Kenzo to Trading Post"],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
+        "set_if_true": [(STAddr.adv_flags_3e, 0x10)]
+    },
+    "Remove Ocean Source for Kenzo Dialogue": {
+        "on_scenes": [0x3700],
+        "not_has_locations": ["Bring Kenzo to Trading Post"],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40), (STAddr.adv_flags_18, 0x82), (STAddr.adv_flags_c, 0x20)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Allow Kenzo to leave for AV": {
+        "on_scenes": [0x3700],
+        "check_bits": [(STAddr.adv_flags_24, 0x10)],
+        "set_if_true": [(STAddr.adv_flags_3d, 2)],
+        "has_items": [("Snow Glyph", 1)],
+        "has_slot_data": [("randomize_passengers", [1, 3])],
+    },
+    "Prevent Kenzo from leaving TP": {
+        "on_scenes": [0x3700],
+        "has_slot_data": [("randomize_passengers", [0, 2])],
+        "unset_if_true": [(STAddr.adv_flags_3d, 2)],
+    },
+    "Prevent Kenzo from leaving TP snow glyph": {
+        "on_scenes": [0x3700],
+        "has_items": [("Snow Glyph", 0)],
+        "unset_if_true": [(STAddr.adv_flags_3d, 2)],
+    },
+    "Prep for TP kenzo loc": {
+        "on_scenes": [0x3700],
+        "not_has_locations": ["Trading Post Pick Up Kenzo"],
+        "has_slot_data": [("randomize_passengers", 3)],
+        "unset_if_true": [(STAddr.adv_flags_3c, 0x10)],
+    },
+    # Anouki chief location
+    "Enter Anouki Chief house": {
+        "on_scenes": [0x2b01],
+        "not_has_locations": ["Anouki Village Pair Villagers"],
+        "set_if_true": [(STAddr.adv_flags_b, 0x2), # Started Quest
+                     (STAddr.adv_flags_18, 0x10), # Talked to all anouki
+                     ],
+        "unset_if_true": [(STAddr.adv_flags_b, 0x10),  # Remove finished quest flag
+                        (STAddr.adv_flags_0, 0x20),  # Remove snow source
+                        (STAddr.adv_flags_1, 0x02),  # Remove btt
+                        (STAddr.adv_flags_c, 0x08),  # Don't advance dialogue after btt
+                        (STAddr.adv_flags_4, 0x02)], # Remove Wagon, he gives ice hint
+        "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source", "RESET Wagon"]
+    },
+    "Anouki village remove icons": {
+        "on_scenes": [0x2b00],
+        "set_if_true": [(STAddr.adv_flags_b, 0x10)],
+    },
+    "RESET Wagon": {
+        "has_items": [("Wagon", 1)],
+        "set_if_true": [(STAddr.adv_flags_4, 0x02)],
+    },
+    "Lock Snow Realm Rocktite Cave": {
+        "on_scenes": [0x500],
+        "has_items": [("Snow Sanctuary Cave Key", 0), ("Blizzard Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20), (STAddr.adv_flags_b, 0x10)],
+        "reset_flags": ["RESET Add Snow Source"]
+    },
+    "Unlock Snow Sanc Cave": {
+        "on_scenes": [0x500],
+        "has_items": [("Snow Sanctuary Cave Key", 1)],
+        "set_if_true": [(STAddr.adv_flags_b, 0x10)],
+    },
+    "Anouki shop skip HC": {
+        "on_scenes": [0x3103],
+        "has_slot_data": [("shopsanity", "uniques", "not")],
+        "set_if_true": [(STAddr.adv_flags_21, 0x40)],
+    },
+    "Remove shield from shield shops": {
+        "on_scenes": [0x2a05, 0x290a, 0x3103, 0x370a],
+        "unset_if_true": [(STAddr.items_2, 1)],
+        "has_slot_data": [("shopsanity", "shields")],
+        "reset_flags": ["RESET add shield"]
+    },
+    "Remove prize postcards in shops": {
+        "on_scenes": [0x2a05, 0x290a, 0x3103],
+        "unset_if_true": [(STAddr.postcard_count, 0xFF)],
+        "has_slot_data": [("shopsanity", "postcards")],
+    },
+    "RESET add shield": {
+        "has_items": [("Shield", 1)],
+        "set_if_true": [(STAddr.items_2, 1)],
+    },
+    # Take em all on stuff
+    "TEAO Unlock 1": {
+        "on_scenes": [0x290B],
+        "has_items": [("Ocean Source", 1)],
+        "has_slot_data": [("randomize_minigames", [2, 3, 4])],
+        "set_if_true": [(STAddr.adv_flags_2a, 0x4)],
+        "on_entrance": [0],
+        "reset_flags": ["RESET TEAO 1"]
+    },
+    "TEAO Unlock 2": {
+        "on_scenes": [0x290B],
+        "has_items": [("Sand Source", 1)],
+        "has_slot_data": [("randomize_minigames", [4])],
+        "set_if_true": [(STAddr.adv_flags_2a, 0xC)],
+        "on_entrance": [0],
+        "reset_flags": ["RESET TEAO 1", "RESET TEAO 2"]
+    },
+    "RESET TEAO 1": {
+        "not_has_locations": ["Castle Town Take 'em All On Level 1"],
+        "unset_if_true": [(STAddr.adv_flags_2a, 0x4)],
+    },
+    "RESET TEAO 2": {
+        "not_has_locations": ["Castle Town Take 'em All On Level 2"],
+        "unset_if_true": [(STAddr.adv_flags_2a, 0x8)],
+    },
+    "TEAO remove bow of light": {
+        "on_scenes": [0x290B],
+        "unset_if_true": [(STAddr.adv_flags_16, 0x1)],
+        "has_items": [("Sand Source", 0)],
+        "reset_flags": ["RESET Bow of Light",
+                        "RESET Bow of Light prog", "RESET Bow of Light big prog",
+                        "RESET Bow of Light global", "RESET Bow of Light big global"]
+    },
+    "TEAO give bow of light": {
+        "on_scenes": [0x290B],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+        "has_items": [("Sand Source", 1)],
+        "reset_flags": ["RESET remove Bow of Light"]
+    },
+    "RESET Bow of Light": {
+        "has_items": [("Bow of Light", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET Bow of Light prog": {
+        "has_items": [("Tear of Light (Progressive)", 16)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET Bow of Light big prog": {
+        "has_items": [("Big Tear of Light (Progressive)", 6)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET Bow of Light big global": {
+        "has_items": [("Big Tear of Light (All Sections)", 2)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET Bow of Light global": {
+        "has_items": [("Tear of Light (All Sections)", 4)],
+        "has_slot_data": [("spirit_weapons", 1)],
+        "set_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    "RESET remove Bow of Light": {
+        "has_items": [("Bow of Light", 0)],
+        "unset_if_true": [(STAddr.adv_flags_16, 0x1)],
+    },
+    # "TEAO test remove all blockers": {
+    #     "on_scenes": [0x4B00],
+    #     "overwrite_if_true": [(STAddr.item_restrictions, 0)]
+    # }
+    "Add trading post bridge": {
+        "on_scenes": [0x400],
+        "has_items": [("Repair Trading Post Bridge", 1)],
+        "set_if_true": [(STAddr.adv_flags_17, 0x10)]
+    },
+    "Remove trading post bridge": {
+        "on_scenes": [0x400],
+        "has_items": [("Repair Trading Post Bridge", 0)],
+        "unset_if_true": [(STAddr.adv_flags_17, 0x10)]
+    },
+    # Passenger States
+    "Can pick up Kenzo": {
+        "on_scenes": [0x3601],
+        "has_items": [("Ocean Glyph", 1)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "set_if_true": [(STAddr.adv_flags_c, 0x80)],
+        "reset_flags": ["RESET abstract kenzo on train"]
+    },
+    "Can't pick up kenzo": {
+        "on_scenes": [0x3601],
+        "has_items": [("Ocean Glyph", 0)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_c, 0x80)]
+    },
+    "No randomized kenzo": {
+        "on_scenes": [0x3601],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_c, 0x80)]
+    },
+    "RESET abstract kenzo on train": {
+        "unset_if_true": [(STAddr.adv_flags_19, 0x20)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+    },
+    "Anouki Quests": {
+        "on_scenes": [0x2b00],
+        "set_if_true": [(STAddr.adv_flags_1, 4)],  # Ocean restoration
+    },
+    "Can pick up noko": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_items": [("Blizzard Temple Tracks", 1)],
+        "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
+        "unset_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Can't pick up Noko glyph": {
+        "on_scenes": [0x2b00],
+        "has_items": [("Blizzard Temple Tracks", 0)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Can't pick up Noko": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Bring Kenzo to AV": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_items": [("Passenger: Kenzo", 1)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x40, "not")],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x10)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
+                              (STAddr.passenger_tag_0, 0x43524654),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    "Bring Noko to Icyspring": {
+        "on_scenes": [0x3500],
+        "has_items": [("Passenger: Noko", 1)],
+        "check_bits": [(STAddr.adv_flags_3a, 0x40, "not")],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x35),
+                              (STAddr.passenger_tag_0, 0x594B4350),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    "No paseengers icyspring": {
+        "on_scenes": [0x3500],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x50), (STAddr.adv_flags_3d, 0x10)],
+    },
+    "Can pick up Mona": {
+        "on_scenes": [0x290c],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_items": [("Snow Glyph", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Remove Ocean source"]
+    },
+    "Mona missing glyph": {
+        "on_scenes": [0x290c],
+        "has_items": [("Snow Glyph", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Mona missing option": {
+        "on_scenes": [0x290c],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Bring Mona to Rabbit Haven": {
+        "on_scenes": [0x3E00],
+        "has_items": [("Passenger: Mona", 1)],
+        "check_bits": [(STAddr.adv_flags_3b, 0x80, "not")],
+        "set_if_true": [(STAddr.adv_flags_3b, 0x20)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x3e),
+                              (STAddr.passenger_tag_0, 0x43415742),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    "Can pick up Joe": {
+        "on_scenes": [0x2F00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_locations": ["Outset Bee Tree"],
+        "has_items": [("Snow Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Remove Ocean source"]
+    },
+    "Joe missing glyph": {
+        "on_scenes": [0x2F00],
+        "has_items": [("Snow Source", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Joe missing option": {
+        "on_scenes": [0x2F00],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Bring Joe to Beedle": {
+        "on_scenes": [0x4503],
+        "has_items": [("Passenger: Joe", 1)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x8, "not")],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x2)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x45),
+                              (STAddr.passenger_tag_0, 0x4E434341),
+                              (STAddr.has_passenger_0, 0)]
+    },
+    # Cargo
+    "AV skip fence text": {
+        "on_scenes": [0x2b00],
+        "set_if_true": [(STAddr.adv_flags_3d, 0x2)],
+    },
+    "AV has lumber": {
+        "on_scenes": [0x2b00],
+        "has_items": [("Cargo: Lumber", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_54, 0x04, "not")],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 1), (STAddr.cargo_count_0, 15)]
+    },
+    "AV fence no cargo": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_cargo", 0), ("randomize_passengers", [1, 2, 3])],
+        "set_if_true": [(STAddr.adv_flags_54, 0x4), (STAddr.adv_flags_3d, 0x1)]
+    },
+    "AV fence no passengers": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_cargo", [1, 2, 3]), ("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x50), (STAddr.adv_flags_3d, 0x4)],
+    },
+    "RESET Cargo": {
+        "set_if_true": [(STAddr.cargo_0, 0xFFFFFFFF),(STAddr.cargo_1, 0xFFFFFFFF)],
+        "unset_if_true": [(STAddr.cargo_count_0, 0xFF), (STAddr.cargo_count_1, 0xFF)]
+    },
+    "Outset has Cuccos": {
+        "on_scenes": [0x2f00],
+        "has_items": [("Cargo: Cuccos", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Outset Deliver Cuccos"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
     },
     # Papuzia
     "Allow SoD statue": {

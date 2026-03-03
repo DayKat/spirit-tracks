@@ -1,3 +1,4 @@
+import dataclasses
 
 from .Items import ITEMS
 from .Constants import ITEM_GROUPS, tear_lookup, big_tear_lookup
@@ -74,14 +75,14 @@ no_tear_items = [OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeT
 progressive_shuffle = [OptionFilter(SpiritTracksShuffleToSSections, 1), OptionFilter(SpiritTracksTearGroup, 2)]
 not_tower_shuffle = [OptionFilter(SpiritTracksShuffleToSSections, 0), OptionFilter(SpiritTracksTearGroup, 2)]
 
-def has_tears(section: int, lookup):
+def has_tears(section: int, _):
     return Filtered(Or(
         Has(f"Tear of Light (ToS {section})", 3, options=[OptionFilter(SpiritTracksTearGroup, 0), OptionFilter(SpiritTracksTearSize, 0)]),
         Has(f"Big Tear of Light (ToS {section})", options=[OptionFilter(SpiritTracksTearGroup, 0), OptionFilter(SpiritTracksTearSize, 1)]),
-        Has(f"Tear of Light (Progressive)", lookup[section]*3, options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 0)]),
+        HasShuffledSection(f"Tear of Light (Progressive)", section), # options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 0)]),
         Has(f"Tear of Light (Progressive)", 16, options=[OptionFilter(SpiritTracksTearGroup, 2), OptionFilter(SpiritTracksTearSize, 0)]),
         Has(f"Tear of Light (Progressive)", section * 3, options=not_tower_shuffle + [OptionFilter(SpiritTracksTearSize, 0)]),
-        Has(f"Big Tear of Light (Progressive)", lookup[section], options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 1)]),
+        HasShuffledSection(f"Big Tear of Light (Progressive)", section), #, options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 1)]),
         Has(f"Big Tear of Light (Progressive)", section, options=not_tower_shuffle + [OptionFilter(SpiritTracksTearSize, 1)]),
         Has(f"Tear of Light (All Sections)", 3, options=[OptionFilter(SpiritTracksTearGroup, 1), OptionFilter(SpiritTracksTearSize, 0)]),
         Has(f"Big Tear of Light (All Sections)", options=[OptionFilter(SpiritTracksTearGroup, 1), OptionFilter(SpiritTracksTearSize, 1)]),
@@ -159,3 +160,21 @@ def st_has_dungeon_rewards(state, player):
         return True
     dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
     return state.has("_dungeon_reward", player, dungeon_count)
+
+@dataclasses.dataclass
+class HasShuffledSection(Rule["SpiritTracksWorld"], game="The Legend of Zelda - Spirit Tracks"):
+    item_name: str
+    section: int
+
+    @override
+    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
+
+        # print(f"Tower section lookup {world.tower_section_lookup} for section {self.section} and item {self.item_name} {self.options}")
+        tower_section_lookup = {int(i): v for i, v in world.tower_section_lookup.items()}
+        shuffled_section = tower_section_lookup[self.section]
+        if self.item_name.startswith("Big"):
+            return Has(self.item_name, shuffled_section).resolve(world)
+        return Has(self.item_name, shuffled_section*3).resolve(world)
+
+    def __str__(self):
+        return "Has Progressive tears for shuffle level"
