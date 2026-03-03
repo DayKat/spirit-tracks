@@ -1510,10 +1510,8 @@ LOCATIONS_DATA = {
         "z_max": -28439,
         "location_groups": ["Bridge Worker's House"],
     },
-}
     # ========== Ocean Realm ============
 
-ocean_realm_locations = {
     # Ocean Sanctuary
     "Ocean Sanctuary Stamp Station": {
         "region_id": "ocs stamp station",
@@ -1896,7 +1894,6 @@ ocean_realm_locations = {
     },
 
     # ========= Rabbits ==========
-LOCATIONS_DATA |= {
     "Rabbit near Castle Town": {
         "region_id": "forest realm rabbits",
         "vanilla_item": "Grass Rabbit",

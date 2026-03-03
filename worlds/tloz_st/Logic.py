@@ -355,12 +355,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bridge workers", "pick up bridge worker", False, lambda state: st_has_glyph(state, player, "Ocean")],
 
         ["forest realm", "ocean realm", False, lambda state: st_has_glyph(state, player, "Ocean") and st_has_misc_tracks(state, player, "E Mayscore Bridge")],
-        ["trading post tracks", "ocean realm", True, lambda state: state.has("Repair Trading Post Bridge", player)]
-    ]
+        ["trading post tracks", "ocean realm", True, lambda state: state.has("Repair Trading Post Bridge", player)],
 
-    ocean_realm_logic = [
         # ========== Ocean Sanctuary =============
-        ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
+        # ["forest realm", "ocean realm", True, lambda state: st_has_glyph(state, player, "Ocean")],
         ["ocean realm", "ocean temple tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
                                                                    and st_has_glyph(state, player, "Ocean")],
         ["ocean temple tracks", "ocean realm source", True, lambda state: st_has_source(state, player, "Ocean")

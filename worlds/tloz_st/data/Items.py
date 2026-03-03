@@ -250,6 +250,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x08,
+        'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks"],
     },
     "Snowdrift Station Tracks": {
         'classification': ItemClassification.progression,
@@ -267,11 +268,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x1,
+        'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks"],
     },
     "Lost at Sea Station Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x40,
+        'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks"],
     },
     "Forest Realm Ocean Shortcut Tracks": {
         'classification': ItemClassification.progression,
