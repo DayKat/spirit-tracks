@@ -207,6 +207,9 @@ class SpiritTracksClient(DSZeldaClient):
         self.addr_drinking_potion = None
         self.set_train_in_overworld: bool = False
 
+        self.boss_key_y = None
+        self.boss_key_read = None
+
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
 
@@ -495,6 +498,7 @@ class SpiritTracksClient(DSZeldaClient):
         await self.detect_ut_event(ctx, self.current_scene)
         await self.process_train_speed(ctx, read_result)
         await self.drink_potion(ctx, read_result)
+        await self.detect_boss_key(ctx)
 
     async def drink_potion(self, ctx, read_results):
         drinking_potion = read_results.get(self.addr_drinking_potion, 0)
@@ -791,6 +795,19 @@ class SpiritTracksClient(DSZeldaClient):
             self.save_ammo = await read_multiple(ctx, ammo_addresses)
             await write_multiple(ctx, ammo_addresses, [0, 0])
 
+        if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+            if self.location_name_to_id[BOSS_KEY_DATA[self.current_scene]["location"]] in ctx.checked_locations:
+                print(f"Has found location {BOSS_KEY_DATA[self.current_scene]['location']}, deleting boss key")
+                await self.delete_boss_key(ctx)
+            else:
+                data = BOSS_KEY_DATA[self.current_scene]
+                pointer = await data["pointer"].read(ctx) -0x2000000
+                self.boss_key_y = data["y"]
+                self.boss_key_read = Address(pointer+8, size=4)
+                print(f"Loaded boss key data: {self.boss_key_read} y: {self.boss_key_y}")
+        else:
+            self.boss_key_y, self.boss_key_read = None, None
+
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):
             instant_switch = False
@@ -825,4 +842,21 @@ class SpiritTracksClient(DSZeldaClient):
 
         return None
 
+    async def detect_boss_key(self, ctx):
+        """Called each cycle while in a boss key room to detect a change in boss key position"""
+        if self.boss_key_y is not None:
+            if await self.boss_key_read.read(ctx, signed=True, silent=True) > self.boss_key_y + 10:
+                loc = BOSS_KEY_DATA[self.current_scene]["location"]
+                await self._process_checked_locations(ctx, loc)
+                print(f"Found boss key location {loc}")
+                await self.delete_boss_key(ctx)
+                self.boss_key_y, self.boss_key_read = None, None
+
+
+    @staticmethod
+    async def delete_boss_key(ctx):
+        pointer = await STAddr.boss_key_deletion_pointer.read(ctx) - 0x2000000
+        print(f"Deleting boss key @ {hex(pointer)}")
+        deletion_address = Address.from_pointer(pointer, 12)
+        await deletion_address.overwrite(ctx, 0)
 

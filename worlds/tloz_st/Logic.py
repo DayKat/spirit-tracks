@@ -154,7 +154,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 8f", "tos 8f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 8f", "tos 9f phantom", False, lambda state: st_can_possess_phantoms(state, player, 3) or st_vanilla_tears(state, player)],
         ["tos 9f phantom", "tos 9f nw", False, lambda state: st_has_whirlwind(state, player)],
-        ["tos 9f phantom", "tos 11f", False, lambda state: st_has_damage(state, player)],
+        ["tos 9f phantom", "tos 11f", False, lambda state: st_has_damage(state, player) and (st_has_boss_key(state, player, "ToS 3") or options.randomize_boss_keys == "vanilla")],
         ["tos 11f", "event_12f", False, None],
 
         ["tos 4", "tos 13f", True, None],
@@ -192,7 +192,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 20f", "tos 19f center 2", False, lambda state: st_has_bow(state, player) & st_can_rotate_repeater(state, player)],
         ["tos 20f", "tos 22f", False, lambda state: st_has_bow(state, player) & st_can_rotate_repeater(state, player) & st_has_whip(state, player)],
-        ["tos 22f", "tos staven", False, lambda state: st_has_sword(state, player)],
+        ["tos 22f", "tos staven", False, lambda state: st_has_sword(state, player) and (st_has_boss_key(state, player, "ToS 5") or options.randomize_boss_keys == "vanilla")],
         ["tos staven", "event_staven", False, None],
 
         ["tos staven", "tos summit lower", True, None],
@@ -240,7 +240,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["wt 2f left", "wt 3f chestnut chest", False, lambda state: st_has_range(state, player) or st_has_beam_sword(state, player) or st_has_whirlwind(state, player)],
         ["wt 2f left", "wt 3f", False, lambda state: st_has_small_keys(state, player, "Wooded Temple", 2)],
         ["wt 3f", "wt 3f se chest", False, lambda state: st_has_whirlwind(state, player) or st_option_hard_logic(state, player)],
-        ["wt 3f", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player)],
+        ["wt 3f", "wt 3f bk", False, lambda state: st_has_whirlwind(state, player) or options.randomize_boss_keys == "vanilla"],
+        ["wt 3f bk", "wt 4f", False, lambda state: options.randomize_boss_keys == "vanilla"],
+        ["wt 3f", "wt 4f", False, lambda state: st_has_boss_key(state, player, "Wooded Temple")],
+        ["wt 4f", "wt stagnox", False, lambda state: st_has_sword(state, player) and st_has_whirlwind(state, player)],
         ["wt stagnox", "goal_stagnox", False, None],
         ["wt stagnox", "event_stagnox", False, None],
 
@@ -329,11 +332,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["bt b1 se", "bt b1 ne enemy chest", False, lambda state: st_can_kill_bubble(state, player)],
         ["bt b1 se", "bt 1f ne chest", False, lambda state: st_has_mid_range(state, player) or st_has_bombs(state, player)],
         ["bt 1f ne chest", "bt b1 sw chest", False, lambda state: st_has_boomerang(state, player)],
-        ["bt b1 sw chest", "bt b1 nw enemy chest", False, lambda state: st_has_small_keys(state, player, "Blizzard Temple", 1) and st_can_kill_freezards_torch(state, player)],
-        ["bt b1 nw enemy chest", "bt stamp station", False, lambda state: st_has_stamp_book(state, player)],
-        ["bt b1 nw enemy chest", "bt 1f nw chest", False, None],
-        ["bt b1 nw enemy chest", "bt 1f torch chest", False, None],
-        ["bt b1 nw enemy chest", "bt fraaz", False, lambda state: st_has_sword(state, player)],
+        ["bt b1 sw chest", "bt west", False, lambda state: st_has_small_keys(state, player, "Blizzard Temple", 1) and st_can_kill_freezards_torch(state, player)],
+        ["bt west", "bt stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["bt west", "bt 3f", False, lambda state: st_has_boss_key(state, player, "Blizzard Temple") or options.randomize_boss_keys == "vanilla"],
+        ["bt 3f", "bt fraaz", False, lambda state: st_has_sword(state, player)],
         ["bt fraaz", "goal_fraaz", False, None],
         ["bt fraaz", "event_fraaz", False, None],
 
@@ -397,7 +399,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song
         ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")],
 
-        # ========= Ocean Temple ==================
+        # ========= Marine Temple ==================
         ["oct", "oct song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["oct 2f", "oct whip chest", False, lambda state: st_has_sword(state, player)], # you can't escape stunlock without sword, and the fight scripts you into it from the start
         ["oct", "oct whip", False, lambda state: st_has_whip(state, player)],
@@ -409,7 +411,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct", "oct stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whip(state, player) and st_has_bombs(state, player) and st_has_boomerang(state, player)],
         ["oct whip chest", "oct 3f whip", False, lambda state: st_has_whip(state, player)],
         ["oct 3f whip", "oct 6f chest", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 1)],
-        ["oct 6f chest", "oct phytops", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 2)],
+        ["oct 6f chest", "oct bk", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 2)],
+        ["oct bk", "oct phytops", False, lambda state: options.randomize_boss_keys == "vanilla"],
+        ["oct 6f chest", "oct phytops", False, lambda state: st_has_boss_key(state, player, "Marine Temple")],
         ["oct phytops", "event_phytops", False, None],
 
         # ========= Pirate Hideout ==============

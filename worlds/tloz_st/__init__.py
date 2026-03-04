@@ -359,6 +359,8 @@ class SpiritTracksWorld(WorldParent):
             return self.options.portal_checks
         if "Rabbit Haven" in location_name:
             return self.options.rabbitsanity
+        if location_name.endswith("Boss Key"):
+            return self.options.randomize_boss_keys
         if location_data["conditional"] == "tears":
             return self.options.randomize_tears.value != -1  # not vanilla
         if "minigame" in location_data and self.options.randomize_minigames:
@@ -582,7 +584,11 @@ class SpiritTracksWorld(WorldParent):
                              "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield", "Prize Postcards (10)"]:
                 filler_item_count += 1
                 continue
-            if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
+            if any([
+                "Small Key" in item_name and self.options.keysanity == "vanilla",
+                loc_name.endswith("Boss Key") and self.options.randomize_boss_keys == "vanilla_abstract",
+                "force_vanilla" in loc_data and loc_data["force_vanilla"]
+            ]):
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
@@ -927,7 +933,9 @@ class SpiritTracksWorld(WorldParent):
         # Confine small keys and boss key to own dungeon if option is enabled
         if self.options.keysanity in ["in_own_dungeon", "in_own_section"]:
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key")])
-            confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
+
+        if self.options.randomize_boss_keys in ["in_own_dungeon", "in_own_section"]:
+            confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Boss Keys"]])
 
         if self.options.randomize_tears in ["in_own_section", "in_tos"]:
             confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Tears of Light"]])
@@ -947,6 +955,8 @@ class SpiritTracksWorld(WorldParent):
             section_items = []
             if self.options.keysanity == "in_own_section":
                 section_items += [item for item in self.pre_fill_items if item.name == f"Small Key (ToS {section})"]
+            if self.options.randomize_boss_keys == "in_own_section":
+                section_items += [item for item in self.pre_fill_items if item.name == f"Boss Key (ToS {section})"]
             if self.options.randomize_tears == "in_own_section":
                 section_items += [item for item in self.pre_fill_items if item.name.endswith(f"Tear of Light (ToS {section})")]
 
@@ -986,6 +996,9 @@ class SpiritTracksWorld(WorldParent):
                 if self.options.keysanity == "in_own_dungeon":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if item.name.startswith("Small Key (ToS")]
+                if self.options.randomize_boss_keys == "in_own_dungeon":
+                    confined_dungeon_items += [item for item in self.pre_fill_items
+                                          if item.name.startswith("Boss Key (ToS")]
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
@@ -1045,7 +1058,7 @@ class SpiritTracksWorld(WorldParent):
     def fill_slot_data(self) -> dict:
         options = ["goal",
                    "logic", "cannon_logic",
-                   "keysanity",
+                   "keysanity", "randomize_boss_keys",
                    "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
                    "randomize_passengers", "randomize_cargo",

@@ -81,7 +81,6 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "vanilla_item": "Nothing!",
-        "item_override": "Song of Birds",
         "location_groups": ["Castle Town"],
     },
     "Castle Town Left Wall Chest": {
@@ -198,7 +197,6 @@ LOCATIONS_DATA = {
         "entrance_id": 6,
         "y": 9830,
         "x_max": -70000,
-        "item_override": "Bow (Progressive)",
         "location_groups": ["Hyrule Castle"],
     },
     "Hyrule Castle 2F Indoors Chest": {
@@ -287,7 +285,6 @@ LOCATIONS_DATA = {
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "item_override": "Bombs (Progressive)",
         "stage_id": 0x13,
         "room_id": 0,
         "x_min": -6554,
@@ -597,6 +594,13 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 3,
     },
+    "ToS 10F Boss Key": {
+        "vanilla_item": "Boss Key (ToS 3)",
+        "region_id": "tos 9f phantom",
+        'dungeon': "ToS",
+        "tos_section": 3,
+        "conditional": True
+    },
     "ToS 11F Chest": {
         "stage_id": 0x13,
         "room_id": 0xA,
@@ -830,6 +834,13 @@ LOCATIONS_DATA = {
         "x_max": 35000,
         "z_min": -15000,
         "x_min": 10000,
+    },
+    "ToS 22F Boss Key": {
+        "vanilla_item": "Boss Key (ToS 5)",
+        "region_id": "tos 19f center 2",
+        'dungeon': "ToS",
+        "tos_section": 5,
+        "conditional": True,
     },
     "ToS 23F Defeat Staven": {
         "stage_id": 0x23,
@@ -1095,18 +1106,12 @@ LOCATIONS_DATA = {
         "z_max": 7485,
         "dungeon": "Wooded Temple",
     },
-    # "Wooded Temple 3F Boss Key Chest": {
-    #     "region_id": "wt 3f boss key chest",
-    #     "vanilla_item": "Boss Key (Wooded Temple)",
-    #     "stage_id": 0x19,
-    #     "room_id": 2,
-    #     "x_min": 54886,
-    #     "x_max": 76186,
-    #     "z_min": -63898,
-    #     "z_max": -50790,
-    #     "dungeon": "Wooded Temple",
-    #     "require_item": ["Whirlwind"],
-    # },
+    "Wooded Temple 3F Boss Key": {
+        "region_id": "wt 3f bk",
+        "vanilla_item": "Boss Key (Wooded Temple)",
+        "dungeon": "Wooded Temple",
+        "conditional": True,
+    },
     "Wooded Temple Boss Heart Container": {
         "region_id": "wt stagnox",
         "vanilla_item": "Heart Container",
@@ -1372,7 +1377,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple B1 NW Enemy Chest": {
-        "region_id": "bt b1 nw enemy chest",
+        "region_id": "bt west",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x1A,
         "room_id": 1,
@@ -1383,7 +1388,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple 1F NW Chest": {
-        "region_id": "bt 1f nw chest",
+        "region_id": "bt west",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 0,
@@ -1394,7 +1399,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple 1F Torch Chest": {
-        "region_id": "bt 1f torch chest",
+        "region_id": "bt west",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 0,
@@ -1403,6 +1408,12 @@ LOCATIONS_DATA = {
         "z_min": -68020,
         "z_max": -58982,
         "dungeon": "Blizzard Temple",
+    },
+    "Blizzard Temple 2F Boss Key": {
+        "region_id": "bt west",
+        "vanilla_item": "Boss Key (Blizzard Temple)",
+        "dungeon": "Blizzard Temple",
+        "conditional": True
     },
     "Blizzard Temple Boss Heart Container": {
         "region_id": "bt fraaz",
@@ -1726,6 +1737,12 @@ LOCATIONS_DATA = {
         "z_max": -5000,
         "dungeon": "Marine Temple",
         "require_item": ["Whip"],
+    },
+    "Marine Temple 6F Boss Key": {
+        "region_id": "oct bk",
+        "vanilla_item": "Boss Key (Marine Temple)",
+        "dungeon": "Marine Temple",
+        "conditional": True
     },
 
     "Marine Temple Heart Container": {
@@ -2076,6 +2093,12 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Green Rupee (100)",
         "region_id": "dt b1 damage",
         "dungeon": "Desert Temple",
+    },
+    "Desert Temple B1 Boss Key": {
+        "vanilla_item": "Boss Key (Desert Temple)",
+        "region_id": "dt b1 damage",
+        "dungeon": "Desert Temple",
+        "conditional": True
     },
     "Skeldritch Heart Container": {
         "stage_id": 0x22,

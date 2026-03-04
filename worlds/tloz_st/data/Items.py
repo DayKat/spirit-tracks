@@ -49,7 +49,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "give_ammo": [10, 20, 30],
         "ammo_address": STAddr.bomb_count,
         "set_bit": [(STAddr.adv_flags_22, 0x2)],
-        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Ammo Items"],
+        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Ammo Items", "Bombs"],
     },
     "Bow (Progressive)": {
         'classification': ItemClassification.progression,
@@ -57,7 +57,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "give_ammo": [20, 30, 50],
         "ammo_address": STAddr.arrow_count,
         "tags": ["progressive_overwrite"],
-        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Bows", "Ammo Items"],
+        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Bows", "Ammo Items", "Bow"],
     },
     "Bow of Light": {
         'classification': ItemClassification.progression,
@@ -736,22 +736,22 @@ ITEMS_DATA |= {
     # =========== Keys ============
 
      "Small Key (Tunnel to ToS)": {
-         'classification': ItemClassification.progression,
-         'address': STAddr.small_keys,
-         'dungeon': 0x18,
-         "tags": ["incremental"],
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x18,
+        "tags": ["incremental"],
         'item_groups': ["Small Keys"],
      },
     "Small Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x19,
-         "tags": ["incremental"],
+        "tags": ["incremental"],
         'item_groups': ["Small Keys"],
      },
     "Boss Key (Wooded Temple)": {
-         'classification': ItemClassification.progression,
-         'dungeon': 0x19,
+        'classification': ItemClassification.progression,
+        'dungeon': 0x19,
         'item_groups': ["Boss Keys"],
      },
     "Small Key (ToS)": {
@@ -820,7 +820,26 @@ ITEMS_DATA |= {
     },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
-        'dungeon': 0x1A,
+        'item_groups': ["Boss Keys"],
+    },
+    "Boss Key (Marine Temple)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+    },
+    "Boss Key (Mountain Temple)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+    },
+    "Boss Key (Desert Temple)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+    },
+    "Boss Key (ToS 3)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+    },
+    "Boss Key (ToS 5)": {
+        'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys"],
     },
 

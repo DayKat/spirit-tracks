@@ -297,6 +297,29 @@ DUNGEON_KEY_DATA = {
 }
 
 
+BOSS_KEY_DATA = {
+    0x1902: {
+        "y": 4915,
+        "pointer": STAddr.wt_bk_pointer,
+        "location": "Wooded Temple 3F Boss Key"
+    },
+    0x1a02: {
+        "y": 0,
+        "pointer": STAddr.bt_bk_pointer,
+        "location": "Blizzard Temple B1 Boss Key"
+    },
+    0x1b05: {
+        "y": 0,
+        "pointer": STAddr.oct_bk_pointer,
+        "location": "Marine Temple B1 Boss Key"
+    },
+    0x1d03: {
+        "y": -2867,
+        "pointer": STAddr.dt_bk_pointer,
+        "location": "Desert Temple B1 Boss Key"
+    },
+}
+
 HINTS_ON_SCENE = {
     # 0xB11: {  # Mercay Shop
     #     "island_shop": True

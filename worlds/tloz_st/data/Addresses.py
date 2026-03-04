@@ -112,6 +112,13 @@ class STAddr:
     cargo_count_0 = Address(0x2655dc)
     cargo_count_1 = Address(0x2655e8)
 
+    # Boss key pointers
+    boss_key_deletion_pointer = Address(0x265620, size=4)  # points to 3 references, and deleting then deletes the key.
+    wt_bk_pointer = Address(0x3251C0, size=4)
+    bt_bk_pointer = Address(0x326C20, size=4)
+    oct_bk_pointer = Address(0x32520C, size=4)
+    dt_bk_pointer = Address(0x3251C8, size=4)
+
     # Adventure Flags
     adv_flags_0 = Address(0x265714)
     adv_flags_1 = Address(0x265715)
