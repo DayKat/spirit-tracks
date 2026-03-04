@@ -385,15 +385,15 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocs north", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                          and st_has_birds_song(state, player) and st_has_whip(state, player)],
 
-        ["ocs", "ocs S island chest", False, lambda state: st_has_whip(state, player)],
-        ["ocs north", "ocs nw chest", False, lambda state: st_has_whip(state, player)],
+        ["ocs", "ocs S island chest", False, lambda state: st_hard_birds(state, player)],  # borderline if it should count as hard logic
+        ["ocs north", "ocs nw chest", False, lambda state: st_hard_birds(state, player)],
         ["ocs", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
 
         # ========== Papuchia Village =============
         ["ocean realm", "papuchia village", False, None],
         ["papuchia village", "papuchia village song statue", False, lambda state: st_has_discovery_song(state, player)],
-        ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player)],
-        ["papuchia village", "papuchia village south", False, lambda state: st_has_whip(state, player)],
+        ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_birds_song(state, player)],
+        ["papuchia village", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song
         ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")],
 
         # ========= Ocean Temple ==================
@@ -426,7 +426,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                                                     and st_has_misc_tracks(state, player,"Lost at Sea Station")],
         ["las tracks", "lost at sea", True, lambda state: st_has_misc_tracks(state, player, "Lost at Sea Station")],
         ["lost at sea", "las outside chest", False, lambda state: st_has_discovery_song(state, player) and (st_has_light_song(state, player) or st_option_hard_logic(state, player))],
-        ["lost at sea", "las 1st room chest", False, lambda state: st_has_awakening_song(state, player) and st_has_whip(state, player)],
+        ["lost at sea", "las 1st room chest", False, lambda state: st_has_awakening_song(state, player) and st_hard_birds(state, player)],
         ["las 1st room chest", "las 2nd room chest", False, lambda state: st_has_boomerang(state, player)],
         ["las 2nd room chest", "las 3rd room chest", False, lambda state: st_has_whirlwind(state, player)],
         ["las 3rd room chest", "las 4th room chest", False, lambda state: st_has_whip(state, player)],
@@ -447,7 +447,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["sand restoration", "sand realm portal", False, lambda state: st_has_portal(state, player, "Desert Temple to Sand Realm", True) and st_has_misc_tracks(state, player, "Sand Realm")],
         ["sand realm portal", "sand restoration", False, lambda state: st_has_portal(state, player, "Desert Temple to Sand Realm", False) and st_has_temple_tracks(state, player, "Desert")],
         ["sand connection", "ocean temple tracks", False, lambda state: st_has_portal(state, player, "Fire Sand Connection to Marine Temple", True) and st_has_temple_tracks(state, player, "Marine")],
-        ["ocean temple tracks", "sand connection", False, lambda state: st_has_portal(state, player, "Fire Sand Connection to Marine Temple",False) and st_has_temple_tracks(state, player, "Marine")],
+        ["ocean temple tracks", "sand connection", False, lambda state: st_has_portal(state, player, "Fire Sand Connection to Marine Temple",False) and st_has_misc_tracks(state, player, "Sand to Fire Connection")],
 
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc", False, None],
@@ -521,7 +521,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["castle town", "castle town buy cuccos", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["mayscore", "mayscore lumber", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
-        ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
+        ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player)], #  You can bully noko for free ice
         ["papuchia village", "papuzia buy cargo", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["dark ore mine", "dark ore mine ore", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
     ]

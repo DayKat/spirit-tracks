@@ -359,7 +359,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     "Sand to Fire Connection Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
-        'value': 0x08,
+        'value': 0x02,
         'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks"],
     },
     "Dark Ore Mine Tracks": {

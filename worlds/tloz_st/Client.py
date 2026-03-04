@@ -235,6 +235,7 @@ class SpiritTracksClient(DSZeldaClient):
             if "dungeons" in data:
                 if ctx.slot_data["dark_realm_access"] != 1:
                     return data["dungeons"]  # Case where dungeons are not required for dark realm
+                print(f"{ctx.slot_data['required_dungeons']}")
                 dungeon_locs = {self.location_name_to_id[i] for i in ctx.slot_data["required_dungeons"]}
                 has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
                 comp = has_locs >= ctx.slot_data["dungeons_required"]

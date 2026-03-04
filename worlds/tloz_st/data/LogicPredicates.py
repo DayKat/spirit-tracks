@@ -502,3 +502,9 @@ def st_desert_temple_keys(state, player):
         st_has_small_keys(state, player, "Desert Temple", 1) and state.has("_UT_Glitched_Logic", player)
     ])
 
+def st_hard_birds(state, player):
+    return all([
+        st_has_whip(state, player),
+        st_has_birds_song(state, player) or st_option_hard_logic(state, player)
+    ])
+

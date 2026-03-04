@@ -97,6 +97,7 @@ STAGES = {
     0x6: "Ocean Realm",
     0x7: "Fire Realm",
     0x8: "Train Tutorial",
+    0xA: "Underwater Tracks",
     0xb: "SR Rocktite Tunnel",
     0xF: "Dark Realm",
     0x10: "Demon Train",

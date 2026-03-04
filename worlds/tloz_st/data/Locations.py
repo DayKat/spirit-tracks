@@ -1901,8 +1901,8 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
         "room_id": 6,
-        "x_min": 20000,
-        "x_max": -40000,
+        "z_min": 5000,
+        "x_max": -30000,
         "farmable": True,
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
@@ -2084,7 +2084,7 @@ LOCATIONS_DATA = {
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
     },
-    "Desert Temple Boss Reward": {
+    "Desert Temple Dungeon Reward": {
         "stage_id": 0x22,
         "room_id": 0x1,
         "vanilla_item": "Sand Source",
@@ -2098,6 +2098,7 @@ LOCATIONS_DATA = {
         "room_id": 0x5,
         "y": 9830,
         "vanilla_item": "Bow of Light",
+        "item_override": "Nothing!",
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
     },
@@ -2892,12 +2893,13 @@ LOCATIONS_DATA = {
     "Anouki Village Pick Up Noko": {
         "stage_id": 0x2B,
         "room_id": 0x0,
-        "address": STAddr.adv_flags_3a,
-        "value": 0x10,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x594B4350,  # Passenger Ascii tag
         "vanilla_item": "Passenger: Noko",
         "location_groups": ["Anouki Village", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+        "exact_read": True,
         "region_id": "av noko"
     },
     "Icy Spring Noko's Force Gem": {

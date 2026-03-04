@@ -11,7 +11,7 @@ HINT_DATA = {
     },
     "Castle Town Take 'em All On Level 2": {
         "scenes": [0x290B],
-        "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 3, 4])],
+        "slot_data": [("minigame_hints", 1), ("randomize_minigames", [2, 3, 4])],
     },
     "Castle Town Take 'em All 3": {
         "scenes": [0x290B],

@@ -292,6 +292,31 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1000, 0x10FF],
         "set_if_true": [(STAddr.adv_flags_57, 0x30)]
     },
+    "Allow Portal near marine temple always open": {
+        "on_scenes": [0x600],
+        "has_items": [["Sand to Fire Connection Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+    "Allow Portal near marine temple item": {
+        "on_scenes": [0x600],
+        "has_items": [["Sand to Fire Connection Tracks", 1],
+                      ["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+    "Allow Portal sand connection always open": {
+        "on_scenes": [0x700],
+        "has_items": [["Marine Temple Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+    "Prevent Portal sand connection to marine location": {
+        "on_scenes": [0x700],
+        "not_has_locations": ["Fire Realm Shoot Sand Portal"],
+        "has_slot_data": [("portal_checks", 1)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
     # Sanctuaries
     "Gage don't have spirit flute": {
         "on_scenes": [0x3001],
@@ -769,11 +794,17 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2b00],
         "set_if_true": [(STAddr.adv_flags_1, 4)],  # Ocean restoration
     },
+    "AV Give snow source for quest stuff": {
+        "on_scenes": [0x2b00],
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
+        "reset_flags": ["RESET Remove Snow source"]
+    },
     "Can pick up noko": {
         "on_scenes": [0x2b00],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "has_items": [("Blizzard Temple Tracks", 1)],
-        "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
+        # "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
+        "not_has_locations": ["Icy Spring Noko's Force Gem"],
         "unset_if_true": [(STAddr.adv_flags_3a, 0x10)],
     },
     "Can't pick up Noko glyph": {
