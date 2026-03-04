@@ -93,7 +93,6 @@ LOCATIONS_DATA = {
         "x_max": -34406,
         "z_min": 46694,
         "z_max": 59802,
-        "item_override": "Whip",
         "location_groups": ["Castle Town"],
     },
     "Castle Town Right Wall Chest": {
@@ -219,7 +218,6 @@ LOCATIONS_DATA = {
         "x_max": 40000,
         "z_min": -55000,
         "z_max": -35000,
-        "item_override": "Sand Wand",
         "location_groups": ["Hyrule Castle"],
     },
     "Hyrule Castle Sword Minigame": {
@@ -1751,6 +1749,7 @@ LOCATIONS_DATA = {
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "goal": True,
         "location_groups": ["Cactops"],
+        "ut_connect": "EVENT: Defeat Cactops"
     },
 
     # Pirate Hideout
@@ -1961,7 +1960,7 @@ LOCATIONS_DATA = {
         "z_max": 10000,
         "x_max": 15000,
         "x_min": -10000,
-        "z_min": 5000,
+        "z_min": -5000,
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "region_id": "dt sw",
         "dungeon": "Desert Temple",
@@ -2001,6 +2000,7 @@ LOCATIONS_DATA = {
         "room_id": 0x2,
         "vanilla_item": "Sand Wand",
         "region_id": "dt 3f",
+        "y": 9830,
         "dungeon": "Desert Temple",
     },
     "Desert Temple 2F Left Chest": {
@@ -2078,7 +2078,7 @@ LOCATIONS_DATA = {
         "dungeon": "Desert Temple",
     },
     "Skeldritch Heart Container": {
-        "stage_id": 22,
+        "stage_id": 0x22,
         "room_id": 0x1,
         "vanilla_item": "Heart Container",
         "region_id": "skeldritch",
@@ -2092,6 +2092,7 @@ LOCATIONS_DATA = {
         "value": 0x1,
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
+        "ut_connect": "EVENT: Defeat Skeldritch",
     },
     "Desert Temple Bow of Light Chest": {
         "stage_id": 0x1D,
@@ -2614,7 +2615,8 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_30,
         "value": 0x80,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
     },
 
     # New locations to not mess locations ids until we're ready

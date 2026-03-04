@@ -129,6 +129,16 @@ def cmd_train_speed(self: "BizHawkClientCommandProcessor",
     set_speed(client.train_speed)
     return True
 
+def cmd_warp_to_start(self: "BizHawkClientCommandProcessor"):
+    """Prime a warp to start that triggers on entering any entrance. Run again to cancel"""
+    client = get_client_as_command_processor(self)
+    client.warp_to_start_flag = not client.warp_to_start_flag
+    if client.warp_to_start_flag:
+        self.output(f"Primed a warp to start. Enter any entrance to warp to Outset")
+    else:
+        self.output(f"Canceled Warp to Start")
+    return True
+
 class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
     system = "NDS"
@@ -209,6 +219,8 @@ class SpiritTracksClient(DSZeldaClient):
             # Set commands
             if "train_speed" not in ctx.command_processor.commands:
                 ctx.command_processor.commands["train"] = cmd_train_option
+            if "warp_to_start" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
             return True
         return False
 
@@ -276,9 +288,9 @@ class SpiritTracksClient(DSZeldaClient):
             print(f"Potion pointer {hex(potion_addr)}")
 
         self.main_read_list = read_keys
-        print(f"read keys len: {len(read_keys)}")
+        # print(f"read keys len: {len(read_keys)}")
         # print(self.main_read_list, read_keys)
-        print(f"Slot data {ctx.slot_data}")
+        # print(f"Slot data {ctx.slot_data}")
 
     def process_loading_variable(self, read_result) -> bool:
         mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
@@ -549,7 +561,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
-            realms = ["Grass", "Snow"]
+            realms = ["Grass", "Snow", "Sand"]
             rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
             rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
             print(f"Updating rabbit bits {hex(rabbit_bits)}")

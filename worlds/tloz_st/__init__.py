@@ -464,7 +464,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("dark ore mine ore", "_buy_ore")
         # UT Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
-        self.create_event("linebeck trading", "_can_sell_treasure")
+        self.create_event("linebeck event", "_can_sell_treasure")
 
 
     def exclude_locations_automatically(self):

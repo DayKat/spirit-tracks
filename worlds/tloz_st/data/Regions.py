@@ -203,6 +203,7 @@ REGIONS = [
     "trading post pick up kenzo",
     "trading post shield",
     "linebeck dark ore",
+    "linebeck event",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm

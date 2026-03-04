@@ -90,7 +90,7 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Add Ocean Source"]
     },
     "Skeldritch location": {
-        "on_scenes": [0x2200, 0x2201],
+        "on_scenes": [0x2200],
         "not_has_locations": ["Desert Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_1a, 0x01)],
         "reset_flags": ["RESET Add Sand Source", "RESET Remove Sand Source"]
@@ -317,6 +317,28 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_checks", 1)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
+    "Allow Portal sand temple shortcut always open": {
+        "on_scenes": [0x600],
+        "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)],
+        "not_on_entrance": [0x7, 0xB, 0xFB],
+    },
+    "Allow Portal sand temple shortcut with item": {
+        "on_scenes": [0x600],
+        "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1],
+                      ("Portal Unlock: Fire Sand Connection to Marine Temple", 1)],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)],
+        "not_on_entrance": [0x7, 0xB, 0xFB],
+    },
+    "Close Portal sand temple shortcut always open right": {
+        "on_scenes": [0x600],
+        "has_slot_data": [("portal_checks", 1)],
+        "not_has_locations": ["Sand Realm Shoot Temple Portal"],
+        "on_entrance": [0x7, 0xB, 0xFB],  # will also close if coming from north, but you can reload at sand sanc
+        "unset_if_true": [(STAddr.adv_flags_31, 0x01)]
+    },
     # Sanctuaries
     "Gage don't have spirit flute": {
         "on_scenes": [0x3001],
@@ -388,23 +410,23 @@ DYNAMIC_FLAGS = {
     "Rael can play duet": {
         "on_scenes": [0x3502],
         "has_items": [("Spirit Flute", 1)],
-        "not_has_locations": ["Forest Sanctuary Song of Restoration"],
+        "not_has_locations": ["Sand Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
-    "Rael Reset flags": {
+    "Rael Always remove dtt ": {
         "on_scenes": [0x3502],
-        "unset_if_true": [(STAddr.rail_restorations, 0x10)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x20)],
         "reset_flags": ["Sand Sanc Reset DTT not has", "Sand Sanc Reset DTT"]
     },
     "Sand Sanc Reset DTT not has": {
         "has_items": [("Desert Temple Tracks", 0)],
-        "unset_if_true": [(STAddr.rail_restorations, 0x10)]
+        "unset_if_true": [(STAddr.rail_restorations, 0x20)]
     },
     "Sand Sanc Reset DTT": {
         "has_items": [("Desert Temple Tracks", 1)],
-        "set_if_true": [(STAddr.rail_restorations, 0x10)]
+        "set_if_true": [(STAddr.rail_restorations, 0x20)]
     },
-    "Sand sanc have cuccos no cargo rando": {
+    "Sand sanc get cuccos no cargo rando": {
         "on_scenes": [0x3500],
         "has_slot_data": [("randomize_cargo", 0)],
         "set_if_true": [(STAddr.adv_flags_44, 0x8), (STAddr.adv_flags_d, 0x8)]
@@ -488,7 +510,7 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
         "has_items": [("Progressive ToS Section", 3, "has_exact")],
         "set_if_true": [(STAddr.adv_flags_0, 0x30)],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0xC0)],
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
                         "RESET Add Ocean source", "RESET Add Fire source"]
     },
@@ -548,12 +570,13 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x4503],
         "not_has_locations": ["Beedle Buy Bomb Bag"],
         "has_slot_data": [("shopsanity", "uniques")],
-        "unset_if_true": [(STAddr.adv_flags_22, 0x02)],
+        "unset_if_true": [(STAddr.adv_flags_22, 0x02), (STAddr.bomb_capacity, 2)],
         "reset_flags": ["RESET beedle bomb bag flag"]
     },
     "RESET beedle bomb bag flag": {
         "has_items": [("Bombs (Progressive)", 1)],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
+        "overwrite_if_true": [(STAddr.bomb_capacity, "Bombs (Progressive)", -1)]
     },
     "Add beedle bomb flag": {
         "on_scenes": [0x4503],
@@ -593,7 +616,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_18, 0x20)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x37),
                               (STAddr.passenger_tag_0, 0x43524654),
-                              (STAddr.has_passenger_0, 0)]
+                              (STAddr.has_passenger_0, 0)],
     },
     "Has Kenzo and Ring": {
         "on_scenes": [0x3700],
@@ -602,6 +625,17 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
         "set_if_true": [(STAddr.adv_flags_3e, 0x10)]
+    },
+    "Prevent Linebeck ring passengers": {
+        "on_scenes": [0x3700],
+        "unset_if_true": [(STAddr.adv_flags_3e, 0x10)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "not_has_locations": ["Bring Kenzo to Trading Post"],
+    },
+    "Prevent Linebeck ring item": {
+        "on_scenes": [0x3700],
+        "unset_if_true": [(STAddr.adv_flags_3e, 0x10)],
+        "has_items": [("Treasure: Regal Ring", 0)],
     },
     "Remove Ocean Source for Kenzo Dialogue": {
         "on_scenes": [0x3700],
@@ -965,7 +999,11 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_cargo", [2, 3])],
         "not_has_locations": ["Sand Sanctuary Deliver Cuccos to Rael"],
         "reset_flags": ["RESET Cargo"],
-        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
+    },
+    "Keep rael upstairs": {
+        "on_scenes": [0x3400],
+        "has_locations": ["Sand Sanctuary Deliver Cuccos to Rael"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Papuzia has ice": {

@@ -1116,7 +1116,7 @@ for i, k in enumerate(ITEMS_DATA.items()):
 ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Super Rare Treasures"]
 ITEM_GROUPS["All Treasures"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Common Treasures"]
-ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"]
+ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"]  | ITEM_GROUPS["Sand Rabbits"]
 ITEM_GROUPS["Tears of Light"] = ITEM_GROUPS["Big Tears of Light"] | ITEM_GROUPS["Small Tears of Light"]
 ITEM_GROUPS["Add Rails to Pool"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"]
 ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"]

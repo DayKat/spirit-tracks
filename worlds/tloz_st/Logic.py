@@ -260,6 +260,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["trading post", "trading post leaves", False, lambda state: st_has_whirlwind(state, player)],
         ["linebeck trading", "trading post pick up kenzo", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["linebeck trading", "linebeck dark ore", False, lambda state: st_has_cargo(state, player, "Dark Ore", "_buy_ore")],
+        ["linebeck trading", "linebeck event", False, None],
     ]
     overworld_logic += [
         ["snow realm fr", "rabbit haven", True, lambda state: st_has_glyph(state, player, "Snow")],

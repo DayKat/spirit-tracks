@@ -124,10 +124,10 @@
   {"name": "Rabbit NW Blizzard", "sections": [{"name": "Rabbit NW Blizzard"}], "map_locations":[{"map": "Overview", "x": 176, "y": 86}]},
   {"name": "Rabbit Central Blizzard", "sections": [{"name": "Rabbit Central Blizzard"}], "map_locations":[{"map": "Overview", "x": 194, "y": 166}]},
 
-  {"name": "Rabbit E Sand Realm", "sections": [{"name": "Rabbit E Sand Realm"}], "map_locations":[{"map": "Overview", "x": 778, "y": 396}]},
+  {"name": "Rabbit E Sand Realm", "sections": [{"name": "Rabbit E Sand Realm"}], "map_locations":[{"map": "Overview", "x": 778, "y": 458}]},
   {"name": "Rabbit N Sand Realm", "sections": [{"name": "Rabbit N Sand Realm"}], "map_locations":[{"map": "Overview", "x": 678, "y": 410}]},
   {"name": "Rabbit S Sand Realm", "sections": [{"name": "Rabbit S Sand Realm"}], "map_locations":[{"map": "Overview", "x": 700, "y": 516}]},
-  {"name": "Rabbit W Sand Realm", "sections": [{"name": "Rabbit W Sand Realm"}], "map_locations":[{"map": "Overview", "x": 596, "y": 470}]},
+  {"name": "Rabbit W Sand Realm", "sections": [{"name": "Rabbit W Sand Realm"}], "map_locations":[{"map": "Overview", "x": 596, "y": 474}]},
   {"name": "Rabbit W Desert Temple", "sections": [{"name": "Rabbit W Desert Temple"}], "map_locations":[{"map": "Overview", "x": 826, "y": 446}]},
   {"name": "Rabbit E Desert Temple", "sections": [{"name": "Rabbit E Desert Temple"}], "map_locations":[{"map": "Overview", "x": 922, "y": 434}]},
   {"name": "Rabbit E Sand Maze", "sections": [{"name": "Rabbit E Sand Maze"}], "map_locations":[{"map": "Overview", "x": 924, "y": 314}]},
@@ -242,7 +242,7 @@
           {"name": "Desert Temple B1 SW Stalfos Chest"},
           {"name": "Desert Temple B1 NW Buried Rupee"},
           {"name": "Skeldritch Heart Container"},
-          {"name": "Desert Temple Boss Reward"},
+          {"name": "Desert Temple Dungeon Reward"},
           {"name": "Desert Temple Bow of Light Chest"}
   ], "map_locations":[{"map": "Overview", "x": 862, "y": 440}]},
   {"name": "Desert Temple Events", "sections": [

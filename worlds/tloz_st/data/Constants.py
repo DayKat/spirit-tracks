@@ -52,7 +52,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_52, 0x80],  # ToS Staircase cutscene skip
     [STAddr.adv_flags_53, 0x77],  # ToS Staircase 2 zelda text skip
     [STAddr.adv_flags_54, 0x28],  # first spirit train journey+portal
-    [STAddr.adv_flags_57, 0x40],  # first song statue text
+    [STAddr.adv_flags_57, 0xD1],  # first song statue text
 
     # Set treasures to 0
     [STAddr.all_treasure_count, [0]*32],
@@ -88,7 +88,7 @@ STAGE_FLAGS = {
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
     0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
-    0x1d: [0x0, 0x3, 0x0, 0x0], # Desert Temple
+    0x1d: [0x0, 0x3, 0x9, 0x0], # Desert Temple
 }
 
 STAGES = {
@@ -111,8 +111,10 @@ STAGES = {
     0x19: "Wooded Temple",
     0x1A: "Blizzard Temple",
     0x1B: "Marine Temple",
+    0x1D: "Desert Temple",
     0x1E: "Stagnox",
     0x1F: "Fraaz",
+    0x22: "Skeldritch",
     0x23: "Staven Fight",
     0x24: "Cole Fight",
     0x25: "Malladus 1",
