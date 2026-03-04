@@ -496,4 +496,9 @@ def st_can_enter_tos_section(state, player, section):
         ])
     ])
 
+def st_desert_temple_keys(state, player):
+    return any([
+        st_has_small_keys(state, player, "Desert Temple", 2),
+        st_has_small_keys(state, player, "Desert Temple", 1) and state.has("_UT_Glitched_Logic", player)
+    ])
 

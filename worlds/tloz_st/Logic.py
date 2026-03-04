@@ -266,6 +266,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_rabbit_items(state, player, "Grass")],
         ["rabbit haven", "rabbit haven 10 snow rabbits", False, lambda state: st_has_rabbit_items(state, player, "Snow")],
+        ["rabbit haven", "rabbit haven 10 sand rabbits", False, lambda state: st_has_rabbit_items(state, player, "Sand")],
         ["rabbit haven", "rabbit haven mona", False, lambda state: state.has("Passenger: Mona", player) or state.has("_mona", player)],
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -393,6 +394,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "papuchia village song statue", False, lambda state: st_has_discovery_song(state, player)],
         ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["papuchia village", "papuchia village south", False, lambda state: st_has_whip(state, player)],
+        ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")],
 
         # ========= Ocean Temple ==================
         ["oct", "oct song statue", False, lambda state: st_has_spirit_flute(state, player)],
@@ -407,6 +409,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct whip chest", "oct 3f whip", False, lambda state: st_has_whip(state, player)],
         ["oct 3f whip", "oct 6f chest", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 1)],
         ["oct 6f chest", "oct phytops", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 2)],
+        ["oct phytops", "event_phytops", False, None],
 
         # ========= Pirate Hideout ==============
         ["pirate hideout tracks", "pirate hideout", False, None],
@@ -449,7 +452,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc", False, None],
         ["sand sanc", "sand sanc song", False, lambda state: st_has_spirit_flute(state, player)],
-        ["sand sanc", "sand sanc cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")],
+        ["sand sanc", "sand sanc cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos") or options.randomize_cargo == "no_cargo"],
         ["sand sanc cuccos", "sand sanc stamp stand", False, lambda state: st_has_stamp_book(state, player)],
 
         # ===== Desert Temple =====
@@ -460,15 +463,16 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["dt sw", "dt 1f n earthquake", False, lambda state: st_has_bow(state, player)],
 
-        ["desert temple", "dt 2f", False, lambda state: st_has_small_keys(state, player, "Desert Temple", 2)],
+        ["desert temple", "dt 2f", False, lambda state: st_desert_temple_keys(state, player)],
         ["dt 2f", "dt 2f sw", False, lambda state: st_has_sand_wand(state, player)],
         ["dt 2f", "dt 3f", False, lambda state: st_has_damage(state, player)],
 
-        ["dt sw", "dt b1", False, lambda state: st_has_small_keys(state, player, "Desert Temple", 2)],
+        ["dt sw", "dt b1", False, lambda state: st_desert_temple_keys(state, player)],
         ["dt b1", "dt stamp stand", False, lambda state: st_has_stamp_book(state, player)],
         ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
         ["dt b1 damage", "skeldritch", False, lambda state: st_has_good_damage(state, player)],  # Whip is not good enough damage
+        ["skeldritch", "skeldritch event", False, None],
 
         # ===== Dark ore mine =====
         ["sand restoration", "dark ore mine", False, lambda state: st_has_misc_tracks(state, player, "Dark Ore Mine")
@@ -524,7 +528,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
     # Generate rabbit total items
     if options.rabbitsanity in ["on_total", "both"]:
-        print(f"Creating total rabbit logic")
+        # print(f"Creating total rabbit logic")
         # overworld_logic += [  silly lambda instancing
         #     [f"{realm.lower()} realm rabbits", f"{realm} Rabbit Count {i}", False,
         #      lambda state: st_caught_rabbits(state, player, realm, i)] for i in range(1, 11)

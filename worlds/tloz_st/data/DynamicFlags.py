@@ -358,13 +358,13 @@ DYNAMIC_FLAGS = {
     "Rael don't have spirit flute": {
         "on_scenes": [0x3502],
         "has_items": [("Spirit Flute", 0)],
-        "set_if_true": [[(STAddr.adv_flags_19, 0x8)]]
+        "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Rael can play duet": {
         "on_scenes": [0x3502],
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Forest Sanctuary Song of Restoration"],
-        "unset_if_true": [[(STAddr.adv_flags_19, 0x8)]]
+        "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Rael Reset flags": {
         "on_scenes": [0x3502],
@@ -378,6 +378,11 @@ DYNAMIC_FLAGS = {
     "Sand Sanc Reset DTT": {
         "has_items": [("Desert Temple Tracks", 1)],
         "set_if_true": [(STAddr.rail_restorations, 0x10)]
+    },
+    "Sand sanc have cuccos no cargo rando": {
+        "on_scenes": [0x3500],
+        "has_slot_data": [("randomize_cargo", 0)],
+        "set_if_true": [(STAddr.adv_flags_44, 0x8), (STAddr.adv_flags_d, 0x8)]
     },
     # ToS climb flags
     "ToS open sections": {

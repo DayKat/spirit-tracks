@@ -237,6 +237,24 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "EVENT: Defeat Cactops": {
+        "two_way": False,
+        "entrance_region": "oct phytops",
+        "exit_region": "event_phytops",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Skeldritch": {
+        "two_way": False,
+        "entrance_region": "skeldritch",
+        "exit_region": "skeldritch event",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
     "EVENT: Reach ToS 3F": {
         "two_way": False,
         "entrance_region": "tos 3f rail map",
@@ -518,7 +536,9 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "ToS 12F Ocean Rail Glyph": "EVENT: Reach ToS 12F",
                          "ToS 17F Fire Rail Glyph": "EVENT: Reach ToS 17F",
                          "ToS 23F Defeat Staven": "EVENT: Defeat Staven",
-                         "ToS 24F Final Chest": "EVENT: Reach ToS 24F"}
+                         "ToS 24F Final Chest": "EVENT: Reach ToS 24F",
+                         "Marine Temple Dungeon Reward": "EVENT: Defeat Cactops",
+                         "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch"}
 goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
                          3: "GOAL: Defeat Fraaz",
                          0: "GOAL: Reach ToS 3F",

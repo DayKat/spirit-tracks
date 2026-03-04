@@ -66,7 +66,9 @@
     {"name": "Trading Post Buy Shield"},
     {"name": "Trading Post Stamp Station"},
     {"name": "Trading Post Song of Light Statue"},
-    {"name": "Trading Post Chest"}], "map_locations":[{"map": "Overview", "x": 404, "y": 670}]},
+    {"name": "Trading Post Chest"},
+    {"name": "Trading Post Give Dark Ore to Linebeck"}
+  ], "map_locations":[{"map": "Overview", "x": 404, "y": 670}]},
   {"name": "Trading Post Events", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations":[{"map": "Overview", "x": 420, "y": 670}]},
   {"name": "Anouki Village", "sections": [
     {"name": "Anouki Village Pair Villagers"},
@@ -102,33 +104,49 @@
   {"name": "Bridge Worker's", "sections": [{"name": "Bridge Worker's Home Chest"}, {"name": "Bridge Worker's House Pick Up Kenzo"}], "map_locations":[{"map": "Overview", "x": 380, "y": 284}]},
 
   {"name": "Rabbit near Castle Town", "sections": [{"name": "Rabbit near Castle Town"}], "map_locations":[{"map": "Overview", "x": 358, "y": 460}]},
-{"name": "Rabbit near Ocean Shortcut", "sections": [{"name": "Rabbit near Ocean Shortcut"}], "map_locations":[{"map": "Overview", "x": 454, "y": 580}]},
-{"name": "Rabbit E Mayscore", "sections": [{"name": "Rabbit E Mayscore"}], "map_locations":[{"map": "Overview", "x": 404, "y": 602}]},
-{"name": "Rabbit SW Trading Post", "sections": [{"name": "Rabbit SW Trading Post"}], "map_locations":[{"map": "Overview", "x": 368, "y": 712}]},
-{"name": "Rabbit E Outset", "sections": [{"name": "Rabbit E Outset"}], "map_locations":[{"map": "Overview", "x": 322, "y": 690}]},
-{"name": "Rabbit SW Rabbit Haven", "sections": [{"name": "Rabbit SW Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 106, "y": 576}]},
-{"name": "Rabbit near Wooded Temple", "sections": [{"name": "Rabbit near Wooded Temple"}], "map_locations":[{"map": "Overview", "x": 226, "y": 446}]},
-{"name": "Rabbit near Rabbit Haven", "sections": [{"name": "Rabbit near Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 112, "y": 522}]},
-{"name": "Rabbit past wooden bridge", "sections": [{"name": "Rabbit past wooden bridge"}], "map_locations":[{"map": "Overview", "x": 490, "y": 662}]},
-{"name": "Rabbit S Rabbit Haven", "sections": [{"name": "Rabbit S Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 128, "y": 602}]},
-{"name": "Rabbit NE Blizzard", "sections": [{"name": "Rabbit NE Blizzard"}], "map_locations":[{"map": "Overview", "x": 238, "y": 102}]},
-{"name": "Rabbit SE Blizzard", "sections": [{"name": "Rabbit SE Blizzard"}], "map_locations":[{"map": "Overview", "x": 296, "y": 186}]},
-{"name": "Rabbit W Anouki Village", "sections": [{"name": "Rabbit W Anouki Village"}], "map_locations":[{"map": "Overview", "x": 116, "y": 288}]},
-{"name": "Rabbit SW Blizzard", "sections": [{"name": "Rabbit SW Blizzard"}], "map_locations":[{"map": "Overview", "x": 110, "y": 202}]},
-{"name": "Rabbit E Anouki Village", "sections": [{"name": "Rabbit E Anouki Village"}], "map_locations":[{"map": "Overview", "x": 204, "y": 266}]},
-{"name": "Rabbit near Snowdrift Station", "sections": [{"name": "Rabbit near Snowdrift Station"}], "map_locations":[{"map": "Overview", "x": 90, "y": 140}]},
-{"name": "Rabbit W Icy Spring Station", "sections": [{"name": "Rabbit W Icy Spring Station"}], "map_locations":[{"map": "Overview", "x": 326, "y": 208}]},
-{"name": "Rabbit N Icy Spring Station", "sections": [{"name": "Rabbit N Icy Spring Station"}], "map_locations":[{"map": "Overview", "x": 344, "y": 148}]},
-{"name": "Rabbit NW Blizzard", "sections": [{"name": "Rabbit NW Blizzard"}], "map_locations":[{"map": "Overview", "x": 176, "y": 86}]},
-{"name": "Rabbit Central Blizzard", "sections": [{"name": "Rabbit Central Blizzard"}], "map_locations":[{"map": "Overview", "x": 194, "y": 166}]},
-{"name": "Total Grass Rabbits", "sections": [{"name": "Catch 1 Grass Rabbit"}, {"name": "Catch 2 Grass Rabbits"}, {"name": "Catch 3 Grass Rabbits"}, {"name": "Catch 4 Grass Rabbits"}, {"name": "Catch 5 Grass Rabbits"}, {"name": "Catch 6 Grass Rabbits"}, {"name": "Catch 7 Grass Rabbits"}, {"name": "Catch 8 Grass Rabbits"}, {"name": "Catch 9 Grass Rabbits"}, {"name": "Catch 10 Grass Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 490}]},
-{"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 474}]},
+  {"name": "Rabbit near Ocean Shortcut", "sections": [{"name": "Rabbit near Ocean Shortcut"}], "map_locations":[{"map": "Overview", "x": 454, "y": 580}]},
+  {"name": "Rabbit E Mayscore", "sections": [{"name": "Rabbit E Mayscore"}], "map_locations":[{"map": "Overview", "x": 404, "y": 602}]},
+  {"name": "Rabbit SW Trading Post", "sections": [{"name": "Rabbit SW Trading Post"}], "map_locations":[{"map": "Overview", "x": 368, "y": 712}]},
+  {"name": "Rabbit E Outset", "sections": [{"name": "Rabbit E Outset"}], "map_locations":[{"map": "Overview", "x": 322, "y": 690}]},
+  {"name": "Rabbit SW Rabbit Haven", "sections": [{"name": "Rabbit SW Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 106, "y": 576}]},
+  {"name": "Rabbit near Wooded Temple", "sections": [{"name": "Rabbit near Wooded Temple"}], "map_locations":[{"map": "Overview", "x": 226, "y": 446}]},
+  {"name": "Rabbit near Rabbit Haven", "sections": [{"name": "Rabbit near Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 112, "y": 522}]},
+  {"name": "Rabbit past wooden bridge", "sections": [{"name": "Rabbit past wooden bridge"}], "map_locations":[{"map": "Overview", "x": 490, "y": 662}]},
+  {"name": "Rabbit S Rabbit Haven", "sections": [{"name": "Rabbit S Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 128, "y": 602}]},
+  {"name": "Rabbit NE Blizzard", "sections": [{"name": "Rabbit NE Blizzard"}], "map_locations":[{"map": "Overview", "x": 238, "y": 102}]},
+  {"name": "Rabbit SE Blizzard", "sections": [{"name": "Rabbit SE Blizzard"}], "map_locations":[{"map": "Overview", "x": 296, "y": 186}]},
+  {"name": "Rabbit W Anouki Village", "sections": [{"name": "Rabbit W Anouki Village"}], "map_locations":[{"map": "Overview", "x": 116, "y": 288}]},
+  {"name": "Rabbit SW Blizzard", "sections": [{"name": "Rabbit SW Blizzard"}], "map_locations":[{"map": "Overview", "x": 110, "y": 202}]},
+  {"name": "Rabbit E Anouki Village", "sections": [{"name": "Rabbit E Anouki Village"}], "map_locations":[{"map": "Overview", "x": 204, "y": 266}]},
+  {"name": "Rabbit near Snowdrift Station", "sections": [{"name": "Rabbit near Snowdrift Station"}], "map_locations":[{"map": "Overview", "x": 90, "y": 140}]},
+  {"name": "Rabbit W Icy Spring Station", "sections": [{"name": "Rabbit W Icy Spring Station"}], "map_locations":[{"map": "Overview", "x": 326, "y": 208}]},
+  {"name": "Rabbit N Icy Spring Station", "sections": [{"name": "Rabbit N Icy Spring Station"}], "map_locations":[{"map": "Overview", "x": 344, "y": 148}]},
+  {"name": "Rabbit NW Blizzard", "sections": [{"name": "Rabbit NW Blizzard"}], "map_locations":[{"map": "Overview", "x": 176, "y": 86}]},
+  {"name": "Rabbit Central Blizzard", "sections": [{"name": "Rabbit Central Blizzard"}], "map_locations":[{"map": "Overview", "x": 194, "y": 166}]},
+
+  {"name": "Rabbit E Sand Realm", "sections": [{"name": "Rabbit E Sand Realm"}], "map_locations":[{"map": "Overview", "x": 778, "y": 396}]},
+  {"name": "Rabbit N Sand Realm", "sections": [{"name": "Rabbit N Sand Realm"}], "map_locations":[{"map": "Overview", "x": 678, "y": 410}]},
+  {"name": "Rabbit S Sand Realm", "sections": [{"name": "Rabbit S Sand Realm"}], "map_locations":[{"map": "Overview", "x": 700, "y": 516}]},
+  {"name": "Rabbit W Sand Realm", "sections": [{"name": "Rabbit W Sand Realm"}], "map_locations":[{"map": "Overview", "x": 596, "y": 470}]},
+  {"name": "Rabbit W Desert Temple", "sections": [{"name": "Rabbit W Desert Temple"}], "map_locations":[{"map": "Overview", "x": 826, "y": 446}]},
+  {"name": "Rabbit E Desert Temple", "sections": [{"name": "Rabbit E Desert Temple"}], "map_locations":[{"map": "Overview", "x": 922, "y": 434}]},
+  {"name": "Rabbit E Sand Maze", "sections": [{"name": "Rabbit E Sand Maze"}], "map_locations":[{"map": "Overview", "x": 924, "y": 314}]},
+  {"name": "Rabbit Mid Sand Maze", "sections": [{"name": "Rabbit Mid Sand Maze"}], "map_locations":[{"map": "Overview", "x": 882, "y": 340}]},
+  {"name": "Rabbit W Sand Maze", "sections": [{"name": "Rabbit W Sand Maze"}], "map_locations":[{"map": "Overview", "x": 840, "y": 352}]},
+  {"name": "Rabbit Fire Sand Connection", "sections": [{"name": "Rabbit Fire Sand Connection"}], "map_locations":[{"map": "Overview", "x": 656, "y": 356}]},
+
+  {"name": "Total Grass Rabbits", "sections": [{"name": "Catch 1 Grass Rabbit"}, {"name": "Catch 2 Grass Rabbits"}, {"name": "Catch 3 Grass Rabbits"}, {"name": "Catch 4 Grass Rabbits"}, {"name": "Catch 5 Grass Rabbits"}, {"name": "Catch 6 Grass Rabbits"}, {"name": "Catch 7 Grass Rabbits"}, {"name": "Catch 8 Grass Rabbits"}, {"name": "Catch 9 Grass Rabbits"}, {"name": "Catch 10 Grass Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 490}]},
+  {"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 474}]},
+  {"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Sand Rabbit"}, {"name": "Catch 2 Sand Rabbits"}, {"name": "Catch 3 Sand Rabbits"}, {"name": "Catch 4 Sand Rabbits"}, {"name": "Catch 5 Sand Rabbits"}, {"name": "Catch 6 Sand Rabbits"}, {"name": "Catch 7 Sand Rabbits"}, {"name": "Catch 8 Sand Rabbits"}, {"name": "Catch 9 Sand Rabbits"}, {"name": "Catch 10 Sand Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 482}]},
 
   {"name": "Forest Realm Shoot SW Portal", "sections": [{"name": "Forest Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 158, "y": 662}]},
-{"name": "Forest Realm Shoot SE Portal", "sections": [{"name": "Forest Realm Shoot SE Portal"}], "map_locations":[{"map": "Overview", "x": 424, "y": 734}]},
-{"name": "Snow Realm Shoot SW Portal", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 128, "y": 350}]},
-{"name": "Snow Realm Shoot Bridge Portal", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations":[{"map": "Overview", "x": 290, "y": 326}]},
-{"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 131}]},
+  {"name": "Forest Realm Shoot SE Portal", "sections": [{"name": "Forest Realm Shoot SE Portal"}], "map_locations":[{"map": "Overview", "x": 424, "y": 734}]},
+  {"name": "Snow Realm Shoot SW Portal", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 128, "y": 350}]},
+  {"name": "Snow Realm Shoot Bridge Portal", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations":[{"map": "Overview", "x": 290, "y": 326}]},
+  {"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 131}]},
+  {"name": "Fire Realm Shoot Sand Portal", "sections": [{"name": "Fire Realm Shoot Sand Portal"}], "map_locations":[{"map": "Overview", "x": 622, "y": 350}]},
+  {"name": "Sand Realm Shoot Temple Portal", "sections": [{"name": "Sand Realm Shoot Temple Portal"}], "map_locations":[{"map": "Overview", "x": 980, "y": 422}]},
+
   {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
   {"name": "Beedle", "sections":  [
     {"name": "Beedle Buy Uncommon Treasure"},
@@ -175,6 +193,9 @@
     {"name": "Marine Temple Heart Container"},
     {"name": "Marine Temple Dungeon Reward"}
   ], "map_locations":[{"map": "Overview", "x": 932, "y": 522}]},
+  {"name": "Marine Temple Events", "sections": [
+    {"name": "EVENT: Defeat Cactops"}
+  ], "map_locations":[{"map": "Overview", "x": 932, "y": 506}]},
   {"name": "Pirate Hideout", "sections": [
     {"name": "Pirate Hideout Stamp Station"},
     {"name": "Pirate Hideout Secret Cave Left Treasure"},
@@ -195,5 +216,36 @@
     {"name": "Lost at Sea 5th Room SW Chest"},
     {"name": "Lost at Sea 5th Room NW Chest"},
     {"name": "Lost at Sea 6th Room Chest"}
-  ], "map_locations":[{"map": "Overview", "x": 956, "y": 720}]}
+  ], "map_locations":[{"map": "Overview", "x": 956, "y": 720}]},
+
+  {"name": "Sand Sanctuary", "sections": [
+    {"name": "Sand Sanctuary Song of Restoration"},
+    {"name": "Sand Sanctuary Deliver Cuccos to Rael"},
+    {"name": "Sand Sanctuary Stamp Stand"}
+  ], "map_locations":[{"map": "Overview", "x": 692, "y": 428}]},
+    {"name": "Dark Ore Mine", "sections": [
+      {"name": "Dark Ore Mine Song of Discovery Chest"},
+      {"name": "Dark Ore Mine Buy Ore"}
+  ], "map_locations":[{"map": "Overview", "x": 956, "y": 116}]},
+    {"name": "Desert Temple", "sections": [
+          {"name": "Desert Temple 1F Entrance Chest"},
+          {"name": "Desert Temple 1F NW Gerune Chest"},
+          {"name": "Desert Temple 1F N Trap Chest"},
+          {"name": "Desert Temple 1F N Arena Chest"},
+          {"name": "Desert Temple 3F Chest"},
+          {"name": "Desert Temple 2F Left Chest"},
+          {"name": "Desert Temple 2F Right Chest"},
+          {"name": "Desert Temple 1F N Ergtorok Chest"},
+          {"name": "Desert Temple 1F N Burried Key"},
+          {"name": "Desert Temple B1 Stamp Stand"},
+          {"name": "Desert Temple B1 Near Boss Door Chest"},
+          {"name": "Desert Temple B1 SW Stalfos Chest"},
+          {"name": "Desert Temple B1 NW Buried Rupee"},
+          {"name": "Skeldritch Heart Container"},
+          {"name": "Desert Temple Boss Reward"},
+          {"name": "Desert Temple Bow of Light Chest"}
+  ], "map_locations":[{"map": "Overview", "x": 862, "y": 440}]},
+  {"name": "Desert Temple Events", "sections": [
+          {"name": "EVENT: Defeat Skeldritch"}
+      ], "map_locations":[{"map": "Overview", "x": 862, "y": 424}]}
 ]

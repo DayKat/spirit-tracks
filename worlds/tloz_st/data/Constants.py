@@ -191,6 +191,7 @@ DUNGEON_NAMES = [
     "Wooded Temple",
     "Blizzard Temple",
     "Marine Temple",
+    "Desert Temple"
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
@@ -203,12 +204,14 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
     "Marine Temple": "Marine Temple Dungeon Reward",
+    "Desert Temple": "Desert Temple Dungeon Reward",
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
     "Marine Temple Dungeon Reward": "oct phytops",
+    "Desert Temple Dungeon Reward": "skeldritch",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",

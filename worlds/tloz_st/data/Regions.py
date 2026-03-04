@@ -157,10 +157,11 @@ REGIONS = [
     "rabbit haven 5 rabbits",
     "rabbit haven 10 forest rabbits",
     "rabbit haven 10 snow rabbits",
+    "rabbit haven 10 ocean rabbits",
+    "rabbit haven 10 fire rabbits",
+    "rabbit haven 10 sand rabbits",
     "rabbit haven mona",
-    # "rabbit haven 10 ocean rabbits"
-    # "rabbit haven 10 fire rabbits"
-    # "rabbit haven 10 sand rabbits"
+
     # "rabbit haven 50 rabbits"
 
     # Forest Sanctuary
@@ -193,7 +194,6 @@ REGIONS = [
 
     # Trading Post
     "trading post",
-    #"trading post discovery song statue",
     "trading post light song statue",
     "trading post chest",
     "trading post stamp station",
@@ -202,7 +202,7 @@ REGIONS = [
     "trading post bridge worker",
     "trading post pick up kenzo",
     "trading post shield",
-    #"trading post ore gem",
+    "linebeck dark ore",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm
@@ -326,6 +326,7 @@ REGIONS = [
     "oct 3f whip",
     "oct 6f chest",
     "oct phytops",
+    "event_phytops",
     "goal_phytops",
     "post oct",
 
@@ -372,6 +373,8 @@ REGIONS = [
     # Sand Sanc
     "sand sanc",
     "sand sanc song",
+    "sand sanc cuccos",
+    "sand sanc stamp stand",
 
     # Desert Temple
     "desert temple",
@@ -387,6 +390,7 @@ REGIONS = [
     "dt b1 2",
     "dt b1 damage",
     "skeldritch",
+    "skeldritch event",
 
     # Dark ore mine
     "dark ore mine",
