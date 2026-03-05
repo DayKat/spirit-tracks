@@ -1015,7 +1015,7 @@ DYNAMIC_FLAGS = {
         "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
     },
     # Papuzia
-    "Allow SoD statue": {
+    "Allow SoB statue": {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x4)],

@@ -27,7 +27,7 @@ try:  # Backwards compatibility yay
     from .LogicRB import create_connections
     raise ModuleNotFoundError
 except ModuleNotFoundError:
-    print(f"Spirit Tracks is using legacy logic")
+    # print(f"Spirit Tracks is using legacy logic")
     WorldParent = World
     from .Logic import create_connections
 

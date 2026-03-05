@@ -481,6 +481,12 @@ class SpiritTracksClient(DSZeldaClient):
             item_count = self.item_count(ctx, item_data.refill) if item_name in ITEM_GROUPS["Refill Items"] else self.item_count(ctx, item_name)
             self.save_ammo[addr] = item_data.give_ammo[item_count-1]
 
+        # Open boss door if got key in that room
+        if item_name.startswith("Boss Key") and self.current_scene in BOSS_KEY_DATA:
+            data = BOSS_KEY_DATA[self.current_scene]
+            if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
+                print(f"Opening boss door for {self.current_scene}")
+                await data["door"].overwrite(ctx, 3)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
@@ -550,6 +556,11 @@ class SpiritTracksClient(DSZeldaClient):
 
         if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
             await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
+
+        if self.current_scene in [0x1309, 0x1318] and location.get("vanilla_item", "").startswith("Boss Key"):
+            if self.item_count(ctx, location["vanilla_item"]):
+                print("Opening ToS boss door after having key and getting boss key location")
+                await BOSS_KEY_DATA[self.current_scene]["door"].overwrite(ctx, 3)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -795,16 +806,25 @@ class SpiritTracksClient(DSZeldaClient):
             self.save_ammo = await read_multiple(ctx, ammo_addresses)
             await write_multiple(ctx, ammo_addresses, [0, 0])
 
+        # Boss key rando stuff
         if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
-            if self.location_name_to_id[BOSS_KEY_DATA[self.current_scene]["location"]] in ctx.checked_locations:
-                print(f"Has found location {BOSS_KEY_DATA[self.current_scene]['location']}, deleting boss key")
+            data = BOSS_KEY_DATA[self.current_scene]
+            # Set key watches
+            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                print(f"Has found location {data['location']}, deleting boss key")
                 await self.delete_boss_key(ctx)
             else:
-                data = BOSS_KEY_DATA[self.current_scene]
                 pointer = await data["pointer"].read(ctx) -0x2000000
                 self.boss_key_y = data["y"]
                 self.boss_key_read = Address(pointer+8, size=4)
                 print(f"Loaded boss key data: {self.boss_key_read} y: {self.boss_key_y}")
+
+            # Open door
+            if self.item_count(ctx, f"Boss Key ({data['dungeon']})"):
+                if current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                    print(f"Opening boss door for {current_scene}")
+                    if await data["door"].read(ctx) != 0x5:
+                        await data["door"].overwrite(ctx, 3)
         else:
             self.boss_key_y, self.boss_key_read = None, None
 
@@ -853,10 +873,15 @@ class SpiritTracksClient(DSZeldaClient):
                 self.boss_key_y, self.boss_key_read = None, None
 
 
-    @staticmethod
-    async def delete_boss_key(ctx):
+    async def delete_boss_key(self, ctx):
         pointer = await STAddr.boss_key_deletion_pointer.read(ctx) - 0x2000000
         print(f"Deleting boss key @ {hex(pointer)}")
-        deletion_address = Address.from_pointer(pointer, 12)
+        size = 12
+        if self.current_stage == 0x1b:
+            pointer += 44  # Ocean temple bk does not load into the first slot in memory
+            await Address.from_pointer(pointer+60, 4).overwrite(ctx, 0)  # also needs this to not crash
+            size = 8
+        deletion_address = Address.from_pointer(pointer, size)
+        # print(f"Deleting boss key @ {STAddr.boss_key_deletion}")
         await deletion_address.overwrite(ctx, 0)
 

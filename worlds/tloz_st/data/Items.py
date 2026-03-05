@@ -753,6 +753,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         'dungeon': 0x19,
         'item_groups': ["Boss Keys"],
+        "dummy": True
      },
     "Small Key (ToS)": {
         'classification': ItemClassification.progression,
@@ -821,26 +822,32 @@ ITEMS_DATA |= {
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys"],
+        "dummy": True
     },
     "Boss Key (Marine Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys"],
+        "dummy": True
     },
     "Boss Key (Mountain Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys"],
+        "dummy": True
     },
     "Boss Key (Desert Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys"],
+        "dummy": True
     },
     "Boss Key (ToS 3)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys"],
+        "dummy": True
     },
     "Boss Key (ToS 5)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys"],
+        "dummy": True
     },
 
     # Tears

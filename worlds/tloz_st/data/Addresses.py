@@ -114,10 +114,20 @@ class STAddr:
 
     # Boss key pointers
     boss_key_deletion_pointer = Address(0x265620, size=4)  # points to 3 references, and deleting then deletes the key.
+    boss_key_deletion = Address(0x3251C0, size=12)
     wt_bk_pointer = Address(0x3251C0, size=4)
     bt_bk_pointer = Address(0x326C20, size=4)
     oct_bk_pointer = Address(0x32520C, size=4)
     dt_bk_pointer = Address(0x3251C8, size=4)
+    tos_bk_pointer = Address(0x332818, size=4)
+
+    # Boss door openers
+    wt_boss_door = Address(0x3368FE)
+    bt_boss_door = Address(0x33099E)
+    oct_boss_door = Address(0x32F6EE)
+    dt_boss_door = Address(0x332C5E)
+    tos3_boss_door = Address(0x33E482)
+    tos5_boss_door = Address(0x33E182)
 
     # Adventure Flags
     adv_flags_0 = Address(0x265714)

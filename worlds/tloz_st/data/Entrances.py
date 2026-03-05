@@ -509,6 +509,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "Marine Temple 6F Boss Door Staircase": {
+        "return_name": "Marine Temple 7F Exit",
+        "entrance": (0x1b, 0x5, 3),
+        "exit": (0x1b, 0x6, 0),
+        "entrance_region": "oct 6f chest",
+        "exit_region": "oct phytops",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
 
     # Linebeck/bridge worker events
     "EVENT: Give Regal Ring to Linebeck": {

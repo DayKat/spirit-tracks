@@ -296,6 +296,12 @@ DYNAMIC_ENTRANCES = {
         "has_slot_data": [["tos_section_unlocks", 1]],
         "message": "You need the Fire Source to enter this section!"
     },
+    "Bounce OCT 7F cause crash": {
+        "entrance": "Marine Temple 7F Exit",
+        "destination": "Marine Temple 7F Exit",
+        "has_locations": ["Marine Temple 6F Boss Key"],
+        "message": "Oops you can't do that, it crashes for some reason"
+    },
 
     # ToS Blue Warp shortcuts
     "Exit ToS 3F": {

@@ -301,22 +301,44 @@ BOSS_KEY_DATA = {
     0x1902: {
         "y": 4915,
         "pointer": STAddr.wt_bk_pointer,
-        "location": "Wooded Temple 3F Boss Key"
+        "location": "Wooded Temple 3F Boss Key",
+        "door": STAddr.wt_boss_door,
+        "dungeon": "Wooded Temple"
     },
     0x1a02: {
         "y": 0,
         "pointer": STAddr.bt_bk_pointer,
-        "location": "Blizzard Temple B1 Boss Key"
+        "location": "Blizzard Temple 2F Boss Key",
+        "door": STAddr.bt_boss_door,
+        "dungeon": "Blizzard Temple"
     },
     0x1b05: {
         "y": 0,
         "pointer": STAddr.oct_bk_pointer,
-        "location": "Marine Temple B1 Boss Key"
+        "location": "Marine Temple 6F Boss Key",
+        "door": STAddr.oct_boss_door,
+        "dungeon": "Marine Temple"
     },
     0x1d03: {
         "y": -2867,
         "pointer": STAddr.dt_bk_pointer,
-        "location": "Desert Temple B1 Boss Key"
+        "location": "Desert Temple B1 Boss Key",
+        "door": STAddr.dt_boss_door,
+        "dungeon": "Desert Temple"
+    },
+    0x1309: {
+        "y": 0,
+        "pointer": STAddr.tos_bk_pointer,
+        "location": "ToS 10F Boss Key",
+        "door": STAddr.tos3_boss_door,
+        "dungeon": "ToS 3"
+    },
+    0x1318: {
+        "y": 0,
+        "pointer": STAddr.tos_bk_pointer,
+        "location": "ToS 22F Boss Key",
+        "door": STAddr.tos5_boss_door,
+        "dungeon": "ToS 5"
     },
 }
 
