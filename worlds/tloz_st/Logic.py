@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
-        # # ========== Rabbit Haven ========
+
     overworld_logic = [
 
         # ====== Outset Village ==============
@@ -271,6 +271,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_rabbit_items(state, player, "Grass")],
         ["rabbit haven", "rabbit haven 10 snow rabbits", False, lambda state: st_has_rabbit_items(state, player, "Snow")],
+        ["rabbit haven", "rabbit haven 10 mountain rabbits", False, lambda state: st_has_rabbit_items(state, player, "Mountain")],
         ["rabbit haven", "rabbit haven 10 sand rabbits", False, lambda state: st_has_rabbit_items(state, player, "Sand")],
         ["rabbit haven", "rabbit haven mona", False, lambda state: state.has("Passenger: Mona", player) or state.has("_mona", player)],
 
@@ -619,6 +620,27 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
              lambda state: st_caught_rabbits(state, player, "Snow", 9)],
             ["snow realm rabbits", "Snow Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 10)],
+
+            ["fire realm rabbits", "Mountain Rabbit Count 1", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 1)],
+            ["fire realm rabbits", "Mountain Rabbit Count 2", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 2)],
+            ["fire realm rabbits", "Mountain Rabbit Count 3", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 3)],
+            ["fire realm rabbits", "Mountain Rabbit Count 4", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 4)],
+            ["fire realm rabbits", "Mountain Rabbit Count 5", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 5)],
+            ["fire realm rabbits", "Mountain Rabbit Count 6", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 6)],
+            ["fire realm rabbits", "Mountain Rabbit Count 7", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 7)],
+            ["fire realm rabbits", "Mountain Rabbit Count 8", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 8)],
+            ["fire realm rabbits", "Mountain Rabbit Count 9", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 9)],
+            ["fire realm rabbits", "Mountain Rabbit Count 10", False,
+             lambda state: st_caught_rabbits(state, player, "Mountain", 10)],
 
             ["sand realm rabbits", "Sand Rabbit Count 1", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 1)],

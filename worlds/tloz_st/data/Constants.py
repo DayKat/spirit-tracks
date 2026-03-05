@@ -175,7 +175,7 @@ TREASURE_PRICES = {t: value for treasure_type, value in zip(["Common", "Uncommon
 
 LOCATION_GROUPS: dict[str, set[str]] = {}
 
-rabbit_realms = ["Grass", "Snow", "Sand"]
+rabbit_realms = ["Grass", "Snow", "Mountain", "Sand"]
 
 grass_rabbits = [
     "Grass Rabbit",
@@ -193,6 +193,15 @@ snow_rabbits = [
     "Snow Rabbits (5)",
     "Snow Rabbits (10)"
 ]
+mountain_rabbits = [
+    "Mountain Rabbit",
+    "Mountain Rabbits (2)",
+    "Mountain Rabbits (3)",
+    "Mountain Rabbits (4)",
+    "Mountain Rabbits (5)",
+    "Mountain Rabbits (10)"
+]
+
 sand_rabbits = [
     "Sand Rabbit",
     "Sand Rabbits (2)",

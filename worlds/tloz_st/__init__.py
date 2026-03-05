@@ -270,6 +270,8 @@ class SpiritTracksWorld(WorldParent):
         } | {
             r: ("Snow Rabbit", ITEMS[r].value) for r in snow_rabbits[1:]
         } | {
+            r: ("Mountain Rabbit", ITEMS[r].value) for r in mountain_rabbits[1:]
+        } | {
             r: ("Sand Rabbit", ITEMS[r].value) for r in sand_rabbits[1:]
         } | {
             t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
@@ -292,7 +294,7 @@ class SpiritTracksWorld(WorldParent):
             elif self.options.tos_dungeon_options == "all_sections":
                 required_dungeons += implemented_tos
 
-        print(f"Required dungeons: {required_dungeons}")
+        # print(f"Required dungeons: {required_dungeons}")
         if not self.options.require_specific_dungeons:
             return required_dungeons
 
@@ -439,11 +441,17 @@ class SpiritTracksWorld(WorldParent):
                             "snow realm rabbits": 1,
                             "snowdrift station rabbit": 1,
                             "icyspring rabbits": 2}
+            mountain_regions = {"fire realm rabbits": 2,
+                                "mountain rabbits": 4,
+                                "fire source rabbits": 1,
+                                "disorientation rabbits": 1,
+                                "eote rabbits": 1,
+                                "s mountain temple rabbit": 1}
             sand_regions = {"sand realm rabbits": 4,
                             "sand restoration rabbits": 5,
                             "sand connection rabbit": 1}
             [self.create_multiple_events(reg, f"_caught_{realm}_rabbits", count)
-             for regions, realm in zip([forest_regions, snow_regions, sand_regions], ["grass", "snow", "sand"])
+             for regions, realm in zip([forest_regions, snow_regions, mountain_regions, sand_regions], ["grass", "snow", "mountain", "sand"])
              for reg, count in regions.items()]
 
         # Create rupee farming events
@@ -605,7 +613,7 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Sand Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
+        add_items = [("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
                      ("Repair Trading Post Bridge", 1), ("Shield", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.randomize_cargo: add_items += [("Wagon", 1)]
@@ -647,9 +655,9 @@ class SpiritTracksWorld(WorldParent):
         rabbit_locations = []
         # Figure out rabbit counts for different pools
         max_count = self.options.rabbit_max_location_count.value
-        rabbit_counts = [max_count]*3
+        rabbit_counts = [max_count]*4
         if self.options.rabbit_location_count_distribution.value == -1:
-            rabbit_counts = [self.random.randint(1, max_count) for _ in range(3)]
+            rabbit_counts = [self.random.randint(1, max_count) for _ in range(4)]
         self.rabbit_counts = rabbit_counts
 
         def pick_random_locs(loc_lists):
@@ -660,30 +668,33 @@ class SpiritTracksWorld(WorldParent):
         if self.options.rabbitsanity.value in [1, 2, 4]: # Vanilla or unique
             forest_rabbits = list(LOCATION_GROUPS["Unique Grass Rabbits"])
             snow_rabbits = list(LOCATION_GROUPS["Unique Snow Rabbits"])
+            mountain_rabbits = list(LOCATION_GROUPS["Unique Mountain Rabbits"])
             sand_rabbits = list(LOCATION_GROUPS["Unique Sand Rabbits"])
-            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, sand_rabbits])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits])
 
         if self.options.rabbitsanity.value in [3, 4]:  # total count
             forest_rabbits = list(LOCATION_GROUPS["Total Grass Rabbits"])
             snow_rabbits = list(LOCATION_GROUPS["Total Snow Rabbits"])
+            mountain_rabbits = list(LOCATION_GROUPS["Total Mountain Rabbits"])
             sand_rabbits = list(LOCATION_GROUPS["Total Sand Rabbits"])
             sort_func = lambda loc: f"0{loc.split()[1]}"[-2:]  # wth python
             forest_rabbits.sort(key=sort_func)
             snow_rabbits.sort(key=sort_func)
+            mountain_rabbits.sort(key=sort_func)
             sand_rabbits.sort(key=sort_func)
             interval = self.options.rabbit_location_count_distribution.value
             if interval >= 0:
-                intervals = [interval]*3 if interval else [self.random.randint(1, 3) for _ in range(3)]
-                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits, sand_rabbits]):
+                intervals = [interval]*4 if interval else [self.random.randint(1, 3) for _ in range(3)]
+                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits]):
                     if i > max_count:
                         rabbit_locations.append(realm_locs[max_count-1])
                     else:
                         rabbit_locations += realm_locs[i-1:max_count:i]
-                # print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
+                print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
                 self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
-            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, sand_rabbits])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits])
 
         # print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
@@ -902,7 +913,7 @@ class SpiritTracksWorld(WorldParent):
         if self.tower_pairings:
             self.connect_plando(self.tower_pairings)
         self.er_placement_state = randomize_entrances(self, True, groups)
-        print(f"ER Placements: {self.er_placement_state.pairings}")
+        # print(f"ER Placements: {self.er_placement_state.pairings}")
 
         # Get lookup for logic stuff. Doesn't work cause logic is cemented earlier
         # self.create_tower_section_lookup()

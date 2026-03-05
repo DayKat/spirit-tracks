@@ -158,7 +158,7 @@ REGIONS = [
     "rabbit haven 10 forest rabbits",
     "rabbit haven 10 snow rabbits",
     "rabbit haven 10 ocean rabbits",
-    "rabbit haven 10 fire rabbits",
+    "rabbit haven 10 mountain rabbits",
     "rabbit haven 10 sand rabbits",
     "rabbit haven mona",
 
@@ -422,5 +422,5 @@ REGIONS = [
 
 
 ] + [
-    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Sand"]
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Mountain", "Sand"]
 ]

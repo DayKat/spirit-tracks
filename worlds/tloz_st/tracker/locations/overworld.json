@@ -71,6 +71,7 @@
     {"name": "Rabbit Haven Rescue 5 Rabbits"},
     {"name": "Rabbit Haven Rescue 10 Grass Rabbits"},
     {"name": "Rabbit Haven Rescue 10 Snow Rabbits"},
+    {"name": "Rabbit Haven Rescue 10 Mountain Rabbits"},
     {"name": "Rabbit Haven Rescue 10 Sand Rabbits"}
   ], "map_locations":[{"map": "Overview", "x": 138, "y": 497}]},
   {"name": "Trading Post", "sections": [
@@ -125,8 +126,14 @@
     {"name": "Icy Spring Stamp Station"},
   {"name": "Icy Spring Noko's Force Gem"},
   {"name": "Icy Spring Buy Mega Ice"}], "map_locations":[{"map": "Overview", "x": 356, "y": 212}]},
-  {"name": "Snowdrift Station", "sections": [{"name": "Snowdrift Station Puzzle Reward"}], "map_locations":[{"map": "Overview", "x": 68, "y": 42}]},
-  {"name": "Slippery Station", "sections": [{"name": "Slippery Station Amateur Reward"}, {"name": "Slippery Station Pro Reward"}, {"name": "Slippery Station Champion Reward"}], "map_locations":[{"map": "Overview", "x": 381, "y": 42}]},
+  {"name": "Snowdrift Station", "sections": [
+    {"name": "Snowdrift Station Puzzle Reward"}
+  ], "map_locations":[{"map": "Overview", "x": 68, "y": 42}]},
+  {"name": "Slippery Station", "sections": [
+    {"name": "Slippery Station Amateur Reward"},
+    {"name": "Slippery Station Pro Reward"},
+    {"name": "Slippery Station Champion Reward"}
+  ], "map_locations":[{"map": "Overview", "x": 381, "y": 42}]},
   {"name": "Bridge Worker's", "sections": [
     {"name": "Bridge Worker's Home Chest"},
     {"name": "Bridge Worker's Home Pick Up Kenzo"}
@@ -164,9 +171,22 @@
   {"name": "Rabbit W Sand Maze", "sections": [{"name": "Rabbit W Sand Maze"}], "map_locations":[{"map": "Overview", "x": 840, "y": 352}]},
   {"name": "Rabbit Fire Sand Connection", "sections": [{"name": "Rabbit Fire Sand Connection"}], "map_locations":[{"map": "Overview", "x": 656, "y": 356}]},
 
+
+  {"name": "Rabbit Near ToS Fire Realm", "sections": [{"name": "Rabbit Near ToS Fire Realm"}], "map_locations":[{"map": "Overview", "x": 606, "y": 306}]},
+  {"name": "Rabbit Near Disorientation Station", "sections": [{"name": "Rabbit Near Disorientation Station"}], "map_locations":[{"map": "Overview", "x": 622, "y": 74}]},
+  {"name": "Rabbit Near Ends of the Earth", "sections": [{"name": "Rabbit Near Ends of the Earth"}], "map_locations":[{"map": "Overview", "x": 816, "y": 50}]},
+  {"name": "Rabbit NW Mountain", "sections": [{"name": "Rabbit NW Mountain"}], "map_locations":[{"map": "Overview", "x": 730, "y": 122}]},
+  {"name": "Rabbit NE Mountain", "sections": [{"name": "Rabbit NE Mountain"}], "map_locations":[{"map": "Overview", "x": 874, "y": 98}]},
+  {"name": "Rabbit N Mountain", "sections": [{"name": "Rabbit N Mountain"}], "map_locations":[{"map": "Overview", "x": 814, "y": 120}]},
+  {"name": "Rabbit S Mountain", "sections": [{"name": "Rabbit S Mountain"}], "map_locations":[{"map": "Overview", "x": 778, "y": 194}]},
+  {"name": "Rabbit SE Mountain", "sections": [{"name": "Rabbit SE Mountain"}], "map_locations":[{"map": "Overview", "x": 896, "y": 228}]},
+  {"name": "Rabbit N Fire Glyph", "sections": [{"name": "Rabbit N Fire Glyph"}], "map_locations":[{"map": "Overview", "x": 658, "y": 122}]},
+  {"name": "Rabbit Near Goron Target Range", "sections": [{"name": "Rabbit Near Goron Target Range"}], "map_locations":[{"map": "Overview", "x": 608, "y": 230}]},
+
   {"name": "Total Grass Rabbits", "sections": [{"name": "Catch 1 Grass Rabbit"}, {"name": "Catch 2 Grass Rabbits"}, {"name": "Catch 3 Grass Rabbits"}, {"name": "Catch 4 Grass Rabbits"}, {"name": "Catch 5 Grass Rabbits"}, {"name": "Catch 6 Grass Rabbits"}, {"name": "Catch 7 Grass Rabbits"}, {"name": "Catch 8 Grass Rabbits"}, {"name": "Catch 9 Grass Rabbits"}, {"name": "Catch 10 Grass Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 490}]},
   {"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 474}]},
-  {"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Sand Rabbit"}, {"name": "Catch 2 Sand Rabbits"}, {"name": "Catch 3 Sand Rabbits"}, {"name": "Catch 4 Sand Rabbits"}, {"name": "Catch 5 Sand Rabbits"}, {"name": "Catch 6 Sand Rabbits"}, {"name": "Catch 7 Sand Rabbits"}, {"name": "Catch 8 Sand Rabbits"}, {"name": "Catch 9 Sand Rabbits"}, {"name": "Catch 10 Sand Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 482}]},
+  {"name": "Total Mountain Rabbits", "sections": [{"name": "Catch 1 Mountain Rabbit"}, {"name": "Catch 2 Mountain Rabbits"}, {"name": "Catch 3 Mountain Rabbits"}, {"name": "Catch 4 Mountain Rabbits"}, {"name": "Catch 5 Mountain Rabbits"}, {"name": "Catch 6 Mountain Rabbits"}, {"name": "Catch 7 Mountain Rabbits"}, {"name": "Catch 8 Mountain Rabbits"}, {"name": "Catch 9 Mountain Rabbits"}, {"name": "Catch 10 Mountain Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 466}]},
+  {"name": "Total Sand Rabbits", "sections": [{"name": "Catch 1 Sand Rabbit"}, {"name": "Catch 2 Sand Rabbits"}, {"name": "Catch 3 Sand Rabbits"}, {"name": "Catch 4 Sand Rabbits"}, {"name": "Catch 5 Sand Rabbits"}, {"name": "Catch 6 Sand Rabbits"}, {"name": "Catch 7 Sand Rabbits"}, {"name": "Catch 8 Sand Rabbits"}, {"name": "Catch 9 Sand Rabbits"}, {"name": "Catch 10 Sand Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 482}]},
 
   {"name": "Forest Realm Shoot SW Portal", "sections": [{"name": "Forest Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 158, "y": 662}]},
   {"name": "Forest Realm Shoot SE Portal", "sections": [{"name": "Forest Realm Shoot SE Portal"}], "map_locations":[{"map": "Overview", "x": 424, "y": 734}]},
@@ -247,6 +267,22 @@
     {"name": "Lost at Sea 5th Room NW Chest"},
     {"name": "Lost at Sea 6th Room Chest"}
   ], "map_locations":[{"map": "Overview", "x": 956, "y": 720}]},
+
+  {"name": "Disorientation Station", "sections": [
+    {"name": "Disorientation Station Bird Chest"},
+    {"name": "Disorientation Station Climb Chest"},
+    {"name": "Disorientation Station Cliff Chest"},
+    {"name": "Disorientation Station Maze Chest"},
+    {"name": "Disorientation Station Guard Gift"}
+  ], "map_locations":[{"map": "Overview", "x": 596, "y": 44}]},
+  {"name": "Ends of the Earth", "sections": [
+    {"name": "Ends of the Earth Master Big Chest"},
+    {"name": "Ends of the Earth Master Small Chest"},
+    {"name": "Ends of the Earth Tempered Big Chest"},
+    {"name": "Ends of the Earth Tempered Small Chest"},
+    {"name": "Ends of the Earth Golden Big Chest"},
+    {"name": "Ends of the Earth Golden Small Chest"}
+  ], "map_locations":[{"map": "Overview", "x": 956, "y": 44}]},
 
   {"name": "Sand Sanctuary", "sections": [
     {"name": "Sand Sanctuary Song of Restoration"},

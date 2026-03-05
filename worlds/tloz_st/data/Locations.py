@@ -1185,6 +1185,16 @@ LOCATIONS_DATA = {
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
     },
+    "Rabbit Haven Rescue 10 Mountain Rabbits": {
+        "region_id": "rabbit haven 10 mountain rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        'address': STAddr.adv_flags_52,
+        'value': 0x1,
+        "conditional": True,
+        "location_groups": ["Rabbit Haven"],
+    },
     "Rabbit Haven Rescue 10 Sand Rabbits": {
         "region_id": "rabbit haven 10 sand rabbits",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
@@ -2394,6 +2404,99 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Snow Rabbits"]
     },
+
+    # Mountain Rabbits
+    "Rabbit Near ToS Fire Realm": {
+        "region_id": "fire source rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x40,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit Near Disorientation Station": {
+        "region_id": "disorientation rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x40,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit Near Ends of the Earth": {
+        "region_id": "eote rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x20,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit NE Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x10,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit NW Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x8,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit N Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x4,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit S Mountain": {
+        "region_id": "s mountain temple rabbit",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 2,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit SE Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x1,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit N Fire Glyph": {
+        "region_id": "fire realm rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_3,
+        "value": 0x80,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+    "Rabbit Near Goron Target Range": {
+        "region_id": "fire realm rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_3,
+        "value": 0x40,
+        "rabbit": True,
+        "location_groups": ["Unique Mountain Rabbits"]
+    },
+
     # Sand Rabbits
     "Rabbit E Sand Realm": {
         "region_id": "sand realm rabbits",
@@ -2485,189 +2588,25 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Sand Rabbits"]
     },
+}
 
-    # Total count rabbits
-    "Catch 1 Grass Rabbit": {
-        "region_id": "Grass Rabbit Count 1",
+LOCATIONS_DATA |= {
+    f"Catch 1 {realm} Rabbit": {
+        "region_id": f"{realm} Rabbit Count 1",
         "rabbit": True,
         "count": 1,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 2 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 2",
-        "rabbit": True,
-        "count": 2,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 3 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 3",
-        "rabbit": True,
-        "count": 3,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 4 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 4",
-        "rabbit": True,
-        "count": 4,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 5 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 5",
-        "rabbit": True,
-        "count": 5,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 6 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 6",
-        "rabbit": True,
-        "count": 6,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 7 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 7",
-        "rabbit": True,
-        "count": 7,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 8 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 8",
-        "rabbit": True,
-        "count": 8,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 9 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 9",
-        "rabbit": True,
-        "count": 9,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 10 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 10",
-        "rabbit": True,
-        "count": 10,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 1 Snow Rabbit": {
-        "region_id": "Snow Rabbit Count 1",
-        "rabbit": True,
-        "count": 1,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 2 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 2",
-        "rabbit": True,
-        "count": 2,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 3 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 3",
-        "rabbit": True,
-        "count": 3,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 4 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 4",
-        "rabbit": True,
-        "count": 4,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 5 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 5",
-        "rabbit": True,
-        "count": 5,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 6 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 6",
-        "rabbit": True,
-        "count": 6,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 7 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 7",
-        "rabbit": True,
-        "count": 7,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 8 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 8",
-        "rabbit": True,
-        "count": 8,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 9 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 9",
-        "rabbit": True,
-        "count": 9,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 10 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 10",
-        "rabbit": True,
-        "count": 10,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 1 Sand Rabbit": {
-        "region_id": "Sand Rabbit Count 1",
-        "rabbit": True,
-        "count": 1,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 2 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 2",
-        "rabbit": True,
-        "count": 2,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 3 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 3",
-        "rabbit": True,
-        "count": 3,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 4 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 4",
-        "rabbit": True,
-        "count": 4,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 5 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 5",
-        "rabbit": True,
-        "count": 5,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 6 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 6",
-        "rabbit": True,
-        "count": 6,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 7 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 7",
-        "rabbit": True,
-        "count": 7,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 8 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 8",
-        "rabbit": True,
-        "count": 8,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 9 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 9",
-        "rabbit": True,
-        "count": 9,
-        "location_groups": ["Total Sand Rabbits"]
-    },
-    "Catch 10 Sand Rabbits": {
-        "region_id": "Sand Rabbit Count 10",
-        "rabbit": True,
-        "count": 10,
-        "location_groups": ["Total Sand Rabbits"]
-    },
+        "location_groups": [f"Total {realm} Rabbits"]
+    } for realm in ["Grass", "Snow", "Mountain", "Sand"]}
 
+LOCATIONS_DATA |= {
+    f"Catch {count} {realm} Rabbits": {
+        "region_id": f"{realm} Rabbit Count {count}",
+        "rabbit": True,
+        "count": count,
+        "location_groups": [f"Total {realm} Rabbits"]
+    } for count in range(2, 11) for realm in ["Grass", "Snow", "Mountain", "Sand"]}
+
+LOCATIONS_DATA |= {
     # Portal Checks
     "Forest Realm Shoot SW Portal": {
         "stage_id": 0x04,

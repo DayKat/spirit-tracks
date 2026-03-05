@@ -454,96 +454,18 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'dummy': True,
         "item_groups": ["Grass Rabbits"]
     },
-    # "Grass Rabbits (2)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 2,
-    #     "item_groups": ["Grass Rabbits"]
-    # },
-    # "Grass Rabbits (3)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 3,
-    #     "item_groups": ["Grass Rabbits"]
-    # },
-    # "Grass Rabbits (4)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 4,
-    #     "item_groups": ["Grass Rabbits"]
-    # },
-    # "Grass Rabbits (5)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 5,
-    #     "item_groups": ["Grass Rabbits"]
-    # },
-    # "Grass Rabbits (10)": {  # 10 item is only used for vanilla rabbits 1 location
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 10,
-    #     "item_groups": ["Grass Rabbits"]
-    # },
     "Snow Rabbit": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Snow Rabbits"]
     },
-    # "Snow Rabbits (2)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 2,
-    #     "item_groups": ["Snow Rabbits"]
-    # },
-    # "Snow Rabbits (3)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 3,
-    #     "item_groups": ["Snow Rabbits"]
-    # },
-    # "Snow Rabbits (4)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 4,
-    #     "item_groups": ["Snow Rabbits"]
-    # },
-    # "Snow Rabbits (5)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 5,
-    #     "item_groups": ["Snow Rabbits"]
-    # },
-    # "Snow Rabbits (10)": {
-    #     'classification': ItemClassification.progression,
-    #     "tags": ["rabbit"],
-    #     'dummy': True,
-    #     'value': 10,
-    #     "item_groups": ["Snow Rabbits"]
-    # },
-    # "Water Rabbit": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x262032,
-    #     'value': 1,
-    #     'incremental': True,
-    #     'size': 1
-    # },
-    # "Fire Rabbit": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x262034,
-    #     'value': 1,
-    #     'incremental': True,
-    #     'size': 1
-    # },
+    "Mountain Rabbit": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        "item_groups": ["Mountain Rabbits"]
+    },
     "Sand Rabbit": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
@@ -559,7 +481,7 @@ ITEMS_DATA |= {
         'dummy': True,
         'value': n,
         "item_groups": [f"{realm} Rabbits"]
-    } for n in list(range(2, 6)) + [10] for realm in ["Grass", "Snow", "Sand"]
+    } for n in list(range(2, 6)) + [10] for realm in ["Grass", "Snow", "Mountain", "Sand"]
 }
 
     # ========== Rupees and filler =============
