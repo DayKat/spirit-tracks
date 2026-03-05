@@ -354,9 +354,21 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Fire Realm
 
-    #"fire realm",
-    #"fire realm frog",
-    #"fire realm combat",
+    "fire realm",
+    "gorge tracks",
+    "fire source",
+    "mountain temple tracks",
+    "ends of the earth",
+    "disorientation station",
+    "fire realm rabbits",
+    "mountain rabbits",
+    "fire source rabbits",
+    "disorientation rabbits",
+    "eote rabbits",
+    "s mountain temple rabbit",
+    "disorientation bird",
+    "disorientation sod",
+    "eote puzzles",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm

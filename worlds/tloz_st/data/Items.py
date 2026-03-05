@@ -215,6 +215,14 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
     },
+    "Portal Unlock: Forest Cave to Goron Village": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
+    "Portal Unlock: Icy Spring to Mountain Temple": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
 
     # ========== Rail Maps ============
 
@@ -260,6 +268,12 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x08,
         'item_groups': ["Restoration Tracks", "Rail Items", "Ocean Tracks"],
     },
+    "Mountain Temple Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.rail_restorations,
+        'value': 0x10,
+        'item_groups': ["Restoration Tracks", "Rail Items", "Fire Tracks"],
+    },
     "Desert Temple Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
@@ -294,7 +308,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x02,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Ocean Tracks", "Misc Tracks"],
     },
     "E Mayscore Bridge Tracks": {
         'classification': ItemClassification.progression,
@@ -330,19 +344,19 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x01,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
     },
     "N Castle Town Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x02,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
     },
     "Snow Realm Bridge Tracks": { # has portal to ocean realm
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x08,
-        'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
     },
     "N Icy Spring Tracks": {
         'classification': ItemClassification.progression,
@@ -368,7 +382,24 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x04,
         'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks"],
     },
-
+    "Ends of the Earth Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_0,
+        'value': 0x10,
+        'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks"],
+    },
+    "Disorientation Station Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x10,
+        'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks"],
+    },
+    "Snow Realm Gorge Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x08,
+        'item_groups': ["Rail Items", "Snow Tracks", "Fire Tracks", "Misc Tracks"],
+    },
 
     # ========= Force Gems ==============
 

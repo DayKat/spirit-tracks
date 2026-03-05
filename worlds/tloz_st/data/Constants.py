@@ -87,6 +87,7 @@ STAGE_FLAGS = {
     # 0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
+    0x3C: [0x2, 0x0, 0x0, 0x0],  # GTR
     0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
     0x1d: [0x0, 0x3, 0x9, 0x0], # Desert Temple
 }
@@ -97,8 +98,11 @@ STAGES = {
     0x6: "Ocean Realm",
     0x7: "Fire Realm",
     0x8: "Train Tutorial",
+    # 0x9: "Lost in the Woods",
     0xA: "Underwater Tracks",
-    0xb: "SR Rocktite Tunnel",
+    0xB: "Snow Realm Rocktite Tunnel",
+    0xC: "Sand Trial Rocktite Tunnel",
+    0xD: "Goron Target Range",
     0xF: "Dark Realm",
     0x10: "Demon Train",
     0x11: "Demon Train P2",
@@ -111,9 +115,12 @@ STAGES = {
     0x19: "Wooded Temple",
     0x1A: "Blizzard Temple",
     0x1B: "Marine Temple",
+    0x1C: "Mountain Temple",
     0x1D: "Desert Temple",
     0x1E: "Stagnox",
     0x1F: "Fraaz",
+    0x20: "Cactops/Phytops",
+    0x21: "Cragma/Vulcano",
     0x22: "Skeldritch",
     0x23: "Staven Fight",
     0x24: "Cole Fight",
@@ -125,10 +132,13 @@ STAGES = {
     0x2A: "Mayscore",
     0x2B: "Anouki Village",
     0x2C: "Papuzia Village",
+    0x2D: "Goron Village West",
+    0x2E: "Goron Village",
     0x2F: "Outset Village",
     0x30: "Forest Sanctuary",
     0x31: "Snow Sanctuary",
     0x32: "Ocean Sanctuary",
+    0x33: "Fire Sanctuary",
     0x34: "Sand Sanctuary",
     0x35: "Icy Spring",
     0x36: "Bridge Worker's Home",
@@ -137,11 +147,14 @@ STAGES = {
     0x39: "Papuzia Village South",
     0x3A: "Pirate Hideout",
     0x3B: "Pirate Hideout Minigame",
+    0x3C: "Goron Target Range Station",
+    0x3D: "Dark Ore Mine",
     0x3E: "Rabbit Haven",
     0x3F: "Snowdrift/Slippery Station",
-    # 0x44: "Train Interior CS",
-    # 0x50: "Train roof CS",
+    0x40: "Disorientation Station",
+    0x41: "Ends of the Earth",
     0x42: "Lost at Sea Dungeon",
+    # 0x44: "Train Interior CS",
     0x45: "Beedle, Train NPCs",
     0x46: "Take 'em all on Forest theme",
     0x47: "Take 'em all on Snow theme",
@@ -153,6 +166,7 @@ STAGES = {
     0x4D: "TEAO Cactops",
     0x4E: "TEAO Vulcano",
     0x4F: "TEAO Capbone",
+    # 0x50: "Train roof CS",
     0x79: "From Menu",
 }
 

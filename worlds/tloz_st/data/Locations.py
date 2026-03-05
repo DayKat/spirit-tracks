@@ -1943,6 +1943,91 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
 
+    # ========= Fire Realm ==========
+    "Disorientation Station Bird Chest": {
+        "stage_id": 0x40,
+        "region_id": "disorientation bird",
+        "x_min": -60000,
+        "x_max": -35000,
+        "z_min": 5000,
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Climb Chest": {
+        "stage_id": 0x40,
+        "region_id": "disorientation bird",
+        "x_max": -85000,
+        "z_min": -10000,
+        "vanilla_item": "Red Rupee (20)",
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Cliff Chest": {
+        "stage_id": 0x40,
+        "region_id": "disorientation bird",
+        "x_min": 55000,
+        "z_max": -40000,
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Maze Chest": {
+        "stage_id": 0x40,
+        "room_id": 0x9,
+        "region_id": "disorientation sod",
+        "vanilla_item": "Treasure: Priceless Stone",
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Guard Gift": {
+        "stage_id": 0x40,
+        "x_max": -55000,
+        "z_max": -30000,
+        "region_id": "disorientation sod",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Disorientation Station"],
+    },
+    # Ends of the Earth
+    "Ends of the Earth Master Big Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x4,
+        "region_id": "eote puzzles",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Master Small Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x1,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Tempered Big Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x8,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Heart Container",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Tempered Small Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x5,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Golden Big Chest": {
+        "stage_id": 0x41,
+        "room_id": 0xC,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Treasure: Regal Ring",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Golden Small Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x9,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Ends of the Earth"],
+    },
+
     # ========= Sand Realm ==========
     "Sand Sanctuary Song of Restoration": {
         "stage_id": 0x34,
@@ -2642,7 +2727,7 @@ LOCATIONS_DATA = {
         "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
     },
 
-    # New locations to not mess locations ids until we're ready
+    # Shops
     "Snow Sanctuary Shop Heart Container": {
         "stage_id": 0x31,
         "room_id": 3,

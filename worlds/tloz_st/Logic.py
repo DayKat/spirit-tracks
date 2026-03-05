@@ -120,6 +120,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "tos", True, lambda state: st_can_enter_tos(state, player)],
         ["snow realm source", "tos", True, lambda state: st_can_enter_tos(state, player) and st_has_source(state, player, "Snow") and st_soft_cannon(state, player)],
         ["ocean realm source", "tos", True, lambda state: st_can_enter_tos(state, player) and st_has_source(state, player, "Ocean")],
+        ["fire source", "tos", True, lambda state: st_can_enter_tos(state, player) and st_has_source(state, player, "Fire")],
 
         ["tos", "tos 1f", True, None],
         ["tos", "tos 2", False, lambda state: st_can_enter_tos_section(state, player, 2)],
@@ -437,6 +438,45 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["las 3rd room chest", "las 4th room chest", False, lambda state: st_has_whip(state, player)],
         ["las 4th room chest", "las 5th room", False, lambda state: st_has_bombs(state, player) or st_option_hard_logic(state, player)],
 
+        # ===== Fire Realm =====
+        ["blizzard temple tracks", "fire realm", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_temple_tracks(state, player, "Blizzard") and st_has_cannon(state, player)],
+        ["blizzard temple tracks", "gorge tracks", True, lambda state: st_has_misc_tracks(state, player, "Snow Realm Gorge") and st_has_temple_tracks(state, player, "Blizzard")],
+        ["gorge tracks", "fire realm", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player, "Snow Realm Gorge")],
+        ["fire realm", "fire source", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_source(state, player, "Fire")],
+        ["mountain temple tracks", "fire source", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_source(state, player, "Fire")],
+        ["mountain temple tracks", "fire realm", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_glyph(state, player, "Fire")],
+        ["mountain temple tracks", "ends of the earth", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player, "Ends of the Earth")],
+        ["mountain temple tracks", "disorientation station", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player,"Disorientation Station")],
+        ["fire realm", "disorientation station", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player,"Disorientation Station")],
+        ["fire realm", "sand connection", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player,"Sand to Fire Connection")],
+        ["mountain temple tracks", "dark ore mine", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player,"Dark Ore Mine")],
+
+        ["fire realm", "fire realm rabbits", False, lambda state: st_has_net(state, player)],
+        ["mountain temple tracks", "mountain rabbits", False, lambda state: st_has_net(state, player)],
+        ["fire source", "fire source rabbits", False, lambda state: st_has_net(state, player)],
+        ["disorientation station", "disorientation rabbits", False, lambda state: st_has_net(state, player)],
+        ["ends of the earth", "eote rabbits", False, lambda state: st_has_net(state, player)],
+        ["fire source", "s mountain temple rabbit", False, lambda state: st_has_net(state, player)],
+        ["mountain temple tracks", "s mountain temple rabbit", False, lambda state: st_has_net(state, player)],
+
+        ["fire realm", "forest cave tracks", False, lambda state: st_has_misc_tracks(state, player,"W Forest Realm") and st_has_portal(state, player, "Forest Cave to Goron Village", False)],
+        ["forest cave tracks", "fire realm", False, lambda state: st_has_glyph(state, player, "Fire") and st_has_portal(state, player,"Forest Cave to Goron Village",True)],
+        ["mountain temple tracks", "icyspring tracks", False, lambda state: st_has_misc_tracks(state, player,"N Icy Spring") and st_has_portal(state, player,"Icy Spring to Mountain Temple",False)],
+        ["icyspring tracks", "mountain temple tracks", False, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_portal(state, player,"Icy Spring to Mountain Temple",True)],
+
+        # Goron Village
+
+        # Cannon Game
+
+        # Mountain Temple
+
+        # Disorientation Station
+        ["disorientation station", "disorientation bird", False, lambda state: st_hard_birds(state, player)],
+        ["disorientation bird", "disorientation sod", False, lambda state: st_has_discovery_song(state, player)],
+
+        # Ends of the Earth
+        ["ends of the earth", "eote puzzles", False, lambda state: st_has_sand_wand(state, player)],
+
         # ===== Sand Realm =====
         ["ocean realm source", "sand realm", True, lambda state: st_has_source(state, player, "Ocean") and st_has_misc_tracks(state, player, "Sand Realm")],
         ["sand realm", "sand restoration", False, lambda state: st_has_temple_tracks(state, player, "Desert") and st_has_misc_tracks(state, player, "Sand Realm") and st_has_cannon(state, player)],
@@ -480,10 +520,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["skeldritch", "skeldritch event", False, None],
 
         # ===== Dark ore mine =====
-        ["sand restoration", "dark ore mine", False, lambda state: st_has_misc_tracks(state, player, "Dark Ore Mine")
-                                                                         and st_soft_cannon(state, player)],
-        ["dark ore mine", "sand restoration", False, lambda state: st_has_temple_tracks(state, player, "Desert")
-                                                                         and st_has_cannon(state, player)],
+        ["sand restoration", "dark ore mine", False, lambda state: st_has_misc_tracks(state, player, "Dark Ore Mine") and st_soft_cannon(state, player)],
+        ["dark ore mine", "sand restoration", False, lambda state: st_has_temple_tracks(state, player, "Desert") and st_has_cannon(state, player)],
         ["dark ore mine", "dark ore mine sod", False, lambda state: st_has_discovery_song(state, player)],
 
         # ===== Dark Realm =====
