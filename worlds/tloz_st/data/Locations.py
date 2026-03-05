@@ -2881,7 +2881,7 @@ LOCATIONS_DATA = {
         "slot_data": [("shopsanity", "ammo")],
     },
     # Passenger locations
-    "Bridge Worker's House Pick Up Kenzo": {
+    "Bridge Worker's Home Pick Up Kenzo": {
         "stage_id": 0x36,
         "room_id": 0x1,
         "address": STAddr.adv_flags_18,
