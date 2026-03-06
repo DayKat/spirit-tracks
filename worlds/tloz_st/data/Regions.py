@@ -145,6 +145,7 @@ REGIONS = [
     "mayscore whip race bomb bag",
     "mayscore whip race heart container",
     "mayscore whip chest",
+    "mayscore dovok",
     "mayscore shop",
     "mayscore lumber",
     "mayscore leaves",
@@ -295,6 +296,7 @@ REGIONS = [
     "ocean realm source",
     "pirate hideout tracks",
     "las tracks",
+    "ocean portal tracks",
 
     #Ocean Sanctuary
     "ocs",
@@ -310,6 +312,7 @@ REGIONS = [
     "papuchia village south",
     "papuchia village song statue",
     "papuchia village stamp station",
+    "pv dovok",
     "papuzia buy cargo",
     "papuzia shop",
     "papuzia shop bombs",

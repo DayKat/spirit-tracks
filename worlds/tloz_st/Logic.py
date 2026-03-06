@@ -218,6 +218,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mayscore", "mayscore stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
         ["mayscore", "mayscore leaves", False, lambda state: st_has_whirlwind(state, player)],
+        ["mayscore", "mayscore dovok", False, lambda state: st_has_glyph(state, player, "Ocean")],
 
         # # ======== Forest Sanctuary =========
 
@@ -381,6 +382,13 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean realm source", "pirate hideout tracks", True, lambda state: st_has_source(state, player, "Ocean")
                                                                             and st_has_misc_tracks(state, player, "Pirate Hideout")],
         ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
+        # ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
+        #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
+        ["ocean realm", "ocean portal tracks", True, lambda state: st_has_glyph(state, player, "Ocean")],
+        ["ocean realm source", "ocean portal tracks", True, lambda state: st_has_source(state, player, "Ocean")],
+        ["ocean temple tracks", "ocean portal tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
+
+
 
         # ========== Ocean Sanctuary =============
         ["ocean realm", "ocs", False, None],
@@ -397,6 +405,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ========== Papuchia Village =============
         ["ocean realm", "papuchia village", False, None],
         ["papuchia village", "papuchia village song statue", False, lambda state: st_has_discovery_song(state, player)],
+        ["papuchia village", "pv dovok", False, lambda state: state.has("Passenger: Dovok", player) or state.has("_dovok", player)],
         ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_birds_song(state, player)],
         ["papuchia village", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song
         ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")],
