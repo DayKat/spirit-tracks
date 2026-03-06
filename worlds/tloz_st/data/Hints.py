@@ -27,7 +27,7 @@ HINT_DATA = {
         "scenes": [0x3800],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 3, 4])],
     },
-    "Forest Sanctuary Song of Restoration": {
+    "Woodland Sanctuary Song of Restoration": {
         "scenes": [0x3001],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 2, 3, 4])],
     },

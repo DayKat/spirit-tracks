@@ -30,7 +30,7 @@ LOCATIONS_DATA = {
     },
     "Outset Stamp Station": {
         "region_id": "outset village stamp station",
-        "vanilla_item": "Stamp: Outset",
+        "vanilla_item": "Stamp: Outset Village",
         "stage_id": 0x2F,
         "room_id": 0,
         "stamp": 2,
@@ -1002,17 +1002,17 @@ LOCATIONS_DATA = {
         "slot_data": [("randomize_minigames", [1, 3, 4])],
     },
 
-    # Forest Sanctuary
-    "Forest Sanctuary Stamp Station": {
+    # Woodland Sanctuary
+    "Woodland Sanctuary Stamp Station": {
         "region_id": "fos stamp station",
-        "vanilla_item": "Stamp: Forest Sanctuary",
+        "vanilla_item": "Stamp: Woodland Sanctuary",
         "stage_id": 0x30,
         "room_id": 0,
         "stamp": 4,
-        "location_groups": ["Forest Sanctuary"],
+        "location_groups": ["Woodland Sanctuary"],
         "conditional": True
     },
-    "Forest Sanctuary Song Statue": {
+    "Woodland Sanctuary Song Statue": {
         "region_id": "fos song statue",
         "vanilla_item": "Song of Awakening",
         "stage_id": 0x30,
@@ -1021,9 +1021,9 @@ LOCATIONS_DATA = {
         "x_max": -18104,
         "z_min": 5734,
         "z_max": 18842,
-        "location_groups": ["Forest Sanctuary", "Song Statue"],
+        "location_groups": ["Woodland Sanctuary", "Song Statue"],
     },
-    "Forest Sanctuary Chest": {
+    "Woodland Sanctuary Chest": {
         "region_id": "fos chest",
         "vanilla_item": "Red Rupee (20)",
         "x_min": 9228,
@@ -1032,9 +1032,9 @@ LOCATIONS_DATA = {
         "z_max": 52120,
         "stage_id": 0x30,
         "room_id": 0,
-        "location_groups": ["Forest Sanctuary"],
+        "location_groups": ["Woodland Sanctuary"],
     },
-    "Forest Sanctuary Song of Restoration": {
+    "Woodland Sanctuary Song of Restoration": {
         "stage_id": 0x30,
         "room_id": 0x1,
         "region_id": "fos song statue",
@@ -1042,7 +1042,7 @@ LOCATIONS_DATA = {
         "value": 2,
         "minigame": [1, 2, 3, 4],
         "conditional": True,
-        "location_groups": ["Forest Sanctuary", "Restoration Duets"],
+        "location_groups": ["Woodland Sanctuary", "Restoration Duets"],
     },
 
     # Wooded Temple
@@ -2092,7 +2092,7 @@ LOCATIONS_DATA = {
     },
 
     # ========= Sand Realm ==========
-    "Sand Sanctuary Song of Restoration": {
+    "Dune Sanctuary Song of Restoration": {
         "stage_id": 0x34,
         "room_id": 0x2,
         "region_id": "sand sanc song",
@@ -2100,14 +2100,14 @@ LOCATIONS_DATA = {
         "value": 0x20,
         "minigame": [1, 2, 3, 4],
         "conditional": True,
-        "location_groups": ["Sand Sanctuary", "Restoration Duets"],
+        "location_groups": ["Dune Sanctuary", "Restoration Duets"],
     },
-    "Sand Sanctuary Stamp Stand": {
+    "Dune Sanctuary Stamp Stand": {
         "stage_id": 0x34,
         "region_id": "sand sanc stamp stand",
-        "vanilla_item": "Stamp: Sand Sanctuary",
+        "vanilla_item": "Stamp: Dune Sanctuary",
         "stamp": 0xB,
-        "location_groups": ["Sand Sanctuary"],
+        "location_groups": ["Dune Sanctuary"],
         "conditional": True
     },
     # Dark Ore Mine
@@ -3264,13 +3264,13 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "linebeck dark ore"
     },
-    "Sand Sanctuary Deliver Cuccos to Rael": {
+    "Dune Sanctuary Deliver Cuccos to Rael": {
         "stage_id": 0x34,
         "room_id": 0x0,
         "address": STAddr.adv_flags_d,
         "value": 0x8,
         # "vanilla_item": "Ends of the Earth Tracks",
-        "location_groups": ["Sand Sanctuary", "Deliver Cargo"],
+        "location_groups": ["Dune Sanctuary", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
         "region_id": "sand sanc cuccos"

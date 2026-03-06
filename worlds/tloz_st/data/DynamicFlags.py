@@ -30,12 +30,12 @@ DYNAMIC_FLAGS = {
     },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
-        "not_has_locations": ["Forest Sanctuary Song Statue"],
+        "not_has_locations": ["Woodland Sanctuary Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x01)],
         "reset_flags": ["RESET fs statue"]
     },
     "RESET fs statue": {
-        #"has_locations": ["Forest Sanctuary Song Statue"],
+        #"has_locations": ["Woodland Sanctuary Song Statue"],
         "has_items": [["Song of Awakening", 1]],
         "set_if_true": [(STAddr.songs, 0x01)],
     },
@@ -232,16 +232,6 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_2, 0x04)],
         "has_items": [["Fire Glyph", 1]],
     },
-    # "Forest Sanctuary reset duet":{ #TODO wrong flag?
-    #     "on_scenes": [0x3001],
-    #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
-    #     "unset_if_true": [(0x265715, 0x01)]
-    # },
-    # "Assume duet done outside room":{
-    #     "on_scenes": [0x3000],
-    #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
-    #     "set_if_true": [(0x265715, 0x01)]
-    # },
 
     # Portals
     "Allow Portal near castle town always open": {
@@ -434,7 +424,7 @@ DYNAMIC_FLAGS = {
     "Gage can play duet": {
         "on_scenes": [0x3001],
         "has_items": [("Spirit Flute", 1)],
-        "not_has_locations": ["Forest Sanctuary Song of Restoration"],
+        "not_has_locations": ["Woodland Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 1)]
     },
     "Gage Reset flags": {
@@ -496,7 +486,7 @@ DYNAMIC_FLAGS = {
     "Rael can play duet": {
         "on_scenes": [0x3502],
         "has_items": [("Spirit Flute", 1)],
-        "not_has_locations": ["Sand Sanctuary Song of Restoration"],
+        "not_has_locations": ["Dune Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Rael Always remove dtt ": {
@@ -1085,13 +1075,13 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3400],
         "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
-        "not_has_locations": ["Sand Sanctuary Deliver Cuccos to Rael"],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
     },
     "Keep rael upstairs": {
         "on_scenes": [0x3400],
-        "has_locations": ["Sand Sanctuary Deliver Cuccos to Rael"],
+        "has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Papuzia has ice": {

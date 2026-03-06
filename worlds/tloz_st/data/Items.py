@@ -1095,7 +1095,7 @@ ITEMS_DATA |= {
         "item_groups": ["Stamps"],
         "value": 1
     },
-    "Stamp: Outset": {
+    "Stamp: Outset Village": {
         "classification": ItemClassification.progression,
         "item_groups": ["Stamps"],
         "value": 2
@@ -1105,7 +1105,7 @@ ITEMS_DATA |= {
         "item_groups": ["Stamps"],
         "value": 3
     },
-    "Stamp: Forest Sanctuary": {
+    "Stamp: Woodland Sanctuary": {
         "classification": ItemClassification.progression,
         "item_groups": ["Stamps"],
         "value": 4
@@ -1135,12 +1135,12 @@ ITEMS_DATA |= {
         "item_groups": ["Stamps"],
         "value": 9
     },
-    "Stamp: Fire Sanctuary": {
+    "Stamp: Valley Sanctuary": {
         "classification": ItemClassification.progression,
         "item_groups": ["Stamps"],
         "value": 0xA
     },
-    "Stamp: Sand Sanctuary": {
+    "Stamp: Dune Sanctuary": {
         "classification": ItemClassification.progression,
         "item_groups": ["Stamps"],
         "value": 0xB

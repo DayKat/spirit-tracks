@@ -51,7 +51,7 @@
     {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"},
     {"name": "Mayscore Whip Race Bomb Bag"}, {"name": "Mayscore Whip Race Heart Container"}
   ], "map_locations":[{"map": "Overview", "x": 332, "y": 594}]},
-{"name": "Forest Sanctuary", "sections": [{"name": "Forest Sanctuary Stamp Station"}, {"name": "Forest Sanctuary Song Statue"}, {"name": "Forest Sanctuary Chest"}, {"name": "Forest Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 212, "y": 574}]},
+{"name": "Woodland Sanctuary", "sections": [{"name": "Woodland Sanctuary Stamp Station"}, {"name": "Woodland Sanctuary Song Statue"}, {"name": "Woodland Sanctuary Chest"}, {"name": "Woodland Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 212, "y": 574}]},
 {"name": "Wooded Temple", "sections": [
   {"name": "Wooded Temple Song Statue"},
   {"name": "Wooded Temple Stamp Station"},
@@ -286,10 +286,10 @@
     {"name": "Ends of the Earth Golden Small Chest"}
   ], "map_locations":[{"map": "Overview", "x": 956, "y": 44}]},
 
-  {"name": "Sand Sanctuary", "sections": [
-    {"name": "Sand Sanctuary Song of Restoration"},
-    {"name": "Sand Sanctuary Deliver Cuccos to Rael"},
-    {"name": "Sand Sanctuary Stamp Stand"}
+  {"name": "Dune Sanctuary", "sections": [
+    {"name": "Dune Sanctuary Song of Restoration"},
+    {"name": "Dune Sanctuary Deliver Cuccos to Rael"},
+    {"name": "Dune Sanctuary Stamp Stand"}
   ], "map_locations":[{"map": "Overview", "x": 692, "y": 428}]},
     {"name": "Dark Ore Mine", "sections": [
       {"name": "Dark Ore Mine Song of Discovery Chest"},
