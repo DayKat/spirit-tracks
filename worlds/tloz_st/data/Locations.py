@@ -3121,7 +3121,7 @@ LOCATIONS_DATA |= {
         "value": 0x4,
         "region_id": "mayscore dovok",
         "vanilla_item": "Passenger: Dovok",
-        "location_groups": ["Mayscore, Pick Up Passengers"],
+        "location_groups": ["Mayscore", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
     },
@@ -3135,7 +3135,7 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "region_id": "pv dovok",
-    }
+    },
     "Papuzia Village Buy Fish": {
         "stage_id": 0x2C,
         "room_id": 0x0,
