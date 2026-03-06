@@ -582,6 +582,12 @@ class SpiritTracksWorld(WorldParent):
                 if ENTRANCES[e.name].id in disconnect_ids:
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
+            if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
+                print(f"Reconnecting entrances {self.ut_pairings}")
+                for i, pairing in self.ut_pairings.items():
+                    _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
+                    entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                    _exit.connect(entrance_region)
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
