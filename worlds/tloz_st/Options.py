@@ -503,6 +503,37 @@ class SpiritTracksRandomizeBossKeys(Choice):
     option_anywhere = 2
     default = 0
 
+class SpiritTracksStampItems(Choice):
+    """
+    What to do with stamps. Yet another currency!
+    - no_stamp_stands: don't randomize stamp book, stamps stands or stamp rewards from Niko
+    - vanilla: Stamp stands give stamps, that are neither archipelago items nor locations, that count towards Niko rewards, that are randomized.
+    - vanilla_with_location: stamp stands are randomized locations, but also give non-archipelago-item stamps that count towards Niko rewards.
+    - vanilla_items: stamp stands are locations, that give stamp items.
+    - randomized: stamp stands are locations, and stamps are items that you need to find.
+    """
+    display_name = "Randomize Stamps"
+    option_no_stamp_stands = 0
+    option_vanilla = 4
+    option_vanilla_with_location = 1
+    option_vanilla_items = 2
+    option_randomize = 3
+    default = 1
+
+class SpiritTracksStampItemPacks(NamedRange):
+    """
+    Change the size of your stamp packs.
+    - random_mixed (-1): chooses a mix of different pack sizes at random
+    """
+    display_name = "Stamp Pack Size"
+    range_start = 1
+    range_end = 5
+    option_random_mixed = -1
+    default = -1
+    special_range_names = {
+        "random_mixed": -1
+    }
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -525,10 +556,14 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
     randomize_boss_keys: SpiritTracksRandomizeBossKeys
+
     randomize_minigames: SpiritTracksRandomizeMinigames
     minigame_hints: SpiritTracksMinigameHints
+
     start_with_train: SpiritTracksStartWithTrain
 
+    randomize_stamps: SpiritTracksStampItems
+    stamp_pack_sizes: SpiritTracksStampItemPacks
     randomize_passengers: SpiritTracksRandomizePassengers
     randomize_cargo: SpiritTracksRandomizeCargo
 
@@ -588,6 +623,8 @@ st_option_groups = [
         SpiritTracksRandomizeBossKeys,
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,
+        SpiritTracksStampItems,
+        SpiritTracksStampItemPacks,
         SpiritTracksRandomizePortals,
         SpiritTracksPortalLocations,
         SpiritTracksRandomizePassengers,

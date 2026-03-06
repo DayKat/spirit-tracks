@@ -94,6 +94,10 @@ async def remove_cargo(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     ]
     return res
 
+async def handle_stamps(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    await client.update_stamps(ctx)
+    return []
+
 async def dummy(*args):
     print(f"Receiving dummy item")
     return []
@@ -117,6 +121,8 @@ class STItem(DSItem):
             return receive_tos_key
         if "Potion" in self.name:
             return receive_potion
+        if self.name.startswith("Stamp"):
+            return handle_stamps
         return res
 
     def get_remove_vanilla_function(self):
@@ -130,6 +136,8 @@ class STItem(DSItem):
             return remove_passenger
         if self.name.startswith("Cargo:"):
             return remove_cargo
+        if self.name.startswith("Stamp"):
+            return handle_stamps
         return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):

@@ -146,6 +146,9 @@ class SpiritTracksWorld(WorldParent):
         self.tower_pairings = []  # zip object of entrance strings
         self.tower_section_lookup = {i:i for i in range(1, 7)}  # tower section lookup for logic
 
+        self.stamp_items = []
+        self.stamp_pack_order = []
+
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
@@ -172,6 +175,7 @@ class SpiritTracksWorld(WorldParent):
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
+            self.choose_stamp_items()
             # print(f"Rabbit items: {self.rabbit_item_dict}")
             self.plando_tos_sections()
 
@@ -275,6 +279,14 @@ class SpiritTracksWorld(WorldParent):
             r: ("Sand Rabbit", ITEMS[r].value) for r in sand_rabbits[1:]
         } | {
             t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
+        } | {
+            i: ("Stamp", ITEMS[i].value) for i in ITEM_GROUPS["Stamp Packs"]
+        } | {
+            i: ("Stamp", 1) for i in ITEM_GROUPS["Stamps"]
+        } | {
+
+        # Events
+            "_stamp_stand": ("Stamp", 1)
         }
 
     def pick_required_dungeons(self) -> list[str]:
@@ -367,7 +379,11 @@ class SpiritTracksWorld(WorldParent):
             return self.options.randomize_tears.value != -1  # not vanilla
         if "minigame" in location_data and self.options.randomize_minigames:
             return self.options.randomize_minigames.value in location_data["minigame"]
-        if self.options.shopsanity:
+        if location_name in LOCATION_GROUPS["Stamp Stands"]:
+            return self.options.randomize_stamps.value in [2, 3]
+        if location_name in LOCATION_GROUPS["Niko"]:
+            return self.options.randomize_stamps
+        if self.options.shopsanity and location_name in LOCATION_GROUPS["Shop Locations"]:
             if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
                 if "uniques" in self.options.shopsanity.value:
                     return False
@@ -454,6 +470,9 @@ class SpiritTracksWorld(WorldParent):
              for regions, realm in zip([forest_regions, snow_regions, mountain_regions, sand_regions], ["grass", "snow", "mountain", "sand"])
              for reg, count in regions.items()]
 
+        if self.options.randomize_stamps.value in [1, 4]:
+            [self.create_event(LOCATIONS_DATA[loc]["region_id"], "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"]]
+
         # Create rupee farming events
         rupee_farming_regions = ["mayscore whip chest", "mayscore leaves", "trading post leaves",
                                  "hyrule castle sword minigame", "castle town"]
@@ -480,16 +499,6 @@ class SpiritTracksWorld(WorldParent):
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
-
-        # If non required dungeons need to be excluded, and not UT
-        # if self.options.exclude_non_required_dungeons and not getattr(self.multiworld, "generation_is_fake", False):
-        #     # always_include = ["Temple of the Ocean King", "Mountain Passage"]
-        #     always_include = []
-        #     excluded_dungeons = [d for d in DUNGEON_NAMES
-        #                          if d not in self.required_dungeons + always_include]
-        #     self.excluded_dungeons = excluded_dungeons
-        #     for dungeon in excluded_dungeons:
-        #         locations_to_exclude.update(self.dungeon_name_groups[dungeon])
 
         self.ut_locations_to_exclude = locations_to_exclude.copy()
         self.locations_to_exclude = locations_to_exclude
@@ -581,22 +590,26 @@ class SpiritTracksWorld(WorldParent):
                     continue
                 filler_item_count += 1
                 continue
-            if self.options.randomize_passengers == "vanilla_abstract" and item_name.startswith("Passenger:"):
+            if "stamp" in loc_data and self.options.randomize_stamps.value == 2:
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                # print(f"Locking stamp item {item_name} to {loc_name}")
                 continue
-            if self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:"):
-                forced_item = self.create_item(item_name)
-                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
-                continue
-            if item_name in ["Filler Item", "Treasure", "Heart Container", "Tear of Light", "Small Key (ToS)",
-                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield", "Prize Postcards (10)"]:
+            if any([
+                item_name in ["Filler Item", "Treasure",
+                              "Heart Container", "Tear of Light", "Small Key (ToS)", "Great Spin Scroll"
+                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield",
+                              "Prize Postcards (10)"],
+                item_name.startswith("Stamp")
+                ]):
                 filler_item_count += 1
                 continue
             if any([
                 "Small Key" in item_name and self.options.keysanity == "vanilla",
                 loc_name.endswith("Boss Key") and self.options.randomize_boss_keys == "vanilla_abstract",
-                "force_vanilla" in loc_data and loc_data["force_vanilla"]
+                "force_vanilla" in loc_data and loc_data["force_vanilla"],
+                self.options.randomize_passengers == "vanilla_abstract" and item_name.startswith("Passenger:"),
+                self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:")
             ]):
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
@@ -619,6 +632,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.randomize_cargo: add_items += [("Wagon", 1)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
+        if self.options.randomize_stamps: add_items += self.stamp_items
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
         add_items += [(i, 1) for i in ITEM_GROUPS["Add Rails to Pool"]]
@@ -691,7 +705,7 @@ class SpiritTracksWorld(WorldParent):
                         rabbit_locations.append(realm_locs[max_count-1])
                     else:
                         rabbit_locations += realm_locs[i-1:max_count:i]
-                print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
+                # print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
                 self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
@@ -793,6 +807,34 @@ class SpiritTracksWorld(WorldParent):
 
         # print(f"New Tear Items: {add_items}")
         return add_items
+
+    def choose_stamp_items(self):
+        if self.options.randomize_stamps.value == 0:
+            return
+        self.stamp_items = [("Stamp Book", 1)]
+        if self.options.randomize_stamps.value in [1, 2, 4]:
+            return
+        if self.options.stamp_pack_sizes.value == 1:
+            self.stamp_items += [(s, 1) for s in ITEM_GROUPS["Stamps"]]
+            return
+
+        self.stamp_pack_order = list(range(20))
+        self.random.shuffle(self.stamp_pack_order)
+        if self.options.stamp_pack_sizes.value > 1:
+            item_count = math.ceil(20/self.options.stamp_pack_sizes.value)
+            self.stamp_items += [(f"Stamp Pack ({self.options.stamp_pack_sizes.value})", item_count)]
+        elif self.options.stamp_pack_sizes.value == -1:
+            sizes = []
+            while sum(sizes) < 20:
+                sizes.append(math.floor(self.random.triangular(1, 6, 1)))
+            stamp_value_lookup = {ITEMS[name].value: name for name in ITEM_GROUPS["Stamps"]}
+            stamp_dict = {i: 0 for i in range(2, 6)}
+            for s in sizes:
+                if s == 1:
+                    self.stamp_items.append((stamp_value_lookup[self.stamp_pack_order.pop()], 1))
+                else:
+                    stamp_dict[s] += 1
+            self.stamp_items += [(f"Stamp Pack ({size})", count) for size, count in stamp_dict.items() if count > 0]
 
 
     def create_items(self):
@@ -1079,11 +1121,13 @@ class SpiritTracksWorld(WorldParent):
                    "randomize_tears", "spirit_weapons", "tear_sections",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
                    "starting_train",
+                   "randomize_stamps",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections",
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons
+        slot_data["stamp_pack_order"] = self.stamp_pack_order
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
@@ -1092,7 +1136,6 @@ class SpiritTracksWorld(WorldParent):
         slot_data["er_pairings"] = pairings
         slot_data["tower_section_lookup"] = self.tower_section_lookup
         print(f"ER Pairings: {pairings}")
-
 
         return slot_data
 

@@ -129,6 +129,10 @@ class STAddr:
     tos3_boss_door = Address(0x33E482)
     tos5_boss_door = Address(0x33E182)
 
+    # Stamps
+    stamp_ids = Address(0x268f8c, size=20)
+    stamp_coords = Address(0x268F50, size=40)
+
     # Adventure Flags
     adv_flags_0 = Address(0x265714)
     adv_flags_1 = Address(0x265715)

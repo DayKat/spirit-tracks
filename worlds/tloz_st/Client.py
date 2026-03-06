@@ -187,6 +187,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_data = []
         self.entrances = ENTRANCES
         self.boss_warp_entrance = None
+        self.location_id_to_name = {loc["id"]: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -498,6 +499,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.in_stamp_stand and not self.receiving_location:
             self.receiving_location = True
             stamp_location = self.scene_to_stamp[self.current_scene] #TODO error when loading into slot (in fs) after receiving stamp book offline, scene refresh fixed
+            await self.update_stamps(ctx)
             await self._process_checked_locations(ctx, stamp_location)
 
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
@@ -885,3 +887,42 @@ class SpiritTracksClient(DSZeldaClient):
         # print(f"Deleting boss key @ {STAddr.boss_key_deletion}")
         await deletion_address.overwrite(ctx, 0)
 
+    async def update_stamps(self, ctx: "BizHawkClientContext"):
+        # Set all stamp coords to 0x484848b8 repeating with starting flags
+        # Fill stamp book as we go
+        stamp_ids = await STAddr.stamp_ids.read(ctx)
+        stamps = [(stamp_ids & (0xFF << 8*i)) >> 8*i for i in range(20)]
+        has_stamps = [s for s in stamps if s != 255]
+        stamp_count = len(has_stamps)
+
+        def remove_wrong_stamps(indexes):
+            for i in indexes:
+                stamps[i] = 0xFF
+
+        def add_missing_stamps(values):
+            for v in values:
+                stamps[stamps.index(255)] = v
+
+        wrong_stamp_indexes = []
+        missing_stamps = []
+
+        if ctx.slot_data["randomize_stamps"] == 1:  # vanilla_with_location
+            stamp_locations_received = [LOCATIONS_DATA[self.location_id_to_name[i]]["stamp"] for i in ctx.checked_locations if self.location_id_to_name[i] in LOCATION_GROUPS["Stamp Stands"]]
+            wrong_stamp_indexes = [stamp_ids.index(i) for i in has_stamps if i not in stamp_locations_received]
+            missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
+
+        elif ctx.slot_data["randomize_stamps"] in [2, 3]: # stamp items
+            stamp_items_received = [self.item_id_to_name[i.item] for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamps"]]
+            stamp_values_received = [self.item_data[i].value for i in stamp_items_received]
+            stamp_pack_count = sum([self.item_data[self.item_id_to_name[i.item]].value for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamp Packs"]])
+            stamp_pack_count = min(stamp_pack_count, len(ctx.slot_data.get("stamp_pack_order", [])))
+            stamp_values_received += ctx.slot_data.get("stamp_pack_order",[])[:stamp_pack_count]
+
+            wrong_stamp_indexes = [stamp_ids.index(i) for i in has_stamps if i not in stamp_values_received]
+            missing_stamps = [i for i in stamp_values_received if i not in has_stamps]
+
+        remove_wrong_stamps(wrong_stamp_indexes)
+        add_missing_stamps(missing_stamps)
+        await STAddr.stamp_ids.overwrite(ctx, stamps)
+
+        print(f"Has {stamp_count} stamps: {stamps}")

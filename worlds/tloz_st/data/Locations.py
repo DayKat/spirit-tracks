@@ -30,13 +30,13 @@ LOCATIONS_DATA = {
     },
     "Outset Stamp Station": {
         "region_id": "outset village stamp station",
+        "vanilla_item": "Stamp: Outset",
         "stage_id": 0x2F,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 2,
         "require_item": ["Stamp Book"],
         "location_groups": ["Outset Village"],
-        # 02271CD8 is array of stamp IDs
-        # 02271CF4 is bitfield of all stamps found
+        "conditional": True
     },
     "Outset Far Right Tree": {
         "region_id": "outset village trees",
@@ -60,18 +60,44 @@ LOCATIONS_DATA = {
         "z_max": 28762,
         "location_groups": ["Outset Village"],
     },
-    "Outset Receive Stamp Book": { # TODO: if using address read it triggers if you receive stamp book at start
+    "Outset Receive Stamp Book": {
         "region_id": "outset village stamp book",
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
         "room_id": 0x0A,
         "address": STAddr.adv_flags_25,
         "value": 0x2,
-        "x_min": -9816,
-        "x_max": 12156,
-        "z_min": -22938,
-        "z_max": 2247,
-        "location_groups": ["Outset Village"],
+        "location_groups": ["Outset Village", "Niko"],
+    },
+    "Outset Niko 10 Stamps Reward": {
+        "region_id": "outset 10 stamps",
+        "vanilla_item": "Shield",
+        "stage_id": 0x2F,
+        "room_id": 0x0A,
+        "address": STAddr.adv_flags_25,
+        "value": 0x4,
+        "location_groups": ["Outset Village", "Niko"],
+        "conditional": True
+    },
+    "Outset Niko 15 Stamps Reward": {
+        "region_id": "outset 15 stamps",
+        # "vanilla_item": "Stamp Book",
+        "stage_id": 0x2F,
+        "room_id": 0x0A,
+        "address": STAddr.adv_flags_25,
+        "value": 0x8,
+        "location_groups": ["Outset Village", "Niko"],
+        "conditional": True
+    },
+    "Outset Niko 20 Stamps Reward": {
+        "region_id": "outset 20 stamps",
+        "vanilla_item": "Great Spin Scroll",
+        "stage_id": 0x2F,
+        "room_id": 0x0A,
+        "address": STAddr.adv_flags_25,
+        "value": 0x10,
+        "location_groups": ["Outset Village", "Niko"],
+        "conditional": True
     },
 
     # Castle Town
@@ -79,9 +105,10 @@ LOCATIONS_DATA = {
         "region_id": "castle town stamp station",
         "stage_id": 0x29,
         "room_id": 0,
-        "stamp": True,
-        "vanilla_item": "Nothing!",
+        "stamp": 1,
+        "vanilla_item": "Stamp: Castle Town",
         "location_groups": ["Castle Town"],
+        "conditional": True
     },
     "Castle Town Left Wall Chest": {
         "region_id": "castle town wall",
@@ -853,12 +880,14 @@ LOCATIONS_DATA = {
         "tos_section": 5,
     },
     "ToS Stamp Stand": {
+        "vanilla_item": "Stamp: Tower of Spirits",
         "stage_id": 0x15,
         "room_id": 0x0,
         "region_id": "tos stamp stand",
         'dungeon': "ToS",
         "tos_section": "summit",
-        "stamp": True
+        "stamp": 0,
+        "conditional": True
     },
     # ToS 6
     "ToS 30F W Chest": {
@@ -928,11 +957,13 @@ LOCATIONS_DATA = {
     # Mayscore
     "Mayscore Stamp Station": {
         "region_id": "mayscore stamp station",
+        "vanilla_item": "Stamp: Mayscore",
         "stage_id": 0x38,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 3,
         "require_item": ["Stamp Book"],
         "location_groups": ["Mayscore"],
+        "conditional": True
     },
     "Mayscore Whip Chest": {
         "region_id": "mayscore whip chest",
@@ -973,10 +1004,12 @@ LOCATIONS_DATA = {
     # Forest Sanctuary
     "Forest Sanctuary Stamp Station": {
         "region_id": "fos stamp station",
+        "vanilla_item": "Stamp: Forest Sanctuary",
         "stage_id": 0x30,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 4,
         "location_groups": ["Forest Sanctuary"],
+        "conditional": True
     },
     "Forest Sanctuary Song Statue": {
         "region_id": "fos song statue",
@@ -1027,10 +1060,12 @@ LOCATIONS_DATA = {
     },
     "Wooded Temple Stamp Station": {
         "region_id": "wt stamp station",
+        "vanilla_item": "Stamp: Wooded Temple",
         "stage_id": 0x19,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 0xc,
         "dungeon": "Wooded Temple",
+        "conditional": True
     },
     "Wooded Temple 1F Enemy Chest": {
         "region_id": "wt 1f enemy chest",
@@ -1215,10 +1250,12 @@ LOCATIONS_DATA = {
     # Trading Post
     "Trading Post Stamp Station": {
         "region_id": "trading post stamp station",
+        "vanilla_item": "Stamp: Trading Post",
         "stage_id": 0x37,
         "room_id": 0x01,
-        "stamp": True,
+        "stamp": 0x12,
         "location_groups": ["Trading Post"],
+        "conditional": True
     },
     "Trading Post Song of Light Statue": {
         "region_id": "trading post light song statue",
@@ -1252,10 +1289,12 @@ LOCATIONS_DATA = {
     },
     "Anouki Village Stamp Station": {
         "region_id": "anouki village stamp station",
+        "vanilla_item": "Stamp: Anouki Village",
         "stage_id": 0x2B,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 5,
         "location_groups": ["Anouki Village"],
+        "conditional": True
     },
     "Anouki Village Song Statue": {
         "region_id": "anouki village song statue",
@@ -1307,10 +1346,12 @@ LOCATIONS_DATA = {
     # Snow Sanctuary
     "Snow Sanctuary Stamp Station": {
         "region_id": "ss stamp station",
+        "vanilla_item": "Stamp: Snowfall Sanctuary",
         "stage_id": 0x31,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 6,
         "location_groups": ["Snow Sanctuary"],
+        "conditional": True
     },
     "Snow Sanctuary Song of Restoration": {
         "stage_id": 0x31,
@@ -1381,10 +1422,12 @@ LOCATIONS_DATA = {
     },
     "Blizzard Temple Stamp Station": {
         "region_id": "bt stamp station",
+        "vanilla_item": "Stamp: Blizzard Temple",
         "stage_id": 0x1A,
         "room_id": 1,
-        "stamp": True,
+        "stamp": 0xd,
         "dungeon": "Blizzard Temple",
+        "conditional": True
     },
     "Blizzard Temple B1 NW Enemy Chest": {
         "region_id": "bt west",
@@ -1464,10 +1507,12 @@ LOCATIONS_DATA = {
     },
     "Icy Spring Stamp Station": {
         "region_id": "icyspring stamp station",
+        "vanilla_item": "Stamp: Icy Spring",
         "stage_id": 0x35,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 0x13,
         "location_groups": ["Icy Spring"],
+        "conditional": True
     },
 
     # Snowdrift Station
@@ -1544,11 +1589,13 @@ LOCATIONS_DATA = {
     # Ocean Sanctuary
     "Ocean Sanctuary Stamp Station": {
         "region_id": "ocs stamp station",
+        "vanilla_item": "Stamp: Ocean Sanctuary",
         "stage_id": 0x32,
         "room_id": 2,
-        "stamp": True,
+        "stamp": 8,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
-        "location_groups": ["Ocean Sanctuary"]
+        "location_groups": ["Ocean Sanctuary"],
+        "conditional": True
     },
 
     "Ocean Sanctuary Cucco Chest": {
@@ -1598,11 +1645,13 @@ LOCATIONS_DATA = {
 
     "Papuzia Village Stamp Station": {
         "region_id": "papuchia village stamp station",
+        "vanilla_item": "Stamp: Papuzia Village",
         "stage_id": 0x39,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 7,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
         "location_groups": ["Papuzia Village"],
+        "conditional": True
     },
 
     "Papuzia Village NE Chest": {
@@ -1700,11 +1749,13 @@ LOCATIONS_DATA = {
 
     "Marine Temple Stamp Station": {
         "region_id": "oct stamp station",
+        "vanilla_item": "Stamp: Marine Temple",
         "stage_id": 0x1B,
         "room_id": 7,
-        "stamp": True,
+        "stamp": 0xE,
         "dungeon": "Marine Temple",
         "require_item": ["Stamp Book", "Whip"],
+        "conditional": True
     },
 
     "Marine Temple 3F Puzzle Chest": {
@@ -1782,12 +1833,13 @@ LOCATIONS_DATA = {
     # Pirate Hideout
     "Pirate Hideout Stamp Station": {
         "region_id": "pirate hideout stamp station",
-        "vanilla_item": "Treasure",
+        "vanilla_item": "Stamp: Pirate Hideout",
         "stage_id": 0x3A,
         "room_id": 0,
-        "stamp": True,
+        "stamp": 0x11,
         "require_item": ["Stamp Book", "Whip", "Song of Birds"],
         "location_groups": ["Pirate Hideout"],
+        "conditional": True
     },
 
     "Pirate Hideout Secret Cave Left Treasure": {
@@ -2052,8 +2104,10 @@ LOCATIONS_DATA = {
     "Sand Sanctuary Stamp Stand": {
         "stage_id": 0x34,
         "region_id": "sand sanc stamp stand",
-        "stamp": True,
+        "vanilla_item": "Stamp: Sand Sanctuary",
+        "stamp": 0xB,
         "location_groups": ["Sand Sanctuary"],
+        "conditional": True
     },
     # Dark Ore Mine
     "Dark Ore Mine Song of Discovery Chest": {
@@ -2156,9 +2210,11 @@ LOCATIONS_DATA = {
     "Desert Temple B1 Stamp Stand": {
         "stage_id": 0x1D,
         "room_id": 0x3,
-        "stamp": True,
+        "stamp": 0x10,
         "region_id": "dt stamp stand",
+        "vanilla_item": "Stamp: Desert Temple",
         "dungeon": "Desert Temple",
+        "conditional": True
     },
     "Desert Temple B1 Near Boss Door Chest": {
         "stage_id": 0x1D,
@@ -3247,11 +3303,18 @@ for i, loc_data in enumerate(LOCATIONS_DATA.items()):
 # Combo groups
 # LOCATION_GROUPS["Tower of Spirits"] = {loc for i in range(1, 7) for loc in LOCATION_GROUPS[f"ToS {i}"] }
 LOCATION_GROUPS["Castle Station"] = LOCATION_GROUPS[f"Castle Town"] | LOCATION_GROUPS[f"Hyrule Castle"] | LOCATION_GROUPS[f"Tunnel to ToS"]
-LOCATION_GROUPS["Shop Locations"] = LOCATION_GROUPS["Shop Treasure Locations"] | LOCATION_GROUPS["Shop Unique Locations"]
-LOCATION_GROUPS["Unique Rabbits"] = LOCATION_GROUPS["Unique Grass Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"]
-LOCATION_GROUPS["Total Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Total Snow Rabbits"]
+LOCATION_GROUPS["Shop Locations"] = (LOCATION_GROUPS["Shop Treasure Locations"] |
+                                     LOCATION_GROUPS["Shop Unique Locations"] |
+                                     LOCATION_GROUPS["Shop Potion Locations"] |
+                                     LOCATION_GROUPS["Shop Shield Locations"] |
+                                     LOCATION_GROUPS["Shop Ammo Locations"] |
+                                     LOCATION_GROUPS["Shop Postcard Locations"])
+LOCATION_GROUPS["Unique Rabbits"] = LOCATION_GROUPS["Unique Grass Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"] | LOCATION_GROUPS["Unique Mountain Rabbits"]  | LOCATION_GROUPS["Unique Sand Rabbits"]
+LOCATION_GROUPS["Total Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Total Snow Rabbits"]  | LOCATION_GROUPS["Total Mountain Rabbits"]  | LOCATION_GROUPS["Total Sand Rabbits"]
 LOCATION_GROUPS["Grass Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Unique Grass Rabbits"]
 LOCATION_GROUPS["Snow Rabbits"] = LOCATION_GROUPS["Total Snow Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"]
+LOCATION_GROUPS["Mountain Rabbits"] = LOCATION_GROUPS["Total Mountain Rabbits"] | LOCATION_GROUPS["Unique Mountain Rabbits"]
+LOCATION_GROUPS["Sand Rabbits"] = LOCATION_GROUPS["Total Sand Rabbits"] | LOCATION_GROUPS["Unique Sand Rabbits"]
 LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATION_GROUPS["Total Rabbits"]
 LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"]
 LOCATION_GROUPS["Cargo Locations"] = LOCATION_GROUPS["Buy Cargo"] | LOCATION_GROUPS["Deliver Cargo"]

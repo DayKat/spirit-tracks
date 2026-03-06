@@ -29,13 +29,13 @@ REGIONS = [
     # Outset Village
     "outset village",
     "outset village stamp book",
+    "outset 10 stamps",
+    "outset 15 stamps",
+    "outset 20 stamps",
     "outset village stamp station",
     "outset village trees",
     "outset joe",
     "outset cuccos",
-    #"outset village cuccos gem",
-    #"outset village joe gem",
-    #"outset village cannon",
 
     # Castle Town
     "castle town",

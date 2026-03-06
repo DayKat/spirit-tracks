@@ -56,6 +56,8 @@ STARTING_FLAGS = [
 
     # Set treasures to 0
     [STAddr.all_treasure_count, [0]*32],
+    # Center stamp coords
+    [STAddr.stamp_coords, [0x48, 0x48, 0x48, 0xB8]*10]
 ]
 
 # You can find the stage flags for a stage by checking the stage data pointer of 0x265164 and adding an offset of 176 (note decimal) to its value

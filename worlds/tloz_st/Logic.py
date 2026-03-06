@@ -20,6 +20,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             state.has("_picked_up_alfonzo", player) or
             state.has("Passenger: Alfonzo", player) or
             (st_has_glyph(state, player, "Snow") and not options.randomize_passengers)],
+        ["outset village stamp book", "outset 10 stamps", False, lambda state: state.has("Stamp", player, 10)],
+        ["outset village stamp book", "outset 15 stamps", False, lambda state: state.has("Stamp", player, 15)],
+        ["outset village stamp book", "outset 20 stamps", False, lambda state: state.has("Stamp", player, 20) or (options.randomize_stamps.value in [1, 2, 4] and state.has("Stamp", player, 16))],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
         ["outset village", "forest realm", False, lambda state: st_has_train(state, player)],

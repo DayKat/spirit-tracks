@@ -6,8 +6,11 @@
     {"name": "Outset Far Right Tree"},
     {"name": "Outset Niko's House Tree"},
     {"name": "Outset Pick Up Joe"},
+    {"name": "Outset Deliver Cuccos"},
     {"name": "Outset Receive Stamp Book"},
-    {"name": "Outset Deliver Cuccos"}
+    {"name": "Outset Niko 10 Stamps Reward"},
+    {"name": "Outset Niko 15 Stamps Reward"},
+    {"name": "Outset Niko 20 Stamps Reward"}
   ], "map_locations":[{"map": "Overview", "x": 236, "y": 728}]},
   {"name": "Castle Town", "sections": [
     {"name": "Castle Town Shop Treasure 1"},

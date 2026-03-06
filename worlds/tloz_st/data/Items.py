@@ -1088,6 +1088,128 @@ ITEMS_DATA |= {
         "item_groups": ["Cargo"],
         'tags': ["always_process"],
     },
+
+    # Stamps
+    "Stamp: Castle Town": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 1
+    },
+    "Stamp: Outset": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 2
+    },
+    "Stamp: Mayscore": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 3
+    },
+    "Stamp: Forest Sanctuary": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 4
+    },
+    "Stamp: Anouki Village": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 5
+    },
+    "Stamp: Snowfall Sanctuary": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 6
+    },
+    "Stamp: Papuzia Village": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 7
+    },
+    "Stamp: Ocean Sanctuary": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 8
+    },
+    "Stamp: Goron Village": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 9
+    },
+    "Stamp: Fire Sanctuary": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0xA
+    },
+    "Stamp: Sand Sanctuary": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0xB
+    },
+    "Stamp: Wooded Temple": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0xC
+    },
+    "Stamp: Blizzard Temple": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0xD
+    },
+    "Stamp: Marine Temple": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0xE
+    },
+    "Stamp: Mountain Temple": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0xF
+    },
+    "Stamp: Desert Temple": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0x10
+    },
+    "Stamp: Pirate Hideout": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0x11
+    },
+    "Stamp: Trading Post": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0x12
+    },
+    "Stamp: Icy Spring": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0x13
+    },
+    "Stamp: Tower of Spirits": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamps"],
+        "value": 0
+    },
+    "Stamp Pack (2)": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamp Packs"],
+        "value": 2
+    },
+    "Stamp Pack (3)": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamp Packs"],
+        "value": 3
+    },
+    "Stamp Pack (4)": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamp Packs"],
+        "value": 4
+    },
+    "Stamp Pack (5)": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Stamp Packs"],
+        "value": 5
+    },
 }
 
 
