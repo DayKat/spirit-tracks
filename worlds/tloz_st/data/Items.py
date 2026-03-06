@@ -49,7 +49,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "give_ammo": [10, 20, 30],
         "ammo_address": STAddr.bomb_count,
         "set_bit": [(STAddr.adv_flags_22, 0x2)],
-        'item_groups': ["Equipment", "Progressive Items", "Main Items"],
+        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Ammo Items", "Bombs"],
     },
     "Bow (Progressive)": {
         'classification': ItemClassification.progression,
@@ -57,7 +57,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "give_ammo": [20, 30, 50],
         "ammo_address": STAddr.arrow_count,
         "tags": ["progressive_overwrite"],
-        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Bows"],
+        'item_groups': ["Equipment", "Progressive Items", "Main Items", "Bows", "Ammo Items", "Bow"],
     },
     "Bow of Light": {
         'classification': ItemClassification.progression,
@@ -207,6 +207,22 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         # 'value': 0x40,
         'item_groups': ["Portal Unlocks"],
     },
+    "Portal Unlock: Desert Temple to Sand Realm": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
+    "Portal Unlock: Fire Sand Connection to Marine Temple": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
+    "Portal Unlock: Forest Cave to Goron Village": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
+    "Portal Unlock: Icy Spring to Mountain Temple": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
 
     # ========== Rail Maps ============
 
@@ -252,6 +268,18 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x08,
         'item_groups': ["Restoration Tracks", "Rail Items", "Ocean Tracks"],
     },
+    "Mountain Temple Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.rail_restorations,
+        'value': 0x10,
+        'item_groups': ["Restoration Tracks", "Rail Items", "Fire Tracks"],
+    },
+    "Desert Temple Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.rail_restorations,
+        'value': 0x20,
+        'item_groups': ["Restoration Tracks", "Rail Items", "Desert Tracks"],
+    },
     "Snowdrift Station Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
@@ -280,7 +308,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x02,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Ocean Tracks", "Misc Tracks"],
     },
     "E Mayscore Bridge Tracks": {
         'classification': ItemClassification.progression,
@@ -316,19 +344,19 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x01,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
     },
     "N Castle Town Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x02,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
     },
     "Snow Realm Bridge Tracks": { # has portal to ocean realm
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x08,
-        'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
     },
     "N Icy Spring Tracks": {
         'classification': ItemClassification.progression,
@@ -341,6 +369,41 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_1,
         'value': 0x80,
         'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks"],
+    "Sand Realm Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x20,
+        'item_groups': ["Rail Items", "Desert Tracks", "Misc Tracks"],
+    },
+    "Sand to Fire Connection Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x02,
+        'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks"],
+    },
+    "Dark Ore Mine Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x04,
+        'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks"],
+    },
+    "Ends of the Earth Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_0,
+        'value': 0x10,
+        'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks"],
+    },
+    "Disorientation Station Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x10,
+        'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks"],
+    },
+    "Snow Realm Gorge Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_2,
+        'value': 0x08,
+        'item_groups': ["Rail Items", "Snow Tracks", "Fire Tracks", "Misc Tracks"],
     },
 
     # ========= Force Gems ==============
@@ -396,106 +459,38 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'dummy': True,
         "item_groups": ["Grass Rabbits"]
     },
-    "Grass Rabbits (2)": {
-        'classification': ItemClassification.progression,
-        "tags": ["rabbit"],
-        'dummy': True,
-        'value': 2,
-        "item_groups": ["Grass Rabbits"]
-    },
-    "Grass Rabbits (3)": {
-        'classification': ItemClassification.progression,
-        "tags": ["rabbit"],
-        'dummy': True,
-        'value': 3,
-        "item_groups": ["Grass Rabbits"]
-    },
-    "Grass Rabbits (4)": {
-        'classification': ItemClassification.progression,
-        "tags": ["rabbit"],
-        'dummy': True,
-        'value': 4,
-        "item_groups": ["Grass Rabbits"]
-    },
-    "Grass Rabbits (5)": {
-        'classification': ItemClassification.progression,
-        "tags": ["rabbit"],
-        'dummy': True,
-        'value': 5,
-        "item_groups": ["Grass Rabbits"]
-    },
-    "Grass Rabbits (10)": {  # 10 item is only used for vanilla rabbits 1 location
-        'classification': ItemClassification.progression,
-        "tags": ["rabbit"],
-        'dummy': True,
-        'value': 10,
-        "item_groups": ["Grass Rabbits"]
-    },
     "Snow Rabbit": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Snow Rabbits"]
     },
-    "Snow Rabbits (2)": {
+    "Mountain Rabbit": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
-        'value': 2,
-        "item_groups": ["Snow Rabbits"]
+        "item_groups": ["Mountain Rabbits"]
     },
-    "Snow Rabbits (3)": {
+    "Sand Rabbit": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
-        'value': 3,
-        "item_groups": ["Snow Rabbits"]
+        "item_groups": ["Sand Rabbits"]
     },
-    "Snow Rabbits (4)": {
+}
+
+ITEMS_DATA |= {
+    f"{realm} Rabbits ({n})": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
         'dummy': True,
-        'value': 4,
-        "item_groups": ["Snow Rabbits"]
-    },
-    "Snow Rabbits (5)": {
-        'classification': ItemClassification.progression,
-        "tags": ["rabbit"],
-        'dummy': True,
-        'value': 5,
-        "item_groups": ["Snow Rabbits"]
-    },
-    "Snow Rabbits (10)": {
-        'classification': ItemClassification.progression,
-        "tags": ["rabbit"],
-        'dummy': True,
-        'value': 10,
-        "item_groups": ["Snow Rabbits"]
-    },
-    # "Water Rabbit": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x262032,
-    #     'value': 1,
-    #     'incremental': True,
-    #     'size': 1
-    # },
-    # "Fire Rabbit": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x262034,
-    #     'value': 1,
-    #     'incremental': True,
-    #     'size': 1
-    # },
-    # "Sand Rabbit": {
-    #     'classification': ItemClassification.progression,
-    #     'address': 0x262035,
-    #     'value': 1,
-    #     'incremental': True,
-    #     'size': 1
-    # },
+        'value': n,
+        "item_groups": [f"{realm} Rabbits"]
+    } for n in list(range(2, 6)) + [10] for realm in ["Grass", "Snow", "Mountain", "Sand"]
+}
 
     # ========== Rupees and filler =============
-
+ITEMS_DATA |= {
     "Green Rupee (1)": {
         'classification': ItemClassification.filler,
         'address': STAddr.rupees,
@@ -582,7 +577,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.bomb_count,
         "refill": "Bombs (Progressive)",
         "tags": ["incremental"],
-        'item_groups': ["Refill Items"],
+        'item_groups': ["Refill Items", "Ammo Items"],
     },
     "Refill: Arrows": {
         'classification': ItemClassification.filler,
@@ -590,7 +585,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.arrow_count,
         "refill": "Bow (Progressive)",
         "tags": ["incremental"],
-        'item_groups': ["Refill Items"],
+        'item_groups': ["Refill Items", "Ammo Items"],
     },
 
     # ========= Treasure =============
@@ -699,23 +694,24 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     # =========== Keys ============
 
      "Small Key (Tunnel to ToS)": {
-         'classification': ItemClassification.progression,
-         'address': STAddr.small_keys,
-         'dungeon': 0x18,
-         "tags": ["incremental"],
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x18,
+        "tags": ["incremental"],
         'item_groups': ["Small Keys"],
      },
     "Small Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x19,
-         "tags": ["incremental"],
+        "tags": ["incremental"],
         'item_groups': ["Small Keys"],
      },
     "Boss Key (Wooded Temple)": {
-         'classification': ItemClassification.progression,
-         'dungeon': 0x19,
+        'classification': ItemClassification.progression,
+        'dungeon': 0x19,
         'item_groups': ["Boss Keys"],
+        "dummy": True
      },
     "Small Key (ToS)": {
         'classification': ItemClassification.progression,
@@ -774,10 +770,42 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
     },
+    "Small Key (Desert Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x1D,
+        "tags": ["incremental"],
+        'item_groups': ["Small Keys"],
+    },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
-        'dungeon': 0x1A,
         'item_groups': ["Boss Keys"],
+        "dummy": True
+    },
+    "Boss Key (Marine Temple)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+        "dummy": True
+    },
+    "Boss Key (Mountain Temple)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+        "dummy": True
+    },
+    "Boss Key (Desert Temple)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+        "dummy": True
+    },
+    "Boss Key (ToS 3)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+        "dummy": True
+    },
+    "Boss Key (ToS 5)": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Boss Keys"],
+        "dummy": True
     },
 
     # Tears
@@ -1080,7 +1108,7 @@ for i, k in enumerate(ITEMS_DATA.items()):
 ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Super Rare Treasures"]
 ITEM_GROUPS["All Treasures"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Common Treasures"]
-ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"]
+ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"]  | ITEM_GROUPS["Sand Rabbits"]
 ITEM_GROUPS["Tears of Light"] = ITEM_GROUPS["Big Tears of Light"] | ITEM_GROUPS["Small Tears of Light"]
 ITEM_GROUPS["Add Rails to Pool"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"]
 ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"]

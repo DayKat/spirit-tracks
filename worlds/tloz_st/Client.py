@@ -129,6 +129,16 @@ def cmd_train_speed(self: "BizHawkClientCommandProcessor",
     set_speed(client.train_speed)
     return True
 
+def cmd_warp_to_start(self: "BizHawkClientCommandProcessor"):
+    """Prime a warp to start that triggers on entering any entrance. Run again to cancel"""
+    client = get_client_as_command_processor(self)
+    client.warp_to_start_flag = not client.warp_to_start_flag
+    if client.warp_to_start_flag:
+        self.output(f"Primed a warp to start. Enter any entrance to warp to Outset")
+    else:
+        self.output(f"Canceled Warp to Start")
+    return True
+
 class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
     system = "NDS"
@@ -192,9 +202,13 @@ class SpiritTracksClient(DSZeldaClient):
         self.hint_data = HINT_DATA
         self.got_item_no_loc = False
         self.potion_tracker = [0, 0]
+        self.save_ammo = None
         self.drinking_potion = False
         self.addr_drinking_potion = None
         self.set_train_in_overworld: bool = False
+
+        self.boss_key_y = None
+        self.boss_key_read = None
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -208,6 +222,8 @@ class SpiritTracksClient(DSZeldaClient):
             # Set commands
             if "train_speed" not in ctx.command_processor.commands:
                 ctx.command_processor.commands["train"] = cmd_train_option
+            if "warp_to_start" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
             return True
         return False
 
@@ -234,6 +250,7 @@ class SpiritTracksClient(DSZeldaClient):
             if "dungeons" in data:
                 if ctx.slot_data["dark_realm_access"] != 1:
                     return data["dungeons"]  # Case where dungeons are not required for dark realm
+                print(f"{ctx.slot_data['required_dungeons']}")
                 dungeon_locs = {self.location_name_to_id[i] for i in ctx.slot_data["required_dungeons"]}
                 has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
                 comp = has_locs >= ctx.slot_data["dungeons_required"]
@@ -274,9 +291,9 @@ class SpiritTracksClient(DSZeldaClient):
             print(f"Potion pointer {hex(potion_addr)}")
 
         self.main_read_list = read_keys
-        print(f"read keys len: {len(read_keys)}")
+        # print(f"read keys len: {len(read_keys)}")
         # print(self.main_read_list, read_keys)
-        print(f"Slot data {ctx.slot_data}")
+        # print(f"Slot data {ctx.slot_data}")
 
     def process_loading_variable(self, read_result) -> bool:
         mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
@@ -356,6 +373,18 @@ class SpiritTracksClient(DSZeldaClient):
                 if self.location_name_to_id[location] not in ctx.checked_locations:
                     await self._process_checked_locations(ctx, location)
 
+
+    async def check_ammo_shop(self, ctx):
+        if self.save_ammo is None or "ammo" not in ctx.slot_data["shopsanity"]:
+            return
+        for addr, loc in ammo_shop_lookup.get(self.current_scene, {}).items():
+            current_ammo = await addr.read(ctx)
+            if current_ammo == 0:
+                continue
+            if self.location_name_to_id[loc] not in ctx.checked_locations:
+                await self._process_checked_locations(ctx, loc)
+                return
+            self.save_ammo[addr] = current_ammo
 
     async def update_treasure_tracker(self, ctx: "BizHawkClientContext", last_loc=None):
         read_list = [ITEMS[name].address for name in ITEM_GROUPS["All Treasures"]]
@@ -446,6 +475,18 @@ class SpiritTracksClient(DSZeldaClient):
             self.set_train_in_overworld = True
             await self.set_starting_train(ctx)
 
+        if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup and item_name in ITEM_GROUPS["Ammo Items"]:
+            addr = item_data.ammo_address if hasattr(item_data, "ammo_address") else item_data.address
+            await addr.overwrite(ctx, 0)
+            item_count = self.item_count(ctx, item_data.refill) if item_name in ITEM_GROUPS["Refill Items"] else self.item_count(ctx, item_name)
+            self.save_ammo[addr] = item_data.give_ammo[item_count-1]
+
+        # Open boss door if got key in that room
+        if item_name.startswith("Boss Key") and self.current_scene in BOSS_KEY_DATA:
+            data = BOSS_KEY_DATA[self.current_scene]
+            if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
+                print(f"Opening boss door for {self.current_scene}")
+                await data["door"].overwrite(ctx, 3)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
@@ -463,6 +504,7 @@ class SpiritTracksClient(DSZeldaClient):
         await self.detect_ut_event(ctx, self.current_scene)
         await self.process_train_speed(ctx, read_result)
         await self.drink_potion(ctx, read_result)
+        await self.detect_boss_key(ctx)
 
     async def drink_potion(self, ctx, read_results):
         drinking_potion = read_results.get(self.addr_drinking_potion, 0)
@@ -515,6 +557,11 @@ class SpiritTracksClient(DSZeldaClient):
         if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
             await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
 
+        if self.current_scene in [0x1309, 0x1318] and location.get("vanilla_item", "").startswith("Boss Key"):
+            if self.item_count(ctx, location["vanilla_item"]):
+                print("Opening ToS boss door after having key and getting boss key location")
+                await BOSS_KEY_DATA[self.current_scene]["door"].overwrite(ctx, 3)
+
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
@@ -529,7 +576,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
-            realms = ["Grass", "Snow"]
+            realms = ["Grass", "Snow", "Sand"]
             rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
             rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
             print(f"Updating rabbit bits {hex(rabbit_bits)}")
@@ -750,6 +797,36 @@ class SpiritTracksClient(DSZeldaClient):
             self.has_set_starting_train = True
         # if current_scene in range(0x4b00, 0x5000):  still too early
         #     await STAddr.item_restrictions.overwrite(ctx, 0)
+        if self.save_ammo:
+            await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))
+            self.save_ammo = None
+
+        if current_scene in ammo_shop_lookup and "ammo" in ctx.slot_data["shopsanity"]:
+            ammo_addresses = [STAddr.bomb_count, STAddr.arrow_count]
+            self.save_ammo = await read_multiple(ctx, ammo_addresses)
+            await write_multiple(ctx, ammo_addresses, [0, 0])
+
+        # Boss key rando stuff
+        if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+            data = BOSS_KEY_DATA[self.current_scene]
+            # Set key watches
+            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                print(f"Has found location {data['location']}, deleting boss key")
+                await self.delete_boss_key(ctx)
+            else:
+                pointer = await data["pointer"].read(ctx) -0x2000000
+                self.boss_key_y = data["y"]
+                self.boss_key_read = Address(pointer+8, size=4)
+                print(f"Loaded boss key data: {self.boss_key_read} y: {self.boss_key_y}")
+
+            # Open door
+            if self.item_count(ctx, f"Boss Key ({data['dungeon']})"):
+                if current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                    print(f"Opening boss door for {current_scene}")
+                    if await data["door"].read(ctx) != 0x5:
+                        await data["door"].overwrite(ctx, 3)
+        else:
+            self.boss_key_y, self.boss_key_read = None, None
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):
@@ -785,4 +862,26 @@ class SpiritTracksClient(DSZeldaClient):
 
         return None
 
+    async def detect_boss_key(self, ctx):
+        """Called each cycle while in a boss key room to detect a change in boss key position"""
+        if self.boss_key_y is not None:
+            if await self.boss_key_read.read(ctx, signed=True, silent=True) > self.boss_key_y + 10:
+                loc = BOSS_KEY_DATA[self.current_scene]["location"]
+                await self._process_checked_locations(ctx, loc)
+                print(f"Found boss key location {loc}")
+                await self.delete_boss_key(ctx)
+                self.boss_key_y, self.boss_key_read = None, None
+
+
+    async def delete_boss_key(self, ctx):
+        pointer = await STAddr.boss_key_deletion_pointer.read(ctx) - 0x2000000
+        print(f"Deleting boss key @ {hex(pointer)}")
+        size = 12
+        if self.current_stage == 0x1b:
+            pointer += 44  # Ocean temple bk does not load into the first slot in memory
+            await Address.from_pointer(pointer+60, 4).overwrite(ctx, 0)  # also needs this to not crash
+            size = 8
+        deletion_address = Address.from_pointer(pointer, size)
+        # print(f"Deleting boss key @ {STAddr.boss_key_deletion}")
+        await deletion_address.overwrite(ctx, 0)
 

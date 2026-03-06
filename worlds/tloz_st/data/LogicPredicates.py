@@ -51,6 +51,14 @@ def st_has_net(state: CollectionState, player: int):
 def st_has_compass_of_light(state, player):
     return state.has("Compass of Light", player)
 
+def st_has_wagon(state, player):
+    return state.has("Wagon", player)
+
+def st_has_cargo(state, player, cargo, event):
+    return st_has_wagon(state, player) and (
+            state.has(f"Cargo: {cargo}", player)
+            or state.has(event, player))
+
 ## ========== Rabbits ===========
 
 def st_has_rabbit_items(state, player, realm, count=10):
@@ -156,11 +164,16 @@ def st_vanilla_tears(state: CollectionState, player: int):
 
 # =========== Combined item states ================
 
-def st_has_damage(state: CollectionState, player: int):
+def st_has_good_damage(state: CollectionState, player: int):
     return any([
         state.has("Sword (Progressive)", player),
         state.has("Bombs (Progressive)", player),
         state.has("Bow (Progressive)", player),
+    ])
+
+def st_has_damage(state: CollectionState, player: int):
+    return any([
+        st_has_good_damage(state, player),
         state.has("Whip", player),
     ])
 
@@ -483,4 +496,15 @@ def st_can_enter_tos_section(state, player, section):
         ])
     ])
 
+def st_desert_temple_keys(state, player):
+    return any([
+        st_has_small_keys(state, player, "Desert Temple", 2),
+        st_has_small_keys(state, player, "Desert Temple", 1) and state.has("_UT_Glitched_Logic", player)
+    ])
+
+def st_hard_birds(state, player):
+    return all([
+        st_has_whip(state, player),
+        st_has_birds_song(state, player) or st_option_hard_logic(state, player)
+    ])
 

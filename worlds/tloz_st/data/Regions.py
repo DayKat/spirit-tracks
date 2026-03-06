@@ -50,6 +50,7 @@ REGIONS = [
     "teao 2",
     "teao 3",
     "castle town buy cuccos",
+    "castle town fish",
 
     # Hyrule Castle
     "hyrule castle",
@@ -157,10 +158,11 @@ REGIONS = [
     "rabbit haven 5 rabbits",
     "rabbit haven 10 forest rabbits",
     "rabbit haven 10 snow rabbits",
+    "rabbit haven 10 ocean rabbits",
+    "rabbit haven 10 mountain rabbits",
+    "rabbit haven 10 sand rabbits",
     "rabbit haven mona",
-    # "rabbit haven 10 ocean rabbits"
-    # "rabbit haven 10 fire rabbits"
-    # "rabbit haven 10 sand rabbits"
+
     # "rabbit haven 50 rabbits"
 
     # Forest Sanctuary
@@ -183,8 +185,8 @@ REGIONS = [
     "wt 3f chestnut chest",
     "wt 3f",
     "wt 3f se chest",
-    "wt 3f boss key chest",
-    #"wt heart container",
+    "wt 3f bk",
+    "wt 4f",
     "wt stagnox",
     "goal_stagnox",
     "event_stagnox",
@@ -193,7 +195,6 @@ REGIONS = [
 
     # Trading Post
     "trading post",
-    #"trading post discovery song statue",
     "trading post light song statue",
     "trading post chest",
     "trading post stamp station",
@@ -202,7 +203,8 @@ REGIONS = [
     "trading post bridge worker",
     "trading post pick up kenzo",
     "trading post shield",
-    #"trading post ore gem",
+    "linebeck dark ore",
+    "linebeck event",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Snow Realm
@@ -240,6 +242,7 @@ REGIONS = [
     "ss stamp station",
     "ss song",
     "snow sanc shop",
+    "snow sanc vessel",
 
     # Blizzard Temple
     "bt",
@@ -249,9 +252,8 @@ REGIONS = [
     "bt 1f ne chest",
     "bt b1 sw chest",
     "bt stamp station",
-    "bt b1 nw enemy chest",
-    "bt 1f nw chest",
-    "bt 1f torch chest",
+    "bt west",
+    "bt 3f",
     "bt fraaz",
     "goal_fraaz",
     "event_fraaz",
@@ -283,10 +285,8 @@ REGIONS = [
     # Beedle
     "beedle",
     "beedle joe",
-    "beedle bomb bag",
-    "beedle uncommon treasure",
-    "beedle rare treasure",
-    "beedle potion",
+    "beedle shop",
+    "beedle shop bombs",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Ocean Realm
@@ -313,6 +313,11 @@ REGIONS = [
     "papuchia village song statue",
     "papuchia village stamp station",
     "pv dovok",
+    "papuzia buy cargo",
+    "papuzia shop",
+    "papuzia shop bombs",
+    "papuzia shop arrows",
+    "papuzia ice",
 
     #Ocean Temple
     "oct",
@@ -323,7 +328,9 @@ REGIONS = [
     "oct stamp station",
     "oct 3f whip",
     "oct 6f chest",
+    "oct bk",
     "oct phytops",
+    "event_phytops",
     "goal_phytops",
     "post oct",
 
@@ -350,12 +357,61 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Fire Realm
 
-    #"fire realm",
-    #"fire realm frog",
-    #"fire realm combat",
+    "fire realm",
+    "gorge tracks",
+    "fire source",
+    "mountain temple tracks",
+    "ends of the earth",
+    "disorientation station",
+    "fire realm rabbits",
+    "mountain rabbits",
+    "fire source rabbits",
+    "disorientation rabbits",
+    "eote rabbits",
+    "s mountain temple rabbit",
+    "disorientation bird",
+    "disorientation sod",
+    "eote puzzles",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
+
+    "sand realm",
+    "sand restoration",
+    "sand connection",
+    "sand realm rabbits",
+    "sand restoration rabbits",
+    "sand connection rabbit",
+    "sand realm portal",
+    "sand restoration portal",
+    "sand connection portal",
+
+    # Sand Sanc
+    "sand sanc",
+    "sand sanc song",
+    "sand sanc cuccos",
+    "sand sanc stamp stand",
+
+    # Desert Temple
+    "desert temple",
+    "dt sw",
+    "dt 1f nw",
+    "dt 1f n",
+    "dt 1f n earthquake",
+    "dt 2f",
+    "dt 2f sw",
+    "dt 3f",
+    "dt b1",
+    "dt stamp stand",
+    "dt b1 2",
+    "dt b1 damage",
+    "skeldritch",
+    "skeldritch event",
+
+    # Dark ore mine
+    "dark ore mine",
+    "dark ore mine ore",
+    "dark ore mine sod",
 
     # Dark realm
     "dark realm portal",
@@ -369,5 +425,5 @@ REGIONS = [
 
 
 ] + [
-    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow"]
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Mountain", "Sand"]
 ]

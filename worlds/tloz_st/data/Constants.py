@@ -17,7 +17,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
     [STAddr.adv_flags_6, 0xFC],  # Intro stuff
     [STAddr.adv_flags_7, 0x13],  # postman & get zelda's letter
-    [STAddr.adv_flags_a, 0x55],  # ocean realm
+    [STAddr.adv_flags_a, 0x7B],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos
     [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
@@ -33,6 +33,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
+    [STAddr.adv_flags_22, 0x38],  # buy cargo first time
     [STAddr.adv_flags_23, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
     [STAddr.adv_flags_2a, 0x03],  # ToS 6 zelda text
@@ -40,6 +41,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_3d, 0x60],  # ToS safe zone tutorial
+    [STAddr.adv_flags_3f, 0x07],  # Dark ore mine cs
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
     [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text
     [STAddr.adv_flags_42, 0x86],  # board with zelda
@@ -50,7 +52,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_52, 0x80],  # ToS Staircase cutscene skip
     [STAddr.adv_flags_53, 0x77],  # ToS Staircase 2 zelda text skip
     [STAddr.adv_flags_54, 0x28],  # first spirit train journey+portal
-    [STAddr.adv_flags_57, 0x40],  # first song statue text
+    [STAddr.adv_flags_57, 0xD1],  # first song statue text
 
     # Set treasures to 0
     [STAddr.all_treasure_count, [0]*32],
@@ -84,6 +86,10 @@ STAGE_FLAGS = {
     0x35: [0x12, 0x00, 0x00, 0x00], # Icy Spring
     # 0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
+    0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
+    0x3C: [0x2, 0x0, 0x0, 0x0],  # GTR
+    0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
+    0x1d: [0x0, 0x3, 0x9, 0x0], # Desert Temple
 }
 
 STAGES = {
@@ -92,7 +98,11 @@ STAGES = {
     0x6: "Ocean Realm",
     0x7: "Fire Realm",
     0x8: "Train Tutorial",
-    0xb: "SR Rocktite Tunnel",
+    # 0x9: "Lost in the Woods",
+    0xA: "Underwater Tracks",
+    0xB: "Snow Realm Rocktite Tunnel",
+    0xC: "Sand Trial Rocktite Tunnel",
+    0xD: "Goron Target Range",
     0xF: "Dark Realm",
     0x10: "Demon Train",
     0x11: "Demon Train P2",
@@ -105,8 +115,13 @@ STAGES = {
     0x19: "Wooded Temple",
     0x1A: "Blizzard Temple",
     0x1B: "Marine Temple",
+    0x1C: "Mountain Temple",
+    0x1D: "Desert Temple",
     0x1E: "Stagnox",
     0x1F: "Fraaz",
+    0x20: "Cactops/Phytops",
+    0x21: "Cragma/Vulcano",
+    0x22: "Skeldritch",
     0x23: "Staven Fight",
     0x24: "Cole Fight",
     0x25: "Malladus 1",
@@ -117,10 +132,14 @@ STAGES = {
     0x2A: "Mayscore",
     0x2B: "Anouki Village",
     0x2C: "Papuzia Village",
+    0x2D: "Goron Village West",
+    0x2E: "Goron Village",
     0x2F: "Outset Village",
     0x30: "Forest Sanctuary",
     0x31: "Snow Sanctuary",
     0x32: "Ocean Sanctuary",
+    0x33: "Fire Sanctuary",
+    0x34: "Sand Sanctuary",
     0x35: "Icy Spring",
     0x36: "Bridge Worker's Home",
     0x37: "Trading Post",
@@ -128,11 +147,14 @@ STAGES = {
     0x39: "Papuzia Village South",
     0x3A: "Pirate Hideout",
     0x3B: "Pirate Hideout Minigame",
+    0x3C: "Goron Target Range Station",
+    0x3D: "Dark Ore Mine",
     0x3E: "Rabbit Haven",
     0x3F: "Snowdrift/Slippery Station",
-    # 0x44: "Train Interior CS",
-    # 0x50: "Train roof CS",
+    0x40: "Disorientation Station",
+    0x41: "Ends of the Earth",
     0x42: "Lost at Sea Dungeon",
+    # 0x44: "Train Interior CS",
     0x45: "Beedle, Train NPCs",
     0x46: "Take 'em all on Forest theme",
     0x47: "Take 'em all on Snow theme",
@@ -144,137 +166,16 @@ STAGES = {
     0x4D: "TEAO Cactops",
     0x4E: "TEAO Vulcano",
     0x4F: "TEAO Capbone",
+    # 0x50: "Train roof CS",
     0x79: "From Menu",
 }
-
-# ITEM_GROUPS = {
-    #  "Small Rupees": [
-    #      "Green Rupee (1)",
-    #      "Blue Rupee (5)",
-    #      "Red Rupee (20)",
-    #  ],
-    # "Big Rupees": [
-    #     "Big Green Rupee (100)",
-    #     "Big Red Rupee (200)",
-    #     "Gold Rupee (300)",
-    #     "Pre-Alpha Rupee (5000)"
-    # ],
-    #  "Small Keys": [
-    #      "Small Key (Tunnel to ToS)",
-    #      "Small Key (Wooded Temple)",
-    #      "Small Key (ToS)",
-    #      "Small Key (Blizzard Temple)",
-    #  ],
-    # "Boss Keys": [
-    #     "Boss Key (Wooded Temple)",
-    #     "Boss Key (Blizzard Temple)",
-    # ],
-    # "Common Treasures": [
-    #     "Treasure: Demon Fossil",
-    #     "Treasure: Stalfos Skull",
-    #     "Treasure: Star Fragment",
-    #     "Treasure: Bee Larvae",
-    #     "Treasure: Wood Heart",
-    # ],
-    # "Uncommon Treasures": [
-    #     "Treasure: Dark Pearl Loop",
-    #     "Treasure: White Pearl Loop",
-    #     "Treasure: Ruto Crown",
-    #     "Treasure: Dragon Scale",
-    #     "Treasure: Pirate's Necklace",
-    # ],
-    # "Rare Treasures": [
-    #     "Treasure: Palace Dish",
-    #     "Treasure: Goron Amber",
-    #     "Treasure: Mystic Jade",
-    #     "Treasure: Ancient Coin",
-    # ],
-    # "Super Rare Treasures": [
-    #     "Treasure: Priceless Stone",
-    #     "Treasure: Regal Ring",
-    # ],
-    #  "Ammo Refills": [
-    #     "Refill: Bombs",
-    #     "Refill: Arrows",
-    #  ],
-    # "Grass Rabbits": [
-    #     "Grass Rabbit",
-    #     "Grass Rabbits (2)",
-    #     "Grass Rabbits (3)",
-    #     "Grass Rabbits (4)",
-    #     "Grass Rabbits (5)",
-    #     "Grass Rabbits (10)"
-    # ],
-    # "Snow Rabbits": [
-    #     "Snow Rabbit",
-    #     "Snow Rabbits (2)",
-    #     "Snow Rabbits (3)",
-    #     "Snow Rabbits (4)",
-    #     "Snow Rabbits (5)",
-    #     "Snow Rabbits (10)"
-    # ],
-    # "Glyphs": [
-    #     "Forest Glyph",
-    #     "Snow Glyph",
-    #     "Ocean Glyph"
-    # ],
-    # "Forest Tracks": [
-    #     "Forest Realm Ocean Shortcut Tracks",
-    #     "E Mayscore Bridge Tracks",
-    #     "Forest Realm SE Portal Tracks",
-    #     "W Castle Town Tracks",
-    #     "W Forest Realm Tracks",
-    #     "Forest Realm SW Cave Tracks",
-    #     "W Wooded Temple Tracks",
-    #     "N Castle Town Tracks",
-    #     "Wooded Temple Tracks"
-    # ],
-    # "Snow Tracks": [
-    #     "Snowdrift Station Tracks",
-    #     "Slippery Station Tracks",
-    #     "Snow Realm Bridge Tracks",
-    #     "N Icy Spring Tracks",
-    #     "Blizzard Temple Tracks"
-    # ],
-    # "Portal Unlocks": [
-    #     "Portal Unlock: Hyrule Castle to Anouki Village",
-    #     "Portal Unlock: Trading Post to E Snow Realm"
-    # ],
-    # "Tears of Light": [
-    #     "Tear of Light",
-    #     "Tear of Light (ToS 1)",
-    #     "Tear of Light (ToS 2)",
-    #     "Tear of Light (ToS 3)",
-    #     "Tear of Light (ToS 4)",
-    #     "Tear of Light (ToS 5)",
-    #     "Tear of Light (All Sections)",
-    #     "Tear of Light (Progressive)",
-    #     "Big Tear of Light (ToS 1)",
-    #     "Big Tear of Light (ToS 2)",
-    #     "Big Tear of Light (ToS 3)",
-    #     "Big Tear of Light (ToS 4)",
-    #     "Big Tear of Light (ToS 5)",
-    #     "Big Tear of Light (All Sections)",
-    #     "Big Tear of Light (Progressive)",
-    # ]
-# }
-
-# Combo groups
-# ITEM_GROUPS |= {
-#     "All Treasures": ITEM_GROUPS["Common Treasures"] + ITEM_GROUPS["Uncommon Treasures"] +
-#                     ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"],
-#     "Rabbits": ITEM_GROUPS["Grass Rabbits"] + ITEM_GROUPS["Snow Rabbits"],
-#     "All Tracks": ITEM_GROUPS["Forest Tracks"] + ITEM_GROUPS["Snow Tracks"]
-# }
-# ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] + ITEM_GROUPS["Big Rupees"]
-# ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] + ITEM_GROUPS["Rare Treasures"] + ITEM_GROUPS["Super Rare Treasures"]
 
 
 TREASURE_PRICES = {t: value for treasure_type, value in zip(["Common", "Uncommon", "Rare", "Super Rare"], [50, 150, 500, 2500]) for t in ITEM_GROUPS[treasure_type + " Treasures"]}
 
 LOCATION_GROUPS: dict[str, set[str]] = {}
 
-rabbit_realms = ["Grass", "Snow"]
+rabbit_realms = ["Grass", "Snow", "Mountain", "Sand"]
 
 grass_rabbits = [
     "Grass Rabbit",
@@ -291,7 +192,24 @@ snow_rabbits = [
     "Snow Rabbits (4)",
     "Snow Rabbits (5)",
     "Snow Rabbits (10)"
-],
+]
+mountain_rabbits = [
+    "Mountain Rabbit",
+    "Mountain Rabbits (2)",
+    "Mountain Rabbits (3)",
+    "Mountain Rabbits (4)",
+    "Mountain Rabbits (5)",
+    "Mountain Rabbits (10)"
+]
+
+sand_rabbits = [
+    "Sand Rabbit",
+    "Sand Rabbits (2)",
+    "Sand Rabbits (3)",
+    "Sand Rabbits (4)",
+    "Sand Rabbits (5)",
+    "Sand Rabbits (10)"
+]
 
 DUNGEON_NAMES = [
     "Tunnel to ToS",
@@ -299,6 +217,7 @@ DUNGEON_NAMES = [
     "Wooded Temple",
     "Blizzard Temple",
     "Marine Temple",
+    "Desert Temple"
 ]
 
 DUNGEON_TO_BOSS_ITEM_LOCATION = {
@@ -311,12 +230,14 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
     "Marine Temple": "Marine Temple Dungeon Reward",
+    "Desert Temple": "Desert Temple Dungeon Reward",
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
     "Marine Temple Dungeon Reward": "oct phytops",
+    "Desert Temple Dungeon Reward": "skeldritch",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",
@@ -388,9 +309,61 @@ DUNGEON_KEY_DATA = {
         "filter": 0x30,
         "value": 0x10,
         "size": 2,
+    },
+    0x1D: {
+        "name": "Desert Temple",
+        "address": STAddr.key_storage_0,
+        "filter": 0xC0,
+        "value": 0x40,
+        "size": 2,
     }
 }
 
+
+BOSS_KEY_DATA = {
+    0x1902: {
+        "y": 4915,
+        "pointer": STAddr.wt_bk_pointer,
+        "location": "Wooded Temple 3F Boss Key",
+        "door": STAddr.wt_boss_door,
+        "dungeon": "Wooded Temple"
+    },
+    0x1a02: {
+        "y": 0,
+        "pointer": STAddr.bt_bk_pointer,
+        "location": "Blizzard Temple 2F Boss Key",
+        "door": STAddr.bt_boss_door,
+        "dungeon": "Blizzard Temple"
+    },
+    0x1b05: {
+        "y": 0,
+        "pointer": STAddr.oct_bk_pointer,
+        "location": "Marine Temple 6F Boss Key",
+        "door": STAddr.oct_boss_door,
+        "dungeon": "Marine Temple"
+    },
+    0x1d03: {
+        "y": -2867,
+        "pointer": STAddr.dt_bk_pointer,
+        "location": "Desert Temple B1 Boss Key",
+        "door": STAddr.dt_boss_door,
+        "dungeon": "Desert Temple"
+    },
+    0x1309: {
+        "y": 0,
+        "pointer": STAddr.tos_bk_pointer,
+        "location": "ToS 10F Boss Key",
+        "door": STAddr.tos3_boss_door,
+        "dungeon": "ToS 3"
+    },
+    0x1318: {
+        "y": 0,
+        "pointer": STAddr.tos_bk_pointer,
+        "location": "ToS 22F Boss Key",
+        "door": STAddr.tos5_boss_door,
+        "dungeon": "ToS 5"
+    },
+}
 
 HINTS_ON_SCENE = {
     # 0xB11: {  # Mercay Shop
@@ -446,7 +419,22 @@ SHOP_TREASURE_DATA = {
     }]
 }
 
+potion_location_lookup = {
+    0x4503: {1: "Beedle Buy Red Potion",
+             2: "Beedle Buy Purple Potion"},
+    0x2a05: {1: "Mayscore Shop Red Potion"},
+    0x290a: {1: "Castle Town Shop Red Potion"},
+    0x3103: {1: "Snow Sanctuary Shop Red Potion",
+             2: "Snow Sanctuary Shop Purple Potion"},
+    0x2c02: {3: "Papuzia Shop Yellow Potion",
+             2: "Papuzia Shop Purple Potion"}
+}
 
+ammo_shop_lookup = {
+    0x2c02: {STAddr.bomb_count: "Papuzia Shop Bombs",
+             STAddr.arrow_count: "Papuzia Shop Arrows"},
+    0x4503: {STAddr.bomb_count: "Beedle Buy Bomb Refill"}
+}
 
 tear_lookup = {1: 3, 4: 6, 9: 9, 13: 12, 18: 15, 30: 16}
 big_tear_lookup = {1:1, 4:2, 9: 3, 13: 4, 18: 5, 30: 6}
@@ -522,14 +510,7 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x1323: "ToS 30F Exit",
 }
 
-potion_location_lookup = {
-    0x4503: {1: "Beedle Buy Red Potion",
-             2: "Beedle Buy Purple Potion"},
-    0x2a05: {1: "Mayscore Shop Red Potion"},
-    0x290a: {1: "Castle Town Shop Red Potion"},
-    0x3103: {1: "Snow Sanctuary Shop Red Potion",
-             2: "Snow Sanctuary Shop Purple Potion"}
-}
+
 
 TOS_FLOOR_TO_SECTION = {
     0: 1,

@@ -27,7 +27,7 @@ try:  # Backwards compatibility yay
     from .LogicRB import create_connections
     raise ModuleNotFoundError
 except ModuleNotFoundError:
-    print(f"Spirit Tracks is using legacy logic")
+    # print(f"Spirit Tracks is using legacy logic")
     WorldParent = World
     from .Logic import create_connections
 
@@ -193,7 +193,7 @@ class SpiritTracksWorld(WorldParent):
                 self.options.starting_train.value = self.random.randint(0, 7)
             if "all" in self.options.shopsanity.value:
                 self.options.shopsanity.value = self.options.shopsanity.valid_keys
-            print(f"Shopsanity {self.options.shopsanity.value}")
+            # print(f"Shopsanity {self.options.shopsanity.value}")
         self.create_item_mappings()
 
     def plando_tos_sections(self):
@@ -236,24 +236,28 @@ class SpiritTracksWorld(WorldParent):
                                                               if e.category_group == EntranceGroups.TOS_SECTION]
 
     def pick_ut_events(self):
-        events = ["EVENT: Pick up Alfonzo", "EVENT: Give Regal Ring to Linebeck",
+        events = ["EVENT: Give Regal Ring to Linebeck",
                   goal_event_lookup[self.options.goal.value]]
 
+        if self.options.randomize_passengers == "vanilla":
+            events += ["EVENT: Pick up Alfonzo"]
+        if self.options.randomize_cargo == "vanilla":
+            pass
 
         if self.options.goal == "defeat_malladus":
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
                 events += [location_event_lookup[loc] for loc in self.required_dungeons]
             else:
-                events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz"]
+                events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz", "EVENT: Defeat Cactops", "EVENT: Defeat Skeldritch"]
                 if self.options.tos_dungeon_options == "final_section":
-                    events += ["EVENT: Reach ToS 12F"]
+                    events += ["EVENT: Defeat Staven"]
                 elif self.options.tos_dungeon_options == "all_sections":
-                    events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F", "EVENT: Reach ToS 12F"]
+                    events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F", "EVENT: Reach ToS 12F", "EVENT: Reach ToS 17F", "EVENT: Defeat Staven", "EVENT: Reach ToS 24F"]
 
         self.ut_events = events
         self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if
                                              e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events]
-        print(self.ut_map_page_hidden_entrances)
+        print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
         for e in events:
             event = ENTRANCES[e]
             self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
@@ -266,6 +270,10 @@ class SpiritTracksWorld(WorldParent):
         } | {
             r: ("Snow Rabbit", ITEMS[r].value) for r in snow_rabbits[1:]
         } | {
+            r: ("Mountain Rabbit", ITEMS[r].value) for r in mountain_rabbits[1:]
+        } | {
+            r: ("Sand Rabbit", ITEMS[r].value) for r in sand_rabbits[1:]
+        } | {
             t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
         }
 
@@ -276,7 +284,8 @@ class SpiritTracksWorld(WorldParent):
             case_compare = {k.lower(): v for k, v in DUNGEON_TO_BOSS_ITEM_LOCATION.items()}
             required_dungeons = [case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value]
         else:
-            required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward"]
+            required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward",
+                                 "Marine Temple Dungeon Reward", "Desert Temple Dungeon Reward"]
             implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph",
                                "ToS 12F Ocean Rail Glyph", "ToS 17F Fire Rail Glyph",
                                "ToS 23F Defeat Staven", "ToS 24F Final Chest"]
@@ -285,6 +294,7 @@ class SpiritTracksWorld(WorldParent):
             elif self.options.tos_dungeon_options == "all_sections":
                 required_dungeons += implemented_tos
 
+        # print(f"Required dungeons: {required_dungeons}")
         if not self.options.require_specific_dungeons:
             return required_dungeons
 
@@ -351,6 +361,8 @@ class SpiritTracksWorld(WorldParent):
             return self.options.portal_checks
         if "Rabbit Haven" in location_name:
             return self.options.rabbitsanity
+        if location_name.endswith("Boss Key"):
+            return self.options.randomize_boss_keys
         if location_data["conditional"] == "tears":
             return self.options.randomize_tears.value != -1  # not vanilla
         if "minigame" in location_data and self.options.randomize_minigames:
@@ -373,6 +385,8 @@ class SpiritTracksWorld(WorldParent):
                 return "shields" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Postcard Locations"]:
                 return "postcards" in self.options.shopsanity.value
+            if location_name in LOCATION_GROUPS["Shop Ammo Locations"]:
+                return "ammo" in self.options.shopsanity.value
         if location_name == "Anouki Village Repair Fence":
             return self.options.randomize_passengers.value or self.options.randomize_cargo.value
         if location_name == "Anouki Village Fence Progress Gift":
@@ -427,8 +441,17 @@ class SpiritTracksWorld(WorldParent):
                             "snow realm rabbits": 1,
                             "snowdrift station rabbit": 1,
                             "icyspring rabbits": 2}
+            mountain_regions = {"fire realm rabbits": 2,
+                                "mountain rabbits": 4,
+                                "fire source rabbits": 1,
+                                "disorientation rabbits": 1,
+                                "eote rabbits": 1,
+                                "s mountain temple rabbit": 1}
+            sand_regions = {"sand realm rabbits": 4,
+                            "sand restoration rabbits": 5,
+                            "sand connection rabbit": 1}
             [self.create_multiple_events(reg, f"_caught_{realm}_rabbits", count)
-             for regions, realm in zip([forest_regions, snow_regions], ["grass", "snow"])
+             for regions, realm in zip([forest_regions, snow_regions, mountain_regions, sand_regions], ["grass", "snow", "mountain", "sand"])
              for reg, count in regions.items()]
 
         # Create rupee farming events
@@ -448,10 +471,11 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("mayscore lumber", "_buy_lumber")
             self.create_event("icyspring ice", "_buy_ice")
             self.create_event("castle town buy cuccos", "_buy_cuccos")
-
+            self.create_event("papuzia buy cargo", "_buy_fish")
+            self.create_event("dark ore mine ore", "_buy_ore")
         # UT Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
-        self.create_event("linebeck trading", "_can_sell_treasure")
+        self.create_event("linebeck event", "_can_sell_treasure")
 
 
     def exclude_locations_automatically(self):
@@ -569,7 +593,11 @@ class SpiritTracksWorld(WorldParent):
                              "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield", "Prize Postcards (10)"]:
                 filler_item_count += 1
                 continue
-            if "force_vanilla" in loc_data and loc_data["force_vanilla"]:
+            if any([
+                "Small Key" in item_name and self.options.keysanity == "vanilla",
+                loc_name.endswith("Boss Key") and self.options.randomize_boss_keys == "vanilla_abstract",
+                "force_vanilla" in loc_data and loc_data["force_vanilla"]
+            ]):
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
@@ -586,9 +614,10 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Ocean Source", 1), ("Fire Source", 1), ("Sand Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
+        add_items = [("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
                      ("Repair Trading Post Bridge", 1), ("Shield", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
+        if self.options.randomize_cargo: add_items += [("Wagon", 1)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
@@ -627,9 +656,9 @@ class SpiritTracksWorld(WorldParent):
         rabbit_locations = []
         # Figure out rabbit counts for different pools
         max_count = self.options.rabbit_max_location_count.value
-        rabbit_counts = [max_count, max_count]
+        rabbit_counts = [max_count]*4
         if self.options.rabbit_location_count_distribution.value == -1:
-            rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
+            rabbit_counts = [self.random.randint(1, max_count) for _ in range(4)]
         self.rabbit_counts = rabbit_counts
 
         def pick_random_locs(loc_lists):
@@ -640,28 +669,33 @@ class SpiritTracksWorld(WorldParent):
         if self.options.rabbitsanity.value in [1, 2, 4]: # Vanilla or unique
             forest_rabbits = list(LOCATION_GROUPS["Unique Grass Rabbits"])
             snow_rabbits = list(LOCATION_GROUPS["Unique Snow Rabbits"])
-            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits])
+            mountain_rabbits = list(LOCATION_GROUPS["Unique Mountain Rabbits"])
+            sand_rabbits = list(LOCATION_GROUPS["Unique Sand Rabbits"])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits])
 
         if self.options.rabbitsanity.value in [3, 4]:  # total count
             forest_rabbits = list(LOCATION_GROUPS["Total Grass Rabbits"])
             snow_rabbits = list(LOCATION_GROUPS["Total Snow Rabbits"])
+            mountain_rabbits = list(LOCATION_GROUPS["Total Mountain Rabbits"])
+            sand_rabbits = list(LOCATION_GROUPS["Total Sand Rabbits"])
             sort_func = lambda loc: f"0{loc.split()[1]}"[-2:]  # wth python
             forest_rabbits.sort(key=sort_func)
             snow_rabbits.sort(key=sort_func)
-            print(f"Sorted Grass Rabbits: {forest_rabbits}")
+            mountain_rabbits.sort(key=sort_func)
+            sand_rabbits.sort(key=sort_func)
             interval = self.options.rabbit_location_count_distribution.value
             if interval >= 0:
-                intervals = [interval]*2 if interval else [self.random.randint(1, 3) for _ in range(2)]
-                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits]):
+                intervals = [interval]*4 if interval else [self.random.randint(1, 3) for _ in range(3)]
+                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits]):
                     if i > max_count:
                         rabbit_locations.append(realm_locs[max_count-1])
                     else:
                         rabbit_locations += realm_locs[i-1:max_count:i]
-                # print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
+                print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
                 self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
-            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits])
 
         # print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
@@ -880,7 +914,7 @@ class SpiritTracksWorld(WorldParent):
         if self.tower_pairings:
             self.connect_plando(self.tower_pairings)
         self.er_placement_state = randomize_entrances(self, True, groups)
-        print(f"ER Placements: {self.er_placement_state.pairings}")
+        # print(f"ER Placements: {self.er_placement_state.pairings}")
 
         # Get lookup for logic stuff. Doesn't work cause logic is cemented earlier
         # self.create_tower_section_lookup()
@@ -911,7 +945,9 @@ class SpiritTracksWorld(WorldParent):
         # Confine small keys and boss key to own dungeon if option is enabled
         if self.options.keysanity in ["in_own_dungeon", "in_own_section"]:
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key")])
-            confined_dungeon_items.extend([item for item in items if item.name.startswith("Boss Key")])
+
+        if self.options.randomize_boss_keys in ["in_own_dungeon", "in_own_section"]:
+            confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Boss Keys"]])
 
         if self.options.randomize_tears in ["in_own_section", "in_tos"]:
             confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Tears of Light"]])
@@ -931,6 +967,8 @@ class SpiritTracksWorld(WorldParent):
             section_items = []
             if self.options.keysanity == "in_own_section":
                 section_items += [item for item in self.pre_fill_items if item.name == f"Small Key (ToS {section})"]
+            if self.options.randomize_boss_keys == "in_own_section":
+                section_items += [item for item in self.pre_fill_items if item.name == f"Boss Key (ToS {section})"]
             if self.options.randomize_tears == "in_own_section":
                 section_items += [item for item in self.pre_fill_items if item.name.endswith(f"Tear of Light (ToS {section})")]
 
@@ -970,6 +1008,9 @@ class SpiritTracksWorld(WorldParent):
                 if self.options.keysanity == "in_own_dungeon":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if item.name.startswith("Small Key (ToS")]
+                if self.options.randomize_boss_keys == "in_own_dungeon":
+                    confined_dungeon_items += [item for item in self.pre_fill_items
+                                          if item.name.startswith("Boss Key (ToS")]
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
@@ -1029,7 +1070,7 @@ class SpiritTracksWorld(WorldParent):
     def fill_slot_data(self) -> dict:
         options = ["goal",
                    "logic", "cannon_logic",
-                   "keysanity",
+                   "keysanity", "randomize_boss_keys",
                    "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
                    "randomize_passengers", "randomize_cargo",

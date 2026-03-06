@@ -43,7 +43,7 @@ class SpiritTracksDungeonCount(Range):
     """
     display_name = "Required Dungeon Count"
     range_start = 1
-    range_end = 8
+    range_end = 10
     default = 2
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
@@ -393,15 +393,16 @@ class SpiritTracksShopsanity(OptionSet):
     Add the following to the list to randomize that type of shop location:
     - uniques: 2 locations, 2500 rupees
     - treasure: 7 locations, 2400 rupees
-    - potions: 6 locations, 700 rupees
+    - potions: 8 locations, 1050 rupees
     - shields: 4 locations, 410 rupees
-    - postcards: 3 locations 300 rupees
+    - postcards: 4 locations 400 rupees
+    - ammo: 3 locations 300 rupees
     - all: same as adding all above
     """
     display_name = "Shopsanity"
     default = set()
     # supports_weighting = True
-    valid_keys = ["uniques", "treasure", "potions", "shields", "postcards", "all"]
+    valid_keys = ["uniques", "treasure", "potions", "shields", "postcards", "ammo", "all"]
 
 class SpiritTracksShopHints(Toggle):
     """
@@ -485,6 +486,23 @@ class SpiritTracksRandomizeCargo(Choice):
     option_randomize = 3
     default = 0
 
+class SpiritTracksRandomizeBossKeys(Choice):
+    """
+    Randomize Boss Keys
+    - vanilla: boss keys are normal, you need to carry them to their door
+    - vanilla_abstract: picking up boss keys gives you an abstract boss key item, so you don't have to carry the key
+    - in_own_section: boss keys are randomized in their own dungeon/tower of spirits section
+    - in_own_dungeon: boss keys are randomized in their own dungeon
+    - anywhere: boss keys are randomized anywhere
+    """
+    display_name = "Randomize Boss Keys"
+    option_vanilla = 0
+    option_vanilla_abstract = -1
+    option_in_own_section = 3
+    option_in_own_dungeon = 1
+    option_anywhere = 2
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -506,6 +524,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
+    randomize_boss_keys: SpiritTracksRandomizeBossKeys
     randomize_minigames: SpiritTracksRandomizeMinigames
     minigame_hints: SpiritTracksMinigameHints
     start_with_train: SpiritTracksStartWithTrain
@@ -513,6 +532,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     randomize_passengers: SpiritTracksRandomizePassengers
     randomize_cargo: SpiritTracksRandomizeCargo
 
+    # ToS stuff
     tos_section_unlocks: SpiritTracksToSSectionUnlocks
     tos_unlock_base_item: SpiritTracksToSBase
     shuffle_tos_sections: SpiritTracksShuffleToSSections
@@ -525,10 +545,6 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Portals
     portal_behavior: SpiritTracksRandomizePortals
     portal_checks: SpiritTracksPortalLocations
-
-    # Hint Options
-    #dungeon_hints: SpiritTracksDungeonHints
-    #shop_hints: SpiritTracksShopHints
 
     # World Options
 
@@ -569,10 +585,13 @@ st_option_groups = [
         SpiritTracksLogic,
         SpiritTracksCannonLogic,
         SpiritTracksKeyRandomization,
+        SpiritTracksRandomizeBossKeys,
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,
         SpiritTracksRandomizePortals,
         SpiritTracksPortalLocations,
+        SpiritTracksRandomizePassengers,
+        SpiritTracksRandomizeCargo,
         SpiritTracksStartWithTrain,
     ]),
     OptionGroup("ToS Options", [

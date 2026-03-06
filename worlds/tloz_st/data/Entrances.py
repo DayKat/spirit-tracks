@@ -132,6 +132,26 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "Sand Realm Temple Portal": {
+        "return_name": "Sand Realm Sanctuary Portal",
+        "entrance": (0x6, 0, 0xB),
+        "exit": (0x6, 0x0, 0xC),
+        "entrance_region": "sand realm restoration",
+        "exit_region": "sand realm",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Fire Realm Sand Portal": {
+        "return_name": "Ocean Realm Temple Portal",
+        "entrance": (0x7, 0, 0x13),
+        "exit": (0x6, 0x0, 0xA),
+        "entrance_region": "sand connection",
+        "exit_region": "ocean temple tracks",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
     # Dark Realm
     "Enter Dark Realm Portal": {
@@ -212,6 +232,24 @@ ENTRANCE_DATA = {
         "two_way": False,
         "entrance_region": "bt fraaz",
         "exit_region": "event_fraaz",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Cactops": {
+        "two_way": False,
+        "entrance_region": "oct phytops",
+        "exit_region": "event_phytops",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Skeldritch": {
+        "two_way": False,
+        "entrance_region": "skeldritch",
+        "exit_region": "skeldritch event",
         "entrance": (0x29, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
@@ -471,12 +509,22 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "Marine Temple 6F Boss Door Staircase": {
+        "return_name": "Marine Temple 7F Exit",
+        "entrance": (0x1b, 0x5, 3),
+        "exit": (0x1b, 0x6, 0),
+        "entrance_region": "oct 6f chest",
+        "exit_region": "oct phytops",
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
 
     # Linebeck/bridge worker events
     "EVENT: Give Regal Ring to Linebeck": {
         "two_way": False,
-        "entrance_region": "trading post",
-        "exit_region": "linebeck trading",
+        "entrance_region": "linebeck trading",
+        "exit_region": "linebeck event",
         "entrance": (0x37, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
@@ -498,7 +546,9 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "ToS 12F Ocean Rail Glyph": "EVENT: Reach ToS 12F",
                          "ToS 17F Fire Rail Glyph": "EVENT: Reach ToS 17F",
                          "ToS 23F Defeat Staven": "EVENT: Defeat Staven",
-                         "ToS 24F Final Chest": "EVENT: Reach ToS 24F"}
+                         "ToS 24F Final Chest": "EVENT: Reach ToS 24F",
+                         "Marine Temple Dungeon Reward": "EVENT: Defeat Cactops",
+                         "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch"}
 goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
                          3: "GOAL: Defeat Fraaz",
                          0: "GOAL: Reach ToS 3F",

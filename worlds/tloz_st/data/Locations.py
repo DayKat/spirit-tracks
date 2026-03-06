@@ -81,7 +81,6 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "stamp": True,
         "vanilla_item": "Nothing!",
-        "item_override": "Song of Birds",
         "location_groups": ["Castle Town"],
     },
     "Castle Town Left Wall Chest": {
@@ -93,7 +92,6 @@ LOCATIONS_DATA = {
         "x_max": -34406,
         "z_min": 46694,
         "z_max": 59802,
-        "item_override": "Whip",
         "location_groups": ["Castle Town"],
     },
     "Castle Town Right Wall Chest": {
@@ -199,7 +197,6 @@ LOCATIONS_DATA = {
         "entrance_id": 6,
         "y": 9830,
         "x_max": -70000,
-        "item_override": "Bow (Progressive)",
         "location_groups": ["Hyrule Castle"],
     },
     "Hyrule Castle 2F Indoors Chest": {
@@ -219,7 +216,6 @@ LOCATIONS_DATA = {
         "x_max": 40000,
         "z_min": -55000,
         "z_max": -35000,
-        "item_override": "Sand Wand",
         "location_groups": ["Hyrule Castle"],
     },
     "Hyrule Castle Sword Minigame": {
@@ -289,7 +285,6 @@ LOCATIONS_DATA = {
     "ToS 1F Chest": {
         "region_id": "tos 1f chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "item_override": "Bombs (Progressive)",
         "stage_id": 0x13,
         "room_id": 0,
         "x_min": -6554,
@@ -599,6 +594,13 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 3,
     },
+    "ToS 10F Boss Key": {
+        "vanilla_item": "Boss Key (ToS 3)",
+        "region_id": "tos 9f phantom",
+        'dungeon': "ToS",
+        "tos_section": 3,
+        "conditional": True
+    },
     "ToS 11F Chest": {
         "stage_id": 0x13,
         "room_id": 0xA,
@@ -832,6 +834,13 @@ LOCATIONS_DATA = {
         "x_max": 35000,
         "z_min": -15000,
         "x_min": 10000,
+    },
+    "ToS 22F Boss Key": {
+        "vanilla_item": "Boss Key (ToS 5)",
+        "region_id": "tos 19f center 2",
+        'dungeon': "ToS",
+        "tos_section": 5,
+        "conditional": True,
     },
     "ToS 23F Defeat Staven": {
         "stage_id": 0x23,
@@ -1097,18 +1106,12 @@ LOCATIONS_DATA = {
         "z_max": 7485,
         "dungeon": "Wooded Temple",
     },
-    # "Wooded Temple 3F Boss Key Chest": {
-    #     "region_id": "wt 3f boss key chest",
-    #     "vanilla_item": "Boss Key (Wooded Temple)",
-    #     "stage_id": 0x19,
-    #     "room_id": 2,
-    #     "x_min": 54886,
-    #     "x_max": 76186,
-    #     "z_min": -63898,
-    #     "z_max": -50790,
-    #     "dungeon": "Wooded Temple",
-    #     "require_item": ["Whirlwind"],
-    # },
+    "Wooded Temple 3F Boss Key": {
+        "region_id": "wt 3f bk",
+        "vanilla_item": "Boss Key (Wooded Temple)",
+        "dungeon": "Wooded Temple",
+        "conditional": True,
+    },
     "Wooded Temple Boss Heart Container": {
         "region_id": "wt stagnox",
         "vanilla_item": "Heart Container",
@@ -1177,9 +1180,28 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
-        "require_item": ["Snow Rabbit"],
         'address': STAddr.adv_flags_51,
         'value': 0x40,
+        "conditional": True,
+        "location_groups": ["Rabbit Haven"],
+    },
+    "Rabbit Haven Rescue 10 Mountain Rabbits": {
+        "region_id": "rabbit haven 10 mountain rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        'address': STAddr.adv_flags_52,
+        'value': 0x1,
+        "conditional": True,
+        "location_groups": ["Rabbit Haven"],
+    },
+    "Rabbit Haven Rescue 10 Sand Rabbits": {
+        "region_id": "rabbit haven 10 sand rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        'address': STAddr.adv_flags_52,
+        'value': 0x2,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
     },
@@ -1365,7 +1387,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple B1 NW Enemy Chest": {
-        "region_id": "bt b1 nw enemy chest",
+        "region_id": "bt west",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x1A,
         "room_id": 1,
@@ -1376,7 +1398,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple 1F NW Chest": {
-        "region_id": "bt 1f nw chest",
+        "region_id": "bt west",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 0,
@@ -1387,7 +1409,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple 1F Torch Chest": {
-        "region_id": "bt 1f torch chest",
+        "region_id": "bt west",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 0,
@@ -1396,6 +1418,12 @@ LOCATIONS_DATA = {
         "z_min": -68020,
         "z_max": -58982,
         "dungeon": "Blizzard Temple",
+    },
+    "Blizzard Temple 2F Boss Key": {
+        "region_id": "bt west",
+        "vanilla_item": "Boss Key (Blizzard Temple)",
+        "dungeon": "Blizzard Temple",
+        "conditional": True
     },
     "Blizzard Temple Boss Heart Container": {
         "region_id": "bt fraaz",
@@ -1720,6 +1748,12 @@ LOCATIONS_DATA = {
         "dungeon": "Marine Temple",
         "require_item": ["Whip"],
     },
+    "Marine Temple 6F Boss Key": {
+        "region_id": "oct bk",
+        "vanilla_item": "Boss Key (Marine Temple)",
+        "dungeon": "Marine Temple",
+        "conditional": True
+    },
 
     "Marine Temple Heart Container": {
         "region_id": "oct phytops",
@@ -1742,6 +1776,7 @@ LOCATIONS_DATA = {
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "goal": True,
         "location_groups": ["Cactops"],
+        "ut_connect": "EVENT: Defeat Cactops"
     },
 
     # Pirate Hideout
@@ -1892,8 +1927,8 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
         "room_id": 6,
-        "x_min": 20000,
-        "x_max": -40000,
+        "z_min": 5000,
+        "x_max": -30000,
         "farmable": True,
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
@@ -1916,7 +1951,275 @@ LOCATIONS_DATA = {
         "room_id": 7,
         "farmable": True,
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
+    },
 
+    # ========= Fire Realm ==========
+    "Disorientation Station Bird Chest": {
+        "stage_id": 0x40,
+        "region_id": "disorientation bird",
+        "x_min": -60000,
+        "x_max": -35000,
+        "z_min": 5000,
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Climb Chest": {
+        "stage_id": 0x40,
+        "region_id": "disorientation bird",
+        "x_max": -85000,
+        "z_min": -10000,
+        "vanilla_item": "Red Rupee (20)",
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Cliff Chest": {
+        "stage_id": 0x40,
+        "region_id": "disorientation bird",
+        "x_min": 55000,
+        "z_max": -40000,
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Maze Chest": {
+        "stage_id": 0x40,
+        "room_id": 0x9,
+        "region_id": "disorientation sod",
+        "vanilla_item": "Treasure: Priceless Stone",
+        "location_groups": ["Disorientation Station"],
+    },
+    "Disorientation Station Guard Gift": {
+        "stage_id": 0x40,
+        "x_max": -55000,
+        "z_max": -30000,
+        "region_id": "disorientation sod",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Disorientation Station"],
+    },
+    # Ends of the Earth
+    "Ends of the Earth Master Big Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x4,
+        "region_id": "eote puzzles",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Master Small Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x1,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Tempered Big Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x8,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Heart Container",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Tempered Small Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x5,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Golden Big Chest": {
+        "stage_id": 0x41,
+        "room_id": 0xC,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Treasure: Regal Ring",
+        "location_groups": ["Ends of the Earth"],
+    },
+    "Ends of the Earth Golden Small Chest": {
+        "stage_id": 0x41,
+        "room_id": 0x9,
+        "region_id": "eote puzzles",
+        "vanilla_item": "Big Green Rupee (100)",
+        "location_groups": ["Ends of the Earth"],
+    },
+
+    # ========= Sand Realm ==========
+    "Sand Sanctuary Song of Restoration": {
+        "stage_id": 0x34,
+        "room_id": 0x2,
+        "region_id": "sand sanc song",
+        "address": STAddr.rail_restorations,
+        "value": 0x20,
+        "minigame": [1, 2, 3, 4],
+        "conditional": True,
+        "location_groups": ["Sand Sanctuary", "Restoration Duets"],
+    },
+    "Sand Sanctuary Stamp Stand": {
+        "stage_id": 0x34,
+        "region_id": "sand sanc stamp stand",
+        "stamp": True,
+        "location_groups": ["Sand Sanctuary"],
+    },
+    # Dark Ore Mine
+    "Dark Ore Mine Song of Discovery Chest": {
+        "stage_id": 0x3D,
+        "room_id": 0x1,
+        "z_max": -15000,
+        "x_min": 50000,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "dark ore mine sod",
+        "location_groups": ["Dark Ore Mine"],
+    },
+    # ========= Desert Temple ==========
+    "Desert Temple 1F Entrance Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": 10000,
+        "x_max": 15000,
+        "x_min": -10000,
+        "z_min": -5000,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "dt sw",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 1F NW Gerune Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": -60000,
+        "x_max": -25000,
+        "x_min": -50000,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt 1f nw",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 1F N Trap Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": -60000,
+        "x_max": 30000,
+        "x_min": 0,
+        "vanilla_item": "Green Rupee (1)",
+        "region_id": "dt 1f n",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 1F N Arena Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": -50000,
+        "x_max": 30000,
+        "x_min": 0,
+        "vanilla_item": "Small Key (Desert Temple)",
+        "region_id": "dt 1f n",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 3F Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x2,
+        "vanilla_item": "Sand Wand",
+        "region_id": "dt 3f",
+        "y": 9830,
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 2F Left Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x1,
+        "x_max": 10000,
+        "x_min": -10000,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt 2f sw",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 2F Right Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x1,
+        "x_min": 35000,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "dt 2f sw",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 1F N Ergtorok Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "x_max": 0,
+        "x_min": -20000,
+        "z_max": -60000,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt 1f n earthquake",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple 1F N Burried Key": {
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "x_max": 0,
+        "x_min": -20000,
+        "z_max": -30000,
+        "z_min": -60000,
+        "vanilla_item": "Small Key (Desert Temple)",
+        "region_id": "dt 1f n earthquake",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple B1 Stamp Stand": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "stamp": True,
+        "region_id": "dt stamp stand",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple B1 Near Boss Door Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "x_min": 35000,
+        "x_max": 50000,
+        "z_min": -15000,
+        "z_max": 0,
+        "vanilla_item": "Red Rupee (20)",
+        "region_id": "dt b1 2",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple B1 SW Stalfos Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "x_max": -75000,
+        "z_min": 45000,
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "region_id": "dt b1 damage",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple B1 NW Buried Rupee": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "x_max": -90000,
+        "z_max": -60000,
+        "vanilla_item": "Big Green Rupee (100)",
+        "region_id": "dt b1 damage",
+        "dungeon": "Desert Temple",
+    },
+    "Desert Temple B1 Boss Key": {
+        "vanilla_item": "Boss Key (Desert Temple)",
+        "region_id": "dt b1 damage",
+        "dungeon": "Desert Temple",
+        "conditional": True
+    },
+    "Skeldritch Heart Container": {
+        "stage_id": 0x22,
+        "room_id": 0x1,
+        "vanilla_item": "Heart Container",
+        "region_id": "skeldritch",
+        "location_groups": ["Skeldritch"],
+    },
+    "Desert Temple Dungeon Reward": {
+        "stage_id": 0x22,
+        "room_id": 0x1,
+        "vanilla_item": "Sand Source",
+        "address": STAddr.adv_flags_1a,
+        "value": 0x1,
+        "region_id": "skeldritch",
+        "location_groups": ["Skeldritch"],
+        "ut_connect": "EVENT: Defeat Skeldritch",
+    },
+    "Desert Temple Bow of Light Chest": {
+        "stage_id": 0x1D,
+        "room_id": 0x5,
+        "y": 9830,
+        "vanilla_item": "Bow of Light",
+        "item_override": "Nothing!",
+        "region_id": "skeldritch",
+        "location_groups": ["Skeldritch"],
     },
 
     # ========= Rabbits ==========
@@ -2102,128 +2405,208 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
 
-    # Total count rabbits
-    "Catch 1 Grass Rabbit": {
-        "region_id": "Grass Rabbit Count 1",
+    # Mountain Rabbits
+    "Rabbit Near ToS Fire Realm": {
+        "region_id": "fire source rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x40,
         "rabbit": True,
-        "count": 1,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 2 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 2",
+    "Rabbit Near Disorientation Station": {
+        "region_id": "disorientation rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x40,
         "rabbit": True,
-        "count": 2,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 3 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 3",
+    "Rabbit Near Ends of the Earth": {
+        "region_id": "eote rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x20,
         "rabbit": True,
-        "count": 3,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 4 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 4",
+    "Rabbit NE Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x10,
         "rabbit": True,
-        "count": 4,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 5 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 5",
+    "Rabbit NW Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x8,
         "rabbit": True,
-        "count": 5,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 6 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 6",
+    "Rabbit N Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x4,
         "rabbit": True,
-        "count": 6,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 7 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 7",
+    "Rabbit S Mountain": {
+        "region_id": "s mountain temple rabbit",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 2,
         "rabbit": True,
-        "count": 7,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 8 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 8",
+    "Rabbit SE Mountain": {
+        "region_id": "mountain rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_4,
+        "value": 0x1,
         "rabbit": True,
-        "count": 8,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 9 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 9",
+    "Rabbit N Fire Glyph": {
+        "region_id": "fire realm rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_3,
+        "value": 0x80,
         "rabbit": True,
-        "count": 9,
-        "location_groups": ["Total Grass Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
-    "Catch 10 Grass Rabbits": {
-        "region_id": "Grass Rabbit Count 10",
+    "Rabbit Near Goron Target Range": {
+        "region_id": "fire realm rabbits",
+        "vanilla_item": "Mountain Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_3,
+        "value": 0x40,
         "rabbit": True,
-        "count": 10,
-        "location_groups": ["Total Grass Rabbits"]
-    },
-    "Catch 1 Snow Rabbit": {
-        "region_id": "Snow Rabbit Count 1",
-        "rabbit": True,
-        "count": 1,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 2 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 2",
-        "rabbit": True,
-        "count": 2,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 3 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 3",
-        "rabbit": True,
-        "count": 3,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 4 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 4",
-        "rabbit": True,
-        "count": 4,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 5 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 5",
-        "rabbit": True,
-        "count": 5,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 6 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 6",
-        "rabbit": True,
-        "count": 6,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 7 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 7",
-        "rabbit": True,
-        "count": 7,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 8 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 8",
-        "rabbit": True,
-        "count": 8,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 9 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 9",
-        "rabbit": True,
-        "count": 9,
-        "location_groups": ["Total Snow Rabbits"]
-    },
-    "Catch 10 Snow Rabbits": {
-        "region_id": "Snow Rabbit Count 10",
-        "rabbit": True,
-        "count": 10,
-        "location_groups": ["Total Snow Rabbits"]
+        "location_groups": ["Unique Mountain Rabbits"]
     },
 
+    # Sand Rabbits
+    "Rabbit E Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x8,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit N Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x2,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit S Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x4,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit W Sand Realm": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x1,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit W Desert Temple": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x10,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit E Desert Temple": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_5,
+        "value": 0x20,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit E Sand Maze": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_6,
+        "value": 0x2,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit Mid Sand Maze": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_6,
+        "value": 0x1,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit W Sand Maze": {
+        "region_id": "sand realm rabbits",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_5,
+        "value": 0x80,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+    "Rabbit Fire Sand Connection": {
+        "region_id": "sand connection rabbit",
+        "vanilla_item": "Sand Rabbit",
+        "stage_id": 0x07,
+        "address": STAddr.rabbits_5,
+        "value": 0x40,
+        "rabbit": True,
+        "location_groups": ["Unique Sand Rabbits"]
+    },
+}
+
+LOCATIONS_DATA |= {
+    f"Catch 1 {realm} Rabbit": {
+        "region_id": f"{realm} Rabbit Count 1",
+        "rabbit": True,
+        "count": 1,
+        "location_groups": [f"Total {realm} Rabbits"]
+    } for realm in ["Grass", "Snow", "Mountain", "Sand"]}
+
+LOCATIONS_DATA |= {
+    f"Catch {count} {realm} Rabbits": {
+        "region_id": f"{realm} Rabbit Count {count}",
+        "rabbit": True,
+        "count": count,
+        "location_groups": [f"Total {realm} Rabbits"]
+    } for count in range(2, 11) for realm in ["Grass", "Snow", "Mountain", "Sand"]}
+
+LOCATIONS_DATA |= {
     # Portal Checks
     "Forest Realm Shoot SW Portal": {
         "stage_id": 0x04,
@@ -2265,8 +2648,25 @@ LOCATIONS_DATA = {
         "location_groups": ["Portal Checks"],
         "conditional": True
     },
+    "Sand Realm Shoot Temple Portal": {
+        "stage_id": 0x06,
+        "region_id": "sand restoration portal",
+        "address": STAddr.adv_flags_31,
+        "value": 0x1,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
+    "Fire Realm Shoot Sand Portal": {
+        "stage_id": 0x07,
+        "region_id": "sand connection portal",
+        "address": STAddr.adv_flags_30,
+        "value": 0x80,
+        "location_groups": ["Portal Checks"],
+        "conditional": True,
+        "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
+    },
 
-    # New locations to not mess locations ids until we're ready
+    # Shops
     "Snow Sanctuary Shop Heart Container": {
         "stage_id": 0x31,
         "room_id": 3,
@@ -2312,7 +2712,7 @@ LOCATIONS_DATA = {
     "Beedle Buy Bomb Bag": {
         "stage_id": 0x45,
         "room_id": 3,
-        "region_id": "beedle bomb bag",
+        "region_id": "beedle shop",
         "address": STAddr.adv_flags_22,
         "vanilla_item": "Bombs (Progressive)",
         "value": 0x2,
@@ -2322,28 +2722,28 @@ LOCATIONS_DATA = {
         "slot_data": [("shopsanity", "uniques")],
     },
     "Beedle Buy Uncommon Treasure": {
-        "region_id": "beedle uncommon treasure",
+        "region_id": "beedle shop",
         # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
         "conditional": True,
         "slot_data": [("shopsanity", "treasure")],
     },
     "Beedle Buy Rare Treasure": {
-        "region_id": "beedle rare treasure",
+        "region_id": "beedle shop",
         # "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
         "conditional": True,
         "slot_data": [("shopsanity", "treasure")],
     },
     "Beedle Buy Red Potion": {
-        "region_id": "beedle potion",
+        "region_id": "beedle shop",
         "vanilla_item": "Red Potion",
         "location_groups": ["Shop Potion Locations", "Beedle"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")]
     },
     "Beedle Buy Purple Potion": {
-        "region_id": "beedle potion",
+        "region_id": "beedle shop",
         "vanilla_item": "Purple Potion",
         "location_groups": ["Shop Potion Locations", "Beedle", "Shop Restock Locations"],
         "conditional": True,
@@ -2446,8 +2846,66 @@ LOCATIONS_DATA = {
         "conditional": True,
         "slot_data": [("shopsanity", "postcards")],
     },
+    "Papuzia Shop Purple Potion": {
+        "region_id": "papuzia shop",
+        "vanilla_item": "Purple Potion",
+        "location_groups": ["Shop Potion Locations", "Papuzia Shop", "Papuzia Village"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "potions")]
+    },
+    "Papuzia Shop Yellow Potion": {
+        "region_id": "papuzia shop",
+        "vanilla_item": "Yellow Potion",
+        "location_groups": ["Shop Potion Locations", "Papuzia Shop", "Papuzia Village"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "potions")]
+    },
+    "Papuzia Shop Postcards": {
+        "stage_id": 0x2c,
+        "room_id": 0x2,
+        "address": STAddr.postcard_count,
+        "value": 10,
+        "region_id": "papuzia shop",
+        "vanilla_item": "Prize Postcards (10)",
+        "location_groups": ["Shop Postcard Locations", "Papuzia Village", "Papuzia Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "postcards")],
+    },
+    "Papuzia Shop Bombs": {
+        "stage_id": 0x2c,
+        "room_id": 0x2,
+        "address": STAddr.bomb_count,
+        "value": 10,
+        "region_id": "papuzia shop bombs",
+        "vanilla_item": "Refill: Bombs",
+        "location_groups": ["Shop Ammo Locations", "Papuzia Village", "Papuzia Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "ammo")],
+    },
+    "Papuzia Shop Arrows": {
+        "stage_id": 0x2c,
+        "room_id": 0x2,
+        "address": STAddr.arrow_count,
+        "value": 10,
+        "region_id": "papuzia shop arrows",
+        "vanilla_item": "Refill: Arrows",
+        "location_groups": ["Shop Ammo Locations", "Papuzia Village", "Papuzia Shop"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "ammo")],
+    },
+    "Beedle Buy Bomb Refill": {
+        "stage_id": 0x45,
+        "room_id": 0x3,
+        "address": STAddr.bomb_count,
+        "value": 10,
+        "region_id": "beedle shop bombs",
+        "vanilla_item": "Refill: Bombs",
+        "location_groups": ["Shop Ammo Locations", "Beedle"],
+        "conditional": True,
+        "slot_data": [("shopsanity", "ammo")],
+    },
     # Passenger locations
-    "Bridge Worker's House Pick Up Kenzo": {
+    "Bridge Worker's Home Pick Up Kenzo": {
         "stage_id": 0x36,
         "room_id": 0x1,
         "address": STAddr.adv_flags_18,
@@ -2484,12 +2942,13 @@ LOCATIONS_DATA = {
     "Anouki Village Pick Up Noko": {
         "stage_id": 0x2B,
         "room_id": 0x0,
-        "address": STAddr.adv_flags_3a,
-        "value": 0x10,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x594B4350,  # Passenger Ascii tag
         "vanilla_item": "Passenger: Noko",
         "location_groups": ["Anouki Village", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+        "exact_read": True,
         "region_id": "av noko"
     },
     "Icy Spring Noko's Force Gem": {
@@ -2513,31 +2972,47 @@ LOCATIONS_DATA = {
         "slot_data": [("randomize_cargo", [0, 2, 3])],
         "conditional": True,
         "persistent": True,
+        "exact_read": True,
         "region_id": "icyspring ice"
     },
     "Mayscore Buy Lumber": {
         "stage_id": 0x2a,
         "room_id": 0x0,
-        "address": STAddr.cargo_count_0,
-        "value": 20,
+        "address": STAddr.cargo_0,
+        "value": 1,
         "vanilla_item": "Cargo: Lumber",
         "location_groups": ["Mayscore", "Buy Cargo"],
         "slot_data": [("randomize_cargo", [0, 2, 3])],
         "conditional": True,
         "persistent": True,
+        "exact_read": True,
         "region_id": "mayscore lumber"
     },
     "Castle Town Buy Cuccos": {
         "stage_id": 0x29,
         "room_id": 0x0,
-        "address": STAddr.cargo_count_0,
-        "value": 5,
+        "address": STAddr.cargo_0,
+        "value": 4,
         "vanilla_item": "Cargo: Cuccos",
         "location_groups": ["Castle Town", "Buy Cargo"],
         "slot_data": [("randomize_cargo", [0, 2, 3])],
         "conditional": True,
         "persistent": True,
+        "exact_read": True,
         "region_id": "castle town buy cuccos"
+    },
+    "Dark Ore Mine Buy Ore": {
+        "stage_id": 0x3D,
+        "room_id": 0x1,
+        "address": STAddr.cargo_0,
+        "value": 6,
+        "vanilla_item": "Cargo: Dark Ore",
+        "location_groups": ["Dark Ore Mine", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "exact_read": True,
+        "region_id": "dark ore mine ore"
     },
     "Anouki Village Repair Fence": {
         "stage_id": 0x2B,
@@ -2661,6 +3136,87 @@ LOCATIONS_DATA = {
         "conditional": True,
         "region_id": "pv dovok",
     }
+    "Papuzia Village Buy Fish": {
+        "stage_id": 0x2C,
+        "room_id": 0x0,
+        "address": STAddr.cargo_0,
+        "value": 3,
+        "vanilla_item": "Cargo: Fish",
+        "location_groups": ["Papuzia Village", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "exact_read": True,
+        "region_id": "papuzia buy cargo"
+    },
+    "Papuzia Village Buy Vessel": {
+        "stage_id": 0x2C,
+        "room_id": 0x4,
+        "address": STAddr.cargo_0,
+        "value": 5,
+        "vanilla_item": "Cargo: Vessel",
+        "location_groups": ["Papuzia Village", "Buy Cargo"],
+        "slot_data": [("randomize_cargo", [0, 2, 3])],
+        "conditional": True,
+        "persistent": True,
+        "exact_read": True,
+        "region_id": "papuzia buy cargo"
+    },
+    "Castle Town Lucia Fish Force Gem": {
+        "stage_id": 0x29,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x01,
+        "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
+        "location_groups": ["Castle Town", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "castle town fish"
+    },
+    "Snow Sanctuary Deliver Vessel": {
+        "stage_id": 0x31,
+        "room_id": 0x2,
+        "address": STAddr.adv_flags_e,
+        "value": 0x10,
+        "vanilla_item": "Slippery Station Tracks",
+        "location_groups": ["Snow Sanctuary", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "snow sanc vessel"
+    },
+    "Papuzia Village Deliver Ice": {
+        "stage_id": 0x2c,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_e,
+        "value": 0x80,
+        "vanilla_item": "Pirate Hideout Tracks",
+        "location_groups": ["Papuzia Village", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "papuzia ice"
+    },
+    "Trading Post Give Dark Ore to Linebeck": {
+        "stage_id": 0x37,
+        "room_id": 0xa,
+        "address": STAddr.adv_flags_e,
+        "value": 0x20,
+        "vanilla_item": "Lost at Sea Station Tracks",
+        "location_groups": ["Trading Post", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "linebeck dark ore"
+    },
+    "Sand Sanctuary Deliver Cuccos to Rael": {
+        "stage_id": 0x34,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x8,
+        # "vanilla_item": "Ends of the Earth Tracks",
+        "location_groups": ["Sand Sanctuary", "Deliver Cargo"],
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "sand sanc cuccos"
+    },
 }
 
 ## ========== remember to add item override!! =============
