@@ -69,7 +69,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["n castle town tracks", "snow bridge", True, lambda state: st_has_misc_tracks(state, player, "N Castle Town") and st_has_misc_tracks(state, player, "Snow Realm Bridge") and st_soft_cannon(state, player)],
         ["n castle town tracks", "snow realm source", True, lambda state: st_has_misc_tracks(state, player, "N Castle Town") and st_has_source(state, player, "Snow") and st_soft_cannon(state, player)],
         ["wtt", "snow bridge", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_misc_tracks(state, player,"Snow Realm Bridge") and st_soft_cannon(state, player)],
-        ["snow bridge", "snow realm", True, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player,"Snow Realm Bridge")],
+        ["snow bridge", "snow realm", True, lambda state: (
+            st_has_glyph(state, player, "Snow") and
+            st_has_misc_tracks(state, player,"Snow Realm Bridge"))],
         ["snow bridge", "snow realm source", True, lambda state: st_has_source(state, player, "Snow") and st_has_misc_tracks(state, player, "Snow Realm Bridge")],
         ["snow bridge", "snow bridge portal", False, lambda state: st_has_cannon(state, player)],
 
@@ -187,10 +189,16 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 19f", "tos 19f south", False, lambda state:
          st_has_bow(state, player) & (st_has_boomerang(state, player) | (st_can_possess_phantoms(state, player, 5) & st_can_rotate_repeater(state, player)))],
-        ["tos 19f south", "tos 20f tear", False,  lambda state: st_has_boomerang(state, player) | st_has_beam_sword(state, player)],
+        ["tos 19f south", "tos 20f tear", False,  lambda state:
+            st_has_boomerang(state, player) or
+            st_has_beam_sword(state, player) or
+            (st_option_hard_logic(state, player) and st_can_rotate_repeater(state, player) and (
+                st_can_possess_phantoms(state, player, 5) or
+                st_has_whip(state, player)))
+         ],
         ["tos 19f", "tos 19f center", False, lambda state:
          st_can_possess_phantoms(state, player, 5) | (st_vanilla_tears(state, player) & st_has_bow(state, player) & st_has_boomerang(state, player))],
-        ["tos 19f center", "tos 19f center chest", False, lambda state: st_has_bow(state, player) & (st_has_boomerang(state, player) | st_has_beam_sword(state, player))],
+        ["tos 19f center", "tos 19f center chest", False, lambda state: st_has_bow(state, player) & (st_has_boomerang(state, player) | st_has_beam_sword(state, player) | st_has_whip(state, player))],
         ["tos 19f center", "tos 18f phantom", False, None],
         ["tos 19f center", "tos 20f", False, lambda state: st_has_small_keys(state, player, "ToS 5", 2)],
 
@@ -324,7 +332,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # =========== Snow Sanctuary ==========
 
-        ["snow realm", "ss", False, lambda state: st_has_temple_tracks(state, player, "Blizzard") or (state.has("Snow Sanctuary Cave Key", player) and st_has_cannon(state, player))],
+        ["snow realm", "ss", False, lambda state: st_has_temple_tracks(state, player, "Blizzard") or (state.has("Snowfall Sanctuary Cave Key", player) and st_has_cannon(state, player))],
         ["ss", "ss stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["ss", "ss song", False, lambda state: st_has_spirit_flute(state, player)],
         ["ss", "snow sanc vessel", False, lambda state: st_has_cargo(state, player, "Vessel", "_buy_fish")],
@@ -389,7 +397,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
         ["ocean realm", "ocean portal tracks", True, lambda state: st_has_glyph(state, player, "Ocean")],
         ["ocean realm source", "ocean portal tracks", True, lambda state: st_has_source(state, player, "Ocean")],
-        ["ocean temple tracks", "ocean portal tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
+        ["ocean temple tracks", "ocean portal tracks", True, lambda state: (
+            st_has_temple_tracks(state, player, "Marine") and
+            st_has_misc_tracks(state, player, "Ocean Portal"))],
 
 
 
@@ -452,7 +462,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["las 4th room chest", "las 5th room", False, lambda state: st_has_bombs(state, player) or st_option_hard_logic(state, player)],
 
         # ===== Fire Realm =====
-        ["blizzard temple tracks", "fire realm", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_temple_tracks(state, player, "Blizzard") and st_has_cannon(state, player)],
+        ["blizzard temple tracks", "fire realm", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_temple_tracks(state, player, "Blizzard")],
         ["blizzard temple tracks", "gorge tracks", True, lambda state: st_has_misc_tracks(state, player, "Snow Realm Gorge") and st_has_temple_tracks(state, player, "Blizzard")],
         ["gorge tracks", "fire realm", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player, "Snow Realm Gorge")],
         ["fire realm", "fire source", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_source(state, player, "Fire")],
@@ -468,6 +478,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mountain temple tracks", "mountain rabbits", False, lambda state: st_has_net(state, player)],
         ["fire source", "fire source rabbits", False, lambda state: st_has_net(state, player)],
         ["disorientation station", "disorientation rabbits", False, lambda state: st_has_net(state, player)],
+        ["fire realm", "disorientation rabbits", False, lambda state: st_has_net(state, player)],
         ["ends of the earth", "eote rabbits", False, lambda state: st_has_net(state, player)],
         ["fire source", "s mountain temple rabbit", False, lambda state: st_has_net(state, player)],
         ["mountain temple tracks", "s mountain temple rabbit", False, lambda state: st_has_net(state, player)],
@@ -612,67 +623,67 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             ["forest realm rabbits", "Grass Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Grass", 10)],
 
-            ["snow realm rabbits", "Snow Rabbit Count 1", False,
+            ["forest realm rabbits", "Snow Rabbit Count 1", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 1)],
-            ["snow realm rabbits", "Snow Rabbit Count 2", False,
+            ["forest realm rabbits", "Snow Rabbit Count 2", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 2)],
-            ["snow realm rabbits", "Snow Rabbit Count 3", False,
+            ["forest realm rabbits", "Snow Rabbit Count 3", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 3)],
-            ["snow realm rabbits", "Snow Rabbit Count 4", False,
+            ["forest realm rabbits", "Snow Rabbit Count 4", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 4)],
-            ["snow realm rabbits", "Snow Rabbit Count 5", False,
+            ["forest realm rabbits", "Snow Rabbit Count 5", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 5)],
-            ["snow realm rabbits", "Snow Rabbit Count 6", False,
+            ["forest realm rabbits", "Snow Rabbit Count 6", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 6)],
-            ["snow realm rabbits", "Snow Rabbit Count 7", False,
+            ["forest realm rabbits", "Snow Rabbit Count 7", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 7)],
-            ["snow realm rabbits", "Snow Rabbit Count 8", False,
+            ["forest realm rabbits", "Snow Rabbit Count 8", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 8)],
-            ["snow realm rabbits", "Snow Rabbit Count 9", False,
+            ["forest realm rabbits", "Snow Rabbit Count 9", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 9)],
-            ["snow realm rabbits", "Snow Rabbit Count 10", False,
+            ["forest realm rabbits", "Snow Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 10)],
 
-            ["fire realm rabbits", "Mountain Rabbit Count 1", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 1", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 1)],
-            ["fire realm rabbits", "Mountain Rabbit Count 2", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 2", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 2)],
-            ["fire realm rabbits", "Mountain Rabbit Count 3", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 3", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 3)],
-            ["fire realm rabbits", "Mountain Rabbit Count 4", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 4", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 4)],
-            ["fire realm rabbits", "Mountain Rabbit Count 5", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 5", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 5)],
-            ["fire realm rabbits", "Mountain Rabbit Count 6", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 6", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 6)],
-            ["fire realm rabbits", "Mountain Rabbit Count 7", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 7", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 7)],
-            ["fire realm rabbits", "Mountain Rabbit Count 8", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 8", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 8)],
-            ["fire realm rabbits", "Mountain Rabbit Count 9", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 9", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 9)],
-            ["fire realm rabbits", "Mountain Rabbit Count 10", False,
+            ["forest realm rabbits", "Mountain Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 10)],
 
-            ["sand realm rabbits", "Sand Rabbit Count 1", False,
+            ["forest realm rabbits", "Sand Rabbit Count 1", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 1)],
-            ["sand realm rabbits", "Sand Rabbit Count 2", False,
+            ["forest realm rabbits", "Sand Rabbit Count 2", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 2)],
-            ["sand realm rabbits", "Sand Rabbit Count 3", False,
+            ["forest realm rabbits", "Sand Rabbit Count 3", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 3)],
-            ["sand realm rabbits", "Sand Rabbit Count 4", False,
+            ["forest realm rabbits", "Sand Rabbit Count 4", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 4)],
-            ["sand realm rabbits", "Sand Rabbit Count 5", False,
+            ["forest realm rabbits", "Sand Rabbit Count 5", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 5)],
-            ["sand realm rabbits", "Sand Rabbit Count 6", False,
+            ["forest realm rabbits", "Sand Rabbit Count 6", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 6)],
-            ["sand realm rabbits", "Sand Rabbit Count 7", False,
+            ["forest realm rabbits", "Sand Rabbit Count 7", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 7)],
-            ["sand realm rabbits", "Sand Rabbit Count 8", False,
+            ["forest realm rabbits", "Sand Rabbit Count 8", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 8)],
-            ["sand realm rabbits", "Sand Rabbit Count 9", False,
+            ["forest realm rabbits", "Sand Rabbit Count 9", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 9)],
-            ["sand realm rabbits", "Sand Rabbit Count 10", False,
+            ["forest realm rabbits", "Sand Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Sand", 10)],
         ]
 

@@ -33,31 +33,38 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
-    [STAddr.adv_flags_22, 0x38],  # buy cargo first time
+    [STAddr.adv_flags_22, 0x3C],  # buy cargo first time
     [STAddr.adv_flags_23, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
+    [STAddr.adv_flags_26, 0x3C],  # end of Tos section zelda texts
+    [STAddr.adv_flags_29, 0x80],  # tos 2 zelda text
     [STAddr.adv_flags_2a, 0x03],  # ToS 6 zelda text
     [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
+    [STAddr.adv_flags_33, 0x06],  # dark ore first conv0
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
-    [STAddr.adv_flags_3d, 0x60],  # ToS safe zone tutorial
+    [STAddr.adv_flags_3d, 0xE0],  # ToS safe zone tutorial, dos tablet
+    [STAddr.adv_flags_3e, 0x01],  # Disorientation station guard
     [STAddr.adv_flags_3f, 0x07],  # Dark ore mine cs
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
     [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text
     [STAddr.adv_flags_42, 0x86],  # board with zelda
+    [STAddr.adv_flags_44, 0x02],  # tos 2 zelda text
     [STAddr.adv_flags_46, 0x20],  # 7f zelda collapse
     [STAddr.adv_flags_48, 0x10],  # alfonzo giving cannon
     [STAddr.adv_flags_4e, 0x80],  # blizzard void out
     [STAddr.adv_flags_51, 0x03],  # ToS Staircase cutscene skip
     [STAddr.adv_flags_52, 0x80],  # ToS Staircase cutscene skip
     [STAddr.adv_flags_53, 0x77],  # ToS Staircase 2 zelda text skip
-    [STAddr.adv_flags_54, 0x28],  # first spirit train journey+portal
+    [STAddr.adv_flags_54, 0xA8],  # first spirit train journey+portal
+    [STAddr.adv_flags_55, 0x86],  # trials
+    [STAddr.adv_flags_56, 0x1],  # trials
     [STAddr.adv_flags_57, 0xD1],  # first song statue text
 
     # Set treasures to 0
     [STAddr.all_treasure_count, [0]*32],
     # Center stamp coords
-    [STAddr.stamp_coords, [0x48, 0x48, 0x48, 0xB8]*10]
+    [STAddr.stamp_coords, [0xB8, 0x48, 0x48, 0x48]*10]
 ]
 
 # You can find the stage flags for a stage by checking the stage data pointer of 0x265164 and adding an offset of 176 (note decimal) to its value
@@ -90,8 +97,10 @@ STAGE_FLAGS = {
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
     0x3C: [0x2, 0x0, 0x0, 0x0],  # GTR
+    0x40: [0xE, 0x0, 0x0, 0x0],  # Disorientation Station
     0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
     0x1d: [0x0, 0x3, 0x9, 0x0], # Desert Temple
+    0x3d: [0x2, 0x0, 0x9, 0x0],  # DOM
 }
 
 STAGES = {
@@ -104,7 +113,8 @@ STAGES = {
     0xA: "Underwater Tracks",
     0xB: "Snow Realm Rocktite Tunnel",
     0xC: "Sand Trial Rocktite Tunnel",
-    0xD: "Goron Target Range",
+    0xD: "Dark Ore Mine Rocktite Tunnel",
+    0xE: "Goron Target Range",
     0xF: "Dark Realm",
     0x10: "Demon Train",
     0x11: "Demon Train P2",
@@ -138,7 +148,7 @@ STAGES = {
     0x2E: "Goron Village",
     0x2F: "Outset Village",
     0x30: "Forest Sanctuary",
-    0x31: "Snow Sanctuary",
+    0x31: "Snowfall Sanctuary",
     0x32: "Ocean Sanctuary",
     0x33: "Fire Sanctuary",
     0x34: "Sand Sanctuary",
@@ -416,7 +426,7 @@ SHOP_TREASURE_DATA = {
         "group": "Rare"
     }],
     0x3103: [{
-        "locations": ["Snow Sanctuary Shop Treasure"],
+        "locations": ["Snowfall Sanctuary Shop Treasure"],
         "group": "Uncommon"
     }]
 }
@@ -426,8 +436,8 @@ potion_location_lookup = {
              2: "Beedle Buy Purple Potion"},
     0x2a05: {1: "Mayscore Shop Red Potion"},
     0x290a: {1: "Castle Town Shop Red Potion"},
-    0x3103: {1: "Snow Sanctuary Shop Red Potion",
-             2: "Snow Sanctuary Shop Purple Potion"},
+    0x3103: {1: "Snowfall Sanctuary Shop Red Potion",
+             2: "Snowfall Sanctuary Shop Purple Potion"},
     0x2c02: {3: "Papuzia Shop Yellow Potion",
              2: "Papuzia Shop Purple Potion"}
 }

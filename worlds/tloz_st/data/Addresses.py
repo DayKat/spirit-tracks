@@ -127,7 +127,10 @@ class STAddr:
     oct_boss_door = Address(0x32F6EE)
     dt_boss_door = Address(0x332C5E)
     tos3_boss_door = Address(0x33E482)
-    tos5_boss_door = Address(0x33E182)
+    # tos5_boss_door = Address(0x33E182)
+    tos5_boss_door = Address(0x33E1Ce)
+
+    tos_boss_door_pointer = Address(0x265668, size=4)
 
     # Stamps
     stamp_ids = Address(0x268f8c, size=20)

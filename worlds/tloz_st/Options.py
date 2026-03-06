@@ -564,6 +564,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     randomize_stamps: SpiritTracksStampItems
     stamp_pack_sizes: SpiritTracksStampItemPacks
+
     randomize_passengers: SpiritTracksRandomizePassengers
     randomize_cargo: SpiritTracksRandomizeCargo
 

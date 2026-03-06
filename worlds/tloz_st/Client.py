@@ -498,7 +498,7 @@ class SpiritTracksClient(DSZeldaClient):
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:
             self.receiving_location = True
-            stamp_location = self.scene_to_stamp[self.current_scene] #TODO error when loading into slot (in fs) after receiving stamp book offline, scene refresh fixed
+            stamp_location = self.scene_to_stamp[self.current_scene]
             await self.update_stamps(ctx)
             await self._process_checked_locations(ctx, stamp_location)
 
@@ -556,13 +556,13 @@ class SpiritTracksClient(DSZeldaClient):
         if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
             self.reload_on_item = True
 
-        if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
+        if ("Tear of Light" in location.get("vanilla_item", "") or location["name"] in ["ToS 1F Chest"]) and ctx.slot_data["randomize_tears"] != -1:
             await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
 
         if self.current_scene in [0x1309, 0x1318] and location.get("vanilla_item", "").startswith("Boss Key"):
             if self.item_count(ctx, location["vanilla_item"]):
                 print("Opening ToS boss door after having key and getting boss key location")
-                await BOSS_KEY_DATA[self.current_scene]["door"].overwrite(ctx, 3)
+                await self.open_tos_boss_door(ctx)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -578,7 +578,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
-            realms = ["Grass", "Snow", "Sand"]
+            realms = rabbit_realms
             rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
             rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
             print(f"Updating rabbit bits {hex(rabbit_bits)}")
@@ -816,19 +816,31 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Has found location {data['location']}, deleting boss key")
                 await self.delete_boss_key(ctx)
             else:
-                pointer = await data["pointer"].read(ctx) -0x2000000
-                self.boss_key_y = data["y"]
-                self.boss_key_read = Address(pointer+8, size=4)
-                print(f"Loaded boss key data: {self.boss_key_read} y: {self.boss_key_y}")
+                pointer = await data["pointer"].read(ctx)
+                if 0x2000000 < pointer < 0x2400000:
+                    self.boss_key_read = Address.from_pointer(pointer+8-0x2000000, size=4)
+                    self.boss_key_y = data["y"]
+                print(f"Loaded boss key data: {pointer-0x2000000} y: {self.boss_key_y}")
 
             # Open door
             if self.item_count(ctx, f"Boss Key ({data['dungeon']})"):
-                if current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations:
-                    print(f"Opening boss door for {current_scene}")
+                if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                    print(f"Opening boss door for {hex(current_scene)}")
                     if await data["door"].read(ctx) != 0x5:
                         await data["door"].overwrite(ctx, 3)
+                else:
+                    await self.open_tos_boss_door(ctx)
         else:
             self.boss_key_y, self.boss_key_read = None, None
+
+    @staticmethod
+    async def open_tos_boss_door(ctx):
+        print(f"Opening ToS boss door")
+        pointer = await STAddr.tos_boss_door_pointer.read(ctx)
+        next_pointer = await Address.from_pointer(pointer - 0x2000000 + 8, size=4).read(ctx)
+        boss_door = Address.from_pointer(next_pointer - 0x2000000 + 22)
+        if await boss_door.read(ctx) != 5:
+            await boss_door.overwrite(ctx, 3)
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 8):
@@ -878,12 +890,14 @@ class SpiritTracksClient(DSZeldaClient):
     async def delete_boss_key(self, ctx):
         pointer = await STAddr.boss_key_deletion_pointer.read(ctx) - 0x2000000
         print(f"Deleting boss key @ {hex(pointer)}")
-        size = 12
+        size, offset = 12, 0
         if self.current_stage == 0x1b:
             pointer += 44  # Ocean temple bk does not load into the first slot in memory
             await Address.from_pointer(pointer+60, 4).overwrite(ctx, 0)  # also needs this to not crash
             size = 8
-        deletion_address = Address.from_pointer(pointer, size)
+        if self.current_stage == 0x1D:
+            size, offset = 4, 8
+        deletion_address = Address.from_pointer(pointer+offset, size)
         # print(f"Deleting boss key @ {STAddr.boss_key_deletion}")
         await deletion_address.overwrite(ctx, 0)
 
@@ -908,7 +922,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         if ctx.slot_data["randomize_stamps"] == 1:  # vanilla_with_location
             stamp_locations_received = [LOCATIONS_DATA[self.location_id_to_name[i]]["stamp"] for i in ctx.checked_locations if self.location_id_to_name[i] in LOCATION_GROUPS["Stamp Stands"]]
-            wrong_stamp_indexes = [stamp_ids.index(i) for i in has_stamps if i not in stamp_locations_received]
+            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
             missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
 
         elif ctx.slot_data["randomize_stamps"] in [2, 3]: # stamp items
@@ -918,11 +932,13 @@ class SpiritTracksClient(DSZeldaClient):
             stamp_pack_count = min(stamp_pack_count, len(ctx.slot_data.get("stamp_pack_order", [])))
             stamp_values_received += ctx.slot_data.get("stamp_pack_order",[])[:stamp_pack_count]
 
-            wrong_stamp_indexes = [stamp_ids.index(i) for i in has_stamps if i not in stamp_values_received]
+            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_values_received]
             missing_stamps = [i for i in stamp_values_received if i not in has_stamps]
 
         remove_wrong_stamps(wrong_stamp_indexes)
         add_missing_stamps(missing_stamps)
         await STAddr.stamp_ids.overwrite(ctx, stamps)
+        has_stamps = [s for s in stamps if s != 255]
+        stamp_count = len(has_stamps)
 
         print(f"Has {stamp_count} stamps: {stamps}")

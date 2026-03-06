@@ -111,8 +111,6 @@ class STItem(DSItem):
 
     def get_receive_function(self):
         res = super().get_receive_function()
-        if res is None:
-            return dummy
         if self.name.startswith("Passenger:"):
             return dummy
         if "Tear of Light" in self.name:
@@ -121,8 +119,10 @@ class STItem(DSItem):
             return receive_tos_key
         if "Potion" in self.name:
             return receive_potion
-        if self.name.startswith("Stamp"):
+        if self.name.startswith("Stamp") and not self.name == "Stamp Book":
             return handle_stamps
+        if res is None:
+            return dummy
         return res
 
     def get_remove_vanilla_function(self):
@@ -136,7 +136,7 @@ class STItem(DSItem):
             return remove_passenger
         if self.name.startswith("Cargo:"):
             return remove_cargo
-        if self.name.startswith("Stamp"):
+        if self.name.startswith("Stamp") and not self.name == "Stamp Book":
             return handle_stamps
         return super().get_remove_vanilla_function()
 

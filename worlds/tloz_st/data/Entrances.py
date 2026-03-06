@@ -103,7 +103,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Snow Realm North Portal": {
-        "return_name": "Fire Realm Portal",
+        "return_name": "Mountain Portal",
         "entrance": (0x5, 0, 0xD),  # Random value, probably not correct
         "exit": (0x7, 0x0, 0x14),
         "entrance_region": "snow realm",
@@ -123,7 +123,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Forest Realm Cave Portal": {
-        "return_name": "Fire Realm Portal 2",
+        "return_name": "Fire Realm Portal",
         "entrance": (0x4, 0, 0xC),
         "exit": (0x7, 0x0, 0x12),
         "entrance_region": "forest cave tracks",
@@ -499,7 +499,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
-    "ToS 23F Blue Warp Before Stavem": {
+    "ToS 23F Blue Warp Before Staven": {
         "return_name": "ToS Top of Staircase Blue Warp",
         "entrance": (0x13, 0x14, 2),
         "exit": (0x17, 0x0, 6),
@@ -529,7 +529,27 @@ ENTRANCE_DATA = {
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
-    }
+    },
+    "Desert Temple Enter Boss": {
+        "return_name": "Skeldritch Exit",
+        "entrance_region": "dt b2",
+        "exit_region": "skeltritch",
+        "entrance": (0x1D, 0x4, 0x1),
+        "exit": (0x22, 0x0, 0),
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Desert Temple Enter Post-Fight": {
+        "return_name": "Skeldritch Post-Fight Exit",
+        "entrance_region": "dt b2",
+        "exit_region": "skeltritch",
+        "entrance": (0x1D, 0x4, 0x1),
+        "exit": (0x22, 0x1, 0),
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
 
 
 }

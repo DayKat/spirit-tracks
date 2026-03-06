@@ -219,21 +219,77 @@ DYNAMIC_ENTRANCES = {
         "message": "You don't have access to this portal!"
     },
 
-    "Bounce snow portal north": {
+    "Bounce icyspring portal": {
         "entrance": "Snow Realm North Portal",
         "destination": "Snow Realm North Portal",
+        "has_items": [("Mountain Temple Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Mountain Temple Tracks!"
+    },
+    "Bounce icyspring item": {
+        "entrance": "Snow Realm North Portal",
+        "destination": "Snow Realm North Portal",
+        "not_has_all_items": [("Mountain Temple Tracks", 1),
+                              ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
+
+
     "Bounce snow portal bridge": {
         "entrance": "Snow Realm Bridge Portal",
         "destination": "Snow Realm Bridge Portal",
         "message": "You don't have access to this portal!"
     },
-    "Bounce forest portal cave": {
-        "entrance": "Forest Realm Cave Portal",
-        "destination": "Forest Realm Cave Portal",
+
+    "Bounce mountain portal": {
+        "entrance": "Mountain Portal",
+        "destination": "Mountain Portal",
+        "has_items": [("N Icy Spring Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the N Icy Spring Tracks!"
+    },
+    "Bounce mountain item": {
+        "entrance": "Mountain Portal",
+        "destination": "Mountain Portal",
+        "not_has_all_items": [("N Icy Spring Tracks", 1),
+                              ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
+
+    "Bounce Cave portal": {
+        "entrance": "Forest Realm Cave Portal",
+        "destination": "Forest Realm Cave Portal",
+        "has_items": [("Fire Glyph", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Fire Glyph!"
+    },
+    "Bounce Cave portal item": {
+        "entrance": "Forest Realm Cave Portal",
+        "destination": "Forest Realm Cave Portal",
+        "not_has_all_items": [("Fire Glyph", 1),
+                              ("Portal Unlock: Forest Cave to Goron Village", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce goron portal": {
+        "entrance": "Fire Realm Portal",
+        "destination": "Fire Realm Portal",
+        "has_items": [("Forest Realm SW Cave Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Forest Realm SW Cave Tracks!"
+    },
+    "Bounce goron portal item": {
+        "entrance": "Fire Realm Portal",
+        "destination": "Fire Realm Portal",
+        "not_has_all_items": [("Forest Realm SW Cave Tracks", 1),
+                              ("Portal Unlock: Forest Cave to Goron Village", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
 
     # Dark realm options
     "Bounce Dark realm missing endgame requirements": {
@@ -324,20 +380,15 @@ DYNAMIC_ENTRANCES = {
         "entrance": "ToS 24F Blue Portal",
         "destination": "_connected_dungeon_entrance",
     },
-
-    # Sanctuary Bounces  (solved with dynaflags instead)
-    # "Bounce FoS": {
-    #     "entrance": "Forest Sanctuary Enter Sanctuary",
-    #     "destination": "Forest Sanctuary Enter Sanctuary",
-    #     "has_items": [("Spirit Flute", 0)],
-    #     "message": "You need the Spirit Flute to enter here"
-    # },
-    # "Bounce Snow Sanc": {
-    #     "entrance": "Snow Sanctuary Enter Inner Sanctuary",
-    #     "destination": "Snow Sanctuary Enter Inner Sanctuary",
-    #     "has_items": [("Spirit Flute", 0)],
-    #     "message": "You need the Spirit Flute to enter here"
-    # },
+    "Exit ToS 23F": {
+        "entrance": "ToS 23F Blue Warp Before Staven",
+        "destination": "_connected_dungeon_entrance",
+    },
+    "Skeldritch avoid post fight stuffs": {
+        "entrance": "Desert Temple Enter Post-Fight",
+        "destination": "Skeldritch Exit",
+        "not_has_locations": ["Desert Temple Dungeon Reward"],
+    },
 }
 
 # Reorganize above data to the form {scene: data} or something

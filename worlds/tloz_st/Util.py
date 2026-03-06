@@ -89,7 +89,7 @@ def build_item_id_to_name_dict() -> Dict[int, str]:
 def build_scene_to_stamp() -> Dict[int, str]:
     stamp_locations: Dict[int, str] = {}
     for loc_name, location in LOCATIONS_DATA.items():
-        if location.get("stamp"):
+        if location.get("stamp", None) is not None:
             scene = location.get("stage_id", 0) * 0x100 + location.get("room_id", 0)
             stamp_locations[scene] = loc_name
     return stamp_locations

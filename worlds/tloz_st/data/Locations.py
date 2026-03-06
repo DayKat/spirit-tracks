@@ -71,7 +71,8 @@ LOCATIONS_DATA = {
     },
     "Outset Niko 10 Stamps Reward": {
         "region_id": "outset 10 stamps",
-        "vanilla_item": "Shield",
+        "vanilla_item": "Ancient Shield",
+        "item_override": "Nothing!",
         "stage_id": 0x2F,
         "room_id": 0x0A,
         "address": STAddr.adv_flags_25,
@@ -1282,7 +1283,7 @@ LOCATIONS_DATA = {
     "Anouki Village Pair Villagers": {
         "region_id": "anouki village",
         "vanilla_item": "Red Rupee (20)",
-        "item_override": "Snow Sanctuary Cave Key",
+        "item_override": "Snowfall Sanctuary Cave Key",
         "stage_id": 0x2B,
         "room_id": 1,
         "location_groups": ["Anouki Village"],
@@ -1343,17 +1344,17 @@ LOCATIONS_DATA = {
         "location_groups": ["Anouki Village"],
     },
 
-    # Snow Sanctuary
-    "Snow Sanctuary Stamp Station": {
+    # Snowfall Sanctuary
+    "Snowfall Sanctuary Stamp Station": {
         "region_id": "ss stamp station",
         "vanilla_item": "Stamp: Snowfall Sanctuary",
         "stage_id": 0x31,
         "room_id": 0,
         "stamp": 6,
-        "location_groups": ["Snow Sanctuary"],
+        "location_groups": ["Snowfall Sanctuary"],
         "conditional": True
     },
-    "Snow Sanctuary Song of Restoration": {
+    "Snowfall Sanctuary Song of Restoration": {
         "stage_id": 0x31,
         "room_id": 0x2,
         "address": STAddr.rail_restorations,
@@ -1361,7 +1362,7 @@ LOCATIONS_DATA = {
         "minigame": [1, 2, 3, 4],
         "conditional": True,
         "region_id": "ss song",
-        "location_groups": ["Snow Sanctuary","Restoration Duets"],
+        "location_groups": ["Snowfall Sanctuary","Restoration Duets"],
     },
 
     # Blizzard Temple
@@ -2160,6 +2161,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Small Key (Desert Temple)",
         "region_id": "dt 1f n",
         "dungeon": "Desert Temple",
+        "delay_pickup": ["Desert Temple 1F N Arena Stalfos Skull"]
     },
     "Desert Temple 3F Chest": {
         "stage_id": 0x1D,
@@ -2591,7 +2593,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Sand Rabbits"]
     },
     "Rabbit W Desert Temple": {
-        "region_id": "sand realm rabbits",
+        "region_id": "sand restoration rabbits",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x06,
         "address": STAddr.rabbits_5,
@@ -2600,7 +2602,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Sand Rabbits"]
     },
     "Rabbit E Desert Temple": {
-        "region_id": "sand realm rabbits",
+        "region_id": "sand restoration rabbits",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x06,
         "address": STAddr.rabbits_5,
@@ -2609,7 +2611,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Sand Rabbits"]
     },
     "Rabbit E Sand Maze": {
-        "region_id": "sand realm rabbits",
+        "region_id": "sand restoration rabbits",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x07,
         "address": STAddr.rabbits_6,
@@ -2618,7 +2620,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Sand Rabbits"]
     },
     "Rabbit Mid Sand Maze": {
-        "region_id": "sand realm rabbits",
+        "region_id": "sand restoration rabbits",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x07,
         "address": STAddr.rabbits_6,
@@ -2627,7 +2629,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Sand Rabbits"]
     },
     "Rabbit W Sand Maze": {
-        "region_id": "sand realm rabbits",
+        "region_id": "sand restoration rabbits",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x07,
         "address": STAddr.rabbits_5,
@@ -2723,45 +2725,45 @@ LOCATIONS_DATA |= {
     },
 
     # Shops
-    "Snow Sanctuary Shop Heart Container": {
+    "Snowfall Sanctuary Shop Heart Container": {
         "stage_id": 0x31,
         "room_id": 3,
         "vanilla_item": "Heart Container",
         "region_id": "snow sanc shop",
         "address": STAddr.adv_flags_21,
         "value": 0x40,
-        "location_groups": ["Shop Unique Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "location_groups": ["Shop Unique Locations", "Snowfall Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "uniques")],
     },
-    "Snow Sanctuary Shop Red Potion": {
+    "Snowfall Sanctuary Shop Red Potion": {
         "region_id": "snow sanc shop",
         "vanilla_item": "Red Potion",
-        "location_groups": ["Shop Potion Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "location_groups": ["Shop Potion Locations", "Snowfall Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")],
     },
-    "Snow Sanctuary Shop Purple Potion": {
+    "Snowfall Sanctuary Shop Purple Potion": {
         "region_id": "snow sanc shop",
         "vanilla_item": "Purple Potion",
-        "location_groups": ["Shop Potion Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "location_groups": ["Shop Potion Locations", "Snowfall Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")],
     },
-    "Snow Sanctuary Shop Shield": {
+    "Snowfall Sanctuary Shop Shield": {
         "stage_id": 0x31,
         "room_id": 0x3,
         "address": STAddr.items_2,
         "value": 1,
         "region_id": "snow sanc shop",
         "vanilla_item": "Shield",
-        "location_groups": ["Shop Shield Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "location_groups": ["Shop Shield Locations", "Snowfall Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "shields")],
     },
-    "Snow Sanctuary Shop Treasure": {
+    "Snowfall Sanctuary Shop Treasure": {
         "region_id": "snow sanc shop",
-        "location_groups": ["Shop Treasure Locations", "Snow Sanctuary", "Snowfall Supermarket", "Shop Restock Locations"],
+        "location_groups": ["Shop Treasure Locations", "Snowfall Sanctuary", "Snowfall Supermarket", "Shop Restock Locations"],
         "conditional": True,
         "slot_data": [("shopsanity", "treasure"), ("shopsanity", "uniques", "not")],
     },
@@ -2891,14 +2893,14 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "postcards")],
     },
-    "Snow Sanctuary Shop Postcards": {
+    "Snowfall Sanctuary Shop Postcards": {
         "stage_id": 0x31,
         "room_id": 0x3,
         "address": STAddr.postcard_count,
         "value": 10,
         "region_id": "snow sanc shop",
         "vanilla_item": "Prize Postcards (10)",
-        "location_groups": ["Shop Postcard Locations", "Snow Sanctuary", "Snowfall Supermarket"],
+        "location_groups": ["Shop Postcard Locations", "Snowfall Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "postcards")],
     },
@@ -3170,28 +3172,28 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "outset cuccos"
     },
-    "Mayscore Pick Up Dovok": {
-        "stage_id": 0x2A,
-        "room_id": 0x0, #Need to check chief house room id
-        "address": STAddr.adv_flags_36,
-        "value": 0x4,
-        "region_id": "mayscore dovok",
-        "vanilla_item": "Passenger: Dovok",
-        "location_groups": ["Mayscore", "Pick Up Passengers"],
-        "slot_data": [("randomize_passengers", [2, 3])],
-        "conditional": True,
-    },
-    "Papuzia Village Orca's Force Gem": {
-        "stage_id": 0x2C,
-        "room_id": 0x0, #Need to check Orca house room id
-        "address": STAddr.adv_flags_d,
-        "value": 0x2,
-        "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
-        "location_groups": ["Papuzia Village", "Deliver Passengers"],
-        "slot_data": [("randomize_passengers", [1, 2, 3])],
-        "conditional": True,
-        "region_id": "pv dovok",
-    },
+    # "Mayscore Pick Up Dovok": {
+    #     "stage_id": 0x2A,
+    #     "room_id": 0x0, #Need to check chief house room id
+    #     "address": STAddr.adv_flags_36,
+    #     "value": 0x4,
+    #     "region_id": "mayscore dovok",
+    #     "vanilla_item": "Passenger: Dovok",
+    #     "location_groups": ["Mayscore", "Pick Up Passengers"],
+    #     "slot_data": [("randomize_passengers", [2, 3])],
+    #     "conditional": True,
+    # },
+    # "Papuzia Village Orca's Force Gem": {
+    #     "stage_id": 0x2C,
+    #     "room_id": 0x0, #Need to check Orca house room id
+    #     "address": STAddr.adv_flags_d,
+    #     "value": 0x2,
+    #     "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
+    #     "location_groups": ["Papuzia Village", "Deliver Passengers"],
+    #     "slot_data": [("randomize_passengers", [1, 2, 3])],
+    #     "conditional": True,
+    #     "region_id": "pv dovok",
+    # },
     "Papuzia Village Buy Fish": {
         "stage_id": 0x2C,
         "room_id": 0x0,
@@ -3229,13 +3231,13 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "castle town fish"
     },
-    "Snow Sanctuary Deliver Vessel": {
+    "Snowfall Sanctuary Deliver Vessel": {
         "stage_id": 0x31,
         "room_id": 0x2,
         "address": STAddr.adv_flags_e,
         "value": 0x10,
         "vanilla_item": "Slippery Station Tracks",
-        "location_groups": ["Snow Sanctuary", "Deliver Cargo"],
+        "location_groups": ["Snowfall Sanctuary", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
         "region_id": "snow sanc vessel"
@@ -3273,6 +3275,16 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "sand sanc cuccos"
     },
+    "Desert Temple 1F N Arena Stalfos Skull": {  # Used for a delay pickup to make sure the key gets removed
+        "stage_id": 0x1D,
+        "room_id": 0x0,
+        "z_max": -50000,
+        "x_max": 30000,
+        "x_min": 0,
+        "vanilla_item": "Treasure: Stalfos SKull",
+        "region_id": "dt 1f n",
+        "conditional": True
+    },
 }
 
 ## ========== remember to add item override!! =============
@@ -3294,7 +3306,7 @@ for i, loc_data in enumerate(LOCATIONS_DATA.items()):
         loc_groups.append("Minigames")
     if data.get("conditional", False) == "tears":
         loc_groups.append("Tear Locations")
-    if data.get("stamp", False):
+    if data.get("stamp", None) is not None:
         loc_groups.append("Stamp Stands")
 
     for loc_group in loc_groups:

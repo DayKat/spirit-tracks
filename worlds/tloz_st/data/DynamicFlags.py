@@ -107,6 +107,11 @@ DYNAMIC_FLAGS = {
         "has_items": [["Forest Source", 1]],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)]
     },
+    "Remove Bow of light in desert temple": {
+        "on_scenes": [0x1d05],
+        "unset_if_true": [(STAddr.adv_flags_16, 1)],
+        "reset_flags": ["RESET Bow of Light"]
+    },
     "Remove Forest Source": {
         "on_scenes": [0x1E03, 0x1E0A],
         "has_locations": ["Wooded Temple Dungeon Reward"],
@@ -176,6 +181,12 @@ DYNAMIC_FLAGS = {
     "RESET Stamp Book Check": {
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(STAddr.adv_flags_25, 0x02)],
+    },
+    "Allow stamp rewards": {
+        "on_scenes": [0x2F0A],
+        "has_locations": ["Outset Receive Stamp Book"],
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
+        "reset_flags": ["RESET Remove Snow source"]
     },
 
     "Fraaz location": {
@@ -252,6 +263,11 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Snow Realm Shoot SW Portal"],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
+    "Open anouki portal no cannon": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 0]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    },
     "Close Castle town portal no item": {
         "on_scenes": [0x0400],
         "has_slot_data": [("portal_behavior", 2)],
@@ -278,12 +294,19 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [["portal_checks", 1]],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
+    "open portal s trading post no cannon": {
+        "on_scenes": [0x400],
+        "has_items": [("Blizzard Temple Tracks", 1)],
+        "has_slot_data": [["portal_checks", 0]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
+    },
     "Close portal e snow realm items": {
         "on_scenes": [0x500],
         "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 0]],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
+
     "Dark realm restart for dynamic entrances": {
         "on_scenes": [0x400],
         "unset_if_true": [(STAddr.adv_flags_57, 0x30)]
@@ -292,6 +315,7 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1000, 0x10FF],
         "set_if_true": [(STAddr.adv_flags_57, 0x30)]
     },
+
     "Allow Portal near marine temple always open": {
         "on_scenes": [0x600],
         "has_items": [["Sand to Fire Connection Tracks", 1]],
@@ -305,10 +329,10 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
-    "Allow Portal sand connection always open": {
+    "Allow Portal sand connection cannonless": {
         "on_scenes": [0x700],
         "has_items": [["Marine Temple Tracks", 1]],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_checks", 0)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Prevent Portal sand connection to marine location": {
@@ -317,6 +341,7 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_checks", 1)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
+
     "Allow Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
         "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1]],
@@ -339,6 +364,67 @@ DYNAMIC_FLAGS = {
         "on_entrance": [0x7, 0xB, 0xFB],  # will also close if coming from north, but you can reload at sand sanc
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)]
     },
+
+    "Keep portal loc open icy spring": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Snow Realm Shoot N Portal"],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x02)]  # activates portal to sw snow realm
+    },
+    "Open portal for free icy spring": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 0]],
+        "has_items": [["Mountain Temple Tracks", 1]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)]  # activates portal to sw snow realm
+    },
+    "Allow Portal mountain always open": {
+        "on_scenes": [0x700],
+        "has_items": [["N Icy Spring Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)],
+    },
+    "Allow Portal mountain with item": {
+        "on_scenes": [0x700],
+        "has_items": [["N Icy Spring Tracks", 1],
+                      ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)]
+    },
+
+    "Allow Portal goron village": {
+        "on_scenes": [0x0700],
+        "has_items": [["Forest Realm SW Cave Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Allow Portal goron village item": {
+        "on_scenes": [0x0700],
+        "has_items": [["Forest Realm SW Cave Tracks", 1],
+                      ["Portal Unlock: Forest Cave to Goron Village", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Open cave portal no cannon": {
+        "on_scenes": [0x0400],
+        "has_items": [["Fire Glyph", 1]],
+        "has_slot_data": [["portal_checks", 0]],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Keep portal loc open cave": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [["portal_checks", 1]],
+        "has_items": [["Cannon", 1]],
+        "not_has_locations": ["Forest Realm Shoot SE Portal"],
+        "unset_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Open portal cannonless": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [["portal_checks", 1], ("portal_behavior", 1)],
+        "has_items": [["Fire Glyph", 1], ["Cannon", 0]],
+        "not_has_locations": ["Forest Realm Shoot SE Portal"],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+
     # Sanctuaries
     "Gage don't have spirit flute": {
         "on_scenes": [0x3001],
@@ -372,13 +458,13 @@ DYNAMIC_FLAGS = {
     "Steem can play duet": {
         "on_scenes": [0x3102],
         "has_items": [("Spirit Flute", 1)],
-        "not_has_locations": ["Snow Sanctuary Song of Restoration"],
+        "not_has_locations": ["Snowfall Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 6)]
     },
     "Snow sanc remove vessel": {
         "on_scenes": [0x3102],
-        "has_locations": ["Snow Sanctuary Deliver Vessel"],
-        "not_has_locations": ["Snow Sanctuary Song of Restoration"],
+        "has_locations": ["Snowfall Sanctuary Deliver Vessel"],
+        "not_has_locations": ["Snowfall Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_40, 0x20), (STAddr.adv_flags_e, 0x10)],
         "reset_flags": ["RESET snow sanc vessel"]
     },
@@ -691,13 +777,13 @@ DYNAMIC_FLAGS = {
     },
     "Lock Snow Realm Rocktite Cave": {
         "on_scenes": [0x500],
-        "has_items": [("Snow Sanctuary Cave Key", 0), ("Blizzard Temple Tracks", 0)],
+        "has_items": [("Snowfall Sanctuary Cave Key", 0), ("Blizzard Temple Tracks", 0)],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20), (STAddr.adv_flags_b, 0x10)],
         "reset_flags": ["RESET Add Snow Source"]
     },
     "Unlock Snow Sanc Cave": {
         "on_scenes": [0x500],
-        "has_items": [("Snow Sanctuary Cave Key", 1)],
+        "has_items": [("Snowfall Sanctuary Cave Key", 1)],
         "set_if_true": [(STAddr.adv_flags_b, 0x10)],
     },
     "Anouki shop skip HC": {
@@ -1020,6 +1106,7 @@ DYNAMIC_FLAGS = {
     "Allow SoB statue": {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
+        "has_items": [("Song of Discovery", 1)],
         "unset_if_true": [(STAddr.songs, 0x4)],
         "set_if_true": [(STAddr.adv_flags_a, 0xA0)],
         "reset_flags": ["RESET SoB"]

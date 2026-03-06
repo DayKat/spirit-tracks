@@ -98,16 +98,16 @@
     {"name": "Anouki Village Fence Progress Gift"},
     {"name": "Anouki Village Repair Fence"}
   ], "map_locations":[{"map": "Overview", "x": 164, "y": 280}]},
-  {"name": "Snow Sanctuary", "sections": [
-    {"name": "Snow Sanctuary Shop Heart Container"},
-    {"name": "Snow Sanctuary Shop Red Potion"},
-    {"name": "Snow Sanctuary Shop Purple Potion"},
-    {"name": "Snow Sanctuary Shop Shield"},
-    {"name": "Snow Sanctuary Shop Postcards"},
-    {"name": "Snow Sanctuary Shop Treasure"},
-    {"name": "Snow Sanctuary Stamp Station"},
-    {"name": "Snow Sanctuary Song of Restoration"},
-    {"name": "Snow Sanctuary Deliver Vessel"}
+  {"name": "Snowfall Sanctuary", "sections": [
+    {"name": "Snowfall Sanctuary Shop Heart Container"},
+    {"name": "Snowfall Sanctuary Shop Red Potion"},
+    {"name": "Snowfall Sanctuary Shop Purple Potion"},
+    {"name": "Snowfall Sanctuary Shop Shield"},
+    {"name": "Snowfall Sanctuary Shop Postcards"},
+    {"name": "Snowfall Sanctuary Shop Treasure"},
+    {"name": "Snowfall Sanctuary Stamp Station"},
+    {"name": "Snowfall Sanctuary Song of Restoration"},
+    {"name": "Snowfall Sanctuary Deliver Vessel"}
   ], "map_locations":[{"map": "Overview", "x": 140, "y": 236}]},
   {"name": "Blizzard Temple", "sections": [
     {"name": "Blizzard Temple B1 SE Chest"},
@@ -170,10 +170,9 @@
   {"name": "Rabbit W Desert Temple", "sections": [{"name": "Rabbit W Desert Temple"}], "map_locations":[{"map": "Overview", "x": 826, "y": 446}]},
   {"name": "Rabbit E Desert Temple", "sections": [{"name": "Rabbit E Desert Temple"}], "map_locations":[{"map": "Overview", "x": 922, "y": 434}]},
   {"name": "Rabbit E Sand Maze", "sections": [{"name": "Rabbit E Sand Maze"}], "map_locations":[{"map": "Overview", "x": 924, "y": 314}]},
-  {"name": "Rabbit Mid Sand Maze", "sections": [{"name": "Rabbit Mid Sand Maze"}], "map_locations":[{"map": "Overview", "x": 882, "y": 340}]},
-  {"name": "Rabbit W Sand Maze", "sections": [{"name": "Rabbit W Sand Maze"}], "map_locations":[{"map": "Overview", "x": 840, "y": 352}]},
+  {"name": "Rabbit Mid Sand Maze", "sections": [{"name": "Rabbit Mid Sand Maze"}], "map_locations":[{"map": "Overview", "x": 880, "y": 338}]},
+  {"name": "Rabbit W Sand Maze", "sections": [{"name": "Rabbit W Sand Maze"}], "map_locations":[{"map": "Overview", "x": 846, "y": 362}]},
   {"name": "Rabbit Fire Sand Connection", "sections": [{"name": "Rabbit Fire Sand Connection"}], "map_locations":[{"map": "Overview", "x": 656, "y": 356}]},
-
 
   {"name": "Rabbit Near ToS Fire Realm", "sections": [{"name": "Rabbit Near ToS Fire Realm"}], "map_locations":[{"map": "Overview", "x": 606, "y": 306}]},
   {"name": "Rabbit Near Disorientation Station", "sections": [{"name": "Rabbit Near Disorientation Station"}], "map_locations":[{"map": "Overview", "x": 622, "y": 74}]},

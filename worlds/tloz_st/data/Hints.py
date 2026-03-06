@@ -31,7 +31,7 @@ HINT_DATA = {
         "scenes": [0x3001],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 2, 3, 4])],
     },
-    "Snow Sanctuary Song of Restoration": {
+    "Snowfall Sanctuary Song of Restoration": {
         "scenes": [0x3102],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 2, 3, 4])],
     },
@@ -86,16 +86,16 @@ HINT_DATA = {
         "scenes": [0x4503],
         "slot_data": [("shopsanity", "potions"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
     },
-    "Snow Sanctuary Shop Heart Container": {
+    "Snowfall Sanctuary Shop Heart Container": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "uniques"), ("shop_hints", 1)]
     },
     "Snow Sanc Shop potions": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
-        "locations": ["Snow Sanctuary Shop Red Potion", "Snow Sanctuary Shop Purple Potion"]
+        "locations": ["Snowfall Sanctuary Shop Red Potion", "Snowfall Sanctuary Shop Purple Potion"]
     },
-    "Snow Sanctuary Shop Shield": {
+    "Snowfall Sanctuary Shop Shield": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
     },
@@ -119,11 +119,11 @@ HINT_DATA = {
         "scenes": [0x290a],
         "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
     },
-    "Snow Sanctuary Shop Postcards": {
+    "Snowfall Sanctuary Shop Postcards": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
     },
-    "Snow Sanctuary Shop Treasure": {
+    "Snowfall Sanctuary Shop Treasure": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "treasure"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
     },

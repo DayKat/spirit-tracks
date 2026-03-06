@@ -977,7 +977,7 @@ ITEMS_DATA |= {
         "address": STAddr.adv_flags_17,
         "value": 0x10,
     },
-    "Snow Sanctuary Cave Key": {  # Ahh complicated
+    "Snowfall Sanctuary Cave Key": {  # Ahh complicated
         "classification": ItemClassification.progression,
         "address": STAddr.adv_flags_b,
         "value": 0x10,
@@ -1209,6 +1209,12 @@ ITEMS_DATA |= {
         "classification": ItemClassification.progression,
         "item_groups": ["Stamp Packs"],
         "value": 5
+    },
+    "Ancient Shield": {
+        'classification': ItemClassification.useful,
+        'address': STAddr.items_2,
+        'value': 0x40,
+        'item_groups': ["Equipment"],
     },
 }
 
