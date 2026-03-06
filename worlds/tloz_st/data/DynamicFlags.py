@@ -815,6 +815,8 @@ DYNAMIC_FLAGS = {
                               (STAddr.passenger_tag_0, 0x4E434341),
                               (STAddr.has_passenger_0, 0)]
     },
+
+
     # Cargo
     "AV skip fence text": {
         "on_scenes": [0x2b00],

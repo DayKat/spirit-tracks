@@ -443,6 +443,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("castle town mona", "_mona")
             self.create_event("outset joe", "_joe")
             self.create_event("alfonzo event", "_picked_up_alfonzo")
+            self.create_event("mayscore dovok", "_dovok")
         if self.options.randomize_cargo == "vanilla":
             self.create_event("mayscore lumber", "_buy_lumber")
             self.create_event("icyspring ice", "_buy_ice")

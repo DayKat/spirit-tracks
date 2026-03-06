@@ -336,6 +336,12 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x10,
         'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks"],
     },
+    "Ocean Portal Tracks": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.tracks_1,
+        'value': 0x80,
+        'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks"],
+    },
 
     # ========= Force Gems ==============
 
@@ -1009,6 +1015,14 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_11,
         "value": 0x40
     },
+    "Passenger: Dovok": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_36,
+        "value": 0x4,
+    },
+
     # Cargo
     "Cargo: Lumber": {
         "classification": ItemClassification.progression,
