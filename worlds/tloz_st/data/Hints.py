@@ -107,6 +107,18 @@ HINT_DATA = {
         "scenes": [0x2a05],
         "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
     },
+    "Goron Shop Shield": {
+        "scenes": [0x2e06],
+        "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
+    },
+    "Goron Shop Quiver": {
+        "scenes": [0x2e06],
+        "slot_data": [("shopsanity", "uniques"), ("shop_hints", 1)]
+    },
+    "Goron Shop Bomb Refill": {
+        "scenes": [0x2e06],
+        "slot_data": [("shopsanity", "ammo"), ("shop_hints", 1)]
+    },
     "Trading Post Buy Shield": {
         "scenes": [0x370a],
         "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
@@ -135,6 +147,15 @@ HINT_DATA = {
         "scenes": [0x2c02],
         "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
         "locations": ["Papuzia Shop Purple Potion", "Papuzia Shop Yellow Potion"]
+    },
+    "Goron Shop Potions": {
+        "scenes": [0x2e06],
+        "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
+        "locations": ["Goron Shop Purple Potion", "Goron Shop Yellow Potion"]
+    },
+    "Goron Shop Postcards": {
+        "scenes": [0x2e06],
+        "slot_data": [("shopsanity", "postcards"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
     },
     "Papuzia Shop Ammo": {
         "scenes": [0x2c02],

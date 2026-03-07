@@ -342,7 +342,7 @@
           {"name": "Snurglars Purple Key"},
           {"name": "Snurglars Orange Key"},
           {"name": "Snurglars Gold Key"}
-      ], "map_locations":[{"map": "Overview", "x": 812, "y": 252}]},
+      ], "map_locations":[{"map": "Overview", "x": 812, "y": 254}]},
       {"name": "Mountain Temple", "sections": [
           {"name": "Mountain Temple Song Statue"},
           {"name": "Mountain Temple 2F Left Chest"},

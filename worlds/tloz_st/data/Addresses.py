@@ -119,7 +119,7 @@ class STAddr:
     wt_bk_pointer = Address(0x3251C0, size=4)
     bt_bk_pointer = Address(0x326C20, size=4)
     oct_bk_pointer = Address(0x32520C, size=4)
-    mtt_bk_pointer = Address(0x33497C, size=4)
+    mtt_bk_pointer = Address(0x32963C, size=4)
     dt_bk_pointer = Address(0x3251C8, size=4)
     tos_bk_pointer = Address(0x332818, size=4)
 
@@ -136,7 +136,7 @@ class STAddr:
     tos_boss_door_pointer = Address(0x265668, size=4)
 
     snurglin_keys = Address(0x2e986c)
-    snurglar_pointer = Address(0x2E9408, size=4)
+    snurglar_pointer = Address(0x0499F4, size=4)
     mountain_gate = Address(0x2e3640)
 
     # Stamps

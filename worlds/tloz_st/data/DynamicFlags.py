@@ -232,17 +232,21 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x500],
         "has_items": [["Fire Glyph", 1], ["Blizzard Temple Tracks", 0]],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "reset_flags": ["RESET fire glyph"]
+        "reset_flags": ["RESET fire glyph", "RESET not has fire glyph"]
     },
     "Forest realm crashes fire glyph and no ocean glyph": {
         "on_scenes": [0x400],
         "has_items": [["Fire Glyph", 1], ["Ocean Glyph", 0]],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "reset_flags": ["RESET fire glyph"]
+        "reset_flags": ["RESET fire glyph", "RESET not has fire glyph"]
     },
     "RESET fire glyph": {
         "set_if_true": [(STAddr.adv_flags_2, 0x04)],
         "has_items": [["Fire Glyph", 1]],
+    },
+    "RESET not has fire glyph": {
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "has_items": [["Fire Glyph", 0]],
     },
 
     # Portals
@@ -1310,9 +1314,13 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_1f, 0x10)],  # Finished wagon cutscene, crashes with kagoron flag
         "unset_if_true": [(STAddr.adv_flags_1f, 0x04)],  # Snurglin flag, removes kagoron preventing ice trade
     },
+    "Mountain Altar Spawn Kagoron": {
+        "on_scenes": [0x2d02],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x10)],
+    },
     "Has snurglar keys open temple": {
         "on_scenes": [0x700],
-        "has_locations": ["Snurglars Yellow Key", "Snurglars Pink Key", "Snurglars Blue Key"],
+        "has_locations": ["Snurglars Gold Key", "Snurglars Purple Key", "Snurglars Orange Key"],
         "has_items": [("Mountain Temple Snurglar Key", 3)],
         "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
     },
@@ -1323,9 +1331,15 @@ DYNAMIC_FLAGS = {
     },
     "snurglar locs cannonless reset": {
         "on_scenes": [0x700],
-        "any_not_has_locations": ["Snurglars Yellow Key", "Snurglars Pink Key", "Snurglars Blue Key"],
+        "any_not_has_locations": ["Snurglars Gold Key", "Snurglars Orange Key", "Snurglars Purple Key"],
         "has_items": [("Cannon", 1)],
         "unset_if_true": [(STAddr.adv_flags_1f, 0x4)],  # Sets on leaving MTT; just accept you cant hunt snurglars from mtt
+    },
+    "Add fire glyph in tos lobby if fire source": {
+        "on_scenes": [0x1400, 0x1401],
+        "has_items": [("Fire Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_2, 4)],
+        "reset_flags": ["RESET not has fire glyph"]
     },
 }
 """

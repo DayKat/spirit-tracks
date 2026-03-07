@@ -1696,6 +1696,7 @@ LOCATIONS_DATA = {
     "Marine Temple Song Statue": {
         "region_id": "oct song statue",
         "vanilla_item": "Song of Healing",
+        "item_override": "Nothing!",
         "stage_id": 0x1B,
         "room_id": 0xA,
         "x_max": -16000,
@@ -3481,29 +3482,23 @@ LOCATIONS_DATA |= {
         "location_groups": ["Valley Sanctuary", "Restoration Duets"],
     },
     "Snurglars Purple Key": {
-        "stage_id": 0x7,
         "region_id": "snurglars",
         "vanilla_item": "Purple Snurglar Key",
         "item_override": "Mountain Temple Snurglar Key",
-        "address": STAddr.snurglin_keys,
         "value": 0x04,
         "location_groups": ["Snurglars"],
     },
     "Snurglars Orange Key": {
-        "stage_id": 0x7,
         "region_id": "snurglars",
         "vanilla_item": "Orange Snurglar Key",
         "item_override": "Mountain Temple Snurglar Key",
-        "address": STAddr.snurglin_keys,
         "value": 0x02,
         "location_groups": ["Snurglars"],
     },
     "Snurglars Gold Key": {
-        "stage_id": 0x7,
         "region_id": "snurglars",
         "vanilla_item": "Gold Snurglar Key",
         "item_override": "Mountain Temple Snurglar Key",
-        "address": STAddr.snurglin_keys,
         "value": 0x08,
         "location_groups": ["Snurglars"],
     },
@@ -3529,7 +3524,7 @@ LOCATIONS_DATA |= {
         "stage_id": 0x1C,
         "room_id": 0x0,
         "region_id": "mtt right",
-        "vanilla_item": "Big Green Rupee (100)",
+        "vanilla_item": ["Red Potion", "Big Green Rupee (100)"],
         "x_min": -50000,
         "z_min": 60000,
         "dungeon": "Mountain Temple"
@@ -3537,7 +3532,7 @@ LOCATIONS_DATA |= {
     "Mountain Temple 2F Center Chest": {
         "stage_id": 0x1C,
         "room_id": 0x6,
-        "region_id": "mtt right",
+        "region_id": "mtt 2f right",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "x_min": -10000,
         "x_max": 0,
@@ -3547,7 +3542,7 @@ LOCATIONS_DATA |= {
     "Mountain Temple 2F NW Chest": {
         "stage_id": 0x1C,
         "room_id": 0x6,
-        "region_id": "mtt right",
+        "region_id": "mtt 2f right",
         "vanilla_item": "Small Key (Mountain Temple)",
         "x_max": -45000,
         "z_max": -55000,
@@ -3607,17 +3602,25 @@ LOCATIONS_DATA |= {
         "z_max": -50000,
         "dungeon": "Mountain Temple"
     },
+    "Mountain Temple B1 Stamp Stand": {
+        "stage_id": 0x1C,
+        "room_id": 2,
+        "region_id": "mtt stamp",
+        "vanilla_item": "Stamp: Mountain Temple",
+        "stamp": 0xF,
+        "dungeon": "Mountain Temple"
+    },
     "Mountain Temple B3 N Chest": {
         "stage_id": 0x1C,
         "room_id": 4,
         "region_id": "mtt b1 cart",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
-        "x_max": -80000,
+        "x_max": 25000,
         "z_max": -60000,
         "dungeon": "Mountain Temple"
     },
     "Mountain Temple B3 Boss Key": {
-        "region_id": "mtt b1 cart",
+        "region_id": "mtt bk",
         "vanilla_item": "Boss Key (Mountain Temple)",
         "dungeon": "Mountain Temple",
         "conditional": True,

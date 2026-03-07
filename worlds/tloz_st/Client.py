@@ -693,21 +693,23 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def reset_snurglar_door(self, ctx):
         if self.last_scene == 0x700:
-            snurglar_ids = [self.location_id_to_name[f"Snurglars {color} Key"] for color in ["Purple", "Orange", "Gold"]]
+            snurglar_ids = [self.location_name_to_id[f"Snurglars {color} Key"] for color in ["Purple", "Orange", "Gold"]]
             for i in snurglar_ids:
                 if i not in ctx.checked_locations:
                     snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
-                    snurglar_flags = Address.from_pointer(snurglar_pointer+0xB0 - 0x2000000)
-                    print(f"Resetting snurglar door @ {snurglar_flags}")
-                    await snurglar_flags.unset_bits(ctx, 0x10)
+                    print(f"Resetting snurglar door @ {snurglar_pointer} {hex(snurglar_pointer + 0xC0 - 0x2000000)}")
+                    if 0x2400000 > snurglar_pointer > 0x2000000:
+                        snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0 - 0x2000000)
+                        await snurglar_flags.unset_bits(ctx, 0x10)
+                    break
 
 
     async def detected_new_scene(self, ctx):
         await self.save_tos_keycount(ctx)
         self.event_reads = []
         self.sent_event = False
-        if self.last_scene == 0x700:
-            await self.reset_snurglar_door(ctx)
+        # if self.last_scene == 0x700:
+        #     await self.reset_snurglar_door(ctx)
 
     async def save_scene(self, ctx, *args):
         if await super().save_scene(ctx, *args):
@@ -831,9 +833,10 @@ class SpiritTracksClient(DSZeldaClient):
             else:
                 pointer = await data["pointer"].read(ctx)
                 if 0x2000000 < pointer < 0x2400000:
-                    self.boss_key_read = Address.from_pointer(pointer+8-0x2000000, size=4)
+                    offset = 12 if self.current_stage == 0x1c else 8
+                    self.boss_key_read = Address.from_pointer(pointer+offset-0x2000000, size=4)
                     self.boss_key_y = data["y"]
-                print(f"Loaded boss key data: {pointer-0x2000000} y: {self.boss_key_y}")
+                print(f"Loaded boss key data: {hex(pointer-0x2000000)} y: {self.boss_key_y}")
 
             # Open door
             if self.item_count(ctx, f"Boss Key ({data['dungeon']})"):
@@ -846,11 +849,17 @@ class SpiritTracksClient(DSZeldaClient):
         else:
             self.boss_key_y, self.boss_key_read = None, None
 
-        if current_scene == 0x700 and self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3:
+        if current_scene == 0x700:
             snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
-            snurglar_flags = Address.from_pointer(snurglar_pointer + 0xB0 - 0x2000000)
-            print(f"Opening Mountain Temple! {snurglar_flags}")
-            await snurglar_flags.set_bits(ctx, 0x10)
+
+            snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0 - 0x2000000)
+            print(f"Got snurglar flags @ {snurglar_flags}")
+            for color in ["Gold", "Purple", "Orange"]:
+                self.watches[f"Snurglars {color} Key"] = snurglar_flags
+
+            if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3:
+                print(f"Opening Mountain Temple! {snurglar_flags}")
+                await snurglar_flags.set_bits(ctx, 0x10)
 
 
     @staticmethod
@@ -900,10 +909,10 @@ class SpiritTracksClient(DSZeldaClient):
         """Called each cycle while in a boss key room to detect a change in boss key position"""
         if self.boss_key_y is not None:
             bk_read = await self.boss_key_read.read(ctx, signed=True, silent=True)
-            if (bk_read > self.boss_key_y + 10 and self.current_stage != 0x2c) or (self.current_stage == 0x2c and bk_read < self.boss_key_y):
+            if (bk_read > self.boss_key_y + 10 and self.current_stage != 0x1c) or (self.current_stage == 0x1c and bk_read < self.boss_key_y):
                 loc = BOSS_KEY_DATA[self.current_scene]["location"]
                 await self._process_checked_locations(ctx, loc)
-                print(f"Found boss key location {loc}")
+                print(f"Found boss key location {loc} {bk_read} >< {self.boss_key_y + 10} {hex(self.current_stage)}")
                 await self.delete_boss_key(ctx)
                 self.boss_key_y, self.boss_key_read = None, None
 

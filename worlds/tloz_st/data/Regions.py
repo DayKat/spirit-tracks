@@ -394,6 +394,7 @@ REGIONS = [
     "mtt",
     "mtt left",
     "mtt right",
+    "mtt 2f right",
     "mtt center",
     "mtt song statue",
     "mtt heatoise",

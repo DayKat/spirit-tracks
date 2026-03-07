@@ -555,13 +555,13 @@ class SpiritTracksWorld(WorldParent):
             return i_name
 
         for loc_name, loc_data in LOCATIONS_DATA.items():
-            # print(f"New Location: {loc_name}")
+            # print(f"New Location: {loc_name} {filler_item_count}")
             if not self.location_is_active(loc_name, loc_data):
                 # print(f"{loc_name} is not active")
                 continue
             # If no defined vanilla item, fill with filler
             if "vanilla_item" not in loc_data:
-                # print(f"{loc_name} has no defined vanilla item")
+                # print(f"\t{loc_name} has no defined vanilla item")
                 filler_item_count += 1
                 continue
 
@@ -572,6 +572,7 @@ class SpiritTracksWorld(WorldParent):
             if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
                 # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
                 removed_item_quantities[item_name] -= 1
+               # print(f"\triq")
                 filler_item_count += 1
                 continue
 
@@ -585,6 +586,7 @@ class SpiritTracksWorld(WorldParent):
                     forced_item = self.create_item(popped_item)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
+                # print(f"\trabbit")
                 filler_item_count += 1
                 continue
             if "Tear of Light" in item_name:
@@ -592,6 +594,7 @@ class SpiritTracksWorld(WorldParent):
                     forced_item = self.create_item(item_name)
                     self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                     continue
+                # print(f"\ttear")
                 filler_item_count += 1
                 continue
             if "stamp" in loc_data and self.options.randomize_stamps.value == 2:
@@ -600,13 +603,15 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"Locking stamp item {item_name} to {loc_name}")
                 continue
             if any([
-                item_name in ["Filler Item", "Treasure",
+                item_name in ["Filler Item", "Treasure", "Sword Beam Scroll",
                               "Heart Container", "Tear of Light", "Small Key (ToS)",
                               "Bombs (Progressive)", "Bow (Progressive)", "Shield",
                               "Prize Postcards (10)"],
                 item_name.startswith("Stamp"),
+                item_name in ITEM_GROUPS["Add Rails to Pool"],
                 self.options.randomize_cargo.value == 3 and item_name in ["Cargo: Cuccos", "Cargo: Mega Ice"]
                 ]):
+                # print(f"\tBig listicle {item_name}")
                 filler_item_count += 1
                 continue
             if any([
@@ -620,10 +625,7 @@ class SpiritTracksWorld(WorldParent):
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
             if item_data.classification == ItemClassification.filler:  # Regen all filler items for now
-                if item_name not in ITEM_GROUPS["Super Rare Treasures"]:
-                    filler_item_count += 1
-                    continue
-            if item_name in ITEM_GROUPS["Add Rails to Pool"]:  # Prevent duplicate tracks
+                # print(f"\tFiller items {item_name}")
                 filler_item_count += 1
                 continue
 
@@ -632,12 +634,12 @@ class SpiritTracksWorld(WorldParent):
 
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
-        add_items = [("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
+        add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
                      ("Repair Trading Post Bridge", 1), ("Shield", 2)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.randomize_cargo: add_items += [("Wagon", 1)]
         if self.options.randomize_cargo.value == 3: add_items += [("Cargo: Mega Ice", 3), ("Cargo: Cuccos (5)", 3)]
-        if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
+        # if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         if self.options.randomize_stamps: add_items += self.stamp_items
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()

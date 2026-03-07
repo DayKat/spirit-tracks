@@ -273,6 +273,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.rail_restorations,
         'value': 0x10,
         'item_groups': ["Restoration Tracks", "Rail Items", "Fire Tracks"],
+        "set_bits": [(STAddr.adv_flags_1, 0x8)]
     },
     "Desert Temple Tracks": {
         'classification': ItemClassification.progression,
@@ -768,6 +769,13 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x1B,
+        "tags": ["incremental"],
+        'item_groups': ["Small Keys"],
+    },
+    "Small Key (Mountain Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x1C,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
     },
