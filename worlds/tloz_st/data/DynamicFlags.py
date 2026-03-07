@@ -51,6 +51,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.songs, 0x02)],
         "reset_flags": ["RESET wt statue"]
     },
+    "Allow learning healing song mtt": {
+        "on_scenes": [0x1c0A],
+        "not_has_locations": ["Mountain Temple Song Statue"],
+        "unset_if_true": [(STAddr.songs, 0x02)],
+        "reset_flags": ["RESET wt statue"]
+    },
     "RESET wt statue": {
         "has_items": [["Song of Healing", 1]],
         "set_if_true": [(STAddr.songs, 0x02)],
@@ -88,6 +94,12 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Marine Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
         "reset_flags": ["RESET Add Ocean Source"]
+    },
+    "Cragma/Vulcano location": {
+        "on_scenes": [0x2100],
+        "not_has_locations": ["Mountain Temple Dungeon Reward"],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Add Fire source", "RESET Remove Fire source"]
     },
     "Skeldritch location": {
         "on_scenes": [0x2200],
@@ -1297,6 +1309,23 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2e00],
         "set_if_true": [(STAddr.adv_flags_1f, 0x10)],  # Finished wagon cutscene, crashes with kagoron flag
         "unset_if_true": [(STAddr.adv_flags_1f, 0x04)],  # Snurglin flag, removes kagoron preventing ice trade
+    },
+    "Has snurglar keys open temple": {
+        "on_scenes": [0x700],
+        "has_locations": ["Snurglars Yellow Key", "Snurglars Pink Key", "Snurglars Blue Key"],
+        "has_items": [("Mountain Temple Snurglar Key", 3)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
+    },
+    "Has snurglar keys no cannon": {
+        "on_scenes": [0x700],
+        "has_items": [("Mountain Temple Snurglar Key", 3), ("Cannon", 0)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
+    },
+    "snurglar locs cannonless reset": {
+        "on_scenes": [0x700],
+        "any_not_has_locations": ["Snurglars Yellow Key", "Snurglars Pink Key", "Snurglars Blue Key"],
+        "has_items": [("Cannon", 1)],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x4)],  # Sets on leaving MTT; just accept you cant hunt snurglars from mtt
     },
 }
 """

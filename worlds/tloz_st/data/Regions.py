@@ -361,6 +361,7 @@ REGIONS = [
     "gorge tracks",
     "fire source",
     "mountain temple tracks",
+    "snurglars",
     "ends of the earth",
     "disorientation station",
     "fire realm rabbits",
@@ -388,6 +389,22 @@ REGIONS = [
     "valley sanc",
     "valley sanc stamp",
     "valley sanc song",
+
+    # Mountain Temple
+    "mtt",
+    "mtt left",
+    "mtt right",
+    "mtt center",
+    "mtt song statue",
+    "mtt heatoise",
+    "mtt 1f ne",
+    "mtt b1",
+    "mtt b2",
+    "mtt b1 arena",
+    "mtt b1 cart",
+    "mtt stamp",
+    "mtt boss",
+    "event_vulcano",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm

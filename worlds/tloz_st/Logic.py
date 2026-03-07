@@ -22,7 +22,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             (st_has_glyph(state, player, "Snow") and not options.randomize_passengers)],
         ["outset village stamp book", "outset 10 stamps", False, lambda state: state.has("Stamp", player, 10)],
         ["outset village stamp book", "outset 15 stamps", False, lambda state: state.has("Stamp", player, 15)],
-        ["outset village stamp book", "outset 20 stamps", False, lambda state: state.has("Stamp", player, 20) or (options.randomize_stamps.value in [1, 2, 4] and state.has("Stamp", player, 16))],
+        ["outset village stamp book", "outset 20 stamps", False, lambda state: state.has("Stamp", player, 20) or (options.randomize_stamps.value in [1, 2, 4] and state.has("Stamp", player, 19))],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
         ["outset village", "forest realm", False, lambda state: st_has_train(state, player)],
@@ -481,6 +481,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["fire realm", "disorientation station", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player,"Disorientation Station")],
         ["fire realm", "sand connection", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player,"Sand to Fire Connection")],
         ["mountain temple tracks", "dark ore mine", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player,"Dark Ore Mine")],
+        ["mountain temple tracks", "snurglars", True, lambda state: st_has_cannon(state, player)],
 
         ["fire realm", "fire realm rabbits", False, lambda state: st_has_net(state, player)],
         ["mountain temple tracks", "mountain rabbits", False, lambda state: st_has_net(state, player)],
@@ -517,9 +518,29 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["goron ice", "goron ice 2", False, lambda state: state.has("Cargo: Mega Ice", player, 3)
                 or (state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player))],
 
-        # Cannon Game
+        # Goron Target Game
 
         # Mountain Temple
+        ["mountain temple tracks", "mtt", False, lambda state: state.has("Mountain Temple Snurgler Key", player, 3)],
+        ["mtt", "mtt song statue", False, lambda state: st_has_spirit_flute(state, player)],
+        ["mtt", "mtt left", False, lambda state: st_has_damage(state, player)],
+        ["mtt left", "mtt right", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
+        ["mtt left", "mtt right", False, lambda state: st_has_range(state, player) or st_has_sword(state, player) or st_has_whip(state, player)],
+        ["mtt left", "mtt center", False,
+            lambda state: st_has_small_keys(state, player, "Mountain Temple", 2) and (
+                    st_has_boomerang(state, player) or st_has_bombs(state, player) or (
+                        st_option_hard_logic(state, player) and (
+                            st_has_bow(state, player) or st_has_beam_sword(state, player) # Whip doesn't matter cause no checks until tortoises
+        )))],
+        ["mtt center", "mtt heatoise", False, lambda state: st_has_good_damage(state, player)],
+        ["mtt heatoise", "mtt 1f ne", False, lambda state: st_has_bow(state, player)],
+        ["mtt 1f ne", "mtt b1", False, lambda state: st_can_rotate_repeater(state, player)],
+        ["mtt b1", "mtt b2", False, lambda state: st_has_whip(state, player)],
+        ["mtt b2", "mtt b1 arena", False, lambda state: st_has_boomerang(state, player)],
+        ["mtt b1", "mtt b1 cart", False, lambda state: st_has_small_keys(state, player, "Mountain Temple", 2)],
+        ["mtt b1 cart", "mtt stamp", False, lambda state: st_has_stamp_book(state, player)],
+        ["mtt b1 cart", "mtt boss", False, lambda state: st_has_boss_key(state, player, "Mountain Temple") or options.randomize_boss_keys == "vanilla"],
+        ["mtt boss", "event_vulcano", False, None],
 
         # Disorientation Station
         ["disorientation station", "disorientation bird", False, lambda state: st_hard_birds(state, player)],

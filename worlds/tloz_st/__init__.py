@@ -252,7 +252,7 @@ class SpiritTracksWorld(WorldParent):
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
                 events += [location_event_lookup[loc] for loc in self.required_dungeons]
             else:
-                events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz", "EVENT: Defeat Cactops", "EVENT: Defeat Skeldritch"]
+                events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz", "EVENT: Defeat Cactops", "EVENT: Defeat Vulcano", "EVENT: Defeat Skeldritch"]
                 if self.options.tos_dungeon_options == "final_section":
                     events += ["EVENT: Defeat Staven"]
                 elif self.options.tos_dungeon_options == "all_sections":
@@ -297,7 +297,8 @@ class SpiritTracksWorld(WorldParent):
             required_dungeons = [case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value]
         else:
             required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward",
-                                 "Marine Temple Dungeon Reward", "Desert Temple Dungeon Reward"]
+                                 "Marine Temple Dungeon Reward", "Mountain Temple Dungeon Reward",
+                                 "Desert Temple Dungeon Reward"]
             implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph",
                                "ToS 12F Ocean Rail Glyph", "ToS 17F Fire Rail Glyph",
                                "ToS 23F Defeat Staven", "ToS 24F Final Chest"]
@@ -1113,6 +1114,12 @@ class SpiritTracksWorld(WorldParent):
             state.prog_items[self.player][mapping[0]] -= mapping[1]
 
         return True
+
+    # def post_fill(self) -> None:
+    #     we can get placements and
+    #     for loc in self.get_locations():
+    #         if loc.item is not None:
+    #             print(f"{loc}: {loc.item} | player: {loc.item.player} {loc.item.game}")
 
     def fill_slot_data(self) -> dict:
         options = ["goal",

@@ -981,6 +981,7 @@ ITEMS_DATA |= {
         "classification": ItemClassification.progression,
         "address": STAddr.adv_flags_b,
         "value": 0x10,
+        "item_groups": ["Misc Keys"]
     },
     "Prize Postcards (10)": {
         "classification": ItemClassification.filler,
@@ -1219,6 +1220,29 @@ ITEMS_DATA |= {
         'address': STAddr.items_2,
         'value': 0x40,
         'item_groups': ["Equipment"],
+    },
+    "Mountain Temple Snurglar Key": {
+        'classification': ItemClassification.progression,
+        'dummy': True,
+        'item_groups': ["Misc Keys"],
+    },
+    "Orange Snurglar Key": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x02,
+        'item_groups': ["Misc Keys"],
+    },
+    "Purple Snurglar Key": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x04,
+        'item_groups': ["Misc Keys"],
+    },
+    "Gold Snurglar Key": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x08,
+        'item_groups': ["Misc Keys"],
     },
 }
 

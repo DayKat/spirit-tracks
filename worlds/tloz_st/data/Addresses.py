@@ -92,6 +92,7 @@ class STAddr:
     source_rails = Address(0x2653B8)
     key_storage_0 = Address(0x265784)
     key_storage_tos = Address(0x265785)
+    key_storage_2 = Address(0x265786)
 
     train_parts = Address(0x2653A8, size=4)
     equipped_engine = Address(0x265388, size=4)
@@ -118,6 +119,7 @@ class STAddr:
     wt_bk_pointer = Address(0x3251C0, size=4)
     bt_bk_pointer = Address(0x326C20, size=4)
     oct_bk_pointer = Address(0x32520C, size=4)
+    mtt_bk_pointer = Address(0x33497C, size=4)
     dt_bk_pointer = Address(0x3251C8, size=4)
     tos_bk_pointer = Address(0x332818, size=4)
 
@@ -125,6 +127,7 @@ class STAddr:
     wt_boss_door = Address(0x3368FE)
     bt_boss_door = Address(0x33099E)
     oct_boss_door = Address(0x32F6EE)
+    mtt_boss_door = Address(0x32F6EE)
     dt_boss_door = Address(0x332C5E)
     tos3_boss_door = Address(0x33E482)
     # tos5_boss_door = Address(0x33E182)
@@ -133,6 +136,7 @@ class STAddr:
     tos_boss_door_pointer = Address(0x265668, size=4)
 
     snurglin_keys = Address(0x2e986c)
+    snurglar_pointer = Address(0x2E9408, size=4)
     mountain_gate = Address(0x2e3640)
 
     # Stamps
@@ -251,6 +255,8 @@ class STAddr:
     ancient_coin_count = Address(0x26901a, size=2)
     priceless_stone_count = Address(0x26901c, size=2)
     regal_ring_count = Address(0x26901e, size=2)
+
+    item_model_table = Address(0x0af590)  # size=big
 
 #  = Address()
 #  = Address()

@@ -337,5 +337,30 @@
           {"name": "Valley Sanctuary NW Chest"},
           {"name": "Valley Sanctuary Stamp Stand"},
           {"name": "Valley Sanctuary Song of Restoration"}
-      ], "map_locations":[{"map": "Overview", "x": 716, "y": 236}]}
+      ], "map_locations":[{"map": "Overview", "x": 716, "y": 236}]},
+    {"name": "Snurglars", "sections": [
+          {"name": "Snurglars Purple Key"},
+          {"name": "Snurglars Orange Key"},
+          {"name": "Snurglars Gold Key"}
+      ], "map_locations":[{"map": "Overview", "x": 812, "y": 252}]},
+      {"name": "Mountain Temple", "sections": [
+          {"name": "Mountain Temple Song Statue"},
+          {"name": "Mountain Temple 2F Left Chest"},
+          {"name": "Mountain Temple 1F Right Maze Chest"},
+          {"name": "Mountain Temple 2F Center Chest"},
+          {"name": "Mountain Temple 2F NW Chest"},
+          {"name": "Mountain Temple 2F Heatoise Chest"},
+          {"name": "Mountain Temple 1F NE Chest"},
+          {"name": "Mountain Temple B2 NE Chest"},
+          {"name": "Mountain Temple B2 SE Chest"},
+          {"name": "Mountain Temple B1 Heatoise Chest"},
+          {"name": "Mountain Temple B2 NW Chest"},
+          {"name": "Mountain Temple B3 N Chest"},
+          {"name": "Mountain Temple B3 Boss Key"},
+          {"name": "Mountain Temple Boss Heart Container"},
+          {"name": "Mountain Temple Dungeon Reward"}
+      ], "map_locations":[{"map": "Overview", "x": 814, "y": 158}]},
+    {"name": "Fire Temple Events", "sections": [
+          {"name": "EVENT: Defeat Vulcano"}
+      ], "map_locations":[{"map": "Overview", "x": 814, "y": 142}]}
 ]

@@ -246,6 +246,15 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "EVENT: Defeat Vulcano": {
+        "two_way": False,
+        "entrance_region": "mtt boss",
+        "exit_region": "event_vulcano",
+        "entrance": (0x21, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
     "EVENT: Defeat Skeldritch": {
         "two_way": False,
         "entrance_region": "skeldritch",
@@ -568,6 +577,7 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "ToS 23F Defeat Staven": "EVENT: Defeat Staven",
                          "ToS 24F Final Chest": "EVENT: Reach ToS 24F",
                          "Marine Temple Dungeon Reward": "EVENT: Defeat Cactops",
+                         "Mountain Temple Dungeon Reward": "EVENT: Defeat Vulcano",
                          "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch"}
 goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
                          3: "GOAL: Defeat Fraaz",

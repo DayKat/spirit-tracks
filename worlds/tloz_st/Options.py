@@ -43,7 +43,7 @@ class SpiritTracksDungeonCount(Range):
     """
     display_name = "Required Dungeon Count"
     range_start = 1
-    range_end = 10
+    range_end = 11
     default = 2
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):

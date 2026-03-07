@@ -101,6 +101,7 @@ STAGE_FLAGS = {
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
     0x2e: [0x94, 0x0, 0x0, 0x0],  # Goron
+    0x1c: [0x0, 0x1C, 0x0, 0x0],  # Mountain Temple
     0x3C: [0x2, 0x0, 0x0, 0x0],  # GTR
     0x40: [0xE, 0x0, 0x0, 0x0],  # Disorientation Station
     0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
@@ -247,6 +248,7 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Wooded Temple": "Wooded Temple Dungeon Reward",
     "Blizzard Temple": "Blizzard Temple Dungeon Reward",
     "Marine Temple": "Marine Temple Dungeon Reward",
+    "Mountain Temple": "Mountain Temple Dungeon Reward",
     "Desert Temple": "Desert Temple Dungeon Reward",
 }
 
@@ -254,6 +256,7 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "Wooded Temple Dungeon Reward": "wt stagnox",
     "Blizzard Temple Dungeon Reward": "bt fraaz",
     "Marine Temple Dungeon Reward": "oct phytops",
+    "Mountain Temple Dungeon Reward": "mtt boss",
     "Desert Temple Dungeon Reward": "skeldritch",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
@@ -327,6 +330,13 @@ DUNGEON_KEY_DATA = {
         "value": 0x10,
         "size": 2,
     },
+    0x1C: {
+        "name": "Mountain Temple",
+        "address": STAddr.key_storage_2,
+        "filter": 0x3,
+        "value": 0x1,
+        "size": 2,
+    },
     0x1D: {
         "name": "Desert Temple",
         "address": STAddr.key_storage_0,
@@ -358,6 +368,13 @@ BOSS_KEY_DATA = {
         "location": "Marine Temple 6F Boss Key",
         "door": STAddr.oct_boss_door,
         "dungeon": "Marine Temple"
+    },
+    0x1c04: {
+        "y": -48000,
+        "pointer": STAddr.mtt_bk_pointer,
+        "location": "Mountain Temple B3 Boss Key",
+        "door": STAddr.mtt_boss_door,
+        "dungeon": "Mountain Temple"
     },
     0x1d03: {
         "y": -2867,

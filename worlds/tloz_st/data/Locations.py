@@ -3480,6 +3480,161 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "location_groups": ["Valley Sanctuary", "Restoration Duets"],
     },
+    "Snurglars Purple Key": {
+        "stage_id": 0x7,
+        "region_id": "snurglars",
+        "vanilla_item": "Purple Snurglar Key",
+        "item_override": "Mountain Temple Snurglar Key",
+        "address": STAddr.snurglin_keys,
+        "value": 0x04,
+        "location_groups": ["Snurglars"],
+    },
+    "Snurglars Orange Key": {
+        "stage_id": 0x7,
+        "region_id": "snurglars",
+        "vanilla_item": "Orange Snurglar Key",
+        "item_override": "Mountain Temple Snurglar Key",
+        "address": STAddr.snurglin_keys,
+        "value": 0x02,
+        "location_groups": ["Snurglars"],
+    },
+    "Snurglars Gold Key": {
+        "stage_id": 0x7,
+        "region_id": "snurglars",
+        "vanilla_item": "Gold Snurglar Key",
+        "item_override": "Mountain Temple Snurglar Key",
+        "address": STAddr.snurglin_keys,
+        "value": 0x08,
+        "location_groups": ["Snurglars"],
+    },
+    # Mountain Temple
+    "Mountain Temple Song Statue": {
+        "stage_id": 0x1C,
+        "room_id": 0xa,
+        "region_id": "mtt song statue",
+        "vanilla_item": "Song of Healing",
+        "item_override": "Nothing!",
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple 2F Left Chest": {
+        "stage_id": 0x1C,
+        "room_id": 0x6,
+        "region_id": "mtt left",
+        "vanilla_item": "Small Key (Mountain Temple)",
+        "x_max": -55000,
+        "z_min": -45000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple 1F Right Maze Chest": {
+        "stage_id": 0x1C,
+        "room_id": 0x0,
+        "region_id": "mtt right",
+        "vanilla_item": "Big Green Rupee (100)",
+        "x_min": -50000,
+        "z_min": 60000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple 2F Center Chest": {
+        "stage_id": 0x1C,
+        "room_id": 0x6,
+        "region_id": "mtt right",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "x_min": -10000,
+        "x_max": 0,
+        "z_min": -15000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple 2F NW Chest": {
+        "stage_id": 0x1C,
+        "room_id": 0x6,
+        "region_id": "mtt right",
+        "vanilla_item": "Small Key (Mountain Temple)",
+        "x_max": -45000,
+        "z_max": -55000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple 2F Heatoise Chest": {
+        "stage_id": 0x1C,
+        "room_id": 0x6,
+        "region_id": "mtt heatoise",
+        "vanilla_item": "Bow (Progressive)",
+        "x_min": -10000,
+        "z_max": -55000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple 1F NE Chest": {
+        "stage_id": 0x1C,
+        "room_id": 0,
+        "region_id": "mtt 1f ne",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "x_min": 60000,
+        "z_max": -40000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple B2 NE Chest": {
+        "stage_id": 0x1C,
+        "room_id": 3,
+        "region_id": "mtt b2",
+        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "x_min": 80000,
+        "z_max": -50000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple B2 SE Chest": {
+        "stage_id": 0x1C,
+        "room_id": 3,
+        "region_id": "mtt b2",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "x_min": 50000,
+        "z_min": 50000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple B1 Heatoise Chest": {
+        "stage_id": 0x1C,
+        "room_id": 2,
+        "region_id": "mtt b1 arena",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "z_min": 10000,
+        "y": 0,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple B2 NW Chest": {
+        "stage_id": 0x1C,
+        "room_id": 3,
+        "region_id": "mtt b1 arena",
+        "vanilla_item": "Small Key (Mountain Temple)",
+        "x_max": -80000,
+        "z_max": -50000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple B3 N Chest": {
+        "stage_id": 0x1C,
+        "room_id": 4,
+        "region_id": "mtt b1 cart",
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
+        "x_max": -80000,
+        "z_max": -60000,
+        "dungeon": "Mountain Temple"
+    },
+    "Mountain Temple B3 Boss Key": {
+        "region_id": "mtt b1 cart",
+        "vanilla_item": "Boss Key (Mountain Temple)",
+        "dungeon": "Mountain Temple",
+        "conditional": True,
+    },
+    "Mountain Temple Boss Heart Container": {
+        "stage_id": 0x21,
+        "region_id": "mtt boss",
+        "vanilla_item": "Heart Container",
+    },
+    "Mountain Temple Dungeon Reward": {
+        "address": STAddr.adv_flags_0,
+        "value": 0x80,
+        "stage_id": 0x21,
+        "region_id": "mtt boss",
+        "vanilla_item": "Fire Source",
+        "ut_connect": "EVENT: Defeat Vulcano",
+    },
 }
 
 ## ========== remember to add item override!! =============
