@@ -416,6 +416,31 @@ DYNAMIC_FLAGS = {
     },
 
     # Sanctuaries
+    "Embrose don't have spirit flute": {
+        "on_scenes": [0x3403],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 8)]
+    },
+    "Embrose can play duet": {
+        "on_scenes": [0x3403],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Valley Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 8)]
+    },
+    "Embrose Reset flags": {
+        "on_scenes": [0x3403],
+        "unset_if_true": [(STAddr.rail_restorations, 0x10)],
+        "reset_flags": ["VS Reset MTT", "VS Reset MTT not has"]
+    },
+    "VS Reset MTT not has": {
+        "has_items": [("Mountain Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x10)]
+    },
+    "VS Reset MTT": {
+        "has_items": [("Mountain Temple Tracks", 1)],
+        "set_if_true": [(STAddr.rail_restorations, 0x10)]
+    },
+
     "Gage don't have spirit flute": {
         "on_scenes": [0x3001],
         "has_items": [("Spirit Flute", 0)],
@@ -761,6 +786,22 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2b00],
         "set_if_true": [(STAddr.adv_flags_b, 0x10)],
     },
+    "Goron West can't buy steel": {
+        "on_scenes": [0x2d03],
+        "not_has_items": [("Wagon", 1)],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80)],
+        "reset_flags": ["RESET Goron Geyser"]
+    },
+    "RESET Goron Geyser": {
+        "has_items": [("Wagon", 1)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
+    },
+    "Backup check goron geyser": {
+        "on_scenes": [0x2e00],
+        "check_bits": [(STAddr.adv_flags_59, 0x4)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
+    },
     "RESET Wagon": {
         "has_items": [("Wagon", 1)],
         "set_if_true": [(STAddr.adv_flags_4, 0x02)],
@@ -780,6 +821,11 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3103],
         "has_slot_data": [("shopsanity", "uniques", "not")],
         "set_if_true": [(STAddr.adv_flags_21, 0x40)],
+    },
+    "Goron shop skip Quiver": {
+        "on_scenes": [0x2e06],
+        "has_slot_data": [("shopsanity", "uniques", "not")],
+        "set_if_true": [(STAddr.adv_flags_22, 0x1)],
     },
     "Remove shield from shield shops": {
         "on_scenes": [0x2a05, 0x290a, 0x3103, 0x370a],
@@ -1037,10 +1083,26 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.cargo_0, 0xFFFFFFFF),(STAddr.cargo_1, 0xFFFFFFFF)],
         "unset_if_true": [(STAddr.cargo_count_0, 0xFF), (STAddr.cargo_count_1, 0xFF)]
     },
-    "Outset has Cuccos": {
+    "Outset has Cuccos vanilla abstract": {
         "on_scenes": [0x2f00],
         "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
-        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "has_slot_data": [("randomize_cargo", 2)],
+        "not_has_locations": ["Outset Deliver Cuccos"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
+    },
+    "Outset has 2 Cuccos": {
+        "on_scenes": [0x2f00],
+        "has_items": [("Cargo: Cuccos (5)", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Outset Deliver Cuccos", "Dune Sanctuary Deliver Cuccos to Rael"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
+    },
+    "Outset has 3 Cuccos": {
+        "on_scenes": [0x2f00],
+        "has_items": [("Cargo: Cuccos (5)", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
         "not_has_locations": ["Outset Deliver Cuccos"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
@@ -1071,10 +1133,34 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 6), (STAddr.cargo_count_0, 20)]
     },
-    "Rael has Cuccos": {
+    "Mayscore Deliver Steel": {
+        "on_scenes": [0x2a00],
+        "has_items": [("Cargo: Goron Steel", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Mayscore Deliver Steel"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 2), (STAddr.cargo_count_0, 20)]
+    },
+    "Rael has Cuccos vanilla abstract": {
         "on_scenes": [0x3400],
         "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
-        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "has_slot_data": [("randomize_cargo", 2)],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
+    },
+    "Rael has 1 Cuccos ": {
+        "on_scenes": [0x3400],
+        "has_items": [("Cargo: Cuccos (5)", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael", "Outset Deliver Cuccos"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
+    },
+    "Rael has 3 Cuccos ": {
+        "on_scenes": [0x3400],
+        "has_items": [("Cargo: Cuccos (5)", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
         "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
@@ -1084,13 +1170,89 @@ DYNAMIC_FLAGS = {
         "has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
-    "Papuzia has ice": {
+    "Papuzia has ice vanilla abstract": {
         "on_scenes": [0x2c00],
         "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
-        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "has_slot_data": [("randomize_cargo", 2)],
         "not_has_locations": ["Papuzia Village Deliver Ice"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Papuzia has 1 ice": {
+        "on_scenes": [0x2c00],
+        "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Papuzia has 2 ice": {
+        "on_scenes": [0x2c00],
+        "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Papuzia has 3 ice": {
+        "on_scenes": [0x2c00],
+        "has_items": [("Cargo: Mega Ice", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Papuzia Village Deliver Ice"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron elder skip cutscene": {
+        "on_scenes": [0x2e0a],
+        "set_if_true": [(STAddr.adv_flags_21, 0x2)]
+    },
+    "Goron Village Ice 1": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "not_has_locations": ["Papuzia Village Deliver Ice"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village Ice 2": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
+    },
+    "Goron Village Ice 2 gem": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80)],
+        "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village Ice 3": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village Ice abstract vanilla": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 2)],
+        "not_has_locations": ["Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village no cargo": {
+        "on_scenes": [0x2e00],
+        "has_slot_data": [("randomize_cargo", [0])],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80), (STAddr.adv_flags_59, 0x6),(STAddr.adv_flags_f, 0x01)]
     },
     # Papuzia
     "Allow SoB statue": {
@@ -1126,6 +1288,15 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1D00],
         "has_locations": ["Desert Temple 1F N Trap Chest", "Desert Temple 1F N Arena Chest"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
+    },
+    "Meet kagoron quicky": {
+        "on_scenes": [0x2d02],
+        "set_if_true": [(STAddr.adv_flags_18, 0x8)]
+    },
+    "Goron Village prevent all the crashes": {
+        "on_scenes": [0x2e00],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x10)],  # Finished wagon cutscene, crashes with kagoron flag
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x04)],  # Snurglin flag, removes kagoron preventing ice trade
     },
 }
 """

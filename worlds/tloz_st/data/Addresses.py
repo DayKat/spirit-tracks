@@ -132,6 +132,9 @@ class STAddr:
 
     tos_boss_door_pointer = Address(0x265668, size=4)
 
+    snurglin_keys = Address(0x2e986c)
+    mountain_gate = Address(0x2e3640)
+
     # Stamps
     stamp_ids = Address(0x268f8c, size=20)
     stamp_coords = Address(0x268F50, size=40)

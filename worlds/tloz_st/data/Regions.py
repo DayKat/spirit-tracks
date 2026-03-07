@@ -149,7 +149,7 @@ REGIONS = [
     "mayscore shop",
     "mayscore lumber",
     "mayscore leaves",
-    #"mayscore axe gem",
+    "mayscore steel",
 
     # Rabbit Haven
     "rabbit haven",
@@ -369,9 +369,25 @@ REGIONS = [
     "disorientation rabbits",
     "eote rabbits",
     "s mountain temple rabbit",
+
     "disorientation bird",
     "disorientation sod",
     "eote puzzles",
+
+    # Goron Village
+    "goron village",
+    "goron whip",
+    "goron shop",
+    "goron shop bombs",
+    "goron shop bow",
+    "goron steel",
+    "goron ice",
+    "goron village stamp",
+    "goron ice 2",
+    "valley sanc tunnel",
+    "valley sanc",
+    "valley sanc stamp",
+    "valley sanc song",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm

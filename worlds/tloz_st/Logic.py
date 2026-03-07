@@ -27,7 +27,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
         ["outset village", "forest realm", False, lambda state: st_has_train(state, player)],
         ["outset village", "outset joe", False, lambda state: st_has_source(state, player, "Snow")],
-        ["outset village", "outset cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")],
+        ["outset village", "outset cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
+        if options.randomize_cargo.value in [1, 2] else
+        ["outset village", "outset cuccos", False, lambda state: state.has("Cargo: Cuccos (5)", player, 3)
+                                                               or (state.has("Cargo: Cuccos (5)", player, 2) and state.has("_UT_Glitched_Logic", player))],
 
         # ========= Forest Realm ==========
 
@@ -230,6 +233,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
         ["mayscore", "mayscore leaves", False, lambda state: st_has_whirlwind(state, player)],
         ["mayscore", "mayscore dovok", False, lambda state: st_has_glyph(state, player, "Ocean")],
+        ["mayscore", "mayscore steel", False, lambda state: st_has_cargo(state, player, "Goron Steel", "_buy_steel")],
 
         # # ======== Forest Sanctuary =========
 
@@ -421,7 +425,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "pv dovok", False, lambda state: state.has("Passenger: Dovok", player) or state.has("_dovok", player)],
         ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_birds_song(state, player)],
         ["papuchia village", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song
-        ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")],
+
+        ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")]
+        if options.randomize_cargo.value in [1, 2] else
+        ["papuchia village", "papuzia ice", False, lambda state: state.has("Cargo: Mega Ice", player, 3)
+                                                                 or (state.has("Cargo: Mega Ice", player, 1) and state.has("_UT_Glitched_Logic", player))],
 
         # ========= Marine Temple ==================
         ["oct", "oct song statue", False, lambda state: st_has_spirit_flute(state, player)],
@@ -489,6 +497,25 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["icyspring tracks", "mountain temple tracks", False, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_portal(state, player,"Icy Spring to Mountain Temple",True)],
 
         # Goron Village
+        ["fire realm", "goron village", False, None],
+        ["fire source", "goron village", False, None],
+        ["goron village", "goron whip", False, lambda state: st_has_whip(state, player)],
+        ["goron whip", "goron village stamp", False, lambda state: st_has_stamp_book(state, player)],
+        ["goron ice", "valley sanc tunnel", False, lambda state: st_has_whip(state, player)],
+        ["valley sanc tunnel", "valley sanc", False, lambda state: st_has_boomerang(state, player)],
+        ["valley sanc", "valley sanc stamp", False, lambda state: st_has_stamp_book(state, player)],
+        ["valley sanc", "valley sanc song", False, lambda state: st_has_light_song(state, player)],
+
+        ["goron village", "goron ice", False, None] if options.randomize_cargo == "no_cargo" else (
+            ["goron whip", "goron ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")]
+            if options.randomize_cargo.value in [1, 2] else
+            ["goron whip", "goron ice", False, lambda state:
+                state.has("Cargo: Mega Ice", player, 2)
+                or (state.has("Cargo: Mega Ice", player, 1) and state.has("_UT_Glitched_Logic", player))]
+        ),
+        ["goron ice", "goron ice 2", False, None] if options.randomize_cargo.value in [0, 1, 2] else
+        ["goron ice", "goron ice 2", False, lambda state: state.has("Cargo: Mega Ice", player, 3)
+                or (state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player))],
 
         # Cannon Game
 
@@ -521,8 +548,15 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc", False, None],
         ["sand sanc", "sand sanc song", False, lambda state: st_has_spirit_flute(state, player)],
-        ["sand sanc", "sand sanc cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos") or options.randomize_cargo == "no_cargo"],
         ["sand sanc cuccos", "sand sanc stamp stand", False, lambda state: st_has_stamp_book(state, player)],
+        ["sand sanc", "sand sanc cuccos", False, None] if options.randomize_cargo.value == 0
+        else (
+            ["sand sanc", "sand sanc cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
+            if options.randomize_cargo.value in [1, 2] else
+            ["sand sanc", "sand sanc cuccos", False, lambda state: state.has("Cargo: Cuccos (5)", player, 3)
+                or (state.has("Cargo: Cuccos (5)", player, 1) and state.has("_UT_Glitched_Logic", player))]
+        ),
+
 
         # ===== Desert Temple =====
         ["sand restoration", "desert temple", False, lambda state: st_has_cannon(state, player)],
@@ -563,14 +597,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     ]
 
     required_rupees = 0
-    if "uniques" in options.shopsanity.value: required_rupees += 2500
+    if "uniques" in options.shopsanity.value: required_rupees += 4500
     if "treasure" in options.shopsanity.value: required_rupees += 2400
-    if "potions" in options.shopsanity.value: required_rupees += 1050
-    if "shields" in options.shopsanity.value: required_rupees += 410
-    if "postcards" in options.shopsanity.value: required_rupees += 400
-    if "ammo" in options.shopsanity.value: required_rupees += 300
+    if "potions" in options.shopsanity.value: required_rupees += 1400
+    if "shields" in options.shopsanity.value: required_rupees += 610
+    if "postcards" in options.shopsanity.value: required_rupees += 500
+    if "ammo" in options.shopsanity.value: required_rupees += 500
     if options.randomize_cargo == "vanilla": required_rupees += 550
-    elif options.randomize_cargo: required_rupees += 450
+    elif options.randomize_cargo: required_rupees += 550
 
     overworld_logic += [
         # Shops
@@ -585,11 +619,15 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuzia shop", "papuzia shop arrows", False, lambda state: st_has_bow(state, player)],
         ["papuzia shop", "papuzia shop bombs", False, lambda state: st_has_bombs(state, player)],
         ["trading post", "trading post shield", False, lambda state: st_has_rupees(state, player, required_rupees)],
+        ["goron village", "goron shop", False, lambda state: st_has_rupees(state, player, required_rupees)],
+        ["goron shop", "goron shop bombs", False, lambda state: st_has_bombs(state, player)],
+        ["goron shop", "goron shop bow", False, lambda state: st_has_bow(state, player)],
 
         ["castle town", "castle town buy cuccos", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["mayscore", "mayscore lumber", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player)], #  You can bully noko for free ice
         ["papuchia village", "papuzia buy cargo", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
+        ["goron ice", "goron steel", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["dark ore mine", "dark ore mine ore", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
     ]
 

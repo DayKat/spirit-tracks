@@ -391,12 +391,12 @@ class SpiritTracksShopsanity(OptionSet):
     Randomize Shops.
     Gives vanilla items after buying the randomized one.
     Add the following to the list to randomize that type of shop location:
-    - uniques: 2 locations, 2500 rupees
+    - uniques: 3 locations, 4500 rupees
     - treasure: 7 locations, 2400 rupees
-    - potions: 8 locations, 1050 rupees
-    - shields: 4 locations, 410 rupees
+    - potions: 10 locations, 1400 rupees
+    - shields: 5 locations, 610 rupees
     - postcards: 4 locations 400 rupees
-    - ammo: 3 locations 300 rupees
+    - ammo: 4 locations 500 rupees
     - all: same as adding all above
     """
     display_name = "Shopsanity"

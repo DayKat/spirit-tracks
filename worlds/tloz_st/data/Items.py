@@ -1083,6 +1083,10 @@ ITEMS_DATA |= {
         "item_groups": ["Cargo"],
         'tags': ["always_process"],
     },
+    "Cargo: Cuccos (5)": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Cargo"],
+    },
     "Cargo: Dark Ore": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo"],

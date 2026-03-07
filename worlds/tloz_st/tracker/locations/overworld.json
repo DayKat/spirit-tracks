@@ -48,6 +48,7 @@
     {"name": "Mayscore Shop Treasure 1"},{"name": "Mayscore Shop Treasure 2"},
     {"name": "Mayscore Shop Red Potion"},{"name": "Mayscore Shop Shield"},{"name": "Mayscore Shop Postcards"},
     {"name": "Mayscore Buy Lumber"},
+    {"name": "Mayscore Deliver Steel"},
     {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"},
     {"name": "Mayscore Whip Race Bomb Bag"}, {"name": "Mayscore Whip Race Heart Container"}
   ], "map_locations":[{"map": "Overview", "x": 332, "y": 594}]},
@@ -166,7 +167,7 @@
   {"name": "Rabbit E Sand Realm", "sections": [{"name": "Rabbit E Sand Realm"}], "map_locations":[{"map": "Overview", "x": 778, "y": 458}]},
   {"name": "Rabbit N Sand Realm", "sections": [{"name": "Rabbit N Sand Realm"}], "map_locations":[{"map": "Overview", "x": 678, "y": 410}]},
   {"name": "Rabbit S Sand Realm", "sections": [{"name": "Rabbit S Sand Realm"}], "map_locations":[{"map": "Overview", "x": 700, "y": 516}]},
-  {"name": "Rabbit W Sand Realm", "sections": [{"name": "Rabbit W Sand Realm"}], "map_locations":[{"map": "Overview", "x": 596, "y": 474}]},
+  {"name": "Rabbit W Sand Realm", "sections": [{"name": "Rabbit W Sand Realm"}], "map_locations":[{"map": "Overview", "x": 596, "y": 480}]},
   {"name": "Rabbit W Desert Temple", "sections": [{"name": "Rabbit W Desert Temple"}], "map_locations":[{"map": "Overview", "x": 826, "y": 446}]},
   {"name": "Rabbit E Desert Temple", "sections": [{"name": "Rabbit E Desert Temple"}], "map_locations":[{"map": "Overview", "x": 922, "y": 434}]},
   {"name": "Rabbit E Sand Maze", "sections": [{"name": "Rabbit E Sand Maze"}], "map_locations":[{"map": "Overview", "x": 924, "y": 314}]},
@@ -316,5 +317,25 @@
   ], "map_locations":[{"map": "Overview", "x": 862, "y": 440}]},
   {"name": "Desert Temple Events", "sections": [
           {"name": "EVENT: Defeat Skeldritch"}
-      ], "map_locations":[{"map": "Overview", "x": 862, "y": 424}]}
+      ], "map_locations":[{"map": "Overview", "x": 862, "y": 424}]},
+    {"name": "Goron Village", "sections": [
+          {"name": "Goron Shop Quiver"},
+          {"name": "Goron Shop Purple Potion"},
+          {"name": "Goron Shop Yellow Potion"},
+          {"name": "Goron Shop Bomb Refill"},
+          {"name": "Goron Shop Shield"},
+          {"name": "Goron Shop Postcards"},
+          {"name": "Goron Village West Steel Chest"},
+          {"name": "Goron Village Stamp Stand"},
+          {"name": "Goron Village West NE Chest"},
+          {"name": "Goron Village West Center Chest"},
+          {"name": "Goron Village Get Wagon"},
+          {"name": "Goron Village Chest Above Elder's House"},
+          {"name": "Goron Village Deliver Ice Force Gem"},
+          {"name": "Goron Village West Buy Steel"},
+          {"name": "Tunnel to Valley Sanctuary Chest"},
+          {"name": "Valley Sanctuary NW Chest"},
+          {"name": "Valley Sanctuary Stamp Stand"},
+          {"name": "Valley Sanctuary Song of Restoration"}
+      ], "map_locations":[{"map": "Overview", "x": 716, "y": 236}]}
 ]

@@ -391,6 +391,8 @@ class SpiritTracksWorld(WorldParent):
                     return "potions" in self.options.shopsanity.value
                 if location_name == "Snow Sanctuary Shop Treasure":
                     return "treasure" in self.options.shopsanity.value
+                if location_name == "Goron Shop Postcards":
+                    return "postcards" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Treasure Locations"]:
                 return "treasure" in self.options.shopsanity.value
             if location_name in LOCATION_GROUPS["Shop Unique Locations"]:
@@ -492,6 +494,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("castle town buy cuccos", "_buy_cuccos")
             self.create_event("papuzia buy cargo", "_buy_fish")
             self.create_event("dark ore mine ore", "_buy_ore")
+            self.create_event("goron steel", "_buy_steel")
         # UT Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck event", "_can_sell_treasure")
@@ -597,10 +600,11 @@ class SpiritTracksWorld(WorldParent):
                 continue
             if any([
                 item_name in ["Filler Item", "Treasure",
-                              "Heart Container", "Tear of Light", "Small Key (ToS)", "Great Spin Scroll"
-                             "Rabbit Net", "Bombs (Progressive)", "Bow (Progressive)", "Shield",
+                              "Heart Container", "Tear of Light", "Small Key (ToS)",
+                              "Bombs (Progressive)", "Bow (Progressive)", "Shield",
                               "Prize Postcards (10)"],
-                item_name.startswith("Stamp")
+                item_name.startswith("Stamp"),
+                self.options.randomize_cargo.value == 3 and item_name in ["Cargo: Cuccos", "Cargo: Mega Ice"]
                 ]):
                 filler_item_count += 1
                 continue
@@ -628,9 +632,10 @@ class SpiritTracksWorld(WorldParent):
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
         add_items = [("Fire Source", 1), ("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
-                     ("Repair Trading Post Bridge", 1), ("Shield", 1)]
+                     ("Repair Trading Post Bridge", 1), ("Shield", 2)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.randomize_cargo: add_items += [("Wagon", 1)]
+        if self.options.randomize_cargo.value == 3: add_items += [("Cargo: Mega Ice", 3), ("Cargo: Cuccos (5)", 3)]
         if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         if self.options.randomize_stamps: add_items += self.stamp_items
         add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]

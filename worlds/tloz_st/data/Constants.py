@@ -33,6 +33,9 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
+    [STAddr.adv_flags_1d, 0x0B],  # Valley sanc
+    [STAddr.adv_flags_20, 0x02],  # post valley sanc elder text
+    # [STAddr.adv_flags_21, 0x02],  # elder text, despawns kagoron
     [STAddr.adv_flags_22, 0x3C],  # buy cargo first time
     [STAddr.adv_flags_23, 0x40],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
@@ -42,6 +45,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_33, 0x06],  # dark ore first conv0
+    [STAddr.adv_flags_35, 0x10],  # kagoron text after giving ice
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_3d, 0xE0],  # ToS safe zone tutorial, dos tablet
     [STAddr.adv_flags_3e, 0x01],  # Disorientation station guard
@@ -96,6 +100,7 @@ STAGE_FLAGS = {
     # 0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
+    0x2e: [0x94, 0x0, 0x0, 0x0],  # Goron
     0x3C: [0x2, 0x0, 0x0, 0x0],  # GTR
     0x40: [0xE, 0x0, 0x0, 0x0],  # Disorientation Station
     0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
@@ -439,13 +444,16 @@ potion_location_lookup = {
     0x3103: {1: "Snowfall Sanctuary Shop Red Potion",
              2: "Snowfall Sanctuary Shop Purple Potion"},
     0x2c02: {3: "Papuzia Shop Yellow Potion",
-             2: "Papuzia Shop Purple Potion"}
+             2: "Papuzia Shop Purple Potion"},
+    0x2e06: {3: "Goron Shop Yellow Potion",
+             2: "Goron Shop Purple Potion"}
 }
 
 ammo_shop_lookup = {
     0x2c02: {STAddr.bomb_count: "Papuzia Shop Bombs",
              STAddr.arrow_count: "Papuzia Shop Arrows"},
-    0x4503: {STAddr.bomb_count: "Beedle Buy Bomb Refill"}
+    0x4503: {STAddr.bomb_count: "Beedle Buy Bomb Refill"},
+    0x2e06: {STAddr.bomb_count: "Goron Shop Bomb Refill"}
 }
 
 tear_lookup = {1: 3, 4: 6, 9: 9, 13: 12, 18: 15, 30: 16}
