@@ -1080,6 +1080,34 @@ ITEMS_DATA |= {
         "address": STAddr.adv_flags_36,
         "value": 0x4,
     },
+    "Passenger: Snow Goron": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_38,
+        "value": 0x2,
+    },
+    "Passenger: City Goron": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_3a,
+        "value": 0x8,
+    },
+    "Passenger: Teacher": {
+        "classification": ItemClassification.useful,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_42,
+        "value": 0x10,
+    },
+    "Passenger: Kofu": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_37,
+        "value": 0x20,
+    },
 
     # Cargo
     "Cargo: Lumber": {

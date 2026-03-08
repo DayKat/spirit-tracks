@@ -491,6 +491,9 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("outset joe", "_joe")
             self.create_event("alfonzo event", "_picked_up_alfonzo")
             self.create_event("mayscore dovok", "_dovok")
+            self.create_event("av kofu", "_kofu")
+            self.create_event("pick up gorons", "_goron")
+            self.create_event("goron ice event", "_goron_ice")
         if self.options.randomize_cargo == "vanilla":
             self.create_event("mayscore lumber", "_buy_lumber")
             self.create_event("icyspring ice", "_buy_ice")

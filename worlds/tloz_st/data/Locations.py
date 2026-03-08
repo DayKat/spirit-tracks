@@ -3298,9 +3298,9 @@ LOCATIONS_DATA |= {
     "Mayscore Deliver Steel": {
         "stage_id": 0x2A,
         "room_id": 0x0,
-        "address": STAddr.adv_flags_34,
-        "value": 0x01,
-        # "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
+        "address": STAddr.adv_flags_d,
+        "value": 0x80,
+        "vanilla_item": "W Wooded Temple Tracks",
         "location_groups": ["Mayscore", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
@@ -3638,6 +3638,85 @@ LOCATIONS_DATA |= {
         "region_id": "mtt boss",
         "vanilla_item": "Fire Source",
         "ut_connect": "EVENT: Defeat Vulcano",
+    },
+    "Goron Village Pick Up Snow Goron": {
+        "stage_id": 0x2e,
+        "room_id": 0x0,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x474F5250,
+        "vanilla_item": "Passenger: Snow Goron",
+        "location_groups": ["Goron Village", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "exact_read": True,
+        "region_id": "pick up gorons"
+    },
+    "Goron Village Pick Up City Goron": {
+        "stage_id": 0x2e,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_3a,
+        "value": 0x1,
+        "vanilla_item": "Passenger: City Goron",
+        "location_groups": ["Goron Village", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "goron ice event"
+    },
+    "Castle Town Goron Force Gem": {
+        "stage_id": 0x29,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_f,
+        "value": 0x8,
+        "vanilla_item": "Disorientation Station Tracks",
+        "location_groups": ["Castle Town", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "castle town goron"
+    },
+    "Castle Town Pick Up Teacher": {
+        "stage_id": 0x2e,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_3a,
+        "value": 0x1,
+        "vanilla_item": "Passenger: Teacher",
+        "location_groups": ["Goron Village", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "castle town"
+    },
+    "Anouki Village Goron Force Gem": {
+        "stage_id": 0x2b,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_e,
+        "value": 0x8,
+        "vanilla_item": "N Icy Spring Tracks",
+        "location_groups": ["Anouki Village", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "av goron"
+    },
+    "Anouki Village Pick Up Kofu": {
+        "stage_id": 0x2b,
+        "room_id": 0x1,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x594B4150,
+        "vanilla_item": "Passenger: Kofu",
+        "location_groups": ["Anouki Village", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "exact_read": True,
+        "region_id": "av kofu"
+    },
+    "Goron Village Kofu Force Gem": {
+        "stage_id": 0x2e,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_f,
+        "value": 0x4,
+        "vanilla_item": "Snow Realm Gorge Tracks",
+        "location_groups": ["Goron Village", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "gv kofu"
     },
 }
 

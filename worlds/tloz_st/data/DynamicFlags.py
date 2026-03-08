@@ -165,6 +165,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_11, 0x60)],
         "set_if_true": [(STAddr.adv_flags_1b, 0x02)],
     },
+    "Castle town teacher": {
+        "on_scenes": [0x2900],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "reset_flags": ["RESET Remove Ocean source"]
+    },
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
@@ -784,6 +790,16 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_passengers", 3)],
         "unset_if_true": [(STAddr.adv_flags_3c, 0x10)],
     },
+    "Bring Goron to CT": {
+        "on_scenes": [0x2900],
+        "has_items": [("Passenger: Goron Child", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_3a, 0x8, "not")],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x1), (STAddr.adv_flags_1, 0x4)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x29),
+                              (STAddr.passenger_tag_0, 0x474F4350),
+                              (STAddr.has_passenger_0, 0)],
+    },
     # Anouki chief location
     "Enter Anouki Chief house": {
         "on_scenes": [0x2b01],
@@ -797,6 +813,23 @@ DYNAMIC_FLAGS = {
                         (STAddr.adv_flags_c, 0x08),  # Don't advance dialogue after btt
                         (STAddr.adv_flags_4, 0x02)], # Remove Wagon, he gives ice hint
         "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source", "RESET Wagon"]
+    },
+    "Anouki chief stop kofu glyph": {
+        "on_scenes": [0x2b01],
+        "not_has_locations": ["Anouki Village Pick Up Kofu"],
+        "has_items": [("Fire Glyph", 0)],
+        "set_if_true": [(STAddr.adv_flags_37, 0x20)],
+        "reset_flags": ["RESET Kofu"]
+    },
+    "Anouki chief stop kofu source": {
+        "on_scenes": [0x2b01],
+        "not_has_locations": ["Anouki Village Pick Up Kofu"],
+        "has_items": [("Fire Source", 0)],
+        "set_if_true": [(STAddr.adv_flags_37, 0x20)],
+        "reset_flags": ["RESET Kofu"]
+    },
+    "RESET Kofu": {
+        "unset_if_true": [(STAddr.adv_flags_37, 0x20)],
     },
     "Anouki village remove icons": {
         "on_scenes": [0x2b00],
@@ -998,6 +1031,26 @@ DYNAMIC_FLAGS = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
                               (STAddr.passenger_tag_0, 0x43524654),
                               (STAddr.has_passenger_0, 0)]
+    },
+    "Bring Goron to AV": {
+        "on_scenes": [0x2b00],
+        "has_items": [("Passenger: Goron Adult", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Anouki Village Goron Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_38, 0x2)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
+                              (STAddr.passenger_tag_0, 0x474F5250),
+                              (STAddr.has_passenger_0, 0)],
+    },
+    "Bring Kofu to GV": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Passenger: Kofu", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Goron Village Kofu Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_37, 0x20)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2e),
+                              (STAddr.passenger_tag_0, 0x594B4150),
+                              (STAddr.has_passenger_0, 0)],
     },
     "Bring Noko to Icyspring": {
         "on_scenes": [0x3500],
@@ -1358,6 +1411,30 @@ DYNAMIC_FLAGS = {
         "check_bits": [(STAddr.adv_flags_59, 0x4)],
         "set_if_true": [(STAddr.adv_flags_0, 0x80)],
         "reset_flags": ["RESET Remove Fire source"]
+    },
+    "GV remove snow goron no snow glyph": {
+        "on_scenes": [0x2E00],
+        "has_items": [("Snow Glyph", 0)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "set_if_true": [(STAddr.adv_flags_38, 2)],
+    },
+    "GV add snow goron no snow glyph": {
+        "on_scenes": [0x2E00],
+        "has_items": [("Snow Glyph", 1)],
+        "not_has_locations": ["Goron Village Pick Up Snow Goron"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_38, 2)],
+    },
+    "GV add snow goron no snow glyph vanilla": {
+        "on_scenes": [0x2E00],
+        "has_items": [("Snow Glyph", 1)],
+        "not_has_locations": ["Anouki Village Goron Force Gem"],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "unset_if_true": [(STAddr.adv_flags_38, 2)],
+    },
+    "ToS Force spawn train": {
+        "on_scenes": [0x1401, 0x1400],
+        "set_if_true": [(STAddr.adv_flags_4, 0x4)]
     },
 }
 """

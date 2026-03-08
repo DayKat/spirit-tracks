@@ -51,6 +51,7 @@ REGIONS = [
     "teao 3",
     "castle town buy cuccos",
     "castle town fish",
+    "castle town goron",
 
     # Hyrule Castle
     "hyrule castle",
@@ -235,7 +236,8 @@ REGIONS = [
     "av noko",
     "av fence",
     "av kenzo",
-    #"anouki village worker to anouki gem",
+    "av goron",
+    "av kofu",
 
     # Snow Sanctuary
     "ss",
@@ -386,6 +388,8 @@ REGIONS = [
     "goron village stamp",
     "goron ice 2",
     "goron ice event",
+    "pick up gorons",
+    "gv kofu",
 
     "valley sanc tunnel",
     "valley sanc",

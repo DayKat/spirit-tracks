@@ -26,8 +26,10 @@
     {"name": "Castle Town Ramp House Chest"},
     {"name": "Castle Town Empty House Roof Chest"},
 
+    {"name": "Castle Town Pick Up Teacher"},
     {"name": "Castle Town Pick Up Mona"},
     {"name": "Castle Town Pick Up Alfonzo"},
+    {"name": "Castle Town Goron Force Gem"},
     {"name": "Castle Town Buy Cuccos"},
     {"name": "Castle Town Lucia Fish Force Gem"},
 
@@ -95,7 +97,10 @@
     {"name": "Anouki Village Song Statue Chest"},
     {"name": "Anouki Village Bomb Cave Chest"},
     {"name": "Anouki Village Lake Chest"},
+
     {"name": "Anouki Village Pick Up Noko"},
+    {"name": "Anouki Village Goron Force Gem"},
+    {"name": "Anouki Village Pick Up Kofu"},
     {"name": "Anouki Village Fence Progress Gift"},
     {"name": "Anouki Village Repair Fence"}
   ], "map_locations":[{"map": "Overview", "x": 164, "y": 280}]},
@@ -331,6 +336,9 @@
           {"name": "Goron Village West Center Chest"},
           {"name": "Goron Village Get Wagon"},
           {"name": "Goron Village Chest Above Elder's House"},
+          {"name": "Goron Village Pick Up Snow Goron"},
+          {"name": "Goron Village Pick Up City Goron"},
+          {"name": "Goron Village Kofu Force Gem"},
           {"name": "Goron Village Deliver Ice Force Gem"},
           {"name": "Goron Village West Buy Steel"}
       ], "map_locations":[{"map": "Overview", "x": 716, "y": 236}]},

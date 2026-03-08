@@ -47,6 +47,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_33, 0x0E],  # dark ore first conv0
     [STAddr.adv_flags_35, 0x10],  # kagoron text after giving ice
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
+    [STAddr.adv_flags_38, 0x08],  # goron text
     [STAddr.adv_flags_3d, 0xE0],  # ToS safe zone tutorial, dos tablet
     [STAddr.adv_flags_3e, 0x01],  # Disorientation station guard
     [STAddr.adv_flags_3f, 0x07],  # Dark ore mine cs

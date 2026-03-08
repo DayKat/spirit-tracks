@@ -81,6 +81,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== Castle Town =========
 
         ["forest realm", "castle town", True, None],
+        ["castle town", "castle town goron", False, lambda state: state.has("Passenger: City Goron", player) or state.has("_goron_ice", player)],
         ["castle town", "pick up alfonzo", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["pick up alfonzo", "alfonzo event", False, None],
         ["pick up alfonzo", "castle town mona", False, None],
@@ -333,6 +334,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["anouki village", "av kenzo", False, lambda state:
             (state.has("Passenger: Kenzo", player) or state.has("_kenzo_2",  player) or options.randomize_passengers == "no_passengers")
             or (st_has_cargo(state, player, "Lumber", "_buy_lumber") or options.randomize_cargo == "no_cargo")],
+        ["anouki village", "av goron", False, lambda state: state.has("Passenger: Snow Goron", player) or state.has("_goron", player)],
+        ["av goron", "av kofu", False, lambda state: st_has_glyph(state, player, "Fire") or st_has_source(state, player, "Fire")],
 
         # =========== Snow Sanctuary ==========
 
@@ -506,6 +509,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["valley sanc tunnel", "valley sanc", False, lambda state: st_has_boomerang(state, player)],
         ["valley sanc", "valley sanc stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["valley sanc", "valley sanc song", False, lambda state: st_has_light_song(state, player)],
+        ["goron ice event", "pick up gorons", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["goron village", "gv kofu", False, lambda state: state.has("Passenger: Kofu", player) or state.has("_kofu", player)],
 
         ["goron village", "goron ice", False, None] if options.randomize_cargo == "no_cargo" else (
             ["goron whip", "goron ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")]
