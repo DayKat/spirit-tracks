@@ -105,9 +105,13 @@ async def dummy(*args):
 class STItem(DSItem):
     rooms: list[int]
     section: int
+    model: str = None
+    vanilla_model: str = None
 
     def __init__(self, name, data, all_items):
         super().__init__(name, data, all_items)
+
+        self.vanilla_model = self.model if self.vanilla_model is None else self.vanilla_model
 
     def get_receive_function(self):
         res = super().get_receive_function()

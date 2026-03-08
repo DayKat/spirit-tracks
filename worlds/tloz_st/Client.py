@@ -1,12 +1,14 @@
 
 from .DSZeldaClient.DSZeldaClient import *
-from .DSZeldaClient.subclasses import storage_key
+from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 from .data.Entrances import ENTRANCES
 from settings import get_settings
 from typing import Literal
+
+from ..mlss.Data import vanilla
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
@@ -211,6 +213,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.boss_key_y = None
         self.boss_key_read = None
         self.snurglar_addr = None
+        self.last_anticipated_locations = []
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -240,7 +243,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def get_coords(self, ctx, multi=False):
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
-        print(f"Coords: {coords}")
+        # print(f"Coords: {coords}")
         return {
             "x": coords[STAddr.link_x],
             "y": coords[STAddr.link_y],
@@ -496,23 +499,106 @@ class SpiritTracksClient(DSZeldaClient):
         await self.update_rabbit_count(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
+        await super().process_in_game(ctx, read_result)
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:
             self.receiving_location = True
             stamp_location = self.scene_to_stamp[self.current_scene]
             await self.update_stamps(ctx)
             await self._process_checked_locations(ctx, stamp_location)
+            await self.detect_boss_key(ctx)
 
-        await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
-        await self.detect_ut_event(ctx, self.current_scene)
         await self.process_train_speed(ctx, read_result)
+        await self.detect_ut_event(ctx, self.current_scene)
+
+    async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
+        await self.anticipate_location(ctx, read_result)
+
+    async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
+        await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
         await self.drink_potion(ctx, read_result)
-        await self.detect_boss_key(ctx)
+
         if self.snurglar_addr in read_result:
             if read_result[self.snurglar_addr] & 0x20:
                 print(f"Opening Mountain Temple! {self.snurglar_addr}")
                 await self.snurglar_addr.set_bits(ctx, 0x10)
                 self.main_read_list.remove(self.snurglar_addr)
+
+    async def anticipate_location(self, ctx: "BizHawkClientContext", read_result: dict):
+        if read_result[STAddr.stage] < 0x13 or self.getting_location:
+            return
+        # print(f"Locations in scene: {[l for l in self.locations_in_scene]}")
+        coords = await self.get_coords(ctx)
+        valid_locations = []
+        priority = 30
+        for loc_name, loc in self.locations_in_scene.items():
+            if (loc.get("x_max", 0x8FFFFFFF) > coords["x"] > loc.get("x_min", -0x8FFFFFFF) and
+                    loc.get("z_max", 0x8FFFFFFF) > coords["z"] > loc.get("z_min", -0x8FFFFFFF) and
+                    loc.get("y", coords["y"]) + 1000 > coords["y"] >= loc.get("y", coords["y"])):
+
+                if 'no_model' in loc or 'stamp' in loc:
+                    continue
+
+                # Check priority
+                if priority is None or "priority" not in loc:
+                    priority = None
+                    valid_locations.append(loc)
+                elif priority > loc['priority']:
+                    priority = loc['priority']
+                    valid_locations = [loc]
+                elif priority == loc['priority']:
+                    valid_locations.append(loc)
+
+        def get_items(l):
+            vanilla_item = l.get("vanilla_item", [])
+            res = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
+            return res
+
+        model_data = ctx.slot_data.get("model_lookup", {})
+        generic_model = 0x59637266
+
+        if self.last_anticipated_locations == valid_locations:
+            return
+        if not valid_locations:
+            print(f"\tno location")
+        else:
+            print(f"\tMultiple locations: {[l['name'] for l in valid_locations]}")
+            item_location_check = {}
+            for loc in valid_locations:
+                vanilla_items = get_items(loc)
+                for item in vanilla_items:
+                    item_location_check[item] = None if item in item_location_check else loc
+            print(f"Items with locations: {[(i, l['name'] if l else None) for i, l in item_location_check.items()]}")
+
+            write_list = []
+            print_list = {}
+            for i, l in item_location_check.items():
+                if i not in self.item_data: continue
+                item_data = self.item_data[i]
+                item_model = item_data.vanilla_model
+                if item_model is None: continue
+                vanilla_model = ITEM_MODEL_LOOKUP[item_model]
+                if l is None:
+                    model_value = generic_model
+                    model_name = "Force Gem"
+                else:
+                    loc_id = l['id']
+                    model_value = OFFSET_TO_MODEL[model_data[str(loc_id)]].value if str(loc_id) in model_data else generic_model
+                    model_name = OFFSET_TO_MODEL[model_data[str(loc_id)]].name if model_value != generic_model else "Force Gem"
+
+                bits = split_bits(model_value, 4)
+                bits.reverse()
+                write_list.append((STAddr.item_model_table.addr + 4*vanilla_model.offset, bits, "Main RAM"))
+                print_list[l['name']] = model_name
+
+            print(f"Swapped Models: {print_list}")
+            if write_list:
+                await bizhawk.write(ctx.bizhawk_ctx, write_list)
+
+
+        self.last_anticipated_locations = valid_locations
+
+
 
     async def drink_potion(self, ctx, read_results):
         drinking_potion = read_results.get(self.addr_drinking_potion, 0)

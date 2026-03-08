@@ -165,12 +165,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_11, 0x60)],
         "set_if_true": [(STAddr.adv_flags_1b, 0x02)],
     },
-    "Castle town teacher": {
-        "on_scenes": [0x2900],
-        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "reset_flags": ["RESET Remove Ocean source"]
-    },
+    # "Castle town teacher": {  find the real flag later
+    #     "on_scenes": [0x2900],
+    #     "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+    #     "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+    #     "reset_flags": ["RESET Remove Ocean source"]
+    # },
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
@@ -792,7 +792,7 @@ DYNAMIC_FLAGS = {
     },
     "Bring Goron to CT": {
         "on_scenes": [0x2900],
-        "has_items": [("Passenger: Goron Child", 1)],
+        "has_items": [("Passenger: City Goron", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "check_bits": [(STAddr.adv_flags_3a, 0x8, "not")],
         "set_if_true": [(STAddr.adv_flags_3a, 0x1), (STAddr.adv_flags_1, 0x4)],
@@ -1034,7 +1034,7 @@ DYNAMIC_FLAGS = {
     },
     "Bring Goron to AV": {
         "on_scenes": [0x2b00],
-        "has_items": [("Passenger: Goron Adult", 1)],
+        "has_items": [("Passenger: Snow Goron", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "not_has_locations": ["Anouki Village Goron Force Gem"],
         "set_if_true": [(STAddr.adv_flags_38, 0x2)],

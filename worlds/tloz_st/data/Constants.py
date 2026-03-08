@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from .Addresses import STAddr
 from .Items import ITEM_GROUPS
 
@@ -110,6 +112,123 @@ STAGE_FLAGS = {
     0x1d: [0x0, 0x3, 0x9, 0x0], # Desert Temple
     0x3d: [0x2, 0x0, 0x9, 0x0],  # DOM
 }
+
+@dataclass
+class ItemModel:
+    name: str
+    offset: int
+    value: int
+
+    def __hash__(self):
+        return self.offset
+
+ITEM_MODELS = [
+    ItemModel("Shield", 0, 0x41646873),
+    ItemModel("Sword", 1, 0x41647773),
+    ItemModel("Whirlwind", 2, 0x646E7274),
+    ItemModel("Bomb Bag", 3, 0x626D6F62),
+    ItemModel("Bow", 4, 0x41776F62),
+    ItemModel("Boomerang", 5, 0x6E726D62),
+    ItemModel("Whip", 6, 0x70696877),
+    ItemModel("Sand Wand", 7, 0x646F7273),
+
+    ItemModel("Key", 9, 0x4E79656B),
+    ItemModel("Boss Key", 10, 0x4279656B),
+
+    ItemModel("Green Rupee", 11, 0x47707572),
+    ItemModel("Blue Rupee", 12, 0x42707572),
+    ItemModel("Red Rupee", 13, 0x52707572),
+    ItemModel("Big Green Rupee", 14, 0x47707572),
+    ItemModel("Big Red Rupee", 15, 0x52707572),
+    ItemModel("Gold Rupee", 16, 0x4C707572),
+
+] + [
+    ItemModel(f"Force Gem {i}", i, 0x59637266) for i in list(range(17, 20)) + list(range(34, 37)) + list(range(42, 61))
+] + [
+
+    ItemModel("Forest Glyph", 20, 0x4174696C),
+    ItemModel("Snow Glyph", 21, 0x4274696C),
+    ItemModel("Ocean Glyph", 22, 0x4374696C),
+    ItemModel("Fire Glyph", 23, 0x4474696C),
+
+    ItemModel("Forest Glyph 2", 24, 0x4174696C),  # Probably restorations?
+    ItemModel("Snow Glyph 2", 25, 0x4274696C),
+    ItemModel("Ocean Glyph 2", 26, 0x4374696C),
+    ItemModel("Fire Glyph 2", 27, 0x4474696C),
+
+    ItemModel("Ocean Glyph 3", 28, 0x4374696C),  # Sand Realm?
+    ItemModel("Forest Glyph 3", 29, 0x4474696C), # Compass of light tracks?
+
+    ItemModel("Hero's Clothes Intro", 37, 0x416F6C63),
+    ItemModel("Letter Zelda", 38, 0x4C6D7470),
+    ItemModel("Heart Container", 39, 0x75747268),
+    ItemModel("Medium Quiver", 40, 0x4D647061),
+    ItemModel("Medium Bomb Bag", 41, 0x4D626D62),
+
+    ItemModel("Spirit Flute", 61, 0x746C6670),
+    ItemModel("Stamp Book", 62, 0x706D7473),
+    ItemModel("Bow of Light", 63, 0x42776F62),
+    ItemModel("Nothing", 64, 0x42647773),  # Lokomo sword?
+    ItemModel("Prize Postcards", 65, 0x437A7270),
+    ItemModel("Red Potion", 66, 0x52766572),
+    ItemModel("Purple Potion", 67, 0x50766572),
+    ItemModel("Yellow Potion", 68, 0x59766572),
+
+    ItemModel("Demon Fossil", 69, 0x736E6F6D),
+    ItemModel("Stalfos Skull", 70, 0x626C7473),
+    ItemModel("Star Fragment", 71, 0x72617473),
+    ItemModel("Bee Larvae", 72, 0x65656562),
+
+    ItemModel("Wood Heart", 73, 0x6E72726D),
+    ItemModel("Dark Pearl Loop", 74, 0x426C7270),
+    ItemModel("White Pearl Loop", 75, 0x416C7270),
+    ItemModel("Ruto Crown", 76, 0x6E777263),
+
+    ItemModel("Dragon Scale", 77, 0x616C6F7A),
+    ItemModel("Pirate Necklace", 78, 0x63656E70),
+    ItemModel("Palace Dish", 79, 0x6C776F62),
+    ItemModel("Goron Amber", 80, 0x6E6F6C67),
+
+    ItemModel("Mystic Jade", 81, 0x6564616A),
+    ItemModel("Ancient Coin", 82, 0x6E696F63),
+    ItemModel("Alchemy Stone", 83, 0x646C6F67),
+    ItemModel("Regal Ring", 84, 0x676E6972),
+
+    ItemModel("Arrow Refill", 85, 0x74737261),
+    ItemModel("Bomb Refill", 86, 0x74736D62),
+    ItemModel("Sold Out", 87, 0x646C6F73),
+    ItemModel("Ancient Shield", 88, 0x42646873),
+    ItemModel("Large Quiver", 89, 0x4C647061),
+    ItemModel("Large Bomb Bag", 90, 0x4C626D62),
+
+    ItemModel("Tear of Light", 95, 0x756B7A73),
+    ItemModel("Compass of Light", 96, 0x706D634C),
+    ItemModel("Green Scroll", 97, 0x706D634C),
+    ItemModel("Purple Scroll", 98, 0x706D634C),
+    ItemModel("Letter", 99, 0x4C6D7470),
+
+    ItemModel("SoA", 100, 0x66706467),  # Songs
+    ItemModel("SoH", 101, 0x66706467),  # Songs
+    ItemModel("SoB", 102, 0x66706467),  # Songs
+    ItemModel("SoL", 103, 0x66706467),  # Songs
+    ItemModel("SoD", 104, 0x66706467),  # Songs
+
+    ItemModel("Rabbit Net", 105, 0x746E6272),
+    ItemModel("Beedle Bronze", 106, 0x74696F70),
+    ItemModel("Beedle Silver", 107, 0x53696F70),
+    ItemModel("Beedle Gold", 108, 0x47696F70),
+    ItemModel("Beedle Platinum", 109, 0x50696F70),
+    ItemModel("Beedle Diamond", 110, 0x44696F70),
+    ItemModel("Beedle Freebie", 111, 0x46696F70),
+    ItemModel("Beedle Points", 112, 0x35696F70),
+
+    ItemModel("Letter 113", 113, 0x4C6D7470),
+    ItemModel("Hero's Clothes", 114, 0x416F6C63),
+    ItemModel("Engineer's Clothes", 115, 0x426F6C63),
+
+]
+ITEM_MODEL_LOOKUP: dict[str, "ItemModel"] = {i.name: i for i in ITEM_MODELS}
+OFFSET_TO_MODEL: dict[int, "ItemModel"] = {i.offset: i for i in ITEM_MODELS}
 
 STAGES = {
     0x4: "Forest Realm",

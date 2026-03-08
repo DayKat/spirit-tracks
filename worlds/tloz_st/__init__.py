@@ -148,6 +148,7 @@ class SpiritTracksWorld(WorldParent):
 
         self.stamp_items = []
         self.stamp_pack_order = []
+        self.model_lookup = {}
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -309,11 +310,11 @@ class SpiritTracksWorld(WorldParent):
             elif self.options.tos_dungeon_options == "all_sections":
                 required_dungeons += implemented_tos
 
+        self.options.dungeons_required.value = min(self.options.dungeons_required.value, len(required_dungeons))
         # print(f"Required dungeons: {required_dungeons}")
         if not self.options.require_specific_dungeons:
             return required_dungeons
 
-        self.options.dungeons_required.value = min(self.options.dungeons_required.value, len(required_dungeons))
         self.random.shuffle(required_dungeons)
         required_dungeons = required_dungeons[:self.options.dungeons_required.value]
         if self.options.dungeon_hints:
@@ -1122,11 +1123,18 @@ class SpiritTracksWorld(WorldParent):
 
         return True
 
-    # def post_fill(self) -> None:
-    #     we can get placements and
-    #     for loc in self.get_locations():
-    #         if loc.item is not None:
-    #             print(f"{loc}: {loc.item} | player: {loc.item.player} {loc.item.game}")
+    def post_fill(self) -> None:
+        # get item placement models to send to client
+        location_models = {}
+        for loc in self.get_locations():
+            item = loc.item
+            if item is not None and item.game in ["The Legend of Zelda - Spirit Tracks", "Generic"]:
+                loc_data = LOCATIONS_DATA.get(loc.name, {})
+                if not loc_data or 'stamp' in loc_data or 'no_model' in loc_data or ITEMS[item.name].model is None:
+                    continue
+                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
+        self.model_lookup = location_models
+        print(f"Location Models: {location_models}")
 
     def fill_slot_data(self) -> dict:
         options = ["goal",
@@ -1147,6 +1155,7 @@ class SpiritTracksWorld(WorldParent):
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons
         slot_data["stamp_pack_order"] = self.stamp_pack_order
+        slot_data["model_lookup"] = self.model_lookup
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:

@@ -16,6 +16,10 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_2f,
         "value": 0x20,
         "location_groups": ["Outset Village"],
+
+        "x_min": -5000,
+        "z_min": 10000,
+        "x_max": 25000
     },
     "Outset Bee Tree": {
         "region_id": "outset village",
@@ -27,6 +31,8 @@ LOCATIONS_DATA = {
         "z_min": -34890,
         "z_max": -10024,
         "location_groups": ["Outset Village"],
+
+        "priority": 1
     },
     "Outset Stamp Station": {
         "region_id": "outset village stamp station",
@@ -68,6 +74,8 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_25,
         "value": 0x2,
         "location_groups": ["Outset Village", "Niko"],
+
+        "priority": 1
     },
     "Outset Niko 10 Stamps Reward": {
         "region_id": "outset 10 stamps",
@@ -78,17 +86,22 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_25,
         "value": 0x4,
         "location_groups": ["Outset Village", "Niko"],
-        "conditional": True
+        "conditional": True,
+
+        "priority": 2
     },
     "Outset Niko 15 Stamps Reward": {
         "region_id": "outset 15 stamps",
-        # "vanilla_item": "Stamp Book",
+        "vanilla_item": "Engineer's Clothes",
+        "item_override": "Nothing!",
         "stage_id": 0x2F,
         "room_id": 0x0A,
         "address": STAddr.adv_flags_25,
         "value": 0x8,
         "location_groups": ["Outset Village", "Niko"],
-        "conditional": True
+        "conditional": True,
+
+        "priority": 3
     },
     "Outset Niko 20 Stamps Reward": {
         "region_id": "outset 20 stamps",
@@ -99,7 +112,9 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_25,
         "value": 0x10,
         "location_groups": ["Outset Village", "Niko"],
-        "conditional": True
+        "conditional": True,
+
+        "priority": 4
     },
 
     # Castle Town
@@ -989,6 +1004,9 @@ LOCATIONS_DATA = {
         "value": 2,
         "location_groups": ["Mayscore"],
         "slot_data": [("randomize_minigames", [2, 3, 4])],
+
+        "x_min": 55000,
+        "z_max": -45000,
     },
     "Mayscore Whip Race Bomb Bag": {
         "region_id": "mayscore whip chest",
@@ -1001,6 +1019,9 @@ LOCATIONS_DATA = {
         "value": 1,
         "location_groups": ["Mayscore"],
         "slot_data": [("randomize_minigames", [1, 3, 4])],
+
+        "x_min": 55000,
+        "z_max": -45000,
     },
 
     # Woodland Sanctuary
@@ -2471,7 +2492,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Mountain Rabbit",
         "stage_id": 0x07,
         "address": STAddr.rabbits_4,
-        "value": 0x40,
+        "value": 0x80,
         "rabbit": True,
         "location_groups": ["Unique Mountain Rabbits"]
     },
@@ -3095,7 +3116,9 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "icyspring ice"
+        "region_id": "icyspring ice",
+
+        "no_model": True
     },
     "Mayscore Buy Lumber": {
         "stage_id": 0x2a,
@@ -3108,7 +3131,9 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "mayscore lumber"
+        "region_id": "mayscore lumber",
+
+        "no_model": True
     },
     "Castle Town Buy Cuccos": {
         "stage_id": 0x29,
@@ -3121,7 +3146,8 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "castle town buy cuccos"
+        "region_id": "castle town buy cuccos",
+        "no_model": True
     },
     "Dark Ore Mine Buy Ore": {
         "stage_id": 0x3D,
@@ -3134,7 +3160,9 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "dark ore mine ore"
+        "region_id": "dark ore mine ore",
+
+        "no_model": True
     },
     "Anouki Village Repair Fence": {
         "stage_id": 0x2B,
@@ -3180,6 +3208,8 @@ LOCATIONS_DATA |= {
         "location_groups": ["Castle Town", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+
+        "no_model": True
     },
     "Rabbit Haven Mona's Force Gem": {
         "stage_id": 0x3e,
@@ -3202,6 +3232,8 @@ LOCATIONS_DATA |= {
         "location_groups": ["Castle Town", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+
+        "no_model": True
     },
     "Outset Pick Up Joe": {
         "stage_id": 0x2F,
@@ -3213,6 +3245,8 @@ LOCATIONS_DATA |= {
         "location_groups": ["Outset Village", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+
+        "no_model": True
     },
     "Beedle Joe's Force Gem": {
         "stage_id": 0x45,
@@ -3234,7 +3268,9 @@ LOCATIONS_DATA |= {
         "location_groups": ["Outset Village", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
-        "region_id": "outset cuccos"
+        "region_id": "outset cuccos",
+        "x_max": -45000,
+        "z_max": -5000,
     },
     # "Mayscore Pick Up Dovok": {
     #     "stage_id": 0x2A,
@@ -3269,7 +3305,9 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "papuzia buy cargo"
+        "region_id": "papuzia buy cargo",
+
+        "no_model": True
     },
     "Papuzia Village Buy Vessel": {
         "stage_id": 0x2C,
@@ -3282,7 +3320,9 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "papuzia buy cargo"
+        "region_id": "papuzia buy cargo",
+
+        "no_model": True
     },
     "Castle Town Lucia Fish Force Gem": {
         "stage_id": 0x29,
@@ -3304,7 +3344,9 @@ LOCATIONS_DATA |= {
         "location_groups": ["Mayscore", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
-        "region_id": "mayscore steel"
+        "region_id": "mayscore steel",
+
+        "no_model": True
     },
     "Snowfall Sanctuary Deliver Vessel": {
         "stage_id": 0x31,
@@ -3382,7 +3424,8 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "goron steel"
+        "region_id": "goron steel",
+        "no_model": True
     },
 
     # Goron Villaga
@@ -3674,10 +3717,10 @@ LOCATIONS_DATA |= {
         "region_id": "castle town goron"
     },
     "Castle Town Pick Up Teacher": {
-        "stage_id": 0x2e,
+        "stage_id": 0x29,
         "room_id": 0x0,
-        "address": STAddr.adv_flags_3a,
-        "value": 0x1,
+        "address": STAddr.adv_flags_42,
+        "value": 0x10,
         "vanilla_item": "Passenger: Teacher",
         "location_groups": ["Goron Village", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
