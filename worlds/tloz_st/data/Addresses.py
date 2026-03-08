@@ -127,7 +127,7 @@ class STAddr:
     wt_boss_door = Address(0x3368FE)
     bt_boss_door = Address(0x33099E)
     oct_boss_door = Address(0x32F6EE)
-    mtt_boss_door = Address(0x32F6EE)
+    mtt_boss_door = Address(0x33497E)
     dt_boss_door = Address(0x332C5E)
     tos3_boss_door = Address(0x33E482)
     # tos5_boss_door = Address(0x33E182)

@@ -502,7 +502,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["fire source", "goron village", False, None],
         ["goron village", "goron whip", False, lambda state: st_has_whip(state, player)],
         ["goron whip", "goron village stamp", False, lambda state: st_has_stamp_book(state, player)],
-        ["goron ice", "valley sanc tunnel", False, lambda state: st_has_whip(state, player)],
+        ["goron ice event", "valley sanc tunnel", False, lambda state: st_has_whip(state, player)],
         ["valley sanc tunnel", "valley sanc", False, lambda state: st_has_boomerang(state, player)],
         ["valley sanc", "valley sanc stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["valley sanc", "valley sanc song", False, lambda state: st_has_light_song(state, player)],
@@ -514,8 +514,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                 state.has("Cargo: Mega Ice", player, 2)
                 or (state.has("Cargo: Mega Ice", player, 1) and state.has("_UT_Glitched_Logic", player))]
         ),
-        ["goron ice", "goron ice 2", False, None] if options.randomize_cargo.value in [0, 1, 2] else
-        ["goron ice", "goron ice 2", False, lambda state: state.has("Cargo: Mega Ice", player, 3)
+        ["goron ice", "goron ice event", False, None],
+        ["goron ice event", "goron ice 2", False, None] if options.randomize_cargo.value in [0, 1, 2] else
+        ["goron ice event", "goron ice 2", False, lambda state: state.has("Cargo: Mega Ice", player, 3)
                 or (state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player))],
 
         # Goron Target Game
@@ -542,7 +543,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mtt b1 cart", "mtt stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["mtt b1 cart", "mtt bk", False, lambda state: st_has_whirlwind(state, player)],
         ["mtt bk", "mtt boss", False, lambda state: options.randomize_boss_keys == "vanilla"],
-        ["mtt b1 cart", "mtt boss", False, lambda state: st_has_boss_key(state, player, "Mountain Temple")],
+        ["mtt b1 cart", "mtt boss", False, lambda state: st_has_boss_key(state, player, "Mountain Temple") and any([
+            st_has_sword(state, player),
+            st_has_whip(state, player),
+            state.has("Bombs (Progressive)", player, 2)
+        ])],
         ["mtt boss", "event_vulcano", False, None],
 
         # Disorientation Station
@@ -651,7 +656,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mayscore", "mayscore lumber", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player)], #  You can bully noko for free ice
         ["papuchia village", "papuzia buy cargo", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
-        ["goron ice", "goron steel", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
+        ["goron ice event", "goron steel", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["dark ore mine", "dark ore mine ore", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
     ]
 

@@ -433,18 +433,18 @@ DYNAMIC_FLAGS = {
 
     # Sanctuaries
     "Embrose don't have spirit flute": {
-        "on_scenes": [0x3403],
+        "on_scenes": [0x3303],
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_1, 8)]
     },
     "Embrose can play duet": {
-        "on_scenes": [0x3403],
+        "on_scenes": [0x3303],
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Valley Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 8)]
     },
     "Embrose Reset flags": {
-        "on_scenes": [0x3403],
+        "on_scenes": [0x3303],
         "unset_if_true": [(STAddr.rail_restorations, 0x10)],
         "reset_flags": ["VS Reset MTT", "VS Reset MTT not has"]
     },
@@ -804,7 +804,7 @@ DYNAMIC_FLAGS = {
     },
     "Goron West can't buy steel": {
         "on_scenes": [0x2d03],
-        "not_has_items": [("Wagon", 1)],
+        "has_items": [("Wagon", 0)],
         "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
         "check_bits": [(STAddr.adv_flags_1f, 0x80)],
         "reset_flags": ["RESET Goron Geyser"]
@@ -1324,12 +1324,7 @@ DYNAMIC_FLAGS = {
         "has_items": [("Mountain Temple Snurglar Key", 3)],
         "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
     },
-    "Has snurglar keys no cannon": {
-        "on_scenes": [0x700],
-        "has_items": [("Mountain Temple Snurglar Key", 3), ("Cannon", 0)],
-        "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
-    },
-    "snurglar locs cannonless reset": {
+    "snurglar locs reset": {
         "on_scenes": [0x700],
         "any_not_has_locations": ["Snurglars Gold Key", "Snurglars Orange Key", "Snurglars Purple Key"],
         "has_items": [("Cannon", 1)],
@@ -1340,6 +1335,29 @@ DYNAMIC_FLAGS = {
         "has_items": [("Fire Source", 1)],
         "set_if_true": [(STAddr.adv_flags_2, 4)],
         "reset_flags": ["RESET not has fire glyph"]
+    },
+    "Add fire restoration flag in fire overworld": {
+        "on_scenes": [0x700],
+        "has_items": [("Mountain Temple Tracks", 1)],
+        "set_if_true": [(STAddr.adv_flags_1, 8)]
+    },
+    "Remove fire source in goron village no passengers": {
+        "on_scenes": [0x2E00],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Add Fire source"]
+    },
+    "Remove fire source in goron village pre lava": {
+        "on_scenes": [0x2E00],
+        "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Add Fire source"]
+    },
+    "Add fires source post lava": {
+        "on_scenes": [0x2E00],
+        "check_bits": [(STAddr.adv_flags_59, 0x4)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Remove Fire source"]
     },
 }
 """

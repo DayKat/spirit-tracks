@@ -210,6 +210,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.boss_key_y = None
         self.boss_key_read = None
+        self.snurglar_addr = None
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -486,7 +487,7 @@ class SpiritTracksClient(DSZeldaClient):
         if item_name.startswith("Boss Key") and self.current_scene in BOSS_KEY_DATA:
             data = BOSS_KEY_DATA[self.current_scene]
             if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
-                print(f"Opening boss door for {self.current_scene}")
+                print(f"Opening boss door for {hex(self.current_scene)}")
                 await data["door"].overwrite(ctx, 3)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
@@ -507,6 +508,11 @@ class SpiritTracksClient(DSZeldaClient):
         await self.process_train_speed(ctx, read_result)
         await self.drink_potion(ctx, read_result)
         await self.detect_boss_key(ctx)
+        if self.snurglar_addr in read_result:
+            if read_result[self.snurglar_addr] & 0x20:
+                print(f"Opening Mountain Temple! {self.snurglar_addr}")
+                await self.snurglar_addr.set_bits(ctx, 0x10)
+                self.main_read_list.remove(self.snurglar_addr)
 
     async def drink_potion(self, ctx, read_results):
         drinking_potion = read_results.get(self.addr_drinking_potion, 0)
@@ -556,8 +562,11 @@ class SpiritTracksClient(DSZeldaClient):
         if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
             self.reload_on_item = True
 
-        if ("Tear of Light" in location.get("vanilla_item", "") or location["name"] in ["ToS 1F Chest"]) and ctx.slot_data["randomize_tears"] != -1:
+        if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
             await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
+
+        if location["name"] in ["ToS 1F Chest"] and ctx.slot_data["randomize_tears"] != -1:
+            await self.set_tears(ctx)
 
         if self.current_scene in [0x1309, 0x1318] and location.get("vanilla_item", "").startswith("Boss Key"):
             if self.item_count(ctx, location["vanilla_item"]):
@@ -696,11 +705,7 @@ class SpiritTracksClient(DSZeldaClient):
             snurglar_ids = [self.location_name_to_id[f"Snurglars {color} Key"] for color in ["Purple", "Orange", "Gold"]]
             for i in snurglar_ids:
                 if i not in ctx.checked_locations:
-                    snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
-                    print(f"Resetting snurglar door @ {snurglar_pointer} {hex(snurglar_pointer + 0xC0 - 0x2000000)}")
-                    if 0x2400000 > snurglar_pointer > 0x2000000:
-                        snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0 - 0x2000000)
-                        await snurglar_flags.unset_bits(ctx, 0x10)
+                    await self.snurglar_addr.unset_bits(ctx, 0x30)
                     break
 
 
@@ -708,8 +713,8 @@ class SpiritTracksClient(DSZeldaClient):
         await self.save_tos_keycount(ctx)
         self.event_reads = []
         self.sent_event = False
-        # if self.last_scene == 0x700:
-        #     await self.reset_snurglar_door(ctx)
+        if self.last_scene == 0x700:
+            await self.reset_snurglar_door(ctx)
 
     async def save_scene(self, ctx, *args):
         if await super().save_scene(ctx, *args):
@@ -853,13 +858,15 @@ class SpiritTracksClient(DSZeldaClient):
             snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
 
             snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0 - 0x2000000)
+            self.snurglar_addr = snurglar_flags
             print(f"Got snurglar flags @ {snurglar_flags}")
             for color in ["Gold", "Purple", "Orange"]:
                 self.watches[f"Snurglars {color} Key"] = snurglar_flags
 
             if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3:
-                print(f"Opening Mountain Temple! {snurglar_flags}")
-                await snurglar_flags.set_bits(ctx, 0x10)
+                self.main_read_list.append(snurglar_flags)
+        else:
+            self.snurglar_addr = None
 
 
     @staticmethod

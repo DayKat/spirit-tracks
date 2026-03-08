@@ -385,6 +385,8 @@ REGIONS = [
     "goron ice",
     "goron village stamp",
     "goron ice 2",
+    "goron ice event",
+
     "valley sanc tunnel",
     "valley sanc",
     "valley sanc stamp",
@@ -404,6 +406,7 @@ REGIONS = [
     "mtt b1 arena",
     "mtt b1 cart",
     "mtt stamp",
+    "mtt bk",
     "mtt boss",
     "event_vulcano",
 

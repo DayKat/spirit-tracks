@@ -559,6 +559,15 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
+    "EVENT: Bring Ice to Kagoron": {
+        "two_way": False,
+        "entrance_region": "goron ice",
+        "exit_region": "goron ice event",
+        "entrance": (0x2e, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
 
 }

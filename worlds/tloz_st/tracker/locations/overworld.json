@@ -332,12 +332,17 @@
           {"name": "Goron Village Get Wagon"},
           {"name": "Goron Village Chest Above Elder's House"},
           {"name": "Goron Village Deliver Ice Force Gem"},
-          {"name": "Goron Village West Buy Steel"},
+          {"name": "Goron Village West Buy Steel"}
+      ], "map_locations":[{"map": "Overview", "x": 716, "y": 236}]},
+      {"name": "Valley Sanctuary", "sections": [
           {"name": "Tunnel to Valley Sanctuary Chest"},
           {"name": "Valley Sanctuary NW Chest"},
           {"name": "Valley Sanctuary Stamp Stand"},
           {"name": "Valley Sanctuary Song of Restoration"}
-      ], "map_locations":[{"map": "Overview", "x": 716, "y": 236}]},
+      ], "map_locations":[{"map": "Overview", "x": 716, "y": 220}]},
+  {"name": "Goron Village Events", "sections": [
+          {"name": "EVENT: Bring Ice to Kagoron"}
+      ], "map_locations":[{"map": "Overview", "x": 732, "y": 236}]},
     {"name": "Snurglars", "sections": [
           {"name": "Snurglars Purple Key"},
           {"name": "Snurglars Orange Key"},

@@ -247,6 +247,8 @@ class SpiritTracksWorld(WorldParent):
             events += ["EVENT: Pick up Alfonzo"]
         if self.options.randomize_cargo == "vanilla":
             pass
+        if self.options.randomize_cargo.value > 0:
+            events += ["EVENT: Bring Ice to Kagoron"]
 
         if self.options.goal == "defeat_malladus":
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
@@ -260,7 +262,7 @@ class SpiritTracksWorld(WorldParent):
 
         self.ut_events = events
         self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if
-                                             e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events]
+                                             e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
         print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
         for e in events:
             event = ENTRANCES[e]

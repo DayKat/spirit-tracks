@@ -3011,6 +3011,7 @@ LOCATIONS_DATA |= {
         "value": 0x1,
         "location_groups": ["Shop Unique Locations", "Goron Shop", "Goron Village"],
         "conditional": True,
+        "delay_reset": True,
         "slot_data": [("shopsanity", "uniques")],
     },
     "Goron Shop Postcards": {
@@ -3371,7 +3372,7 @@ LOCATIONS_DATA |= {
         "region_id": "goron ice 2"
     },
     "Goron Village West Buy Steel": {
-        "stage_id": 0x1C,
+        "stage_id": 0x2D,
         "room_id": 0x3,
         "address": STAddr.cargo_0,
         "value": 2,
@@ -3472,11 +3473,11 @@ LOCATIONS_DATA |= {
     },
     "Valley Sanctuary Song of Restoration": {
         "stage_id": 0x33,
-        "room_id": 0x1,
+        "room_id": 0x3,
         "region_id": "valley sanc song",
         "vanilla_item": "Mountain Temple Tracks",
-        "address": STAddr.adv_flags_1,
-        "value": 0x08,
+        "address": STAddr.rail_restorations,
+        "value": 0x10,
         "minigame": [1, 2, 3, 4],
         "conditional": True,
         "location_groups": ["Valley Sanctuary", "Restoration Duets"],

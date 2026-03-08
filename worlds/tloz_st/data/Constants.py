@@ -33,7 +33,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
-    [STAddr.adv_flags_1d, 0x0B],  # Valley sanc
+    [STAddr.adv_flags_1e, 0x8B],  # Valley sanc
     [STAddr.adv_flags_20, 0x02],  # post valley sanc elder text
     # [STAddr.adv_flags_21, 0x02],  # elder text, despawns kagoron
     [STAddr.adv_flags_22, 0x3C],  # buy cargo first time
@@ -44,7 +44,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_2a, 0x03],  # ToS 6 zelda text
     [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
-    [STAddr.adv_flags_33, 0x06],  # dark ore first conv0
+    [STAddr.adv_flags_33, 0x0E],  # dark ore first conv0
     [STAddr.adv_flags_35, 0x10],  # kagoron text after giving ice
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_3d, 0xE0],  # ToS safe zone tutorial, dos tablet
@@ -102,6 +102,7 @@ STAGE_FLAGS = {
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
     0x2e: [0x94, 0x0, 0x0, 0x0],  # Goron
     0x1c: [0x0, 0x00, 0x1C, 0x0],  # Mountain Temple
+    0x21: [0xA, 0x00, 0x0, 0x0],  # Vulcano
     0x3C: [0x2, 0x0, 0x0, 0x0],  # GTR
     0x40: [0xE, 0x0, 0x0, 0x0],  # Disorientation Station
     0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
@@ -517,7 +518,10 @@ UT_EVENT_DATA = {
            "entrance": "EVENT: Pick up Alfonzo"}],
     0x3700: [{"address": STAddr.adv_flags_24,
               "value": 0x10,
-              "entrance": "EVENT: Give Regal Ring to Linebeck"}]
+              "entrance": "EVENT: Give Regal Ring to Linebeck"}],
+    0x2E00: [{"address": STAddr.adv_flags_1f,
+              "value": 0x80,
+              "entrance": "EVENT: Bring Ice to Kagoron"}]
 }
 
 ENTRANCE_TO_TOS_ORDER = {
