@@ -1,4 +1,5 @@
 from .Addresses import STAddr
+from .. import STAddr
 
 DYNAMIC_FLAGS = {
     "Outset Rei": {
@@ -902,6 +903,35 @@ DYNAMIC_FLAGS = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x3e),
                               (STAddr.passenger_tag_0, 0x43415742),
                               (STAddr.has_passenger_0, 0)]
+    },
+    "Can pick up Dovok": {
+        "on_scenes": [0x2A04],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_items": [("Ocean Glyph", 0)],
+        "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "reset_flags": ["RESET Dovok Flag"]
+    },
+    "Dovok missing glyph": {
+        "on_scenes": [0x2A04],
+        "has_items": [("Ocean Glyph", 0)],
+        "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "reset_flags": ["RESET Dovok Flag"]
+    },
+    "Dovok missing option": {
+        "on_scenes": [0x2A04],
+        "has_slot_data": [("randomize_passengers", [0])],
+        "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "reset_flags": ["RESET Dovok Flag"]
+    },
+    "Bring Dovok to Papuzia": {
+        "on_scenes": [0x2C03],
+        "has_items": [("Passenger: Dovok", 1)],
+        "check_bits": [(STAddr.adv_flags_36, 0x8, "not")],
+        "set_if_true": [(STAddr.adv_flags_39, 0x80)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2c),
+                              (STAddr.passenger_tag_0, 0x464F4D52),
+                              (STAddr.has_passenger_0, 0)],
+
     },
     "Can pick up Joe": {
         "on_scenes": [0x2F00],

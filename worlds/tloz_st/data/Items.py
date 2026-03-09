@@ -369,6 +369,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_1,
         'value': 0x80,
         'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks"],
+    },
     "Sand Realm Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,

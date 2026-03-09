@@ -3116,18 +3116,18 @@ LOCATIONS_DATA |= {
     },
     "Mayscore Pick Up Dovok": {
         "stage_id": 0x2A,
-        "room_id": 0x0, #Need to check chief house room id
+        "room_id": 0x4,
         "address": STAddr.adv_flags_36,
         "value": 0x4,
         "region_id": "mayscore dovok",
         "vanilla_item": "Passenger: Dovok",
-        "location_groups": ["Mayscore, Pick Up Passengers"],
+        "location_groups": ["Mayscore", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
     },
     "Papuzia Village Orca's Force Gem": {
         "stage_id": 0x2C,
-        "room_id": 0x0, #Need to check Orca house room id
+        "room_id": 0x3,
         "address": STAddr.adv_flags_d,
         "value": 0x2,
         "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
@@ -3135,7 +3135,7 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "region_id": "pv dovok",
-    }
+    },
     "Papuzia Village Buy Fish": {
         "stage_id": 0x2C,
         "room_id": 0x0,

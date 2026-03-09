@@ -384,9 +384,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
         # ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
         #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
-        ["ocean realm", "ocean portal tracks", True, lambda state: st_has_glyph(state, player, "Ocean")],
-        ["ocean realm source", "ocean portal tracks", True, lambda state: st_has_source(state, player, "Ocean")],
-        ["ocean temple tracks", "ocean portal tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
+        ["ocean realm", "ocean portal tracks", True, lambda state: st_has_glyph(state, player, "Ocean") and st_has_misc_tracks(state, player, "Ocean Portal")],
+        ["ocean realm source", "ocean portal tracks", True, lambda state: st_has_source(state, player, "Ocean") and st_has_misc_tracks(state, player, "Ocean Portal")],
+        ["ocean temple tracks", "ocean portal tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine") and st_has_misc_tracks(state, player, "Ocean Portal")],
 
 
 
