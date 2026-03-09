@@ -994,7 +994,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Mayscore"],
     },
     "Mayscore Whip Race Heart Container": {
-        "region_id": "mayscore whip chest",
+        "region_id": "mayscore whip game",
         "vanilla_item": "Heart Container",
         "minigame": [2, 3, 4],
         "conditional": True,
@@ -1009,7 +1009,7 @@ LOCATIONS_DATA = {
         "z_max": -45000,
     },
     "Mayscore Whip Race Bomb Bag": {
-        "region_id": "mayscore whip chest",
+        "region_id": "mayscore whip game",
         "vanilla_item": "Bombs (Progressive)",
         "minigame": [1, 3, 4],
         "conditional": True,
@@ -2290,6 +2290,16 @@ LOCATIONS_DATA = {
         "region_id": "mtt boss",
         "vanilla_item": "Fire Source",
         "ut_connect": "EVENT: Defeat Vulcano",
+    },
+    # Goron Target Range
+    "Goron Target Range": {
+        "region_id": "gtr",
+        "stage_id": 0x3C,
+        "room_id": 1,
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | {"Red Rupee (20)"} | ITEM_GROUPS["Big Rupees"],
+        "slot_data": [("randomize_minigame", [1, 2, 3, 4])],
+        "location_groups": ["Goron Target Range"],
+        "conditional": True
     },
 
     # Disorientation Station

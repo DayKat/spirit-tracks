@@ -351,6 +351,9 @@
   {"name": "Goron Village Events", "sections": [
           {"name": "EVENT: Bring Ice to Kagoron"}
       ], "map_locations":[{"map": "Overview", "x": 732, "y": 236}]},
+    {"name": "Goron Target Range", "sections": [
+          {"name": "Goron Target Range"}
+      ], "map_locations":[{"map": "Overview", "x": 644, "y": 212}]},
     {"name": "Snurglars", "sections": [
           {"name": "Snurglars Purple Key"},
           {"name": "Snurglars Orange Key"},

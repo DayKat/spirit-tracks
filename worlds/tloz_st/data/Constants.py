@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from .Addresses import STAddr
 from .Items import ITEM_GROUPS
 
-VERSION = "0.3.0"
+VERSION = "0.7.0"
 ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 
 
@@ -43,16 +43,17 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_24, 0x08],  # move HC guards
     [STAddr.adv_flags_26, 0x3C],  # end of Tos section zelda texts
     [STAddr.adv_flags_29, 0x80],  # tos 2 zelda text
-    [STAddr.adv_flags_2a, 0x03],  # ToS 6 zelda text
+    [STAddr.adv_flags_2a, 0x23],  # ToS 6 zelda text, gtr
     [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
+    [STAddr.adv_flags_30, 0x00],  # Prevent GTR death. or not, start with long track?
     [STAddr.adv_flags_33, 0x0E],  # dark ore first conv0
     [STAddr.adv_flags_35, 0x10],  # kagoron text after giving ice
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_38, 0x08],  # goron text
     [STAddr.adv_flags_3d, 0xE0],  # ToS safe zone tutorial, dos tablet
     [STAddr.adv_flags_3e, 0x01],  # Disorientation station guard
-    [STAddr.adv_flags_3f, 0x07],  # Dark ore mine cs
+    [STAddr.adv_flags_3f, 0x05],  # Dark ore mine cs
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
     [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text
     [STAddr.adv_flags_42, 0x86],  # board with zelda
@@ -571,7 +572,7 @@ SHOP_TREASURE_DATA = {
     0x3103: [{
         "locations": ["Snowfall Sanctuary Shop Treasure"],
         "group": "Uncommon"
-    }]
+    }],
 }
 
 potion_location_lookup = {

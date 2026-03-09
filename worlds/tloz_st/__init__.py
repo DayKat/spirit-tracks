@@ -1123,7 +1123,7 @@ class SpiritTracksWorld(WorldParent):
 
         return True
 
-    def post_fill(self) -> None:
+    def get_location_moodels(self):
         # get item placement models to send to client
         location_models = {}
         for loc in self.get_locations():
@@ -1145,7 +1145,7 @@ class SpiritTracksWorld(WorldParent):
                     else:
                         location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Green Rupee"].offset
 
-        self.model_lookup = location_models
+        return location_models
         # print(f"Location Models: {location_models}")
 
     def fill_slot_data(self) -> dict:
@@ -1167,7 +1167,7 @@ class SpiritTracksWorld(WorldParent):
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = self.required_dungeons
         slot_data["stamp_pack_order"] = self.stamp_pack_order
-        slot_data["model_lookup"] = self.model_lookup
+        slot_data["model_lookup"] = self.get_location_moodels()
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:

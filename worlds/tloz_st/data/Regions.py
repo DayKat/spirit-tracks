@@ -47,6 +47,7 @@ REGIONS = [
     "castle town mona",
     "pick up alfonzo",
     "alfonzo event",
+    "teao rupees",
     "teao 1",
     "teao 2",
     "teao 3",
@@ -144,6 +145,7 @@ REGIONS = [
     # Mayscore
     "mayscore",
     "mayscore stamp station",
+    "mayscore whip game",
     "mayscore whip race bomb bag",
     "mayscore whip race heart container",
     "mayscore whip chest",
@@ -396,6 +398,8 @@ REGIONS = [
     "valley sanc",
     "valley sanc stamp",
     "valley sanc song",
+
+    "gtr",
 
     # Mountain Temple
     "mtt",

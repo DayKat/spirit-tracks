@@ -91,21 +91,22 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["castle town wall", "castle town cuccos", False, lambda state: st_castle_town_cuccos(state, player)],
         ["castle town", "castle town fish", False, lambda state: st_has_cargo(state, player, "Fish", "_buy_fish")],
 
-        ["castle town", "teao 1", False, lambda state:
+        ["castle town", "teao rupees", False, lambda state: st_has_rupees(state, player, 150) or state.has("_UT_Glitched_Logic", player)],
+        ["teao rupees", "teao 1", False, lambda state:
             st_has_sword(state, player) and
             st_has_whirlwind(state, player) and
             any([
                 st_has_source(state, player, "Forest"),
                 st_has_source(state, player, "Ocean"),
                 st_has_source(state, player, "Sand")])],
-        ["castle town", "teao 2", False, lambda state:
+        ["teao rupees", "teao 2", False, lambda state:
             (st_has_source(state, player, "Ocean") or
              st_has_source(state, player, "Sand")) and
             st_has_sword(state, player) and
             st_has_whirlwind(state, player) and
             st_has_boomerang(state, player) and
             st_has_whip(state, player)],
-        ["castle town", "teao 3", False, lambda state:
+        ["teao rupees", "teao 3", False, lambda state:
             st_has_source(state, player, "Sand") and
             st_has_bow(state, player) and
             st_has_sand_wand(state, player) and
@@ -233,6 +234,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "mayscore", False, None],
         ["mayscore", "mayscore stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
+        ["mayscore", "mayscore whip game", False, lambda state: st_has_rupees(state, player, 100) or state.has("_UT_Glitched_Logic", player)],  # safety protecting against early rupee farming
         ["mayscore", "mayscore leaves", False, lambda state: st_has_whirlwind(state, player)],
         ["mayscore", "mayscore dovok", False, lambda state: st_has_glyph(state, player, "Ocean")],
         ["mayscore", "mayscore steel", False, lambda state: st_has_cargo(state, player, "Goron Steel", "_buy_steel")],
@@ -530,6 +532,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                     state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player)))],
 
         # Goron Target Game
+        ["fire realm", "gtr", False, lambda state: st_has_cannon(state, player) and st_has_source(state, player, "Fire")],
 
         # Mountain Temple
         ["mountain temple tracks", "mtt", False, lambda state: state.has("Mountain Temple Snurglar Key", player, 3)],

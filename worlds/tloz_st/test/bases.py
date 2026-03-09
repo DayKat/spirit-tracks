@@ -31,5 +31,6 @@ class TestGeneration(WorldTestBase):
         "randomize_passengers": "randomize",
         "randomize_cargo": "randomize",
         "randomize_stamps": "randomize",
-        "stamp_pack_sizes": 1
+        "stamp_pack_sizes": 1,
+        "randomize_minigames": "everything"
     }

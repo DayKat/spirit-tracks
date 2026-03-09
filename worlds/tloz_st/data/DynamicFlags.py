@@ -1444,6 +1444,13 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1401, 0x1400],
         "set_if_true": [(STAddr.adv_flags_4, 0x4)]
     },
+    "GTR Easy": {
+        "on_scenes": [0xE00, 0x3c00],
+        "not_has_locations": ["Goron Target Range"],
+        "has_slot_data": [("minigames", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x4)],
+        "unset_if_true": [(STAddr.adv_flags_2a, 0x20)]
+    },
 }
 """
 "Dynamic Flag Name": {
