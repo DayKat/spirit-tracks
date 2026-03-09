@@ -106,6 +106,7 @@ class STItem(DSItem):
     rooms: list[int]
     section: int
     model: str = None
+    progressive_model: list[str]
     vanilla_model: str = None
 
     def __init__(self, name, data, all_items):

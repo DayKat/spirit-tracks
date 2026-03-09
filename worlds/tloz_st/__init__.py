@@ -1128,13 +1128,25 @@ class SpiritTracksWorld(WorldParent):
         location_models = {}
         for loc in self.get_locations():
             item = loc.item
-            if item is not None and item.game in ["The Legend of Zelda - Spirit Tracks", "Generic"]:
+            if item is not None:
                 loc_data = LOCATIONS_DATA.get(loc.name, {})
-                if not loc_data or 'stamp' in loc_data or 'no_model' in loc_data or ITEMS[item.name].model is None:
+                if not loc_data or 'stamp' in loc_data or 'no_model' in loc_data:
                     continue
-                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
+                if item.game in ["The Legend of Zelda - Spirit Tracks", "Generic"]:
+                    if ITEMS[item.name].model is not None:
+                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
+                else:  # Add different models based on classification
+                    if item.classification & ItemClassification.progression:
+                        pass
+                    elif item.classification & ItemClassification.trap:
+                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Stalfos Skull"].offset
+                    elif item.classification & ItemClassification.useful:
+                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Blue Rupee"].offset
+                    else:
+                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Green Rupee"].offset
+
         self.model_lookup = location_models
-        print(f"Location Models: {location_models}")
+        # print(f"Location Models: {location_models}")
 
     def fill_slot_data(self) -> dict:
         options = ["goal",

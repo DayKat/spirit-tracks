@@ -83,6 +83,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "castle town", True, None],
         ["castle town", "castle town goron", False, lambda state: state.has("Passenger: City Goron", player) or state.has("_goron_ice", player)],
         ["castle town", "pick up alfonzo", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["castle town", "castle town teacher", False, lambda state: st_has_glyph(state, player, "Snow") or st_has_glyph(state, player, "Ocean")],
         ["pick up alfonzo", "alfonzo event", False, None],
         ["pick up alfonzo", "castle town mona", False, None],
         ["castle town wall", "castle town stamp station", False, lambda state: st_has_stamp_book(state, player)],
@@ -515,14 +516,18 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["goron village", "goron ice", False, None] if options.randomize_cargo == "no_cargo" else (
             ["goron whip", "goron ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")]
             if options.randomize_cargo.value in [1, 2] else
-            ["goron whip", "goron ice", False, lambda state:
+            ["goron whip", "goron ice", False, lambda state: state.has("Wagon", 1) and (
                 state.has("Cargo: Mega Ice", player, 2)
-                or (state.has("Cargo: Mega Ice", player, 1) and state.has("_UT_Glitched_Logic", player))]
+                or (state.has("Cargo: Mega Ice", player, 1) and state.has("_UT_Glitched_Logic", player)))]
         ),
+    ]
+    # print(f"CARGO LOGIC {options.randomize_cargo.value} {overworld_logic[-1]}")
+    overworld_logic += [
         ["goron ice", "goron ice event", False, None],
         ["goron ice event", "goron ice 2", False, None] if options.randomize_cargo.value in [0, 1, 2] else
-        ["goron ice event", "goron ice 2", False, lambda state: state.has("Cargo: Mega Ice", player, 3)
-                or (state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player))],
+        ["goron ice event", "goron ice 2", False, lambda state: state.has("Wagon", 1) and (
+                state.has("Cargo: Mega Ice", player, 3) or (
+                    state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player)))],
 
         # Goron Target Game
 

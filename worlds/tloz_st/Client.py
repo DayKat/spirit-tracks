@@ -164,6 +164,9 @@ class SpiritTracksClient(DSZeldaClient):
         self.in_stamp_stand: bool = False
         self.scene_to_stamp = build_scene_to_stamp()
         self.goal_locations = build_location_to_goal()
+        self.location_id_to_location = {l['id']: l for l in LOCATIONS_DATA.values()}
+        self.location_id_to_vanilla_item = {l['id']: l.get("vanilla_item", None) for l in LOCATIONS_DATA.values()}
+
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
         self.treasure_tracker: dict = {}
@@ -242,6 +245,9 @@ class SpiritTracksClient(DSZeldaClient):
         return STAddr.link_x, STAddr.link_y, STAddr.link_z
 
     async def get_coords(self, ctx, multi=False):
+        # print(f"Coords: {[self.read_result.get(a, 0) for c, a in zip(['x', 'y', 'z'], self.get_coord_address())]}")
+        # return {c: self.read_result.get(a, 0) for c, a in zip(['x', 'y', 'z'], self.get_coord_address())}
+
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
         # print(f"Coords: {coords}")
         return {
@@ -427,6 +433,7 @@ class SpiritTracksClient(DSZeldaClient):
                         if self.location_name_to_id[location] not in ctx.checked_locations:
                             await remove_treasure()
                             await self._process_checked_locations(ctx, location)
+                            await self.set_shop_models(ctx, False)
                             return
 
         # Do stuff with excess treasure
@@ -542,63 +549,101 @@ class SpiritTracksClient(DSZeldaClient):
                 # Check priority
                 if priority is None or "priority" not in loc:
                     priority = None
-                    valid_locations.append(loc)
+                    valid_locations.append(loc_name)
                 elif priority > loc['priority']:
                     priority = loc['priority']
-                    valid_locations = [loc]
+                    valid_locations = [loc_name]
                 elif priority == loc['priority']:
-                    valid_locations.append(loc)
-
-        def get_items(l):
-            vanilla_item = l.get("vanilla_item", [])
-            res = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
-            return res
-
-        model_data = ctx.slot_data.get("model_lookup", {})
-        generic_model = 0x59637266
+                    valid_locations.append(loc_name)
 
         if self.last_anticipated_locations == valid_locations:
             return
         if not valid_locations:
             print(f"\tno location")
         else:
-            print(f"\tMultiple locations: {[l['name'] for l in valid_locations]}")
-            item_location_check = {}
-            for loc in valid_locations:
-                vanilla_items = get_items(loc)
-                for item in vanilla_items:
-                    item_location_check[item] = None if item in item_location_check else loc
-            print(f"Items with locations: {[(i, l['name'] if l else None) for i, l in item_location_check.items()]}")
-
-            write_list = []
-            print_list = {}
-            for i, l in item_location_check.items():
-                if i not in self.item_data: continue
-                item_data = self.item_data[i]
-                item_model = item_data.vanilla_model
-                if item_model is None: continue
-                vanilla_model = ITEM_MODEL_LOOKUP[item_model]
-                if l is None:
-                    model_value = generic_model
-                    model_name = "Force Gem"
-                else:
-                    loc_id = l['id']
-                    model_value = OFFSET_TO_MODEL[model_data[str(loc_id)]].value if str(loc_id) in model_data else generic_model
-                    model_name = OFFSET_TO_MODEL[model_data[str(loc_id)]].name if model_value != generic_model else "Force Gem"
-
-                bits = split_bits(model_value, 4)
-                bits.reverse()
-                write_list.append((STAddr.item_model_table.addr + 4*vanilla_model.offset, bits, "Main RAM"))
-                print_list[l['name']] = model_name
-
-            print(f"Swapped Models: {print_list}")
-            if write_list:
-                await bizhawk.write(ctx.bizhawk_ctx, write_list)
-
-
+            await self.swap_models(ctx, valid_locations)
         self.last_anticipated_locations = valid_locations
 
+    @staticmethod
+    async def reset_treasure_models(ctx: "BizHawkClientContext", model=None):
+        """
+        Set all treasure models to *model*. if model is None, sets them to their vanilla model
+        """
+        write_list = []
+        for i in range(66, 85):
+            treasure_model = OFFSET_TO_MODEL[i]
 
+            bits = split_bits(treasure_model.value, 4) if model is None else split_bits(model, 4)
+            bits.reverse()
+            write_list.append((STAddr.item_model_table.addr + 4*i, bits, "Main RAM"))
+        print(f"Reseting treasure models")
+        await bizhawk.write(ctx.bizhawk_ctx, write_list)
+
+    async def swap_models(self, ctx, locations: list, generic_model=0x59637266, treasure_mode=False):
+        print(f"\tMultiple locations: {locations}")
+        item_location_check = {}  # dict of item to location id for what location determines the model
+        item_priority = {}
+        for loc_name in locations:
+            loc_data = LOCATIONS_DATA[loc_name]
+            vanilla_item = loc_data.get("vanilla_item", []) or loc_data.get("hidden_vanilla_item", [])
+            vanilla_items = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
+            priority = loc_data.get("priority", 0)
+            for item in vanilla_items:
+                if not priority:
+                    # set location_id to None if there's a location conflict
+                    item_location_check[item] = None if item in item_location_check else loc_data['id']
+                    continue
+
+                # Sort locations by priority if applicable
+                if item in item_priority and priority >= item_priority[item]:
+                    continue
+                item_location_check[item] = loc_data['id']
+                item_priority[item] = priority
+
+        print(f"Items with locations: {[(i, l) for i, l in item_location_check.items()]}")
+
+        model_data = ctx.slot_data.get("model_lookup", {})
+        write_list = []
+        print_list = {}
+        # look up locations
+        for i, l in item_location_check.items():
+            if i not in self.item_data: continue
+            item_data = self.item_data[i]
+            item_model = item_data.vanilla_model
+
+            # Handle progressive items that change their models
+            if hasattr(item_data, "progressive_model"):
+                if self.current_scene in potion_location_lookup:
+                    item_model = item_data.progressive_model[1]
+                else:
+                    count = min(self.item_count(ctx, i), len(item_data.progressive_model)-1)
+                    item_model = item_data.progressive_model[count]
+
+            if item_model is None: continue
+            vanilla_model = ITEM_MODEL_LOOKUP[item_model]
+
+            # Choose model for location
+            if l is None:  # conflict
+                model_value = generic_model
+                model_name = "Generic"
+            elif l in ctx.missing_locations | ctx.checked_locations:  # randomized
+                model_value = OFFSET_TO_MODEL[model_data[str(l)]].value if str(l) in model_data else generic_model
+                model_name = OFFSET_TO_MODEL[model_data[str(l)]].name if model_value != generic_model else "Force Gem"
+            else:  # vanilla
+                vanilla_item = self.location_id_to_vanilla_item[l]
+                model_name = ITEMS[vanilla_item].model
+                model_value = ITEM_MODEL_LOOKUP[model_name].value if model_name else generic_model
+
+            # add models to write list
+            bits = split_bits(model_value, 4)
+            bits.reverse()
+            write_list.append((STAddr.item_model_table.addr + 4 * vanilla_model.offset, bits, "Main RAM"))
+            if l is not None:
+                print_list[self.location_id_to_name[l]] = model_name
+
+        print(f"Swapped Models: {print_list}")
+        if write_list:
+            await bizhawk.write(ctx.bizhawk_ctx, write_list)
 
     async def drink_potion(self, ctx, read_results):
         drinking_potion = read_results.get(self.addr_drinking_potion, 0)
@@ -802,6 +847,27 @@ class SpiritTracksClient(DSZeldaClient):
         if self.last_scene == 0x700:
             await self.reset_snurglar_door(ctx)
 
+        if self.current_scene in potion_location_lookup:
+            await self.set_shop_models(ctx)
+
+    async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
+        """Laad shop models in bulk"""
+        valid_locations = []
+        valid_locations += list(self.location_area_to_watches.get(self.current_scene, {}).keys())
+        valid_locations += list(ammo_shop_lookup.get(self.current_scene, {}).values())
+        if not on_load:
+            valid_locations += list(potion_location_lookup.get(self.current_scene, {}).values())
+            valid_locations += [loc for treasures in SHOP_TREASURE_DATA.get(self.current_scene, []) for loc in treasures.get("locations", [])]
+        print(f"Setting shop models {self.current_scene}: {valid_locations}")
+        for loc in valid_locations.copy():
+            if self.location_name_to_id[loc] in ctx.checked_locations:
+                valid_locations.remove(loc)
+                print(f"Already checked location {loc}!")
+        await self.swap_models(ctx, valid_locations)
+        if on_load:
+            await self.reset_treasure_models(ctx)
+
+
     async def save_scene(self, ctx, *args):
         if await super().save_scene(ctx, *args):
             await self.save_tos_keycount(ctx)
@@ -953,6 +1019,12 @@ class SpiritTracksClient(DSZeldaClient):
                 self.main_read_list.append(snurglar_flags)
         else:
             self.snurglar_addr = None
+
+        if current_scene in potion_location_lookup:
+            await self.set_shop_models(ctx, False)
+        else:
+            treasure = ITEM_MODEL_LOOKUP["Gold Rupee"].value if ctx.slot_data["excess_random_treasure"] == 2 else None
+            await self.reset_treasure_models(ctx, ITEM_MODEL_LOOKUP["Gold Rupee"].value)
 
 
     @staticmethod

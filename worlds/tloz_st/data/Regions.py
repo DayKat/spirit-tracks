@@ -43,6 +43,7 @@ REGIONS = [
     "castle town wall",
     "castle town cuccos",
     "castle town shop",
+    "castle town teacher",
     "castle town mona",
     "pick up alfonzo",
     "alfonzo event",

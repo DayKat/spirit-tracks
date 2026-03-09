@@ -118,6 +118,7 @@ class ItemModel:
     name: str
     offset: int
     value: int
+    crash_in_shops: bool = False
 
     def __hash__(self):
         return self.offset
@@ -169,6 +170,7 @@ ITEM_MODELS = [
     ItemModel("Stamp Book", 62, 0x706D7473),
     ItemModel("Bow of Light", 63, 0x42776F62),
     ItemModel("Nothing", 64, 0x42647773),  # Lokomo sword?
+
     ItemModel("Prize Postcards", 65, 0x437A7270),
     ItemModel("Red Potion", 66, 0x52766572),
     ItemModel("Purple Potion", 67, 0x50766572),
@@ -202,12 +204,12 @@ ITEM_MODELS = [
     ItemModel("Large Bomb Bag", 90, 0x4C626D62),
 
     ItemModel("Tear of Light", 95, 0x756B7A73),
-    ItemModel("Compass of Light", 96, 0x706D634C),
-    ItemModel("Green Scroll", 97, 0x706D634C),
-    ItemModel("Purple Scroll", 98, 0x706D634C),
+    ItemModel("Compass of Light", 96, 0x416B616D),
+    ItemModel("Purple Scroll", 97, 0x426B616D),
+    ItemModel("Green Scroll", 98, 0x706D634C),
     ItemModel("Letter", 99, 0x4C6D7470),
 
-    ItemModel("SoA", 100, 0x66706467),  # Songs
+    ItemModel("SoA", 100, 0x66706467),  # Songs, all use the same model as spirit flute
     ItemModel("SoH", 101, 0x66706467),  # Songs
     ItemModel("SoB", 102, 0x66706467),  # Songs
     ItemModel("SoL", 103, 0x66706467),  # Songs
@@ -549,9 +551,6 @@ HINTS_ON_SCENE = {
     # },
 }
 
-HINTS_ON_TRIGGER = {
-    #"Masked Beedle": ["Masked Beedle Courage Gem", "Masked Beedle Heart Container"]
-}
 
 SHOP_TREASURE_DATA = {
     0x290a: [{

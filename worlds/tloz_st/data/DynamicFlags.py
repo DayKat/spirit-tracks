@@ -165,12 +165,20 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_11, 0x60)],
         "set_if_true": [(STAddr.adv_flags_1b, 0x02)],
     },
-    # "Castle town teacher": {  find the real flag later
-    #     "on_scenes": [0x2900],
-    #     "set_if_true": [(STAddr.adv_flags_0, 0x40)],
-    #     "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-    #     "reset_flags": ["RESET Remove Ocean source"]
-    # },
+    "Castle town teacher snow": {  # needs a s+q for some reason
+        "on_scenes": [0x2900],
+        "has_items": [("Snow Glyph", 1)],
+        "not_has_locations": ["Castle Town Pick Up Teacher"],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+    },
+    "Castle town teacher ocean": {  # needs a s+q for some reason
+        "on_scenes": [0x2900],
+        "has_items": [("Ocean Glyph", 1)],
+        "not_has_locations": ["Castle Town Pick Up Teacher"],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+    },
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
