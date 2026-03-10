@@ -29,8 +29,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["outset village", "outset joe", False, lambda state: st_has_source(state, player, "Snow")],
         ["outset village", "outset cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
         if options.randomize_cargo.value in [1, 2] else
-        ["outset village", "outset cuccos", False, lambda state: state.has("Cargo: Cuccos (5)", player, 3)
-                                                               or (state.has("Cargo: Cuccos (5)", player, 2) and state.has("_UT_Glitched_Logic", player))],
+        ["outset village", "outset cuccos", False, lambda state: state.has("Wagon", player) and (state.has("Cargo: Cuccos (5)", player, 3)
+                                                               or (state.has("Cargo: Cuccos (5)", player, 2) and state.has("_UT_Glitched_Logic", player)))],
 
         # ========= Forest Realm ==========
 
@@ -41,7 +41,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "w castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "W Castle Town")],
         ["forest realm", "n castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "N Castle Town")],
         ["wtt", "snow realm fr", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_glyph(state, player, "Snow") and st_has_cannon(state, player)],
-        ["forest realm", "snow realm fr", False, lambda state: st_has_portal(state, player, "Hyrule Castle to Anouki Village", False) and st_has_glyph(state, player, "Snow")],
+        ["forest realm", "snow realm fr portal", False, lambda state: st_has_portal(state, player, "Hyrule Castle to Anouki Village", False) and st_has_glyph(state, player, "Snow")],
+        ["snow realm fr portal", "snow realm fr", False, None],
+        ["snow realm fr portal", "snow realm", False, None],
         ["forest realm", "dark realm portal", True, lambda state: st_has_compass_of_light(state, player)],
 
         # cave
@@ -194,7 +196,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 18f", "tos 18f phantom", False, lambda state: st_can_possess_phantoms(state, player, 5)],
 
         ["tos 19f", "tos 19f south", False, lambda state:
-         st_has_bow(state, player) & (st_has_boomerang(state, player) | (st_can_possess_phantoms(state, player, 5) & st_can_rotate_repeater(state, player)))],
+         st_has_bow(state, player) & (st_has_boomerang(state, player) | st_can_possess_phantoms(state, player, 5))],
         ["tos 19f south", "tos 20f tear", False,  lambda state:
             st_has_boomerang(state, player) or
             st_has_beam_sword(state, player) or
@@ -234,7 +236,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "mayscore", False, None],
         ["mayscore", "mayscore stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
-        ["mayscore", "mayscore whip game", False, lambda state: st_has_rupees(state, player, 100) or state.has("_UT_Glitched_Logic", player)],  # safety protecting against early rupee farming
+        ["mayscore whip chest", "mayscore whip game", False, lambda state: st_has_rupees(state, player, 100) or state.has("_UT_Glitched_Logic", player)],  # safety protecting against early rupee farming
         ["mayscore", "mayscore leaves", False, lambda state: st_has_whirlwind(state, player)],
         ["mayscore", "mayscore dovok", False, lambda state: st_has_glyph(state, player, "Ocean")],
         ["mayscore", "mayscore steel", False, lambda state: st_has_cargo(state, player, "Goron Steel", "_buy_steel")],
@@ -434,8 +436,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")]
         if options.randomize_cargo.value in [1, 2] else
-        ["papuchia village", "papuzia ice", False, lambda state: state.has("Cargo: Mega Ice", player, 3)
-                                                                 or (state.has("Cargo: Mega Ice", player, 1) and state.has("_UT_Glitched_Logic", player))],
+        ["papuchia village", "papuzia ice", False, lambda state: state.has("Wagon", player) and (state.has("Cargo: Mega Ice", player, 3)
+                                                                 or (state.has("Cargo: Mega Ice", player, 1) and state.has("_UT_Glitched_Logic", player)))],
 
         # ========= Marine Temple ==================
         ["oct", "oct song statue", False, lambda state: st_has_spirit_flute(state, player)],
@@ -450,6 +452,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct whip chest", "oct 3f whip", False, lambda state: st_has_whip(state, player)],
         ["oct 3f whip", "oct 6f chest", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 1)],
         ["oct 6f chest", "oct bk", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 2)],
+        ["oct 6f chest", "oct bk loc", False, lambda state: st_has_whirlwind(state, player) and options.randomize_boss_keys.value > 0 and st_option_hard_logic(state, player)],
+        ["oct bk", "oct bk loc", False, None],
         ["oct bk", "oct phytops", False, lambda state: options.randomize_boss_keys == "vanilla"],
         ["oct 6f chest", "oct phytops", False, lambda state: st_has_boss_key(state, player, "Marine Temple")],
         ["oct phytops", "event_phytops", False, None],
@@ -595,8 +599,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         else (
             ["sand sanc", "sand sanc cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
             if options.randomize_cargo.value in [1, 2] else
-            ["sand sanc", "sand sanc cuccos", False, lambda state: state.has("Cargo: Cuccos (5)", player, 3)
-                or (state.has("Cargo: Cuccos (5)", player, 1) and state.has("_UT_Glitched_Logic", player))]
+            ["sand sanc", "sand sanc cuccos", False, lambda state: state.has("Wagon", player) and (state.has("Cargo: Cuccos (5)", player, 3)
+                or (state.has("Cargo: Cuccos (5)", player, 1) and state.has("_UT_Glitched_Logic", player)))]
         ),
 
 
@@ -616,7 +620,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["dt b1", "dt stamp stand", False, lambda state: st_has_stamp_book(state, player)],
         ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
-        ["dt b1 damage", "skeldritch", False, lambda state: st_has_good_damage(state, player)],  # Whip is not good enough damage
+        ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
+        ["dt b1 damage", "dt b2", False, lambda state: options.randomize_boss_keys == "vanilla"],
+        ["dt b2", "skeldritch", False, lambda state: st_has_good_damage(state, player)], # Whip is not good enough damage
         ["skeldritch", "skeldritch event", False, None],
 
         # ===== Dark ore mine =====

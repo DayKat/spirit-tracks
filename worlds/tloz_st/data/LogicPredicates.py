@@ -66,9 +66,7 @@ def st_has_rabbit_items(state, player, realm, count=10):
     return rabbit_count >= count
 
 def st_has_total_rabbits(state: CollectionState, player: int, count):
-    rabbit_total = 0
-    for i in ITEM_GROUPS["Rabbits"]:
-        rabbit_total += state.count(i, player) * ITEMS[i].value
+    rabbit_total = sum([state.count(f"{realm} Rabbit", player) for realm in rabbit_realms])
     return rabbit_total >= count
 
 def st_caught_rabbits(state, player, realm, count):

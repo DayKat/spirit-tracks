@@ -45,8 +45,10 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_29, 0x80],  # tos 2 zelda text
     [STAddr.adv_flags_2a, 0x23],  # ToS 6 zelda text, gtr
     [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
+    [STAddr.adv_flags_2d, 0x20],  # ToS 7 zelda text
     [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
     [STAddr.adv_flags_30, 0x00],  # Prevent GTR death. or not, start with long track?
+    [STAddr.adv_flags_31, 0x18],  # Possess Phantom
     [STAddr.adv_flags_33, 0x0E],  # dark ore first conv0
     [STAddr.adv_flags_35, 0x10],  # kagoron text after giving ice
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
@@ -84,7 +86,7 @@ STAGE_FLAGS = {
     0x2F: [0x9E, 0x00, 0x00, 0x00], # Outset Village
     0x29: [0x10, 0x00, 0x00, 0x00], # Castle Town
     0x28: [0x08, 0x01, 0x00, 0x00],  # Hyrule Castle
-    0x13: [0xFE, 0x06, 0x00, 0x00],  # Tower of Spirits (Main)
+    0x13: [0xFE, 0x36, 0x00, 0x00],  # Tower of Spirits (Main)
     0x14: [0x08, 0x00, 0x00, 0x0], # Tower of Spirits (Base)
     # 0x17: [0x00, 0x00, 0x00, 0x17],  # Tower of Spirits (Stairs)
     0x18: [0x04, 0x00, 0x00, 0x00], # Tunnel to ToS
@@ -104,6 +106,8 @@ STAGE_FLAGS = {
     # 0x36: [0x00, 0x00, 0x00, 0x36], # Bridge Worker's Home
     0x3F: [0x50, 0xE0, 0x01, 0x00], # Slippery/snowdrift Station
     0x2c: [0x2, 0x0, 0x0, 0x0],  # Papuzia
+    0x32: [0x1e, 0x0, 0x0, 0x0],  # Island Sanc
+    0x3a: [0x10, 0x40, 0x0, 0x0],  # Pirate Hideout
     0x2e: [0x94, 0x0, 0x0, 0x0],  # Goron
     0x1c: [0x0, 0x00, 0x1C, 0x0],  # Mountain Temple
     0x21: [0xA, 0x00, 0x0, 0x0],  # Vulcano
@@ -510,14 +514,15 @@ BOSS_KEY_DATA = {
     },
     0x1309: {
         "y": 0,
-        "pointer": STAddr.tos_bk_pointer,
+        "pointer": STAddr.tos3_bk_pointer,
         "location": "ToS 10F Boss Key",
         "door": STAddr.tos3_boss_door,
-        "dungeon": "ToS 3"
+        "dungeon": "ToS 3",
+        "door_coords": 0xffff2ffc00000000fffffffc
     },
     0x1318: {
         "y": 0,
-        "pointer": STAddr.tos_bk_pointer,
+        "pointer": STAddr.tos3_bk_pointer,
         "location": "ToS 22F Boss Key",
         "door": STAddr.tos5_boss_door,
         "dungeon": "ToS 5"
@@ -663,6 +668,8 @@ EXIT_TO_TOS_SECTION = {
     "ToS 1F Exit": 1,
 }
 
+TOS_SECTION_TO_EXIT = {section: e for e, section in EXIT_TO_TOS_SECTION.items()}
+
 BOSS_WARP_SCENE_LOOKUP = {
     0x1302: "ToS 1F Exit",
     0x1306: "ToS 4F Exit",
@@ -672,7 +679,10 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x1323: "ToS 30F Exit",
 }
 
-
+special_respawn_stages = {
+    0x15: (0x14, 1, 1),
+    0x23: (0x14, 1, 1)
+}
 
 TOS_FLOOR_TO_SECTION = {
     0: 1,

@@ -568,6 +568,36 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "Papuzia NW House": {
+        "return_name": "Papuzia House",
+        "entrance_region": "papuzia village",
+        "exit_region": "papuzia nw house",
+        "entrance": (0x2c, 0x0, 0x1),
+        "exit": (0x2c, 0x1, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Papuzia South": {
+        "return_name": "South Papuzia North",
+        "entrance_region": "papuzia village",
+        "exit_region": "papuzia south",
+        "entrance": (0x2c, 0x0, 0x1),
+        "exit": (0x2c, 0x1, 0x0),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Fire Realm East": {
+        "return_name": "Snow Realm West",
+        "entrance_region": "fire realm",
+        "exit_region": "btt",
+        "entrance": (0x7, 0x0, 0xFD),
+        "exit": (0x5, 0x0, 0xFE),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
 
 }

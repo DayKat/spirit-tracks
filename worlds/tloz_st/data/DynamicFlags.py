@@ -19,6 +19,13 @@ DYNAMIC_FLAGS = {
         "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)]
     },
+    "Outset leave after Alfonzo no cannon": {
+        "on_scenes": [0x2F00],
+        "has_items": [("Cannon", 0)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_11, 0x40)],
+        "unset_if_true": [(STAddr.adv_flags_11, 0x40)]
+    },
     "RESET forest glyph": {
         "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_1, 0x80), (STAddr.adv_flags_0, 0x04)]
@@ -93,7 +100,7 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2000],
         "not_has_locations": ["Marine Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
-        "reset_flags": ["RESET Add Ocean Source"]
+        "reset_flags": ["RESET Add Ocean source"]
     },
     "Cragma/Vulcano location": {
         "on_scenes": [0x2100],
@@ -246,13 +253,19 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x500],
         "has_items": [["Fire Glyph", 1], ["Blizzard Temple Tracks", 0]],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "reset_flags": ["RESET fire glyph", "RESET not has fire glyph"]
+        "reset_flags": ["RESET fire glyph"]
     },
     "Forest realm crashes fire glyph and no ocean glyph": {
         "on_scenes": [0x400],
         "has_items": [["Fire Glyph", 1], ["Ocean Glyph", 0]],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "reset_flags": ["RESET fire glyph", "RESET not has fire glyph"]
+        "reset_flags": ["RESET fire glyph"]
+    },
+    "Forest realm crashes fire glyph and no forest source tracks": {
+        "on_scenes": [0x400],
+        "has_items": [["Fire Glyph", 1], ["Forest Source", 0]],
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "reset_flags": ["RESET fire glyph"]
     },
     "RESET fire glyph": {
         "set_if_true": [(STAddr.adv_flags_2, 0x04)],
@@ -277,23 +290,37 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
-    "Keep portal loc open anouki village": {
-        "on_scenes": [0x0500],
-        "has_slot_data": [["portal_checks", 1]],
-        "not_has_locations": ["Snow Realm Shoot SW Portal"],
-        "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
-    },
-    "Open anouki portal no cannon": {
-        "on_scenes": [0x0500],
-        "has_slot_data": [["portal_checks", 0]],
-        "set_if_true": [(STAddr.adv_flags_30, 0x08)]
-    },
     "Close Castle town portal no item": {
         "on_scenes": [0x0400],
         "has_slot_data": [("portal_behavior", 2)],
         "has_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 0]],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
+
+    "Keep portal loc open anouki village": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 1]],
+        # "has_items": [("Cannon", 1)],
+        "not_has_locations": ["Snow Realm Shoot SW Portal"],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    },
+    # "Open anouki portal no cannon": {
+    #     "on_scenes": [0x0500],
+    #     "has_slot_data": [["portal_checks", 1], ["portal_behavior", 1]],
+    #     "has_items": [("Cannon", 0)],
+    #     "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    # },
+    # "Open anouki portal open portals": {
+    #     "on_scenes": [0x0500],
+    #     "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+    #     "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    # },
+    # "Open anouki portal no cannon item": {
+    #     "on_scenes": [0x0500],
+    #     "has_slot_data": [["portal_checks", 1], ["portal_behavior", 2]],
+    #     "has_items": [("Cannon", 0), ("Portal Unlock: Hyrule Castle to Anouki Village", 1)],
+    #     "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    # },
 
     "Allow portal snow realm E to Forest S always open": {
         "on_scenes": [0x500],
@@ -534,21 +561,27 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_20, 0x4)]
     },
     "Rael don't have spirit flute": {
-        "on_scenes": [0x3502],
+        "on_scenes": [0x3402],
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Rael can play duet": {
-        "on_scenes": [0x3502],
+        "on_scenes": [0x3402],
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Dune Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Rael Always remove dtt ": {
-        "on_scenes": [0x3502],
+        "on_scenes": [0x3402],
         "unset_if_true": [(STAddr.rail_restorations, 0x20)],
         "reset_flags": ["Sand Sanc Reset DTT not has", "Sand Sanc Reset DTT"]
     },
+    "Rael remove desert resotration": {
+        "on_scenes": [0x3402],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x10)],
+        "not_has_locations": ["Dune Sanctuary Song of Restoration"]
+    },
+
     "Sand Sanc Reset DTT not has": {
         "has_items": [("Desert Temple Tracks", 0)],
         "unset_if_true": [(STAddr.rail_restorations, 0x20)]
@@ -558,7 +591,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.rail_restorations, 0x20)]
     },
     "Sand sanc get cuccos no cargo rando": {
-        "on_scenes": [0x3500],
+        "on_scenes": [0x3400],
         "has_slot_data": [("randomize_cargo", 0)],
         "set_if_true": [(STAddr.adv_flags_44, 0x8), (STAddr.adv_flags_d, 0x8)]
     },
@@ -745,6 +778,7 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "check_bits": [(STAddr.adv_flags_18, 0x40, "not")],
         "set_if_true": [(STAddr.adv_flags_18, 0x20)],
+        "unset_if_true": [(STAddr.adv_flags_3d, 0x02)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x37),
                               (STAddr.passenger_tag_0, 0x43524654),
                               (STAddr.has_passenger_0, 0)],
@@ -985,7 +1019,8 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3601],
         "has_items": [("Ocean Glyph", 1)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "set_if_true": [(STAddr.adv_flags_c, 0x80)],
+        "set_if_true": [(STAddr.adv_flags_c, 0x80)],  # allow him to travel
+        "unset_if_true": [(STAddr.adv_flags_18, 0x20)],  # make sure he spawns
         "reset_flags": ["RESET abstract kenzo on train"]
     },
     "Can't pick up kenzo": {

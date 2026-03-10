@@ -389,6 +389,12 @@ DYNAMIC_ENTRANCES = {
         "destination": "Skeldritch Exit",
         "not_has_locations": ["Desert Temple Dungeon Reward"],
     },
+    "Fire realm bounce snow realm without btt": {
+        "entrance": "Fire Realm East",
+        "destination": "Fire Realm East",
+        "has_items": [("Blizzard Temple Tracks", 0)],
+        "message": "The game crashes here without the blizzard temple tracks. Sorry!"
+    },
 }
 
 # Reorganize above data to the form {scene: data} or something

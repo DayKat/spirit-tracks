@@ -499,6 +499,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x10,
         'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks",
                         "Disorientation Tracks"],
+        "model": "Fire Glyph",
+        "vanilla_model": "Force Gem 36"
     },
     "Snow Realm Gorge Tracks": {
         'classification': ItemClassification.progression,

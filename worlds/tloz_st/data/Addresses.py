@@ -20,7 +20,11 @@ class STAddr:
     floor = Address(0x1B2E98)
     room = Address(0x2690EA)
     entrance = Address(0x2690EB)
-    
+
+    respawn_stage = Address(0x262074)
+    respawn_room = Address(0x26207e)
+    respawn_entrance = Address(0x26207f)
+
     getting_location = Address(0x04B114)
     saving = Address(0x049BD8)
     getting_tear_safety = Address(0x327B8C)
@@ -121,7 +125,16 @@ class STAddr:
     oct_bk_pointer = Address(0x32520C, size=4)
     mtt_bk_pointer = Address(0x32963C, size=4)
     dt_bk_pointer = Address(0x3251C8, size=4)
+    tos3_bk_pointer = Address(0x332858, size=4)
     tos_bk_pointer = Address(0x332818, size=4)
+
+    # Candidates for ToS 3 bk pointers
+    # 332858
+    # 332A20
+    # 332BB4
+    # 332BD4
+    # 332D1C
+    # 33DBFC
 
     # Boss door openers
     wt_boss_door = Address(0x3368FE)
@@ -133,6 +146,7 @@ class STAddr:
     # tos5_boss_door = Address(0x33E182)
     tos5_boss_door = Address(0x33E1Ce)
 
+    # Object pointer table
     tos_boss_door_pointer = Address(0x265668, size=4)
 
     snurglin_keys = Address(0x2e986c)

@@ -895,6 +895,7 @@ LOCATIONS_DATA = {
         "ut_connect": "EVENT: Defeat Staven",
         'dungeon': "ToS",
         "tos_section": 5,
+        "no_model": True
     },
     "ToS Stamp Stand": {
         "vanilla_item": "Stamp: Tower of Spirits",
@@ -1047,7 +1048,7 @@ LOCATIONS_DATA = {
     },
     "Woodland Sanctuary Chest": {
         "region_id": "fos chest",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": "Big Red Rupee (200)",
         "x_min": 9228,
         "x_max": 18778,
         "z_min": 39028,
@@ -1189,6 +1190,7 @@ LOCATIONS_DATA = {
         "goal": True,
         "ut_connect": "EVENT: Defeat Stagnox",
         "location_groups": ["Stagnox"],
+        "no_model": True
     },
 
     # Rabbit Haven
@@ -1201,6 +1203,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_1a,
         "value": 0x40,
         "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
     },
     "Rabbit Haven Chest": {
         "region_id": "rabbit haven",
@@ -1222,6 +1225,7 @@ LOCATIONS_DATA = {
         'value': 0x8,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Grass Rabbits": {
         "region_id": "rabbit haven 10 forest rabbits",
@@ -1232,6 +1236,7 @@ LOCATIONS_DATA = {
         'value': 0x20,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Snow Rabbits": {
         "region_id": "rabbit haven 10 snow rabbits",
@@ -1242,6 +1247,7 @@ LOCATIONS_DATA = {
         'value': 0x40,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Mountain Rabbits": {
         "region_id": "rabbit haven 10 mountain rabbits",
@@ -1252,6 +1258,7 @@ LOCATIONS_DATA = {
         'value': 0x1,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Sand Rabbits": {
         "region_id": "rabbit haven 10 sand rabbits",
@@ -1262,6 +1269,7 @@ LOCATIONS_DATA = {
         'value': 0x2,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
     },
     # "Rabbit Haven Rescue 50 Rabbits": {
     #     "region_id": "rabbit haven 50 rabbits",
@@ -1514,6 +1522,7 @@ LOCATIONS_DATA = {
         "goal": True,
         "ut_connect": "EVENT: Defeat Fraaz",
         "location_groups": ["Fraaz"],
+        "no_model": True
     },
 
     # Icy Spring
@@ -1824,7 +1833,7 @@ LOCATIONS_DATA = {
         "require_item": ["Whip"],
     },
     "Marine Temple 6F Boss Key": {
-        "region_id": "oct bk",
+        "region_id": "oct bk loc",
         "vanilla_item": "Boss Key (Marine Temple)",
         "dungeon": "Marine Temple",
         "conditional": True
@@ -1851,7 +1860,8 @@ LOCATIONS_DATA = {
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "goal": True,
         "location_groups": ["Cactops"],
-        "ut_connect": "EVENT: Defeat Cactops"
+        "ut_connect": "EVENT: Defeat Cactops",
+        "no_model": True
     },
 
     # Pirate Hideout
@@ -2290,6 +2300,7 @@ LOCATIONS_DATA = {
         "region_id": "mtt boss",
         "vanilla_item": "Fire Source",
         "ut_connect": "EVENT: Defeat Vulcano",
+        "no_model": True
     },
     # Goron Target Range
     "Goron Target Range": {
@@ -2297,7 +2308,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x3C,
         "room_id": 1,
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | {"Red Rupee (20)"} | ITEM_GROUPS["Big Rupees"],
-        "slot_data": [("randomize_minigame", [1, 2, 3, 4])],
+        "minigame": [1, 2, 3, 4],
         "location_groups": ["Goron Target Range"],
         "conditional": True
     },
@@ -2566,6 +2577,7 @@ LOCATIONS_DATA = {
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
         "ut_connect": "EVENT: Defeat Skeldritch",
+        "no_model": True
     },
     "Desert Temple Bow of Light Chest": {
         "stage_id": 0x1D,
@@ -3009,7 +3021,8 @@ LOCATIONS_DATA |= {
         "address": STAddr.adv_flags_31,
         "value": 0x1,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
     },
     "Fire Realm Shoot Sand Portal": {
         "stage_id": 0x07,
@@ -3018,7 +3031,6 @@ LOCATIONS_DATA |= {
         "value": 0x80,
         "location_groups": ["Portal Checks"],
         "conditional": True,
-        "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
     },
 
     # Shops
@@ -3763,6 +3775,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Castle Town", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+        "delay_reset": True,
         "region_id": "castle town teacher",
         "no_model": True
     },

@@ -214,6 +214,7 @@ REGIONS = [
     # Snow Realm
     "snow realm",
     "snow realm fr",
+    "snow realm fr portal",
     "anouki portal",
     "snow realm source",
     "blizzard temple tracks",
@@ -334,6 +335,7 @@ REGIONS = [
     "oct 3f whip",
     "oct 6f chest",
     "oct bk",
+    "oct bk loc",
     "oct phytops",
     "event_phytops",
     "goal_phytops",
@@ -448,6 +450,7 @@ REGIONS = [
     "dt 2f sw",
     "dt 3f",
     "dt b1",
+    "dt b2",
     "dt stamp stand",
     "dt b1 2",
     "dt b1 damage",
