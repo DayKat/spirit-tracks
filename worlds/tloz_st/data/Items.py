@@ -132,7 +132,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         #'address': 0x1BA645,
         #'value': 0x01,
         #'set_bit': [(0x1BA6C8, 1)]
-        "model": "Engineer's Clothes"
+        "model": "Engineer's Clothes",
+        "dummy": True
     },
     "Compass of Light": {
         'classification': ItemClassification.progression,
@@ -241,7 +242,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         # 'address': 0x265744,
         # 'value': 0x08,
-        'item_groups': ["Portal Unlocks"],
+        'item_groups': ["Portal Unlocks", "North Forest Portal", "N Forest Portal", "Anouki Portal", "SW Snow Portal"],
     },
     "Portal Unlock: Trading Post to E Snow Realm": {
         'classification': ItemClassification.progression,
@@ -273,7 +274,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.adv_flags_1,
         'value': 0x80,
         'item_groups': ["Glyphs", "Rail Items", "Forest Tracks"],
-        'model': "Forest Glyph",
+        'model': "Forest Glyph 2",
     },
     "Snow Glyph": {
         'classification': ItemClassification.progression,
@@ -726,112 +727,112 @@ ITEMS_DATA |= {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.demon_fossil_count,
-        'item_groups': ["Common Treasures"],
+        'item_groups': ["Common Treasures", "Demon Fossil"],
         'model': "Demon Fossil"
     },
     "Treasure: Stalfos Skull": {
         'classification': ItemClassification.filler,
         'address': STAddr.stalfos_skull_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Common Treasures"],
+        'item_groups': ["Common Treasures", "Stalfos Skull"],
         'model': "Stalfos Skull"
     },
     "Treasure: Star Fragment": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.star_fragment_count,
-        'item_groups': ["Common Treasures"],
+        'item_groups': ["Common Treasures", "Star Fragment"],
         'model': "Star Fragment"
     },
     "Treasure: Bee Larvae": {
         'classification': ItemClassification.filler,
         'address': STAddr.bee_larvae_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Common Treasures"],
+        'item_groups': ["Common Treasures", "Bee Larvae"],
         'model': "Bee Larvae"
     },
     "Treasure: Wood Heart": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.wood_heart_count,
-        'item_groups': ["Common Treasures"],
+        'item_groups': ["Common Treasures", "Wood Heart"],
         'model': "Wood Heart"
     },
     "Treasure: Dark Pearl Loop": {
         'classification': ItemClassification.filler,
         'address': STAddr.dark_pearl_loop_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Uncommon Treasures"],
+        'item_groups': ["Uncommon Treasures", "Dark Pearl Loop"],
         'model': "Dark Pearl Loop"
     },
     "Treasure: White Pearl Loop": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.white_pearl_loop_count,
-        'item_groups': ["Uncommon Treasures"],
+        'item_groups': ["Uncommon Treasures", "White Pearl Loop", "Pearl Loop"],
         'model': "White Pearl Loop"
     },
     "Treasure: Ruto Crown": {
         'classification': ItemClassification.filler,
         'address': STAddr.ruto_crown_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Uncommon Treasures"],
+        'item_groups': ["Uncommon Treasures", "Ruto Crown"],
         'model': "Ruto Crown"
     },
     "Treasure: Dragon Scale": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.dragon_scale_count,
-        'item_groups': ["Uncommon Treasures"],
+        'item_groups': ["Uncommon Treasures", "Dragon Scale"],
         'model': "Dragon Scale"
     },
     "Treasure: Pirate's Necklace": {
         'classification': ItemClassification.filler,
         'address': STAddr.pirates_necklace_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Uncommon Treasures"],
+        'item_groups': ["Uncommon Treasures", "Pirate Necklace"],
         'model': "Pirate Necklace"
     },
     "Treasure: Palace Dish": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.palace_dish_count,
-        'item_groups': ["Rare Treasures"],
+        'item_groups': ["Rare Treasures", "Palace Dish"],
         'model': "Palace Dish"
     },
     "Treasure: Goron Amber": {
         'classification': ItemClassification.filler,
         'address': STAddr.goron_amber_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Rare Treasures"],
+        'item_groups': ["Rare Treasures", "Goron Amber"],
         'model': "Goron Amber"
     },
     "Treasure: Mystic Jade": {
         'classification': ItemClassification.filler,
         'address': STAddr.mystic_jade_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Rare Treasures"],
+        'item_groups': ["Rare Treasures", "Mystic Jade"],
         'model': "Mystic Jade"
     },
     "Treasure: Ancient Coin": {
         'classification': ItemClassification.filler,
         'address': STAddr.ancient_coin_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Rare Treasures"],
+        'item_groups': ["Rare Treasures", "Ancient Coin"],
         'model': "Ancient Coin"
     },
     "Treasure: Priceless Stone": {
         'classification': ItemClassification.filler,
         'address': STAddr.priceless_stone_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
-        'item_groups': ["Super Rare Treasures"],
+        'item_groups': ["Super Rare Treasures", "Priceless Stone", "Alchemy Stone"],
         'model': "Alchemy Stone"
     },
     "Treasure: Regal Ring": {
         'classification': ItemClassification.progression,
         'address': STAddr.regal_ring_count,
         "tags": ['treasure', 'incremental'],
-        'item_groups': ["Super Rare Treasures"],
+        'item_groups': ["Super Rare Treasures", "Regal Ring"],
         'model': "Regal Ring"
     },
 
@@ -858,7 +859,7 @@ ITEMS_DATA |= {
         'address': STAddr.small_keys,
         'dungeon': 0x13,
          "tags": ["incremental"],
-        'item_groups': ["Small Keys"],
+        'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
     "Small Key (ToS 2)": {
@@ -868,7 +869,7 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         "rooms": [3, 4, 5, 6, 0x29],
         "section": 2,
-        'item_groups': ["Small Keys"],
+        'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
     "Small Key (ToS 4)": {
@@ -878,7 +879,7 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
         "section": 4,
-        'item_groups': ["Small Keys"],
+        'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
     "Small Key (ToS 5)": {
@@ -888,7 +889,7 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
         "section": 5,
-        'item_groups': ["Small Keys"],
+        'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
     "Small Key (ToS 6)": {
@@ -898,7 +899,7 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         "section": 6,
-        'item_groups': ["Small Keys"],
+        'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
     "Small Key (Blizzard Temple)": {
@@ -935,44 +936,44 @@ ITEMS_DATA |= {
     },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
-        'item_groups': ["Boss Keys"],
+        'item_groups': ["Boss Keys", "Blizzard Temple Boss Key"],
         "dummy": True,
         "model": "Boss Key"
     },
     "Boss Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
         'dungeon': 0x19,
-        'item_groups': ["Boss Keys"],
+        'item_groups': ["Boss Keys", "Wooded Temple Boss Key", "Forest Temple Boss Key", "Boss Key Forest Temple"],
         "dummy": True,
         "model": "Boss Key"
     },
     "Boss Key (Marine Temple)": {
         'classification': ItemClassification.progression,
-        'item_groups': ["Boss Keys"],
+        'item_groups': ["Boss Keys", "Ocean Temple Boss Key", "Marine Temple Boss Key", "Boss Key Ocean Temple"],
         "dummy": True,
         "model": "Boss Key"
     },
     "Boss Key (Mountain Temple)": {
         'classification': ItemClassification.progression,
-        'item_groups': ["Boss Keys"],
+        'item_groups': ["Boss Keys", "Mountain Temple Boss Key", "Boss Key Fire Temple", "Fire Temple Boss Key"],
         "dummy": True,
         "model": "Boss Key"
     },
     "Boss Key (Desert Temple)": {
         'classification': ItemClassification.progression,
-        'item_groups': ["Boss Keys"],
+        'item_groups': ["Boss Keys", "Desert Temple Boss Key", "Boss Key Sand Temple", "Sand Temple Boss Key"],
         "dummy": True,
         "model": "Boss Key"
     },
     "Boss Key (ToS 3)": {
         'classification': ItemClassification.progression,
-        'item_groups': ["Boss Keys"],
+        'item_groups': ["Boss Keys", "Boss Key (ToS)"],
         "dummy": True,
         "model": "Boss Key"
     },
     "Boss Key (ToS 5)": {
         'classification': ItemClassification.progression,
-        'item_groups': ["Boss Keys"],
+        'item_groups': ["Boss Keys", "Boss Key (ToS)"],
         "dummy": True,
         "model": "Boss Key"
     },
@@ -1184,7 +1185,7 @@ ITEMS_DATA |= {
         "address": STAddr.adv_flags_4,
         "value": 0x2,
         'item_groups': ["Train Items"],
-        'model': "Engineer's Clothes"
+        'model': "Engineer's Clothes",
     },
     # Passengers
     "Passenger: Kenzo": {
@@ -1512,6 +1513,10 @@ ITEMS_DATA |= {
         'item_groups': ["Misc Keys"],
         "model": "Key"
     },
+    "Dummy Bow": {
+        'classification': ItemClassification.filler,
+        'model': "Bow"
+    }
 }
 
 

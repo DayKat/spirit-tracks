@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 from .data.LogicPredicates import *
 from .Options import SpiritTracksOptions
 from .data.Entrances import ENTRANCES
+from ..sc2.mission_order.presets import evil_logic_settings
 
 if TYPE_CHECKING:
     from . import SpiritTracksWorld
@@ -174,19 +175,22 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 4", "tos 13f", True, None],
         ["tos 13f", "tos 13f whip", False, lambda state: st_has_whip(state, player)],
         ["tos 13f", "tos 13f boomerang", False, lambda state: st_has_boomerang(state, player)],
-        ["tos 13f", "tos 14f east", False, lambda state: st_has_small_keys(state, player, "ToS 4", 3) | (st_vanilla_tears(state, player) & st_has_small_keys(state, player, "ToS 4", 2))],
+        ["tos 13f", "tos 14f east", False, lambda state: st_has_small_keys(state, player, "ToS 4", 3, 1) | (st_vanilla_tears(state, player) & st_has_small_keys(state, player, "ToS 4", 2, 1))],
         ["tos 13f", "tos 13f phantom", False, lambda state: any([
             st_can_possess_phantoms(state, player, 4), all([
                 st_vanilla_tears(state, player),
                 st_has_whip(state, player),
-                st_has_small_keys(state, player, "ToS 4", 2)])])],
+                st_has_small_keys(state, player, "ToS 4", 2, 1)])])],
         ["tos 13f phantom", "tos 13f phantom whip", False, lambda state: st_has_whip(state, player)],
-        ["tos 13f phantom", "tos 14f west", False, lambda state: st_has_small_keys(state, player, "ToS 4", 4)],
+        ["tos 13f phantom", "tos 14f west", False, lambda state: st_has_small_keys(state, player, "ToS 4", 2, 1)],
 
         ["tos 14f east", "tos 14f phantom", False, lambda state:
          st_can_possess_phantoms(state, player, 4) | (st_vanilla_tears(state, player) & st_has_whip(state, player))],
-        ["tos 14f east", "tos 15f", False, None],
-        ["tos 15f", "tos 16f", False, lambda state: (st_has_range(state, player) | st_has_beam_sword(state, player)) & st_has_whirlwind(state, player) & st_has_small_keys(state, player, "ToS 4", 3)],
+        ["tos 14f west", "tos 15f", False, None],
+        ["tos 15f", "tos 16f", False, lambda state:
+            (st_has_range(state, player) | st_has_beam_sword(state, player)) and
+            st_has_whirlwind(state, player) and
+            st_has_small_keys(state, player, "ToS 4", 3,2)],
         ["tos 16f", "event_17f", False, None],
         ["tos 16f", "tos 16f bombs", False, lambda state: st_has_bombs(state, player)],
 
@@ -432,7 +436,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "papuchia village song statue", False, lambda state: st_has_discovery_song(state, player)],
         ["papuchia village", "pv dovok", False, lambda state: state.has("Passenger: Dovok", player) or state.has("_dovok", player)],
         ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_birds_song(state, player)],
-        ["papuchia village", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song
+        ["papuchia village song statue", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song, patched with a dynaentrance
+        # I don't like that this is locked behind song statue, but flags might not let us get there earlier
 
         ["papuchia village", "papuzia ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")]
         if options.randomize_cargo.value in [1, 2] else
@@ -620,8 +625,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["dt b1", "dt stamp stand", False, lambda state: st_has_stamp_book(state, player)],
         ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
+
         ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
-        ["dt b1 damage", "dt b2", False, lambda state: options.randomize_boss_keys == "vanilla"],
+        ["dt b1 damage", "dt b2", False, None]
+            if options.randomize_boss_keys == "vanilla"
+            else ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
         ["dt b2", "skeldritch", False, lambda state: st_has_good_damage(state, player)], # Whip is not good enough damage
         ["skeldritch", "skeldritch event", False, None],
 

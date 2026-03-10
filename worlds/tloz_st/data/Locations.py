@@ -31,8 +31,6 @@ LOCATIONS_DATA = {
         "z_min": -34890,
         "z_max": -10024,
         "location_groups": ["Outset Village"],
-
-        "priority": 1
     },
     "Outset Stamp Station": {
         "region_id": "outset village stamp station",
@@ -74,8 +72,6 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_25,
         "value": 0x2,
         "location_groups": ["Outset Village", "Niko"],
-
-        "priority": 1
     },
     "Outset Niko 10 Stamps Reward": {
         "region_id": "outset 10 stamps",
@@ -87,8 +83,6 @@ LOCATIONS_DATA = {
         "value": 0x4,
         "location_groups": ["Outset Village", "Niko"],
         "conditional": True,
-
-        "priority": 2
     },
     "Outset Niko 15 Stamps Reward": {
         "region_id": "outset 15 stamps",
@@ -100,8 +94,6 @@ LOCATIONS_DATA = {
         "value": 0x8,
         "location_groups": ["Outset Village", "Niko"],
         "conditional": True,
-
-        "priority": 3
     },
     "Outset Niko 20 Stamps Reward": {
         "region_id": "outset 20 stamps",
@@ -113,8 +105,6 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "location_groups": ["Outset Village", "Niko"],
         "conditional": True,
-
-        "priority": 4
     },
 
     # Castle Town
@@ -727,7 +717,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x13,
         "room_id": 0xD,
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "region_id": "tos 14f east",
+        "region_id": "tos 14f phantom",
         'dungeon': "ToS",
         "tos_section": 4,
         "conditional": "tears",
@@ -2214,7 +2204,8 @@ LOCATIONS_DATA = {
         "stage_id": 0x1C,
         "room_id": 0x6,
         "region_id": "mtt heatoise",
-        "vanilla_item": "Bow (Progressive)",
+        "vanilla_item": "Dummy Bow",
+        "item_override": "Nothing!",
         "x_min": -10000,
         "z_max": -55000,
         "dungeon": "Mountain Temple"
@@ -3641,7 +3632,7 @@ LOCATIONS_DATA |= {
 
     "Castle Town Lucia Fish Force Gem": {
         "stage_id": 0x29,
-        "room_id": 0x0,
+        "room_id": [0x0, 0xe],
         "address": STAddr.adv_flags_d,
         "value": 0x01,
         "vanilla_item": "Forest Realm Ocean Shortcut Tracks",

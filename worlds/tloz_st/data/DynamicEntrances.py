@@ -395,6 +395,10 @@ DYNAMIC_ENTRANCES = {
         "has_items": [("Blizzard Temple Tracks", 0)],
         "message": "The game crashes here without the blizzard temple tracks. Sorry!"
     },
+    "Prevent softlock in papuzia south": {
+        "entrance": "South Papuzia North",
+        "destination": "Papuzia NW House"
+    },
 }
 
 # Reorganize above data to the form {scene: data} or something

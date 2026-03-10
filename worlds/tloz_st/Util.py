@@ -24,24 +24,28 @@ def build_entrance_id_to_data():
 def build_location_room_to_watches() -> Dict[int, dict[str, dict]]:
     location_room_to_watches: Dict[int, dict[str, dict]] = {}
     for loc_name, location in LOCATIONS_DATA.items():
-        room_id = location.get("stage_id", 0) * 0x100 + location.get("room_id", 0)
-        if room_id not in location_room_to_watches:
-            location_room_to_watches[room_id] = {}
-        location_room_to_watches[room_id][loc_name] = location
+        stages, rooms = location.get("stage_id", [0]), location.get("room_id", [0])
+        stages = [stages] if isinstance(stages, int) else stages
+        rooms = [rooms] if isinstance(rooms, int) else rooms
+        room_ids = [stage * 0x100 + room for stage in stages for room in rooms]
 
-        # Build Island shops
-        if "island_shop" in location:
-            for shop_id, shop in HINTS_ON_SCENE.items():
-                if shop_id not in location_room_to_watches:
-                    location_room_to_watches[shop_id] = {}
-                if "island_shop" in shop:
-                    location_room_to_watches[shop_id][loc_name] = location
-        # Add location to multiple rooms
-        if "additional_rooms" in location:
-            for room in location["additional_rooms"]:
-                if room not in location_room_to_watches:
-                    location_room_to_watches[room] = {}
-                location_room_to_watches[room][loc_name] = location
+        for room_id in room_ids:
+            location_room_to_watches.setdefault(room_id, {})
+            location_room_to_watches[room_id][loc_name] = location
+
+            # Build Island shops
+            if "island_shop" in location:
+                for shop_id, shop in HINTS_ON_SCENE.items():
+                    if shop_id not in location_room_to_watches:
+                        location_room_to_watches[shop_id] = {}
+                    if "island_shop" in shop:
+                        location_room_to_watches[shop_id][loc_name] = location
+            # Add location to multiple rooms
+            if "additional_rooms" in location:
+                for room in location["additional_rooms"]:
+                    if room not in location_room_to_watches:
+                        location_room_to_watches[room] = {}
+                    location_room_to_watches[room][loc_name] = location
     return location_room_to_watches
 
 

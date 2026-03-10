@@ -127,7 +127,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_0, 0x10)]
     },
     "Remove Bow of light in desert temple": {
-        "on_scenes": [0x1d05],
+        "on_scenes": [0x1d06],
         "unset_if_true": [(STAddr.adv_flags_16, 1)],
         "reset_flags": ["RESET Bow of Light"]
     },
@@ -734,13 +734,24 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x4503],
         "not_has_locations": ["Beedle Buy Bomb Bag"],
         "has_slot_data": [("shopsanity", "uniques")],
-        "unset_if_true": [(STAddr.adv_flags_22, 0x02), (STAddr.bomb_capacity, 2)],
+        "unset_if_true": [(STAddr.adv_flags_22, 0x02), (STAddr.bomb_capacity, 3)],
         "reset_flags": ["RESET beedle bomb bag flag"]
     },
     "RESET beedle bomb bag flag": {
         "has_items": [("Bombs (Progressive)", 1)],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
         "overwrite_if_true": [(STAddr.bomb_capacity, "Bombs (Progressive)", -1)]
+    },
+    "Remove Goron Quiver count": {
+        "on_scenes": [0x2e06],
+        "not_has_locations": ["Goron Shop Quiver"],
+        "has_slot_data": [("shopsanity", "uniques")],
+        "unset_if_true": [(STAddr.arrow_capacity, 3)],
+        "reset_flags": ["RESET Goron Quiver count"]
+    },
+    "RESET Goron Quiver count": {
+        "has_items": [("Bow (Progressive)", 1)],
+        "overwrite_if_true": [(STAddr.arrow_capacity, "Bow (Progressive)", -1)]
     },
     "Add beedle bomb flag": {
         "on_scenes": [0x4503],
@@ -802,6 +813,12 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_3e, 0x10)],
         "has_items": [("Treasure: Regal Ring", 0)],
     },
+    "Open linebeck after bridge worker leaves backup": {
+        "on_scenes": [0x370a],
+        "set_if_true": [(STAddr.adv_flags_24, 0x10)],
+        "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],
+        "has_locations": ["Trading Post Pick Up Kenzo"]
+    },
     "Remove Ocean Source for Kenzo Dialogue": {
         "on_scenes": [0x3700],
         "not_has_locations": ["Bring Kenzo to Trading Post"],
@@ -856,18 +873,21 @@ DYNAMIC_FLAGS = {
                         (STAddr.adv_flags_4, 0x02)], # Remove Wagon, he gives ice hint
         "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source", "RESET Wagon"]
     },
-    "Anouki chief stop kofu glyph": {
+    "Anouki chief stop kofu": {
         "on_scenes": [0x2b01],
         "not_has_locations": ["Anouki Village Pick Up Kofu"],
-        "has_items": [("Fire Glyph", 0)],
+        "has_items": [("Fire Glyph", 0), ("Fire Source", 0)],
+        "has_slot_data": [("randomize_passengers", 3)],
         "set_if_true": [(STAddr.adv_flags_37, 0x20)],
         "reset_flags": ["RESET Kofu"]
     },
-    "Anouki chief stop kofu source": {
+    "Anouki chief spawn kofu": {
         "on_scenes": [0x2b01],
+        "any_has_items": [("Fire Glyph", 1), ("Fire Source", 1)],
         "not_has_locations": ["Anouki Village Pick Up Kofu"],
-        "has_items": [("Fire Source", 0)],
-        "set_if_true": [(STAddr.adv_flags_37, 0x20)],
+        "has_locations": ["Anouki Village Goron Force Gem"],
+        "has_slot_data": [("randomize_passengers", 3)],
+        "unset_if_true": [(STAddr.adv_flags_37, 0x20)],
         "reset_flags": ["RESET Kofu"]
     },
     "RESET Kofu": {
@@ -1220,7 +1240,7 @@ DYNAMIC_FLAGS = {
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
     },
     "CT has fish": {
-        "on_scenes": [0x2900],
+        "on_scenes": [0x2900, 0x290e],
         "has_items": [("Cargo: Fish", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
         "not_has_locations": ["Castle Town Lucia Fish Force Gem"],

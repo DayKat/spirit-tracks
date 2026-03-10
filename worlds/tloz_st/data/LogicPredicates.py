@@ -365,8 +365,8 @@ def st_is_ut(state: CollectionState, player: int):
 
 # ============= Key logic ==============
 
-def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1):
-    return state.has(f"Small Key ({dung_name})", player, amount)
+def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1, ool: int = 4):
+    return state.has(f"Small Key ({dung_name})", player, amount) or (state.has("_UT_Glitched_Logic", player) and state.has(f"Small Key ({dung_name})", player, ool))
 
 
 def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
@@ -495,10 +495,8 @@ def st_can_enter_tos_section(state, player, section):
     ])
 
 def st_desert_temple_keys(state, player):
-    return any([
-        st_has_small_keys(state, player, "Desert Temple", 2),
-        st_has_small_keys(state, player, "Desert Temple", 1) and state.has("_UT_Glitched_Logic", player)
-    ])
+    return st_has_small_keys(state, player, "Desert Temple", 2, 1),
+
 
 def st_hard_birds(state, player):
     return all([

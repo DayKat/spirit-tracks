@@ -36,10 +36,11 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
     [STAddr.adv_flags_1e, 0x8B],  # Valley sanc
+    [STAddr.adv_flags_1f, 0x01],  # Valley sanc
     [STAddr.adv_flags_20, 0x02],  # post valley sanc elder text
     # [STAddr.adv_flags_21, 0x02],  # elder text, despawns kagoron
     [STAddr.adv_flags_22, 0x3C],  # buy cargo first time
-    [STAddr.adv_flags_23, 0x40],  # teao tutorial
+    [STAddr.adv_flags_23, 0xc0],  # teao tutorial
     [STAddr.adv_flags_24, 0x08],  # move HC guards
     [STAddr.adv_flags_26, 0x3C],  # end of Tos section zelda texts
     [STAddr.adv_flags_29, 0x80],  # tos 2 zelda text
@@ -113,6 +114,7 @@ STAGE_FLAGS = {
     0x21: [0xA, 0x00, 0x0, 0x0],  # Vulcano
     0x3C: [0x2, 0x0, 0x0, 0x0],  # GTR
     0x40: [0xE, 0x0, 0x0, 0x0],  # Disorientation Station
+    0x41: [0x0, 0x80, 0x1a, 0x0],  # EotE
     0x34: [0x2, 0x1, 0x0, 0x0],  # Sand Sanc
     0x1d: [0x0, 0x3, 0x9, 0x0], # Desert Temple
     0x3d: [0x2, 0x0, 0x9, 0x0],  # DOM
@@ -525,7 +527,8 @@ BOSS_KEY_DATA = {
         "pointer": STAddr.tos3_bk_pointer,
         "location": "ToS 22F Boss Key",
         "door": STAddr.tos5_boss_door,
-        "dungeon": "ToS 5"
+        "dungeon": "ToS 5",
+        "door_coords": 0x4ffc000000000000affc
     },
 }
 

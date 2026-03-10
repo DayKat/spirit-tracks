@@ -582,8 +582,8 @@ ENTRANCE_DATA = {
         "return_name": "South Papuzia North",
         "entrance_region": "papuzia village",
         "exit_region": "papuzia south",
-        "entrance": (0x2c, 0x0, 0x1),
-        "exit": (0x2c, 0x1, 0x0),
+        "entrance": (0x2c, 0x0, 0x5),
+        "exit": (0x39, 0x0, 0x0),
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
