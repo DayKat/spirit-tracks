@@ -474,11 +474,12 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Get spirit weapons from final tear of light
         if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
+            section_count = min(5, ctx.slot_data["section_count"])
             if any([
-                self.item_count(ctx, "Tear of Light (All Sections)") >= 6,
-                self.item_count(ctx, "Tear of Light (Progressive)") >= 16,
+                self.item_count(ctx, "Tear of Light (All Sections)") >= 4,
+                self.item_count(ctx, "Tear of Light (Progressive)") >= section_count*3 + 1,
                 self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
-                self.item_count(ctx, "Big Tear of Light (Progressive)") >= 6]):
+                self.item_count(ctx, "Big Tear of Light (Progressive)") >= section_count + 1]):
                 await STAddr.adv_flags_16.set_bits(ctx, 1)
                 await STAddr.items_2.set_bits(ctx, 4)
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")

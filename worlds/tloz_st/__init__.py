@@ -154,6 +154,7 @@ class SpiritTracksWorld(WorldParent):
         self.stamp_pack_order = []
         self.model_lookup = {}
         self.sections_included: int = 6
+        self.required_rupees = 0
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -210,9 +211,10 @@ class SpiritTracksWorld(WorldParent):
         self.create_item_mappings()
 
         self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_dungeons]
-        print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_dungeons}")
+        # print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_dungeons}")
         if 5 in self.non_required_sections and self.options.exclude_sections:
             self.exclude_tos_5 = 1
+        self.required_rupees = self.get_required_rupees()
 
     def plando_tos_sections(self):
         """Plando ToS Shuffle early so we can use the ordering in logic"""
@@ -237,7 +239,7 @@ class SpiritTracksWorld(WorldParent):
             if entrance == "Tower of Spirits Exit Staven" and self.tower_pairings[0][1] == "ToS Summit Lower Exit":
                 banned_connections["Tower of Spirits Summit Enter Altar"].append("ToS 18F Exit")
 
-        print(f"Tower pairings: {list(self.tower_pairings)}")
+        # print(f"Tower pairings: {list(self.tower_pairings)}")
         self.plando_pairings |= {ENTRANCES[e1].id: ENTRANCES[e2].id for e1, e2 in self.tower_pairings}
         self.plando_pairings |= {e2: e1 for e1, e2 in self.plando_pairings.items()}
 
@@ -252,17 +254,28 @@ class SpiritTracksWorld(WorldParent):
         add_excluded = []
         if self.options.exclude_sections == "remove":
             required = set(range(1, 7))-set(self.non_required_sections)
-            print(F"required sections: {required}")
             add_excluded = self.non_required_sections
             for s in self.non_required_sections:
                 to_sort.remove(s)
 
-        old_sort.sort(key=lambda i: sort_filter[i])
         to_sort.sort(key=lambda i: sort_filter[i])
         self.tower_section_lookup = {section: i + 1 for i, section in enumerate(to_sort)}
         self.tower_section_lookup |= {i: 6 for i in add_excluded}
-        old_lookup = {section: i + 1 for i, section in enumerate(old_sort)}
-        print(f"Section lookup: {self.tower_section_lookup} old {old_lookup}")
+        # print(f"Section lookup: {self.tower_section_lookup}")
+
+    def get_required_rupees(self):
+        required_rupees = 0
+        options = self.options
+        if "uniques" in options.shopsanity.value: required_rupees += 4500
+        if "treasure" in options.shopsanity.value: required_rupees += 2400
+        if "potions" in options.shopsanity.value: required_rupees += 1400
+        if "shields" in options.shopsanity.value: required_rupees += 610
+        if "postcards" in options.shopsanity.value: required_rupees += 500
+        if "ammo" in options.shopsanity.value: required_rupees += 500
+        if options.randomize_cargo == "vanilla_abstract":
+            required_rupees += 500
+        print(f"Required Rupees {required_rupees}")
+        return required_rupees
 
     def hide_ut_map_stuff(self):
         self.tracker_world["map_page_locations"].append("locations/tos_singles.json")
@@ -329,7 +342,7 @@ class SpiritTracksWorld(WorldParent):
             return []
         if self.options.plando_dungeon_pool:
             case_compare = {k.lower(): v for k, v in DUNGEON_TO_BOSS_ITEM_LOCATION.items()}
-            required_dungeons = [case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value]
+            required_dungeons = list({case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value})
         else:
             required_dungeons = ["Wooded Temple Dungeon Reward", "Blizzard Temple Dungeon Reward",
                                  "Marine Temple Dungeon Reward", "Mountain Temple Dungeon Reward",
@@ -349,6 +362,7 @@ class SpiritTracksWorld(WorldParent):
 
         self.random.shuffle(required_dungeons)
         required_dungeons = required_dungeons[:self.options.dungeons_required.value]
+
         if self.options.dungeon_hints:
             self.options.start_location_hints.value.update(required_dungeons)
         return required_dungeons
@@ -419,7 +433,7 @@ class SpiritTracksWorld(WorldParent):
 
         if "Portal" in location_name:
             return self.options.portal_checks
-        if "Rabbit Haven" in location_name:
+        if location_name in LOCATION_GROUPS["Rabbit Rewards"]:
             return self.options.rabbitsanity
         if location_name.endswith("Boss Key"):
             return self.options.randomize_boss_keys
@@ -428,10 +442,10 @@ class SpiritTracksWorld(WorldParent):
         if "minigame" in location_data and self.options.randomize_minigames:
             return self.options.randomize_minigames.value in location_data["minigame"]
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
-            return self.options.randomize_stamps.value in [2, 3]
+            return self.options.randomize_stamps.value in [1, 2, 3]
         if location_name in LOCATION_GROUPS["Niko"]:
             # If dungeon stamp stands are excluded with vanilla stamps, niko has to give less items
-            if self.options.exclude_dungeons and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2]:
+            if self.options.exclude_dungeons and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2, 4]:
                 if len(self.non_required_dungeons) >= 5:
                     return location_name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
                 return location_name not in ["Outset Niko 20 Stamps Reward"]
@@ -603,7 +617,7 @@ class SpiritTracksWorld(WorldParent):
         if name in self.extra_filler_items:
             self.extra_filler_items.remove(name)
             classification = ItemClassification.filler
-        if self.options.shopsanity and name in ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]:
+        if not self.options.shopsanity and name in ITEM_GROUPS["Uncommon Plus Treasure"]:
             # print(f"Changing classification for item {name}")
             classification = DEPRIORITIZED_SKIP_BALANCING_FALLBACK
 
@@ -680,6 +694,8 @@ class SpiritTracksWorld(WorldParent):
                 item_name.startswith("Stamp"),
                 item_name in ITEM_GROUPS["All Rails"],
                 item_name in ITEM_GROUPS["Main Items"],
+                item_name in ITEM_GROUPS["All Treasures"],
+                item_name in ITEM_GROUPS["Rupee Items"],
                 self.options.randomize_cargo.value == 3 and item_name in ["Cargo: Cuccos", "Cargo: Mega Ice"]
                 ]):
                 # print(f"\tBig listicle {item_name}")
@@ -702,12 +718,12 @@ class SpiritTracksWorld(WorldParent):
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
             #print(f"Location {loc_name} has {item_name} item")
-            if item_data.classification == ItemClassification.progression and "tos_section" in loc_data:
-                print(f"Dungeon Prog {item_name}")
-        # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
+            # if item_data.classification == ItemClassification.progression and "tos_section" in loc_data:
+            #     print(f"Dungeon Prog {item_name}")
+
         # so add progression items first
         add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
-                     ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Compass of Light", 1)]
+                     ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Compass of Light", 1), ("Treasure: Regal Ring", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["Non-Progressive Main Items"]]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.randomize_cargo: add_items += [("Wagon", 1)]
@@ -727,10 +743,55 @@ class SpiritTracksWorld(WorldParent):
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
 
         # Add as many filler items as required
-        for _ in range(filler_item_count):
+        item_pool_dict = self.choose_filler_items(filler_item_count, item_pool_dict)
+
+
+        return item_pool_dict
+
+    def choose_filler_items(self, filler_count, item_pool_dict):
+        rupees_required = self.get_required_rupees()
+        required_filler = len(self.locations_to_exclude)
+        max_non_filler = filler_count - required_filler
+        print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
+        if max_non_filler <= 0:
+            raise FillError(f"Not enough room in item pool for filler items, please adjust your settings.")
+
+        # Start with 60% of the remaining filler pool as rupee items, and cascade down until you've got 3 times the required rupees.
+        cascade = [99, 100, 150, 200, 300, 500, 2500]
+        filler_values = [2500]*((max_non_filler*6)//10)
+        total_rupees = rupees_required*2+2500
+        print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
+        if sum(filler_values) < total_rupees:
+            filler_values += [2500]*math.ceil((total_rupees-sum(filler_values))/2400)
+            print(f"Not enough room in filler pool for rupees, adding more regal rings")
+        while sum(filler_values) > total_rupees:
+            i = self.random.choice(filler_values)
+            filler_values.remove(i)
+            if i != 100:
+                filler_values.append(cascade[cascade.index(i) - 1])
+
+        # Create items for the corresponding values
+        rupee_choices = {99: "Big Green Rupee (100)",
+                         100: "Big Green Rupee (100)",
+                         150: list(ITEM_GROUPS["Uncommon Treasures"]),
+                         200: "Big Red Rupee (200)",
+                         300: "Gold Rupee (300)",
+                         500: list(ITEM_GROUPS["Rare Treasures"]),
+                         2500: list(ITEM_GROUPS["Super Rare Treasures"])}
+        print(f"Rupee pool: {filler_values}")
+        for i in filler_values:
+            if isinstance(rupee_choices[i], str):
+                item_pool_dict[rupee_choices[i]] = item_pool_dict.get(rupee_choices[i], 0) + 1
+            else:
+                choice = self.random.choice(rupee_choices[i])
+                item_pool_dict[choice] = item_pool_dict.get(choice, 0) + 1
+        filler_count -= len(filler_values)
+        print(f"Rupee item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Rupee Pool Items']]}")
+        # Get filler items for the remaining items
+        for _ in range(filler_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
-
+        print(f"Filler item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Filler Item Pool']]}")
         return item_pool_dict
 
     def choose_tos_items(self):
@@ -800,7 +861,7 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"Rabbit Locations: {rabbit_counts} {intervals} {rabbit_locations}")
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
-                self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
+                self.rabbit_counts = [self.random.randint(1, max_count) for _ in range(5)]
             rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits])
 
         print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
@@ -868,7 +929,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.rabbit_pack_size == 0:  # Random uniform
             pack_sizes = [self.random.randint(1, 5), self.random.randint(1, 5)]
         else:
-            pack_sizes = [self.options.rabbit_pack_size.value]*2
+            pack_sizes = [self.options.rabbit_pack_size.value]*5
         # print(f"Uniform Packs {pack_sizes}")
         for r, s in zip(realms, pack_sizes):
             item_count = math.ceil(10 / s) + self.options.rabbit_extra_items.value
@@ -882,12 +943,19 @@ class SpiritTracksWorld(WorldParent):
         sections = range(1, 6)
         if self.options.exclude_sections == "remove":
             sections = [s for s in sections if s not in self.non_required_sections]
+
         add_items = []
         tear_sections = self.options.tear_sections.value
         count_normal = [3, 1][size_index]
 
         if tear_sections == 0 and self.options.randomize_tears not in ["no_tears", "vanilla"]:  # unique section
             add_items += [(f"{size_str}Tear of Light (ToS {section})", count_normal) for section in sections]
+            if (self.options.randomize_tears == "in_own_section"
+            and self.options.keysanity == "in_own_section"
+            and self.options.tear_size == "small"
+            and self.tower_section_lookup[6] < 6):
+                add_items.pop(-1)
+                add_items.append(("Big Tear of Light (ToS 6)", 1))
         elif tear_sections == 1:  # All Sections
             add_items += [(f"{size_str}Tear of Light (All Sections)", count_normal + spirit_weapon)]
         elif tear_sections == 2: # progressive
@@ -900,7 +968,7 @@ class SpiritTracksWorld(WorldParent):
         else:
             add_items += [("Sword", 1)]
 
-        print(f"New Tear Items: {add_items}")
+        # print(f"New Tear Items: {add_items}")
         return add_items
 
     def choose_stamp_items(self):
@@ -1151,16 +1219,14 @@ class SpiritTracksWorld(WorldParent):
 
     def get_filler_item_name(self) -> str:
         filler_item_names = list(ITEM_GROUPS["Common Treasures"] |
-                             ITEM_GROUPS["Uncommon Treasures"] |
+                             # ITEM_GROUPS["Uncommon Treasures"] |
                              ITEM_GROUPS["Refill Items"] |
-                             ITEM_GROUPS["Small Rupees"] |
-                             ITEM_GROUPS["Potions"]
+                             ITEM_GROUPS["Small Rupees"]
                              ) + ["Big Green Rupee (100)"]
-        rare_filler_items = list( ITEM_GROUPS["Rare Treasures"]) + [
-            "Big Red Rupee (200)", "Gold Rupee (300)"]
+        rare_filler_items = list(ITEM_GROUPS["Potions"])
 
-        # 1/20 chance to roll a rare filler item
-        if self.random.randint(1, 20) == 1:
+        # 1/5 chance to roll a rare filler item
+        if self.random.randint(1, 5) == 1:
             return self.random.choice(rare_filler_items)
         return self.random.choice(filler_item_names)
 

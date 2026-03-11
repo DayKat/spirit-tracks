@@ -17,10 +17,10 @@ class SpiritTracksGoal(Choice):
     """
     display_name = "Goal Location"
     option_defeat_malladus = -1
-    option_beat_tos_section_1 = 0
-    option_beat_tos_section_2 = 1
-    option_beat_wooded_temple = 2
-    option_beat_blizzard_temple = 3
+    # option_beat_tos_section_1 = 0
+    # option_beat_tos_section_2 = 1
+    # option_beat_wooded_temple = 2
+    # option_beat_blizzard_temple = 3
     default = -1
 
 class SpiritTracksDarkRealmUnlock(Choice):
@@ -226,7 +226,7 @@ class SpiritTracksExtraRabbits(Range):
     display_name = "Extra Rabbit Items"
     default = 0
     range_start = 0
-    range_end = 5
+    range_end = 2
 
 class SpiritTracksRandomizePortals(Choice):
     """
@@ -552,6 +552,7 @@ class SpiritTracksExcludeSections(Choice):
     """
     Exclude or remove locations from non-required Tower of Spirits Section.
     Will spawn the blue warp in the tower early if section 5 is excluded, you'll still need to defeat staven to reach the room behind it.
+    The Stamp Stand is active as long as stamps are.
     - include: non-required sections are included
     - exclude: non-required sections locations are excluded, and can't have useful or progression items.
     - remove: non-required section locations are removed from generation, and don't count towards hint cost etc.

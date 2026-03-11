@@ -567,35 +567,35 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
     # ========== Rabbits ============
 
     "Grass Rabbit": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Grass Rabbits", "Forest Rabbit"],
         'model': "Rabbit Net",
     },
     "Snow Rabbit": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Snow Rabbits"],
         'model': "Rabbit Net",
     },
     "Ocean Rabbit": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Ocean Rabbits"],
         'model': "Rabbit Net",
     },
     "Mountain Rabbit": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Mountain Rabbits", "Fire Rabbit"],
         'model': "Rabbit Net",
     },
     "Sand Rabbit": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Sand Rabbits", "Desert Rabbit"],
@@ -605,7 +605,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
 
 ITEMS_DATA |= {
     f"{realm} Rabbits ({n})": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         'value': n,
@@ -644,7 +644,7 @@ ITEMS_DATA |= {
         "model": "Red Rupee"
     },
     "Big Green Rupee (100)": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.rupees,
         'value': 100,
         "tags": ["incremental", 'backup_filler'],
@@ -653,7 +653,7 @@ ITEMS_DATA |= {
         "model": "Big Green Rupee"
     },
     "Big Red Rupee (200)": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.rupees,
         'value': 200,
         "tags": ["incremental", 'backup_filler'],
@@ -662,7 +662,7 @@ ITEMS_DATA |= {
         "model": "Big Red Rupee"
     },
     "Gold Rupee (300)": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.rupees,
         'value': 300,
         "tags": ["incremental", 'backup_filler'],
@@ -671,7 +671,7 @@ ITEMS_DATA |= {
         "model": "Gold Rupee"
     },
     "Pre-Alpha Rupee (5000)": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.rupees,
         'value': 5000,
         "tags": ["incremental"],
@@ -774,70 +774,70 @@ ITEMS_DATA |= {
         'model': "Wood Heart"
     },
     "Treasure: Dark Pearl Loop": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.dark_pearl_loop_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Uncommon Treasures", "Dark Pearl Loop"],
         'model': "Dark Pearl Loop"
     },
     "Treasure: White Pearl Loop": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.white_pearl_loop_count,
         'item_groups': ["Uncommon Treasures", "White Pearl Loop", "Pearl Loop"],
         'model': "White Pearl Loop"
     },
     "Treasure: Ruto Crown": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.ruto_crown_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Uncommon Treasures", "Ruto Crown"],
         'model': "Ruto Crown"
     },
     "Treasure: Dragon Scale": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.dragon_scale_count,
         'item_groups': ["Uncommon Treasures", "Dragon Scale"],
         'model': "Dragon Scale"
     },
     "Treasure: Pirate's Necklace": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.pirates_necklace_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Uncommon Treasures", "Pirate Necklace"],
         'model': "Pirate Necklace"
     },
     "Treasure: Palace Dish": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.palace_dish_count,
         'item_groups': ["Rare Treasures", "Palace Dish"],
         'model': "Palace Dish"
     },
     "Treasure: Goron Amber": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.goron_amber_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Rare Treasures", "Goron Amber"],
         'model': "Goron Amber"
     },
     "Treasure: Mystic Jade": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.mystic_jade_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Rare Treasures", "Mystic Jade"],
         'model': "Mystic Jade"
     },
     "Treasure: Ancient Coin": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.ancient_coin_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Rare Treasures", "Ancient Coin"],
         'model': "Ancient Coin"
     },
     "Treasure: Priceless Stone": {
-        'classification': ItemClassification.filler,
+        'classification': ItemClassification.progression,
         'address': STAddr.priceless_stone_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Super Rare Treasures", "Priceless Stone", "Alchemy Stone"],
@@ -1571,6 +1571,8 @@ ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbit
 ITEM_GROUPS["Tears of Light"] = ITEM_GROUPS["Big Tears of Light"] | ITEM_GROUPS["Small Tears of Light"]
 ITEM_GROUPS["Add Rails to Pool"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"] | ITEM_GROUPS["Sources"] | ITEM_GROUPS["Glyphs"]
 ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"]
+ITEM_GROUPS["Rupee Pool Items"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]
+ITEM_GROUPS["Filler Item Pool"] = ITEM_GROUPS["Potions"] | ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Common Treasures"]
 
 # for name, group in ITEM_GROUPS.items():
 #     print(f"{name}: {group}")

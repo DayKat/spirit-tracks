@@ -1214,7 +1214,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x8,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
     "Rabbit Haven Rescue 1 of Each Rabbit": {
@@ -1225,7 +1225,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_52,
         'value': 0x10,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Grass Rabbits": {
@@ -1236,7 +1236,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x20,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Snow Rabbits": {
@@ -1247,7 +1247,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x40,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Ocean Rabbits": {
@@ -1258,7 +1258,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x80,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Mountain Rabbits": {
@@ -1269,7 +1269,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_52,
         'value': 0x1,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
     "Rabbit Haven Rescue 10 Sand Rabbits": {
@@ -1280,7 +1280,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_52,
         'value': 0x2,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
     "Rabbit Haven Rescue 10 of Each Rabbit": {
@@ -1292,7 +1292,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_53,
         'value': 0x8,
         "conditional": True,
-        "location_groups": ["Rabbit Haven"],
+        "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
 
