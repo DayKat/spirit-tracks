@@ -306,6 +306,7 @@ REGIONS = [
     "ocs S island chest",
     "ocs nw chest",
     "ocs song",
+    "ocs carben",
 
     #Papuchia Village
     "papuchia village",
@@ -313,6 +314,8 @@ REGIONS = [
     "papuchia village song statue",
     "papuchia village stamp station",
     "pv dovok",
+    "pv carben",
+    "pv wadatsumi",
     "papuzia buy cargo",
     "papuzia shop",
     "papuzia shop bombs",
@@ -338,8 +341,9 @@ REGIONS = [
     "pirate hideout",
     "pirate hideout stamp station",
     "pirate hideout secret cave",
-    #"pirate hideout minigame 1st reward",
-    #"pirate hideout minigame 2nd reward",
+    "pirate wadatsumi",
+    "pirate hideout minigame 1st reward",
+    "pirate hideout minigame 2nd reward",
 
     #Lost at Sea Station
     "lost at sea",

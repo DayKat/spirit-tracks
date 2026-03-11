@@ -1817,23 +1817,32 @@ LOCATIONS_DATA = {
         "x_min": 10000,
     },
 
-      "Pirate Hideout Minigame 1st Reward": { #TODO Minigame implementation (See mayscore above)
-         "region_id": "pirate hideout minigame 1st reward",  # First time playing gives Wadatsumi, an NPC for NPC Rando lol,
-          "vanilla_item": "Heart Container",                 # This is going to be really complicated, have fun ;3
-          "stage_id": 0x3B,
-          "room_id": 0,
-          "require_item": ["Bow (Progressive)]"],  # Pirate hideout gives a free bow, decide if we want that or not.
-          "conditional": True
-      },
-
-    "Pirate Hideout Minigame 2nd Reward": {
-        "region_id": "pirate hideout minigame 2nd reward",
+    "Pirate Hideout Minigame 1st Reward": {
+        "region_id": "pirate hideout minigame 1st reward",
         "vanilla_item": "Bow (Progressive)",
-        "stage_id": 0x3B,
+        "stage_id": 0x3A,
         "room_id": 0,
         "conditional": True,
-        "require_item": ["Bow (Progressive)"]
+        "require_item": ["Bow (Progressive)"],
+        "address": STAddr.adv_flags_56,
+        "value": 0x10,
+        "location_groups": ["Pirate Hideout"],
+
       },
+
+    "Pirate Hideout Minigame 2nd Reward": { #TODO Minigame implementation (See mayscore above)
+        "region_id": "pirate hideout minigame 2nd reward",  # First time playing gives Wadatsumi, an NPC for NPC Rando lol,
+        "vanilla_item": "Heart Container",                 # This is going to be really complicated, have fun ;3
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "conditional": True,
+        "require_item": ["Bow (Progressive)]"],  # Pirate hideout gives a free bow, decide if we want that or not.
+        "address": STAddr.adv_flags_56,
+        "value": 0x20,
+        "location_groups": ["Pirate Hideout"]
+      },
+
+
 
     # Lost at Sea Station
 
@@ -3135,6 +3144,50 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "region_id": "pv dovok",
+    },
+    "Papuzia Village Pick Up Carben":{
+        "stage_id": 0x2C,
+        "room_id": 0,
+        "address": STAddr.adv_flags_9,
+        "value": 0x10,
+        "region_id": "pv carben",
+        "vanilla_item": "Passenger: Carben",
+        "location_groups": ["Papuzia Village", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+    },
+    "Ocean Sanctuary Carben's Force Gem": {
+        "stage_id": 0x32,
+        "room_id": 0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x4,
+        "vanilla_item": "Forest Realm SE Portal Tracks",
+        "location_groups": ["Ocean Sanctuary", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "ocs carben",
+    },
+    "Pirate Hideout Pick Up Wadatsumi": {
+        "stage_id": 0x23,
+        "room_id": 0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x3,
+        "region_id": "pirate wadatsumi",
+        "vanilla_item": "Passenger: Wadatsumi",
+        "location_groups": ["Pirate Hideout", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+    },
+    "Papuzia Village Wadatsumi's Force Gem":{
+        "stage_id": 0x2C,
+        "room_id": 0,
+        "address": STAddr.adv_flags_d,
+        "value": 0x4,
+        "vanilla_item": "Ocean Portal Tracks",
+        "location_groups": ["Papuzia Village", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "pv wadatsumi",
     },
     "Papuzia Village Buy Fish": {
         "stage_id": 0x2C,

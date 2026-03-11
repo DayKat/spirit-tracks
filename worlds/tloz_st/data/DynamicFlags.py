@@ -1,5 +1,5 @@
 from .Addresses import STAddr
-from .. import STAddr
+#from .. import STAddr
 
 DYNAMIC_FLAGS = {
     "Outset Rei": {
@@ -871,7 +871,7 @@ DYNAMIC_FLAGS = {
                               (STAddr.passenger_tag_0, 0x594B4350),
                               (STAddr.has_passenger_0, 0)]
     },
-    "No paseengers icyspring": {
+    "No passengers icyspring": {
         "on_scenes": [0x3500],
         "has_slot_data": [("randomize_passengers", 0)],
         "set_if_true": [(STAddr.adv_flags_3a, 0x50), (STAddr.adv_flags_3d, 0x10)],
@@ -963,7 +963,59 @@ DYNAMIC_FLAGS = {
                               (STAddr.has_passenger_0, 0)]
     },
 
+    #Carben (Oh Boy)
+        #Order of operations is play Song of Birds to knock him down
+        #Then take him to Sanc, Pirate Ambush happens
+    "Can pick up Carben": {
 
+    },
+    "Carben missing glyph": {
+        #may not need? Since can't both Papuzia and OCS Require Ocean Glyph and nothing else?
+    },
+    "Carben Arrives at Sanctuary": {
+
+    },
+
+    #Wadatsumi (Also Oh Boy, but for different reasons)
+        #Order of operations:
+        #Do Pirate Hideout minigame once to save him
+        #Take him to Papuzia for Force Gem
+        #Might need to set Dovok being delivered flag for Force Gem to trigger
+    "Can pick up Wadatsumi": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3]) ], #Option to not do minigames?
+        "set_if_true": [(STAddr.adv_flags_40, 0xC)], #Either 0x8 or 0xC, depending on needs to be added to current value of 0x4 for Zelda text or just set
+        "reset_flags": ["RESET Wadatsumi Saved"],
+    },
+    "Wadatsumi Missing Option": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [0])],
+        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)], #need to set bits to get Gorons to spawn at pirate hideout for follow up minigames
+        "reset_flags": ["RESET Wadatsumi Delivered"],
+    },
+    "Bring Wadatsumi to Papuzia": {
+        "on_scenes": [0x2C00],
+        "has_items": [("Passenger: Wadatsumi", 1)],
+        "check_bits": [(STAddr.adv_flags_34, 0x80, "not")],
+        "set_if_true": [],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2C),
+                              (STAddr.passenger_tag_0, 0x57414D41),
+                              (STAddr.has_passenger_0, 0)],
+    },
+
+    #Set Carben to Ocean Sanctuary
+    "No Passenger Carben Ocean Sanctuary": {
+        "on_scenes": [0x2C00],
+        "has_slot_data": [("randomize_passengers", [0])],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+    #Send Wadatsumi away from Pirate if No Passenger Option selected
+    "No Passenger Wadatsumi Pirate Hideout": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [0])],
+        #Below should set all flags to get Gorons to appear, I think (only one way to find out!)
+        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+    },
     # Cargo
     "AV skip fence text": {
         "on_scenes": [0x2b00],
