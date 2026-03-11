@@ -103,7 +103,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Snow Realm North Portal": {
-        "return_name": "Fire Realm Portal",
+        "return_name": "Mountain Portal",
         "entrance": (0x5, 0, 0xD),  # Random value, probably not correct
         "exit": (0x7, 0x0, 0x14),
         "entrance_region": "snow realm",
@@ -113,7 +113,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Snow Realm Bridge Portal": {
-        "return_name": "Ocean Realm Portal",
+        "return_name": "Ocean Realm South Portal",
         "entrance": (0x5, 0, 0xB),
         "exit": (0x6, 0x0, 0x9),
         "entrance_region": "snow realm",
@@ -123,9 +123,19 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Forest Realm Cave Portal": {
-        "return_name": "Fire Realm Portal 2",
+        "return_name": "Fire Realm Portal",
         "entrance": (0x4, 0, 0xC),
         "exit": (0x7, 0x0, 0x12),
+        "entrance_region": "ocean portal tracks",
+        "exit_region": "trading post tracks",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Ocean Realm West Portal": {
+        "return_name": "Forest Realm Mayscore Portal",
+        "entrance": (0x6, 0, 0xd),
+        "exit": (0x4, 0, 0xd),
         "entrance_region": "forest cave tracks",
         "exit_region": "fire realm",
         "type": EntranceGroups.TRAIN_PORTAL,
@@ -242,6 +252,15 @@ ENTRANCE_DATA = {
         "entrance_region": "oct phytops",
         "exit_region": "event_phytops",
         "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Vulcano": {
+        "two_way": False,
+        "entrance_region": "mtt boss",
+        "exit_region": "event_vulcano",
+        "entrance": (0x21, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -499,7 +518,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
-    "ToS 23F Blue Warp Before Stavem": {
+    "ToS 23F Blue Warp Before Staven": {
         "return_name": "ToS Top of Staircase Blue Warp",
         "entrance": (0x13, 0x14, 2),
         "exit": (0x17, 0x0, 6),
@@ -529,7 +548,66 @@ ENTRANCE_DATA = {
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
-    }
+    },
+    "Desert Temple Enter Boss": {
+        "return_name": "Skeldritch Exit",
+        "entrance_region": "dt b2",
+        "exit_region": "skeltritch",
+        "entrance": (0x1D, 0x4, 0x1),
+        "exit": (0x22, 0x0, 0),
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Desert Temple Enter Post-Fight": {
+        "return_name": "Skeldritch Post-Fight Exit",
+        "entrance_region": "dt b2",
+        "exit_region": "skeltritch",
+        "entrance": (0x1D, 0x4, 0x1),
+        "exit": (0x22, 0x1, 0),
+        "type": EntranceGroups.BOSS,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Bring Ice to Kagoron": {
+        "two_way": False,
+        "entrance_region": "goron ice",
+        "exit_region": "goron ice event",
+        "entrance": (0x2e, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Papuzia NW House": {
+        "return_name": "Papuzia House",
+        "entrance_region": "papuzia village",
+        "exit_region": "papuzia nw house",
+        "entrance": (0x2c, 0x0, 0x1),
+        "exit": (0x2c, 0x1, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Papuzia South": {
+        "return_name": "South Papuzia North",
+        "entrance_region": "papuzia village",
+        "exit_region": "papuzia south",
+        "entrance": (0x2c, 0x0, 0x5),
+        "exit": (0x39, 0x0, 0x0),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Fire Realm East": {
+        "return_name": "Snow Realm West",
+        "entrance_region": "fire realm",
+        "exit_region": "btt",
+        "entrance": (0x7, 0x0, 0xFD),
+        "exit": (0x5, 0x0, 0xFE),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
 
 }
@@ -548,6 +626,7 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "ToS 23F Defeat Staven": "EVENT: Defeat Staven",
                          "ToS 24F Final Chest": "EVENT: Reach ToS 24F",
                          "Marine Temple Dungeon Reward": "EVENT: Defeat Cactops",
+                         "Mountain Temple Dungeon Reward": "EVENT: Defeat Vulcano",
                          "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch"}
 goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
                          3: "GOAL: Defeat Fraaz",

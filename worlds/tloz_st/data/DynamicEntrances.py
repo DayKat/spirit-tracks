@@ -219,21 +219,134 @@ DYNAMIC_ENTRANCES = {
         "message": "You don't have access to this portal!"
     },
 
-    "Bounce snow portal north": {
+    "Bounce icyspring portal": {
         "entrance": "Snow Realm North Portal",
         "destination": "Snow Realm North Portal",
+        "has_items": [("Mountain Temple Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Mountain Temple Tracks!"
+    },
+    "Bounce icyspring item": {
+        "entrance": "Snow Realm North Portal",
+        "destination": "Snow Realm North Portal",
+        "not_has_all_items": [("Mountain Temple Tracks", 1),
+                              ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
+
     "Bounce snow portal bridge": {
         "entrance": "Snow Realm Bridge Portal",
         "destination": "Snow Realm Bridge Portal",
+        "has_items": [("Marine Temple Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Marine Temple Tracks!"
+    },
+    "Bounce snow bridge portal item": {
+        "entrance": "Snow Realm Bridge Portal",
+        "destination": "Snow Realm Bridge Portal",
+        "not_has_all_items": [("Marine Temple Tracks", 1),
+                              ("Portal Unlock: Snow Bridge to Island Sanctuary", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
-    "Bounce forest portal cave": {
+
+    "Bounce island sanc portal": {
+        "entrance": "Ocean Realm South Portal",
+        "destination": "Ocean Realm South Portal",
+        "has_items": [("Snow Realm Bridge Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Snow Realm Bridge Tracks!"
+    },
+    "Bounce island sanc portal item": {
+        "entrance": "Ocean Realm South Portal",
+        "destination": "Ocean Realm South Portal",
+        "not_has_all_items": [("Snow Realm Bridge Tracks", 1),
+                              ("Portal Unlock: Snow Bridge to Island Sanctuary", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce ocean west portal": {
+        "entrance": "Ocean Realm West Portal",
+        "destination": "Ocean Realm West Portal",
+        "has_items": [("Ocean Glyph", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Ocean Glyph!"
+    },
+    "Bounce ocean west portal item": {
+        "entrance": "Ocean Realm West Portal",
+        "destination": "Ocean Realm West Portal",
+        "not_has_all_items": [("Ocean Glyph", 1),
+                              ("Portal Unlock: Mayscore to Ocean Portal Tracks", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce mayscore portal": {
+        "entrance": "Forest Realm Mayscore Portal",
+        "destination": "Forest Realm Mayscore Portal",
+        "has_items": [("Ocean Portal Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Ocean Portal Tracks!"
+    },
+    "Bounce mayscore portal item": {
+        "entrance": "Forest Realm Mayscore Portal",
+        "destination": "Forest Realm Mayscore Portal",
+        "not_has_all_items": [("Ocean Portal Tracks", 1),
+                              ("Portal Unlock: Mayscore to Ocean Portal Tracks", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce mountain portal": {
+        "entrance": "Mountain Portal",
+        "destination": "Mountain Portal",
+        "has_items": [("N Icy Spring Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the N Icy Spring Tracks!"
+    },
+    "Bounce mountain item": {
+        "entrance": "Mountain Portal",
+        "destination": "Mountain Portal",
+        "not_has_all_items": [("N Icy Spring Tracks", 1),
+                              ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce Cave portal": {
         "entrance": "Forest Realm Cave Portal",
         "destination": "Forest Realm Cave Portal",
+        "has_items": [("Fire Glyph", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Fire Glyph!"
+    },
+    "Bounce Cave portal item": {
+        "entrance": "Forest Realm Cave Portal",
+        "destination": "Forest Realm Cave Portal",
+        "not_has_all_items": [("Fire Glyph", 1),
+                              ("Portal Unlock: Forest Cave to Goron Village", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
+
+    "Bounce goron portal": {
+        "entrance": "Fire Realm Portal",
+        "destination": "Fire Realm Portal",
+        "has_items": [("Forest Realm SW Cave Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Forest Realm SW Cave Tracks!"
+    },
+    "Bounce goron portal item": {
+        "entrance": "Fire Realm Portal",
+        "destination": "Fire Realm Portal",
+        "not_has_all_items": [("Forest Realm SW Cave Tracks", 1),
+                              ("Portal Unlock: Forest Cave to Goron Village", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
 
     # Dark realm options
     "Bounce Dark realm missing endgame requirements": {
@@ -324,20 +437,25 @@ DYNAMIC_ENTRANCES = {
         "entrance": "ToS 24F Blue Portal",
         "destination": "_connected_dungeon_entrance",
     },
-
-    # Sanctuary Bounces  (solved with dynaflags instead)
-    # "Bounce FoS": {
-    #     "entrance": "Forest Sanctuary Enter Sanctuary",
-    #     "destination": "Forest Sanctuary Enter Sanctuary",
-    #     "has_items": [("Spirit Flute", 0)],
-    #     "message": "You need the Spirit Flute to enter here"
-    # },
-    # "Bounce Snow Sanc": {
-    #     "entrance": "Snow Sanctuary Enter Inner Sanctuary",
-    #     "destination": "Snow Sanctuary Enter Inner Sanctuary",
-    #     "has_items": [("Spirit Flute", 0)],
-    #     "message": "You need the Spirit Flute to enter here"
-    # },
+    "Exit ToS 23F": {
+        "entrance": "ToS 23F Blue Warp Before Staven",
+        "destination": "_connected_dungeon_entrance",
+    },
+    "Skeldritch avoid post fight stuffs": {
+        "entrance": "Desert Temple Enter Post-Fight",
+        "destination": "Skeldritch Exit",
+        "not_has_locations": ["Desert Temple Dungeon Reward"],
+    },
+    "Fire realm bounce snow realm without btt": {
+        "entrance": "Fire Realm East",
+        "destination": "Fire Realm East",
+        "has_items": [("Blizzard Temple Tracks", 0)],
+        "message": "The game crashes here without the blizzard temple tracks. Sorry!"
+    },
+    "Prevent softlock in papuzia south": {
+        "entrance": "South Papuzia North",
+        "destination": "Papuzia NW House"
+    },
 }
 
 # Reorganize above data to the form {scene: data} or something

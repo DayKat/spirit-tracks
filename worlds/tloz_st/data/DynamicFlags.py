@@ -20,6 +20,13 @@ DYNAMIC_FLAGS = {
         "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)]
     },
+    "Outset leave after Alfonzo no cannon": {
+        "on_scenes": [0x2F00],
+        "has_items": [("Cannon", 0)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_11, 0x40)],
+        "unset_if_true": [(STAddr.adv_flags_11, 0x40)]
+    },
     "RESET forest glyph": {
         "has_items": [["Forest Glyph", 1]],
         "set_if_true": [(STAddr.adv_flags_1, 0x80), (STAddr.adv_flags_0, 0x04)]
@@ -31,12 +38,12 @@ DYNAMIC_FLAGS = {
     },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
-        "not_has_locations": ["Forest Sanctuary Song Statue"],
+        "not_has_locations": ["Woodland Sanctuary Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x01)],
         "reset_flags": ["RESET fs statue"]
     },
     "RESET fs statue": {
-        #"has_locations": ["Forest Sanctuary Song Statue"],
+        #"has_locations": ["Woodland Sanctuary Song Statue"],
         "has_items": [["Song of Awakening", 1]],
         "set_if_true": [(STAddr.songs, 0x01)],
     },
@@ -49,6 +56,12 @@ DYNAMIC_FLAGS = {
     "Allow learning healing song oct": {
         "on_scenes": [0x1b0a],
         "not_has_locations": ["Marine Temple Song Statue"],
+        "unset_if_true": [(STAddr.songs, 0x02)],
+        "reset_flags": ["RESET wt statue"]
+    },
+    "Allow learning healing song mtt": {
+        "on_scenes": [0x1c0A],
+        "not_has_locations": ["Mountain Temple Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
         "reset_flags": ["RESET wt statue"]
     },
@@ -88,7 +101,13 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x2000],
         "not_has_locations": ["Marine Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
-        "reset_flags": ["RESET Add Ocean Source"]
+        "reset_flags": ["RESET Add Ocean source"]
+    },
+    "Cragma/Vulcano location": {
+        "on_scenes": [0x2100],
+        "not_has_locations": ["Mountain Temple Dungeon Reward"],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Add Fire source", "RESET Remove Fire source"]
     },
     "Skeldritch location": {
         "on_scenes": [0x2200],
@@ -107,6 +126,11 @@ DYNAMIC_FLAGS = {
     "RESET stagnox reward": {
         "has_items": [["Forest Source", 1]],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)]
+    },
+    "Remove Bow of light in desert temple": {
+        "on_scenes": [0x1d06],
+        "unset_if_true": [(STAddr.adv_flags_16, 1)],
+        "reset_flags": ["RESET Bow of Light"]
     },
     "Remove Forest Source": {
         "on_scenes": [0x1E03, 0x1E0A],
@@ -149,6 +173,20 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_11, 0x60)],
         "set_if_true": [(STAddr.adv_flags_1b, 0x02)],
     },
+    "Castle town teacher snow": {  # needs a s+q for some reason
+        "on_scenes": [0x2900],
+        "has_items": [("Snow Glyph", 1)],
+        "not_has_locations": ["Castle Town Pick Up Teacher"],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+    },
+    "Castle town teacher ocean": {  # needs a s+q for some reason
+        "on_scenes": [0x2900],
+        "has_items": [("Ocean Glyph", 1)],
+        "not_has_locations": ["Castle Town Pick Up Teacher"],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+    },
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
@@ -177,6 +215,12 @@ DYNAMIC_FLAGS = {
     "RESET Stamp Book Check": {
         "has_items": [["Stamp Book", 1]],
         "set_if_true": [(STAddr.adv_flags_25, 0x02)],
+    },
+    "Allow stamp rewards": {
+        "on_scenes": [0x2F0A],
+        "has_locations": ["Outset Receive Stamp Book"],
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
+        "reset_flags": ["RESET Remove Snow source"]
     },
 
     "Fraaz location": {
@@ -218,20 +262,20 @@ DYNAMIC_FLAGS = {
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
         "reset_flags": ["RESET fire glyph"]
     },
+    "Forest realm crashes fire glyph and no forest source tracks": {
+        "on_scenes": [0x400],
+        "has_items": [["Fire Glyph", 1], ["Forest Source", 0]],
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "reset_flags": ["RESET fire glyph"]
+    },
     "RESET fire glyph": {
         "set_if_true": [(STAddr.adv_flags_2, 0x04)],
         "has_items": [["Fire Glyph", 1]],
     },
-    # "Forest Sanctuary reset duet":{ #TODO wrong flag?
-    #     "on_scenes": [0x3001],
-    #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
-    #     "unset_if_true": [(0x265715, 0x01)]
-    # },
-    # "Assume duet done outside room":{
-    #     "on_scenes": [0x3000],
-    #     "not_has_locations": ["Forest Sanctuary Gage Duet"],
-    #     "set_if_true": [(0x265715, 0x01)]
-    # },
+    "RESET not has fire glyph": {
+        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+        "has_items": [["Fire Glyph", 0]],
+    },
 
     # Portals
     "Allow Portal near castle town always open": {
@@ -247,17 +291,29 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
-    "Keep portal loc open anouki village": {
+    "Close Castle town portal no item": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [("portal_behavior", 2)],
+        "not_has_all_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 1], ("Snow Glyph", 1)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    },
+
+    "Keep portal loc available anouki village": {
         "on_scenes": [0x0500],
         "has_slot_data": [["portal_checks", 1]],
         "not_has_locations": ["Snow Realm Shoot SW Portal"],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
-    "Close Castle town portal no item": {
-        "on_scenes": [0x0400],
-        "has_slot_data": [("portal_behavior", 2)],
-        "has_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 0]],
-        "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    "Open anouki portal open portals": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    },
+    "Open anouki portal item": {
+        "on_scenes": [0x0500],
+        "has_items": [("Portal Unlock: Hyrule Castle to Anouki Village", 1)],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]
     },
 
     "Allow portal snow realm E to Forest S always open": {
@@ -273,18 +329,32 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
-    "Keep portal loc open s trading post": {
+    "Close snow realm E to Forest S item": {
+        "on_scenes": [0x500],
+        "not_has_all_items": [["Portal Unlock: Trading Post to E Snow Realm", 1], ["Forest Realm SE Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
+    },
+
+    "Keep portal loc available s trading post": {
         "on_scenes": [0x400],
         "not_has_locations": ["Forest Realm Shoot SE Portal"],
         "has_slot_data": [["portal_checks", 1]],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
-    "Close portal e snow realm items": {
-        "on_scenes": [0x500],
-        "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 0]],
-        "has_slot_data": [("portal_behavior", 2)],
-        "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
+    "open portals s trading post": {
+        "on_scenes": [0x400],
+        "has_items": [("Blizzard Temple Tracks", 1)],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
+    "open portal s trading post item": {
+        "on_scenes": [0x400],
+        "has_items": [("Blizzard Temple Tracks", 1), ("Portal Unlock: Trading Post to E Snow Realm", 1)],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
+    },
+
     "Dark realm restart for dynamic entrances": {
         "on_scenes": [0x400],
         "unset_if_true": [(STAddr.adv_flags_57, 0x30)]
@@ -293,6 +363,7 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1000, 0x10FF],
         "set_if_true": [(STAddr.adv_flags_57, 0x30)]
     },
+
     "Allow Portal near marine temple always open": {
         "on_scenes": [0x600],
         "has_items": [["Sand to Fire Connection Tracks", 1]],
@@ -306,41 +377,265 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
-    "Allow Portal sand connection always open": {
-        "on_scenes": [0x700],
-        "has_items": [["Marine Temple Tracks", 1]],
-        "has_slot_data": [("portal_behavior", 1)],
-        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    "Close Portal near marine temple item": {
+        "on_scenes": [0x600],
+        "not_has_all_items": [["Sand to Fire Connection Tracks", 1],
+                      ["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
+
     "Prevent Portal sand connection to marine location": {
         "on_scenes": [0x700],
         "not_has_locations": ["Fire Realm Shoot Sand Portal"],
         "has_slot_data": [("portal_checks", 1)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
+    "Open Portal sand connection to marine always open": {
+        "on_scenes": [0x700],
+        "has_items": [["Sand to Fire Connection Tracks", 1]],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+    "Open Portal sand connection to marine items": {
+        "on_scenes": [0x700],
+        "has_items": [["Sand to Fire Connection Tracks", 1],
+                      ["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+
     "Allow Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
         "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1]],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
     },
     "Allow Portal sand temple shortcut with item": {
         "on_scenes": [0x600],
         "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1],
-                      ("Portal Unlock: Fire Sand Connection to Marine Temple", 1)],
-        "has_slot_data": [("portal_behavior", 2)],
+                      ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "has_slot_data": [("portal_behavior", 2), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
     },
-    "Close Portal sand temple shortcut always open right": {
+    "Close sand portal no item": {
+        "on_scenes": [0x600],
+        "not_has_all_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1],
+                      ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "not_has_locations": ["Sand Realm Shoot Temple Portal"],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x01)],
+    },
+    "Close Portal sand temple shortcut right": {
         "on_scenes": [0x600],
         "has_slot_data": [("portal_checks", 1)],
         "not_has_locations": ["Sand Realm Shoot Temple Portal"],
         "on_entrance": [0x7, 0xB, 0xFB],  # will also close if coming from north, but you can reload at sand sanc
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)]
     },
+    "Open Portal sand temple shortcut always open": {
+        "on_scenes": [0x600],
+        "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1]],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)]
+    },
+    "Open Portal sand temple shortcut item": {
+        "on_scenes": [0x600],
+        "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1],
+                      ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)]
+    },
+
+    "Keep portal closed loc icy spring": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Snow Realm Shoot N Portal"],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x02)]  # activates portal to sw snow realm
+    },
+    "Allow Portal icy spring always open": {
+        "on_scenes": [0x0500],
+        "has_items": [["Mountain Temple Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1), ["portal_checks", 0]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)],
+    },
+    "Allow Portal icy spring with item": {
+        "on_scenes": [0x0500],
+        "has_items": [["Mountain Temple Tracks", 1], ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [("portal_behavior", 2), ["portal_checks", 0]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)]
+    },
+
+    "Allow Portal mountain always open": {
+        "on_scenes": [0x0700],
+        "has_items": [["N Icy Spring Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)],
+    },
+    "Allow Portal mountain with item": {
+        "on_scenes": [0x0700],
+        "has_items": [["N Icy Spring Tracks", 1], ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)]
+    },
+    "Close Portal mountain no item": {
+        "on_scenes": [0x0700],
+        "not_has_all_items": [["N Icy Spring Tracks", 1], ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x02)]
+    },
+
+    "Allow Portal goron village open portals": {
+        "on_scenes": [0x0700],
+        "has_items": [["Forest Realm SW Cave Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Allow Portal goron village item": {
+        "on_scenes": [0x0700],
+        "has_items": [["Forest Realm SW Cave Tracks", 1],
+                      ["Portal Unlock: Forest Cave to Goron Village", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Close Portal goron village item": {
+        "on_scenes": [0x0700],
+        "not_has_all_items": [["Forest Realm SW Cave Tracks", 1],
+                      ["Portal Unlock: Forest Cave to Goron Village", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+
+    "Open cave portal open portals": {
+        "on_scenes": [0x0400],
+        "has_items": [["Fire Glyph", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Open cave portal item": {
+        "on_scenes": [0x0400],
+        "has_items": [["Fire Glyph", 1],
+                      ["Portal Unlock: Forest Cave to Goron Village", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Keep portal loc closed cave": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Forest Realm Shoot SE Portal"],
+        "unset_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+
+    "Allow Portal mayscore open portals": {
+        "on_scenes": [0x0400],
+        "has_items": [["Ocean Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Allow Portal mayscore item": {
+        "on_scenes": [0x0400],
+        "has_items": [["Ocean Portal Tracks", 1],
+                      ["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Close Portal mayscore item": {
+        "on_scenes": [0x0400],
+        "not_has_all_items": [["Ocean Portal Tracks", 1],
+                              ["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+
+    "Open ocean portal open portals": {
+        "on_scenes": [0x0600],
+        "has_items": [["Ocean Glyph", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Open ocean portal": {
+        "on_scenes": [0x0600],
+        "has_items": [["Ocean Glyph", 1],
+                      ["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Keep portal loc closed ocean": {
+        "on_scenes": [0x0600],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Ocean Realm Shoot West Portal"],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+
+    "Allow Portal island sanctuary open portals": {
+        "on_scenes": [0x0600],
+        "has_items": [["Snow Realm Bridge Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Allow Portal island sanctuary item": {
+        "on_scenes": [0x0600],
+        "has_items": [["Snow Realm Bridge Tracks", 1],
+                      ["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Close Portal island sanctuary item": {
+        "on_scenes": [0x0600],
+        "not_has_all_items": [["Snow Realm Bridge Tracks", 1],
+                              ["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+
+    "Open snow bridge portal open portals": {
+        "on_scenes": [0x0500],
+        "has_items": [["Ocean Portal Tracks", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Open snow bridge portal": {
+        "on_scenes": [0x0500],
+        "has_items": [["Ocean Portal Tracks", 1],
+                      ["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Keep snow bridge portal closed": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Snow Realm Shoot Bridge Portal"],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+
     # Sanctuaries
+    "Embrose don't have spirit flute": {
+        "on_scenes": [0x3303],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 8)]
+    },
+    "Embrose can play duet": {
+        "on_scenes": [0x3303],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Valley Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 8)]
+    },
+    "Embrose Reset flags": {
+        "on_scenes": [0x3303],
+        "unset_if_true": [(STAddr.rail_restorations, 0x10)],
+        "reset_flags": ["VS Reset MTT", "VS Reset MTT not has"]
+    },
+    "VS Reset MTT not has": {
+        "has_items": [("Mountain Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x10)]
+    },
+    "VS Reset MTT": {
+        "has_items": [("Mountain Temple Tracks", 1)],
+        "set_if_true": [(STAddr.rail_restorations, 0x10)]
+    },
+
     "Gage don't have spirit flute": {
         "on_scenes": [0x3001],
         "has_items": [("Spirit Flute", 0)],
@@ -349,7 +644,7 @@ DYNAMIC_FLAGS = {
     "Gage can play duet": {
         "on_scenes": [0x3001],
         "has_items": [("Spirit Flute", 1)],
-        "not_has_locations": ["Forest Sanctuary Song of Restoration"],
+        "not_has_locations": ["Woodland Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 1)]
     },
     "Gage Reset flags": {
@@ -373,13 +668,13 @@ DYNAMIC_FLAGS = {
     "Steem can play duet": {
         "on_scenes": [0x3102],
         "has_items": [("Spirit Flute", 1)],
-        "not_has_locations": ["Snow Sanctuary Song of Restoration"],
+        "not_has_locations": ["Snowfall Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 6)]
     },
     "Snow sanc remove vessel": {
         "on_scenes": [0x3102],
-        "has_locations": ["Snow Sanctuary Deliver Vessel"],
-        "not_has_locations": ["Snow Sanctuary Song of Restoration"],
+        "has_locations": ["Snowfall Sanctuary Deliver Vessel"],
+        "not_has_locations": ["Snowfall Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_40, 0x20), (STAddr.adv_flags_e, 0x10)],
         "reset_flags": ["RESET snow sanc vessel"]
     },
@@ -404,21 +699,27 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_20, 0x4)]
     },
     "Rael don't have spirit flute": {
-        "on_scenes": [0x3502],
+        "on_scenes": [0x3402],
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Rael can play duet": {
-        "on_scenes": [0x3502],
+        "on_scenes": [0x3402],
         "has_items": [("Spirit Flute", 1)],
-        "not_has_locations": ["Sand Sanctuary Song of Restoration"],
+        "not_has_locations": ["Dune Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Rael Always remove dtt ": {
-        "on_scenes": [0x3502],
+        "on_scenes": [0x3402],
         "unset_if_true": [(STAddr.rail_restorations, 0x20)],
         "reset_flags": ["Sand Sanc Reset DTT not has", "Sand Sanc Reset DTT"]
     },
+    "Rael remove desert resotration": {
+        "on_scenes": [0x3402],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x10)],
+        "not_has_locations": ["Dune Sanctuary Song of Restoration"]
+    },
+
     "Sand Sanc Reset DTT not has": {
         "has_items": [("Desert Temple Tracks", 0)],
         "unset_if_true": [(STAddr.rail_restorations, 0x20)]
@@ -428,7 +729,7 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.rail_restorations, 0x20)]
     },
     "Sand sanc get cuccos no cargo rando": {
-        "on_scenes": [0x3500],
+        "on_scenes": [0x3400],
         "has_slot_data": [("randomize_cargo", 0)],
         "set_if_true": [(STAddr.adv_flags_44, 0x8), (STAddr.adv_flags_d, 0x8)]
     },
@@ -571,13 +872,24 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x4503],
         "not_has_locations": ["Beedle Buy Bomb Bag"],
         "has_slot_data": [("shopsanity", "uniques")],
-        "unset_if_true": [(STAddr.adv_flags_22, 0x02), (STAddr.bomb_capacity, 2)],
+        "unset_if_true": [(STAddr.adv_flags_22, 0x02), (STAddr.bomb_capacity, 3)],
         "reset_flags": ["RESET beedle bomb bag flag"]
     },
     "RESET beedle bomb bag flag": {
         "has_items": [("Bombs (Progressive)", 1)],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
         "overwrite_if_true": [(STAddr.bomb_capacity, "Bombs (Progressive)", -1)]
+    },
+    "Remove Goron Quiver count": {
+        "on_scenes": [0x2e06],
+        "not_has_locations": ["Goron Shop Quiver"],
+        "has_slot_data": [("shopsanity", "uniques")],
+        "unset_if_true": [(STAddr.arrow_capacity, 3)],
+        "reset_flags": ["RESET Goron Quiver count"]
+    },
+    "RESET Goron Quiver count": {
+        "has_items": [("Bow (Progressive)", 1)],
+        "overwrite_if_true": [(STAddr.arrow_capacity, "Bow (Progressive)", -1)]
     },
     "Add beedle bomb flag": {
         "on_scenes": [0x4503],
@@ -615,6 +927,7 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "check_bits": [(STAddr.adv_flags_18, 0x40, "not")],
         "set_if_true": [(STAddr.adv_flags_18, 0x20)],
+        "unset_if_true": [(STAddr.adv_flags_3d, 0x02)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x37),
                               (STAddr.passenger_tag_0, 0x43524654),
                               (STAddr.has_passenger_0, 0)],
@@ -637,6 +950,12 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3700],
         "unset_if_true": [(STAddr.adv_flags_3e, 0x10)],
         "has_items": [("Treasure: Regal Ring", 0)],
+    },
+    "Open linebeck after bridge worker leaves backup": {
+        "on_scenes": [0x370a],
+        "set_if_true": [(STAddr.adv_flags_24, 0x10)],
+        "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],
+        "has_locations": ["Trading Post Pick Up Kenzo"]
     },
     "Remove Ocean Source for Kenzo Dialogue": {
         "on_scenes": [0x3700],
@@ -668,6 +987,16 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_passengers", 3)],
         "unset_if_true": [(STAddr.adv_flags_3c, 0x10)],
     },
+    "Bring Goron to CT": {
+        "on_scenes": [0x2900],
+        "has_items": [("Passenger: City Goron", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "check_bits": [(STAddr.adv_flags_3a, 0x8, "not")],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x1), (STAddr.adv_flags_1, 0x4)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x29),
+                              (STAddr.passenger_tag_0, 0x474F4350),
+                              (STAddr.has_passenger_0, 0)],
+    },
     # Anouki chief location
     "Enter Anouki Chief house": {
         "on_scenes": [0x2b01],
@@ -682,9 +1011,45 @@ DYNAMIC_FLAGS = {
                         (STAddr.adv_flags_4, 0x02)], # Remove Wagon, he gives ice hint
         "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source", "RESET Wagon"]
     },
+    "Anouki chief stop kofu": {
+        "on_scenes": [0x2b01],
+        "not_has_locations": ["Anouki Village Pick Up Kofu"],
+        "has_items": [("Fire Glyph", 0), ("Fire Source", 0)],
+        "has_slot_data": [("randomize_passengers", 3)],
+        "set_if_true": [(STAddr.adv_flags_37, 0x20)],
+        "reset_flags": ["RESET Kofu"]
+    },
+    "Anouki chief spawn kofu": {
+        "on_scenes": [0x2b01],
+        "any_has_items": [("Fire Glyph", 1), ("Fire Source", 1)],
+        "not_has_locations": ["Anouki Village Pick Up Kofu"],
+        "has_locations": ["Anouki Village Goron Force Gem"],
+        "has_slot_data": [("randomize_passengers", 3)],
+        "unset_if_true": [(STAddr.adv_flags_37, 0x20)],
+        "reset_flags": ["RESET Kofu"]
+    },
+    "RESET Kofu": {
+        "unset_if_true": [(STAddr.adv_flags_37, 0x20)],
+    },
     "Anouki village remove icons": {
         "on_scenes": [0x2b00],
         "set_if_true": [(STAddr.adv_flags_b, 0x10)],
+    },
+    "Goron West can't buy steel": {
+        "on_scenes": [0x2d03],
+        "has_items": [("Wagon", 0)],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80)],
+        "reset_flags": ["RESET Goron Geyser"]
+    },
+    "RESET Goron Geyser": {
+        "has_items": [("Wagon", 1)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
+    },
+    "Backup check goron geyser": {
+        "on_scenes": [0x2e00],
+        "check_bits": [(STAddr.adv_flags_59, 0x4)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
     },
     "RESET Wagon": {
         "has_items": [("Wagon", 1)],
@@ -692,19 +1057,24 @@ DYNAMIC_FLAGS = {
     },
     "Lock Snow Realm Rocktite Cave": {
         "on_scenes": [0x500],
-        "has_items": [("Snow Sanctuary Cave Key", 0), ("Blizzard Temple Tracks", 0)],
+        "has_items": [("Snowfall Sanctuary Cave Key", 0), ("Blizzard Temple Tracks", 0)],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20), (STAddr.adv_flags_b, 0x10)],
         "reset_flags": ["RESET Add Snow Source"]
     },
     "Unlock Snow Sanc Cave": {
         "on_scenes": [0x500],
-        "has_items": [("Snow Sanctuary Cave Key", 1)],
+        "has_items": [("Snowfall Sanctuary Cave Key", 1)],
         "set_if_true": [(STAddr.adv_flags_b, 0x10)],
     },
     "Anouki shop skip HC": {
         "on_scenes": [0x3103],
         "has_slot_data": [("shopsanity", "uniques", "not")],
         "set_if_true": [(STAddr.adv_flags_21, 0x40)],
+    },
+    "Goron shop skip Quiver": {
+        "on_scenes": [0x2e06],
+        "has_slot_data": [("shopsanity", "uniques", "not")],
+        "set_if_true": [(STAddr.adv_flags_22, 0x1)],
     },
     "Remove shield from shield shops": {
         "on_scenes": [0x2a05, 0x290a, 0x3103, 0x370a],
@@ -807,7 +1177,8 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x3601],
         "has_items": [("Ocean Glyph", 1)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "set_if_true": [(STAddr.adv_flags_c, 0x80)],
+        "set_if_true": [(STAddr.adv_flags_c, 0x80)],  # allow him to travel
+        "unset_if_true": [(STAddr.adv_flags_18, 0x20)],  # make sure he spawns
         "reset_flags": ["RESET abstract kenzo on train"]
     },
     "Can't pick up kenzo": {
@@ -861,6 +1232,26 @@ DYNAMIC_FLAGS = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
                               (STAddr.passenger_tag_0, 0x43524654),
                               (STAddr.has_passenger_0, 0)]
+    },
+    "Bring Goron to AV": {
+        "on_scenes": [0x2b00],
+        "has_items": [("Passenger: Snow Goron", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Anouki Village Goron Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_38, 0x2)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
+                              (STAddr.passenger_tag_0, 0x474F5250),
+                              (STAddr.has_passenger_0, 0)],
+    },
+    "Bring Kofu to GV": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Passenger: Kofu", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Goron Village Kofu Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_37, 0x20)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2e),
+                              (STAddr.passenger_tag_0, 0x594B4150),
+                              (STAddr.has_passenger_0, 0)],
     },
     "Bring Noko to Icyspring": {
         "on_scenes": [0x3500],
@@ -1043,16 +1434,32 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.cargo_0, 0xFFFFFFFF),(STAddr.cargo_1, 0xFFFFFFFF)],
         "unset_if_true": [(STAddr.cargo_count_0, 0xFF), (STAddr.cargo_count_1, 0xFF)]
     },
-    "Outset has Cuccos": {
+    "Outset has Cuccos vanilla abstract": {
         "on_scenes": [0x2f00],
         "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
-        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "has_slot_data": [("randomize_cargo", 2)],
+        "not_has_locations": ["Outset Deliver Cuccos"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
+    },
+    "Outset has 2 Cuccos": {
+        "on_scenes": [0x2f00],
+        "has_items": [("Cargo: Cuccos (5)", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Outset Deliver Cuccos", "Dune Sanctuary Deliver Cuccos to Rael"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
+    },
+    "Outset has 3 Cuccos": {
+        "on_scenes": [0x2f00],
+        "has_items": [("Cargo: Cuccos (5)", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
         "not_has_locations": ["Outset Deliver Cuccos"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
     },
     "CT has fish": {
-        "on_scenes": [0x2900],
+        "on_scenes": [0x2900, 0x290e],
         "has_items": [("Cargo: Fish", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
         "not_has_locations": ["Castle Town Lucia Fish Force Gem"],
@@ -1077,31 +1484,132 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 6), (STAddr.cargo_count_0, 20)]
     },
-    "Rael has Cuccos": {
+    "Mayscore Deliver Steel": {
+        "on_scenes": [0x2a00],
+        "has_items": [("Cargo: Goron Steel", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "not_has_locations": ["Mayscore Deliver Steel"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 2), (STAddr.cargo_count_0, 20)]
+    },
+    "Rael has Cuccos vanilla abstract": {
         "on_scenes": [0x3400],
         "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
-        "has_slot_data": [("randomize_cargo", [2, 3])],
-        "not_has_locations": ["Sand Sanctuary Deliver Cuccos to Rael"],
+        "has_slot_data": [("randomize_cargo", 2)],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
+    },
+    "Rael has 1 Cuccos ": {
+        "on_scenes": [0x3400],
+        "has_items": [("Cargo: Cuccos (5)", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael", "Outset Deliver Cuccos"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
+    },
+    "Rael has 3 Cuccos ": {
+        "on_scenes": [0x3400],
+        "has_items": [("Cargo: Cuccos (5)", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
     },
     "Keep rael upstairs": {
         "on_scenes": [0x3400],
-        "has_locations": ["Sand Sanctuary Deliver Cuccos to Rael"],
+        "has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
-    "Papuzia has ice": {
+    "Papuzia has ice vanilla abstract": {
         "on_scenes": [0x2c00],
         "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
-        "has_slot_data": [("randomize_cargo", [2, 3])],
+        "has_slot_data": [("randomize_cargo", 2)],
         "not_has_locations": ["Papuzia Village Deliver Ice"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Papuzia has 1 ice": {
+        "on_scenes": [0x2c00],
+        "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Papuzia has 2 ice": {
+        "on_scenes": [0x2c00],
+        "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Papuzia has 3 ice": {
+        "on_scenes": [0x2c00],
+        "has_items": [("Cargo: Mega Ice", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Papuzia Village Deliver Ice"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron elder skip cutscene": {
+        "on_scenes": [0x2e0a],
+        "set_if_true": [(STAddr.adv_flags_21, 0x2)]
+    },
+    "Goron Village Ice 1": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "not_has_locations": ["Papuzia Village Deliver Ice"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village Ice 2": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
+    },
+    "Goron Village Ice 2 gem": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "check_bits": [(STAddr.adv_flags_1f, 0x80)],
+        "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village Ice 3": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 3), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 3)],
+        "not_has_locations": ["Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village Ice abstract vanilla": {
+        "on_scenes": [0x2e00],
+        "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
+        "has_slot_data": [("randomize_cargo", 2)],
+        "not_has_locations": ["Goron Village Deliver Ice Force Gem"],
+        "reset_flags": ["RESET Cargo"],
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+    },
+    "Goron Village no cargo": {
+        "on_scenes": [0x2e00],
+        "has_slot_data": [("randomize_cargo", [0])],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80), (STAddr.adv_flags_59, 0x6),(STAddr.adv_flags_f, 0x01)]
     },
     # Papuzia
     "Allow SoB statue": {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
+        "has_items": [("Song of Discovery", 1)],
         "unset_if_true": [(STAddr.songs, 0x4)],
         "set_if_true": [(STAddr.adv_flags_a, 0xA0)],
         "reset_flags": ["RESET SoB"]
@@ -1131,6 +1639,91 @@ DYNAMIC_FLAGS = {
         "on_scenes": [0x1D00],
         "has_locations": ["Desert Temple 1F N Trap Chest", "Desert Temple 1F N Arena Chest"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
+    },
+    "Meet kagoron quicky": {
+        "on_scenes": [0x2d02],
+        "set_if_true": [(STAddr.adv_flags_18, 0x8)]
+    },
+    "Goron Village prevent all the crashes": {
+        "on_scenes": [0x2e00],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x10)],  # Finished wagon cutscene, crashes with kagoron flag
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x04)],  # Snurglin flag, removes kagoron preventing ice trade
+    },
+    "Mountain Altar Spawn Kagoron": {
+        "on_scenes": [0x2d02],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x10)],
+    },
+    "Has snurglar keys open temple": {
+        "on_scenes": [0x700],
+        "has_locations": ["Snurglars Gold Key", "Snurglars Purple Key", "Snurglars Orange Key"],
+        "has_items": [("Mountain Temple Snurglar Key", 3)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
+    },
+    "snurglar locs reset": {
+        "on_scenes": [0x700],
+        "any_not_has_locations": ["Snurglars Gold Key", "Snurglars Orange Key", "Snurglars Purple Key"],
+        "has_items": [("Cannon", 1)],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x4)],  # Sets on leaving MTT; just accept you cant hunt snurglars from mtt
+    },
+    "Add fire glyph in tos lobby if fire source": {
+        "on_scenes": [0x1400, 0x1401],
+        "has_items": [("Fire Source", 1)],
+        "set_if_true": [(STAddr.adv_flags_2, 4)],
+        "reset_flags": ["RESET not has fire glyph"]
+    },
+    "Add fire restoration flag in fire overworld": {
+        "on_scenes": [0x700],
+        "has_items": [("Mountain Temple Tracks", 1)],
+        "set_if_true": [(STAddr.adv_flags_1, 8)]
+    },
+    "Remove fire source in goron village no passengers": {
+        "on_scenes": [0x2E00],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Add Fire source"]
+    },
+    "Remove fire source in goron village pre lava": {
+        "on_scenes": [0x2E00],
+        "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Add Fire source"]
+    },
+    "Add fires source post lava": {
+        "on_scenes": [0x2E00],
+        "check_bits": [(STAddr.adv_flags_59, 0x4)],
+        "set_if_true": [(STAddr.adv_flags_0, 0x80)],
+        "reset_flags": ["RESET Remove Fire source"]
+    },
+    "GV remove snow goron no snow glyph": {
+        "on_scenes": [0x2E00],
+        "has_items": [("Snow Glyph", 0)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "set_if_true": [(STAddr.adv_flags_38, 2)],
+    },
+    "GV add snow goron no snow glyph": {
+        "on_scenes": [0x2E00],
+        "has_items": [("Snow Glyph", 1)],
+        "not_has_locations": ["Goron Village Pick Up Snow Goron"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_38, 2)],
+    },
+    "GV add snow goron no snow glyph vanilla": {
+        "on_scenes": [0x2E00],
+        "has_items": [("Snow Glyph", 1)],
+        "not_has_locations": ["Anouki Village Goron Force Gem"],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "unset_if_true": [(STAddr.adv_flags_38, 2)],
+    },
+    "ToS Force spawn train": {
+        "on_scenes": [0x1401, 0x1400],
+        "set_if_true": [(STAddr.adv_flags_4, 0x4)]
+    },
+    "GTR Easy": {
+        "on_scenes": [0xE00, 0x3c00],
+        "not_has_locations": ["Goron Target Range"],
+        "has_slot_data": [("minigames", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x4)],
+        "unset_if_true": [(STAddr.adv_flags_2a, 0x20)]
     },
 }
 """

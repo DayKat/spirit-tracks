@@ -30,4 +30,7 @@ class TestGeneration(WorldTestBase):
         "logic": "normal",
         "randomize_passengers": "randomize",
         "randomize_cargo": "randomize",
+        "randomize_stamps": "randomize",
+        "stamp_pack_sizes": 1,
+        "randomize_minigames": "everything"
     }

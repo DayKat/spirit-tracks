@@ -29,13 +29,13 @@ REGIONS = [
     # Outset Village
     "outset village",
     "outset village stamp book",
+    "outset 10 stamps",
+    "outset 15 stamps",
+    "outset 20 stamps",
     "outset village stamp station",
     "outset village trees",
     "outset joe",
     "outset cuccos",
-    #"outset village cuccos gem",
-    #"outset village joe gem",
-    #"outset village cannon",
 
     # Castle Town
     "castle town",
@@ -43,14 +43,17 @@ REGIONS = [
     "castle town wall",
     "castle town cuccos",
     "castle town shop",
+    "castle town teacher",
     "castle town mona",
     "pick up alfonzo",
     "alfonzo event",
+    "teao rupees",
     "teao 1",
     "teao 2",
     "teao 3",
     "castle town buy cuccos",
     "castle town fish",
+    "castle town goron",
 
     # Hyrule Castle
     "hyrule castle",
@@ -142,6 +145,7 @@ REGIONS = [
     # Mayscore
     "mayscore",
     "mayscore stamp station",
+    "mayscore whip game",
     "mayscore whip race bomb bag",
     "mayscore whip race heart container",
     "mayscore whip chest",
@@ -149,18 +153,20 @@ REGIONS = [
     "mayscore shop",
     "mayscore lumber",
     "mayscore leaves",
-    #"mayscore axe gem",
+    "mayscore steel",
 
     # Rabbit Haven
     "rabbit haven",
     "rabbit haven chest",
     "rabbit haven net",
     "rabbit haven 5 rabbits",
+    "rabbit haven 1 of each rabbits",
     "rabbit haven 10 forest rabbits",
     "rabbit haven 10 snow rabbits",
     "rabbit haven 10 ocean rabbits",
     "rabbit haven 10 mountain rabbits",
     "rabbit haven 10 sand rabbits",
+    "rabbit haven 50 rabbits",
     "rabbit haven mona",
 
     # "rabbit haven 50 rabbits"
@@ -210,6 +216,7 @@ REGIONS = [
     # Snow Realm
     "snow realm",
     "snow realm fr",
+    "snow realm fr portal",
     "anouki portal",
     "snow realm source",
     "blizzard temple tracks",
@@ -235,7 +242,8 @@ REGIONS = [
     "av noko",
     "av fence",
     "av kenzo",
-    #"anouki village worker to anouki gem",
+    "av goron",
+    "av kofu",
 
     # Snow Sanctuary
     "ss",
@@ -297,6 +305,13 @@ REGIONS = [
     "pirate hideout tracks",
     "las tracks",
     "ocean portal tracks",
+    "ocean portal",
+
+    "ocean rabbits",
+    "las rabbit",
+    "ocean source rabbits",
+    "ocean portal rabbits",
+    "pirate rabbit",
 
     #Ocean Sanctuary
     "ocs",
@@ -332,6 +347,7 @@ REGIONS = [
     "oct 3f whip",
     "oct 6f chest",
     "oct bk",
+    "oct bk loc",
     "oct phytops",
     "event_phytops",
     "goal_phytops",
@@ -365,6 +381,7 @@ REGIONS = [
     "gorge tracks",
     "fire source",
     "mountain temple tracks",
+    "snurglars",
     "ends of the earth",
     "disorientation station",
     "fire realm rabbits",
@@ -373,9 +390,49 @@ REGIONS = [
     "disorientation rabbits",
     "eote rabbits",
     "s mountain temple rabbit",
+
     "disorientation bird",
     "disorientation sod",
     "eote puzzles",
+
+    # Goron Village
+    "goron village",
+    "goron whip",
+    "goron shop",
+    "goron shop bombs",
+    "goron shop bow",
+    "goron steel",
+    "goron ice",
+    "goron village stamp",
+    "goron ice 2",
+    "goron ice event",
+    "pick up gorons",
+    "gv kofu",
+
+    "valley sanc tunnel",
+    "valley sanc",
+    "valley sanc stamp",
+    "valley sanc song",
+
+    "gtr",
+
+    # Mountain Temple
+    "mtt",
+    "mtt left",
+    "mtt right",
+    "mtt 2f right",
+    "mtt center",
+    "mtt song statue",
+    "mtt heatoise",
+    "mtt 1f ne",
+    "mtt b1",
+    "mtt b2",
+    "mtt b1 arena",
+    "mtt b1 cart",
+    "mtt stamp",
+    "mtt bk",
+    "mtt boss",
+    "event_vulcano",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
@@ -406,6 +463,7 @@ REGIONS = [
     "dt 2f sw",
     "dt 3f",
     "dt b1",
+    "dt b2",
     "dt stamp stand",
     "dt b1 2",
     "dt b1 damage",
@@ -429,5 +487,5 @@ REGIONS = [
 
 
 ] + [
-    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Mountain", "Sand"]
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
 ]

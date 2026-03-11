@@ -94,6 +94,29 @@ async def remove_cargo(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     ]
     return res
 
+async def handle_stamps(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    await client.update_stamps(ctx)
+    return []
+
+async def remove_vanilla_bow(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    bow_count = min(client.item_count(ctx, "Bow (Progressive)"), 3)
+    bow_item = client.item_data["Bow (Progressive)"]
+    if bow_count == 0:
+        return await remove_vanilla_normal(client, ctx, bow_item, rii)
+    prog_address, prog_value = bow_item.progressive[bow_count-1]
+    return [prog_address.get_inner_write_list(prog_value), bow_item.ammo_address.get_inner_write_list(bow_item.give_ammo[bow_count-1])]
+
+async def remove_vanilla_bow_of_light(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    if not ctx.slot_data["spirit_weapons"]:
+        return await remove_vanilla_normal(client, ctx, item, rii)
+    if any([
+        client.item_count(ctx, "Tear of Light (All Sections)") >= 6,
+        client.item_count(ctx, "Tear of Light (Progressive)") >= 16,
+        client.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
+        client.item_count(ctx, "Big Tear of Light (Progressive)") >= 6]):
+        return []
+    return await remove_vanilla_normal(client, ctx, item, rii)
+
 async def dummy(*args):
     print(f"Receiving dummy item")
     return []
@@ -101,14 +124,17 @@ async def dummy(*args):
 class STItem(DSItem):
     rooms: list[int]
     section: int
+    model: str = None
+    progressive_model: list[str]
+    vanilla_model: str = None
 
     def __init__(self, name, data, all_items):
         super().__init__(name, data, all_items)
 
+        self.vanilla_model = self.model if self.vanilla_model is None else self.vanilla_model
+
     def get_receive_function(self):
         res = super().get_receive_function()
-        if res is None:
-            return dummy
         if self.name.startswith("Passenger:"):
             return dummy
         if "Tear of Light" in self.name:
@@ -117,6 +143,10 @@ class STItem(DSItem):
             return receive_tos_key
         if "Potion" in self.name:
             return receive_potion
+        if self.name.startswith("Stamp") and not self.name == "Stamp Book":
+            return handle_stamps
+        if res is None:
+            return dummy
         return res
 
     def get_remove_vanilla_function(self):
@@ -126,10 +156,16 @@ class STItem(DSItem):
             return remove_tear_of_light
         if "Potion" in self.name:
             return remove_potion
+        if self.name == "Dummy Bow":
+            return remove_vanilla_bow
+        if self.name == "Bow of Light":
+            return remove_vanilla_bow_of_light
         if self.name.startswith("Passenger:"):
             return remove_passenger
         if self.name.startswith("Cargo:"):
             return remove_cargo
+        if self.name.startswith("Stamp") and not self.name == "Stamp Book":
+            return handle_stamps
         return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):

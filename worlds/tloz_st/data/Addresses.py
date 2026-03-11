@@ -20,7 +20,11 @@ class STAddr:
     floor = Address(0x1B2E98)
     room = Address(0x2690EA)
     entrance = Address(0x2690EB)
-    
+
+    respawn_stage = Address(0x262074)
+    respawn_room = Address(0x26207e)
+    respawn_entrance = Address(0x26207f)
+
     getting_location = Address(0x04B114)
     saving = Address(0x049BD8)
     getting_tear_safety = Address(0x327B8C)
@@ -92,6 +96,7 @@ class STAddr:
     source_rails = Address(0x2653B8)
     key_storage_0 = Address(0x265784)
     key_storage_tos = Address(0x265785)
+    key_storage_2 = Address(0x265786)
 
     train_parts = Address(0x2653A8, size=4)
     equipped_engine = Address(0x265388, size=4)
@@ -118,16 +123,39 @@ class STAddr:
     wt_bk_pointer = Address(0x3251C0, size=4)
     bt_bk_pointer = Address(0x326C20, size=4)
     oct_bk_pointer = Address(0x32520C, size=4)
+    mtt_bk_pointer = Address(0x32963C, size=4)
     dt_bk_pointer = Address(0x3251C8, size=4)
+    tos3_bk_pointer = Address(0x332858, size=4)
     tos_bk_pointer = Address(0x332818, size=4)
+
+    # Candidates for ToS 3 bk pointers
+    # 332858
+    # 332A20
+    # 332BB4
+    # 332BD4
+    # 332D1C
+    # 33DBFC
 
     # Boss door openers
     wt_boss_door = Address(0x3368FE)
     bt_boss_door = Address(0x33099E)
     oct_boss_door = Address(0x32F6EE)
+    mtt_boss_door = Address(0x33497E)
     dt_boss_door = Address(0x332C5E)
     tos3_boss_door = Address(0x33E482)
-    tos5_boss_door = Address(0x33E182)
+    # tos5_boss_door = Address(0x33E182)
+    tos5_boss_door = Address(0x33E1Ce)
+
+    # Object pointer table
+    tos_boss_door_pointer = Address(0x265668, size=4)
+
+    snurglin_keys = Address(0x2e986c)
+    snurglar_pointer = Address(0x0499F4, size=4)
+    mountain_gate = Address(0x2e3640)
+
+    # Stamps
+    stamp_ids = Address(0x268f8c, size=20)
+    stamp_coords = Address(0x268F50, size=40)
 
     # Adventure Flags
     adv_flags_0 = Address(0x265714)
@@ -241,6 +269,8 @@ class STAddr:
     ancient_coin_count = Address(0x26901a, size=2)
     priceless_stone_count = Address(0x26901c, size=2)
     regal_ring_count = Address(0x26901e, size=2)
+
+    item_model_table = Address(0x0af590)  # size=big
 
 #  = Address()
 #  = Address()

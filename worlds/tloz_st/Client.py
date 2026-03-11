@@ -1,6 +1,6 @@
 
 from .DSZeldaClient.DSZeldaClient import *
-from .DSZeldaClient.subclasses import storage_key
+from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
@@ -8,9 +8,12 @@ from .data.Entrances import ENTRANCES
 from settings import get_settings
 from typing import Literal
 
+from ..mlss.Data import vanilla
+
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
     from . import SpiritTracksSettings
+    from .Subclasses import STTransition
 
 # gMapManager -> mCourse -> mSmallKeys
 SMALL_KEY_OFFSET = 0x260
@@ -134,7 +137,7 @@ def cmd_warp_to_start(self: "BizHawkClientCommandProcessor"):
     client = get_client_as_command_processor(self)
     client.warp_to_start_flag = not client.warp_to_start_flag
     if client.warp_to_start_flag:
-        self.output(f"Primed a warp to start. Enter any entrance to warp to Outset")
+        self.output(f"Primed a warp to start. Enter any entrance or save and quit warp to Outset")
     else:
         self.output(f"Canceled Warp to Start")
     return True
@@ -162,6 +165,9 @@ class SpiritTracksClient(DSZeldaClient):
         self.in_stamp_stand: bool = False
         self.scene_to_stamp = build_scene_to_stamp()
         self.goal_locations = build_location_to_goal()
+        self.location_id_to_location = {l['id']: l for l in LOCATIONS_DATA.values()}
+        self.location_id_to_vanilla_item = {l['id']: l.get("vanilla_item", None) for l in LOCATIONS_DATA.values()}
+
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
         self.treasure_tracker: dict = {}
@@ -187,6 +193,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_data = []
         self.entrances = ENTRANCES
         self.boss_warp_entrance = None
+        self.location_id_to_name = {loc["id"]: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -209,6 +216,9 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.boss_key_y = None
         self.boss_key_read = None
+        self.snurglar_addr = None
+        self.last_anticipated_locations = []
+        self.delay_room_action: int = 0
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -237,8 +247,11 @@ class SpiritTracksClient(DSZeldaClient):
         return STAddr.link_x, STAddr.link_y, STAddr.link_z
 
     async def get_coords(self, ctx, multi=False):
+        # print(f"Coords: {[self.read_result.get(a, 0) for c, a in zip(['x', 'y', 'z'], self.get_coord_address())]}")
+        # return {c: self.read_result.get(a, 0) for c, a in zip(['x', 'y', 'z'], self.get_coord_address())}
+
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
-        print(f"Coords: {coords}")
+        # print(f"Coords: {coords}")
         return {
             "x": coords[STAddr.link_x],
             "y": coords[STAddr.link_y],
@@ -275,7 +288,7 @@ class SpiritTracksClient(DSZeldaClient):
         read_keys = read_keys_always
         read_keys += read_keys_land  # TODO: don't bother reading on train
         # read_keys += read_keys_train
-        if stage in range(4, 8):
+        if stage in range(4, 0xb):
             train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
             print(f"Train speed thingy {hex(train_speed_thingy)}")
             if 0x400000 > train_speed_thingy > 0:
@@ -324,19 +337,17 @@ class SpiritTracksClient(DSZeldaClient):
         if self.in_stamp_stand and self.receiving_location:
             self.getting_location = True
 
+        # Weird scene value on load from menu, set to last saved scene
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
             stage = (self.last_saved_scene & 0xFF00) >> 8
-            if stage in DUNGEON_STAGES_TO_ENTRANCE_SCENE:
-                self.last_saved_scene = DUNGEON_STAGES_TO_ENTRANCE_SCENE[stage]
 
             print(f"Overwriting weird scene: {hex(self.last_saved_scene)}")
             stage, room = (self.last_saved_scene & 0xFF00) >> 8, self.last_saved_scene & 0xFF
-            if stage in DUNGEON_STAGES_TO_ENTRANCE_SCENE:
-                self.last_saved_scene = DUNGEON_STAGES_TO_ENTRANCE_SCENE[stage]
 
             self.current_scene = self.last_saved_scene
             self.current_stage = read_result[STAddr.stage] = stage
             read_result[STAddr.room] = room
+            print(hex(self.current_scene), hex(self.current_stage))
             await STAddr.stage.overwrite(ctx, stage)
             await STAddr.room.overwrite(ctx, room)
 
@@ -422,6 +433,7 @@ class SpiritTracksClient(DSZeldaClient):
                         if self.location_name_to_id[location] not in ctx.checked_locations:
                             await remove_treasure()
                             await self._process_checked_locations(ctx, location)
+                            await self.set_shop_models(ctx, False)
                             return
 
         # Do stuff with excess treasure
@@ -485,7 +497,7 @@ class SpiritTracksClient(DSZeldaClient):
         if item_name.startswith("Boss Key") and self.current_scene in BOSS_KEY_DATA:
             data = BOSS_KEY_DATA[self.current_scene]
             if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
-                print(f"Opening boss door for {self.current_scene}")
+                print(f"Opening boss door for {hex(self.current_scene)}")
                 await data["door"].overwrite(ctx, 3)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
@@ -494,17 +506,168 @@ class SpiritTracksClient(DSZeldaClient):
         await self.update_rabbit_count(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
+        await super().process_in_game(ctx, read_result)
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:
             self.receiving_location = True
-            stamp_location = self.scene_to_stamp[self.current_scene] #TODO error when loading into slot (in fs) after receiving stamp book offline, scene refresh fixed
+            stamp_location = self.scene_to_stamp[self.current_scene]
+            await self.update_stamps(ctx)
             await self._process_checked_locations(ctx, stamp_location)
 
-        await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
-        await self.detect_ut_event(ctx, self.current_scene)
-        await self.process_train_speed(ctx, read_result)
-        await self.drink_potion(ctx, read_result)
         await self.detect_boss_key(ctx)
+        await self.process_train_speed(ctx, read_result)
+        await self.detect_ut_event(ctx, self.current_scene)
+
+    async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
+        await self.anticipate_location(ctx, read_result)
+        if self.delay_room_action:
+            self.delay_room_action -= 1
+            if self.delay_room_action <= 0:
+
+                if self.current_scene in potion_location_lookup:
+                    await self.set_shop_models(ctx, False)
+
+                # Change respawn data in special scenes
+                if self.current_stage in special_respawn_stages:
+                    await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                         special_respawn_stages[self.current_stage])
+
+                # Change respawn data to outside tower section in ToS
+                if self.current_stage == 0x13:
+                    section = TOS_FLOOR_TO_SECTION[self.current_room]
+                    entrance = self.entrances[TOS_SECTION_TO_EXIT[section]]
+                    reverse_entrance: "STTransition" = self.entrance_id_to_entrance[
+                        ctx.slot_data["er_pairings"][str(entrance.id)]] if str(entrance.id) in ctx.slot_data[
+                        "er_pairings"] else entrance.vanilla_reciprocal
+                    respawn_data = reverse_entrance.entrance
+                    print(f"Setting ToS respawn room {respawn_data}")
+                    await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                         respawn_data)
+
+
+    async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
+        await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
+        await self.drink_potion(ctx, read_result)
+
+        if self.snurglar_addr in read_result:
+            if read_result[self.snurglar_addr] & 0x20:
+                print(f"Opening Mountain Temple! {self.snurglar_addr}")
+                await self.snurglar_addr.set_bits(ctx, 0x10)
+                self.main_read_list.remove(self.snurglar_addr)
+
+    async def anticipate_location(self, ctx: "BizHawkClientContext", read_result: dict):
+        if read_result[STAddr.stage] < 0x13 or self.getting_location:
+            return
+        # print(f"Locations in scene: {[l for l in self.locations_in_scene]}")
+        coords = await self.get_coords(ctx)
+        valid_locations = []
+        priority = 30
+        for loc_name, loc in self.locations_in_scene.items():
+            if (loc.get("x_max", 0x8FFFFFFF) > coords["x"] > loc.get("x_min", -0x8FFFFFFF) and
+                    loc.get("z_max", 0x8FFFFFFF) > coords["z"] > loc.get("z_min", -0x8FFFFFFF) and
+                    loc.get("y", coords["y"]) + 1000 > coords["y"] >= loc.get("y", coords["y"])):
+
+                if 'no_model' in loc or 'stamp' in loc:
+                    continue
+
+                # Check priority
+                if priority is None or "priority" not in loc:
+                    priority = None
+                    valid_locations.append(loc_name)
+                elif priority > loc['priority']:
+                    priority = loc['priority']
+                    valid_locations = [loc_name]
+                elif priority == loc['priority']:
+                    valid_locations.append(loc_name)
+
+        if self.last_anticipated_locations == valid_locations:
+            return
+        if not valid_locations:
+            print(f"\tno location")
+        else:
+            await self.swap_models(ctx, valid_locations)
+        self.last_anticipated_locations = valid_locations
+
+    @staticmethod
+    async def reset_treasure_models(ctx: "BizHawkClientContext", model=None):
+        """
+        Set all treasure models to *model*. if model is None, sets them to their vanilla model
+        """
+        write_list = []
+        for i in range(66, 85):
+            treasure_model = OFFSET_TO_MODEL[i]
+
+            bits = split_bits(treasure_model.value, 4) if model is None else split_bits(model, 4)
+            bits.reverse()
+            write_list.append((STAddr.item_model_table.addr + 4*i, bits, "Main RAM"))
+        print(f"Reseting treasure models")
+        await bizhawk.write(ctx.bizhawk_ctx, write_list)
+
+    async def swap_models(self, ctx, locations: list, generic_model=0x59637266, treasure_mode=False):
+        print(f"\tMultiple locations: {locations}")
+        item_location_check = {}  # dict of item to location id for what location determines the model
+        item_priority = {}
+        for loc_name in locations:
+            loc_data = LOCATIONS_DATA[loc_name]
+            vanilla_item = loc_data.get("vanilla_item", []) or loc_data.get("hidden_vanilla_item", [])
+            vanilla_items = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
+            priority = loc_data.get("priority", 0)
+            for item in vanilla_items:
+                if not priority:
+                    # set location_id to None if there's a location conflict
+                    item_location_check[item] = None if item in item_location_check else loc_data['id']
+                    continue
+
+                # Sort locations by priority if applicable
+                if item in item_priority and priority >= item_priority[item]:
+                    continue
+                item_location_check[item] = loc_data['id']
+                item_priority[item] = priority
+
+        print(f"Items with locations: {[(i, l) for i, l in item_location_check.items()]}")
+
+        model_data = ctx.slot_data.get("model_lookup", {})
+        write_list = []
+        print_list = {}
+        # look up locations
+        for i, l in item_location_check.items():
+            if i not in self.item_data: continue
+            item_data = self.item_data[i]
+            item_model = item_data.vanilla_model
+
+            # Handle progressive items that change their models
+            if hasattr(item_data, "progressive_model"):
+                if self.current_scene in potion_location_lookup:
+                    item_model = item_data.progressive_model[1]
+                else:
+                    count = min(self.item_count(ctx, i), len(item_data.progressive_model)-1)
+                    item_model = item_data.progressive_model[count]
+
+            if item_model is None: continue
+            vanilla_model = ITEM_MODEL_LOOKUP[item_model]
+
+            # Choose model for location
+            if l is None:  # conflict
+                model_value = generic_model
+                model_name = "Generic"
+            elif l in ctx.missing_locations | ctx.checked_locations:  # randomized
+                model_value = OFFSET_TO_MODEL[model_data[str(l)]].value if str(l) in model_data else generic_model
+                model_name = OFFSET_TO_MODEL[model_data[str(l)]].name if model_value != generic_model else "Force Gem"
+            else:  # vanilla
+                vanilla_item = self.location_id_to_vanilla_item[l]
+                model_name = ITEMS[vanilla_item].model
+                model_value = ITEM_MODEL_LOOKUP[model_name].value if model_name else generic_model
+
+            # add models to write list
+            bits = split_bits(model_value, 4)
+            bits.reverse()
+            write_list.append((STAddr.item_model_table.addr + 4 * vanilla_model.offset, bits, "Main RAM"))
+            if l is not None:
+                print_list[self.location_id_to_name[l]] = model_name
+
+        print(f"Swapped Models: {print_list}")
+        if write_list:
+            await bizhawk.write(ctx.bizhawk_ctx, write_list)
 
     async def drink_potion(self, ctx, read_results):
         drinking_potion = read_results.get(self.addr_drinking_potion, 0)
@@ -557,10 +720,13 @@ class SpiritTracksClient(DSZeldaClient):
         if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
             await STAddr.tears_of_light.overwrite(ctx, 1)  # prevent cutscene and underflow
 
-        if self.current_scene in [0x1309, 0x1318] and location.get("vanilla_item", "").startswith("Boss Key"):
+        if location["name"] in ["ToS 1F Chest"] and ctx.slot_data["randomize_tears"] != -1:
+            await self.set_tears(ctx)
+
+        if self.current_scene in [0x1309, 0x1318] and isinstance(location.get("vanilla_item", ""), str) and location.get("vanilla_item", "").startswith("Boss Key"):
             if self.item_count(ctx, location["vanilla_item"]):
                 print("Opening ToS boss door after having key and getting boss key location")
-                await BOSS_KEY_DATA[self.current_scene]["door"].overwrite(ctx, 3)
+                await self.open_tos_boss_door(ctx)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -576,7 +742,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
-            realms = ["Grass", "Snow", "Sand"]
+            realms = rabbit_realms
             rabbit_counts = [min(sum([ITEMS[i].value*self.item_count(ctx, i) for i in ITEM_GROUPS[f"{realm} Rabbits"]]), 10) for realm in realms]
             rabbit_bits = sum([(2 ** count - 1) << 10*i for i, count in enumerate(rabbit_counts)])
             print(f"Updating rabbit bits {hex(rabbit_bits)}")
@@ -592,7 +758,7 @@ class SpiritTracksClient(DSZeldaClient):
         # Send total location
         if ctx.slot_data["rabbitsanity"] in [3, 4]:
             rabbit_type = loc_data["vanilla_item"]
-            rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
+            rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
@@ -689,14 +855,58 @@ class SpiritTracksClient(DSZeldaClient):
             key = storage_key(ctx, checked_entrances_key)
             await self.store_data(ctx, key, new_data)
 
+    async def reset_snurglar_door(self, ctx):
+        if self.last_scene == 0x700:
+            snurglar_ids = [self.location_name_to_id[f"Snurglars {color} Key"] for color in ["Purple", "Orange", "Gold"]]
+            for i in snurglar_ids:
+                if i not in ctx.checked_locations:
+                    await self.snurglar_addr.unset_bits(ctx, 0x30)
+                    break
+
+
     async def detected_new_scene(self, ctx):
         await self.save_tos_keycount(ctx)
         self.event_reads = []
         self.sent_event = False
+        if self.last_scene == 0x700:
+            await self.reset_snurglar_door(ctx)
 
-    async def save_scene(self, ctx, *args):
-        if await super().save_scene(ctx, *args):
+        if self.current_scene in potion_location_lookup:
+            await self.set_shop_models(ctx)
+
+    async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
+        """Laad shop models in bulk"""
+        valid_locations = []
+        valid_locations += list(self.location_area_to_watches.get(self.current_scene, {}).keys())
+        valid_locations += list(ammo_shop_lookup.get(self.current_scene, {}).values())
+        if not on_load:
+            valid_locations += list(potion_location_lookup.get(self.current_scene, {}).values())
+            valid_locations += [loc for treasures in SHOP_TREASURE_DATA.get(self.current_scene, []) for loc in treasures.get("locations", [])]
+        print(f"Setting shop models {self.current_scene}: {valid_locations}")
+        for loc in valid_locations.copy():
+            if self.location_name_to_id[loc] in ctx.checked_locations:
+                valid_locations.remove(loc)
+                print(f"Already checked location {loc}!")
+        await self.swap_models(ctx, valid_locations)
+        if on_load:
+            await self.reset_treasure_models(ctx)
+
+
+    async def save_scene(self, ctx, read_result, save_addr, save_key, save_comp: "Iterable"):
+        if read_result.get(save_addr, False) in save_comp and not self.save_spam_protection:
+            if not self.warp_to_start_flag:
+                check_respawn = await read_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room])
+                self.last_saved_scene = check_respawn[STAddr.respawn_stage] << 8 | check_respawn[STAddr.respawn_room]
+            else:
+                await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance], self.starting_entrance)
+                self.last_saved_scene = self.starting_entrance[0] << 8 | self.starting_entrance[1]
+            print(f"Saving scene {hex(self.last_saved_scene)}")
+            await self.store_data(ctx, storage_key(ctx, save_key), self.last_saved_scene, "replace", default=0)
+            self.save_spam_protection = True
             await self.save_tos_keycount(ctx)
+            return True
+        return False
+
 
     async def save_tos_keycount(self, ctx):
         """ToS keycount is not dependent on stage, so save current count on room change or save"""
@@ -785,7 +995,9 @@ class SpiritTracksClient(DSZeldaClient):
         await bizhawk.write(ctx.bizhawk_ctx, res)
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
-        if self.current_stage in range(4, 8):
+        self.delay_room_action = 5
+
+        if self.current_stage in range(4, 0xb):
             await write_multiple(ctx, train_speed_addresses, self.train_speed)
             self.last_train_gear = -1  # force a quick speed increase
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
@@ -814,22 +1026,72 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Has found location {data['location']}, deleting boss key")
                 await self.delete_boss_key(ctx)
             else:
-                pointer = await data["pointer"].read(ctx) -0x2000000
-                self.boss_key_y = data["y"]
-                self.boss_key_read = Address(pointer+8, size=4)
-                print(f"Loaded boss key data: {self.boss_key_read} y: {self.boss_key_y}")
+                pointer = await data["pointer"].read(ctx)
+                if 0x2000000 < pointer < 0x2400000:
+                    offset = 12 if self.current_stage == 0x1c else 8
+                    self.boss_key_read = Address.from_pointer(pointer+offset-0x2000000, size=4)
+                    self.boss_key_y = data["y"]
+                print(f"Loaded boss key data: {hex(pointer)} y: {self.boss_key_y}")
 
             # Open door
             if self.item_count(ctx, f"Boss Key ({data['dungeon']})"):
-                if current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations:
-                    print(f"Opening boss door for {current_scene}")
+                if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                    print(f"Opening boss door for {hex(current_scene)}")
                     if await data["door"].read(ctx) != 0x5:
                         await data["door"].overwrite(ctx, 3)
+                else:
+                    await self.open_tos_boss_door(ctx, current_scene)
         else:
             self.boss_key_y, self.boss_key_read = None, None
 
+        if current_scene == 0x700:
+            snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
+
+            snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0 - 0x2000000)
+            self.snurglar_addr = snurglar_flags
+            print(f"Got snurglar flags @ {snurglar_flags}")
+            for color in ["Gold", "Purple", "Orange"]:
+                self.watches[f"Snurglars {color} Key"] = snurglar_flags
+
+            if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3:
+                self.main_read_list.append(snurglar_flags)
+        else:
+            self.snurglar_addr = None
+
+        if current_scene not in potion_location_lookup:
+            treasure = None
+            if ctx.slot_data["excess_random_treasure"] == 2:
+                treasure = ITEM_MODEL_LOOKUP["Gold Rupee"].value
+            elif ctx.slot_data["excess_random_treasure"] == 0:
+                treasure = ITEM_MODEL_LOOKUP["Nothing"].value
+            await self.reset_treasure_models(ctx, treasure)
+
+
+    @staticmethod
+    async def open_tos_boss_door(ctx, scene):
+        print(f"Opening ToS boss door")
+        door_coords = BOSS_KEY_DATA[scene].get("door_coords", 0)
+        if not door_coords:
+            return
+        pointer = await STAddr.tos_boss_door_pointer.read(ctx)
+        object_pointer_table = await Address.from_pointer(pointer - 0x2000000, size=128).read(ctx, silent=True)
+        test_pointer = 0
+        for i in range(32):
+            test_pointer = (object_pointer_table & (0xFFFFFF << 32*i)) >> 32*i
+            # print(f"Test Pointer {hex(test_pointer)}")
+            if not test_pointer:
+                continue
+            coords = await Address.from_pointer(test_pointer+4, size=12).read(ctx, silent=True)
+            # print(f"Coords: {hex(coords)}")
+            if coords == BOSS_KEY_DATA[scene].get("door_coords", 0):
+                break
+
+        boss_door = Address.from_pointer(test_pointer + 22)
+        if await boss_door.read(ctx) != 5:
+            await boss_door.overwrite(ctx, 3)
+
     async def process_train_speed(self, ctx, read_result):
-        if self.current_stage in range(4, 8):
+        if self.current_stage in range(4, 0xb):
             instant_switch = False
             if self.update_train_speed:
                 await write_multiple(ctx, train_speed_addresses, self.train_speed)
@@ -865,10 +1127,11 @@ class SpiritTracksClient(DSZeldaClient):
     async def detect_boss_key(self, ctx):
         """Called each cycle while in a boss key room to detect a change in boss key position"""
         if self.boss_key_y is not None:
-            if await self.boss_key_read.read(ctx, signed=True, silent=True) > self.boss_key_y + 10:
+            bk_read = await self.boss_key_read.read(ctx, signed=True, silent=True)
+            if (bk_read > self.boss_key_y + 10 and self.current_stage != 0x1c) or (self.current_stage == 0x1c and bk_read < self.boss_key_y):
                 loc = BOSS_KEY_DATA[self.current_scene]["location"]
                 await self._process_checked_locations(ctx, loc)
-                print(f"Found boss key location {loc}")
+                print(f"Found boss key location {loc} {bk_read} >< {self.boss_key_y + 10} {hex(self.current_stage)}")
                 await self.delete_boss_key(ctx)
                 self.boss_key_y, self.boss_key_read = None, None
 
@@ -876,12 +1139,58 @@ class SpiritTracksClient(DSZeldaClient):
     async def delete_boss_key(self, ctx):
         pointer = await STAddr.boss_key_deletion_pointer.read(ctx) - 0x2000000
         print(f"Deleting boss key @ {hex(pointer)}")
-        size = 12
+        size, offset = 12, 0
         if self.current_stage == 0x1b:
             pointer += 44  # Ocean temple bk does not load into the first slot in memory
             await Address.from_pointer(pointer+60, 4).overwrite(ctx, 0)  # also needs this to not crash
             size = 8
-        deletion_address = Address.from_pointer(pointer, size)
+        if self.current_stage == 0x1D:
+            size, offset = 4, 8
+        if self.current_stage == 0x1C:
+            size, offset = 4, 64
+        deletion_address = Address.from_pointer(pointer+offset, size)
+        print(f"Deleting boss key @ {deletion_address} size {size}")
         # print(f"Deleting boss key @ {STAddr.boss_key_deletion}")
         await deletion_address.overwrite(ctx, 0)
 
+    async def update_stamps(self, ctx: "BizHawkClientContext"):
+        # Set all stamp coords to 0x484848b8 repeating with starting flags
+        # Fill stamp book as we go
+        stamp_ids = await STAddr.stamp_ids.read(ctx)
+        stamps = [(stamp_ids & (0xFF << 8*i)) >> 8*i for i in range(20)]
+        has_stamps = [s for s in stamps if s != 255]
+        stamp_count = len(has_stamps)
+
+        def remove_wrong_stamps(indexes):
+            for i in indexes:
+                stamps[i] = 0xFF
+
+        def add_missing_stamps(values):
+            for v in values:
+                stamps[stamps.index(255)] = v
+
+        wrong_stamp_indexes = []
+        missing_stamps = []
+
+        if ctx.slot_data["randomize_stamps"] == 1:  # vanilla_with_location
+            stamp_locations_received = [LOCATIONS_DATA[self.location_id_to_name[i]]["stamp"] for i in ctx.checked_locations if self.location_id_to_name[i] in LOCATION_GROUPS["Stamp Stands"]]
+            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
+            missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
+
+        elif ctx.slot_data["randomize_stamps"] in [2, 3]: # stamp items
+            stamp_items_received = [self.item_id_to_name[i.item] for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamps"]]
+            stamp_values_received = [self.item_data[i].value for i in stamp_items_received]
+            stamp_pack_count = sum([self.item_data[self.item_id_to_name[i.item]].value for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamp Packs"]])
+            stamp_pack_count = min(stamp_pack_count, len(ctx.slot_data.get("stamp_pack_order", [])))
+            stamp_values_received += ctx.slot_data.get("stamp_pack_order",[])[:stamp_pack_count]
+
+            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_values_received]
+            missing_stamps = [i for i in stamp_values_received if i not in has_stamps]
+
+        remove_wrong_stamps(wrong_stamp_indexes)
+        add_missing_stamps(missing_stamps)
+        await STAddr.stamp_ids.overwrite(ctx, stamps)
+        has_stamps = [s for s in stamps if s != 255]
+        stamp_count = len(has_stamps)
+
+        print(f"Has {stamp_count} stamps: {stamps}")

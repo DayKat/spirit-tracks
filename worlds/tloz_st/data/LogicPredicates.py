@@ -66,13 +66,14 @@ def st_has_rabbit_items(state, player, realm, count=10):
     return rabbit_count >= count
 
 def st_has_total_rabbits(state: CollectionState, player: int, count):
-    rabbit_total = 0
-    for i in ITEM_GROUPS["Rabbits"]:
-        rabbit_total += state.count(i, player) * ITEMS[i].value
+    rabbit_total = sum([state.count(f"{realm} Rabbit", player) for realm in rabbit_realms])
     return rabbit_total >= count
 
 def st_caught_rabbits(state, player, realm, count):
     return state.has(f"_caught_{realm.lower()}_rabbits", player, count)
+
+def st_all_types_rabbits(state, player, count):
+    return all([st_has_rabbit_items(state, player, r, count) for r in rabbit_realms])
 
 ## ========= Rail Items =============
 
@@ -367,8 +368,8 @@ def st_is_ut(state: CollectionState, player: int):
 
 # ============= Key logic ==============
 
-def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1):
-    return state.has(f"Small Key ({dung_name})", player, amount)
+def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1, ool: int = 4):
+    return state.has(f"Small Key ({dung_name})", player, amount) or (state.has("_UT_Glitched_Logic", player) and state.has(f"Small Key ({dung_name})", player, ool))
 
 
 def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
@@ -497,10 +498,8 @@ def st_can_enter_tos_section(state, player, section):
     ])
 
 def st_desert_temple_keys(state, player):
-    return any([
-        st_has_small_keys(state, player, "Desert Temple", 2),
-        st_has_small_keys(state, player, "Desert Temple", 1) and state.has("_UT_Glitched_Logic", player)
-    ])
+    return st_has_small_keys(state, player, "Desert Temple", 2, 1),
+
 
 def st_hard_birds(state, player):
     return all([
