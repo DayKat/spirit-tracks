@@ -452,12 +452,16 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocs", "ocs S island chest", False, lambda state: st_hard_birds(state, player)],  # borderline if it should count as hard logic
         ["ocs north", "ocs nw chest", False, lambda state: st_hard_birds(state, player)],
         ["ocs", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
+        ["ocs", "ocs carben", False, lambda state: state.has("Passenger: Carben", player) or state.has("_carben", player)],
 
         # ========== Papuchia Village =============
         ["ocean realm", "papuchia village", False, None],
         ["papuchia village", "papuchia village song statue", False, lambda state: st_has_discovery_song(state, player)],
         ["papuchia village", "pv dovok", False, lambda state: state.has("Passenger: Dovok", player) or state.has("_dovok", player)],
         ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_birds_song(state, player)],
+
+        ["papuchia village", "pv carben", False, lambda state: st_has_birds_song(state, player)],
+        ["papuchia village", "pv wadatsumi", False, lambda state: state.has("Passenger: Wadatsumi", player) or state.has("_wadatsumi", player)],
         ["papuchia village song statue", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song, patched with a dynaentrance
         # I don't like that this is locked behind song statue, but flags might not let us get there earlier
 
@@ -490,8 +494,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["pirate hideout", "pirate hideout stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                                                 and st_has_whip(state, player) and st_has_birds_song(state, player)],
         ["pirate hideout", "pirate hideout secret cave", False, lambda state: st_has_bombs(state, player)],
-    #   ["pirate hideout", "pirate hideout minigame 1st reward", False, lambda state: st_has_bow(state, player)],
-    #   ["pirate hideout", "pirate hideout minigame 2nd reward", False, lambda state: st_has_bow(state, player)],
+        ["pirate hideout", "pirate hideout minigame 1st reward", False, lambda state: st_has_bow(state, player)],
+        ["pirate hideout", "pirate hideout minigame 2nd reward", False, lambda state: st_has_bow(state, player)],
+        ["pirate hideout", "pirate wadatsumi", False, None],
+        #First hideout minigame gives you bow automatically, and then it shows in top right, even with no items, but doesn't let you use it. With an item, it doesn't show
 
         # ======== Lost at Sea Station ==========
         #["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")

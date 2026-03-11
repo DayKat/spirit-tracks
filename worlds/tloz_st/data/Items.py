@@ -1299,6 +1299,20 @@ ITEMS_DATA |= {
         "value": 0x20,
         "model": "Letter"
     },
+    "Passenger: Carben": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_9,
+        "value": 0x10,
+    },
+    "Passenger: Wadatsumi": {
+        "classification": ItemClassification.progression,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_34,
+        "value": 0x40,
+    },
 
     # Cargo
     "Cargo: Lumber": {
