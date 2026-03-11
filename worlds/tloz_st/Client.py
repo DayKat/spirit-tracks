@@ -758,7 +758,7 @@ class SpiritTracksClient(DSZeldaClient):
         # Send total location
         if ctx.slot_data["rabbitsanity"] in [3, 4]:
             rabbit_type = loc_data["vanilla_item"]
-            rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Water Rabbit", "Mountain Rabbit", "Sand Rabbit"]
+            rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"

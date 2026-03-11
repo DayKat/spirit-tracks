@@ -59,7 +59,7 @@ class SpiritTracksWeb(WebWorld):
         "English",
         "st_setup_en.md",
         "st_setup/en",
-        ["DayKat"]
+        ["DayKat", "Carrotinator"]
     )
 
     tutorials = [setup_en]
@@ -177,7 +177,7 @@ class SpiritTracksWorld(WorldParent):
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
-            # print(f"Rabbit items: {self.rabbit_item_dict}")
+            print(f"Rabbit items: {self.rabbit_item_dict}")
             self.plando_tos_sections()
 
             # Starting Train
@@ -276,6 +276,8 @@ class SpiritTracksWorld(WorldParent):
             r: ("Grass Rabbit", ITEMS[r].value) for r in grass_rabbits[1:]
         } | {
             r: ("Snow Rabbit", ITEMS[r].value) for r in snow_rabbits[1:]
+        } | {
+            r: ("Ocean Rabbit", ITEMS[r].value) for r in ocean_rabbits[1:]
         } | {
             r: ("Mountain Rabbit", ITEMS[r].value) for r in mountain_rabbits[1:]
         } | {
@@ -463,6 +465,11 @@ class SpiritTracksWorld(WorldParent):
                             "snow realm rabbits": 1,
                             "snowdrift station rabbit": 1,
                             "icyspring rabbits": 2}
+            ocean_regions = {"ocean rabbits": 6,
+                            "las rabbit": 1,
+                            "ocean portal rabbits": 1,
+                            "ocean source rabbits": 1,
+                            "pirate rabbit": 1}
             mountain_regions = {"fire realm rabbits": 2,
                                 "mountain rabbits": 4,
                                 "fire source rabbits": 1,
@@ -473,7 +480,7 @@ class SpiritTracksWorld(WorldParent):
                             "sand restoration rabbits": 5,
                             "sand connection rabbit": 1}
             [self.create_multiple_events(reg, f"_caught_{realm}_rabbits", count)
-             for regions, realm in zip([forest_regions, snow_regions, mountain_regions, sand_regions], ["grass", "snow", "mountain", "sand"])
+             for regions, realm in zip([forest_regions, snow_regions, ocean_regions, mountain_regions, sand_regions], ["grass", "snow", "ocean", "mountain", "sand"])
              for reg, count in regions.items()]
 
         if self.options.randomize_stamps.value in [1, 4]:
@@ -684,9 +691,9 @@ class SpiritTracksWorld(WorldParent):
         rabbit_locations = []
         # Figure out rabbit counts for different pools
         max_count = self.options.rabbit_max_location_count.value
-        rabbit_counts = [max_count]*4
+        rabbit_counts = [max_count]*5
         if self.options.rabbit_location_count_distribution.value == -1:
-            rabbit_counts = [self.random.randint(1, max_count) for _ in range(4)]
+            rabbit_counts = [self.random.randint(1, max_count) for _ in range(5)]
         self.rabbit_counts = rabbit_counts
 
         def pick_random_locs(loc_lists):
@@ -697,24 +704,27 @@ class SpiritTracksWorld(WorldParent):
         if self.options.rabbitsanity.value in [1, 2, 4]: # Vanilla or unique
             forest_rabbits = list(LOCATION_GROUPS["Unique Grass Rabbits"])
             snow_rabbits = list(LOCATION_GROUPS["Unique Snow Rabbits"])
+            ocean_rabbits = list(LOCATION_GROUPS["Unique Ocean Rabbits"])
             mountain_rabbits = list(LOCATION_GROUPS["Unique Mountain Rabbits"])
             sand_rabbits = list(LOCATION_GROUPS["Unique Sand Rabbits"])
-            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits])
 
         if self.options.rabbitsanity.value in [3, 4]:  # total count
             forest_rabbits = list(LOCATION_GROUPS["Total Grass Rabbits"])
             snow_rabbits = list(LOCATION_GROUPS["Total Snow Rabbits"])
+            ocean_rabbits = list(LOCATION_GROUPS["Total Ocean Rabbits"])
             mountain_rabbits = list(LOCATION_GROUPS["Total Mountain Rabbits"])
             sand_rabbits = list(LOCATION_GROUPS["Total Sand Rabbits"])
             sort_func = lambda loc: f"0{loc.split()[1]}"[-2:]  # wth python
             forest_rabbits.sort(key=sort_func)
             snow_rabbits.sort(key=sort_func)
+            ocean_rabbits.sort(key=sort_func)
             mountain_rabbits.sort(key=sort_func)
             sand_rabbits.sort(key=sort_func)
             interval = self.options.rabbit_location_count_distribution.value
             if interval >= 0:
-                intervals = [interval]*4 if interval else [self.random.randint(1, 3) for _ in range(3)]
-                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits]):
+                intervals = [interval]*5 if interval else [self.random.randint(1, 3) for _ in range(3)]
+                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits]):
                     if i > max_count:
                         rabbit_locations.append(realm_locs[max_count-1])
                     else:
@@ -723,9 +733,9 @@ class SpiritTracksWorld(WorldParent):
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
                 self.rabbit_counts = [self.random.randint(1, max_count), self.random.randint(1, max_count)]
-            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, mountain_rabbits, sand_rabbits])
+            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits])
 
-        # print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
+        print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
 
     def choose_rabbit_items(self):

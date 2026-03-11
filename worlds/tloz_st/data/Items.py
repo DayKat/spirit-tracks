@@ -580,6 +580,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "item_groups": ["Snow Rabbits"],
         'model': "Rabbit Net",
     },
+    "Ocean Rabbit": {
+        'classification': ItemClassification.progression,
+        "tags": ["rabbit"],
+        'dummy': True,
+        "item_groups": ["Ocean Rabbits"],
+        'model': "Rabbit Net",
+    },
     "Mountain Rabbit": {
         'classification': ItemClassification.progression,
         "tags": ["rabbit"],
@@ -604,7 +611,7 @@ ITEMS_DATA |= {
         'value': n,
         "item_groups": [f"{realm} Rabbits"],
         'model': "Rabbit Net",
-    } for n in list(range(2, 6)) + [10] for realm in ["Grass", "Snow", "Mountain", "Sand"]
+    } for n in list(range(2, 6)) + [10] for realm in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
 }
 
     # ========== Rupees and filler =============
@@ -1546,7 +1553,7 @@ for i, k in enumerate(ITEMS_DATA.items()):
 ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Super Rare Treasures"]
 ITEM_GROUPS["All Treasures"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Common Treasures"]
-ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"]  | ITEM_GROUPS["Sand Rabbits"]
+ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"] | ITEM_GROUPS["Ocean Rabbits"] | ITEM_GROUPS["Mountain Rabbits"] | ITEM_GROUPS["Sand Rabbits"]
 ITEM_GROUPS["Tears of Light"] = ITEM_GROUPS["Big Tears of Light"] | ITEM_GROUPS["Small Tears of Light"]
 ITEM_GROUPS["Add Rails to Pool"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"]
 ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"]

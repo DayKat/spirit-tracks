@@ -72,6 +72,9 @@ def st_has_total_rabbits(state: CollectionState, player: int, count):
 def st_caught_rabbits(state, player, realm, count):
     return state.has(f"_caught_{realm.lower()}_rabbits", player, count)
 
+def st_all_types_rabbits(state, player, count):
+    return all([st_has_rabbit_items(state, player, r, count) for r in rabbit_realms])
+
 ## ========= Rail Items =============
 
 def st_has_glyph(state: CollectionState, player: int, realm: str):

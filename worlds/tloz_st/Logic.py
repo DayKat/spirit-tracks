@@ -295,10 +295,13 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     overworld_logic += [
         ["snow realm fr", "rabbit haven", True, lambda state: st_has_glyph(state, player, "Snow")],
         ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
+        ["rabbit haven", "rabbit haven 1 of each rabbits", False, lambda state: st_all_types_rabbits(state, player, 1)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_rabbit_items(state, player, "Grass")],
         ["rabbit haven", "rabbit haven 10 snow rabbits", False, lambda state: st_has_rabbit_items(state, player, "Snow")],
+        ["rabbit haven", "rabbit haven 10 ocean rabbits", False, lambda state: st_has_rabbit_items(state, player, "Ocean")],
         ["rabbit haven", "rabbit haven 10 mountain rabbits", False, lambda state: st_has_rabbit_items(state, player, "Mountain")],
         ["rabbit haven", "rabbit haven 10 sand rabbits", False, lambda state: st_has_rabbit_items(state, player, "Sand")],
+        ["rabbit haven", "rabbit haven 50 rabbits", False, lambda state: st_all_types_rabbits(state, player, 10)],
         ["rabbit haven", "rabbit haven mona", False, lambda state: state.has("Passenger: Mona", player) or state.has("_mona", player)],
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -417,21 +420,26 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             st_has_misc_tracks(state, player, "Ocean Portal"))],
         ["ocean portal tracks", "sand realm", False, lambda state: st_has_misc_tracks(state, player, "Sand Realm") and st_has_misc_tracks(state, player, "Ocean Portal")],
         ["ocean portal tracks", "ocean portal", False, lambda state: st_has_cannon(state, player)],
+
+        # Ocean Portals
         ["trading post tracks", "ocean portal tracks", False,
          lambda state: st_has_misc_tracks(state, player, "Ocean Portal") and st_has_portal(state, player, "Mayscore to Ocean Portal Tracks", False)],
         ["ocean portal tracks", "trading post tracks", False,
-         lambda state: st_has_glyph(state, player, "Ocean") and st_has_portal(state, player,
-                                                                                           "Mayscore to Ocean Portal Tracks",
-                                                                                           True)],
+         lambda state: st_has_glyph(state, player, "Ocean")
+                       and st_has_portal(state, player,"Mayscore to Ocean Portal Tracks",True)],
         ["snow bridge", "ocean temple tracks", False,
-         lambda state: st_has_temple_tracks(state, player, "Marine") and st_has_portal(state, player,
-                                                                                           "Snow Bridge to Island Sanctuary",
-                                                                                           True)],
+         lambda state: st_has_temple_tracks(state, player, "Marine")
+                       and st_has_portal(state, player,"Snow Bridge to Island Sanctuary",True)],
         ["ocean temple tracks", "snow bridge", False,
-         lambda state: st_has_misc_tracks(state, player, "Snow Realm Bridge ") and st_has_portal(state, player,
-                                                                                           "Snow Bridge to Island Sanctuary",
-                                                                                           False)],
+         lambda state: st_has_misc_tracks(state, player, "Snow Realm Bridge ")
+                       and st_has_portal(state, player,"Snow Bridge to Island Sanctuary",False)],
 
+        # Ocean Rabbits
+        ["ocean temple tracks", "ocean rabbits", False, lambda state: st_has_net(state, player)],
+        ["las tracks", "las rabbit", False, lambda state: st_has_net(state, player)],
+        ["ocean realm source", "ocean source rabbits", False, lambda state: st_has_net(state, player)],
+        ["ocean portal tracks", "ocean portal rabbits", False, lambda state: st_has_net(state, player)],
+        ["forest ocean shortcut rabbit", "pirate rabbit", False, None],
 
         # ========== Ocean Sanctuary =============
         ["ocean realm", "ocs", False, None],
@@ -640,7 +648,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
 
-        ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
+        # ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
         ["dt b1 damage", "dt b2", False, None]
             if options.randomize_boss_keys == "vanilla"
             else ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
@@ -751,6 +759,27 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
              lambda state: st_caught_rabbits(state, player, "Snow", 9)],
             ["forest realm rabbits", "Snow Rabbit Count 10", False,
              lambda state: st_caught_rabbits(state, player, "Snow", 10)],
+
+            ["forest realm rabbits", "Ocean Rabbit Count 1", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 1)],
+            ["forest realm rabbits", "Ocean Rabbit Count 2", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 2)],
+            ["forest realm rabbits", "Ocean Rabbit Count 3", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 3)],
+            ["forest realm rabbits", "Ocean Rabbit Count 4", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 4)],
+            ["forest realm rabbits", "Ocean Rabbit Count 5", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 5)],
+            ["forest realm rabbits", "Ocean Rabbit Count 6", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 6)],
+            ["forest realm rabbits", "Ocean Rabbit Count 7", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 7)],
+            ["forest realm rabbits", "Ocean Rabbit Count 8", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 8)],
+            ["forest realm rabbits", "Ocean Rabbit Count 9", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 9)],
+            ["forest realm rabbits", "Ocean Rabbit Count 10", False,
+             lambda state: st_caught_rabbits(state, player, "Ocean", 10)],
 
             ["forest realm rabbits", "Mountain Rabbit Count 1", False,
              lambda state: st_caught_rabbits(state, player, "Mountain", 1)],

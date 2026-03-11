@@ -1217,6 +1217,17 @@ LOCATIONS_DATA = {
         "location_groups": ["Rabbit Haven"],
         "x_max": -35000
     },
+    "Rabbit Haven Rescue 1 of Each Rabbit": {
+        "region_id": "rabbit haven 1 of each rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        'address': STAddr.adv_flags_52,
+        'value': 0x10,
+        "conditional": True,
+        "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
+    },
     "Rabbit Haven Rescue 10 Grass Rabbits": {
         "region_id": "rabbit haven 10 forest rabbits",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
@@ -1235,6 +1246,17 @@ LOCATIONS_DATA = {
         "room_id": 0,
         'address': STAddr.adv_flags_51,
         'value': 0x40,
+        "conditional": True,
+        "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
+    },
+    "Rabbit Haven Rescue 10 Ocean Rabbits": {
+        "region_id": "rabbit haven 10 ocean rabbits",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "stage_id": 0x3E,
+        "room_id": 0,
+        'address': STAddr.adv_flags_51,
+        'value': 0x80,
         "conditional": True,
         "location_groups": ["Rabbit Haven"],
         "x_max": -35000
@@ -1261,12 +1283,18 @@ LOCATIONS_DATA = {
         "location_groups": ["Rabbit Haven"],
         "x_max": -35000
     },
-    # "Rabbit Haven Rescue 50 Rabbits": {
-    #     "region_id": "rabbit haven 50 rabbits",
-    #     "vanilla_item": "Sword Beam Swordsman's Scroll",
-    #     "stage_id": 0x3E,
-    #     "room_id": 0,
-    # },
+    "Rabbit Haven Rescue 10 of Each Rabbit": {
+        "region_id": "rabbit haven 50 rabbits",
+        "vanilla_item": "Sword Beam Scroll",
+        "item_override": "Nothing!",
+        "stage_id": 0x3E,
+        "room_id": 0,
+        'address': STAddr.adv_flags_53,
+        'value': 0x8,
+        "conditional": True,
+        "location_groups": ["Rabbit Haven"],
+        "x_max": -35000
+    },
 
     # Trading Post
     "Trading Post Stamp Station": {
@@ -2763,6 +2791,98 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Snow Rabbits"]
     },
 
+    # Ocean Rabbits
+    "Rabbit E Lost at Sea": {
+        "region_id": "las rabbit",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_2,
+        "value": 0x80,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit Near Island Sanctuary": {
+        "region_id": "ocean rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_2,
+        "value": 0x40,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit on Ocean Source": {
+        "region_id": "ocean source rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_2,
+        "value": 0x20,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit Near Pirate Hideout": {
+        "region_id": "forest ocean shortcut rabbit",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_2,
+        "value": 0x10,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit N Marine Temple": {
+        "region_id": "ocean rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_3,
+        "value": 0x20,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit N Undersea Entrance": {
+        "region_id": "ocean rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_3,
+        "value": 0x10,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit Near Ocean Portal": {
+        "region_id": "ocean portal rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_3,
+        "value": 0x8,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit S Undersea Entrance": {
+        "region_id": "ocean rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_3,
+        "value": 0x4,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit E Ocean": {
+        "region_id": "ocean rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_3,
+        "value": 0x2,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+    "Rabbit N Lost at Sea": {
+        "region_id": "ocean rabbits",
+        "vanilla_item": "Ocean Rabbit",
+        "stage_id": 0x06,
+        "address": STAddr.rabbits_3,
+        "value": 0x1,
+        "rabbit": True,
+        "location_groups": ["Unique Ocean Rabbits"]
+    },
+
     # Mountain Rabbits
     "Rabbit Near ToS Fire Realm": {
         "region_id": "fire source rabbits",
@@ -2954,7 +3074,7 @@ LOCATIONS_DATA |= {
         "rabbit": True,
         "count": 1,
         "location_groups": [f"Total {realm} Rabbits"]
-    } for realm in ["Grass", "Snow", "Mountain", "Sand"]}
+    } for realm in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]}
 
 LOCATIONS_DATA |= {
     f"Catch {count} {realm} Rabbits": {
@@ -2962,7 +3082,7 @@ LOCATIONS_DATA |= {
         "rabbit": True,
         "count": count,
         "location_groups": [f"Total {realm} Rabbits"]
-    } for count in range(2, 11) for realm in ["Grass", "Snow", "Mountain", "Sand"]}
+    } for count in range(2, 11) for realm in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]}
 
 LOCATIONS_DATA |= {
     # Portal Checks

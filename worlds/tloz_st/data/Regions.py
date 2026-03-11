@@ -160,11 +160,13 @@ REGIONS = [
     "rabbit haven chest",
     "rabbit haven net",
     "rabbit haven 5 rabbits",
+    "rabbit haven 1 of each rabbits",
     "rabbit haven 10 forest rabbits",
     "rabbit haven 10 snow rabbits",
     "rabbit haven 10 ocean rabbits",
     "rabbit haven 10 mountain rabbits",
     "rabbit haven 10 sand rabbits",
+    "rabbit haven 50 rabbits",
     "rabbit haven mona",
 
     # "rabbit haven 50 rabbits"
@@ -304,6 +306,12 @@ REGIONS = [
     "las tracks",
     "ocean portal tracks",
     "ocean portal",
+
+    "ocean rabbits",
+    "las rabbit",
+    "ocean source rabbits",
+    "ocean portal rabbits",
+    "pirate rabbit",
 
     #Ocean Sanctuary
     "ocs",
@@ -475,5 +483,5 @@ REGIONS = [
 
 
 ] + [
-    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Mountain", "Sand"]
+    f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
 ]

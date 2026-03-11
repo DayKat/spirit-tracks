@@ -75,10 +75,13 @@
     {"name": "Rabbit Haven Chest"},
     {"name": "Rabbit Haven Mona's Force Gem"},
     {"name": "Rabbit Haven Rescue 5 Rabbits"},
+    {"name": "Rabbit Haven Rescue 1 of Each Rabbit"},
     {"name": "Rabbit Haven Rescue 10 Grass Rabbits"},
     {"name": "Rabbit Haven Rescue 10 Snow Rabbits"},
+    {"name": "Rabbit Haven Rescue 10 Ocean Rabbits"},
     {"name": "Rabbit Haven Rescue 10 Mountain Rabbits"},
-    {"name": "Rabbit Haven Rescue 10 Sand Rabbits"}
+    {"name": "Rabbit Haven Rescue 10 Sand Rabbits"},
+    {"name": "Rabbit Haven Rescue 10 of Each Rabbit"}
   ], "map_locations":[{"map": "Overview", "x": 138, "y": 497}]},
   {"name": "Trading Post", "sections": [
     {"name": "Bring Kenzo to Trading Post"},
@@ -181,18 +184,30 @@
   {"name": "Rabbit Fire Sand Connection", "sections": [{"name": "Rabbit Fire Sand Connection"}], "map_locations":[{"map": "Overview", "x": 656, "y": 356}]},
 
   {"name": "Rabbit Near ToS Fire Realm", "sections": [{"name": "Rabbit Near ToS Fire Realm"}], "map_locations":[{"map": "Overview", "x": 606, "y": 306}]},
-  {"name": "Rabbit Near Disorientation Station", "sections": [{"name": "Rabbit Near Disorientation Station"}], "map_locations":[{"map": "Overview", "x": 622, "y": 74}]},
+  {"name": "Rabbit Near Disorientation Station", "sections": [{"name": "Rabbit Near Disorientation Station"}], "map_locations":[{"map": "Overview", "x": 636, "y": 74}]},
   {"name": "Rabbit Near Ends of the Earth", "sections": [{"name": "Rabbit Near Ends of the Earth"}], "map_locations":[{"map": "Overview", "x": 816, "y": 50}]},
   {"name": "Rabbit NW Mountain", "sections": [{"name": "Rabbit NW Mountain"}], "map_locations":[{"map": "Overview", "x": 730, "y": 122}]},
   {"name": "Rabbit NE Mountain", "sections": [{"name": "Rabbit NE Mountain"}], "map_locations":[{"map": "Overview", "x": 874, "y": 98}]},
   {"name": "Rabbit N Mountain", "sections": [{"name": "Rabbit N Mountain"}], "map_locations":[{"map": "Overview", "x": 814, "y": 120}]},
   {"name": "Rabbit S Mountain", "sections": [{"name": "Rabbit S Mountain"}], "map_locations":[{"map": "Overview", "x": 778, "y": 194}]},
   {"name": "Rabbit SE Mountain", "sections": [{"name": "Rabbit SE Mountain"}], "map_locations":[{"map": "Overview", "x": 896, "y": 228}]},
-  {"name": "Rabbit N Fire Glyph", "sections": [{"name": "Rabbit N Fire Glyph"}], "map_locations":[{"map": "Overview", "x": 658, "y": 122}]},
+  {"name": "Rabbit N Fire Glyph", "sections": [{"name": "Rabbit N Fire Glyph"}], "map_locations":[{"map": "Overview", "x": 658, "y": 18}]},
   {"name": "Rabbit Near Goron Target Range", "sections": [{"name": "Rabbit Near Goron Target Range"}], "map_locations":[{"map": "Overview", "x": 608, "y": 230}]},
+
+  {"name": "Rabbit E Lost at Sea", "sections": [{"name": "Rabbit E Lost at Sea"}], "map_locations":[{"map": "Overview", "x": 874, "y": 720}]},
+  {"name": "Rabbit Near Island Sanctuary", "sections": [{"name": "Rabbit Near Island Sanctuary"}], "map_locations":[{"map": "Overview", "x": 760, "y": 696}]},
+  {"name": "Rabbit on Ocean Source", "sections": [{"name": "Rabbit on Ocean Source"}], "map_locations":[{"map": "Overview", "x": 614, "y": 592}]},
+  {"name": "Rabbit Near Pirate Hideout", "sections": [{"name": "Rabbit Near Pirate Hideout"}], "map_locations":[{"map": "Overview", "x": 544, "y": 594}]},
+  {"name": "Rabbit N Marine Temple", "sections": [{"name": "Rabbit N Marine Temple"}], "map_locations":[{"map": "Overview", "x": 898, "y": 530}]},
+  {"name": "Rabbit N Undersea Entrance", "sections": [{"name": "Rabbit N Undersea Entrance"}], "map_locations":[{"map": "Overview", "x": 798, "y": 540}]},
+  {"name": "Rabbit Near Ocean Portal", "sections": [{"name": "Rabbit Near Ocean Portal"}], "map_locations":[{"map": "Overview", "x": 722, "y": 578}]},
+  {"name": "Rabbit S Undersea Entrance", "sections": [{"name": "Rabbit S Undersea Entrance"}], "map_locations":[{"map": "Overview", "x": 806, "y": 626}]},
+  {"name": "Rabbit E Ocean", "sections": [{"name": "Rabbit E Ocean"}], "map_locations":[{"map": "Overview", "x": 920, "y": 602}]},
+  {"name": "Rabbit N Lost at Sea", "sections": [{"name": "Rabbit N Lost at Sea"}], "map_locations":[{"map": "Overview", "x": 908, "y": 674}]},
 
   {"name": "Total Grass Rabbits", "sections": [{"name": "Catch 1 Grass Rabbit"}, {"name": "Catch 2 Grass Rabbits"}, {"name": "Catch 3 Grass Rabbits"}, {"name": "Catch 4 Grass Rabbits"}, {"name": "Catch 5 Grass Rabbits"}, {"name": "Catch 6 Grass Rabbits"}, {"name": "Catch 7 Grass Rabbits"}, {"name": "Catch 8 Grass Rabbits"}, {"name": "Catch 9 Grass Rabbits"}, {"name": "Catch 10 Grass Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 490}]},
   {"name": "Total Snow Rabbits", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations":[{"map": "Overview", "x": 170, "y": 474}]},
+  {"name": "Total Ocean Rabbits", "sections": [{"name": "Catch 1 Ocean Rabbit"}, {"name": "Catch 2 Ocean Rabbits"}, {"name": "Catch 3 Ocean Rabbits"}, {"name": "Catch 4 Ocean Rabbits"}, {"name": "Catch 5 Ocean Rabbits"}, {"name": "Catch 6 Ocean Rabbits"}, {"name": "Catch 7 Ocean Rabbits"}, {"name": "Catch 8 Ocean Rabbits"}, {"name": "Catch 9 Ocean Rabbits"}, {"name": "Catch 10 Ocean Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 498}]},
   {"name": "Total Mountain Rabbits", "sections": [{"name": "Catch 1 Mountain Rabbit"}, {"name": "Catch 2 Mountain Rabbits"}, {"name": "Catch 3 Mountain Rabbits"}, {"name": "Catch 4 Mountain Rabbits"}, {"name": "Catch 5 Mountain Rabbits"}, {"name": "Catch 6 Mountain Rabbits"}, {"name": "Catch 7 Mountain Rabbits"}, {"name": "Catch 8 Mountain Rabbits"}, {"name": "Catch 9 Mountain Rabbits"}, {"name": "Catch 10 Mountain Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 466}]},
   {"name": "Total Sand Rabbits", "sections": [{"name": "Catch 1 Sand Rabbit"}, {"name": "Catch 2 Sand Rabbits"}, {"name": "Catch 3 Sand Rabbits"}, {"name": "Catch 4 Sand Rabbits"}, {"name": "Catch 5 Sand Rabbits"}, {"name": "Catch 6 Sand Rabbits"}, {"name": "Catch 7 Sand Rabbits"}, {"name": "Catch 8 Sand Rabbits"}, {"name": "Catch 9 Sand Rabbits"}, {"name": "Catch 10 Sand Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 482}]},
 
@@ -203,6 +218,7 @@
   {"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 131}]},
   {"name": "Fire Realm Shoot Sand Portal", "sections": [{"name": "Fire Realm Shoot Sand Portal"}], "map_locations":[{"map": "Overview", "x": 622, "y": 350}]},
   {"name": "Sand Realm Shoot Temple Portal", "sections": [{"name": "Sand Realm Shoot Temple Portal"}], "map_locations":[{"map": "Overview", "x": 980, "y": 422}]},
+  {"name": "Ocean Realm Shoot West Portal", "sections": [{"name": "Ocean Realm Shoot West Portal"}], "map_locations":[{"map": "Overview", "x": 672, "y": 566}]},
 
   {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
   {"name": "Beedle", "sections":  [
@@ -341,16 +357,16 @@
           {"name": "Goron Village Kofu Force Gem"},
           {"name": "Goron Village Deliver Ice Force Gem"},
           {"name": "Goron Village West Buy Steel"}
-      ], "map_locations":[{"map": "Overview", "x": 716, "y": 236}]},
+      ], "map_locations":[{"map": "Overview", "x": 716, "y": 234}]},
       {"name": "Valley Sanctuary", "sections": [
           {"name": "Tunnel to Valley Sanctuary Chest"},
           {"name": "Valley Sanctuary NW Chest"},
           {"name": "Valley Sanctuary Stamp Stand"},
           {"name": "Valley Sanctuary Song of Restoration"}
-      ], "map_locations":[{"map": "Overview", "x": 716, "y": 220}]},
+      ], "map_locations":[{"map": "Overview", "x": 716, "y": 218}]},
   {"name": "Goron Village Events", "sections": [
           {"name": "EVENT: Bring Ice to Kagoron"}
-      ], "map_locations":[{"map": "Overview", "x": 732, "y": 236}]},
+      ], "map_locations":[{"map": "Overview", "x": 732, "y": 234}]},
     {"name": "Goron Target Range", "sections": [
           {"name": "Goron Target Range"}
       ], "map_locations":[{"map": "Overview", "x": 644, "y": 212}]},
