@@ -496,7 +496,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["pirate hideout", "pirate hideout secret cave", False, lambda state: st_has_bombs(state, player)],
         ["pirate hideout", "pirate hideout minigame 1st reward", False, lambda state: st_has_bow(state, player)],
         ["pirate hideout", "pirate hideout minigame 2nd reward", False, lambda state: st_has_bow(state, player)],
-        ["pirate hideout", "pirate wadatsumi", False, None],
+        #Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
+        ["pirate hideout", "pirate wadatsumi", False, None]
+            if options.randomize_minigames.value in [0] else
+        ["pirate hideout", "pirate wadatsumi", False, lambda state: st_has_bow(state, player)],
         #First hideout minigame gives you bow automatically, and then it shows in top right, even with no items, but doesn't let you use it. With an item, it doesn't show
 
         # ======== Lost at Sea Station ==========
