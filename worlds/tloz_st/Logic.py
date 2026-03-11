@@ -141,7 +141,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos", "tos 3", False, lambda state: st_can_enter_tos_section(state, player,3)],
         ["tos", "tos 4", False, lambda state: st_can_enter_tos_section(state, player,4)],
         ["tos", "tos 5", False, lambda state: st_can_enter_tos_section(state, player,5)],
-
+        ["tos 5", "tos 22f", False, lambda state: state.multiworld.worlds[player].exclude_tos_5],  # bypass tos 5 if excluded
 
         ["tos 1f", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player) or st_has_beam_sword(state, player))],
         ["tos 1f", "tos 1f switch", False, lambda state: st_can_kill_bat(state, player) or st_can_possess_phantoms(state, player, 1)],
@@ -673,7 +673,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["cole fight", "malladus 1", False, lambda state: st_can_fight_malladus(state, player)],
         ["malladus 1", "malladus 2", False, lambda state: st_has_spirit_flute(state, player) and st_has_sword(state, player)],
         ["malladus 2", "malladus goal", False, lambda state: st_can_fight_malladus(state, player)],
-
+        # ["dark realm portal", "malladus goal", False, None],
         ["malladus 2", "malladus event", False, lambda state: st_can_fight_malladus(state, player)],
 
         ["forest realm", "beedle", False, lambda state: st_has_source(state, player, "Snow")],

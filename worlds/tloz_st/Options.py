@@ -534,6 +534,34 @@ class SpiritTracksStampItemPacks(NamedRange):
         "random_mixed": -1
     }
 
+class SpiritTracksExcludeDungeons(Choice):
+    """
+    Exclude or remove locations from non-required dungeons.
+    Does not count tower of spirits, that has its own option.
+    - include: non-required dungeons are included
+    - exclude: non-required dungeon locations are excluded, and can't have useful or progression items.
+    - remove: non-required dungeon locations are removed from generation, and don't count towards hint cost etc.
+    """
+    display_name = "Exclude non-required Dungeons"
+    option_include = 0
+    option_exclude = 1
+    option_remove = 2
+    default = 0
+
+class SpiritTracksExcludeSections(Choice):
+    """
+    Exclude or remove locations from non-required Tower of Spirits Section.
+    Will spawn the blue warp in the tower early if section 5 is excluded, you'll still need to defeat staven to reach the room behind it.
+    - include: non-required sections are included
+    - exclude: non-required sections locations are excluded, and can't have useful or progression items.
+    - remove: non-required section locations are removed from generation, and don't count towards hint cost etc.
+    """
+    display_name = "Exclude non-required ToS Sections"
+    option_include = 0
+    option_exclude = 1
+    option_remove = 2
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -548,6 +576,8 @@ class SpiritTracksOptions(PerGameCommonOptions):
     plando_dungeon_pool: SpiritTracksDungeonPoolPlando
     require_specific_dungeons: SpiritTracksRequireSpecificDungeons
     dungeon_hints: SpiritTracksRequiredDungeonHints
+    exclude_dungeons: SpiritTracksExcludeDungeons
+    exclude_sections: SpiritTracksExcludeSections
 
     # Logic options
     logic: SpiritTracksLogic
@@ -615,6 +645,8 @@ st_option_groups = [
         SpiritTracksEndgameScope,
         SpiritTracksTowerOfSpiritsDungeonOptions,
         SpiritTracksDungeonPoolPlando,
+        SpiritTracksExcludeSections,
+        SpiritTracksExcludeDungeons,
         SpiritTracksRequiredDungeonHints,
     ]),
     OptionGroup("Misc Options", [

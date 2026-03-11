@@ -122,6 +122,8 @@ class SpiritTracksWorld(WorldParent):
 
         self.pre_fill_items: List[Item] = []
         self.required_dungeons = []
+        self.non_required_dungeons = []
+        self.non_required_sections = []
         self.dungeon_name_groups = {}
         self.locations_to_exclude = set()
         self.ut_locations_to_exclude = set()
@@ -146,9 +148,12 @@ class SpiritTracksWorld(WorldParent):
         self.tower_pairings = []  # zip object of entrance strings
         self.tower_section_lookup = {i:i for i in range(1, 7)}  # tower section lookup for logic
 
+        self.exclude_tos_5 = 0
+
         self.stamp_items = []
         self.stamp_pack_order = []
         self.model_lookup = {}
+        self.sections_included: int = 6
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -172,6 +177,9 @@ class SpiritTracksWorld(WorldParent):
             self.pick_ut_events()
         else:
             self.required_dungeons = self.pick_required_dungeons()
+            self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
+            if self.options.exclude_sections == "remove":
+                self.sections_included = 6 - len(self.non_required_sections)
             # print(f"Required Dungeons: {self.required_dungeons}")
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
@@ -201,9 +209,18 @@ class SpiritTracksWorld(WorldParent):
             # print(f"Shopsanity {self.options.shopsanity.value}")
         self.create_item_mappings()
 
+        self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_dungeons]
+        print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_dungeons}")
+        if 5 in self.non_required_sections and self.options.exclude_sections:
+            self.exclude_tos_5 = 1
+
     def plando_tos_sections(self):
         """Plando ToS Shuffle early so we can use the ordering in logic"""
         if not self.options.shuffle_tos_sections:
+            if self.options.exclude_sections == "remove":
+                sections = [s for s in range(1, 7) if s not in self.non_required_sections]
+                self.tower_section_lookup = {s: i for i, s in enumerate(sections, start=1)}
+                self.tower_section_lookup |= {s: 6 for s in self.non_required_sections}
             return
 
         # Sophisticated shuffle to avoid loops
@@ -220,7 +237,7 @@ class SpiritTracksWorld(WorldParent):
             if entrance == "Tower of Spirits Exit Staven" and self.tower_pairings[0][1] == "ToS Summit Lower Exit":
                 banned_connections["Tower of Spirits Summit Enter Altar"].append("ToS 18F Exit")
 
-        # print(f"Tower pairings: {list(self.tower_pairings)}")
+        print(f"Tower pairings: {list(self.tower_pairings)}")
         self.plando_pairings |= {ENTRANCES[e1].id: ENTRANCES[e2].id for e1, e2 in self.tower_pairings}
         self.plando_pairings |= {e2: e1 for e1, e2 in self.plando_pairings.items()}
 
@@ -229,10 +246,23 @@ class SpiritTracksWorld(WorldParent):
         for pair, entr in self.tower_pairings:
             if entr in EXIT_TO_TOS_SECTION and pair in ENTRANCE_TO_TOS_ORDER:
                 sort_filter[EXIT_TO_TOS_SECTION[entr]] = ENTRANCE_TO_TOS_ORDER[pair]
+
         to_sort = [i for i in sort_filter]
+        old_sort = [i for i in sort_filter]
+        add_excluded = []
+        if self.options.exclude_sections == "remove":
+            required = set(range(1, 7))-set(self.non_required_sections)
+            print(F"required sections: {required}")
+            add_excluded = self.non_required_sections
+            for s in self.non_required_sections:
+                to_sort.remove(s)
+
+        old_sort.sort(key=lambda i: sort_filter[i])
         to_sort.sort(key=lambda i: sort_filter[i])
         self.tower_section_lookup = {section: i + 1 for i, section in enumerate(to_sort)}
-        # print(f"Section lookup: {self.tower_section_lookup}")
+        self.tower_section_lookup |= {i: 6 for i in add_excluded}
+        old_lookup = {section: i + 1 for i, section in enumerate(old_sort)}
+        print(f"Section lookup: {self.tower_section_lookup} old {old_lookup}")
 
     def hide_ut_map_stuff(self):
         self.tracker_world["map_page_locations"].append("locations/tos_singles.json")
@@ -370,8 +400,20 @@ class SpiritTracksWorld(WorldParent):
             loc.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
 
     def location_is_active(self, location_name, location_data):
-        if not location_data.get("conditional", False) and "rabbit" not in location_data:
+        if not location_data.get("conditional", False) and "rabbit" not in location_data and "dungeon" not in location_data and "tos_section" not in location_data:
             return True
+
+        if "tos_section" in location_data:
+            if "stamp" in location_data:
+                return self.options.randomize_stamps.value in [2, 3]
+            return location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove"
+        if "dungeon" in location_data:
+            stamp = True
+            if "stamp" in location_data:
+                stamp = self.options.randomize_stamps.value in [2, 3]
+            # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
+            return stamp and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
+
         if "rabbit" in location_data:
             return location_name in self.active_rabbit_locations
 
@@ -388,6 +430,11 @@ class SpiritTracksWorld(WorldParent):
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
             return self.options.randomize_stamps.value in [2, 3]
         if location_name in LOCATION_GROUPS["Niko"]:
+            # If dungeon stamp stands are excluded with vanilla stamps, niko has to give less items
+            if self.options.exclude_dungeons and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2]:
+                if len(self.non_required_dungeons) >= 5:
+                    return location_name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
+                return location_name not in ["Outset Niko 20 Stamps Reward"]
             return self.options.randomize_stamps
         if self.options.shopsanity and location_name in LOCATION_GROUPS["Shop Locations"]:
             if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
@@ -522,6 +569,12 @@ class SpiritTracksWorld(WorldParent):
         self.ut_locations_to_exclude = locations_to_exclude.copy()
         self.locations_to_exclude = locations_to_exclude
 
+        if self.options.exclude_dungeons == "exclude":
+            self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "dungeon" in d and d["dungeon"] in self.non_required_dungeons])
+
+        if self.options.exclude_sections == "exclude":
+            self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "tos_section" in d and d["tos_section"] in self.non_required_sections])
+
         # Take item off goal location
         if self.options.goal == SpiritTracksGoal(0):
             current_goal = "ToS 3F Forest Rail Glyph"
@@ -536,8 +589,11 @@ class SpiritTracksWorld(WorldParent):
             current_goal = "Blizzard Temple Dungeon Reward"
             self.locations_to_exclude.add(current_goal)
 
-        for name in locations_to_exclude:
-            self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
+        for name in self.locations_to_exclude:
+            try:
+                self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
+            except KeyError:  # Would it be more efficient to check if location is in active locations first?
+                pass
 
     def set_rules(self):
         create_connections(self, self.player, self.origin_region_name, self.options)
@@ -618,12 +674,12 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"Locking stamp item {item_name} to {loc_name}")
                 continue
             if any([
-                item_name in ["Filler Item", "Treasure", "Sword Beam Scroll",
+                item_name in ["Filler Item", "Treasure",
                               "Heart Container", "Tear of Light", "Small Key (ToS)",
-                              "Bombs (Progressive)", "Bow (Progressive)", "Shield",
-                              "Prize Postcards (10)"],
+                              "Shield", "Prize Postcards (10)", "Sand Source"],
                 item_name.startswith("Stamp"),
-                item_name in ITEM_GROUPS["Add Rails to Pool"],
+                item_name in ITEM_GROUPS["All Rails"],
+                item_name in ITEM_GROUPS["Main Items"],
                 self.options.randomize_cargo.value == 3 and item_name in ["Cargo: Cuccos", "Cargo: Mega Ice"]
                 ]):
                 # print(f"\tBig listicle {item_name}")
@@ -646,17 +702,18 @@ class SpiritTracksWorld(WorldParent):
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
             #print(f"Location {loc_name} has {item_name} item")
-
+            if item_data.classification == ItemClassification.progression and "tos_section" in loc_data:
+                print(f"Dungeon Prog {item_name}")
         # TODO Fill filler count with consistent amounts of items, when filler count is empty it won't add any more items
         # so add progression items first
         add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
-                     ("Repair Trading Post Bridge", 1), ("Shield", 2)]
+                     ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Compass of Light", 1)]
+        add_items += [(i, 1) for i in ITEM_GROUPS["Non-Progressive Main Items"]]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.randomize_cargo: add_items += [("Wagon", 1)]
         if self.options.randomize_cargo.value == 3: add_items += [("Cargo: Mega Ice", 3), ("Cargo: Cuccos (5)", 3)]
         # if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         if self.options.randomize_stamps: add_items += self.stamp_items
-        add_items += [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2), ("Small Key (ToS 6)", 3)]
         add_items += self.choose_tos_items()
         add_items += [(i, 1) for i in ITEM_GROUPS["Add Rails to Pool"]]
         if self.options.portal_behavior.value == 2:
@@ -664,7 +721,7 @@ class SpiritTracksWorld(WorldParent):
         add_items += self.choose_tear_items()
         add_items += [i for i in self.rabbit_item_dict.items()]
         add_items += [("Sword Beam Scroll", 1), ("Great Spin Scroll", 1), ("Heart Container", 13)]
-        print(f"Add items: ({sum([i for _, i in add_items])}/{filler_item_count})")
+        print(f"Add items: ({sum([i for _, i in add_items])}/{filler_item_count - len(self.locations_to_exclude)})")
         for i, count in add_items:
             # print(f"\t{i}: {count}")
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
@@ -685,6 +742,15 @@ class SpiritTracksWorld(WorldParent):
             res += [("Progressive ToS Section", prog_count)]
         elif self.options.tos_unlock_base_item:
             res += [("Tower of Spirits Base", 1)]
+
+        tos_small_key_counts = [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2),
+                                ("Small Key (ToS 6)", 3)]
+        if self.options.exclude_sections != "remove":
+            res += tos_small_key_counts
+        else:
+            res += [keys for keys, sections in zip(tos_small_key_counts, [2, 4, 5, 6]) if sections not in self.non_required_sections]
+            # print(f"Tos items {res}, {self.non_required_sections} {list(zip(tos_small_key_counts, [2, 4, 5, 6]))}")
+
         return res
 
     def choose_rabbit_locations(self):
@@ -814,6 +880,8 @@ class SpiritTracksWorld(WorldParent):
         spirit_weapon = self.options.spirit_weapons.value
         size_str = ["", "Big "][size_index]
         sections = range(1, 6)
+        if self.options.exclude_sections == "remove":
+            sections = [s for s in sections if s not in self.non_required_sections]
         add_items = []
         tear_sections = self.options.tear_sections.value
         count_normal = [3, 1][size_index]
@@ -823,7 +891,8 @@ class SpiritTracksWorld(WorldParent):
         elif tear_sections == 1:  # All Sections
             add_items += [(f"{size_str}Tear of Light (All Sections)", count_normal + spirit_weapon)]
         elif tear_sections == 2: # progressive
-            count_prog = [15, 5][size_index]
+            section_count = min(self.sections_included, 5)
+            count_prog = [section_count*3, section_count][size_index]
             add_items += [(f"{size_str}Tear of Light (Progressive)", count_prog + spirit_weapon)]
 
         if not spirit_weapon:
@@ -831,7 +900,7 @@ class SpiritTracksWorld(WorldParent):
         else:
             add_items += [("Sword", 1)]
 
-        # print(f"New Tear Items: {add_items}")
+        print(f"New Tear Items: {add_items}")
         return add_items
 
     def choose_stamp_items(self):
@@ -984,22 +1053,6 @@ class SpiritTracksWorld(WorldParent):
         self.er_placement_state = randomize_entrances(self, True, groups)
         # print(f"ER Placements: {self.er_placement_state.pairings}")
 
-        # Get lookup for logic stuff. Doesn't work cause logic is cemented earlier
-        # self.create_tower_section_lookup()
-
-    def create_tower_section_lookup(self):
-        # Get lookup for logic stuff
-        tower_pairings = {i: pair for i, pair in self.er_placement_state.pairings if i in ENTRANCE_TO_TOS_ORDER}
-        # print(f"Tower Pairings: {tower_pairings}")
-        sort_filter = {}
-        for pair, entr in tower_pairings.items():
-            if entr in EXIT_TO_TOS_SECTION and pair in ENTRANCE_TO_TOS_ORDER:
-                sort_filter[EXIT_TO_TOS_SECTION[entr]] = ENTRANCE_TO_TOS_ORDER[pair]
-        to_sort = [i for i in sort_filter]
-        to_sort.sort(key=lambda i: sort_filter[i])
-        self.tower_section_lookup = {section: i + 1 for i, section in enumerate(to_sort)}
-        # print(f"{self.tower_section_lookup}")
-
     def get_pre_fill_items(self):
         return self.pre_fill_items
 
@@ -1025,7 +1078,6 @@ class SpiritTracksWorld(WorldParent):
         self.pre_fill_items.extend(confined_dungeon_items)
 
     def pre_fill_tos_sections(self):
-        floor_lookup = {1: 1, 2: 4, 3: 9, 4: 13, 5: 18, 6: 29}
         for section in range(1, 7):
             section_names = [name for name, loc in LOCATIONS_DATA.items()
                              if loc.get("tos_section", 0) == section]
@@ -1082,8 +1134,8 @@ class SpiritTracksWorld(WorldParent):
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
-            # print(f"pre filling {dung_name}: {confined_dungeon_items}")
-            # print(f"\tlocations {dungeon_location_names}")
+            #print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            #print(f"\tlocations {dungeon_location_names}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 
@@ -1093,6 +1145,7 @@ class SpiritTracksWorld(WorldParent):
             collection_state = self.multiworld.get_all_state(False)
             # Perform a prefill to place confined items inside locations of this dungeon
             self.random.shuffle(dungeon_locations)
+            #print(f"{dungeon_locations}, {confined_dungeon_items}")
             fill_restrictive(self.multiworld, collection_state, dungeon_locations, confined_dungeon_items,
                              single_player_placement=True, lock=True, allow_excluded=True)
 
@@ -1163,6 +1216,7 @@ class SpiritTracksWorld(WorldParent):
     def fill_slot_data(self) -> dict:
         options = ["goal",
                    "logic", "cannon_logic",
+                   "exclude_dungeons", "exclude_sections",
                    "keysanity", "randomize_boss_keys",
                    "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
@@ -1180,6 +1234,7 @@ class SpiritTracksWorld(WorldParent):
         slot_data["required_dungeons"] = self.required_dungeons
         slot_data["stamp_pack_order"] = self.stamp_pack_order
         slot_data["model_lookup"] = self.get_location_moodels()
+        slot_data["exclude_tos_5"] = self.exclude_tos_5
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
@@ -1187,6 +1242,7 @@ class SpiritTracksWorld(WorldParent):
         pairings |= self.plando_pairings
         slot_data["er_pairings"] = pairings
         slot_data["tower_section_lookup"] = self.tower_section_lookup
+        slot_data["section_count"] = self.sections_included
         print(f"ER Pairings: {pairings}")
 
         return slot_data

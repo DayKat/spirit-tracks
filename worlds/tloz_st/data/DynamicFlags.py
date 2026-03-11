@@ -1735,6 +1735,11 @@ DYNAMIC_FLAGS = {
         "set_if_true": [(STAddr.adv_flags_30, 0x4)],
         "unset_if_true": [(STAddr.adv_flags_2a, 0x20)]
     },
+    "Spawn blue warp in tos if tos 5 is excluded": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [("exclude_tos_5", 1)],
+        "set_if_true": [(STAddr.adv_flags_21, 0x20)],
+    },
 }
 """
 "Dynamic Flag Name": {

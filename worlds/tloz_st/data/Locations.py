@@ -24,6 +24,7 @@ LOCATIONS_DATA = {
     "Outset Bee Tree": {
         "region_id": "outset village",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "item_override": "Cannon",
         "stage_id": 0x2F,
         "room_id": 0,
         "x_min": 34192,
@@ -332,7 +333,6 @@ LOCATIONS_DATA = {
     "ToS 2F Raised Chest": {
         "region_id": "tos 2f raised chests",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "item_override": "Cannon",
         "stage_id": 0x13,
         "room_id": 1,
         "x_min": -5786,
@@ -1863,6 +1863,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x20,
         "room_id": 0,
         "y": 88472,
+        "dungeon": "Marine Temple",
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "location_groups": ["Cactops"],
     },
@@ -2320,6 +2321,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x21,
         "region_id": "mtt boss",
         "vanilla_item": "Heart Container",
+        "dungeon": "Mountain Temple",
     },
     "Mountain Temple Dungeon Reward": {
         "address": STAddr.adv_flags_0,
@@ -2328,6 +2330,7 @@ LOCATIONS_DATA = {
         "region_id": "mtt boss",
         "vanilla_item": "Fire Source",
         "ut_connect": "EVENT: Defeat Vulcano",
+        "dungeon": "Mountain Temple",
         "no_model": True
     },
     # Goron Target Range
@@ -2593,6 +2596,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x22,
         "room_id": 0x1,
         "vanilla_item": "Heart Container",
+        "dungeon": "Desert Temple",
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
     },
@@ -2605,6 +2609,7 @@ LOCATIONS_DATA = {
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
         "ut_connect": "EVENT: Defeat Skeldritch",
+        "dungeon": "Desert Temple",
         "no_model": True
     },
     "Desert Temple Bow of Light Chest": {
@@ -2614,6 +2619,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Bow of Light",
         "item_override": "Nothing!",
         "region_id": "skeldritch",
+        "dungeon": "Desert Temple",
         "location_groups": ["Skeldritch"],
     },
 

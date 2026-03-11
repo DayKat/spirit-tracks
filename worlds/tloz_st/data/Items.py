@@ -47,7 +47,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.items_0,
         'value': 0x01,
         'item_groups': ["Equipment", "Main Items",
-                        "Gust"],
+                        "Gust", "Non-Progressive Main Items"],
 
         "model": "Whirlwind"
     },
@@ -89,7 +89,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.items_0,
         'value': 0x04,
-        'item_groups': ["Equipment", "Main Items"],
+        'item_groups': ["Equipment", "Main Items", "Non-Progressive Main Items"],
 
         "model": "Whip"
     },
@@ -97,7 +97,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.items_0,
         'value': 0x02,
-        'item_groups': ["Equipment", "Main Items"],
+        'item_groups': ["Equipment", "Main Items", "Non-Progressive Main Items"],
 
         "model": "Boomerang"
     },
@@ -106,7 +106,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.items_0,
         'value': 0x20,
         'item_groups': ["Equipment", "Main Items",
-                        "Sand Rod"],
+                        "Sand Rod", "Non-Progressive Main Items"],
 
         "model": "Sand Wand"
     },
@@ -1569,7 +1569,7 @@ ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] | ITEM
 ITEM_GROUPS["All Treasures"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Common Treasures"]
 ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"] | ITEM_GROUPS["Ocean Rabbits"] | ITEM_GROUPS["Mountain Rabbits"] | ITEM_GROUPS["Sand Rabbits"]
 ITEM_GROUPS["Tears of Light"] = ITEM_GROUPS["Big Tears of Light"] | ITEM_GROUPS["Small Tears of Light"]
-ITEM_GROUPS["Add Rails to Pool"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"]
+ITEM_GROUPS["Add Rails to Pool"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"] | ITEM_GROUPS["Sources"] | ITEM_GROUPS["Glyphs"]
 ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"]
 
 # for name, group in ITEM_GROUPS.items():

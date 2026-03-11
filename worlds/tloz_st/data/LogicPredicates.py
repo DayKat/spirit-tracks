@@ -130,6 +130,7 @@ def st_has_discovery_song(state: CollectionState, player: int):
 
 def st_has_tears(state: CollectionState, player: int, section: int):
     options = state.multiworld.worlds[player].options
+    section_count = min(state.multiworld.worlds[player].sections_included, 5)
     if options.shuffle_tos_sections and options.tear_sections == "progressive":
         section = state.multiworld.worlds[player].tower_section_lookup[section]
         # print(f"Section lookup {state.multiworld.worlds[player].tower_section_lookup}")
@@ -138,17 +139,18 @@ def st_has_tears(state: CollectionState, player: int, section: int):
         state.has(f"Tear of Light (ToS {section})", player, 3),
         state.has(f"Big Tear of Light (ToS {section})", player),
         state.has(f"Tear of Light (Progressive)", player, section*3),
-        state.has(f"Tear of Light (Progressive)", player, 16),
+        state.has(f"Tear of Light (Progressive)", player, section_count*3 + 1),
         state.has(f"Big Tear of Light (Progressive)", player, section),
         state.has(f"Tear of Light (All Sections)", player, 3),
         state.has(f"Big Tear of Light (All Sections)", player),
     ])
 
 def st_has_bow_of_light(state, player):
+    section_count = min(state.multiworld.worlds[player].sections_included, 5)
     return any([
         state.has("Bow of Light", player) and st_has_bow(state, player),
-        state.has(f"Tear of Light (Progressive)", player, 16),
-        state.has(f"Big Tear of Light (Progressive)", player, 6),
+        state.has(f"Tear of Light (Progressive)", player, section_count*3 + 1),
+        state.has(f"Big Tear of Light (Progressive)", player, section_count+1),
         state.has(f"Tear of Light (All Sections)", player, 4),
         state.has(f"Big Tear of Light (All Sections)", player, 2),
     ])
