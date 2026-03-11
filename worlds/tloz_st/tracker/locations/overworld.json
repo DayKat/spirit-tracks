@@ -49,6 +49,7 @@
   {"name": "Mayscore", "sections": [
     {"name": "Mayscore Shop Treasure 1"},{"name": "Mayscore Shop Treasure 2"},
     {"name": "Mayscore Shop Red Potion"},{"name": "Mayscore Shop Shield"},{"name": "Mayscore Shop Postcards"},
+    {"name": "Mayscore Pick Up Dovok"},
     {"name": "Mayscore Buy Lumber"},
     {"name": "Mayscore Deliver Steel"},
     {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"},
@@ -242,15 +243,19 @@
         {"name": "Papuzia Shop Bombs"},
         {"name": "Papuzia Shop Arrows"},
         {"name": "Papuzia Shop Postcards"},
+        {"name": "Papuzia Village Pick Up Carben"},
+        {"name": "Papuzia Village Orca's Force Gem"},
+        {"name": "Papuzia Village Wadatsumi's Force Gem"},
         {"name": "Papuzia Village Buy Fish"},
         {"name": "Papuzia Village Buy Vessel"},
         {"name": "Papuzia Village Deliver Ice"}
   ], "map_locations":[{"map": "Overview", "x": 596, "y": 670}]},
-  {"name": "Ocean Sanctuary", "sections": [
+  {"name": "Island Sanctuary", "sections": [
     {"name": "Ocean Sanctuary S Island Chest"},
     {"name": "Ocean Sanctuary Cucco Chest"},
     {"name": "Ocean Sanctuary NW Chest"},
-    {"name": "Ocean Sanctuary Stamp Station"}
+    {"name": "Ocean Sanctuary Stamp Station"},
+    {"name": "Ocean Sanctuary Carben's Force Gem"}
   ], "map_locations":[{"map": "Overview", "x": 716, "y": 670}]},
   {"name": "Marine Temple", "sections": [
     {"name": "Marine Temple Song Statue"},
@@ -275,6 +280,7 @@
     {"name": "Pirate Hideout Secret Cave Left Treasure"},
     {"name": "Pirate Hideout Secret Cave Mid Treasure"},
     {"name": "Pirate Hideout Secret Cave Right Treasure"},
+        {"name": "Pirate Hideout Pick Up Wadatsumi"},
         {"name": "Pirate Hideout Minigame 1st Reward"},
         {"name": "Pirate Hideout Minigame 2nd Reward"}
   ], "map_locations":[{"map": "Overview", "x": 592, "y": 564}]},

@@ -469,7 +469,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x80,
         'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks"],
         "model": "Ocean Glyph",
-        "vanilla_model": "Force Gem 56"
+        "vanilla_model": "Force Gem 17"
     },
     "Sand Realm Tracks": {
         'classification': ItemClassification.progression,

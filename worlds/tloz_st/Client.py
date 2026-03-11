@@ -726,7 +726,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_scene in [0x1309, 0x1318] and isinstance(location.get("vanilla_item", ""), str) and location.get("vanilla_item", "").startswith("Boss Key"):
             if self.item_count(ctx, location["vanilla_item"]):
                 print("Opening ToS boss door after having key and getting boss key location")
-                await self.open_tos_boss_door(ctx)
+                await self.open_tos_boss_door(ctx, self.current_scene)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:

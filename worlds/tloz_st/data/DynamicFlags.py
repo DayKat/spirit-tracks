@@ -1527,7 +1527,8 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_cargo", 2)],
         "not_has_locations": ["Papuzia Village Deliver Ice"],
         "reset_flags": ["RESET Cargo"],
-        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
+        "set_if_true": [(STAddr.adv_flags_33, 0x20)]
     },
     "Papuzia has 1 ice": {
         "on_scenes": [0x2c00],
@@ -1536,7 +1537,8 @@ DYNAMIC_FLAGS = {
         "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
         "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
         "reset_flags": ["RESET Cargo"],
-        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
+        "set_if_true": [(STAddr.adv_flags_33, 0x20)]
     },
     "Papuzia has 2 ice": {
         "on_scenes": [0x2c00],
@@ -1544,7 +1546,8 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_cargo", 3)],
         "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
         "reset_flags": ["RESET Cargo"],
-        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
+        "set_if_true": [(STAddr.adv_flags_33, 0x20)]
     },
     "Papuzia has 3 ice": {
         "on_scenes": [0x2c00],
@@ -1552,7 +1555,14 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("randomize_cargo", 3)],
         "not_has_locations": ["Papuzia Village Deliver Ice"],
         "reset_flags": ["RESET Cargo"],
-        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
+        "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
+        "set_if_true": [(STAddr.adv_flags_33, 0x20)]
+    },
+    "Papuzia set ice bit vanilla": {
+        "on_scenes": [0x2c00],
+        "has_slot_data": [("randomize_cargo", 1)],
+        "has_items": [("Wagon", 1)],
+        "set_if_true": [(STAddr.adv_flags_33, 0x20)]
     },
     "Goron elder skip cutscene": {
         "on_scenes": [0x2e0a],
