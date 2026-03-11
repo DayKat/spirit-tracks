@@ -266,6 +266,14 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
     },
+    "Portal Unlock: Mayscore to Ocean Portal Tracks": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
+    "Portal Unlock: Snow Bridge to Island Sanctuary": {
+        'classification': ItemClassification.progression,
+        'item_groups': ["Portal Unlocks"],
+    },
 
     # ========== Rail Maps ============
 

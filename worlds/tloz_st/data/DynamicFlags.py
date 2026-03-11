@@ -293,34 +293,27 @@ DYNAMIC_FLAGS = {
     "Close Castle town portal no item": {
         "on_scenes": [0x0400],
         "has_slot_data": [("portal_behavior", 2)],
-        "has_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 0]],
+        "not_has_all_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 1], ("Snow Glyph", 1)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
 
-    "Keep portal loc open anouki village": {
+    "Keep portal loc available anouki village": {
         "on_scenes": [0x0500],
         "has_slot_data": [["portal_checks", 1]],
-        # "has_items": [("Cannon", 1)],
         "not_has_locations": ["Snow Realm Shoot SW Portal"],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
-    # "Open anouki portal no cannon": {
-    #     "on_scenes": [0x0500],
-    #     "has_slot_data": [["portal_checks", 1], ["portal_behavior", 1]],
-    #     "has_items": [("Cannon", 0)],
-    #     "set_if_true": [(STAddr.adv_flags_30, 0x08)]
-    # },
-    # "Open anouki portal open portals": {
-    #     "on_scenes": [0x0500],
-    #     "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
-    #     "set_if_true": [(STAddr.adv_flags_30, 0x08)]
-    # },
-    # "Open anouki portal no cannon item": {
-    #     "on_scenes": [0x0500],
-    #     "has_slot_data": [["portal_checks", 1], ["portal_behavior", 2]],
-    #     "has_items": [("Cannon", 0), ("Portal Unlock: Hyrule Castle to Anouki Village", 1)],
-    #     "set_if_true": [(STAddr.adv_flags_30, 0x08)]
-    # },
+    "Open anouki portal open portals": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    },
+    "Open anouki portal item": {
+        "on_scenes": [0x0500],
+        "has_items": [("Portal Unlock: Hyrule Castle to Anouki Village", 1)],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    },
 
     "Allow portal snow realm E to Forest S always open": {
         "on_scenes": [0x500],
@@ -335,23 +328,30 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
-    "Keep portal loc open s trading post": {
+    "Close snow realm E to Forest S item": {
+        "on_scenes": [0x500],
+        "not_has_all_items": [["Portal Unlock: Trading Post to E Snow Realm", 1], ["Forest Realm SE Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
+    },
+
+    "Keep portal loc available s trading post": {
         "on_scenes": [0x400],
         "not_has_locations": ["Forest Realm Shoot SE Portal"],
         "has_slot_data": [["portal_checks", 1]],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
-    "open portal s trading post no cannon": {
+    "open portals s trading post": {
         "on_scenes": [0x400],
         "has_items": [("Blizzard Temple Tracks", 1)],
-        "has_slot_data": [["portal_checks", 0]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
-    "Close portal e snow realm items": {
-        "on_scenes": [0x500],
-        "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 0]],
-        "has_slot_data": [("portal_behavior", 2)],
-        "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
+    "open portal s trading post item": {
+        "on_scenes": [0x400],
+        "has_items": [("Blizzard Temple Tracks", 1), ("Portal Unlock: Trading Post to E Snow Realm", 1)],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
 
     "Dark realm restart for dynamic entrances": {
@@ -376,69 +376,117 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
-    "Allow Portal sand connection cannonless": {
-        "on_scenes": [0x700],
-        "has_items": [["Marine Temple Tracks", 1]],
-        "has_slot_data": [("portal_checks", 0)],
-        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    "Close Portal near marine temple item": {
+        "on_scenes": [0x600],
+        "not_has_all_items": [["Sand to Fire Connection Tracks", 1],
+                      ["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
+
     "Prevent Portal sand connection to marine location": {
         "on_scenes": [0x700],
         "not_has_locations": ["Fire Realm Shoot Sand Portal"],
         "has_slot_data": [("portal_checks", 1)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
+    "Open Portal sand connection to marine always open": {
+        "on_scenes": [0x700],
+        "has_items": [["Sand to Fire Connection Tracks", 1]],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+    "Open Portal sand connection to marine items": {
+        "on_scenes": [0x700],
+        "has_items": [["Sand to Fire Connection Tracks", 1],
+                      ["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
 
     "Allow Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
         "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1]],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
     },
     "Allow Portal sand temple shortcut with item": {
         "on_scenes": [0x600],
         "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1],
-                      ("Portal Unlock: Fire Sand Connection to Marine Temple", 1)],
-        "has_slot_data": [("portal_behavior", 2)],
+                      ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "has_slot_data": [("portal_behavior", 2), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
     },
-    "Close Portal sand temple shortcut always open right": {
+    "Close sand portal no item": {
+        "on_scenes": [0x600],
+        "not_has_all_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1],
+                      ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "not_has_locations": ["Sand Realm Shoot Temple Portal"],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x01)],
+    },
+    "Close Portal sand temple shortcut right": {
         "on_scenes": [0x600],
         "has_slot_data": [("portal_checks", 1)],
         "not_has_locations": ["Sand Realm Shoot Temple Portal"],
         "on_entrance": [0x7, 0xB, 0xFB],  # will also close if coming from north, but you can reload at sand sanc
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)]
     },
+    "Open Portal sand temple shortcut always open": {
+        "on_scenes": [0x600],
+        "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1]],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)]
+    },
+    "Open Portal sand temple shortcut item": {
+        "on_scenes": [0x600],
+        "has_items": [["Desert Temple Tracks", 1], ["Sand Realm Tracks", 1],
+                      ("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)]
+    },
 
-    "Keep portal loc open icy spring": {
+    "Keep portal closed loc icy spring": {
         "on_scenes": [0x0500],
         "has_slot_data": [["portal_checks", 1]],
         "not_has_locations": ["Snow Realm Shoot N Portal"],
         "unset_if_true": [(STAddr.adv_flags_31, 0x02)]  # activates portal to sw snow realm
     },
-    "Open portal for free icy spring": {
+    "Allow Portal icy spring always open": {
         "on_scenes": [0x0500],
-        "has_slot_data": [["portal_checks", 0]],
         "has_items": [["Mountain Temple Tracks", 1]],
-        "set_if_true": [(STAddr.adv_flags_31, 0x02)]  # activates portal to sw snow realm
+        "has_slot_data": [("portal_behavior", 1), ["portal_checks", 0]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)],
     },
+    "Allow Portal icy spring with item": {
+        "on_scenes": [0x0500],
+        "has_items": [["Mountain Temple Tracks", 1], ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [("portal_behavior", 2), ["portal_checks", 0]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)]
+    },
+
     "Allow Portal mountain always open": {
-        "on_scenes": [0x700],
+        "on_scenes": [0x0700],
         "has_items": [["N Icy Spring Tracks", 1]],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)],
     },
     "Allow Portal mountain with item": {
-        "on_scenes": [0x700],
-        "has_items": [["N Icy Spring Tracks", 1],
-                      ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "on_scenes": [0x0700],
+        "has_items": [["N Icy Spring Tracks", 1], ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)]
     },
+    "Close Portal mountain no item": {
+        "on_scenes": [0x0700],
+        "not_has_all_items": [["N Icy Spring Tracks", 1], ("Portal Unlock: Icy Spring to Mountain Temple", 1)],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x02)]
+    },
 
-    "Allow Portal goron village": {
+    "Allow Portal goron village open portals": {
         "on_scenes": [0x0700],
         "has_items": [["Forest Realm SW Cave Tracks", 1]],
         "has_slot_data": [("portal_behavior", 1)],
@@ -451,25 +499,114 @@ DYNAMIC_FLAGS = {
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.activate_portals, 0x20)]
     },
-    "Open cave portal no cannon": {
+    "Close Portal goron village item": {
+        "on_scenes": [0x0700],
+        "not_has_all_items": [["Forest Realm SW Cave Tracks", 1],
+                      ["Portal Unlock: Forest Cave to Goron Village", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+
+    "Open cave portal open portals": {
         "on_scenes": [0x0400],
         "has_items": [["Fire Glyph", 1]],
-        "has_slot_data": [["portal_checks", 0]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
         "set_if_true": [(STAddr.activate_portals, 0x20)]
     },
-    "Keep portal loc open cave": {
+    "Open cave portal item": {
+        "on_scenes": [0x0400],
+        "has_items": [["Fire Glyph", 1],
+                      ["Portal Unlock: Forest Cave to Goron Village", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.activate_portals, 0x20)]
+    },
+    "Keep portal loc closed cave": {
         "on_scenes": [0x0400],
         "has_slot_data": [["portal_checks", 1]],
-        "has_items": [["Cannon", 1]],
         "not_has_locations": ["Forest Realm Shoot SE Portal"],
         "unset_if_true": [(STAddr.activate_portals, 0x20)]
     },
-    "Open portal cannonless": {
+
+    "Allow Portal mayscore open portals": {
         "on_scenes": [0x0400],
-        "has_slot_data": [["portal_checks", 1], ("portal_behavior", 1)],
-        "has_items": [["Fire Glyph", 1], ["Cannon", 0]],
-        "not_has_locations": ["Forest Realm Shoot SE Portal"],
-        "set_if_true": [(STAddr.activate_portals, 0x20)]
+        "has_items": [["Ocean Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Allow Portal mayscore item": {
+        "on_scenes": [0x0400],
+        "has_items": [["Ocean Portal Tracks", 1],
+                      ["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Close Portal mayscore item": {
+        "on_scenes": [0x0400],
+        "not_has_all_items": [["Ocean Portal Tracks", 1],
+                              ["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+
+    "Open ocean portal open portals": {
+        "on_scenes": [0x0600],
+        "has_items": [["Ocean Glyph", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Open ocean portal": {
+        "on_scenes": [0x0600],
+        "has_items": [["Ocean Glyph", 1],
+                      ["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Keep portal loc closed ocean": {
+        "on_scenes": [0x0600],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Ocean Realm Shoot West Portal"],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+
+    "Allow Portal island sanctuary open portals": {
+        "on_scenes": [0x0600],
+        "has_items": [["Snow Realm Bridge Tracks", 1]],
+        "has_slot_data": [("portal_behavior", 1)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Allow Portal island sanctuary item": {
+        "on_scenes": [0x0600],
+        "has_items": [["Snow Realm Bridge Tracks", 1],
+                      ["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Close Portal island sanctuary item": {
+        "on_scenes": [0x0600],
+        "not_has_all_items": [["Snow Realm Bridge Tracks", 1],
+                              ["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
+        "has_slot_data": [("portal_behavior", 2)],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+
+    "Open snow bridge portal open portals": {
+        "on_scenes": [0x0500],
+        "has_items": [["Ocean Portal Tracks", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Open snow bridge portal": {
+        "on_scenes": [0x0500],
+        "has_items": [["Ocean Portal Tracks", 1],
+                      ["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Keep snow bridge portal closed": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 1]],
+        "not_has_locations": ["Snow Realm Shoot Bridge Portal"],
+        "unset_if_true": [(STAddr.adv_flags_30, 0x10)]
     },
 
     # Sanctuaries

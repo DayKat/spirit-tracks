@@ -411,12 +411,26 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
         # ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
         #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
-        ["ocean realm", "ocean portal tracks", True, lambda state: st_has_glyph(state, player, "Ocean")],
-        ["ocean realm source", "ocean portal tracks", True, lambda state: st_has_source(state, player, "Ocean")],
+        ["ocean realm source", "ocean portal tracks", True, lambda state: st_has_source(state, player, "Ocean") and st_has_misc_tracks(state, player, "Ocean Portal")],
         ["ocean temple tracks", "ocean portal tracks", True, lambda state: (
             st_has_temple_tracks(state, player, "Marine") and
             st_has_misc_tracks(state, player, "Ocean Portal"))],
-
+        ["ocean portal tracks", "sand realm", False, lambda state: st_has_misc_tracks(state, player, "Sand Realm") and st_has_misc_tracks(state, player, "Ocean Portal")],
+        ["ocean portal tracks", "ocean portal", False, lambda state: st_has_cannon(state, player)],
+        ["trading post tracks", "ocean portal tracks", False,
+         lambda state: st_has_misc_tracks(state, player, "Ocean Portal") and st_has_portal(state, player, "Mayscore to Ocean Portal Tracks", False)],
+        ["ocean portal tracks", "trading post tracks", False,
+         lambda state: st_has_glyph(state, player, "Ocean") and st_has_portal(state, player,
+                                                                                           "Mayscore to Ocean Portal Tracks",
+                                                                                           True)],
+        ["snow bridge", "ocean temple tracks", False,
+         lambda state: st_has_temple_tracks(state, player, "Marine") and st_has_portal(state, player,
+                                                                                           "Snow Bridge to Island Sanctuary",
+                                                                                           True)],
+        ["ocean temple tracks", "snow bridge", False,
+         lambda state: st_has_misc_tracks(state, player, "Snow Realm Bridge ") and st_has_portal(state, player,
+                                                                                           "Snow Bridge to Island Sanctuary",
+                                                                                           False)],
 
 
         # ========== Ocean Sanctuary =============

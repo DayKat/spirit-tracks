@@ -303,6 +303,7 @@ REGIONS = [
     "pirate hideout tracks",
     "las tracks",
     "ocean portal tracks",
+    "ocean portal",
 
     #Ocean Sanctuary
     "ocs",

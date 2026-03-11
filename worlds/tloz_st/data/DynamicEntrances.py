@@ -235,10 +235,67 @@ DYNAMIC_ENTRANCES = {
         "message": "You don't have access to this portal!"
     },
 
-
     "Bounce snow portal bridge": {
         "entrance": "Snow Realm Bridge Portal",
         "destination": "Snow Realm Bridge Portal",
+        "has_items": [("Marine Temple Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Marine Temple Tracks!"
+    },
+    "Bounce snow bridge portal item": {
+        "entrance": "Snow Realm Bridge Portal",
+        "destination": "Snow Realm Bridge Portal",
+        "not_has_all_items": [("Marine Temple Tracks", 1),
+                              ("Portal Unlock: Snow Bridge to Island Sanctuary", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce island sanc portal": {
+        "entrance": "Ocean Realm South Portal",
+        "destination": "Ocean Realm South Portal",
+        "has_items": [("Snow Realm Bridge Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Snow Realm Bridge Tracks!"
+    },
+    "Bounce island sanc portal item": {
+        "entrance": "Ocean Realm South Portal",
+        "destination": "Ocean Realm South Portal",
+        "not_has_all_items": [("Snow Realm Bridge Tracks", 1),
+                              ("Portal Unlock: Snow Bridge to Island Sanctuary", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce ocean west portal": {
+        "entrance": "Ocean Realm West Portal",
+        "destination": "Ocean Realm West Portal",
+        "has_items": [("Ocean Glyph", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Ocean Glyph!"
+    },
+    "Bounce ocean west portal item": {
+        "entrance": "Ocean Realm West Portal",
+        "destination": "Ocean Realm West Portal",
+        "not_has_all_items": [("Ocean Glyph", 1),
+                              ("Portal Unlock: Mayscore to Ocean Portal Tracks", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
+        "message": "You don't have access to this portal!"
+    },
+
+    "Bounce mayscore portal": {
+        "entrance": "Forest Realm Mayscore Portal",
+        "destination": "Forest Realm Mayscore Portal",
+        "has_items": [("Ocean Portal Tracks", 0)],
+        "has_slot_data": [["portal_behavior", [0, 1]]],
+        "message": "You don't have the Ocean Portal Tracks!"
+    },
+    "Bounce mayscore portal item": {
+        "entrance": "Forest Realm Mayscore Portal",
+        "destination": "Forest Realm Mayscore Portal",
+        "not_has_all_items": [("Ocean Portal Tracks", 1),
+                              ("Portal Unlock: Mayscore to Ocean Portal Tracks", 1)],
+        "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
 

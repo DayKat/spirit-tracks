@@ -113,7 +113,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Snow Realm Bridge Portal": {
-        "return_name": "Ocean Realm Portal",
+        "return_name": "Ocean Realm South Portal",
         "entrance": (0x5, 0, 0xB),
         "exit": (0x6, 0x0, 0x9),
         "entrance_region": "snow realm",
@@ -126,6 +126,16 @@ ENTRANCE_DATA = {
         "return_name": "Fire Realm Portal",
         "entrance": (0x4, 0, 0xC),
         "exit": (0x7, 0x0, 0x12),
+        "entrance_region": "ocean portal tracks",
+        "exit_region": "trading post tracks",
+        "type": EntranceGroups.TRAIN_PORTAL,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Ocean Realm West Portal": {
+        "return_name": "Forest Realm Mayscore Portal",
+        "entrance": (0x6, 0, 0xd),
+        "exit": (0x4, 0, 0xd),
         "entrance_region": "forest cave tracks",
         "exit_region": "fire realm",
         "type": EntranceGroups.TRAIN_PORTAL,

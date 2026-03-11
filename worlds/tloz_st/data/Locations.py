@@ -3006,6 +3006,14 @@ LOCATIONS_DATA |= {
         "location_groups": ["Portal Checks"],
         "conditional": True
     },
+    "Ocean Realm Shoot West Portal": {
+        "stage_id": 0x06,
+        "region_id": "ocean portal",
+        "address": STAddr.adv_flags_31,
+        "value": 0x4,
+        "location_groups": ["Portal Checks"],
+        "conditional": True
+    },
     "Sand Realm Shoot Temple Portal": {
         "stage_id": 0x06,
         "region_id": "sand restoration portal",
