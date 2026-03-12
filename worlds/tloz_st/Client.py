@@ -3,7 +3,6 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 from .data.Entrances import ENTRANCES
 from settings import get_settings
 from typing import Literal
@@ -172,7 +171,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
         self.treasure_tracker: dict = {}
         self.item_data = ITEMS
-        self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
+        self.dynamic_entrances_by_scene = build_scene_to_dynamic_entrance()
 
         # Mandatory addresses
         self.addr_game_state = STAddr.game_state

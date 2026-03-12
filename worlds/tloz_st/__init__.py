@@ -181,8 +181,6 @@ class SpiritTracksWorld(WorldParent):
             self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
             if self.options.exclude_sections == "remove":
                 self.sections_included = 6 - len(self.non_required_sections)
-            if len(self.non_required_sections) == 6 and self.options.exclude_sections:
-                self.options.spirit_weapons.value = 0
             print(f"Required Dungeons: {self.required_dungeons}")
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
@@ -205,6 +203,8 @@ class SpiritTracksWorld(WorldParent):
                 self.options.spirit_weapons.value = 0  # no spirit weapons if not progressive/all sections
             if self.options.tear_sections.value > 0 and self.options.randomize_tears == "in_own_section":
                 self.options.randomize_tears.value = 2  # all sections/progressive can't be in own section, make in_tos
+            if len(self.non_required_sections) == 6 and self.options.exclude_sections and self.options.randomize_tears.value not in [3, 0]:
+                self.options.spirit_weapons.value = 0
 
             if self.options.starting_train == "random_train":
                 self.options.starting_train.value = self.random.randint(0, 7)
@@ -955,7 +955,7 @@ class SpiritTracksWorld(WorldParent):
         else:
             add_items += [("Sword", 1)]
 
-        if self.options.exclude_sections == "remove" and len(self.non_required_sections) == 6:
+        if self.options.exclude_sections == "remove" and len(self.non_required_sections) == 6 and self.options.randomize_tears.value not in [3, 0]:
             return add_items
 
         size_str = ["", "Big "][size_index]

@@ -18,7 +18,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow leaving Outset": {
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
-        "has_group": ["Tracks: Forest Glyph"],
+        "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)]
     },
     "Outset leave after Alfonzo no cannon": {
@@ -29,12 +29,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_11, 0x40)]
     },
     "RESET forest glyph": {
-        "has_group": ["Tracks: Forest Glyph"],
+        "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_1, 0x80), (STAddr.adv_flags_0, 0x04)]
     },
     "Safety forest glyph on forest glyph map": {
         "on_scenes": [0x400],
-        "has_group": ["Tracks: Forest Glyph"],
+        "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_1, 0x81), (STAddr.adv_flags_0, 0x04)]  # also prevents tree maze to fs
     },
     "Allow learning awakening song": {
@@ -117,15 +117,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET Add Sand Source", "RESET Remove Sand Source"]
     },
     "RESET Add Sand Source": {
-        "has_group": ["Tracks: Sand Source"],
+        "has_groups": ["Tracks: Sand Source"],
         "set_if_true": [(STAddr.adv_flags_1a, 0x01)]
     },
     "RESET Remove Sand Source": {
-        "has_group": ["Tracks: Sand Source"],
+        "has_groups": ["Tracks: Sand Source"],
         "unset_if_true": [(STAddr.adv_flags_1a, 0x01)]
     },
     "RESET stagnox reward": {
-        "has_group": ["Tracks: Forest Source"],
+        "has_groups": ["Tracks: Forest Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)]
     },
     "Remove Bow of light in desert temple": {
@@ -136,7 +136,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Remove Forest Source": {
         "on_scenes": [0x1E03, 0x1E0A],
         "has_locations": ["Wooded Temple Dungeon Reward"],
-        "not_has_group": ["Tracks: Forest Source"],
+        "not_has_groups": ["Tracks: Forest Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x10)],
     },
     "Allow Rabbit Net Read": {
@@ -162,7 +162,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Move Alfonso to castle town station": {
         "on_scenes": [0x2900],
         "not_has_locations": ["Outset Receive Stamp Book"],
-        "has_group": ["Tracks: Snow Glyph"],
+        "has_groups": ["Tracks: Snow Glyph"],
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
         "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
@@ -176,14 +176,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Castle town teacher snow": {  # needs a s+q for some reason
         "on_scenes": [0x2900],
-        "has_group": ["Tracks: Snow Glyph"],
+        "has_groups": ["Tracks: Snow Glyph"],
         "not_has_locations": ["Castle Town Pick Up Teacher"],
         "set_if_true": [(STAddr.adv_flags_1, 0x4)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
     },
     "Castle town teacher ocean": {  # needs a s+q for some reason
         "on_scenes": [0x2900],
-        "has_group": ["Tracks: Ocean Glyph"],
+        "has_groups": ["Tracks: Ocean Glyph"],
         "not_has_locations": ["Castle Town Pick Up Teacher"],
         "set_if_true": [(STAddr.adv_flags_1, 0x4)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
@@ -208,7 +208,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
         "has_slot_data": [("randomize_passengers", 0)],
-        "has_group": ["Tracks: Snow Glyph"],
+        "has_groups": ["Tracks: Snow Glyph"],
         "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
         "set_if_true": [(STAddr.adv_flags_11, 0x40)],
         "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
@@ -231,75 +231,75 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET Add Snow Source", "RESET fraaz don't have source"]
     },
     "RESET fraaz don't have source": {
-        "not_has_group": ["Tracks: Snow Source"],
+        "not_has_groups": ["Tracks: Snow Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)]
     },
     "Remove Snow Source": {
         "on_scenes": [0x1F03, 0x1F04], #TODO check
         "has_locations": ["Blizzard Temple Dungeon Reward"],
-        "not_has_group": ["Tracks: Snow Source"],
+        "not_has_groups": ["Tracks: Snow Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
     "Anjean kick out after ocean glyph fix": {
         "on_scenes": [0x1401],
-        "has_group": ["Tracks: Ocean Glyph"],
+        "has_groups": ["Tracks: Ocean Glyph"],
         "set_if_true": [(STAddr.adv_flags_17, 0x20)]
     },
     "Snow realm crashes with snow source and no blizzard tracks": {
         "on_scenes": [0x500],
-        "has_group": ["Tracks: Snow Source"],
-        "not_has_group": ["Tracks: Blizzard Temple Tracks"],
+        "has_groups": ["Tracks: Snow Source"],
+        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET Add Snow Source"]
     },
     "Snow realm crashes fire glyph and no blizzard tracks": {
         "on_scenes": [0x500],
-        "has_group": ["Tracks: Fire Glyph"],
-        "not_has_group": ["Tracks: Blizzard Temple Tracks"],
+        "has_groups": ["Tracks: Fire Glyph"],
+        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
         "reset_flags": ["RESET fire glyph"]
     },
     "Forest realm crashes fire glyph and no ocean glyph": {
         "on_scenes": [0x400],
-        "has_group": ["Tracks: Fire Glyph"],
-        "not_has_group": ["Tracks: Ocean Glyph"],
+        "has_groups": ["Tracks: Fire Glyph"],
+        "not_has_groups": ["Tracks: Ocean Glyph"],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
         "reset_flags": ["RESET fire glyph"]
     },
     "Forest realm crashes fire glyph and no forest source tracks": {
         "on_scenes": [0x400],
-        "has_group": ["Tracks: Fire Glyph"],
-        "not_has_group": ["Tracks: Forest Source"],
+        "has_groups": ["Tracks: Fire Glyph"],
+        "not_has_groups": ["Tracks: Forest Source"],
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
         "reset_flags": ["RESET fire glyph"]
     },
     "RESET fire glyph": {
         "set_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "has_group": ["Tracks: Fire Glyph"],
+        "has_groups": ["Tracks: Fire Glyph"],
     },
     "RESET not has fire glyph": {
         "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "not_has_group": ["Tracks: Fire Glyph"],
+        "not_has_groups": ["Tracks: Fire Glyph"],
     },
 
     # Portals
     "Allow Portal near castle town always open": {
         "on_scenes": [0x0400],
-        "has_group": ["Tracks: Snow Glyph"],
+        "has_groups": ["Tracks: Snow Glyph"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
     "Allow Portal near castle town item": {
         "on_scenes": [0x0400],
         "has_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 1]],
-        "has_group": ["Tracks: Snow Glyph"],
+        "has_groups": ["Tracks: Snow Glyph"],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
     "Close Castle town portal no tracks": {
         "on_scenes": [0x0400],
         "has_slot_data": [("portal_behavior", 2)],
-        "not_has_group": ["Tracks: Snow Glyph"],
+        "not_has_groups": ["Tracks: Snow Glyph"],
         # "not_has_all_items": [["Portal Unlock: Hyrule Castle to Anouki Village", 1], ("Snow Glyph", 1)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
@@ -320,27 +320,27 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Open anouki portal open portals": {
         "on_scenes": [0x0500],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
-        "has_group": ["Tracks: Forest Glyph"],
+        "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]
     },
     "Open anouki portal item": {
         "on_scenes": [0x0500],
         "has_items": [("Portal Unlock: Hyrule Castle to Anouki Village", 1)],
-        "has_group": ["Tracks: Forest Glyph"],
+        "has_groups": ["Tracks: Forest Glyph"],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]
     },
 
     "Allow portal snow realm E to Forest S always open": {
         "on_scenes": [0x500],
-        "has_group": ["Tracks: Forest Realm SE Portal"],
+        "has_groups": ["Tracks: Forest Realm SE Portal"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Allow portal snow realm E to Forest S item": {
         "on_scenes": [0x500],
         "has_items": [["Portal Unlock: Trading Post to E Snow Realm", 1]],
-        "has_group": ["Tracks: Forest Realm SE Portal"],
+        "has_groups": ["Tracks: Forest Realm SE Portal"],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
@@ -352,7 +352,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Close snow realm E to Forest S tracks": {
         "on_scenes": [0x500],
-        "not_has_group": ["Tracks: Forest Realm SE Portal"],
+        "not_has_groups": ["Tracks: Forest Realm SE Portal"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
@@ -365,13 +365,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "open portals s trading post": {
         "on_scenes": [0x400],
-        "has_group": ["Tracks: Blizzard Temple Tracks"],
+        "has_groups": ["Tracks: Blizzard Temple Tracks"],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "open portal s trading post item": {
         "on_scenes": [0x400],
-        "has_group": ["Tracks: Blizzard Temple Tracks"],
+        "has_groups": ["Tracks: Blizzard Temple Tracks"],
         "has_items": [("Portal Unlock: Trading Post to E Snow Realm", 1)],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
@@ -388,20 +388,20 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal near marine temple always open": {
         "on_scenes": [0x600],
-        "has_group": ["Tracks: Sand to Fire Connection"],
+        "has_groups": ["Tracks: Sand to Fire Connection"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Allow Portal near marine temple item": {
         "on_scenes": [0x600],
-        "has_group": ["Tracks: Sand to Fire Connection"],
+        "has_groups": ["Tracks: Sand to Fire Connection"],
         "has_items": [["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Close Portal near marine temple tracks": {
         "on_scenes": [0x600],
-        "not_has_group": ["Tracks: Sand to Fire Connection"],
+        "not_has_groups": ["Tracks: Sand to Fire Connection"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
@@ -420,13 +420,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Open Portal sand connection to marine always open": {
         "on_scenes": [0x700],
-        "has_group": ["Tracks: Sand to Fire Connection"],
+        "has_groups": ["Tracks: Sand to Fire Connection"],
         "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Open Portal sand connection to marine items": {
         "on_scenes": [0x700],
-        "has_group": ["Tracks: Sand to Fire Connection"],
+        "has_groups": ["Tracks: Sand to Fire Connection"],
         "has_items": [["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
         "has_slot_data": [("portal_checks", 0), ("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
@@ -434,7 +434,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
-        "has_group": ["Tracks: Sand Realm"],
+        "has_groups": ["Tracks: Sand Realm"],
         "has_items": [["Desert Temple Tracks", 1]],
         "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
@@ -442,7 +442,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow Portal sand temple shortcut with item": {  # TODO: Have multiple or states for groups
         "on_scenes": [0x600],
-        "has_group": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
+        "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
         "has_items": [("Portal Unlock: Desert Temple to Sand Realm", 1)],
         "has_slot_data": [("portal_behavior", 2), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
@@ -450,7 +450,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Close sand portal no item realm tracks": {
         "on_scenes": [0x600],
-        "not_has_group": ["Tracks: Sand Realm"],
+        "not_has_groups": ["Tracks: Sand Realm"],
         "not_has_locations": ["Sand Realm Shoot Temple Portal"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)],
@@ -464,7 +464,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Close sand portal no item temple tracks": {
         "on_scenes": [0x600],
-        "not_has_group": ["Tracks: Desert Temple Tracks"],
+        "not_has_groups": ["Tracks: Desert Temple Tracks"],
         "not_has_locations": ["Sand Realm Shoot Temple Portal"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)],
@@ -478,13 +478,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Open Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
-        "has_group": ["Tracks: Desert Temple Tracks", "Tracks: Sand Realm"],
+        "has_groups": ["Tracks: Desert Temple Tracks", "Tracks: Sand Realm"],
         "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)]
     },
     "Open Portal sand temple shortcut item": {
         "on_scenes": [0x600],
-        "has_group": ["Tracks: Desert Temple Tracks", "Tracks: Sand Realm"],
+        "has_groups": ["Tracks: Desert Temple Tracks", "Tracks: Sand Realm"],
         "has_items": [("Portal Unlock: Desert Temple to Sand Realm", 1)],
         "has_slot_data": [("portal_checks", 0), ("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)]
@@ -498,13 +498,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow Portal icy spring always open": {
         "on_scenes": [0x0500],
-        "has_group": ["Tracks: Mountain Temple Tracks"],
+        "has_groups": ["Tracks: Mountain Temple Tracks"],
         "has_slot_data": [("portal_behavior", 1), ["portal_checks", 0]],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)],
     },
     "Allow Portal icy spring with item": {
         "on_scenes": [0x0500],
-        "has_group": ["Tracks: Mountain Temple Tracks"],
+        "has_groups": ["Tracks: Mountain Temple Tracks"],
         "has_items": [("Portal Unlock: Icy Spring to Mountain Temple", 1)],
         "has_slot_data": [("portal_behavior", 2), ["portal_checks", 0]],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)]
@@ -512,20 +512,20 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal mountain always open": {
         "on_scenes": [0x0700],
-        "has_group": ["Tracks: N Icy Spring"],
+        "has_groups": ["Tracks: N Icy Spring"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)],
     },
     "Allow Portal mountain with item": {
         "on_scenes": [0x0700],
-        "has_group": ["Tracks: N Icy Spring"],
+        "has_groups": ["Tracks: N Icy Spring"],
         "has_items": [("Portal Unlock: Icy Spring to Mountain Temple", 1)],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)]
     },
     "Close Portal mountain no item tracks": {
         "on_scenes": [0x0700],
-        "not_has_group": ["Tracks: N Icy Spring"],
+        "not_has_groups": ["Tracks: N Icy Spring"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_31, 0x02)]
     },
@@ -538,20 +538,20 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal goron village open portals": {
         "on_scenes": [0x0700],
-        "has_group": ["Tracks: Forest Realm SW Cave"],
+        "has_groups": ["Tracks: Forest Realm SW Cave"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.activate_portals, 0x20)]
     },
     "Allow Portal goron village item": {
         "on_scenes": [0x0700],
-        "has_group": ["Tracks: Forest Realm SW Cave"],
+        "has_groups": ["Tracks: Forest Realm SW Cave"],
         "has_items": [["Portal Unlock: Forest Cave to Goron Village", 1]],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.activate_portals, 0x20)]
     },
     "Close Portal goron village item tracks": {
         "on_scenes": [0x0700],
-        "not_has_group": ["Tracks: Forest Realm SW Cave"],
+        "not_has_groups": ["Tracks: Forest Realm SW Cave"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.activate_portals, 0x20)]
     },
@@ -564,13 +564,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Open cave portal open portals": {
         "on_scenes": [0x0400],
-        "has_group": ["Tracks: Fire Glyph"],
+        "has_groups": ["Tracks: Fire Glyph"],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
         "set_if_true": [(STAddr.activate_portals, 0x20)]
     },
     "Open cave portal item": {
         "on_scenes": [0x0400],
-        "has_group": ["Tracks: Fire Glyph"],
+        "has_groups": ["Tracks: Fire Glyph"],
         "has_items": [["Portal Unlock: Forest Cave to Goron Village", 1]],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
         "set_if_true": [(STAddr.activate_portals, 0x20)]
@@ -584,13 +584,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal mayscore open portals": {
         "on_scenes": [0x0400],
-        "has_group": ["Tracks: Ocean Portal"],
+        "has_groups": ["Tracks: Ocean Portal"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x4)]
     },
     "Allow Portal mayscore item": {
         "on_scenes": [0x0400],
-        "has_group": ["Tracks: Ocean Portal"],
+        "has_groups": ["Tracks: Ocean Portal"],
         "has_items": [["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_31, 0x4)]
@@ -603,20 +603,20 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Close Portal mayscore item tracks": {
         "on_scenes": [0x0400],
-        "not has_group": ["Tracks: Ocean Portal"],
+        "not has_groups": ["Tracks: Ocean Portal"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_31, 0x4)]
     },
 
     "Open ocean portal open portals": {
         "on_scenes": [0x0600],
-        "has_group": ["Tracks: Ocean Glyph"],
+        "has_groups": ["Tracks: Ocean Glyph"],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
         "set_if_true": [(STAddr.adv_flags_31, 0x4)]
     },
     "Open ocean portal": {
         "on_scenes": [0x0600],
-        "has_group": ["Tracks: Ocean Glyph"],
+        "has_groups": ["Tracks: Ocean Glyph"],
         "has_items": [["Portal Unlock: Mayscore to Ocean Portal Tracks", 1]],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
         "set_if_true": [(STAddr.adv_flags_31, 0x4)]
@@ -630,13 +630,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal island sanctuary open portals": {
         "on_scenes": [0x0600],
-        "has_group": ["Tracks: Snow Realm Bridge"],
+        "has_groups": ["Tracks: Snow Realm Bridge"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x10)]
     },
     "Allow Portal island sanctuary item": {
         "on_scenes": [0x0600],
-        "has_group": ["Tracks: Snow Realm Bridge"],
+        "has_groups": ["Tracks: Snow Realm Bridge"],
         "has_items": [["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x10)]
@@ -649,20 +649,20 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Close Portal island sanctuary item tracks": {
         "on_scenes": [0x0600],
-        "not_has_group": ["Tracks: Snow Realm Bridge"],
+        "not_has_groups": ["Tracks: Snow Realm Bridge"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x10)]
     },
 
     "Open snow bridge portal open portals": {
         "on_scenes": [0x0500],
-        "has_group": ["Tracks: Ocean Portal"],
+        "has_groups": ["Tracks: Ocean Portal"],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
         "set_if_true": [(STAddr.adv_flags_30, 0x10)]
     },
     "Open snow bridge portal": {
         "on_scenes": [0x0500],
-        "has_group": ["Tracks: Ocean Portal"],
+        "has_groups": ["Tracks: Ocean Portal"],
         "has_items": [["Portal Unlock: Snow Bridge to Island Sanctuary", 1]],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
         "set_if_true": [(STAddr.adv_flags_30, 0x10)]
@@ -692,11 +692,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["VS Reset MTT", "VS Reset MTT not has"]
     },
     "VS Reset MTT not has": {
-        "not_has_group": ["Tracks: Mountain Temple Tracks"],
+        "not_has_groups": ["Tracks: Mountain Temple Tracks"],
         "unset_if_true": [(STAddr.rail_restorations, 0x10)]
     },
     "VS Reset MTT": {
-        "has_group": ["Tracks: Mountain Temple Tracks"],
+        "has_groups": ["Tracks: Mountain Temple Tracks"],
         "set_if_true": [(STAddr.rail_restorations, 0x10)]
     },
 
@@ -717,11 +717,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["FoS Reset FTT", "FoS Reset FTT not has"]
     },
     "FoS Reset FTT not has": {
-        "not_has_group": ["Tracks: Wooded Temple Tracks"],
+        "not_has_groups": ["Tracks: Wooded Temple Tracks"],
         "unset_if_true": [(STAddr.rail_restorations, 0x2)]
     },
     "FoS Reset FTT": {
-        "has_group": ["Tracks: Wooded Temple Tracks"],
+        "has_groups": ["Tracks: Wooded Temple Tracks"],
         "set_if_true": [(STAddr.rail_restorations, 0x2)]
     },
     "Steem don't have spirit flute": {
@@ -751,11 +751,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["Snow sanc Reset BTT not has", "Snow sanc Reset BTT"]
     },
     "Snow sanc Reset BTT not has": {
-        "not_has_group": ["Tracks: Blizzard Temple Tracks"],
+        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "unset_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 2)]
     },
     "Snow sanc Reset BTT": {
-        "has_group": ["Tracks: Blizzard Temple Tracks"],
+        "has_groups": ["Tracks: Blizzard Temple Tracks"],
         "set_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 2)]
     },
     "ToS Summit maladus cs": {
@@ -785,11 +785,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
 
     "Sand Sanc Reset DTT not has": {
-        "not_has_group": ["Tracks: Desert Temple Tracks"],
+        "not_has_groups": ["Tracks: Desert Temple Tracks"],
         "unset_if_true": [(STAddr.rail_restorations, 0x20)]
     },
     "Sand Sanc Reset DTT": {
-        "has_group": ["Tracks: Desert Temple Tracks"],
+        "has_groups": ["Tracks: Desert Temple Tracks"],
         "set_if_true": [(STAddr.rail_restorations, 0x20)]
     },
     "Sand sanc get cuccos no cargo rando": {
@@ -808,7 +808,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "ToS Snow source sections": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 1]],
-        "has_group": ["Tracks: Snow Source"],
+        "has_groups": ["Tracks: Snow Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
     "ToS progressive sections 0": {
@@ -899,35 +899,35 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
 
     "RESET Remove Forest source": {
-        "not_has_group": ["Tracks: Forest Source"],
+        "not_has_groups": ["Tracks: Forest Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x10)],
     },
     "RESET Remove Snow source": {
-        "not_has_group": ["Tracks: Snow Source"],
+        "not_has_groups": ["Tracks: Snow Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
     "RESET Remove Ocean source": {
-        "not_has_group": ["Tracks: Ocean Source"],
+        "not_has_groups": ["Tracks: Ocean Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
     },
     "RESET Remove Fire source": {
-        "not_has_group": ["Tracks: Fire Source"],
+        "not_has_groups": ["Tracks: Fire Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
     },
     "RESET Add Forest source": {
-        "has_group": ["Tracks: Forest Source"],
+        "has_groups": ["Tracks: Forest Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x10)],
     },
     "RESET Add Snow Source": {
-        "has_group": ["Tracks: Snow Source"],
+        "has_groups": ["Tracks: Snow Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
     "RESET Add Ocean source": {
-        "has_group": ["Tracks: Ocean Source"],
+        "has_groups": ["Tracks: Ocean Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x40)],
     },
     "RESET Add Fire source": {
-        "has_group": ["Tracks: Fire Source"],
+        "has_groups": ["Tracks: Fire Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x80)],
     },
 
@@ -1032,7 +1032,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3700],
         "check_bits": [(STAddr.adv_flags_24, 0x10)],
         "set_if_true": [(STAddr.adv_flags_3d, 2)],
-        "has_group": ["Tracks: Snow Glyph"],
+        "has_groups": ["Tracks: Snow Glyph"],
         "has_slot_data": [("randomize_passengers", [1, 3])],
     },
     "Prevent Kenzo from leaving TP": {
@@ -1042,7 +1042,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Prevent Kenzo from leaving TP snow glyph": {
         "on_scenes": [0x3700],
-        "not_has_group": ["Tracks: Snow Glyph"],
+        "not_has_groups": ["Tracks: Snow Glyph"],
         "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
     "Prep for TP kenzo loc": {
@@ -1078,14 +1078,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Anouki chief stop kofu": {
         "on_scenes": [0x2b01],
         "not_has_locations": ["Anouki Village Pick Up Kofu"],
-        "not_has_group": ["Tracks: Fire Glyph", "Tracks: Fire Source"],
+        "not_has_groups": ["Tracks: Fire Glyph", "Tracks: Fire Source"],
         "has_slot_data": [("randomize_passengers", 3)],
         "set_if_true": [(STAddr.adv_flags_37, 0x20)],
         "reset_flags": ["RESET Kofu"]
     },
     "Anouki chief spawn kofu": {
         "on_scenes": [0x2b01],
-        "any_has_group": ["Tracks: Fire Glyph", "Tracks: Fire Source"],
+        "any_has_groups": ["Tracks: Fire Glyph", "Tracks: Fire Source"],
         "not_has_locations": ["Anouki Village Pick Up Kofu"],
         "has_locations": ["Anouki Village Goron Force Gem"],
         "has_slot_data": [("randomize_passengers", 3)],
@@ -1122,7 +1122,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Lock Snow Realm Rocktite Cave": {
         "on_scenes": [0x500],
         "has_items": [("Snowfall Sanctuary Cave Key", 0)],
-        "not_has_group": ["Tracks: Blizzard Temple Tracks"],
+        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20), (STAddr.adv_flags_b, 0x10)],
         "reset_flags": ["RESET Add Snow Source"]
     },
@@ -1375,6 +1375,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "reset_flags": ["RESET Dovok Flag"]
     },
+    "RESET Dovok Flag": {},
     "Bring Dovok to Papuzia": {
         "on_scenes": [0x2C03],
         "has_items": [("Passenger: Dovok", 1)],
@@ -1803,23 +1804,29 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
 }
 
-for data in DYNAMIC_FLAGS.values():
-    if "has_group" in data:
-        groups = data["has_group"]
+for name, data in DYNAMIC_FLAGS.items():
+    if "has_groups" in data:
+        groups = data["has_groups"]
         data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in ITEM_GROUPS[groups[0]]]
+        # print(data["any_has_items"])
+        # print(f"{DYNAMIC_FLAGS[name]}")
         if len(groups) > 1:
             data["any_has_items2"] = [(i, 1) for i in ITEM_GROUPS[groups[1]]]
-    if "any_has_group" in data:
+            # print(data["any_has_items2"])
+    if "any_has_groups" in data:
         items = []
-        for group in data["any_has_group"]:
+        for group in data["any_has_groups"]:
             items.extend(ITEM_GROUPS[group])
         data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in items]
-    if "not_has_group" in data:
+        # print(data["any_has_items"])
+    if "not_has_groups" in data:
         items = []
-        for group in data["not_has_group"]:
+        for group in data["not_has_groups"]:
             items.extend(ITEM_GROUPS[group])
         data["has_items"] = data.get("has_items", []) + [(i, 0) for i in items]
-
+        # print(data["has_items"])
+    DYNAMIC_FLAGS[name] = data
+    # print(DYNAMIC_FLAGS[name])
 """
 "Dynamic Flag Name": {
     "on_scenes": list[int],

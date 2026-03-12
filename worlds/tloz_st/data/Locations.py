@@ -1197,7 +1197,7 @@ LOCATIONS_DATA = {
     },
     "Rabbit Haven Chest": {
         "region_id": "rabbit haven",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
         "x_min": 11447,

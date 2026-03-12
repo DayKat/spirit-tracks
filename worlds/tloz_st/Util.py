@@ -1,10 +1,11 @@
 from typing import Dict
 from .data.Locations import LOCATIONS_DATA
-from .data.Items import ITEMS
+from .data.Items import ITEMS, ITEM_GROUPS
 from .data.DynamicFlags import DYNAMIC_FLAGS
 from .data.Constants import HINTS_ON_SCENE
 from .data.Hints import HINT_DATA
 from .data.Entrances import ENTRANCES
+from .data.DynamicEntrances import DYNAMIC_ENTRANCES
 
 def build_hint_scene_to_watches() -> dict[int, list]:
     res = {}
@@ -49,15 +50,53 @@ def build_location_room_to_watches() -> Dict[int, dict[str, dict]]:
     return location_room_to_watches
 
 
+def expand_dynamic_groups(data):
+    if "has_groups" in data:
+        groups = data["has_groups"]
+        data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in ITEM_GROUPS[groups[0]]]
+        if len(groups) > 1:
+            data["any_has_items2"] = [(i, 1) for i in ITEM_GROUPS[groups[1]]]
+    if "any_has_groups" in data:
+        items = []
+        for group in data["any_has_groups"]:
+            items.extend(ITEM_GROUPS[group])
+        data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in items]
+    if "not_has_groups" in data:
+        items = []
+        for group in data["not_has_groups"]:
+            items.extend(ITEM_GROUPS[group])
+        data["has_items"] = data.get("has_items", []) + [(i, 0) for i in items]
+
 def build_scene_to_dynamic_flag() -> Dict[int, list[dict]]:
     scene_to_dynamic_flag: Dict[int, list[dict]] = {}
     for flag_name, data in DYNAMIC_FLAGS.items():
         data["name"] = flag_name
+        expand_dynamic_groups(data)
+
         for scene in data.get("on_scenes", []):
             scene_to_dynamic_flag.setdefault(scene, [])
             scene_to_dynamic_flag[scene].append(data)
     return scene_to_dynamic_flag
 
+def build_scene_to_dynamic_entrance() -> Dict[int, list[dict]]:
+    res = {}
+    for name, data in DYNAMIC_ENTRANCES.items():
+        data["name"] = name
+        entrance_data = ENTRANCES[data["entrance"]]
+        expand_dynamic_groups(data)
+        if data["destination"] == "_connected_dungeon_entrance":
+            destination_data = None
+        else:
+            destination_data = ENTRANCES[data["destination"]]
+
+        entrance_scene = entrance_data.scene
+
+        # Save er_in_scene values in data
+        data["detect_data"] = entrance_data
+        data["exit_data"] = destination_data
+        res.setdefault(entrance_scene, {})
+        res[entrance_scene][name] = data
+    return res
 
 def build_location_name_to_id_dict() -> Dict[str, int]:
     location_name_to_id: Dict[str, int] = {}
