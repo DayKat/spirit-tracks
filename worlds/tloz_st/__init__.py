@@ -720,12 +720,8 @@ class SpiritTracksWorld(WorldParent):
                 continue
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
-            #print(f"Location {loc_name} has {item_name} item")
-            # if item_data.classification == ItemClassification.progression and "tos_section" in loc_data:
-            #     print(f"Dungeon Prog {item_name}")
-        print(
-            f"Items so far: {sum([i for i in item_pool_dict.values()])}, filler {filler_item_count} sum {sum([i for i in item_pool_dict.values()]) + filler_item_count}")
-        # so add progression items first
+
+        # add progression items first
         add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
                      ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Compass of Light", 1), ("Treasure: Regal Ring", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["Non-Progressive Main Items"]]
@@ -735,23 +731,46 @@ class SpiritTracksWorld(WorldParent):
         # if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         if self.options.randomize_stamps: add_items += self.stamp_items
         add_items += self.choose_tos_items()
-        add_items += [(i, 1) for i in ITEM_GROUPS["Basic Tracks"]]
+        add_items += self.choose_track_items()
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
         add_items += self.choose_tear_items()
         add_items += [i for i in self.rabbit_item_dict.items()]
         add_items += [("Sword Beam Scroll", 1), ("Great Spin Scroll", 1), ("Heart Container", 13)]
-        print(f"Add items: ({sum([i for _, i in add_items])}/{filler_item_count - len(self.locations_to_exclude)})")
+        # Add items
         for i, count in add_items:
             # print(f"\t{i}: {count}")
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
 
-        # Add as many filler items as required
-        print(f"Items so far: {sum([i for i in item_pool_dict.values()])}, filler {filler_item_count} sum {sum([i for i in item_pool_dict.values()]) + filler_item_count}")
+        # Calculate rupee items for logic, and make sure there are enough filler items for excluded locations
         item_pool_dict = self.choose_filler_items(filler_item_count, item_pool_dict)
 
-
         return item_pool_dict
+
+    def choose_track_items(self):
+        option = self.options.track_pool
+        track_items = set()
+        if option == "vanilla":
+            track_items = ITEM_GROUPS["Basic Tracks"]
+        elif option == "major_minor":
+            track_items = ITEM_GROUPS["Major Track Groupings"] | ITEM_GROUPS["Minor Track Groupings"]
+        elif option == "completed_glyphs":
+            track_items = ITEM_GROUPS["Completed Track Groupings"]
+        elif option == "thematic":
+            track_items =  ITEM_GROUPS["Thematic Track Groupings"]
+        elif option.value < 0:
+            for pool_name, pool in ITEM_GROUPS.items():
+                if not pool_name.startswith("Tracks:"):
+                    continue
+                valid_choices = pool.copy()
+                if option == "mixed_large":
+                    valid_choices -= ITEM_GROUPS["Basic Tracks"]
+                elif option == "mixed_small":
+                    valid_choices -= ITEM_GROUPS["Completed Track Groupings"]
+                track_items.add(self.random.choice(list(valid_choices)))
+        add_items = [(i, 1) for i in track_items]
+        print(len(add_items), add_items)
+        return add_items
 
     def choose_filler_items(self, filler_count, item_pool_dict):
         rupees_required = self.get_required_rupees()
@@ -791,16 +810,12 @@ class SpiritTracksWorld(WorldParent):
                 choice = self.random.choice(rupee_choices[i])
                 item_pool_dict[choice] = item_pool_dict.get(choice, 0) + 1
         filler_count -= len(filler_values)
-        print(
-            f"Items so far: {sum([i for i in item_pool_dict.values()])}, filler {filler_count} sum {sum([i for i in item_pool_dict.values()]) + filler_count}")
         # print(f"Rupee item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Rupee Pool Items']]}")
         # Get filler items for the remaining items
         for _ in range(filler_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
         # print(f"Filler item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Filler Item Pool']]}")
-        print(
-            f"Items so far: {sum([i for i in item_pool_dict.values()])}")
         return item_pool_dict
 
     def choose_tos_items(self):
@@ -1157,7 +1172,7 @@ class SpiritTracksWorld(WorldParent):
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
-        print(f"Pre fill items {self.pre_fill_items}")
+        # print(f"Pre fill items {self.pre_fill_items}")
 
     def pre_fill_tos_sections(self):
         for section in range(1, 7):

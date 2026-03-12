@@ -563,6 +563,29 @@ class SpiritTracksExcludeSections(Choice):
     option_remove = 2
     default = 0
 
+class SpiritTracksTrackGroupings(Choice):
+    """
+    What does your rail item pool look like? Includes different custom combined rail item pools to choose from.
+    Many of the combined items overlap.
+    Combinations that contain sources unlock what the source unlocks, like tower sections if you choose that option.
+    - vanilla: Your rail pool consists of the 34 vanilla glyph, source, restoration and force gem tracks.
+    - completed_glyphs: Each glyph comes pre-completed. Sand realm counts separately.
+    - major_minor: creates a major and minor rail combination for each realm, where the major contains the source, restoration and glyph.
+    - thematic: Adds 16 custom groups containing 3-5 rail items to the pool, based on locale.
+    - mixed: Rolls a rail item for each vanilla rail from those that contain it, and removes duplicates.
+    - mixed_large: rolls as mixed but does not include single rail items
+    - mixed_small: rolls as mixed but does not include completed glyph items.
+    """
+    # - off: In case you want to create your own pool. Defaults to vanilla if add_items_to_pool is empty.
+    display_name = "Track Item Pool"
+    option_vanilla = 0
+    option_completed_glyphs = 1
+    option_major_minor = 2
+    option_thematic = 3
+    option_mixed = -1
+    option_mixed_large = -2
+    option_mixed_small = -3
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -587,6 +610,8 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
     randomize_boss_keys: SpiritTracksRandomizeBossKeys
+
+    track_pool: SpiritTracksTrackGroupings
 
     randomize_minigames: SpiritTracksRandomizeMinigames
     minigame_hints: SpiritTracksMinigameHints
@@ -653,6 +678,7 @@ st_option_groups = [
     OptionGroup("Misc Options", [
         SpiritTracksLogic,
         SpiritTracksCannonLogic,
+        SpiritTracksTrackGroupings,
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizeBossKeys,
         SpiritTracksRandomizeMinigames,

@@ -500,8 +500,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         #First hideout minigame gives you bow automatically, and then it shows in top right, even with no items, but doesn't let you use it. With an item, it doesn't show
 
         # ======== Lost at Sea Station ==========
-        #["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
-        #                                                          and st_has_misc_tracks(state, player, "Lost at Sea Station")],
         ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine")
                                                     and st_has_misc_tracks(state, player,"Lost at Sea Station")],
         ["las tracks", "lost at sea", True, lambda state: st_has_misc_tracks(state, player, "Lost at Sea Station")],

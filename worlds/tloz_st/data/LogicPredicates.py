@@ -78,7 +78,7 @@ def st_all_types_rabbits(state, player, count):
 ## ========= Rail Items =============
 
 def st_has_glyph(state: CollectionState, player: int, realm: str):
-    return state.has(f"{realm} Glyph", player)
+    return state.has_group(f"Tracks: {realm} Glyph", player)
 
 def st_has_cannon(state: CollectionState, player: int):
     return state.has("Cannon", player)
