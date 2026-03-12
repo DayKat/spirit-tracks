@@ -281,28 +281,28 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_1,
         'value': 0x80,
-        'item_groups': ["Glyphs", "Rail Items", "Forest Tracks"],
+        'item_groups': ["Glyphs", "Rail Items", "Forest Tracks", "Major Forest Tracks", "Tracks: Forest Glyph"],
         'model': "Forest Glyph 2",
     },
     "Snow Glyph": {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_2,
         'value': 0x01,
-        'item_groups': ["Glyphs", "Rail Items", "Snow Tracks"],
+        'item_groups': ["Glyphs", "Rail Items", "Snow Tracks", "Major Snow Tracks", "Tracks: Snow Glyph"],
         'model': "Snow Glyph",
     },
     "Ocean Glyph": {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_2,
         'value': 0x02,
-        'item_groups': ["Glyphs", "Rail Items", "Ocean Tracks"],
+        'item_groups': ["Glyphs", "Rail Items", "Ocean Tracks", "Major Ocean Tracks", "Tracks: Ocean Glyph"],
         'model': "Ocean Glyph",
     },
     "Fire Glyph": {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_2,
         'value': 0x04,
-        'item_groups': ["Glyphs", "Rail Items", "Fire Tracks"],
+        'item_groups': ["Glyphs", "Rail Items", "Fire Tracks", "Major Fire Tracks", "Tracks: Fire Glyph"],
         'model': "Fire Glyph",
     },
     "Wooded Temple Tracks":{
@@ -310,7 +310,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.rail_restorations,
         'value': 0x02,
         'item_groups': ["Restoration Tracks", "Rail Items", "Forest Tracks",
-                        "Forest Restoration", "Forest Realm Restoration"],
+                        "Forest Restoration", "Forest Realm Restoration", "Major Forest Tracks", "Tracks: Wooded Temple Tracks"],
         'model': "Forest Glyph 2",
     },
     "Blizzard Temple Tracks": {
@@ -318,7 +318,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.rail_restorations,
         'value': 0x04,
         'item_groups': ["Restoration Tracks", "Rail Items", "Snow Tracks",
-                        "Snow Restoration", "Snow Realm Restoration"],
+                        "Snow Restoration", "Snow Realm Restoration", "Major Snow Tracks", "Tracks: Blizzard Temple Tracks"],
         'model': "Snow Glyph 2",
     },
     "Marine Temple Tracks": {
@@ -326,15 +326,17 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.rail_restorations,
         'value': 0x08,
         'item_groups': ["Restoration Tracks", "Rail Items", "Ocean Tracks",
-                        "Ocean Temple Tracks", "Ocean Restoration", "Ocean Realm Restoration"],
+                        "Ocean Temple Tracks", "Ocean Restoration", "Ocean Realm Restoration",
+                        "Major Ocean Tracks", "Tracks: Marine Temple Tracks"],
         'model': "Ocean Glyph 2",
     },
     "Mountain Temple Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x10,
-        'item_groups': ["Restoration Tracks", "Rail Items", "Fire Tracks",
-                        "Fire Temple Tracks", "Fire Restoration", "Fire Realm Restoration", "Mountain Restoration"],
+        'item_groups': ["Restoration Tracks", "Rail Items", "Fire Tracks", "Major Fire Tracks"
+                        "Fire Temple Tracks", "Fire Restoration", "Fire Realm Restoration", "Mountain Restoration",
+                        "Tracks: Mountain Temple Tracks"],
         "set_bits": [(STAddr.adv_flags_1, 0x8)],
         'model': "Fire Glyph 2",
     },
@@ -342,8 +344,9 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x20,
-        'item_groups': ["Restoration Tracks", "Rail Items", "Desert Tracks",
-                        "Desert Restoration", "Sand Temple Tracks", "Sand Restoration", "Sand Realm Restoration"],
+        'item_groups': ["Restoration Tracks", "Rail Items", "Desert Tracks", "Major Sand Tracks"
+                        "Desert Restoration", "Sand Temple Tracks", "Sand Restoration", "Sand Realm Restoration",
+                        "Tracks: Desert Temple Tracks"],
         'model': "Ocean Glyph 3",
     },
     # Misc Tracks
@@ -352,7 +355,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_1,
         'value': 0x04,
         'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks",
-                        "Snowdrift Tracks"],
+                        "Snowdrift Tracks", "Minor Snow Tracks", "Tracks: Snowdrift Station"],
         "model": "Snow Glyph",
         "vanilla_model": "Force Gem 51"
     },
@@ -361,7 +364,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_1,
         'value': 0x20,
         'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks",
-                        "Slippery Tracks"],
+                        "Slippery Tracks", "Minor Snow Tracks", "Tracks: Slippery Station"],
         "model": "Snow Glyph",
         "vanilla_model": "Force Gem 54"
     },
@@ -370,7 +373,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_2,
         'value': 0x1,
         'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks",
-                        "Pirate Tracks"],
+                        "Pirate Tracks", "Minor Ocean Tracks", "Tracks: Pirate Hideout"],
         "model": "Ocean Glyph",
         "vanilla_model": "Force Gem 57"
     },
@@ -379,7 +382,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_1,
         'value': 0x40,
         'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks",
-                        "LaS Tracks", "Lost at Sea Tracks"],
+                        "LaS Tracks", "Lost at Sea Tracks", "Tracks: Lost at Sea Station"],
         "model": "Ocean Glyph",
         "vanilla_model": "Force Gem 55"
     },
@@ -387,7 +390,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x02,
-        'item_groups': ["Rail Items", "Forest Tracks", "Ocean Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Ocean Tracks", "Misc Tracks",
+                        "Minor Forest Tracks", "Minor Ocean Tracks", "Tracks: Forest Realm Ocean Shortcut"],
         "model": "Ocean Glyph",
         "vanilla_model": "Force Gem 42"
     },
@@ -395,7 +399,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x04,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: E Mayscore Bridge"],
         "model": "Forest Glyph",
         "vanilla_model": "Force Gem 43"
     },
@@ -403,7 +407,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x08,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks",
+                        "Tracks: Forest Realm SE Portal"],
         "model": "Forest Glyph",
         "vanilla_model": "Force Gem 44"
     },
@@ -411,7 +416,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x20,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: W Castle Town"],
         "model": "Forest Glyph",
         "vanilla_model": "Force Gem 46"
     },
@@ -419,7 +424,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x40,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: W Forest Realm"],
         "model": "Forest Glyph",
         "vanilla_model": "Force Gem 47"
     },
@@ -427,7 +432,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x80,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: Forest Realm SW Cave"],
         "model": "Forest Glyph",
         "vanilla_model": "Force Gem 48"
     },
@@ -435,7 +440,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x01,
-        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks",
+                        "Minor Snow Tracks", "Minor Forest Tracks", "Tracks: W Wooded Temple"],
         "model": "Forest Glyph",
         "vanilla_model": "Force Gem 49"
     },
@@ -443,7 +449,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x02,
-        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks",
+                        "Minor Snow Tracks", "Minor Forest Tracks", "Tracks: N Castle Town"],
         "model": "Forest Glyph",
         "vanilla_model": "Force Gem 50"
     },
@@ -451,7 +458,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x08,
-        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks",
+                        "Minor Snow Tracks", "Minor Forest Tracks", "Tracks: Snow Realm Bridge"],
         "model": "Snow Glyph",
         "vanilla_model": "Force Gem 52"
     },
@@ -459,7 +467,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x10,
-        'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks", "Minor Snow Tracks", "Tracks: N Icy Spring"],
         "model": "Snow Glyph",
         "vanilla_model": "Force Gem 53"
     },
@@ -467,7 +475,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x80,
-        'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Ocean Tracks", "Misc Tracks", "Minor Ocean Tracks", "Tracks: Ocean Portal"],
         "model": "Ocean Glyph",
         "vanilla_model": "Force Gem 17"
     },
@@ -475,14 +483,15 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x20,
-        'item_groups': ["Rail Items", "Desert Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Desert Tracks", "Misc Tracks", "Major Sand Tracks", "Tracks: Sand Realm"],
     },
     "Sand to Fire Connection Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x02,
         'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks",
-                        "Fire to Sand Connection Tracks", "Fire Realm Portal Tracks", "S Fire Realm Portal Tracks"],
+                        "Fire to Sand Connection Tracks", "Fire Realm Portal Tracks", "S Fire Realm Portal Tracks",
+                        "Minor Fire Tracks", "Minor Sand Tracks", "Tracks: Sand to Fire Connection"],
         "model": "Fire Glyph",
         "vanilla_model": "Force Gem 58"
     },
@@ -490,7 +499,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x04,
-        'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks",
+                        "Minor Sand Tracks", "Minor Fire Tracks", "Tracks: Dark Ore Mine"],
         "model": "Fire Glyph",
         "vanilla_model": "Force Gem 59"
     },
@@ -498,7 +508,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x10,
-        'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks"],
+        'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks", "Minor Fire Tracks", "Tracks: Ends of the Earth"],
         "model": "Fire Glyph",
         "vanilla_model": "Force Gem 45"
     },
@@ -507,7 +517,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_2,
         'value': 0x10,
         'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks",
-                        "Disorientation Tracks"],
+                        "Disorientation Tracks", "Minor Fire Tracks", "Tracks: Disorientation Station"],
         "model": "Fire Glyph",
         "vanilla_model": "Force Gem 36"
     },
@@ -516,7 +526,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_2,
         'value': 0x08,
         'item_groups': ["Rail Items", "Snow Tracks", "Fire Tracks", "Misc Tracks",
-                        "E Snow Realm Tracks", "W Fire Realm Tracks"],
+                        "E Snow Realm Tracks", "W Fire Realm Tracks",
+                        "Minor Snow Tracks", "Minor Fire Tracks", "Tracks: Snow Realm Gorge"],
         "model": "Fire Glyph",
         "vanilla_model": "Force Gem 60"
     },
@@ -528,7 +539,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_0,
         'value': 0x10,
         'set_bit': [[STAddr.source_rails, 2]],
-        'item_groups': ["Rail Items", "Sources", "Forest Tracks"],
+        'item_groups': ["Rail Items", "Sources", "Forest Tracks", "Major Forest Tracks", "Tracks: Forest Source"],
         'model': "Forest Glyph",
     },
     "Snow Source": {
@@ -536,7 +547,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_0,
         'value': 0x20,
         'set_bit': [[STAddr.source_rails, 4]],
-        'item_groups': ["Rail Items", "Sources", "Snow Tracks"],
+        'item_groups': ["Rail Items", "Sources", "Snow Tracks", "Major Snow Tracks", "Tracks: Snow Source"],
         'model': "Snow Glyph",
     },
     "Ocean Source": {
@@ -544,7 +555,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_0,
         'value': 0x40,
         'set_bit': [[STAddr.source_rails, 8]],
-        'item_groups': ["Rail Items", "Sources", "Ocean Tracks"],
+        'item_groups': ["Rail Items", "Sources", "Ocean Tracks", "Major Ocean Tracks", "Tracks: Ocean Source"],
         'model': "Ocean Glyph",
     },
     "Fire Source": {
@@ -552,7 +563,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_0,
         'value': 0x80,
         'set_bit': [[STAddr.source_rails, 0x10]],
-        'item_groups': ["Rail Items", "Sources", "Fire Tracks"],
+        'item_groups': ["Rail Items", "Sources", "Fire Tracks", "Major Fire Tracks", "Tracks: Fire Source"],
         'model': "Fire Glyph",
     },
     "Sand Source": {  # Only used for TEAO3 unlock?
@@ -560,7 +571,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "address": STAddr.adv_flags_1a,
         'value': 0x1,
         'set_bit': [[STAddr.source_rails, 0x20]],
-        'item_groups': ["Sources"],
+        'item_groups': ["Sources", "Major Sand Tracks", "Tracks: Sand Source"],
         'model': "Ocean Glyph",
     },
 
@@ -1038,6 +1049,13 @@ ITEMS_DATA |= {
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
         'model': "Tear of Light"
     },
+    "Tear of Light (ToS 6)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
+        'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
+        'model': "Tear of Light"
+    },
     "Tear of Light (All Sections)": {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
@@ -1089,6 +1107,14 @@ ITEMS_DATA |= {
         "address": STAddr.tears_of_light,
         'value': 3,
         "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
+        'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
+        'model': "Tear of Light"
+    },
+    "Big Tear of Light (ToS 6)": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.tears_of_light,
+        'value': 3,
+        "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
         'model': "Tear of Light"
     },
@@ -1545,8 +1571,14 @@ ITEMS_DATA |= {
     "Dummy Bow": {
         'classification': ItemClassification.filler,
         'model': "Bow"
-    }
+    },
+
+    "Western Forest Tracks": {
+        "item_groups": ["Tracks: W Wooded Temple", "Tracks: W Forest Realm", "Tracks: Forest Realm SW Cave"]
+    },
+
 }
+
 
 
 ITEMS: dict[str, "STItem"] = {}
@@ -1569,10 +1601,8 @@ ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] | ITEM
 ITEM_GROUPS["All Treasures"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Common Treasures"]
 ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"] | ITEM_GROUPS["Ocean Rabbits"] | ITEM_GROUPS["Mountain Rabbits"] | ITEM_GROUPS["Sand Rabbits"]
 ITEM_GROUPS["Tears of Light"] = ITEM_GROUPS["Big Tears of Light"] | ITEM_GROUPS["Small Tears of Light"]
-ITEM_GROUPS["Add Rails to Pool"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"] | ITEM_GROUPS["Sources"] | ITEM_GROUPS["Glyphs"]
+ITEM_GROUPS["Basic Tracks"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"] | ITEM_GROUPS["Sources"] | ITEM_GROUPS["Glyphs"]
 ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"]
 ITEM_GROUPS["Rupee Pool Items"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Filler Item Pool"] = ITEM_GROUPS["Potions"] | ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Common Treasures"]
 
-# for name, group in ITEM_GROUPS.items():
-#     print(f"{name}: {group}")

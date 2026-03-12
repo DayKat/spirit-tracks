@@ -659,6 +659,8 @@ UT_EVENT_DATA = {
               "entrance": "EVENT: Bring Ice to Kagoron"}]
 }
 
+
+
 ENTRANCE_TO_TOS_ORDER = {
 "Tower of Spirits Exit Staven": 6,
 "Tower of Spirits Summit Enter Altar": 7,

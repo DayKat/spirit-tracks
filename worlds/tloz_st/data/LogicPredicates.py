@@ -90,13 +90,13 @@ def st_train_access(state, player):
     ])
 
 def st_has_source(state: CollectionState, player: int, realm: str):
-    return state.has(f"{realm} Source", player)
+    return state.has_group(f"Tracks: {realm} Source", player)
 
 def st_has_temple_tracks(state, player, temple):
-    return state.has(f"{temple} Temple Tracks", player)
+    return state.has_group(f"Tracks: {temple} Temple Tracks", player)
 
-def st_has_misc_tracks(state, player, tracks):
-    return state.has(f"{tracks} Tracks", player)
+def st_has_misc_tracks(state: "CollectionState", player, tracks):
+    return state.has_group(f"Tracks: {tracks}", player)
 
 def st_has_portal(state, player, portal, forward):
     if state.multiworld.worlds[player].options.portal_behavior.value == 1:

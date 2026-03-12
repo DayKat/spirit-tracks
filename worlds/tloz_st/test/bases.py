@@ -9,9 +9,10 @@ class TestGeneration(WorldTestBase):
         "rabbit_max_location_count": 6,
         # "rabbit_location_count_distribution": "random_mixed",
         "rabbit_pack_size": "random_mixed",
-        "rabbit_extra_items": 5,
+        "rabbit_extra_items": 2,
         "goal": "defeat_malladus",
         "dark_realm_access": "dungeons",
+
         "dungeons_required": 1,
         "tos_dungeon_options": "all_sections",
 
@@ -34,5 +35,5 @@ class TestGeneration(WorldTestBase):
         "stamp_pack_sizes": 1,
         "randomize_minigames": "everything",
         "exclude_dungeons": "exclude",
-        "exclude_sections": "remove"
+        "exclude_sections": "exclude"
     }

@@ -181,13 +181,16 @@ class SpiritTracksWorld(WorldParent):
             self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
             if self.options.exclude_sections == "remove":
                 self.sections_included = 6 - len(self.non_required_sections)
-            # print(f"Required Dungeons: {self.required_dungeons}")
+            if len(self.non_required_sections) == 6 and self.options.exclude_sections:
+                self.options.spirit_weapons.value = 0
+            print(f"Required Dungeons: {self.required_dungeons}")
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
-            print(f"Rabbit items: {self.rabbit_item_dict}")
+            # print(f"Rabbit items: {self.rabbit_item_dict}")
             self.plando_tos_sections()
+            print(f"Tower Sections: {self.tower_section_lookup}")
 
             # Starting Train
             if self.options.start_with_train:
@@ -274,7 +277,7 @@ class SpiritTracksWorld(WorldParent):
         if "ammo" in options.shopsanity.value: required_rupees += 500
         if options.randomize_cargo == "vanilla_abstract":
             required_rupees += 500
-        print(f"Required Rupees {required_rupees}")
+        # print(f"Required Rupees {required_rupees}")
         return required_rupees
 
     def hide_ut_map_stuff(self):
@@ -420,13 +423,14 @@ class SpiritTracksWorld(WorldParent):
         if "tos_section" in location_data:
             if "stamp" in location_data:
                 return self.options.randomize_stamps.value in [2, 3]
-            return location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove"
+            bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
+            tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
+            return bk and tears and location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove"
         if "dungeon" in location_data:
-            stamp = True
-            if "stamp" in location_data:
-                stamp = self.options.randomize_stamps.value in [2, 3]
+            stamp = self.options.randomize_stamps.value in [2, 3] if "stamp" in location_data else True
+            bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
             # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
-            return stamp and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
+            return stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
 
         if "rabbit" in location_data:
             return location_name in self.active_rabbit_locations
@@ -437,8 +441,6 @@ class SpiritTracksWorld(WorldParent):
             return self.options.rabbitsanity
         if location_name.endswith("Boss Key"):
             return self.options.randomize_boss_keys
-        if location_data["conditional"] == "tears":
-            return self.options.randomize_tears.value != -1  # not vanilla
         if "minigame" in location_data and self.options.randomize_minigames:
             return self.options.randomize_minigames.value in location_data["minigame"]
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
@@ -545,7 +547,8 @@ class SpiritTracksWorld(WorldParent):
              for reg, count in regions.items()]
 
         if self.options.randomize_stamps.value in [1, 4]:
-            [self.create_event(LOCATIONS_DATA[loc]["region_id"], "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"]]
+            excluded_dungeons = self.non_required_dungeons if self.options.exclude_dungeons else []
+            [self.create_event(LOCATIONS_DATA[loc]["region_id"], "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
 
         # Create rupee farming events
         rupee_farming_regions = ["mayscore whip chest", "mayscore leaves", "trading post leaves",
@@ -720,7 +723,8 @@ class SpiritTracksWorld(WorldParent):
             #print(f"Location {loc_name} has {item_name} item")
             # if item_data.classification == ItemClassification.progression and "tos_section" in loc_data:
             #     print(f"Dungeon Prog {item_name}")
-
+        print(
+            f"Items so far: {sum([i for i in item_pool_dict.values()])}, filler {filler_item_count} sum {sum([i for i in item_pool_dict.values()]) + filler_item_count}")
         # so add progression items first
         add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
                      ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Compass of Light", 1), ("Treasure: Regal Ring", 1)]
@@ -731,7 +735,7 @@ class SpiritTracksWorld(WorldParent):
         # if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         if self.options.randomize_stamps: add_items += self.stamp_items
         add_items += self.choose_tos_items()
-        add_items += [(i, 1) for i in ITEM_GROUPS["Add Rails to Pool"]]
+        add_items += [(i, 1) for i in ITEM_GROUPS["Basic Tracks"]]
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
         add_items += self.choose_tear_items()
@@ -743,6 +747,7 @@ class SpiritTracksWorld(WorldParent):
             item_pool_dict, filler_item_count = add_items_from_filler(item_pool_dict, filler_item_count, i, count)
 
         # Add as many filler items as required
+        print(f"Items so far: {sum([i for i in item_pool_dict.values()])}, filler {filler_item_count} sum {sum([i for i in item_pool_dict.values()]) + filler_item_count}")
         item_pool_dict = self.choose_filler_items(filler_item_count, item_pool_dict)
 
 
@@ -752,7 +757,7 @@ class SpiritTracksWorld(WorldParent):
         rupees_required = self.get_required_rupees()
         required_filler = len(self.locations_to_exclude)
         max_non_filler = filler_count - required_filler
-        print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
+        # print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
         if max_non_filler <= 0:
             raise FillError(f"Not enough room in item pool for filler items, please adjust your settings.")
 
@@ -760,7 +765,7 @@ class SpiritTracksWorld(WorldParent):
         cascade = [99, 100, 150, 200, 300, 500, 2500]
         filler_values = [2500]*((max_non_filler*6)//10)
         total_rupees = rupees_required*2+2500
-        print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
+        # print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
         if sum(filler_values) < total_rupees:
             filler_values += [2500]*math.ceil((total_rupees-sum(filler_values))/2400)
             print(f"Not enough room in filler pool for rupees, adding more regal rings")
@@ -778,7 +783,7 @@ class SpiritTracksWorld(WorldParent):
                          300: "Gold Rupee (300)",
                          500: list(ITEM_GROUPS["Rare Treasures"]),
                          2500: list(ITEM_GROUPS["Super Rare Treasures"])}
-        print(f"Rupee pool: {filler_values}")
+        # print(f"Rupee pool: {filler_values}")
         for i in filler_values:
             if isinstance(rupee_choices[i], str):
                 item_pool_dict[rupee_choices[i]] = item_pool_dict.get(rupee_choices[i], 0) + 1
@@ -786,12 +791,16 @@ class SpiritTracksWorld(WorldParent):
                 choice = self.random.choice(rupee_choices[i])
                 item_pool_dict[choice] = item_pool_dict.get(choice, 0) + 1
         filler_count -= len(filler_values)
-        print(f"Rupee item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Rupee Pool Items']]}")
+        print(
+            f"Items so far: {sum([i for i in item_pool_dict.values()])}, filler {filler_count} sum {sum([i for i in item_pool_dict.values()]) + filler_count}")
+        # print(f"Rupee item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Rupee Pool Items']]}")
         # Get filler items for the remaining items
         for _ in range(filler_count):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
-        print(f"Filler item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Filler Item Pool']]}")
+        # print(f"Filler item dict: {[(i, v) for i, v in item_pool_dict.items() if i in ITEM_GROUPS['Filler Item Pool']]}")
+        print(
+            f"Items so far: {sum([i for i in item_pool_dict.values()])}")
         return item_pool_dict
 
     def choose_tos_items(self):
@@ -864,7 +873,7 @@ class SpiritTracksWorld(WorldParent):
                 self.rabbit_counts = [self.random.randint(1, max_count) for _ in range(5)]
             rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits])
 
-        print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
+        # print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations
 
     def choose_rabbit_items(self):
@@ -939,12 +948,21 @@ class SpiritTracksWorld(WorldParent):
     def choose_tear_items(self):
         size_index = self.options.tear_size.value
         spirit_weapon = self.options.spirit_weapons.value
+        add_items = []
+
+        if not spirit_weapon:
+            add_items += [("Sword (Progressive)", 2), ("Bow of Light", 1)]
+        else:
+            add_items += [("Sword", 1)]
+
+        if self.options.exclude_sections == "remove" and len(self.non_required_sections) == 6:
+            return add_items
+
         size_str = ["", "Big "][size_index]
         sections = range(1, 6)
         if self.options.exclude_sections == "remove":
             sections = [s for s in sections if s not in self.non_required_sections]
 
-        add_items = []
         tear_sections = self.options.tear_sections.value
         count_normal = [3, 1][size_index]
 
@@ -962,11 +980,6 @@ class SpiritTracksWorld(WorldParent):
             section_count = min(self.sections_included, 5)
             count_prog = [section_count*3, section_count][size_index]
             add_items += [(f"{size_str}Tear of Light (Progressive)", count_prog + spirit_weapon)]
-
-        if not spirit_weapon:
-            add_items += [("Sword (Progressive)", 2), ("Bow of Light", 1)]
-        else:
-            add_items += [("Sword", 1)]
 
         # print(f"New Tear Items: {add_items}")
         return add_items
@@ -1144,6 +1157,7 @@ class SpiritTracksWorld(WorldParent):
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
+        print(f"Pre fill items {self.pre_fill_items}")
 
     def pre_fill_tos_sections(self):
         for section in range(1, 7):
