@@ -84,7 +84,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== Castle Town =========
 
         ["forest realm", "castle town", True, None],
-        ["castle town", "castle town goron", False, lambda state: state.has("Passenger: City Goron", player) or state.has("_goron_ice", player)],
+        ["castle town", "castle town goron", False, lambda state: state.has("Passenger: City Goron", player) or state.has("_goron", player)],
         ["castle town", "pick up alfonzo", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["castle town", "castle town teacher", False, lambda state: st_has_glyph(state, player, "Snow") or st_has_glyph(state, player, "Ocean")],
         ["pick up alfonzo", "alfonzo event", False, None],
@@ -567,7 +567,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                     state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player)))],
 
         # Goron Target Game
-        ["fire realm", "gtr", False, lambda state: st_has_cannon(state, player) and st_has_source(state, player, "Fire")],
+        ["fire realm", "gtr", False, lambda state: st_has_cannon(state, player) and state.has("_goron_ice", player)],
 
         # Mountain Temple
         ["mountain temple tracks", "mtt", False, lambda state: state.has("Mountain Temple Snurglar Key", player, 3)],

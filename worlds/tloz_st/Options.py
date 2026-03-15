@@ -44,13 +44,13 @@ class SpiritTracksDungeonCount(Range):
     display_name = "Required Dungeon Count"
     range_start = 1
     range_end = 11
-    default = 2
+    default = 5
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     """
     How does tower of spirits count towards the dungeon pool?
     - not_in_dungeon_pool: tower of spirits does not count as a dungeon
-    - final_section: the last implemented section of ToS gets added to the dungeon pool. Currently B7.
+    - final_section: Legacy option, currently adds Staven as the tower's goal location
     - all_sections: completing each implemented section of ToS gets added to the dungeon pool. Currently, that is 2.
     """
     display_name = "Tower of Spirits Dungeon Reward Options"
@@ -251,7 +251,7 @@ class SpiritTracksPortalLocations(Toggle):
 
 class SpiritTracksStartWithTrain(Toggle):
     """
-    Starts you with forest glyph and cannon, giving you train access from the start.
+    Starts you with a forest glyph including track and cannon depending on cannon logic, giving you train access from the start.
     On by default to give people more checks in the beginning
     """
     display_name = "Start With Train"
@@ -572,7 +572,7 @@ class SpiritTracksTrackGroupings(Choice):
     - completed_glyphs: Each glyph comes pre-completed. Sand realm counts separately.
     - major_minor: creates a major and minor rail combination for each realm, where the major contains the source, restoration and glyph.
     - thematic: Adds 16 custom groups containing 3-5 rail items to the pool, based on locale.
-    - mixed: Rolls a rail item for each vanilla rail from those that contain it, and removes duplicates.
+    - mixed: Rolls a complete set of rail items from all rail items.
     - mixed_large: rolls as mixed but does not include single rail items
     - mixed_small: rolls as mixed but does not include completed glyph items.
     """
@@ -675,12 +675,14 @@ st_option_groups = [
         SpiritTracksExcludeDungeons,
         SpiritTracksRequiredDungeonHints,
     ]),
-    OptionGroup("Misc Options", [
+    OptionGroup("Logic Options", [
         SpiritTracksLogic,
         SpiritTracksCannonLogic,
-        SpiritTracksTrackGroupings,
+    ]),
+    OptionGroup("Randomization Options", [
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizeBossKeys,
+        SpiritTracksTrackGroupings,
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,
         SpiritTracksStampItems,

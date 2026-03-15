@@ -54,6 +54,34 @@ DYNAMIC_ENTRANCES = {
         "has_items": [("Tower of Spirits Base", 0)],
         "message": "You need the Tower of Spirits Base to enter!"
     },
+    "Bounce ToS from ocean without base prog": {
+        "entrance": "Ocean Realm to Tower of Spirits",
+        "destination": "Ocean Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "message": "You need 1 Progressive ToS Section to enter!"
+    },
+    "Bounce ToS from Ocean without base": {
+        "entrance": "Ocean Realm to Tower of Spirits",
+        "destination": "Ocean Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", [0, 1]], ["tos_unlock_base_item", 1]],
+        "has_items": [("Tower of Spirits Base", 0)],
+        "message": "You need the Tower of Spirits Base to enter!"
+    },
+    "Bounce ToS from Fire without base prog": {
+        "entrance": "Fire Realm to Tower of Spirits",
+        "destination": "Fire Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", 2], ["tos_unlock_base_item", 1]],
+        "has_items": [("Progressive ToS Section", 0)],
+        "message": "You need 1 Progressive ToS Section to enter!"
+    },
+    "Bounce ToS from Fire without base": {
+        "entrance": "Fire Realm to Tower of Spirits",
+        "destination": "Fire Realm to Tower of Spirits",
+        "has_slot_data": [["tos_section_unlocks", [0, 1]], ["tos_unlock_base_item", 1]],
+        "has_items": [("Tower of Spirits Base", 0)],
+        "message": "You need the Tower of Spirits Base to enter!"
+    },
 
     # Outset pre-glyph bounce
     "Bounce Outset without cannon": {

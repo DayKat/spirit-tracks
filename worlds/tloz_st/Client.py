@@ -654,9 +654,10 @@ class SpiritTracksClient(DSZeldaClient):
                 model_value = OFFSET_TO_MODEL[model_data[str(l)]].value if str(l) in model_data else generic_model
                 model_name = OFFSET_TO_MODEL[model_data[str(l)]].name if model_value != generic_model else "Force Gem"
             else:  # vanilla
-                vanilla_item = self.location_id_to_vanilla_item[l]
-                model_name = ITEMS[vanilla_item].model
-                model_value = ITEM_MODEL_LOOKUP[model_name].value if model_name else generic_model
+                    # print(f"Vanilla item {i}, {l}")
+                    model_name = ITEMS[i].model
+                    model_value = ITEM_MODEL_LOOKUP[model_name].value if model_name else generic_model
+
 
             # add models to write list
             bits = split_bits(model_value, 4)

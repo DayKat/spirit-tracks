@@ -188,6 +188,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_1, 0x4)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
     },
+    "Castle town prevent teacher from respawning": {
+        "has_locations": ["Castle Town Pick Up Teacher"],
+        "on_scenes": [0x2900],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "set_if_true": [(STAddr.adv_flags_42, 0x10)],
+    },
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
@@ -540,46 +546,46 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x0700],
         "has_groups": ["Tracks: Forest Realm SW Cave"],
         "has_slot_data": [("portal_behavior", 1)],
-        "set_if_true": [(STAddr.activate_portals, 0x20)]
+        "set_if_true": [(STAddr.activate_portals, 0x40)]
     },
     "Allow Portal goron village item": {
         "on_scenes": [0x0700],
         "has_groups": ["Tracks: Forest Realm SW Cave"],
         "has_items": [["Portal Unlock: Forest Cave to Goron Village", 1]],
         "has_slot_data": [("portal_behavior", 2)],
-        "set_if_true": [(STAddr.activate_portals, 0x20)]
+        "set_if_true": [(STAddr.activate_portals, 0x40)]
     },
     "Close Portal goron village item tracks": {
         "on_scenes": [0x0700],
         "not_has_groups": ["Tracks: Forest Realm SW Cave"],
         "has_slot_data": [("portal_behavior", 2)],
-        "unset_if_true": [(STAddr.activate_portals, 0x20)]
+        "unset_if_true": [(STAddr.activate_portals, 0x40)]
     },
     "Close Portal goron village item portal": {
         "on_scenes": [0x0700],
         "has_items": [["Portal Unlock: Forest Cave to Goron Village", 0]],
         "has_slot_data": [("portal_behavior", 2)],
-        "unset_if_true": [(STAddr.activate_portals, 0x20)]
+        "unset_if_true": [(STAddr.activate_portals, 0x40)]
     },
 
     "Open cave portal open portals": {
         "on_scenes": [0x0400],
         "has_groups": ["Tracks: Fire Glyph"],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
-        "set_if_true": [(STAddr.activate_portals, 0x20)]
+        "set_if_true": [(STAddr.activate_portals, 0x40)]
     },
     "Open cave portal item": {
         "on_scenes": [0x0400],
         "has_groups": ["Tracks: Fire Glyph"],
         "has_items": [["Portal Unlock: Forest Cave to Goron Village", 1]],
         "has_slot_data": [["portal_checks", 0], ["portal_behavior", 2]],
-        "set_if_true": [(STAddr.activate_portals, 0x20)]
+        "set_if_true": [(STAddr.activate_portals, 0x40)]
     },
     "Keep portal loc closed cave": {
         "on_scenes": [0x0400],
         "has_slot_data": [["portal_checks", 1]],
         "not_has_locations": ["Forest Realm Shoot SE Portal"],
-        "unset_if_true": [(STAddr.activate_portals, 0x20)]
+        "unset_if_true": [(STAddr.activate_portals, 0x40)]
     },
 
     "Allow Portal mayscore open portals": {
@@ -1055,6 +1061,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2900],
         "has_items": [("Passenger: City Goron", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Castle Town Goron Force Gem"],
         "check_bits": [(STAddr.adv_flags_3a, 0x8, "not")],
         "set_if_true": [(STAddr.adv_flags_3a, 0x1), (STAddr.adv_flags_1, 0x4)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x29),
@@ -1271,7 +1278,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "has_groups": ["Tracks: Blizzard Temple Tracks"],
         # "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
-        "not_has_locations": ["Icy Spring Noko's Force Gem"],
+        "not_has_locations": ["Icy Spring Noko's Force Gem", "Anouki Village Pick Up Noko"],
         "unset_if_true": [(STAddr.adv_flags_3a, 0x10)],
     },
     "Can't pick up Noko glyph": {
@@ -1282,6 +1289,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Can't pick up Noko": {
         "on_scenes": [0x2b00],
         "has_slot_data": [("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Has Picked Up Noko": {
+        "on_scenes": [0x2b00],
+        "has_locations": ["Anouki Village Pick Up Noko"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
     },
     "Bring Kenzo to AV": {
@@ -1317,11 +1330,18 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Bring Noko to Icyspring": {
         "on_scenes": [0x3500],
         "has_items": [("Passenger: Noko", 1)],
+        "not_has_locations": ["Icy Spring Noko's Force Gem"],
         "check_bits": [(STAddr.adv_flags_3a, 0x40, "not")],
         "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x35),
                               (STAddr.passenger_tag_0, 0x594B4350),
                               (STAddr.has_passenger_0, 0)]
+    },
+    "Noko arrived rando": {
+        "on_scenes": [0x3500],
+        "has_locations": ["Icy Spring Noko's Force Gem"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
     },
     "No passengers icyspring": {
         "on_scenes": [0x3500],
@@ -1802,6 +1822,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("exclude_tos_5", 1)],
         "set_if_true": [(STAddr.adv_flags_21, 0x20)],
     },
+    "Open GTR no cargo rando": {
+        "on_scenes": [0x3c00, 0x3c01],
+        "has_slot_data": [("randomize_cargo", 0)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)]
+    }
 }
 
 for name, data in DYNAMIC_FLAGS.items():

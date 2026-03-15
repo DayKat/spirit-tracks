@@ -155,6 +155,7 @@ class SpiritTracksWorld(WorldParent):
         self.model_lookup = {}
         self.sections_included: int = 6
         self.required_rupees = 0
+        self.track_items = []
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -181,20 +182,17 @@ class SpiritTracksWorld(WorldParent):
             self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
             if self.options.exclude_sections == "remove":
                 self.sections_included = 6 - len(self.non_required_sections)
-            print(f"Required Dungeons: {self.required_dungeons}")
+            # print(f"Required Dungeons: {self.required_dungeons}")
             self.restrict_non_local_items()
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
             # print(f"Rabbit items: {self.rabbit_item_dict}")
             self.plando_tos_sections()
-            print(f"Tower Sections: {self.tower_section_lookup}")
+            # print(f"Tower Sections: {self.tower_section_lookup}")
+            self.track_items = self.choose_track_items()
 
             # Starting Train
-            if self.options.start_with_train:
-                self.options.start_inventory_from_pool.value.update({"Forest Glyph": 1})
-                if self.options.cannon_logic.value in [0, 1]:
-                    self.options.start_inventory_from_pool.value.update({"Cannon": 1})
             # Tear conditions
             if self.options.randomize_tears.value <= 0:  # Vanilla/no tears
                 self.options.tear_size.value = 0  # force small tears
@@ -422,12 +420,12 @@ class SpiritTracksWorld(WorldParent):
 
         if "tos_section" in location_data:
             if "stamp" in location_data:
-                return self.options.randomize_stamps.value in [2, 3]
+                return self.options.randomize_stamps.value in [1, 2, 3]
             bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
             return bk and tears and location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove"
         if "dungeon" in location_data:
-            stamp = self.options.randomize_stamps.value in [2, 3] if "stamp" in location_data else True
+            stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
             bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
             # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
             return stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
@@ -567,7 +565,6 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("pirate wadatsumi", "_wadatsumi")
             self.create_event("av kofu", "_kofu")
             self.create_event("pick up gorons", "_goron")
-            self.create_event("goron ice event", "_goron_ice")
         if self.options.randomize_cargo == "vanilla":
             self.create_event("mayscore lumber", "_buy_lumber")
             self.create_event("icyspring ice", "_buy_ice")
@@ -578,6 +575,7 @@ class SpiritTracksWorld(WorldParent):
         # UT Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck event", "_can_sell_treasure")
+        self.create_event("goron ice event", "_goron_ice")  # Used for GTR
 
 
     def exclude_locations_automatically(self):
@@ -731,7 +729,7 @@ class SpiritTracksWorld(WorldParent):
         # if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         if self.options.randomize_stamps: add_items += self.stamp_items
         add_items += self.choose_tos_items()
-        add_items += self.choose_track_items()
+        add_items += self.track_items
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
         add_items += self.choose_tear_items()
@@ -758,18 +756,28 @@ class SpiritTracksWorld(WorldParent):
             track_items = ITEM_GROUPS["Completed Track Groupings"]
         elif option == "thematic":
             track_items =  ITEM_GROUPS["Thematic Track Groupings"]
-        elif option.value < 0:
+        elif option.value < 0:  # Random mixed
+            skip_pools = set()
             for pool_name, pool in ITEM_GROUPS.items():
-                if not pool_name.startswith("Tracks:"):
+                if not pool_name.startswith("Tracks:") or pool_name in skip_pools:
                     continue
                 valid_choices = pool.copy()
                 if option == "mixed_large":
                     valid_choices -= ITEM_GROUPS["Basic Tracks"]
                 elif option == "mixed_small":
                     valid_choices -= ITEM_GROUPS["Completed Track Groupings"]
-                track_items.add(self.random.choice(list(valid_choices)))
+                new_track = self.random.choice(list(valid_choices))
+                track_items.add(new_track)
+                skip_pools.update([i for i in ITEMS[new_track].item_groups if i.startswith("Tracks:")])
         add_items = [(i, 1) for i in track_items]
         print(len(add_items), add_items)
+
+        if self.options.start_with_train:
+            valid_starting_tracks = [track for track in track_items if track in ITEM_GROUPS["Tracks: Forest Glyph"]]
+            self.options.start_inventory_from_pool.value.update({self.random.choice(valid_starting_tracks): 1})
+            if self.options.cannon_logic.value in [0, 1]:
+                self.options.start_inventory_from_pool.value.update({"Cannon": 1})
+
         return add_items
 
     def choose_filler_items(self, filler_count, item_pool_dict):

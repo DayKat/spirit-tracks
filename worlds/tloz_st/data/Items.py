@@ -1616,7 +1616,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.restorations,
         "value": 0x80,
-        "set_bit": [(STAddr.tracks_1, 0x2), (STAddr.tracks_0, 0x20), (STAddr.source_rails, 0x2), (STAddr.sources, 0x10)],
+        "set_bit": [(STAddr.tracks_1, 0x2), (STAddr.tracks_0, 0x20), (STAddr.source_rails, 0x2), (STAddr.sources, 0x10),],
         'model': "Forest Glyph",
         "item_groups": ["Tracks: N Castle Town", "Tracks: Forest Glyph", "Tracks: W Castle Town Tracks",
                         "Tracks: Forest Source",
@@ -1919,3 +1919,6 @@ ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"] | ITEM_GROUPS["Custom Track
 ITEM_GROUPS["Rupee Pool Items"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Filler Item Pool"] = ITEM_GROUPS["Potions"] | ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Common Treasures"]
 
+# track_groups = {t: g for t, g in ITEM_GROUPS.items() if t.startswith("Tracks:")}
+# for t in track_groups.items():
+#     print(t)
