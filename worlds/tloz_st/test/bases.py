@@ -11,7 +11,7 @@ class TestGeneration(WorldTestBase):
         "rabbit_pack_size": "random_mixed",
         "rabbit_extra_items": 2,
         "goal": "defeat_malladus",
-        "dark_realm_access": "dungeons",
+        "dark_realm_access": "both",
 
         "dungeons_required": 11,
         "tos_dungeon_options": "all_sections",
@@ -39,5 +39,6 @@ class TestGeneration(WorldTestBase):
         "track_pool": "mixed_small",
         "start_with_train": True,
         "cannon_logic": "open_train",
-        "portal_behavior": "always_open"
+        "portal_behavior": "always_open",
+
     }

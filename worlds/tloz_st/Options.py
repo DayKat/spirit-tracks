@@ -28,13 +28,31 @@ class SpiritTracksDarkRealmUnlock(Choice):
     What unlocks the dark realm?
     - compass_of_light: only the compass of light is required. malladus also requires a sword, bow of light and spirit pipes.
     - dungeons: find the compass of light and finish a specified number of dungeons to gain access to the dark realm.
-    - shattered_compass: triforce hunt! find a specified number of compass shards to unlock the dark realm. Not implemented!
+    - shattered_compass: triforce hunt! find a specified number of compass shards to unlock the dark realm.
+    - both: you need to find the shattered compass shards to get the track, and the dungeon goal to enter.
     """
     display_name = "Dark Realm Unlock"
     option_compass_of_light = 0
     option_dungeons = 1
-    # option_shattered_compass = 2
+    option_shattered_compass = 2
+    option_both = 3
     default = 1
+
+class SpiritTracksCompassShardCount(Range):
+    """
+    How many compass shards you need to unlock the tracks to the dark realm.
+    """
+    range_start = 1
+    range_end = 30
+    default = 5
+
+class SpiritTracksTotalCompassShards(Range):
+    """
+    Total number of compass shards in pool.
+    """
+    range_start = 1
+    range_end = 30
+    default = 8
 
 class SpiritTracksDungeonCount(Range):
     """
@@ -602,6 +620,8 @@ class SpiritTracksOptions(PerGameCommonOptions):
     dungeon_hints: SpiritTracksRequiredDungeonHints
     exclude_dungeons: SpiritTracksExcludeDungeons
     exclude_sections: SpiritTracksExcludeSections
+    compass_shard_count: SpiritTracksCompassShardCount
+    compass_shard_total: SpiritTracksTotalCompassShards
 
     # Logic options
     logic: SpiritTracksLogic
@@ -674,6 +694,7 @@ st_option_groups = [
         SpiritTracksExcludeSections,
         SpiritTracksExcludeDungeons,
         SpiritTracksRequiredDungeonHints,
+        SpiritTracksTotalCompassShards
     ]),
     OptionGroup("Logic Options", [
         SpiritTracksLogic,

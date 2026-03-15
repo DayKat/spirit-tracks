@@ -184,6 +184,7 @@ class SpiritTracksWorld(WorldParent):
                 self.sections_included = 6 - len(self.non_required_sections)
             # print(f"Required Dungeons: {self.required_dungeons}")
             self.restrict_non_local_items()
+            self.options.compass_shard_count.value = min(self.options.compass_shard_count.value, self.options.compass_shard_total.value)
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
@@ -339,7 +340,7 @@ class SpiritTracksWorld(WorldParent):
         }
 
     def pick_required_dungeons(self) -> list[str]:
-        if self.options.goal != "defeat_malladus" or self.options.dark_realm_access != "dungeons":
+        if self.options.goal != "defeat_malladus" or self.options.dark_realm_access not in ["dungeons", "both"]:
             return []
         if self.options.plando_dungeon_pool:
             case_compare = {k.lower(): v for k, v in DUNGEON_TO_BOSS_ITEM_LOCATION.items()}
@@ -721,8 +722,12 @@ class SpiritTracksWorld(WorldParent):
 
         # add progression items first
         add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
-                     ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Compass of Light", 1), ("Treasure: Regal Ring", 1)]
+                     ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Treasure: Regal Ring", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["Non-Progressive Main Items"]]
+        if self.options.dark_realm_access in ["shattered_compass" or "both"] and self.options.compass_shard_total.value > 1:
+            add_items += [("Compass of Light Shard", self.options.compass_shard_total.value)]
+        else:
+            add_items += [("Compass of Light", 1)]
         if self.options.rabbitsanity: add_items += [("Rabbit Net", 1)]
         if self.options.randomize_cargo: add_items += [("Wagon", 1)]
         if self.options.randomize_cargo.value == 3: add_items += [("Cargo: Mega Ice", 3), ("Cargo: Cuccos (5)", 3)]
@@ -1317,7 +1322,7 @@ class SpiritTracksWorld(WorldParent):
         # print(f"Location Models: {location_models}")
 
     def fill_slot_data(self) -> dict:
-        options = ["goal",
+        options = ["goal", "compass_shard_count",
                    "logic", "cannon_logic",
                    "exclude_dungeons", "exclude_sections",
                    "keysanity", "randomize_boss_keys",
@@ -1351,7 +1356,7 @@ class SpiritTracksWorld(WorldParent):
         return slot_data
 
     def write_spoiler(self, spoiler_handle):
-        if self.options.dark_realm_access == "dungeons":
+        if self.options.dark_realm_access in ["dungeons", "both"]:
             title_str = "Required Dungeons" if self.options.require_specific_dungeons else "Dungeon Locations"
             spoiler_handle.write(f"\n\n{title_str} ({self.multiworld.player_name[self.player]}):\n")
             for dung in self.required_dungeons:

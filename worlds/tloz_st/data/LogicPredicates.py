@@ -49,7 +49,8 @@ def st_has_net(state: CollectionState, player: int):
     return state.has("Rabbit Net", player) and st_has_cannon(state, player)
 
 def st_has_compass_of_light(state, player):
-    return state.has("Compass of Light", player)
+    required_shards = state.multiworld.worlds[player].options.compass_shard_count.value
+    return state.has("Compass of Light", player) or state.has("Compass of Light Shard", player, required_shards)
 
 def st_has_wagon(state, player):
     return state.has("Wagon", player)
@@ -453,7 +454,7 @@ def st_castle_town_cuccos(state, player):
     return st_has_birds_song(state, player) or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))
 
 def st_has_dungeon_rewards(state, player):
-    if state.multiworld.worlds[player].options.dark_realm_access != "dungeons":
+    if state.multiworld.worlds[player].options.dark_realm_access not in ["dungeons", "both"]:
         return True
     dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
     return state.has("_dungeon_reward", player, dungeon_count)

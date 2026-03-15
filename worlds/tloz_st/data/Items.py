@@ -1886,6 +1886,11 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Dark Ore Mine", "Tracks: Sand to Fire Connection",
                         "Minor Track Groupings"]
     },
+    "Compass of Light Shard": {
+        'classification': ItemClassification.progression,
+        "model": "Compass of Light",
+        "dummy": True,
+    },
 }
 
 

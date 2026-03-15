@@ -470,6 +470,11 @@ class SpiritTracksClient(DSZeldaClient):
             self.reload_on_item = False
             await self._set_dynamic_entrances(ctx, self.current_scene)
             await self._set_dynamic_flags(ctx, self.current_scene)
+        if item_name == "Compass of Light Shard" and ctx.slot_data["dark_realm_access"] in [2, 3]:
+            required_shards = ctx.slot_data["compass_shard_count"]
+            if self.item_count(ctx, "Compass of Light Shard") >= required_shards:
+                logger.info(f"Got {required_shards} Compass of Light Shards, unlocking the track to the Dark Realm!")
+                await STAddr.rail_restorations.set_bits(ctx, 0x40)
 
         # Get spirit weapons from final tear of light
         if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
