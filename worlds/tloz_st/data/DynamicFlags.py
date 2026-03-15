@@ -611,6 +611,31 @@ DYNAMIC_FLAGS = {
     },
 
     # Sanctuaries
+    "Carben don't have spirit flute": {
+        "on_scenes": [0x3202],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)]
+    },
+    "Carben can play duet": {
+        "on_scenes": [0x3202],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Ocean Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x4)]
+    },
+    "Carben Song Reset Flags": {
+      "on_scenes": [0x3202],
+        "unset_if_true": [(STAddr.rail_restorations, 0x8)],
+        "reset_flags": ["OCS Reset OTT", "OCS Reset OTT not has"],
+    },
+    "OCS Reset OTT not has": {
+        "has_items": [("Marine Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x8)],
+    },
+    "OCS Reset OTT": {
+        "has_items": [("Marine Temple Tracks", 1)],
+        "set_if_true": [(STAddr.rail_restorations, 0x8)],
+    },
+
     "Embrose don't have spirit flute": {
         "on_scenes": [0x3303],
         "has_items": [("Spirit Flute", 0)],
@@ -1359,16 +1384,37 @@ DYNAMIC_FLAGS = {
     },
 
     #Carben (Oh Boy)
-        #Order of operations is play Song of Birds to knock him down
+        #Order of operations is:
+        #Play Song of Discovery to learn Song of Birds
+        #Learning (or Playing) Song of Birds to knock him down
         #Then take him to Sanc, Pirate Ambush happens
-    "Can pick up Carben": {
+        #Force Gem given on arrival at OCS
 
+    #Sets Carben to ground to just talk to him when Statue has already been checked and SoB is acquired
+    "Carben with Song of Birds and Song Statue Checked": {
+        "on_scenes": [0x2C00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_items": [("Song of Birds", 1)],
+        "has_locations": ["Papuzia Village Song Statue"],
+        "set_if_true": [(STAddr.adv_flags_a, 0xB0), (STAddr.adv_flags_f, 0x99)],
     },
-    "Carben missing glyph": {
-        #may not need? Since can't both Papuzia and OCS Require Ocean Glyph and nothing else?
-    },
+
+    #Flag for delivering Carben
     "Carben Arrives at Sanctuary": {
+        "on_scenes": [0x3200],
+        "has_items": ["Passenger: Carben", 1],
+        "check_bits": [STAddr.adv_flags_9, 0x20, "not"],
+        "set_if_true": [(STAddr.adv_flags_9, 0x10)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x32),
+                              (STAddr.passenger_tag_0, 0x53595741),
+                              (STAddr.has_passenger_0, 0)],
+    },
 
+    #Set Carben to Ocean Sanctuary
+    "No Passenger Carben Ocean Sanctuary": {
+        "on_scenes": [0x2C00],
+        "has_slot_data": [("randomize_passengers", [0])],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
 
     #Wadatsumi (Also Oh Boy, but for different reasons)
@@ -1379,7 +1425,7 @@ DYNAMIC_FLAGS = {
     #Spawn Wadatsumi without doing minigame if random passenger, but no minigames
     "Can pick up Wadatsumi": {
         "on_scenes": [0x3A00],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3]) and ("randomize_minigames", [0])],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("randomize_minigames", [0])],
         "set_if_true": [(STAddr.adv_flags_34, 0x20)],
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
@@ -1392,20 +1438,24 @@ DYNAMIC_FLAGS = {
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
-    # #Set Flags for Wadatsumi to appear at hideout automatically if minigames turned off
-    # "Wadatsumi No Minigame Option": {
-    #     "on_scenes": [0x3A00],
-    #     "has_slot_data": [("randomize_minigames", [0])],
-    #     "set_if_true": [()],
-    #     "reset_flags": ["RESET Wadatsumi Saved"],
-    # },
-
     #Prevent minigame from being played if no bow has been found
     "Pirate Hideout Minigame Missing Bow": {
         "on_scenes": [0x3A00],
         "has_items": [("Bow (Progressive)", 0)],
         "set_if_true": [(STAddr.adv_flags_34, 0x60)], #Sets Wadatsumi as not in scene, and Zelda text doesn't trigger to start minigame when walking in cave
         "reset_flags": ["RESET Pirate Minigame Access"],
+    },
+
+    "Skip Pirate HC": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_minigames", [0, 1])],
+        "set_if_true": [(STAddr.adv_flags_56, 0x20)],
+    },
+
+    "Skip Pirate Quiver": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_minigames", [0, 2])],
+        "set_if_true": [(STAddr.adv_flags_56, 0x10)],
     },
 
     #Resets Pirate hideout to base state, ready for saving Wadatsumi minigame
@@ -1424,12 +1474,6 @@ DYNAMIC_FLAGS = {
                               (STAddr.has_passenger_0, 0)],
     },
 
-    #Set Carben to Ocean Sanctuary
-    "No Passenger Carben Ocean Sanctuary": {
-        "on_scenes": [0x2C00],
-        "has_slot_data": [("randomize_passengers", [0])],
-        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
-    },
     #Send Wadatsumi away from Pirate if No Passenger Option selected
     "No Passenger Wadatsumi Pirate Hideout": {
         "on_scenes": [0x3A00],

@@ -1680,6 +1680,18 @@ LOCATIONS_DATA = {
         "location_groups": ["Ocean Sanctuary"],
     },
 
+    "Ocean Sanctuary Song of Restoration": {
+        "stage_id": 0x32,
+        "room_id": 2,
+        "region_id": "ocs song",
+        "vanilla_item": "Marine Temple Tracks",
+        "address": STAddr.rail_restorations,
+        "value": 0x4,
+        "minigame": [1, 2, 3, 4],
+        "conditional": True,
+        "location_groups": ["Ocean Sanctuary", "Restoration Duets"],
+    },
+
     # Papuzia (Papuchia) Village
     "Papuzia Village Song Statue": {
         "region_id": "papuchia village song statue",
