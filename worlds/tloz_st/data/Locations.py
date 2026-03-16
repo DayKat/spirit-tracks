@@ -1940,10 +1940,12 @@ LOCATIONS_DATA = {
         "stage_id": 0x3A,
         "room_id": 0,
         "conditional": True,
+        "minigame": [1, 3, 4],
         "require_item": ["Bow (Progressive)"],
         "address": STAddr.adv_flags_56,
         "value": 0x10,
         "location_groups": ["Pirate Hideout"],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
 
       },
 
@@ -1953,10 +1955,12 @@ LOCATIONS_DATA = {
         "stage_id": 0x3A,
         "room_id": 0,
         "conditional": True,
+        "minigame": [2, 3, 4],
         "require_item": ["Bow (Progressive)]"],  # Pirate hideout gives a free bow, decide if we want that or not.
         "address": STAddr.adv_flags_56,
         "value": 0x20,
-        "location_groups": ["Pirate Hideout"]
+        "location_groups": ["Pirate Hideout"],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
       },
 
 

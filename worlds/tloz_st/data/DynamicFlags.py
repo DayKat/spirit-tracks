@@ -1442,7 +1442,7 @@ DYNAMIC_FLAGS = {
     "Pirate Hideout Minigame Missing Bow": {
         "on_scenes": [0x3A00],
         "has_items": [("Bow (Progressive)", 0)],
-        "set_if_true": [(STAddr.adv_flags_34, 0x60)], #Sets Wadatsumi as not in scene, and Zelda text doesn't trigger to start minigame when walking in cave
+        "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)],
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
