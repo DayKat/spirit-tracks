@@ -296,7 +296,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.randomize_cargo.value > 0:
             events += ["EVENT: Bring Ice to Kagoron"]
 
-        if self.options.goal == "defeat_malladus":
+        if self.options.goal == "defeat_malladus" and self.options.dark_realm_access in ["dungeons", "both"]:
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
                 events += [location_event_lookup[loc] for loc in self.required_dungeons]
             else:
@@ -341,7 +341,8 @@ class SpiritTracksWorld(WorldParent):
 
     def pick_required_dungeons(self) -> list[str]:
         if self.options.goal != "defeat_malladus" or self.options.dark_realm_access not in ["dungeons", "both"]:
-            return []
+            if not (self.options.exclude_dungeons or self.options.exclude_sections):  # Still use dungeon count stuff for number of included dungeons
+                return []
         if self.options.plando_dungeon_pool:
             case_compare = {k.lower(): v for k, v in DUNGEON_TO_BOSS_ITEM_LOCATION.items()}
             required_dungeons = list({case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value})
@@ -499,9 +500,10 @@ class SpiritTracksWorld(WorldParent):
 
     def create_events(self):
         if self.options.goal == "defeat_malladus":
-            for loc in self.required_dungeons:
-                self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
             self.create_event("malladus goal", "_beaten_game")
+            if self.options.dark_realm_access in ["dungeons", "both"]:
+                for loc in self.required_dungeons:
+                    self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
         else:
             if self.options.goal == "beat_tos_section_1":
                 goal_loc = "goal_forest_glyph"

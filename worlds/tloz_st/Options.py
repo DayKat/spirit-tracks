@@ -28,7 +28,7 @@ class SpiritTracksDarkRealmUnlock(Choice):
     What unlocks the dark realm?
     - compass_of_light: only the compass of light is required. malladus also requires a sword, bow of light and spirit pipes.
     - dungeons: find the compass of light and finish a specified number of dungeons to gain access to the dark realm.
-    - shattered_compass: triforce hunt! find a specified number of compass shards to unlock the dark realm.
+    - shattered_compass: triforce/McGuffin hunt! find a specified number of compass shards to unlock the dark realm.
     - both: you need to find the shattered compass shards to get the track, and the dungeon goal to enter.
     """
     display_name = "Dark Realm Unlock"
@@ -42,6 +42,7 @@ class SpiritTracksCompassShardCount(Range):
     """
     How many compass shards you need to unlock the tracks to the dark realm.
     """
+    display_name = "Required Compass Shards"
     range_start = 1
     range_end = 30
     default = 5
@@ -50,14 +51,16 @@ class SpiritTracksTotalCompassShards(Range):
     """
     Total number of compass shards in pool.
     """
+    display_name = "Total Compass Shards"
     range_start = 1
     range_end = 30
     default = 8
 
 class SpiritTracksDungeonCount(Range):
     """
-    How many dungeons are required to unlock the dark realm?
-    Will not go higher than the number of valid locations in dungeon pool
+    How many dungeons/ToS sections are required to unlock the dark realm?
+    Will not go higher than the number of valid locations in dungeon pool.
+    Is also the number of included dungeons if using the shattered compass goal.
     """
     display_name = "Required Dungeon Count"
     range_start = 1
@@ -556,6 +559,8 @@ class SpiritTracksExcludeDungeons(Choice):
     """
     Exclude or remove locations from non-required dungeons.
     Does not count tower of spirits, that has its own option.
+    If using shattered compass goal, the game will still pick dungeons based on required dungeon settings for inclusion/exclusion.
+    Does not work with require_specific_dungeons=False, that sets all dungeons to included.
     - include: non-required dungeons are included
     - exclude: non-required dungeon locations are excluded, and can't have useful or progression items.
     - remove: non-required dungeon locations are removed from generation, and don't count towards hint cost etc.
@@ -694,6 +699,7 @@ st_option_groups = [
         SpiritTracksExcludeSections,
         SpiritTracksExcludeDungeons,
         SpiritTracksRequiredDungeonHints,
+        SpiritTracksCompassShardCount,
         SpiritTracksTotalCompassShards
     ]),
     OptionGroup("Logic Options", [
