@@ -14,6 +14,7 @@ REGIONS = [
     "w wooded temple tracks",
     "trading post portal",
     "forest cave portal",
+    "forest ferrus",
 
     "forest realm rabbits",
     "forest ocean shortcut rabbit",
@@ -36,6 +37,7 @@ REGIONS = [
     "outset village trees",
     "outset joe",
     "outset cuccos",
+    "outset ferrus",
 
     # Castle Town
     "castle town",
@@ -224,6 +226,7 @@ REGIONS = [
     "icyspring tracks",
     "snow bridge portal",
     "icyspring portal",
+    "snow realm ferrus",
 
     "snow realm rabbits",
     "blizzard temple tracks rabbits",
@@ -352,6 +355,7 @@ REGIONS = [
     "event_phytops",
     "goal_phytops",
     "post oct",
+    "oct ferrus",
 
     #Pirate Hideout
     "pirate hideout",
@@ -384,6 +388,8 @@ REGIONS = [
     "snurglars",
     "ends of the earth",
     "disorientation station",
+    "fire realm ferrus",
+
     "fire realm rabbits",
     "mountain rabbits",
     "fire source rabbits",

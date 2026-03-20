@@ -427,10 +427,11 @@ class SpiritTracksWorld(WorldParent):
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
             return bk and tears and location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove"
         if "dungeon" in location_data:
+            passengers = self.options.randomize_passengers if location_name == "Marine Temple Ferrus Force Gem" else True
             stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
             bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
             # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
-            return stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
+            return passengers and stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
 
         if "rabbit" in location_data:
             return location_name in self.active_rabbit_locations
@@ -568,6 +569,9 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("pirate wadatsumi", "_wadatsumi")
             self.create_event("av kofu", "_kofu")
             self.create_event("pick up gorons", "_goron")
+            self.create_event("snow realm ferrus", "_ferrus_1")
+            self.create_event("fire realm ferrus", "_ferrus_2")
+            self.create_event("icyspring", "_ferrus_backup")
         if self.options.randomize_cargo == "vanilla":
             self.create_event("mayscore lumber", "_buy_lumber")
             self.create_event("icyspring ice", "_buy_ice")
@@ -777,7 +781,7 @@ class SpiritTracksWorld(WorldParent):
                 track_items.add(new_track)
                 skip_pools.update([i for i in ITEMS[new_track].item_groups if i.startswith("Tracks:")])
         add_items = [(i, 1) for i in track_items]
-        print(len(add_items), add_items)
+        # print(len(add_items), add_items)
 
         if self.options.start_with_train:
             valid_starting_tracks = [track for track in track_items if track in ITEM_GROUPS["Tracks: Forest Glyph"]]

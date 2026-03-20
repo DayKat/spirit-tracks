@@ -6,6 +6,7 @@
     {"name": "Outset Far Right Tree"},
     {"name": "Outset Niko's House Tree"},
     {"name": "Outset Pick Up Joe"},
+    {"name": "Outset Ferrus Force Gem"},
     {"name": "Outset Deliver Cuccos"},
     {"name": "Outset Receive Stamp Book"},
     {"name": "Outset Niko 10 Stamps Reward"},
@@ -259,6 +260,7 @@
   ], "map_locations":[{"map": "Overview", "x": 716, "y": 670}]},
   {"name": "Marine Temple", "sections": [
     {"name": "Marine Temple Song Statue"},
+    {"name": "Marine Temple Ferrus Force Gem"},
     {"name": "Marine Temple 1F Lever Chest"},
     {"name": "Marine Temple 1F Vines Chest"},
     {"name": "Marine Temple Stamp Station"},
@@ -398,7 +400,17 @@
           {"name": "Mountain Temple Boss Heart Container"},
           {"name": "Mountain Temple Dungeon Reward"}
       ], "map_locations":[{"map": "Overview", "x": 814, "y": 158}]},
-    {"name": "Fire Temple Events", "sections": [
+      {"name": "Fire Temple Events", "sections": [
           {"name": "EVENT: Defeat Vulcano"}
-      ], "map_locations":[{"map": "Overview", "x": 814, "y": 142}]}
+      ], "map_locations":[{"map": "Overview", "x": 814, "y": 142}]},
+
+    {"name": "Snow Realm Pick Up Ferrus", "sections": [
+          {"name": "Snow Realm Pick Up Ferrus"}
+      ], "map_locations":[{"map": "Overview", "x": 166, "y": 180}]},
+      {"name": "Fire Realm Pick Up Ferrus", "sections": [
+          {"name": "Fire Realm Pick Up Ferrus"}
+      ], "map_locations":[{"map": "Overview", "x": 670, "y": 108}]},
+      {"name": "Forest Realm Ferrus Gift", "sections": [
+          {"name": "Forest Realm Ferrus Gift"}
+      ], "map_locations":[{"map": "Overview", "x": 214, "y": 492}]}
 ]

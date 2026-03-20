@@ -240,6 +240,8 @@ class SpiritTracksClient(DSZeldaClient):
         res = []
         if ctx.slot_data.get("endgame_scope", 0) > 0:
             res += STAddr.adv_flags_57.get_write_list(0x91)
+        if ctx.slot_data["randomize_passengers"]:
+            res += STAddr.adv_flags_52.get_write_list(0x90)
         return res
 
     def get_coord_address(self, at_sea=None, multi=False):

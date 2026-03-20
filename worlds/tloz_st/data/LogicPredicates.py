@@ -510,3 +510,6 @@ def st_hard_birds(state, player):
         st_has_birds_song(state, player) or st_option_hard_logic(state, player)
     ])
 
+def st_has_passenger(state, player, passenger, event):
+    return state.has(f"Passenger: {passenger}", player) or state.has(event, player)
+

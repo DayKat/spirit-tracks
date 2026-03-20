@@ -3994,6 +3994,59 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "gv kofu"
     },
+    "Snow Realm Pick Up Ferrus": {
+        "stage_id": 0x5,
+        "address": STAddr.adv_flags_3a,
+        "value": 0x80,
+        "vanilla_item": "Passenger: Ferrus",
+        "location_groups": ["Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "snow realm ferrus"
+    },
+    "Outset Ferrus Force Gem": {
+        "stage_id": 0x2F,
+        "room_id": 0xb,
+        "address": STAddr.adv_flags_e,
+        "value": 0x1,
+        "vanilla_item": "N Castle Town Tracks",
+        "location_groups": ["Goron Village", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "outset ferrus"
+    },
+    "Fire Realm Pick Up Ferrus": {
+        "stage_id": 0x7,
+        "address": STAddr.adv_flags_3b,
+        "value": 0x4,
+        "vanilla_item": "Passenger: Ferrus",
+        "item_override": "Nothing!",
+        "location_groups": ["Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "fire realm ferrus"
+    },
+    "Marine Temple Ferrus Force Gem": {
+        "stage_id": 0x1B,
+        "room_id": 0xa,
+        "address": STAddr.adv_flags_f,
+        "value": 0x2,
+        "vanilla_item": "Dark Ore Mine Tracks",
+        "location_groups": ["Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "dungeon": "Marine Temple",  # Yas allow it to have local dungeon items!
+        "region_id": "oct ferrus"
+    },
+    "Forest Realm Ferrus Gift": {
+        "stage_id": 0x45,
+        "room_id": 0x2,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "location_groups": ["Misc Passengers"],
+        "conditional": True,
+        "region_id": "forest ferrus"
+    },
 }
 
 # Create location groups from loc data
@@ -4035,7 +4088,7 @@ LOCATION_GROUPS["Snow Rabbits"] = LOCATION_GROUPS["Total Snow Rabbits"] | LOCATI
 LOCATION_GROUPS["Mountain Rabbits"] = LOCATION_GROUPS["Total Mountain Rabbits"] | LOCATION_GROUPS["Unique Mountain Rabbits"]
 LOCATION_GROUPS["Sand Rabbits"] = LOCATION_GROUPS["Total Sand Rabbits"] | LOCATION_GROUPS["Unique Sand Rabbits"]
 LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATION_GROUPS["Total Rabbits"]
-LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"]
+LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"] | LOCATION_GROUPS["Misc Passengers"]
 LOCATION_GROUPS["Cargo Locations"] = LOCATION_GROUPS["Buy Cargo"] | LOCATION_GROUPS["Deliver Cargo"]
 
 # print(f"Location Groups:")

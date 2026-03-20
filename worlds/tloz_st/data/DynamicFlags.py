@@ -1068,6 +1068,28 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                               (STAddr.passenger_tag_0, 0x474F4350),
                               (STAddr.has_passenger_0, 0)],
     },
+    "Bring Ferrus to Outset": {
+        "on_scenes": [0x2F00],
+        "has_items": [("Passenger: Ferrus", 1), ("Passenger: Alfonzo", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Outset Ferrus Force Gem"],
+        "check_bits": [(STAddr.adv_flags_3b, 0x2, "not")],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x80), (STAddr.adv_flags_1, 0x4)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2f),
+                              (STAddr.passenger_tag_0, 0x544D4E41),
+                              (STAddr.has_passenger_0, 0)],
+    },
+    "Bring Ferrus to Marine Temple": {
+        "on_scenes": [0x1B00],
+        "has_items": [("Passenger: Ferrus", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Marine Temple Ferrus Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_3b, 0x4)],
+        "unset_if_true": [(STAddr.adv_flags_3b, 0x10)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x1b),
+                              (STAddr.passenger_tag_0, 0x544D4E41),
+                              (STAddr.has_passenger_0, 0)],
+    },
     # Anouki chief location
     "Enter Anouki Chief house": {
         "on_scenes": [0x2b01],
@@ -1121,6 +1143,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2e00],
         "check_bits": [(STAddr.adv_flags_59, 0x4)],
         "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
+    },
+    "Backup unset goron geyser": {
+        "on_scenes": [0x2e00],
+        "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
     },
     "RESET Wagon": {
         "has_items": [("Wagon", 1)],
@@ -1617,7 +1644,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", 3)],
         "not_has_locations": ["Papuzia Village Deliver Ice", "Goron Village Deliver Ice Force Gem"],
-        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
         "set_if_true": [(STAddr.adv_flags_33, 0x20)]
@@ -1654,7 +1681,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2e00],
         "has_items": [("Cargo: Mega Ice", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", 3)],
-        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
         "not_has_locations": ["Papuzia Village Deliver Ice"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)]
@@ -1663,7 +1690,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2e00],
         "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", 3)],
-        "check_bits": [(STAddr.adv_flags_1f, 0x80, "not")],
+        "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],
     },
@@ -1695,7 +1722,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Goron Village no cargo": {
         "on_scenes": [0x2e00],
         "has_slot_data": [("randomize_cargo", [0])],
-        "set_if_true": [(STAddr.adv_flags_1f, 0x80), (STAddr.adv_flags_59, 0x6),(STAddr.adv_flags_f, 0x01)]
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80), (STAddr.adv_flags_59, 0x6), (STAddr.adv_flags_f, 0x01)]
     },
     # Papuzia
     "Allow SoB statue": {
@@ -1826,7 +1853,49 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3c00, 0x3c01],
         "has_slot_data": [("randomize_cargo", 0)],
         "set_if_true": [(STAddr.adv_flags_1f, 0x80)]
-    }
+    },
+    "Spawn Ferrus Bliz Temple": {
+        "on_scenes": [0x500],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "check_bits": [(STAddr.adv_flags_11, 0x40)],
+        "has_groups": ["Tracks: Blizzard Temple Tracks"],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)]
+    },
+    "Despawn Ferrus Bliz Temple without alfonzo": {
+        "on_scenes": [0x500],
+        "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)]
+    },
+    "Remove ferrus flag until picked up": {
+        "on_scenes": [0x500],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Snow Realm Pick Up Ferrus"],
+        "unset_if_true": [(STAddr.adv_flags_3a, 0x80)]
+    },
+    "Spawn Ferrus Fire Realm": {
+        "on_scenes": [0x700],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_groups": ["Tracks: Marine Temple Tracks"],  # TODO: figure out when ocean source is enough for oct
+        "set_if_true": [(STAddr.adv_flags_42, 0x8), # Allow spawning, set in ToS after dt in vanilla
+                        (STAddr.adv_flags_3b, 0x2)],  # Brought Ferrus to Outset
+        "reset_flags": ["RESET ferrus outset flag"]
+    },
+    "RESET ferrus outset flag": {
+        "unset_if_true": [(STAddr.adv_flags_3b, 0x2)],
+        "not_has_locations": ["Outset Ferrus Force Gem"]
+    },
+    "Despawn ferrus fire realm": {
+        "on_scenes": [0x700],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "not_has_groups": ["Tracks: Marine Temple Tracks"],
+        "unset_if_true": [(STAddr.adv_flags_42, 0x8)]
+    },
+    "Remove fire ferrus flag until picked up": {
+        "on_scenes": [0x700],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Fire Realm Pick Up Ferrus"],
+        "unset_if_true": [(STAddr.adv_flags_3b, 0x4)]
+    },
 }
 
 for name, data in DYNAMIC_FLAGS.items():
