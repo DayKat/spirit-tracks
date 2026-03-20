@@ -870,7 +870,7 @@ ITEMS_DATA |= {
         'dungeon': 0x18,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
-         "model": "Key"
+        "model": "Key"
      },
     "Small Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
@@ -880,6 +880,15 @@ ITEMS_DATA |= {
         'item_groups': ["Small Keys"],
          "model": "Key"
      },
+    "Keyring (Wooded Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x19,
+        'value': 2,
+        "tags": ["incremental"],
+        'item_groups': ["Keyrings"],
+        "model": "Key"
+    },
     "Small Key (ToS)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -898,6 +907,17 @@ ITEMS_DATA |= {
         'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
+    "Keyring (ToS 2)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [3, 4, 5, 6, 0x29],
+        "section": 2,
+        'value': 2,
+        'item_groups': ["Keyrings"],
+        "model": "Key"
+    },
     "Small Key (ToS 4)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -907,6 +927,17 @@ ITEMS_DATA |= {
         "section": 4,
         'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
+    },
+    "Keyring (ToS 4)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
+        "section": 4,
+        'value': 3,
+        'item_groups': ["Keyrings"],
+        "model": "Key"
     },
     "Small Key (ToS 5)": {
         'classification': ItemClassification.progression,
@@ -918,6 +949,17 @@ ITEMS_DATA |= {
         'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
+    "Keyring (ToS 5)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        "tags": ["incremental"],
+        "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
+        "section": 5,
+        'value': 2,
+        'item_groups': ["Keyrings"],
+        "model": "Key"
+    },
     "Small Key (ToS 6)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -928,6 +970,17 @@ ITEMS_DATA |= {
         'item_groups': ["Small Keys", "Small Key ToS"],
          "model": "Key"
     },
+    "Keyring (ToS 6)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x13,
+        'value': 3,
+        "tags": ["incremental"],
+        "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
+        "section": 6,
+        'item_groups': ["Keyrings"],
+        "model": "Key"
+    },
     "Small Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -935,6 +988,15 @@ ITEMS_DATA |= {
          "tags": ["incremental"],
         'item_groups': ["Small Keys"],
          "model": "Key"
+    },
+    "Keyring (Blizzard Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x1A,
+        'value': 1,
+        "tags": ["incremental"],
+        'item_groups': ["Keyrings"],
+        "model": "Key"
     },
     "Small Key (Marine Temple)": {
         'classification': ItemClassification.progression,
@@ -944,6 +1006,15 @@ ITEMS_DATA |= {
         'item_groups': ["Small Keys"],
          "model": "Key"
     },
+    "Keyring (Marine Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x1B,
+        'value': 2,
+        "tags": ["incremental"],
+        'item_groups': ["Keyrings"],
+        "model": "Key"
+    },
     "Small Key (Mountain Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -952,6 +1023,15 @@ ITEMS_DATA |= {
         'item_groups': ["Small Keys"],
          "model": "Key"
     },
+    "Keyring (Mountain Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x1C,
+        'value': 3,
+        "tags": ["incremental"],
+        'item_groups': ["Keyrings"],
+        "model": "Key"
+    },
     "Small Key (Desert Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -959,6 +1039,15 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
          "model": "Key"
+    },
+    "Keyring (Desert Temple)": {
+        'classification': ItemClassification.progression,
+        'address': STAddr.small_keys,
+        'dungeon': 0x1D,
+        'value': 2,
+        "tags": ["incremental"],
+        'item_groups': ["Keyrings"],
+        "model": "Key"
     },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
@@ -1568,6 +1657,13 @@ ITEMS_DATA |= {
         'item_groups': ["Misc Keys"],
         "model": "Key"
     },
+    "Snurglar Keyring": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x08,
+        'item_groups': ["Keyrings"],
+        "model": "Key"
+    },
     "Dummy Bow": {
         'classification': ItemClassification.filler,
         'model': "Bow"
@@ -1890,7 +1986,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "model": "Compass of Light",
         "dummy": True,
-    },
+    }
 }
 
 

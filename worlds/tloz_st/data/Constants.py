@@ -688,6 +688,20 @@ EXIT_TO_TOS_SECTION = {
     "ToS 1F Exit": 1,
 }
 
+KEY_COUNTS = {
+    "Small Key (Wooded Temple)": 2,
+    "Small Key (Blizzard Temple)": 1,
+    "Small Key (Marine Temple)": 2,
+    "Small Key (Mountain Temple)": 3,
+    "Small Key (Desert Temple)": 2,
+    "Mountain Temple Snurglar Key": 3,
+    "Small Key (ToS 2)": 2,
+    "Small Key (ToS 4)": 3,
+    "Small Key (ToS 5)": 2,
+    "Small Key (ToS 6)": 3,
+    "Small Key (Tunnel to ToS)": 1,
+}
+
 TOS_SECTION_TO_EXIT = {section: e for e, section in EXIT_TO_TOS_SECTION.items()}
 
 BOSS_WARP_SCENE_LOOKUP = {

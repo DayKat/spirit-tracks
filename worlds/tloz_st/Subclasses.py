@@ -1,6 +1,6 @@
 
 from .DSZeldaClient.subclasses import DSTransition
-from .DSZeldaClient.ItemClass import DSItem, receive_normal, remove_vanilla_normal
+from .DSZeldaClient.ItemClass import DSItem, receive_normal, remove_vanilla_normal, receive_small_key
 from enum import IntEnum
 from typing import TYPE_CHECKING
 
@@ -9,13 +9,16 @@ if TYPE_CHECKING:
 from .data.Addresses import STAddr
 
 async def receive_tos_key(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    key_count = item.value if item.name.startswith("Keyring") else 1
+
     async def write_keys_to_storage(dungeon) -> tuple[int, list, str]:
         from .data.Constants import DUNGEON_KEY_DATA
         key_data = DUNGEON_KEY_DATA[dungeon]
         prev = await key_data["address"].read(ctx)
         bit_filter = key_data["filter"]
-        new_v = prev | bit_filter if (prev & bit_filter) + key_data[
-            "value"] > bit_filter else prev + key_data["value"]
+        new_v = prev | bit_filter \
+            if (prev & bit_filter) + (key_data["value"]*key_count) > bit_filter \
+            else prev + (key_data["value"]*key_count)
         print(f"Writing {key_data['name']} key to storage: {hex(prev)} -> {hex(new_v)}")
         return key_data["address"].get_inner_write_list(new_v)
 
@@ -25,7 +28,7 @@ async def receive_tos_key(client: "SpiritTracksClient", ctx, item: "STItem", rii
         if client.last_vanilla_item and client.last_vanilla_item[-1] == "Small Key (ToS)":
             client.last_vanilla_item.pop()
         else:
-            await client.key_address.add(ctx, 1)
+            await client.key_address.add(ctx, key_count)
     else:
         dungeon_key = 0x130 + item.section
         res.append(await write_keys_to_storage(dungeon_key))
@@ -139,8 +142,10 @@ class STItem(DSItem):
             return dummy
         if "Tear of Light" in self.name:
             return receive_tear_of_light
-        if self.name.startswith("Small Key (ToS"):
+        if self.name.startswith("Small Key (ToS") or self.name.startswith("Keyring (ToS"):
             return receive_tos_key
+        if self.name.startswith("Keyring ("):
+            return receive_small_key
         if "Potion" in self.name:
             return receive_potion
         if self.name.startswith("Stamp") and not self.name == "Stamp Book":

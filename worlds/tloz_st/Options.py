@@ -176,6 +176,31 @@ class SpiritTracksKeyRandomization(Choice):
     option_anywhere = 2
     default = 3
 
+class SpiritTracksKeyrings(Choice):
+    """
+    Add replace small keys with keyrings, containing all small keys for that dungeon/ToS section.
+    Option for it to also include boss keys below.
+    Does not work with vanilla key locations.
+    - no_keyrings: all keys are singular, like vanilla
+    - snurglar_only: only the 3 Snurglar Keys required to enter the Mountain Temple are keyrings.
+    - all: All small keys are turned into keyrings
+    - random_mixed: will roll a number of dungeons/sections to use keyrings for, and have single keys for the rest.
+    """
+    display_name = "Keyrings"
+    option_no_keyrings = 0
+    option_snurglar_only = 1
+    option_all = 2
+    option_random_mixed = 3
+    default = 1
+
+class SpiritTracksBigKeyrings(Toggle):
+    """
+    Boss Keys are included in keyrings.
+    Does not work with vanilla boss key locations.
+    Boss Key randomization will switch to whatever the keysanity option is when boss key rando is not vanilla.
+    """
+    display_name = "Boss Keys in Keyrings"
+    default = 1
 
 class SpiritTracksRabbitsanity(Choice):
     """
@@ -647,6 +672,8 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
     randomize_boss_keys: SpiritTracksRandomizeBossKeys
+    keyrings: SpiritTracksKeyrings
+    big_keyrings: SpiritTracksBigKeyrings
 
     track_pool: SpiritTracksTrackGroupings
 
@@ -718,9 +745,13 @@ st_option_groups = [
         SpiritTracksLogic,
         SpiritTracksCannonLogic,
     ]),
-    OptionGroup("Randomization Options", [
+    OptionGroup("Key Options", [
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizeBossKeys,
+        SpiritTracksKeyrings,
+        SpiritTracksBigKeyrings,
+    ]),
+    OptionGroup("Randomization Options", [
         SpiritTracksTrackGroupings,
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,

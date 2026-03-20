@@ -1,4 +1,5 @@
 import math
+import random
 from typing import List, Union, ClassVar, Any, Optional, Tuple
 import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
@@ -192,6 +193,13 @@ class SpiritTracksWorld(WorldParent):
             self.plando_tos_sections()
             # print(f"Tower Sections: {self.tower_section_lookup}")
             self.track_items = self.choose_track_items()
+            # Keyrings don't work with vanilla key locations
+            if self.options.keysanity.value == 0:
+                self.options.keyrings.value = min(self.options.keyrings.value, 1)
+            if self.options.randomize_boss_keys.value <= 0:
+                self.options.big_keyrings.value = 0
+            if self.options.keyrings.value > 1 and self.options.big_keyrings and self.options.randomize_boss_keys > 0:
+                self.options.randomize_boss_keys.value = self.options.keysanity.value
 
             # Starting Train
             # Tear conditions
@@ -693,14 +701,17 @@ class SpiritTracksWorld(WorldParent):
                 continue
             if any([
                 item_name in ["Filler Item", "Treasure",
-                              "Heart Container", "Tear of Light", "Small Key (ToS)",
+                              "Heart Container", "Tear of Light",
                               "Shield", "Prize Postcards (10)", "Sand Source"],
                 item_name.startswith("Stamp"),
                 item_name in ITEM_GROUPS["All Rails"],
                 item_name in ITEM_GROUPS["Main Items"],
                 item_name in ITEM_GROUPS["All Treasures"],
                 item_name in ITEM_GROUPS["Rupee Items"],
-                self.options.randomize_cargo.value == 3 and item_name in ["Cargo: Cuccos", "Cargo: Mega Ice"]
+                self.options.randomize_cargo.value == 3 and item_name in ["Cargo: Cuccos", "Cargo: Mega Ice"],
+                self.options.keyrings.value >= 1 and item_name == "Mountain Temple Snurglar Key",
+                self.options.keyrings.value > 1 and item_name.startswith("Small Key ("),
+                self.options.keyrings.value > 1 and self.options.big_keyrings and item_name.startswith("Boss Key (") and item_name != "Boss Key (ToS 3)"
                 ]):
                 # print(f"\tBig listicle {item_name}")
                 filler_item_count += 1
@@ -710,8 +721,10 @@ class SpiritTracksWorld(WorldParent):
                 loc_name.endswith("Boss Key") and self.options.randomize_boss_keys == "vanilla_abstract",
                 "force_vanilla" in loc_data and loc_data["force_vanilla"],
                 self.options.randomize_passengers == "vanilla_abstract" and item_name.startswith("Passenger:"),
-                self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:")
+                self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:"),
+                item_name == "Mountain Temple Snurglar Key" and self.options.keysanity == "vanilla"
             ]):
+                # print(f"Forcing item {item_name} to location {loc_name}")
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
@@ -736,6 +749,7 @@ class SpiritTracksWorld(WorldParent):
         # if self.options.shopsanity: add_items += [("Treasure: Regal Ring", 1), ("Treasure: Priceless Stone", 2)]
         if self.options.randomize_stamps: add_items += self.stamp_items
         add_items += self.choose_tos_items()
+        add_items += self.choose_key_items()
         add_items += self.track_items
         if self.options.portal_behavior.value == 2:
             add_items += [(i, 1) for i in ITEM_GROUPS["Portal Unlocks"]]
@@ -751,6 +765,47 @@ class SpiritTracksWorld(WorldParent):
         item_pool_dict = self.choose_filler_items(filler_item_count, item_pool_dict)
 
         return item_pool_dict
+
+    def choose_key_items(self):
+        res: list[tuple[str, int]] = []
+        if self.options.keyrings == 0:
+            return res
+        if self.options.keyrings == 1:
+            res += [("Snurglar Keyring", 1)]
+        elif self.options.keyrings >= 2:
+            keyrings = ITEM_GROUPS["Keyrings"].copy()
+            res += [("Small Key (Tunnel to ToS)", 1)]
+            if self.options.exclude_dungeons == "remove":
+                keyrings -= {f"Keyring ({i})" for i in self.non_required_dungeons}
+            if self.options.exclude_sections == "remove":
+                keyrings -= {f"Keyring (ToS {i})" for i in self.non_required_sections}
+            if not self.options.big_keyrings:
+                keyrings.remove("Keyring (Blizzard Temple)")
+                res += [("Small Key (Blizzard Temple)", 1)]
+
+            if self.options.keyrings == 3:
+                keyrings = list(keyrings)
+                keyrings.sort()
+                self.random.shuffle(keyrings)
+                keyring_count = self.random.randint(0, len(keyrings))
+                chosen_keyrings = keyrings[:keyring_count]
+                # print(f"Chosen keys: {chosen_keyrings}")
+                vanilla_keys = ["(" + i.split("(")[1] for i in keyrings[keyring_count:] if i != "Snurglar Keyring"]
+                if "Snurglar Keyring" in keyrings[keyring_count:]:
+                    res += [("Mountain Temple Snurglar Key", 3)]
+                for dungeon in vanilla_keys:
+                    key = f"Small Key {dungeon}"
+                    res += [(key, KEY_COUNTS[key])]
+                    if self.options.big_keyrings:
+                        big_key = f"Boss Key {dungeon}"
+                        if big_key not in ITEMS:
+                            continue
+                        res += [(big_key, 1)]
+                keyrings = chosen_keyrings
+            res += [(i, 1) for i in keyrings]
+
+        # print(f"Key Items: {res}")
+        return res
 
     def choose_track_items(self):
         option = self.options.track_pool
@@ -842,14 +897,6 @@ class SpiritTracksWorld(WorldParent):
             res += [("Progressive ToS Section", prog_count)]
         elif self.options.tos_unlock_base_item:
             res += [("Tower of Spirits Base", 1)]
-
-        tos_small_key_counts = [("Small Key (ToS 2)", 2), ("Small Key (ToS 4)", 3), ("Small Key (ToS 5)", 2),
-                                ("Small Key (ToS 6)", 3)]
-        if self.options.exclude_sections != "remove":
-            res += tos_small_key_counts
-        else:
-            res += [keys for keys, sections in zip(tos_small_key_counts, [2, 4, 5, 6]) if sections not in self.non_required_sections]
-            # print(f"Tos items {res}, {self.non_required_sections} {list(zip(tos_small_key_counts, [2, 4, 5, 6]))}")
 
         return res
 
@@ -1176,7 +1223,7 @@ class SpiritTracksWorld(WorldParent):
 
         # Confine small keys and boss key to own dungeon if option is enabled
         if self.options.keysanity in ["in_own_dungeon", "in_own_section"]:
-            confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key")])
+            confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key") or item.name.startswith("Keyring (")])
 
         if self.options.randomize_boss_keys in ["in_own_dungeon", "in_own_section"]:
             confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Boss Keys"]])
@@ -1198,7 +1245,7 @@ class SpiritTracksWorld(WorldParent):
 
             section_items = []
             if self.options.keysanity == "in_own_section":
-                section_items += [item for item in self.pre_fill_items if item.name == f"Small Key (ToS {section})"]
+                section_items += [item for item in self.pre_fill_items if item.name == f"Small Key (ToS {section})" or item.name == f"Keyring (ToS {section})"]
             if self.options.randomize_boss_keys == "in_own_section":
                 section_items += [item for item in self.pre_fill_items if item.name == f"Boss Key (ToS {section})"]
             if self.options.randomize_tears == "in_own_section":
@@ -1239,15 +1286,15 @@ class SpiritTracksWorld(WorldParent):
             if dung_name == "ToS":
                 if self.options.keysanity == "in_own_dungeon":
                     confined_dungeon_items += [item for item in self.pre_fill_items
-                                          if item.name.startswith("Small Key (ToS")]
+                                          if item.name.startswith("Small Key (ToS") or item.name.startswith("Keyring (ToS")]
                 if self.options.randomize_boss_keys == "in_own_dungeon":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if item.name.startswith("Boss Key (ToS")]
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
-            #print(f"pre filling {dung_name}: {confined_dungeon_items}")
-            #print(f"\tlocations {dungeon_location_names}")
+            # print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            # print(f"\tlocations {dungeon_location_names}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 

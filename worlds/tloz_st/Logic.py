@@ -588,7 +588,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["fire realm", "gtr", False, lambda state: st_has_cannon(state, player) and state.has("_goron_ice", player)],
 
         # Mountain Temple
-        ["mountain temple tracks", "mtt", False, lambda state: state.has("Mountain Temple Snurglar Key", player, 3)],
+        ["mountain temple tracks", "mtt", False, lambda state: state.has("Mountain Temple Snurglar Key", player, 3) or state.has("Snurglar Keyring", player)],
         ["mtt", "mtt song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["mtt", "mtt left", False, lambda state: st_has_damage(state, player)],
         ["mtt left", "mtt right", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],

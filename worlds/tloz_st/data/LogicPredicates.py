@@ -372,11 +372,18 @@ def st_is_ut(state: CollectionState, player: int):
 # ============= Key logic ==============
 
 def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1, ool: int = 4):
-    return state.has(f"Small Key ({dung_name})", player, amount) or (state.has("_UT_Glitched_Logic", player) and state.has(f"Small Key ({dung_name})", player, ool))
+    return any([
+        state.has(f"Small Key ({dung_name})", player, amount),
+        state.has(f"Keyring ({dung_name})", player),
+        (   state.has("_UT_Glitched_Logic", player)
+            and state.has(f"Small Key ({dung_name})", player, ool)
+        )
+    ])
 
 
 def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
-    return state.has(f"Boss Key ({dung_name})", player)
+    return state.has(f"Boss Key ({dung_name})", player) or (
+        state.has(f"Keyring ({dung_name})", player) and state.multiworld.worlds[player].options.big_keyrings)
 
 
 #def st_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
