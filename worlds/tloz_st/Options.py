@@ -284,7 +284,7 @@ class SpiritTracksExtraRabbits(Range):
     display_name = "Extra Rabbit Items"
     default = 0
     range_start = 0
-    range_end = 2
+    range_end = 5
 
 class SpiritTracksRandomizePortals(Choice):
     """

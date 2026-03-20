@@ -1694,6 +1694,18 @@ LOCATIONS_DATA = {
         "location_groups": ["Ocean Sanctuary"],
     },
 
+    "Ocean Sanctuary Song of Restoration": {
+        "stage_id": 0x32,
+        "room_id": 2,
+        "region_id": "ocs song",
+        "vanilla_item": "Marine Temple Tracks",
+        "address": STAddr.rail_restorations,
+        "value": 0x4,
+        "minigame": [1, 2, 3, 4],
+        "conditional": True,
+        "location_groups": ["Ocean Sanctuary", "Restoration Duets"],
+    },
+
     # Papuzia (Papuchia) Village
     "Papuzia Village Song Statue": {
         "region_id": "papuchia village song statue",
@@ -1942,10 +1954,12 @@ LOCATIONS_DATA = {
         "stage_id": 0x3A,
         "room_id": 0,
         "conditional": True,
+        "minigame": [1, 3, 4],
         "require_item": ["Bow (Progressive)"],
         "address": STAddr.adv_flags_56,
         "value": 0x10,
         "location_groups": ["Pirate Hideout"],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
 
       },
 
@@ -1955,10 +1969,12 @@ LOCATIONS_DATA = {
         "stage_id": 0x3A,
         "room_id": 0,
         "conditional": True,
+        "minigame": [2, 3, 4],
         "require_item": ["Bow (Progressive)]"],  # Pirate hideout gives a free bow, decide if we want that or not.
         "address": STAddr.adv_flags_56,
         "value": 0x20,
-        "location_groups": ["Pirate Hideout"]
+        "location_groups": ["Pirate Hideout"],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
       },
 
 
@@ -3831,6 +3847,54 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "pv wadatsumi",
     },
+    # "Papuzia Village Buy Fish": {
+    #     "stage_id": 0x2C,
+    #     "room_id": 0x0,
+    #     "address": STAddr.cargo_0,
+    #     "value": 3,
+    #     "vanilla_item": "Cargo: Fish",
+    #     "location_groups": ["Papuzia Village", "Buy Cargo"],
+    #     "slot_data": [("randomize_cargo", [0, 2, 3])],
+    #     "conditional": True,
+    #     "persistent": True,
+    #     "exact_read": True,
+    #     "region_id": "papuzia buy cargo"
+    # },
+    # "Papuzia Village Buy Vessel": {
+    #     "stage_id": 0x2C,
+    #     "room_id": 0x4,
+    #     "address": STAddr.cargo_0,
+    #     "value": 5,
+    #     "vanilla_item": "Cargo: Vessel",
+    #     "location_groups": ["Papuzia Village", "Buy Cargo"],
+    #     "slot_data": [("randomize_cargo", [0, 2, 3])],
+    #     "conditional": True,
+    #     "persistent": True,
+    #     "exact_read": True,
+    #     "region_id": "papuzia buy cargo"
+    # },
+    # "Mayscore Pick Up Dovok": {
+    #     "stage_id": 0x2A,
+    #     "room_id": 0x0, #Need to check chief house room id
+    #     "address": STAddr.adv_flags_36,
+    #     "value": 0x4,
+    #     "region_id": "mayscore dovok",
+    #     "vanilla_item": "Passenger: Dovok",
+    #     "location_groups": ["Mayscore", "Pick Up Passengers"],
+    #     "slot_data": [("randomize_passengers", [2, 3])],
+    #     "conditional": True,
+    # },
+    # "Papuzia Village Orca's Force Gem": {
+    #     "stage_id": 0x2C,
+    #     "room_id": 0x0, #Need to check Orca house room id
+    #     "address": STAddr.adv_flags_d,
+    #     "value": 0x2,
+    #     "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
+    #     "location_groups": ["Papuzia Village", "Deliver Passengers"],
+    #     "slot_data": [("randomize_passengers", [1, 2, 3])],
+    #     "conditional": True,
+    #     "region_id": "pv dovok",
+    # },
 
     "Castle Town Lucia Fish Force Gem": {
         "stage_id": 0x29,

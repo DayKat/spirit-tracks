@@ -1420,6 +1420,7 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_9,
         "value": 0x10,
+        "model": "Letter",
     },
     "Passenger: Wadatsumi": {
         "classification": ItemClassification.progression,
@@ -1427,6 +1428,7 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_34,
         "value": 0x40,
+        "model": "Letter",
     },
 
     # Cargo

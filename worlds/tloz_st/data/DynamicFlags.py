@@ -681,6 +681,31 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
 
     # Sanctuaries
+    "Carben don't have spirit flute": {
+        "on_scenes": [0x3202],
+        "has_items": [("Spirit Flute", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)]
+    },
+    "Carben can play duet": {
+        "on_scenes": [0x3202],
+        "has_items": [("Spirit Flute", 1)],
+        "not_has_locations": ["Ocean Sanctuary Song of Restoration"],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x4)]
+    },
+    "Carben Song Reset Flags": {
+      "on_scenes": [0x3202],
+        "unset_if_true": [(STAddr.rail_restorations, 0x8)],
+        "reset_flags": ["OCS Reset OTT", "OCS Reset OTT not has"],
+    },
+    "OCS Reset OTT not has": {
+        "has_items": [("Marine Temple Tracks", 0)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x8)],
+    },
+    "OCS Reset OTT": {
+        "has_items": [("Marine Temple Tracks", 1)],
+        "set_if_true": [(STAddr.rail_restorations, 0x8)],
+    },
+
     "Embrose don't have spirit flute": {
         "on_scenes": [0x3303],
         "has_items": [("Spirit Flute", 0)],
@@ -1416,7 +1441,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "reset_flags": ["RESET Dovok Flag"]
     },
-    "Dovok missing option": {
+    "Dovok No Passenger Option": {
         "on_scenes": [0x2A04],
         "has_slot_data": [("randomize_passengers", [0])],
         "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
@@ -1433,6 +1458,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                               (STAddr.has_passenger_0, 0)],
 
     },
+    "RESET Dovok Flag": {
+      "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+    },
+
     "Can pick up Joe": {
         "on_scenes": [0x2F00],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
@@ -1464,42 +1493,29 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
 
     #Carben (Oh Boy)
-        #Order of operations is play Song of Birds to knock him down
+        #Order of operations is:
+        #Play Song of Discovery to learn Song of Birds
+        #Learning (or Playing) Song of Birds to knock him down
         #Then take him to Sanc, Pirate Ambush happens
-    "Can pick up Carben": {
+        #Force Gem given on arrival at OCS
 
-    },
-    "Carben missing glyph": {
-        #may not need? Since can't both Papuzia and OCS Require Ocean Glyph and nothing else?
-    },
-    "Carben Arrives at Sanctuary": {
-
-    },
-
-    #Wadatsumi (Also Oh Boy, but for different reasons)
-        #Order of operations:
-        #Do Pirate Hideout minigame once to save him
-        #Take him to Papuzia for Force Gem
-        #Might need to set Dovok being delivered flag for Force Gem to trigger
-    "Can pick up Wadatsumi": {
-        "on_scenes": [0x3A00],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3]) ], #Option to not do minigames?
-        "set_if_true": [(STAddr.adv_flags_40, 0xC)], #Either 0x8 or 0xC, depending on needs to be added to current value of 0x4 for Zelda text or just set
-        "reset_flags": ["RESET Wadatsumi Saved"],
-    },
-    "Wadatsumi Missing Option": {
-        "on_scenes": [0x3A00],
-        "has_slot_data": [("randomize_passengers", [0])],
-        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)], #need to set bits to get Gorons to spawn at pirate hideout for follow up minigames
-        "reset_flags": ["RESET Wadatsumi Delivered"],
-    },
-    "Bring Wadatsumi to Papuzia": {
+    #Sets Carben to ground to just talk to him when Statue has already been checked and SoB is acquired
+    "Carben with Song of Birds and Song Statue Checked": {
         "on_scenes": [0x2C00],
-        "has_items": [("Passenger: Wadatsumi", 1)],
-        "check_bits": [(STAddr.adv_flags_34, 0x80, "not")],
-        "set_if_true": [],
-        "overwrite_if_true": [(STAddr.passenger_goal, 0x2C),
-                              (STAddr.passenger_tag_0, 0x57414D41),
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_items": [("Song of Birds", 1)],
+        "has_locations": ["Papuzia Village Song Statue"],
+        "set_if_true": [(STAddr.adv_flags_a, 0xB0), (STAddr.adv_flags_f, 0x99)],
+    },
+
+    #Flag for delivering Carben
+    "Carben Arrives at Sanctuary": {
+        "on_scenes": [0x3200],
+        "has_items": ["Passenger: Carben", 1],
+        "check_bits": [STAddr.adv_flags_9, 0x20, "not"],
+        "set_if_true": [(STAddr.adv_flags_9, 0x10)],
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x32),
+                              (STAddr.passenger_tag_0, 0x53595741),
                               (STAddr.has_passenger_0, 0)],
     },
 
@@ -1509,6 +1525,64 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [0])],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
+
+    #Wadatsumi (Also Oh Boy, but for different reasons)
+        #Order of operations:
+        #Do Pirate Hideout minigame once to save him
+        #Take him to Papuzia for Force Gem
+
+    #Spawn Wadatsumi without doing minigame if random passenger, but no minigames
+    "Can pick up Wadatsumi": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("randomize_minigames", [0])],
+        "set_if_true": [(STAddr.adv_flags_34, 0x20)],
+        "reset_flags": ["RESET Pirate Minigame Access"],
+    },
+
+    #Set flags for Gorons to appear if passenger rando turned off
+    "Wadatsumi No Passenger Option": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [0])],
+        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)], #need to set bits to get Gorons to spawn at pirate hideout for follow up minigames
+        "reset_flags": ["RESET Pirate Minigame Access"],
+    },
+
+    #Prevent minigame from being played if no bow has been found
+    "Pirate Hideout Minigame Missing Bow": {
+        "on_scenes": [0x3A00],
+        "has_items": [("Bow (Progressive)", 0)],
+        "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)],
+        "reset_flags": ["RESET Pirate Minigame Access"],
+    },
+
+    "Skip Pirate HC": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_minigames", [0, 1])],
+        "set_if_true": [(STAddr.adv_flags_56, 0x20)],
+    },
+
+    "Skip Pirate Quiver": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_minigames", [0, 2])],
+        "set_if_true": [(STAddr.adv_flags_56, 0x10)],
+    },
+
+    #Resets Pirate hideout to base state, ready for saving Wadatsumi minigame
+    "RESET Pirate Minigame Access": {
+        "set_if_true": [(STAddr.adv_flags_34, 0x0)], #Resets all flags in 0x265748
+    },
+
+    #Flag for delivering Wadatsumi
+    "Bring Wadatsumi to Papuzia": {
+        "on_scenes": [0x2C00],
+        "has_items": [("Passenger: Wadatsumi", 1)],
+        "check_bits": [(STAddr.adv_flags_e, 0x40, "not")], #Check for Force Gem obtained, and don't trigger if it was done already
+        "set_if_true": [(STAddr.adv_flags_34, 0x40)], #Set Wadatsumi on train
+        "overwrite_if_true": [(STAddr.passenger_goal, 0x2C),
+                              (STAddr.passenger_tag_0, 0x57414D41),
+                              (STAddr.has_passenger_0, 0)],
+    },
+
     #Send Wadatsumi away from Pirate if No Passenger Option selected
     "No Passenger Wadatsumi Pirate Hideout": {
         "on_scenes": [0x3A00],
