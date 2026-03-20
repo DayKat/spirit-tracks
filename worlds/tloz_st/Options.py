@@ -12,15 +12,25 @@ class SpiritTracksGoal(Choice):
     """
     The goal to accomplish in order to complete the seed.
     - defeat_malladus: enter the dark realm and defeat the demon king.
-    - ToS Section 1: Finish the 1st section of Tower of Spirits and retrieve the Forest Glyph
-    - ToS Section 2: Finish the 2nd section of Tower of Spirits and retrieve the Snow Glyph
+    - other options: defeat the specified boss/tos section to goal.
+    Is not compatible with dark realm unlock options, so you can't set a number of required dungeons or compass shards etc.
+    The dungeon/section associated with the goal will never be excluded.
+    Intended for shorter seeds.
     """
+
     display_name = "Goal Location"
     option_defeat_malladus = -1
-    # option_beat_tos_section_1 = 0
-    # option_beat_tos_section_2 = 1
-    # option_beat_wooded_temple = 2
-    # option_beat_blizzard_temple = 3
+    option_beat_wooded_temple = 0
+    option_beat_blizzard_temple = 1
+    option_beat_marine_temple = 2
+    option_beat_mountain_temple = 3
+    option_beat_desert_temple = 4
+    option_beat_tos_section_1 = 5
+    option_beat_tos_section_2 = 6
+    option_beat_tos_section_3 = 7
+    option_beat_tos_section_4 = 8
+    option_defeat_staven = 9
+    option_beat_tos_section_6 = 10
     default = -1
 
 class SpiritTracksDarkRealmUnlock(Choice):
@@ -28,29 +38,50 @@ class SpiritTracksDarkRealmUnlock(Choice):
     What unlocks the dark realm?
     - compass_of_light: only the compass of light is required. malladus also requires a sword, bow of light and spirit pipes.
     - dungeons: find the compass of light and finish a specified number of dungeons to gain access to the dark realm.
-    - shattered_compass: triforce hunt! find a specified number of compass shards to unlock the dark realm. Not implemented!
+    - shattered_compass: triforce/McGuffin hunt! find a specified number of compass shards to unlock the dark realm.
+    - both: you need to find the shattered compass shards to get the track, and the dungeon goal to enter.
     """
     display_name = "Dark Realm Unlock"
     option_compass_of_light = 0
     option_dungeons = 1
-    # option_shattered_compass = 2
+    option_shattered_compass = 2
+    option_both = 3
     default = 1
+
+class SpiritTracksCompassShardCount(Range):
+    """
+    How many compass shards you need to unlock the tracks to the dark realm.
+    """
+    display_name = "Required Compass Shards"
+    range_start = 1
+    range_end = 30
+    default = 5
+
+class SpiritTracksTotalCompassShards(Range):
+    """
+    Total number of compass shards in pool.
+    """
+    display_name = "Total Compass Shards"
+    range_start = 1
+    range_end = 30
+    default = 8
 
 class SpiritTracksDungeonCount(Range):
     """
-    How many dungeons are required to unlock the dark realm?
-    Will not go higher than the number of valid locations in dungeon pool
+    How many dungeons/ToS sections are required to unlock the dark realm?
+    Will not go higher than the number of valid locations in dungeon pool.
+    Is also the number of included dungeons if using the shattered compass goal.
     """
     display_name = "Required Dungeon Count"
     range_start = 1
     range_end = 11
-    default = 2
+    default = 5
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     """
     How does tower of spirits count towards the dungeon pool?
     - not_in_dungeon_pool: tower of spirits does not count as a dungeon
-    - final_section: the last implemented section of ToS gets added to the dungeon pool. Currently B7.
+    - final_section: Legacy option, currently adds Staven as the tower's goal location
     - all_sections: completing each implemented section of ToS gets added to the dungeon pool. Currently, that is 2.
     """
     display_name = "Tower of Spirits Dungeon Reward Options"
@@ -78,6 +109,7 @@ class SpiritTracksEndgameScope(Choice):
     - skip_demon_train: only fight cole and malladus, skipping the demon train fight
     - malladus_only: only fight the final boss
     - malladus_p2: skip the boulder phase and the spirit duet, and go straight to the final phase
+    - enter_dark_realm: Goal gets sent on entering the dark realm, but you can still fight the bosses if you like.
     """
     display_name = "Endgame Scope"
     option_full_dark_realm = 0
@@ -85,6 +117,7 @@ class SpiritTracksEndgameScope(Choice):
     option_skip_demon_train = 2
     option_malladus_only = 3
     option_malladus_p2 = 4
+    option_enter_dark_realm = 5
     default = 0
 
 class SpiritTracksRequireSpecificDungeons(Toggle):
@@ -143,6 +176,31 @@ class SpiritTracksKeyRandomization(Choice):
     option_anywhere = 2
     default = 3
 
+class SpiritTracksKeyrings(Choice):
+    """
+    Add replace small keys with keyrings, containing all small keys for that dungeon/ToS section.
+    Option for it to also include boss keys below.
+    Does not work with vanilla key locations.
+    - no_keyrings: all keys are singular, like vanilla
+    - snurglar_only: only the 3 Snurglar Keys required to enter the Mountain Temple are keyrings.
+    - all: All small keys are turned into keyrings
+    - random_mixed: will roll a number of dungeons/sections to use keyrings for, and have single keys for the rest.
+    """
+    display_name = "Keyrings"
+    option_no_keyrings = 0
+    option_snurglar_only = 1
+    option_all = 2
+    option_random_mixed = 3
+    default = 1
+
+class SpiritTracksBigKeyrings(Toggle):
+    """
+    Boss Keys are included in keyrings.
+    Does not work with vanilla boss key locations.
+    Boss Key randomization will switch to whatever the keysanity option is when boss key rando is not vanilla.
+    """
+    display_name = "Boss Keys in Keyrings"
+    default = 1
 
 class SpiritTracksRabbitsanity(Choice):
     """
@@ -251,7 +309,7 @@ class SpiritTracksPortalLocations(Toggle):
 
 class SpiritTracksStartWithTrain(Toggle):
     """
-    Starts you with forest glyph and cannon, giving you train access from the start.
+    Starts you with a forest glyph including track and cannon depending on cannon logic, giving you train access from the start.
     On by default to give people more checks in the beginning
     """
     display_name = "Start With Train"
@@ -538,6 +596,8 @@ class SpiritTracksExcludeDungeons(Choice):
     """
     Exclude or remove locations from non-required dungeons.
     Does not count tower of spirits, that has its own option.
+    If using shattered compass goal, the game will still pick dungeons based on required dungeon settings for inclusion/exclusion.
+    Does not work with require_specific_dungeons=False, that sets all dungeons to included.
     - include: non-required dungeons are included
     - exclude: non-required dungeon locations are excluded, and can't have useful or progression items.
     - remove: non-required dungeon locations are removed from generation, and don't count towards hint cost etc.
@@ -563,6 +623,29 @@ class SpiritTracksExcludeSections(Choice):
     option_remove = 2
     default = 0
 
+class SpiritTracksTrackGroupings(Choice):
+    """
+    What does your rail item pool look like? Includes different custom combined rail item pools to choose from.
+    Many of the combined items overlap.
+    Combinations that contain sources unlock what the source unlocks, like tower sections if you choose that option.
+    - vanilla: Your rail pool consists of the 34 vanilla glyph, source, restoration and force gem tracks.
+    - completed_glyphs: Each glyph comes pre-completed. Sand realm counts separately.
+    - major_minor: creates a major and minor rail combination for each realm, where the major contains the source, restoration and glyph.
+    - thematic: Adds 16 custom groups containing 3-5 rail items to the pool, based on locale.
+    - mixed: Rolls a complete set of rail items from all rail items.
+    - mixed_large: rolls as mixed but does not include single rail items
+    - mixed_small: rolls as mixed but does not include completed glyph items.
+    """
+    # - off: In case you want to create your own pool. Defaults to vanilla if add_items_to_pool is empty.
+    display_name = "Track Item Pool"
+    option_vanilla = 0
+    option_completed_glyphs = 1
+    option_major_minor = 2
+    option_thematic = 3
+    option_mixed = -1
+    option_mixed_large = -2
+    option_mixed_small = -3
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -579,6 +662,8 @@ class SpiritTracksOptions(PerGameCommonOptions):
     dungeon_hints: SpiritTracksRequiredDungeonHints
     exclude_dungeons: SpiritTracksExcludeDungeons
     exclude_sections: SpiritTracksExcludeSections
+    compass_shard_count: SpiritTracksCompassShardCount
+    compass_shard_total: SpiritTracksTotalCompassShards
 
     # Logic options
     logic: SpiritTracksLogic
@@ -587,6 +672,10 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Item Randomization
     keysanity: SpiritTracksKeyRandomization
     randomize_boss_keys: SpiritTracksRandomizeBossKeys
+    keyrings: SpiritTracksKeyrings
+    big_keyrings: SpiritTracksBigKeyrings
+
+    track_pool: SpiritTracksTrackGroupings
 
     randomize_minigames: SpiritTracksRandomizeMinigames
     minigame_hints: SpiritTracksMinigameHints
@@ -649,12 +738,21 @@ st_option_groups = [
         SpiritTracksExcludeSections,
         SpiritTracksExcludeDungeons,
         SpiritTracksRequiredDungeonHints,
+        SpiritTracksCompassShardCount,
+        SpiritTracksTotalCompassShards
     ]),
-    OptionGroup("Misc Options", [
+    OptionGroup("Logic Options", [
         SpiritTracksLogic,
         SpiritTracksCannonLogic,
+    ]),
+    OptionGroup("Key Options", [
         SpiritTracksKeyRandomization,
         SpiritTracksRandomizeBossKeys,
+        SpiritTracksKeyrings,
+        SpiritTracksBigKeyrings,
+    ]),
+    OptionGroup("Randomization Options", [
+        SpiritTracksTrackGroupings,
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,
         SpiritTracksStampItems,

@@ -371,7 +371,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Forest Glyph",
         "stage_id": 0x13,
         "room_id": 2,
-        "goal": True,
+        "goal": "GOAL: Reach ToS 3F",
         "x_min": -6390,
         "x_max": 6390,
         "z_min": -8438,
@@ -455,6 +455,7 @@ LOCATIONS_DATA = {
     "ToS 5F Spinnit Key": {
         "region_id": "tos 5f spinnit key",
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 2)",
         "stage_id": 0x13,
         "room_id": 4,
         "x_max": -45000,
@@ -532,6 +533,7 @@ LOCATIONS_DATA = {
     "ToS 6F Key": {
         "region_id": "tos 6f key",
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 2)",
         "stage_id": 0x13,
         "room_id": 5,
         "x_min": 20000,
@@ -551,7 +553,7 @@ LOCATIONS_DATA = {
         "z_min": -8450,
         "z_max": 4515,
         'dungeon': "ToS",
-        "goal": True,
+        "goal": "GOAL: Reach ToS 7F",
         "ut_connect": "EVENT: Reach ToS 7F",
         "tos_section": 2
     },
@@ -649,6 +651,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Ocean Glyph",
         "region_id": "tos 11f",
         'dungeon': "ToS",
+        "goal": "GOAL: Reach ToS 12F",
         "tos_section": 3,
         "ut_connect": "EVENT: Reach ToS 12F",
     },
@@ -685,6 +688,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x13,
         "room_id": 0xC,
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 4)",
         "region_id": "tos 13f whip",
         'dungeon': "ToS",
         "tos_section": 4,
@@ -694,6 +698,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x13,
         "room_id": 0xC,
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 4)",
         "region_id": "tos 13f boomerang",
         'dungeon': "ToS",
         "tos_section": 4,
@@ -751,6 +756,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x13,
         "room_id": 0xE,
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 4)",
         "region_id": "tos 15f",
         'dungeon': "ToS",
         "tos_section": 4,
@@ -773,6 +779,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 4,
         "ut_connect": "EVENT: Reach ToS 17F",
+        "goal": "GOAL: Reach ToS 17F",
     },
 
     # ToS 5
@@ -780,6 +787,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x13,
         "room_id": 0x11,
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 5)",
         "region_id": "tos 18f whip",
         'dungeon': "ToS",
         "tos_section": 5,
@@ -838,6 +846,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x13,
         "room_id": 0x11,
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 5)",
         "region_id": "tos 19f center",
         'dungeon': "ToS",
         "tos_section": 5,
@@ -883,6 +892,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_20,
         "value": 0x1,
         "ut_connect": "EVENT: Defeat Staven",
+        "goal": "Defeat Staven",
         'dungeon': "ToS",
         "tos_section": 5,
         "no_model": True
@@ -923,6 +933,7 @@ LOCATIONS_DATA = {
         "room_id": 0x20,
         "region_id": "tos 29f sand wand",
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 6)",
         'dungeon': "ToS",
         "tos_section": 6,
         "x_max": -20000,
@@ -934,6 +945,7 @@ LOCATIONS_DATA = {
         "room_id": 0x1F,
         "region_id": "tos 29f se",
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 6)",
         'dungeon': "ToS",
         "tos_section": 6,
         "x_min": 80000,
@@ -944,6 +956,7 @@ LOCATIONS_DATA = {
         "room_id": 0x1E,
         "region_id": "tos 29f se",
         "vanilla_item": "Small Key (ToS)",
+        "item_override": "Small Key (ToS 6)",
         'dungeon': "ToS",
         "tos_section": 6,
         "x_min": 60000,
@@ -958,6 +971,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 6,
         "ut_connect": "EVENT: Reach ToS 24F",
+        "goal": "GOAL: Reach ToS 24F"
     },
 
     # =============================================
@@ -1197,7 +1211,7 @@ LOCATIONS_DATA = {
     },
     "Rabbit Haven Chest": {
         "region_id": "rabbit haven",
-        "vanilla_item": ITEM_GROUPS["Common Treasures"],
+        "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
         "x_min": 11447,
@@ -3625,7 +3639,8 @@ LOCATIONS_DATA |= {
         "room_id": 0x0,
         "address": STAddr.adv_flags_18,
         "value": 0x80,
-        # "vanilla_item": "Repair Trading Post Bridge",
+        "vanilla_item": "Passenger: Kenzo",
+        "item_override": "Nothing!",
         "location_groups": ["Trading Post", "Deliver Passengers"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
@@ -4011,13 +4026,14 @@ LOCATIONS_DATA |= {
     "Castle Town Pick Up Teacher": {
         "stage_id": 0x29,
         "room_id": 0x0,
-        "address": STAddr.adv_flags_42,
-        "value": 0x10,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x4F4C4453,
         "vanilla_item": "Passenger: Teacher",
         "location_groups": ["Castle Town", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "delay_reset": True,
+        # "delay_reset": True,
+        "exact_read": True,
         "region_id": "castle town teacher",
         "no_model": True
     },
@@ -4055,6 +4071,59 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "region_id": "gv kofu"
+    },
+    "Snow Realm Pick Up Ferrus": {
+        "stage_id": 0x5,
+        "address": STAddr.adv_flags_3a,
+        "value": 0x80,
+        "vanilla_item": "Passenger: Ferrus",
+        "location_groups": ["Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "snow realm ferrus"
+    },
+    "Outset Ferrus Force Gem": {
+        "stage_id": 0x2F,
+        "room_id": 0xb,
+        "address": STAddr.adv_flags_e,
+        "value": 0x1,
+        "vanilla_item": "N Castle Town Tracks",
+        "location_groups": ["Goron Village", "Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "region_id": "outset ferrus"
+    },
+    "Fire Realm Pick Up Ferrus": {
+        "stage_id": 0x7,
+        "address": STAddr.adv_flags_3b,
+        "value": 0x4,
+        "vanilla_item": "Passenger: Ferrus",
+        "item_override": "Nothing!",
+        "location_groups": ["Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "region_id": "fire realm ferrus"
+    },
+    "Marine Temple Ferrus Force Gem": {
+        "stage_id": 0x1B,
+        "room_id": 0xa,
+        "address": STAddr.adv_flags_f,
+        "value": 0x2,
+        "vanilla_item": "Dark Ore Mine Tracks",
+        "location_groups": ["Deliver Passengers"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "conditional": True,
+        "dungeon": "Marine Temple",  # Yas allow it to have local dungeon items!
+        "region_id": "oct ferrus"
+    },
+    "Forest Realm Ferrus Gift": {
+        "stage_id": 0x45,
+        "room_id": 0x2,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "location_groups": ["Misc Passengers"],
+        "conditional": True,
+        "region_id": "forest ferrus"
     },
 }
 
@@ -4097,7 +4166,7 @@ LOCATION_GROUPS["Snow Rabbits"] = LOCATION_GROUPS["Total Snow Rabbits"] | LOCATI
 LOCATION_GROUPS["Mountain Rabbits"] = LOCATION_GROUPS["Total Mountain Rabbits"] | LOCATION_GROUPS["Unique Mountain Rabbits"]
 LOCATION_GROUPS["Sand Rabbits"] = LOCATION_GROUPS["Total Sand Rabbits"] | LOCATION_GROUPS["Unique Sand Rabbits"]
 LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATION_GROUPS["Total Rabbits"]
-LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"]
+LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"] | LOCATION_GROUPS["Misc Passengers"]
 LOCATION_GROUPS["Cargo Locations"] = LOCATION_GROUPS["Buy Cargo"] | LOCATION_GROUPS["Deliver Cargo"]
 
 # print(f"Location Groups:")

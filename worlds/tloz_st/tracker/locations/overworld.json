@@ -6,6 +6,7 @@
     {"name": "Outset Far Right Tree"},
     {"name": "Outset Niko's House Tree"},
     {"name": "Outset Pick Up Joe"},
+    {"name": "Outset Ferrus Force Gem"},
     {"name": "Outset Deliver Cuccos"},
     {"name": "Outset Receive Stamp Book"},
     {"name": "Outset Niko 10 Stamps Reward"},
@@ -221,7 +222,7 @@
   {"name": "Sand Realm Shoot Temple Portal", "sections": [{"name": "Sand Realm Shoot Temple Portal"}], "map_locations":[{"map": "Overview", "x": 980, "y": 422}]},
   {"name": "Ocean Realm Shoot West Portal", "sections": [{"name": "Ocean Realm Shoot West Portal"}], "map_locations":[{"map": "Overview", "x": 672, "y": 566}]},
 
-  {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
+  {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}, {"name": "GOAL: Enter Dark Realm"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
   {"name": "Beedle", "sections":  [
     {"name": "Beedle Buy Uncommon Treasure"},
     {"name": "Beedle Buy Rare Treasure"},
@@ -259,6 +260,7 @@
   ], "map_locations":[{"map": "Overview", "x": 716, "y": 670}]},
   {"name": "Marine Temple", "sections": [
     {"name": "Marine Temple Song Statue"},
+    {"name": "Marine Temple Ferrus Force Gem"},
     {"name": "Marine Temple 1F Lever Chest"},
     {"name": "Marine Temple 1F Vines Chest"},
     {"name": "Marine Temple Stamp Station"},
@@ -273,7 +275,8 @@
     {"name": "Marine Temple Dungeon Reward"}
   ], "map_locations":[{"map": "Overview", "x": 932, "y": 522}]},
   {"name": "Marine Temple Events", "sections": [
-    {"name": "EVENT: Defeat Cactops"}
+    {"name": "EVENT: Defeat Cactops"},
+    {"name": "GOAL: Defeat Cactops"}
   ], "map_locations":[{"map": "Overview", "x": 932, "y": 506}]},
   {"name": "Pirate Hideout", "sections": [
     {"name": "Pirate Hideout Stamp Station"},
@@ -343,7 +346,8 @@
           {"name": "Desert Temple Bow of Light Chest"}
   ], "map_locations":[{"map": "Overview", "x": 862, "y": 440}]},
   {"name": "Desert Temple Events", "sections": [
-          {"name": "EVENT: Defeat Skeldritch"}
+          {"name": "EVENT: Defeat Skeldritch"},
+          {"name": "GOAL: Defeat Skeldritch"}
       ], "map_locations":[{"map": "Overview", "x": 862, "y": 424}]},
     {"name": "Goron Village", "sections": [
           {"name": "Goron Shop Quiver"},
@@ -398,7 +402,18 @@
           {"name": "Mountain Temple Boss Heart Container"},
           {"name": "Mountain Temple Dungeon Reward"}
       ], "map_locations":[{"map": "Overview", "x": 814, "y": 158}]},
-    {"name": "Fire Temple Events", "sections": [
-          {"name": "EVENT: Defeat Vulcano"}
-      ], "map_locations":[{"map": "Overview", "x": 814, "y": 142}]}
+      {"name": "Fire Temple Events", "sections": [
+          {"name": "EVENT: Defeat Vulcano"},
+          {"name": "GOAL: Defeat Vulcano"}
+      ], "map_locations":[{"map": "Overview", "x": 814, "y": 142}]},
+
+    {"name": "Snow Realm Pick Up Ferrus", "sections": [
+          {"name": "Snow Realm Pick Up Ferrus"}
+      ], "map_locations":[{"map": "Overview", "x": 166, "y": 180}]},
+      {"name": "Fire Realm Pick Up Ferrus", "sections": [
+          {"name": "Fire Realm Pick Up Ferrus"}
+      ], "map_locations":[{"map": "Overview", "x": 670, "y": 108}]},
+      {"name": "Forest Realm Ferrus Gift", "sections": [
+          {"name": "Forest Realm Ferrus Gift"}
+      ], "map_locations":[{"map": "Overview", "x": 214, "y": 492}]}
 ]

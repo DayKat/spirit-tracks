@@ -158,9 +158,9 @@ class STAddr:
     stamp_coords = Address(0x268F50, size=40)
 
     # Adventure Flags
-    adv_flags_0 = Address(0x265714)
-    adv_flags_1 = Address(0x265715)
-    adv_flags_2 = Address(0x265716)
+    adv_flags_0 = sources = Address(0x265714)
+    adv_flags_1 = restorations = Address(0x265715)
+    adv_flags_2 = glyphs = Address(0x265716)
     adv_flags_3 = Address(0x265717)
     adv_flags_4 = Address(0x265718)
     adv_flags_5 = Address(0x265719)

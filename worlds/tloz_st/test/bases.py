@@ -6,13 +6,14 @@ class TestGeneration(WorldTestBase):
     game = "The Legend of Zelda - Spirit Tracks"
     options = {
         "rabbitsanity": "unique_checks",
-        "rabbit_max_location_count": 6,
+        "rabbit_max_location_count": 10,
         # "rabbit_location_count_distribution": "random_mixed",
         "rabbit_pack_size": "random_mixed",
-        "rabbit_extra_items": 5,
-        "goal": "defeat_malladus",
-        "dark_realm_access": "dungeons",
-        "dungeons_required": 1,
+        "rabbit_extra_items": 2,
+        "goal": "beat_mountain_temple",
+        "dark_realm_access": "both",
+
+        "dungeons_required": 7,
         "tos_dungeon_options": "all_sections",
 
         "randomize_tears": "in_tos",
@@ -21,8 +22,10 @@ class TestGeneration(WorldTestBase):
         "spirit_weapons": "final_tear",
 
         "keysanity": "in_own_section",
+        "randomize_boss_keys": "anywhere",
+        "keyrings": "random_mixed",
         "shuffle_tos_sections": "shuffle",
-        # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Blizzard Temple"}
+        # "plando_dungeon_pool": {"ToS 6", "ToS 4", "tos 1", "Desert Temple"},
 
         "shopsanity": {"all"},
         "rupee_farming_logic": "no_farming",
@@ -34,5 +37,10 @@ class TestGeneration(WorldTestBase):
         "stamp_pack_sizes": 1,
         "randomize_minigames": "everything",
         "exclude_dungeons": "exclude",
-        "exclude_sections": "remove"
+        "exclude_sections": "exclude",
+        "track_pool": "mixed_small",
+        "start_with_train": True,
+        "cannon_logic": "open_train",
+        "portal_behavior": "always_open",
+
     }

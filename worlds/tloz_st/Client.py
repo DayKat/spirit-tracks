@@ -3,7 +3,6 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.DynamicEntrances import DYNAMIC_ENTRANCES_BY_SCENE
 from .data.Entrances import ENTRANCES
 from settings import get_settings
 from typing import Literal
@@ -172,7 +171,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
         self.treasure_tracker: dict = {}
         self.item_data = ITEMS
-        self.dynamic_entrances_by_scene = DYNAMIC_ENTRANCES_BY_SCENE
+        self.dynamic_entrances_by_scene = build_scene_to_dynamic_entrance()
 
         # Mandatory addresses
         self.addr_game_state = STAddr.game_state
@@ -241,6 +240,8 @@ class SpiritTracksClient(DSZeldaClient):
         res = []
         if ctx.slot_data.get("endgame_scope", 0) > 0:
             res += STAddr.adv_flags_57.get_write_list(0x91)
+        if ctx.slot_data["randomize_passengers"]:
+            res += STAddr.adv_flags_52.get_write_list(0x90)
         return res
 
     def get_coord_address(self, at_sea=None, multi=False):
@@ -352,9 +353,10 @@ class SpiritTracksClient(DSZeldaClient):
             await STAddr.room.overwrite(ctx, room)
 
         # print(f"Goal check {ctx.slot_data['goal']} last {self.last_stage} current {hex(self.current_stage)}")
-        if ctx.slot_data["goal"] == -1 and self.last_stage == 0x27 and self.current_stage == 0x25:
-            self.has_goal_location = True
-            await self.store_event(ctx, "GOAL: Defeat Malladus")
+        if ctx.slot_data["goal"] == -1:
+            if self.last_stage == 0x27 and self.current_stage == 0x25:
+                self.has_goal_location = True
+                await self.store_event(ctx, "GOAL: Defeat Malladus")
 
     async def store_event(self, ctx, event_name):
         entr = self.entrances[event_name]
@@ -471,6 +473,11 @@ class SpiritTracksClient(DSZeldaClient):
             self.reload_on_item = False
             await self._set_dynamic_entrances(ctx, self.current_scene)
             await self._set_dynamic_flags(ctx, self.current_scene)
+        if item_name == "Compass of Light Shard" and ctx.slot_data["dark_realm_access"] in [2, 3]:
+            required_shards = ctx.slot_data["compass_shard_count"]
+            if self.item_count(ctx, "Compass of Light Shard") >= required_shards:
+                logger.info(f"Got {required_shards} Compass of Light Shards, unlocking the track to the Dark Realm!")
+                await STAddr.rail_restorations.set_bits(ctx, 0x40)
 
         # Get spirit weapons from final tear of light
         if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
@@ -495,7 +502,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.save_ammo[addr] = item_data.give_ammo[item_count-1]
 
         # Open boss door if got key in that room
-        if item_name.startswith("Boss Key") and self.current_scene in BOSS_KEY_DATA:
+        if (item_name.startswith("Boss Key") or
+            (item_name.startswith("Keyring") and ctx.slot_data["big_keyrings"])
+        ) and self.current_scene in BOSS_KEY_DATA:
             data = BOSS_KEY_DATA[self.current_scene]
             if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
                 print(f"Opening boss door for {hex(self.current_scene)}")
@@ -505,6 +514,12 @@ class SpiritTracksClient(DSZeldaClient):
         await self.update_treasure_tracker(ctx, "room_load")
         await self.update_potion_tracker(ctx, "room_load")
         await self.update_rabbit_count(ctx)
+
+        # print(F"Room load goal: {ctx.slot_data['goal']}, {ctx.slot_data['endgame_scope']}, {self.current_stage}")
+        if (ctx.slot_data["goal"] == -1 and ctx.slot_data["endgame_scope"] == 5
+                and self.current_stage in [0xF, 0x10, 0x24, 0x25, 0x27]):
+            self.has_goal_location = True
+            await self.store_event(ctx, "GOAL: Enter Dark Realm")
 
     async def process_in_game(self, ctx, read_result: dict):
         await super().process_in_game(ctx, read_result)
@@ -655,9 +670,10 @@ class SpiritTracksClient(DSZeldaClient):
                 model_value = OFFSET_TO_MODEL[model_data[str(l)]].value if str(l) in model_data else generic_model
                 model_name = OFFSET_TO_MODEL[model_data[str(l)]].name if model_value != generic_model else "Force Gem"
             else:  # vanilla
-                vanilla_item = self.location_id_to_vanilla_item[l]
-                model_name = ITEMS[vanilla_item].model
-                model_value = ITEM_MODEL_LOOKUP[model_name].value if model_name else generic_model
+                    # print(f"Vanilla item {i}, {l}")
+                    model_name = ITEMS[i].model
+                    model_value = ITEM_MODEL_LOOKUP[model_name].value if model_name else generic_model
+
 
             # add models to write list
             bits = split_bits(model_value, 4)
@@ -725,7 +741,8 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_tears(ctx)
 
         if self.current_scene in [0x1309, 0x1318] and isinstance(location.get("vanilla_item", ""), str) and location.get("vanilla_item", "").startswith("Boss Key"):
-            if self.item_count(ctx, location["vanilla_item"]):
+            section = {0x1309: 3, 0x1318: 5}[self.current_scene]
+            if self.item_count(ctx, f"Boss Key (ToS {section})") or (self.item_count(ctx, f"Keyring (ToS {section})") and ctx.slot_data["big_keyrings"]):
                 print("Opening ToS boss door after having key and getting boss key location")
                 await self.open_tos_boss_door(ctx, self.current_scene)
 
@@ -793,7 +810,29 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        pass
+        if False:  # wait if in a situation where deaths crash
+            return
+
+        if ctx.last_death_link > self.last_deathlink and not is_dead:
+            # A death was received from another player, make our player die as well
+            await self.health_address.overwrite(ctx, 0)
+
+            self.is_expecting_received_death = True
+            self.last_deathlink = ctx.last_death_link
+
+        if not self.was_alive_last_frame and not is_dead:
+            # We revived from any kind of death
+            self.was_alive_last_frame = True
+        elif self.was_alive_last_frame and is_dead:
+            # Our player just died...
+            self.was_alive_last_frame = False
+            if self.is_expecting_received_death:
+                # ...because of a received deathlink, so let's not make a circular chain of deaths please
+                self.is_expecting_received_death = False
+            else:
+                # ...because of their own incompetence, so let's make their mates pay for that
+                await ctx.send_death(ctx.player_names[ctx.slot] + " has disappointed the Train Spirits.")
+                self.last_deathlink = ctx.last_death_link
 
     async def process_post_receive(self, ctx):
         if not self.delay_pickup:
@@ -1035,7 +1074,7 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Loaded boss key data: {hex(pointer)} y: {self.boss_key_y}")
 
             # Open door
-            if self.item_count(ctx, f"Boss Key ({data['dungeon']})"):
+            if self.item_count(ctx, f"Boss Key ({data['dungeon']})") or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"]):
                 if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
                     print(f"Opening boss door for {hex(current_scene)}")
                     if await data["door"].read(ctx) != 0x5:

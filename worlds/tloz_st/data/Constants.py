@@ -404,6 +404,14 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "ToS 24F Final Chest": "tos 24f"
 }
 
+BOSS_LOCATION_TO_POST_LOCATIONS = {
+    "Wooded Temple Dungeon Reward": ["Wooded Temple Boss Heart Container"],
+    "Blizzard Temple Dungeon Reward": ["Blizzard Temple Boss Heart Container"],
+    "Marine Temple Dungeon Reward": ["Marine Temple Heart Container"],
+    "Mountain Temple Dungeon Reward": ["Mountain Temple Boss Heart Container"],
+    "Desert Temple Dungeon Reward": ["Skeldritch Heart Container", "Desert Temple Bow of Light Chest"]
+}
+
 DUNGEON_KEY_DATA = {
     0x13: {
         "name": "ToS",
@@ -659,6 +667,8 @@ UT_EVENT_DATA = {
               "entrance": "EVENT: Bring Ice to Kagoron"}]
 }
 
+
+
 ENTRANCE_TO_TOS_ORDER = {
 "Tower of Spirits Exit Staven": 6,
 "Tower of Spirits Summit Enter Altar": 7,
@@ -676,6 +686,20 @@ EXIT_TO_TOS_SECTION = {
     "ToS 8F Exit": 3,
     "ToS 4F Exit": 2,
     "ToS 1F Exit": 1,
+}
+
+KEY_COUNTS = {
+    "Small Key (Wooded Temple)": 2,
+    "Small Key (Blizzard Temple)": 1,
+    "Small Key (Marine Temple)": 2,
+    "Small Key (Mountain Temple)": 3,
+    "Small Key (Desert Temple)": 2,
+    "Mountain Temple Snurglar Key": 3,
+    "Small Key (ToS 2)": 2,
+    "Small Key (ToS 4)": 3,
+    "Small Key (ToS 5)": 2,
+    "Small Key (ToS 6)": 3,
+    "Small Key (Tunnel to ToS)": 1,
 }
 
 TOS_SECTION_TO_EXIT = {section: e for e, section in EXIT_TO_TOS_SECTION.items()}

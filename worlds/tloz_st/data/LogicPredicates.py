@@ -49,7 +49,8 @@ def st_has_net(state: CollectionState, player: int):
     return state.has("Rabbit Net", player) and st_has_cannon(state, player)
 
 def st_has_compass_of_light(state, player):
-    return state.has("Compass of Light", player)
+    required_shards = state.multiworld.worlds[player].options.compass_shard_count.value
+    return state.has("Compass of Light", player) or state.has("Compass of Light Shard", player, required_shards)
 
 def st_has_wagon(state, player):
     return state.has("Wagon", player)
@@ -78,7 +79,7 @@ def st_all_types_rabbits(state, player, count):
 ## ========= Rail Items =============
 
 def st_has_glyph(state: CollectionState, player: int, realm: str):
-    return state.has(f"{realm} Glyph", player)
+    return state.has_group(f"Tracks: {realm} Glyph", player)
 
 def st_has_cannon(state: CollectionState, player: int):
     return state.has("Cannon", player)
@@ -90,13 +91,13 @@ def st_train_access(state, player):
     ])
 
 def st_has_source(state: CollectionState, player: int, realm: str):
-    return state.has(f"{realm} Source", player)
+    return state.has_group(f"Tracks: {realm} Source", player)
 
 def st_has_temple_tracks(state, player, temple):
-    return state.has(f"{temple} Temple Tracks", player)
+    return state.has_group(f"Tracks: {temple} Temple Tracks", player)
 
-def st_has_misc_tracks(state, player, tracks):
-    return state.has(f"{tracks} Tracks", player)
+def st_has_misc_tracks(state: "CollectionState", player, tracks):
+    return state.has_group(f"Tracks: {tracks}", player)
 
 def st_has_portal(state, player, portal, forward):
     if state.multiworld.worlds[player].options.portal_behavior.value == 1:
@@ -371,11 +372,18 @@ def st_is_ut(state: CollectionState, player: int):
 # ============= Key logic ==============
 
 def st_has_small_keys(state: CollectionState, player: int, dung_name: str, amount: int = 1, ool: int = 4):
-    return state.has(f"Small Key ({dung_name})", player, amount) or (state.has("_UT_Glitched_Logic", player) and state.has(f"Small Key ({dung_name})", player, ool))
+    return any([
+        state.has(f"Small Key ({dung_name})", player, amount),
+        state.has(f"Keyring ({dung_name})", player),
+        (   state.has("_UT_Glitched_Logic", player)
+            and state.has(f"Small Key ({dung_name})", player, ool)
+        )
+    ])
 
 
 def st_has_boss_key(state: CollectionState, player: int, dung_name: str):
-    return state.has(f"Boss Key ({dung_name})", player)
+    return state.has(f"Boss Key ({dung_name})", player) or (
+        state.has(f"Keyring ({dung_name})", player) and state.multiworld.worlds[player].options.big_keyrings)
 
 
 #def st_has_boss_key_simple(state: CollectionState, player: int, dung_name: str):
@@ -453,7 +461,7 @@ def st_castle_town_cuccos(state, player):
     return st_has_birds_song(state, player) or (st_has_whirlwind(state, player) and st_option_hard_logic(state, player))
 
 def st_has_dungeon_rewards(state, player):
-    if state.multiworld.worlds[player].options.dark_realm_access != "dungeons":
+    if state.multiworld.worlds[player].options.dark_realm_access not in ["dungeons", "both"]:
         return True
     dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
     return state.has("_dungeon_reward", player, dungeon_count)
@@ -508,4 +516,7 @@ def st_hard_birds(state, player):
         st_has_whip(state, player),
         st_has_birds_song(state, player) or st_option_hard_logic(state, player)
     ])
+
+def st_has_passenger(state, player, passenger, event):
+    return state.has(f"Passenger: {passenger}", player) or state.has(event, player)
 

@@ -14,6 +14,7 @@ REGIONS = [
     "w wooded temple tracks",
     "trading post portal",
     "forest cave portal",
+    "forest ferrus",
 
     "forest realm rabbits",
     "forest ocean shortcut rabbit",
@@ -36,6 +37,7 @@ REGIONS = [
     "outset village trees",
     "outset joe",
     "outset cuccos",
+    "outset ferrus",
 
     # Castle Town
     "castle town",
@@ -100,6 +102,7 @@ REGIONS = [
     "tos 9f phantom",
     "tos 11f",
     "event_12f",
+    "goal_ocean_glyph",
 
     "tos 13f",
     "tos 13f whip",
@@ -113,6 +116,7 @@ REGIONS = [
     "tos 16f",
     "tos 16f bombs",
     "event_17f",
+    "goal_fire_glyph",
 
     "tos 18f",
     "tos 18f whip",
@@ -127,6 +131,7 @@ REGIONS = [
     "tos 22f",
     "tos staven",
     "event_staven",
+    "goal_staven",
 
     "tos summit",
     "tos summit lower",
@@ -141,6 +146,7 @@ REGIONS = [
     "tos 27f",
     "tos 24f",
     "event_24f",
+    "goal_compass",
 
     # Mayscore
     "mayscore",
@@ -224,6 +230,7 @@ REGIONS = [
     "icyspring tracks",
     "snow bridge portal",
     "icyspring portal",
+    "snow realm ferrus",
 
     "snow realm rabbits",
     "blizzard temple tracks rabbits",
@@ -352,6 +359,7 @@ REGIONS = [
     "event_phytops",
     "goal_phytops",
     "post oct",
+    "oct ferrus",
 
     #Pirate Hideout
     "pirate hideout",
@@ -384,6 +392,8 @@ REGIONS = [
     "snurglars",
     "ends of the earth",
     "disorientation station",
+    "fire realm ferrus",
+
     "fire realm rabbits",
     "mountain rabbits",
     "fire source rabbits",
@@ -433,6 +443,7 @@ REGIONS = [
     "mtt bk",
     "mtt boss",
     "event_vulcano",
+    "goal_vulcano",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
@@ -469,6 +480,7 @@ REGIONS = [
     "dt b1 damage",
     "skeldritch",
     "skeldritch event",
+    "skeldritch goal",
 
     # Dark ore mine
     "dark ore mine",
@@ -484,6 +496,7 @@ REGIONS = [
     "malladus 2",
     "malladus goal",
     "malladus event",
+    "dark realm event",
 
 
 ] + [

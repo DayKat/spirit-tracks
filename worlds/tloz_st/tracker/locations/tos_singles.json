@@ -36,7 +36,7 @@
     {"name": "ToS 10F Boss Key"},
     {"name": "ToS 11F Chest"},
     {"name": "ToS 12F Ocean Rail Glyph"}], "map_locations":[{"map": "Overview", "x": 512, "y": 356}]},
-  {"name": "ToS 3 Events", "sections": [{"name": "EVENT: Reach ToS 12F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 356}]},
+  {"name": "ToS 3 Events", "sections": [{"name": "EVENT: Reach ToS 12F"},{"name": "GOAL: Reach ToS 12F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 356}]},
   {"name": "ToS 4", "sections": [
       {"name": "ToS 13F SE Tear of Light"},
       {"name": "ToS 13F Central Tear of Light"},
@@ -49,7 +49,7 @@
       {"name": "ToS 15F NE Chest"},
       {"name": "ToS 16F Bombable Wall Chest"},
       {"name": "ToS 17F Fire Rail Glyph"}], "map_locations":[{"map": "Overview", "x": 512, "y": 340}]},
-  {"name": "ToS 4 Events", "sections": [{"name": "EVENT: Reach ToS 17F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 340}]},
+  {"name": "ToS 4 Events", "sections": [{"name": "EVENT: Reach ToS 17F"}, {"name": "GOAL: Reach ToS 17F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 340}]},
   {"name": "ToS 5", "sections": [
       {"name": "ToS 18F N Chest"},
       {"name": "ToS 18F SE Tear of Light"},
@@ -62,7 +62,10 @@
       {"name": "ToS 22F Boss Key"},
       {"name": "ToS 23F Defeat Staven"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 324}]},
-  {"name": "ToS 5 Events", "sections": [{"name": "EVENT: Defeat Staven"}], "map_locations":[{"map": "Overview", "x": 528, "y": 324}]},
+  {"name": "ToS 5 Events", "sections": [
+    {"name": "EVENT: Defeat Staven"},
+    {"name": "GOAL: Defeat Staven"}
+  ], "map_locations":[{"map": "Overview", "x": 528, "y": 324}]},
   {"name": "ToS 6", "sections": [
       {"name": "ToS Stamp Stand"},
       {"name": "ToS 30F W Chest"},
@@ -71,5 +74,5 @@
       {"name": "ToS 29F SE Chest"},
       {"name": "ToS 30F SE Wrecker Chest"},
       {"name": "ToS 24F Final Chest"}], "map_locations":[{"map": "Overview", "x": 512, "y": 308}]},
-  {"name": "ToS 6 Events", "sections": [{"name": "EVENT: Reach ToS 24F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 308}]}
+  {"name": "ToS 6 Events", "sections": [{"name": "EVENT: Reach ToS 24F"},{"name": "GOAL: Reach ToS 24F"}], "map_locations":[{"map": "Overview", "x": 528, "y": 308}]}
 ]
