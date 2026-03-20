@@ -374,6 +374,15 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "GOAL: Enter Dark Realm": {
+        "two_way": False,
+        "entrance_region": "dark realm trains",
+        "exit_region": "dark realm event",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
     # Order later
     "Tower of Spirits Enter Section 1": {

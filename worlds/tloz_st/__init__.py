@@ -286,8 +286,12 @@ class SpiritTracksWorld(WorldParent):
                                                               if e.category_group == EntranceGroups.TOS_SECTION]
 
     def pick_ut_events(self):
-        events = ["EVENT: Give Regal Ring to Linebeck",
-                  goal_event_lookup[self.options.goal.value]]
+        events = ["EVENT: Give Regal Ring to Linebeck"]
+
+        if self.options.goal.value == -1 and self.options.endgame_scope == "enter_dark_realm":
+            events.append("GOAL: Enter Dark Realm")
+        else:
+            events.append(goal_event_lookup[self.options.goal.value])
 
         if self.options.randomize_passengers == "vanilla":
             events += ["EVENT: Pick up Alfonzo"]

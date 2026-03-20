@@ -222,7 +222,7 @@
   {"name": "Sand Realm Shoot Temple Portal", "sections": [{"name": "Sand Realm Shoot Temple Portal"}], "map_locations":[{"map": "Overview", "x": 980, "y": 422}]},
   {"name": "Ocean Realm Shoot West Portal", "sections": [{"name": "Ocean Realm Shoot West Portal"}], "map_locations":[{"map": "Overview", "x": 672, "y": 566}]},
 
-  {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
+  {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}, {"name": "GOAL: Enter Dark Realm"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
   {"name": "Beedle", "sections":  [
     {"name": "Beedle Buy Uncommon Treasure"},
     {"name": "Beedle Buy Rare Treasure"},

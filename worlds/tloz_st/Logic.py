@@ -679,6 +679,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ===== Dark Realm =====
         ["dark realm portal", "dark realm trains", False, lambda state: st_has_dungeon_rewards(state, player)],
         ["dark realm trains", "demon train", False, None],
+        ["dark realm trains", "malladus goal", False, lambda state: options.endgame_scope == "enter_dark_realm"],
+        ["dark realm trains", "dark realm event", False, lambda state: options.endgame_scope == "enter_dark_realm"],
         ["demon train", "cole fight", False, lambda state: st_has_cannon(state, player)],
         ["cole fight", "malladus 1", False, lambda state: st_can_fight_malladus(state, player)],
         ["malladus 1", "malladus 2", False, lambda state: st_has_spirit_flute(state, player) and st_has_sword(state, player)],

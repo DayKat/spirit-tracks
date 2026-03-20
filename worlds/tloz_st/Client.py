@@ -353,9 +353,10 @@ class SpiritTracksClient(DSZeldaClient):
             await STAddr.room.overwrite(ctx, room)
 
         # print(f"Goal check {ctx.slot_data['goal']} last {self.last_stage} current {hex(self.current_stage)}")
-        if ctx.slot_data["goal"] == -1 and self.last_stage == 0x27 and self.current_stage == 0x25:
-            self.has_goal_location = True
-            await self.store_event(ctx, "GOAL: Defeat Malladus")
+        if ctx.slot_data["goal"] == -1:
+            if self.last_stage == 0x27 and self.current_stage == 0x25:
+                self.has_goal_location = True
+                await self.store_event(ctx, "GOAL: Defeat Malladus")
 
     async def store_event(self, ctx, event_name):
         entr = self.entrances[event_name]
@@ -511,6 +512,12 @@ class SpiritTracksClient(DSZeldaClient):
         await self.update_treasure_tracker(ctx, "room_load")
         await self.update_potion_tracker(ctx, "room_load")
         await self.update_rabbit_count(ctx)
+
+        # print(F"Room load goal: {ctx.slot_data['goal']}, {ctx.slot_data['endgame_scope']}, {self.current_stage}")
+        if (ctx.slot_data["goal"] == -1 and ctx.slot_data["endgame_scope"] == 5
+                and self.current_stage in [0xF, 0x10, 0x24, 0x25, 0x27]):
+            self.has_goal_location = True
+            await self.store_event(ctx, "GOAL: Enter Dark Realm")
 
     async def process_in_game(self, ctx, read_result: dict):
         await super().process_in_game(ctx, read_result)

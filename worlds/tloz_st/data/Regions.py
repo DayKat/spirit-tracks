@@ -490,6 +490,7 @@ REGIONS = [
     "malladus 2",
     "malladus goal",
     "malladus event",
+    "dark realm event",
 
 
 ] + [

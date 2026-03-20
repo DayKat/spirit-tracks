@@ -99,6 +99,7 @@ class SpiritTracksEndgameScope(Choice):
     - skip_demon_train: only fight cole and malladus, skipping the demon train fight
     - malladus_only: only fight the final boss
     - malladus_p2: skip the boulder phase and the spirit duet, and go straight to the final phase
+    - enter_dark_realm: Goal gets sent on entering the dark realm, but you can still fight the bosses if you like.
     """
     display_name = "Endgame Scope"
     option_full_dark_realm = 0
@@ -106,6 +107,7 @@ class SpiritTracksEndgameScope(Choice):
     option_skip_demon_train = 2
     option_malladus_only = 3
     option_malladus_p2 = 4
+    option_enter_dark_realm = 5
     default = 0
 
 class SpiritTracksRequireSpecificDungeons(Toggle):
