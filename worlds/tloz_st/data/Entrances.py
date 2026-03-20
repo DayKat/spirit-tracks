@@ -347,6 +347,33 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "GOAL: Defeat Cactops": {
+        "two_way": False,
+        "entrance_region": "oct phytops",
+        "exit_region": "goal_phytops",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Vulcano": {
+        "two_way": False,
+        "entrance_region": "mtt boss",
+        "exit_region": "goal_vulcano",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Skeldritch": {
+        "two_way": False,
+        "entrance_region": "skeldritch",
+        "exit_region": "skeldritch goal",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
     "GOAL: Reach ToS 3F": {
         "two_way": False,
         "entrance_region": "tos 3f rail map",
@@ -356,10 +383,37 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "GOAL: Reach ToS 7F": {
+    "GOAL: Reach ToS 12F": {
         "two_way": False,
-        "entrance_region": "tos 7f rail map",
-        "exit_region": "goal_snow_glyph",
+        "entrance_region": "tos 11f",
+        "exit_region": "goal_ocean_glyph",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Reach ToS 17F": {
+        "two_way": False,
+        "entrance_region": "tos 16f",
+        "exit_region": "goal_fire_glyph",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Staven": {
+        "two_way": False,
+        "entrance_region": "tos staven",
+        "exit_region": "goal_staven",
+        "entrance": (0x29, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Reach ToS 24F": {
+        "two_way": False,
+        "entrance_region": "tos 24f",
+        "exit_region": "goal_compass",
         "entrance": (0x29, 0x0, 0x0),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
@@ -637,8 +691,15 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "Marine Temple Dungeon Reward": "EVENT: Defeat Cactops",
                          "Mountain Temple Dungeon Reward": "EVENT: Defeat Vulcano",
                          "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch"}
-goal_event_lookup =     {2: "GOAL: Defeat Stagnox",
-                         3: "GOAL: Defeat Fraaz",
-                         0: "GOAL: Reach ToS 3F",
-                         1: "GOAL: Reach ToS 7F",
+goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
+                         1: "GOAL: Defeat Fraaz",
+                         2: "GOAL: Defeat Cactops",
+                         3: "GOAL: Defeat Vulcano",
+                         4: "GOAL: Defeat Skeldritch",
+                         5: "GOAL: Reach ToS 3F",
+                         6: "GOAL: Reach ToS 7F",
+                         7: "GOAL: Reach ToS 12F",
+                         8: "GOAL: Reach ToS 17F",
+                         9: "GOAL: Defeat Staven",
+                         10: "GOAL: Reach ToS 24F",
                          -1: "GOAL: Defeat Malladus"}

@@ -174,6 +174,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 9f phantom", "tos 9f nw", False, lambda state: st_has_whirlwind(state, player)],
         ["tos 9f phantom", "tos 11f", False, lambda state: st_has_damage(state, player) and (st_has_boss_key(state, player, "ToS 3") or options.randomize_boss_keys == "vanilla")],
         ["tos 11f", "event_12f", False, None],
+        ["tos 11f", "goal_ocean_glyph", False, None],
+
 
         ["tos 4", "tos 13f", True, None],
         ["tos 13f", "tos 13f whip", False, lambda state: st_has_whip(state, player)],
@@ -194,8 +196,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             (st_has_range(state, player) | st_has_beam_sword(state, player)) and
             st_has_whirlwind(state, player) and
             st_has_small_keys(state, player, "ToS 4", 3,2)],
-        ["tos 16f", "event_17f", False, None],
         ["tos 16f", "tos 16f bombs", False, lambda state: st_has_bombs(state, player)],
+        ["tos 16f", "event_17f", False, None],
+        ["tos 16f", "goal_fire_glyph", False, None],
 
         ["tos 5", "tos 18f", True, None],
         ["tos 18f", "tos 18f whip", False, lambda state: st_has_whip(state, player)],
@@ -221,6 +224,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 20f", "tos 22f", False, lambda state: st_has_bow(state, player) & st_can_rotate_repeater(state, player) & st_has_whip(state, player)],
         ["tos 22f", "tos staven", False, lambda state: st_has_sword(state, player) and (st_has_boss_key(state, player, "ToS 5") or options.randomize_boss_keys == "vanilla" or state.multiworld.worlds[player].exclude_tos_5)],
         ["tos staven", "event_staven", False, None],
+        ["tos staven", "goal_staven", False, None],
 
         ["tos staven", "tos summit lower", True, None],
         ["tos summit lower", "tos summit", True, None],
@@ -236,6 +240,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 29f se", "tos 27f", False, lambda state: st_has_small_keys(state, player, "ToS 6", 3)],
         ["tos 27f", "tos 24f", False, lambda state: st_has_whip(state, player)],
         ["tos 24f", "event_24f", False, None],
+        ["tos 24f", "goal_compass", False, None],
 
 
         # # ======== Mayscore =========
@@ -493,6 +498,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct bk", "oct phytops", False, lambda state: options.randomize_boss_keys == "vanilla"],
         ["oct 6f chest", "oct phytops", False, lambda state: st_has_boss_key(state, player, "Marine Temple")],
         ["oct phytops", "event_phytops", False, None],
+        ["oct phytops", "goal_phytops", False, None],
 
         ["oct", "oct ferrus", False,
          lambda state: st_has_passenger(state, player, "Ferrus", "_ferrus_2")
@@ -609,6 +615,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             state.has("Bombs (Progressive)", player, 2)
         ])],
         ["mtt boss", "event_vulcano", False, None],
+        ["mtt boss", "goal_vulcano", False, None],
 
         # Disorientation Station
         ["disorientation station", "disorientation bird", False, lambda state: st_hard_birds(state, player)],
@@ -670,6 +677,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             else ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
         ["dt b2", "skeldritch", False, lambda state: st_has_good_damage(state, player)], # Whip is not good enough damage
         ["skeldritch", "skeldritch event", False, None],
+        ["skeldritch", "skeldritch goal", False, None],
 
         # ===== Dark ore mine =====
         ["sand restoration", "dark ore mine", False, lambda state: st_has_misc_tracks(state, player, "Dark Ore Mine") and st_soft_cannon(state, player)],

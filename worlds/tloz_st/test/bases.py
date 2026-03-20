@@ -10,10 +10,10 @@ class TestGeneration(WorldTestBase):
         # "rabbit_location_count_distribution": "random_mixed",
         "rabbit_pack_size": "random_mixed",
         "rabbit_extra_items": 2,
-        "goal": "defeat_malladus",
+        "goal": "beat_mountain_temple",
         "dark_realm_access": "both",
 
-        "dungeons_required": 11,
+        "dungeons_required": 1,
         "tos_dungeon_options": "all_sections",
 
         "randomize_tears": "in_tos",

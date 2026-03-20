@@ -102,6 +102,7 @@ REGIONS = [
     "tos 9f phantom",
     "tos 11f",
     "event_12f",
+    "goal_ocean_glyph",
 
     "tos 13f",
     "tos 13f whip",
@@ -115,6 +116,7 @@ REGIONS = [
     "tos 16f",
     "tos 16f bombs",
     "event_17f",
+    "goal_fire_glyph",
 
     "tos 18f",
     "tos 18f whip",
@@ -129,6 +131,7 @@ REGIONS = [
     "tos 22f",
     "tos staven",
     "event_staven",
+    "goal_staven",
 
     "tos summit",
     "tos summit lower",
@@ -143,6 +146,7 @@ REGIONS = [
     "tos 27f",
     "tos 24f",
     "event_24f",
+    "goal_compass",
 
     # Mayscore
     "mayscore",
@@ -439,6 +443,7 @@ REGIONS = [
     "mtt bk",
     "mtt boss",
     "event_vulcano",
+    "goal_vulcano",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
@@ -475,6 +480,7 @@ REGIONS = [
     "dt b1 damage",
     "skeldritch",
     "skeldritch event",
+    "skeldritch goal",
 
     # Dark ore mine
     "dark ore mine",

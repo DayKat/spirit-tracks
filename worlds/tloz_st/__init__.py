@@ -344,9 +344,11 @@ class SpiritTracksWorld(WorldParent):
         }
 
     def pick_required_dungeons(self) -> list[str]:
-        if self.options.goal != "defeat_malladus" or self.options.dark_realm_access not in ["dungeons", "both"]:
-            if not (self.options.exclude_dungeons or self.options.exclude_sections):  # Still use dungeon count stuff for number of included dungeons
-                return []
+        force_require = []
+        if self.options.goal.value >= 0:
+            self.options.dark_realm_access.value = 0
+            force_require = [list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]]
+
         if self.options.plando_dungeon_pool:
             case_compare = {k.lower(): v for k, v in DUNGEON_TO_BOSS_ITEM_LOCATION.items()}
             required_dungeons = list({case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value})
@@ -365,9 +367,12 @@ class SpiritTracksWorld(WorldParent):
         self.options.dungeons_required.value = min(self.options.dungeons_required.value, len(required_dungeons))
         # print(f"Required dungeons: {required_dungeons}")
         if not self.options.require_specific_dungeons:
-            return required_dungeons
+            return required_dungeons + force_require
 
+        required_dungeons = [i for i in required_dungeons if i not in force_require]
         self.random.shuffle(required_dungeons)
+        required_dungeons = force_require + required_dungeons
+        # print(f"Required dungeons: {required_dungeons}")
         required_dungeons = required_dungeons[:self.options.dungeons_required.value]
 
         if self.options.dungeon_hints:
@@ -510,15 +515,9 @@ class SpiritTracksWorld(WorldParent):
                 for loc in self.required_dungeons:
                     self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
         else:
-            if self.options.goal == "beat_tos_section_1":
-                goal_loc = "goal_forest_glyph"
-            elif self.options.goal == "beat_tos_section_2":
-                goal_loc = "goal_snow_glyph"
-            elif self.options.goal == "beat_wooded_temple":
-                goal_loc = "goal_stagnox"
-            elif self.options.goal == "beat_blizzard_temple":
-                goal_loc = "goal_fraaz"
-            self.create_event(goal_loc, "_beaten_game")
+            goal_loc = list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]
+            goal_reg = BOSS_LOCATION_TO_EVENT_REGION[goal_loc]
+            self.create_event(goal_reg, "_beaten_game")
 
         if self.options.rabbitsanity.value in [3, 4]:
             forest_regions = {"forest ocean shortcut rabbit": 1,
@@ -601,19 +600,12 @@ class SpiritTracksWorld(WorldParent):
         if self.options.exclude_sections == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "tos_section" in d and d["tos_section"] in self.non_required_sections])
 
-        # Take item off goal location
-        if self.options.goal == SpiritTracksGoal(0):
-            current_goal = "ToS 3F Forest Rail Glyph"
+        # Take item off goal + post goal location
+        if self.options.goal.value >= 0:
+            current_goal = list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]
             self.locations_to_exclude.add(current_goal)
-        elif self.options.goal == SpiritTracksGoal(1):
-            current_goal = "ToS 7F Snow Rail Glyph"
-            self.locations_to_exclude.add(current_goal)
-        elif self.options.goal == SpiritTracksGoal(2):
-            current_goal = "Wooded Temple Dungeon Reward"
-            self.locations_to_exclude.add(current_goal)
-        elif self.options.goal == SpiritTracksGoal(3):
-            current_goal = "Blizzard Temple Dungeon Reward"
-            self.locations_to_exclude.add(current_goal)
+            for loc in BOSS_LOCATION_TO_POST_LOCATIONS.get(current_goal, []):
+                self.locations_to_exclude.add(loc)
 
         for name in self.locations_to_exclude:
             try:
@@ -1361,7 +1353,7 @@ class SpiritTracksWorld(WorldParent):
         slot_data["er_pairings"] = pairings
         slot_data["tower_section_lookup"] = self.tower_section_lookup
         slot_data["section_count"] = self.sections_included
-        print(f"ER Pairings: {pairings}")
+        # print(f"ER Pairings: {pairings}")
 
         return slot_data
 

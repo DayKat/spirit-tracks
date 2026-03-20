@@ -12,15 +12,25 @@ class SpiritTracksGoal(Choice):
     """
     The goal to accomplish in order to complete the seed.
     - defeat_malladus: enter the dark realm and defeat the demon king.
-    - ToS Section 1: Finish the 1st section of Tower of Spirits and retrieve the Forest Glyph
-    - ToS Section 2: Finish the 2nd section of Tower of Spirits and retrieve the Snow Glyph
+    - other options: defeat the specified boss/tos section to goal.
+    Is not compatible with dark realm unlock options, so you can't set a number of required dungeons or compass shards etc.
+    The dungeon/section associated with the goal will never be excluded.
+    Intended for shorter seeds.
     """
+
     display_name = "Goal Location"
     option_defeat_malladus = -1
-    # option_beat_tos_section_1 = 0
-    # option_beat_tos_section_2 = 1
-    # option_beat_wooded_temple = 2
-    # option_beat_blizzard_temple = 3
+    option_beat_wooded_temple = 0
+    option_beat_blizzard_temple = 1
+    option_beat_marine_temple = 2
+    option_beat_mountain_temple = 3
+    option_beat_desert_temple = 4
+    option_beat_tos_section_1 = 5
+    option_beat_tos_section_2 = 6
+    option_beat_tos_section_3 = 7
+    option_beat_tos_section_4 = 8
+    option_defeat_staven = 9
+    option_beat_tos_section_6 = 10
     default = -1
 
 class SpiritTracksDarkRealmUnlock(Choice):

@@ -371,7 +371,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Forest Glyph",
         "stage_id": 0x13,
         "room_id": 2,
-        "goal": True,
+        "goal": "GOAL: Reach ToS 3F",
         "x_min": -6390,
         "x_max": 6390,
         "z_min": -8438,
@@ -551,7 +551,7 @@ LOCATIONS_DATA = {
         "z_min": -8450,
         "z_max": 4515,
         'dungeon': "ToS",
-        "goal": True,
+        "goal": "GOAL: Reach ToS 7F",
         "ut_connect": "EVENT: Reach ToS 7F",
         "tos_section": 2
     },
@@ -649,6 +649,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Ocean Glyph",
         "region_id": "tos 11f",
         'dungeon': "ToS",
+        "goal": "GOAL: Reach ToS 12F",
         "tos_section": 3,
         "ut_connect": "EVENT: Reach ToS 12F",
     },
@@ -773,6 +774,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 4,
         "ut_connect": "EVENT: Reach ToS 17F",
+        "goal": "GOAL: Reach ToS 17F",
     },
 
     # ToS 5
@@ -883,6 +885,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_20,
         "value": 0x1,
         "ut_connect": "EVENT: Defeat Staven",
+        "goal": "Defeat Staven",
         'dungeon': "ToS",
         "tos_section": 5,
         "no_model": True
@@ -958,6 +961,7 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 6,
         "ut_connect": "EVENT: Reach ToS 24F",
+        "goal": "GOAL: Reach ToS 24F"
     },
 
     # =============================================

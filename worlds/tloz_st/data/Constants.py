@@ -404,6 +404,14 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "ToS 24F Final Chest": "tos 24f"
 }
 
+BOSS_LOCATION_TO_POST_LOCATIONS = {
+    "Wooded Temple Dungeon Reward": ["Wooded Temple Boss Heart Container"],
+    "Blizzard Temple Dungeon Reward": ["Blizzard Temple Boss Heart Container"],
+    "Marine Temple Dungeon Reward": ["Marine Temple Heart Container"],
+    "Mountain Temple Dungeon Reward": ["Mountain Temple Boss Heart Container"],
+    "Desert Temple Dungeon Reward": ["Skeldritch Heart Container", "Desert Temple Bow of Light Chest"]
+}
+
 DUNGEON_KEY_DATA = {
     0x13: {
         "name": "ToS",
