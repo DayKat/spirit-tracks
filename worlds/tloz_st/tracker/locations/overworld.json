@@ -275,7 +275,8 @@
     {"name": "Marine Temple Dungeon Reward"}
   ], "map_locations":[{"map": "Overview", "x": 932, "y": 522}]},
   {"name": "Marine Temple Events", "sections": [
-    {"name": "EVENT: Defeat Cactops"}
+    {"name": "EVENT: Defeat Cactops"},
+    {"name": "GOAL: Defeat Cactops"}
   ], "map_locations":[{"map": "Overview", "x": 932, "y": 506}]},
   {"name": "Pirate Hideout", "sections": [
     {"name": "Pirate Hideout Stamp Station"},
@@ -345,7 +346,8 @@
           {"name": "Desert Temple Bow of Light Chest"}
   ], "map_locations":[{"map": "Overview", "x": 862, "y": 440}]},
   {"name": "Desert Temple Events", "sections": [
-          {"name": "EVENT: Defeat Skeldritch"}
+          {"name": "EVENT: Defeat Skeldritch"},
+          {"name": "GOAL: Defeat Skeldritch"}
       ], "map_locations":[{"map": "Overview", "x": 862, "y": 424}]},
     {"name": "Goron Village", "sections": [
           {"name": "Goron Shop Quiver"},
@@ -401,7 +403,8 @@
           {"name": "Mountain Temple Dungeon Reward"}
       ], "map_locations":[{"map": "Overview", "x": 814, "y": 158}]},
       {"name": "Fire Temple Events", "sections": [
-          {"name": "EVENT: Defeat Vulcano"}
+          {"name": "EVENT: Defeat Vulcano"},
+          {"name": "GOAL: Defeat Vulcano"}
       ], "map_locations":[{"map": "Overview", "x": 814, "y": 142}]},
 
     {"name": "Snow Realm Pick Up Ferrus", "sections": [

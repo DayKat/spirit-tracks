@@ -807,7 +807,29 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        pass
+        if False:  # wait if in a situation where deaths crash
+            return
+
+        if ctx.last_death_link > self.last_deathlink and not is_dead:
+            # A death was received from another player, make our player die as well
+            await self.health_address.overwrite(ctx, 0)
+
+            self.is_expecting_received_death = True
+            self.last_deathlink = ctx.last_death_link
+
+        if not self.was_alive_last_frame and not is_dead:
+            # We revived from any kind of death
+            self.was_alive_last_frame = True
+        elif self.was_alive_last_frame and is_dead:
+            # Our player just died...
+            self.was_alive_last_frame = False
+            if self.is_expecting_received_death:
+                # ...because of a received deathlink, so let's not make a circular chain of deaths please
+                self.is_expecting_received_death = False
+            else:
+                # ...because of their own incompetence, so let's make their mates pay for that
+                await ctx.send_death(ctx.player_names[ctx.slot] + " has disappointed the Train Spirits.")
+                self.last_deathlink = ctx.last_death_link
 
     async def process_post_receive(self, ctx):
         if not self.delay_pickup:
