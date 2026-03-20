@@ -2020,6 +2020,9 @@ ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"] | ITEM_GROUPS["Custom Track
 ITEM_GROUPS["Rupee Pool Items"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Filler Item Pool"] = ITEM_GROUPS["Potions"] | ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Common Treasures"]
 
+ITEM_GROUPS["Dungeon Keys"] = ITEM_GROUPS["Small Keys"] | ITEM_GROUPS ["Boss Keys"] | ITEM_GROUPS["Keyrings"]
+ITEM_GROUPS["All Keys"] = ITEM_GROUPS["Dungeon Keys"] | ITEM_GROUPS["Misc Keys"]
+
 # track_groups = {t: g for t, g in ITEM_GROUPS.items() if t.startswith("Tracks:")}
 # for t in track_groups.items():
 #     print(t)

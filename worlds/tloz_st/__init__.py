@@ -780,7 +780,7 @@ class SpiritTracksWorld(WorldParent):
             if self.options.exclude_sections == "remove":
                 keyrings -= {f"Keyring (ToS {i})" for i in self.non_required_sections}
             if not self.options.big_keyrings:
-                keyrings.remove("Keyring (Blizzard Temple)")
+                keyrings -= {"Keyring (Blizzard Temple)"}
                 res += [("Small Key (Blizzard Temple)", 1)]
 
             if self.options.keyrings == 3:
@@ -1375,6 +1375,7 @@ class SpiritTracksWorld(WorldParent):
                    "logic", "cannon_logic",
                    "exclude_dungeons", "exclude_sections",
                    "keysanity", "randomize_boss_keys",
+                   "big_keyrings",
                    "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
                    "randomize_passengers", "randomize_cargo",

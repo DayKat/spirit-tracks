@@ -502,7 +502,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.save_ammo[addr] = item_data.give_ammo[item_count-1]
 
         # Open boss door if got key in that room
-        if item_name.startswith("Boss Key") and self.current_scene in BOSS_KEY_DATA:
+        if (item_name.startswith("Boss Key") or
+            (item_name.startswith("Keyring") and ctx.slot_data["big_keyrings"])
+        ) and self.current_scene in BOSS_KEY_DATA:
             data = BOSS_KEY_DATA[self.current_scene]
             if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
                 print(f"Opening boss door for {hex(self.current_scene)}")
@@ -739,7 +741,8 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_tears(ctx)
 
         if self.current_scene in [0x1309, 0x1318] and isinstance(location.get("vanilla_item", ""), str) and location.get("vanilla_item", "").startswith("Boss Key"):
-            if self.item_count(ctx, location["vanilla_item"]):
+            section = {0x1309: 3, 0x1318: 5}[self.current_scene]
+            if self.item_count(ctx, f"Boss Key (ToS {section})") or (self.item_count(ctx, f"Keyring (ToS {section})") and ctx.slot_data["big_keyrings"]):
                 print("Opening ToS boss door after having key and getting boss key location")
                 await self.open_tos_boss_door(ctx, self.current_scene)
 
@@ -1071,7 +1074,7 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Loaded boss key data: {hex(pointer)} y: {self.boss_key_y}")
 
             # Open door
-            if self.item_count(ctx, f"Boss Key ({data['dungeon']})"):
+            if self.item_count(ctx, f"Boss Key ({data['dungeon']})") or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"]):
                 if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
                     print(f"Opening boss door for {hex(current_scene)}")
                     if await data["door"].read(ctx) != 0x5:
