@@ -26,6 +26,8 @@ async def receive_tos_key(client: "SpiritTracksClient", ctx, item: "STItem", rii
     if client.current_stage == item.dungeon and client.current_room in item.rooms:
         print("Getting ToS key in correct section")
         if client.last_vanilla_item and client.last_vanilla_item[-1] == "Small Key (ToS)":
+            if key_count > 1:
+                await client.key_address.add(ctx, key_count-1)
             client.last_vanilla_item.pop()
         else:
             await client.key_address.add(ctx, key_count)
@@ -82,7 +84,7 @@ async def remove_passenger(client: "SpiritTracksClient", ctx, item: "STItem", ri
         STAddr.passenger_tag_0.get_inner_write_list(0),
         STAddr.passenger_tag_1.get_inner_write_list(0),
         STAddr.passenger_goal.get_inner_write_list(0xFFFFFFFF),
-        item.address.get_inner_write_list(item.value & prev_value)
+        item.address.get_inner_write_list(item.value & prev_value)  # Write the passenger flag
     ]
     return res
 

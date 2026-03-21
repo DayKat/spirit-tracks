@@ -218,6 +218,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.snurglar_addr = None
         self.last_anticipated_locations = []
         self.delay_room_action: int = 0
+        self.saving = False
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -265,7 +266,7 @@ class SpiritTracksClient(DSZeldaClient):
                 if ctx.slot_data["dark_realm_access"] != 1:
                     return data["dungeons"]  # Case where dungeons are not required for dark realm
                 print(f"{ctx.slot_data['required_dungeons']}")
-                dungeon_locs = {self.location_name_to_id[i] for i in ctx.slot_data["required_dungeons"]}
+                dungeon_locs = ctx.slot_data["required_dungeons"]
                 has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
                 comp = has_locs >= ctx.slot_data["dungeons_required"]
                 print(f"Checking dungeons: {has_locs} >= {ctx.slot_data['dungeons_required']} for comp {data['dungeons']}")
@@ -324,7 +325,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu: "Address" = read_result[STAddr.menu]
         self.in_stamp_stand = current_menu == 0x0E
-        getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving]
+        getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving] and not self.saving
         self.getting_location = getting_location or self.reset_cycles
 
         if self.getting_location:
@@ -333,10 +334,14 @@ class SpiritTracksClient(DSZeldaClient):
         if self.reset_cycles and not getting_location and not read_result[STAddr.getting_item_safety]:
             self.reset_cycles = False
 
-
         # Fix for stamp stand not counting as getting item
         if self.in_stamp_stand and self.receiving_location:
             self.getting_location = True
+
+        if not self.saving:
+            self.saving = read_result[STAddr.saving]
+        else:
+            self.saving = read_result[STAddr.getting_location] or read_result[STAddr.saving]
 
         # Weird scene value on load from menu, set to last saved scene
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
@@ -538,27 +543,33 @@ class SpiritTracksClient(DSZeldaClient):
         await self.anticipate_location(ctx, read_result)
         if self.delay_room_action:
             self.delay_room_action -= 1
-            if self.delay_room_action <= 0:
+            if self.delay_room_action > 0:
+                return
 
-                if self.current_scene in potion_location_lookup:
-                    await self.set_shop_models(ctx, False)
+            # Set Shop Models for on purchase
+            if self.current_scene in potion_location_lookup:
+                await self.set_shop_models(ctx, False)
 
-                # Change respawn data in special scenes
-                if self.current_stage in special_respawn_stages:
-                    await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
-                                         special_respawn_stages[self.current_stage])
+            # Lift item restrictions in TEAO boss rooms
+            if self.current_scene in range(0x4b00, 0x5000):
+                await STAddr.item_restrictions.overwrite(ctx, 0)
 
-                # Change respawn data to outside tower section in ToS
-                if self.current_stage == 0x13:
-                    section = TOS_FLOOR_TO_SECTION[self.current_room]
-                    entrance = self.entrances[TOS_SECTION_TO_EXIT[section]]
-                    reverse_entrance: "STTransition" = self.entrance_id_to_entrance[
-                        ctx.slot_data["er_pairings"][str(entrance.id)]] if str(entrance.id) in ctx.slot_data[
-                        "er_pairings"] else entrance.vanilla_reciprocal
-                    respawn_data = reverse_entrance.entrance
-                    print(f"Setting ToS respawn room {respawn_data}")
-                    await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
-                                         respawn_data)
+            # Change respawn data in special scenes
+            if self.current_stage in special_respawn_stages:
+                await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                     special_respawn_stages[self.current_stage])
+
+            # Change respawn data to outside tower section in ToS
+            if self.current_stage == 0x13:
+                section = TOS_FLOOR_TO_SECTION[self.current_room]
+                entrance = self.entrances[TOS_SECTION_TO_EXIT[section]]
+                reverse_entrance: "STTransition" = self.entrance_id_to_entrance[
+                    ctx.slot_data["er_pairings"][str(entrance.id)]] if str(entrance.id) in ctx.slot_data[
+                    "er_pairings"] else entrance.vanilla_reciprocal
+                respawn_data = reverse_entrance.entrance
+                print(f"Setting ToS respawn room {respawn_data}")
+                await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                     respawn_data)
 
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
@@ -1047,8 +1058,6 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Setting starting train")
                 await self.set_starting_train(ctx)
             self.has_set_starting_train = True
-        # if current_scene in range(0x4b00, 0x5000):  still too early
-        #     await STAddr.item_restrictions.overwrite(ctx, 0)
         if self.save_ammo:
             await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))
             self.save_ammo = None
@@ -1101,7 +1110,7 @@ class SpiritTracksClient(DSZeldaClient):
         if current_scene not in potion_location_lookup:
             treasure = None
             if ctx.slot_data["excess_random_treasure"] == 2:
-                treasure = ITEM_MODEL_LOOKUP["Gold Rupee"].value
+                treasure = ITEM_MODEL_LOOKUP["Red Rupee"].value
             elif ctx.slot_data["excess_random_treasure"] == 0:
                 treasure = ITEM_MODEL_LOOKUP["Nothing"].value
             await self.reset_treasure_models(ctx, treasure)

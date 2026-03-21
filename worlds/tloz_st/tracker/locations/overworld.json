@@ -39,7 +39,10 @@
     {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"},
     {"name": "Castle Town Take 'em All On Level 3"}
     ], "map_locations":[{"map": "Overview", "x": 404, "y": 450}]},
-  {"name":  "Castle Town Events", "sections":  [{"name": "EVENT: Pick up Alfonzo"}], "map_locations":[{"map": "Overview", "x": 420, "y": 450}]},
+  {"name":  "Castle Town Events", "sections":  [
+    {"name": "EVENT: Pick up Alfonzo"},
+    {"name": "EVENT: Complete Take 'em All On 3"}
+  ], "map_locations":[{"map": "Overview", "x": 420, "y": 450}]},
   {"name": "Hyrule Castle", "sections": [
     {"name": "Hyrule Castle NW Outside Chest"},
     {"name": "Hyrule Castle 2F Indoors Chest"},
@@ -51,10 +54,15 @@
     {"name": "Mayscore Shop Treasure 1"},{"name": "Mayscore Shop Treasure 2"},
     {"name": "Mayscore Shop Red Potion"},{"name": "Mayscore Shop Shield"},{"name": "Mayscore Shop Postcards"},
     {"name": "Mayscore Pick Up Dovok"},
+        {"name": "Mayscore Pick Up Morris"},
+        {"name": "Mayscore Pick Up Yamahiko"},
+        {"name": "Mayscore Pick Up Mash"},
+        {"name": "Mayscore Pick Up Wood"},
     {"name": "Mayscore Buy Lumber"},
     {"name": "Mayscore Deliver Steel"},
     {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"},
-    {"name": "Mayscore Whip Race Bomb Bag"}, {"name": "Mayscore Whip Race Heart Container"}
+    {"name": "Mayscore Whip Race Bomb Bag"}, {"name": "Mayscore Whip Race Heart Container"},
+    {"name": "Mayscore Whip Race Rare Treasure"}
   ], "map_locations":[{"map": "Overview", "x": 332, "y": 594}]},
 {"name": "Woodland Sanctuary", "sections": [{"name": "Woodland Sanctuary Stamp Station"}, {"name": "Woodland Sanctuary Song Statue"}, {"name": "Woodland Sanctuary Chest"}, {"name": "Woodland Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 212, "y": 574}]},
 {"name": "Wooded Temple", "sections": [
@@ -256,6 +264,7 @@
     {"name": "Ocean Sanctuary Cucco Chest"},
     {"name": "Ocean Sanctuary NW Chest"},
     {"name": "Ocean Sanctuary Stamp Station"},
+    {"name": "Ocean Sanctuary Song of Restoration"},
     {"name": "Ocean Sanctuary Carben's Force Gem"}
   ], "map_locations":[{"map": "Overview", "x": 716, "y": 670}]},
   {"name": "Marine Temple", "sections": [
@@ -300,6 +309,9 @@
     {"name": "Lost at Sea 5th Room NW Chest"},
     {"name": "Lost at Sea 6th Room Chest"}
   ], "map_locations":[{"map": "Overview", "x": 956, "y": 720}]},
+  {"name": "Lost at Sea Events", "sections": [
+    {"name": "EVENT: Complete Lost at Sea Dungeon"}
+  ], "map_locations":[{"map": "Overview", "x": 956, "y": 704}]},
 
   {"name": "Disorientation Station", "sections": [
     {"name": "Disorientation Station Bird Chest"},

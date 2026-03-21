@@ -1399,7 +1399,7 @@ ITEMS_DATA |= {
         "model": "Letter"
     },
     "Passenger: Teacher": {
-        "classification": ItemClassification.useful,
+        "classification": ItemClassification.filler,
         "item_groups": ["Passengers"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_42,
@@ -1988,7 +1988,40 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "model": "Compass of Light",
         "dummy": True,
-    }
+    },
+
+    "Passenger: Wood": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_36,
+        "value": 0x2,
+        "model": "Letter"
+    },
+    "Passenger: Morris": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_35,
+        "value": 0x80,
+        "model": "Letter"
+    },
+    "Passenger: Yamahiko": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_35,
+        "value": 0x40,
+        "model": "Letter"
+    },
+    "Passenger: Mash": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_36,
+        "value": 0x1,
+        "model": "Letter"
+    },
 }
 
 

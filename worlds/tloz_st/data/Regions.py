@@ -53,6 +53,7 @@ REGIONS = [
     "teao 1",
     "teao 2",
     "teao 3",
+    "teao_event",
     "castle town buy cuccos",
     "castle town fish",
     "castle town goron",
@@ -158,6 +159,7 @@ REGIONS = [
     "mayscore dovok",
     "mayscore shop",
     "mayscore lumber",
+    "mayscore wood",
     "mayscore leaves",
     "mayscore steel",
 
@@ -377,10 +379,7 @@ REGIONS = [
     "las 3rd room chest",
     "las 4th room chest",
     "las 5th room",
-
-    #"ocean realm frogs",
-    #"ocean realm trade",
-    #"pirate ambush",
+    "las_event",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Fire Realm

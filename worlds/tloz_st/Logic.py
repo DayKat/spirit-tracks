@@ -17,6 +17,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ====== Outset Village ==============
 
         #[region 1, region 2, two-directional, logic requirements],
+        ["outset village", "forest realm", False, lambda state: st_has_train(state, player)],
+
         ["outset village", "outset village stamp book", False, lambda state:
             st_has_passenger(state, player, "Alfonzo", "_picked_up_alfonzo") or
             (st_has_glyph(state, player, "Snow") and not options.randomize_passengers)],
@@ -25,7 +27,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["outset village stamp book", "outset 20 stamps", False, lambda state: state.has("Stamp", player, 20)],
         ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
-        ["outset village", "forest realm", False, lambda state: st_has_train(state, player)],
         ["outset village", "outset joe", False, lambda state: st_has_source(state, player, "Snow")],
         ["outset village", "outset cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
         if options.randomize_cargo.value in [1, 2] else
@@ -120,6 +121,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
             st_has_whirlwind(state, player) and
             st_has_boomerang(state, player) and
             st_has_whip(state, player)],
+        ["teao 3", "teao_event", False, None],
 
         # # ======== Hyrule Castle =========
 
@@ -248,9 +250,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "mayscore", False, None],
         ["mayscore", "mayscore stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["mayscore", "mayscore whip chest", False, lambda state: st_has_whip(state, player)],
-        ["mayscore whip chest", "mayscore whip game", False, lambda state: st_has_rupees(state, player, 100) or state.has("_UT_Glitched_Logic", player)],  # safety protecting against early rupee farming
+        ["mayscore whip chest", "mayscore whip game", False, lambda state: st_has_rupees(state, player, 200) or state.has("_UT_Glitched_Logic", player)],  # safety protecting against early rupee farming
         ["mayscore", "mayscore leaves", False, lambda state: st_has_whirlwind(state, player)],
         ["mayscore", "mayscore dovok", False, lambda state: st_has_glyph(state, player, "Ocean")],
+        ["mayscore dovok", "mayscore wood", False, lambda state: st_has_whip(state, player)],
         ["mayscore", "mayscore steel", False, lambda state: st_has_cargo(state, player, "Goron Steel", "_buy_steel")],
 
         # # ======== Forest Sanctuary =========
@@ -529,6 +532,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["las 2nd room chest", "las 3rd room chest", False, lambda state: st_has_whirlwind(state, player)],
         ["las 3rd room chest", "las 4th room chest", False, lambda state: st_has_whip(state, player)],
         ["las 4th room chest", "las 5th room", False, lambda state: st_has_bombs(state, player) or st_option_hard_logic(state, player)],
+        ["las 5th room", "las_event", False, None],
 
         # ===== Fire Realm =====
         ["blizzard temple tracks", "fire realm", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_temple_tracks(state, player, "Blizzard")],

@@ -448,7 +448,8 @@ def st_has_train(state, player):
     return all([st_has_glyph(state, player, "Forest"),
                 any([
                     st_has_cannon(state, player),
-                    state.multiworld.worlds[player].options.cannon_logic.value > 0
+                    state.multiworld.worlds[player].options.cannon_logic.value > 1,
+                    state.multiworld.worlds[player].options.cannon_logic.value > 0 and state.has("_UT_Glitched_Logic", player)
                 ]),
             ])
 

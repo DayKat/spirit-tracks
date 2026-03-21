@@ -211,6 +211,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "location_groups": ["Castle Town", "Take 'em All On"],
         "slot_data": [("randomize_minigames", [4])],
+        "ut_connect": "EVENT: Complete Take 'em All On 3",
         "from_entrances": [1],
     },
     "Castle Town Take 'em All On Level 3 Capbone Chest": {
@@ -1200,8 +1201,8 @@ LOCATIONS_DATA = {
     # Rabbit Haven
     "Rabbit Haven Net Gift": {
         "region_id": "rabbit haven",
-        "vanilla_item": "Rabbit Net",
-        "item_override": "Nothing!",
+        # "item_override": "Rabbit Net",
+        "vanilla_item": "Nothing!",
         "stage_id": 0x3E,
         "room_id": 0,
         "address": STAddr.adv_flags_1a,
@@ -1236,7 +1237,7 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
-        'address': STAddr.adv_flags_52,
+        'address': STAddr.adv_flags_51,
         'value': 0x10,
         "conditional": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
@@ -2094,6 +2095,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x42,
         "room_id": 7,
         "farmable": True,
+        "ut_connect": "EVENT: Complete Lost at Sea Dungeon",
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
 
@@ -3791,6 +3793,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Mayscore", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+        "no_model": True
     },
     "Papuzia Village Orca's Force Gem": {
         "stage_id": 0x2C,
@@ -3813,6 +3816,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Papuzia Village", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+        "no_model": True
     },
     "Ocean Sanctuary Carben's Force Gem": {
         "stage_id": 0x32,
@@ -3835,6 +3839,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Pirate Hideout", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
+        "no_model": True
     },
     "Papuzia Village Wadatsumi's Force Gem":{
         "stage_id": 0x2C,
@@ -3847,54 +3852,6 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "pv wadatsumi",
     },
-    # "Papuzia Village Buy Fish": {
-    #     "stage_id": 0x2C,
-    #     "room_id": 0x0,
-    #     "address": STAddr.cargo_0,
-    #     "value": 3,
-    #     "vanilla_item": "Cargo: Fish",
-    #     "location_groups": ["Papuzia Village", "Buy Cargo"],
-    #     "slot_data": [("randomize_cargo", [0, 2, 3])],
-    #     "conditional": True,
-    #     "persistent": True,
-    #     "exact_read": True,
-    #     "region_id": "papuzia buy cargo"
-    # },
-    # "Papuzia Village Buy Vessel": {
-    #     "stage_id": 0x2C,
-    #     "room_id": 0x4,
-    #     "address": STAddr.cargo_0,
-    #     "value": 5,
-    #     "vanilla_item": "Cargo: Vessel",
-    #     "location_groups": ["Papuzia Village", "Buy Cargo"],
-    #     "slot_data": [("randomize_cargo", [0, 2, 3])],
-    #     "conditional": True,
-    #     "persistent": True,
-    #     "exact_read": True,
-    #     "region_id": "papuzia buy cargo"
-    # },
-    # "Mayscore Pick Up Dovok": {
-    #     "stage_id": 0x2A,
-    #     "room_id": 0x0, #Need to check chief house room id
-    #     "address": STAddr.adv_flags_36,
-    #     "value": 0x4,
-    #     "region_id": "mayscore dovok",
-    #     "vanilla_item": "Passenger: Dovok",
-    #     "location_groups": ["Mayscore", "Pick Up Passengers"],
-    #     "slot_data": [("randomize_passengers", [2, 3])],
-    #     "conditional": True,
-    # },
-    # "Papuzia Village Orca's Force Gem": {
-    #     "stage_id": 0x2C,
-    #     "room_id": 0x0, #Need to check Orca house room id
-    #     "address": STAddr.adv_flags_d,
-    #     "value": 0x2,
-    #     "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
-    #     "location_groups": ["Papuzia Village", "Deliver Passengers"],
-    #     "slot_data": [("randomize_passengers", [1, 2, 3])],
-    #     "conditional": True,
-    #     "region_id": "pv dovok",
-    # },
 
     "Castle Town Lucia Fish Force Gem": {
         "stage_id": 0x29,
@@ -4124,6 +4081,70 @@ LOCATIONS_DATA |= {
         "location_groups": ["Misc Passengers"],
         "conditional": True,
         "region_id": "forest ferrus"
+    },
+
+    "Mayscore Pick Up Morris": {
+        "stage_id": 0x2A,
+        "room_id": 0x3,
+        "address": STAddr.adv_flags_35,
+        "value": 0x80,
+        "region_id": "mayscore dovok",
+        "vanilla_item": "Passenger: Morris",
+        "location_groups": ["Mayscore", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "no_model": True
+    },
+    "Mayscore Pick Up Yamahiko": {
+        "stage_id": 0x2A,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_35,
+        "value": 0x40,
+        "region_id": "mayscore dovok",
+        "vanilla_item": "Passenger: Yamahiko",
+        "location_groups": ["Mayscore", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "no_model": True
+    },
+    "Mayscore Pick Up Mash": {
+        "stage_id": 0x2A,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_36,
+        "value": 0x1,
+        "region_id": "mayscore dovok",
+        "vanilla_item": "Passenger: Mash",
+        "location_groups": ["Mayscore", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "no_model": True
+    },
+    "Mayscore Pick Up Wood": {
+        "stage_id": 0x38,
+        "room_id": 0x0,
+        "address": STAddr.adv_flags_36,
+        "value": 0x2,
+        "region_id": "mayscore wood",
+        "vanilla_item": "Passenger: Mash",
+        "location_groups": ["Mayscore", "Pick Up Passengers"],
+        "slot_data": [("randomize_passengers", [2, 3])],
+        "conditional": True,
+        "no_model": True
+    },
+    "Mayscore Whip Race Rare Treasure": {
+        "region_id": "mayscore whip game",
+        "vanilla_item": ITEM_GROUPS["Super Rare Treasures"],
+        "minigame": [4],
+        "conditional": True,
+        "stage_id": 0x38,
+        "room_id": 0,
+        "address": STAddr.adv_flags_10,
+        "value": 0x80,
+        "location_groups": ["Mayscore"],
+        "slot_data": [("randomize_minigames", [4])],
+
+        "x_min": 55000,
+        "z_max": -45000,
     },
 }
 

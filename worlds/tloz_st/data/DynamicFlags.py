@@ -682,27 +682,27 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     # Sanctuaries
     "Carben don't have spirit flute": {
-        "on_scenes": [0x3202],
+        "on_scenes": [0x3204],
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_1, 0x4)]
     },
     "Carben can play duet": {
-        "on_scenes": [0x3202],
+        "on_scenes": [0x3204],
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Ocean Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 0x4)]
     },
     "Carben Song Reset Flags": {
-      "on_scenes": [0x3202],
+      "on_scenes": [0x3204],
         "unset_if_true": [(STAddr.rail_restorations, 0x8)],
         "reset_flags": ["OCS Reset OTT", "OCS Reset OTT not has"],
     },
     "OCS Reset OTT not has": {
-        "has_items": [("Marine Temple Tracks", 0)],
+        "not_has_groups": ["Tracks: Marine Temple Tracks"],
         "unset_if_true": [(STAddr.rail_restorations, 0x8)],
     },
     "OCS Reset OTT": {
-        "has_items": [("Marine Temple Tracks", 1)],
+        "has_groups": ["Tracks: Marine Temple Tracks"],
         "set_if_true": [(STAddr.rail_restorations, 0x8)],
     },
 
@@ -1002,6 +1002,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_minigames", [0, 2])],
         "set_if_true": [(STAddr.adv_flags_26, 0x01)],
     },
+    # Don't skip whip race expert cause it lowers entry cost and logic for that is hard
 
     # Linebeck Trade
     "Has Regal Ring for Linebeck": {
@@ -1429,9 +1430,25 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                               (STAddr.has_passenger_0, 0)]
     },
     "Can pick up Dovok": {
-        "on_scenes": [0x2A04],
+        "on_scenes": [0x2A04, 0x2a03],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "has_groups": ["Tracks: Ocean Glyph"],
+        "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "reset_flags": ["RESET Dovok Flag"]
+    },
+    "Can pick up Mayscore ow npcs": {
+        "on_scenes": [0x2a00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_groups": ["Tracks: Ocean Glyph"],
+        "not_has_locations": ["Mayscore Pick Up Mash", ],
+        "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "reset_flags": ["RESET Dovok Flag"]
+    },
+    "Can pick up Wood": {
+        "on_scenes": [0x3900],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_groups": ["Tracks: Ocean Glyph"],
+        "not_has_locations": ["Mayscore Pick Up Wood", "Mayscore Pick Up Yamahiko"],
         "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "reset_flags": ["RESET Dovok Flag"]
     },
@@ -1441,13 +1458,20 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "reset_flags": ["RESET Dovok Flag"]
     },
+    "Respawn Wood for whip game": {
+        "on_scenes": [0x3800],
+        "unset_if_true": [(STAddr.adv_flags_36, 0x2)],
+    },
+    "Respawn Mash for lumber": {
+        "on_scenes": [0x2a00],
+        "unset_if_true": [(STAddr.adv_flags_36, 0x1)],
+    },
     "Dovok No Passenger Option": {
         "on_scenes": [0x2A04],
         "has_slot_data": [("randomize_passengers", [0])],
         "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "reset_flags": ["RESET Dovok Flag"]
     },
-    "RESET Dovok Flag": {},
     "Bring Dovok to Papuzia": {
         "on_scenes": [0x2C03],
         "has_items": [("Passenger: Dovok", 1)],
@@ -1456,12 +1480,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2c),
                               (STAddr.passenger_tag_0, 0x464F4D52),
                               (STAddr.has_passenger_0, 0)],
-
     },
     "RESET Dovok Flag": {
-      "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+      "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
     },
-
     "Can pick up Joe": {
         "on_scenes": [0x2F00],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
@@ -1511,7 +1533,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     #Flag for delivering Carben
     "Carben Arrives at Sanctuary": {
         "on_scenes": [0x3200],
-        "has_items": ["Passenger: Carben", 1],
+        "has_items": [("Passenger: Carben", 1)],
         "check_bits": [STAddr.adv_flags_9, 0x20, "not"],
         "set_if_true": [(STAddr.adv_flags_9, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x32),

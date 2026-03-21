@@ -38,7 +38,7 @@ class SpiritTracksDarkRealmUnlock(Choice):
     What unlocks the dark realm?
     - compass_of_light: only the compass of light is required. malladus also requires a sword, bow of light and spirit pipes.
     - dungeons: find the compass of light and finish a specified number of dungeons to gain access to the dark realm.
-    - shattered_compass: triforce/McGuffin hunt! find a specified number of compass shards to unlock the dark realm.
+    - shattered_compass: McGuffin hunt! find a specified number of compass shards to unlock the dark realm.
     - both: you need to find the shattered compass shards to get the track, and the dungeon goal to enter.
     """
     display_name = "Dark Realm Unlock"
@@ -74,15 +74,15 @@ class SpiritTracksDungeonCount(Range):
     """
     display_name = "Required Dungeon Count"
     range_start = 1
-    range_end = 11
+    range_end = 13
     default = 5
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     """
     How does tower of spirits count towards the dungeon pool?
-    - not_in_dungeon_pool: tower of spirits does not count as a dungeon
-    - final_section: Legacy option, currently adds Staven as the tower's goal location
-    - all_sections: completing each implemented section of ToS gets added to the dungeon pool. Currently, that is 2.
+    - not_in_dungeon_pool: tower of spirits is not rolled for required dungeons.
+    - final_section: Legacy option, currently adds section 5 and Staven as the tower's goal location
+    - all_sections: each ToS section is added to the dungeon pool.
     """
     display_name = "Tower of Spirits Dungeon Reward Options"
     option_not_in_dungeon_pool = 0
@@ -94,11 +94,14 @@ class SpiritTracksDungeonPoolPlando(OptionSet):
     Choose what dungeons appear in the required dungeon pool.
     Leave blank to ignore.
     Valid options are: 'Wooded Temple', 'Blizzard Temple', 'Marine Temple', 'ToS 1'...'ToS 6'
+    Special Options include:
+    - Lost At Sea
+    - Take 'em All On 3
     Overrides tos_dungeon_options.
     """
     display_name = "Plando Dungeon Pool"
     default = set()
-    valid_keys = [k.lower() for k in DUNGEON_TO_BOSS_ITEM_LOCATION] + list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
+    valid_keys = list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
 
 
 class SpiritTracksEndgameScope(Choice):
@@ -109,7 +112,7 @@ class SpiritTracksEndgameScope(Choice):
     - skip_demon_train: only fight cole and malladus, skipping the demon train fight
     - malladus_only: only fight the final boss
     - malladus_p2: skip the boulder phase and the spirit duet, and go straight to the final phase
-    - enter_dark_realm: Goal gets sent on entering the dark realm, but you can still fight the bosses if you like.
+    - enter_dark_realm: Goal is sent on entering the dark realm, but you can still fight the bosses if you like.
     """
     display_name = "Endgame Scope"
     option_full_dark_realm = 0
@@ -200,7 +203,7 @@ class SpiritTracksBigKeyrings(Toggle):
     Boss Key randomization will switch to whatever the keysanity option is when boss key rando is not vanilla.
     """
     display_name = "Boss Keys in Keyrings"
-    default = 1
+    default = 0
 
 class SpiritTracksRabbitsanity(Choice):
     """
@@ -581,6 +584,7 @@ class SpiritTracksStampItems(Choice):
 class SpiritTracksStampItemPacks(NamedRange):
     """
     Change the size of your stamp packs.
+    Only used when stamps are randomized.
     - random_mixed (-1): chooses a mix of different pack sizes at random
     """
     display_name = "Stamp Pack Size"

@@ -328,6 +328,24 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "EVENT: Complete Lost at Sea Dungeon": {
+        "two_way": False,
+        "entrance_region": "las 5th room",
+        "exit_region": "las_event",
+        "entrance": (0x13, 0x23, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Complete Take 'em All On 3": {
+        "two_way": False,
+        "entrance_region": "teao 3",
+        "exit_region": "teao_event",
+        "entrance": (0x13, 0x23, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
     "GOAL: Defeat Stagnox": {
         "two_way": False,
@@ -690,7 +708,9 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "ToS 24F Final Chest": "EVENT: Reach ToS 24F",
                          "Marine Temple Dungeon Reward": "EVENT: Defeat Cactops",
                          "Mountain Temple Dungeon Reward": "EVENT: Defeat Vulcano",
-                         "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch"}
+                         "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch",
+                         "Castle Town Take 'em All On Level 3": "EVENT: Complete Take 'em All On 3",
+                         "Lost at Sea 6th Room Chest": "EVENT: Complete Lost at Sea Dungeon"}
 goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          1: "GOAL: Defeat Fraaz",
                          2: "GOAL: Defeat Cactops",

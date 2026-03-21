@@ -388,6 +388,8 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Marine Temple": "Marine Temple Dungeon Reward",
     "Mountain Temple": "Mountain Temple Dungeon Reward",
     "Desert Temple": "Desert Temple Dungeon Reward",
+    "Take 'em All On 3": "Castle Town Take 'em All On Level 3",
+    "Lost at Sea": "Lost at Sea 6th Room Chest"
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
@@ -401,7 +403,9 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "ToS 12F Ocean Rail Glyph": "tos 11f",
     "ToS 17F Fire Rail Glyph": "tos 16f",
     "ToS 23F Defeat Staven": "tos staven",
-    "ToS 24F Final Chest": "tos 24f"
+    "ToS 24F Final Chest": "tos 24f",
+    "Castle Town Take 'em All On Level 3": "teao 3",
+    "Lost at Sea 6th Room Chest": "las 5th room"
 }
 
 BOSS_LOCATION_TO_POST_LOCATIONS = {

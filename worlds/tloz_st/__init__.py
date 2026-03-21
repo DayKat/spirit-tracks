@@ -173,7 +173,7 @@ class SpiritTracksWorld(WorldParent):
                     setattr(self.options, key, opt.from_any(value))
             lookup = build_rabbit_location_id_to_name_dict()
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
-            self.required_dungeons = slot_data["required_dungeons"]
+            self.required_dungeons = [self.location_id_to_name[i] for i in slot_data["required_dungeons"]]
             self.ut_pairings = slot_data["er_pairings"]
             self.tower_section_lookup = {int(k): v for k, v in slot_data["tower_section_lookup"].items()}
             self.hide_ut_map_stuff()
@@ -440,7 +440,7 @@ class SpiritTracksWorld(WorldParent):
         if "tos_section" in location_data:
             if "stamp" in location_data:
                 return self.options.randomize_stamps.value in [1, 2, 3]
-            bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
+            bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
             return bk and tears and location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove"
         if "dungeon" in location_data:
@@ -457,9 +457,9 @@ class SpiritTracksWorld(WorldParent):
             return self.options.portal_checks
         if location_name in LOCATION_GROUPS["Rabbit Rewards"]:
             return self.options.rabbitsanity
-        if location_name.endswith("Boss Key"):
-            return self.options.randomize_boss_keys
         if "minigame" in location_data and self.options.randomize_minigames:
+            if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_dungeons:
+                return True  # If plandoed dungeon include
             return self.options.randomize_minigames.value in location_data["minigame"]
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
             return self.options.randomize_stamps.value in [1, 2, 3]
@@ -728,10 +728,9 @@ class SpiritTracksWorld(WorldParent):
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
-            if item_data.classification == ItemClassification.filler:  # Regen all filler items for now
-                # print(f"\tFiller items {item_name}")
-                filler_item_count += 1
-                continue
+            # if item_data.classification == ItemClassification.filler:  # Regen all filler items for now
+            #     filler_item_count += 1
+            #     continue
 
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
 
@@ -1389,7 +1388,7 @@ class SpiritTracksWorld(WorldParent):
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
-        slot_data["required_dungeons"] = self.required_dungeons
+        slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]
         slot_data["stamp_pack_order"] = self.stamp_pack_order
         slot_data["model_lookup"] = self.get_location_moodels()
         slot_data["exclude_tos_5"] = self.exclude_tos_5
