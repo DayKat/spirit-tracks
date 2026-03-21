@@ -2026,16 +2026,12 @@ ITEMS_DATA |= {
 
 
 
-ITEMS: dict[str, "STItem"] = {}
 ITEM_GROUPS: dict[str, set[str]] = {}
 
 # IDs need to be stabilized at some point, not today
 for i, k in enumerate(ITEMS_DATA.items()):
-    item_name, item_data = k
-    item_data["id"] = i+1
-    ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
-
     # Add items to item groups
+    item_name, item_data = k
     for group in item_data.get("item_groups", []):
         ITEM_GROUPS.setdefault(group, set()).add(item_name)
 
@@ -2057,6 +2053,13 @@ ITEM_GROUPS["Filler Item Pool"] = ITEM_GROUPS["Potions"] | ITEM_GROUPS["Small Ru
 
 ITEM_GROUPS["Dungeon Keys"] = ITEM_GROUPS["Small Keys"] | ITEM_GROUPS ["Boss Keys"] | ITEM_GROUPS["Keyrings"]
 ITEM_GROUPS["All Keys"] = ITEM_GROUPS["Dungeon Keys"] | ITEM_GROUPS["Misc Keys"]
+
+ITEMS: dict[str, "STItem"] = {}
+STItem.all_item_groups = ITEM_GROUPS
+for i, k in enumerate(ITEMS_DATA.items()):
+    item_name, item_data = k
+    item_data["id"] = i+1
+    ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
 
 # track_groups = {t: g for t, g in ITEM_GROUPS.items() if t.startswith("Tracks:")}
 # for t in track_groups.items():

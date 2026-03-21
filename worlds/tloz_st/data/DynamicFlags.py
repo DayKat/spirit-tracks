@@ -198,26 +198,32 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
         "has_slot_data": [("randomize_passengers", 1)],
-        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
+        "reset_flags": ["RESET Add Snow Source"]
     },
     "Allow Stamp Book check alfonzo item": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
         "has_items": [("Passenger: Alfonzo", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
         "set_if_true": [(STAddr.adv_flags_11, 0x40)],
-        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
+        "reset_flags": ["RESET Add Snow Source"]
     },
     "Allow Stamp Book check no passengers": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Receive Stamp Book"],
         "has_slot_data": [("randomize_passengers", 0)],
         "has_groups": ["Tracks: Snow Glyph"],
-        "unset_if_true": [(STAddr.adv_flags_25, 0x02), (STAddr.adv_flags_0, 0x20)],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
         "set_if_true": [(STAddr.adv_flags_11, 0x40)],
-        "reset_flags": ["RESET Stamp Book Check", "RESET Add Snow Source"]
+        "reset_flags": ["RESET Add Snow Source"]
+    },
+    "Niko remove stamp book": {
+        "on_scenes": [0x2F0A],
+        "not_has_locations": ["Outset Receive Stamp Book"],
+        "unset_if_true": [(STAddr.adv_flags_25, 0x02)],
+        "reset_flags": ["RESET Stamp Book Check"]
     },
     "RESET Stamp Book Check": {
         "has_items": [["Stamp Book", 1]],
@@ -1116,6 +1122,18 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                               (STAddr.passenger_tag_0, 0x544D4E41),
                               (STAddr.has_passenger_0, 0)],
     },
+    "Spawn Ferrus in forest randomized": {
+        "on_scenes": [0x400],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_items": [("Passenger: Ferrus", 1)],
+        "set_if_true": [(STAddr.adv_flags_52, 0x10)]
+    },
+    "Spawn Ferrus in forest vanilla": {
+        "on_scenes": [0x400],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_locations": ["Marine Temple Ferrus Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_52, 0x10)]
+    },
     # Anouki chief location
     "Enter Anouki Chief house": {
         "on_scenes": [0x2b01],
@@ -1697,6 +1715,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 2), (STAddr.cargo_count_0, 20)]
     },
+    "Mayscore reset axe dialogue": {
+        "on_scenes": [0x2a00],
+        "unset_if_true": [(STAddr.adv_flags_33, 0x80)]
+    },
     "Rael has Cuccos vanilla abstract": {
         "on_scenes": [0x3400],
         "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
@@ -1968,11 +1990,32 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "not_has_locations": ["Snow Realm Pick Up Ferrus"],
         "unset_if_true": [(STAddr.adv_flags_3a, 0x80)]
     },
+    "Reset city goron GV": {
+        "on_scenes": [0x2e00],
+        "not_got_locations": ["Goron Village Pick Up City Goron"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_3a, 1)]
+    },
+    "Reset snow goron GV": {
+        "on_scenes": [0x2e00],
+        "not_got_locations": ["Goron Village Pick Up Snow Goron"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_38, 2)]
+    },
     "Spawn Ferrus Fire Realm": {
         "on_scenes": [0x700],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_groups": ["Tracks: Marine Temple Tracks"],  # TODO: figure out when ocean source is enough for oct
         "set_if_true": [(STAddr.adv_flags_42, 0x8), # Allow spawning, set in ToS after dt in vanilla
+                        (STAddr.adv_flags_3b, 0x2)],  # Brought Ferrus to Outset
+        "reset_flags": ["RESET ferrus outset flag"]
+    },
+    "Spawn Ferrus Fire Realm vanilla": {
+        "on_scenes": [0x700],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_locataions": ["Outset Ferrus Force Gem"],
+        "has_groups": ["Tracks: Marine Temple Tracks"],
+        "set_if_true": [(STAddr.adv_flags_42, 0x8),  # Allow spawning, set in ToS after dt in vanilla
                         (STAddr.adv_flags_3b, 0x2)],  # Brought Ferrus to Outset
         "reset_flags": ["RESET ferrus outset flag"]
     },

@@ -82,8 +82,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["snow bridge", "snow realm source", True, lambda state: st_has_source(state, player, "Snow") and st_has_misc_tracks(state, player, "Snow Realm Bridge")],
         ["snow bridge", "snow bridge portal", False, lambda state: st_has_cannon(state, player)],
 
-        ["wtt", "forest ferrus", False, None],
-        ["forest source", "forest ferrus", False, None],
+        ["wtt", "forest ferrus", False, lambda state: st_has_passenger(state, player, "Ferrus", "_ferrus_3")],
+        ["forest source", "forest ferrus", False, lambda state: st_has_passenger(state, player, "Ferrus", "_ferrus_3")],
 
         # # ======== Castle Town =========
 

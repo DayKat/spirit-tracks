@@ -171,6 +171,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
         self.treasure_tracker: dict = {}
         self.item_data = ITEMS
+        self.item_groups = ITEM_GROUPS
         self.dynamic_entrances_by_scene = build_scene_to_dynamic_entrance()
 
         # Mandatory addresses
@@ -239,10 +240,6 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def set_special_starting_flags(self, ctx: "BizHawkClientContext") -> list[tuple[int, list, str]]:
         res = []
-        if ctx.slot_data.get("endgame_scope", 0) > 0:
-            res += STAddr.adv_flags_57.get_write_list(0x91)
-        if ctx.slot_data["randomize_passengers"]:
-            res += STAddr.adv_flags_52.get_write_list(0x90)
         return res
 
     def get_coord_address(self, at_sea=None, multi=False):
@@ -1088,7 +1085,10 @@ class SpiritTracksClient(DSZeldaClient):
                     print(f"Opening boss door for {hex(current_scene)}")
                     if await data["door"].read(ctx) != 0x5:
                         await data["door"].overwrite(ctx, 3)
-                else:
+                elif any([
+                    current_scene == 0x1309 and self.location_name_to_id["ToS 10F Boss Key"] in ctx.checked_locations,
+                    current_scene == 0x1318 and self.location_name_to_id["ToS 22F Boss Key"] in ctx.checked_locations
+                ]):
                     await self.open_tos_boss_door(ctx, current_scene)
         else:
             self.boss_key_y, self.boss_key_read = None, None
