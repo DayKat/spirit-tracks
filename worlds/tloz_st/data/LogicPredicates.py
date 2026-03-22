@@ -509,7 +509,7 @@ def st_can_enter_tos_section(state, player, section):
     ])
 
 def st_desert_temple_keys(state, player):
-    return st_has_small_keys(state, player, "Desert Temple", 2, 1),
+    return st_has_small_keys(state, player, "Desert Temple", 2, 1)
 
 
 def st_hard_birds(state, player):

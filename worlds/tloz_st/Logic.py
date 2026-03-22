@@ -196,7 +196,6 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 14f west", "tos 15f", False, None],
         ["tos 15f", "tos 16f", False, lambda state:
             (st_has_range(state, player) | st_has_beam_sword(state, player)) and
-            st_has_whirlwind(state, player) and
             st_has_small_keys(state, player, "ToS 4", 3,2)],
         ["tos 16f", "tos 16f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 16f", "event_17f", False, None],
@@ -206,6 +205,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 18f", "tos 18f whip", False, lambda state: st_has_whip(state, player)],
         ["tos 18f", "tos 19f", False, lambda state: st_has_small_keys(state, player, "ToS 5", 1)],
         ["tos 18f", "tos 18f phantom", False, lambda state: st_can_possess_phantoms(state, player, 5)],
+        ["tos 18f phantom", "tos 19f center", False, None],
 
         ["tos 19f", "tos 19f south", False, lambda state:
          st_has_bow(state, player) & (st_has_boomerang(state, player) | st_can_possess_phantoms(state, player, 5))],
@@ -218,6 +218,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
          ],
         ["tos 19f", "tos 19f center", False, lambda state:
          st_can_possess_phantoms(state, player, 5) | (st_vanilla_tears(state, player) & st_has_bow(state, player) & st_has_boomerang(state, player))],
+        ["tos 19f center", "tos 19f", False, None],
         ["tos 19f center", "tos 19f center chest", False, lambda state: st_has_bow(state, player) & (st_has_boomerang(state, player) | st_has_beam_sword(state, player) | st_has_whip(state, player))],
         ["tos 19f center", "tos 18f phantom", False, None],
         ["tos 19f center", "tos 20f", False, lambda state: st_has_small_keys(state, player, "ToS 5", 2)],
