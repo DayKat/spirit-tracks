@@ -1573,7 +1573,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Pirate Hideout Minigame Missing Bow": {
         "on_scenes": [0x3A00],
         "has_items": [("Bow (Progressive)", 0)],
-        "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)],
+    #   "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)],
+        "set_if_true": [STAddr.adv_flags_34, 0xE0], #Should remove Wadatsumi from area and not let minigame be played?
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
@@ -1612,6 +1613,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         #Below should set all flags to get Gorons to appear, I think (only one way to find out!)
         "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
+
+    #Check for Wadatsumi being delivered previously, and then set Gorons to appear
+    "Wadatsumi Saved Already": {
+        "on_scenes": [0x3A00],
+        "check_bits": [(STAddr.adv_flags_e, 0x40)],
+        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+    },
+
     # Cargo
     "AV skip fence text": {
         "on_scenes": [0x2b00],
