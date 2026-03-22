@@ -582,6 +582,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("pick up gorons", "_goron")
             self.create_event("snow realm ferrus", "_ferrus_1")
             self.create_event("fire realm ferrus", "_ferrus_2")
+            self.create_event("oct ferrus", "_ferrus_3")
             self.create_event("icyspring", "_ferrus_backup")
         if self.options.randomize_cargo == "vanilla":
             self.create_event("mayscore lumber", "_buy_lumber")
@@ -607,6 +608,13 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.exclude_sections == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "tos_section" in d and d["tos_section"] in self.non_required_sections])
+
+        if self.options.randomize_passengers == "vanilla_abstract":
+            self.locations_to_exclude.update(["Mayscore Pick Up Wood",
+                                              "Mayscore Pick Up Mash",
+                                              "Mayscore Pick Up Yamahiko",
+                                              "Mayscore Pick Up Morris",
+                                              "Castle Town Pick Up Teacher"])
 
         # Take item off goal + post goal location
         if self.options.goal.value >= 0:
@@ -700,7 +708,7 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"Locking stamp item {item_name} to {loc_name}")
                 continue
             if any([
-                item_name in ["Filler Item", "Treasure",
+                item_name in ["Filler Item", "Treasure", "Nothing!",
                               "Heart Container", "Tear of Light",
                               "Shield", "Prize Postcards (10)", "Sand Source"],
                 item_name.startswith("Stamp"),
@@ -936,9 +944,10 @@ class SpiritTracksWorld(WorldParent):
             mountain_rabbits.sort(key=sort_func)
             sand_rabbits.sort(key=sort_func)
             interval = self.options.rabbit_location_count_distribution.value
+            rabbit_lists = [forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits]
             if interval >= 0:
                 intervals = [interval]*5 if interval else [self.random.randint(1, 3) for _ in range(3)]
-                for i, realm_locs in zip(intervals, [forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits]):
+                for i, realm_locs in zip(intervals, rabbit_lists):
                     if i > max_count:
                         rabbit_locations.append(realm_locs[max_count-1])
                     else:
@@ -947,7 +956,8 @@ class SpiritTracksWorld(WorldParent):
                 return rabbit_locations
             if self.options.rabbitsanity == "both":  # Randomize each pool count separately
                 self.rabbit_counts = [self.random.randint(1, max_count) for _ in range(5)]
-            rabbit_locations += pick_random_locs([forest_rabbits, snow_rabbits, ocean_rabbits, mountain_rabbits, sand_rabbits])
+            rabbit_lists = [r[:max_count] for r in rabbit_lists]
+            rabbit_locations += pick_random_locs(rabbit_lists)
 
         # print(f"Rabbit Locations: {rabbit_counts} {rabbit_locations}")
         return rabbit_locations

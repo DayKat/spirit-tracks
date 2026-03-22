@@ -18,7 +18,9 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_4, 0x34],  # load train to ToS
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
     [STAddr.adv_flags_6, 0xFC],  # Intro stuff
-    [STAddr.adv_flags_7, 0x13],  # postman & get zelda's letter
+    [STAddr.adv_flags_7, 0x1D],  # postman & get zelda's letter
+    [STAddr.adv_flags_8, 0xc0],  # letters
+    [STAddr.adv_flags_9, 0x0f],  # letters
     [STAddr.adv_flags_a, 0x7B],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos
@@ -92,7 +94,7 @@ STAGE_FLAGS = {
     # 0x17: [0x00, 0x00, 0x00, 0x17],  # Tower of Spirits (Stairs)
     0x18: [0x04, 0x00, 0x00, 0x00], # Tunnel to ToS
     0x19: [0x00, 0x00, 0x00, 0x0D],  # Wooded Temple
-    # 0x1E: [0x00, 0x00, 0x00, 0x1E], # Stagnox
+    0x1E: [0x00, 0x00, 0x00, 0x1A], # Stagnox
     0x2A: [0x02, 0x00, 0x00, 0x00],  # Mayscore/Whittleton
     0x30: [0x3C, 0x00, 0x00, 0x20],  # Woodland Sanctuary
     # 0x38: [0x00, 0x00, 0x00, 0x38],  # Mayscore Forest
@@ -211,9 +213,9 @@ ITEM_MODELS = [
     ItemModel("Large Bomb Bag", 90, 0x4C626D62),
 
     ItemModel("Tear of Light", 95, 0x756B7A73),
-    ItemModel("Compass of Light", 96, 0x416B616D),
+    ItemModel("Compass of Light", 96, 0x706D634C),
     ItemModel("Purple Scroll", 97, 0x426B616D),
-    ItemModel("Green Scroll", 98, 0x706D634C),
+    ItemModel("Green Scroll", 98, 0x416B616D),
     ItemModel("Letter", 99, 0x4C6D7470),
 
     ItemModel("SoA", 100, 0x66706467),  # Songs, all use the same model as spirit flute

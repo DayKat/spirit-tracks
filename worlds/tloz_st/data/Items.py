@@ -83,7 +83,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Equipment", "Main Items", "Bows",
                         "Light Arrows", "Light Bow"],
 
-        "model": "Bow"
+        "model": "Bow of Light"
     },
     "Whip": {
         'classification': ItemClassification.progression,
@@ -1321,7 +1321,7 @@ ITEMS_DATA |= {
     "Passenger: Kenzo": {
         "classification": ItemClassification.progression,
         'tags': ["always_process"],
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Kenzo"],
         "address": STAddr.adv_flags_18,
         "value": 0x20,
         "model": "Letter"
@@ -1329,14 +1329,14 @@ ITEMS_DATA |= {
     "Passenger: Kenzo 2": {
         "classification": ItemClassification.progression,
         'tags': ["always_process"],
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Kenzo"],
         "address": STAddr.adv_flags_3c,
         "value": 0x10,
         "model": "Letter"
     },
     "Passenger: Joe": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Joe"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3c,
         "value": 0x2,
@@ -1344,7 +1344,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Noko": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Noko", "Anouki"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3a,
         "value": 0x10,
@@ -1352,7 +1352,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Mona": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Mona"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3b,
         "value": 0x20,
@@ -1360,7 +1360,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Ferrus": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Ferrus"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3a,
         "value": 0x80,
@@ -1368,7 +1368,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Alfonzo": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Alfonzo"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_11,
         "value": 0x40,
@@ -1376,7 +1376,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Dovok": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Dovok"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_36,
         "value": 0x4,
@@ -1384,7 +1384,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Snow Goron": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Snow Goron", "Goron", "Goron Adult"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_38,
         "value": 0x2,
@@ -1392,15 +1392,15 @@ ITEMS_DATA |= {
     },
     "Passenger: City Goron": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "City Goron", "Goron", "Goron Child"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3a,
-        "value": 0x8,
+        "value": 0x1,
         "model": "Letter"
     },
     "Passenger: Teacher": {
         "classification": ItemClassification.filler,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Teacher"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_42,
         "value": 0x10,
@@ -1408,7 +1408,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Kofu": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Kofu", "Anouki"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_37,
         "value": 0x20,
@@ -1416,7 +1416,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Carben": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Carben"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_9,
         "value": 0x10,
@@ -1424,7 +1424,7 @@ ITEMS_DATA |= {
     },
     "Passenger: Wadatsumi": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Passengers"],
+        "item_groups": ["Passengers", "Wadatsumi"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_34,
         "value": 0x40,
@@ -1434,48 +1434,48 @@ ITEMS_DATA |= {
     # Cargo
     "Cargo: Lumber": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Lumber", "Wood", "Logs", "Timber"],
         'tags': ["always_process"],
         "model": "Letter"
     },
     "Cargo: Mega Ice": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Mega Ice", "Ice"],
         'tags': ["always_process"],
         "model": "Letter"
     },
     "Cargo: Goron Steel": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Goron Steel", "Steel", "Goron Iron", "Iron"],
         'tags': ["always_process"],
         "model": "Letter"
     },
     "Cargo: Fish": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Fish"],
         'tags': ["always_process"],
         "model": "Letter"
     },
     "Cargo: Vessel": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Vessel", "Pot", "Vase"],
         'tags': ["always_process"],
         "model": "Letter"
     },
     "Cargo: Cuccos": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Cuccos"],
         'tags': ["always_process"],
         "model": "Letter"
     },
     "Cargo: Cuccos (5)": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Cuccos", "Cuccos (5)"],
         "model": "Letter"
     },
     "Cargo: Dark Ore": {
         "classification": ItemClassification.progression,
-        "item_groups": ["Cargo"],
+        "item_groups": ["Cargo", "Dark Ore", "Ore"],
         'tags': ["always_process"],
         "model": "Letter"
     },
@@ -1635,35 +1635,35 @@ ITEMS_DATA |= {
     "Mountain Temple Snurglar Key": {
         'classification': ItemClassification.progression,
         'dummy': True,
-        'item_groups': ["Misc Keys"],
+        'item_groups': ["Misc Keys", "Snurglar Key"],
         "model": "Key"
     },
     "Orange Snurglar Key": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x02,
-        'item_groups': ["Misc Keys"],
+        'item_groups': ["Misc Keys", "Snurglar Key"],
         "model": "Key"
     },
     "Purple Snurglar Key": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x04,
-        'item_groups': ["Misc Keys"],
+        'item_groups': ["Misc Keys", "Snurglar Key"],
         "model": "Key"
     },
     "Gold Snurglar Key": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x08,
-        'item_groups': ["Misc Keys"],
+        'item_groups': ["Misc Keys", "Snurglar Key"],
         "model": "Key"
     },
     "Snurglar Keyring": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x08,
-        'item_groups': ["Keyrings"],
+        'item_groups': ["Keyrings", "Snurglar Key"],
         "model": "Key"
     },
     "Dummy Bow": {
@@ -2026,16 +2026,12 @@ ITEMS_DATA |= {
 
 
 
-ITEMS: dict[str, "STItem"] = {}
 ITEM_GROUPS: dict[str, set[str]] = {}
 
 # IDs need to be stabilized at some point, not today
 for i, k in enumerate(ITEMS_DATA.items()):
-    item_name, item_data = k
-    item_data["id"] = i+1
-    ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
-
     # Add items to item groups
+    item_name, item_data = k
     for group in item_data.get("item_groups", []):
         ITEM_GROUPS.setdefault(group, set()).add(item_name)
 
@@ -2057,6 +2053,13 @@ ITEM_GROUPS["Filler Item Pool"] = ITEM_GROUPS["Potions"] | ITEM_GROUPS["Small Ru
 
 ITEM_GROUPS["Dungeon Keys"] = ITEM_GROUPS["Small Keys"] | ITEM_GROUPS ["Boss Keys"] | ITEM_GROUPS["Keyrings"]
 ITEM_GROUPS["All Keys"] = ITEM_GROUPS["Dungeon Keys"] | ITEM_GROUPS["Misc Keys"]
+
+ITEMS: dict[str, "STItem"] = {}
+STItem.all_item_groups = ITEM_GROUPS
+for i, k in enumerate(ITEMS_DATA.items()):
+    item_name, item_data = k
+    item_data["id"] = i+1
+    ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
 
 # track_groups = {t: g for t, g in ITEM_GROUPS.items() if t.startswith("Tracks:")}
 # for t in track_groups.items():

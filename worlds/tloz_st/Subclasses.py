@@ -88,6 +88,20 @@ async def remove_passenger(client: "SpiritTracksClient", ctx, item: "STItem", ri
     ]
     return res
 
+async def remove_vanilla_tracks(client: "SpiritTracksClient", ctx, item: "STItem", num_received_items: int):
+    group_name = f"Tracks: {item.name}"
+    print(f"Group names: {group_name} | {group_name[:len(group_name)-7]}")
+    group = client.item_groups.get(group_name, client.item_groups.get(group_name[:len(group_name)-7], []))
+    print(f"\tgroup: {group}")
+    for track in group:
+        if client.item_count(ctx, track):
+            return []
+    print(f"Didn't have track")
+    prev = await item.address.read(ctx, silent=True)
+    return item.address.get_write_list(prev & (~item.value))
+
+
+
 async def remove_cargo(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     if ctx.slot_data["randomize_cargo"] == 1:
         return []
@@ -132,6 +146,7 @@ class STItem(DSItem):
     model: str = None
     progressive_model: list[str]
     vanilla_model: str = None
+    all_item_groups: dict[str, set[str]]
 
     def __init__(self, name, data, all_items):
         super().__init__(name, data, all_items)
@@ -173,6 +188,8 @@ class STItem(DSItem):
             return remove_cargo
         if self.name.startswith("Stamp") and not self.name == "Stamp Book":
             return handle_stamps
+        if self.name in self.all_item_groups["Basic Tracks"]:
+            return remove_vanilla_tracks
         return super().get_remove_vanilla_function()
 
 class EntranceGroups(IntEnum):
