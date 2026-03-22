@@ -473,7 +473,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["papuchia village", "pv dovok", False, lambda state: st_has_passenger(state, player, "Dovok", "_dovok")],
         ["papuchia village south", "papuchia village stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_birds_song(state, player)],
 
-        ["papuchia village", "pv carben", False, lambda state: st_has_birds_song(state, player)],
+        ["papuchia village", "pv carben", False, lambda state: st_has_discovery_song(state, player)],
         ["papuchia village", "pv wadatsumi", False, lambda state: st_has_passenger(state, player, "Wadatsumi", "_wadatsumi")],
         ["papuchia village song statue", "papuchia village south", False, lambda state: st_hard_birds(state, player)],  # You need a warp to start to return without bird song, patched with a dynaentrance
         # I don't like that this is locked behind song statue, but flags might not let us get there earlier

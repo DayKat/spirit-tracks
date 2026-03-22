@@ -609,6 +609,13 @@ class SpiritTracksWorld(WorldParent):
         if self.options.exclude_sections == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "tos_section" in d and d["tos_section"] in self.non_required_sections])
 
+        if self.options.randomize_passengers == "vanilla_abstract":
+            self.locations_to_exclude.update(["Mayscore Pick Up Wood",
+                                              "Mayscore Pick Up Mash",
+                                              "Mayscore Pick Up Yamahiko",
+                                              "Mayscore Pick Up Morris",
+                                              "Castle Town Pick Up Teacher"])
+
         # Take item off goal + post goal location
         if self.options.goal.value >= 0:
             current_goal = list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]

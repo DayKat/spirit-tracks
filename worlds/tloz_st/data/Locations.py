@@ -1365,10 +1365,10 @@ LOCATIONS_DATA = {
         "vanilla_item": "Song of Discovery",
         "stage_id": 0x2B,
         "room_id": 0,
-        "x_min": -10441,
-        "x_max": 6441,
-        "z_min": -59643,
-        "z_max": -43683,
+        "x_min": -10000,
+        "x_max": 10000,
+        "z_min": -60000,
+        "z_max": -40000,
         "delay_pickup": ["Anouki Village Song Statue Chest"],
         "location_groups": ["Anouki Village", "Song Statue"],
     },
@@ -1377,10 +1377,10 @@ LOCATIONS_DATA = {
         "vanilla_item": ["Red Potion", "Big Green Rupee (100)"],
         "stage_id": 0x2B,
         "room_id": 0,
-        "x_min": -10441,
-        "x_max": 9130,
-        "z_min": -59643,
-        "z_max": -43683,
+        "x_min": -10000,
+        "x_max": 10000,
+        "z_min": -60000,
+        "z_max": -40000,
         "delay_pickup": ["Anouki Village Song Statue"],
         "location_groups": ["Anouki Village"],
     },
@@ -1975,7 +1975,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_56,
         "value": 0x20,
         "location_groups": ["Pirate Hideout"],
-        "slot_data": [("randomize_minigames", [1, 3, 4])],
+        "slot_data": [("randomize_minigames", [2, 3, 4])],
       },
 
 
@@ -3830,10 +3830,10 @@ LOCATIONS_DATA |= {
         "region_id": "ocs carben",
     },
     "Pirate Hideout Pick Up Wadatsumi": {
-        "stage_id": 0x23,
+        "stage_id": 0x3a,
         "room_id": 0,
-        "address": STAddr.adv_flags_d,
-        "value": 0x3,
+        "address": STAddr.adv_flags_34,
+        "value": 0x40,
         "region_id": "pirate wadatsumi",
         "vanilla_item": "Passenger: Wadatsumi",
         "location_groups": ["Pirate Hideout", "Pick Up Passengers"],
@@ -3851,6 +3851,7 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "region_id": "pv wadatsumi",
+        "z_max": -15000
     },
 
     "Castle Town Lucia Fish Force Gem": {
@@ -3897,7 +3898,8 @@ LOCATIONS_DATA |= {
         "location_groups": ["Papuzia Village", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
-        "region_id": "papuzia ice"
+        "region_id": "papuzia ice",
+        "x_max": -50000
     },
     "Trading Post Give Dark Ore to Linebeck": {
         "stage_id": 0x37,
@@ -4053,7 +4055,7 @@ LOCATIONS_DATA |= {
     "Fire Realm Pick Up Ferrus": {
         "stage_id": 0x7,
         "address": STAddr.adv_flags_3b,
-        "value": 0x4,
+        "value": 0x2,
         "vanilla_item": "Passenger: Ferrus",
         "item_override": "Nothing!",
         "location_groups": ["Pick Up Passengers"],

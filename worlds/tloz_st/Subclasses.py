@@ -90,10 +90,13 @@ async def remove_passenger(client: "SpiritTracksClient", ctx, item: "STItem", ri
 
 async def remove_vanilla_tracks(client: "SpiritTracksClient", ctx, item: "STItem", num_received_items: int):
     group_name = f"Track: {item.name}"
+    print(f"Group names: {group_name} | {group_name[:len(group_name)-7]}")
     group = client.item_groups.get(group_name, client.item_groups.get(group_name[:len(group_name)-7], []))
+    print(f"\tgroup: {group}")
     for track in group:
         if client.item_count(ctx, track):
             return []
+    print(f"Didn't have track")
     prev = await item.address.read(ctx, silent=True)
     return item.address.get_write_list(prev & (~item.value))
 

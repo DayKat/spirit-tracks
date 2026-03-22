@@ -1937,14 +1937,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "set_if_true": [(STAddr.adv_flags_38, 2)],
     },
-    "GV add snow goron no snow glyph": {
+    "GV add snow goron snow glyph": {
         "on_scenes": [0x2E00],
         "has_groups": ["Tracks: Snow Glyph"],
         "not_has_locations": ["Goron Village Pick Up Snow Goron"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_38, 2)],
     },
-    "GV add snow goron no snow glyph vanilla": {
+    "GV add snow goron snow glyph vanilla": {
         "on_scenes": [0x2E00],
         "has_groups": ["Tracks: Snow Glyph"],
         "not_has_locations": ["Anouki Village Goron Force Gem"],
@@ -1992,15 +1992,9 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Reset city goron GV": {
         "on_scenes": [0x2e00],
-        "not_got_locations": ["Goron Village Pick Up City Goron"],
+        "not_has_locations": ["Goron Village Pick Up City Goron"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_3a, 1)]
-    },
-    "Reset snow goron GV": {
-        "on_scenes": [0x2e00],
-        "not_got_locations": ["Goron Village Pick Up Snow Goron"],
-        "has_slot_data": [("randomize_passengers", [2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_38, 2)]
     },
     "Spawn Ferrus Fire Realm": {
         "on_scenes": [0x700],

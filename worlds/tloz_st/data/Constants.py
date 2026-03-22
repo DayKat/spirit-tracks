@@ -18,7 +18,9 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_4, 0x34],  # load train to ToS
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
     [STAddr.adv_flags_6, 0xFC],  # Intro stuff
-    [STAddr.adv_flags_7, 0x13],  # postman & get zelda's letter
+    [STAddr.adv_flags_7, 0x1D],  # postman & get zelda's letter
+    [STAddr.adv_flags_8, 0xc0],  # letters
+    [STAddr.adv_flags_9, 0x0f],  # letters
     [STAddr.adv_flags_a, 0x7B],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos

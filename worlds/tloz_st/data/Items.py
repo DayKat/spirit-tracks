@@ -1395,7 +1395,7 @@ ITEMS_DATA |= {
         "item_groups": ["Passengers"],
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3a,
-        "value": 0x8,
+        "value": 0x1,
         "model": "Letter"
     },
     "Passenger: Teacher": {
