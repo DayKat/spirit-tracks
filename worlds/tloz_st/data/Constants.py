@@ -213,9 +213,9 @@ ITEM_MODELS = [
     ItemModel("Large Bomb Bag", 90, 0x4C626D62),
 
     ItemModel("Tear of Light", 95, 0x756B7A73),
-    ItemModel("Compass of Light", 96, 0x416B616D),
+    ItemModel("Compass of Light", 96, 0x706D634C),
     ItemModel("Purple Scroll", 97, 0x426B616D),
-    ItemModel("Green Scroll", 98, 0x706D634C),
+    ItemModel("Green Scroll", 98, 0x416B616D),
     ItemModel("Letter", 99, 0x4C6D7470),
 
     ItemModel("SoA", 100, 0x66706467),  # Songs, all use the same model as spirit flute

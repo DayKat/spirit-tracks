@@ -1537,10 +1537,6 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "stage_id": 0x1F,
         "room_id": 0,
-        "x_min": -9609,
-        "x_max": 9792,
-        "z_min": 4707,
-        "z_max": 24840,
         "dungeon": "Blizzard Temple",
         "location_groups": ["Fraaz"],
     },
@@ -1697,7 +1693,7 @@ LOCATIONS_DATA = {
 
     "Ocean Sanctuary Song of Restoration": {
         "stage_id": 0x32,
-        "room_id": 2,
+        "room_id": 4,
         "region_id": "ocs song",
         "vanilla_item": "Marine Temple Tracks",
         "address": STAddr.rail_restorations,
@@ -4039,7 +4035,8 @@ LOCATIONS_DATA |= {
         "location_groups": ["Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "region_id": "snow realm ferrus"
+        "region_id": "snow realm ferrus",
+        "from_entrances": [0xFA]
     },
     "Outset Ferrus Force Gem": {
         "stage_id": 0x2F,

@@ -89,7 +89,7 @@ async def remove_passenger(client: "SpiritTracksClient", ctx, item: "STItem", ri
     return res
 
 async def remove_vanilla_tracks(client: "SpiritTracksClient", ctx, item: "STItem", num_received_items: int):
-    group_name = f"Track: {item.name}"
+    group_name = f"Tracks: {item.name}"
     print(f"Group names: {group_name} | {group_name[:len(group_name)-7]}")
     group = client.item_groups.get(group_name, client.item_groups.get(group_name[:len(group_name)-7], []))
     print(f"\tgroup: {group}")
