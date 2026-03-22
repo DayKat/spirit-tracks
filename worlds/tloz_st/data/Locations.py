@@ -1693,11 +1693,11 @@ LOCATIONS_DATA = {
 
     "Ocean Sanctuary Song of Restoration": {
         "stage_id": 0x32,
-        "room_id": 4,
+        "room_id": 0x4,
         "region_id": "ocs song",
-        "vanilla_item": "Marine Temple Tracks",
+        #"vanilla_item": "Marine Temple Tracks",
         "address": STAddr.rail_restorations,
-        "value": 0x4,
+        "value": 0x8,
         "minigame": [1, 2, 3, 4],
         "conditional": True,
         "location_groups": ["Ocean Sanctuary", "Restoration Duets"],
