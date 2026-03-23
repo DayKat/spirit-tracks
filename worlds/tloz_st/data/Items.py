@@ -116,6 +116,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x80,
         'item_groups': ["Equipment",
                         "Spirit Pipes", "Pan Flute", "Flute"],
+        "model": "Spirit Flute"
     },
 
     # ======= Misc Items==========
@@ -554,7 +555,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
       'classification': ItemClassification.progression,
         "address": STAddr.adv_flags_0,
         'value': 0x40,
-        'set_bit': [[STAddr.source_rails, 8]],
+        'set_bit': [[STAddr.source_rails, 8], (STAddr.adv_flags_9, 0x40)],
         'item_groups': ["Rail Items", "Sources", "Ocean Realm Tracks", "Major Ocean Tracks", "Tracks: Ocean Source"],
         'model': "Ocean Glyph",
     },
@@ -1762,7 +1763,7 @@ ITEMS_DATA |= {
         "address": STAddr.sources,
         "value": 0x40,
         "set_bit": [(STAddr.source_rails, 0x8), (STAddr.rail_restorations, 0x8),
-                    (STAddr.tracks_1, 0xc0)],
+                    (STAddr.tracks_1, 0xc0), (STAddr.adv_flags_9, 0x40)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Lost at Sea Station",
                         "Tracks: Ocean Portal",
@@ -1820,7 +1821,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.sources,
         "value": 0xf0,
-        "set_bit": [(STAddr.source_rails, 0x1e)],
+        "set_bit": [(STAddr.source_rails, 0x1e), (STAddr.adv_flags_9, 0x40)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Forest Source", "Tracks: Snow Source", "Tracks: Ocean Source", "Tracks: Fire Source",
                         "Thematic Track Groupings"]
@@ -1898,7 +1899,8 @@ ITEMS_DATA |= {
         "address": STAddr.glyphs,
         "value": 0x2,
         "set_bit": [(STAddr.tracks_0, 0x02), (STAddr.tracks_1, 0xc0), (STAddr.tracks_2, 0x1),
-                    (STAddr.rail_restorations, 8), (STAddr.source_rails, 8), (STAddr.sources, 0x40)],
+                    (STAddr.rail_restorations, 8), (STAddr.source_rails, 8),
+                    (STAddr.sources, 0x40), (STAddr.adv_flags_9, 0x40)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Ocean Glyph",
                         "Tracks: Forest Realm Ocean Shortcut", "Tracks: Ocean Portal", 
@@ -1909,7 +1911,8 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.glyphs,
         "value": 0x2,
-        "set_bit": [(STAddr.rail_restorations, 8), (STAddr.source_rails, 8), (STAddr.sources, 0x40)],
+        "set_bit": [(STAddr.rail_restorations, 8), (STAddr.source_rails, 8),
+                    (STAddr.sources, 0x40), (STAddr.adv_flags_9, 0x40)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Ocean Glyph",
                         "Major Track Groupings"]

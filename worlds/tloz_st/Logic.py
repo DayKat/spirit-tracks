@@ -426,8 +426,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean realm source", "pirate hideout tracks", True, lambda state: st_has_source(state, player, "Ocean")
                                                                             and st_has_misc_tracks(state, player, "Pirate Hideout")],
         ["ocean temple tracks", "oct", True, lambda state: st_has_temple_tracks(state, player, "Marine")],
-        # ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Ocean")
-        #                                                              and st_has_misc_tracks(state, player, "Lost at Sea Station")],
+        ["ocean realm source", "oct", True, lambda state: st_has_source(state, player, "Ocean")],
         ["ocean realm source", "ocean portal tracks", True, lambda state: st_has_source(state, player, "Ocean") and st_has_misc_tracks(state, player, "Ocean Portal")],
         ["ocean temple tracks", "ocean portal tracks", True, lambda state: (
             st_has_temple_tracks(state, player, "Marine") and
@@ -465,7 +464,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["ocs", "ocs S island chest", False, lambda state: st_hard_birds(state, player)],  # borderline if it should count as hard logic
         ["ocs north", "ocs nw chest", False, lambda state: st_hard_birds(state, player)],
-        ["ocs", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
+        ["ocs north", "ocs song", False, lambda state: st_has_spirit_flute(state, player)]
+            if options.randomize_passengers == "no_passengers" else
+        ["ocs carben", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
         ["ocs", "ocs carben", False, lambda state: st_has_passenger(state, player, "Carben", "_carben")],
 
         # ========== Papuchia Village =============

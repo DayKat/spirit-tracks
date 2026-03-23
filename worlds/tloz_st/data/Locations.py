@@ -4038,7 +4038,7 @@ LOCATIONS_DATA |= {
     "Snow Realm Pick Up Ferrus": {
         "stage_id": 0x5,
         "address": STAddr.passenger_tag_0,
-        "value": 0x544D4E50,
+        "value": 0x544D4E41,
         "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "location_groups": ["Pick Up Passengers"],

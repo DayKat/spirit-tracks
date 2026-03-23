@@ -165,7 +165,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Snow Glyph"],
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
         "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "reset_flags": ["RESET Alfonso"]
+    },
+    "Move Alfonso to castle town station randomized": {
+        "on_scenes": [0x2900],
+        "not_has_locations": ["Castle Town Pick Up Alfonzo"],
+        "has_groups": ["Tracks: Snow Glyph"],
+        "set_if_true": [(STAddr.adv_flags_11, 0x20)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "reset_flags": ["RESET Alfonso"]
     },
     "RESET Alfonso": {
@@ -1120,11 +1128,16 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],
         "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
-    "Prep for TP kenzo loc": {
+    "Prep for TP kenzo loc done av": {
         "on_scenes": [0x3700],
         "not_has_locations": ["Trading Post Pick Up Kenzo"],
         "has_slot_data": [("randomize_passengers", 3)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_3c, 0x10)],
+        "reset_flags": ["Kenzo av yes"]
+    },
+    "Kenzo av yes": {
+        "set_if_true": [(STAddr.adv_flags_3c, 0x10)],
     },
     "Bring Goron to CT": {
         "on_scenes": [0x2900],
@@ -1534,6 +1547,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Papuzia allow dovok cs vanilla passengers": {
         "on_scenes": [0x2C00],
         "set_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)],
+        "has_slot_data": [("randomize_passengers", 1)],
         "not_has_locations": ["Papuzia Village Orca's Force Gem"],
         "check_bits": [(STAddr.adv_flags_36, 0x4)],
         "reset_flags": ["RESET dovok complicated vanilla passengers"]
@@ -1565,7 +1579,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Pick Up Carben", "Papuzia Village Orca's Force Gem"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30), (STAddr.adv_flags_14, 0x20)],
         "has_items": [("Passenger: Dovok", 0)],
     },
     "Papuzia reset carben location post dovok": {
@@ -1635,11 +1649,17 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Carben Arrives at Sanctuary": {
         "on_scenes": [0x3200],
         "has_items": [("Passenger: Carben", 1)],
-        "check_bits": [(STAddr.adv_flags_9, 0x20, "not")],
+        "not_has_locations": ["Ocean Sanctuary Carben's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_9, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x32),
                               (STAddr.passenger_tag_0, 0x53595741),
                               (STAddr.has_passenger_0, 0)],
+    },
+    "Remove Carben OCS": {
+        "on_scenes": [0x3200],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_items": [("Passenger: Carben", 0)],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
 
     #Set Carben to Ocean Sanctuary

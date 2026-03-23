@@ -18,9 +18,9 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_4, 0x34],  # load train to ToS
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
     [STAddr.adv_flags_6, 0xEC],  # Intro stuff
-    [STAddr.adv_flags_7, 0x1D],  # postman & get zelda's letter
+    [STAddr.adv_flags_7, 0x3D],  # postman & get zelda's letter
     [STAddr.adv_flags_8, 0xc0],  # letters
-    [STAddr.adv_flags_9, 0x0f],  # letters
+    [STAddr.adv_flags_9, 0x0f],  # letters, marine temple entrance
     [STAddr.adv_flags_a, 0x7B],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos
@@ -88,7 +88,7 @@ STAGE_FLAGS = {
     0x04: [0x02, 0x00, 0x00, 0x00], # Forest Realm
     0x2F: [0x9E, 0x00, 0x00, 0x00], # Outset Village
     0x29: [0x10, 0x00, 0x00, 0x00], # Castle Town
-    0x28: [0x08, 0x01, 0x00, 0x00],  # Hyrule Castle
+    0x28: [0x08, 0x03, 0x00, 0x00],  # Hyrule Castle
     0x13: [0xFE, 0x36, 0x00, 0x00],  # Tower of Spirits (Main)
     0x14: [0x08, 0x00, 0x00, 0x0], # Tower of Spirits (Base)
     # 0x17: [0x00, 0x00, 0x00, 0x17],  # Tower of Spirits (Stairs)
