@@ -138,7 +138,6 @@ LOCATIONS_DATA = {
         "x_max": 49328,
         "z_min": 46694,
         "z_max": 59802,
-        "item_override": "Spirit Flute",
         "location_groups": ["Castle Town"],
     },
     "Castle Town Minigame Roof": {
@@ -203,21 +202,21 @@ LOCATIONS_DATA = {
     "Castle Town Take 'em All On Level 3": {
         "region_id": "teao 3",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "minigame": [4],
+        "minigame": [4, 5],
         "conditional": True,
         "stage_id": 0x29,
         "room_id": 0xB,
         "address": STAddr.adv_flags_2a,
         "value": 0x10,
         "location_groups": ["Castle Town", "Take 'em All On"],
-        "slot_data": [("randomize_minigames", [4])],
+        "slot_data": [("randomize_minigames", [4, 5])],
         "ut_connect": "EVENT: Complete Take 'em All On 3",
         "from_entrances": [1],
     },
     "Castle Town Take 'em All On Level 3 Capbone Chest": {
         "region_id": "teao 3",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
-        "minigame": [4],
+        "minigame": [4, 5],
         "conditional": True,
         "stage_id": 0x4F,
         "room_id": 0x1,
@@ -257,7 +256,7 @@ LOCATIONS_DATA = {
     "Hyrule Castle Sword Minigame": {
         "region_id": "hyrule castle sword minigame",
         "vanilla_item": "Heart Container",
-        "minigame": [1, 2, 3, 4],
+        "minigame": [1, 2, 3, 4, 5],
         "conditional": True,
         "stage_id": 0x28,
         "room_id": 0x7,
@@ -1068,7 +1067,7 @@ LOCATIONS_DATA = {
         "region_id": "fos song statue",
         "address": STAddr.rail_restorations,
         "value": 2,
-        "minigame": [1, 2, 3, 4],
+        "minigame": [1, 2, 3, 4, 5, 6],
         "conditional": True,
         "location_groups": ["Woodland Sanctuary", "Restoration Duets"],
     },
@@ -1422,7 +1421,7 @@ LOCATIONS_DATA = {
         "room_id": 0x2,
         "address": STAddr.rail_restorations,
         "value": 4,
-        "minigame": [1, 2, 3, 4],
+        "minigame": [1, 2, 3, 4, 5, 6],
         "conditional": True,
         "region_id": "ss song",
         "location_groups": ["Snowfall Sanctuary","Restoration Duets"],
@@ -1627,10 +1626,10 @@ LOCATIONS_DATA = {
         "x_max": 88000,
         "z_min": 45579,
         "z_max": 64500,
-        "minigame": [4],
+        "minigame": [4, 5],
         "conditional": True,
         "location_groups": ["Slippery Station"],
-        "slot_data": [("randomize_minigames", [4])],
+        "slot_data": [("randomize_minigames", [4, 5])],
     },
 
     # Bridge Worker's Home
@@ -1698,7 +1697,7 @@ LOCATIONS_DATA = {
         #"vanilla_item": "Marine Temple Tracks",
         "address": STAddr.rail_restorations,
         "value": 0x8,
-        "minigame": [1, 2, 3, 4],
+        "minigame": [1, 2, 3, 4, 5, 6],
         "conditional": True,
         "location_groups": ["Ocean Sanctuary", "Restoration Duets"],
     },
@@ -1946,7 +1945,7 @@ LOCATIONS_DATA = {
     },
 
     "Pirate Hideout Minigame 1st Reward": {
-        "region_id": "pirate hideout minigame 1st reward",
+        "region_id": "pirate hideout minigame",
         "vanilla_item": "Bow (Progressive)",
         "stage_id": 0x3A,
         "room_id": 0,
@@ -1957,11 +1956,10 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "location_groups": ["Pirate Hideout"],
         "slot_data": [("randomize_minigames", [1, 3, 4])],
-
       },
 
     "Pirate Hideout Minigame 2nd Reward": { #TODO Minigame implementation (See mayscore above)
-        "region_id": "pirate hideout minigame 2nd reward",  # First time playing gives Wadatsumi, an NPC for NPC Rando lol,
+        "region_id": "pirate hideout minigame",  # First time playing gives Wadatsumi, an NPC for NPC Rando lol,
         "vanilla_item": "Heart Container",                 # This is going to be really complicated, have fun ;3
         "stage_id": 0x3A,
         "room_id": 0,
@@ -1973,9 +1971,6 @@ LOCATIONS_DATA = {
         "location_groups": ["Pirate Hideout"],
         "slot_data": [("randomize_minigames", [2, 3, 4])],
       },
-
-
-
     # Lost at Sea Station
 
     "Lost at Sea Outside Chest": {
@@ -2192,7 +2187,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Mountain Temple Tracks",
         "address": STAddr.rail_restorations,
         "value": 0x10,
-        "minigame": [1, 2, 3, 4],
+        "minigame": [1, 2, 3, 4, 5, 6],
         "conditional": True,
         "location_groups": ["Valley Sanctuary", "Restoration Duets"],
     },
@@ -2367,7 +2362,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x3C,
         "room_id": 1,
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | {"Red Rupee (20)"} | ITEM_GROUPS["Big Rupees"],
-        "minigame": [1, 2, 3, 4],
+        "minigame": [1, 2, 3, 4, 5],
         "location_groups": ["Goron Target Range"],
         "conditional": True
     },
@@ -2421,6 +2416,8 @@ LOCATIONS_DATA = {
         "region_id": "eote puzzles",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "location_groups": ["Ends of the Earth"],
+        "minigame": [1, 3, 4],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
     },
     "Ends of the Earth Master Small Chest": {
         "stage_id": 0x41,
@@ -2428,6 +2425,8 @@ LOCATIONS_DATA = {
         "region_id": "eote puzzles",
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
+        "minigame": [1, 3, 4],
+        "slot_data": [("randomize_minigames", [1, 3, 4])],
     },
     "Ends of the Earth Tempered Big Chest": {
         "stage_id": 0x41,
@@ -2435,6 +2434,8 @@ LOCATIONS_DATA = {
         "region_id": "eote puzzles",
         "vanilla_item": "Heart Container",
         "location_groups": ["Ends of the Earth"],
+        "minigame": [2, 3, 4],
+        "slot_data": [("randomize_minigames", [2, 3, 4])],
     },
     "Ends of the Earth Tempered Small Chest": {
         "stage_id": 0x41,
@@ -2442,6 +2443,8 @@ LOCATIONS_DATA = {
         "region_id": "eote puzzles",
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
+        "minigame": [2, 3, 4],
+        "slot_data": [("randomize_minigames", [2, 3, 4])],
     },
     "Ends of the Earth Golden Big Chest": {
         "stage_id": 0x41,
@@ -2449,6 +2452,8 @@ LOCATIONS_DATA = {
         "region_id": "eote puzzles",
         "vanilla_item": "Treasure: Regal Ring",
         "location_groups": ["Ends of the Earth"],
+        "minigame": [4, 5],
+        "slot_data": [("randomize_minigames", [4, 5])],
     },
     "Ends of the Earth Golden Small Chest": {
         "stage_id": 0x41,
@@ -2456,6 +2461,8 @@ LOCATIONS_DATA = {
         "region_id": "eote puzzles",
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
+        "minigame": [4, 5],
+        "slot_data": [("randomize_minigames", [4, 5])],
     },
 
     # ========= Sand Realm ==========
@@ -2465,7 +2472,7 @@ LOCATIONS_DATA = {
         "region_id": "sand sanc song",
         "address": STAddr.rail_restorations,
         "value": 0x20,
-        "minigame": [1, 2, 3, 4],
+        "minigame": [1, 2, 3, 4, 5, 6],
         "conditional": True,
         "location_groups": ["Dune Sanctuary", "Restoration Duets"],
     },
@@ -3796,7 +3803,7 @@ LOCATIONS_DATA |= {
         "room_id": 0x3,
         "address": STAddr.adv_flags_d,
         "value": 0x2,
-        "vanilla_item": "Forest Realm Ocean Shortcut Tracks",
+        "vanilla_item": "E Mayscore Bridge Tracks",
         "location_groups": ["Papuzia Village", "Deliver Passengers"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
@@ -3805,8 +3812,9 @@ LOCATIONS_DATA |= {
     "Papuzia Village Pick Up Carben":{
         "stage_id": 0x2C,
         "room_id": 0,
-        "address": STAddr.adv_flags_9,
-        "value": 0x10,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x53595741,
+        "exact_read": True,
         "region_id": "pv carben",
         "vanilla_item": "Passenger: Carben",
         "location_groups": ["Papuzia Village", "Pick Up Passengers"],
@@ -4029,14 +4037,14 @@ LOCATIONS_DATA |= {
     },
     "Snow Realm Pick Up Ferrus": {
         "stage_id": 0x5,
-        "address": STAddr.adv_flags_3a,
-        "value": 0x80,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x544D4E50,
+        "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "location_groups": ["Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "region_id": "snow realm ferrus",
-        "from_entrances": [0xFA]
+        "region_id": "snow realm ferrus"
     },
     "Outset Ferrus Force Gem": {
         "stage_id": 0x2F,
@@ -4051,8 +4059,9 @@ LOCATIONS_DATA |= {
     },
     "Fire Realm Pick Up Ferrus": {
         "stage_id": 0x7,
-        "address": STAddr.adv_flags_3b,
-        "value": 0x2,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x544D4E41,
+        "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "item_override": "Nothing!",
         "location_groups": ["Pick Up Passengers"],
@@ -4133,17 +4142,40 @@ LOCATIONS_DATA |= {
     "Mayscore Whip Race Rare Treasure": {
         "region_id": "mayscore whip game",
         "vanilla_item": ITEM_GROUPS["Super Rare Treasures"],
-        "minigame": [4],
+        "minigame": [4, 5],
         "conditional": True,
         "stage_id": 0x38,
         "room_id": 0,
         "address": STAddr.adv_flags_10,
+        "delay_reset": True,
         "value": 0x80,
         "location_groups": ["Mayscore"],
-        "slot_data": [("randomize_minigames", [4])],
+        "slot_data": [("randomize_minigames", [4, 5])],
 
         "x_min": 55000,
         "z_max": -45000,
+    },
+    "Hyrule Castle 1F Spirit Flute": {
+        "region_id": "hyrule castle",
+        "vanilla_item": "Spirit Flute",
+        "stage_id": 0x28,
+        "room_id": 5,
+        "address": STAddr.adv_flags_6,
+        "value": 0x10,
+        "location_groups": ["Hyrule Castle"],
+    },
+    "Pirate Hideout Minigame Expert": {
+        "region_id": "pirate hideout minigame",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Super Rare Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "conditional": True,
+        "delay_reset": True,
+        "minigame": [4, 5],
+        "address": STAddr.adv_flags_4e,
+        "value": 0x40,
+        "location_groups": ["Pirate Hideout"],
+        "slot_data": [("randomize_minigames", [4, 5])],
     },
 }
 

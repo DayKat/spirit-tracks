@@ -375,7 +375,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Ocean Realm Tracks", "Misc Tracks",
                         "Pirate Tracks", "Minor Ocean Tracks", "Tracks: Pirate Hideout"],
         "model": "Ocean Glyph",
-        "vanilla_model": "Force Gem 57"
+        "vanilla_model": "Force Gem 18"
     },
     "Lost at Sea Station Tracks": {
         'classification': ItemClassification.progression,
@@ -1852,7 +1852,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.tracks_0,
         "value": 0xee,  # Forest Glyph
-        "set_bit": [(STAddr.tracks_0, 0xee), (STAddr.tracks_1, 0x0b),],
+        "set_bit": [(STAddr.tracks_0, 0xee), (STAddr.tracks_1, 0x0b)],
         'model': "Forest Glyph",
         "item_groups": ["Tracks: Forest Realm SW Cave", "Tracks: W Forest Realm", "Tracks: W Wooded Temple",
                         "Tracks: W Castle Town", "Tracks: N Castle Town", "Tracks: Snow Realm Bridge",

@@ -73,7 +73,7 @@ class SpiritTracksDungeonCount(Range):
     Is also the number of included dungeons if using the shattered compass goal.
     """
     display_name = "Required Dungeon Count"
-    range_start = 1
+    range_start = 0
     range_end = 13
     default = 5
 
@@ -393,19 +393,25 @@ class SpiritTracksStartingTrain(Choice):
 class SpiritTracksRandomizeMinigames(Choice):
     """
     Randomize Minigames.
-    Includes Mayscore Whip game, Take 'em All On, Hyrule Castle Sword Training, Slippery Station and Restoration Duets.
+    All difficulties include Restoration Duets, Hyrule Castle Sword Training and Goron Target Range.
+    Also includes Mayscore Whip game, Take 'em All On, Pirate Hideout, Slippery Station and Ends of the Earth.
     - no_minigames: minigames are not randomized
+    - restoration_duets: include only restoration duets. Are they really minigames?
     - easy: the easiest difficulty of each minigame is randomized
-    - hardest_reasonable: only the hardest difficulty of each minigame is randomized, excluding Take 'em all On 3
-    - all_reasonable: all minigame rewards are randomized, excluding Take 'em all On 3
-    - everything: all minigame rewards are randomized, including Take 'em all On 3
+    - hard: the second difficulty of each minigame is randomized
+    - expert: the hardest difficulty of each minigame is randomized. Includes Take 'em all On 3
+    - all_reasonable: the easy and hard difficulties are randomized
+    - everything: all minigame rewards are randomized
     """
     display_name = "Randomize Minigames"
     option_no_minigames = 0
+    option_restoration_duets = 6
     option_easy = 1
-    option_hardest_reasonable = 2
+    option_hard = 2
+    option_expert = 5
     option_all_reasonable = 3
     option_everything = 4
+
 
     default = 1
 

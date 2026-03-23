@@ -17,14 +17,14 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_3, 0x47],  # split ToS and zelda 1st convo
     [STAddr.adv_flags_4, 0x34],  # load train to ToS
     [STAddr.adv_flags_5, 0x74],  # train quill tutorial skip
-    [STAddr.adv_flags_6, 0xFC],  # Intro stuff
+    [STAddr.adv_flags_6, 0xEC],  # Intro stuff
     [STAddr.adv_flags_7, 0x1D],  # postman & get zelda's letter
     [STAddr.adv_flags_8, 0xc0],  # letters
     [STAddr.adv_flags_9, 0x0f],  # letters
     [STAddr.adv_flags_a, 0x7B],  # ocean realm
     [STAddr.adv_flags_b, 0x98],  # blizzard stuff
     [STAddr.adv_flags_c, 0xE2],  # convos
-    [STAddr.adv_flags_f, 0xC0],  # ToS 4F 1st time entry
+    [STAddr.adv_flags_f, 0xF0],  # ToS 4F 1st time entry
     [STAddr.adv_flags_10, 0x50],  # anjean section text
     [STAddr.adv_flags_12, 0x1B],  # zelda 1st phantom possession + mayascore bugs
     [STAddr.adv_flags_13, 0x08],  # whip minigame tutorial
@@ -49,7 +49,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_2a, 0x23],  # ToS 6 zelda text, gtr
     [STAddr.adv_flags_2b, 0x01],  # ToS 7 zelda text
     [STAddr.adv_flags_2d, 0x20],  # ToS 7 zelda text
-    [STAddr.adv_flags_2f, 0x40],  # linebeck 1st convo
+    [STAddr.adv_flags_2f, 0x4c],  # linebeck 1st convo
     [STAddr.adv_flags_30, 0x00],  # Prevent GTR death. or not, start with long track?
     [STAddr.adv_flags_31, 0x18],  # Possess Phantom
     [STAddr.adv_flags_33, 0x0E],  # dark ore first conv0
