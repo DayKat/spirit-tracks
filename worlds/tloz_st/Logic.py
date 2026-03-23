@@ -56,7 +56,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["w forest tracks", "wtt", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_misc_tracks(state, player, "W Forest Realm")],
 
         # W Wooded temple
-        ["wtt", "w wooded temple tracks", True, lambda state: st_has_misc_tracks(state, player, "W Wooded Temple")],
+        ["wtt", "w wooded temple tracks", True, lambda state: st_has_misc_tracks(state, player, "W Wooded Temple") and st_has_temple_tracks(state, player, "Wooded")],
         ["w wooded temple tracks", "snow realm fr", True, lambda state: st_has_misc_tracks(state, player, "W Wooded Temple") and st_has_glyph(state, player, "Snow")],
         ["w wooded temple tracks", "snow realm", True,
          lambda state: st_has_misc_tracks(state, player, "W Wooded Temple") and st_has_glyph(state, player, "Snow")],
@@ -328,7 +328,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["blizzard temple tracks rabbits", "snow realm early blizzard rabbits", False, lambda state: st_has_source(state, player, "Snow") or st_option_hard_logic(state, player)],
 
         ["blizzard temple tracks rabbits", "snowdrift station rabbit", False, lambda state: st_has_misc_tracks(state, player, "Snowdrift Station")],
-        ["blizzard temple tracks", "icyspring tracks", True, lambda state: st_has_misc_tracks(state, player, "N Icy Spring")],
+        ["blizzard temple tracks", "icyspring tracks", True, lambda state: st_has_misc_tracks(state, player, "N Icy Spring") and st_has_temple_tracks(state, player, "Blizzard")],
         ["icyspring tracks", "icyspring rabbits", False, lambda state: st_has_net(state, player)],
         ["icyspring tracks", "icyspring portal", False, lambda state: st_has_cannon(state, player)],
 
@@ -515,13 +515,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["pirate hideout", "pirate hideout stamp station", False, lambda state: st_has_stamp_book(state, player)
                                                                                 and st_has_whip(state, player) and st_has_birds_song(state, player)],
         ["pirate hideout", "pirate hideout secret cave", False, lambda state: st_has_bombs(state, player)],
-        ["pirate hideout", "pirate hideout minigame 1st reward", False, lambda state: st_has_bow(state, player)],
-        ["pirate hideout", "pirate hideout minigame 2nd reward", False, lambda state: st_has_bow(state, player)],
-        #Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
+        ["pirate hideout", "pirate hideout minigame", False, lambda state: st_has_bow(state, player)],
+        # Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
         ["pirate hideout", "pirate wadatsumi", False, None]
             if options.randomize_minigames.value in [0] else
         ["pirate hideout", "pirate wadatsumi", False, lambda state: st_has_bow(state, player)],
-        #First hideout minigame gives you bow automatically, and then it shows in top right, even with no items, but doesn't let you use it. With an item, it doesn't show
+        # First hideout minigame gives you bow automatically, and then it shows in top right, even with no items, but doesn't let you use it. With an item, it doesn't show
 
         # ======== Lost at Sea Station ==========
         ["ocean temple tracks", "las tracks", True, lambda state: st_has_temple_tracks(state, player, "Marine")
@@ -574,7 +573,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["valley sanc", "valley sanc stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["valley sanc", "valley sanc song", False, lambda state: st_has_light_song(state, player)],
         ["goron ice event", "pick up gorons", False, lambda state: st_has_glyph(state, player, "Snow")],
-        ["goron village", "gv kofu", False, lambda state: st_has_passenger(state, player, "Kofu", "_kofu")],
+        ["goron ice event", "gv kofu", False, lambda state: st_has_passenger(state, player, "Kofu", "_kofu")],
 
         ["goron village", "goron ice", False, None] if options.randomize_cargo == "no_cargo" else (
             ["goron whip", "goron ice", False, lambda state: st_has_cargo(state, player, "Mega Ice", "_buy_ice")]

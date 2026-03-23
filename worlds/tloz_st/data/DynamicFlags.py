@@ -692,9 +692,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_1, 0x4)]
     },
+    "Carben no minigames": {
+        "on_scenes": [0x3204],
+        "has_slot_data": [("randomize_minigames", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)]
+    },
     "Carben can play duet": {
         "on_scenes": [0x3204],
         "has_items": [("Spirit Flute", 1)],
+        "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
         "not_has_locations": ["Ocean Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 0x4)]
     },
@@ -717,9 +723,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_1, 8)]
     },
+    "Embrose no minigames": {
+        "on_scenes": [0x3303],
+        "has_slot_data": [("randomize_minigames", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 8)]
+    },
     "Embrose can play duet": {
         "on_scenes": [0x3303],
         "has_items": [("Spirit Flute", 1)],
+        "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
         "not_has_locations": ["Valley Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 8)]
     },
@@ -742,9 +754,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_1, 1)]
     },
+    "Gage no minigames": {
+        "on_scenes": [0x3001],
+        "has_slot_data": [("randomize_minigames", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 1)]
+    },
     "Gage can play duet": {
         "on_scenes": [0x3001],
         "has_items": [("Spirit Flute", 1)],
+        "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
         "not_has_locations": ["Woodland Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 1)]
     },
@@ -766,10 +784,16 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_1, 6)]  # ocean restoration removes him
     },
+    "Steem no minigames": {
+        "on_scenes": [0x3102],
+        "has_slot_data": [("randomize_minigames", 0)],
+        "set_if_true": [(STAddr.adv_flags_1, 6)]  # ocean restoration removes him
+    },
     "Steem can play duet": {
         "on_scenes": [0x3102],
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Snowfall Sanctuary Song of Restoration"],
+        "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
         "unset_if_true": [(STAddr.adv_flags_1, 6)]
     },
     "Snow sanc remove vessel": {
@@ -804,9 +828,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Spirit Flute", 0)],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
+    "Rael no minigames": {
+        "on_scenes": [0x3402],
+        "has_slot_data": [("randomize_minigames", 0)],
+        "set_if_true": [(STAddr.adv_flags_19, 0x8)]
+    },
     "Rael can play duet": {
         "on_scenes": [0x3402],
         "has_items": [("Spirit Flute", 1)],
+        "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
         "not_has_locations": ["Dune Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
@@ -1000,12 +1030,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     # Whip Race
     "Skip whip race HC": {
         "on_scenes": [0x3800],
-        "has_slot_data": [("randomize_minigames", [0, 1])],
+        "has_slot_data": [("randomize_minigames", [0, 1, 5])],
         "set_if_true": [(STAddr.adv_flags_26, 0x02)],
     },
     "Skip whip race bomb bag": {
         "on_scenes": [0x3800],
-        "has_slot_data": [("randomize_minigames", [0, 2])],
+        "has_slot_data": [("randomize_minigames", [0, 2, 5])],
         "set_if_true": [(STAddr.adv_flags_26, 0x01)],
     },
     # Don't skip whip race expert cause it lowers entry cost and logic for that is hard
@@ -1245,7 +1275,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "TEAO Unlock 1": {
         "on_scenes": [0x290B],
         "has_groups": ["Tracks: Ocean Source"],
-        "has_slot_data": [("randomize_minigames", [2, 3, 4])],
+        "has_slot_data": [("randomize_minigames", [2, 3, 4, 5])],
         "set_if_true": [(STAddr.adv_flags_2a, 0x4)],
         "on_entrance": [0],
         "reset_flags": ["RESET TEAO 1"]
@@ -1253,7 +1283,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "TEAO Unlock 2": {
         "on_scenes": [0x290B],
         "has_groups": ["Tracks: Sand Source"],
-        "has_slot_data": [("randomize_minigames", [4])],
+        "has_slot_data": [("randomize_minigames", [4, 5])],
         "set_if_true": [(STAddr.adv_flags_2a, 0xC)],
         "on_entrance": [0],
         "reset_flags": ["RESET TEAO 1", "RESET TEAO 2"]
@@ -1400,6 +1430,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Passenger: Kofu", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "not_has_locations": ["Goron Village Kofu Force Gem"],
+        "check_bits": [(STAddr.adv_flags_59, 0x4)],  # Removed Lava
         "set_if_true": [(STAddr.adv_flags_37, 0x20)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2e),
                               (STAddr.passenger_tag_0, 0x594B4150),
@@ -1454,11 +1485,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                               (STAddr.passenger_tag_0, 0x43415742),
                               (STAddr.has_passenger_0, 0)]
     },
-    "Can pick up Dovok": {
+    "Can pick up Dovok or Morris": {
         "on_scenes": [0x2A04, 0x2a03],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "has_groups": ["Tracks: Ocean Glyph"],
         "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_36, 0x8)],
         "reset_flags": ["RESET Dovok Flag"]
     },
     "Can pick up Mayscore ow npcs": {
@@ -1467,6 +1499,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Ocean Glyph"],
         "any_not_has_locations": ["Mayscore Pick Up Mash", "Mayscore Pick Up Yamahiko"],
         "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_36, 0x8)],
         "reset_flags": ["RESET Dovok Flag"]
     },
     "Can pick up Wood": {
@@ -1475,6 +1508,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Ocean Glyph"],
         "not_has_locations": ["Mayscore Pick Up Wood"],
         "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_36, 0x8)],
         "reset_flags": ["RESET Dovok Flag"]
     },
     "Dovok missing glyph": {
@@ -1497,16 +1531,57 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "reset_flags": ["RESET Dovok Flag"]
     },
+    "Papuzia allow dovok cs vanilla passengers": {
+        "on_scenes": [0x2C00],
+        "set_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)],
+        "not_has_locations": ["Papuzia Village Orca's Force Gem"],
+        "check_bits": [(STAddr.adv_flags_36, 0x4)],
+        "reset_flags": ["RESET dovok complicated vanilla passengers"]
+    },
+    "RESET dovok complicated vanilla passengers": {
+        "not_has_locations": ["Ocean Sanctuary Carben's Force Gem"],
+        "unset_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)]
+        # Papuzia crashes if you've not removed carben before Orca asks for a husband,
+        # and you need that orca flag for the dovok leaving the train CS
+    },
     "Bring Dovok to Papuzia": {
         "on_scenes": [0x2C00],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_items": [("Passenger: Dovok", 1)],
-        "check_bits": [(STAddr.adv_flags_36, 0x8, "not")],
-        "set_if_true": [(STAddr.adv_flags_39, 0x80)],
+        "not_has_locations": ["Papuzia Village Orca's Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_36, 0x4), (STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2c),
                               (STAddr.passenger_tag_0, 0x464F4D52),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET dovok complicated"]
     },
+    "RESET dovok complicated": {
+        "not_has_locations": ["Papuzia Village Pick Up Carben"],
+        "unset_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)]
+        # Papuzia crashes if you've not removed carben before Orca asks for a husband,
+        # and you need that orca flag for the dovok leaving the train CS
+    },
+    "Papuzia reset carben location pre dovok": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Pick Up Carben", "Papuzia Village Orca's Force Gem"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+        "has_items": [("Passenger: Dovok", 0)],
+    },
+    "Papuzia reset carben location post dovok": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Pick Up Carben"],
+        "has_locations": ["Papuzia Village Orca's Force Gem"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+    "Papuzia carben post both": {
+        "on_scenes": [0x2c00],
+        "has_locations": ["Papuzia Village Orca's Force Gem", "Papuzia Village Pick Up Carben"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+
     "RESET Dovok Flag": {
       "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
     },
@@ -1553,7 +1628,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "has_items": [("Song of Birds", 1)],
         "has_locations": ["Papuzia Village Song Statue"],
-        "set_if_true": [(STAddr.adv_flags_a, 0xB0), (STAddr.adv_flags_f, 0x99)],
+        "set_if_true": [(STAddr.adv_flags_a, 0xB0)],
     },
 
     #Flag for delivering Carben
@@ -1604,15 +1679,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
-    "Skip Pirate HC": {
+    "Skip Pirate HC": {  # 4000+
         "on_scenes": [0x3A00],
         "has_slot_data": [("randomize_minigames", [0, 1])],
         "set_if_true": [(STAddr.adv_flags_56, 0x20)],
     },
 
-    "Skip Pirate Quiver": {
+    "Skip Pirate Quiver": {  # 3500+
         "on_scenes": [0x3A00],
-        "has_slot_data": [("randomize_minigames", [0, 2])],
+        "has_slot_data": [("randomize_minigames", [0, 2, 5])],
         "set_if_true": [(STAddr.adv_flags_56, 0x10)],
     },
 
@@ -1627,6 +1702,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Passenger: Wadatsumi", 1)],
         "check_bits": [(STAddr.adv_flags_e, 0x40, "not")], #Check for Force Gem obtained, and don't trigger if it was done already
         "set_if_true": [(STAddr.adv_flags_34, 0x40)], #Set Wadatsumi on train
+        "unset_if_true": [(STAddr.adv_flags_34, 0x80)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2C),
                               (STAddr.passenger_tag_0, 0x57414D41),
                               (STAddr.has_passenger_0, 0)],
@@ -1994,37 +2070,32 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", 1)],
         "check_bits": [(STAddr.adv_flags_11, 0x40)],
         "has_groups": ["Tracks: Blizzard Temple Tracks"],
-        "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
-        "not_on_entrance": [0xFA]
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)]
     },
     "Spawn Ferrus Bliz Temple item": {
         "on_scenes": [0x500],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_items": [("Passenger: Alfonzo", 1)],
         "has_groups": ["Tracks: Blizzard Temple Tracks"],
-        "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
-        "not_on_entrance": [0xFA]
+        "set_if_true": [(STAddr.adv_flags_1f, 0x80)]
     },
     "Despawn Ferrus Bliz Temple without alfonzo item": {
         "on_scenes": [0x500],
         "has_slot_data": [("randomize_passengers", 1)],
         "has_items": [("Passenger: Alfonzo", 0)],
-        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
-        "not_on_entrance": [0xFA]
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)]
     },
     "Despawn Ferrus Bliz Temple without alfonzo": {
         "on_scenes": [0x500],
         "has_slot_data": [("randomize_passengers", 1)],
         "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
-        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
-        "not_on_entrance": [0xFA]
+        "unset_if_true": [(STAddr.adv_flags_1f, 0x80)]
     },
     "Remove ferrus flag until picked up": {
         "on_scenes": [0x500],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "not_has_locations": ["Snow Realm Pick Up Ferrus"],
-        "unset_if_true": [(STAddr.adv_flags_3a, 0x80)],
-        "not_on_entrance": [0xFA]
+        "unset_if_true": [(STAddr.adv_flags_3a, 0x80)]
     },
     "Reset city goron GV": {
         "on_scenes": [0x2e00],

@@ -46,6 +46,7 @@
   {"name": "Hyrule Castle", "sections": [
     {"name": "Hyrule Castle NW Outside Chest"},
     {"name": "Hyrule Castle 2F Indoors Chest"},
+    {"name": "Hyrule Castle 1F Spirit Flute"},
     {"name": "Hyrule Castle 1F Back Chest"},
     {"name": "Hyrule Castle Sword Minigame"},
     {"name": "Tunnel to ToS Block Chest"},
@@ -294,7 +295,8 @@
     {"name": "Pirate Hideout Secret Cave Right Treasure"},
         {"name": "Pirate Hideout Pick Up Wadatsumi"},
         {"name": "Pirate Hideout Minigame 1st Reward"},
-        {"name": "Pirate Hideout Minigame 2nd Reward"}
+        {"name": "Pirate Hideout Minigame 2nd Reward"},
+        {"name": "Pirate Hideout Minigame Expert"}
   ], "map_locations":[{"map": "Overview", "x": 592, "y": 564}]},
   {"name": "Lost at Sea Station", "sections": [
     {"name": "Lost at Sea Outside Chest"},

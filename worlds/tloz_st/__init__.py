@@ -442,7 +442,7 @@ class SpiritTracksWorld(WorldParent):
                 return self.options.randomize_stamps.value in [1, 2, 3]
             bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
-            return bk and tears and location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove"
+            return bk and tears and (location_data["tos_section"] not in self.non_required_sections) or self.options.exclude_sections != "remove"
         if "dungeon" in location_data:
             passengers = self.options.randomize_passengers if location_name == "Marine Temple Ferrus Force Gem" else True
             stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
@@ -466,8 +466,8 @@ class SpiritTracksWorld(WorldParent):
         if location_name in LOCATION_GROUPS["Niko"]:
             # If dungeon stamp stands are excluded with vanilla stamps, niko has to give less items
             if self.options.exclude_dungeons and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2, 4]:
-                if len(self.non_required_dungeons) >= 5:
-                    return location_name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
+                # if len(self.non_required_dungeons) >= 5:
+                #     return location_name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
                 return location_name not in ["Outset Niko 20 Stamps Reward"]
             return self.options.randomize_stamps
         if self.options.shopsanity and location_name in LOCATION_GROUPS["Shop Locations"]:
@@ -564,8 +564,9 @@ class SpiritTracksWorld(WorldParent):
             [self.create_event(LOCATIONS_DATA[loc]["region_id"], "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
 
         # Create rupee farming events
-        rupee_farming_regions = ["mayscore whip chest", "mayscore leaves", "trading post leaves",
-                                 "hyrule castle sword minigame", "castle town"]
+        rupee_farming_regions = ["mayscore whip chest", "mayscore leaves",
+                                 "hyrule castle sword minigame", "pirate hideout minigame",
+                                 "gtr"]
         [self.create_event(reg, "_rupee_farming_spot") for reg in rupee_farming_regions]
         # Passenger Events
         if self.options.randomize_passengers == "vanilla":
@@ -786,7 +787,7 @@ class SpiritTracksWorld(WorldParent):
                 keyrings -= {f"Keyring ({i})" for i in self.non_required_dungeons}
             if self.options.exclude_sections == "remove":
                 keyrings -= {f"Keyring (ToS {i})" for i in self.non_required_sections}
-            if not self.options.big_keyrings:
+            if not self.options.big_keyrings and not self.options.exclude_sections == "remove" and "Blizzard Temple" not in self.non_required_dungeons:
                 keyrings -= {"Keyring (Blizzard Temple)"}
                 res += [("Small Key (Blizzard Temple)", 1)]
 
@@ -811,7 +812,7 @@ class SpiritTracksWorld(WorldParent):
                 keyrings = chosen_keyrings
             res += [(i, 1) for i in keyrings]
 
-        # print(f"Key Items: {res}")
+        print(f"Key Items: {res}")
         return res
 
     def choose_track_items(self):
@@ -1243,7 +1244,7 @@ class SpiritTracksWorld(WorldParent):
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
-        # print(f"Pre fill items {self.pre_fill_items}")
+        print(f"Pre fill items {self.pre_fill_items}")
 
     def pre_fill_tos_sections(self):
         for section in range(1, 7):
@@ -1326,7 +1327,7 @@ class SpiritTracksWorld(WorldParent):
         rare_filler_items = list(ITEM_GROUPS["Potions"])
 
         # 1/5 chance to roll a rare filler item
-        if self.random.randint(1, 5) == 1:
+        if self.random.randint(1, 15) == 1:
             return self.random.choice(rare_filler_items)
         return self.random.choice(filler_item_names)
 
@@ -1354,7 +1355,7 @@ class SpiritTracksWorld(WorldParent):
 
         return True
 
-    def get_location_moodels(self):
+    def get_location_models(self):
         # get item placement models to send to client
         location_models = {}
         for loc in self.get_locations():
@@ -1400,7 +1401,7 @@ class SpiritTracksWorld(WorldParent):
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]
         slot_data["stamp_pack_order"] = self.stamp_pack_order
-        slot_data["model_lookup"] = self.get_location_moodels()
+        slot_data["model_lookup"] = self.get_location_models()
         slot_data["exclude_tos_5"] = self.exclude_tos_5
         pairings = {}
         if self.er_placement_state:

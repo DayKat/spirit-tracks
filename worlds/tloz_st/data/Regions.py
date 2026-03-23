@@ -368,8 +368,7 @@ REGIONS = [
     "pirate hideout stamp station",
     "pirate hideout secret cave",
     "pirate wadatsumi",
-    "pirate hideout minigame 1st reward",
-    "pirate hideout minigame 2nd reward",
+    "pirate hideout minigame",
 
     #Lost at Sea Station
     "lost at sea",
