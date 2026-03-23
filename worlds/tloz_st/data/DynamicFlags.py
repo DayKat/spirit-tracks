@@ -815,7 +815,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.rail_restorations, 0x20)],
         "reset_flags": ["Sand Sanc Reset DTT not has", "Sand Sanc Reset DTT"]
     },
-    "Rael remove desert resotration": {
+    "Rael remove desert restoration": {
         "on_scenes": [0x3402],
         "unset_if_true": [(STAddr.adv_flags_1, 0x10)],
         "not_has_locations": ["Dune Sanctuary Song of Restoration"]
@@ -1569,7 +1569,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     #Set Carben to Ocean Sanctuary
     "No Passenger Carben Ocean Sanctuary": {
-        "on_scenes": [0x2C00],
+        "on_scenes": [0x3200],
         "has_slot_data": [("randomize_passengers", [0])],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
@@ -1599,7 +1599,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Pirate Hideout Minigame Missing Bow": {
         "on_scenes": [0x3A00],
         "has_items": [("Bow (Progressive)", 0)],
-        "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)],
+    #   "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)],
+        "set_if_true": [(STAddr.adv_flags_24, 0x2)], #Should remove Wadatsumi from area and not let minigame be played?
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
@@ -1617,7 +1618,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     #Resets Pirate hideout to base state, ready for saving Wadatsumi minigame
     "RESET Pirate Minigame Access": {
-        "set_if_true": [(STAddr.adv_flags_34, 0x0)], #Resets all flags in 0x265748
+        "set_if_true": [(STAddr.adv_flags_34, 0x0), (STAddr.adv_flags_24, 0x0), (STAddr.adv_flags_4f, 0x0)], #Resets all flags in 0x265748, 0x265738, and 0x265763
     },
 
     #Flag for delivering Wadatsumi
@@ -1638,6 +1639,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         #Below should set all flags to get Gorons to appear, I think (only one way to find out!)
         "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
+
+    #Check for Wadatsumi being delivered previously, and then set Gorons to appear
+    "Wadatsumi Saved Already": {
+        "on_scenes": [0x3A00],
+        "check_bits": [(STAddr.adv_flags_34, 0x40)],
+        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+    },
+
     # Cargo
     "AV skip fence text": {
         "on_scenes": [0x2b00],
