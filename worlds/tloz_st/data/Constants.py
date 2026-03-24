@@ -391,7 +391,7 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "Mountain Temple": "Mountain Temple Dungeon Reward",
     "Desert Temple": "Desert Temple Dungeon Reward",
     "Take 'em All On 3": "Castle Town Take 'em All On Level 3",
-    "Lost at Sea": "Lost at Sea 6th Room Chest"
+    "Lost at Sea": "Lost at Sea Final Chest"
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
@@ -407,7 +407,7 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "ToS 23F Defeat Staven": "tos staven",
     "ToS 24F Final Chest": "tos 24f",
     "Castle Town Take 'em All On Level 3": "teao 3",
-    "Lost at Sea 6th Room Chest": "las 5th room"
+    "Lost at Sea Final Chest": "las 5th room"
 }
 
 BOSS_LOCATION_TO_POST_LOCATIONS = {
@@ -415,7 +415,7 @@ BOSS_LOCATION_TO_POST_LOCATIONS = {
     "Blizzard Temple Dungeon Reward": ["Blizzard Temple Boss Heart Container"],
     "Marine Temple Dungeon Reward": ["Marine Temple Heart Container"],
     "Mountain Temple Dungeon Reward": ["Mountain Temple Boss Heart Container"],
-    "Desert Temple Dungeon Reward": ["Skeldritch Heart Container", "Desert Temple Bow of Light Chest"]
+    "Desert Temple Dungeon Reward": ["Desert Temple Boss Heart Container", "Desert Temple Bow of Light Chest"]
 }
 
 DUNGEON_KEY_DATA = {
@@ -592,25 +592,25 @@ SHOP_TREASURE_DATA = {
         "group": "Common"
     }],
     0x4503: [{
-        "locations": ["Beedle Buy Uncommon Treasure"],
+        "locations": ["Beedle Shop Uncommon Treasure"],
         "group": "Uncommon"
     }, {
-        "locations": ["Beedle Buy Rare Treasure"],
+        "locations": ["Beedle Shop Rare Treasure"],
         "group": "Rare"
     }],
     0x3103: [{
-        "locations": ["Snowfall Sanctuary Shop Treasure"],
+        "locations": ["Snowfall Supermarket Treasure"],
         "group": "Uncommon"
     }],
 }
 
 potion_location_lookup = {
-    0x4503: {1: "Beedle Buy Red Potion",
-             2: "Beedle Buy Purple Potion"},
+    0x4503: {1: "Beedle Shop Red Potion",
+             2: "Beedle Shop Purple Potion"},
     0x2a05: {1: "Mayscore Shop Red Potion"},
     0x290a: {1: "Castle Town Shop Red Potion"},
-    0x3103: {1: "Snowfall Sanctuary Shop Red Potion",
-             2: "Snowfall Sanctuary Shop Purple Potion"},
+    0x3103: {1: "Snowfall Supermarket Red Potion",
+             2: "Snowfall Supermarket Purple Potion"},
     0x2c02: {3: "Papuzia Shop Yellow Potion",
              2: "Papuzia Shop Purple Potion"},
     0x2e06: {3: "Goron Shop Yellow Potion",
@@ -620,7 +620,7 @@ potion_location_lookup = {
 ammo_shop_lookup = {
     0x2c02: {STAddr.bomb_count: "Papuzia Shop Bombs",
              STAddr.arrow_count: "Papuzia Shop Arrows"},
-    0x4503: {STAddr.bomb_count: "Beedle Buy Bomb Refill"},
+    0x4503: {STAddr.bomb_count: "Beedle Shop Bomb Refill"},
     0x2e06: {STAddr.bomb_count: "Goron Shop Bomb Refill"}
 }
 

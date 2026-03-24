@@ -2,7 +2,7 @@
 
 HINT_DATA = {
     # Minigames
-    "Hyrule Castle Sword Minigame": {
+    "Hyrule Castle 1F Sword Minigame 60 Points": {
         "scenes": [0x2807],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 2, 3, 4, 5])],
     },
@@ -20,15 +20,15 @@ HINT_DATA = {
         "locations": ["Castle Town Take 'em All On Level 3",
                       "Castle Town Take 'em All On Level 3 Capbone Chest"]
     },
-    "Mayscore Whip Race Heart Container": {
+    "Mayscore Whip Race 1:05-1:15": {
         "scenes": [0x3800],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [2, 3, 4])],
     },
-    "Mayscore Whip Race Bomb Bag": {
+    "Mayscore Whip Race 1:15-1:30": {
         "scenes": [0x3800],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 3, 4])],
     },
-    "Mayscore Whip Race Rare Treasure": {
+    "Mayscore Whip Race Sub 1:05": {
         "scenes": [0x3800],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [4, 5])],
     },
@@ -56,15 +56,15 @@ HINT_DATA = {
         "scenes": [0x3c00, 0x3c01],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 2, 3, 4, 5])],
     },
-    "Pirate Hideout Minigame 1st Reward": {
+    "Pirate Hideout Minigame 3000-4000": {
         "scenes": [0x3a00],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 3, 4])],
     },
-    "Pirate Hideout Minigame 2nd Reward": {
+    "Pirate Hideout Minigame 4000-5000": {
         "scenes": [0x3a00],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [2, 3, 4])],
     },
-    "Pirate Hideout Minigame Expert": {
+    "Pirate Hideout Minigame 5000+": {
         "scenes": [0x3a00],
         "slot_data": [("minigame_hints", 1), ("randomize_minigames", [4, 5])],
     },
@@ -102,36 +102,36 @@ HINT_DATA = {
         "scenes": [0x2a05],
         "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
     },
-    "Beedle Buy Rare Treasure": {
+    "Beedle Shop Rare Treasure": {
         "scenes": [0x4503],
         "slot_data": [("shopsanity", "treasure"), ("shop_hints", 1)]
     },
-    "Beedle Buy Uncommon Treasure": {
+    "Beedle Shop Uncommon Treasure": {
         "scenes": [0x4503],
         "slot_data": [("shopsanity", "treasure"), ("shop_hints", 1)]
     },
-    "Beedle Buy Bomb Bag": {
+    "Beedle Shop Bomb Bag": {
         "scenes": [0x4503],
         "slot_data": [("shopsanity", "uniques"), ("shop_hints", 1)]
     },
-    "Beedle Buy Red Potion": {
+    "Beedle Shop Red Potion": {
         "scenes": [0x4503],
         "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)]
     },
-    "Beedle Buy Purple Potion": {
+    "Beedle Shop Purple Potion": {
         "scenes": [0x4503],
         "slot_data": [("shopsanity", "potions"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
     },
-    "Snowfall Sanctuary Shop Heart Container": {
+    "Snowfall Supermarket Heart Container": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "uniques"), ("shop_hints", 1)]
     },
     "Snow Sanc Shop potions": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "potions"), ("shop_hints", 1)],
-        "locations": ["Snowfall Sanctuary Shop Red Potion", "Snowfall Sanctuary Shop Purple Potion"]
+        "locations": ["Snowfall Supermarket Red Potion", "Snowfall Supermarket Purple Potion"]
     },
-    "Snowfall Sanctuary Shop Shield": {
+    "Snowfall Supermarket Shield": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "shields"), ("shop_hints", 1)]
     },
@@ -167,11 +167,11 @@ HINT_DATA = {
         "scenes": [0x290a],
         "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
     },
-    "Snowfall Sanctuary Shop Postcards": {
+    "Snowfall Supermarket Postcards": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "postcards"), ("shop_hints", 1)]
     },
-    "Snowfall Sanctuary Shop Treasure": {
+    "Snowfall Supermarket Treasure": {
         "scenes": [0x3103],
         "slot_data": [("shopsanity", "treasure"), ("shopsanity", "uniques", "not"), ("shop_hints", 1)]
     },
@@ -198,7 +198,7 @@ HINT_DATA = {
         "slot_data": [("shopsanity", "ammo"), ("shop_hints", 1)],
         "locations": ["Papuzia Shop Bombs", "Papuzia Shop Arrows"]
     },
-    "Beedle Buy Bomb Refill": {
+    "Beedle Shop Bomb Refill": {
         "scenes": [0x4503],
         "slot_data": [("shopsanity", "ammo"), ("shop_hints", 1)],
     }

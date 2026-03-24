@@ -710,7 +710,7 @@ location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox"
                          "Mountain Temple Dungeon Reward": "EVENT: Defeat Vulcano",
                          "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch",
                          "Castle Town Take 'em All On Level 3": "EVENT: Complete Take 'em All On 3",
-                         "Lost at Sea 6th Room Chest": "EVENT: Complete Lost at Sea Dungeon"}
+                         "Lost at Sea Final Chest": "EVENT: Complete Lost at Sea Dungeon"}
 goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          1: "GOAL: Defeat Fraaz",
                          2: "GOAL: Defeat Cactops",

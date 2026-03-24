@@ -27,8 +27,8 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving]
-read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety]
-read_keys_train = []
+read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
+read_keys_train = [STAddr.train_health]
 
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
@@ -148,7 +148,7 @@ def cmd_goal(self: "BizHawkClientCommandProcessor"):
     return True
 
 class SpiritTracksClient(DSZeldaClient):
-    game = "The Legend of Zelda - Spirit Tracks"
+    game = "Spirit Tracks"
     system = "NDS"
     train_speed_addr: "Address"
     train_speed_pointer: "Address"
@@ -324,13 +324,17 @@ class SpiritTracksClient(DSZeldaClient):
         await STAddr.health.overwrite(ctx, hearts+bonus)
 
     async def watched_intro_cs(self, ctx):
-        return await STAddr.watched_intro.read(ctx) & 1
+        watched_intro = await STAddr.watched_intro.read(ctx) & 1
+        if not watched_intro:
+            self.has_set_starting_train = False
+        return watched_intro
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always
-        read_keys += read_keys_land  # TODO: don't bother reading on train
-        # read_keys += read_keys_train
         if stage in range(4, 0xb):
+            read_keys += read_keys_train
+            self.health_address = STAddr.train_health
+
             train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
             print(f"Train speed thingy {hex(train_speed_thingy)}")
             if 0x400000 > train_speed_thingy > 0:
@@ -338,6 +342,9 @@ class SpiritTracksClient(DSZeldaClient):
                 self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
                 read_keys.append(self.train_gear_addr)
         else:
+            read_keys += read_keys_land
+            self.health_address = STAddr.health
+
             offset = 0xf80 if self.current_stage == 0x29 else 0xf64
             potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + offset
             if 0x400000 > potion_addr > 0:
@@ -867,8 +874,10 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        if False:  # wait if in a situation where deaths crash
+        if read_result[STAddr.menu] and stage >= 0x13:
             return
+        # if stage < 0x13:  # deaths work badly on train
+        #     return
 
         if ctx.last_death_link > self.last_deathlink and not is_dead:
             # A death was received from another player, make our player die as well
@@ -888,7 +897,8 @@ class SpiritTracksClient(DSZeldaClient):
                 self.is_expecting_received_death = False
             else:
                 # ...because of their own incompetence, so let's make their mates pay for that
-                await ctx.send_death(ctx.player_names[ctx.slot] + " has disappointed the Train Spirits.")
+                message = " crashed their train." if stage < 0x13 else " has disappointed the Train Spirits."
+                await ctx.send_death(ctx.player_names[ctx.slot] + message)
                 self.last_deathlink = ctx.last_death_link
 
     async def process_post_receive(self, ctx):
@@ -1100,9 +1110,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
             self.train_speed_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
         if current_scene == 0x2f00 and not self.has_set_starting_train:
-            if self.location_name_to_id["Outset Bee Tree"] not in ctx.checked_locations:
-                print(f"Setting starting train")
-                await self.set_starting_train(ctx)
+            # if self.location_name_to_id["Outset Bee Tree"] not in ctx.checked_locations:
+            #     print(f"Setting starting train")
+            await self.set_starting_train(ctx)
             self.has_set_starting_train = True
         if self.save_ammo:
             await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))

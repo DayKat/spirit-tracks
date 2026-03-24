@@ -57,7 +57,7 @@
   {"name": "ToS 29F SE Chest"},
   {"name": "ToS 30F W Chest"},
   {"name": "ToS 30F SE Wrecker Chest"},
-  {"name": "ToS Stamp Stand"}
+  {"name": "ToS Summit Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 388}]},
   {"name": "ToS 2", "sections": [
       {"name": "ToS 1F E Tear of Light"},
@@ -117,7 +117,7 @@
   {"name": "ToS 29F SE Chest"},
   {"name": "ToS 30F W Chest"},
   {"name": "ToS 30F SE Wrecker Chest"},
-  {"name": "ToS Stamp Stand"}
+  {"name": "ToS Summit Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 372}]},
   {"name": "ToS 3", "sections": [
       {"name": "ToS 1F E Tear of Light"},
@@ -177,7 +177,7 @@
   {"name": "ToS 29F SE Chest"},
   {"name": "ToS 30F W Chest"},
   {"name": "ToS 30F SE Wrecker Chest"},
-  {"name": "ToS Stamp Stand"}
+  {"name": "ToS Summit Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 356}]},
   {"name": "ToS 4", "sections": [
       {"name": "ToS 1F E Tear of Light"},
@@ -237,7 +237,7 @@
   {"name": "ToS 29F SE Chest"},
   {"name": "ToS 30F W Chest"},
   {"name": "ToS 30F SE Wrecker Chest"},
-  {"name": "ToS Stamp Stand"}
+  {"name": "ToS Summit Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 340}]},
   {"name": "ToS 5", "sections": [
     {"name": "ToS 1F E Tear of Light"},
@@ -297,7 +297,7 @@
     {"name": "ToS 29F SE Chest"},
     {"name": "ToS 30F W Chest"},
     {"name": "ToS 30F SE Wrecker Chest"},
-    {"name": "ToS Stamp Stand"}
+    {"name": "ToS Summit Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 324}]},
   {"name": "ToS 6", "sections": [
     {"name": "ToS 1F E Tear of Light"},
@@ -357,6 +357,6 @@
     {"name": "ToS 29F SE Chest"},
     {"name": "ToS 30F W Chest"},
     {"name": "ToS 30F SE Wrecker Chest"},
-    {"name": "ToS Stamp Stand"}
+    {"name": "ToS Summit Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 308}]}
 ]

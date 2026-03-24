@@ -43,7 +43,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Outset Village"],
         "conditional": True
     },
-    "Outset Far Right Tree": {
+    "Ouset Beach Tree Burried Chest": {
         "region_id": "outset village trees",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
@@ -54,7 +54,7 @@ LOCATIONS_DATA = {
         "z_max": 33968,
         "location_groups": ["Outset Village"],
     },
-    "Outset Niko's House Tree": {
+    "Outset Niko's House Tree Burried Chest": {
         "region_id": "outset village trees",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
@@ -65,7 +65,7 @@ LOCATIONS_DATA = {
         "z_max": 28762,
         "location_groups": ["Outset Village"],
     },
-    "Outset Receive Stamp Book": {
+    "Outset Niko Stamp Book": {
         "region_id": "outset village stamp book",
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
@@ -224,7 +224,7 @@ LOCATIONS_DATA = {
     },
 
     # Hyrule Castle
-    "Hyrule Castle NW Outside Chest": {
+    "Hyrule Castle Exterior NW Chest": {
         "region_id": "hyrule castle",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x28,
@@ -253,7 +253,16 @@ LOCATIONS_DATA = {
         "z_max": -35000,
         "location_groups": ["Hyrule Castle"],
     },
-    "Hyrule Castle Sword Minigame": {
+    "Hyrule Castle 1F Spirit Flute": {
+        "region_id": "hyrule castle",
+        "vanilla_item": "Spirit Flute",
+        "stage_id": 0x28,
+        "room_id": 5,
+        "address": STAddr.adv_flags_6,
+        "value": 0x10,
+        "location_groups": ["Hyrule Castle"],
+    },
+    "Hyrule Castle 1F Sword Minigame 60 Points": {
         "region_id": "hyrule castle sword minigame",
         "vanilla_item": "Heart Container",
         "minigame": [1, 2, 3, 4, 5],
@@ -262,11 +271,11 @@ LOCATIONS_DATA = {
         "room_id": 0x7,
         "address": STAddr.adv_flags_24,
         "value": 0x40,
-        "location_groups": ["Hyrule Castle"],
+        "location_groups": ["Hyrule Castle", "Sword Minigame", "Hyrule Castle Sword Minigame"],
     },
 
     # Tunnel to Tower
-    "Tunnel to ToS Block Chest": {
+    "Tunnel to ToS 1F Block Chest": {
         "region_id": "tower tunnel block chest",
         "vanilla_item": "Small Key (Tunnel to ToS)",
         "stage_id": 0x18,
@@ -897,7 +906,7 @@ LOCATIONS_DATA = {
         "tos_section": 5,
         "no_model": True
     },
-    "ToS Stamp Stand": {
+    "ToS Summit Stamp Station": {
         "vanilla_item": "Stamp: Tower of Spirits",
         "stage_id": 0x15,
         "room_id": 0x0,
@@ -998,22 +1007,7 @@ LOCATIONS_DATA = {
         "z_max": -41068,
         "location_groups": ["Mayscore"],
     },
-    "Mayscore Whip Race Heart Container": {
-        "region_id": "mayscore whip game",
-        "vanilla_item": "Heart Container",
-        "minigame": [2, 3, 4],
-        "conditional": True,
-        "stage_id": 0x38,
-        "room_id": 0,
-        "address": STAddr.adv_flags_26,
-        "value": 2,
-        "location_groups": ["Mayscore"],
-        "slot_data": [("randomize_minigames", [2, 3, 4])],
-
-        "x_min": 55000,
-        "z_max": -45000,
-    },
-    "Mayscore Whip Race Bomb Bag": {
+    "Mayscore Whip Race 1:15-1:30": {
         "region_id": "mayscore whip game",
         "vanilla_item": "Bombs (Progressive)",
         "minigame": [1, 3, 4],
@@ -1022,8 +1016,42 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "address": STAddr.adv_flags_26,
         "value": 1,
-        "location_groups": ["Mayscore"],
+        "location_groups": ["Mayscore""Mayscore Whip Race", "Mayscore Whip Game",
+                            "Mayscore Whip Game Easy", "Mayscore Whip Race Easy"],
         "slot_data": [("randomize_minigames", [1, 3, 4])],
+
+        "x_min": 55000,
+        "z_max": -45000,
+    },
+    "Mayscore Whip Race 1:05-1:15": {
+        "region_id": "mayscore whip game",
+        "vanilla_item": "Heart Container",
+        "minigame": [2, 3, 4],
+        "conditional": True,
+        "stage_id": 0x38,
+        "room_id": 0,
+        "address": STAddr.adv_flags_26,
+        "value": 2,
+        "location_groups": ["Mayscore", "Mayscore Whip Race", "Mayscore Whip Game",
+                            "Mayscore Whip Game Hard", "Mayscore Whip Race Hard"],
+        "slot_data": [("randomize_minigames", [2, 3, 4])],
+
+        "x_min": 55000,
+        "z_max": -45000,
+    },
+    "Mayscore Whip Race Sub 1:05": {
+        "region_id": "mayscore whip game",
+        "vanilla_item": ITEM_GROUPS["Super Rare Treasures"],
+        "minigame": [4, 5],
+        "conditional": True,
+        "stage_id": 0x38,
+        "room_id": 0,
+        "address": STAddr.adv_flags_10,
+        "delay_reset": True,
+        "value": 0x80,
+        "location_groups": ["Mayscore""Mayscore Whip Race", "Mayscore Whip Game",
+                            "Mayscore Whip Game Expert", "Mayscore Whip Race Expert"],
+        "slot_data": [("randomize_minigames", [4, 5])],
 
         "x_min": 55000,
         "z_max": -45000,
@@ -1086,7 +1114,7 @@ LOCATIONS_DATA = {
         "dungeon": "Wooded Temple",
         "location_groups": ["Song Statue"]
     },
-    "Wooded Temple Stamp Station": {
+    "Wooded Temple 1F Stamp Station": {
         "region_id": "wt stamp station",
         "vanilla_item": "Stamp: Wooded Temple",
         "stage_id": 0x19,
@@ -1209,7 +1237,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Rabbit Haven"],
         "x_max": -35000
     },
-    "Rabbit Haven Chest": {
+    "Rabbit Haven Island Chest": {
         "region_id": "rabbit haven",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x3E,
@@ -1320,7 +1348,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Trading Post"],
         "conditional": True
     },
-    "Trading Post Song of Light Statue": {
+    "Trading Post Song Statue": {
         "region_id": "trading post light song statue",
         "vanilla_item": "Song of Light",
         "stage_id": 0x37,
@@ -1331,7 +1359,7 @@ LOCATIONS_DATA = {
         "z_max": -35679,
         "location_groups": ["Trading Post", "Song Statue"],
     },
-    "Trading Post Chest": {
+    "Trading Post Burried Chest": {
         "region_id": "trading post chest",
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x37,
@@ -1426,6 +1454,15 @@ LOCATIONS_DATA = {
         "region_id": "ss song",
         "location_groups": ["Snowfall Sanctuary","Restoration Duets"],
     },
+    "Snowfall Sanctuary Steem Gift With Snow Source": {
+        "region_id": "steem gift",
+        "vanilla_item": "Big Green Rupee (100)",
+        "stage_id": 0x31,
+        "room_id": 2,
+        "address": STAddr.adv_flags_1a,
+        "value": 0x20,
+        "location_groups": ["Snowfall Sanctuary"],
+    },
 
     # Blizzard Temple
     "Blizzard Temple B1 SE Chest": {
@@ -1483,7 +1520,7 @@ LOCATIONS_DATA = {
         "z_max": 72090,
         "dungeon": "Blizzard Temple",
     },
-    "Blizzard Temple Stamp Station": {
+    "Blizzard Temple B1 Stamp Station": {
         "region_id": "bt stamp station",
         "vanilla_item": "Stamp: Blizzard Temple",
         "stage_id": 0x1A,
@@ -1633,7 +1670,7 @@ LOCATIONS_DATA = {
     },
 
     # Bridge Worker's Home
-    "Bridge Worker's Home Chest": {
+    "Bridge Worker's Home Burried Chest": {
         "region_id": "bridge workers chest",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x36,
@@ -1646,40 +1683,40 @@ LOCATIONS_DATA = {
     },
     # ========== Ocean Realm ============
 
-    # Ocean Sanctuary
-    "Ocean Sanctuary Stamp Station": {
+    # Island Sanctuary
+    "Island Sanctuary Stamp Station": {
         "region_id": "ocs stamp station",
-        "vanilla_item": "Stamp: Ocean Sanctuary",
+        "vanilla_item": "Stamp: Island Sanctuary",
         "stage_id": 0x32,
         "room_id": 2,
         "stamp": 8,
         "require_item": ["Stamp Book", "Song of Birds", "Whip"],
-        "location_groups": ["Ocean Sanctuary"],
+        "location_groups": ["Island Sanctuary"],
         "conditional": True
     },
 
-    "Ocean Sanctuary Cucco Chest": {
+    "Island Sanctuary Cucco Chest": {
         "region_id": "ocs north",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x32,
         "room_id": 2,
         "x_min": 65000,
         "z_min": 15000,
-        "location_groups": ["Ocean Sanctuary"],
+        "location_groups": ["Island Sanctuary"],
         "require_item": ["Boomerang"], #Possibly also need whirlwind
     },
 
-    "Ocean Sanctuary S Island Chest": {
+    "Island Sanctuary S Island Chest": {
         "region_id": "ocs S island chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x32,
         "room_id": 0,
         "y": 9830,
         "require_item": ["Song of Birds", "Whip"],
-        "location_groups": ["Ocean Sanctuary"],
+        "location_groups": ["Island Sanctuary"],
     },
 
-    "Ocean Sanctuary NW Chest": {
+    "Island Sanctuary NW Chest": {
         "region_id": "ocs nw chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x32,
@@ -1687,10 +1724,10 @@ LOCATIONS_DATA = {
         "x_max": -90000,
         "z_max": -40000,
         "require_item": ["Song of Birds", "Whip"],
-        "location_groups": ["Ocean Sanctuary"],
+        "location_groups": ["Island Sanctuary"],
     },
 
-    "Ocean Sanctuary Song of Restoration": {
+    "Island Sanctuary Song of Restoration": {
         "stage_id": 0x32,
         "room_id": 0x4,
         "region_id": "ocs song",
@@ -1699,7 +1736,7 @@ LOCATIONS_DATA = {
         "value": 0x8,
         "minigame": [1, 2, 3, 4, 5, 6],
         "conditional": True,
-        "location_groups": ["Ocean Sanctuary", "Restoration Duets"],
+        "location_groups": ["Island Sanctuary", "Restoration Duets"],
     },
 
     # Papuzia (Papuchia) Village
@@ -1820,7 +1857,7 @@ LOCATIONS_DATA = {
         "require_item": ["Whip"],
     },
 
-    "Marine Temple Stamp Station": {
+    "Marine Temple 2F Stamp Station": {
         "region_id": "oct stamp station",
         "vanilla_item": "Stamp: Marine Temple",
         "stage_id": 0x1B,
@@ -1944,7 +1981,7 @@ LOCATIONS_DATA = {
         "x_min": 10000,
     },
 
-    "Pirate Hideout Minigame 1st Reward": {
+    "Pirate Hideout Minigame 3000-4000": {
         "region_id": "pirate hideout minigame",
         "vanilla_item": "Bow (Progressive)",
         "stage_id": 0x3A,
@@ -1954,11 +1991,12 @@ LOCATIONS_DATA = {
         "require_item": ["Bow (Progressive)"],
         "address": STAddr.adv_flags_56,
         "value": 0x10,
-        "location_groups": ["Pirate Hideout"],
+        "location_groups": ["Pirate Hideout", "Pirate Hideout Minigame",
+                            "Pirate Hideout Easy", "Pirate Hideout Minigame Easy"],
         "slot_data": [("randomize_minigames", [1, 3, 4])],
       },
 
-    "Pirate Hideout Minigame 2nd Reward": { #TODO Minigame implementation (See mayscore above)
+    "Pirate Hideout Minigame 4000-5000": {
         "region_id": "pirate hideout minigame",  # First time playing gives Wadatsumi, an NPC for NPC Rando lol,
         "vanilla_item": "Heart Container",                 # This is going to be really complicated, have fun ;3
         "stage_id": 0x3A,
@@ -1968,12 +2006,27 @@ LOCATIONS_DATA = {
         "require_item": ["Bow (Progressive)]"],  # Pirate hideout gives a free bow, decide if we want that or not.
         "address": STAddr.adv_flags_56,
         "value": 0x20,
-        "location_groups": ["Pirate Hideout"],
+        "location_groups": ["Pirate Hideout", "Pirate Hideout Minigame",
+                            "Pirate Hideout Hard", "Pirate Hideout Minigame Hard"],
         "slot_data": [("randomize_minigames", [2, 3, 4])],
       },
+    "Pirate Hideout Minigame 5000+": {
+        "region_id": "pirate hideout minigame",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Super Rare Treasures"],
+        "stage_id": 0x3A,
+        "room_id": 0,
+        "conditional": True,
+        "delay_reset": True,
+        "minigame": [4, 5],
+        "address": STAddr.adv_flags_4e,
+        "value": 0x40,
+        "location_groups": ["Pirate Hideout", "Pirate Hideout Minigame",
+                            "Pirate Hideout Expert", "Pirate Hideout Minigame Expert"],
+        "slot_data": [("randomize_minigames", [4, 5])],
+    },
     # Lost at Sea Station
 
-    "Lost at Sea Outside Chest": {
+    "Lost at Sea Burried Chest": {
         "region_id": "las outside chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x39,
@@ -1985,7 +2038,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Discovery"],  # Song of Light recommended for all checks
     },
 
-    "Lost at Sea 1st Room Chest": {
+    "Lost at Sea Plain Phantom Chest": {
         "region_id": "las 1st room chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
@@ -1995,7 +2048,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip"],
     },
 
-    "Lost at Sea 2nd Room Chest": {
+    "Lost at Sea Torch Phantom Chest": {
         "region_id": "las 2nd room chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
@@ -2004,7 +2057,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang"],
     },
 
-    "Lost at Sea 3rd Room Chest": {
+    "Lost at Sea Warp Phantom Chest": {
         "region_id": "las 3rd room chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
@@ -2015,7 +2068,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
 
-    "Lost at Sea 4th Room SW Chest": {
+    "Lost at Sea Wrecker Phantom SW Chest": {
         "region_id": "las 4th room chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
@@ -2025,7 +2078,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
 
-    "Lost at Sea 4th Room NE Chest": {
+    "Lost at Sea Wrecker Phantom NE Chest": {
         "region_id": "las 4th room chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
@@ -2035,7 +2088,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
 
     },
-    "Lost at Sea 5th Room SE Chest": {
+    "Lost at Sea Final Challenge SE Chest": {
         "region_id": "las 5th room",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
@@ -2047,7 +2100,7 @@ LOCATIONS_DATA = {
         # bombs recommended for 5th room chests
     },
 
-    "Lost at Sea 5th Room NE Chest": {
+    "Lost at Sea Final Challenge NE Chest": {
         "region_id": "las 5th room",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
@@ -2058,7 +2111,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
 
-    "Lost at Sea 5th Room SW Chest": {
+    "Lost at Sea Final Challenge SW Chest": {
         "region_id": "las 5th room",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
@@ -2069,7 +2122,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
 
-    "Lost at Sea 5th Room NW Chest": {
+    "Lost at Sea Final Challenge NW Chest": {
         "region_id": "las 5th room",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
@@ -2080,7 +2133,7 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Song of Awakening", "Whip", "Boomerang", "Whirlwind"],
     },
 
-    "Lost at Sea 6th Room Chest": {
+    "Lost at Sea Final Chest": {
         "region_id": "las 5th room",
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x42,
@@ -2102,7 +2155,7 @@ LOCATIONS_DATA = {
         "region_id": "goron village",
         "location_groups": ["Goron Village"],
     },
-    "Goron Village Stamp Stand": {
+    "Goron Village West Stamp Station": {
         "stage_id": 0x2D,
         "room_id": 0x3,
         "stamp": 0x9,
@@ -2172,7 +2225,7 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Valley Sanctuary"],
     },
-    "Valley Sanctuary Stamp Stand": {
+    "Valley Sanctuary Stamp Station": {
         "stage_id": 0x33,
         "room_id": 0x0,
         "stamp": 0xA,
@@ -2317,7 +2370,7 @@ LOCATIONS_DATA = {
         "z_max": -50000,
         "dungeon": "Mountain Temple"
     },
-    "Mountain Temple B1 Stamp Stand": {
+    "Mountain Temple B1 Stamp Station": {
         "stage_id": 0x1C,
         "room_id": 2,
         "region_id": "mtt stamp",
@@ -2483,7 +2536,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "location_groups": ["Dune Sanctuary", "Restoration Duets"],
     },
-    "Dune Sanctuary Stamp Stand": {
+    "Dune Sanctuary Stamp Station": {
         "stage_id": 0x34,
         "region_id": "sand sanc stamp stand",
         "vanilla_item": "Stamp: Dune Sanctuary",
@@ -2492,7 +2545,7 @@ LOCATIONS_DATA = {
         "conditional": True
     },
     # Dark Ore Mine
-    "Dark Ore Mine Song of Discovery Chest": {
+    "Dark Ore Mine Burried Chest": {
         "stage_id": 0x3D,
         "room_id": 0x1,
         "z_max": -15000,
@@ -2590,7 +2643,7 @@ LOCATIONS_DATA = {
         "region_id": "dt 1f n earthquake",
         "dungeon": "Desert Temple",
     },
-    "Desert Temple B1 Stamp Stand": {
+    "Desert Temple B1 Stamp Station": {
         "stage_id": 0x1D,
         "room_id": 0x3,
         "stamp": 0x10,
@@ -2634,7 +2687,7 @@ LOCATIONS_DATA = {
         "dungeon": "Desert Temple",
         "conditional": True
     },
-    "Skeldritch Heart Container": {
+    "Desert Temple Boss Heart Container": {
         "stage_id": 0x22,
         "room_id": 0x1,
         "vanilla_item": "Heart Container",
@@ -2666,7 +2719,7 @@ LOCATIONS_DATA = {
     },
 
     # ========= Rabbits ==========
-    "Rabbit near Castle Town": {
+    "Rabbit Near Castle Town": {
         "region_id": "forest realm rabbits",
         "vanilla_item": "Grass Rabbit",
         "stage_id": 0x04,
@@ -2675,7 +2728,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Grass Rabbits"]
     },
-    "Rabbit near Ocean Shortcut": {
+    "Rabbit Near Ocean Shortcut": {
         "region_id": "forest ocean shortcut rabbit",
         "vanilla_item": "Grass Rabbit",
         "stage_id": 0x04,
@@ -2720,7 +2773,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Grass Rabbits"]
     },
-    "Rabbit near Wooded Temple": {
+    "Rabbit Near Wooded Temple": {
         "region_id": "wt rabbit",
         "vanilla_item": "Grass Rabbit",
         "stage_id": 0x04,
@@ -2729,7 +2782,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Grass Rabbits"]
     },
-    "Rabbit near Rabbit Haven": {
+    "Rabbit Near Rabbit Haven": {
         "region_id": "nr rabbit haven rabbit",
         "vanilla_item": "Grass Rabbit",
         "stage_id": 0x04,
@@ -2738,7 +2791,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Grass Rabbits"]
     },
-    "Rabbit past wooden bridge": {
+    "Rabbit Past Wooden Bridge": {
         "region_id": "e mayscore rabbits",
         "vanilla_item": "Grass Rabbit",
         "stage_id": 0x04,
@@ -2802,7 +2855,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Snow Rabbits"]
     },
-    "Rabbit near Snowdrift Station": {
+    "Rabbit Near Snowdrift Station": {
         "region_id": "snowdrift station rabbit",
         "vanilla_item": "Snow Rabbit",
         "stage_id": 0x05,
@@ -2867,7 +2920,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Ocean Rabbits"]
     },
-    "Rabbit on Ocean Source": {
+    "Rabbit E Pirate Hideout": {
         "region_id": "ocean source rabbits",
         "vanilla_item": "Ocean Rabbit",
         "stage_id": 0x06,
@@ -2876,7 +2929,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Ocean Rabbits"]
     },
-    "Rabbit Near Pirate Hideout": {
+    "Rabbit W Pirate Hideout": {
         "region_id": "forest ocean shortcut rabbit",
         "vanilla_item": "Ocean Rabbit",
         "stage_id": 0x06,
@@ -3114,7 +3167,7 @@ LOCATIONS_DATA = {
         "rabbit": True,
         "location_groups": ["Unique Sand Rabbits"]
     },
-    "Rabbit Fire Sand Connection": {
+    "Rabbit Sand Valley": {
         "region_id": "sand connection rabbit",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x07,
@@ -3143,7 +3196,7 @@ LOCATIONS_DATA |= {
 
 LOCATIONS_DATA |= {
     # Portal Checks
-    "Forest Realm Shoot SW Portal": {
+    "Forest Realm Shoot Cave Portal": {
         "stage_id": 0x04,
         "region_id": "forest cave portal",
         "address": STAddr.activate_portals,
@@ -3183,7 +3236,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Portal Checks"],
         "conditional": True
     },
-    "Ocean Realm Shoot West Portal": {
+    "Ocean Realm Shoot W Portal": {
         "stage_id": 0x06,
         "region_id": "ocean portal",
         "address": STAddr.adv_flags_31,
@@ -3210,7 +3263,7 @@ LOCATIONS_DATA |= {
     },
 
     # Shops
-    "Snowfall Sanctuary Shop Heart Container": {
+    "Snowfall Supermarket Heart Container": {
         "stage_id": 0x31,
         "room_id": 3,
         "vanilla_item": "Heart Container",
@@ -3221,21 +3274,21 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "uniques")],
     },
-    "Snowfall Sanctuary Shop Red Potion": {
+    "Snowfall Supermarket Red Potion": {
         "region_id": "snow sanc shop",
         "vanilla_item": "Red Potion",
         "location_groups": ["Shop Potion Locations", "Snowfall Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")],
     },
-    "Snowfall Sanctuary Shop Purple Potion": {
+    "Snowfall Supermarket Purple Potion": {
         "region_id": "snow sanc shop",
         "vanilla_item": "Purple Potion",
         "location_groups": ["Shop Potion Locations", "Snowfall Sanctuary", "Snowfall Supermarket"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")],
     },
-    "Snowfall Sanctuary Shop Shield": {
+    "Snowfall Supermarket Shield": {
         "stage_id": 0x31,
         "room_id": 0x3,
         "address": STAddr.items_2,
@@ -3246,13 +3299,13 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "shields")],
     },
-    "Snowfall Sanctuary Shop Treasure": {
+    "Snowfall Supermarket Treasure": {
         "region_id": "snow sanc shop",
         "location_groups": ["Shop Treasure Locations", "Snowfall Sanctuary", "Snowfall Supermarket", "Shop Restock Locations"],
         "conditional": True,
         "slot_data": [("shopsanity", "treasure"), ("shopsanity", "uniques", "not")],
     },
-    "Beedle Buy Bomb Bag": {
+    "Beedle Shop Bomb Bag": {
         "stage_id": 0x45,
         "room_id": 3,
         "region_id": "beedle shop",
@@ -3264,28 +3317,28 @@ LOCATIONS_DATA |= {
         "delay_reset": True,
         "slot_data": [("shopsanity", "uniques")],
     },
-    "Beedle Buy Uncommon Treasure": {
+    "Beedle Shop Uncommon Treasure": {
         "region_id": "beedle shop",
         # "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
         "conditional": True,
         "slot_data": [("shopsanity", "treasure")],
     },
-    "Beedle Buy Rare Treasure": {
+    "Beedle Shop Rare Treasure": {
         "region_id": "beedle shop",
         # "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "location_groups": ["Shop Treasure Locations", "Beedle"],
         "conditional": True,
         "slot_data": [("shopsanity", "treasure")],
     },
-    "Beedle Buy Red Potion": {
+    "Beedle Shop Red Potion": {
         "region_id": "beedle shop",
         "vanilla_item": "Red Potion",
         "location_groups": ["Shop Potion Locations", "Beedle"],
         "conditional": True,
         "slot_data": [("shopsanity", "potions")]
     },
-    "Beedle Buy Purple Potion": {
+    "Beedle Shop Purple Potion": {
         "region_id": "beedle shop",
         "vanilla_item": "Purple Potion",
         "location_groups": ["Shop Potion Locations", "Beedle", "Shop Restock Locations"],
@@ -3382,7 +3435,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "postcards")],
     },
-    "Snowfall Sanctuary Shop Postcards": {
+    "Snowfall Supermarket Postcards": {
         "stage_id": 0x31,
         "room_id": 0x3,
         "address": STAddr.postcard_count,
@@ -3440,7 +3493,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "slot_data": [("shopsanity", "ammo")],
     },
-    "Beedle Buy Bomb Refill": {
+    "Beedle Shop Bomb Refill": {
         "stage_id": 0x45,
         "room_id": 0x3,
         "address": STAddr.bomb_count,
@@ -3646,7 +3699,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "pick up bridge worker"
     },
-    "Bring Kenzo to Trading Post": {
+    "Trading Post Repair Bridge": {
         "stage_id": 0x37,
         "room_id": 0x0,
         "address": STAddr.adv_flags_18,
@@ -3829,13 +3882,13 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "no_model": True
     },
-    "Ocean Sanctuary Carben's Force Gem": {
+    "Island Sanctuary Carben's Force Gem": {
         "stage_id": 0x32,
         "room_id": 0,
         "address": STAddr.adv_flags_d,
         "value": 0x4,
         "vanilla_item": "Forest Realm SE Portal Tracks",
-        "location_groups": ["Ocean Sanctuary", "Deliver Passengers"],
+        "location_groups": ["Island Sanctuary", "Deliver Passengers"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "region_id": "ocs carben",
@@ -3865,7 +3918,7 @@ LOCATIONS_DATA |= {
         "z_max": -15000
     },
 
-    "Castle Town Lucia Fish Force Gem": {
+    "Castle Town Deliver Fish": {
         "stage_id": 0x29,
         "room_id": [0x0, 0xe],
         "address": STAddr.adv_flags_d,
@@ -3910,7 +3963,7 @@ LOCATIONS_DATA |= {
         "region_id": "papuzia ice",
         "x_max": -50000
     },
-    "Trading Post Give Dark Ore to Linebeck": {
+    "Trading Post Deliver Dark Ore": {
         "stage_id": 0x37,
         "room_id": 0xa,
         "address": STAddr.adv_flags_e,
@@ -3921,7 +3974,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "linebeck dark ore"
     },
-    "Dune Sanctuary Deliver Cuccos to Rael": {
+    "Dune Sanctuary Deliver Cuccos": {
         "stage_id": 0x34,
         "room_id": 0x0,
         "address": STAddr.adv_flags_d,
@@ -3948,7 +4001,7 @@ LOCATIONS_DATA |= {
         "room_id": 0x0,
         "address": STAddr.adv_flags_f,
         "value": 0x1,
-        "vanilla_item": "Sand to Fire Connection Tracks",
+        "vanilla_item": "Fire Realm Sand Portal Tracks",
         "location_groups": ["Goron Village", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
@@ -4095,7 +4148,6 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "forest ferrus"
     },
-
     "Mayscore Pick Up Morris": {
         "stage_id": 0x2A,
         "room_id": 0x3,
@@ -4144,53 +4196,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "no_model": True
     },
-    "Mayscore Whip Race Rare Treasure": {
-        "region_id": "mayscore whip game",
-        "vanilla_item": ITEM_GROUPS["Super Rare Treasures"],
-        "minigame": [4, 5],
-        "conditional": True,
-        "stage_id": 0x38,
-        "room_id": 0,
-        "address": STAddr.adv_flags_10,
-        "delay_reset": True,
-        "value": 0x80,
-        "location_groups": ["Mayscore"],
-        "slot_data": [("randomize_minigames", [4, 5])],
 
-        "x_min": 55000,
-        "z_max": -45000,
-    },
-    "Hyrule Castle 1F Spirit Flute": {
-        "region_id": "hyrule castle",
-        "vanilla_item": "Spirit Flute",
-        "stage_id": 0x28,
-        "room_id": 5,
-        "address": STAddr.adv_flags_6,
-        "value": 0x10,
-        "location_groups": ["Hyrule Castle"],
-    },
-    "Pirate Hideout Minigame Expert": {
-        "region_id": "pirate hideout minigame",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Super Rare Treasures"],
-        "stage_id": 0x3A,
-        "room_id": 0,
-        "conditional": True,
-        "delay_reset": True,
-        "minigame": [4, 5],
-        "address": STAddr.adv_flags_4e,
-        "value": 0x40,
-        "location_groups": ["Pirate Hideout"],
-        "slot_data": [("randomize_minigames", [4, 5])],
-    },
-    "Snowfall Sanctuary Steem Gift With Snow Source": {
-        "region_id": "steem gift",
-        "vanilla_item": "Big Green Rupee (100)",
-        "stage_id": 0x31,
-        "room_id": 2,
-        "address": STAddr.adv_flags_1a,
-        "value": 0x20,
-        "location_groups": ["Snowfall Sanctuary"],
-    },
 }
 
 # Create location groups from loc data

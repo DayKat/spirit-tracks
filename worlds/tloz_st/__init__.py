@@ -14,6 +14,7 @@ from .Options import *
 from .data import LOCATIONS_DATA
 from .data.Items import ITEMS
 from .data.Constants import *
+from .data.ModelLookups import all_lookups
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
@@ -88,11 +89,14 @@ class SpiritTracksSettings(settings.Group):
 
 dev_prints = False
 
+class SpiritTracksItem(Item):
+    game = "Spirit Tracks"
+
 class SpiritTracksWorld(WorldParent):
     """
     The Legend of Zelda: Spirit Tracks is the train bound handheld sequel to Phantom Hourglass.
     """
-    game = "The Legend of Zelda - Spirit Tracks"
+    game = "Spirit Tracks"
     options_dataclass = SpiritTracksOptions
     options: SpiritTracksOptions
     settings: ClassVar[SpiritTracksSettings]
@@ -121,7 +125,7 @@ class SpiritTracksWorld(WorldParent):
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
 
-        self.pre_fill_items: List[Item] = []
+        self.pre_fill_items: List[SpiritTracksItem] = []
         self.required_dungeons = []
         self.non_required_dungeons = []
         self.non_required_sections = []
@@ -423,7 +427,7 @@ class SpiritTracksWorld(WorldParent):
         region = self.get_region(region_name)
         location = Location(self.player, region_name + ".event", None, region)
         region.locations.append(location)
-        location.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
+        location.place_locked_item(SpiritTracksItem(event_item_name, ItemClassification.progression, None, self.player))
 
     # When you want multiple copies of the same event in the same region
     def create_multiple_events(self, region_name, event_item_name, count):
@@ -431,7 +435,7 @@ class SpiritTracksWorld(WorldParent):
         locations = [Location(self.player, region_name + f"{i}.event", None, region) for i in range(count)]
         for loc in locations:
             region.locations.append(loc)
-            loc.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
+            loc.place_locked_item(SpiritTracksItem(event_item_name, ItemClassification.progression, None, self.player))
 
     def location_is_active(self, location_name, location_data):
         if not location_data.get("conditional", False) and "rabbit" not in location_data and "dungeon" not in location_data and "tos_section" not in location_data:
@@ -460,7 +464,7 @@ class SpiritTracksWorld(WorldParent):
         if "minigame" in location_data and self.options.randomize_minigames:
             if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_dungeons:
                 return True  # If plandoed dungeon include
-            print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data["minigame"]}")
+            # print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data['minigame']}")
             return self.options.randomize_minigames.value in location_data["minigame"]
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
             return self.options.randomize_stamps.value in [1, 2, 3]
@@ -475,9 +479,9 @@ class SpiritTracksWorld(WorldParent):
             if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
                 if "uniques" in self.options.shopsanity.value:
                     return False
-                if location_name == "Beedle Buy Purple Potion":
+                if location_name == "Beedle Shop Purple Potion":
                     return "potions" in self.options.shopsanity.value
-                if location_name == "Snow Sanctuary Shop Treasure":
+                if location_name == "Snowfall Supermarket Treasure":
                     return "treasure" in self.options.shopsanity.value
                 if location_name == "Goron Shop Postcards":
                     return "postcards" in self.options.shopsanity.value
@@ -634,7 +638,7 @@ class SpiritTracksWorld(WorldParent):
     def set_rules(self):
         create_connections(self, self.player, self.origin_region_name, self.options)
 
-    def create_item(self, name: str) -> Item:
+    def create_item(self, name: str) -> SpiritTracksItem:
         classification = ITEMS[name].classification
         if name in self.extra_filler_items:
             self.extra_filler_items.remove(name)
@@ -644,7 +648,7 @@ class SpiritTracksWorld(WorldParent):
             classification = DEPRIORITIZED_SKIP_BALANCING_FALLBACK
 
         ap_code = self.item_name_to_id[name]
-        return Item(name, classification, ap_code, self.player)
+        return SpiritTracksItem(name, classification, ap_code, self.player)
 
     def build_item_pool_dict(self):
         removed_item_quantities = self.options.remove_items_from_pool.value.copy()
@@ -813,7 +817,7 @@ class SpiritTracksWorld(WorldParent):
                 keyrings = chosen_keyrings
             res += [(i, 1) for i in keyrings]
 
-        print(f"Key Items: {res}")
+        # print(f"Key Items: {res}")
         return res
 
     def choose_track_items(self):
@@ -1229,7 +1233,7 @@ class SpiritTracksWorld(WorldParent):
         self.pre_fill_tos_sections()
         self.pre_fill_dungeon_items()
 
-    def filter_confined_dungeon_items_from_pool(self, items: List[Item]):
+    def filter_confined_dungeon_items_from_pool(self, items: List[SpiritTracksItem]):
         confined_dungeon_items = []
 
         # Confine small keys and boss key to own dungeon if option is enabled
@@ -1245,7 +1249,7 @@ class SpiritTracksWorld(WorldParent):
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
-        print(f"Pre fill items {self.pre_fill_items}")
+        # print(f"Pre fill items {self.pre_fill_items}")
 
     def pre_fill_tos_sections(self):
         for section in range(1, 7):
@@ -1332,7 +1336,7 @@ class SpiritTracksWorld(WorldParent):
             return self.random.choice(rare_filler_items)
         return self.random.choice(filler_item_names)
 
-    def collect(self, state: CollectionState, item: Item) -> bool:
+    def collect(self, state: CollectionState, item: SpiritTracksItem) -> bool:
         # Code borrowed from Ishigh's early Rule Builder implementation
         change = super().collect(state, item)
         if not change:
@@ -1345,7 +1349,7 @@ class SpiritTracksWorld(WorldParent):
 
         return True
 
-    def remove(self, state: CollectionState, item: Item) -> bool:
+    def remove(self, state: CollectionState, item: SpiritTracksItem) -> bool:
         change = super().remove(state, item)
         if not change:
             return False
@@ -1356,27 +1360,37 @@ class SpiritTracksWorld(WorldParent):
 
         return True
 
+    # def post_fill(self) -> None:
+    #     self.get_location_models()
+
     def get_location_models(self):
         # get item placement models to send to client
         location_models = {}
         for loc in self.get_locations():
             item = loc.item
-            if item is not None:
-                loc_data = LOCATIONS_DATA.get(loc.name, {})
-                if not loc_data or 'stamp' in loc_data or 'no_model' in loc_data:
+            if item is None: continue
+            loc_data = LOCATIONS_DATA.get(loc.name, {})
+            if not loc_data or 'stamp' in loc_data or 'no_model' in loc_data:
+                continue
+            if item.game in ["Spirit Tracks"]:
+                if ITEMS[item.name].model is not None:
+                    location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
                     continue
-                if item.game in ["The Legend of Zelda - Spirit Tracks", "Generic"]:
-                    if ITEMS[item.name].model is not None:
-                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
-                else:  # Add different models based on classification
-                    if item.classification & ItemClassification.progression:
-                        pass
-                    elif item.classification & ItemClassification.trap:
-                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Stalfos Skull"].offset
-                    elif item.classification & ItemClassification.useful:
-                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Blue Rupee"].offset
-                    else:
-                        location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Green Rupee"].offset
+            elif item.game in all_lookups:
+                model = all_lookups[item.game].get(item.name, None)
+                if model is not None:
+                    location_models[loc_data['id']] = model
+                    print(f"Setting item model for {item}")
+                    continue
+
+            if item.classification & ItemClassification.progression:
+                pass  # progression fallback is the default
+            elif item.classification & ItemClassification.trap:
+                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Stalfos Skull"].offset
+            elif item.classification & ItemClassification.useful:
+                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Blue Rupee"].offset
+            else:
+                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Green Rupee"].offset
 
         return location_models
         # print(f"Location Models: {location_models}")
@@ -1397,7 +1411,8 @@ class SpiritTracksWorld(WorldParent):
                    "starting_train",
                    "randomize_stamps",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections",
-                   "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure"]
+                   "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
+                   "death_link"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]

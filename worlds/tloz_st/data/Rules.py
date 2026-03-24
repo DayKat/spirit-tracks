@@ -162,7 +162,7 @@ def st_has_dungeon_rewards(state, player):
     return state.has("_dungeon_reward", player, dungeon_count)
 
 @dataclasses.dataclass
-class HasShuffledSection(Rule["SpiritTracksWorld"], game="The Legend of Zelda - Spirit Tracks"):
+class HasShuffledSection(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
     item_name: str
     section: int
 

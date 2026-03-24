@@ -3,7 +3,7 @@ from test.bases import *
 
 
 class TestGeneration(WorldTestBase):
-    game = "The Legend of Zelda - Spirit Tracks"
+    game = "Spirit Tracks"
     options = {
         "rabbitsanity": "unique_checks",
         "rabbit_max_location_count": 10,
@@ -13,7 +13,7 @@ class TestGeneration(WorldTestBase):
         "goal": "defeat_malladus",
         "dark_realm_access": "both",
 
-        "dungeons_required": 0,
+        "dungeons_required": 12,
         "tos_dungeon_options": "all_sections",
 
         "randomize_tears": "in_tos",

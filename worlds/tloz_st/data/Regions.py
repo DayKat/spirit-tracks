@@ -323,7 +323,7 @@ REGIONS = [
     "ocean portal rabbits",
     "pirate rabbit",
 
-    #Ocean Sanctuary
+    #Island Sanctuary
     "ocs",
     "ocs north",
     "ocs stamp station",
