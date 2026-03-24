@@ -310,6 +310,12 @@ class SpiritTracksPortalLocations(Toggle):
     display_name = "Portal Checks"
     default = 0
 
+class SpiritTracksDeathLink(DeathLink):
+    """
+    When you die, everyone who enabled death link dies. Of course, the reverse is true too.
+    Still a bit buggy, the train won't die immediately.
+    """
+
 class SpiritTracksStartWithTrain(Toggle):
     """
     Starts you with a forest glyph including track and cannon depending on cannon logic, giving you train access from the start.
@@ -734,7 +740,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Generic
     start_inventory_from_pool: StartInventoryPool
     remove_items_from_pool: SpiritTracksRemoveItemsFromPool
-    death_link: DeathLink
+    death_link: SpiritTracksDeathLink
 
 st_option_groups = [
     OptionGroup("Goal Options", [
