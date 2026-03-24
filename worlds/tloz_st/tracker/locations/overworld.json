@@ -127,6 +127,7 @@
     {"name": "Snowfall Sanctuary Shop Treasure"},
     {"name": "Snowfall Sanctuary Stamp Station"},
     {"name": "Snowfall Sanctuary Song of Restoration"},
+    {"name": "Snowfall Sanctuary Steem Gift With Snow Source"},
     {"name": "Snowfall Sanctuary Deliver Vessel"}
   ], "map_locations":[{"map": "Overview", "x": 140, "y": 236}]},
   {"name": "Blizzard Temple", "sections": [

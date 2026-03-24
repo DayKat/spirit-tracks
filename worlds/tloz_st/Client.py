@@ -7,7 +7,7 @@ from .data.Entrances import ENTRANCES
 from settings import get_settings
 from typing import Literal
 
-from ..mlss.Data import vanilla
+
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
@@ -141,6 +141,12 @@ def cmd_warp_to_start(self: "BizHawkClientCommandProcessor"):
         self.output(f"Canceled Warp to Start")
     return True
 
+def cmd_goal(self: "BizHawkClientCommandProcessor"):
+    """Display the current goal and progress towards it. Only works while in-game."""
+    client = get_client_as_command_processor(self)
+    client.display_goal = True
+    return True
+
 class SpiritTracksClient(DSZeldaClient):
     game = "The Legend of Zelda - Spirit Tracks"
     system = "NDS"
@@ -221,6 +227,39 @@ class SpiritTracksClient(DSZeldaClient):
         self.delay_room_action: int = 0
         self.saving = False
 
+        self.display_goal = False
+
+    def print_goal_info(self, ctx):
+        slot_data = ctx.slot_data
+
+        if slot_data["goal"] != -1:
+            from .Options import SpiritTracksGoal
+            logger.info(f"Your goal is {SpiritTracksGoal(slot_data['goal']).current_key}.")
+            return
+
+        if slot_data["endgame_scope"] == 5:
+            logger.info(f"Your goal to is enter the Dark Realm.")
+        else:
+            logger.info(f"Your goal is to defeat Malladus in the Dark Realm.")
+
+        if slot_data["dark_realm_access"] in [0, 1]:
+            has_compass = "" if self.item_count(ctx, "Compass of Light") else "don't "
+            logger.info(f"You need the Compass of Light to access the Dark Realm. You {has_compass}have it.")
+        if slot_data["dark_realm_access"] in [1, 3]:
+            specific = "specific " if slot_data["require_specific_dungeons"] else ""
+            dungeon_locs = slot_data["required_dungeons"]
+            has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
+            logger.info(
+                f"You need to complete {specific}dungeons to enter the dark realm. Progress: {has_locs}/{slot_data['dungeons_required']}")
+            if slot_data["dungeon_hints"]:
+                dungeons_locs = [self.location_id_to_name[i] for i in slot_data["required_dungeons"]]
+                logger.info(f"Your dungeons: {dungeons_locs}")
+        if slot_data["dark_realm_access"] in [2, 3]:
+            shard_count = self.item_count(ctx, "Compass of Light Shard")
+            logger.info(
+                f"You need Compass Shards to access the Dark Realm. You have {shard_count}/{slot_data['compass_shard_count']}")
+
+
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
 
@@ -235,6 +274,8 @@ class SpiritTracksClient(DSZeldaClient):
                 ctx.command_processor.commands["train"] = cmd_train_option
             if "warp_to_start" not in ctx.command_processor.commands:
                 ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
+            if "goal" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["goal"] = cmd_goal
             return True
         return False
 
@@ -277,7 +318,9 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     async def full_heal(self, ctx, bonus=0):
+
         hearts = (self.item_count(ctx, "Heart Container") + 3)*4
+        print(f"Full Heal: {hearts}")
         await STAddr.health.overwrite(ctx, hearts+bonus)
 
     async def watched_intro_cs(self, ctx):
@@ -480,6 +523,7 @@ class SpiritTracksClient(DSZeldaClient):
             if self.item_count(ctx, "Compass of Light Shard") >= required_shards:
                 logger.info(f"Got {required_shards} Compass of Light Shards, unlocking the track to the Dark Realm!")
                 await STAddr.rail_restorations.set_bits(ctx, 0x40)
+                await STAddr.adv_flags_25.set_bits(ctx, 0x60)
 
         # Get spirit weapons from final tear of light
         if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
@@ -568,6 +612,9 @@ class SpiritTracksClient(DSZeldaClient):
                 await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
                                      respawn_data)
 
+        if self.display_goal:
+            self.print_goal_info(ctx)
+            self.display_goal = False
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
@@ -792,7 +839,9 @@ class SpiritTracksClient(DSZeldaClient):
             await self._process_checked_locations(ctx, total_loc)
 
     def update_rabbit_tracker(self, ctx):
-        rabbit_storage = ctx.stored_data[storage_key(ctx, rabbit_storage_key)]
+        rabbit_storage = ctx.stored_data.get(storage_key(ctx, rabbit_storage_key))
+        if not rabbit_storage:
+            return
         rabbit_storage = [0]*7 if not rabbit_storage else rabbit_storage
         print(f"\tRabbit storage: {rabbit_storage}")
         self.rabbit_tracker = [s | c for s, c in zip(rabbit_storage, self.rabbit_tracker)]

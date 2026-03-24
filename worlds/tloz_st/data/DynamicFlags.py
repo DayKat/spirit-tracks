@@ -165,7 +165,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Snow Glyph"],
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
         "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "reset_flags": ["RESET Alfonso"]
+    },
+    "Move Alfonso to castle town station randomized": {
+        "on_scenes": [0x2900],
+        "not_has_locations": ["Castle Town Pick Up Alfonzo"],
+        "has_groups": ["Tracks: Snow Glyph"],
+        "set_if_true": [(STAddr.adv_flags_11, 0x20)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "reset_flags": ["RESET Alfonso"]
     },
     "RESET Alfonso": {
@@ -446,8 +454,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
-        "has_groups": ["Tracks: Sand Realm"],
-        "has_items": [["Desert Temple Tracks", 1]],
+        "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
         "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
@@ -590,7 +597,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Keep portal loc closed cave": {
         "on_scenes": [0x0400],
         "has_slot_data": [["portal_checks", 1]],
-        "not_has_locations": ["Forest Realm Shoot SE Portal"],
+        "not_has_locations": ["Forest Realm Shoot SW Portal"],
         "unset_if_true": [(STAddr.activate_portals, 0x40)]
     },
 
@@ -861,8 +868,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Sand sanc get cuccos no cargo rando": {
         "on_scenes": [0x3400],
-        "has_slot_data": [("randomize_cargo", 0)],
-        "set_if_true": [(STAddr.adv_flags_44, 0x8), (STAddr.adv_flags_d, 0x8)]
+        "has_slot_data": [("randomize_cargo", 0), ("randomize_stamps", 1, 2, 3, 4)],
+        "check_bits": [(STAddr.adv_flags_44, 0x8, "not")],
+        "set_if_true": [(STAddr.adv_flags_44, 0x4), (STAddr.adv_flags_19, 0x8),
+                        (STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)],
+        "reset_flags": ["RESET Cargo"]
     },
     # ToS climb flags
     "ToS open sections": {
@@ -1120,11 +1130,16 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],
         "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
-    "Prep for TP kenzo loc": {
+    "Prep for TP kenzo loc done av": {
         "on_scenes": [0x3700],
         "not_has_locations": ["Trading Post Pick Up Kenzo"],
         "has_slot_data": [("randomize_passengers", 3)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_3c, 0x10)],
+        "reset_flags": ["Kenzo av yes"]
+    },
+    "Kenzo av yes": {
+        "set_if_true": [(STAddr.adv_flags_3c, 0x10)],
     },
     "Bring Goron to CT": {
         "on_scenes": [0x2900],
@@ -1369,7 +1384,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_c, 0x80)]
     },
     "RESET abstract kenzo on train": {
-        "unset_if_true": [(STAddr.adv_flags_19, 0x20)],
+        "unset_if_true": [(STAddr.adv_flags_18, 0x20)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
     },
     "Anouki Quests": {
@@ -1534,6 +1549,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Papuzia allow dovok cs vanilla passengers": {
         "on_scenes": [0x2C00],
         "set_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)],
+        "has_slot_data": [("randomize_passengers", 1)],
         "not_has_locations": ["Papuzia Village Orca's Force Gem"],
         "check_bits": [(STAddr.adv_flags_36, 0x4)],
         "reset_flags": ["RESET dovok complicated vanilla passengers"]
@@ -1565,7 +1581,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Pick Up Carben", "Papuzia Village Orca's Force Gem"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30), (STAddr.adv_flags_14, 0x20)],
         "has_items": [("Passenger: Dovok", 0)],
     },
     "Papuzia reset carben location post dovok": {
@@ -1575,10 +1591,22 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
-    "Papuzia carben post both": {
+    "Papuzia carben post both": {  # Spawns birds again
         "on_scenes": [0x2c00],
         "has_locations": ["Papuzia Village Orca's Force Gem", "Papuzia Village Pick Up Carben"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+    "Papuzia no passengers spawn birds": {  # Spawns birds again
+        "on_scenes": [0x2c00],
+        "has_locations": ["Papuzia Village Song Statue"],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+    "Papuzia vanilla passengers spawn birds": {  # Spawns birds again
+        "on_scenes": [0x2c00],
+        "has_locations": ["Ocean Sanctuary Carben's Force Gem"],
+        "has_slot_data": [("randomize_passengers", 1)],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
 
@@ -1635,11 +1663,17 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Carben Arrives at Sanctuary": {
         "on_scenes": [0x3200],
         "has_items": [("Passenger: Carben", 1)],
-        "check_bits": [(STAddr.adv_flags_9, 0x20, "not")],
+        "not_has_locations": ["Ocean Sanctuary Carben's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_9, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x32),
                               (STAddr.passenger_tag_0, 0x53595741),
                               (STAddr.has_passenger_0, 0)],
+    },
+    "Remove Carben OCS": {
+        "on_scenes": [0x3200],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_items": [("Passenger: Carben", 0)],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
 
     #Set Carben to Ocean Sanctuary
@@ -1660,6 +1694,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("randomize_minigames", [0])],
         "set_if_true": [(STAddr.adv_flags_34, 0x20)],
         "reset_flags": ["RESET Pirate Minigame Access"],
+    },
+    "Prepare for wadatsumi": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Pirate Hideout Pick Up Wadatsumi"],
+        "unset_if_true": [(STAddr.adv_flags_34, 0x40)]
     },
 
     #Set flags for Gorons to appear if passenger rando turned off
@@ -1838,7 +1878,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Keep rael upstairs": {
         "on_scenes": [0x3400],
-        "has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Papuzia has ice vanilla abstract": {
@@ -1882,7 +1921,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "has_slot_data": [("randomize_cargo", 1)],
         "has_items": [("Wagon", 1)],
+        "check_bits": [(STAddr.cargo_0, 0xFF, "not")],
         "set_if_true": [(STAddr.adv_flags_33, 0x20)]
+    },
+    "Papuzia unset ice bit vanilla": {
+        "on_scenes": [0x2c00],
+        "has_slot_data": [("randomize_cargo", 1)],
+        "has_items": [("Wagon", 1)],
+        "check_bits": [(STAddr.cargo_0, 0xFF)],
+        "unset_if_true": [(STAddr.adv_flags_33, 0x20)]
     },
     "Goron elder skip cutscene": {
         "on_scenes": [0x2e0a],
@@ -1959,6 +2006,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         # "not_has_locations": ["Papuzia Pick Up Carben"],
         "unset_if_true": [(STAddr.adv_flags_9, 0x10)]
         # TODO: has some nasty interactions with vanilla passengers
+    },
+    "Fire realm prevent ice crash": {
+        "on_scenes": [0x700],
+        "not_has_groups": ["Tracks: Fire Glyph"],
+        "unset_if_true": [(STAddr.adv_flags_34, 0x20)]
     },
     "Desert Temple Prevent Earthquake": {
         "on_scenes": [0x1D00],

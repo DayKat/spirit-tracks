@@ -2138,6 +2138,7 @@ LOCATIONS_DATA = {
         "region_id": "goron whip",
         "vanilla_item": "Wagon",
         "item_override": "Nothing!",
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
         "location_groups": ["Goron Village"],
         "no_model": True
     },
@@ -2417,6 +2418,7 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "location_groups": ["Ends of the Earth"],
         "minigame": [1, 3, 4],
+        "conditional": True,
         "slot_data": [("randomize_minigames", [1, 3, 4])],
     },
     "Ends of the Earth Master Small Chest": {
@@ -2426,6 +2428,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
         "minigame": [1, 3, 4],
+        "conditional": True,
         "slot_data": [("randomize_minigames", [1, 3, 4])],
     },
     "Ends of the Earth Tempered Big Chest": {
@@ -2435,6 +2438,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "location_groups": ["Ends of the Earth"],
         "minigame": [2, 3, 4],
+        "conditional": True,
         "slot_data": [("randomize_minigames", [2, 3, 4])],
     },
     "Ends of the Earth Tempered Small Chest": {
@@ -2444,6 +2448,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
         "minigame": [2, 3, 4],
+        "conditional": True,
         "slot_data": [("randomize_minigames", [2, 3, 4])],
     },
     "Ends of the Earth Golden Big Chest": {
@@ -2453,6 +2458,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Treasure: Regal Ring",
         "location_groups": ["Ends of the Earth"],
         "minigame": [4, 5],
+        "conditional": True,
         "slot_data": [("randomize_minigames", [4, 5])],
     },
     "Ends of the Earth Golden Small Chest": {
@@ -2462,6 +2468,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
         "minigame": [4, 5],
+        "conditional": True,
         "slot_data": [("randomize_minigames", [4, 5])],
     },
 
@@ -3818,7 +3825,7 @@ LOCATIONS_DATA |= {
         "region_id": "pv carben",
         "vanilla_item": "Passenger: Carben",
         "location_groups": ["Papuzia Village", "Pick Up Passengers"],
-        "slot_data": [("randomize_passengers", [2, 3])],
+        "slot_data": [("randomize_passengers", [0, 2, 3])],
         "conditional": True,
         "no_model": True
     },
@@ -3878,9 +3885,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Mayscore", "Deliver Cargo"],
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
-        "region_id": "mayscore steel",
-
-        "no_model": True
+        "region_id": "mayscore steel"
     },
     "Snowfall Sanctuary Deliver Vessel": {
         "stage_id": 0x31,
@@ -3923,7 +3928,7 @@ LOCATIONS_DATA |= {
         "value": 0x8,
         "vanilla_item": "Ends of the Earth Tracks",
         "location_groups": ["Dune Sanctuary", "Deliver Cargo"],
-        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "slot_data": [("randomize_cargo", [0, 1, 2, 3])],
         "conditional": True,
         "region_id": "sand sanc cuccos"
     },
@@ -4038,7 +4043,7 @@ LOCATIONS_DATA |= {
     "Snow Realm Pick Up Ferrus": {
         "stage_id": 0x5,
         "address": STAddr.passenger_tag_0,
-        "value": 0x544D4E50,
+        "value": 0x544D4E41,
         "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "location_groups": ["Pick Up Passengers"],
@@ -4060,7 +4065,7 @@ LOCATIONS_DATA |= {
     "Fire Realm Pick Up Ferrus": {
         "stage_id": 0x7,
         "address": STAddr.passenger_tag_0,
-        "value": 0x544D4E41,
+        "value": 0x544D4E50,
         "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "item_override": "Nothing!",
@@ -4176,6 +4181,15 @@ LOCATIONS_DATA |= {
         "value": 0x40,
         "location_groups": ["Pirate Hideout"],
         "slot_data": [("randomize_minigames", [4, 5])],
+    },
+    "Snowfall Sanctuary Steem Gift With Snow Source": {
+        "region_id": "steem gift",
+        "vanilla_item": "Big Green Rupee (100)",
+        "stage_id": 0x31,
+        "room_id": 2,
+        "address": STAddr.adv_flags_1a,
+        "value": 0x20,
+        "location_groups": ["Snowfall Sanctuary"],
     },
 }
 
