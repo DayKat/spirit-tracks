@@ -734,7 +734,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Generic
     start_inventory_from_pool: StartInventoryPool
     remove_items_from_pool: SpiritTracksRemoveItemsFromPool
-    # death_link: DeathLink
+    death_link: DeathLink
 
 st_option_groups = [
     OptionGroup("Goal Options", [

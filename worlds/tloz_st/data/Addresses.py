@@ -69,6 +69,7 @@ class STAddr:
 
     train_action = Address(0x2CA23C) # forest, but near train speed pointer
     train_gear = Address(0x2CA438)  # forest, find pointer
+    train_health = Address(0x2653a0)
 
     # Inventory
     items_0 = Address(0x265320)
