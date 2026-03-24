@@ -2138,6 +2138,7 @@ LOCATIONS_DATA = {
         "region_id": "goron whip",
         "vanilla_item": "Wagon",
         "item_override": "Nothing!",
+        "slot_data": [("randomize_cargo", [1, 2, 3])],
         "location_groups": ["Goron Village"],
         "no_model": True
     },
@@ -3923,7 +3924,7 @@ LOCATIONS_DATA |= {
         "value": 0x8,
         "vanilla_item": "Ends of the Earth Tracks",
         "location_groups": ["Dune Sanctuary", "Deliver Cargo"],
-        "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "slot_data": [("randomize_cargo", [0, 1, 2, 3])],
         "conditional": True,
         "region_id": "sand sanc cuccos"
     },
@@ -4060,7 +4061,7 @@ LOCATIONS_DATA |= {
     "Fire Realm Pick Up Ferrus": {
         "stage_id": 0x7,
         "address": STAddr.passenger_tag_0,
-        "value": 0x544D4E41,
+        "value": 0x544D4E50,
         "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "item_override": "Nothing!",

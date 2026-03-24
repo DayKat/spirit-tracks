@@ -454,8 +454,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
-        "has_groups": ["Tracks: Sand Realm"],
-        "has_items": [["Desert Temple Tracks", 1]],
+        "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
         "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
@@ -598,7 +597,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Keep portal loc closed cave": {
         "on_scenes": [0x0400],
         "has_slot_data": [["portal_checks", 1]],
-        "not_has_locations": ["Forest Realm Shoot SE Portal"],
+        "not_has_locations": ["Forest Realm Shoot SW Portal"],
         "unset_if_true": [(STAddr.activate_portals, 0x40)]
     },
 
@@ -869,8 +868,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Sand sanc get cuccos no cargo rando": {
         "on_scenes": [0x3400],
-        "has_slot_data": [("randomize_cargo", 0)],
-        "set_if_true": [(STAddr.adv_flags_44, 0x8), (STAddr.adv_flags_d, 0x8)]
+        "has_slot_data": [("randomize_cargo", 0), ("randomize_stamps", 1, 2, 3, 4)],
+        "check_bits": [(STAddr.adv_flags_44, 0x8, "not")],
+        "set_if_true": [(STAddr.adv_flags_44, 0x4), (STAddr.adv_flags_19, 0x8),
+                        (STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)],
+        "reset_flags": ["RESET Cargo"]
     },
     # ToS climb flags
     "ToS open sections": {
@@ -1382,7 +1384,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_c, 0x80)]
     },
     "RESET abstract kenzo on train": {
-        "unset_if_true": [(STAddr.adv_flags_19, 0x20)],
+        "unset_if_true": [(STAddr.adv_flags_18, 0x20)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
     },
     "Anouki Quests": {
@@ -1680,6 +1682,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("randomize_minigames", [0])],
         "set_if_true": [(STAddr.adv_flags_34, 0x20)],
         "reset_flags": ["RESET Pirate Minigame Access"],
+    },
+    "Prepare for wadatsumi": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Pirate Hideout Pick Up Wadatsumi"],
+        "unset_if_true": [(STAddr.adv_flags_34, 0x40)]
     },
 
     #Set flags for Gorons to appear if passenger rando turned off

@@ -34,7 +34,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_18, 0x07],  # HC intro Zelda
     [STAddr.adv_flags_19, 0x63],  # steem
     [STAddr.adv_flags_1a, 0x1C],  # rabbitland rock text
-    [STAddr.adv_flags_1b, 0xE2],  # initial train cutscene skip, tos 3 zelda text
+    [STAddr.adv_flags_1b, 0xEE],  # initial train cutscene skip, tos 3 zelda text
     [STAddr.adv_flags_1c, 0x25],  # ToS 3 zelda text
     [STAddr.adv_flags_1d, 0xF4],  # ToS 3 zelda text
     [STAddr.adv_flags_1e, 0x8B],  # Valley sanc
