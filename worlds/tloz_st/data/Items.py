@@ -494,7 +494,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
                         "Fire to Sand Connection Tracks", "Fire Realm Portal Tracks", "S Fire Realm Portal Tracks",
                         "Minor Fire Tracks", "Minor Sand Tracks", "Tracks: Sand to Fire Connection"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 58"
+        "vanilla_model": "Force Gem 19"
     },
     "Dark Ore Mine Tracks": {
         'classification': ItemClassification.progression,

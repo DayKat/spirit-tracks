@@ -57,7 +57,7 @@ STARTING_FLAGS = [
     [STAddr.adv_flags_37, 0x10],  # teacher text skip
     [STAddr.adv_flags_38, 0x08],  # goron text
     [STAddr.adv_flags_3d, 0xE0],  # ToS safe zone tutorial, dos tablet
-    [STAddr.adv_flags_3e, 0x01],  # Disorientation station guard
+    [STAddr.adv_flags_3e, 0x09],  # Disorientation station guard
     [STAddr.adv_flags_3f, 0x05],  # Dark ore mine cs
     [STAddr.adv_flags_40, 0x04],  # 1st portal text
     [STAddr.adv_flags_41, 0x03],  # ToS 6 Zelda Text

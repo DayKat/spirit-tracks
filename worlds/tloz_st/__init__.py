@@ -460,6 +460,7 @@ class SpiritTracksWorld(WorldParent):
         if "minigame" in location_data and self.options.randomize_minigames:
             if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_dungeons:
                 return True  # If plandoed dungeon include
+            print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data["minigame"]}")
             return self.options.randomize_minigames.value in location_data["minigame"]
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
             return self.options.randomize_stamps.value in [1, 2, 3]

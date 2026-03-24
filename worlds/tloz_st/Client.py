@@ -318,7 +318,9 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     async def full_heal(self, ctx, bonus=0):
+
         hearts = (self.item_count(ctx, "Heart Container") + 3)*4
+        print(f"Full Heal: {hearts}")
         await STAddr.health.overwrite(ctx, hearts+bonus)
 
     async def watched_intro_cs(self, ctx):

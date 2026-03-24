@@ -1591,10 +1591,22 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
-    "Papuzia carben post both": {
+    "Papuzia carben post both": {  # Spawns birds again
         "on_scenes": [0x2c00],
         "has_locations": ["Papuzia Village Orca's Force Gem", "Papuzia Village Pick Up Carben"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+    "Papuzia no passengers spawn birds": {  # Spawns birds again
+        "on_scenes": [0x2c00],
+        "has_locations": ["Papuzia Village Song Statue"],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+    "Papuzia vanilla passengers spawn birds": {  # Spawns birds again
+        "on_scenes": [0x2c00],
+        "has_locations": ["Ocean Sanctuary Carben's Force Gem"],
+        "has_slot_data": [("randomize_passengers", 1)],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
 
@@ -1866,7 +1878,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Keep rael upstairs": {
         "on_scenes": [0x3400],
-        "has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Papuzia has ice vanilla abstract": {
@@ -1910,7 +1921,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "has_slot_data": [("randomize_cargo", 1)],
         "has_items": [("Wagon", 1)],
+        "check_bits": [(STAddr.cargo_0, 0xFF, "not")],
         "set_if_true": [(STAddr.adv_flags_33, 0x20)]
+    },
+    "Papuzia unset ice bit vanilla": {
+        "on_scenes": [0x2c00],
+        "has_slot_data": [("randomize_cargo", 1)],
+        "has_items": [("Wagon", 1)],
+        "check_bits": [(STAddr.cargo_0, 0xFF)],
+        "unset_if_true": [(STAddr.adv_flags_33, 0x20)]
     },
     "Goron elder skip cutscene": {
         "on_scenes": [0x2e0a],
@@ -1987,6 +2006,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         # "not_has_locations": ["Papuzia Pick Up Carben"],
         "unset_if_true": [(STAddr.adv_flags_9, 0x10)]
         # TODO: has some nasty interactions with vanilla passengers
+    },
+    "Fire realm prevent ice crash": {
+        "on_scenes": [0x700],
+        "not_has_groups": ["Tracks: Fire Glyph"],
+        "unset_if_true": [(STAddr.adv_flags_34, 0x20)]
     },
     "Desert Temple Prevent Earthquake": {
         "on_scenes": [0x1D00],

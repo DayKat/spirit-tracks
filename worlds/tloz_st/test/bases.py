@@ -35,7 +35,7 @@ class TestGeneration(WorldTestBase):
         "randomize_cargo": "randomize",
         "randomize_stamps": "randomize",
         "stamp_pack_sizes": 1,
-        "randomize_minigames": "everything",
+        "randomize_minigames": "hard",
         "exclude_dungeons": "remove",
         "exclude_sections": "remove",
         "track_pool": "mixed_small",

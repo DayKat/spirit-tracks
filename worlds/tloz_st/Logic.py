@@ -368,6 +368,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["snow realm", "ss", False, lambda state: st_has_temple_tracks(state, player, "Blizzard") or (state.has("Snowfall Sanctuary Cave Key", player) and st_has_cannon(state, player))],
         ["ss", "ss stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["ss", "ss song", False, lambda state: st_has_spirit_flute(state, player)],
+        ["ss song", "steem gift", False, lambda state: st_has_source(state, player, "Snow")],
         ["ss", "snow sanc vessel", False, lambda state: st_has_cargo(state, player, "Vessel", "_buy_fish")],
 
         ## ========== Blizzard Temple =========
@@ -715,7 +716,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
     if "shields" in options.shopsanity.value: required_rupees += 610
     if "postcards" in options.shopsanity.value: required_rupees += 500
     if "ammo" in options.shopsanity.value: required_rupees += 500
-    if options.randomize_cargo == "vanilla": required_rupees += 550
+    if options.randomize_cargo == "vanilla": required_rupees += 650
     elif options.randomize_cargo: required_rupees += 550
 
     overworld_logic += [
@@ -737,7 +738,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["castle town", "castle town buy cuccos", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["mayscore", "mayscore lumber", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
-        ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player)], #  You can bully noko for free ice
+        ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player)]
+            if options.randomize_cargo in [2, 3] else
+        ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)], #  You can bully noko for free ice
         ["papuchia village", "papuzia buy cargo", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["goron ice event", "goron steel", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["dark ore mine", "dark ore mine ore", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],

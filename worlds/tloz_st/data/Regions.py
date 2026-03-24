@@ -258,6 +258,7 @@ REGIONS = [
     "ss",
     "ss stamp station",
     "ss song",
+    "steem gift",
     "snow sanc shop",
     "snow sanc vessel",
 
