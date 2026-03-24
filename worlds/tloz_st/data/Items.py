@@ -42,6 +42,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
 
         "model": "Shield"
     },
+    "Ancient Shield": {
+        'classification': ItemClassification.useful,
+        'address': STAddr.items_2,
+        'value': 0x40,
+        'item_groups': ["Equipment"],
+        'model': "Ancient Shield"
+    },
     "Whirlwind": {
         'classification': ItemClassification.progression,
         'address': STAddr.items_0,
@@ -144,6 +151,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Forest Tracks"],
         "model": "Compass of Light",
     },
+    "Compass of Light Shard": {
+        'classification': ItemClassification.progression,
+        "model": "Compass of Light",
+        "dummy": True,
+    },
     "Royal Engineer's Certificate": {
         'classification': ItemClassification,
         'address': STAddr.adv_flags_3,
@@ -162,6 +174,10 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x02,
         'item_groups': ["Equipment"],
         "model": "Stamp Book"
+    },
+    "Dummy Bow": {
+        'classification': ItemClassification.filler,
+        'model': "Bow"
     },
 
     # ======= Songs ==========
@@ -202,7 +218,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "model": "SoD"
     },
 
-    # ============= Spirits and Upgrades =============
+    # ============= Upgrades =============
 
 
     "Heart Container": {
@@ -255,7 +271,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
     },
-    "Portal Unlock: Fire Sand Connection to Marine Temple": {
+    "Portal Unlock: Sand Valley to Marine Temple": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
     },
@@ -486,13 +502,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x20,
         'item_groups': ["Rail Items", "Desert Tracks", "Misc Tracks", "Major Sand Tracks", "Tracks: Sand Realm"],
     },
-    "Sand to Fire Connection Tracks": {
+    "Fire Realm Sand Portal Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x02,
         'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks",
                         "Fire to Sand Connection Tracks", "Fire Realm Portal Tracks", "S Fire Realm Portal Tracks",
-                        "Minor Fire Tracks", "Minor Sand Tracks", "Tracks: Sand to Fire Connection"],
+                        "Minor Fire Tracks", "Minor Sand Tracks", "Tracks: Fire Realm Sand Portal"],
         "model": "Fire Glyph",
         "vanilla_model": "Force Gem 19"
     },
@@ -1093,6 +1109,40 @@ ITEMS_DATA |= {
         "dummy": True,
         "model": "Boss Key"
     },
+    "Mountain Temple Snurglar Key": {
+        'classification': ItemClassification.progression,
+        'dummy': True,
+        'item_groups': ["Misc Keys", "Snurglar Key"],
+        "model": "Key"
+    },
+    "Orange Snurglar Key": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x02,
+        'item_groups': ["Misc Keys", "Snurglar Key"],
+        "model": "Key"
+    },
+    "Purple Snurglar Key": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x04,
+        'item_groups': ["Misc Keys", "Snurglar Key"],
+        "model": "Key"
+    },
+    "Gold Snurglar Key": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x08,
+        'item_groups': ["Misc Keys", "Snurglar Key"],
+        "model": "Key"
+    },
+    "Snurglar Keyring": {
+        'classification': ItemClassification.progression,
+        "address": STAddr.snurglin_keys,
+        "value": 0x08,
+        'item_groups': ["Keyrings", "Snurglar Key"],
+        "model": "Key"
+    },
 
     # Tears
     "Tear of Light": {
@@ -1431,6 +1481,38 @@ ITEMS_DATA |= {
         "value": 0x40,
         "model": "Letter",
     },
+    "Passenger: Wood": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_36,
+        "value": 0x2,
+        "model": "Letter"
+    },
+    "Passenger: Morris": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_35,
+        "value": 0x80,
+        "model": "Letter"
+    },
+    "Passenger: Yamahiko": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_35,
+        "value": 0x40,
+        "model": "Letter"
+    },
+    "Passenger: Mash": {
+        "classification": ItemClassification.filler,
+        "item_groups": ["Passengers"],
+        'tags': ["always_process"],
+        "address": STAddr.adv_flags_36,
+        "value": 0x1,
+        "model": "Letter"
+    },
 
     # Cargo
     "Cargo: Lumber": {
@@ -1524,7 +1606,7 @@ ITEMS_DATA |= {
         "value": 7,
         "model": "Stamp Book"
     },
-    "Stamp: Ocean Sanctuary": {
+    "Stamp: Island Sanctuary": {
         "classification": ItemClassification.progression,
         "item_groups": ["Stamps"],
         "value": 8,
@@ -1626,52 +1708,7 @@ ITEMS_DATA |= {
         "value": 5,
         "model": "Stamp Book"
     },
-    "Ancient Shield": {
-        'classification': ItemClassification.useful,
-        'address': STAddr.items_2,
-        'value': 0x40,
-        'item_groups': ["Equipment"],
-        'model': "Ancient Shield"
-    },
-    "Mountain Temple Snurglar Key": {
-        'classification': ItemClassification.progression,
-        'dummy': True,
-        'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
-    },
-    "Orange Snurglar Key": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.snurglin_keys,
-        "value": 0x02,
-        'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
-    },
-    "Purple Snurglar Key": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.snurglin_keys,
-        "value": 0x04,
-        'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
-    },
-    "Gold Snurglar Key": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.snurglin_keys,
-        "value": 0x08,
-        'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
-    },
-    "Snurglar Keyring": {
-        'classification': ItemClassification.progression,
-        "address": STAddr.snurglin_keys,
-        "value": 0x08,
-        'item_groups': ["Keyrings", "Snurglar Key"],
-        "model": "Key"
-    },
-    "Dummy Bow": {
-        'classification': ItemClassification.filler,
-        'model': "Bow"
-    },
-
+    # Custom Track Combinations
     "Western Forest Tracks": {
         'classification': ItemClassification.progression,
         "address": STAddr.tracks_0,
@@ -1803,7 +1840,7 @@ ITEMS_DATA |= {
         "value": 0x80,
         "set_bit": [(STAddr.tracks_1, 0x80), (STAddr.tracks_2, 0x22), (STAddr.source_rails, 0x10)],
         'model': "Fire Glyph",
-        "item_groups": ["Tracks: Fire Source", "Tracks: Sand to Fire Connection", "Tracks: Sand Realm",
+        "item_groups": ["Tracks: Fire Source", "Tracks: Fire Realm Sand Portal", "Tracks: Sand Realm",
                         "Tracks: Ocean Portal", "Tracks: Sand Source",
                         "Thematic Track Groupings"]
     },
@@ -1813,7 +1850,7 @@ ITEMS_DATA |= {
         "value": 0x22,
         "set_bit": [(STAddr.rail_restorations, 0x20)],
         'model': "Ocean Glyph",
-        "item_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks", "Tracks: Sand to Fire Connection",
+        "item_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Sand Source",
                         "Thematic Track Groupings"]
     },
@@ -1936,7 +1973,7 @@ ITEMS_DATA |= {
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Fire Source", "Tracks: Mountain Temple Tracks", "Tracks: Fire Glyph",
                         "Tracks: Disorientation Station", "Tracks: Ends of the Earth",
-                        "Tracks: Dark Ore Mine", "Tracks: Sand to Fire Connection",
+                        "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Snow Realm Gorge",
                         "Completed Track Groupings"]
     },
@@ -1956,7 +1993,7 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.tracks_2, 0x1e)],
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Disorientation Station", "Tracks: Ends of the Earth",
-                        "Tracks: Dark Ore Mine", "Tracks: Sand to Fire Connection",
+                        "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Snow Realm Gorge",
                         "Minor Track Groupings"]
     },
@@ -1967,7 +2004,7 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.rail_restorations, 0x20)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Sand Source", "Tracks: Desert Temple Tracks", "Tracks: Sand Realm",
-                        "Tracks: Dark Ore Mine", "Tracks: Sand to Fire Connection",
+                        "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Completed Track Groupings"]
     },
     "Major Desert Tracks": {
@@ -1984,47 +2021,10 @@ ITEMS_DATA |= {
         "address": STAddr.tracks_2,
         "value": 0x6,
         'model': "Fire Glyph",
-        "item_groups": ["Tracks: Dark Ore Mine", "Tracks: Sand to Fire Connection",
+        "item_groups": ["Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Minor Track Groupings"]
     },
-    "Compass of Light Shard": {
-        'classification': ItemClassification.progression,
-        "model": "Compass of Light",
-        "dummy": True,
-    },
 
-    "Passenger: Wood": {
-        "classification": ItemClassification.filler,
-        "item_groups": ["Passengers"],
-        'tags': ["always_process"],
-        "address": STAddr.adv_flags_36,
-        "value": 0x2,
-        "model": "Letter"
-    },
-    "Passenger: Morris": {
-        "classification": ItemClassification.filler,
-        "item_groups": ["Passengers"],
-        'tags': ["always_process"],
-        "address": STAddr.adv_flags_35,
-        "value": 0x80,
-        "model": "Letter"
-    },
-    "Passenger: Yamahiko": {
-        "classification": ItemClassification.filler,
-        "item_groups": ["Passengers"],
-        'tags': ["always_process"],
-        "address": STAddr.adv_flags_35,
-        "value": 0x40,
-        "model": "Letter"
-    },
-    "Passenger: Mash": {
-        "classification": ItemClassification.filler,
-        "item_groups": ["Passengers"],
-        'tags': ["always_process"],
-        "address": STAddr.adv_flags_36,
-        "value": 0x1,
-        "model": "Letter"
-    },
 }
 
 

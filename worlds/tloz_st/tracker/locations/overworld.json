@@ -3,12 +3,12 @@
     {"name": "Outset Clear Rocks"},
     {"name": "Outset Bee Tree"},
     {"name": "Outset Stamp Station"},
-    {"name": "Outset Far Right Tree"},
-    {"name": "Outset Niko's House Tree"},
+    {"name": "Ouset Beach Tree Burried Chest"},
+    {"name": "Outset Niko's House Tree Burried Chest"},
     {"name": "Outset Pick Up Joe"},
     {"name": "Outset Ferrus Force Gem"},
     {"name": "Outset Deliver Cuccos"},
-    {"name": "Outset Receive Stamp Book"},
+    {"name": "Outset Niko Stamp Book"},
     {"name": "Outset Niko 10 Stamps Reward"},
     {"name": "Outset Niko 15 Stamps Reward"},
     {"name": "Outset Niko 20 Stamps Reward"}
@@ -32,7 +32,7 @@
     {"name": "Castle Town Pick Up Alfonzo"},
     {"name": "Castle Town Goron Force Gem"},
     {"name": "Castle Town Buy Cuccos"},
-    {"name": "Castle Town Lucia Fish Force Gem"},
+    {"name": "Castle Town Deliver Fish"},
 
     {"name": "Castle Town Take 'em All On Level 1"},
     {"name": "Castle Town Take 'em All On Level 2"},
@@ -44,12 +44,12 @@
     {"name": "EVENT: Complete Take 'em All On 3"}
   ], "map_locations":[{"map": "Overview", "x": 420, "y": 450}]},
   {"name": "Hyrule Castle", "sections": [
-    {"name": "Hyrule Castle NW Outside Chest"},
+    {"name": "Hyrule Castle Exterior NW Chest"},
     {"name": "Hyrule Castle 2F Indoors Chest"},
     {"name": "Hyrule Castle 1F Spirit Flute"},
     {"name": "Hyrule Castle 1F Back Chest"},
-    {"name": "Hyrule Castle Sword Minigame"},
-    {"name": "Tunnel to ToS Block Chest"},
+    {"name": "Hyrule Castle 1F Sword Minigame 60 Points"},
+    {"name": "Tunnel to ToS 1F Block Chest"},
     {"name": "Tunnel to ToS 2F Chest"}], "map_locations":[{"map": "Overview", "x": 404, "y": 434}]},
   {"name": "Mayscore", "sections": [
     {"name": "Mayscore Shop Treasure 1"},{"name": "Mayscore Shop Treasure 2"},
@@ -62,13 +62,13 @@
     {"name": "Mayscore Buy Lumber"},
     {"name": "Mayscore Deliver Steel"},
     {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"},
-    {"name": "Mayscore Whip Race Bomb Bag"}, {"name": "Mayscore Whip Race Heart Container"},
-    {"name": "Mayscore Whip Race Rare Treasure"}
+    {"name": "Mayscore Whip Race 1:15-1:30"}, {"name": "Mayscore Whip Race 1:05-1:15"},
+    {"name": "Mayscore Whip Race Sub 1:05"}
   ], "map_locations":[{"map": "Overview", "x": 332, "y": 594}]},
 {"name": "Woodland Sanctuary", "sections": [{"name": "Woodland Sanctuary Stamp Station"}, {"name": "Woodland Sanctuary Song Statue"}, {"name": "Woodland Sanctuary Chest"}, {"name": "Woodland Sanctuary Song of Restoration"}], "map_locations":[{"map": "Overview", "x": 212, "y": 574}]},
 {"name": "Wooded Temple", "sections": [
   {"name": "Wooded Temple Song Statue"},
-  {"name": "Wooded Temple Stamp Station"},
+  {"name": "Wooded Temple 1F Stamp Station"},
   {"name": "Wooded Temple 1F Enemy Chest"},
   {"name": "Wooded Temple 1F Key"},
   {"name": "Wooded Temple 1F Switch Chest"},
@@ -83,7 +83,7 @@
   {"name": "Wooded Temple", "sections": [{"name": "EVENT: Defeat Stagnox"}, {"name": "GOAL: Defeat Stagnox"}], "map_locations":[{"map": "Overview", "x": 214, "y": 404}]},
   {"name": "Rabbit Haven", "sections": [
     {"name": "Rabbit Haven Net Gift"},
-    {"name": "Rabbit Haven Chest"},
+    {"name": "Rabbit Haven Island Chest"},
     {"name": "Rabbit Haven Mona's Force Gem"},
     {"name": "Rabbit Haven Rescue 5 Rabbits"},
     {"name": "Rabbit Haven Rescue 1 of Each Rabbit"},
@@ -95,13 +95,13 @@
     {"name": "Rabbit Haven Rescue 10 of Each Rabbit"}
   ], "map_locations":[{"map": "Overview", "x": 138, "y": 497}]},
   {"name": "Trading Post", "sections": [
-    {"name": "Bring Kenzo to Trading Post"},
+    {"name": "Trading Post Repair Bridge"},
     {"name": "Trading Post Pick Up Kenzo"},
     {"name": "Trading Post Buy Shield"},
     {"name": "Trading Post Stamp Station"},
-    {"name": "Trading Post Song of Light Statue"},
-    {"name": "Trading Post Chest"},
-    {"name": "Trading Post Give Dark Ore to Linebeck"}
+    {"name": "Trading Post Song Statue"},
+    {"name": "Trading Post Burried Chest"},
+    {"name": "Trading Post Deliver Dark Ore"}
   ], "map_locations":[{"map": "Overview", "x": 404, "y": 670}]},
   {"name": "Trading Post Events", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations":[{"map": "Overview", "x": 420, "y": 670}]},
   {"name": "Anouki Village", "sections": [
@@ -119,12 +119,12 @@
     {"name": "Anouki Village Repair Fence"}
   ], "map_locations":[{"map": "Overview", "x": 164, "y": 280}]},
   {"name": "Snowfall Sanctuary", "sections": [
-    {"name": "Snowfall Sanctuary Shop Heart Container"},
-    {"name": "Snowfall Sanctuary Shop Red Potion"},
-    {"name": "Snowfall Sanctuary Shop Purple Potion"},
-    {"name": "Snowfall Sanctuary Shop Shield"},
-    {"name": "Snowfall Sanctuary Shop Postcards"},
-    {"name": "Snowfall Sanctuary Shop Treasure"},
+    {"name": "Snowfall Supermarket Heart Container"},
+    {"name": "Snowfall Supermarket Red Potion"},
+    {"name": "Snowfall Supermarket Purple Potion"},
+    {"name": "Snowfall Supermarket Shield"},
+    {"name": "Snowfall Supermarket Postcards"},
+    {"name": "Snowfall Supermarket Treasure"},
     {"name": "Snowfall Sanctuary Stamp Station"},
     {"name": "Snowfall Sanctuary Song of Restoration"},
     {"name": "Snowfall Sanctuary Steem Gift With Snow Source"},
@@ -136,7 +136,7 @@
     {"name": "Blizzard Temple B1 NE Enemy Chest"},
     {"name": "Blizzard Temple 1F NE Chest"},
     {"name": "Blizzard Temple B1 SW Chest"},
-    {"name": "Blizzard Temple Stamp Station"},
+    {"name": "Blizzard Temple B1 Stamp Station"},
     {"name": "Blizzard Temple B1 NW Enemy Chest"},
     {"name": "Blizzard Temple 1F NW Chest"},
     {"name": "Blizzard Temple 1F Torch Chest"},
@@ -159,26 +159,26 @@
     {"name": "Slippery Station Champion Reward"}
   ], "map_locations":[{"map": "Overview", "x": 381, "y": 42}]},
   {"name": "Bridge Worker's", "sections": [
-    {"name": "Bridge Worker's Home Chest"},
+    {"name": "Bridge Worker's Home Burried Chest"},
     {"name": "Bridge Worker's Home Pick Up Kenzo"}
   ], "map_locations":[{"map": "Overview", "x": 380, "y": 284}]},
 
-  {"name": "Rabbit near Castle Town", "sections": [{"name": "Rabbit near Castle Town"}], "map_locations":[{"map": "Overview", "x": 358, "y": 460}]},
-  {"name": "Rabbit near Ocean Shortcut", "sections": [{"name": "Rabbit near Ocean Shortcut"}], "map_locations":[{"map": "Overview", "x": 454, "y": 580}]},
+  {"name": "Rabbit Near Castle Town", "sections": [{"name": "Rabbit Near Castle Town"}], "map_locations":[{"map": "Overview", "x": 358, "y": 460}]},
+  {"name": "Rabbit Near Ocean Shortcut", "sections": [{"name": "Rabbit Near Ocean Shortcut"}], "map_locations":[{"map": "Overview", "x": 454, "y": 580}]},
   {"name": "Rabbit E Mayscore", "sections": [{"name": "Rabbit E Mayscore"}], "map_locations":[{"map": "Overview", "x": 404, "y": 602}]},
   {"name": "Rabbit SW Trading Post", "sections": [{"name": "Rabbit SW Trading Post"}], "map_locations":[{"map": "Overview", "x": 368, "y": 712}]},
   {"name": "Rabbit E Outset", "sections": [{"name": "Rabbit E Outset"}], "map_locations":[{"map": "Overview", "x": 322, "y": 690}]},
   {"name": "Rabbit SW Rabbit Haven", "sections": [{"name": "Rabbit SW Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 106, "y": 576}]},
-  {"name": "Rabbit near Wooded Temple", "sections": [{"name": "Rabbit near Wooded Temple"}], "map_locations":[{"map": "Overview", "x": 226, "y": 446}]},
-  {"name": "Rabbit near Rabbit Haven", "sections": [{"name": "Rabbit near Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 112, "y": 522}]},
-  {"name": "Rabbit past wooden bridge", "sections": [{"name": "Rabbit past wooden bridge"}], "map_locations":[{"map": "Overview", "x": 490, "y": 662}]},
+  {"name": "Rabbit Near Wooded Temple", "sections": [{"name": "Rabbit Near Wooded Temple"}], "map_locations":[{"map": "Overview", "x": 226, "y": 446}]},
+  {"name": "Rabbit Near Rabbit Haven", "sections": [{"name": "Rabbit Near Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 112, "y": 522}]},
+  {"name": "Rabbit Past Wooden Bridge", "sections": [{"name": "Rabbit Past Wooden Bridge"}], "map_locations":[{"map": "Overview", "x": 490, "y": 662}]},
   {"name": "Rabbit S Rabbit Haven", "sections": [{"name": "Rabbit S Rabbit Haven"}], "map_locations":[{"map": "Overview", "x": 128, "y": 602}]},
   {"name": "Rabbit NE Blizzard", "sections": [{"name": "Rabbit NE Blizzard"}], "map_locations":[{"map": "Overview", "x": 238, "y": 102}]},
   {"name": "Rabbit SE Blizzard", "sections": [{"name": "Rabbit SE Blizzard"}], "map_locations":[{"map": "Overview", "x": 296, "y": 186}]},
   {"name": "Rabbit W Anouki Village", "sections": [{"name": "Rabbit W Anouki Village"}], "map_locations":[{"map": "Overview", "x": 116, "y": 288}]},
   {"name": "Rabbit SW Blizzard", "sections": [{"name": "Rabbit SW Blizzard"}], "map_locations":[{"map": "Overview", "x": 110, "y": 202}]},
   {"name": "Rabbit E Anouki Village", "sections": [{"name": "Rabbit E Anouki Village"}], "map_locations":[{"map": "Overview", "x": 204, "y": 266}]},
-  {"name": "Rabbit near Snowdrift Station", "sections": [{"name": "Rabbit near Snowdrift Station"}], "map_locations":[{"map": "Overview", "x": 90, "y": 140}]},
+  {"name": "Rabbit Near Snowdrift Station", "sections": [{"name": "Rabbit Near Snowdrift Station"}], "map_locations":[{"map": "Overview", "x": 90, "y": 140}]},
   {"name": "Rabbit W Icy Spring Station", "sections": [{"name": "Rabbit W Icy Spring Station"}], "map_locations":[{"map": "Overview", "x": 326, "y": 208}]},
   {"name": "Rabbit N Icy Spring Station", "sections": [{"name": "Rabbit N Icy Spring Station"}], "map_locations":[{"map": "Overview", "x": 344, "y": 148}]},
   {"name": "Rabbit NW Blizzard", "sections": [{"name": "Rabbit NW Blizzard"}], "map_locations":[{"map": "Overview", "x": 176, "y": 86}]},
@@ -193,7 +193,7 @@
   {"name": "Rabbit E Sand Maze", "sections": [{"name": "Rabbit E Sand Maze"}], "map_locations":[{"map": "Overview", "x": 924, "y": 314}]},
   {"name": "Rabbit Mid Sand Maze", "sections": [{"name": "Rabbit Mid Sand Maze"}], "map_locations":[{"map": "Overview", "x": 880, "y": 338}]},
   {"name": "Rabbit W Sand Maze", "sections": [{"name": "Rabbit W Sand Maze"}], "map_locations":[{"map": "Overview", "x": 846, "y": 362}]},
-  {"name": "Rabbit Fire Sand Connection", "sections": [{"name": "Rabbit Fire Sand Connection"}], "map_locations":[{"map": "Overview", "x": 656, "y": 356}]},
+  {"name": "Rabbit Sand Valley", "sections": [{"name": "Rabbit Sand Valley"}], "map_locations":[{"map": "Overview", "x": 656, "y": 356}]},
 
   {"name": "Rabbit Near ToS Fire Realm", "sections": [{"name": "Rabbit Near ToS Fire Realm"}], "map_locations":[{"map": "Overview", "x": 606, "y": 306}]},
   {"name": "Rabbit Near Disorientation Station", "sections": [{"name": "Rabbit Near Disorientation Station"}], "map_locations":[{"map": "Overview", "x": 636, "y": 74}]},
@@ -208,8 +208,8 @@
 
   {"name": "Rabbit E Lost at Sea", "sections": [{"name": "Rabbit E Lost at Sea"}], "map_locations":[{"map": "Overview", "x": 874, "y": 720}]},
   {"name": "Rabbit Near Island Sanctuary", "sections": [{"name": "Rabbit Near Island Sanctuary"}], "map_locations":[{"map": "Overview", "x": 760, "y": 698}]},
-  {"name": "Rabbit on Ocean Source", "sections": [{"name": "Rabbit on Ocean Source"}], "map_locations":[{"map": "Overview", "x": 610, "y": 592}]},
-  {"name": "Rabbit Near Pirate Hideout", "sections": [{"name": "Rabbit Near Pirate Hideout"}], "map_locations":[{"map": "Overview", "x": 544, "y": 594}]},
+  {"name": "Rabbit E Pirate Hideout", "sections": [{"name": "Rabbit E Pirate Hideout"}], "map_locations":[{"map": "Overview", "x": 610, "y": 592}]},
+  {"name": "Rabbit W Pirate Hideout", "sections": [{"name": "Rabbit W Pirate Hideout"}], "map_locations":[{"map": "Overview", "x": 544, "y": 594}]},
   {"name": "Rabbit N Marine Temple", "sections": [{"name": "Rabbit N Marine Temple"}], "map_locations":[{"map": "Overview", "x": 898, "y": 530}]},
   {"name": "Rabbit N Undersea Entrance", "sections": [{"name": "Rabbit N Undersea Entrance"}], "map_locations":[{"map": "Overview", "x": 798, "y": 540}]},
   {"name": "Rabbit Near Ocean Portal", "sections": [{"name": "Rabbit Near Ocean Portal"}], "map_locations":[{"map": "Overview", "x": 722, "y": 578}]},
@@ -223,23 +223,23 @@
   {"name": "Total Mountain Rabbits", "sections": [{"name": "Catch 1 Mountain Rabbit"}, {"name": "Catch 2 Mountain Rabbits"}, {"name": "Catch 3 Mountain Rabbits"}, {"name": "Catch 4 Mountain Rabbits"}, {"name": "Catch 5 Mountain Rabbits"}, {"name": "Catch 6 Mountain Rabbits"}, {"name": "Catch 7 Mountain Rabbits"}, {"name": "Catch 8 Mountain Rabbits"}, {"name": "Catch 9 Mountain Rabbits"}, {"name": "Catch 10 Mountain Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 466}]},
   {"name": "Total Sand Rabbits", "sections": [{"name": "Catch 1 Sand Rabbit"}, {"name": "Catch 2 Sand Rabbits"}, {"name": "Catch 3 Sand Rabbits"}, {"name": "Catch 4 Sand Rabbits"}, {"name": "Catch 5 Sand Rabbits"}, {"name": "Catch 6 Sand Rabbits"}, {"name": "Catch 7 Sand Rabbits"}, {"name": "Catch 8 Sand Rabbits"}, {"name": "Catch 9 Sand Rabbits"}, {"name": "Catch 10 Sand Rabbits"}], "map_locations":[{"map": "Overview", "x": 186, "y": 482}]},
 
-  {"name": "Forest Realm Shoot SW Portal", "sections": [{"name": "Forest Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 158, "y": 662}]},
+  {"name": "Forest Realm Shoot Cave Portal", "sections": [{"name": "Forest Realm Shoot Cave Portal"}], "map_locations":[{"map": "Overview", "x": 158, "y": 662}]},
   {"name": "Forest Realm Shoot SE Portal", "sections": [{"name": "Forest Realm Shoot SE Portal"}], "map_locations":[{"map": "Overview", "x": 424, "y": 734}]},
   {"name": "Snow Realm Shoot SW Portal", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations":[{"map": "Overview", "x": 128, "y": 350}]},
   {"name": "Snow Realm Shoot Bridge Portal", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations":[{"map": "Overview", "x": 290, "y": 326}]},
   {"name": "Snow Realm Shoot N Portal", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations":[{"map": "Overview", "x": 334, "y": 131}]},
   {"name": "Fire Realm Shoot Sand Portal", "sections": [{"name": "Fire Realm Shoot Sand Portal"}], "map_locations":[{"map": "Overview", "x": 622, "y": 350}]},
   {"name": "Sand Realm Shoot Temple Portal", "sections": [{"name": "Sand Realm Shoot Temple Portal"}], "map_locations":[{"map": "Overview", "x": 980, "y": 422}]},
-  {"name": "Ocean Realm Shoot West Portal", "sections": [{"name": "Ocean Realm Shoot West Portal"}], "map_locations":[{"map": "Overview", "x": 672, "y": 566}]},
+  {"name": "Ocean Realm Shoot W Portal", "sections": [{"name": "Ocean Realm Shoot W Portal"}], "map_locations":[{"map": "Overview", "x": 672, "y": 566}]},
 
   {"name": "Dark Realm", "sections":  [{"name": "GOAL: Defeat Malladus"}, {"name": "GOAL: Enter Dark Realm"}], "map_locations":[{"map": "Overview", "x": 68, "y": 710}]},
   {"name": "Beedle", "sections":  [
-    {"name": "Beedle Buy Uncommon Treasure"},
-    {"name": "Beedle Buy Rare Treasure"},
-    {"name": "Beedle Buy Bomb Bag"},
-    {"name": "Beedle Buy Red Potion"},
-    {"name": "Beedle Buy Purple Potion"},
-    {"name": "Beedle Buy Bomb Refill"},
+    {"name": "Beedle Shop Uncommon Treasure"},
+    {"name": "Beedle Shop Rare Treasure"},
+    {"name": "Beedle Shop Bomb Bag"},
+    {"name": "Beedle Shop Red Potion"},
+    {"name": "Beedle Shop Purple Potion"},
+    {"name": "Beedle Shop Bomb Refill"},
     {"name": "Beedle Joe's Force Gem"}
   ], "map_locations":[{"map": "Overview", "x": 356, "y": 380}]},
 
@@ -262,19 +262,19 @@
         {"name": "Papuzia Village Deliver Ice"}
   ], "map_locations":[{"map": "Overview", "x": 596, "y": 670}]},
   {"name": "Island Sanctuary", "sections": [
-    {"name": "Ocean Sanctuary S Island Chest"},
-    {"name": "Ocean Sanctuary Cucco Chest"},
-    {"name": "Ocean Sanctuary NW Chest"},
-    {"name": "Ocean Sanctuary Stamp Station"},
-    {"name": "Ocean Sanctuary Song of Restoration"},
-    {"name": "Ocean Sanctuary Carben's Force Gem"}
+    {"name": "Island Sanctuary S Island Chest"},
+    {"name": "Island Sanctuary Cucco Chest"},
+    {"name": "Island Sanctuary NW Chest"},
+    {"name": "Island Sanctuary Stamp Station"},
+    {"name": "Island Sanctuary Song of Restoration"},
+    {"name": "Island Sanctuary Carben's Force Gem"}
   ], "map_locations":[{"map": "Overview", "x": 716, "y": 670}]},
   {"name": "Marine Temple", "sections": [
     {"name": "Marine Temple Song Statue"},
     {"name": "Marine Temple Ferrus Force Gem"},
     {"name": "Marine Temple 1F Lever Chest"},
     {"name": "Marine Temple 1F Vines Chest"},
-    {"name": "Marine Temple Stamp Station"},
+    {"name": "Marine Temple 2F Stamp Station"},
     {"name": "Marine Temple 2F Log Chest"},
     {"name": "Marine Temple 3F Whip Chest"},
     {"name": "Marine Temple 3F NE Chest"},
@@ -295,22 +295,22 @@
     {"name": "Pirate Hideout Secret Cave Mid Treasure"},
     {"name": "Pirate Hideout Secret Cave Right Treasure"},
         {"name": "Pirate Hideout Pick Up Wadatsumi"},
-        {"name": "Pirate Hideout Minigame 1st Reward"},
-        {"name": "Pirate Hideout Minigame 2nd Reward"},
-        {"name": "Pirate Hideout Minigame Expert"}
+        {"name": "Pirate Hideout Minigame 3000-4000"},
+        {"name": "Pirate Hideout Minigame 4000-5000"},
+        {"name": "Pirate Hideout Minigame 5000+"}
   ], "map_locations":[{"map": "Overview", "x": 592, "y": 564}]},
   {"name": "Lost at Sea Station", "sections": [
-    {"name": "Lost at Sea Outside Chest"},
-    {"name": "Lost at Sea 1st Room Chest"},
-    {"name": "Lost at Sea 2nd Room Chest"},
-    {"name": "Lost at Sea 3rd Room Chest"},
-    {"name": "Lost at Sea 4th Room SW Chest"},
-    {"name": "Lost at Sea 4th Room NE Chest"},
-    {"name": "Lost at Sea 5th Room SE Chest"},
-    {"name": "Lost at Sea 5th Room NE Chest"},
-    {"name": "Lost at Sea 5th Room SW Chest"},
-    {"name": "Lost at Sea 5th Room NW Chest"},
-    {"name": "Lost at Sea 6th Room Chest"}
+    {"name": "Lost at Sea Burried Chest"},
+    {"name": "Lost at Sea Plain Phantom Chest"},
+    {"name": "Lost at Sea Torch Phantom Chest"},
+    {"name": "Lost at Sea Warp Phantom Chest"},
+    {"name": "Lost at Sea Wrecker Phantom SW Chest"},
+    {"name": "Lost at Sea Wrecker Phantom NE Chest"},
+    {"name": "Lost at Sea Final Challenge SE Chest"},
+    {"name": "Lost at Sea Final Challenge NE Chest"},
+    {"name": "Lost at Sea Final Challenge SW Chest"},
+    {"name": "Lost at Sea Final Challenge NW Chest"},
+    {"name": "Lost at Sea Final Chest"}
   ], "map_locations":[{"map": "Overview", "x": 956, "y": 720}]},
   {"name": "Lost at Sea Events", "sections": [
     {"name": "EVENT: Complete Lost at Sea Dungeon"}
@@ -334,11 +334,11 @@
 
   {"name": "Dune Sanctuary", "sections": [
     {"name": "Dune Sanctuary Song of Restoration"},
-    {"name": "Dune Sanctuary Deliver Cuccos to Rael"},
-    {"name": "Dune Sanctuary Stamp Stand"}
+    {"name": "Dune Sanctuary Deliver Cuccos"},
+    {"name": "Dune Sanctuary Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 692, "y": 428}]},
     {"name": "Dark Ore Mine", "sections": [
-      {"name": "Dark Ore Mine Song of Discovery Chest"},
+      {"name": "Dark Ore Mine Burried Chest"},
       {"name": "Dark Ore Mine Buy Ore"}
   ], "map_locations":[{"map": "Overview", "x": 956, "y": 116}]},
     {"name": "Desert Temple", "sections": [
@@ -351,12 +351,12 @@
           {"name": "Desert Temple 2F Right Chest"},
           {"name": "Desert Temple 1F N Ergtorok Chest"},
           {"name": "Desert Temple 1F N Burried Key"},
-          {"name": "Desert Temple B1 Stamp Stand"},
+          {"name": "Desert Temple B1 Stamp Station"},
           {"name": "Desert Temple B1 Near Boss Door Chest"},
           {"name": "Desert Temple B1 SW Stalfos Chest"},
           {"name": "Desert Temple B1 NW Buried Rupee"},
           {"name": "Desert Temple B1 Boss Key"},
-          {"name": "Skeldritch Heart Container"},
+          {"name": "Desert Temple Boss Heart Container"},
           {"name": "Desert Temple Dungeon Reward"},
           {"name": "Desert Temple Bow of Light Chest"}
   ], "map_locations":[{"map": "Overview", "x": 862, "y": 440}]},
@@ -372,7 +372,7 @@
           {"name": "Goron Shop Shield"},
           {"name": "Goron Shop Postcards"},
           {"name": "Goron Village West Steel Chest"},
-          {"name": "Goron Village Stamp Stand"},
+          {"name": "Goron Village West Stamp Station"},
           {"name": "Goron Village West NE Chest"},
           {"name": "Goron Village West Center Chest"},
           {"name": "Goron Village Get Wagon"},
@@ -386,7 +386,7 @@
       {"name": "Valley Sanctuary", "sections": [
           {"name": "Tunnel to Valley Sanctuary Chest"},
           {"name": "Valley Sanctuary NW Chest"},
-          {"name": "Valley Sanctuary Stamp Stand"},
+          {"name": "Valley Sanctuary Stamp Station"},
           {"name": "Valley Sanctuary Song of Restoration"}
       ], "map_locations":[{"map": "Overview", "x": 716, "y": 218}]},
   {"name": "Goron Village Events", "sections": [
@@ -412,6 +412,7 @@
           {"name": "Mountain Temple B2 SE Chest"},
           {"name": "Mountain Temple B1 Heatoise Chest"},
           {"name": "Mountain Temple B2 NW Chest"},
+          {"name": "Mountain Temple B1 Stamp Station"},
           {"name": "Mountain Temple B3 N Chest"},
           {"name": "Mountain Temple B3 Boss Key"},
           {"name": "Mountain Temple Boss Heart Container"},

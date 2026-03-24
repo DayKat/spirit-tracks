@@ -72,12 +72,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow learning light song": {
         "on_scenes": [0x3700],
-        "not_has_locations": ["Trading Post Song of Light Statue"],
+        "not_has_locations": ["Trading Post Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x08)],
         "reset_flags": ["RESET trading post statue"]
     },
     "RESET trading post statue": {
-        #"has_locations": ["Trading Post Song of Light Statue"],
+        #"has_locations": ["Trading Post Song Statue"],
         "has_items": [["Song of Light", 1]],
         "set_if_true": [(STAddr.songs, 0x08)],
     },
@@ -161,7 +161,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Move Alfonso to castle town station": {
         "on_scenes": [0x2900],
-        "not_has_locations": ["Outset Receive Stamp Book"],
+        "not_has_locations": ["Outset Niko Stamp Book"],
         "has_groups": ["Tracks: Snow Glyph"],
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
         "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
@@ -178,7 +178,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "RESET Alfonso": {
         "on_scenes": [0x2F00],
-        "has_locations": ["Outset Receive Stamp Book"],
+        "has_locations": ["Outset Niko Stamp Book"],
         "unset_if_true": [(STAddr.adv_flags_11, 0x60)],
         "set_if_true": [(STAddr.adv_flags_1b, 0x02)],
     },
@@ -204,14 +204,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow Stamp Book check": {
         "on_scenes": [0x2F0A],
-        "not_has_locations": ["Outset Receive Stamp Book"],
+        "not_has_locations": ["Outset Niko Stamp Book"],
         "has_slot_data": [("randomize_passengers", 1)],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET Add Snow Source"]
     },
     "Allow Stamp Book check alfonzo item": {
         "on_scenes": [0x2F0A],
-        "not_has_locations": ["Outset Receive Stamp Book"],
+        "not_has_locations": ["Outset Niko Stamp Book"],
         "has_items": [("Passenger: Alfonzo", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
@@ -220,7 +220,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow Stamp Book check no passengers": {
         "on_scenes": [0x2F0A],
-        "not_has_locations": ["Outset Receive Stamp Book"],
+        "not_has_locations": ["Outset Niko Stamp Book"],
         "has_slot_data": [("randomize_passengers", 0)],
         "has_groups": ["Tracks: Snow Glyph"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
@@ -229,7 +229,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Niko remove stamp book": {
         "on_scenes": [0x2F0A],
-        "not_has_locations": ["Outset Receive Stamp Book"],
+        "not_has_locations": ["Outset Niko Stamp Book"],
         "unset_if_true": [(STAddr.adv_flags_25, 0x02)],
         "reset_flags": ["RESET Stamp Book Check"]
     },
@@ -239,7 +239,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow stamp rewards": {
         "on_scenes": [0x2F0A],
-        "has_locations": ["Outset Receive Stamp Book"],
+        "has_locations": ["Outset Niko Stamp Book"],
         "set_if_true": [(STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET Remove Snow source"]
     },
@@ -408,26 +408,26 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Allow Portal near marine temple always open": {
         "on_scenes": [0x600],
-        "has_groups": ["Tracks: Sand to Fire Connection"],
+        "has_groups": ["Tracks: Fire Realm Sand Portal"],
         "has_slot_data": [("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Allow Portal near marine temple item": {
         "on_scenes": [0x600],
-        "has_groups": ["Tracks: Sand to Fire Connection"],
-        "has_items": [["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
+        "has_groups": ["Tracks: Fire Realm Sand Portal"],
+        "has_items": [["Portal Unlock: Sand Valley to Marine Temple", 1]],
         "has_slot_data": [("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Close Portal near marine temple tracks": {
         "on_scenes": [0x600],
-        "not_has_groups": ["Tracks: Sand to Fire Connection"],
+        "not_has_groups": ["Tracks: Fire Realm Sand Portal"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Close Portal near marine temple item": {
         "on_scenes": [0x600],
-        "has_items": [["Portal Unlock: Fire Sand Connection to Marine Temple", 0]],
+        "has_items": [["Portal Unlock: Sand Valley to Marine Temple", 0]],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
@@ -440,14 +440,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Open Portal sand connection to marine always open": {
         "on_scenes": [0x700],
-        "has_groups": ["Tracks: Sand to Fire Connection"],
+        "has_groups": ["Tracks: Fire Realm Sand Portal"],
         "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Open Portal sand connection to marine items": {
         "on_scenes": [0x700],
-        "has_groups": ["Tracks: Sand to Fire Connection"],
-        "has_items": [["Portal Unlock: Fire Sand Connection to Marine Temple", 1]],
+        "has_groups": ["Tracks: Fire Realm Sand Portal"],
+        "has_items": [["Portal Unlock: Sand Valley to Marine Temple", 1]],
         "has_slot_data": [("portal_checks", 0), ("portal_behavior", 2)],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
@@ -597,7 +597,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Keep portal loc closed cave": {
         "on_scenes": [0x0400],
         "has_slot_data": [["portal_checks", 1]],
-        "not_has_locations": ["Forest Realm Shoot SW Portal"],
+        "not_has_locations": ["Forest Realm Shoot Cave Portal"],
         "unset_if_true": [(STAddr.activate_portals, 0x40)]
     },
 
@@ -643,7 +643,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Keep portal loc closed ocean": {
         "on_scenes": [0x0600],
         "has_slot_data": [["portal_checks", 1]],
-        "not_has_locations": ["Ocean Realm Shoot West Portal"],
+        "not_has_locations": ["Ocean Realm Shoot W Portal"],
         "unset_if_true": [(STAddr.adv_flags_31, 0x4)]
     },
 
@@ -708,7 +708,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3204],
         "has_items": [("Spirit Flute", 1)],
         "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
-        "not_has_locations": ["Ocean Sanctuary Song of Restoration"],
+        "not_has_locations": ["Island Sanctuary Song of Restoration"],
         "unset_if_true": [(STAddr.adv_flags_1, 0x4)]
     },
     "Carben Song Reset Flags": {
@@ -794,7 +794,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Steem no minigames": {
         "on_scenes": [0x3102],
         "has_slot_data": [("randomize_minigames", 0)],
-        "set_if_true": [(STAddr.adv_flags_1, 6)]  # ocean restoration removes him
+        "set_if_true": [(STAddr.adv_flags_1, 0x2)],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x4)]  # ocean restoration removes him
     },
     "Steem can play duet": {
         "on_scenes": [0x3102],
@@ -1011,7 +1012,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     # Shop stuff
     "Remove beedle bomb flag": {
         "on_scenes": [0x4503],
-        "not_has_locations": ["Beedle Buy Bomb Bag"],
+        "not_has_locations": ["Beedle Shop Bomb Bag"],
         "has_slot_data": [("shopsanity", "uniques")],
         "unset_if_true": [(STAddr.adv_flags_22, 0x02), (STAddr.bomb_capacity, 3)],
         "reset_flags": ["RESET beedle bomb bag flag"]
@@ -1060,14 +1061,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Reset linebeck regal ring stuff in cave": {
         "on_scenes": [0x3702],
-        "not_has_locations": ["Trading Post Chest"],
+        "not_has_locations": ["Trading Post Burried Chest"],
         "unset_if_true": [(STAddr.adv_flags_3e, 0x10)]
     },
     "Bring Kenzo to TP": {
         "on_scenes": [0x3700],
         "has_items": [("Passenger: Kenzo", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "not_has_locations": ["Bring Kenzo to Trading Post"],
+        "not_has_locations": ["Trading Post Repair Bridge"],
         # "check_bits": [(STAddr.adv_flags_18, 0x40, "not")],
         "set_if_true": [(STAddr.adv_flags_18, 0x20)],
         "unset_if_true": [(STAddr.adv_flags_3d, 0x02)],
@@ -1078,7 +1079,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Has Kenzo and Ring": {
         "on_scenes": [0x3700],
         "has_items": [("Treasure: Regal Ring", 1)],
-        "has_locations": ["Bring Kenzo to Trading Post"],
+        "has_locations": ["Trading Post Repair Bridge"],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],  # does not set flag after giving ring
         "set_if_true": [(STAddr.adv_flags_3e, 0x10)]
@@ -1087,7 +1088,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3700],
         "unset_if_true": [(STAddr.adv_flags_3e, 0x10)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "not_has_locations": ["Bring Kenzo to Trading Post"],
+        "not_has_locations": ["Trading Post Repair Bridge"],
     },
     "Prevent Linebeck ring item": {
         "on_scenes": [0x3700],
@@ -1102,7 +1103,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Remove Ocean Source for Kenzo Dialogue": {
         "on_scenes": [0x3700],
-        "not_has_locations": ["Bring Kenzo to Trading Post"],
+        "not_has_locations": ["Trading Post Repair Bridge"],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40), (STAddr.adv_flags_18, 0x82), (STAddr.adv_flags_c, 0x20)],
         "reset_flags": ["RESET Add Ocean source"]
@@ -1555,7 +1556,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET dovok complicated vanilla passengers"]
     },
     "RESET dovok complicated vanilla passengers": {
-        "not_has_locations": ["Ocean Sanctuary Carben's Force Gem"],
+        "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
         "unset_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)]
         # Papuzia crashes if you've not removed carben before Orca asks for a husband,
         # and you need that orca flag for the dovok leaving the train CS
@@ -1605,7 +1606,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Papuzia vanilla passengers spawn birds": {  # Spawns birds again
         "on_scenes": [0x2c00],
-        "has_locations": ["Ocean Sanctuary Carben's Force Gem"],
+        "has_locations": ["Island Sanctuary Carben's Force Gem"],
         "has_slot_data": [("randomize_passengers", 1)],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
@@ -1663,7 +1664,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Carben Arrives at Sanctuary": {
         "on_scenes": [0x3200],
         "has_items": [("Passenger: Carben", 1)],
-        "not_has_locations": ["Ocean Sanctuary Carben's Force Gem"],
+        "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_9, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x32),
                               (STAddr.passenger_tag_0, 0x53595741),
@@ -1676,8 +1677,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
 
-    #Set Carben to Ocean Sanctuary
-    "No Passenger Carben Ocean Sanctuary": {
+    #Set Carben to Island Sanctuary
+    "No Passenger Carben Island Sanctuary": {
         "on_scenes": [0x3200],
         "has_slot_data": [("randomize_passengers", [0])],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
@@ -1802,7 +1803,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2f00],
         "has_items": [("Cargo: Cuccos (5)", 2), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", 3)],
-        "not_has_locations": ["Outset Deliver Cuccos", "Dune Sanctuary Deliver Cuccos to Rael"],
+        "not_has_locations": ["Outset Deliver Cuccos", "Dune Sanctuary Deliver Cuccos"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 10)]
     },
@@ -1818,7 +1819,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2900, 0x290e],
         "has_items": [("Cargo: Fish", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
-        "not_has_locations": ["Castle Town Lucia Fish Force Gem"],
+        "not_has_locations": ["Castle Town Deliver Fish"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 3), (STAddr.cargo_count_0, 20)]
     },
@@ -1835,7 +1836,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x370a, 0x370a],
         "has_items": [("Cargo: Dark Ore", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
-        "not_has_locations": ["Trading Post Give Dark Ore to Linebeck"],
+        "not_has_locations": ["Trading Post Deliver Dark Ore"],
         "check_bits": [(STAddr.adv_flags_24, 0x10)],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 6), (STAddr.cargo_count_0, 20)]
@@ -1856,7 +1857,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3400],
         "has_items": [("Cargo: Cuccos", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", 2)],
-        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
     },
@@ -1864,7 +1865,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3400],
         "has_items": [("Cargo: Cuccos (5)", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", 3)],
-        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael", "Outset Deliver Cuccos"],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos", "Outset Deliver Cuccos"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
     },
@@ -1872,7 +1873,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3400],
         "has_items": [("Cargo: Cuccos (5)", 3), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", 3)],
-        "not_has_locations": ["Dune Sanctuary Deliver Cuccos to Rael"],
+        "not_has_locations": ["Dune Sanctuary Deliver Cuccos"],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)]
     },

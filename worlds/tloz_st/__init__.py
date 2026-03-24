@@ -460,7 +460,7 @@ class SpiritTracksWorld(WorldParent):
         if "minigame" in location_data and self.options.randomize_minigames:
             if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_dungeons:
                 return True  # If plandoed dungeon include
-            print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data["minigame"]}")
+            # print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data['minigame']}")
             return self.options.randomize_minigames.value in location_data["minigame"]
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
             return self.options.randomize_stamps.value in [1, 2, 3]
@@ -475,9 +475,9 @@ class SpiritTracksWorld(WorldParent):
             if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
                 if "uniques" in self.options.shopsanity.value:
                     return False
-                if location_name == "Beedle Buy Purple Potion":
+                if location_name == "Beedle Shop Purple Potion":
                     return "potions" in self.options.shopsanity.value
-                if location_name == "Snow Sanctuary Shop Treasure":
+                if location_name == "Snowfall Supermarket Treasure":
                     return "treasure" in self.options.shopsanity.value
                 if location_name == "Goron Shop Postcards":
                     return "postcards" in self.options.shopsanity.value
@@ -813,7 +813,7 @@ class SpiritTracksWorld(WorldParent):
                 keyrings = chosen_keyrings
             res += [(i, 1) for i in keyrings]
 
-        print(f"Key Items: {res}")
+        # print(f"Key Items: {res}")
         return res
 
     def choose_track_items(self):
@@ -1245,7 +1245,7 @@ class SpiritTracksWorld(WorldParent):
         for item in confined_dungeon_items:
             items.remove(item)
         self.pre_fill_items.extend(confined_dungeon_items)
-        print(f"Pre fill items {self.pre_fill_items}")
+        # print(f"Pre fill items {self.pre_fill_items}")
 
     def pre_fill_tos_sections(self):
         for section in range(1, 7):

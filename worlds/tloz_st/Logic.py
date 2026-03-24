@@ -126,7 +126,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # # ======== Hyrule Castle =========
 
         ["castle town", "hyrule castle", False, None],
-        ["hyrule castle", "hyrule castle sword minigame", False, lambda state: st_has_sword(state, player) and st_has_source(state, player, "Snow")],
+        ["hyrule castle", "hyrule castle sword minigame", False, lambda state: st_has_sword(state, player) and st_has_source(state, player, "Snow") and st_has_rupees(state, player, 100)],
 
         # # ======== ToS Tunnel =========
 
@@ -369,6 +369,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ss", "ss stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["ss", "ss song", False, lambda state: st_has_spirit_flute(state, player)],
         ["ss song", "steem gift", False, lambda state: st_has_source(state, player, "Snow")],
+        ["ss", "steem gift", False, lambda state: st_has_source(state, player, "Snow") and options.randomize_minigames == "no_minigames"],
         ["ss", "snow sanc vessel", False, lambda state: st_has_cargo(state, player, "Vessel", "_buy_fish")],
 
         ## ========== Blizzard Temple =========
@@ -455,7 +456,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocean portal tracks", "ocean portal rabbits", False, lambda state: st_has_net(state, player)],
         ["forest ocean shortcut rabbit", "pirate rabbit", False, None],
 
-        # ========== Ocean Sanctuary =============
+        # ========== Island Sanctuary =============
         ["ocean realm", "ocs", False, None],
         ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)], # Spreadsheet shows Whirlwind needed too,
                                                                                   # but not sure why looking at walkthrough
@@ -546,7 +547,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mountain temple tracks", "ends of the earth", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player, "Ends of the Earth")],
         ["mountain temple tracks", "disorientation station", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player,"Disorientation Station")],
         ["fire realm", "disorientation station", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player,"Disorientation Station")],
-        ["fire realm", "sand connection", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player,"Sand to Fire Connection")],
+        ["fire realm", "sand connection", True, lambda state: st_has_glyph(state, player, "Fire") and st_has_misc_tracks(state, player,"Fire Realm Sand Portal")],
         ["mountain temple tracks", "dark ore mine", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player,"Dark Ore Mine")],
         ["mountain temple tracks", "snurglars", True, lambda state: st_has_cannon(state, player)],
         ["fire realm", "fire realm ferrus", False, lambda state: st_has_temple_tracks(state, player, "Marine")],
@@ -594,7 +595,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                     state.has("Cargo: Mega Ice", player, 2) and state.has("_UT_Glitched_Logic", player)))],
 
         # Goron Target Game
-        ["fire realm", "gtr", False, lambda state: st_has_cannon(state, player) and state.has("_goron_ice", player)],
+        ["fire realm", "gtr", False, lambda state: st_has_cannon(state, player) and state.has("_goron_ice", player) and st_has_rupees(state, player, 50)],
 
         # Mountain Temple
         ["mountain temple tracks", "mtt", False, lambda state: state.has("Mountain Temple Snurglar Key", player, 3) or state.has("Snurglar Keyring", player)],
@@ -636,7 +637,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ===== Sand Realm =====
         ["ocean realm source", "sand realm", True, lambda state: st_has_source(state, player, "Ocean") and st_has_misc_tracks(state, player, "Sand Realm")],
         ["sand realm", "sand restoration", False, lambda state: st_has_temple_tracks(state, player, "Desert") and st_has_misc_tracks(state, player, "Sand Realm") and st_has_cannon(state, player)],
-        ["sand realm", "sand connection", True, lambda state: st_has_misc_tracks(state, player, "Sand Realm") and st_has_misc_tracks(state, player, "Sand to Fire Connection")],
+        ["sand realm", "sand connection", True, lambda state: st_has_misc_tracks(state, player, "Sand Realm") and st_has_misc_tracks(state, player, "Fire Realm Sand Portal")],
 
         ["sand realm", "sand realm rabbits", False, lambda state: st_has_net(state, player)],
         ["sand restoration", "sand restoration rabbits", False, lambda state: st_has_net(state, player)],
@@ -647,8 +648,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["sand realm", "sand realm portal", True, None],
         ["sand restoration", "sand realm portal", False, lambda state: st_has_portal(state, player, "Desert Temple to Sand Realm", True) and st_has_misc_tracks(state, player, "Sand Realm")],
         ["sand realm portal", "sand restoration", False, lambda state: st_has_portal(state, player, "Desert Temple to Sand Realm", False) and st_has_temple_tracks(state, player, "Desert")],
-        ["sand connection", "ocean temple tracks", False, lambda state: st_has_portal(state, player, "Fire Sand Connection to Marine Temple", True) and st_has_temple_tracks(state, player, "Marine")],
-        ["ocean temple tracks", "sand connection", False, lambda state: st_has_portal(state, player, "Fire Sand Connection to Marine Temple",False) and st_has_misc_tracks(state, player, "Sand to Fire Connection")],
+        ["sand connection", "ocean temple tracks", False, lambda state: st_has_portal(state, player, "Sand Valley to Marine Temple", True) and st_has_temple_tracks(state, player, "Marine")],
+        ["ocean temple tracks", "sand connection", False, lambda state: st_has_portal(state, player, "Sand Valley to Marine Temple",False) and st_has_misc_tracks(state, player, "Fire Realm Sand Portal")],
 
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc", False, None],

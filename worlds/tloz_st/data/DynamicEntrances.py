@@ -204,7 +204,7 @@ DYNAMIC_ENTRANCES = {
     "Bounce sand fire portal item": {
         "entrance": "Fire Realm Sand Portal",
         "destination": "Fire Realm Sand Portal",
-        "has_items": [("Portal Unlock: Fire Sand Connection to Marine Temple", 0)],
+        "has_items": [("Portal Unlock: Sand Valley to Marine Temple", 0)],
         "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
@@ -212,13 +212,13 @@ DYNAMIC_ENTRANCES = {
     "Bounce marine temple portal": {
         "entrance": "Ocean Realm Temple Portal",
         "destination": "Ocean Realm Temple Portal",
-        "not_has_groups": ["Tracks: Sand to Fire Connection"],
-        "message": "You don't have the Sand to Fire Connection Tracks!"
+        "not_has_groups": ["Tracks: Fire Realm Sand Portal"],
+        "message": "You don't have the Fire Realm Sand Portal Tracks!"
     },
     "Bounce marine temple portal item": {
         "entrance": "Ocean Realm Temple Portal",
         "destination": "Ocean Realm Temple Portal",
-        "has_items": [("Portal Unlock: Fire Sand Connection to Marine Temple", 0)],
+        "has_items": [("Portal Unlock: Sand Valley to Marine Temple", 0)],
         "has_slot_data": [["portal_behavior", 2]],
         "message": "You don't have access to this portal!"
     },
