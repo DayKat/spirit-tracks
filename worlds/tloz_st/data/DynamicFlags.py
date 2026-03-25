@@ -21,6 +21,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)]
     },
+    "Allow keep door open": {
+        "on_scenes": [0x2F00],
+        "set_if_true": [(STAddr.adv_flags_c, 0x20)]
+    },
     "Outset leave after Alfonzo no cannon": {
         "on_scenes": [0x2F00],
         "has_items": [("Cannon", 0)],
@@ -184,14 +188,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Snow Glyph"],
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "reset_flags": ["RESET Alfonso"]
+        # "reset_flags": ["RESET Alfonso"]
     },
-    "RESET Alfonso": {
-        "on_scenes": [0x2F00],
-        "has_locations": ["Outset Niko Stamp Book"],
-        "unset_if_true": [(STAddr.adv_flags_11, 0x60)],
-        "set_if_true": [(STAddr.adv_flags_1b, 0x02)],
-    },
+    # "RESET Alfonso": {
+    #     "has_locations": ["Outset Niko Stamp Book"],
+    #     "unset_if_true": [(STAddr.adv_flags_11, 0x60)],
+    #     "set_if_true": [(STAddr.adv_flags_1b, 0x02)],
+    # },
     "Castle town teacher snow": {  # needs a s+q for some reason
         "on_scenes": [0x2900],
         "has_groups": ["Tracks: Snow Glyph"],

@@ -4142,7 +4142,7 @@ LOCATIONS_DATA |= {
     "Forest Realm Ferrus Gift": {
         "stage_id": 0x45,
         "room_id": 0x2,
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Uncommon Treasures"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "location_groups": ["Misc Passengers"],
         "conditional": True,

@@ -7,8 +7,6 @@ from .data.Entrances import ENTRANCES
 from settings import get_settings
 from typing import Literal
 
-from ..marioland2.locations import coords
-
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
     from . import SpiritTracksSettings
@@ -737,7 +735,7 @@ class SpiritTracksClient(DSZeldaClient):
                 model_value = OFFSET_TO_MODEL[model_data[str(l)]].value if str(l) in model_data else generic_model
                 model_name = OFFSET_TO_MODEL[model_data[str(l)]].name if model_value != generic_model else "Force Gem"
             else:  # vanilla
-                    # print(f"Vanilla item {i}, {l}")
+                    print(f"Vanilla item {i}, {l}")
                     model_name = ITEMS[i].model
                     model_value = ITEM_MODEL_LOOKUP[model_name].value if model_name else generic_model
 
@@ -984,13 +982,14 @@ class SpiritTracksClient(DSZeldaClient):
             await self.reset_snurglar_door(ctx)
 
         if self.current_scene in potion_location_lookup:
+            print(f"Setting shop models")
             await self.set_shop_models(ctx)
 
     async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
         """Laad shop models in bulk"""
         valid_locations = []
         valid_locations += list(self.location_area_to_watches.get(self.current_scene, {}).keys())
-        valid_locations += list(ammo_shop_lookup.get(self.current_scene, {}).values())
+        # valid_locations += list(ammo_shop_lookup.get(self.current_scene, {}).values())
         if not on_load:
             valid_locations += list(potion_location_lookup.get(self.current_scene, {}).values())
             valid_locations += [loc for treasures in SHOP_TREASURE_DATA.get(self.current_scene, []) for loc in treasures.get("locations", [])]
