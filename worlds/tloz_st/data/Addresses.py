@@ -71,6 +71,15 @@ class STAddr:
     train_gear = Address(0x2CA438)  # forest, find pointer
     train_health = Address(0x2653a0)
 
+    train_trans_x = Address(0x262090, size=4)
+    train_trans_y = Address(0x262094, size=4)
+    train_trans_z = Address(0x262098, size=4)
+
+    train_x = Address(0x264628, size=4)
+    train_y = Address(0x26462C, size=4)
+    train_z = Address(0x264630, size=4)
+    train_coords = (train_x, train_y,train_z)
+
     # Inventory
     items_0 = Address(0x265320)
     items_2 = Address(0x265322)

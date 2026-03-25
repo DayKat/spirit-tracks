@@ -28,6 +28,17 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "check_bits": [(STAddr.adv_flags_11, 0x40)],
         "unset_if_true": [(STAddr.adv_flags_11, 0x40)]
     },
+    "Outset leave after Alfonzo no cannon vanilla": {
+        "on_scenes": [0x2F00],
+        "has_items": [("Cannon", 0)],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "check_bits": [(STAddr.adv_flags_11, 0x40)],
+        "unset_if_true": [(STAddr.adv_flags_11, 0x40)],
+        "reset_flags": ["RESET alfonzo bit"]
+    },
+    "RESET alfonzo bit": {
+        "set_if_true": [(STAddr.adv_flags_11, 0x40)],
+    },
     "RESET forest glyph": {
         "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_1, 0x80), (STAddr.adv_flags_0, 0x04)]
@@ -166,7 +177,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_11, 0x20)],
         "check_bits": [(STAddr.adv_flags_11, 0x40, "not")],
         "has_slot_data": [("randomize_passengers", 1)],
-        "reset_flags": ["RESET Alfonso"]
     },
     "Move Alfonso to castle town station randomized": {
         "on_scenes": [0x2900],
@@ -1127,7 +1137,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Prevent Kenzo from leaving TP randomize": {
         "on_scenes": [0x3700],
-        "has_slot_data": [("randomize_passengers", 3)],
+        "has_slot_data": [("randomize_passengers", 1, 3)],
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],
         "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
@@ -1368,10 +1378,18 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Can pick up Kenzo": {
         "on_scenes": [0x3601],
         "has_groups": ["Tracks: Ocean Glyph"],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Bridge Worker's Home Pick Up Kenzo"],
         "set_if_true": [(STAddr.adv_flags_c, 0x80)],  # allow him to travel
         "unset_if_true": [(STAddr.adv_flags_18, 0x20)],  # make sure he spawns
         "reset_flags": ["RESET abstract kenzo on train"]
+    },
+    "Can pick up Kenzo vanilla": {
+        "on_scenes": [0x3601],
+        "has_groups": ["Tracks: Ocean Glyph"],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "check_bits": [(STAddr.adv_flags_18, 0x20, "not")],
+        "set_if_true": [(STAddr.adv_flags_c, 0x80)],  # allow him to travel
     },
     "Can't pick up kenzo": {
         "on_scenes": [0x3601],
@@ -1399,11 +1417,17 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Can pick up noko": {
         "on_scenes": [0x2b00],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_groups": ["Tracks: Blizzard Temple Tracks"],
         # "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
         "not_has_locations": ["Icy Spring Noko's Force Gem", "Anouki Village Pick Up Noko"],
         "unset_if_true": [(STAddr.adv_flags_3a, 0x10)],
+    },
+    "Can pick up noko vanilla": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_groups": ["Tracks: Blizzard Temple Tracks"],
+        "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
     },
     "Can't pick up Noko glyph": {
         "on_scenes": [0x2b00],
@@ -1455,6 +1479,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Bring Noko to Icyspring": {
         "on_scenes": [0x3500],
         "has_items": [("Passenger: Noko", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "not_has_locations": ["Icy Spring Noko's Force Gem"],
         "check_bits": [(STAddr.adv_flags_3a, 0x40, "not")],
         "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
@@ -1511,18 +1536,36 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Can pick up Mayscore ow npcs": {
         "on_scenes": [0x2a00],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_groups": ["Tracks: Ocean Glyph"],
         "any_not_has_locations": ["Mayscore Pick Up Mash", "Mayscore Pick Up Yamahiko"],
         "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_36, 0x8)],
         "reset_flags": ["RESET Dovok Flag"]
     },
+    "Cancel npcs vanilla": {
+        "on_scenes": [0x2a00],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_groups": ["Tracks: Ocean Glyph"],
+        "not_has_locations": ["Papuzia Village Orca's Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_36, 0x8)],
+        "reset_flags": ["RESET Dovok Flag"]
+    },
     "Can pick up Wood": {
         "on_scenes": [0x3800],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_groups": ["Tracks: Ocean Glyph"],
         "not_has_locations": ["Mayscore Pick Up Wood"],
+        "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_36, 0x8)],
+        "reset_flags": ["RESET Dovok Flag"]
+    },
+    "Can pick up Wood Vanilla": {
+        "on_scenes": [0x3800],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_groups": ["Tracks: Ocean Glyph"],
+        "not_has_locations": ["Papuzia Village Orca's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_36, 0x8)],
         "reset_flags": ["RESET Dovok Flag"]
@@ -1554,6 +1597,21 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "not_has_locations": ["Papuzia Village Orca's Force Gem"],
         "check_bits": [(STAddr.adv_flags_36, 0x4)],
         "reset_flags": ["RESET dovok complicated vanilla passengers"]
+    },
+    "Papuzia allow wadatsumi cs vanilla passengers": {
+        "on_scenes": [0x2C00],
+        "set_if_true": [(STAddr.adv_flags_9, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_34, 0x80)],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "not_has_locations": ["Papuzia Village Wadatsumi's Force Gem"],
+        "check_bits": [(STAddr.adv_flags_34, 0x40)],
+        "reset_flags": ["RESET wadatsumi complicated vanilla passengers"]
+    },
+    "RESET wadatsumi complicated vanilla passengers": {
+        "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x10)]
+        # Papuzia crashes if you've not removed carben before Orca asks for a husband,
+        # and you need that orca flag for the dovok leaving the train CS
     },
     "RESET dovok complicated vanilla passengers": {
         "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
@@ -1616,10 +1674,19 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Can pick up Joe": {
         "on_scenes": [0x2F00],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_locations": ["Outset Bee Tree"],
         "has_groups": ["Tracks: Snow Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Remove Ocean source"]
+    },
+    "Can pick up Joe vanilla": {
+        "on_scenes": [0x2F00],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_locations": ["Outset Bee Tree"],
+        "has_groups": ["Tracks: Snow Source"],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x2, "not")],
         "reset_flags": ["RESET Remove Ocean source"]
     },
     "Joe missing glyph": {
@@ -1693,12 +1760,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Can pick up Wadatsumi": {
         "on_scenes": [0x3A00],
         "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("randomize_minigames", [0])],
+        "has_groups": ["Tracks: Ocean Glyph"],
         "set_if_true": [(STAddr.adv_flags_34, 0x20)],
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
     "Prepare for wadatsumi": {
         "on_scenes": [0x3A00],
         "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_groups": ["Tracks: Ocean Glyph"],
         "not_has_locations": ["Pirate Hideout Pick Up Wadatsumi"],
         "unset_if_true": [(STAddr.adv_flags_34, 0x40)]
     },
@@ -1760,7 +1829,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     #Check for Wadatsumi being delivered previously, and then set Gorons to appear
     "Wadatsumi Saved Already": {
         "on_scenes": [0x3A00],
-        "check_bits": [(STAddr.adv_flags_34, 0x40)],
+        "check_bits": [(STAddr.adv_flags_34, 0x20)],
         "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
 
@@ -2003,10 +2072,18 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_cargo", [1, 2, 3])],
         "reset_flags": ["RESET Papuzia not got carben"]
     },
+    "Papuzia Elder with vanilla before carben": {
+        "has_slot_data": [("randomize_passengers", 1)],
+        "check_bits": [(STAddr.adv_flags_9, 0x10, "not")],
+        "reset_flags": ["RESET Papuzia not got carben"]
+    },
+    "Papuzia Elder randomize": {
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Papuzia Pick Up Carben"],
+        "reset_flags": ["RESET Papuzia not got carben"]
+    },
     "RESET Papuzia not got carben": {
-        # "not_has_locations": ["Papuzia Pick Up Carben"],
         "unset_if_true": [(STAddr.adv_flags_9, 0x10)]
-        # TODO: has some nasty interactions with vanilla passengers
     },
     "Fire realm prevent ice crash": {
         "on_scenes": [0x700],
@@ -2093,9 +2170,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "GV add snow goron snow glyph vanilla": {
         "on_scenes": [0x2E00],
         "has_groups": ["Tracks: Snow Glyph"],
-        "not_has_locations": ["Anouki Village Goron Force Gem"],
+        "check_bits": [(STAddr.adv_flags_38, 2, "not")],
         "has_slot_data": [("randomize_passengers", 1)],
-        "unset_if_true": [(STAddr.adv_flags_38, 2)],
     },
     "ToS Force spawn train": {
         "on_scenes": [0x1401, 0x1400],
@@ -2134,7 +2210,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Despawn Ferrus Bliz Temple without alfonzo item": {
         "on_scenes": [0x500],
-        "has_slot_data": [("randomize_passengers", 1)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_items": [("Passenger: Alfonzo", 0)],
         "unset_if_true": [(STAddr.adv_flags_1f, 0x80)]
     },
@@ -2167,7 +2243,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Spawn Ferrus Fire Realm vanilla": {
         "on_scenes": [0x700],
         "has_slot_data": [("randomize_passengers", 1)],
-        "has_locataions": ["Outset Ferrus Force Gem"],
         "has_groups": ["Tracks: Marine Temple Tracks"],
         "set_if_true": [(STAddr.adv_flags_42, 0x8),  # Allow spawning, set in ToS after dt in vanilla
                         (STAddr.adv_flags_3b, 0x2)],  # Brought Ferrus to Outset
@@ -2191,29 +2266,29 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
 }
 
-for name, data in DYNAMIC_FLAGS.items():
-    if "has_groups" in data:
-        groups = data["has_groups"]
-        data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in ITEM_GROUPS[groups[0]]]
-        # print(data["any_has_items"])
-        # print(f"{DYNAMIC_FLAGS[name]}")
-        if len(groups) > 1:
-            data["any_has_items2"] = [(i, 1) for i in ITEM_GROUPS[groups[1]]]
-            # print(data["any_has_items2"])
-    if "any_has_groups" in data:
-        items = []
-        for group in data["any_has_groups"]:
-            items.extend(ITEM_GROUPS[group])
-        data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in items]
-        # print(data["any_has_items"])
-    if "not_has_groups" in data:
-        items = []
-        for group in data["not_has_groups"]:
-            items.extend(ITEM_GROUPS[group])
-        data["has_items"] = data.get("has_items", []) + [(i, 0) for i in items]
-        # print(data["has_items"])
-    DYNAMIC_FLAGS[name] = data
-    # print(DYNAMIC_FLAGS[name])
+# for name, data in DYNAMIC_FLAGS.items():
+#     if "has_groups" in data:
+#         groups = data["has_groups"]
+#         data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in ITEM_GROUPS[groups[0]]]
+#         # print(data["any_has_items"])
+#         # print(f"{DYNAMIC_FLAGS[name]}")
+#         if len(groups) > 1:
+#             data["any_has_items2"] = [(i, 1) for i in ITEM_GROUPS[groups[1]]]
+#             # print(data["any_has_items2"])
+#     if "any_has_groups" in data:
+#         items = []
+#         for group in data["any_has_groups"]:
+#             items.extend(ITEM_GROUPS[group])
+#         data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in items]
+#         # print(data["any_has_items"])
+#     if "not_has_groups" in data:
+#         items = []
+#         for group in data["not_has_groups"]:
+#             items.extend(ITEM_GROUPS[group])
+#         data["has_items"] = data.get("has_items", []) + [(i, 0) for i in items]
+#         # print(data["has_items"])
+#     DYNAMIC_FLAGS[name] = data
+#     # print(DYNAMIC_FLAGS[name])
 """
 "Dynamic Flag Name": {
     "on_scenes": list[int],

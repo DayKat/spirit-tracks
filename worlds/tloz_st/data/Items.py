@@ -148,12 +148,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.rail_restorations,
         'value': 0x40,  # also set adv flag?
         'set_bit': [(STAddr.adv_flags_25, 0x60)],
-        'item_groups': ["Rail Items", "Forest Tracks"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Compass"],
         "model": "Compass of Light",
     },
     "Compass of Light Shard": {
         'classification': ItemClassification.progression,
         "model": "Compass of Light",
+        'item_groups': ["Compass", "Compass Shard"],
         "dummy": True,
     },
     "Royal Engineer's Certificate": {

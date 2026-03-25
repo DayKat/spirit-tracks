@@ -452,6 +452,8 @@ class SpiritTracksWorld(WorldParent):
             stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
             bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
             # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
+            if location_name == "Marine Temple Ferrus Force Gem":
+                return self.options.randomize_passengers.value
             return passengers and stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
 
         if "rabbit" in location_data:
@@ -611,6 +613,7 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.exclude_dungeons == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "dungeon" in d and d["dungeon"] in self.non_required_dungeons])
+            self.locations_to_exclude -= ["Marine Temple Ferrus Force Gem"]
 
         if self.options.exclude_sections == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "tos_section" in d and d["tos_section"] in self.non_required_sections])

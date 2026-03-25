@@ -32,7 +32,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         if options.randomize_cargo.value in [1, 2] else
         ["outset village", "outset cuccos", False, lambda state: state.has("Wagon", player) and (state.has("Cargo: Cuccos (5)", player, 3)
                                                                or (state.has("Cargo: Cuccos (5)", player, 2) and state.has("_UT_Glitched_Logic", player)))],
-        ["outset village", "outset ferrus", False, lambda state: st_has_passenger(state, player, "Alfonzo", "_picked_up_alfonzo") and st_has_passenger(state, player, "Ferrus", "_ferrus_1")],
+        ["outset village", "outset ferrus", False, lambda state: st_has_passenger(state, player, "Alfonzo", "_picked_up_alfonzo")
+                                                                 and st_has_passenger(state, player, "Ferrus", "_ferrus_1")],
 
         # ========= Forest Realm ==========
 
@@ -393,7 +394,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["blizzard temple tracks", "icyspring", True, lambda state: st_has_temple_tracks(state, player, "Blizzard")],
         ["icyspring", "icyspring stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_boomerang(state, player)],
         ["icyspring", "icyspring whip chest", False, lambda state: st_has_whip(state, player)],
-        ["icyspring", "icyspring noko", False, lambda state: st_has_passenger(state, player, "Noko", "_noko") or options.randomize_passengers == "no_passengers"],
+        ["icyspring", "icyspring noko", False, lambda state: (st_has_passenger(state, player, "Noko", "_noko")
+                                                              or options.randomize_passengers == "no_passengers")
+                                                             and st_has_temple_tracks(state, player, "Blizzard")],  # for ferrus logic
 
         # ============ Snowdrift Station =========
 
@@ -511,7 +514,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
          lambda state: st_has_passenger(state, player, "Ferrus", "_ferrus_2")
                        and (options.randomize_passengers.value > 1
                             or st_option_hard_logic(state, player)
-                            or state.has("_ferrus_backup", player))],  # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
+                            or state.has("_ferrus_backup", player))
+         ],  # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
 
         # ========= Pirate Hideout ==============
         ["pirate hideout tracks", "pirate hideout", False, None],
@@ -520,9 +524,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["pirate hideout", "pirate hideout secret cave", False, lambda state: st_has_bombs(state, player)],
         ["pirate hideout", "pirate hideout minigame", False, lambda state: st_has_bow(state, player)],
         # Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
-        ["pirate hideout", "pirate wadatsumi", False, None]
+        ["pirate hideout", "pirate wadatsumi", False, lambda state: st_has_glyph(state, player, "Ocean")]
             if options.randomize_minigames.value in [0] else
-        ["pirate hideout", "pirate wadatsumi", False, lambda state: st_has_bow(state, player)],
+        ["pirate hideout", "pirate wadatsumi", False, lambda state: st_has_bow(state, player) and st_has_glyph(state, player, "Ocean")],
         # First hideout minigame gives you bow automatically, and then it shows in top right, even with no items, but doesn't let you use it. With an item, it doesn't show
 
         # ======== Lost at Sea Station ==========
@@ -551,6 +555,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mountain temple tracks", "dark ore mine", True, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_misc_tracks(state, player,"Dark Ore Mine")],
         ["mountain temple tracks", "snurglars", True, lambda state: st_has_cannon(state, player)],
         ["fire realm", "fire realm ferrus", False, lambda state: st_has_temple_tracks(state, player, "Marine")],
+        ["fire realm ferrus", "icyspring", False, lambda state: options.randomize_passengers == "vanilla" and state.has("_UT_Glitched_Logic", player)],
 
         ["fire realm", "fire realm rabbits", False, lambda state: st_has_net(state, player)],
         ["mountain temple tracks", "mountain rabbits", False, lambda state: st_has_net(state, player)],

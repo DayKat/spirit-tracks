@@ -7,7 +7,7 @@ from .data.Entrances import ENTRANCES
 from settings import get_settings
 from typing import Literal
 
-
+from ..marioland2.locations import coords
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
@@ -178,7 +178,6 @@ class SpiritTracksClient(DSZeldaClient):
         self.treasure_tracker: dict = {}
         self.item_data = ITEMS
         self.item_groups = ITEM_GROUPS
-        self.dynamic_entrances_by_scene = build_scene_to_dynamic_entrance()
 
         # Mandatory addresses
         self.addr_game_state = STAddr.game_state
@@ -200,6 +199,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.entrances = ENTRANCES
         self.boss_warp_entrance = None
         self.location_id_to_name = {loc["id"]: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
+        self.exit_coords_addr = (STAddr.train_trans_x, STAddr.train_trans_y, STAddr.train_trans_z)
 
         # Train speed stuff
         self.reset_cycles = 0
@@ -228,6 +228,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.saving = False
 
         self.display_goal = False
+
 
     def print_goal_info(self, ctx):
         slot_data = ctx.slot_data
@@ -289,7 +290,11 @@ class SpiritTracksClient(DSZeldaClient):
     async def get_coords(self, ctx, multi=False):
         # print(f"Coords: {[self.read_result.get(a, 0) for c, a in zip(['x', 'y', 'z'], self.get_coord_address())]}")
         # return {c: self.read_result.get(a, 0) for c, a in zip(['x', 'y', 'z'], self.get_coord_address())}
-
+        if self.current_stage < 0x13:
+            coords = await read_multiple(ctx, STAddr.train_coords, True)
+            train_coords = {l: c for c, l in zip(coords.values(), ['x', 'y', 'z'])}
+            print(f"Train coords: {train_coords}")
+            return train_coords
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
         # print(f"Coords: {coords}")
         return {

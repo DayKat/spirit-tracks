@@ -172,7 +172,7 @@ class SpiritTracksKeyRandomization(Choice):
     - in_own_dungeon: Keys can be found in their own dungeon
     - anywhere: Keysanity. Keys can be found anywhere
     """
-    display_name = "Key Settings"
+    display_name = "Randomize Small Keys"
     option_vanilla = 0
     option_in_own_section = 3
     option_in_own_dungeon = 1
@@ -804,6 +804,9 @@ st_option_groups = [
     ]),
     OptionGroup("Cosmetic Options", [
         SpiritTracksStartingTrain
+    ]),
+    OptionGroup("Item & Location Options", [
+        SpiritTracksRemoveItemsFromPool
     ])
 
 ]

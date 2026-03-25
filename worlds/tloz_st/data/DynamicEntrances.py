@@ -449,14 +449,20 @@ DYNAMIC_ENTRANCES = {
         "not_has_locations": ["Desert Temple Dungeon Reward"],
     },
     "Fire realm bounce snow realm without btt": {
-        "entrance": "Fire Realm East",
-        "destination": "Fire Realm East",
+        "entrance": "Fire Realm East Tower",
+        "destination": "Fire Realm East Tower",
         "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "message": "The game crashes here without the blizzard temple tracks. Sorry!"
     },
     "Prevent softlock in papuzia south": {
         "entrance": "South Papuzia North",
         "destination": "Papuzia NW House"
+    },
+    "Prevent softlock in icy spring with ferrus": {
+        "entrance": "Icy Spring Train",
+        "destination": "Fire Realm Goron Village",
+        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
+        "message": "You got here with Ferrus, putting you somewhere safe"
     },
 }
 
