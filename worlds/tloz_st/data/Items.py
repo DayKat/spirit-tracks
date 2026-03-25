@@ -520,7 +520,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks",
                         "Minor Sand Tracks", "Minor Fire Tracks", "Tracks: Dark Ore Mine"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 59"
+        "vanilla_model": "Force Gem 34"
     },
     "Ends of the Earth Tracks": {
         'classification': ItemClassification.progression,

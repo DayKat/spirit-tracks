@@ -472,7 +472,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocs north", "ocs song", False, lambda state: st_has_spirit_flute(state, player)]
             if options.randomize_passengers == "no_passengers" else
         ["ocs carben", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
-        ["ocs", "ocs carben", False, lambda state: st_has_passenger(state, player, "Carben", "_carben")],
+        ["ocs", "ocs carben", False, lambda state: st_has_passenger(state, player, "Carben", "_carben")
+                                                   and (options.randomize_passengers.value != 1
+                                                        or st_has_sword(state, player)  # Fight off the blins
+                                                        or st_has_whip(state, player)
+                                                        or st_has_temple_tracks(state, player, "Marine")  # or go around
+                                                        or state.has("_UT_Glitched_Logic", player))],  # or train speed past
 
         # ========== Papuchia Village =============
         ["ocean realm", "papuchia village", False, None],

@@ -3896,8 +3896,9 @@ LOCATIONS_DATA |= {
     "Pirate Hideout Pick Up Wadatsumi": {
         "stage_id": 0x3a,
         "room_id": 0,
-        "address": STAddr.adv_flags_34,
-        "value": 0x40,
+        "address": STAddr.passenger_tag_0,
+        "value": 0x57414D41,
+        "exact_read": True,
         "region_id": "pirate wadatsumi",
         "vanilla_item": "Passenger: Wadatsumi",
         "location_groups": ["Pirate Hideout", "Pick Up Passengers"],
@@ -4142,7 +4143,7 @@ LOCATIONS_DATA |= {
     "Forest Realm Ferrus Gift": {
         "stage_id": 0x45,
         "room_id": 0x2,
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Uncommon Treasures"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "location_groups": ["Misc Passengers"],
         "conditional": True,
