@@ -1806,7 +1806,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     #Resets Pirate hideout to base state, ready for saving Wadatsumi minigame
     "RESET Pirate Minigame Access": {
-        "set_if_true": [(STAddr.adv_flags_34, 0x0), (STAddr.adv_flags_24, 0x0), (STAddr.adv_flags_4f, 0x0)], #Resets all flags in 0x265748, 0x265738, and 0x265763
+        "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)], #Resets all flags in 0x265748, 0x265738, and 0x265763
     },
 
     #Flag for delivering Wadatsumi
@@ -1832,8 +1832,23 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     #Check for Wadatsumi being delivered previously, and then set Gorons to appear
     "Wadatsumi Saved Already": {
         "on_scenes": [0x3A00],
-        "check_bits": [(STAddr.adv_flags_34, 0x20)],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_locations": ["Pirate Hideout Pick Up Wadatsumi"],
+        # "check_bits": [(STAddr.adv_flags_34, 0x20)],
         "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+    },
+    "Wadatsumi Saved Already vanilla": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_locations": ["Papuzia Village Wadatsumi's Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+    },
+    "Wadatsumi Saved Already no papuzia": {
+        "on_scenes": [0x3A00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "not_has_groups": ["Tracks: Ocean Glyph"],
+        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+        "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
     # Cargo
