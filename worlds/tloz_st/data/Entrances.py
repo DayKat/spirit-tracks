@@ -679,14 +679,36 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Fire Realm East": {
-        "return_name": "Snow Realm West",
-        "entrance_region": "fire realm",
+    "Fire Realm East Tower": {
+        "return_name": "Snow Realm West Tower",
+        "entrance_region": "blizzard temple tracks",
         "exit_region": "btt",
+        "extra_data": {"z_min": 0},
+        "coords": (463671, 0, 147456),
         "entrance": (0x7, 0x0, 0xFD),
         "exit": (0x5, 0x0, 0xFE),
         "type": EntranceGroups.OVERWORLD,
         "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Snow Realm Icy Spring": {
+        "return_name": "Icy Spring Train",
+        "entrance_region": "blizzard temple tracks",
+        "exit_region": "icyspring",
+        "entrance": (0x5, 0x0, 0x3),
+        "exit": (0x35, 0x0, 0x0),
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.INSIDE,
+        "island": EntranceGroups.NONE
+    },
+    "Fire Realm Goron Village": {
+        "return_name": "Goron Village Train",
+        "entrance_region": "fire glyph", # missing source, idk until er
+        "exit_region": "goron village",
+        "entrance": (0x7, 0x0, 0x3),
+        "exit": (0x2E, 0x0, 0x0),
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
 

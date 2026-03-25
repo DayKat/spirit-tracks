@@ -67,10 +67,33 @@ def expand_dynamic_groups(data):
             items.extend(ITEM_GROUPS[group])
         data["has_items"] = data.get("has_items", []) + [(i, 0) for i in items]
 
-def build_scene_to_dynamic_flag() -> Dict[int, list[dict]]:
+def _check_slot_data(ctx, data):
+    if "has_slot_data" in data:
+        for slot, value, *args in data["has_slot_data"]:
+            slot_value = ctx.slot_data.get(slot, None)
+            # print(f"\t\tTesting slot {slot_value} {type(slot_value)} {value}")
+            if type(value) is list:
+                if slot_value not in value:
+                    return False
+            elif type(slot_value) is list:
+                if args and args[0] == "not":
+                    if value in slot_value:
+                        return False
+                else:
+                    if value not in slot_value:
+                        return False
+            else:
+                if slot_value != value:
+                    return False
+    return True
+
+def build_scene_to_dynamic_flag(ctx) -> Dict[int, list[dict]]:
     scene_to_dynamic_flag: Dict[int, list[dict]] = {}
     for flag_name, data in DYNAMIC_FLAGS.items():
         data["name"] = flag_name
+        if not _check_slot_data(ctx, data):
+            continue
+
         expand_dynamic_groups(data)
 
         for scene in data.get("on_scenes", []):
@@ -78,10 +101,13 @@ def build_scene_to_dynamic_flag() -> Dict[int, list[dict]]:
             scene_to_dynamic_flag[scene].append(data)
     return scene_to_dynamic_flag
 
-def build_scene_to_dynamic_entrance() -> Dict[int, list[dict]]:
+def build_scene_to_dynamic_entrance(ctx) -> Dict[int, list[dict]]:
     res = {}
     for name, data in DYNAMIC_ENTRANCES.items():
         data["name"] = name
+        if not _check_slot_data(ctx, data):
+            continue
+
         entrance_data = ENTRANCES[data["entrance"]]
         expand_dynamic_groups(data)
         if data["destination"] == "_connected_dungeon_entrance":
