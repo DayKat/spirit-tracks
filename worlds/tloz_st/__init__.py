@@ -868,7 +868,7 @@ class SpiritTracksWorld(WorldParent):
                 track_items.add(new_track)
                 skip_pools.update([i for i in ITEMS[new_track].item_groups if i.startswith("Tracks:")])
         add_items = [(i, 1) for i in track_items]
-        print(len(add_items), add_items)
+        # print(len(add_items), add_items)
 
         if self.options.start_with_train:
             valid_starting_tracks = [track for track in track_items if track in ITEM_GROUPS["Tracks: Forest Glyph"]]
@@ -1403,7 +1403,6 @@ class SpiritTracksWorld(WorldParent):
                 model = all_lookups[item.game].get(item.name, None)
                 if model is not None:
                     location_models[loc_data['id']] = model
-                    print(f"Setting item model for {item}")
                     continue
 
             if item.classification & ItemClassification.progression:
@@ -1438,7 +1437,6 @@ class SpiritTracksWorld(WorldParent):
                    "death_link"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
-        print(f"Required Dungeons: {self.required_dungeons}")
         slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]
         slot_data["stamp_pack_order"] = self.stamp_pack_order
         slot_data["model_lookup"] = self.get_location_models()

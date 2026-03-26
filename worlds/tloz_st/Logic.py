@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 from .data.LogicPredicates import *
 from .Options import SpiritTracksOptions
 from .data.Entrances import ENTRANCES
-from ..sc2.mission_order.presets import evil_logic_settings
 
 if TYPE_CHECKING:
     from . import SpiritTracksWorld
