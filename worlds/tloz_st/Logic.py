@@ -7,6 +7,7 @@ from .data.Entrances import ENTRANCES
 if TYPE_CHECKING:
     from . import SpiritTracksWorld
     from .Subclasses import STTransition
+    from BaseClasses import Region, Entrance
 
 
 def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOptions):
@@ -886,14 +887,16 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
     entrance_lookup = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}
     world.multiworld.completion_condition[player] = lambda state: state.has("_beaten_game", player)
 
-    def create_entrance(r1, r2, rule_):
+    def create_entrance(r1: "Region", r2: "Region", rule_):
         entrance_data: "STTransition" or None = entrance_lookup.get((r1.name, r2.name), None)
         name = entrance_data.name if entrance_data else None
 
-        entrance = r1.connect(r2, name)
         if rule_ is not None:
+            entrance = r1.connect(r2, name, rule_)
+        else:
+            entrance = r1.connect(r2, name)
             # print(f"Setting rule {rule_}")
-            world.set_rule(entrance, rule_)
+            # world.set_rule(entrance, rule_)
 
         if entrance_data:
             # print(f"Creating connection {r1} -> {r2} | {entrance_data.name}")
