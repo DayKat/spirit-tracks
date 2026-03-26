@@ -566,6 +566,11 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Opening boss door for {hex(self.current_scene)}")
                 await data["door"].overwrite(ctx, 3)
 
+        if self.current_scene == 0x2B00 and item_name == "Song of Discovery":
+            await STAddr.songs.unset_bits(ctx, 0x10)
+        if self.current_scene == 0x2C00 and item_name == "Song of Birds":
+            await STAddr.songs.unset_bits(ctx, 0x4)
+
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
         await self.update_potion_tracker(ctx, "room_load")
@@ -596,6 +601,13 @@ class SpiritTracksClient(DSZeldaClient):
             self.delay_room_action -= 1
             if self.delay_room_action > 0:
                 return
+
+            # Set train speed stuff
+            if self.current_stage in range(4, 0xb):
+                await write_multiple(ctx, train_speed_addresses, self.train_speed)
+                self.last_train_gear = -1  # force a quick speed increase
+                self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+                self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
 
             # Set Shop Models for on purchase
             if self.current_scene in potion_location_lookup:
@@ -1107,12 +1119,6 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         self.delay_room_action = 5
-
-        if self.current_stage in range(4, 0xb):
-            await write_multiple(ctx, train_speed_addresses, self.train_speed)
-            self.last_train_gear = -1  # force a quick speed increase
-            self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-            self.train_speed_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_SPEED_OFFSET, size=4)
         if current_scene == 0x2f00 and not self.has_set_starting_train:
             # if self.location_name_to_id["Outset Bee Tree"] not in ctx.checked_locations:
             #     print(f"Setting starting train")

@@ -29,9 +29,11 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
         ["outset village", "outset joe", False, lambda state: st_has_source(state, player, "Snow")],
         ["outset village", "outset cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
-        if options.randomize_cargo.value in [1, 2] else
-        ["outset village", "outset cuccos", False, lambda state: state.has("Wagon", player) and (state.has("Cargo: Cuccos (5)", player, 3)
-                                                               or (state.has("Cargo: Cuccos (5)", player, 2) and state.has("_UT_Glitched_Logic", player)))],
+            if options.randomize_cargo.value in [1, 2] else
+        ["outset village", "outset cuccos", False, lambda state: state.has("Wagon", player)
+                                                                 and (state.has("Cargo: Cuccos (5)", player, 3)
+                                                                      or (state.has("Cargo: Cuccos (5)", player, 2)
+                                                                          and state.has("_UT_Glitched_Logic", player)))],
         ["outset village", "outset ferrus", False, lambda state: st_has_passenger(state, player, "Alfonzo", "_picked_up_alfonzo")
                                                                  and st_has_passenger(state, player, "Ferrus", "_ferrus_1")],
 

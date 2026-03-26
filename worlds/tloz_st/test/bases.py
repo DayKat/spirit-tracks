@@ -10,22 +10,22 @@ class TestGeneration(WorldTestBase):
         # "rabbit_location_count_distribution": "random_mixed",
         "rabbit_pack_size": "random_mixed",
         "rabbit_extra_items": 2,
-        "goal": "defeat_malladus",
+        "goal": "beat_tos_section_6",
         "dark_realm_access": "both",
 
         "dungeons_required": 12,
         "tos_dungeon_options": "all_sections",
 
         "randomize_tears": "in_tos",
-        "tear_size": "large",
+        "tear_size": "small",
         "tear_sections": "progressive",
         "spirit_weapons": "final_tear",
 
-        "keysanity": "in_own_section",
+        "keysanity": "vanilla",
         "randomize_boss_keys": "anywhere",
         "keyrings": "all",
-        "shuffle_tos_sections": "shuffle",
-        # "plando_dungeon_pool": {"ToS 6", "ToS 4", "ToS 1", "Desert Temple", "Lost at Sea"},
+        "shuffle_tos_sections": "no_shuffle",
+        "plando_dungeon_pool": {"ToS 6"},
 
         "shopsanity": {"all"},
         "rupee_farming_logic": "no_farming",

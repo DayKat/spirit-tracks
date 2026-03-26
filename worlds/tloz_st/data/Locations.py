@@ -2192,6 +2192,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Wagon",
         "item_override": "Nothing!",
         "slot_data": [("randomize_cargo", [1, 2, 3])],
+        "conditional": True,
         "location_groups": ["Goron Village"],
         "no_model": True
     },
@@ -4097,8 +4098,8 @@ LOCATIONS_DATA |= {
     "Snow Realm Pick Up Ferrus": {
         "stage_id": 0x5,
         "address": STAddr.passenger_tag_0,
-        "value": 0x544D4E41,
-        "exact_read": True,
+        "value": 0x544D4E51,  # bitand of the two ferrus IDs
+        # "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "location_groups": ["Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
@@ -4119,8 +4120,8 @@ LOCATIONS_DATA |= {
     "Fire Realm Pick Up Ferrus": {
         "stage_id": 0x7,
         "address": STAddr.passenger_tag_0,
-        "value": 0x544D4E50,
-        "exact_read": True,
+        "value": 0x544D4E51,  # bitand of the two ferrus IDs
+        # "exact_read": True,
         "vanilla_item": "Passenger: Ferrus",
         "item_override": "Nothing!",
         "location_groups": ["Pick Up Passengers"],
