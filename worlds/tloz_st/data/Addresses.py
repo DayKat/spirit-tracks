@@ -20,14 +20,23 @@ class STAddr:
     floor = Address(0x1B2E98)
     room = Address(0x2690EA)
     entrance = Address(0x2690EB)
-    
+
+    respawn_stage = Address(0x262074)
+    respawn_room = Address(0x26207e)
+    respawn_entrance = Address(0x26207f)
+
     getting_location = Address(0x04B114)
-    getting_train_part = Address(0x11F5E4)
     saving = Address(0x049BD8)
+    getting_tear_safety = Address(0x327B8C)
+    getting_item_safety = Address(0x264648)
+    entering_shop = Address(0x260A44)
+
+    # drinking_potion = Address(0x317ED0)  # 39 normal, 3b drinking
+    drinking_potion_pointer = Address(0x265338, size=4)
     
-    link_x = Pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
-    link_y = Pointer(0x05D0)
-    link_z = Pointer(0x05D4)
+    link_x = Address.pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
+    link_y = Address.pointer(0x05D0)
+    link_z = Address.pointer(0x05D4)
     
     menu = Address(0x260958)
     equipped_item = Address(0x265318, size=4)
@@ -40,12 +49,14 @@ class STAddr:
     rabbits_2 = Address(0x262032)
     rabbits_3 = Address(0x262033)
     rabbits_4 = Address(0x262034)
+    rabbits_5 = Address(0x262035)
+    rabbits_6 = Address(0x262036)
     
-    gItemManager = Pointer(0x0fb4)
-    gPlayerManager = Pointer(0x0fbc)
-    gAdventureFlags = Pointer(0x0f74)
-    gPlayer = Pointer(0x0fec)
-    gMapManager = Pointer(0x0e60)
+    gItemManager = Address.pointer(0x0fb4)
+    gPlayerManager = Address.pointer(0x0fbc)
+    gAdventureFlags = Address.pointer(0x0f74)
+    gPlayer = Address.pointer(0x0fec)
+    gMapManager = Address.pointer(0x0e60)
     stage_flag_pointer = Address(0x265164, size=4)
     
     watched_intro = Address(0x265726)
@@ -58,16 +69,28 @@ class STAddr:
 
     train_action = Address(0x2CA23C) # forest, but near train speed pointer
     train_gear = Address(0x2CA438)  # forest, find pointer
+    train_health = Address(0x2653a0)
+
+    train_trans_x = Address(0x262090, size=4)
+    train_trans_y = Address(0x262094, size=4)
+    train_trans_z = Address(0x262098, size=4)
+
+    train_x = Address(0x264628, size=4)
+    train_y = Address(0x26462C, size=4)
+    train_z = Address(0x264630, size=4)
+    train_coords = (train_x, train_y,train_z)
 
     # Inventory
     items_0 = Address(0x265320)
     items_2 = Address(0x265322)
     songs = Address(0x268FB0)
-    
     arrow_capacity = Address(0x265330)
     bomb_capacity = Address(0x265331)
     arrow_count = Address(0x265332)
     bomb_count = Address(0x265333)
+    postcard_count = Address(0x268FA2)
+
+    item_restrictions = Address(0x26532C, size=2)
     
     rupees = Address(0x265328, size=2)
     tears_of_light = Address(0x26532E)
@@ -83,11 +106,71 @@ class STAddr:
     source_rails = Address(0x2653B8)
     key_storage_0 = Address(0x265784)
     key_storage_tos = Address(0x265785)
-    
+    key_storage_2 = Address(0x265786)
+
+    train_parts = Address(0x2653A8, size=4)
+    equipped_engine = Address(0x265388, size=4)
+    equipped_cannon = Address(0x26538C, size=4)
+    equipped_car = Address(0x265390, size=4)
+    equipped_cart = Address(0x265394, size=4)
+
+    # Passenger data
+    has_passenger_0 = Address(0x265598, size=4)
+    has_passenger_1 = Address(0x2655AC, size=4)
+    passenger_tag_0 = Address(0x265594, size=4)
+    passenger_tag_1 = Address(0x2655A8, size=4)
+    passenger_goal = Address(0x26559C, size=4)
+
+    # Cargo Data
+    cargo_0 = Address(0x2655d8, size=4)
+    cargo_1 = Address(0x2655e4, size=4)
+    cargo_count_0 = Address(0x2655dc)
+    cargo_count_1 = Address(0x2655e8)
+
+    # Boss key pointers
+    boss_key_deletion_pointer = Address(0x265620, size=4)  # points to 3 references, and deleting then deletes the key.
+    boss_key_deletion = Address(0x3251C0, size=12)
+    wt_bk_pointer = Address(0x3251C0, size=4)
+    bt_bk_pointer = Address(0x326C20, size=4)
+    oct_bk_pointer = Address(0x32520C, size=4)
+    mtt_bk_pointer = Address(0x32963C, size=4)
+    dt_bk_pointer = Address(0x3251C8, size=4)
+    tos3_bk_pointer = Address(0x332858, size=4)
+    tos_bk_pointer = Address(0x332818, size=4)
+
+    # Candidates for ToS 3 bk pointers
+    # 332858
+    # 332A20
+    # 332BB4
+    # 332BD4
+    # 332D1C
+    # 33DBFC
+
+    # Boss door openers
+    wt_boss_door = Address(0x3368FE)
+    bt_boss_door = Address(0x33099E)
+    oct_boss_door = Address(0x32F6EE)
+    mtt_boss_door = Address(0x33497E)
+    dt_boss_door = Address(0x332C5E)
+    tos3_boss_door = Address(0x33E482)
+    # tos5_boss_door = Address(0x33E182)
+    tos5_boss_door = Address(0x33E1Ce)
+
+    # Object pointer table
+    tos_boss_door_pointer = Address(0x265668, size=4)
+
+    snurglin_keys = Address(0x2e986c)
+    snurglar_pointer = Address(0x0499F4, size=4)
+    mountain_gate = Address(0x2e3640)
+
+    # Stamps
+    stamp_ids = Address(0x268f8c, size=20)
+    stamp_coords = Address(0x268F50, size=40)
+
     # Adventure Flags
-    adv_flags_0 = Address(0x265714)
-    adv_flags_1 = Address(0x265715)
-    adv_flags_2 = Address(0x265716)
+    adv_flags_0 = sources = Address(0x265714)
+    adv_flags_1 = restorations = Address(0x265715)
+    adv_flags_2 = glyphs = Address(0x265716)
     adv_flags_3 = Address(0x265717)
     adv_flags_4 = Address(0x265718)
     adv_flags_5 = Address(0x265719)
@@ -196,6 +279,8 @@ class STAddr:
     ancient_coin_count = Address(0x26901a, size=2)
     priceless_stone_count = Address(0x26901c, size=2)
     regal_ring_count = Address(0x26901e, size=2)
+
+    item_model_table = Address(0x0af590)  # size=big
 
 #  = Address()
 #  = Address()
