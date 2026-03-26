@@ -54,14 +54,15 @@ def add_items_from_filler(item_pool_dict: dict, filler_item_count: int, item: st
     return item_pool_dict, filler_item_count
 
 class SpiritTracksWeb(WebWorld):
-    theme = "grass"
+    theme = "grassFlowers"
+    game = "Spirit Tracks"
     setup_en = Tutorial(
-        "Multiworld Setup Guide",
-        "A guide to setting up Spirit Tracks for Archipelago on your computer.",
-        "English",
-        "st_setup_en.md",
-        "st_setup/en",
-        ["DayKat", "Carrotinator"]
+        tutorial_name="Multiworld Setup Guide",
+        description="A guide to setting up Spirit Tracks for Archipelago on your computer.",
+        language="English",
+        file_name="setup.md",
+        link="setup/en",
+        authors=["DayKat", "Carrotinator"]
     )
 
     tutorials = [setup_en]
@@ -194,6 +195,7 @@ class SpiritTracksWorld(WorldParent):
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
             # print(f"Rabbit items: {self.rabbit_item_dict}")
+
             self.plando_tos_sections()
             # print(f"Tower Sections: {self.tower_section_lookup}")
             self.track_items = self.choose_track_items()
@@ -217,6 +219,22 @@ class SpiritTracksWorld(WorldParent):
             if len(self.non_required_sections) == 6 and self.options.exclude_sections and self.options.randomize_tears.value not in [3, 0]:
                 self.options.spirit_weapons.value = 0
 
+            if self.tower_pairings:
+                tos_summit_section = [EXIT_TO_TOS_SECTION[ex] for en, ex in self.tower_pairings
+                                      if en == 'Tower of Spirits Summit Enter Altar'][0]
+                tos_summit_boss = DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {tos_summit_section}"]
+            else:
+                tos_summit_boss = "ToS 24F Final Chest"
+            if all([
+                self.options.exclude_sections.value,
+                len(self.non_required_sections) == 5,
+                self.options.randomize_tears.value in [1, 2],
+                self.options.spirit_weapons.value,
+                tos_summit_boss in self.required_dungeons
+            ]):
+                self.options.spirit_weapons.value = 0
+                print(f"ToS Summit needs final spirit weapon. Turning off spirit weapons.")
+
             if self.options.starting_train == "random_train":
                 self.options.starting_train.value = self.random.randint(0, 7)
             if "all" in self.options.shopsanity.value:
@@ -237,6 +255,7 @@ class SpiritTracksWorld(WorldParent):
                 sections = [s for s in range(1, 7) if s not in self.non_required_sections]
                 self.tower_section_lookup = {s: i for i, s in enumerate(sections, start=1)}
                 self.tower_section_lookup |= {s: 6 for s in self.non_required_sections}
+                # print(self.tower_section_lookup)
             return
 
         # Sophisticated shuffle to avoid loops
@@ -252,10 +271,9 @@ class SpiritTracksWorld(WorldParent):
                 self.tower_pairings.append((entrance, exits.pop(0)))
             if entrance == "Tower of Spirits Exit Staven" and self.tower_pairings[0][1] == "ToS Summit Lower Exit":
                 banned_connections["Tower of Spirits Summit Enter Altar"].append("ToS 18F Exit")
-
-        # print(f"Tower pairings: {list(self.tower_pairings)}")
         self.plando_pairings |= {ENTRANCES[e1].id: ENTRANCES[e2].id for e1, e2 in self.tower_pairings}
         self.plando_pairings |= {e2: e1 for e1, e2 in self.plando_pairings.items()}
+
 
         # Get lookup table for logic progressive tear sections
         sort_filter = {}
@@ -379,7 +397,7 @@ class SpiritTracksWorld(WorldParent):
         self.options.dungeons_required.value = min(self.options.dungeons_required.value, len(required_dungeons))
         # print(f"Required dungeons: {required_dungeons}")
         if not self.options.require_specific_dungeons:
-            return required_dungeons + force_require
+            return list(set(required_dungeons + force_require))
 
         required_dungeons = [i for i in required_dungeons if i not in force_require]
         self.random.shuffle(required_dungeons)
@@ -448,9 +466,9 @@ class SpiritTracksWorld(WorldParent):
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
             return bk and tears and (location_data["tos_section"] not in self.non_required_sections) or self.options.exclude_sections != "remove"
         if "dungeon" in location_data:
-            passengers = self.options.randomize_passengers if location_name == "Marine Temple Ferrus Force Gem" else True
+            passengers = self.options.randomize_passengers.value if location_name == "Marine Temple Ferrus Force Gem" else True
             stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
-            bk = self.options.randomize_boss_keys if location_name.endswith("Boss Key") else True
+            bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
             # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
             if location_name == "Marine Temple Ferrus Force Gem":
                 return self.options.randomize_passengers.value
@@ -462,8 +480,8 @@ class SpiritTracksWorld(WorldParent):
         if "Portal" in location_name:
             return self.options.portal_checks
         if location_name in LOCATION_GROUPS["Rabbit Rewards"]:
-            return self.options.rabbitsanity
-        if "minigame" in location_data and self.options.randomize_minigames:
+            return self.options.rabbitsanity.value
+        if "minigame" in location_data and self.options.randomize_minigames.value:
             if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_dungeons:
                 return True  # If plandoed dungeon include
             # print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data['minigame']}")
@@ -472,12 +490,12 @@ class SpiritTracksWorld(WorldParent):
             return self.options.randomize_stamps.value in [1, 2, 3]
         if location_name in LOCATION_GROUPS["Niko"]:
             # If dungeon stamp stands are excluded with vanilla stamps, niko has to give less items
-            if self.options.exclude_dungeons and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2, 4]:
-                # if len(self.non_required_dungeons) >= 5:
-                #     return location_name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
+            if self.options.exclude_dungeons.value and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2, 4]:
+                if len(self.non_required_dungeons) > 5:
+                    return location_name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
                 return location_name not in ["Outset Niko 20 Stamps Reward"]
-            return self.options.randomize_stamps
-        if self.options.shopsanity and location_name in LOCATION_GROUPS["Shop Locations"]:
+            return self.options.randomize_stamps.value
+        if self.options.shopsanity.value and location_name in LOCATION_GROUPS["Shop Locations"]:
             if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
                 if "uniques" in self.options.shopsanity.value:
                     return False
@@ -503,7 +521,7 @@ class SpiritTracksWorld(WorldParent):
             return self.options.randomize_passengers.value or self.options.randomize_cargo.value
         if location_name == "Anouki Village Fence Progress Gift":
             return self.options.randomize_passengers.value and self.options.randomize_cargo.value
-        if self.options.randomize_passengers and location_name in LOCATION_GROUPS["Passenger Locations"]:
+        if self.options.randomize_passengers.value and location_name in LOCATION_GROUPS["Passenger Locations"]:
             if "slot_data" in location_data:
                 for option, values, *args in location_data["slot_data"]:
                     if option != "randomize_passengers":
@@ -512,7 +530,7 @@ class SpiritTracksWorld(WorldParent):
                     if self.options.randomize_passengers.value not in values:
                         return False
                 return True
-        if self.options.randomize_cargo and location_name in LOCATION_GROUPS["Cargo Locations"]:
+        if self.options.randomize_cargo.value and location_name in LOCATION_GROUPS["Cargo Locations"]:
             if "slot_data" in location_data:
                 for option, values, *args in location_data["slot_data"]:
                     if option != "randomize_cargo":
@@ -521,6 +539,8 @@ class SpiritTracksWorld(WorldParent):
                     if self.options.randomize_cargo.value not in values:
                         return False
                 return True
+        if location_name == "Goron Village Get Wagon":
+            return self.options.randomize_cargo.value
         return False
 
     def create_events(self):
@@ -613,7 +633,7 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.exclude_dungeons == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "dungeon" in d and d["dungeon"] in self.non_required_dungeons])
-            self.locations_to_exclude -= ["Marine Temple Ferrus Force Gem"]
+            self.locations_to_exclude -= {"Marine Temple Ferrus Force Gem"}
 
         if self.options.exclude_sections == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "tos_section" in d and d["tos_section"] in self.non_required_sections])
@@ -848,7 +868,7 @@ class SpiritTracksWorld(WorldParent):
                 track_items.add(new_track)
                 skip_pools.update([i for i in ITEMS[new_track].item_groups if i.startswith("Tracks:")])
         add_items = [(i, 1) for i in track_items]
-        # print(len(add_items), add_items)
+        print(len(add_items), add_items)
 
         if self.options.start_with_train:
             valid_starting_tracks = [track for track in track_items if track in ITEM_GROUPS["Tracks: Forest Glyph"]]
@@ -1418,6 +1438,7 @@ class SpiritTracksWorld(WorldParent):
                    "death_link"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
+        print(f"Required Dungeons: {self.required_dungeons}")
         slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]
         slot_data["stamp_pack_order"] = self.stamp_pack_order
         slot_data["model_lookup"] = self.get_location_models()

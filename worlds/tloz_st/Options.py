@@ -15,7 +15,6 @@ class SpiritTracksGoal(Choice):
     - other options: defeat the specified boss/tos section to goal.
     Is not compatible with dark realm unlock options, so you can't set a number of required dungeons or compass shards etc.
     The dungeon/section associated with the goal will never be excluded.
-    Intended for shorter seeds.
     """
 
     display_name = "Goal Location"
@@ -36,7 +35,7 @@ class SpiritTracksGoal(Choice):
 class SpiritTracksDarkRealmUnlock(Choice):
     """
     What unlocks the dark realm?
-    - compass_of_light: only the compass of light is required. malladus also requires a sword, bow of light and spirit pipes.
+    - compass_of_light: only the compass of light is required. malladus also requires a sword, bow of light and Spirit Flute.
     - dungeons: find the compass of light and finish a specified number of dungeons to gain access to the dark realm.
     - shattered_compass: McGuffin hunt! find a specified number of compass shards to unlock the dark realm.
     - both: you need to find the shattered compass shards to get the track, and the dungeon goal to enter.
@@ -70,7 +69,7 @@ class SpiritTracksDungeonCount(Range):
     """
     How many dungeons/ToS sections are required to unlock the dark realm?
     Will not go higher than the number of valid locations in dungeon pool.
-    Is also the number of included dungeons if using the shattered compass goal.
+    Is also the number of included dungeons if not using a dungeon goal.
     """
     display_name = "Required Dungeon Count"
     range_start = 0
@@ -79,10 +78,10 @@ class SpiritTracksDungeonCount(Range):
 
 class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     """
-    How does tower of spirits count towards the dungeon pool?
-    - not_in_dungeon_pool: tower of spirits is not rolled for required dungeons.
+    How does Tower of Spirits count towards the dungeon pool?
+    - not_in_dungeon_pool: Tower of Spirits is not rolled for required or included dungeons.
     - final_section: Legacy option, currently adds section 5 and Staven as the tower's goal location
-    - all_sections: each ToS section is added to the dungeon pool.
+    - all_sections: all ToS sections are added to the dungeon pool.
     """
     display_name = "Tower of Spirits Dungeon Reward Options"
     option_not_in_dungeon_pool = 0
@@ -93,7 +92,7 @@ class SpiritTracksDungeonPoolPlando(OptionSet):
     """
     Choose what dungeons appear in the required dungeon pool.
     Leave blank to ignore.
-    Valid options are: 'Wooded Temple', 'Blizzard Temple', 'Marine Temple', 'ToS 1'...'ToS 6'
+    Valid options are: 'Wooded Temple', 'Blizzard Temple', 'Marine Temple', 'Mountain Temple', 'Desert Temple', 'ToS 1'...'ToS 6'
     Special Options include:
     - Lost At Sea
     - Take 'em All On 3
@@ -149,13 +148,10 @@ class SpiritTracksRemoveItemsFromPool(ItemDict):
 
 class SpiritTracksLogic(Choice):
     """
-    Logic options:
-    - Normal: Glitches not in logic.
-    - Hard: Includes some cool uses of pots aren't hard, but unconventional
-    - Glitched: Clever use of items in logic and glitches
-    Be careful, using glitches on normal logic can cause key-related softlocks
-
-    Please let me (@DayKat) know if you know of any glitches or non-normal logic!
+    Logic Difficulty.
+    - normal: Glitches and tricky tricks are not in logic.
+    - hard: More difficult combat, obscure strategies, certain puzzles without their solutions and slow cycles are in logic.
+    - glitched: not implemented.
     """
     display_name = "Logic Difficulty"
     option_normal = 0
@@ -168,7 +164,7 @@ class SpiritTracksKeyRandomization(Choice):
     """
     Small Key Logic options:
     - vanilla: Keys are not randomized
-    - in_own_section: Keys can be found in their own dungeon or tower of spirits section
+    - in_own_section: Keys can be found in their own dungeon or Tower of Spirits section
     - in_own_dungeon: Keys can be found in their own dungeon
     - anywhere: Keysanity. Keys can be found anywhere
     """
@@ -181,8 +177,8 @@ class SpiritTracksKeyRandomization(Choice):
 
 class SpiritTracksKeyrings(Choice):
     """
-    Add replace small keys with keyrings, containing all small keys for that dungeon/ToS section.
-    Option for it to also include boss keys below.
+    Replaces small keys with keyrings, containing all small keys for that dungeon/ToS section.
+    There's a separate option to also include boss keys.
     Does not work with vanilla key locations.
     - no_keyrings: all keys are singular, like vanilla
     - snurglar_only: only the 3 Snurglar Keys required to enter the Mountain Temple are keyrings.
@@ -207,10 +203,11 @@ class SpiritTracksBigKeyrings(Toggle):
 
 class SpiritTracksRabbitsanity(Choice):
     """
-    Rabbits received are separated into realms, while each rabbit catch is a check based on options.
-    Also includes Bunnio's rewards for 5 total rabbits, 10 of each rabbit type and 50 total rabbits. Might manually add locations for 5 of each rabbit type hmm...
+    Randomize catching rabbits. There are 10 rabbits for each realm, for a total of 50.
+    Also includes Bunnio's rewards for 5 total rabbits, 1 of each rabbit, 10 rabbits of each type and 10 rabbits of all types.
     - no_rabbits: rabbits are not randomized
-    - vanilla: rabbit locations always give rabbit items of their rabbit type. They still count as locations in archipelago for hint cost purposes.
+    - vanilla: rabbit locations always give rabbit items of their rabbit type.
+    They still count as locations in archipelago for hint cost purposes, and the number of rabbits received scales based on how many locations you include.
     - unique_checks: each rabbit in the overworld is a unique location.
     - on_total: the total number of rabbits caught of each type gives a check, ex. "Catch 3 Snow Rabbits".
     - both: get locations both on specific rabbits and total rabbits.
@@ -304,8 +301,7 @@ class SpiritTracksRandomizePortals(Choice):
 
 class SpiritTracksPortalLocations(Toggle):
     """
-    Creates locations on shooting the gem on each portal.
-    Also works with portals not yet implemented
+    Creates locations for shooting the gem on each portal.
     """
     display_name = "Portal Checks"
     default = 0
@@ -329,10 +325,10 @@ class SpiritTracksRandomizeTears(Choice):
     Randomize Tears of Light
     - vanilla: tears of light are not randomized
     - vanilla_items: tears of light are vanilla, but you don't need to collect them more than once and they count as archipelago locations for hint costs.
-    - in_own_section: tears of light are randomized in their own tower sections. progressive tears count towards all sections
+    - in_own_section: tears of light are randomized in their own tower sections. progressive and global tears count towards all sections
     - in_tos: tears of light are randomized anywhere in Tower of Spirits
     - anywhere: tears of light are randomized anywhere
-    - no_tears: you need to find either two swords or bow of light + bow to possess phantoms, tears are still locations.
+    - no_tears: you need to find either two swords or bow of light + bow to possess phantoms, tears are still randomized locations.
     """
     display_name = "Randomize Tears of Light"
     option_vanilla = -1
@@ -358,8 +354,8 @@ class SpiritTracksTearGroup(Choice):
     """
     tears_of_light_grouping:
     - unique_sections: tears of light only work in one section
-    - all_sections: tears fill each section from bottom to top, totalling 15 small items or 5 big ones.
-    - progressive_spirit_items: tears fill each section from bottom to top. Works with shuffle_tos_section.
+    - all_sections: tears work globally for all sections.
+    - progressive: tears fill each section from bottom to top. Works with shuffle_tos_section.
     """
     display_name = "Tears of Light Sectionality"
     option_unique_sections = 0
@@ -370,7 +366,7 @@ class SpiritTracksSpiritItems(Choice):
     """
     Lokomo Sword and Bow of Light can be combined with certain tear of light groupings
     - items: Lokomo Sword is the second progressive sword; and Bow of Light is its own item, but requires a progressive bow to use.
-    - final_tear: if tear_group is all_sections or progressive, the final tear item will unlock both the Lokomo Sword and the Bow of Light.
+    - final_tear: if tear_group is all_sections or progressive, an extra final tear item is added that unlocks both the Lokomo Sword and the Bow of Light.
     """
     display_name = "Spirit Item Options"
     option_items = 0
@@ -379,7 +375,7 @@ class SpiritTracksSpiritItems(Choice):
 class SpiritTracksStartingTrain(Choice):
     """
     What train to start with. Train parts will be randomized later.
-    Different trains have different health, but i want this to more be a fun cosmetic thing.
+    Different trains have different health, but see this to more be a fun cosmetic thing.
     - all_parts: start with all parts, and customize freely in Alfonzo's Workshop on outset.
     - random_train: picks 1 random train to start with
     """
@@ -400,14 +396,14 @@ class SpiritTracksRandomizeMinigames(Choice):
     """
     Randomize Minigames.
     All difficulties include Restoration Duets, Hyrule Castle Sword Training and Goron Target Range.
-    Also includes Mayscore Whip game, Take 'em All On, Pirate Hideout, Slippery Station and Ends of the Earth.
+    Easy+ includes Mayscore Whip game, Take 'em All On, Pirate Hideout, Slippery Station and Ends of the Earth.
     - no_minigames: minigames are not randomized
     - restoration_duets: include only restoration duets. Are they really minigames?
-    - easy: the easiest difficulty of each minigame is randomized
-    - hard: the second difficulty of each minigame is randomized
-    - expert: the hardest difficulty of each minigame is randomized. Includes Take 'em all On 3
-    - all_reasonable: the easy and hard difficulties are randomized
-    - everything: all minigame rewards are randomized
+    - easy: only the easiest difficulty of each minigame is randomized.
+    - hard: only the second difficulty of each minigame is randomized.
+    - expert: only the hardest difficulty of each minigame is randomized. Includes Take 'em all On 3.
+    - all_reasonable: the easy and hard difficulties are randomized.
+    - everything: all minigame rewards are randomized.
     """
     display_name = "Randomize Minigames"
     option_no_minigames = 0
@@ -417,7 +413,6 @@ class SpiritTracksRandomizeMinigames(Choice):
     option_expert = 5
     option_all_reasonable = 3
     option_everything = 4
-
 
     default = 1
 
@@ -430,7 +425,7 @@ class SpiritTracksMinigameHints(Toggle):
 
 class SpiritTracksToSSectionUnlocks(Choice):
     """
-    What unlocks tower of spirits sections?
+    What unlocks Tower of Spirits sections?
     open: all sections are open from the start
     sources: each source unlocks a new section
     progressive: adds "Progressive Tower Section" items, that unlock sections one at a time. ToS 1 is always available.
@@ -443,7 +438,7 @@ class SpiritTracksToSSectionUnlocks(Choice):
 
 class SpiritTracksToSBase(Toggle):
     """
-    If True, Prevents Tower of Spirit access until you have the "Tower of Spirits Base" item
+    If True, Prevents Tower of Spirit access until you have the `Tower of Spirits Base` item
     Creates an additional progressive tower section item instead if you play with progressive tower sections.
     """
     display_name = "ToS Unlock Base Item"
@@ -489,7 +484,7 @@ class SpiritTracksCannonLogic(Choice):
     When is cannon required?
     - train_requires_cannon: you cannot board the train without the cannon
     - open_train: cannonless train is not in logic, but you can use the train without cannon if you want to
-    - hard_logic: cannonless train is in logic, often requiring clever routing, damage tanking or dodging cannonballs by breaking. Should always be possible with vanilla train speed settings and a four heart spirit train.
+    - hard_logic: cannonless train is in logic, often requiring clever routing, damage tanking or dodging cannonballs by braking with good timing. Should always be possible with vanilla train speed settings and a four heart spirit train.
     - no_logic: ignores train enemies in logic. Cheesing enemies with train speed is usually necessary.
     """
     display_name = "Cannon Logic"
@@ -503,8 +498,8 @@ class SpiritTracksRupeeFarming(Choice):
     What is required for rupee farming?
     - no_farming: All rupees are accounted for in the item pool.
     - unlimited_farming: Once you have access to Linebeck, or rupees from excess treasures, you are logically expected to farm for rupees.
-    - capped_farming: The amount of rupees you're expected to farm depends on how many farming hotspots you have in logic.
     """
+    # - capped_farming: The amount of rupees you're expected to farm depends on how many farming hotspots you have in logic. Not Implemented.
     display_name = "Rupee Farming Logic"
     option_no_farming = 0
     option_unlimited_farming = 1
@@ -527,13 +522,14 @@ class SpiritTracksExcessTreasures(Choice):
 
 class SpiritTracksRandomizePassengers(Choice):
     """
-    Randomize Moving passengers from one station to another. NPCs can have obtuse unlock requirements, often related to sources.
+    Randomize the sidequests involving moving passengers from one station to another.
+    NPCs can be picked up if you have access to their destination station.
     - no_passengers: passengers are not randomized, and quests that affect future stuff are in their most convenient state.
-    - vanilla: passengers are picked up in their vanilla locations, and only a successful delivery is a location.
-    UT displays events for each quest step. You can carry 1 NPC at a time.
+    - vanilla: passengers are picked up in their vanilla locations, and only a successful delivery is a randomized location.
+    You can carry 1 NPC at a time and have to keep them happy.
     - vanilla_abstract: same as above, but NPCs give themselves as items, and you don't need to care about their comfort.
-    You can pick up multiple NPCs at the same time
-    - randomize: NPCs are items, and both picking them up and reaching their destination are locations.
+    You can pick up multiple NPCs at the same time.
+    - randomize: NPCs are items, and both picking them up and reaching their destinations are locations.
     """
     display_name = "Randomize Passengers"
     option_no_passengers = 0
@@ -546,11 +542,12 @@ class SpiritTracksRandomizeCargo(Choice):
     """
     Randomize transporting cargo from one station to another. You need the wagon to buy cargo.
     - no_cargo: Cargo deliveries are not randomized, and places affected are in their most convenient state, ex. Goron lava geyser are down.
-    - vanilla: cargo can be bought at their vanilla locations, and only a successful delivery is a location.
-    UT displays events for each quest step. You can carry 1 type of cargo at a time.
-    - vanilla_abstract: same as above, but buying cargo gives an unlimited cargo item that can be used at all useplaces.
-    You can pick up multiple cargo at the same time.
-    - randomize: Cargo become items, and buying cargo/delivering cargo are both locations.
+    - vanilla: cargo can be bought at their vanilla locations, and only a successful delivery is a randomized location.
+    You can carry 1 type of cargo at a time, perishables perish with time and taking damage decrements your cargo count.
+    - vanilla_abstract: same as above, but buying cargo gives an unlimited cargo item that unlocks all deliveries.
+    You can pick up multiple cargo at the same time and don't have to worry about transport complications.
+    - randomize: Cargo become items, and buying cargo/delivering cargo are both randomized locations.
+    There are multiple cargo items when used in multiple places, and the items are used up on getting the locations.
     """
     display_name = "Randomize Cargo"
     option_no_cargo = 0
@@ -561,10 +558,11 @@ class SpiritTracksRandomizeCargo(Choice):
 
 class SpiritTracksRandomizeBossKeys(Choice):
     """
-    Randomize Boss Keys
+    Randomize Boss Keys.
+    Most boss key locations trigger on picking up or moving the key, but for Mountain Temple you need to finish the minecart puzzle.
     - vanilla: boss keys are normal, you need to carry them to their door
     - vanilla_abstract: picking up boss keys gives you an abstract boss key item, so you don't have to carry the key
-    - in_own_section: boss keys are randomized in their own dungeon/tower of spirits section
+    - in_own_section: boss keys are randomized in their own dungeon/Tower of Spirits section
     - in_own_dungeon: boss keys are randomized in their own dungeon
     - anywhere: boss keys are randomized anywhere
     """
@@ -578,7 +576,7 @@ class SpiritTracksRandomizeBossKeys(Choice):
 
 class SpiritTracksStampItems(Choice):
     """
-    What to do with stamps. Yet another currency!
+    What to do with stamps.
     - no_stamp_stands: don't randomize stamp book, stamps stands or stamp rewards from Niko
     - vanilla: Stamp stands give stamps, that are neither archipelago items nor locations, that count towards Niko rewards, that are randomized.
     - vanilla_with_location: stamp stands are randomized locations, but also give non-archipelago-item stamps that count towards Niko rewards.
@@ -611,7 +609,7 @@ class SpiritTracksStampItemPacks(NamedRange):
 class SpiritTracksExcludeDungeons(Choice):
     """
     Exclude or remove locations from non-required dungeons.
-    Does not count tower of spirits, that has its own option.
+    Does not count Tower of Spirits, that has its own option.
     If using shattered compass goal, the game will still pick dungeons based on required dungeon settings for inclusion/exclusion.
     Does not work with require_specific_dungeons=False, that sets all dungeons to included.
     - include: non-required dungeons are included
@@ -641,14 +639,15 @@ class SpiritTracksExcludeSections(Choice):
 
 class SpiritTracksTrackGroupings(Choice):
     """
-    What does your rail item pool look like? Includes different custom combined rail item pools to choose from.
+    What does your rail item pool look like?
+    Includes different custom combined rail items sorted into different pools you can choose from.
     Many of the combined items overlap.
     Combinations that contain sources unlock what the source unlocks, like tower sections if you choose that option.
     - vanilla: Your rail pool consists of the 34 vanilla glyph, source, restoration and force gem tracks.
-    - completed_glyphs: Each glyph comes pre-completed. Sand realm counts separately.
-    - major_minor: creates a major and minor rail combination for each realm, where the major contains the source, restoration and glyph.
+    - completed_glyphs: Each glyph comes pre-completed. Sand realm counts separately. 5 rail items.
+    - major_minor: creates a major and minor rail combination for each realm, where the major contains the source, restoration and glyph. 10 rail items.
     - thematic: Adds 16 custom groups containing 3-5 rail items to the pool, based on locale.
-    - mixed: Rolls a complete set of rail items from all rail items.
+    - mixed: Rolls a complete set of rail items from all rail pools.
     - mixed_large: rolls as mixed but does not include single rail items
     - mixed_small: rolls as mixed but does not include completed glyph items.
     """

@@ -1088,6 +1088,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x37),
                               (STAddr.passenger_tag_0, 0x43524654),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Has Kenzo and Ring": {
         "on_scenes": [0x3700],
@@ -1165,6 +1166,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x29),
                               (STAddr.passenger_tag_0, 0x474F4350),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Bring Ferrus to Outset": {
         "on_scenes": [0x2F00],
@@ -1176,6 +1178,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2f),
                               (STAddr.passenger_tag_0, 0x544D4E41),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Bring Ferrus to Marine Temple": {
         "on_scenes": [0x1B0a],
@@ -1187,6 +1190,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x1b),
                               (STAddr.passenger_tag_0, 0x544D4E41),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Spawn Ferrus in forest randomized": {
         "on_scenes": [0x400],
@@ -1256,12 +1260,17 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Backup unset goron geyser": {
         "on_scenes": [0x2e00],
+        "has_slot_data": ["randomize_cargo", [1, 2, 3]],
         "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
         "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
     },
     "RESET Wagon": {
         "has_items": [("Wagon", 1)],
         "set_if_true": [(STAddr.adv_flags_4, 0x02)],
+    },
+    "Force open marine temple": {
+        "on_scenes": [0x600],
+        "set_if_true": [(STAddr.adv_flags_9, 0x40)],
     },
     "Lock Snow Realm Rocktite Cave": {
         "on_scenes": [0x500],
@@ -1423,7 +1432,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_groups": ["Tracks: Blizzard Temple Tracks"],
         # "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
-        "not_has_locations": ["Icy Spring Noko's Force Gem", "Anouki Village Pick Up Noko"],
+        "not_has_locations": ["Anouki Village Pick Up Noko"],
         "unset_if_true": [(STAddr.adv_flags_3a, 0x10)],
     },
     "Can pick up noko vanilla": {
@@ -1456,7 +1465,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_3c, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
                               (STAddr.passenger_tag_0, 0x43524654),
-                              (STAddr.has_passenger_0, 0)]
+                              (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Bring Goron to AV": {
         "on_scenes": [0x2b00],
@@ -1467,6 +1477,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
                               (STAddr.passenger_tag_0, 0x474F5250),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
+    },
+    "Keep goron spawned in chief's house": {
+        "on_scenes": [0x2b01],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_locations": ["Anouki Village Goron Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_38, 0x10)],
+        "any_has_groups": ["Tracks: Fire Glyph", "Tracks: Fire Source"]
     },
     "Bring Kofu to GV": {
         "on_scenes": [0x2e00],
@@ -1478,6 +1496,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2e),
                               (STAddr.passenger_tag_0, 0x594B4150),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Bring Noko to Icyspring": {
         "on_scenes": [0x3500],
@@ -1488,7 +1507,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x35),
                               (STAddr.passenger_tag_0, 0x594B4350),
-                              (STAddr.has_passenger_0, 0)]
+                              (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Noko arrived rando": {
         "on_scenes": [0x3500],
@@ -1527,7 +1547,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_3b, 0x20)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x3e),
                               (STAddr.passenger_tag_0, 0x43415742),
-                              (STAddr.has_passenger_0, 0)]
+                              (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
     "Can pick up Dovok or Morris": {
         "on_scenes": [0x2A04, 0x2a03],
@@ -1631,7 +1652,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2c),
                               (STAddr.passenger_tag_0, 0x464F4D52),
                               (STAddr.has_passenger_0, 0)],
-        "reset_flags": ["RESET dovok complicated"]
+        "reset_flags": ["RESET dovok complicated", "RESET Passengers"]
     },
     "RESET dovok complicated": {
         "not_has_locations": ["Papuzia Village Pick Up Carben"],
@@ -1711,7 +1732,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_3c, 0x2)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x45),
                               (STAddr.passenger_tag_0, 0x4E434341),
-                              (STAddr.has_passenger_0, 0)]
+                              (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
 
     #Carben (Oh Boy)
@@ -1819,6 +1841,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2C),
                               (STAddr.passenger_tag_0, 0x57414D41),
                               (STAddr.has_passenger_0, 0)],
+        "reset_flags": ["RESET Passengers"]
     },
 
     #Send Wadatsumi away from Pirate if No Passenger Option selected
@@ -2107,6 +2130,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x700],
         "not_has_groups": ["Tracks: Fire Glyph"],
         "unset_if_true": [(STAddr.adv_flags_34, 0x20)]
+    },
+    "RESET Passengers": {
+        "overwrite_if_true": [(STAddr.passenger_goal, 0xFFFFFFFF),
+                              (STAddr.has_passenger_0, 0xFFFFFFFF),
+                              (STAddr.passenger_tag_0, 0)]
     },
     "Desert Temple Prevent Earthquake": {
         "on_scenes": [0x1D00],

@@ -547,7 +547,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
                         "E Snow Realm Tracks", "W Fire Realm Tracks",
                         "Minor Snow Tracks", "Minor Fire Tracks", "Tracks: Snow Realm Gorge"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 60"
+        "vanilla_model": "Force Gem 35"
     },
 
     # ========= Sources ==============
