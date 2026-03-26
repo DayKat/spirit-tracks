@@ -55,7 +55,7 @@ In case of paths they will automatically be read as absolute file paths. No need
 
 ```python
 import settings
-from worlds.AutoWorld import World
+from worlds import World
 
 
 class MyGameSettings(settings.Group):

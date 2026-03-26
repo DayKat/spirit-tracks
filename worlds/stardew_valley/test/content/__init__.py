@@ -5,13 +5,13 @@ from ...content import content_packs, ContentPack, StardewContent, unpack_conten
 from ...strings.building_names import Building
 
 default_features = StardewFeatures(
-    feature.booksanity.BooksanityDisabled(),
-    feature.building_progression.BuildingProgressionVanilla(starting_buildings={Building.farm_house}),
+    worlds.stardew_valley.content.feature.booksanity.BooksanityDisabled(),
+    worlds.stardew_valley.content.feature.building_progression.BuildingProgressionVanilla(starting_buildings={Building.farm_house}),
     feature.cropsanity.CropsanityDisabled(),
-    feature.fishsanity.FishsanityNone(),
+    worlds.stardew_valley.content.feature.fishsanity.FishsanityNone(),
     feature.friendsanity.FriendsanityNone(),
-    feature.skill_progression.SkillProgressionVanilla(),
-    feature.tool_progression.ToolProgressionVanilla()
+    worlds.stardew_valley.content.feature.skill_progression.SkillProgressionVanilla(),
+    worlds.stardew_valley.content.feature.tool_progression.ToolProgressionVanilla()
 )
 
 

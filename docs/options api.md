@@ -74,7 +74,7 @@ class ExampleGameOptions(PerGameCommonOptions):
 To then submit this to the multiworld, we add it to our world's `__init__.py`:
 
 ```python
-from worlds.AutoWorld import World
+from worlds import World
 from .Options import ExampleGameOptions
 
 
@@ -100,7 +100,7 @@ reStructuredText and enable rich text rendering by setting `WebWorld.rich_text_o
 [reStructuredText]: https://docutils.sourceforge.io/rst.html
 
 ```python
-from worlds.AutoWorld import WebWorld
+from worlds import WebWorld
 
 
 class ExampleWebWorld(WebWorld):
@@ -163,9 +163,10 @@ Location Options" group can also be moved to a different position in the group o
 be first, regardless of where it is in your list.
 
 ```python
-from worlds.AutoWorld import WebWorld
+from worlds import WebWorld
 from Options import OptionGroup
 from . import Options
+
 
 class MyWorldWeb(WebWorld):
     option_groups = [

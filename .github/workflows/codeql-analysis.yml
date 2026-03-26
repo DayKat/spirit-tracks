@@ -15,16 +15,16 @@ on:
   push:
     branches: [ main ]
     paths:
-      - '**.py'
+      - '../../Fill.py'
       - '**.js'
-      - '.github/workflows/codeql-analysis.yml'
+      - 'codeql-analysis.yml'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main ]
     paths:
-      - '**.py'
+      - '../../Fill.py'
       - '**.js'
-      - '.github/workflows/codeql-analysis.yml'
+      - 'codeql-analysis.yml'
   schedule:
     - cron: '44 8 * * 1'
 

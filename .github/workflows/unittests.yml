@@ -6,7 +6,7 @@ name: unittests
 on:
   push:
     paths:
-      - '**'
+      - '../../../..'
       - '!docs/**'
       - '!deploy/**'
       - '!setup.py'
@@ -15,10 +15,10 @@ on:
       - '!.gitignore'
       - '!.dockerignore'
       - '!.github/workflows/**'
-      - '.github/workflows/unittests.yml'
+      - 'unittests.yml'
   pull_request:
     paths:
-      - '**'
+      - '../../../..'
       - '!docs/**'
       - '!deploy/**'
       - '!setup.py'
@@ -27,7 +27,7 @@ on:
       - '!.gitignore'
       - '!.dockerignore'
       - '!.github/workflows/**'
-      - '.github/workflows/unittests.yml'
+      - 'unittests.yml'
 
 jobs:
   unit:

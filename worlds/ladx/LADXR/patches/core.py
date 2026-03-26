@@ -610,9 +610,9 @@ CheckBoots:
     and  d
     ret  z
     """
-    # Check the special condition (also loads the current item for button into a)
-    + condition +
-    """
+                               # Check the special condition (also loads the current item for button into a)
+                               + condition +
+                               """
     ; Check if we are just using boots regularly
     cp INVENTORY_PEGASUS_BOOTS
     ret  nz
