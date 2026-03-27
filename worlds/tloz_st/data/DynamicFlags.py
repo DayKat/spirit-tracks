@@ -1503,7 +1503,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Passenger: Noko", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "not_has_locations": ["Icy Spring Noko's Force Gem"],
-        "check_bits": [(STAddr.adv_flags_3a, 0x40, "not")],
+        "check_bits": [(STAddr.adv_flags_3a, 0x40, "not")],  # Noko arrived on platform but not got force gem
         "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x35),
                               (STAddr.passenger_tag_0, 0x594B4350),
@@ -1816,18 +1816,19 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
 
     "Skip Pirate HC": {  # 4000+
         "on_scenes": [0x3A00],
-        "has_slot_data": [("randomize_minigames", [0, 1])],
+        "has_slot_data": [("randomize_minigames", [0, 1, 5, 6])],
         "set_if_true": [(STAddr.adv_flags_56, 0x20)],
     },
 
     "Skip Pirate Quiver": {  # 3500+
         "on_scenes": [0x3A00],
-        "has_slot_data": [("randomize_minigames", [0, 2, 5])],
+        "has_slot_data": [("randomize_minigames", [0, 2, 5, 6])],
         "set_if_true": [(STAddr.adv_flags_56, 0x10)],
     },
 
     #Resets Pirate hideout to base state, ready for saving Wadatsumi minigame
     "RESET Pirate Minigame Access": {
+        "not_on_entrance": [0x1],  # Prevents cancelling on starting minigame
         "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)], #Resets all flags in 0x265748, 0x265738, and 0x265763
     },
 
