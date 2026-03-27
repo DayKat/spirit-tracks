@@ -23,7 +23,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow keep door open": {
         "on_scenes": [0x2F00],
-        "set_if_true": [(STAddr.adv_flags_c, 0x20)]
+        "set_if_true": [(STAddr.adv_flags_c, 0x20), (STAddr.adv_flags_1b, 0x2)]
     },
     "Outset leave after Alfonzo no cannon": {
         "on_scenes": [0x2F00],
