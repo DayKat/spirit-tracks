@@ -25,7 +25,7 @@ class TestGeneration(WorldTestBase):
         "randomize_boss_keys": "anywhere",
         "keyrings": "all",
         "shuffle_tos_sections": "no_shuffle",
-        "plando_dungeon_pool": {"ToS 6"},
+        "plando_dungeon_pool": {"ToS 1", "ToS 2", "ToS 5"},
 
         "shopsanity": {"all"},
         "rupee_farming_logic": "no_farming",

@@ -2025,6 +2025,9 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Minor Track Groupings"]
     },
+    "Keyring (ToS 3)": {
+        'dummy': True  # Used to prevent a crash on opening boss door on 10F
+    }
 
 }
 

@@ -12,7 +12,7 @@ class SpiritTracksGoal(Choice):
     """
     The goal to accomplish in order to complete the seed.
     - defeat_malladus: enter the dark realm and defeat the demon king.
-    - other options: defeat the specified boss/tos section to goal.
+    - other options: defeat the specified boss/tos section to goal. (Staven is Byrne in US Localization)
     Is not compatible with dark realm unlock options, so you can't set a number of required dungeons or compass shards etc.
     The dungeon/section associated with the goal will never be excluded.
     """
@@ -80,7 +80,7 @@ class SpiritTracksTowerOfSpiritsDungeonOptions(Choice):
     """
     How does Tower of Spirits count towards the dungeon pool?
     - not_in_dungeon_pool: Tower of Spirits is not rolled for required or included dungeons.
-    - final_section: Legacy option, currently adds section 5 and Staven as the tower's goal location
+    - final_section: Legacy option, currently adds section 5 and Staven (Byrne) as the tower's goal location
     - all_sections: all ToS sections are added to the dungeon pool.
     """
     display_name = "Tower of Spirits Dungeon Reward Options"
@@ -578,10 +578,10 @@ class SpiritTracksStampItems(Choice):
     """
     What to do with stamps.
     - no_stamp_stands: don't randomize stamp book, stamps stands or stamp rewards from Niko
-    - vanilla: Stamp stands give stamps, that are neither archipelago items nor locations, that count towards Niko rewards, that are randomized.
+    - vanilla: Stamp stands give stamps, that are neither archipelago items nor randomized locations, that count towards Niko rewards, that are randomized.
     - vanilla_with_location: stamp stands are randomized locations, but also give non-archipelago-item stamps that count towards Niko rewards.
-    - vanilla_items: stamp stands are locations, that give stamp items.
-    - randomized: stamp stands are locations, and stamps are items that you need to find.
+    - vanilla_items: stamp stands are locations, that give their vanilla stamp items.
+    - randomized: stamp stands are randomized locations, and stamps are randomized items that you need to find.
     """
     display_name = "Randomize Stamps"
     option_no_stamp_stands = 0
@@ -625,7 +625,7 @@ class SpiritTracksExcludeDungeons(Choice):
 class SpiritTracksExcludeSections(Choice):
     """
     Exclude or remove locations from non-required Tower of Spirits Section.
-    Will spawn the blue warp in the tower early if section 5 is excluded, you'll still need to defeat staven to reach the room behind it.
+    Will spawn the blue warp in the tower early if section 5 is excluded, you'll still need to defeat Staven (Byrne) to reach the room behind it.
     The Stamp Stand is active as long as stamps are.
     - include: non-required sections are included
     - exclude: non-required sections locations are excluded, and can't have useful or progression items.
