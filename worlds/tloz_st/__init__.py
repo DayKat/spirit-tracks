@@ -183,6 +183,8 @@ class SpiritTracksWorld(WorldParent):
             self.tower_section_lookup = {int(k): v for k, v in slot_data["tower_section_lookup"].items()}
             self.hide_ut_map_stuff()
             self.pick_ut_events()
+            self.exclude_tos_5 = slot_data["exclude_tos_5"]
+            self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
         else:
             self.required_dungeons = self.pick_required_dungeons()
             self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]

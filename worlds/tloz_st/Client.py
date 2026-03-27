@@ -188,7 +188,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.update_rabbits = False
         self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
-        self.rabbit_counter = []  # list of counts for each rabbit type caught in the overworld
+        self.rabbit_counter = [0]*5  # list of counts for each rabbit type caught in the overworld
 
         self.visited_entrances = set()
         self.event_reads = []
