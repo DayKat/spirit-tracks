@@ -595,6 +595,16 @@ class SpiritTracksClient(DSZeldaClient):
         await self.process_train_speed(ctx, read_result)
         await self.detect_ut_event(ctx, self.current_scene)
 
+    async def set_train_speed(self, ctx):
+        await write_multiple(ctx, train_speed_addresses, self.train_speed)
+        self.last_train_gear = -1  # force a quick speed increase
+        self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+        try:
+            self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
+        except AssertionError:
+            logger.warning(f"Tried to load train speed while not on train")
+            return
+
     async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.anticipate_location(ctx, read_result)
         if self.delay_room_action:
@@ -604,10 +614,7 @@ class SpiritTracksClient(DSZeldaClient):
 
             # Set train speed stuff
             if self.current_stage in range(4, 0xb):
-                await write_multiple(ctx, train_speed_addresses, self.train_speed)
-                self.last_train_gear = -1  # force a quick speed increase
-                self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-                self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
+                await self.set_train_speed(ctx)
 
             # Set Shop Models for on purchase
             if self.current_scene in potion_location_lookup:
@@ -855,9 +862,11 @@ class SpiritTracksClient(DSZeldaClient):
             rabbit_type = loc_data["vanilla_item"]
             rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
+            if rabbit_count <= 0:
+                return
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
-            print(f"Sending rabbit total location {total_loc}")
+            print(f"Sending rabbit total location {total_loc} {self.rabbit_counter}")
             await self._process_checked_locations(ctx, total_loc)
 
     def update_rabbit_tracker(self, ctx):
@@ -1210,6 +1219,9 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 0xb):
+            if not hasattr(self, "train_speed_addr"):
+                await self.set_train_speed(ctx)
+
             instant_switch = False
             if self.update_train_speed:
                 await write_multiple(ctx, train_speed_addresses, self.train_speed)
