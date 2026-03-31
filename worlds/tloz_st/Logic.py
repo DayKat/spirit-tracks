@@ -228,6 +228,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 20f", "tos 19f center 2", False, lambda state: st_has_bow(state, player) & st_can_rotate_repeater(state, player)],
         ["tos 20f", "tos 22f", False, lambda state: st_has_bow(state, player) and st_can_rotate_repeater(state, player) and st_has_whip(state, player)],
+        ["tos 22f", "tos 21f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 22f", "tos staven", False, lambda state: st_has_sword(state, player) and (st_has_boss_key(state, player, "ToS 5") or options.randomize_boss_keys == "vanilla" or state.multiworld.worlds[player].exclude_tos_5)],
         ["tos staven", "event_staven", False, None],
         ["tos staven", "goal_staven", False, None],

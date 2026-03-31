@@ -2320,7 +2320,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x1C,
         "room_id": 0x6,
         "region_id": "mtt heatoise",
-        "vanilla_item": "Dummy Bow",
+        "vanilla_item": "Bow (Progressive)",
         "item_override": "Nothing!",
         "x_min": -10000,
         "z_max": -55000,
@@ -4197,6 +4197,14 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
         "no_model": True
+    },
+    "ToS 21F Bomb Wall Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x2E,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "tos 21f bombs",
+        'dungeon': "ToS",
+        "tos_section": 5,
     },
 
 }

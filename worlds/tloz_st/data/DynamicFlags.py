@@ -129,6 +129,9 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2200],
         "not_has_locations": ["Desert Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_1a, 0x01)],
+    },
+    "Reset skeldritch flags post fight": {
+        "on_scenes": [0x2201],
         "reset_flags": ["RESET Add Sand Source", "RESET Remove Sand Source"]
     },
     "RESET Add Sand Source": {
@@ -802,7 +805,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Steem don't have spirit flute": {
         "on_scenes": [0x3102],
         "has_items": [("Spirit Flute", 0)],
-        "set_if_true": [(STAddr.adv_flags_1, 6)]  # ocean restoration removes him
+        "set_if_true": [(STAddr.restorations, 2)],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x4)]  # ocean restoration removes him,
     },
     "Steem no minigames": {
         "on_scenes": [0x3102],
@@ -827,9 +831,9 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "RESET snow sanc vessel": {
         "set_if_true": [(STAddr.adv_flags_40, 0x20), (STAddr.adv_flags_e, 0x10)],
     },
-    "Always remove btt in snow sanc room": {
+    "Always remove btt in snow sanc room": {  # and ocean restoration
         "on_scenes": [0x3102],
-        "unset_if_true": [(STAddr.rail_restorations, 0x4)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 0x4)],
         "reset_flags": ["Snow sanc Reset BTT not has", "Snow sanc Reset BTT"]
     },
     "Snow sanc Reset BTT not has": {
@@ -1664,27 +1668,40 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Pick Up Carben", "Papuzia Village Orca's Force Gem"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_9, 0x30), (STAddr.adv_flags_14, 0x20)],
+        "unset_if_true": [(STAddr.adv_flags_14, 0x20)],
         "has_items": [("Passenger: Dovok", 0)],
     },
-    "Papuzia reset carben location post dovok": {
+    "Papuzia prevent carben crash passengers": {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Pick Up Carben"],
-        "has_locations": ["Papuzia Village Orca's Force Gem"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
-    "Papuzia carben post both": {  # Spawns birds again
+    "Papuzia prevent carben crash post carben": {
         "on_scenes": [0x2c00],
-        "has_locations": ["Papuzia Village Orca's Force Gem", "Papuzia Village Pick Up Carben"],
+        "has_locations": ["Papuzia Village Pick Up Carben"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
+    # "Papuzia carben post both": {  # Spawns birds again
+    #     "on_scenes": [0x2c00],
+    #     "has_locations": ["Papuzia Village Orca's Force Gem", "Papuzia Village Pick Up Carben"],
+    #     "has_slot_data": [("randomize_passengers", [2, 3])],
+    #     "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    # },
     "Papuzia no passengers spawn birds": {  # Spawns birds again
         "on_scenes": [0x2c00],
         "has_locations": ["Papuzia Village Song Statue"],
         "has_slot_data": [("randomize_passengers", 0)],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
+    "Papuzia respawn carben vanilla passengers": {
+        "on_scenes": [0x2c00],
+        "has_locations": ["Papuzia Village Song Statue"],
+        "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "check_bits": [(STAddr.passenger_tag_0, 0x53595741, "not")],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x10)],
     },
     "Papuzia vanilla passengers spawn birds": {  # Spawns birds again
         "on_scenes": [0x2c00],
@@ -1692,7 +1709,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", 1)],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
-
     "RESET Dovok Flag": {
       "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
     },
@@ -1749,7 +1765,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "has_items": [("Song of Birds", 1)],
         "has_locations": ["Papuzia Village Song Statue"],
-        "set_if_true": [(STAddr.adv_flags_a, 0xB0)],
+        "set_if_true": [(STAddr.adv_flags_a, 0x80)],
     },
 
     #Flag for delivering Carben
@@ -1801,7 +1817,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Wadatsumi No Passenger Option": {
         "on_scenes": [0x3A00],
         "has_slot_data": [("randomize_passengers", [0])],
-        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)], #need to set bits to get Gorons to spawn at pirate hideout for follow up minigames
+        "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)], #need to set bits to get Gorons to spawn at pirate hideout for follow up minigames
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
@@ -1829,20 +1845,21 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     #Resets Pirate hideout to base state, ready for saving Wadatsumi minigame
     "RESET Pirate Minigame Access": {
         "not_on_entrance": [0x1],  # Prevents cancelling on starting minigame
-        "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)], #Resets all flags in 0x265748, 0x265738, and 0x265763
+        "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_4f, 0x6)], #Resets all flags in 0x265748, 0x265738, and 0x265763
     },
 
     #Flag for delivering Wadatsumi
     "Bring Wadatsumi to Papuzia": {
         "on_scenes": [0x2C00],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_items": [("Passenger: Wadatsumi", 1)],
         "check_bits": [(STAddr.adv_flags_e, 0x40, "not")], #Check for Force Gem obtained, and don't trigger if it was done already
-        "set_if_true": [(STAddr.adv_flags_34, 0x40)], #Set Wadatsumi on train
+        "set_if_true": [(STAddr.adv_flags_34, 0x40), (STAddr.adv_flags_9, 0x10)], #Set Wadatsumi on train
         "unset_if_true": [(STAddr.adv_flags_34, 0x80)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2C),
                               (STAddr.passenger_tag_0, 0x57414D41),
                               (STAddr.has_passenger_0, 0)],
-        "reset_flags": ["RESET Passengers"]
+        "reset_flags": ["RESET Passengers", "RESET dovok complicated"]
     },
 
     #Send Wadatsumi away from Pirate if No Passenger Option selected
@@ -1850,7 +1867,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3A00],
         "has_slot_data": [("randomize_passengers", [0])],
         #Below should set all flags to get Gorons to appear, I think (only one way to find out!)
-        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+        "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
 
     #Check for Wadatsumi being delivered previously, and then set Gorons to appear
@@ -1859,19 +1876,19 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_locations": ["Pirate Hideout Pick Up Wadatsumi"],
         # "check_bits": [(STAddr.adv_flags_34, 0x20)],
-        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+        "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
     "Wadatsumi Saved Already vanilla": {
         "on_scenes": [0x3A00],
         "has_slot_data": [("randomize_passengers", 1)],
         "has_locations": ["Papuzia Village Wadatsumi's Force Gem"],
-        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+        "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
     "Wadatsumi Saved Already no papuzia": {
         "on_scenes": [0x3A00],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "not_has_groups": ["Tracks: Ocean Glyph"],
-        "set_if_true": [(STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
+        "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
 
@@ -1934,13 +1951,16 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 3), (STAddr.cargo_count_0, 20)]
     },
+    "Snow Sanc move steem outside": {
+        "on_scenes": [0x3100],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)],  # ocean restoration moves him outside
+    },
     "Snow Sanc has vessel": {
         "on_scenes": [0x3100],
         "has_items": [("Cargo: Vessel", 1), ("Wagon", 1)],
         "has_slot_data": [("randomize_cargo", [2, 3])],
         "check_bits": [(STAddr.adv_flags_40, 0x20, "not")],
         "reset_flags": ["RESET Cargo"],
-        "set_if_true": [(STAddr.adv_flags_1, 0x4)],  # ocean restoration moves him outside
         "overwrite_if_true": [(STAddr.cargo_0, 5), (STAddr.cargo_count_0, 1)]
     },
     "Linebeck has Ore": {
@@ -2164,6 +2184,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x700],
         "has_locations": ["Snurglars Gold Key", "Snurglars Purple Key", "Snurglars Orange Key"],
         "has_items": [("Mountain Temple Snurglar Key", 3)],
+        "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
+    },
+    "Has snurglar keys open temple keyring": {
+        "on_scenes": [0x700],
+        "has_locations": ["Snurglars Gold Key", "Snurglars Purple Key", "Snurglars Orange Key"],
+        "has_items": [("Snurglar Keyring", 1)],
         "set_if_true": [(STAddr.adv_flags_1f, 0x4)],
     },
     "snurglar locs reset": {

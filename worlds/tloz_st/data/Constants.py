@@ -304,6 +304,7 @@ STAGES = {
     0x40: "Disorientation Station",
     0x41: "Ends of the Earth",
     0x42: "Lost at Sea Dungeon",
+    0x43: "Train Carridge Ambush",
     # 0x44: "Train Interior CS",
     0x45: "Beedle, Train NPCs",
     0x46: "Take 'em all on Forest theme",
@@ -758,6 +759,7 @@ TOS_FLOOR_TO_SECTION = {
     0x2B: 4,
     0x2C: 6,
     0x2D: 6,
+    0x2E: 5,
 
     0x1d: 6,  # 31F
     0x1e: 6,  # 30F

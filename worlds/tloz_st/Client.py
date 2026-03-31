@@ -224,6 +224,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.last_anticipated_locations = []
         self.delay_room_action: int = 0
         self.saving = False
+        self.saving_safety = False
 
         self.display_goal = False
 
@@ -390,8 +391,13 @@ class SpiritTracksClient(DSZeldaClient):
 
         if not self.saving:
             self.saving = read_result[STAddr.saving]
+            self.saving_safety = read_result[STAddr.getting_item_safety]
         else:
-            self.saving = read_result[STAddr.getting_location] or read_result[STAddr.saving]
+            safe_save = False
+            if self.current_stage in range(0x1e, 0x23):
+                safe_save = self.saving_safety == read_result[STAddr.getting_item_safety]
+                # print(f"Checking Safe Save!")
+            self.saving = read_result[STAddr.getting_location] or read_result[STAddr.saving] or safe_save
 
         # Weird scene value on load from menu, set to last saved scene
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
@@ -654,6 +660,7 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Opening Mountain Temple! {self.snurglar_addr}")
                 await self.snurglar_addr.set_bits(ctx, 0x10)
                 self.main_read_list.remove(self.snurglar_addr)
+
 
     async def anticipate_location(self, ctx: "BizHawkClientContext", read_result: dict):
         if read_result[STAddr.stage] < 0x13 or self.getting_location:
@@ -1180,8 +1187,15 @@ class SpiritTracksClient(DSZeldaClient):
             for color in ["Gold", "Purple", "Orange"]:
                 self.watches[f"Snurglars {color} Key"] = snurglar_flags
 
-            if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3:
-                self.main_read_list.append(snurglar_flags)
+            if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
+                if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
+                        or not self.item_count(ctx, "Cannon")):
+                    print(f"Got Snurglar keys, opening mountain temple")
+                    await self.snurglar_addr.overwrite(ctx, 0x30)
+                else:
+                    print(f"Got Snurglar keys, adding to main read list")
+                    self.main_read_list.append(snurglar_flags)
+
         else:
             self.snurglar_addr = None
 
