@@ -224,6 +224,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.last_anticipated_locations = []
         self.delay_room_action: int = 0
         self.saving = False
+        self.saving_safety = False
 
         self.display_goal = False
 
@@ -390,8 +391,13 @@ class SpiritTracksClient(DSZeldaClient):
 
         if not self.saving:
             self.saving = read_result[STAddr.saving]
+            self.saving_safety = read_result[STAddr.getting_item_safety]
         else:
-            self.saving = read_result[STAddr.getting_location] or read_result[STAddr.saving]
+            safe_save = False
+            if self.current_stage in range(0x1e, 0x23):
+                safe_save = self.saving_safety == read_result[STAddr.getting_item_safety]
+                # print(f"Checking Safe Save!")
+            self.saving = read_result[STAddr.getting_location] or read_result[STAddr.saving] or safe_save
 
         # Weird scene value on load from menu, set to last saved scene
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
@@ -595,6 +601,16 @@ class SpiritTracksClient(DSZeldaClient):
         await self.process_train_speed(ctx, read_result)
         await self.detect_ut_event(ctx, self.current_scene)
 
+    async def set_train_speed(self, ctx):
+        await write_multiple(ctx, train_speed_addresses, self.train_speed)
+        self.last_train_gear = -1  # force a quick speed increase
+        self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+        try:
+            self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
+        except AssertionError:
+            logger.warning(f"Tried to load train speed while not on train")
+            return
+
     async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.anticipate_location(ctx, read_result)
         if self.delay_room_action:
@@ -604,10 +620,7 @@ class SpiritTracksClient(DSZeldaClient):
 
             # Set train speed stuff
             if self.current_stage in range(4, 0xb):
-                await write_multiple(ctx, train_speed_addresses, self.train_speed)
-                self.last_train_gear = -1  # force a quick speed increase
-                self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
-                self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
+                await self.set_train_speed(ctx)
 
             # Set Shop Models for on purchase
             if self.current_scene in potion_location_lookup:
@@ -647,6 +660,7 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Opening Mountain Temple! {self.snurglar_addr}")
                 await self.snurglar_addr.set_bits(ctx, 0x10)
                 self.main_read_list.remove(self.snurglar_addr)
+
 
     async def anticipate_location(self, ctx: "BizHawkClientContext", read_result: dict):
         if read_result[STAddr.stage] < 0x13 or self.getting_location:
@@ -855,16 +869,16 @@ class SpiritTracksClient(DSZeldaClient):
             rabbit_type = loc_data["vanilla_item"]
             rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
+            if rabbit_count <= 0:
+                rabbit_count = 1  # Hope this just works
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
-            print(f"Sending rabbit total location {total_loc}")
+            print(f"Sending rabbit total location {total_loc} {self.rabbit_counter}")
             await self._process_checked_locations(ctx, total_loc)
 
     def update_rabbit_tracker(self, ctx):
-        rabbit_storage = ctx.stored_data.get(storage_key(ctx, rabbit_storage_key))
-        if not rabbit_storage:
-            return
-        rabbit_storage = [0]*7 if not rabbit_storage else rabbit_storage
+        rabbit_storage = ctx.stored_data.get(storage_key(ctx, rabbit_storage_key), None)
+        rabbit_storage = [0]*7 if rabbit_storage is None else rabbit_storage
         print(f"\tRabbit storage: {rabbit_storage}")
         self.rabbit_tracker = [s | c for s, c in zip(rabbit_storage, self.rabbit_tracker)]
         print(f"\trabbit tracker {self.rabbit_tracker}")
@@ -1171,8 +1185,15 @@ class SpiritTracksClient(DSZeldaClient):
             for color in ["Gold", "Purple", "Orange"]:
                 self.watches[f"Snurglars {color} Key"] = snurglar_flags
 
-            if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3:
-                self.main_read_list.append(snurglar_flags)
+            if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
+                if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
+                        or not self.item_count(ctx, "Cannon")):
+                    print(f"Got Snurglar keys, opening mountain temple")
+                    await self.snurglar_addr.overwrite(ctx, 0x30)
+                else:
+                    print(f"Got Snurglar keys, adding to main read list")
+                    self.main_read_list.append(snurglar_flags)
+
         else:
             self.snurglar_addr = None
 
@@ -1210,6 +1231,9 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 0xb):
+            if not hasattr(self, "train_speed_addr"):
+                await self.set_train_speed(ctx)
+
             instant_switch = False
             if self.update_train_speed:
                 await write_multiple(ctx, train_speed_addresses, self.train_speed)
@@ -1312,3 +1336,13 @@ class SpiritTracksClient(DSZeldaClient):
         stamp_count = len(has_stamps)
 
         print(f"Has {stamp_count} stamps: {stamps}")
+
+
+    async def refill_ammo(self, ctx, text=""):
+        await self.full_heal(ctx)
+        bomb_prog = self.item_count(ctx, "Bombs (Progressive)")
+        arrow_prog = self.item_count(ctx, "Bow (Progressive)")
+        if bomb_prog:
+            await STAddr.bomb_count.overwrite(ctx, self.item_data["Bombs (Progressive)"].give_ammo[bomb_prog-1])
+        if arrow_prog:
+            await STAddr.arrow_count.overwrite(ctx, self.item_data["Bow (Progressive)"].give_ammo[arrow_prog-1])

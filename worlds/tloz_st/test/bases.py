@@ -16,7 +16,7 @@ class TestGeneration(WorldTestBase):
         "dungeons_required": 12,
         "tos_dungeon_options": "all_sections",
 
-        "randomize_tears": "in_tos",
+        "randomize_tears": "vanilla_items",
         "tear_size": "small",
         "tear_sections": "progressive",
         "spirit_weapons": "final_tear",

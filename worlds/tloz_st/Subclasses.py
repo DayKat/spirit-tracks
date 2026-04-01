@@ -1,6 +1,6 @@
 
 from .DSZeldaClient.subclasses import DSTransition
-from .DSZeldaClient.ItemClass import DSItem, receive_normal, remove_vanilla_normal, receive_small_key
+from .DSZeldaClient.ItemClass import DSItem, receive_normal, remove_vanilla_normal, receive_small_key, remove_vanilla_progressive
 from enum import IntEnum
 from typing import TYPE_CHECKING
 
@@ -118,11 +118,16 @@ async def handle_stamps(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     return []
 
 async def remove_vanilla_bow(client: "SpiritTracksClient", ctx, item: "STItem", rii):
+    bow_item = client.item_data["Bow (Progressive)"]
+    return await remove_vanilla_progressive(client, ctx, bow_item, rii)
+
     bow_count = min(client.item_count(ctx, "Bow (Progressive)"), 3)
     bow_item = client.item_data["Bow (Progressive)"]
     if bow_count == 0:
-        return await remove_vanilla_normal(client, ctx, bow_item, rii)
+        return await remove_vanilla_progressive(client, ctx, bow_item, rii)
     prog_address, prog_value = bow_item.progressive[bow_count-1]
+    if bow_count == 1:
+        prog_value |= await prog_address.read(ctx)
     return [prog_address.get_inner_write_list(prog_value), bow_item.ammo_address.get_inner_write_list(bow_item.give_ammo[bow_count-1])]
 
 async def remove_vanilla_bow_of_light(client: "SpiritTracksClient", ctx, item: "STItem", rii):

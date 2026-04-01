@@ -154,7 +154,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 1f", "tos 1f chest", False, lambda state: (st_has_bow(state, player) or st_has_boomerang(state, player) or st_has_beam_sword(state, player))],
         ["tos 1f", "tos 1f switch", False, lambda state: st_can_kill_bat(state, player) or st_can_possess_phantoms(state, player, 1)],
         ["tos 1f", "tos 2f", False, lambda state: st_can_possess_phantoms(state, player, 1) or st_vanilla_tears(state, player)],
-        ["tos 2f", "tos 2f raised chests", False, lambda state: st_has_whirlwind(state, player)],
+        ["tos 2f", "tos 2f raised chests", False, lambda state: st_has_whirlwind(state, player) or st_option_glitched_logic(state, player)],
         ["tos 2f", "tos 2f bomb wall", False, lambda state: st_has_bombs(state, player)],
         ["tos 2f", "tos 3f rail map", False, None],
         ["tos 3f rail map", "goal_forest_glyph", False, None],
@@ -192,14 +192,12 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
                 st_has_whip(state, player),
                 st_has_small_keys(state, player, "ToS 4", 2, 1)])])],
         ["tos 13f phantom", "tos 13f phantom whip", False, lambda state: st_has_whip(state, player)],
-        ["tos 13f phantom", "tos 14f west", False, lambda state: st_has_small_keys(state, player, "ToS 4", 2, 1)],
+        ["tos 13f phantom", "tos 14f west", False, lambda state: st_tos_14f_glitched(state, player)],
 
         ["tos 14f east", "tos 14f phantom", False, lambda state:
          st_can_possess_phantoms(state, player, 4) | (st_vanilla_tears(state, player) & st_has_whip(state, player))],
         ["tos 14f west", "tos 15f", False, None],
-        ["tos 15f", "tos 16f", False, lambda state:
-            (st_has_range(state, player) | st_has_beam_sword(state, player)) and
-            st_has_small_keys(state, player, "ToS 4", 3,2)],
+        ["tos 15f", "tos 16f", False, lambda state: st_tos_15f_glitched(state, player)],
         ["tos 16f", "tos 16f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 16f", "event_17f", False, None],
         ["tos 16f", "goal_fire_glyph", False, None],
@@ -228,6 +226,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 20f", "tos 19f center 2", False, lambda state: st_has_bow(state, player) & st_can_rotate_repeater(state, player)],
         ["tos 20f", "tos 22f", False, lambda state: st_has_bow(state, player) and st_can_rotate_repeater(state, player) and st_has_whip(state, player)],
+        ["tos 22f", "tos 21f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 22f", "tos staven", False, lambda state: st_has_sword(state, player) and (st_has_boss_key(state, player, "ToS 5") or options.randomize_boss_keys == "vanilla" or state.multiworld.worlds[player].exclude_tos_5)],
         ["tos staven", "event_staven", False, None],
         ["tos staven", "goal_staven", False, None],
@@ -245,6 +244,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 29f se", "tos 27f", False, lambda state: st_has_small_keys(state, player, "ToS 6", 3)],
         ["tos 27f", "tos 24f", False, lambda state: st_has_whip(state, player)],
+        ["tos 29f", "tos 24f", False, lambda state: st_option_glitched_logic(state, player) and st_has_bombs(state, player) and st_has_small_keys(state, player, "ToS 6", 3, 1)],
         ["tos 24f", "event_24f", False, None],
         ["tos 24f", "goal_compass", False, None],
 
@@ -509,7 +509,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["oct", "oct stamp station", False, lambda state: st_has_stamp_book(state, player) and st_has_whip(state, player) and st_has_bombs(state, player) and st_has_boomerang(state, player)],
         ["oct whip chest", "oct 3f whip", False, lambda state: st_has_whip(state, player)],
         ["oct 3f whip", "oct 6f chest", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 1)],
-        ["oct 6f chest", "oct bk", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 2)],
+        ["oct 6f chest", "oct bk", False, lambda state: st_has_small_keys(state, player, "Marine Temple", 2) or
+         all([st_option_glitched_logic(state, player), st_has_whirlwind(state, player), st_has_bombs(state, player)])],
         ["oct 6f chest", "oct bk loc", False, lambda state: st_has_whirlwind(state, player) and options.randomize_boss_keys.value > 0 and st_option_hard_logic(state, player)],
         ["oct bk", "oct bk loc", False, None],
         ["oct bk", "oct phytops", False, lambda state: options.randomize_boss_keys == "vanilla"],
@@ -626,7 +627,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mtt 1f ne", "mtt b1", False, lambda state: st_can_rotate_repeater(state, player)],
         ["mtt b1", "mtt b2", False, lambda state: st_has_whip(state, player)],
         ["mtt b2", "mtt b1 arena", False, lambda state: st_has_boomerang(state, player)],
-        ["mtt b1", "mtt b1 cart", False, lambda state: st_has_small_keys(state, player, "Mountain Temple", 3)],
+        ["mtt b1", "mtt b1 cart", False, lambda state: st_has_small_keys(state, player, "Mountain Temple", 3, 1)],
         ["mtt b1 cart", "mtt b1 arena", False, None],
         ["mtt b1 cart", "mtt stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["mtt b1 cart", "mtt bk", False, lambda state: st_has_whirlwind(state, player)],
@@ -692,6 +693,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["dt b1", "dt stamp stand", False, lambda state: st_has_stamp_book(state, player)],
         ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
+        ["dt b1", "dt b2", False, lambda state: st_option_glitched_logic(state, player) and st_has_bombs(state, player) and st_has_sword(state, player)],
 
         # ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
         ["dt b1 damage", "dt b2", False, None]
