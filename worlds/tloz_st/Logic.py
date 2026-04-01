@@ -693,7 +693,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["dt b1", "dt stamp stand", False, lambda state: st_has_stamp_book(state, player)],
         ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
-        ["dt b1", "dt b2", False, lambda state: st_option_glitched_logic(state, player) and st_has_bombs(state, player and st_has_sword(state, player))],
+        ["dt b1", "dt b2", False, lambda state: st_option_glitched_logic(state, player) and st_has_bombs(state, player) and st_has_sword(state, player)],
 
         # ["dt b1 2", "dt b2", False, lambda state: st_has_boss_key(state, player, "Desert Temple")],
         ["dt b1 damage", "dt b2", False, None]
