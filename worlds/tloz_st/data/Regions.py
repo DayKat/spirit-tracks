@@ -129,6 +129,7 @@ REGIONS = [
     "tos 19f center chest",
     "tos 20f",
     "tos 19f center 2",
+    "tos 21f bombs",
     "tos 22f",
     "tos staven",
     "event_staven",

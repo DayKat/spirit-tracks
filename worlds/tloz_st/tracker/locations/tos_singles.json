@@ -59,6 +59,7 @@
       {"name": "ToS 18F Center Chest"},
       {"name": "ToS 18F SW Chest"},
       {"name": "ToS 19F Center E Chest"},
+      {"name": "ToS 21F Bomb Wall Chest"},
       {"name": "ToS 22F Boss Key"},
       {"name": "ToS 23F Defeat Staven"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 324}]},
