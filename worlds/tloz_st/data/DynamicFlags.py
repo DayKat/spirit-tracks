@@ -886,10 +886,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Sand sanc get cuccos no cargo rando": {
         "on_scenes": [0x3400],
-        "has_slot_data": [("randomize_cargo", 0), ("randomize_stamps", 1, 2, 3, 4)],
+        "has_slot_data": [("randomize_cargo", 0), ("randomize_stamps", [1, 2, 3, 4])],
         "check_bits": [(STAddr.adv_flags_44, 0x8, "not")],
-        "set_if_true": [(STAddr.adv_flags_44, 0x4), (STAddr.adv_flags_19, 0x8),
-                        (STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)],
+        "set_if_true": [(STAddr.adv_flags_44, 0x4), (STAddr.adv_flags_19, 0x8)],
+        "overwrite_if_true": [(STAddr.cargo_0, 4), (STAddr.cargo_count_0, 5)],
         "reset_flags": ["RESET Cargo"]
     },
     # ToS climb flags
@@ -2166,6 +2166,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x1D00],
         "has_locations": ["Desert Temple 1F N Trap Chest", "Desert Temple 1F N Arena Chest"],
         "set_if_true": [(STAddr.adv_flags_19, 0x8)]
+    },
+    "Desert Temple make 2F safe": {
+        "on_scenes": [0x1D01],
+        "on_entrance": [0],
+        "unset_if_true": [(STAddr.adv_flags_19, 0x8)]
     },
     "Meet kagoron quicky": {
         "on_scenes": [0x2d02],

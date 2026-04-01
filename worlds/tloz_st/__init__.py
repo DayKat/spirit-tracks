@@ -1075,6 +1075,9 @@ class SpiritTracksWorld(WorldParent):
         if self.options.exclude_sections == "remove" and len(self.non_required_sections) == 6 and self.options.randomize_tears.value not in [3, 0]:
             return add_items
 
+        if self.options.randomize_tears.value <= 0:
+            return add_items
+
         size_str = ["", "Big "][size_index]
         sections = range(1, 6)
         if self.options.exclude_sections == "remove":

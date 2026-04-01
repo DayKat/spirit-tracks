@@ -289,7 +289,6 @@ def st_option_normal_logic(state: CollectionState, player: int):
 def st_option_hard_logic(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.logic in ["hard", "glitched"] or state.has("_UT_Glitched_Logic", player)
 
-
 def st_option_not_glitched_logic(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.logic in ["hard", "normal"]
 
@@ -511,6 +510,57 @@ def st_can_enter_tos_section(state, player, section):
 def st_desert_temple_keys(state, player):
     return st_has_small_keys(state, player, "Desert Temple", 2, 1)
 
+def st_mtt_center(state, player):
+    return any([
+        all([
+            st_has_small_keys(state, player, "Mountain Temple", 2),
+            any([
+                st_has_boomerang(state, player),
+                st_has_bombs(state, player),
+                all([
+                    st_option_hard_logic(state, player),
+                    st_has_bow(state, player) or st_has_beam_sword(state, player)
+                ])
+            ])
+        ]),
+        all([
+            st_option_glitched_logic(state, player),
+            any([
+                all([
+                    st_has_small_keys(state, player, "Mountain Temple", 2, 1),
+                    st_has_boomerang(state, player)
+                ]),
+                st_has_bombs(state, player)  # New rta method
+            ])
+        ])
+    ])
+
+def st_tos_14f_glitched(state, player):
+    return any([
+        st_has_small_keys(state, player, "ToS 4", 2, 1),
+        all([
+            st_option_glitched_logic(state, player),
+            st_has_small_keys(state, player, "ToS 4", 0),
+            st_has_boomerang(state, player) or st_has_whip(state, player)
+        ])
+    ])
+
+def st_tos_15f_glitched(state, player):
+    return any([
+        all([
+            st_has_range(state, player) or st_has_beam_sword(state, player),
+            st_has_small_keys(state, player, "ToS 4", 3, 2)
+        ]),
+        all([
+            st_option_glitched_logic(state, player),
+            st_has_small_keys(state, player, "ToS 4", 3, 1),
+            any([
+                st_has_range(state, player),
+                st_has_beam_sword(state, player),
+                st_has_bombs(state, player) and st_has_whirlwind(state, player)
+            ])
+        ])
+    ])
 
 def st_hard_birds(state, player):
     return all([

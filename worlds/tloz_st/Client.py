@@ -870,17 +870,15 @@ class SpiritTracksClient(DSZeldaClient):
             rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit"]
             rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
             if rabbit_count <= 0:
-                return
+                rabbit_count = 1  # Hope this just works
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
             print(f"Sending rabbit total location {total_loc} {self.rabbit_counter}")
             await self._process_checked_locations(ctx, total_loc)
 
     def update_rabbit_tracker(self, ctx):
-        rabbit_storage = ctx.stored_data.get(storage_key(ctx, rabbit_storage_key))
-        if not rabbit_storage:
-            return
-        rabbit_storage = [0]*7 if not rabbit_storage else rabbit_storage
+        rabbit_storage = ctx.stored_data.get(storage_key(ctx, rabbit_storage_key), None)
+        rabbit_storage = [0]*7 if rabbit_storage is None else rabbit_storage
         print(f"\tRabbit storage: {rabbit_storage}")
         self.rabbit_tracker = [s | c for s, c in zip(rabbit_storage, self.rabbit_tracker)]
         print(f"\trabbit tracker {self.rabbit_tracker}")
@@ -1338,3 +1336,13 @@ class SpiritTracksClient(DSZeldaClient):
         stamp_count = len(has_stamps)
 
         print(f"Has {stamp_count} stamps: {stamps}")
+
+
+    async def refill_ammo(self, ctx, text=""):
+        await self.full_heal(ctx)
+        bomb_prog = self.item_count(ctx, "Bombs (Progressive)")
+        arrow_prog = self.item_count(ctx, "Bow (Progressive)")
+        if bomb_prog:
+            await STAddr.bomb_count.overwrite(ctx, self.item_data["Bombs (Progressive)"].give_ammo[bomb_prog-1])
+        if arrow_prog:
+            await STAddr.arrow_count.overwrite(ctx, self.item_data["Bow (Progressive)"].give_ammo[arrow_prog-1])
