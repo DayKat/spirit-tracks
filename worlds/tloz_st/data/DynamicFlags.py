@@ -1078,7 +1078,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Reset linebeck regal ring stuff in cave": {
         "on_scenes": [0x3702],
-        "not_has_locations": ["Trading Post Burried Chest"],
+        "not_has_locations": ["Trading Post Buried Chest"],
         "unset_if_true": [(STAddr.adv_flags_3e, 0x10)]
     },
     "Bring Kenzo to TP": {

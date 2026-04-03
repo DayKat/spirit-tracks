@@ -3,8 +3,8 @@
     {"name": "Outset Clear Rocks"},
     {"name": "Outset Bee Tree"},
     {"name": "Outset Stamp Station"},
-    {"name": "Ouset Beach Tree Burried Chest"},
-    {"name": "Outset Niko's House Tree Burried Chest"},
+    {"name": "Outset Beach Tree Buried Chest"},
+    {"name": "Outset Niko's House Tree Buried Chest"},
     {"name": "Outset Pick Up Joe"},
     {"name": "Outset Ferrus Force Gem"},
     {"name": "Outset Deliver Cuccos"},
@@ -100,7 +100,7 @@
     {"name": "Trading Post Buy Shield"},
     {"name": "Trading Post Stamp Station"},
     {"name": "Trading Post Song Statue"},
-    {"name": "Trading Post Burried Chest"},
+    {"name": "Trading Post Buried Chest"},
     {"name": "Trading Post Deliver Dark Ore"}
   ], "map_locations":[{"map": "Overview", "x": 404, "y": 670}]},
   {"name": "Trading Post Events", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations":[{"map": "Overview", "x": 420, "y": 670}]},
@@ -159,7 +159,7 @@
     {"name": "Slippery Station Champion Reward"}
   ], "map_locations":[{"map": "Overview", "x": 381, "y": 42}]},
   {"name": "Bridge Worker's", "sections": [
-    {"name": "Bridge Worker's Home Burried Chest"},
+    {"name": "Bridge Worker's Home Buried Chest"},
     {"name": "Bridge Worker's Home Pick Up Kenzo"}
   ], "map_locations":[{"map": "Overview", "x": 380, "y": 284}]},
 
@@ -300,7 +300,7 @@
         {"name": "Pirate Hideout Minigame 5000+"}
   ], "map_locations":[{"map": "Overview", "x": 592, "y": 564}]},
   {"name": "Lost at Sea Station", "sections": [
-    {"name": "Lost at Sea Burried Chest"},
+    {"name": "Lost at Sea Buried Chest"},
     {"name": "Lost at Sea Plain Phantom Chest"},
     {"name": "Lost at Sea Torch Phantom Chest"},
     {"name": "Lost at Sea Warp Phantom Chest"},
@@ -338,7 +338,7 @@
     {"name": "Dune Sanctuary Stamp Station"}
   ], "map_locations":[{"map": "Overview", "x": 692, "y": 428}]},
     {"name": "Dark Ore Mine", "sections": [
-      {"name": "Dark Ore Mine Burried Chest"},
+      {"name": "Dark Ore Mine Buried Chest"},
       {"name": "Dark Ore Mine Buy Ore"}
   ], "map_locations":[{"map": "Overview", "x": 956, "y": 116}]},
     {"name": "Desert Temple", "sections": [
@@ -350,7 +350,7 @@
           {"name": "Desert Temple 2F Left Chest"},
           {"name": "Desert Temple 2F Right Chest"},
           {"name": "Desert Temple 1F N Ergtorok Chest"},
-          {"name": "Desert Temple 1F N Burried Key"},
+          {"name": "Desert Temple 1F N Buried Key"},
           {"name": "Desert Temple B1 Stamp Station"},
           {"name": "Desert Temple B1 Near Boss Door Chest"},
           {"name": "Desert Temple B1 SW Stalfos Chest"},

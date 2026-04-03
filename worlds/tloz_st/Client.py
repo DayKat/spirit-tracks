@@ -572,11 +572,6 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Opening boss door for {hex(self.current_scene)}")
                 await data["door"].overwrite(ctx, 3)
 
-        if self.current_scene == 0x2B00 and item_name == "Song of Discovery":
-            await STAddr.songs.unset_bits(ctx, 0x10)
-        if self.current_scene == 0x2C00 and item_name == "Song of Birds":
-            await STAddr.songs.unset_bits(ctx, 0x4)
-
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
         await self.update_potion_tracker(ctx, "room_load")
