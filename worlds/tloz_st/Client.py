@@ -793,20 +793,12 @@ class SpiritTracksClient(DSZeldaClient):
             await self.update_treasure_tracker(ctx, "no_loc")
             return
 
-        if location is not None and "goal" in location:
-            # Finished game?
-            goal = ctx.slot_data.get("goal")
-            if goal == 0 and location.get("region_id") == "tos 3f rail map":
-                await self.store_event(ctx, "GOAL: Reach ToS 3F")
-                self.has_goal_location = True
-            if goal == 1 and location.get("region_id") == "tos 7f rail map":
-                await self.store_event(ctx, "GOAL: Reach ToS 7F")
-                self.has_goal_location = True
-            if goal == 2 and location.get("region_id") == "wt stagnox":
-                await self.store_event(ctx, "GOAL: Defeat Stagnox")
-                self.has_goal_location = True
-            if goal == 3 and location.get("region_id") == "bt fraaz":
-                await self.store_event(ctx, "GOAL: Defeat Fraaz")
+        if "goal" in location:
+            from .data.Entrances import goal_event_lookup
+            goal = ctx.slot_data.get("goal", -1)
+            loc_goal = location["goal"]
+            if goal_event_lookup[goal] == loc_goal:
+                await self.store_event(ctx, loc_goal)
                 self.has_goal_location = True
 
         if "rabbit" in location and "address" in location:
