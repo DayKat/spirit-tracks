@@ -463,7 +463,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # ========== Island Sanctuary =============
         ["ocean realm", "ocs", False, None],
-        ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)], # Spreadsheet shows Whirlwind needed too,
+        ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)
+                                                  or (st_has_birds_song(state, player) and st_has_whip(state, player) and options.logic.value)], # Spreadsheet shows Whirlwind needed too,
                                                                                   # but not sure why looking at walkthrough
                                                                                   # probably wants you to whirlwind a bomb in the cave, but you can make the throw.
         ["ocs north", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
@@ -473,7 +474,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocs north", "ocs nw chest", False, lambda state: st_hard_birds(state, player)],
         ["ocs north", "ocs song", False, lambda state: st_has_spirit_flute(state, player)]
             if options.randomize_passengers == "no_passengers" else
-        ["ocs carben", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
+        ["ocs carben", "ocs song", False, lambda state: st_has_spirit_flute(state, player)
+                                                        and (st_has_boomerang(state, player)
+                                                             or (st_has_birds_song(state, player) and st_has_whip(state, player) and options.logic.value))],
         ["ocs", "ocs carben", False, lambda state: st_has_passenger(state, player, "Carben", "_carben")
                                                    and (options.randomize_passengers.value != 1
                                                         or st_has_sword(state, player)  # Fight off the blins

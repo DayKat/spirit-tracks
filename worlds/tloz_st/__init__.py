@@ -542,6 +542,7 @@ class SpiritTracksWorld(WorldParent):
                         return False
                 return True
         if location_name == "Goron Village Get Wagon":
+            print(f"Wagon check: {self.options.randomize_cargo.value}")
             return self.options.randomize_cargo.value
         return False
 

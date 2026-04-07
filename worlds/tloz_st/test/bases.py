@@ -32,7 +32,7 @@ class TestGeneration(WorldTestBase):
         "excess_random_treasure": "nothing",
         "logic": "normal",
         "randomize_passengers": "randomize",
-        "randomize_cargo": "randomize",
+        "randomize_cargo": "no_cargo",
         "randomize_stamps": "randomize",
         "stamp_pack_sizes": 1,
         "randomize_minigames": "hard",

@@ -1620,7 +1620,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Papuzia allow dovok cs vanilla passengers": {
         "on_scenes": [0x2C00],
-        "set_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)],
+        "set_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x30)],
         "has_slot_data": [("randomize_passengers", 1)],
         "not_has_locations": ["Papuzia Village Orca's Force Gem"],
         "check_bits": [(STAddr.adv_flags_36, 0x4)],
@@ -1628,7 +1628,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Papuzia allow wadatsumi cs vanilla passengers": {
         "on_scenes": [0x2C00],
-        "set_if_true": [(STAddr.adv_flags_9, 0x10)],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
         "unset_if_true": [(STAddr.adv_flags_34, 0x80)],
         "has_slot_data": [("randomize_passengers", 1)],
         "not_has_locations": ["Papuzia Village Wadatsumi's Force Gem"],
@@ -1637,13 +1637,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "RESET wadatsumi complicated vanilla passengers": {
         "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
-        "unset_if_true": [(STAddr.adv_flags_9, 0x10)]
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)]
         # Papuzia crashes if you've not removed carben before Orca asks for a husband,
         # and you need that orca flag for the dovok leaving the train CS
     },
     "RESET dovok complicated vanilla passengers": {
         "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
-        "unset_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)]
+        "unset_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x30)]
         # Papuzia crashes if you've not removed carben before Orca asks for a husband,
         # and you need that orca flag for the dovok leaving the train CS
     },
@@ -1652,7 +1652,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_items": [("Passenger: Dovok", 1)],
         "not_has_locations": ["Papuzia Village Orca's Force Gem"],
-        "set_if_true": [(STAddr.adv_flags_36, 0x4), (STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)],
+        "set_if_true": [(STAddr.adv_flags_36, 0x4), (STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x30)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2c),
                               (STAddr.passenger_tag_0, 0x464F4D52),
                               (STAddr.has_passenger_0, 0)],
@@ -1660,7 +1660,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "RESET dovok complicated": {
         "not_has_locations": ["Papuzia Village Pick Up Carben"],
-        "unset_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x10)]
+        "unset_if_true": [(STAddr.adv_flags_35, 0x20), (STAddr.adv_flags_9, 0x30)]
         # Papuzia crashes if you've not removed carben before Orca asks for a husband,
         # and you need that orca flag for the dovok leaving the train CS
     },
@@ -1671,11 +1671,35 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_14, 0x20)],
         "has_items": [("Passenger: Dovok", 0)],
     },
-    "Papuzia prevent carben crash passengers": {
+    "Papuzia prevent carben crash neither": {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Pick Up Carben"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+        "has_items": [("Passenger: Dovok", 0), ("Passenger: Wadatsumi", 0)],
+    },
+    "Papuzia prevent carben crash post dovok": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Pick Up Carben"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+        "has_items": [("Passenger: Wadatsumi", 0)],
+        "has_locations": ["Papuzia Village Orca's Force Gem"]
+    },
+    "Papuzia prevent carben post wadatsumi": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Pick Up Carben"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+        "has_items": [("Passenger: Dovok", 0)],
+        "has_locations": ["Papuzia Village Wadatsumi's Force Gem"]
+    },
+    "Papuzia prevent carben post both": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Pick Up Carben"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
+        "has_locations": ["Papuzia Village Wadatsumi's Force Gem", "Papuzia Village Orca's Force Gem"]
     },
     "Papuzia prevent carben crash post carben": {
         "on_scenes": [0x2c00],
@@ -1774,6 +1798,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Passenger: Carben", 1)],
         "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_9, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x20)],  # Prevent invisible carben
         "overwrite_if_true": [(STAddr.passenger_goal, 0x32),
                               (STAddr.passenger_tag_0, 0x53595741),
                               (STAddr.has_passenger_0, 0)],
@@ -1854,7 +1879,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_items": [("Passenger: Wadatsumi", 1)],
         "check_bits": [(STAddr.adv_flags_e, 0x40, "not")], #Check for Force Gem obtained, and don't trigger if it was done already
-        "set_if_true": [(STAddr.adv_flags_34, 0x40), (STAddr.adv_flags_9, 0x10)], #Set Wadatsumi on train
+        "set_if_true": [(STAddr.adv_flags_34, 0x40), (STAddr.adv_flags_9, 0x30)], #Set Wadatsumi on train
         "unset_if_true": [(STAddr.adv_flags_34, 0x80)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2C),
                               (STAddr.passenger_tag_0, 0x57414D41),
@@ -2120,12 +2145,21 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "not_has_locations": ["Papuzia Village Song Statue"],
         "has_items": [("Song of Discovery", 1)],
         "unset_if_true": [(STAddr.songs, 0x4)],
-        "set_if_true": [(STAddr.adv_flags_a, 0xA0)],
+        "set_if_true": [(STAddr.adv_flags_a, 0xA0)]
+    },
+    "Papuzia default reset SoB": {
+        "on_scenes": [0x2c00],
         "reset_flags": ["RESET SoB"]
     },
     "RESET SoB": {
         "has_items": [("Song of Birds", 1)],
         "set_if_true": [(STAddr.songs, 0x4)],
+    },
+    "Papuzia allow song of birds": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Song Statue"],
+        "has_items": [("Song of Birds", 1)],
+        "set_if_true": [(STAddr.songs, 4)],
     },
     "Papuzia can buy vessel": {
         "on_scenes": [0x2c04],
