@@ -98,6 +98,7 @@ class STAddr:
     
     potion_0 = Address(0x265334)
     potion_1 = Address(0x265335)
+    all_potions = Address(0x265334, size=2)
     
     rail_restorations = Address(0x2653B0)
     tracks_0 = Address(0x2653B4)

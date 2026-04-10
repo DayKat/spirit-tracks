@@ -917,6 +917,12 @@ class SpiritTracksClient(DSZeldaClient):
                 await ctx.send_death(ctx.player_names[ctx.slot] + message)
                 self.last_deathlink = ctx.last_death_link
 
+    async def get_item_read(self, ctx, item_name) -> int:
+        if item_name == "Red Potion":
+            return await STAddr.all_potions.read(ctx)
+
+        return await super().get_item_read(ctx, item_name)
+
     async def process_post_receive(self, ctx):
         if not self.delay_pickup:
             await self.update_treasure_tracker(ctx, "post_receive")  # always update treasure tracker, lots of random treasures on ground!

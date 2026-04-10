@@ -253,7 +253,7 @@ LOCATIONS_DATA = {
         "z_max": -35000,
         "location_groups": ["Hyrule Castle"],
     },
-    "Hyrule Castle 1F Spirit Flute": {
+    "Hyrule Castle 3F Spirit Flute": {
         "region_id": "hyrule castle",
         "vanilla_item": "Spirit Flute",
         "stage_id": 0x28,
@@ -456,7 +456,7 @@ LOCATIONS_DATA = {
         "room_id": 4,
         "x_min": -35240,
         "x_max": -22990,
-        "z_min": 42350,
+        "z_min": 35000,
         "z_max": 52230,
         'dungeon': "ToS",
         "tos_section": 2
@@ -889,7 +889,7 @@ LOCATIONS_DATA = {
     },
     "ToS 22F Boss Key": {
         "vanilla_item": "Boss Key (ToS 5)",
-        "region_id": "tos 19f center 2",
+        "region_id": "tos 22f",
         'dungeon': "ToS",
         "tos_section": 5,
         "conditional": True,
@@ -2284,7 +2284,7 @@ LOCATIONS_DATA = {
         "room_id": 0x6,
         "region_id": "mtt left",
         "vanilla_item": "Small Key (Mountain Temple)",
-        "x_max": -55000,
+        "x_max": -50000,
         "z_min": -45000,
         "dungeon": "Mountain Temple"
     },

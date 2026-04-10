@@ -1154,11 +1154,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "not_has_locations": ["Trading Post Pick Up Kenzo"],
         "has_slot_data": [("randomize_passengers", 3)],
         "check_bits": [(STAddr.adv_flags_3c, 0x10)],
-        "unset_if_true": [(STAddr.adv_flags_3c, 0x10)],
+        "unset_if_true": [(STAddr.adv_flags_3c, 0x50)],
         "reset_flags": ["Kenzo av yes"]
     },
     "Kenzo av yes": {
-        "set_if_true": [(STAddr.adv_flags_3c, 0x10)],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x50)],
     },
     "Bring Goron to CT": {
         "on_scenes": [0x2900],
@@ -1264,7 +1264,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Backup unset goron geyser": {
         "on_scenes": [0x2e00],
-        "has_slot_data": ["randomize_cargo", [1, 2, 3]],
+        "has_slot_data": [("randomize_cargo", [1, 2, 3])],
         "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
         "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
     },
@@ -2282,7 +2282,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "GV add snow goron snow glyph vanilla": {
         "on_scenes": [0x2E00],
         "has_groups": ["Tracks: Snow Glyph"],
-        "check_bits": [(STAddr.adv_flags_38, 2, "not")],
+        "check_bits": [(STAddr.adv_flags_59, 0x4)],
+        "unset_if_true": [(STAddr.adv_flags_38, 2)],
         "has_slot_data": [("randomize_passengers", 1)],
     },
     "ToS Force spawn train": {
