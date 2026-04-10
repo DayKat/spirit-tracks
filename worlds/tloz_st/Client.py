@@ -572,11 +572,6 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Opening boss door for {hex(self.current_scene)}")
                 await data["door"].overwrite(ctx, 3)
 
-        if self.current_scene == 0x2B00 and item_name == "Song of Discovery":
-            await STAddr.songs.unset_bits(ctx, 0x10)
-        if self.current_scene == 0x2C00 and item_name == "Song of Birds":
-            await STAddr.songs.unset_bits(ctx, 0x4)
-
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
         await self.update_potion_tracker(ctx, "room_load")
@@ -798,20 +793,12 @@ class SpiritTracksClient(DSZeldaClient):
             await self.update_treasure_tracker(ctx, "no_loc")
             return
 
-        if location is not None and "goal" in location:
-            # Finished game?
-            goal = ctx.slot_data.get("goal")
-            if goal == 0 and location.get("region_id") == "tos 3f rail map":
-                await self.store_event(ctx, "GOAL: Reach ToS 3F")
-                self.has_goal_location = True
-            if goal == 1 and location.get("region_id") == "tos 7f rail map":
-                await self.store_event(ctx, "GOAL: Reach ToS 7F")
-                self.has_goal_location = True
-            if goal == 2 and location.get("region_id") == "wt stagnox":
-                await self.store_event(ctx, "GOAL: Defeat Stagnox")
-                self.has_goal_location = True
-            if goal == 3 and location.get("region_id") == "bt fraaz":
-                await self.store_event(ctx, "GOAL: Defeat Fraaz")
+        if "goal" in location:
+            from .data.Entrances import goal_event_lookup
+            goal = ctx.slot_data.get("goal", -1)
+            loc_goal = location["goal"]
+            if goal_event_lookup[goal] == loc_goal:
+                await self.store_event(ctx, loc_goal)
                 self.has_goal_location = True
 
         if "rabbit" in location and "address" in location:
@@ -929,6 +916,12 @@ class SpiritTracksClient(DSZeldaClient):
                 message = " crashed their train." if stage < 0x13 else " has disappointed the Train Spirits."
                 await ctx.send_death(ctx.player_names[ctx.slot] + message)
                 self.last_deathlink = ctx.last_death_link
+
+    async def get_item_read(self, ctx, item_name) -> int:
+        if item_name == "Red Potion":
+            return await STAddr.all_potions.read(ctx)
+
+        return await super().get_item_read(ctx, item_name)
 
     async def process_post_receive(self, ctx):
         if not self.delay_pickup:
