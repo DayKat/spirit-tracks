@@ -174,7 +174,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.adv_flags_25,
         'value': 0x02,
         'item_groups': ["Equipment"],
-        "model": "Stamp Book"
+        "model": "Stamp Book",
+        "blocked_scenes": [0x2f0a]
     },
     "Dummy Bow": {
         'classification': ItemClassification.filler,
@@ -188,35 +189,40 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.songs,
         'value': 0x01,
         'item_groups': ["Songs"],
-        "model": "SoA"
+        "model": "SoA",
+        "blocked_scenes": [0x3000]
     },
     "Song of Healing": {
         'classification': ItemClassification.useful,
         'address': STAddr.songs,
         'value': 0x02,
         'item_groups': ["Songs"],
-        "model": "SoH"
+        "model": "SoH",
+        "blocked_scenes": [0x190A, 0x1B0A, 0x1C0A],
     },
     "Song of Birds": {
         'classification': ItemClassification.progression,
         'address': STAddr.songs,
         'value': 0x04,
         'item_groups': ["Songs"],
-        "model": "SoB"
+        "model": "SoB",
+        "blocked_scenes": [0x2C00]
     },
     "Song of Light": {
         'classification': ItemClassification.progression,
         'address': STAddr.songs,
         'value': 0x08,
         'item_groups': ["Songs"],
-        "model": "SoL"
+        "model": "SoL",
+        "blocked_scenes": [0x3700]
     },
     "Song of Discovery": {
         'classification': ItemClassification.progression,
         'address': STAddr.songs,
         'value': 0x10,
         'item_groups': ["Songs"],
-        "model": "SoD"
+        "model": "SoD",
+        "blocked_scenes": [0x2B00]
     },
 
     # ============= Upgrades =============

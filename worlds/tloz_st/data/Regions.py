@@ -389,6 +389,7 @@ REGIONS = [
     "gorge tracks",
     "fire source",
     "mountain temple tracks",
+    "mountain temple door",
     "snurglars",
     "ends of the earth",
     "disorientation station",

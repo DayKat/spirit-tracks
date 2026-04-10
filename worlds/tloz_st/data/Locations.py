@@ -43,7 +43,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Outset Village"],
         "conditional": True
     },
-    "Ouset Beach Tree Burried Chest": {
+    "Outset Beach Tree Buried Chest": {
         "region_id": "outset village trees",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
@@ -54,7 +54,7 @@ LOCATIONS_DATA = {
         "z_max": 33968,
         "location_groups": ["Outset Village"],
     },
-    "Outset Niko's House Tree Burried Chest": {
+    "Outset Niko's House Tree Buried Chest": {
         "region_id": "outset village trees",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x2F,
@@ -253,7 +253,7 @@ LOCATIONS_DATA = {
         "z_max": -35000,
         "location_groups": ["Hyrule Castle"],
     },
-    "Hyrule Castle 1F Spirit Flute": {
+    "Hyrule Castle 3F Spirit Flute": {
         "region_id": "hyrule castle",
         "vanilla_item": "Spirit Flute",
         "stage_id": 0x28,
@@ -456,7 +456,7 @@ LOCATIONS_DATA = {
         "room_id": 4,
         "x_min": -35240,
         "x_max": -22990,
-        "z_min": 42350,
+        "z_min": 35000,
         "z_max": 52230,
         'dungeon': "ToS",
         "tos_section": 2
@@ -889,7 +889,7 @@ LOCATIONS_DATA = {
     },
     "ToS 22F Boss Key": {
         "vanilla_item": "Boss Key (ToS 5)",
-        "region_id": "tos 19f center 2",
+        "region_id": "tos 22f",
         'dungeon': "ToS",
         "tos_section": 5,
         "conditional": True,
@@ -1359,7 +1359,7 @@ LOCATIONS_DATA = {
         "z_max": -35679,
         "location_groups": ["Trading Post", "Song Statue"],
     },
-    "Trading Post Burried Chest": {
+    "Trading Post Buried Chest": {
         "region_id": "trading post chest",
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x37,
@@ -1670,7 +1670,7 @@ LOCATIONS_DATA = {
     },
 
     # Bridge Worker's Home
-    "Bridge Worker's Home Burried Chest": {
+    "Bridge Worker's Home Buried Chest": {
         "region_id": "bridge workers chest",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x36,
@@ -2026,7 +2026,7 @@ LOCATIONS_DATA = {
     },
     # Lost at Sea Station
 
-    "Lost at Sea Burried Chest": {
+    "Lost at Sea Buried Chest": {
         "region_id": "las outside chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x39,
@@ -2284,7 +2284,7 @@ LOCATIONS_DATA = {
         "room_id": 0x6,
         "region_id": "mtt left",
         "vanilla_item": "Small Key (Mountain Temple)",
-        "x_max": -55000,
+        "x_max": -50000,
         "z_min": -45000,
         "dungeon": "Mountain Temple"
     },
@@ -2546,7 +2546,7 @@ LOCATIONS_DATA = {
         "conditional": True
     },
     # Dark Ore Mine
-    "Dark Ore Mine Burried Chest": {
+    "Dark Ore Mine Buried Chest": {
         "stage_id": 0x3D,
         "room_id": 0x1,
         "z_max": -15000,
@@ -2633,7 +2633,7 @@ LOCATIONS_DATA = {
         "region_id": "dt 1f n earthquake",
         "dungeon": "Desert Temple",
     },
-    "Desert Temple 1F N Burried Key": {
+    "Desert Temple 1F N Buried Key": {
         "stage_id": 0x1D,
         "room_id": 0x0,
         "x_max": 0,

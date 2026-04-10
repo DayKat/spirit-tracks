@@ -196,7 +196,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos 14f east", "tos 14f phantom", False, lambda state:
          st_can_possess_phantoms(state, player, 4) | (st_vanilla_tears(state, player) & st_has_whip(state, player))],
-        ["tos 14f west", "tos 15f", False, None],
+        ["tos 14f west", "tos 15f", False, lambda state: st_has_whip(state, player)],
         ["tos 15f", "tos 16f", False, lambda state: st_tos_15f_glitched(state, player)],
         ["tos 16f", "tos 16f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 16f", "event_17f", False, None],
@@ -225,6 +225,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["tos 19f center", "tos 20f", False, lambda state: st_has_small_keys(state, player, "ToS 5", 2)],
 
         ["tos 20f", "tos 19f center 2", False, lambda state: st_has_bow(state, player) & st_can_rotate_repeater(state, player)],
+        ["tos 20f", "tos 19f center chest", False, lambda state: st_has_bow(state, player)],
         ["tos 20f", "tos 22f", False, lambda state: st_has_bow(state, player) and st_can_rotate_repeater(state, player) and st_has_whip(state, player)],
         ["tos 22f", "tos 21f bombs", False, lambda state: st_has_bombs(state, player)],
         ["tos 22f", "tos staven", False, lambda state: st_has_sword(state, player) and (st_has_boss_key(state, player, "ToS 5") or options.randomize_boss_keys == "vanilla" or state.multiworld.worlds[player].exclude_tos_5)],
@@ -463,7 +464,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # ========== Island Sanctuary =============
         ["ocean realm", "ocs", False, None],
-        ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)], # Spreadsheet shows Whirlwind needed too,
+        ["ocs", "ocs north", False, lambda state: st_has_boomerang(state, player)
+                                                  or (st_has_birds_song(state, player) and st_has_whip(state, player) and st_option_hard_logic(state, player))], # Spreadsheet shows Whirlwind needed too,
                                                                                   # but not sure why looking at walkthrough
                                                                                   # probably wants you to whirlwind a bomb in the cave, but you can make the throw.
         ["ocs north", "ocs stamp station", False, lambda state: st_has_stamp_book(state, player)
@@ -473,7 +475,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["ocs north", "ocs nw chest", False, lambda state: st_hard_birds(state, player)],
         ["ocs north", "ocs song", False, lambda state: st_has_spirit_flute(state, player)]
             if options.randomize_passengers == "no_passengers" else
-        ["ocs carben", "ocs song", False, lambda state: st_has_spirit_flute(state, player)],
+        ["ocs carben", "ocs song", False, lambda state: st_has_spirit_flute(state, player)
+                                                        and (st_has_boomerang(state, player)
+                                                             or (st_has_birds_song(state, player) and st_has_whip(state, player) and st_option_hard_logic(state, player)))],
         ["ocs", "ocs carben", False, lambda state: st_has_passenger(state, player, "Carben", "_carben")
                                                    and (options.randomize_passengers.value != 1
                                                         or st_has_sword(state, player)  # Fight off the blins
@@ -574,7 +578,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["fire source", "s mountain temple rabbit", False, lambda state: st_has_net(state, player)],
         ["mountain temple tracks", "s mountain temple rabbit", False, lambda state: st_has_net(state, player)],
 
-        ["fire realm", "forest cave tracks", False, lambda state: st_has_misc_tracks(state, player,"W Forest Realm") and st_has_portal(state, player, "Forest Cave to Goron Village", False)],
+        ["fire realm", "forest cave tracks", False, lambda state: st_has_misc_tracks(state, player,"Forest Realm SW Cave") and st_has_portal(state, player, "Forest Cave to Goron Village", False)],
         ["forest cave tracks", "fire realm", False, lambda state: st_has_glyph(state, player, "Fire") and st_has_portal(state, player,"Forest Cave to Goron Village",True)],
         ["mountain temple tracks", "icyspring tracks", False, lambda state: st_has_misc_tracks(state, player,"N Icy Spring") and st_has_portal(state, player,"Icy Spring to Mountain Temple",False)],
         ["icyspring tracks", "mountain temple tracks", False, lambda state: st_has_temple_tracks(state, player, "Mountain") and st_has_portal(state, player,"Icy Spring to Mountain Temple",True)],
@@ -611,7 +615,9 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["fire realm", "gtr", False, lambda state: st_has_cannon(state, player) and state.has("_goron_ice", player) and st_has_rupees(state, player, 50)],
 
         # Mountain Temple
-        ["mountain temple tracks", "mtt", False, lambda state: state.has("Mountain Temple Snurglar Key", player, 3) or state.has("Snurglar Keyring", player)],
+        ["mountain temple tracks", "mountain temple door", False, None],
+        ["fire source", "mountain temple door", False, None],
+        ["mountain temple door", "mtt", False, lambda state: state.has("Mountain Temple Snurglar Key", player, 3) or state.has("Snurglar Keyring", player)],
         ["mtt", "mtt song statue", False, lambda state: st_has_spirit_flute(state, player)],
         ["mtt", "mtt left", False, lambda state: st_has_damage(state, player)],
         ["mtt left", "mtt right", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
