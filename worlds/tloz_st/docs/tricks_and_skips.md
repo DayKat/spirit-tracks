@@ -95,5 +95,5 @@ A lot of hard logic stuff is just annoying, slow, random, requires damage boosti
 - You can do a bomb boost to get out of bounds on B1 and skip the boss key [(Glitched Logic)](https://youtu.be/QCBSFibjfm0)
 
 ## Overworld Rabbits
-- you can hit the SW Trading post rabbit without the Forest Realm SE Portal Tracks (Hard Logic)
+- You can hit the SW Trading post rabbit without the Forest Realm SE Portal Tracks (Hard Logic)
 - You can hit certain rabbits in the blizzard without snow source to clear it by driving close to the void out zones (Hard Logic)
