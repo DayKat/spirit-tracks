@@ -51,6 +51,9 @@ Check the [Tricks and Skips guide](https://github.com/DayKat/spirit-tracks/blob/
 - The blue warp through ToS 5 will always be open if ToS 5 is excluded, meaning you still need to fight Staven to check what’s on the other side.
 - Progressive tears of light with tower shuffle use the vanilla entrances to determine the order. So the order is entrance 1, e2 (forest source), e3 (snow source), e4 (ocean source), e5 (fire source), exit staven, enter altar in summit. Even if the summit is randomized to be your first section, the progressive tears for the section within will be last in the order.
 
+### Does it work with dpad/controller patches?
+Only some of them. [This one](https://github.com/StraDaMa/Legend-of-Zelda-Spirit-Tracks-D-Pad-Patch) probably works.
+
 ### Who made this?
 - The project is built upon @[Carrotinator](https://github.com/carrotinator)'s [Phantom Hourglass AP](https://github.com/carrotinator/Archipelago) implementation, which in turn is built upon @Dinopony and @Ishigh's [Oracle of Seasons AP](https://github.com/Dinopony/ArchipelagoOoS).
 - The Forest and Snow Realms were helmed by @[DayKat](https://github.com/DayKat), with technical support from @[1313e](https://github.com/1313e).
