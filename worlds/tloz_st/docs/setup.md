@@ -35,6 +35,9 @@ This also refills your ammo.
 ### What is my current goal?
 You can check your current goal and progress towards it at any time with the client command `/goal`
 
+### What is included in hard/glitched logic?
+Check the [Tricks and Skips guide](https://github.com/DayKat/spirit-tracks/blob/main/worlds/tloz_st/docs/tricks_and_skips.md)
+
 ### What is different from vanilla or has unintuitive requirements in vanilla?
 - If playing with randomized passengers, NPCs let you pick them up for quests once you have the rail holding their destination station. Exception being Alfonzo, who spawns in Hyrule Castle with the Snow Glyph.
 - Some minigames open with vanilla requirements. Hyrule sword game opens with Snow Source, Goron target range opens after removing the first lava in Goron village and each level of Take ‘em all on unlocks with forest-ocean-sand sources. Unlocking a higher level also unlocks the lower ones. 
