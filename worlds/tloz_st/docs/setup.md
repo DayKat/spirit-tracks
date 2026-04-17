@@ -10,6 +10,7 @@
 ## Recommended Software
 
 * [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases)
+* [Poptracker Itemtracker](https://github.com/carrotinator/spirit-tracks-poptracker-ap) (still work in progress, currently only includes a manual rail and portal tracker)
 
 ## Setup
 
