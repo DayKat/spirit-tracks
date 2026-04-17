@@ -67,7 +67,7 @@ A lot of hard logic stuff is just annoying, slow, random, requires damage boosti
 
 ## Island Sanctuary
 - You can reach the S bird chest and the NW bird chest without Song of Birds (Hard Logic)
-- You can skip the cave to the north section with a well placed and timed song of birds (Hard Logic)
+- You can skip the cave to the north section with a well placed and timed song of birds [(Hard Logic)](https://youtu.be/4kzmcoe8vkk)
 
 ## Marine Temple
 - You can damage boost through the boulders to reach the right side of 1F (Hard Logic)
