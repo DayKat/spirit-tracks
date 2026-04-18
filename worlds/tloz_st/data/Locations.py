@@ -2313,7 +2313,8 @@ LOCATIONS_DATA = {
         "vanilla_item": "Small Key (Mountain Temple)",
         "x_max": -45000,
         "z_max": -55000,
-        "dungeon": "Mountain Temple"
+        "dungeon": "Mountain Temple",
+        "delay_pickup": ["Mountain Temple 2F Stalfos"]
     },
     "Mountain Temple 2F Heatoise Chest": {
         "stage_id": 0x1C,
@@ -3252,6 +3253,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Portal Checks"],
         "conditional": True,
         "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
+        "from_coords": {"x_min": 80000}
     },
     "Fire Realm Shoot Sand Portal": {
         "stage_id": 0x07,
@@ -4203,6 +4205,15 @@ LOCATIONS_DATA |= {
         "region_id": "tos 21f bombs",
         'dungeon': "ToS",
         "tos_section": 5,
+    },
+    "Mountain Temple 2F Stalfos": {  # Dummy location for stalfos treasure drop conflict
+        "stage_id": 0x1C,
+        "room_id": 0x6,
+        "region_id": "mtt 2f right",
+        "vanilla_item": "Treasure: Stalfos Skull",
+        "x_max": -45000,
+        "z_max": -55000,
+        "conditional": True
     },
 
 }

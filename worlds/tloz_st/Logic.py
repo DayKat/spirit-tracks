@@ -629,7 +629,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mtt b1", "mtt b2", False, lambda state: st_has_whip(state, player)],
         ["mtt b2", "mtt b1 arena", False, lambda state: st_has_boomerang(state, player)],
         ["mtt b1", "mtt b1 cart", False, lambda state: st_has_small_keys(state, player, "Mountain Temple", 3, 1)],
-        ["mtt b1 cart", "mtt b1 arena", False, None],
+        # ["mtt b1 cart", "mtt b1 arena", False, None],  # Removed!
         ["mtt b1 cart", "mtt stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["mtt b1 cart", "mtt bk", False, lambda state: st_has_whirlwind(state, player)],
         ["mtt bk", "mtt boss", False, lambda state: options.randomize_boss_keys == "vanilla"],

@@ -475,13 +475,30 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
     },
-    "Allow Portal sand temple shortcut with item": {  # TODO: Have multiple or states for groups
+    "Allow Portal sand temple shortcut always open from top": {
+        "on_scenes": [0x600],
+        "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
+        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)],
+        "on_entrance": [0xFB],
+        "coords": {"x_max": 80000},
+    },
+    "Allow Portal sand temple shortcut with item": {
         "on_scenes": [0x600],
         "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
         "has_items": [("Portal Unlock: Desert Temple to Sand Realm", 1)],
         "has_slot_data": [("portal_behavior", 2), ("portal_checks", 1)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
+    },
+    "Allow Portal sand temple shortcut with item from top": {
+        "on_scenes": [0x600],
+        "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
+        "has_items": [("Portal Unlock: Desert Temple to Sand Realm", 1)],
+        "has_slot_data": [("portal_behavior", 2), ("portal_checks", 1)],
+        "on_entrance": [0xFB],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)],
+        "coords": {"x_max": 80000},
     },
     "Close sand portal no item realm tracks": {
         "on_scenes": [0x600],
@@ -494,7 +511,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x600],
         "has_items": [("Portal Unlock: Desert Temple to Sand Realm", 0)],
         "not_has_locations": ["Sand Realm Shoot Temple Portal"],
-        "has_slot_data": [("portal_behavior", 2)],
+        "has_slot_data": [("portal_behavior", 2), ("portal_checks", 1)],
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)],
     },
     "Close sand portal no item temple tracks": {
@@ -508,7 +525,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x600],
         "has_slot_data": [("portal_checks", 1)],
         "not_has_locations": ["Sand Realm Shoot Temple Portal"],
-        "on_entrance": [0x7, 0xB, 0xFB],  # will also close if coming from north, but you can reload at sand sanc
+        "on_entrance": [0x7, 0xB],
+        "unset_if_true": [(STAddr.adv_flags_31, 0x01)]
+    },
+    "Close Portal sand temple shortcut right from top": {
+        "on_scenes": [0x600],
+        "has_slot_data": [("portal_checks", 1)],
+        "not_has_locations": ["Sand Realm Shoot Temple Portal"],
+        "on_entrance": [0xFB],
+        "coords": {"x_min": 80000},
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)]
     },
     "Open Portal sand temple shortcut always open": {
@@ -900,11 +925,36 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
                         "RESET Remove Ocean source", "RESET Remove Fire source"]
     },
+    "ToS Forest source sections": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "has_groups": ["Tracks: Forest Source"],
+        "not_has_groups": ["Tracks: Snow Source", "Tracks: Ocean Source", "Tracks: Fire Source"],
+        "set_if_true": [(STAddr.adv_flags_0, 0x10)],
+    },
     "ToS Snow source sections": {
         "on_scenes": [0x1700],
         "has_slot_data": [["tos_section_unlocks", 1]],
         "has_groups": ["Tracks: Snow Source"],
-        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
+        "not_has_groups": ["Tracks: Ocean Source", "Tracks: Fire Source"],
+        "set_if_true": [(STAddr.adv_flags_0, 0x30)],
+        "reset_flags": ["RESET Remove Forest source"]
+    },
+    "ToS Ocean source sections": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "has_groups": ["Tracks: Ocean Source"],
+        "not_has_groups": ["Tracks: Fire Source"],
+        "set_if_true": [(STAddr.adv_flags_0, 0x70)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source"]
+    },
+    "ToS Fire source sections": {
+        "on_scenes": [0x1700],
+        "has_slot_data": [["tos_section_unlocks", 1]],
+        "has_groups": ["Tracks: Fire Source"],
+        "set_if_true": [(STAddr.adv_flags_0, 0xF0)],
+        "reset_flags": ["RESET Remove Forest source", "RESET Remove Snow source",
+                        "RESET Remove Ocean source"]
     },
     "ToS progressive sections 0": {
         "on_scenes": [0x1700],

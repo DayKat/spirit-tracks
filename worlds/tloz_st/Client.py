@@ -292,7 +292,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_stage < 0x13:
             coords = await read_multiple(ctx, STAddr.train_coords, True)
             train_coords = {l: c for c, l in zip(coords.values(), ['x', 'y', 'z'])}
-            print(f"Train coords: {train_coords}")
+            # print(f"Train coords: {train_coords}")
             return train_coords
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
         # print(f"Coords: {coords}")
@@ -301,6 +301,7 @@ class SpiritTracksClient(DSZeldaClient):
             "y": coords[STAddr.link_y],
             "z": coords[STAddr.link_z]
         }
+
 
     async def has_special_dynamic_requirements(self, ctx: "BizHawkClientContext", data) -> bool:
         def check_dungeon_reqs():
@@ -315,8 +316,24 @@ class SpiritTracksClient(DSZeldaClient):
                 return comp == data["dungeons"]
             return True
 
+        async def check_coords():
+            coord_data = data.get("coords", {})
+            if coord_data:
+                coords = await self.get_coords(ctx)
+                print(f"\t\tCoords: {coords} reqs {coord_data}")
+                return all([
+                    coord_data.get("x_max", 0xFFFFFFF) > coords['x'] > coord_data.get("x_min", -0xFFFFFFF),
+                    coord_data.get("y", 0) + 2000 > coords['y'] >= coord_data.get("y", 0),
+                    coord_data.get("z_max", 0xFFFFFFF) > coords['z'] > coord_data.get("z_min", -0xFFFFFFF),
+                ])
+
+            return True
+
         if not check_dungeon_reqs():
             print(f"\t{data['name']} does not have dungeon requirements")
+            return False
+        if not await check_coords():
+            print(f"\t{data['name']} does not have coordinate requirements")
             return False
         return True
 
@@ -1190,6 +1207,10 @@ class SpiritTracksClient(DSZeldaClient):
             elif ctx.slot_data["excess_random_treasure"] == 0:
                 treasure = ITEM_MODEL_LOOKUP["Nothing"].value
             await self.reset_treasure_models(ctx, treasure)
+
+        if current_scene == 0x1c02 and self.current_entrance != 3:
+            # Amazing that this works at all
+            await STAddr.mtt_b1_heatoise_trigger.overwrite(ctx, 70000)
 
 
     @staticmethod

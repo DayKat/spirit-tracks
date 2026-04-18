@@ -3,7 +3,6 @@ from .Addresses import STAddr
 from ..Subclasses import STItem
 from typing import Any
 
-
 ITEMS_DATA: dict[str, dict[str, Any]] = {
     #   "No Item": {
     #   'classification': ItemClassification,   # classification category
@@ -24,7 +23,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'progressive': [[STAddr.items_2, 0x02], [STAddr.items_2, 0x04]],
         'item_groups': ["Swords", "Progressive Items", "Equipment"],
 
-        "model": "Sword"
+        "model": "Sword", 
+        "id": 1,
     },
     "Sword": {  # Used when lokomo sword is not progressive, and tied to tears
         'classification': ItemClassification.progression,
@@ -32,7 +32,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "value": 0x02,
         'item_groups': ["Swords", "Equipment"],
 
-        "model": "Sword"
+        "model": "Sword", 
+        "id": 2,
     },
     "Shield": {
         'classification': ItemClassification.progression_deprioritized,
@@ -40,14 +41,16 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x01,
         'item_groups': ["Equipment"],
 
-        "model": "Shield"
+        "model": "Shield", 
+        "id": 3,
     },
     "Ancient Shield": {
         'classification': ItemClassification.useful,
         'address': STAddr.items_2,
         'value': 0x40,
         'item_groups': ["Equipment"],
-        'model': "Ancient Shield"
+        'model': "Ancient Shield", 
+        "id": 4,
     },
     "Whirlwind": {
         'classification': ItemClassification.progression,
@@ -56,7 +59,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Equipment", "Main Items",
                         "Gust", "Non-Progressive Main Items"],
 
-        "model": "Whirlwind"
+        "model": "Whirlwind", 
+        "id": 5,
     },
     "Bombs (Progressive)": {
         'classification': ItemClassification.progression,
@@ -69,7 +73,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
                         "Bombs"],
 
         "model": "Bomb Bag",
-        "progressive_model": ["Bomb Bag", "Medium Bomb Bag", "Large Bomb Bag"],
+        "progressive_model": ["Bomb Bag", "Medium Bomb Bag", "Large Bomb Bag"], 
+        "id": 6,
     },
     "Bow (Progressive)": {
         'classification': ItemClassification.progression,
@@ -81,7 +86,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
                         "Bow"],
 
         "model": "Bow",
-        "progressive_model": ["Bow", "Medium Quiver", "Large Quiver"],
+        "progressive_model": ["Bow", "Medium Quiver", "Large Quiver"], 
+        "id": 7,
     },
     "Bow of Light": {
         'classification': ItemClassification.progression,
@@ -90,7 +96,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Equipment", "Main Items", "Bows",
                         "Light Arrows", "Light Bow"],
 
-        "model": "Bow of Light"
+        "model": "Bow of Light", 
+        "id": 8,
     },
     "Whip": {
         'classification': ItemClassification.progression,
@@ -98,7 +105,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x04,
         'item_groups': ["Equipment", "Main Items", "Non-Progressive Main Items"],
 
-        "model": "Whip"
+        "model": "Whip", 
+        "id": 9,
     },
     "Boomerang": {
         'classification': ItemClassification.progression,
@@ -106,7 +114,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x02,
         'item_groups': ["Equipment", "Main Items", "Non-Progressive Main Items"],
 
-        "model": "Boomerang"
+        "model": "Boomerang", 
+        "id": 10,
     },
     "Sand Wand": {
         'classification': ItemClassification.progression,
@@ -115,7 +124,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Equipment", "Main Items",
                         "Sand Rod", "Non-Progressive Main Items"],
 
-        "model": "Sand Wand"
+        "model": "Sand Wand", 
+        "id": 11,
     },
     "Spirit Flute": {
         'classification': ItemClassification.progression,
@@ -123,7 +133,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x80,
         'item_groups': ["Equipment",
                         "Spirit Pipes", "Pan Flute", "Flute"],
-        "model": "Spirit Flute"
+        "model": "Spirit Flute", 
+        "id": 12,
     },
 
     # ======= Misc Items==========
@@ -133,7 +144,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         #'address': 0x1BA645,
         #'value': 0x01,
         #'set_bit': [(0x1BA6C8, 1)]
-        "model": "Hero's Clothes"
+        "model": "Hero's Clothes", 
+        "id": 13,
     },
     "Engineer's Clothes": {
         'classification': ItemClassification.filler,
@@ -141,7 +153,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         #'value': 0x01,
         #'set_bit': [(0x1BA6C8, 1)]
         "model": "Engineer's Clothes",
-        "dummy": True
+        "dummy": True, 
+        "id": 14,
     },
     "Compass of Light": {
         'classification': ItemClassification.progression,
@@ -149,25 +162,29 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x40,  # also set adv flag?
         'set_bit': [(STAddr.adv_flags_25, 0x60)],
         'item_groups': ["Rail Items", "Forest Tracks", "Compass"],
-        "model": "Compass of Light",
+        "model": "Compass of Light", 
+        "id": 15,
     },
     "Compass of Light Shard": {
         'classification': ItemClassification.progression,
         "model": "Compass of Light",
         'item_groups': ["Compass", "Compass Shard"],
-        "dummy": True,
+        "dummy": True, 
+        "id": 16,
     },
     "Royal Engineer's Certificate": {
         'classification': ItemClassification,
         'address': STAddr.adv_flags_3,
-        'value': 0x01,
+        'value': 0x01, 
+        "id": 17,
     },
     "Rabbit Net": {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_1a,
         'value': 0x40,
         'item_groups': ["Equipment", "Train Items"],
-        "model": "Rabbit Net"
+        "model": "Rabbit Net", 
+        "id": 18,
     },
     "Stamp Book": {
         'classification': ItemClassification.progression,
@@ -175,11 +192,13 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x02,
         'item_groups': ["Equipment"],
         "model": "Stamp Book",
-        "blocked_scenes": [0x2f0a]
+        "blocked_scenes": [0x2f0a], 
+        "id": 19,
     },
     "Dummy Bow": {
         'classification': ItemClassification.filler,
-        'model': "Bow"
+        'model': "Bow", 
+        "id": 20,
     },
 
     # ======= Songs ==========
@@ -190,7 +209,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x01,
         'item_groups': ["Songs"],
         "model": "SoA",
-        "blocked_scenes": [0x3000]
+        "blocked_scenes": [0x3000], 
+        "id": 21,
     },
     "Song of Healing": {
         'classification': ItemClassification.useful,
@@ -198,7 +218,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x02,
         'item_groups': ["Songs"],
         "model": "SoH",
-        "blocked_scenes": [0x190A, 0x1B0A, 0x1C0A],
+        "blocked_scenes": [0x190A, 0x1B0A, 0x1C0A], 
+        "id": 22,
     },
     "Song of Birds": {
         'classification': ItemClassification.progression,
@@ -206,7 +227,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x04,
         'item_groups': ["Songs"],
         "model": "SoB",
-        "blocked_scenes": [0x2C00]
+        "blocked_scenes": [0x2C00], 
+        "id": 23,
     },
     "Song of Light": {
         'classification': ItemClassification.progression,
@@ -214,7 +236,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x08,
         'item_groups': ["Songs"],
         "model": "SoL",
-        "blocked_scenes": [0x3700]
+        "blocked_scenes": [0x3700], 
+        "id": 24,
     },
     "Song of Discovery": {
         'classification': ItemClassification.progression,
@@ -222,11 +245,11 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x10,
         'item_groups': ["Songs"],
         "model": "SoD",
-        "blocked_scenes": [0x2B00]
+        "blocked_scenes": [0x2B00], 
+        "id": 25,
     },
 
     # ============= Upgrades =============
-
 
     "Heart Container": {
         'classification': ItemClassification.useful,
@@ -236,21 +259,24 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["monotone_incremental"],
         "base_count": 12,
         'item_groups': ["Upgrade Items"],
-        'model': "Heart Container"
+        'model': "Heart Container", 
+        "id": 26,
     },
     "Sword Beam Scroll": {
         'classification': ItemClassification.progression,
         'address': STAddr.items_2,
         'value': 0x0010,
         'item_groups': ["Upgrade Items", "Equipment"],
-        'model': "Green Scroll"
+        'model': "Green Scroll", 
+        "id": 27,
     },
     "Great Spin Scroll": {
         'classification': ItemClassification.useful,
         'address': STAddr.items_2,
         'value': 0x0020,
         'item_groups': ["Upgrade Items", "Equipment"],
-        'model': "Purple Scroll"
+        'model': "Purple Scroll", 
+        "id": 28,
     },
 
     # ============= Train Items =============
@@ -261,51 +287,60 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x80,
         'item_groups': ["Train Items"],
         'model': "Large Bomb Bag",
-        "reload_entrances": [0x2F00]
+        "reload_entrances": [0x2F00], 
+        "id": 29,
     },
     "Portal Unlock: Hyrule Castle to Anouki Village": {
         'classification': ItemClassification.progression,
         # 'address': 0x265744,
         # 'value': 0x08,
         'item_groups': ["Portal Unlocks", "North Forest Portal", "N Forest Portal", "Anouki Portal", "SW Snow Portal"],
-        "reload_entrances": [0x400, 0x500],
+        "reload_entrances": [0x400, 0x500], 
+        "id": 30,
     },
     "Portal Unlock: Trading Post to E Snow Realm": {
         'classification': ItemClassification.progression,
         # 'address': 0x265744,
         # 'value': 0x40,
         'item_groups': ["Portal Unlocks"],
-        "reload_entrances": [0x400, 0x500],
+        "reload_entrances": [0x400, 0x500], 
+        "id": 31,
     },
     "Portal Unlock: Desert Temple to Sand Realm": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
-        "reload_entrances": [0x600],
+        "reload_entrances": [0x600], 
+        "id": 32,
     },
     "Portal Unlock: Sand Valley to Marine Temple": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
-        "reload_entrances": [0x600, 0x700],
+        "reload_entrances": [0x600, 0x700], 
+        "id": 33,
     },
     "Portal Unlock: Forest Cave to Goron Village": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
-        "reload_entrances": [0x400, 0x700],
+        "reload_entrances": [0x400, 0x700], 
+        "id": 34,
     },
     "Portal Unlock: Icy Spring to Mountain Temple": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
-        "reload_entrances": [0x500, 0x700],
+        "reload_entrances": [0x500, 0x700], 
+        "id": 35,
     },
     "Portal Unlock: Mayscore to Ocean Portal Tracks": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
-        "reload_entrances": [0x400, 0x600],
+        "reload_entrances": [0x400, 0x600], 
+        "id": 36,
     },
     "Portal Unlock: Snow Bridge to Island Sanctuary": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
-        "reload_entrances": [0x500, 0x600],
+        "reload_entrances": [0x500, 0x600], 
+        "id": 37,
     },
 
     # ========== Rail Maps ============
@@ -316,44 +351,52 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x80,
         'item_groups': ["Glyphs", "Rail Items", "Forest Tracks", "Major Forest Tracks", "Tracks: Forest Glyph"],
         'model': "Forest Glyph 2",
-        "reload_entrances": [0x2F00],
+        "reload_entrances": [0x2F00], 
+        "id": 38,
     },
     "Snow Glyph": {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_2,
         'value': 0x01,
         'item_groups': ["Glyphs", "Rail Items", "Snow Tracks", "Major Snow Tracks", "Tracks: Snow Glyph"],
-        'model': "Snow Glyph",
+        'model': "Snow Glyph", 
+        "id": 39,
     },
     "Ocean Glyph": {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_2,
         'value': 0x02,
         'item_groups': ["Glyphs", "Rail Items", "Ocean Realm Tracks", "Major Ocean Tracks", "Tracks: Ocean Glyph"],
-        'model': "Ocean Glyph",
+        'model': "Ocean Glyph", 
+        "id": 40,
     },
     "Fire Glyph": {
         'classification': ItemClassification.progression,
         'address': STAddr.adv_flags_2,
         'value': 0x04,
         'item_groups': ["Glyphs", "Rail Items", "Fire Tracks", "Major Fire Tracks", "Tracks: Fire Glyph"],
-        'model': "Fire Glyph",
+        'model': "Fire Glyph", 
+        "id": 41,
     },
-    "Wooded Temple Tracks":{
+    "Wooded Temple Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x02,
         'item_groups': ["Restoration Tracks", "Rail Items", "Forest Tracks",
-                        "Forest Restoration", "Forest Realm Restoration", "Major Forest Tracks", "Tracks: Wooded Temple Tracks"],
-        'model': "Forest Glyph 2",
+                        "Forest Restoration", "Forest Realm Restoration", "Major Forest Tracks",
+                        "Tracks: Wooded Temple Tracks"],
+        'model': "Forest Glyph 2", 
+        "id": 42,
     },
     "Blizzard Temple Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x04,
         'item_groups': ["Restoration Tracks", "Rail Items", "Snow Tracks",
-                        "Snow Restoration", "Snow Realm Restoration", "Major Snow Tracks", "Tracks: Blizzard Temple Tracks"],
-        'model': "Snow Glyph 2",
+                        "Snow Restoration", "Snow Realm Restoration", "Major Snow Tracks",
+                        "Tracks: Blizzard Temple Tracks"],
+        'model': "Snow Glyph 2", 
+        "id": 43,
     },
     "Marine Temple Tracks": {
         'classification': ItemClassification.progression,
@@ -362,26 +405,31 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Restoration Tracks", "Rail Items", "Ocean Realm Tracks",
                         "Ocean Temple Tracks", "Ocean Restoration", "Ocean Realm Restoration",
                         "Major Ocean Tracks", "Tracks: Marine Temple Tracks"],
-        'model': "Ocean Glyph 3",
+        'model': "Ocean Glyph 3", 
+        "id": 44,
     },
     "Mountain Temple Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x10,
         'item_groups': ["Restoration Tracks", "Rail Items", "Fire Tracks", "Major Fire Tracks"
-                        "Fire Temple Tracks", "Fire Restoration", "Fire Realm Restoration", "Mountain Restoration",
+                                                                           "Fire Temple Tracks", "Fire Restoration",
+                        "Fire Realm Restoration", "Mountain Restoration",
                         "Tracks: Mountain Temple Tracks"],
         "set_bits": [(STAddr.adv_flags_1, 0x8)],
-        'model': "Fire Glyph 2",
+        'model': "Fire Glyph 2", 
+        "id": 45,
     },
     "Desert Temple Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.rail_restorations,
         'value': 0x20,
         'item_groups': ["Restoration Tracks", "Rail Items", "Desert Tracks", "Major Sand Tracks"
-                        "Desert Restoration", "Sand Temple Tracks", "Sand Restoration", "Sand Realm Restoration",
+                                                                             "Desert Restoration", "Sand Temple Tracks",
+                        "Sand Restoration", "Sand Realm Restoration",
                         "Tracks: Desert Temple Tracks"],
-        'model': "Ocean Glyph 3",
+        'model': "Ocean Glyph 3", 
+        "id": 46,
     },
     # Misc Tracks
     "Snowdrift Station Tracks": {
@@ -391,7 +439,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks",
                         "Snowdrift Tracks", "Minor Snow Tracks", "Tracks: Snowdrift Station"],
         "model": "Snow Glyph",
-        "vanilla_model": "Force Gem 51"
+        "vanilla_model": "Force Gem 51", 
+        "id": 47,
     },
     "Slippery Station Tracks": {
         'classification': ItemClassification.progression,
@@ -400,7 +449,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks",
                         "Slippery Tracks", "Minor Snow Tracks", "Tracks: Slippery Station"],
         "model": "Snow Glyph",
-        "vanilla_model": "Force Gem 54"
+        "vanilla_model": "Force Gem 54", 
+        "id": 48,
     },
     "Pirate Hideout Tracks": {
         'classification': ItemClassification.progression,
@@ -409,7 +459,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Ocean Realm Tracks", "Misc Tracks",
                         "Pirate Tracks", "Minor Ocean Tracks", "Tracks: Pirate Hideout"],
         "model": "Ocean Glyph",
-        "vanilla_model": "Force Gem 18"
+        "vanilla_model": "Force Gem 18", 
+        "id": 49,
     },
     "Lost at Sea Station Tracks": {
         'classification': ItemClassification.progression,
@@ -418,7 +469,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Ocean Realm Tracks", "Misc Tracks",
                         "LaS Tracks", "Lost at Sea Tracks", "Tracks: Lost at Sea Station"],
         "model": "Ocean Glyph",
-        "vanilla_model": "Force Gem 55"
+        "vanilla_model": "Force Gem 55", 
+        "id": 50,
     },
     "Forest Realm Ocean Shortcut Tracks": {
         'classification': ItemClassification.progression,
@@ -427,15 +479,18 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Forest Tracks", "Ocean Realm Tracks", "Misc Tracks",
                         "Minor Forest Tracks", "Minor Ocean Tracks", "Tracks: Forest Realm Ocean Shortcut"],
         "model": "Ocean Glyph",
-        "vanilla_model": "Force Gem 42"
+        "vanilla_model": "Force Gem 42", 
+        "id": 51,
     },
     "E Mayscore Bridge Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x04,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: E Mayscore Bridge"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks",
+                        "Tracks: E Mayscore Bridge"],
         "model": "Forest Glyph",
-        "vanilla_model": "Force Gem 43"
+        "vanilla_model": "Force Gem 43", 
+        "id": 52,
     },
     "Forest Realm SE Portal Tracks": {
         'classification': ItemClassification.progression,
@@ -444,7 +499,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks",
                         "Tracks: Forest Realm SE Portal"],
         "model": "Forest Glyph",
-        "vanilla_model": "Force Gem 44"
+        "vanilla_model": "Force Gem 44", 
+        "id": 53,
     },
     "W Castle Town Tracks": {
         'classification': ItemClassification.progression,
@@ -452,7 +508,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x20,
         'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: W Castle Town"],
         "model": "Forest Glyph",
-        "vanilla_model": "Force Gem 46"
+        "vanilla_model": "Force Gem 46", 
+        "id": 54,
     },
     "W Forest Realm Tracks": {
         'classification': ItemClassification.progression,
@@ -460,15 +517,18 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x40,
         'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: W Forest Realm"],
         "model": "Forest Glyph",
-        "vanilla_model": "Force Gem 47"
+        "vanilla_model": "Force Gem 47", 
+        "id": 55,
     },
     "Forest Realm SW Cave Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_0,
         'value': 0x80,
-        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks", "Tracks: Forest Realm SW Cave"],
+        'item_groups': ["Rail Items", "Forest Tracks", "Misc Tracks", "Minor Forest Tracks",
+                        "Tracks: Forest Realm SW Cave"],
         "model": "Forest Glyph",
-        "vanilla_model": "Force Gem 48"
+        "vanilla_model": "Force Gem 48", 
+        "id": 56,
     },
     "W Wooded Temple Tracks": {
         'classification': ItemClassification.progression,
@@ -477,7 +537,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks",
                         "Minor Snow Tracks", "Minor Forest Tracks", "Tracks: W Wooded Temple"],
         "model": "Forest Glyph",
-        "vanilla_model": "Force Gem 49"
+        "vanilla_model": "Force Gem 49", 
+        "id": 57,
     },
     "N Castle Town Tracks": {
         'classification': ItemClassification.progression,
@@ -486,16 +547,18 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks",
                         "Minor Snow Tracks", "Minor Forest Tracks", "Tracks: N Castle Town"],
         "model": "Forest Glyph",
-        "vanilla_model": "Force Gem 50"
+        "vanilla_model": "Force Gem 50", 
+        "id": 58,
     },
-    "Snow Realm Bridge Tracks": { # has portal to ocean realm
+    "Snow Realm Bridge Tracks": {  # has portal to ocean realm
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x08,
         'item_groups': ["Rail Items", "Forest Tracks", "Snow Tracks", "Misc Tracks",
                         "Minor Snow Tracks", "Minor Forest Tracks", "Tracks: Snow Realm Bridge"],
         "model": "Snow Glyph",
-        "vanilla_model": "Force Gem 52"
+        "vanilla_model": "Force Gem 52", 
+        "id": 59,
     },
     "N Icy Spring Tracks": {
         'classification': ItemClassification.progression,
@@ -503,21 +566,25 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x10,
         'item_groups': ["Rail Items", "Snow Tracks", "Misc Tracks", "Minor Snow Tracks", "Tracks: N Icy Spring"],
         "model": "Snow Glyph",
-        "vanilla_model": "Force Gem 53"
+        "vanilla_model": "Force Gem 53", 
+        "id": 60,
     },
     "Ocean Portal Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_1,
         'value': 0x80,
-        'item_groups': ["Rail Items", "Ocean Realm Tracks", "Misc Tracks", "Minor Ocean Tracks", "Tracks: Ocean Portal"],
+        'item_groups': ["Rail Items", "Ocean Realm Tracks", "Misc Tracks", "Minor Ocean Tracks",
+                        "Tracks: Ocean Portal"],
         "model": "Ocean Glyph",
-        "vanilla_model": "Force Gem 17"
+        "vanilla_model": "Force Gem 17", 
+        "id": 61,
     },
     "Sand Realm Tracks": {
         'classification': ItemClassification.progression,
         'address': STAddr.tracks_2,
         'value': 0x20,
         'item_groups': ["Rail Items", "Desert Tracks", "Misc Tracks", "Major Sand Tracks", "Tracks: Sand Realm"],
+        "id": 62,
     },
     "Fire Realm Sand Portal Tracks": {
         'classification': ItemClassification.progression,
@@ -527,7 +594,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
                         "Fire to Sand Connection Tracks", "Fire Realm Portal Tracks", "S Fire Realm Portal Tracks",
                         "Minor Fire Tracks", "Minor Sand Tracks", "Tracks: Fire Realm Sand Portal"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 19"
+        "vanilla_model": "Force Gem 19", 
+        "id": 63,
     },
     "Dark Ore Mine Tracks": {
         'classification': ItemClassification.progression,
@@ -536,7 +604,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Desert Tracks", "Fire Tracks", "Misc Tracks",
                         "Minor Sand Tracks", "Minor Fire Tracks", "Tracks: Dark Ore Mine"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 34"
+        "vanilla_model": "Force Gem 34", 
+        "id": 64,
     },
     "Ends of the Earth Tracks": {
         'classification': ItemClassification.progression,
@@ -544,7 +613,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x10,
         'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks", "Minor Fire Tracks", "Tracks: Ends of the Earth"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 45"
+        "vanilla_model": "Force Gem 45", 
+        "id": 65,
     },
     "Disorientation Station Tracks": {
         'classification': ItemClassification.progression,
@@ -553,7 +623,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Rail Items", "Fire Tracks", "Misc Tracks",
                         "Disorientation Tracks", "Minor Fire Tracks", "Tracks: Disorientation Station"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 36"
+        "vanilla_model": "Force Gem 36", 
+        "id": 66,
     },
     "Snow Realm Gorge Tracks": {
         'classification': ItemClassification.progression,
@@ -563,46 +634,51 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
                         "E Snow Realm Tracks", "W Fire Realm Tracks",
                         "Minor Snow Tracks", "Minor Fire Tracks", "Tracks: Snow Realm Gorge"],
         "model": "Fire Glyph",
-        "vanilla_model": "Force Gem 35"
+        "vanilla_model": "Force Gem 35", 
+        "id": 67,
     },
 
     # ========= Sources ==============
 
     "Forest Source": {
-      'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression,
         "address": STAddr.adv_flags_0,
         'value': 0x10,
         'set_bit': [[STAddr.source_rails, 2]],
         'item_groups': ["Rail Items", "Sources", "Forest Tracks", "Major Forest Tracks", "Tracks: Forest Source"],
         'model': "Forest Glyph",
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 68,
     },
     "Snow Source": {
-      'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression,
         "address": STAddr.adv_flags_0,
         'value': 0x20,
         'set_bit': [[STAddr.source_rails, 4]],
         'item_groups': ["Rail Items", "Sources", "Snow Tracks", "Major Snow Tracks", "Tracks: Snow Source"],
         'model': "Snow Glyph",
-        "reload_entrances": [0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 69,
     },
     "Ocean Source": {
-      'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression,
         "address": STAddr.adv_flags_0,
         'value': 0x40,
         'set_bit': [[STAddr.source_rails, 8], (STAddr.adv_flags_9, 0x40)],
         'item_groups': ["Rail Items", "Sources", "Ocean Realm Tracks", "Major Ocean Tracks", "Tracks: Ocean Source"],
         'model': "Ocean Glyph",
-        "reload_entrances": [0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 70,
     },
     "Fire Source": {
-      'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression,
         "address": STAddr.adv_flags_0,
         'value': 0x80,
         'set_bit': [[STAddr.source_rails, 0x10]],
         'item_groups': ["Rail Items", "Sources", "Fire Tracks", "Major Fire Tracks", "Tracks: Fire Source"],
         'model': "Fire Glyph",
-        "reload_entrances": [0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 71,
     },
     "Sand Source": {  # Only used for TEAO3 unlock?
         'classification': ItemClassification.progression,
@@ -610,7 +686,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x1,
         'set_bit': [[STAddr.source_rails, 0x20]],
         'item_groups': ["Sources", "Major Sand Tracks", "Tracks: Sand Source"],
-        'model': "Ocean Glyph",
+        'model': "Ocean Glyph", 
+        "id": 72,
     },
 
     # ========== Rabbits ============
@@ -620,35 +697,40 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Grass Rabbits", "Forest Rabbit"],
-        'model': "Rabbit Net",
+        'model': "Rabbit Net", 
+        "id": 73,
     },
     "Snow Rabbit": {
         'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Snow Rabbits"],
-        'model': "Rabbit Net",
+        'model': "Rabbit Net", 
+        "id": 74,
     },
     "Ocean Rabbit": {
         'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Ocean Rabbits"],
-        'model': "Rabbit Net",
+        'model': "Rabbit Net", 
+        "id": 75,
     },
     "Mountain Rabbit": {
         'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Mountain Rabbits", "Fire Rabbit"],
-        'model': "Rabbit Net",
+        'model': "Rabbit Net", 
+        "id": 76,
     },
     "Sand Rabbit": {
         'classification': ItemClassification.progression_deprioritized,
         "tags": ["rabbit"],
         'dummy': True,
         "item_groups": ["Sand Rabbits", "Desert Rabbit"],
-        'model': "Rabbit Net",
+        'model': "Rabbit Net", 
+        "id": 77,
     },
 }
 
@@ -659,11 +741,13 @@ ITEMS_DATA |= {
         'dummy': True,
         'value': n,
         "item_groups": [f"{realm} Rabbits"],
-        'model': "Rabbit Net",
-    } for n in list(range(2, 6)) + [10] for realm in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
+        'model': "Rabbit Net", 
+        "id": 79,
+    } for i, n in enumerate(list(range(2, 6)) + [10], start=78) for realm in
+    ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
 }
 
-    # ========== Rupees and filler =============
+# ========== Rupees and filler =============
 ITEMS_DATA |= {
     "Green Rupee (1)": {
         'classification': ItemClassification.filler,
@@ -672,7 +756,8 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         'item_groups': ["Small Rupees"],
 
-        "model": "Green Rupee"
+        "model": "Green Rupee", 
+        "id": 103,
     },
     "Blue Rupee (5)": {
         'classification': ItemClassification.filler,
@@ -681,7 +766,8 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         'item_groups': ["Small Rupees"],
 
-        "model": "Blue Rupee"
+        "model": "Blue Rupee", 
+        "id": 104,
     },
     "Red Rupee (20)": {
         'classification': ItemClassification.filler,
@@ -690,7 +776,8 @@ ITEMS_DATA |= {
         "tags": ["incremental"],
         'item_groups': ["Small Rupees"],
 
-        "model": "Red Rupee"
+        "model": "Red Rupee", 
+        "id": 105,
     },
     "Big Green Rupee (100)": {
         'classification': ItemClassification.progression_deprioritized,
@@ -699,7 +786,8 @@ ITEMS_DATA |= {
         "tags": ["incremental", 'backup_filler'],
         'item_groups': ["Big Rupees"],
 
-        "model": "Big Green Rupee"
+        "model": "Big Green Rupee", 
+        "id": 106,
     },
     "Big Red Rupee (200)": {
         'classification': ItemClassification.progression_deprioritized,
@@ -708,7 +796,8 @@ ITEMS_DATA |= {
         "tags": ["incremental", 'backup_filler'],
         'item_groups': ["Big Rupees"],
 
-        "model": "Big Red Rupee"
+        "model": "Big Red Rupee", 
+        "id": 107,
     },
     "Gold Rupee (300)": {
         'classification': ItemClassification.progression_deprioritized,
@@ -717,7 +806,8 @@ ITEMS_DATA |= {
         "tags": ["incremental", 'backup_filler'],
         'item_groups': ["Big Rupees"],
 
-        "model": "Gold Rupee"
+        "model": "Gold Rupee", 
+        "id": 108,
     },
     "Pre-Alpha Rupee (5000)": {
         'classification': ItemClassification.progression_deprioritized,
@@ -725,42 +815,48 @@ ITEMS_DATA |= {
         'value': 5000,
         "tags": ["incremental"],
 
-        "model": "Gold Rupee"
+        "model": "Gold Rupee", 
+        "id": 109,
     },
     "Train Part": {
         'classification': ItemClassification.filler,
-        'train_part': True
+        'train_part': True, 
+        "id": 110,
     },
     "Red Potion": {
         'classification': ItemClassification.filler,
-        'address': STAddr.potion_0, #this is potion slot 1
+        'address': STAddr.potion_0,  #this is potion slot 1
         'value': 1,
         'overflow_item': "Big Green Rupee (100)",
         'item_groups': ["Potions"],
         'tags': ["always_process"],
-        "model": "Red Potion"
+        "model": "Red Potion", 
+        "id": 111,
     },
     "Purple Potion": {
         'classification': ItemClassification.filler,
-        'address': STAddr.potion_0, #this is potion slot 1
+        'address': STAddr.potion_0,  #this is potion slot 1
         'value': 2,
         'overflow_item': "Big Green Rupee (100)",
         'item_groups': ["Potions"],
         'tags': ["always_process"],
-        "model": "Purple Potion"
+        "model": "Purple Potion", 
+        "id": 112,
     },
     "Yellow Potion": {
         'classification': ItemClassification.filler,
-        'address': STAddr.potion_0, #this is potion slot 1
+        'address': STAddr.potion_0,  #this is potion slot 1
         'value': 3,
         'overflow_item': "Big Red Rupee (200)",
         'item_groups': ["Potions"],
         'tags': ["always_process"],
-        "model": "Yellow Potion"
+        "model": "Yellow Potion", 
+        "id": 113,
     },
     "Nothing!": {
         'classification': ItemClassification.filler,
-        'dummy': True,
+        'dummy': True, 
+        "id": 114,
     },
     "Refill: Bombs": {
         'classification': ItemClassification.filler,
@@ -769,7 +865,8 @@ ITEMS_DATA |= {
         "refill": "Bombs (Progressive)",
         "tags": ["incremental"],
         'item_groups': ["Refill Items", "Ammo Items"],
-        'model': "Bomb Refill"
+        'model': "Bomb Refill", 
+        "id": 115,
     },
     "Refill: Arrows": {
         'classification': ItemClassification.filler,
@@ -778,146 +875,166 @@ ITEMS_DATA |= {
         "refill": "Bow (Progressive)",
         "tags": ["incremental"],
         'item_groups': ["Refill Items", "Ammo Items"],
-        'model': "Arrow Refill"
+        'model': "Arrow Refill", 
+        "id": 116,
     },
 
     # ========= Treasure =============
 
     "Treasure": {
         'classification': ItemClassification.filler,
-        'dummy': True
+        'dummy': True, 
+        "id": 117,
     },
     "Treasure: Demon Fossil": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.demon_fossil_count,
         'item_groups': ["Common Treasures", "Demon Fossil"],
-        'model': "Demon Fossil"
+        'model': "Demon Fossil", 
+        "id": 118,
     },
     "Treasure: Stalfos Skull": {
         'classification': ItemClassification.filler,
         'address': STAddr.stalfos_skull_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Common Treasures", "Stalfos Skull"],
-        'model': "Stalfos Skull"
+        'model': "Stalfos Skull", 
+        "id": 119,
     },
     "Treasure: Star Fragment": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.star_fragment_count,
         'item_groups': ["Common Treasures", "Star Fragment"],
-        'model': "Star Fragment"
+        'model': "Star Fragment", 
+        "id": 120,
     },
     "Treasure: Bee Larvae": {
         'classification': ItemClassification.filler,
         'address': STAddr.bee_larvae_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Common Treasures", "Bee Larvae"],
-        'model': "Bee Larvae"
+        'model': "Bee Larvae", 
+        "id": 121,
     },
     "Treasure: Wood Heart": {
         'classification': ItemClassification.filler,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.wood_heart_count,
         'item_groups': ["Common Treasures", "Wood Heart"],
-        'model': "Wood Heart"
+        'model': "Wood Heart", 
+        "id": 122,
     },
     "Treasure: Dark Pearl Loop": {
         'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.dark_pearl_loop_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Uncommon Treasures", "Dark Pearl Loop"],
-        'model': "Dark Pearl Loop"
+        'model': "Dark Pearl Loop", 
+        "id": 123,
     },
     "Treasure: White Pearl Loop": {
         'classification': ItemClassification.progression_deprioritized,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.white_pearl_loop_count,
         'item_groups': ["Uncommon Treasures", "White Pearl Loop", "Pearl Loop"],
-        'model': "White Pearl Loop"
+        'model': "White Pearl Loop", 
+        "id": 124,
     },
     "Treasure: Ruto Crown": {
         'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.ruto_crown_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Uncommon Treasures", "Ruto Crown"],
-        'model': "Ruto Crown"
+        'model': "Ruto Crown", 
+        "id": 125,
     },
     "Treasure: Dragon Scale": {
         'classification': ItemClassification.progression_deprioritized,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.dragon_scale_count,
         'item_groups': ["Uncommon Treasures", "Dragon Scale"],
-        'model': "Dragon Scale"
+        'model': "Dragon Scale", 
+        "id": 126,
     },
     "Treasure: Pirate's Necklace": {
         'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.pirates_necklace_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Uncommon Treasures", "Pirate Necklace"],
-        'model': "Pirate Necklace"
+        'model': "Pirate Necklace", 
+        "id": 127,
     },
     "Treasure: Palace Dish": {
         'classification': ItemClassification.progression_deprioritized,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'address': STAddr.palace_dish_count,
         'item_groups': ["Rare Treasures", "Palace Dish"],
-        'model': "Palace Dish"
+        'model': "Palace Dish", 
+        "id": 128,
     },
     "Treasure: Goron Amber": {
         'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.goron_amber_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Rare Treasures", "Goron Amber"],
-        'model': "Goron Amber"
+        'model': "Goron Amber", 
+        "id": 129,
     },
     "Treasure: Mystic Jade": {
         'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.mystic_jade_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Rare Treasures", "Mystic Jade"],
-        'model': "Mystic Jade"
+        'model': "Mystic Jade", 
+        "id": 130,
     },
     "Treasure: Ancient Coin": {
         'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.ancient_coin_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Rare Treasures", "Ancient Coin"],
-        'model': "Ancient Coin"
+        'model': "Ancient Coin", 
+        "id": 131,
     },
     "Treasure: Priceless Stone": {
         'classification': ItemClassification.progression,
         'address': STAddr.priceless_stone_count,
         "tags": ['treasure', 'backup_filler', 'incremental'],
         'item_groups': ["Super Rare Treasures", "Priceless Stone", "Alchemy Stone"],
-        'model': "Alchemy Stone"
+        'model': "Alchemy Stone", 
+        "id": 132,
     },
     "Treasure: Regal Ring": {
         'classification': ItemClassification.progression,
         'address': STAddr.regal_ring_count,
         "tags": ['treasure', 'incremental'],
         'item_groups': ["Super Rare Treasures", "Regal Ring"],
-        'model': "Regal Ring"
+        'model': "Regal Ring", 
+        "id": 133,
     },
 
     # =========== Keys ============
 
-     "Small Key (Tunnel to ToS)": {
+    "Small Key (Tunnel to ToS)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x18,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
-        "model": "Key"
-     },
+        "model": "Key", 
+        "id": 134,
+    },
     "Small Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x19,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
-         "model": "Key"
-     },
+        "model": "Key", 
+        "id": 135,
+    },
     "Keyring (Wooded Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
@@ -925,15 +1042,17 @@ ITEMS_DATA |= {
         'value': 2,
         "tags": ["incremental"],
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 136,
     },
     "Small Key (ToS)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x13,
-         "tags": ["incremental"],
+        "tags": ["incremental"],
         'item_groups': ["Small Keys", "Small Key ToS"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 137,
     },
     "Small Key (ToS 2)": {
         'classification': ItemClassification.progression,
@@ -943,7 +1062,8 @@ ITEMS_DATA |= {
         "rooms": [3, 4, 5, 6, 0x29],
         "section": 2,
         'item_groups': ["Small Keys", "Small Key ToS"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 138,
     },
     "Keyring (ToS 2)": {
         'classification': ItemClassification.progression,
@@ -954,7 +1074,8 @@ ITEMS_DATA |= {
         "section": 2,
         'value': 2,
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 139,
     },
     "Small Key (ToS 4)": {
         'classification': ItemClassification.progression,
@@ -964,7 +1085,8 @@ ITEMS_DATA |= {
         "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
         "section": 4,
         'item_groups': ["Small Keys", "Small Key ToS"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 140,
     },
     "Keyring (ToS 4)": {
         'classification': ItemClassification.progression,
@@ -975,7 +1097,8 @@ ITEMS_DATA |= {
         "section": 4,
         'value': 3,
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 141,
     },
     "Small Key (ToS 5)": {
         'classification': ItemClassification.progression,
@@ -985,7 +1108,8 @@ ITEMS_DATA |= {
         "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
         "section": 5,
         'item_groups': ["Small Keys", "Small Key ToS"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 142,
     },
     "Keyring (ToS 5)": {
         'classification': ItemClassification.progression,
@@ -996,7 +1120,8 @@ ITEMS_DATA |= {
         "section": 5,
         'value': 2,
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 143,
     },
     "Small Key (ToS 6)": {
         'classification': ItemClassification.progression,
@@ -1006,7 +1131,8 @@ ITEMS_DATA |= {
         "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         "section": 6,
         'item_groups': ["Small Keys", "Small Key ToS"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 144,
     },
     "Keyring (ToS 6)": {
         'classification': ItemClassification.progression,
@@ -1017,15 +1143,17 @@ ITEMS_DATA |= {
         "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         "section": 6,
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 145,
     },
     "Small Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'address': STAddr.small_keys,
         'dungeon': 0x1A,
-         "tags": ["incremental"],
+        "tags": ["incremental"],
         'item_groups': ["Small Keys"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 146,
     },
     "Keyring (Blizzard Temple)": {
         'classification': ItemClassification.progression,
@@ -1034,7 +1162,8 @@ ITEMS_DATA |= {
         'value': 1,
         "tags": ["incremental"],
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 147,
     },
     "Small Key (Marine Temple)": {
         'classification': ItemClassification.progression,
@@ -1042,7 +1171,8 @@ ITEMS_DATA |= {
         'dungeon': 0x1B,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 148,
     },
     "Keyring (Marine Temple)": {
         'classification': ItemClassification.progression,
@@ -1051,7 +1181,8 @@ ITEMS_DATA |= {
         'value': 2,
         "tags": ["incremental"],
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 149,
     },
     "Small Key (Mountain Temple)": {
         'classification': ItemClassification.progression,
@@ -1059,7 +1190,8 @@ ITEMS_DATA |= {
         'dungeon': 0x1C,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 150,
     },
     "Keyring (Mountain Temple)": {
         'classification': ItemClassification.progression,
@@ -1068,7 +1200,8 @@ ITEMS_DATA |= {
         'value': 3,
         "tags": ["incremental"],
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 151,
     },
     "Small Key (Desert Temple)": {
         'classification': ItemClassification.progression,
@@ -1076,7 +1209,8 @@ ITEMS_DATA |= {
         'dungeon': 0x1D,
         "tags": ["incremental"],
         'item_groups': ["Small Keys"],
-         "model": "Key"
+        "model": "Key", 
+        "id": 152,
     },
     "Keyring (Desert Temple)": {
         'classification': ItemClassification.progression,
@@ -1085,84 +1219,97 @@ ITEMS_DATA |= {
         'value': 2,
         "tags": ["incremental"],
         'item_groups': ["Keyrings"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 153,
     },
     "Boss Key (Blizzard Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys", "Blizzard Temple Boss Key"],
         "dummy": True,
-        "model": "Boss Key"
+        "model": "Boss Key", 
+        "id": 154,
     },
     "Boss Key (Wooded Temple)": {
         'classification': ItemClassification.progression,
         'dungeon': 0x19,
         'item_groups': ["Boss Keys", "Wooded Temple Boss Key", "Forest Temple Boss Key", "Boss Key Forest Temple"],
         "dummy": True,
-        "model": "Boss Key"
+        "model": "Boss Key", 
+        "id": 155,
     },
     "Boss Key (Marine Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys", "Ocean Temple Boss Key", "Marine Temple Boss Key", "Boss Key Ocean Temple"],
         "dummy": True,
-        "model": "Boss Key"
+        "model": "Boss Key", 
+        "id": 156,
     },
     "Boss Key (Mountain Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys", "Mountain Temple Boss Key", "Boss Key Fire Temple", "Fire Temple Boss Key"],
         "dummy": True,
-        "model": "Boss Key"
+        "model": "Boss Key", 
+        "id": 157,
     },
     "Boss Key (Desert Temple)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys", "Desert Temple Boss Key", "Boss Key Sand Temple", "Sand Temple Boss Key"],
         "dummy": True,
-        "model": "Boss Key"
+        "model": "Boss Key", 
+        "id": 158,
     },
     "Boss Key (ToS 3)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys", "Boss Key (ToS)"],
         "dummy": True,
-        "model": "Boss Key"
+        "model": "Boss Key", 
+        "id": 159,
     },
     "Boss Key (ToS 5)": {
         'classification': ItemClassification.progression,
         'item_groups': ["Boss Keys", "Boss Key (ToS)"],
         "dummy": True,
-        "model": "Boss Key"
+        "model": "Boss Key", 
+        "id": 160,
     },
     "Mountain Temple Snurglar Key": {
         'classification': ItemClassification.progression,
         'dummy': True,
         'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 161,
     },
     "Orange Snurglar Key": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x02,
         'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 162,
     },
     "Purple Snurglar Key": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x04,
         'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 163,
     },
     "Gold Snurglar Key": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x08,
         'item_groups': ["Misc Keys", "Snurglar Key"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 164,
     },
     "Snurglar Keyring": {
         'classification': ItemClassification.progression,
         "address": STAddr.snurglin_keys,
         "value": 0x08,
         'item_groups': ["Keyrings", "Snurglar Key"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 165,
     },
 
     # Tears
@@ -1172,7 +1319,8 @@ ITEMS_DATA |= {
         'value': 1,
         "tags": ["always_process"],
         'item_groups': ["Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 166,
     },
     "Tear of Light (ToS 1)": {
         'classification': ItemClassification.progression,
@@ -1180,7 +1328,8 @@ ITEMS_DATA |= {
         "rooms": [0, 1, 0x28],
         "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 167,
     },
     "Tear of Light (ToS 2)": {
         'classification': ItemClassification.progression,
@@ -1188,7 +1337,8 @@ ITEMS_DATA |= {
         "rooms": [3, 4, 5, 0x29],
         "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 168,
     },
     "Tear of Light (ToS 3)": {
         'classification': ItemClassification.progression,
@@ -1196,7 +1346,8 @@ ITEMS_DATA |= {
         "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A],
         "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 169,
     },
     "Tear of Light (ToS 4)": {
         'classification': ItemClassification.progression,
@@ -1204,7 +1355,8 @@ ITEMS_DATA |= {
         "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
         "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 170,
     },
     "Tear of Light (ToS 5)": {
         'classification': ItemClassification.progression,
@@ -1212,7 +1364,8 @@ ITEMS_DATA |= {
         "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
         "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 171,
     },
     "Tear of Light (ToS 6)": {
         'classification': ItemClassification.progression,
@@ -1220,7 +1373,8 @@ ITEMS_DATA |= {
         "tags": ["always_process"],
         "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 172,
     },
     "Tear of Light (All Sections)": {
         'classification': ItemClassification.progression,
@@ -1228,13 +1382,15 @@ ITEMS_DATA |= {
         "rooms": range(0x30),
         'item_groups': ["Universal Tears of Light", "Small Tears of Light",
                         "Tear of Light (Global)"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 173,
     },
     "Tear of Light (Progressive)": {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
         'item_groups': ["Progressive Tears of Light", "Small Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 174,
     },
     "Big Tear of Light (ToS 1)": {
         'classification': ItemClassification.progression,
@@ -1242,7 +1398,8 @@ ITEMS_DATA |= {
         'value': 3,
         "rooms": [0, 1, 0x28],
         'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 175,
     },
     "Big Tear of Light (ToS 2)": {
         'classification': ItemClassification.progression,
@@ -1250,7 +1407,8 @@ ITEMS_DATA |= {
         'value': 3,
         "rooms": [3, 4, 5, 0x29],
         'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 176,
     },
     "Big Tear of Light (ToS 3)": {
         'classification': ItemClassification.progression,
@@ -1258,7 +1416,8 @@ ITEMS_DATA |= {
         'value': 3,
         "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A],
         'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 177,
     },
     "Big Tear of Light (ToS 4)": {
         'classification': ItemClassification.progression,
@@ -1266,7 +1425,8 @@ ITEMS_DATA |= {
         'value': 3,
         "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
         'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 178,
     },
     "Big Tear of Light (ToS 5)": {
         'classification': ItemClassification.progression,
@@ -1274,7 +1434,8 @@ ITEMS_DATA |= {
         'value': 3,
         "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
         'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 179,
     },
     "Big Tear of Light (ToS 6)": {
         'classification': ItemClassification.progression,
@@ -1282,14 +1443,16 @@ ITEMS_DATA |= {
         'value': 3,
         "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         'item_groups': ["Unique Tears of Light", "Big Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 180,
     },
     "Big Tear of Light (Progressive)": {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
         'value': 3,
         'item_groups': ["Progressive Tears of Light", "Big Tears of Light"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 181,
     },
     "Big Tear of Light (All Sections)": {
         'classification': ItemClassification.progression,
@@ -1298,7 +1461,8 @@ ITEMS_DATA |= {
         "value": 3,
         'item_groups': ["Universal Tears of Light", "Big Tears of Light",
                         "Big Tear of Light (Global)"],
-        'model': "Tear of Light"
+        'model': "Tear of Light", 
+        "id": 182,
     },
 
     # Trade Quest and misc
@@ -1308,50 +1472,58 @@ ITEMS_DATA |= {
     # Trains
     "Train: Bright Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 1
+        "tags": ["backup_filler"],
+        'train': 1, 
+        "id": 183,
     },
     "Train: Iron Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 2
+        "tags": ["backup_filler"],
+        'train': 2, 
+        "id": 184,
     },
     "Train: Stone Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 3
+        "tags": ["backup_filler"],
+        'train': 3, 
+        "id": 185,
     },
     "Train: Vintage Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 4
+        "tags": ["backup_filler"],
+        'train': 4, 
+        "id": 186,
     },
     "Train: Demon Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 5
+        "tags": ["backup_filler"],
+        'train': 5, 
+        "id": 187,
     },
     "Train: Tropical Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 6
+        "tags": ["backup_filler"],
+        'train': 6, 
+        "id": 188,
     },
     "Train: Dignified Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 7
+        "tags": ["backup_filler"],
+        'train': 7, 
+        "id": 189,
     },
     "Train: Golden Train": {
         'classification': ItemClassification.useful,
-         "tags": ["backup_filler"],
-        'train': 8
+        "tags": ["backup_filler"],
+        'train': 8, 
+        "id": 190,
     },
 
     "_UT_Glitched_Logic": {  # Shows yellow logic in UT
         "classification": ItemClassification.progression,
-        "dummy": True,
+        "dummy": True, 
+        "id": 191,
     },
-
 
     # IDs are not fixed yet, but determined by order. Put new items here until an update that breaks compatibility, and move them then.
     "Tower of Spirits Base": {
@@ -1359,42 +1531,48 @@ ITEMS_DATA |= {
         "dummy": True,
         'item_groups': ["Tower of Spirit Unlocks"],
         "model": "Forest Glyph",
-        "reload_entrances": [0x400, 0x500, 0x600, 0x700],
+        "reload_entrances": [0x400, 0x500, 0x600, 0x700], 
+        "id": 192,
     },
     "Progressive ToS Section": {
         "classification": ItemClassification.progression,
         "dummy": True,
         'item_groups': ["Tower of Spirit Unlocks"],
         "model": "Forest Glyph",
-        "reload_entrances": [0x400, 0x500, 0x600, 0x700],
+        "reload_entrances": [0x400, 0x500, 0x600, 0x700], 
+        "id": 193,
     },
     # Overworld eventy things
     "Repair Trading Post Bridge": {
         "classification": ItemClassification.progression,
         "address": STAddr.adv_flags_17,
         "value": 0x10,
-        "model": "Forest Glyph"
+        "model": "Forest Glyph", 
+        "id": 194,
     },
     "Snowfall Sanctuary Cave Key": {
         "classification": ItemClassification.progression,
         "address": STAddr.adv_flags_b,
         "value": 0x10,
         "item_groups": ["Misc Keys"],
-        "model": "Key"
+        "model": "Key", 
+        "id": 195,
     },
     "Prize Postcards (10)": {
         "classification": ItemClassification.filler,
         "address": STAddr.postcard_count,
         "value": 10,
         "tags": ["incremental"],
-        "model": "Prize Postcards"
+        "model": "Prize Postcards", 
+        "id": 196,
     },
     "Wagon": {  # US Freight Car, Neutral Something else?
         "classification": ItemClassification.progression,
         "address": STAddr.adv_flags_4,
         "value": 0x2,
         'item_groups': ["Train Items"],
-        'model': "Engineer's Clothes",
+        'model': "Engineer's Clothes", 
+        "id": 197,
     },
     # Passengers
     "Passenger: Kenzo": {
@@ -1403,7 +1581,8 @@ ITEMS_DATA |= {
         "item_groups": ["Passengers", "Kenzo"],
         "address": STAddr.adv_flags_18,
         "value": 0x20,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 198,
     },
     "Passenger: Kenzo 2": {
         "classification": ItemClassification.progression,
@@ -1411,7 +1590,8 @@ ITEMS_DATA |= {
         "item_groups": ["Passengers", "Kenzo"],
         "address": STAddr.adv_flags_3c,
         "value": 0x10,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 199,
     },
     "Passenger: Joe": {
         "classification": ItemClassification.progression,
@@ -1419,7 +1599,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3c,
         "value": 0x2,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 200,
     },
     "Passenger: Noko": {
         "classification": ItemClassification.progression,
@@ -1427,7 +1608,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3a,
         "value": 0x10,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 201,
     },
     "Passenger: Mona": {
         "classification": ItemClassification.progression,
@@ -1435,7 +1617,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3b,
         "value": 0x20,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 202,
     },
     "Passenger: Ferrus": {
         "classification": ItemClassification.progression,
@@ -1443,7 +1626,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3a,
         "value": 0x80,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 203,
     },
     "Passenger: Alfonzo": {
         "classification": ItemClassification.progression,
@@ -1451,7 +1635,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_11,
         "value": 0x40,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 204,
     },
     "Passenger: Dovok": {
         "classification": ItemClassification.progression,
@@ -1459,7 +1644,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_36,
         "value": 0x4,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 205,
     },
     "Passenger: Snow Goron": {
         "classification": ItemClassification.progression,
@@ -1467,7 +1653,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_38,
         "value": 0x2,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 206,
     },
     "Passenger: City Goron": {
         "classification": ItemClassification.progression,
@@ -1475,7 +1662,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_3a,
         "value": 0x1,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 207,
     },
     "Passenger: Teacher": {
         "classification": ItemClassification.filler,
@@ -1483,7 +1671,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_42,
         "value": 0x10,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 208,
     },
     "Passenger: Kofu": {
         "classification": ItemClassification.progression,
@@ -1491,7 +1680,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_37,
         "value": 0x20,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 209,
     },
     "Passenger: Carben": {
         "classification": ItemClassification.progression,
@@ -1499,7 +1689,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_9,
         "value": 0x10,
-        "model": "Letter",
+        "model": "Letter", 
+        "id": 210,
     },
     "Passenger: Wadatsumi": {
         "classification": ItemClassification.progression,
@@ -1507,7 +1698,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_34,
         "value": 0x40,
-        "model": "Letter",
+        "model": "Letter", 
+        "id": 211,
     },
     "Passenger: Wood": {
         "classification": ItemClassification.filler,
@@ -1515,7 +1707,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_36,
         "value": 0x2,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 212,
     },
     "Passenger: Morris": {
         "classification": ItemClassification.filler,
@@ -1523,7 +1716,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_35,
         "value": 0x80,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 213,
     },
     "Passenger: Yamahiko": {
         "classification": ItemClassification.filler,
@@ -1531,7 +1725,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_35,
         "value": 0x40,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 214,
     },
     "Passenger: Mash": {
         "classification": ItemClassification.filler,
@@ -1539,7 +1734,8 @@ ITEMS_DATA |= {
         'tags': ["always_process"],
         "address": STAddr.adv_flags_36,
         "value": 0x1,
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 215,
     },
 
     # Cargo
@@ -1547,48 +1743,56 @@ ITEMS_DATA |= {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Lumber", "Wood", "Logs", "Timber"],
         'tags': ["always_process"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 216,
     },
     "Cargo: Mega Ice": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Mega Ice", "Ice"],
         'tags': ["always_process"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 217,
     },
     "Cargo: Goron Steel": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Goron Steel", "Steel", "Goron Iron", "Iron"],
         'tags': ["always_process"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 218,
     },
     "Cargo: Fish": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Fish"],
         'tags': ["always_process"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 219,
     },
     "Cargo: Vessel": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Vessel", "Pot", "Vase"],
         'tags': ["always_process"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 220,
     },
     "Cargo: Cuccos": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Cuccos"],
         'tags': ["always_process"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 221,
     },
     "Cargo: Cuccos (5)": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Cuccos", "Cuccos (5)"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 222,
     },
     "Cargo: Dark Ore": {
         "classification": ItemClassification.progression,
         "item_groups": ["Cargo", "Dark Ore", "Ore"],
         'tags': ["always_process"],
-        "model": "Letter"
+        "model": "Letter", 
+        "id": 223,
     },
 
     # Stamps
@@ -1596,145 +1800,169 @@ ITEMS_DATA |= {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 1,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 224,
     },
     "Stamp: Outset Village": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 2,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 225,
     },
     "Stamp: Mayscore": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 3,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 226,
     },
     "Stamp: Woodland Sanctuary": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 4,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 227,
     },
     "Stamp: Anouki Village": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 5,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 228,
     },
     "Stamp: Snowfall Sanctuary": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 6,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 229,
     },
     "Stamp: Papuzia Village": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 7,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 230,
     },
     "Stamp: Island Sanctuary": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 8,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 231,
     },
     "Stamp: Goron Village": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 9,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 232,
     },
     "Stamp: Valley Sanctuary": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xA,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 233,
     },
     "Stamp: Dune Sanctuary": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xB,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 234,
     },
     "Stamp: Wooded Temple": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xC,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 235,
     },
     "Stamp: Blizzard Temple": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xD,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 236,
     },
     "Stamp: Marine Temple": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xE,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 237,
     },
     "Stamp: Mountain Temple": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xF,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 238,
     },
     "Stamp: Desert Temple": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x10,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 239,
     },
     "Stamp: Pirate Hideout": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x11,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 240,
     },
     "Stamp: Trading Post": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x12,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 241,
     },
     "Stamp: Icy Spring": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x13,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 242,
     },
     "Stamp: Tower of Spirits": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 243,
     },
     "Stamp Pack (2)": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamp Packs"],
         "value": 2,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 244,
     },
     "Stamp Pack (3)": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamp Packs"],
         "value": 3,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 245,
     },
     "Stamp Pack (4)": {
         "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamp Packs"],
         "value": 4,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 246,
     },
     "Stamp Pack (5)": {
         "classification": ItemClassification.progression,
         "item_groups": ["Stamp Packs"],
         "value": 5,
-        "model": "Stamp Book"
+        "model": "Stamp Book", 
+        "id": 247,
     },
     # Custom Track Combinations
     "Western Forest Tracks": {
@@ -1744,7 +1972,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.tracks_1, 0x1)],
         'model': "Forest Glyph",
         "item_groups": ["Tracks: W Wooded Temple", "Tracks: W Forest Realm", "Tracks: Forest Realm SW Cave",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 248,
     },
     "Anouki Village Tracks": {
         'classification': ItemClassification.progression,
@@ -1753,7 +1982,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.tracks_1, 0x9)],
         'model': "Snow Glyph",
         "item_groups": ["Tracks: Snow Glyph", "Tracks: Snow Realm Bridge", "Tracks: W Wooded Temple",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 249,
     },
     "Thawland Tracks": {
         'classification': ItemClassification.progression,
@@ -1765,7 +1995,8 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Snow Source", "Tracks: N Castle Town", "Tracks: Blizzard Temple Tracks",
                         "Tracks: Snow Realm Gorge", "Tracks: N Icy Spring",
                         "Thematic Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 250,
     },
     "Blizzard Tracks": {
         'classification': ItemClassification.progression,
@@ -1776,18 +2007,21 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Blizzard Temple Tracks", "Tracks: Snowdrift Station",
                         "Tracks: Slippery Station", "Tracks: Snow Source",
                         "Thematic Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 251,
     },
     "Castle Tracks": {
         'classification': ItemClassification.progression,
         "address": STAddr.restorations,
         "value": 0x80,
-        "set_bit": [(STAddr.tracks_1, 0x2), (STAddr.tracks_0, 0x20), (STAddr.source_rails, 0x2), (STAddr.sources, 0x10),],
+        "set_bit": [(STAddr.tracks_1, 0x2), (STAddr.tracks_0, 0x20), (STAddr.source_rails, 0x2),
+                    (STAddr.sources, 0x10), ],
         'model': "Forest Glyph",
         "item_groups": ["Tracks: N Castle Town", "Tracks: Forest Glyph", "Tracks: W Castle Town Tracks",
                         "Tracks: Forest Source",
                         "Thematic Track Groupings"],
-        "reload_entrances": [0x2f00, 0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x2f00, 0x1400, 0x1401, 0x1700], 
+        "id": 252,
     },
     "Woodland Tracks": {
         'classification': ItemClassification.progression,
@@ -1798,7 +2032,8 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Wooded Temple Tracks", "Tracks: Forest Glyph", "Tracks: W Wooded Temple",
                         "Tracks: W Castle Town",
                         "Thematic Track Groupings"],
-        "reload_entrances": [0x2f00],
+        "reload_entrances": [0x2f00], 
+        "id": 253,
     },
     "Borderlands Tracks": {
         'classification': ItemClassification.progression,
@@ -1806,7 +2041,8 @@ ITEMS_DATA |= {
         "value": 0x0b,
         'model': "Snow Glyph",
         "item_groups": ["Tracks: N Castle Town", "Tracks: Snow Realm Bridge", "Tracks: W Wooded Temple",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 254,
     },
     "Coastal Tracks": {
         'classification': ItemClassification.progression,
@@ -1816,7 +2052,8 @@ ITEMS_DATA |= {
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Glyph", "Tracks: E Mayscore Bridge", "Tracks: Forest Realm SE Portal",
                         "Tracks: Forest Realm Ocean Shortcut",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 255,
     },
     "Pirate Tracks": {
         'classification': ItemClassification.progression,
@@ -1825,7 +2062,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.tracks_0, 0x2), (STAddr.tracks_1, 0x80)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Forest Realm Ocean Shortcut", "Tracks: Pirate Hideout", "Tracks: Ocean Portal",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 256,
     },
     "Ocean Tracks": {
         'classification': ItemClassification.progression,
@@ -1837,7 +2075,8 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Lost at Sea Station",
                         "Tracks: Ocean Portal",
                         "Thematic Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 257,
     },
     "Island Tracks": {
         'classification': ItemClassification.progression,
@@ -1846,7 +2085,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.tracks_1, 0x40), (STAddr.tracks_2, 0x1)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Lost at Sea Station", "Tracks: Ocean Glyph", "Tracks: Pirate Hideout",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 258,
     },
     "Valley Tracks": {
         'classification': ItemClassification.progression,
@@ -1855,7 +2095,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.tracks_2, 0x18)],
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Disorientation Station", "Tracks: Fire Glyph", "Tracks: Snow Realm Gorge",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 259,
     },
     "Mountain Tracks": {
         'classification': ItemClassification.progression,
@@ -1865,7 +2106,8 @@ ITEMS_DATA |= {
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Mountain Temple Tracks", "Tracks: Ends of the Earth", "Tracks: Dark Ore Mine",
                         "Tracks: Desert Temple Tracks",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 260,
     },
     "Arid Tracks": {
         'classification': ItemClassification.progression,
@@ -1876,7 +2118,8 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Fire Source", "Tracks: Fire Realm Sand Portal", "Tracks: Sand Realm",
                         "Tracks: Ocean Portal", "Tracks: Sand Source",
                         "Thematic Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 261,
     },
     "Dune Tracks": {
         'classification': ItemClassification.progression,
@@ -1886,7 +2129,8 @@ ITEMS_DATA |= {
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Sand Source",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"], 
+        "id": 262,
     },
     "Tower Tracks": {
         'classification': ItemClassification.progression,
@@ -1896,7 +2140,8 @@ ITEMS_DATA |= {
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Forest Source", "Tracks: Snow Source", "Tracks: Ocean Source", "Tracks: Fire Source",
                         "Thematic Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 263,
     },
     "Completed Forest Glyph": {
         'classification': ItemClassification.progression,
@@ -1911,7 +2156,8 @@ ITEMS_DATA |= {
                         "Tracks: Forest Realm Ocean Shortcut", "Tracks: Forest Realm SE Portal",
                         "Tracks: E Mayscore Bridge",
                         "Completed Track Groupings"],
-        "reload_entrances": [0x2f000, 0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x2f000, 0x1400, 0x1401, 0x1700], 
+        "id": 264,
     },
     "Major Forest Tracks": {
         'classification': ItemClassification.progression,
@@ -1921,7 +2167,8 @@ ITEMS_DATA |= {
         'model': "Forest Glyph",
         "item_groups": ["Tracks: Forest Source", "Tracks: Wooded Temple Tracks", "Tracks: Forest Glyph",
                         "Major Track Groupings"],
-        "reload_entrances": [0x2f000, 0x1400, 0x1401, 0x1700]
+        "reload_entrances": [0x2f000, 0x1400, 0x1401, 0x1700], 
+        "id": 265,
     },
     "Minor Forest Tracks": {
         'classification': ItemClassification.progression,
@@ -1933,7 +2180,8 @@ ITEMS_DATA |= {
                         "Tracks: W Castle Town", "Tracks: N Castle Town", "Tracks: Snow Realm Bridge",
                         "Tracks: Forest Realm Ocean Shortcut", "Tracks: Forest Realm SE Portal",
                         "Tracks: E Mayscore Bridge",
-                        "Minor Track Groupings"]
+                        "Minor Track Groupings"], 
+        "id": 266,
     },
     "Completed Snow Glyph": {
         'classification': ItemClassification.progression,
@@ -1947,7 +2195,8 @@ ITEMS_DATA |= {
                         "Tracks: Slippery Station", "Tracks: Snowdrift Station", "Tracks: N Icy Spring",
                         "Tracks: Snow Realm Gorge",
                         "Completed Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 267,
     },
     "Major Snow Tracks": {
         'classification': ItemClassification.progression,
@@ -1957,7 +2206,8 @@ ITEMS_DATA |= {
         'model': "Snow Glyph",
         "item_groups": ["Tracks: Snow Source", "Tracks: Blizzard Temple Tracks", "Tracks: Snow Glyph",
                         "Major Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 268,
     },
     "Minor Snow Tracks": {
         'classification': ItemClassification.progression,
@@ -1968,7 +2218,8 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: W Wooded Temple", "Tracks: N Castle Town", "Tracks: Snow Realm Bridge",
                         "Tracks: Slippery Station", "Tracks: Snowdrift Station", "Tracks: N Icy Spring",
                         "Tracks: Snow Realm Gorge",
-                        "Minor Track Groupings"]
+                        "Minor Track Groupings"], 
+        "id": 269,
     },
     "Completed Ocean Glyph": {
         'classification': ItemClassification.progression,
@@ -1979,10 +2230,11 @@ ITEMS_DATA |= {
                     (STAddr.sources, 0x40), (STAddr.adv_flags_9, 0x40)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Ocean Glyph",
-                        "Tracks: Forest Realm Ocean Shortcut", "Tracks: Ocean Portal", 
-                        "Tracks: Lost at Sea Station", "Tracks: Pirate Hideout",  
+                        "Tracks: Forest Realm Ocean Shortcut", "Tracks: Ocean Portal",
+                        "Tracks: Lost at Sea Station", "Tracks: Pirate Hideout",
                         "Completed Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 270,
     },
     "Major Ocean Tracks": {
         'classification': ItemClassification.progression,
@@ -1993,7 +2245,8 @@ ITEMS_DATA |= {
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Ocean Glyph",
                         "Major Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 271,
     },
     "Minor Ocean Tracks": {
         'classification': ItemClassification.progression,
@@ -2003,7 +2256,8 @@ ITEMS_DATA |= {
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Forest Realm Ocean Shortcut", "Tracks: Ocean Portal",
                         "Tracks: Lost at Sea Station", "Tracks: Pirate Hideout",
-                        "Minor Track Groupings"]
+                        "Minor Track Groupings"], 
+        "id": 272,
     },
     "Completed Fire Glyph": {
         'classification': ItemClassification.progression,
@@ -2017,7 +2271,8 @@ ITEMS_DATA |= {
                         "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Snow Realm Gorge",
                         "Completed Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 273,
     },
     "Major Fire Tracks": {
         'classification': ItemClassification.progression,
@@ -2027,7 +2282,8 @@ ITEMS_DATA |= {
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Fire Source", "Tracks: Mountain Temple Tracks", "Tracks: Fire Glyph",
                         "Major Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 274,
     },
     "Minor Fire Tracks": {
         'classification': ItemClassification.progression,
@@ -2039,7 +2295,8 @@ ITEMS_DATA |= {
                         "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Snow Realm Gorge",
                         "Minor Track Groupings"],
-        "reload_entrances": [0x1400, 0x1401, 0x1700],
+        "reload_entrances": [0x1400, 0x1401, 0x1700], 
+        "id": 275,
     },
     "Completed Desert Tracks": {
         'classification': ItemClassification.progression,
@@ -2049,7 +2306,8 @@ ITEMS_DATA |= {
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Sand Source", "Tracks: Desert Temple Tracks", "Tracks: Sand Realm",
                         "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
-                        "Completed Track Groupings"]
+                        "Completed Track Groupings"], 
+        "id": 276,
     },
     "Major Desert Tracks": {
         'classification': ItemClassification.progression,
@@ -2058,7 +2316,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.rail_restorations, 0x20)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Sand Source", "Tracks: Desert Temple Tracks", "Tracks: Sand Realm",
-                        "Major Track Groupings"]
+                        "Major Track Groupings"], 
+        "id": 277,
     },
     "Minor Desert Tracks": {
         'classification': ItemClassification.progression,
@@ -2066,15 +2325,15 @@ ITEMS_DATA |= {
         "value": 0x6,
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
-                        "Minor Track Groupings"]
+                        "Minor Track Groupings"], 
+        "id": 278,
     },
     "Keyring (ToS 3)": {
-        'dummy': True  # Used to prevent a crash on opening boss door on 10F
+        'dummy': True,  # Used to prevent a crash on opening boss door on 10F
+        "id": 279,
     }
 
 }
-
-
 
 ITEM_GROUPS: dict[str, set[str]] = {}
 
@@ -2085,15 +2344,18 @@ for i, k in enumerate(ITEMS_DATA.items()):
     for group in item_data.get("item_groups", []):
         ITEM_GROUPS.setdefault(group, set()).add(item_name)
 
-
 # Combo Item Groups
 ITEM_GROUPS["Rupee Items"] = ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Big Rupees"]
-ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS["Super Rare Treasures"]
+ITEM_GROUPS["Uncommon Plus Treasure"] = ITEM_GROUPS["Uncommon Treasures"] | ITEM_GROUPS["Rare Treasures"] | ITEM_GROUPS[
+    "Super Rare Treasures"]
 ITEM_GROUPS["All Treasures"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Common Treasures"]
-ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"] | ITEM_GROUPS["Ocean Rabbits"] | ITEM_GROUPS["Mountain Rabbits"] | ITEM_GROUPS["Sand Rabbits"]
+ITEM_GROUPS["Rabbits"] = ITEM_GROUPS["Grass Rabbits"] | ITEM_GROUPS["Snow Rabbits"] | ITEM_GROUPS["Ocean Rabbits"] | \
+                         ITEM_GROUPS["Mountain Rabbits"] | ITEM_GROUPS["Sand Rabbits"]
 ITEM_GROUPS["Tears of Light"] = ITEM_GROUPS["Big Tears of Light"] | ITEM_GROUPS["Small Tears of Light"]
-ITEM_GROUPS["Basic Tracks"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"] | ITEM_GROUPS["Sources"] | ITEM_GROUPS["Glyphs"]
-ITEM_GROUPS["Medium Track Groupings"] = ITEM_GROUPS["Major Track Groupings"] | ITEM_GROUPS["Minor Track Groupings"] | ITEM_GROUPS["Thematic Track Groupings"]
+ITEM_GROUPS["Basic Tracks"] = ITEM_GROUPS["Misc Tracks"] | ITEM_GROUPS["Restoration Tracks"] | ITEM_GROUPS["Sources"] | \
+                              ITEM_GROUPS["Glyphs"]
+ITEM_GROUPS["Medium Track Groupings"] = ITEM_GROUPS["Major Track Groupings"] | ITEM_GROUPS["Minor Track Groupings"] | \
+                                        ITEM_GROUPS["Thematic Track Groupings"]
 ITEM_GROUPS["Big Track Groupings"] = ITEM_GROUPS["Medium Track Groupings"] | ITEM_GROUPS["Completed Track Groupings"]
 ITEM_GROUPS["Small Track Groupings"] = ITEM_GROUPS["Medium Track Groupings"] | ITEM_GROUPS["Basic Tracks"]
 ITEM_GROUPS["Custom Track Groupings"] = ITEM_GROUPS["Big Track Groupings"]
@@ -2101,14 +2363,14 @@ ITEM_GROUPS["All Rails"] = ITEM_GROUPS["Rail Items"] | ITEM_GROUPS["Custom Track
 ITEM_GROUPS["Rupee Pool Items"] = ITEM_GROUPS["Uncommon Plus Treasure"] | ITEM_GROUPS["Big Rupees"]
 ITEM_GROUPS["Filler Item Pool"] = ITEM_GROUPS["Potions"] | ITEM_GROUPS["Small Rupees"] | ITEM_GROUPS["Common Treasures"]
 
-ITEM_GROUPS["Dungeon Keys"] = ITEM_GROUPS["Small Keys"] | ITEM_GROUPS ["Boss Keys"] | ITEM_GROUPS["Keyrings"]
+ITEM_GROUPS["Dungeon Keys"] = ITEM_GROUPS["Small Keys"] | ITEM_GROUPS["Boss Keys"] | ITEM_GROUPS["Keyrings"]
 ITEM_GROUPS["All Keys"] = ITEM_GROUPS["Dungeon Keys"] | ITEM_GROUPS["Misc Keys"]
 
 ITEMS: dict[str, "STItem"] = {}
 STItem.all_item_groups = ITEM_GROUPS
 for i, k in enumerate(ITEMS_DATA.items()):
     item_name, item_data = k
-    item_data["id"] = i+1
+    item_data["id"] = i + 1
     ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
 
 # track_groups = {t: g for t, g in ITEM_GROUPS.items() if t.startswith("Tracks:")}
