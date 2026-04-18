@@ -1,3 +1,7 @@
+# Spirit Tracks AP Specific Info
+- [Setup Guide, FAQ and Credits](https://github.com/DayKat/spirit-tracks/blob/main/worlds/tloz_st/docs/setup.md)
+- [Tricks and Skips](https://github.com/DayKat/spirit-tracks/blob/main/worlds/tloz_st/docs/tricks_and_skips.md)
+
 # [Archipelago](https://archipelago.gg) ![Discord Shield](https://discordapp.com/api/guilds/731205301247803413/widget.png?style=shield) | [Install](https://github.com/ArchipelagoMW/Archipelago/releases)
 
 Archipelago provides a generic framework for developing multiworld capability for game randomizers. In all cases,
