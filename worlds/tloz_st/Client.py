@@ -323,7 +323,7 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"\t\tCoords: {coords} reqs {coord_data}")
                 return all([
                     coord_data.get("x_max", 0xFFFFFFF) > coords['x'] > coord_data.get("x_min", -0xFFFFFFF),
-                    coord_data.get("y", 0) + 2000 > coords['y'] >= coord_data.get("y", 0),
+                    coord_data.get("y", coords['y']) + 2000 > coords['y'] >= coord_data.get("y", coords['y']),
                     coord_data.get("z_max", 0xFFFFFFF) > coords['z'] > coord_data.get("z_min", -0xFFFFFFF),
                 ])
 
@@ -834,6 +834,9 @@ class SpiritTracksClient(DSZeldaClient):
                 print("Opening ToS boss door after having key and getting boss key location")
                 await self.open_tos_boss_door(ctx, self.current_scene)
 
+        if self.snurglar_addr and location["name"] in LOCATION_GROUPS["Snurglars"]:
+            await self.snurglar_addr.unset_bits(ctx, 0xF)
+
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
@@ -1210,7 +1213,8 @@ class SpiritTracksClient(DSZeldaClient):
 
         if current_scene == 0x1c02 and self.current_entrance != 3:
             # Amazing that this works at all
-            await STAddr.mtt_b1_heatoise_trigger.overwrite(ctx, 70000)
+            pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
+            await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
 
 
     @staticmethod

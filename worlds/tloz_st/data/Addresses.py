@@ -157,7 +157,7 @@ class STAddr:
     # tos5_boss_door = Address(0x33E182)
     tos5_boss_door = Address(0x33E1Ce)
 
-    mtt_b1_heatoise_trigger = Address(0x389F58, size=4)
+    mtt_b1_heatoise_trigger_pointer = Address(0x1231B4, size=3)
 
     # Object pointer table
     tos_boss_door_pointer = Address(0x265668, size=4)

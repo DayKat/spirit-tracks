@@ -1482,8 +1482,7 @@ class SpiritTracksWorld(WorldParent):
 
     def reconnect_found_entrances(self, key, stored_data):
         print(f"UT Tried to defer entrances! key {key}"
-              f" {stored_data}"
-              )
+              f" {stored_data}")
 
         if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
             print(f"Don't defer entrances when off")
@@ -1496,7 +1495,11 @@ class SpiritTracksWorld(WorldParent):
                 pairing = self.ut_pairings.get(str(i), None)
                 # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
                 if pairing is not None:
-                    _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[i].name)
+                    exit_name = entrance_id_to_entrance[i].name
+                    _exit: "Entrance" = self.get_entrance(exit_name)
                     entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
                     print(f"Connecting: {_exit} => {entrance_region} | {i}: {pairing}")
                     _exit.connect(entrance_region)
+
+                    if exit_name == "EVENT: Bring Ice to Kagoron":
+                        self.get_region("goron village").connect(self.get_region("goron ice"))
