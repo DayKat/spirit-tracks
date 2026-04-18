@@ -44,7 +44,7 @@ A lot of hard logic stuff is just annoying, slow, random, requires damage boosti
 - You can skip the block pushing puzzle with a block clip (doesn't affect logic)
 
 ## Icy Spring
-- You can reach icy spring early by picking up ferrus in Fire Realm with vanilla passengers, failing on purpose and clicking yes when the game asks you if you want to follow him. Exiting icy spring will take you back to the fire realm. (Hard Logic)
+- You can reach icy spring early by picking up ferrus in Fire Realm with vanilla passengers, failing on purpose and clicking yes when the game asks you if you want to follow him. Exiting icy spring will take you back to the fire realm. (Not in logic due to repeatablility)
 
 ## Blizzard Temple
 - you can block clip to skip the first block pushing puzzle (doesn't affect logic)
@@ -73,7 +73,8 @@ A lot of hard logic stuff is just annoying, slow, random, requires damage boosti
 - You can damage boost through the boulders to reach the right side of 1F (Hard Logic)
 - You can trigger the boss key location on 6F if boss keys are randomized with the whirwind early (Hard Logic)
 - You can use a jumpslash bomb boost (with whirlwind) to damage boost across the gap to the boss key on 6F [(Glitched Logic)](https://youtu.be/LSim_sYBBw4)
-- Failing to take ferrus to the marine temple with vanilla passengers without access to icy spring can cause him to get stuck there. So don't fail.
+- Failing to take ferrus to the marine temple with vanilla passengers without access to icy spring can cause him to get stuck there. So don't fail. (Ferrus marine temple logically requires icy spring access)
+
 
 ## Lost at Sea Station
 - You can dig up the buried chest without song of light (Hard Logic)
