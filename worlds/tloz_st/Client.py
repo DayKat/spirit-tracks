@@ -519,15 +519,8 @@ class SpiritTracksClient(DSZeldaClient):
             await self.update_rabbit_count(ctx)
         if "Treasure:" in item_name:
             await self.update_treasure_tracker(ctx, "item_process")
-        if item_name == "Stamp Book" and self.current_scene == 0x2F0A:
-            await STAddr.adv_flags_25.unset_bits(ctx, 2)
         if item_name == "Bombs (Progressive)" and self.current_scene == 0x4503:
             await STAddr.adv_flags_22.unset_bits(ctx, 2)
-        if item_name in ["Forest Glyph", "Cannon",
-                         "Portal Unlock: Hyrule Castle to Anouki Village",
-                         "Portal Unlock: Trading Post to E Snow Realm"]:
-            print(f"Reloading dynamic entrances")
-            await self._set_dynamic_entrances(ctx, self.current_scene)  # allow escaping without reloading!
 
         if self.reload_on_item:
             print(f"Reloading dynamic entrances")
@@ -809,7 +802,7 @@ class SpiritTracksClient(DSZeldaClient):
             event_name = location["ut_connect"]
             await self.store_event(ctx, event_name)
 
-        if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
+        if location["name"] in ["Outset Bee Tree", "Outset Clear Rfocks"]:
             self.reload_on_item = True
 
         if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:

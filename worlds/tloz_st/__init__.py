@@ -101,7 +101,7 @@ class SpiritTracksWorld(WorldParent):
     options_dataclass = SpiritTracksOptions
     options: SpiritTracksOptions
     settings: ClassVar[SpiritTracksSettings]
-    required_client_version = (0, 6, 1)
+    required_client_version = (0, 6, 3)
     web = SpiritTracksWeb()
     topology_present = True
 
@@ -466,7 +466,7 @@ class SpiritTracksWorld(WorldParent):
                 return self.options.randomize_stamps.value in [1, 2, 3]
             bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
-            return bk and tears and (location_data["tos_section"] not in self.non_required_sections) or self.options.exclude_sections != "remove"
+            return bk and tears and (location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove")
         if "dungeon" in location_data:
             passengers = self.options.randomize_passengers.value if location_name == "Marine Temple Ferrus Force Gem" else True
             stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True

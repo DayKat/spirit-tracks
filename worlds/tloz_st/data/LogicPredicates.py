@@ -519,7 +519,7 @@ def st_mtt_center(state, player):
                 st_has_bombs(state, player),
                 all([
                     st_option_hard_logic(state, player),
-                    st_has_bow(state, player) or st_has_beam_sword(state, player)
+                    st_has_bow(state, player) or st_has_beam_sword(state, player) or st_has_whip(state, player)
                 ])
             ])
         ]),

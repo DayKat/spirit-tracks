@@ -734,7 +734,6 @@ LOCATIONS_DATA = {
         "region_id": "tos 14f phantom",
         'dungeon': "ToS",
         "tos_section": 4,
-        "conditional": "tears",
         "z_min": 15000,
         "x_min": 50000,
     },

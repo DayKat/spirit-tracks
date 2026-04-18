@@ -35,7 +35,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "model": "Sword"
     },
     "Shield": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.progression_deprioritized,
         'address': STAddr.items_2,
         'value': 0x01,
         'item_groups': ["Equipment"],
@@ -260,43 +260,52 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.adv_flags_3,
         'value': 0x80,
         'item_groups': ["Train Items"],
-        'model': "Large Bomb Bag"
+        'model': "Large Bomb Bag",
+        "reload_entrances": [0x2F00]
     },
     "Portal Unlock: Hyrule Castle to Anouki Village": {
         'classification': ItemClassification.progression,
         # 'address': 0x265744,
         # 'value': 0x08,
         'item_groups': ["Portal Unlocks", "North Forest Portal", "N Forest Portal", "Anouki Portal", "SW Snow Portal"],
+        "reload_entrances": [0x400, 0x500],
     },
     "Portal Unlock: Trading Post to E Snow Realm": {
         'classification': ItemClassification.progression,
         # 'address': 0x265744,
         # 'value': 0x40,
         'item_groups': ["Portal Unlocks"],
+        "reload_entrances": [0x400, 0x500],
     },
     "Portal Unlock: Desert Temple to Sand Realm": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
+        "reload_entrances": [0x600],
     },
     "Portal Unlock: Sand Valley to Marine Temple": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
+        "reload_entrances": [0x600, 0x700],
     },
     "Portal Unlock: Forest Cave to Goron Village": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
+        "reload_entrances": [0x400, 0x700],
     },
     "Portal Unlock: Icy Spring to Mountain Temple": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
+        "reload_entrances": [0x500, 0x700],
     },
     "Portal Unlock: Mayscore to Ocean Portal Tracks": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
+        "reload_entrances": [0x400, 0x600],
     },
     "Portal Unlock: Snow Bridge to Island Sanctuary": {
         'classification': ItemClassification.progression,
         'item_groups': ["Portal Unlocks"],
+        "reload_entrances": [0x500, 0x600],
     },
 
     # ========== Rail Maps ============
@@ -307,6 +316,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x80,
         'item_groups': ["Glyphs", "Rail Items", "Forest Tracks", "Major Forest Tracks", "Tracks: Forest Glyph"],
         'model': "Forest Glyph 2",
+        "reload_entrances": [0x2F00],
     },
     "Snow Glyph": {
         'classification': ItemClassification.progression,
@@ -565,6 +575,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'set_bit': [[STAddr.source_rails, 2]],
         'item_groups': ["Rail Items", "Sources", "Forest Tracks", "Major Forest Tracks", "Tracks: Forest Source"],
         'model': "Forest Glyph",
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Snow Source": {
       'classification': ItemClassification.progression,
@@ -573,6 +584,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'set_bit': [[STAddr.source_rails, 4]],
         'item_groups': ["Rail Items", "Sources", "Snow Tracks", "Major Snow Tracks", "Tracks: Snow Source"],
         'model': "Snow Glyph",
+        "reload_entrances": [0x1400, 0x1401, 0x1700]
     },
     "Ocean Source": {
       'classification': ItemClassification.progression,
@@ -581,6 +593,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'set_bit': [[STAddr.source_rails, 8], (STAddr.adv_flags_9, 0x40)],
         'item_groups': ["Rail Items", "Sources", "Ocean Realm Tracks", "Major Ocean Tracks", "Tracks: Ocean Source"],
         'model': "Ocean Glyph",
+        "reload_entrances": [0x1400, 0x1401, 0x1700]
     },
     "Fire Source": {
       'classification': ItemClassification.progression,
@@ -589,6 +602,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'set_bit': [[STAddr.source_rails, 0x10]],
         'item_groups': ["Rail Items", "Sources", "Fire Tracks", "Major Fire Tracks", "Tracks: Fire Source"],
         'model': "Fire Glyph",
+        "reload_entrances": [0x1400, 0x1401, 0x1700]
     },
     "Sand Source": {  # Only used for TEAO3 unlock?
         'classification': ItemClassification.progression,
@@ -1156,6 +1170,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
         'value': 1,
+        "tags": ["always_process"],
         'item_groups': ["Tears of Light", "Small Tears of Light"],
         'model': "Tear of Light"
     },
@@ -1179,6 +1194,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
         "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A],
+        "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
         'model': "Tear of Light"
     },
@@ -1186,6 +1202,7 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
         "rooms": [0xc, 0xd, 0xe, 0xf, 0x10],
+        "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
         'model': "Tear of Light"
     },
@@ -1193,12 +1210,14 @@ ITEMS_DATA |= {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
         "rooms": [0x11, 0x12, 0x13, 0x14, 0x17, 0x18],
+        "tags": ["always_process"],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
         'model': "Tear of Light"
     },
     "Tear of Light (ToS 6)": {
         'classification': ItemClassification.progression,
         "address": STAddr.tears_of_light,
+        "tags": ["always_process"],
         "rooms": [0x1d, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x2c, 0x2d],
         'item_groups': ["Unique Tears of Light", "Small Tears of Light"],
         'model': "Tear of Light"
@@ -1339,13 +1358,15 @@ ITEMS_DATA |= {
         "classification": ItemClassification.progression,
         "dummy": True,
         'item_groups': ["Tower of Spirit Unlocks"],
-        "model": "Forest Glyph"
+        "model": "Forest Glyph",
+        "reload_entrances": [0x400, 0x500, 0x600, 0x700],
     },
     "Progressive ToS Section": {
         "classification": ItemClassification.progression,
         "dummy": True,
         'item_groups': ["Tower of Spirit Unlocks"],
-        "model": "Forest Glyph"
+        "model": "Forest Glyph",
+        "reload_entrances": [0x400, 0x500, 0x600, 0x700],
     },
     # Overworld eventy things
     "Repair Trading Post Bridge": {
@@ -1572,139 +1593,139 @@ ITEMS_DATA |= {
 
     # Stamps
     "Stamp: Castle Town": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 1,
         "model": "Stamp Book"
     },
     "Stamp: Outset Village": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 2,
         "model": "Stamp Book"
     },
     "Stamp: Mayscore": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 3,
         "model": "Stamp Book"
     },
     "Stamp: Woodland Sanctuary": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 4,
         "model": "Stamp Book"
     },
     "Stamp: Anouki Village": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 5,
         "model": "Stamp Book"
     },
     "Stamp: Snowfall Sanctuary": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 6,
         "model": "Stamp Book"
     },
     "Stamp: Papuzia Village": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 7,
         "model": "Stamp Book"
     },
     "Stamp: Island Sanctuary": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 8,
         "model": "Stamp Book"
     },
     "Stamp: Goron Village": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 9,
         "model": "Stamp Book"
     },
     "Stamp: Valley Sanctuary": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xA,
         "model": "Stamp Book"
     },
     "Stamp: Dune Sanctuary": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xB,
         "model": "Stamp Book"
     },
     "Stamp: Wooded Temple": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xC,
         "model": "Stamp Book"
     },
     "Stamp: Blizzard Temple": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xD,
         "model": "Stamp Book"
     },
     "Stamp: Marine Temple": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xE,
         "model": "Stamp Book"
     },
     "Stamp: Mountain Temple": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0xF,
         "model": "Stamp Book"
     },
     "Stamp: Desert Temple": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x10,
         "model": "Stamp Book"
     },
     "Stamp: Pirate Hideout": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x11,
         "model": "Stamp Book"
     },
     "Stamp: Trading Post": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x12,
         "model": "Stamp Book"
     },
     "Stamp: Icy Spring": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0x13,
         "model": "Stamp Book"
     },
     "Stamp: Tower of Spirits": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamps"],
         "value": 0,
         "model": "Stamp Book"
     },
     "Stamp Pack (2)": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamp Packs"],
         "value": 2,
         "model": "Stamp Book"
     },
     "Stamp Pack (3)": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamp Packs"],
         "value": 3,
         "model": "Stamp Book"
     },
     "Stamp Pack (4)": {
-        "classification": ItemClassification.progression,
+        "classification": ItemClassification.progression_deprioritized,
         "item_groups": ["Stamp Packs"],
         "value": 4,
         "model": "Stamp Book"
@@ -1743,7 +1764,8 @@ ITEMS_DATA |= {
         'model': "Snow Glyph",
         "item_groups": ["Tracks: Snow Source", "Tracks: N Castle Town", "Tracks: Blizzard Temple Tracks",
                         "Tracks: Snow Realm Gorge", "Tracks: N Icy Spring",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700]
     },
     "Blizzard Tracks": {
         'classification': ItemClassification.progression,
@@ -1753,7 +1775,8 @@ ITEMS_DATA |= {
         'model': "Snow Glyph",
         "item_groups": ["Tracks: Blizzard Temple Tracks", "Tracks: Snowdrift Station",
                         "Tracks: Slippery Station", "Tracks: Snow Source",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700]
     },
     "Castle Tracks": {
         'classification': ItemClassification.progression,
@@ -1763,7 +1786,8 @@ ITEMS_DATA |= {
         'model': "Forest Glyph",
         "item_groups": ["Tracks: N Castle Town", "Tracks: Forest Glyph", "Tracks: W Castle Town Tracks",
                         "Tracks: Forest Source",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"],
+        "reload_entrances": [0x2f00, 0x1400, 0x1401, 0x1700]
     },
     "Woodland Tracks": {
         'classification': ItemClassification.progression,
@@ -1773,7 +1797,8 @@ ITEMS_DATA |= {
         'model': "Forest Glyph",
         "item_groups": ["Tracks: Wooded Temple Tracks", "Tracks: Forest Glyph", "Tracks: W Wooded Temple",
                         "Tracks: W Castle Town",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"],
+        "reload_entrances": [0x2f00],
     },
     "Borderlands Tracks": {
         'classification': ItemClassification.progression,
@@ -1811,7 +1836,8 @@ ITEMS_DATA |= {
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Lost at Sea Station",
                         "Tracks: Ocean Portal",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Island Tracks": {
         'classification': ItemClassification.progression,
@@ -1849,7 +1875,8 @@ ITEMS_DATA |= {
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Fire Source", "Tracks: Fire Realm Sand Portal", "Tracks: Sand Realm",
                         "Tracks: Ocean Portal", "Tracks: Sand Source",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Dune Tracks": {
         'classification': ItemClassification.progression,
@@ -1868,7 +1895,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.source_rails, 0x1e), (STAddr.adv_flags_9, 0x40)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Forest Source", "Tracks: Snow Source", "Tracks: Ocean Source", "Tracks: Fire Source",
-                        "Thematic Track Groupings"]
+                        "Thematic Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Completed Forest Glyph": {
         'classification': ItemClassification.progression,
@@ -1882,7 +1910,8 @@ ITEMS_DATA |= {
                         "Tracks: W Castle Town", "Tracks: N Castle Town", "Tracks: Snow Realm Bridge",
                         "Tracks: Forest Realm Ocean Shortcut", "Tracks: Forest Realm SE Portal",
                         "Tracks: E Mayscore Bridge",
-                        "Completed Track Groupings"]
+                        "Completed Track Groupings"],
+        "reload_entrances": [0x2f000, 0x1400, 0x1401, 0x1700]
     },
     "Major Forest Tracks": {
         'classification': ItemClassification.progression,
@@ -1891,7 +1920,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.rail_restorations, 2), (STAddr.source_rails, 2), (STAddr.sources, 0x10)],
         'model': "Forest Glyph",
         "item_groups": ["Tracks: Forest Source", "Tracks: Wooded Temple Tracks", "Tracks: Forest Glyph",
-                        "Major Track Groupings"]
+                        "Major Track Groupings"],
+        "reload_entrances": [0x2f000, 0x1400, 0x1401, 0x1700]
     },
     "Minor Forest Tracks": {
         'classification': ItemClassification.progression,
@@ -1911,21 +1941,23 @@ ITEMS_DATA |= {
         "value": 0x1,
         "set_bit": [(STAddr.tracks_1, 0x3f), (STAddr.tracks_2, 0x8),
                     (STAddr.rail_restorations, 4), (STAddr.source_rails, 4), (STAddr.sources, 0x20)],
-        'model': "Forest Glyph",
+        'model': "Snow Glyph",
         "item_groups": ["Tracks: Snow Source", "Tracks: Blizzard Temple Tracks", "Tracks: Snow Glyph",
                         "Tracks: W Wooded Temple", "Tracks: N Castle Town", "Tracks: Snow Realm Bridge",
                         "Tracks: Slippery Station", "Tracks: Snowdrift Station", "Tracks: N Icy Spring",
                         "Tracks: Snow Realm Gorge",
-                        "Completed Track Groupings"]
+                        "Completed Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Major Snow Tracks": {
         'classification': ItemClassification.progression,
         "address": STAddr.glyphs,
         "value": 0x1,
         "set_bit": [(STAddr.rail_restorations, 4), (STAddr.source_rails, 4), (STAddr.sources, 0x20)],
-        'model': "Forest Glyph",
+        'model': "Snow Glyph",
         "item_groups": ["Tracks: Snow Source", "Tracks: Blizzard Temple Tracks", "Tracks: Snow Glyph",
-                        "Major Track Groupings"]
+                        "Major Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Minor Snow Tracks": {
         'classification': ItemClassification.progression,
@@ -1949,7 +1981,8 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Ocean Glyph",
                         "Tracks: Forest Realm Ocean Shortcut", "Tracks: Ocean Portal", 
                         "Tracks: Lost at Sea Station", "Tracks: Pirate Hideout",  
-                        "Completed Track Groupings"]
+                        "Completed Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Major Ocean Tracks": {
         'classification': ItemClassification.progression,
@@ -1959,14 +1992,15 @@ ITEMS_DATA |= {
                     (STAddr.sources, 0x40), (STAddr.adv_flags_9, 0x40)],
         'model': "Ocean Glyph",
         "item_groups": ["Tracks: Ocean Source", "Tracks: Marine Temple Tracks", "Tracks: Ocean Glyph",
-                        "Major Track Groupings"]
+                        "Major Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Minor Ocean Tracks": {
         'classification': ItemClassification.progression,
         "address": STAddr.tracks_0,
         "value": 0x2,
         "set_bit": [(STAddr.tracks_1, 0xc0), (STAddr.tracks_2, 0x1)],
-        'model': "Forest Glyph",
+        'model': "Ocean Glyph",
         "item_groups": ["Tracks: Forest Realm Ocean Shortcut", "Tracks: Ocean Portal",
                         "Tracks: Lost at Sea Station", "Tracks: Pirate Hideout",
                         "Minor Track Groupings"]
@@ -1982,7 +2016,8 @@ ITEMS_DATA |= {
                         "Tracks: Disorientation Station", "Tracks: Ends of the Earth",
                         "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Snow Realm Gorge",
-                        "Completed Track Groupings"]
+                        "Completed Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Major Fire Tracks": {
         'classification': ItemClassification.progression,
@@ -1991,7 +2026,8 @@ ITEMS_DATA |= {
         "set_bit": [(STAddr.rail_restorations, 0x10), (STAddr.source_rails, 0x10), (STAddr.sources, 0x80)],
         'model': "Fire Glyph",
         "item_groups": ["Tracks: Fire Source", "Tracks: Mountain Temple Tracks", "Tracks: Fire Glyph",
-                        "Major Track Groupings"]
+                        "Major Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Minor Fire Tracks": {
         'classification': ItemClassification.progression,
@@ -2002,7 +2038,8 @@ ITEMS_DATA |= {
         "item_groups": ["Tracks: Disorientation Station", "Tracks: Ends of the Earth",
                         "Tracks: Dark Ore Mine", "Tracks: Fire Realm Sand Portal",
                         "Tracks: Snow Realm Gorge",
-                        "Minor Track Groupings"]
+                        "Minor Track Groupings"],
+        "reload_entrances": [0x1400, 0x1401, 0x1700],
     },
     "Completed Desert Tracks": {
         'classification': ItemClassification.progression,
