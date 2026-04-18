@@ -1412,7 +1412,7 @@ class SpiritTracksWorld(WorldParent):
                 if ITEMS[item.name].model is not None:
                     location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
                     continue
-            elif item.game in all_lookups:
+            elif self.options.multiworld_item_model_swaps and item.game in all_lookups:
                 model = all_lookups[item.game].get(item.name, None)
                 if model is not None:
                     location_models[loc_data['id']] = model
