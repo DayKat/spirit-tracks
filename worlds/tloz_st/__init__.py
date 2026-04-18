@@ -64,6 +64,14 @@ class SpiritTracksWeb(WebWorld):
         link="setup/en",
         authors=["DayKat", "Carrotinator"]
     )
+    tricks_and_skips_en = Tutorial(
+        tutorial_name="Tricks and Skips",
+        description="A list of tricks and skips with their logic difficulty, and video links when available.",
+        language="English",
+        file_name="tricks_and_skips.md",
+        link="tricks_and_skips/en",
+        authors=["Carrotinator"]
+    )
 
     tutorials = [setup_en]
     option_groups = st_option_groups
