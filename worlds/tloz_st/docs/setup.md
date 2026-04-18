@@ -9,7 +9,8 @@
 
 ## Recommended Software
 
-* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases)
+* [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases) (Includes a simple map tracker)
+* [Itemtracker](https://github.com/carrotinator/spirit-tracks-poptracker-ap) for [Poptracker](https://github.com/black-sliver/PopTracker) (still work in progress, currently only includes a manual rail and portal tracker)
 
 ## Setup
 
@@ -17,7 +18,7 @@
 2. Create a yaml settings file, and put it in the Archipelago directories 'players' folder. You can generate a template yaml with the archipelago launcher.
 3. Generate your game
 4. Host the game, either locally or via the archipelago web hosting service
-5. Open the 'generic bizhawk client' in Archipelago, and connect to the server
+5. Open the 'generic bizhawk client' in Archipelago, and connect to the server. There are currently bugs in the game, and launching the client from the debug launcher creates useful debug info in case you run into one. You can find `ArchipelagoLauncherDebug.exe` in your archipelago directory.
 6. Launch the vanilla game in bizhawk, and open the lua console. Add the 'connector_bizhawk_generic.lua' script that can be found in 'Archipelago\data\lua'. 
 7. You are now ready to play! Start a new savefile and go!
 
@@ -35,6 +36,9 @@ This also refills your ammo.
 ### What is my current goal?
 You can check your current goal and progress towards it at any time with the client command `/goal`
 
+### What is included in hard/glitched logic?
+Check the [Tricks and Skips guide](https://github.com/DayKat/spirit-tracks/blob/main/worlds/tloz_st/docs/tricks_and_skips.md)
+
 ### What is different from vanilla or has unintuitive requirements in vanilla?
 - If playing with randomized passengers, NPCs let you pick them up for quests once you have the rail holding their destination station. Exception being Alfonzo, who spawns in Hyrule Castle with the Snow Glyph.
 - Some minigames open with vanilla requirements. Hyrule sword game opens with Snow Source, Goron target range opens after removing the first lava in Goron village and each level of Take ‘em all on unlocks with forest-ocean-sand sources. Unlocking a higher level also unlocks the lower ones. 
@@ -46,6 +50,9 @@ You can check your current goal and progress towards it at any time with the cli
 - The Tower of Spirits summit counts as its own section for tower shuffle, and the stamp stand location there can’t be excluded or removed along with other sections. 
 - The blue warp through ToS 5 will always be open if ToS 5 is excluded, meaning you still need to fight Staven to check what’s on the other side.
 - Progressive tears of light with tower shuffle use the vanilla entrances to determine the order. So the order is entrance 1, e2 (forest source), e3 (snow source), e4 (ocean source), e5 (fire source), exit staven, enter altar in summit. Even if the summit is randomized to be your first section, the progressive tears for the section within will be last in the order.
+
+### Does it work with dpad/controller patches?
+Only some of them. [This one](https://github.com/StraDaMa/Legend-of-Zelda-Spirit-Tracks-D-Pad-Patch) probably works.
 
 ### Who made this?
 - The project is built upon @[Carrotinator](https://github.com/carrotinator)'s [Phantom Hourglass AP](https://github.com/carrotinator/Archipelago) implementation, which in turn is built upon @Dinopony and @Ishigh's [Oracle of Seasons AP](https://github.com/Dinopony/ArchipelagoOoS).

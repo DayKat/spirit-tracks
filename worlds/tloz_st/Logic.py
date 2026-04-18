@@ -622,19 +622,14 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["mtt", "mtt left", False, lambda state: st_has_damage(state, player)],
         ["mtt left", "mtt right", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["mtt left", "mtt 2f right", False, lambda state: st_has_range(state, player) or st_has_sword(state, player) or st_has_whip(state, player)],
-        ["mtt", "mtt center", False,
-            lambda state: st_has_small_keys(state, player, "Mountain Temple", 2) and (
-                    st_has_boomerang(state, player) or st_has_bombs(state, player) or (
-                        st_option_hard_logic(state, player) and (
-                            st_has_bow(state, player) or st_has_beam_sword(state, player) # Whip doesn't matter cause no checks until tortoises
-        )))],
+        ["mtt", "mtt center", False, lambda state: st_mtt_center(state, player)],
         ["mtt center", "mtt heatoise", False, lambda state: st_has_good_damage(state, player)],
         ["mtt heatoise", "mtt 1f ne", False, lambda state: st_has_bow(state, player)],
         ["mtt 1f ne", "mtt b1", False, lambda state: st_can_rotate_repeater(state, player)],
         ["mtt b1", "mtt b2", False, lambda state: st_has_whip(state, player)],
         ["mtt b2", "mtt b1 arena", False, lambda state: st_has_boomerang(state, player)],
         ["mtt b1", "mtt b1 cart", False, lambda state: st_has_small_keys(state, player, "Mountain Temple", 3, 1)],
-        ["mtt b1 cart", "mtt b1 arena", False, None],
+        # ["mtt b1 cart", "mtt b1 arena", False, None],  # Removed!
         ["mtt b1 cart", "mtt stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["mtt b1 cart", "mtt bk", False, lambda state: st_has_whirlwind(state, player)],
         ["mtt bk", "mtt boss", False, lambda state: options.randomize_boss_keys == "vanilla"],

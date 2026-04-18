@@ -64,6 +64,14 @@ class SpiritTracksWeb(WebWorld):
         link="setup/en",
         authors=["DayKat", "Carrotinator"]
     )
+    tricks_and_skips_en = Tutorial(
+        tutorial_name="Tricks and Skips",
+        description="A list of tricks and skips with their logic difficulty, and video links when available.",
+        language="English",
+        file_name="tricks_and_skips.md",
+        link="tricks_and_skips/en",
+        authors=["Carrotinator"]
+    )
 
     tutorials = [setup_en]
     option_groups = st_option_groups
@@ -101,7 +109,7 @@ class SpiritTracksWorld(WorldParent):
     options_dataclass = SpiritTracksOptions
     options: SpiritTracksOptions
     settings: ClassVar[SpiritTracksSettings]
-    required_client_version = (0, 6, 1)
+    required_client_version = (0, 6, 3)
     web = SpiritTracksWeb()
     topology_present = True
 
@@ -466,7 +474,7 @@ class SpiritTracksWorld(WorldParent):
                 return self.options.randomize_stamps.value in [1, 2, 3]
             bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
-            return bk and tears and (location_data["tos_section"] not in self.non_required_sections) or self.options.exclude_sections != "remove"
+            return bk and tears and (location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove")
         if "dungeon" in location_data:
             passengers = self.options.randomize_passengers.value if location_name == "Marine Temple Ferrus Force Gem" else True
             stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
@@ -1404,7 +1412,7 @@ class SpiritTracksWorld(WorldParent):
                 if ITEMS[item.name].model is not None:
                     location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
                     continue
-            elif item.game in all_lookups:
+            elif self.options.multiworld_item_model_swaps and item.game in all_lookups:
                 model = all_lookups[item.game].get(item.name, None)
                 if model is not None:
                     location_models[loc_data['id']] = model
@@ -1472,8 +1480,7 @@ class SpiritTracksWorld(WorldParent):
 
     def reconnect_found_entrances(self, key, stored_data):
         print(f"UT Tried to defer entrances! key {key}"
-              f" {stored_data}"
-              )
+              f" {stored_data}")
 
         if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
             print(f"Don't defer entrances when off")
@@ -1486,7 +1493,11 @@ class SpiritTracksWorld(WorldParent):
                 pairing = self.ut_pairings.get(str(i), None)
                 # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
                 if pairing is not None:
-                    _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[i].name)
+                    exit_name = entrance_id_to_entrance[i].name
+                    _exit: "Entrance" = self.get_entrance(exit_name)
                     entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
                     print(f"Connecting: {_exit} => {entrance_region} | {i}: {pairing}")
                     _exit.connect(entrance_region)
+
+                    if exit_name == "EVENT: Bring Ice to Kagoron":
+                        self.get_region("goron village").connect(self.get_region("goron ice"))

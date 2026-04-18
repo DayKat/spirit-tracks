@@ -661,6 +661,15 @@ class SpiritTracksTrackGroupings(Choice):
     option_mixed_large = -2
     option_mixed_small = -3
 
+class SpiritTracksZeldaModelSwaps(Toggle):
+    """
+    Change the item models for items found belonging to other players to their nearest spirit-tracks equivalent.
+    Currently, all Zelda Games are implemented except the Oracle games.
+    Other copies of Spirit Tracks always swap their items.
+    """
+    display_name = "Multiworld Item Model Swaps"
+    default = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -735,6 +744,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
 
     # Cosmetic
     starting_train: SpiritTracksStartingTrain
+    multiworld_item_model_swaps: SpiritTracksZeldaModelSwaps
 
     # Generic
     start_inventory_from_pool: StartInventoryPool
@@ -802,7 +812,8 @@ st_option_groups = [
         SpiritTracksRabbitHints
     ]),
     OptionGroup("Cosmetic Options", [
-        SpiritTracksStartingTrain
+        SpiritTracksStartingTrain,
+        SpiritTracksZeldaModelSwaps
     ]),
     OptionGroup("Item & Location Options", [
         SpiritTracksRemoveItemsFromPool

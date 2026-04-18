@@ -2242,6 +2242,7 @@ all_lookups: dict[str, dict[str, int]] = {
     "The Wind Waker": convert(tww),
     "Twilight Princess": convert(tp),
     "The Minish Cap": convert(tmc),
+    "Phantom Hourglass": convert(ph),
     "Skyward Sword": convert(ss),
     "A Link Between Worlds": convert(albw)
 }
