@@ -2,7 +2,7 @@
 
 ## Required Software
 
-* [Archipelago 0.6.1+](https://archipelago.gg/tutorial/Archipelago/setup/en)
+* [Archipelago 0.6.3+](https://archipelago.gg/tutorial/Archipelago/setup/en)
 * [Bizhawk 2.10+](https://github.com/TASEmulators/BizHawk)
 * Legally acquired Spirit Tracks EU rom *(Not revision 1)*. Apparently it only works in English
 * [Latest tloz_st.apworld](https://github.com/DayKat/spirit-tracks/releases)
