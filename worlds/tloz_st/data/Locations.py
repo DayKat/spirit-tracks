@@ -934,7 +934,8 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 6,
         "x_max": -80000,
-        "z_min": 40000
+        "z_min": 40000,
+        "delay_pickup": ["ToS 28F Stalfos"]
     },
     "ToS 28F E Raised Chest": {
         "stage_id": 0x13,
@@ -946,7 +947,8 @@ LOCATIONS_DATA = {
         "tos_section": 6,
         "x_max": -20000,
         "x_min": -40000,
-        "z_min": 25000
+        "z_min": 25000,
+        "delay_pickup": ["ToS 28F Stalfos"]
     },
     "ToS 29F SE Chest": {
         "stage_id": 0x13,
@@ -4214,6 +4216,14 @@ LOCATIONS_DATA |= {
         "x_max": -45000,
         "z_max": -55000,
         "conditional": True
+    },
+    "ToS 28F Stalfos": {  # Dummy location for stalfos treasure drop conflict
+        "stage_id": 0x13,
+        "room_id": 0x20,
+        "region_id": "mtt 2f right",
+        "vanilla_item": "Treasure: Stalfos Skull",
+        "conditional": True,
+        "x_max": -20000,
     },
 
 }

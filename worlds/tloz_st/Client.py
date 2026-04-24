@@ -246,7 +246,7 @@ class SpiritTracksClient(DSZeldaClient):
             has_compass = "" if self.item_count(ctx, "Compass of Light") else "don't "
             logger.info(f"You need the Compass of Light to access the Dark Realm. You {has_compass}have it.")
         if slot_data["dark_realm_access"] in [1, 3]:
-            specific = "specific " if slot_data["require_specific_dungeons"] else ""
+            specific = "specific " if slot_data.get("require_specific_dungeons", False) else ""
             dungeon_locs = slot_data["required_dungeons"]
             has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
             logger.info(

@@ -1433,7 +1433,7 @@ class SpiritTracksWorld(WorldParent):
     def fill_slot_data(self) -> dict:
         options = ["goal", "compass_shard_count",
                    "logic", "cannon_logic",
-                   "exclude_dungeons", "exclude_sections",
+                   "exclude_dungeons", "exclude_sections", "require_specific_dungeons",
                    "keysanity", "randomize_boss_keys",
                    "big_keyrings",
                    "randomize_minigames", "minigame_hints",
