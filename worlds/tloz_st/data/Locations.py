@@ -950,7 +950,7 @@ LOCATIONS_DATA = {
         "z_min": 25000,
         "delay_pickup": ["ToS 28F Stalfos"]
     },
-    "ToS 29F SE Chest": {
+    "ToS 29F SE Eyes in the Dark Chest": {
         "stage_id": 0x13,
         "room_id": 0x1F,
         "region_id": "tos 29f se",
@@ -959,7 +959,8 @@ LOCATIONS_DATA = {
         'dungeon': "ToS",
         "tos_section": 6,
         "x_min": 80000,
-        "z_min": 20000
+        "z_min": 20000,
+        "delay_pickup": ["ToS 29F SE Extinguish Torches Chest"]
     },
     "ToS 30F SE Wrecker Chest": {
         "stage_id": 0x13,
@@ -2674,6 +2675,7 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "region_id": "dt b1 damage",
         "dungeon": "Desert Temple",
+        "delay_pickup": ["Desert Temple B1 Stalfos"]
     },
     "Desert Temple B1 NW Buried Rupee": {
         "stage_id": 0x1D,
@@ -4224,6 +4226,26 @@ LOCATIONS_DATA |= {
         "vanilla_item": "Treasure: Stalfos Skull",
         "conditional": True,
         "x_max": -20000,
+    },
+    "ToS 29F SE Extinguish Torches Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x1F,
+        "region_id": "tos 29f se",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        'dungeon': "ToS",
+        "tos_section": 6,
+        "x_min": 80000,
+        "z_min": 20000,
+        "delay_pickup": ["ToS 29F SE Eyes in the Dark Chest"]
+    },
+    "Desert Temple B1 Stalfos": {
+        "stage_id": 0x1D,
+        "room_id": 0x3,
+        "x_max": -75000,
+        "z_min": 45000,
+        "vanilla_item": "Treasure: Stalfos Skull",
+        "region_id": "dt b1 damage",
+        "conditional": True
     },
 
 }

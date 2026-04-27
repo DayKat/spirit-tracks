@@ -538,19 +538,21 @@ BOSS_KEY_DATA = {
     },
     0x1309: {
         "y": 0,
-        "pointer": STAddr.tos3_bk_pointer,
+        # "pointer": STAddr.tos_actor_table_pointer_0,
         "location": "ToS 10F Boss Key",
         "door": STAddr.tos3_boss_door,
         "dungeon": "ToS 3",
-        "door_coords": 0xffff2ffc00000000fffffffc
+        "door_coords": 0xffff2ffc00000000fffffffc,
+        "key_coords": ""
     },
     0x1318: {
         "y": 0,
-        "pointer": STAddr.tos3_bk_pointer,
+        # "pointer": STAddr.tos_actor_table_pointer_0,
         "location": "ToS 22F Boss Key",
         "door": STAddr.tos5_boss_door,
         "dungeon": "ToS 5",
-        "door_coords": 0x4ffc000000000000affc
+        "door_coords": 0x4ffc000000000000affc,
+        "key_coords": ""
     },
 }
 

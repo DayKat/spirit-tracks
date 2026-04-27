@@ -190,7 +190,7 @@ class SpiritTracksKeyrings(Choice):
     option_snurglar_only = 1
     option_all = 2
     option_random_mixed = 3
-    default = 1
+    default = 0
 
 class SpiritTracksBigKeyrings(Toggle):
     """

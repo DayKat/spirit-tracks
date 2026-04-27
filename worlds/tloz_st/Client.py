@@ -207,7 +207,6 @@ class SpiritTracksClient(DSZeldaClient):
         self.train_quick_station = True
         self.update_train_speed: bool = False
         self.train_speed = [-143, 0, 115, 193]
-        self.has_set_starting_train = False
         self.key_address = STAddr.small_keys
 
         self.hint_data = HINT_DATA
@@ -346,8 +345,6 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def watched_intro_cs(self, ctx):
         watched_intro = await STAddr.watched_intro.read(ctx) & 1
-        if not watched_intro:
-            self.has_set_starting_train = False
         return watched_intro
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
@@ -1139,11 +1136,9 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         self.delay_room_action = 5
-        if current_scene == 0x2f00 and not self.has_set_starting_train:
-            # if self.location_name_to_id["Outset Bee Tree"] not in ctx.checked_locations:
-            #     print(f"Setting starting train")
+        if current_scene == 0x2f00 and not await STAddr.set_starting_train.read(ctx) & 4:
             await self.set_starting_train(ctx)
-            self.has_set_starting_train = True
+            await STAddr.set_starting_train.set_bits(ctx, 4)
         if self.save_ammo:
             await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))
             self.save_ammo = None
@@ -1161,11 +1156,21 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Has found location {data['location']}, deleting boss key")
                 await self.delete_boss_key(ctx)
             else:
-                pointer = await data["pointer"].read(ctx)
-                if 0x2000000 < pointer < 0x2400000:
+                if "pointer" in data:
+                    pointer = await data["pointer"].read(ctx)
+                    print(f"bk pointer: {data['pointer']} -> {hex(pointer)}")
+                else:
+                    actor_table = await STAddr.tos_actor_table_pointer_safe.read(ctx)
+                    offset = 1040 + 8  # start of table + tos bk index
+                    pointer_addr = Address.from_pointer(actor_table+offset, size=3)
+                    pointer = await pointer_addr.read(ctx)
+                    print(f"BK pointer from table read: {pointer_addr} -> {hex(pointer)} actor table: {actor_table}")
+
+                if pointer < 0x400000:
                     offset = 12 if self.current_stage == 0x1c else 8
-                    self.boss_key_read = Address.from_pointer(pointer+offset-0x2000000, size=4)
+                    self.boss_key_read = Address.from_pointer(pointer+offset, size=4)
                     self.boss_key_y = data["y"]
+                    print(f"BK Read: {self.boss_key_read}")
                 print(f"Loaded boss key data: {hex(pointer)} y: {self.boss_key_y}")
 
             # Open door
@@ -1290,7 +1295,7 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     async def delete_boss_key(self, ctx):
-        pointer = await STAddr.boss_key_deletion_pointer.read(ctx) - 0x2000000
+        pointer = await STAddr.boss_key_deletion_pointer.read(ctx)
         print(f"Deleting boss key @ {hex(pointer)}")
         size, offset = 12, 0
         if self.current_stage == 0x1b:
