@@ -1267,9 +1267,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                      ],
         "unset_if_true": [(STAddr.adv_flags_b, 0x10),  # Remove finished quest flag
                         (STAddr.adv_flags_0, 0x20),  # Remove snow source
-                        (STAddr.adv_flags_1, 0x02),  # Remove btt
+                        (STAddr.adv_flags_1, 0x02),  # Remove btt and fire restoration
                         (STAddr.adv_flags_c, 0x08),  # Don't advance dialogue after btt
-                        (STAddr.adv_flags_4, 0x02)], # Remove Wagon, he gives ice hint
+                        (STAddr.adv_flags_4, 0x02),  # Remove Wagon, he gives ice hint
+                        (STAddr.adv_flags_3a, 0x40)], # unset brought noko to icyspring
         "reset_flags": ["Snow sanc Reset BTT", "RESET Add Snow Source", "RESET Wagon"]
     },
     "Anouki chief stop kofu": {
@@ -1568,7 +1569,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3500],
         "has_locations": ["Icy Spring Noko's Force Gem"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x50)],
     },
     "No passengers icyspring": {
         "on_scenes": [0x3500],

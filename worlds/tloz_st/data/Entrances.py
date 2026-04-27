@@ -711,6 +711,15 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
     },
+    # "ToS Lobby Staircase": {
+    #     "return_name": "ToS Staircase Exit",
+    #     "entrance_region": "tos",
+    #     "entrance": (0x14, 0x1, 0x1),  # Needs extra data for staircase side
+    #     "exit": (0x17, 0x0, 0x0),
+    #     "type": EntranceGroups.DUNGEON_ENTRANCE,
+    #     "direction": EntranceGroups.INSIDE,
+    #     "island": EntranceGroups.NONE
+    # }
 
 
 }

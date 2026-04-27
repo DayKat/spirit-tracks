@@ -350,7 +350,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.adv_flags_1,
         'value': 0x80,
         'item_groups': ["Glyphs", "Rail Items", "Forest Tracks", "Major Forest Tracks", "Tracks: Forest Glyph"],
-        'model': "Forest Glyph 2",
+        'model': "Forest Glyph",
         "reload_entrances": [0x2F00], 
         "id": 38,
     },
@@ -585,6 +585,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x20,
         'item_groups': ["Rail Items", "Desert Tracks", "Misc Tracks", "Major Sand Tracks", "Tracks: Sand Realm"],
         "id": 62,
+        "model": "Ocean Glyph"
     },
     "Fire Realm Sand Portal Tracks": {
         'classification': ItemClassification.progression,
