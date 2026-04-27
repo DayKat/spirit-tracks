@@ -1401,15 +1401,13 @@ class SpiritTracksWorld(WorldParent):
 
     def get_location_models(self):
         # get item placement models to send to client
-        default_models = [
-            [ITEM_MODEL_LOOKUP["Force Gem 17"].offset]*3,
-            [ITEM_MODEL_LOOKUP["Letter"].offset] * 3,
-            [
+        default_models = {
+            2: [
                 ITEM_MODEL_LOOKUP["Gold Rupee"].offset,
                 ITEM_MODEL_LOOKUP["Blue Rupee"].offset,
                 ITEM_MODEL_LOOKUP["Green Rupee"].offset
             ]
-        ]
+        }
         dmi = self.options.multiworld_item_default_models.value
 
         location_models = {}

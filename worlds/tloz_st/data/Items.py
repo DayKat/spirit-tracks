@@ -585,6 +585,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x20,
         'item_groups': ["Rail Items", "Desert Tracks", "Misc Tracks", "Major Sand Tracks", "Tracks: Sand Realm"],
         "id": 62,
+        "model": "Ocean Glyph"
     },
     "Fire Realm Sand Portal Tracks": {
         'classification': ItemClassification.progression,

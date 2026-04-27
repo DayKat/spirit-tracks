@@ -520,21 +520,24 @@ BOSS_KEY_DATA = {
         "pointer": STAddr.oct_bk_pointer,
         "location": "Marine Temple 6F Boss Key",
         "door": STAddr.oct_boss_door,
-        "dungeon": "Marine Temple"
+        "dungeon": "Marine Temple",
+        "deletion_data": (8, 0)  # size, offset
     },
     0x1c04: {
         "y": -48000,
         "pointer": STAddr.mtt_bk_pointer,
         "location": "Mountain Temple B3 Boss Key",
         "door": STAddr.mtt_boss_door,
-        "dungeon": "Mountain Temple"
+        "dungeon": "Mountain Temple",
+        "deletion_data": (4, 64)
     },
     0x1d03: {
         "y": -2867,
         "pointer": STAddr.dt_bk_pointer,
         "location": "Desert Temple B1 Boss Key",
         "door": STAddr.dt_boss_door,
-        "dungeon": "Desert Temple"
+        "dungeon": "Desert Temple",
+        "deletion_data": (4, 8)
     },
     0x1309: {
         "y": 0,
@@ -543,7 +546,7 @@ BOSS_KEY_DATA = {
         "door": STAddr.tos3_boss_door,
         "dungeon": "ToS 3",
         "door_coords": 0xffff2ffc00000000fffffffc,
-        "key_coords": ""
+        "deletion_data": (4, 0)
     },
     0x1318: {
         "y": 0,
@@ -552,7 +555,7 @@ BOSS_KEY_DATA = {
         "door": STAddr.tos5_boss_door,
         "dungeon": "ToS 5",
         "door_coords": 0x4ffc000000000000affc,
-        "key_coords": ""
+        "deletion_data": (4, 0)
     },
 }
 
