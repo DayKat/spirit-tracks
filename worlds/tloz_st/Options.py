@@ -670,6 +670,21 @@ class SpiritTracksZeldaModelSwaps(Toggle):
     display_name = "Multiworld Item Model Swaps"
     default = 1
 
+class SpiritTracksMultiworldItemModel(Choice):
+    """
+    What unknown items from other worlds show up as.
+    Known items still change to their closest match if model swaps are enabled.
+    Revealed Traps always show up as skulls.
+    - force_gems: Foreign items show up as force gems.
+    - letters: Foreign items show up as letters.
+    - rupees: Foreign items show up as rupees. Gold for progression, blue for useful, green for filler.
+    """
+    display_name = "Multiworld Item Default Model"
+    option_force_gems = 0
+    option_letters = 1
+    option_rupees = 2
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -745,6 +760,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # Cosmetic
     starting_train: SpiritTracksStartingTrain
     multiworld_item_model_swaps: SpiritTracksZeldaModelSwaps
+    multiworld_item_default_models: SpiritTracksMultiworldItemModel
 
     # Generic
     start_inventory_from_pool: StartInventoryPool
@@ -813,7 +829,8 @@ st_option_groups = [
     ]),
     OptionGroup("Cosmetic Options", [
         SpiritTracksStartingTrain,
-        SpiritTracksZeldaModelSwaps
+        SpiritTracksZeldaModelSwaps,
+        SpiritTracksMultiworldItemModel
     ]),
     OptionGroup("Item & Location Options", [
         SpiritTracksRemoveItemsFromPool

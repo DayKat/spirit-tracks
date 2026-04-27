@@ -712,8 +712,13 @@ class SpiritTracksClient(DSZeldaClient):
         print(f"Reseting treasure models")
         await bizhawk.write(ctx.bizhawk_ctx, write_list)
 
-    async def swap_models(self, ctx, locations: list, generic_model=0x59637266, treasure_mode=False):
+    async def swap_models(self, ctx, locations: list, treasure_mode=False):
         print(f"\tMultiple locations: {locations}")
+        generic_model = [
+            ITEM_MODEL_LOOKUP["Force Gem 17"].value,
+            ITEM_MODEL_LOOKUP["Letter"].value,
+            ITEM_MODEL_LOOKUP["Gold Rupee"].value,
+        ][ctx.slot_data.get("multiworld_item_default_models", 0)]
         item_location_check = {}  # dict of item to location id for what location determines the model
         item_priority = {}
         for loc_name in locations:

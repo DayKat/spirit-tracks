@@ -1401,6 +1401,17 @@ class SpiritTracksWorld(WorldParent):
 
     def get_location_models(self):
         # get item placement models to send to client
+        default_models = [
+            [ITEM_MODEL_LOOKUP["Force Gem 17"].offset]*3,
+            [ITEM_MODEL_LOOKUP["Letter"].offset] * 3,
+            [
+                ITEM_MODEL_LOOKUP["Gold Rupee"].offset,
+                ITEM_MODEL_LOOKUP["Blue Rupee"].offset,
+                ITEM_MODEL_LOOKUP["Green Rupee"].offset
+            ]
+        ]
+        dmi = self.options.multiworld_item_default_models.value
+
         location_models = {}
         for loc in self.get_locations():
             item = loc.item
@@ -1418,14 +1429,13 @@ class SpiritTracksWorld(WorldParent):
                     location_models[loc_data['id']] = model
                     continue
 
-            if item.classification & ItemClassification.progression:
-                pass  # progression fallback is the default
-            elif item.classification & ItemClassification.trap:
+            if dmi in [2]:
+                if item.classification & ItemClassification.useful:
+                    location_models[loc_data['id']] = default_models[dmi][1]
+                elif item.classification & ItemClassification.filler:
+                    location_models[loc_data['id']] = default_models[dmi][2]
+            if item.classification & ItemClassification.trap:
                 location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Stalfos Skull"].offset
-            elif item.classification & ItemClassification.useful:
-                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Blue Rupee"].offset
-            else:
-                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Green Rupee"].offset
 
         return location_models
         # print(f"Location Models: {location_models}")
@@ -1443,7 +1453,7 @@ class SpiritTracksWorld(WorldParent):
                    "portal_behavior", "portal_checks",
                    "randomize_tears", "spirit_weapons", "tear_sections",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
-                   "starting_train",
+                   "starting_train", "multiworld_item_default_models",
                    "randomize_stamps",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections",
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
