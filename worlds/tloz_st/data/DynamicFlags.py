@@ -222,8 +222,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Niko Stamp Book"],
         "has_slot_data": [("randomize_passengers", 1)],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET Add Snow Source"]
+        "unset_if_true": [(STAddr.adv_flags_0, 0x20)]
     },
     "Allow Stamp Book check alfonzo item": {
         "on_scenes": [0x2F0A],
@@ -231,8 +230,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Passenger: Alfonzo", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "set_if_true": [(STAddr.adv_flags_11, 0x40)],
-        "reset_flags": ["RESET Add Snow Source"]
+        "set_if_true": [(STAddr.adv_flags_11, 0x40)]
     },
     "Allow Stamp Book check no passengers": {
         "on_scenes": [0x2F0A],
@@ -240,14 +238,16 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", 0)],
         "has_groups": ["Tracks: Snow Glyph"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "set_if_true": [(STAddr.adv_flags_11, 0x40)],
-        "reset_flags": ["RESET Add Snow Source"]
+        "set_if_true": [(STAddr.adv_flags_11, 0x40)]
     },
     "Niko remove stamp book": {
         "on_scenes": [0x2F0A],
         "not_has_locations": ["Outset Niko Stamp Book"],
         "unset_if_true": [(STAddr.adv_flags_25, 0x02)],
-        "reset_flags": ["RESET Stamp Book Check"]
+    },
+    "Niko Resets": {
+        "on_scenes": [0x2F0A],
+        "reset_flags": ["RESET Stamp Book Check", "RESET Remove Snow source", "RESET Add Snow Source"]
     },
     "RESET Stamp Book Check": {
         "has_items": [["Stamp Book", 1]],
@@ -256,10 +256,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow stamp rewards": {
         "on_scenes": [0x2F0A],
         "has_locations": ["Outset Niko Stamp Book"],
-        "set_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET Remove Snow source"]
+        "set_if_true": [(STAddr.adv_flags_0, 0x20)]
     },
-
     "Fraaz location": {
         "on_scenes": [0x1F00],
         "not_has_locations": ["Blizzard Temple Dungeon Reward"],

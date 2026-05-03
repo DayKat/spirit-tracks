@@ -1210,13 +1210,13 @@ class SpiritTracksClient(DSZeldaClient):
 
             if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
                 if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
-                        or not self.item_count(ctx, "Cannon")):
+                        or not self.item_count(ctx, "Cannon")
+                        or all([LOCATIONS_DATA[i]['id'] in ctx.checked_locations for i in LOCATION_GROUPS["Snurglars"]])):
                     print(f"Got Snurglar keys, opening mountain temple")
                     await self.snurglar_addr.overwrite(ctx, 0x30)
                 else:
                     print(f"Got Snurglar keys, adding to main read list")
                     self.main_read_list.append(snurglar_flags)
-
         else:
             self.snurglar_addr = None
 
