@@ -1453,7 +1453,7 @@ class SpiritTracksWorld(WorldParent):
                    "dark_realm_access", "endgame_scope", "dungeons_required",
                    "starting_train", "multiworld_item_default_models",
                    "randomize_stamps",
-                   "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections",
+                   "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections", "tos_shortcuts",
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
                    "death_link"]
         slot_data = self.options.as_dict(*options)

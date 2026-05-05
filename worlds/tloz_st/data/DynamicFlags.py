@@ -177,6 +177,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [["Rabbit Net", 0]],
         "unset_if_true": [(STAddr.adv_flags_1a, 0x40)],
     },
+    "Prevent early alfonzo": {
+        "on_scenes": [0x2900],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Castle Town Pick Up Alfonzo"],
+        "unset_if_true": [(STAddr.adv_flags_11, 0x40)],
+    },
     "Move Alfonso to castle town station": {
         "on_scenes": [0x2900],
         "not_has_locations": ["Outset Niko Stamp Book"],
@@ -1576,9 +1582,18 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Can pick up Mona": {
         "on_scenes": [0x290c],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "has_slot_data": [("randomize_passengers", 1)],
         "has_groups": ["Tracks: Snow Glyph"],
         "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "reset_flags": ["RESET Remove Ocean source"]
+    },
+    "Can pick up Mona randomize": {
+        "on_scenes": [0x290c],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "not_has_locations": ["Castle Town Pick Up Mona"],
+        "has_groups": ["Tracks: Snow Glyph"],
+        "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "unset_if_true": [(STAddr.adv_flags_3b, 0x20)],
         "reset_flags": ["RESET Remove Ocean source"]
     },
     "Mona missing glyph": {
@@ -1595,7 +1610,9 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Bring Mona to Rabbit Haven": {
         "on_scenes": [0x3E00],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "has_items": [("Passenger: Mona", 1)],
+        "not_has_locations": ["Rabbit Haven Mona's Force Gem"],
         "check_bits": [(STAddr.adv_flags_3b, 0x80, "not")],
         "set_if_true": [(STAddr.adv_flags_3b, 0x20)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x3e),
