@@ -117,6 +117,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2000],
         "not_has_locations": ["Marine Temple Dungeon Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "on_entrance": [0],
         "reset_flags": ["RESET Add Ocean source"]
     },
     "Cragma/Vulcano location": {

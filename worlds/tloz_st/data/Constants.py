@@ -517,10 +517,11 @@ BOSS_KEY_DATA = {
     },
     0x1b05: {
         "y": 0,
-        "pointer": STAddr.oct_bk_pointer,
+        # "pointer": STAddr.oct_bk_pointer,
         "location": "Marine Temple 6F Boss Key",
         "door": STAddr.oct_boss_door,
         "dungeon": "Marine Temple",
+        "search_data": (16, 3, 59392, 4, STAddr.oct_actor_table_start),
         "deletion_data": (8, 0)  # size, offset
     },
     0x1c04: {

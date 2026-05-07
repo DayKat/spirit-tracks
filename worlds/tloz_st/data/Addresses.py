@@ -145,6 +145,8 @@ class STAddr:
     tos_actor_table_pointer_1 = Address(0x329C3C, size=3)
     tos_actor_table_pointer_safe = Address(0x25FA48, size=3)  # offset 1032 (header)/1040 (start of pointers)
 
+    oct_actor_table_start = Address(0x3251D8, size=3)
+
     # Candidates for ToS 3 bk pointers
     # 332858
     # 332A20

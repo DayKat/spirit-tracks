@@ -226,6 +226,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.saving_safety = False
 
         self.display_goal = False
+        self.oct_bk_offset = None
 
 
     def print_goal_info(self, ctx):
@@ -581,6 +582,9 @@ class SpiritTracksClient(DSZeldaClient):
                 if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
                     print(f"Opening boss door for {hex(self.current_scene)}")
                     await data["door"].overwrite(ctx, 3)
+
+        # Complex blocked scenes for sources in boss rooms
+
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
@@ -1172,7 +1176,11 @@ class SpiritTracksClient(DSZeldaClient):
                 print(f"Has found location {data['location']}, deleting boss key")
                 await self.delete_boss_key(ctx)
             else:
-                if "pointer" in data:
+                if "search_data" in data:
+                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], return_index=True)
+                    self.oct_bk_offset = offset
+                    print(f"Found bk in actor loop: {pointer}")
+                elif "pointer" in data:
                     pointer = await data["pointer"].read(ctx)
                     print(f"bk pointer: {data['pointer']} -> {hex(pointer)}")
                 else:
@@ -1183,7 +1191,7 @@ class SpiritTracksClient(DSZeldaClient):
                     self.boss_key_read = Address.from_pointer(pointer+offset, size=4)
                     self.boss_key_y = data["y"]
                     print(f"BK Read: {self.boss_key_read}")
-                print(f"Loaded boss key data: {hex(pointer)} y: {self.boss_key_y}")
+                print(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
 
             # Open door
             if self.item_count(ctx, f"Boss Key ({data['dungeon']})") or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"]):
@@ -1311,7 +1319,13 @@ class SpiritTracksClient(DSZeldaClient):
         print(f"Deleting boss key @ {hex(pointer)}")
         size, offset = BOSS_KEY_DATA[self.current_scene].get("deletion_data", (12, 0))
         if self.current_stage == 0x1b:
-            pointer += 44  # Ocean temple bk does not load into the first slot in memory
+            if not self.oct_bk_offset:
+                data = BOSS_KEY_DATA[0x1b05]
+                _, self.oct_bk_offset = await self.find_table_object(ctx, *data["search_data"], return_index=True)
+                if not self.oct_bk_offset:
+                    return
+            pointer += (self.oct_bk_offset-2)*4  # Ocean temple bk does not load into the first slot in memory
+
             await Address.from_pointer(pointer+60, 4).overwrite(ctx, 0)  # also needs this to not crash
         if self.current_stage == 0x13:
             pointer, _ = await self.get_tos_bk_pointer(ctx)
