@@ -1573,7 +1573,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Noko arrived rando": {
         "on_scenes": [0x3500],
         "has_locations": ["Icy Spring Noko's Force Gem"],
-        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "set_if_true": [(STAddr.adv_flags_3a, 0x50)],
     },
     "No passengers icyspring": {
@@ -1965,6 +1965,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     #Check for Wadatsumi being delivered previously, and then set Gorons to appear
     "Wadatsumi Saved Already": {
         "on_scenes": [0x3A00],
+        "has_items": [("Bow (Progressive)", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_locations": ["Pirate Hideout Pick Up Wadatsumi"],
         # "check_bits": [(STAddr.adv_flags_34, 0x20)],
@@ -1972,12 +1973,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Wadatsumi Saved Already vanilla": {
         "on_scenes": [0x3A00],
+        "has_items": [("Bow (Progressive)", 1)],
         "has_slot_data": [("randomize_passengers", 1)],
         "has_locations": ["Papuzia Village Wadatsumi's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
     "Wadatsumi Saved Already no papuzia": {
         "on_scenes": [0x3A00],
+        "has_items": [("Bow (Progressive)", 1)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "not_has_groups": ["Tracks: Ocean Glyph"],
         "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
@@ -2211,7 +2214,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
         "has_items": [("Song of Discovery", 1)],
-        "unset_if_true": [(STAddr.songs, 0x4)],
+        "unset_if_true": [(STAddr.songs, 0x4), (STAddr.adv_flags_9, 0x10)],
         "set_if_true": [(STAddr.adv_flags_a, 0xA0)]
     },
     "Papuzia default reset SoB": {

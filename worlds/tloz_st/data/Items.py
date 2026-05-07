@@ -405,7 +405,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'item_groups': ["Restoration Tracks", "Rail Items", "Ocean Realm Tracks",
                         "Ocean Temple Tracks", "Ocean Restoration", "Ocean Realm Restoration",
                         "Major Ocean Tracks", "Tracks: Marine Temple Tracks"],
-        'model': "Ocean Glyph 3", 
+        'model': "Ocean Glyph 2",
         "id": 44,
     },
     "Mountain Temple Tracks": {

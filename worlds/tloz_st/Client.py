@@ -1325,7 +1325,7 @@ class SpiritTracksClient(DSZeldaClient):
                 if not self.oct_bk_offset:
                     return
             pointer += (self.oct_bk_offset-2)*4  # Ocean temple bk does not load into the first slot in memory
-
+            self.oct_bk_offset = None
             await Address.from_pointer(pointer+60, 4).overwrite(ctx, 0)  # also needs this to not crash
         if self.current_stage == 0x13:
             pointer, _ = await self.get_tos_bk_pointer(ctx)
