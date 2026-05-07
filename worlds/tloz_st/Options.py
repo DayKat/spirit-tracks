@@ -685,6 +685,16 @@ class SpiritTracksMultiworldItemModel(Choice):
     option_rupees = 2
     default = 0
 
+class SpiritTracksToSShortcuts(Toggle):
+    """
+    If enabled, taking the bottom door of the tower section of Tower of Spirits,
+    that usually takes you back to the lobby,
+    warps you to the highest unlocked door in the tower.
+    To return to lobby as normal use any lift opposite any other exit.
+    """
+    display_name = "Tower of Spirits Shortcuts"
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -731,6 +741,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     tos_section_unlocks: SpiritTracksToSSectionUnlocks
     tos_unlock_base_item: SpiritTracksToSBase
     shuffle_tos_sections: SpiritTracksShuffleToSSections
+    tos_shortcuts: SpiritTracksToSShortcuts
 
     randomize_tears: SpiritTracksRandomizeTears
     tear_size: SpiritTracksTearSize
@@ -808,6 +819,7 @@ st_option_groups = [
         SpiritTracksToSSectionUnlocks,
         SpiritTracksToSBase,
         SpiritTracksShuffleToSSections,
+        SpiritTracksToSShortcuts,
         SpiritTracksRandomizeTears,
         SpiritTracksTearSize,
         SpiritTracksTearGroup,

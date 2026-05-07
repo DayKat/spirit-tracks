@@ -517,10 +517,11 @@ BOSS_KEY_DATA = {
     },
     0x1b05: {
         "y": 0,
-        "pointer": STAddr.oct_bk_pointer,
+        # "pointer": STAddr.oct_bk_pointer,
         "location": "Marine Temple 6F Boss Key",
         "door": STAddr.oct_boss_door,
         "dungeon": "Marine Temple",
+        "search_data": (16, 3, 59392, 4, STAddr.oct_actor_table_start),
         "deletion_data": (8, 0)  # size, offset
     },
     0x1c04: {
@@ -712,6 +713,13 @@ KEY_COUNTS = {
     "Small Key (ToS 5)": 2,
     "Small Key (ToS 6)": 3,
     "Small Key (Tunnel to ToS)": 1,
+}
+
+BOSS_ROOM_TO_BLOCKED_ITEM_GROUP: dict[int, str] = {
+    0x1e00: "Tracks: Forest Source",
+    0x1f00: "Tracks: Snow Source",
+    0x2000: "Tracks: Ocean Source",
+    0x2100: "Tracks: Fire Source",
 }
 
 TOS_SECTION_TO_EXIT = {section: e for e, section in EXIT_TO_TOS_SECTION.items()}
