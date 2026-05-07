@@ -687,7 +687,8 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'value': 0x1,
         'set_bit': [[STAddr.source_rails, 0x20]],
         'item_groups': ["Sources", "Major Sand Tracks", "Tracks: Sand Source"],
-        'model': "Ocean Glyph", 
+        'model': "Ocean Glyph",
+        "blocked_scenes": [0x2200],
         "id": 72,
     },
 

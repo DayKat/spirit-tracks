@@ -715,6 +715,13 @@ KEY_COUNTS = {
     "Small Key (Tunnel to ToS)": 1,
 }
 
+BOSS_ROOM_TO_BLOCKED_ITEM_GROUP: dict[int, str] = {
+    0x1e00: "Tracks: Forest Source",
+    0x1f00: "Tracks: Snow Source",
+    0x2000: "Tracks: Ocean Source",
+    0x2100: "Tracks: Fire Source",
+}
+
 TOS_SECTION_TO_EXIT = {section: e for e, section in EXIT_TO_TOS_SECTION.items()}
 
 BOSS_WARP_SCENE_LOOKUP = {

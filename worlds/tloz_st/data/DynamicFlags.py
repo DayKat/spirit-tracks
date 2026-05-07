@@ -56,6 +56,9 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3000],
         "not_has_locations": ["Woodland Sanctuary Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x01)],
+    },
+    "reset soa": {
+        "on_scenes": [0x3000],
         "reset_flags": ["RESET fs statue"]
     },
     "RESET fs statue": {
@@ -67,21 +70,22 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x190A],
         "not_has_locations": ["Wooded Temple Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
-        "reset_flags": ["RESET wt statue"]
+    },
+    "reset soh": {
+        "on_scenes": [0x190A, 0x1b0a, 0x1c0A],
+        "reset_flags": ["RESET soh statue"]
     },
     "Allow learning healing song oct": {
         "on_scenes": [0x1b0a],
         "not_has_locations": ["Marine Temple Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
-        "reset_flags": ["RESET wt statue"]
     },
     "Allow learning healing song mtt": {
         "on_scenes": [0x1c0A],
         "not_has_locations": ["Mountain Temple Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
-        "reset_flags": ["RESET wt statue"]
     },
-    "RESET wt statue": {
+    "RESET soh statue": {
         "has_items": [["Song of Healing", 1]],
         "set_if_true": [(STAddr.songs, 0x02)],
     },
@@ -89,6 +93,9 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3700],
         "not_has_locations": ["Trading Post Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x08)],
+    },
+    "reset sol": {
+        "on_scenes": [0x3700],
         "reset_flags": ["RESET trading post statue"]
     },
     "RESET trading post statue": {
@@ -100,6 +107,9 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2B00],
         "not_has_locations": ["Anouki Village Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x10)],
+    },
+    "reset sod": {
+        "on_scenes": [0x2B00],
         "reset_flags": ["RESET av statue"]
     },
     "RESET av statue": {

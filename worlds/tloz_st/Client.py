@@ -584,6 +584,10 @@ class SpiritTracksClient(DSZeldaClient):
                     await data["door"].overwrite(ctx, 3)
 
         # Complex blocked scenes for sources in boss rooms
+        if (self.current_scene in BOSS_ROOM_TO_BLOCKED_ITEM_GROUP and
+            BOSS_ROOM_TO_BLOCKED_ITEM_GROUP[self.current_scene] in item_data.item_groups):
+            bit = 2 ** (self.current_stage-0x1a)
+            await STAddr.sources.unset_bits(ctx, bit)
 
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
