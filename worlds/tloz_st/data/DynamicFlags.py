@@ -2224,8 +2224,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
         "has_items": [("Song of Discovery", 1)],
-        "unset_if_true": [(STAddr.songs, 0x4), (STAddr.adv_flags_9, 0x10)],
+        "unset_if_true": [(STAddr.songs, 0x4)], # (STAddr.adv_flags_9, 0x10)],
         "set_if_true": [(STAddr.adv_flags_a, 0xA0)]
+    },
+    "Prevent carben crash no passengers": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Song Statue"],
+        "has_items": [("Song of Discovery", 1)],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
     "Papuzia default reset SoB": {
         "on_scenes": [0x2c00],
@@ -2238,7 +2245,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Papuzia allow song of birds": {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
-        "has_items": [("Song of Birds", 1)],
+        "has_items": [("Song of Birds", 1), ("Song of Discovery", 0)],
         "set_if_true": [(STAddr.songs, 4)],
     },
     "Papuzia can buy vessel": {
