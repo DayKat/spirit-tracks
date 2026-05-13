@@ -549,8 +549,6 @@ class SpiritTracksWorld(WorldParent):
                     if self.options.randomize_cargo.value not in values:
                         return False
                 return True
-        if location_name == "Goron Village Get Wagon":
-            return self.options.randomize_cargo.value
         return False
 
     def create_events(self):
@@ -1284,7 +1282,6 @@ class SpiritTracksWorld(WorldParent):
             confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Tears of Light"]])
 
         # Filter out starting inventory items, borrowed from EternalCode's Minish cap implementation
-        print(f"Pre fill items (pre start items) {confined_dungeon_items}")
         start_inv = self.options.start_inventory_from_pool.value
         known_start_inv = {}
         def keep_item(s):
@@ -1296,7 +1293,7 @@ class SpiritTracksWorld(WorldParent):
             items.remove(item)
 
         self.pre_fill_items.extend(confined_dungeon_items)
-        print(f"Pre fill items {self.pre_fill_items}")
+        # print(f"Pre fill items {self.pre_fill_items}")
 
     def pre_fill_tos_sections(self):
         for section in range(1, 7):
