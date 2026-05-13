@@ -989,6 +989,7 @@ class SpiritTracksClient(DSZeldaClient):
                          or max(0, (self.item_count(ctx, "Big Tear of Light (Progressive)") - big_prog_sub) * 3)
                          or max(0, self.item_count(ctx, "Tear of Light (Progressive)") - big_prog_sub * 3)
                          )
+            set_tears = min(set_tears, 3)
             print(f"Setting tears for section {section} tears {set_tears}")
         else:
             print(f"Setting tears {set_tears}")

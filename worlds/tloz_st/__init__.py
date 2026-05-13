@@ -243,7 +243,7 @@ class SpiritTracksWorld(WorldParent):
                 tos_summit_boss in self.required_dungeons
             ]):
                 self.options.spirit_weapons.value = 0
-                print(f"ToS Summit needs final spirit weapon. Turning off spirit weapons.")
+                # print(f"ToS Summit needs final spirit weapon. Turning off spirit weapons.")
 
             if self.options.starting_train == "random_train":
                 self.options.starting_train.value = self.random.randint(0, 7)
@@ -1272,6 +1272,7 @@ class SpiritTracksWorld(WorldParent):
     def filter_confined_dungeon_items_from_pool(self, items: List[SpiritTracksItem]):
         confined_dungeon_items = []
 
+
         # Confine small keys and boss key to own dungeon if option is enabled
         if self.options.keysanity in ["in_own_dungeon", "in_own_section"]:
             confined_dungeon_items.extend([item for item in items if item.name.startswith("Small Key") or item.name.startswith("Keyring (")])
@@ -1282,10 +1283,20 @@ class SpiritTracksWorld(WorldParent):
         if self.options.randomize_tears in ["in_own_section", "in_tos"]:
             confined_dungeon_items.extend([item for item in items if item.name in ITEM_GROUPS["Tears of Light"]])
 
+        # Filter out starting inventory items, borrowed from EternalCode's Minish cap implementation
+        print(f"Pre fill items (pre start items) {confined_dungeon_items}")
+        start_inv = self.options.start_inventory_from_pool.value
+        known_start_inv = {}
+        def keep_item(s):
+            known_start_inv[s] = known_start_inv.get(s, 0) + 1
+            return s not in start_inv or known_start_inv[s] > start_inv[s]
+        confined_dungeon_items = [i for i in confined_dungeon_items if keep_item(i.name)]
+
         for item in confined_dungeon_items:
             items.remove(item)
+
         self.pre_fill_items.extend(confined_dungeon_items)
-        # print(f"Pre fill items {self.pre_fill_items}")
+        print(f"Pre fill items {self.pre_fill_items}")
 
     def pre_fill_tos_sections(self):
         for section in range(1, 7):

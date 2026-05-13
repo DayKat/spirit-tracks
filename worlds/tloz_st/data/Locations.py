@@ -2197,7 +2197,7 @@ LOCATIONS_DATA = {
         "item_override": "Nothing!",
         "slot_data": [("randomize_cargo", [1, 2, 3])],
         "conditional": True,
-        "location_groups": ["Goron Village"],
+        "location_groups": ["Goron Village", "Cargo Locations"],
         "no_model": True
     },
     "Goron Village Chest Above Elder's House": {
@@ -4293,7 +4293,7 @@ LOCATION_GROUPS["Mountain Rabbits"] = LOCATION_GROUPS["Total Mountain Rabbits"] 
 LOCATION_GROUPS["Sand Rabbits"] = LOCATION_GROUPS["Total Sand Rabbits"] | LOCATION_GROUPS["Unique Sand Rabbits"]
 LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATION_GROUPS["Total Rabbits"]
 LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"] | LOCATION_GROUPS["Misc Passengers"]
-LOCATION_GROUPS["Cargo Locations"] = LOCATION_GROUPS["Buy Cargo"] | LOCATION_GROUPS["Deliver Cargo"]
+LOCATION_GROUPS["Cargo Locations"] |= LOCATION_GROUPS["Buy Cargo"] | LOCATION_GROUPS["Deliver Cargo"]
 
 # print(f"Location Groups:")
 # for group, locs in LOCATION_GROUPS.items():

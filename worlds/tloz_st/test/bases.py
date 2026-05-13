@@ -16,9 +16,9 @@ class TestGeneration(WorldTestBase):
         "dungeons_required": 12,
         "tos_dungeon_options": "all_sections",
 
-        "randomize_tears": "vanilla_items",
-        "tear_size": "small",
-        "tear_sections": "progressive",
+        "randomize_tears": "in_own_section",
+        "tear_size": "large",
+        "tear_sections": "unique_sections",
         "spirit_weapons": "final_tear",
 
         "keysanity": "vanilla",
@@ -42,5 +42,8 @@ class TestGeneration(WorldTestBase):
         "start_with_train": True,
         "cannon_logic": "open_train",
         "portal_behavior": "always_open",
+        "start_inventory_from_pool": {
+            "Big Tear of Light (ToS 1)": 1
+        }
 
     }
