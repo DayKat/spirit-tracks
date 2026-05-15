@@ -859,7 +859,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_items": [("Spirit Flute", 1)],
         "not_has_locations": ["Snowfall Sanctuary Song of Restoration"],
         "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
-        "unset_if_true": [(STAddr.adv_flags_1, 6)]
+        "unset_if_true": [(STAddr.adv_flags_1, 0x6)]
+    },
+    "Steem has played duet": {
+        "on_scenes": [0x3102],
+        "has_locations": ["Snowfall Sanctuary Song of Restoration"],
+        "has_slot_data": [("randomize_minigames", [1, 2, 3, 4, 5, 6])],
+        "set_if_true": [(STAddr.adv_flags_1, 0x2)],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x4)]
     },
     "Snow sanc remove vessel": {
         "on_scenes": [0x3102],
@@ -873,7 +880,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Always remove btt in snow sanc room": {  # and ocean restoration
         "on_scenes": [0x3102],
-        "unset_if_true": [(STAddr.rail_restorations, 0x4), (STAddr.adv_flags_1, 0x4)],
+        "unset_if_true": [(STAddr.rail_restorations, 0x4)],
         "reset_flags": ["Snow sanc Reset BTT not has", "Snow sanc Reset BTT"]
     },
     "Snow sanc Reset BTT not has": {
@@ -1874,6 +1881,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3200],
         "has_items": [("Passenger: Carben", 1)],
         "not_has_locations": ["Island Sanctuary Carben's Force Gem"],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
         "set_if_true": [(STAddr.adv_flags_9, 0x10)],
         "unset_if_true": [(STAddr.adv_flags_9, 0x20)],  # Prevent invisible carben
         "overwrite_if_true": [(STAddr.passenger_goal, 0x32),
@@ -2224,8 +2232,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
         "has_items": [("Song of Discovery", 1)],
-        "unset_if_true": [(STAddr.songs, 0x4), (STAddr.adv_flags_9, 0x10)],
+        "unset_if_true": [(STAddr.songs, 0x4)], # (STAddr.adv_flags_9, 0x10)],
         "set_if_true": [(STAddr.adv_flags_a, 0xA0)]
+    },
+    "Prevent carben crash no passengers": {
+        "on_scenes": [0x2c00],
+        "not_has_locations": ["Papuzia Village Song Statue"],
+        "has_items": [("Song of Discovery", 1)],
+        "has_slot_data": [("randomize_passengers", 0)],
+        "unset_if_true": [(STAddr.adv_flags_9, 0x30)],
     },
     "Papuzia default reset SoB": {
         "on_scenes": [0x2c00],
@@ -2238,7 +2253,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Papuzia allow song of birds": {
         "on_scenes": [0x2c00],
         "not_has_locations": ["Papuzia Village Song Statue"],
-        "has_items": [("Song of Birds", 1)],
+        "has_items": [("Song of Birds", 1), ("Song of Discovery", 0)],
         "set_if_true": [(STAddr.songs, 4)],
     },
     "Papuzia can buy vessel": {

@@ -3,7 +3,7 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.Entrances import ENTRANCES
+from .data.Entrances import ENTRANCES, boss_events
 from settings import get_settings
 from typing import Literal
 
@@ -251,7 +251,7 @@ class SpiritTracksClient(DSZeldaClient):
             has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
             logger.info(
                 f"You need to complete {specific}dungeons to enter the dark realm. Progress: {has_locs}/{slot_data['dungeons_required']}")
-            if slot_data["dungeon_hints"]:
+            if slot_data.get("dungeon_hints", 1):
                 dungeons_locs = [self.location_id_to_name[i] for i in slot_data["required_dungeons"]]
                 logger.info(f"Your dungeons: {dungeons_locs}")
         if slot_data["dark_realm_access"] in [2, 3]:
@@ -918,12 +918,14 @@ class SpiritTracksClient(DSZeldaClient):
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
         if read_result[STAddr.menu] and stage >= 0x13:
             return
-        # if stage < 0x13:  # deaths work badly on train
-        #     return
+        dead_health = 0
+        if stage < 0x13:  # deaths work badly on train
+            dead_health = 1
 
         if ctx.last_death_link > self.last_deathlink and not is_dead:
             # A death was received from another player, make our player die as well
-            await self.health_address.overwrite(ctx, 0)
+
+            await self.health_address.overwrite(ctx, dead_health)
 
             self.is_expecting_received_death = True
             self.last_deathlink = ctx.last_death_link
@@ -989,6 +991,7 @@ class SpiritTracksClient(DSZeldaClient):
                          or max(0, (self.item_count(ctx, "Big Tear of Light (Progressive)") - big_prog_sub) * 3)
                          or max(0, self.item_count(ctx, "Tear of Light (Progressive)") - big_prog_sub * 3)
                          )
+            set_tears = min(set_tears, 3)
             print(f"Setting tears for section {section} tears {set_tears}")
         else:
             print(f"Setting tears {set_tears}")

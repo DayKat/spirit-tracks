@@ -71,11 +71,11 @@ def _check_slot_data(ctx, data):
     if "has_slot_data" in data:
         for slot, value, *args in data["has_slot_data"]:
             slot_value = ctx.slot_data.get(slot, None)
-            # print(f"\t\tTesting slot {slot_value} {type(slot_value)} {value}")
-            if type(value) is list:
+            # print(f"\t\tTesting slot {data['name']} {slot_value} {type(slot_value)} {value}")
+            if isinstance(value, list):
                 if slot_value not in value:
                     return False
-            elif type(slot_value) is list:
+            elif isinstance(slot_value, list):
                 if args and args[0] == "not":
                     if value in slot_value:
                         return False
