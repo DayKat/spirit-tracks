@@ -1191,7 +1191,7 @@ LOCATIONS_DATA = {
     },
     "Wooded Temple 3F SE Chest": {
         "region_id": "wt 3f se chest",
-        "vanilla_item": "Red Rupee (20)",
+        "vanilla_item": {"Red Rupee (20)"} | ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x19,
         "room_id": 2,
         "x_min": 42646,
@@ -1995,6 +1995,7 @@ LOCATIONS_DATA = {
         "require_item": ["Bow (Progressive)"],
         "address": STAddr.adv_flags_56,
         "value": 0x10,
+        "delay_reset": True,
         "location_groups": ["Pirate Hideout", "Pirate Hideout Minigame",
                             "Pirate Hideout Easy", "Pirate Hideout Minigame Easy"],
         "slot_data": [("randomize_minigames", [1, 3, 4])],
@@ -2009,6 +2010,7 @@ LOCATIONS_DATA = {
         "minigame": [2, 3, 4],
         "require_item": ["Bow (Progressive)]"],  # Pirate hideout gives a free bow, decide if we want that or not.
         "address": STAddr.adv_flags_56,
+        "delay_reset": True,
         "value": 0x20,
         "location_groups": ["Pirate Hideout", "Pirate Hideout Minigame",
                             "Pirate Hideout Hard", "Pirate Hideout Minigame Hard"],

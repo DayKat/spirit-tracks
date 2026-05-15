@@ -18,7 +18,7 @@ from .data.ModelLookups import all_lookups
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
-                             location_event_lookup, goal_event_lookup)
+                             location_event_lookup, goal_event_lookup, boss_events)
 from entrance_rando import disconnect_entrance_for_randomization
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
@@ -1449,7 +1449,7 @@ class SpiritTracksWorld(WorldParent):
     def fill_slot_data(self) -> dict:
         options = ["goal", "compass_shard_count",
                    "logic", "cannon_logic",
-                   "exclude_dungeons", "exclude_sections", "require_specific_dungeons",
+                   "exclude_dungeons", "exclude_sections", "require_specific_dungeons", "dungeon_hints",
                    "keysanity", "randomize_boss_keys",
                    "big_keyrings",
                    "randomize_minigames", "minigame_hints",
@@ -1517,3 +1517,7 @@ class SpiritTracksWorld(WorldParent):
 
                     if exit_name == "EVENT: Bring Ice to Kagoron":
                         self.get_region("goron village").connect(self.get_region("goron ice"))
+
+                    if exit_name in boss_events:
+                        print(f"Globally connecting outset village => {_exit.parent_region}")
+                        self.get_region("outset village").connect(_exit.parent_region)

@@ -3,7 +3,7 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.Entrances import ENTRANCES
+from .data.Entrances import ENTRANCES, boss_events
 from settings import get_settings
 from typing import Literal
 
@@ -251,7 +251,7 @@ class SpiritTracksClient(DSZeldaClient):
             has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
             logger.info(
                 f"You need to complete {specific}dungeons to enter the dark realm. Progress: {has_locs}/{slot_data['dungeons_required']}")
-            if slot_data["dungeon_hints"]:
+            if slot_data.get("dungeon_hints", 1):
                 dungeons_locs = [self.location_id_to_name[i] for i in slot_data["required_dungeons"]]
                 logger.info(f"Your dungeons: {dungeons_locs}")
         if slot_data["dark_realm_access"] in [2, 3]:
