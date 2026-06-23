@@ -5,11 +5,11 @@ from test.bases import *
 class TestGeneration(WorldTestBase):
     game = "Spirit Tracks"
     options = {
-        "rabbitsanity": "unique_checks",
-        "rabbit_max_location_count": 10,
-        # "rabbit_location_count_distribution": "random_mixed",
-        "rabbit_pack_size": "random_mixed",
-        "rabbit_extra_items": 2,
+        "rabbitsanity": "both",
+        "rabbit_max_location_count": 1,
+        "rabbit_location_count_distribution": "for_each",
+        "rabbit_pack_size": 3,
+        "rabbit_extra_items": 0,
         "goal": "beat_tos_section_6",
         "dark_realm_access": "both",
 
@@ -20,12 +20,14 @@ class TestGeneration(WorldTestBase):
         "tear_size": "large",
         "tear_sections": "unique_sections",
         "spirit_weapons": "final_tear",
+        "shuffle_tos_sections": "no_shuffle",
+        "exclude_sections": "remove",
+        "plando_dungeon_pool": {"ToS 1", "ToS 3", "ToS 5"},
 
         "keysanity": "vanilla",
         "randomize_boss_keys": "anywhere",
         "keyrings": "all",
-        "shuffle_tos_sections": "no_shuffle",
-        "plando_dungeon_pool": {"ToS 1", "ToS 2", "ToS 5"},
+
 
         "shopsanity": {"all"},
         "rupee_farming_logic": "no_farming",
@@ -37,7 +39,7 @@ class TestGeneration(WorldTestBase):
         "stamp_pack_sizes": 1,
         "randomize_minigames": "hard",
         "exclude_dungeons": "remove",
-        "exclude_sections": "remove",
+
         "track_pool": "mixed_small",
         "start_with_train": True,
         "cannon_logic": "open_train",

@@ -168,6 +168,8 @@ class SpiritTracksWorld(WorldParent):
         self.stamp_pack_order = []
         self.model_lookup = {}
         self.sections_included: int = 6
+        self.tears_included_big: int = 6
+        self.tears_included_small: int = 16
         self.required_rupees = 0
         self.track_items = []
 
@@ -196,8 +198,12 @@ class SpiritTracksWorld(WorldParent):
         else:
             self.required_dungeons = self.pick_required_dungeons()
             self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
+            db_list = [(s, DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"], DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons) for s in range(1, 7)]
+            # print(f"Req dungs {self.required_dungeons} => {self.non_required_sections} {db_list}")
             if self.options.exclude_sections == "remove":
                 self.sections_included = 6 - len(self.non_required_sections)
+                self.tears_included_small = min(self.sections_included, 5)*3+1
+                self.tears_included_big = min(self.sections_included, 5)+1
             # print(f"Required Dungeons: {self.required_dungeons}")
             self.restrict_non_local_items()
             self.options.compass_shard_count.value = min(self.options.compass_shard_count.value, self.options.compass_shard_total.value)
@@ -262,6 +268,7 @@ class SpiritTracksWorld(WorldParent):
         """Plando ToS Shuffle early so we can use the ordering in logic"""
         if not self.options.shuffle_tos_sections:
             if self.options.exclude_sections == "remove":
+                # print(self.non_required_sections)
                 sections = [s for s in range(1, 7) if s not in self.non_required_sections]
                 self.tower_section_lookup = {s: i for i, s in enumerate(sections, start=1)}
                 self.tower_section_lookup |= {s: 6 for s in self.non_required_sections}
@@ -404,8 +411,7 @@ class SpiritTracksWorld(WorldParent):
             elif self.options.tos_dungeon_options == "all_sections":
                 required_dungeons += implemented_tos
 
-        self.options.dungeons_required.value = min(self.options.dungeons_required.value, len(required_dungeons))
-        # print(f"Required dungeons: {required_dungeons}")
+        self.options.dungeons_required.value = min(self.options.dungeons_required.value, len(set(required_dungeons + force_require)))
         if not self.options.require_specific_dungeons:
             return list(set(required_dungeons + force_require))
 
@@ -1066,6 +1072,7 @@ class SpiritTracksWorld(WorldParent):
         for r, s in zip(realms, pack_sizes):
             item_count = math.ceil(10 / s) + self.options.rabbit_extra_items.value
             rabbit_items |= create_items_from_count_list(r, [s]*item_count)
+        # print(f"rabbit items: {rabbit_items}")
         return rabbit_items
 
     def choose_tear_items(self):
@@ -1149,6 +1156,7 @@ class SpiritTracksWorld(WorldParent):
 
         self.filter_confined_dungeon_items_from_pool(items)
         self.multiworld.itempool.extend(items)
+        # print(self.multiworld.itempool)
 
     def get_extra_filler_items(self, item_pool_dict):
         # Create a random list of useful or currency items to turn into filler to satisfy all removed locations

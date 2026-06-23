@@ -5,6 +5,7 @@ from .Constants import ITEM_GROUPS, tear_lookup, big_tear_lookup
 from ..Options import *
 
 from rule_builder.rules import *
+from rule_builder.field_resolvers import FromWorldAttr, FromOption
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -35,10 +36,14 @@ has_sod = has_spirit_flute & Has("Song of Discovery")
 # Keys
 def has_small_keys(dungeon, count, _ool=None):
     _ool = _ool if _ool is not None else count
-    return Has(f"Small Key ({dungeon})", count) | (ool & Has(f"Small Key ({dungeon})", _ool))
+    return Or(Has(f"Small Key ({dungeon})", count),
+            ool & Has(f"Small Key ({dungeon})", _ool),
+            Has(f"Boss Key Key ({dungeon})"),
+            Has(f"Keyring ({dungeon})"))
 
 def has_boss_key(dungeon):
-    return Has(f"Boss Key Key ({dungeon})")
+    return (Has(f"Boss Key ({dungeon})")
+            | Has(f"Keyring ({dungeon})", options=[OptionFilter(SpiritTracksBigKeyrings, 1)]))
 
 # Rabbits
 has_net = Has("Rabbit Net") & has_cannon
@@ -50,24 +55,33 @@ def caught_rabbits(realm, count):
     return Has(f"_caught_{realm.lower()}_rabbits", count)
 
 def has_total_rabbits(count):
-    return HasFromList("Forest Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit", count=count)
+    return HasFromList("Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit", count=count)
 
 rabbit_count_lookup = {r: ITEMS[r].value for r in ITEM_GROUPS["Rabbits"]}
 
-has_all_rabbits = Has("Forest Rabbit", 10) & Has("Snow Rabbit", 10) & Has("Sand Rabbit", 10) & Has("Ocean Rabbit", 10) & Has("Mountain Rabbit", 10)
-has_all_rabbit_types = HasFromListUnique("Forest Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit", count=5)
+has_all_rabbits = And(
+    Has("Grass Rabbit", 10),
+    Has("Snow Rabbit", 10),
+    Has("Ocean Rabbit", 10),
+    Has("Mountain Rabbit", 10),
+    Has("Sand Rabbit", 10)
+)
+has_all_rabbit_types = HasFromListUnique("Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit", count=5)
 
 # Tracks
-has_compass = Has("Compass of Light")
+has_compass = Has("Compass of Light") | Has("Compass of Light Shard", count=FromOption(SpiritTracksCompassShardCount))
 
 def has_glyph(realm):
-    return Has(f"{realm} Glyph")
+    return HasGroup(f"Tracks: {realm} Glyph")
 
 def has_source(realm):
-    return Has(f"{realm} Source")
+    return HasGroup(f"Tracks: {realm} Source")
 
 def has_temple_tracks(temple):
-    return Has(f"{temple} Temple Tracks")
+    return HasGroup(f"Tracks: {temple} Temple Tracks")
+
+def has_tracks(tracks):
+    return HasGroup(f"Tracks: {tracks}")
 
 def has_portal(portal, forward):
     option = SpiritTracksRandomizePortals
@@ -91,7 +105,7 @@ def has_tears(section: int):
             Has(f"Tear of Light (ToS {section})", 3, options=[OptionFilter(SpiritTracksTearGroup, 0), OptionFilter(SpiritTracksTearSize, 0)]),
             Has(f"Big Tear of Light (ToS {section})", options=[OptionFilter(SpiritTracksTearGroup, 0), OptionFilter(SpiritTracksTearSize, 1)]),
             HasShuffledSection(f"Tear of Light (Progressive)", section), # options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 0)]),
-            Has(f"Tear of Light (Progressive)", count=min(FromWorldAttr("sections_included"), 5)+1, options=[OptionFilter(SpiritTracksTearGroup, 2), OptionFilter(SpiritTracksTearSize, 0)]),
+            Has(f"Tear of Light (Progressive)", count=FromWorldAttr("tears_included_small"), options=[OptionFilter(SpiritTracksTearGroup, 2), OptionFilter(SpiritTracksTearSize, 0)]),
             Has(f"Tear of Light (Progressive)", section * 3, options=not_tower_shuffle + [OptionFilter(SpiritTracksTearSize, 0)]),
             HasShuffledSection(f"Big Tear of Light (Progressive)", section), #, options=progressive_shuffle + [OptionFilter(SpiritTracksTearSize, 1)]),
             Has(f"Big Tear of Light (Progressive)", section, options=not_tower_shuffle + [OptionFilter(SpiritTracksTearSize, 1)]),
@@ -102,8 +116,8 @@ def has_tears(section: int):
 has_bow_of_light = Or(
     Has("Bow of Light") & has_bow,
     Filtered(
-        Or(Has(f"Tear of Light (Progressive)", count=min(FromWorldAttr("sections_included"), 5)*3+1),
-           Has(f"Big Tear of Light (Progressive)", count=min(FromWorldAttr("sections_included"), 5)+1),
+        Or(Has(f"Tear of Light (Progressive)", count=FromWorldAttr("tears_included_small")),
+           Has(f"Big Tear of Light (Progressive)", count=FromWorldAttr("tears_included_big")),
             Has(f"Tear of Light (All Sections)", 4),
             Has(f"Big Tear of Light (All Sections)", 2)),
         options=no_tear_items))
@@ -222,11 +236,10 @@ def has_rupees(count):
               Has("Rupees", count),
               Has("Treasure Rupees", count + 2500) & Has("_can_sell_treasure"))
 
-def has_dungeon_rewards(count: int):
-    option = SpiritTracksDarkRealmUnlock
-    return ([
-                OptionFilter(option, option.option_dungeons, operator="ne")]
-            | Has("_dungeon_reward", count, options=[OptionFilter(option, option.option_dungeons)]))
+
+has_dungeon_rewards = ([
+            OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons, operator="ne")]
+            | Has("_dungeon_reward", count=FromOption(SpiritTracksDungeonCount), options=[OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons)]))
 
 
 def st_has_dungeon_rewards(state, player):

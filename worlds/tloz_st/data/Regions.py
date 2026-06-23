@@ -131,6 +131,7 @@ REGIONS = [
     "tos 19f center 2",
     "tos 21f bombs",
     "tos 22f",
+    "tos 23f",
     "tos staven",
     "event_staven",
     "goal_staven",
