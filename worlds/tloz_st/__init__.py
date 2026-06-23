@@ -27,9 +27,9 @@ from .Subclasses import EntranceGroups
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
-    raise ModuleNotFoundError
+    # raise ModuleNotFoundError
 except ModuleNotFoundError:
-    # print(f"Spirit Tracks is using legacy logic")
+    print(f"Spirit Tracks is using legacy logic")
     WorldParent = World
     from .Logic import create_connections
 
@@ -360,7 +360,7 @@ class SpiritTracksWorld(WorldParent):
 
     def create_item_mappings(self):
         self.item_mapping_collect = {
-            i: ("Rupees", ITEMS[i].value) for i in ITEM_GROUPS["Rupee Items"]
+            i: [("Rupees", ITEMS[i].value), ("Treasure Rupees", ITEMS[i].value)] for i in ITEM_GROUPS["Rupee Items"]
         } | {
             r: ("Grass Rabbit", ITEMS[r].value) for r in grass_rabbits[1:]
         } | {
@@ -372,7 +372,7 @@ class SpiritTracksWorld(WorldParent):
         } | {
             r: ("Sand Rabbit", ITEMS[r].value) for r in sand_rabbits[1:]
         } | {
-            t: ("Treasure", price) for t, price in TREASURE_PRICES.items()
+            t: [("Treasure", price), ("Treasure Rupees", price)] for t, price in TREASURE_PRICES.items()
         } | {
             i: ("Stamp", ITEMS[i].value) for i in ITEM_GROUPS["Stamp Packs"]
         } | {
@@ -1388,8 +1388,10 @@ class SpiritTracksWorld(WorldParent):
 
         mapping = self.item_mapping_collect.get(item.name, None)
         if mapping is not None:
+            mapping = mapping if isinstance(mapping, list) else [mapping]
             # print(f"Mapping {mapping} {state.prog_items[self.player][mapping[0]]} for item {item.name}")
-            state.prog_items[self.player][mapping[0]] += mapping[1]
+            for m in mapping:
+                state.prog_items[self.player][m[0]] += m[1]
 
         return True
 
@@ -1400,7 +1402,9 @@ class SpiritTracksWorld(WorldParent):
 
         mapping = self.item_mapping_collect.get(item.name, None)
         if mapping is not None:
-            state.prog_items[self.player][mapping[0]] -= mapping[1]
+            mapping = mapping if isinstance(mapping, list) else [mapping]
+            for m in mapping:
+                state.prog_items[self.player][m[0]] -= m[1]
 
         return True
 

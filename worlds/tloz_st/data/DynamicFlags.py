@@ -229,6 +229,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_1, 0x4)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
     },
+    "Castle town teacher fire": {  # needs a s+q for some reason
+        "on_scenes": [0x2900],
+        "has_groups": ["Tracks: Fire Glyph"],
+        "not_has_locations": ["Castle Town Pick Up Teacher"],
+        "set_if_true": [(STAddr.adv_flags_1, 0x4)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+    },
     "Castle town prevent teacher from respawning": {
         "has_locations": ["Castle Town Pick Up Teacher"],
         "on_scenes": [0x2900],
