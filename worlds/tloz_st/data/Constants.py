@@ -734,8 +734,8 @@ BOSS_WARP_SCENE_LOOKUP = {
 }
 
 special_respawn_stages = {
-    0x15: (0x14, 1, 1),
-    0x23: (0x14, 1, 1)
+    0x15: (0x14, 1, 1),  # Tower
+    0x23: (0x23, 0, 0)  # Staven
 }
 
 TOS_FLOOR_TO_SECTION = {

@@ -678,7 +678,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Close Portal mayscore item tracks": {
         "on_scenes": [0x0400],
-        "not has_groups": ["Tracks: Ocean Portal"],
+        "not_has_groups": ["Tracks: Ocean Portal"],
         "has_slot_data": [("portal_behavior", 2)],
         "unset_if_true": [(STAddr.adv_flags_31, 0x4)]
     },
