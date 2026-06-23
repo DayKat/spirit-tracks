@@ -684,9 +684,15 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ]
 
     required_rupees = 0
-    if world.options.shopsanity.value == 1: required_rupees = 1500
-    elif world.options.shopsanity.value == 2: required_rupees = 2100
-    elif world.options.shopsanity.value == 3: required_rupees = 4600
+    shopsanity = world.options.shopsanity.value
+    if "uniques" in shopsanity: required_rupees += 4500
+    if "treasure" in shopsanity: required_rupees += 2400
+    if "potions" in shopsanity: required_rupees += 1400
+    if "shields" in shopsanity: required_rupees += 610
+    if "postcards" in shopsanity: required_rupees += 500
+    if "ammo" in shopsanity: required_rupees += 500
+    if world.options.randomize_cargo == "vanilla": required_rupees += 650
+    elif world.options.randomize_cargo: required_rupees += 550
 
     overworld_logic += [
         # Shops

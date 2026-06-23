@@ -774,7 +774,7 @@ TOS_FLOOR_TO_SECTION = {
     0x2D: 6,
     0x2E: 5,
 
-    0x1d: 6,  # 31F
+    0x1d: 6,  # 31F, canceled cause removes tears
     0x1e: 6,  # 30F
     0x1f: 6,  # 29F
     0x20: 6,  # 28F

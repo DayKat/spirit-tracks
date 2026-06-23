@@ -145,7 +145,7 @@ not_vanilla_passengers = [OptionFilter(SpiritTracksRandomizePassengers, 1, opera
 vanilla_passengers = [OptionFilter(SpiritTracksRandomizePassengers, 1)]
 
 # Isolated options
-hard_logic_filter = [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_hard), OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_glitched)]
+hard_logic_filter = [OptionFilter(SpiritTracksLogic, 1, operator="ge")]
 ool = Has("_UT_Glitched_Logic")
 hard_logic = ool | hard_logic_filter
 glitched_logic = ool | [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option_glitched)]

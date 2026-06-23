@@ -985,11 +985,13 @@ class SpiritTracksClient(DSZeldaClient):
                      or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
         if not set_tears:
             section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
-            if ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data.get("tear_sections", 2) == 2:
+            if self.current_room == 0x1d:  # This room removes tears
+                return
+            if section and ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data.get("tear_sections", 2) == 2:
                 printl(f"Section {section} is order {ctx.slot_data['tower_section_lookup']}!")
                 section = ctx.slot_data["tower_section_lookup"][str(section)]
 
-            if section == 6:
+            if section == 6 or section == 0:
                 return
             big_prog_sub = section - 1
             set_tears = (self.item_count(ctx, f"Tear of Light (ToS {section})")
@@ -1253,6 +1255,9 @@ class SpiritTracksClient(DSZeldaClient):
             # Amazing that this works at all
             pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
             await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
+
+        if current_scene == 0x131e:  # Set tears for ToS 6 on 30F instead of 31F.
+            await self.set_tears(ctx)
 
 
     @staticmethod
