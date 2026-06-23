@@ -26,6 +26,8 @@ on:
 
 permissions: {}
 
+permissions: {}
+
 jobs:
   ctest:
     runs-on: ${{ matrix.os }}

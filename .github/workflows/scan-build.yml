@@ -30,6 +30,8 @@ on:
 
 permissions: {}
 
+permissions: {}
+
 jobs:
   scan-build:
     runs-on: ubuntu-latest
