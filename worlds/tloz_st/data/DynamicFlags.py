@@ -1224,7 +1224,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Prevent Kenzo from leaving TP randomize": {
         "on_scenes": [0x3700],
-        "has_slot_data": [("randomize_passengers", 1, 3)],
+        "has_slot_data": [("randomize_passengers", [1, 3])],
         "check_bits": [(STAddr.adv_flags_24, 0x10, "not")],
         "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
@@ -1545,12 +1545,18 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2b00],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_items": [("Passenger: Kenzo", 1)],
-        "check_bits": [(STAddr.adv_flags_3c, 0x40, "not")],
-        "set_if_true": [(STAddr.adv_flags_3c, 0x10)],
+        "check_bits": [(STAddr.adv_flags_3c, 0x40, "not"), (STAddr.key_storage_2, 0x80, "not")],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x10), (STAddr.key_storage_2, 0x80)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x2b),
                               (STAddr.passenger_tag_0, 0x43524654),
                               (STAddr.has_passenger_0, 0)],
         "reset_flags": ["RESET Passengers"]
+    },
+    "Has Brought Kenzo to AV": {
+        "on_scenes": [0x2b00],
+        "has_slot_data": [("randomize_passengers", [2, 3])],
+        "check_bits": [(STAddr.key_storage_2, 0x80)],
+        "set_if_true": [(STAddr.adv_flags_3c, 0x50), (STAddr.adv_flags_3d, 0x4)],
     },
     "Bring Goron to AV": {
         "on_scenes": [0x2b00],
@@ -1831,8 +1837,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2F00],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_locations": ["Outset Bee Tree"],
+        "not_has_locations": ["Outset Pick Up Joe"],
         "has_groups": ["Tracks: Snow Source"],
         "set_if_true": [(STAddr.adv_flags_0, 0x40)],
+        "unset_if_true": [(STAddr.adv_flags_3c, 0x2)],
         "reset_flags": ["RESET Remove Ocean source"]
     },
     "Can pick up Joe vanilla": {
@@ -2479,6 +2487,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "not_has_locations": ["Fire Realm Pick Up Ferrus"],
         "unset_if_true": [(STAddr.adv_flags_3b, 0x4)]
     },
+    "Always spawn evil train under water": {
+        "on_scenes": [0xA00],
+        "unset_if_true": [(STAddr.adv_flags_a, 0x1)]
+    },
+    "Remove Marine Temple Zelda Text": {
+        "on_scenes": [0x1B0A],
+        "set_if_true": [(STAddr.adv_flags_a, 0x1)]
+    }
 }
 
 # for name, data in DYNAMIC_FLAGS.items():

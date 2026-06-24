@@ -276,9 +276,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["trading post bridge worker", "linebeck trading", False, Has("Treasure: Regal Ring", player)]
             if world.options.randomize_passengers.value else
             ["trading post", "linebeck trading", False, Has("Treasure: Regal Ring")],
-        ["linebeck trading", "trading post pick up kenzo", False, has_glyph("Snow")],
-        ["linebeck trading", "linebeck dark ore", False, has_cargo("Dark Ore", "_buy_ore")],
         ["linebeck trading", "linebeck event", False, None],
+        ["linebeck event", "trading post pick up kenzo", False, has_glyph("Snow")],
+        ["linebeck event", "linebeck dark ore", False, has_cargo("Dark Ore", "_buy_ore")],
 
         # # ========== Rabbit Haven ========
 

@@ -1234,7 +1234,7 @@ LOCATIONS_DATA = {
     "Rabbit Haven Net Gift": {
         "region_id": "rabbit haven",
         # "item_override": "Rabbit Net",
-        "vanilla_item": "Nothing!",
+        "vanilla_item": "Rabbit Net",
         "stage_id": 0x3E,
         "room_id": 0,
         "address": STAddr.adv_flags_1a,
@@ -1272,6 +1272,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x10,
         "conditional": True,
+        "delay_reset": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
@@ -1283,6 +1284,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x20,
         "conditional": True,
+        "delay_reset": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
@@ -1294,6 +1296,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x40,
         "conditional": True,
+        "delay_reset": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
@@ -1305,6 +1308,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_51,
         'value': 0x80,
         "conditional": True,
+        "delay_reset": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
@@ -1316,6 +1320,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_52,
         'value': 0x1,
         "conditional": True,
+        "delay_reset": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
@@ -1327,6 +1332,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_52,
         'value': 0x2,
         "conditional": True,
+        "delay_reset": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },
@@ -1339,6 +1345,7 @@ LOCATIONS_DATA = {
         'address': STAddr.adv_flags_53,
         'value': 0x8,
         "conditional": True,
+        "delay_reset": True,
         "location_groups": ["Rabbit Haven", "Rabbit Rewards"],
         "x_max": -35000
     },

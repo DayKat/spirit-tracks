@@ -521,6 +521,10 @@ class SpiritTracksClient(DSZeldaClient):
                             return
 
         # Do stuff with excess treasure
+        if self.delay_reset:
+            await remove_treasure()
+            self.delay_reset = 0
+            return
         if ctx.slot_data["excess_random_treasure"] in [0, 2]:
             printl(f"Removing {diff} from treasures")
             await remove_treasure()
@@ -976,16 +980,13 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_starting_train(ctx)
             self.set_train_in_overworld = False
 
-        # Give tears of light when entering ToS
-        if stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
-            await self.set_tears(ctx)
 
     async def set_tears(self, ctx):
         set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
                      or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
         if not set_tears:
-            section = TOS_FLOOR_TO_SECTION.get(self.current_room, 0)
-            if self.current_room == 0x1d:  # This room removes tears
+            section = TOS_FLOOR_TO_SECTION_SAFE.get(self.current_room, 0)
+            if section == 0:  # These rooms remove tears
                 return
             if section and ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data.get("tear_sections", 2) == 2:
                 printl(f"Section {section} is order {ctx.slot_data['tower_section_lookup']}!")
@@ -1182,6 +1183,10 @@ class SpiritTracksClient(DSZeldaClient):
             ammo_addresses = [STAddr.bomb_count, STAddr.arrow_count]
             self.save_ammo = await read_multiple(ctx, ammo_addresses)
             await write_multiple(ctx, ammo_addresses, [0, 0])
+
+        # Give tears of light when entering ToS
+        if self.current_stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
+            await self.set_tears(ctx)
 
         # Boss key rando stuff
         if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
