@@ -902,7 +902,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_20,
         "value": 0x1,
         "ut_connect": "EVENT: Defeat Staven",
-        "goal": "Defeat Staven",
+        "goal": "GOAL: Defeat Staven",
         'dungeon': "ToS",
         "tos_section": 5,
         "no_model": True
@@ -1224,7 +1224,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x1E,
         "room_id": 0,
         "dungeon": "Wooded Temple",
-        "goal": True,
+        "goal": "GOAL: Defeat Stagnox",
         "ut_connect": "EVENT: Defeat Stagnox",
         "location_groups": ["Stagnox"],
         "no_model": True
@@ -1597,7 +1597,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x1F,
         "room_id": 0,
         "dungeon": "Blizzard Temple",
-        "goal": True,
+        "goal": "GOAL: Defeat Fraaz",
         "ut_connect": "EVENT: Defeat Fraaz",
         "location_groups": ["Fraaz"],
         "no_model": True
@@ -1949,7 +1949,7 @@ LOCATIONS_DATA = {
         "room_id": 0,
         "dungeon": "Marine Temple",
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
-        "goal": True,
+        "goal": "GOAL: Defeat Cactops",
         "location_groups": ["Cactops"],
         "ut_connect": "EVENT: Defeat Cactops",
         "no_model": True
@@ -2424,6 +2424,7 @@ LOCATIONS_DATA = {
         "region_id": "mtt boss",
         "vanilla_item": "Fire Source",
         "ut_connect": "EVENT: Defeat Vulcano",
+        "goal": "GOAL: Defeat Vulcano",
         "dungeon": "Mountain Temple",
         "no_model": True
     },
@@ -2723,6 +2724,7 @@ LOCATIONS_DATA = {
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
         "ut_connect": "EVENT: Defeat Skeldritch",
+        "goal": "GOAL: Defeat Skeldritch",
         "dungeon": "Desert Temple",
         "no_model": True
     },

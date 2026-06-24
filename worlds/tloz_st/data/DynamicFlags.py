@@ -2207,7 +2207,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Goron Village Ice 2": {
         "on_scenes": [0x2e00],
         "has_items": [("Cargo: Mega Ice", 2), ("Wagon", 1)],
-        "has_slot_data": [("randomize_cargo", 3)],
+        "has_slot_data": [("randomize_cargo", [2, 3])],
         "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
         "reset_flags": ["RESET Cargo"],
         "overwrite_if_true": [(STAddr.cargo_0, 0), (STAddr.cargo_count_0, 20)],

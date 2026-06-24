@@ -830,6 +830,7 @@ class SpiritTracksClient(DSZeldaClient):
             from .data.Entrances import goal_event_lookup
             goal = ctx.slot_data.get("goal", -1)
             loc_goal = location["goal"]
+            printl(f"Processing goal locations: {goal_event_lookup[goal]} == {loc_goal}")
             if goal_event_lookup[goal] == loc_goal:
                 await self.store_event(ctx, loc_goal)
                 self.has_goal_location = True
@@ -964,6 +965,10 @@ class SpiritTracksClient(DSZeldaClient):
     async def process_post_receive(self, ctx):
         if not self.delay_pickup:
             await self.update_treasure_tracker(ctx, "post_receive")  # always update treasure tracker, lots of random treasures on ground!
+
+        if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup:
+            await STAddr.bomb_count.overwrite(ctx, 0)
+            await STAddr.arrow_count.overwrite(ctx, 0)
 
     async def set_stage_flags(self, ctx, stage):
         if stage in STAGE_FLAGS:

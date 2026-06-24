@@ -735,7 +735,7 @@ BOSS_WARP_SCENE_LOOKUP = {
 
 special_respawn_stages = {
     0x15: (0x14, 1, 1),  # Tower
-    0x23: (0x23, 0, 0)  # Staven
+    0x23: (0x13, 0x14, 0)  # Staven
 }
 
 TOS_FLOOR_SECTIONS_CANCEL_TEARS: dict[int, int] = {
@@ -768,6 +768,7 @@ TOS_FLOOR_TO_SECTION_SAFE: dict[int, int] = {
     0x11: 5,
     0x12: 5,
     0x13: 5,
+    0x14: 5,  # 23F
     0x17: 5,  # 21F
     0x18: 5,  # 22F
 
