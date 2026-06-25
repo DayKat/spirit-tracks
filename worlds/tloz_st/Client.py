@@ -859,7 +859,7 @@ class SpiritTracksClient(DSZeldaClient):
                 await self.open_tos_boss_door(ctx, self.current_scene)
 
         if self.snurglar_addr and location["name"] in LOCATION_GROUPS["Snurglars"]:
-            await self.snurglar_addr.unset_bits(ctx, 0xF)
+            await self.snurglar_addr.unset_bits(ctx, 0x0F)
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:

@@ -5,7 +5,7 @@ from test.bases import *
 class TestGeneration(WorldTestBase):
     game = "Spirit Tracks"
     options = {
-        "rabbitsanity": "both",
+        "rabbitsanity": "unique_checks",
         "rabbit_max_location_count": 1,
         "rabbit_location_count_distribution": "for_each",
         "rabbit_pack_size": 3,

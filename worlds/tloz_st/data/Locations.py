@@ -1233,7 +1233,7 @@ LOCATIONS_DATA = {
     # Rabbit Haven
     "Rabbit Haven Net Gift": {
         "region_id": "rabbit haven",
-        # "item_override": "Rabbit Net",
+        "item_override": "Nothing!",
         "vanilla_item": "Rabbit Net",
         "stage_id": 0x3E,
         "room_id": 0,
@@ -1247,10 +1247,10 @@ LOCATIONS_DATA = {
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x3E,
         "room_id": 0,
-        "x_min": 11447,
-        "x_max": 23070,
-        "z_min": -18940,
-        "z_max": -9020,
+        "x_min": 10000,
+        "x_max": 25000,
+        "z_min": -20000,
+        "z_max": -5000,
         "location_groups": ["Rabbit Haven"],
     },
     "Rabbit Haven Rescue 5 Rabbits": {

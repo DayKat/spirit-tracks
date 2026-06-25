@@ -96,14 +96,26 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["castle town", "teao rupees", False, has_rupees(150) | ool],
         ["teao rupees", "teao 1", False,
-         And(has_sword, has_whirlwind) &
-         Or(has_source("Forest"), has_source("Ocean"), has_source("Sand"))],
+         And(
+             has_sword,
+             has_whirlwind,
+             Or(has_source("Forest"), has_source("Ocean"), has_source("Sand")))],
         ["teao rupees", "teao 2", False,
-         Or(has_source("Ocean"), has_source("Sand")) &
-         And(has_sword, has_whirlwind, has_boomerang, has_whip)],
-        ["teao rupees", "teao 3", False,
-         has_source("Sand") &
-         And(has_sword, has_whirlwind, has_boomerang, has_whip, has_bow, has_sand_wand)],
+         And(
+            has_source("Ocean") | has_source("Sand"),
+            has_sword,
+            has_whirlwind,
+            has_boomerang,
+            has_whip)
+         ],
+        ["teao rupees", "teao 3", False, And(
+            has_source("Sand"),
+            has_sword,
+            has_whirlwind,
+            has_boomerang,
+            has_whip,
+            has_bow,
+            has_sand_wand)],
         ["teao 3", "teao_event", False, None],
 
         # # ======== Hyrule Castle =========
@@ -256,7 +268,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wt 2f left", "wt 3f", False, has_small_keys("Wooded Temple", 2)],
         ["wt 3f", "wt 3f se chest", False, has_whirlwind | hard_logic],
 
-        ["wt 3f", "wt 3f bk", False, has_whirlwind],
+        ["wt 3f", "wt 3f bk", False, has_whirlwind | (has_bombs & hard_logic)],
         ["wt 3f bk", "wt 4f", False, None] if world.options.randomize_boss_keys.value == 0 else None,
         ["wt 3f", "wt 4f", False, has_boss_key("Wooded Temple")],
         ["wt 4f", "wt stagnox", False, has_sword & has_whirlwind],
@@ -289,7 +301,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["rabbit haven", "rabbit haven 10 ocean rabbits", False, has_rabbit_items("Ocean", 10)],
         ["rabbit haven", "rabbit haven 10 mountain rabbits", False, has_rabbit_items("Mountain", 10)],
         ["rabbit haven", "rabbit haven 10 sand rabbits", False, has_rabbit_items("Sand", 10)],
-        ["rabbit haven", "rabbit haven 50 rabbits", False, has_all_rabbits],
+        ["rabbit haven", "rabbit haven 50 rabbits", False, DebugRule()],
         ["rabbit haven", "rabbit haven 1 of each rabbits", False, has_all_rabbit_types],
         ["rabbit haven", "rabbit haven mona", False, has_passenger("Mona", "_mona")],
 
@@ -448,7 +460,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ========= Marine Temple ==================
         ["oct", "oct song statue", False, has_spirit_flute],
-        ["oct 2f", "oct whip chest", False, has_sword | (hard_logic & has_bombs)],
+        ["oct 2f", "oct whip chest", False, has_sword | (hard_logic & (has_bombs | (has_boomerang & has_damage)))],
         # you can't escape stunlock without sword, and the fight scripts you into it from the start
         ["oct", "oct whip", False, has_whip],
         ["oct", "oct 2f", None, Or(
@@ -471,8 +483,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct phytops", "goal_phytops", False, None],
 
         ["oct", "oct ferrus", False, has_passenger("Ferrus", "_ferrus_2")
-                       & (randomize_passengers | hard_logic | Has("_ferrus_backup"))
-         ], # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
+                       & (randomize_passengers | ool | Has("_ferrus_backup"))],
+        # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
 
         # ========= Pirate Hideout ==============
         ["pirate hideout tracks", "pirate hideout", False, None],
@@ -622,16 +634,22 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand realm", "sand sanc", False, None],
         ["sand sanc", "sand sanc song", False, has_spirit_flute],
         ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book],
-        ["sand sanc", "sand sanc cuccos", False, None]
-            if world.options.randomize_cargo.value == 0 else (
-            ["sand sanc", "sand sanc cuccos", False, has_cargo("Cuccos", "_buy_cuccos")]
-                if world.options.randomize_cargo.value in [1, 2] else
-                ["sand sanc", "sand sanc cuccos", False, has_wagon & (
-                    Has("Cargo: Cuccos (5)", 3) | (
-                        Has("Cargo: Cuccos (5)", 1) & ool))]
-        ),
+    ]
+
+    if world.options.randomize_cargo.value == 0:
+        sand_sanc_logic = None
+    elif world.options.randomize_cargo.value in [1, 2]:
+        sand_sanc_logic = has_cargo("Cuccos", "_buy_cuccos")
+    else:
+        sand_sanc_logic = has_wagon & (
+                Has("Cargo: Cuccos (5)", 3) | (
+                    Has("Cargo: Cuccos (5)", 1) & ool
+                )
+            )
+    overworld_logic.append(["sand sanc", "sand sanc cuccos", False, sand_sanc_logic])
 
         # ===== Desert Temple =====
+    overworld_logic += [
         ["sand restoration", "desert temple", False, has_cannon],
         ["desert temple", "dt sw", False, has_sand_wand],
         ["dt sw", "dt 1f nw", False, has_bow],
@@ -651,7 +669,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ["dt b1 2", "dt b2", False, st_has_boss_key("Desert Temple")],
         ["dt b1 damage", "dt b2", False, None]
-            if world.options.randomize_boss_keys == "vanilla"
+            if world.options.randomize_boss_keys.value == 0
             else ["dt b1 2", "dt b2", False, has_boss_key("Desert Temple")],
         ["dt b2", "skeldritch", False, has_good_damage],
         # Whip is not good enough damage

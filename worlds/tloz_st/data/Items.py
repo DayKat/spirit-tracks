@@ -1287,7 +1287,7 @@ ITEMS_DATA |= {
         "value": 0x02,
         'item_groups': ["Misc Keys", "Snurglar Key"],
         "model": "Key", 
-        "id": 162,
+        "id": 162
     },
     "Purple Snurglar Key": {
         'classification': ItemClassification.progression,
@@ -1295,7 +1295,7 @@ ITEMS_DATA |= {
         "value": 0x04,
         'item_groups': ["Misc Keys", "Snurglar Key"],
         "model": "Key", 
-        "id": 163,
+        "id": 163
     },
     "Gold Snurglar Key": {
         'classification': ItemClassification.progression,
@@ -1303,7 +1303,7 @@ ITEMS_DATA |= {
         "value": 0x08,
         'item_groups': ["Misc Keys", "Snurglar Key"],
         "model": "Key", 
-        "id": 164,
+        "id": 164
     },
     "Snurglar Keyring": {
         'classification': ItemClassification.progression,

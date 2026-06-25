@@ -1072,7 +1072,7 @@ class SpiritTracksWorld(WorldParent):
         for r, s in zip(realms, pack_sizes):
             item_count = math.ceil(10 / s) + self.options.rabbit_extra_items.value
             rabbit_items |= create_items_from_count_list(r, [s]*item_count)
-        # print(f"rabbit items: {rabbit_items}")
+        print(f"rabbit items: {rabbit_items}")
         return rabbit_items
 
     def choose_tear_items(self):

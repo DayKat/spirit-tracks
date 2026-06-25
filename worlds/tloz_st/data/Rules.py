@@ -1,7 +1,7 @@
 import dataclasses
 
 from .Items import ITEMS
-from .Constants import ITEM_GROUPS, tear_lookup, big_tear_lookup
+from .Constants import ITEM_GROUPS, tear_lookup, big_tear_lookup, rabbit_realms
 from ..Options import *
 
 from rule_builder.rules import *
@@ -38,7 +38,6 @@ def has_small_keys(dungeon, count, _ool=None):
     _ool = _ool if _ool is not None else count
     return Or(Has(f"Small Key ({dungeon})", count),
             ool & Has(f"Small Key ({dungeon})", _ool),
-            Has(f"Boss Key Key ({dungeon})"),
             Has(f"Keyring ({dungeon})"))
 
 def has_boss_key(dungeon):
@@ -190,11 +189,10 @@ def can_enter_tos_section(section):
 tos_15f_glitched = Or(
     And(
         has_range | has_sword_beam,
-        has_small_keys("ToS 4", 3, 2),
+        has_small_keys("ToS 4", 3, 2)
     ),
     And(
-        glitched_logic,
-        has_small_keys("ToS 4", 3, 1),
+        glitched_logic & has_small_keys("ToS 4", 3, 1),
         Or(
             has_range, has_sword_beam,
             has_bombs & has_whirlwind
@@ -265,3 +263,14 @@ class HasShuffledSection(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
 
     def __str__(self):
         return "Has Progressive tears for shuffle level"
+
+class DebugRule(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
+    @override
+    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
+        return self.Resolved(player=world.player)
+
+    class Resolved(Rule.Resolved):
+        @override
+        def _evaluate(self, state: CollectionState) -> bool:
+            # print([(r, state.count(f"{r} Rabbit", self.player)) for r in rabbit_realms])
+            return all([state.has(f"{r} Rabbit", self.player, 10) for r in rabbit_realms])
