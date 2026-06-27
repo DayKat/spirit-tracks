@@ -85,7 +85,7 @@ def has_tracks(tracks):
 def has_portal(portal, forward):
     option = SpiritTracksRandomizePortals
     if forward:
-        return ([OptionFilter(option, 1), OptionFilter(option, 0)]
+        return ([OptionFilter(option, 1, operator="le")]
                 | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
     return ([OptionFilter(option, 1)]
         | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
@@ -129,7 +129,7 @@ def has_passenger(passenger, event):
     return Has(f"Passenger: {passenger}") | Has(event)
 
 def has_cargo(cargo, event):
-    return Has("Wagon") & (
+    return has_wagon & (
             Has(f"Cargo: {cargo}") | Has(event)
     )
 
@@ -151,7 +151,7 @@ glitched_logic = ool | [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option
 
 
 # Composites
-has_train = has_cannon & has_glyph("Forest")
+has_train = has_glyph("Forest") & (has_cannon | [OptionFilter(SpiritTracksCannonLogic, 1, "gt")] | (ool & [OptionFilter(SpiritTracksCannonLogic, 0, "gt")]))
 has_good_damage = has_bombs | has_sword | has_bow
 has_damage = has_good_damage | has_whip
 can_kill_bat = has_damage | has_boomerang
@@ -231,8 +231,8 @@ def has_rupees(count):
     return Or(ool,
               wild_rupees,
               treasure_farming,
-              Has("Rupees", count),
-              Has("Treasure Rupees", count + 2500) & Has("_can_sell_treasure"))
+              Has("Rupees", int(count*0.7)),
+              Has("Treasure Rupees", int(count*0.7) + 2500) & Has("_can_sell_treasure"))
 
 
 has_dungeon_rewards = ([

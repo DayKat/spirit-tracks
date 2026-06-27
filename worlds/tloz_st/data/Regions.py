@@ -444,6 +444,7 @@ REGIONS = [
     "mtt stamp",
     "mtt bk",
     "mtt boss",
+    "defeat vulcano",
     "event_vulcano",
     "goal_vulcano",
 

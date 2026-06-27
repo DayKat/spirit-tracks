@@ -23,12 +23,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["outset village", "outset joe", False, has_source("Snow")],
         ["outset village", "outset cuccos", False, has_cargo("Cuccos", "_buy_cuccos")]
             if world.options.randomize_cargo.value in [1, 2] else
-        ["outset village", "outset cuccos", False,
-             has_wagon & (
+        ["outset village", "outset cuccos", False, has_wagon & (
                 Has("Cargo: Cuccos (5)", 3) | (
                     Has("Cargo: Cuccos (5)", 2) & ool))],
-        ["outset village", "outset ferrus", False,
-            has_passenger("Alfonzo", "_picked_up_alfonzo")
+        ["outset village", "outset ferrus", False, has_passenger("Alfonzo", "_picked_up_alfonzo")
             & has_passenger("Ferrus", "_ferrus_1")],
 
         # ========= Forest Realm ==========
@@ -39,8 +37,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["forest realm", "w castle town tracks", False, has_tracks("W Castle Town")],
         ["forest realm", "n castle town tracks", False, has_tracks("N Castle Town")],
         ["wtt", "snow realm fr", True, has_temple_tracks("Wooded") & has_glyph("Snow")],
-        ["forest realm", "snow realm fr portal", False,
-            has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
+        ["forest realm", "snow realm fr portal", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
         ["snow realm fr portal", "snow realm fr", False, None],
         ["snow realm fr portal", "snow realm", False, None],
         ["forest realm", "dark realm portal", True, has_compass],
@@ -95,13 +92,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["castle town wall", "castle town cuccos", False, ct_cuccos],
 
         ["castle town", "teao rupees", False, has_rupees(150) | ool],
-        ["teao rupees", "teao 1", False,
-         And(
+        ["teao rupees", "teao 1", False, And(
              has_sword,
              has_whirlwind,
              Or(has_source("Forest"), has_source("Ocean"), has_source("Sand")))],
-        ["teao rupees", "teao 2", False,
-         And(
+        ["teao rupees", "teao 2", False, And(
             has_source("Ocean") | has_source("Sand"),
             has_sword,
             has_whirlwind,
@@ -178,8 +173,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["tos 13f", "tos 13f whip", False, has_whip],
         ["tos 13f", "tos 13f boomerang", False, has_boomerang],
         ["tos 13f", "tos 14f east", False, has_small_keys("ToS 4", 3, 1) | (vanilla_tears & has_small_keys("ToS 4", 2, 1))],
-        ["tos 13f", "tos 13f phantom", False,
-            can_possess_phantom(4)
+        ["tos 13f", "tos 13f phantom", False, can_possess_phantom(4)
             | (vanilla_tears & has_whip & has_small_keys("ToS 4", 2, 1))],
         ["tos 13f phantom", "tos 13f phantom whip", False, has_whip],
         ["tos 13f phantom", "tos 14f west", False, has_small_keys("ToS 4", 2, 1) ],
@@ -269,11 +263,15 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wt 3f", "wt 3f se chest", False, has_whirlwind | hard_logic],
 
         ["wt 3f", "wt 3f bk", False, has_whirlwind | (has_bombs & hard_logic)],
-        ["wt 3f bk", "wt 4f", False, None] if world.options.randomize_boss_keys.value == 0 else None,
-        ["wt 3f", "wt 4f", False, has_boss_key("Wooded Temple")],
+        ["wt 3f bk", "wt 4f", False, None]
+            if world.options.randomize_boss_keys.value == 0 else
+            ["wt 3f", "wt 4f", False, has_boss_key("Wooded Temple")],
         ["wt 4f", "wt stagnox", False, has_sword & has_whirlwind],
         ["wt stagnox", "goal_stagnox", False, None],
-        ["wt stagnox", "event_stagnox", False, None],
+        ["wt stagnox", "event_stagnox", False, None]
+    ]
+
+    overworld_logic += [
 
         # # ============ Trading Post =============
 
@@ -414,12 +412,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # Ocean Portals
         ["trading post tracks", "ocean portal tracks", False, 
             has_tracks("Ocean Portal") & has_portal("Mayscore to Ocean Portal Tracks",False)],
-        ["ocean portal tracks", "trading post tracks", False,
-            has_glyph("Ocean") & has_portal("Mayscore to Ocean Portal Tracks", True)],
-        ["snow bridge", "ocean temple tracks", False,
-            has_temple_tracks("Marine") & has_portal("Snow Bridge to Island Sanctuary", True)],
-        ["ocean temple tracks", "snow bridge", False,
-            has_tracks("Snow Realm Bridge") & has_portal("Snow Bridge to Island Sanctuary", False)],
+        ["ocean portal tracks", "trading post tracks", False, has_glyph("Ocean")
+         & has_portal("Mayscore to Ocean Portal Tracks", True)],
+        ["snow bridge", "ocean temple tracks", False, has_temple_tracks("Marine")
+         & has_portal("Snow Bridge to Island Sanctuary", True)],
+        ["ocean temple tracks", "snow bridge", False, has_tracks("Snow Realm Bridge")
+         & has_portal("Snow Bridge to Island Sanctuary", False)],
 
         # Ocean Rabbits
         ["ocean temple tracks", "ocean rabbits", False, has_net],
@@ -455,8 +453,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["papuchia village", "papuzia ice", False, has_cargo("Mega Ice", "_buy_ice")]
         if world.options.randomize_cargo.value in [1, 2] else
-        ["papuchia village", "papuzia ice", False,
-          has_wagon & (Has("Cargo: Mega Ice", 3) | (Has("Cargo: Mega Ice", 1) & ool))],
+        ["papuchia village", "papuzia ice", False, has_wagon
+             & (Has("Cargo: Mega Ice", 3) | (Has("Cargo: Mega Ice", 1) & ool))],
 
         # ========= Marine Temple ==================
         ["oct", "oct song statue", False, has_spirit_flute],
@@ -475,10 +473,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
                                                         And(glitched_logic,
                                                              has_whirlwind,
                                                              has_bombs)],
-        ["oct 6f chest", "oct bk loc", False, has_whirlwind & randomize_boss_keys & hard_logic],
+        ["oct 6f chest", "oct bk loc", False, has_whirlwind & hard_logic],
         ["oct bk", "oct bk loc", False, None],
-        ["oct bk", "oct phytops", False, None] if world.options.randomize_boss_keys == 0 else None,
-        ["oct 6f chest", "oct phytops", False, has_boss_key("Marine Temple")],
+        ["oct bk", "oct phytops", False, None]
+            if world.options.randomize_boss_keys == 0 else
+            ["oct 6f chest", "oct phytops", False, has_boss_key("Marine Temple")],
         ["oct phytops", "event_phytops", False, None],
         ["oct phytops", "goal_phytops", False, None],
 
@@ -533,14 +532,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["fire source", "s mountain temple rabbit", False, has_net],
         ["mountain temple tracks", "s mountain temple rabbit", False, has_net],
 
-        ["fire realm", "forest cave tracks", False,
-            has_tracks("Forest Realm SW Cave") & has_portal("Forest Cave to Goron Village",False)],
-        ["forest cave tracks", "fire realm", False,
-            has_glyph("Fire") & has_portal("Forest Cave to Goron Village", True)],
-        ["mountain temple tracks", "icyspring tracks", False,
-            has_tracks("N Icy Spring") & has_portal("Icy Spring to Mountain Temple",False)],
-        ["icyspring tracks", "mountain temple tracks", False,
-            has_temple_tracks("Mountain") & has_portal("Icy Spring to Mountain Temple", True)],
+        ["fire realm", "forest cave tracks", False, has_tracks("Forest Realm SW Cave") & has_portal("Forest Cave to Goron Village",False)],
+        ["forest cave tracks", "fire realm", False, has_glyph("Fire") & has_portal("Forest Cave to Goron Village", True)],
+        ["mountain temple tracks", "icyspring tracks", False, has_tracks("N Icy Spring") & has_portal("Icy Spring to Mountain Temple",False)],
+        ["icyspring tracks", "mountain temple tracks", False, has_temple_tracks("Mountain") & has_portal("Icy Spring to Mountain Temple", True)],
 
         # Goron Village
         ["fire realm", "goron village", False, None],
@@ -592,14 +587,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # ["mtt b1 cart", "mtt b1 arena", False, None], # Removed!
         ["mtt b1 cart", "mtt stamp", False, has_stamp_book],
         ["mtt b1 cart", "mtt bk", False, has_whirlwind],
-        ["mtt bk", "mtt boss", False, None] if world.options.randomize_boss_keys == 0 else None,
-        ["mtt b1 cart", "mtt boss", False, has_boss_key("Mountain Temple") & Or(
+        ["mtt bk", "mtt boss", False, None] if world.options.randomize_boss_keys.value == 0 else
+        ["mtt b1 cart", "mtt boss", False, has_boss_key("Mountain Temple")],
+        ["mtt boss", "defeat vulcano", False, Or(
             has_sword,
             has_whip,
-            Has("Bombs (Progressive)", 2)
-        )],
-        ["mtt boss", "event_vulcano", False, None],
-        ["mtt boss", "goal_vulcano", False, None],
+            Has("Bombs (Progressive)", 2))],
+        ["defeat vulcano", "event_vulcano", False, None],
+        ["defeat vulcano", "goal_vulcano", False, None],
 
         # Disorientation Station
         ["disorientation station", "disorientation bird", False, hard_birds],
@@ -621,19 +616,15 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand connection", "sand connection portal", True, has_cannon],
         ["sand realm", "sand realm portal", True, None],
 
-        ["sand restoration", "sand realm portal", False,
-            has_portal("Desert Temple to Sand Realm", True) & has_tracks("Sand Realm")],
-        ["sand realm portal", "sand restoration", False,
-            has_portal("Desert Temple to Sand Realm", False) & has_temple_tracks("Desert")],
-        ["sand connection", "ocean temple tracks", False,
-            has_portal("Sand Valley to Marine Temple", True) & has_temple_tracks("Marine")],
-        ["ocean temple tracks", "sand connection", False,
-            has_portal("Sand Valley to Marine Temple", False) & has_tracks("Fire Realm Sand Portal")],
+        ["sand restoration", "sand realm portal", False, has_portal("Desert Temple to Sand Realm", True) & has_tracks("Sand Realm")],
+        ["sand realm portal", "sand restoration", False, has_portal("Desert Temple to Sand Realm", False) & has_temple_tracks("Desert")],
+        ["sand connection", "ocean temple tracks", False, has_portal("Sand Valley to Marine Temple", True) & has_temple_tracks("Marine")],
+        ["ocean temple tracks", "sand connection", False, has_portal("Sand Valley to Marine Temple", False) & has_tracks("Fire Realm Sand Portal")],
 
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc", False, None],
         ["sand sanc", "sand sanc song", False, has_spirit_flute],
-        ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book],
+        ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book]
     ]
 
     if world.options.randomize_cargo.value == 0:
@@ -641,11 +632,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
     elif world.options.randomize_cargo.value in [1, 2]:
         sand_sanc_logic = has_cargo("Cuccos", "_buy_cuccos")
     else:
-        sand_sanc_logic = has_wagon & (
+        sand_sanc_logic = (has_wagon & (
                 Has("Cargo: Cuccos (5)", 3) | (
                     Has("Cargo: Cuccos (5)", 1) & ool
                 )
             )
+        )
     overworld_logic.append(["sand sanc", "sand sanc cuccos", False, sand_sanc_logic])
 
         # ===== Desert Temple =====
@@ -692,7 +684,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["malladus 2", "malladus event", False, can_fight_malladus],
 
         ["forest realm", "beedle", False, has_source("Snow")],
-        ["beedle", "beedle joe", False, has_passenger("Joe", "_joe")],
+        ["beedle", "beedle joe", False, has_passenger("Joe", "_joe")]
     ]
 
     if world.options.endgame_scope.value == 5:
@@ -701,16 +693,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             ["dark realm trains", "dark realm event", False, None]
         ]
 
-    required_rupees = 0
-    shopsanity = world.options.shopsanity.value
-    if "uniques" in shopsanity: required_rupees += 4500
-    if "treasure" in shopsanity: required_rupees += 2400
-    if "potions" in shopsanity: required_rupees += 1400
-    if "shields" in shopsanity: required_rupees += 610
-    if "postcards" in shopsanity: required_rupees += 500
-    if "ammo" in shopsanity: required_rupees += 500
-    if world.options.randomize_cargo == "vanilla": required_rupees += 650
-    elif world.options.randomize_cargo: required_rupees += 550
+    required_rupees = world.get_required_rupees()
 
     overworld_logic += [
         # Shops
@@ -736,16 +719,15 @@ def make_overworld_logic(player: int, origin_name: str, world):
             ["icyspring noko", "icyspring ice", False, has_wagon & has_rupees(required_rupees)], #  You can bully noko for free ice
         ["papuchia village", "papuzia buy cargo", False, has_wagon & has_rupees(required_rupees)],
         ["goron ice event", "goron steel", False, has_wagon & has_rupees(required_rupees)],
-        ["dark ore mine", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)],
+        ["dark ore mine", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)]
     ]
 
     # Generate rabbit total items
     if world.options.rabbitsanity in ["on_total", "both"]:
         # print(f"Creating total rabbit logic")
         overworld_logic += [
-            [f"forest realm rabbits", f"{rabbit} Rabbit Count {i}", False,
-             caught_rabbits(rabbit, i)] for i in range(1, 11)
-            for rabbit in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
+            [f"forest realm rabbits", f"{rabbit} Rabbit Count {i}", False, caught_rabbits(rabbit, i)
+             ] for i in range(1, 11) for rabbit in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
         ]
 
     return overworld_logic

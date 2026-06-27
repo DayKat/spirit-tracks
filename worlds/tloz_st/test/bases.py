@@ -22,7 +22,7 @@ class TestGeneration(WorldTestBase):
         "spirit_weapons": "final_tear",
         "shuffle_tos_sections": "no_shuffle",
         "exclude_sections": "remove",
-        "plando_dungeon_pool": {"ToS 1", "ToS 3", "ToS 5"},
+        "plando_dungeon_pool": {},
 
         "keysanity": "vanilla",
         "randomize_boss_keys": "anywhere",
@@ -30,22 +30,29 @@ class TestGeneration(WorldTestBase):
 
 
         "shopsanity": {"all"},
-        "rupee_farming_logic": "no_farming",
+        "rupee_farming_logic": "unlimited_farming",
         "excess_random_treasure": "nothing",
-        "logic": "normal",
+        "logic": "glitched",
         "randomize_passengers": "randomize",
         "randomize_cargo": "randomize",
-        "randomize_stamps": "randomize",
+        "randomize_stamps": "vanilla_with_location",
         "stamp_pack_sizes": 1,
         "randomize_minigames": "hard",
         "exclude_dungeons": "remove",
 
         "track_pool": "mixed_small",
         "start_with_train": True,
-        "cannon_logic": "open_train",
+        "cannon_logic": "train_requires_cannon",
         "portal_behavior": "always_open",
         "start_inventory_from_pool": {
-            "Big Tear of Light (ToS 1)": 1
+            "Wagon": 1,
+            "Stamp Book": 1
+        },
+        "start_inventory": {
+            "Completed Forest Glyph": 1,
+            "Completed Snow Glyph": 1,
+            "Completed Ocean Glyph": 1,
+            "Completed Fire Glyph": 1,
         }
 
     }
