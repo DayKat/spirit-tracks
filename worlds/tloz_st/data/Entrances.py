@@ -725,7 +725,7 @@ ENTRANCE_DATA = {
     "Forest Realm North W Wooded Temple": {
         "return_name": "Snow Realm South W Wooded Temple",
         "entrance_region": "w wooded temple tracks",
-        "exit_region": "snow realm fr",
+        "exit_region": "snow realm south",
         "extra_data": {"x_max": -200000, "x_min": -240000},
         "coords": (-221184, 0, -341845),
         "entrance": (0x4, 0x0, 0xFB),

@@ -45,22 +45,22 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["forest realm", "forest source", False, lambda state: st_has_source(state, player, "Forest")],
         ["forest realm", "w castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "W Castle Town")],
         ["forest realm", "n castle town tracks", False, lambda state: st_has_misc_tracks(state, player, "N Castle Town")],
-        ["wtt", "snow realm fr", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_glyph(state, player, "Snow") and st_has_cannon(state, player)],
-        ["forest realm", "snow realm fr portal", False, lambda state: st_has_portal(state, player, "Hyrule Castle to Anouki Village", False) and st_has_glyph(state, player, "Snow")],
-        ["snow realm fr portal", "snow realm fr", False, None],
-        ["snow realm fr portal", "snow realm", False, None],
+        ["wtt", "snow realm south", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_glyph(state, player, "Snow") and st_has_cannon(state, player)],
+        ["forest realm", "snow realm south portal", False, lambda state: st_has_portal(state, player, "Hyrule Castle to Anouki Village", False) and st_has_glyph(state, player, "Snow")],
+        ["snow realm south portal", "snow realm south", False, None],
+        ["snow realm south portal", "snow realm", False, None],
         ["forest realm", "dark realm portal", True, lambda state: st_has_compass_of_light(state, player)],
 
         # cave
         ["forest realm", "forest cave tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SW Cave")],
         ["forest cave tracks", "forest cave portal", False, lambda state: st_has_cannon(state, player)],
         ["forest cave tracks", "w forest tracks", True, lambda state: st_has_misc_tracks(state, player, "Forest Realm SW Cave") and st_has_misc_tracks(state, player,"W Forest Realm") and st_soft_cannon(state, player)],
-        ["w forest tracks", "snow realm fr", True, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player, "W Forest Realm")],
+        ["w forest tracks", "snow realm south", True, lambda state: st_has_glyph(state, player, "Snow") and st_has_misc_tracks(state, player, "W Forest Realm")],
         ["w forest tracks", "wtt", True, lambda state: st_has_temple_tracks(state, player, "Wooded") and st_has_misc_tracks(state, player, "W Forest Realm")],
 
         # W Wooded temple
         ["wtt", "w wooded temple tracks", True, lambda state: st_has_misc_tracks(state, player, "W Wooded Temple") and st_has_temple_tracks(state, player, "Wooded")],
-        ["w wooded temple tracks", "snow realm fr", True, lambda state: st_has_misc_tracks(state, player, "W Wooded Temple") and st_has_glyph(state, player, "Snow")],
+        ["w wooded temple tracks", "snow realm south", True, lambda state: st_has_misc_tracks(state, player, "W Wooded Temple") and st_has_glyph(state, player, "Snow")],
         ["w wooded temple tracks", "snow realm", True,
          lambda state: st_has_misc_tracks(state, player, "W Wooded Temple") and st_has_glyph(state, player, "Snow")],
 
@@ -314,7 +314,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["linebeck trading", "linebeck event", False, None],
     ]
     overworld_logic += [
-        ["snow realm fr", "rabbit haven", True, lambda state: st_has_glyph(state, player, "Snow")],
+        ["snow realm south", "rabbit haven", True, lambda state: st_has_glyph(state, player, "Snow")],
         ["rabbit haven", "rabbit haven 5 rabbits", False, lambda state: st_has_total_rabbits(state, player, 5)],
         ["rabbit haven", "rabbit haven 1 of each rabbits", False, lambda state: st_all_types_rabbits(state, player, 1)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, lambda state: st_has_rabbit_items(state, player, "Grass")],
@@ -328,8 +328,8 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         # # ============ Snow Realm ===============
 
-        ["snow realm fr", "snow realm", True, lambda state: st_soft_cannon(state, player)],
-        ["snow realm fr", "anouki portal", False, lambda state: st_has_cannon(state, player)],
+        ["snow realm south", "snow realm", True, lambda state: st_soft_cannon(state, player)],
+        ["snow realm south", "anouki portal", False, lambda state: st_has_cannon(state, player)],
         ["snow realm", "blizzard temple tracks", True, lambda state: st_has_temple_tracks(state, player, "Blizzard") and st_has_glyph(state, player, "Snow")],
         ["snow realm", "snow realm rabbits", False, lambda state: st_has_net(state, player)],
         ["blizzard temple tracks", "blizzard temple tracks rabbits", False, lambda state: st_has_net(state, player)],

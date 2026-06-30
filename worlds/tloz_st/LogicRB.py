@@ -39,9 +39,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["forest realm", "n castle town tracks", True, has_tracks("N Castle Town") & has_glyph("Forest")],
         ["wtt", "snow realm fr", True, has_temple_tracks("Wooded") & has_glyph("Snow")],
         ["wtt", "w castle town tracks", True, has_tracks("W Castle Town") & has_source("Forest")],
-        ["forest realm", "snow realm fr portal", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
-        ["snow realm fr portal", "snow realm fr", False, None],
-        ["snow realm fr portal", "snow realm", False, None],
+        ["forest realm", "snow realm south portal", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
+        ["snow realm south", "forest realm", False, has_portal("Hyrule Castle to Anouki Village", True) & has_glyph("Forest")],
+        ["snow realm south portal", "snow realm south", False, None],
+        ["snow realm south portal", "snow realm", False, None],
         ["forest realm", "dark realm portal", True, has_compass & has_glyph("Forest")],
 
         # cave
@@ -54,7 +55,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # W Wooded temple
         ["wtt", "w wooded temple tracks", True, has_tracks("W Wooded Temple") & has_temple_tracks("Wooded")],
         ["w wooded temple tracks", "snow realm fr", True, has_tracks("W Wooded Temple") & has_glyph("Snow")],
-        ["w wooded temple tracks", "snow realm", True, has_tracks("W Wooded Temple") & has_glyph("Snow")],
+        ["w wooded temple tracks north", "snow realm", True, has_tracks("W Wooded Temple") & has_glyph("Snow")],
+        ["w wooded temple tracks north", "snow realm south", True, has_tracks("W Wooded Temple") & has_glyph("Snow")],
+        ["w wooded temple tracks", "w wooded temple tracks north", False, has_tracks("W Wooded Temple")],
+        ["w wooded temple tracks north", "w wooded temple tracks", False, has_glyph("Snow") & has_tracks("W Wooded Temple")],
 
         # Rabbits
         ["forest realm", "forest realm rabbits", False, has_net],
@@ -65,16 +69,18 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wtt", "wt rabbit", False, has_net],
         ["forest source", "wt rabbit", False, has_net],
         ["w forest tracks", "s rabbit haven rabbits", False, has_net],
-        ["snow realm rabbits", "nr rabbit haven rabbit", False, None],
+        ["snow realm fr", "nr rabbit haven rabbit", False, has_net],
 
         # Snow bridge
-        ["w castle town tracks", "snow bridge", True, has_tracks("W Castle Town") & has_tracks("Snow Realm Bridge")],
-        ["n castle town tracks", "snow bridge", True, has_tracks("N Castle Town") & has_tracks("Snow Realm Bridge")],
-        ["n castle town tracks", "snow realm source", True, has_tracks("N Castle Town") & has_source("Snow") & soft_cannon],
-        ["wtt", "snow bridge", True, has_temple_tracks("Wooded") & has_tracks("Snow Realm Bridge") & soft_cannon],
-        ["snow bridge", "snow realm", True, has_glyph("Snow") & has_tracks("Snow Realm Bridge")],
-        ["snow bridge", "snow realm source", True, has_source("Snow") & has_tracks("Snow Realm Bridge")],
-        ["snow bridge", "snow bridge portal", False, has_cannon],
+        ["w castle town tracks", "snow bridge south", True, has_tracks("W Castle Town") & has_tracks("Snow Realm Bridge")],
+        ["n castle town tracks", "snow bridge south", True, has_tracks("N Castle Town") & has_tracks("Snow Realm Bridge")],
+        ["n castle town tracks", "n castle town tracks north", True, has_tracks("N Castle Town")],
+        ["n castle town tracks north", "snow realm source", True, has_tracks("N Castle Town") & has_source("Snow") & soft_cannon],
+        ["snow bridge north", "snow bridge south", True, has_tracks("Snow Realm Bridge")],
+        ["wtt", "snow bridge south", True, has_temple_tracks("Wooded") & has_tracks("Snow Realm Bridge") & soft_cannon],
+        ["snow bridge north", "snow realm", True, has_glyph("Snow") & has_tracks("Snow Realm Bridge")],
+        ["snow bridge north", "snow realm source", True, has_source("Snow") & has_tracks("Snow Realm Bridge")],
+        ["snow bridge north", "snow bridge portal", False, has_cannon],
 
         ["wtt", "forest ferrus", False, has_passenger("Ferrus", "_ferrus_3")],
         ["forest source", "forest ferrus", False, has_passenger("Ferrus", "_ferrus_3")],
@@ -320,8 +326,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # # ============ Snow Realm ===============
 
-        ["snow realm fr", "snow realm", True, soft_cannon],
-        ["snow realm fr", "anouki portal", False, has_cannon],
+        ["snow realm south", "snow realm fr", True, has_glyph("Snow")],
+        ["snow realm south", "snow realm", True, soft_cannon],
+        ["snow realm south", "anouki portal", False, has_cannon],
         ["snow realm", "blizzard temple tracks", True, has_temple_tracks("Blizzard") & has_glyph("Snow")],
         ["snow realm", "snow realm rabbits", False, has_net],
         ["blizzard temple tracks", "blizzard temple tracks rabbits", False, has_net],
@@ -425,13 +432,15 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ========== Ocean Realm =============
         ["forest realm", "e mayscore bridge", True, has_tracks("E Mayscore Bridge") & has_glyph("Forest")],
-        ["e mayscore bridge", "ocean realm", True, has_glyph("Ocean") & has_tracks("E Mayscore Bridge")],
+        ["e mayscore bridge", "ocean realm mid", True, has_glyph("Ocean") & has_tracks("E Mayscore Bridge")],
         ["forest realm", "ocean shortcut", True, has_tracks("Forest Realm Ocean Shortcut") & has_glyph("Forest")],
         ["forest source", "ocean shortcut", True, has_tracks("Forest Realm Ocean Shortcut") & has_source("Forest")],
-        ["ocean shortcut", "pirate hideout tracks", True, has_tracks("Forest Realm Ocean Shortcut") & has_tracks("Pirate Hideout")],
+        ["ocean shortcut east", "pirate hideout tracks", True, has_tracks("Forest Realm Ocean Shortcut") & has_tracks("Pirate Hideout")],
         ["e mayscore bridge", "ocean shortcut", True, has_tracks("Forest Realm Ocean Shortcut") & has_tracks("E Mayscore Bridge")],
+        ["ocean shortcut east", "ocean shortcut", True, has_tracks("Forest Realm Ocean Shortcut")],
 
-        ["trading post tracks", "ocean realm", True, Has("Repair Trading Post Bridge")],
+        ["trading post tracks", "ocean realm mid", True, Has("Repair Trading Post Bridge") & has_glyph("Ocean")],
+        ["ocean realm mid", "ocean realm", True, has_glyph("Ocean")],
         ["ocean realm", "ocean temple tracks", True, has_temple_tracks("Marine") & has_glyph("Ocean")],
         ["ocean temple tracks", "ocean realm source", True, has_source("Ocean") & has_temple_tracks("Marine")],
         ["ocean realm", "pirate hideout tracks", True, has_tracks("Pirate Hideout") & has_glyph("Ocean")],
@@ -448,9 +457,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
             has_tracks("Ocean Portal") & has_portal("Mayscore to Ocean Portal Tracks",False)],
         ["ocean portal tracks", "trading post tracks", False, has_glyph("Ocean")
          & has_portal("Mayscore to Ocean Portal Tracks", True)],
-        ["snow bridge", "ocean temple tracks", False, has_temple_tracks("Marine")
+        ["snow bridge north", "ocean temple tracks", False, has_temple_tracks("Marine")
          & has_portal("Snow Bridge to Island Sanctuary", True)],
-        ["ocean temple tracks", "snow bridge", False, has_tracks("Snow Realm Bridge")
+        ["ocean temple tracks", "snow bridge north", False, has_tracks("Snow Realm Bridge")
          & has_portal("Snow Bridge to Island Sanctuary", False)],
 
         # Ocean Rabbits
@@ -458,7 +467,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["las tracks", "las rabbit", False, has_net],
         ["ocean realm source", "ocean source rabbits", False, has_net],
         ["ocean portal tracks", "ocean portal rabbits", False, has_net],
-        ["forest ocean shortcut rabbit", "pirate rabbit", False, None],
+        ["ocean shortcut east", "pirate rabbit", False, has_net],
 
         # ========== Island Sanctuary =============
         ["ocean realm", "island sanc station", True, has_glyph("Ocean")],
@@ -547,10 +556,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["las 5th room", "las_event", False, None],
 
         # ===== Fire Realm =====
-        ["blizzard temple tracks", "fire realm", True, has_glyph("Fire") & has_temple_tracks("Blizzard")],
-        ["blizzard temple tracks", "gorge tracks", True, has_tracks("Snow Realm Gorge") & has_temple_tracks("Blizzard")],
-        ["snow realm source", "fire realm", True, has_glyph("Fire") & has_source("Snow")],
-        ["gorge tracks", "fire realm", True, has_glyph("Fire") & has_tracks("Snow Realm Gorge")],
+        ["gorge tracks east", "fire realm", True, has_glyph("Fire") & has_tracks("Snow Realm Gorge")],
+        ["blizzard temple tracks", "gorge tracks west", True, has_tracks("Snow Realm Gorge") & has_temple_tracks("Blizzard")],
+        ["gorge tracks west", "gorge tracks east", True, has_tracks("Snow Realm Gorge")],
+
+        ["blizzard temple tracks", "fire realm west", True, has_glyph("Fire") & has_temple_tracks("Blizzard")],
+        ["snow realm source", "fire realm west", True, has_glyph("Fire") & has_source("Snow")],
+        ["fire realm", "fire realm west", True, has_glyph("Fire")],
+
         ["fire realm", "fire source", True, has_glyph("Fire") & has_source("Fire")],
         ["mountain temple tracks", "fire source", True, has_temple_tracks("Mountain") & has_source("Fire")],
         ["mountain temple tracks", "fire realm", True, has_temple_tracks("Mountain") & has_glyph("Fire")],
@@ -656,14 +669,20 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ===== Sand Realm =====
         ["ocean realm source", "sand realm", True, has_source("Ocean") & has_tracks("Sand Realm")],
-        ["sand realm", "sand restoration", False, has_temple_tracks("Desert") & has_tracks("Sand Realm") & has_cannon],
-        ["sand realm", "sand connection", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
+        ["sand realm", "sand connection south", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
+        ["sand connection south", "sand connection", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
+
+        ["sand realm", "sand restoration rocktite", False, has_temple_tracks("Desert") & has_tracks("Sand Realm")],
+        ["sand restoration rocktite", "sand realm", False, has_temple_tracks("Desert")],
+        ["sand restoration rocktite", "sand restoration", True, has_cannon & has_temple_tracks("Desert")],
+        ["sand restoration", "sand restoration south", True, has_temple_tracks("Desert")],
 
         ["sand realm", "sand realm rabbits", False, has_net],
         ["sand restoration", "sand restoration rabbits", False, has_net],
+        ["sand restoration south", "sand restoration south rabbits", False, has_net],
         ["sand connection", "sand connection rabbit", False, has_net],
 
-        ["sand restoration", "sand restoration portal", True, has_cannon],
+        ["sand restoration south", "sand restoration portal", True, has_cannon],
         ["sand connection", "sand connection portal", True, has_cannon],
         ["sand realm", "sand realm portal", True, None],
 

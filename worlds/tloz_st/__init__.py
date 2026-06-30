@@ -598,7 +598,8 @@ class SpiritTracksWorld(WorldParent):
                                 "eote rabbits": 1,
                                 "s mountain temple rabbit": 1}
             sand_regions = {"sand realm rabbits": 4,
-                            "sand restoration rabbits": 5,
+                            "sand restoration rabbits": 3,
+                            "sand restoration south rabbits": 2,
                             "sand connection rabbit": 1}
             [self.create_multiple_events(reg, f"_caught_{realm}_rabbits", count)
              for regions, realm in zip([forest_regions, snow_regions, ocean_regions, mountain_regions, sand_regions], ["grass", "snow", "ocean", "mountain", "sand"])

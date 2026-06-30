@@ -3188,7 +3188,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Sand Rabbits"]
     },
     "Rabbit W Desert Temple": {
-        "region_id": "sand restoration rabbits",
+        "region_id": "sand restoration south rabbits",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x06,
         "address": STAddr.rabbits_5,
@@ -3198,7 +3198,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Sand Rabbits"]
     },
     "Rabbit E Desert Temple": {
-        "region_id": "sand restoration rabbits",
+        "region_id": "sand restoration south rabbits",
         "vanilla_item": "Sand Rabbit",
         "stage_id": 0x06,
         "address": STAddr.rabbits_5,
