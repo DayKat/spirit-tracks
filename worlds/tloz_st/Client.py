@@ -145,6 +145,15 @@ def cmd_goal(self: "BizHawkClientCommandProcessor"):
     client.display_goal = True
     return True
 
+def cmd_print_actors(self: "BizHawkClientCommandProcessor", offset: int=12):
+    """Debug print certain actor data"""
+    client = get_client_as_command_processor(self)
+    try:
+        client.display_actors = int(offset)
+    except TypeError:
+        self.output(f"Error: Offset needs to be an int")
+    return True
+
 class SpiritTracksClient(DSZeldaClient):
     game = "Spirit Tracks"
     system = "NDS"
@@ -226,6 +235,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.saving_safety = False
 
         self.display_goal = False
+        self.display_actors = 0
         self.oct_bk_offset = None
 
 
@@ -280,6 +290,8 @@ class SpiritTracksClient(DSZeldaClient):
                 ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
             if "goal" not in ctx.command_processor.commands:
                 ctx.command_processor.commands["goal"] = cmd_goal
+            if "print_actors" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["print_actors"] = cmd_print_actors
             return True
         elif rom_name == "SPIRITTRACKSBKIE":  # US
             logger.info(f"The US Version is not supported yet, please use the EU version 1.0")
@@ -392,6 +404,7 @@ class SpiritTracksClient(DSZeldaClient):
             if not mid_load:
                 self.loading_stage = False
                 return mid_load
+
         return not read_result.get(STAddr.loading_room, 27)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
@@ -439,6 +452,14 @@ class SpiritTracksClient(DSZeldaClient):
             if self.last_stage == 0x27 and self.current_stage == 0x25:
                 self.has_goal_location = True
                 await self.store_event(ctx, "GOAL: Defeat Malladus")
+
+        # Precise delete bad train actors when missing glyphs
+        if self.precision_operation and self.precision_operation[0] == "delete_ow_actors":
+            await self.frame_advance(ctx)  # lol it be picky
+            await self.delete_bad_ow_actors(ctx, self.precision_operation[1])
+            self.precision_operation.clear()
+            await bizhawk.unlock(ctx.bizhawk_ctx)
+            ctx.watcher_timeout = 0.1
 
     async def store_event(self, ctx, event_name):
         entr = self.entrances[event_name]
@@ -673,6 +694,10 @@ class SpiritTracksClient(DSZeldaClient):
         if self.display_goal:
             self.printl_goal_info(ctx)
             self.display_goal = False
+
+        if self.display_actors:
+            await self.print_train_actors(ctx, self.display_actors)
+            self.display_actors = 0
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
@@ -984,6 +1009,13 @@ class SpiritTracksClient(DSZeldaClient):
         if self.set_train_in_overworld:
             await self.set_starting_train(ctx)
             self.set_train_in_overworld = False
+
+        if not self._just_entered_game:
+            if stage == 4: # and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
+                self.precision_mode = [Address.from_pointer(STAddr.fr_actor_table_start+17*4+3), 0, "delete_ow_actors", STAddr.fr_actor_table_start]
+                # await self.delete_bad_ow_actors(ctx, STAddr.fr_actor_table_start)
+            # if stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
+            #     await self.delete_bad_ow_actors(ctx, STAddr.sr_actor_table_start)
 
 
     async def set_tears(self, ctx):
@@ -1413,3 +1445,49 @@ class SpiritTracksClient(DSZeldaClient):
             await STAddr.bomb_count.overwrite(ctx, self.item_data["Bombs (Progressive)"].give_ammo[bomb_prog-1])
         if arrow_prog:
             await STAddr.arrow_count.overwrite(ctx, self.item_data["Bow (Progressive)"].give_ammo[arrow_prog-1])
+
+    @staticmethod
+    async def get_table_data(ctx, array_start, comp_offset) -> dict["Address", int]:
+        rl = []
+        for i in range(64):
+            rl.append(Address.from_pointer(array_start + i * 4, size=3))
+        actors = await read_multiple(ctx, rl)
+        print(f"Actors: {actors}")
+        actors_start = [Address.from_pointer(v, size=4) for v in actors.values() if v]
+        lables = [k for k, v in actors.items() if v]
+        reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=lables)
+        return reads_2
+
+    async def delete_bad_ow_actors(self, ctx, table_start):
+        actor_idents = await self.get_table_data(ctx, table_start, 12)
+        crash_causers = {
+            0x21405e8: "Demon Train",
+            0x2140860: "Moink... or not",
+            0x21413bc: "One of these crashes",
+            0x2149988: "Still Train",
+            0x2140efc: "Train Spawner CS Trigger?"
+        }
+        crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
+        await write_multiple(ctx, crash_list, [0]*len(crash_list))
+        actor_print = {k: crash_causers[i] for k, i in actor_idents.items() if i in crash_causers}
+        printl(f"Deleting bad actors: {hex_f(actor_print)}")
+
+    async def print_train_actors(self, ctx, offset=11):
+        actor_table = Address(0x2D21BC, size=3)
+        actor_idents = await self.get_table_data(ctx, actor_table, offset)
+        print(f"Printing Actors")
+        identifiers = {
+            0x21405e8: "Demon Train",
+            0x2140860: "Moink... or not",
+            0x22d7184: "Outset Rabbit",
+            0x2141438: "False crasher",
+            0x21413bc: "One of these crashes",
+            0x2149988: "Still Train",
+            0x2140efc: "Train Spawner CS Trigger?"
+        }
+
+        for k, i in actor_idents.items():
+            ident = identifiers.get(i, "")
+            print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+
+

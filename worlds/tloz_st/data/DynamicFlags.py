@@ -47,11 +47,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_1, 0x80), (STAddr.adv_flags_0, 0x04)]
     },
-    "Safety forest glyph on forest glyph map": {
-        "on_scenes": [0x400],
-        "has_groups": ["Tracks: Forest Glyph"],
-        "set_if_true": [(STAddr.adv_flags_1, 0x81), (STAddr.adv_flags_0, 0x04)]  # also prevents tree maze to fs
-    },
+    # "Safety forest glyph on forest glyph map": {
+    #     "on_scenes": [0x400],
+    #     "has_groups": ["Tracks: Forest Glyph"],
+    #     "set_if_true": [(STAddr.adv_flags_1, 0x81), (STAddr.adv_flags_0, 0x04)]  # also prevents tree maze to fs
+    # },
     "Allow learning awakening song": {
         "on_scenes": [0x3000],
         "not_has_locations": ["Woodland Sanctuary Song Statue"],
