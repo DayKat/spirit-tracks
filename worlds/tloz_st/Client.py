@@ -1010,13 +1010,6 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_starting_train(ctx)
             self.set_train_in_overworld = False
 
-        if not self._just_entered_game:
-            if stage == 4: # and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
-                self.precision_mode = [Address.from_pointer(STAddr.fr_actor_table_start+17*4+3), 0, "delete_ow_actors", STAddr.fr_actor_table_start]
-                # await self.delete_bad_ow_actors(ctx, STAddr.fr_actor_table_start)
-            # if stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
-            #     await self.delete_bad_ow_actors(ctx, STAddr.sr_actor_table_start)
-
 
     async def set_tears(self, ctx):
         set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
@@ -1301,6 +1294,15 @@ class SpiritTracksClient(DSZeldaClient):
         if current_scene == 0x131e:  # Set tears for ToS 6 on 30F instead of 31F.
             await self.set_tears(ctx)
 
+        # Start Precision read for evil train deletion
+        if not self._just_entered_game:
+            if self.current_stage == 4: # and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
+                self.precision_mode = [Address.from_pointer(STAddr.fr_actor_table_start+17*4+3), 0,
+                                       "delete_ow_actors", STAddr.fr_actor_table_start]
+            if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
+                self.precision_mode = [Address.from_pointer(STAddr.sr_actor_table_start + 17 * 4 + 3), 0,
+                                       "delete_ow_actors", STAddr.sr_actor_table_start]
+
 
     @staticmethod
     async def open_tos_boss_door(ctx, scene):
@@ -1449,7 +1451,7 @@ class SpiritTracksClient(DSZeldaClient):
     @staticmethod
     async def get_table_data(ctx, array_start, comp_offset) -> dict["Address", int]:
         rl = []
-        for i in range(64):
+        for i in range(80):
             rl.append(Address.from_pointer(array_start + i * 4, size=3))
         actors = await read_multiple(ctx, rl)
         print(f"Actors: {actors}")
@@ -1465,7 +1467,8 @@ class SpiritTracksClient(DSZeldaClient):
             0x2140860: "Moink... or not",
             0x21413bc: "One of these crashes",
             0x2149988: "Still Train",
-            0x2140efc: "Train Spawner CS Trigger?"
+            0x2140efc: "Train Spawner CS Trigger?",
+            0x2141854: "Snow realm crasher"
         }
         crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
         await write_multiple(ctx, crash_list, [0]*len(crash_list))
@@ -1473,7 +1476,8 @@ class SpiritTracksClient(DSZeldaClient):
         printl(f"Deleting bad actors: {hex_f(actor_print)}")
 
     async def print_train_actors(self, ctx, offset=11):
-        actor_table = Address(0x2D21BC, size=3)
+        """Print debug info about train actors"""
+        actor_table = STAddr.sr_actor_table_start
         actor_idents = await self.get_table_data(ctx, actor_table, offset)
         print(f"Printing Actors")
         identifiers = {
@@ -1483,7 +1487,8 @@ class SpiritTracksClient(DSZeldaClient):
             0x2141438: "False crasher",
             0x21413bc: "One of these crashes",
             0x2149988: "Still Train",
-            0x2140efc: "Train Spawner CS Trigger?"
+            0x2140efc: "Train Spawner CS Trigger?",
+            0x2141854: "Snow realm crasher"
         }
 
         for k, i in actor_idents.items():
