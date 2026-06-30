@@ -303,27 +303,27 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_groups": ["Tracks: Ocean Glyph"],
         "set_if_true": [(STAddr.adv_flags_17, 0x20)]
     },
-    "Snow realm crashes with snow source and no blizzard tracks": {
-        "on_scenes": [0x500],
-        "has_groups": ["Tracks: Snow Source"],
-        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
-        "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
-        "reset_flags": ["RESET Add Snow Source"]
-    },
-    "Snow realm crashes fire glyph and no blizzard tracks": {
-        "on_scenes": [0x500],
-        "has_groups": ["Tracks: Fire Glyph"],
-        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
-        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "reset_flags": ["RESET fire glyph"]
-    },
-    "Forest realm crashes fire glyph and no ocean glyph": {
-        "on_scenes": [0x400],
-        "has_groups": ["Tracks: Fire Glyph"],
-        "not_has_groups": ["Tracks: Ocean Glyph"],
-        "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
-        "reset_flags": ["RESET fire glyph"]
-    },
+    # "Snow realm crashes with snow source and no blizzard tracks": {
+    #     "on_scenes": [0x500],
+    #     "has_groups": ["Tracks: Snow Source"],
+    #     "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
+    #     "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
+    #     "reset_flags": ["RESET Add Snow Source"]
+    # },
+    # "Snow realm crashes fire glyph and no blizzard tracks": {
+    #     "on_scenes": [0x500],
+    #     "has_groups": ["Tracks: Fire Glyph"],
+    #     "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
+    #     "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+    #     "reset_flags": ["RESET fire glyph"]
+    # },
+    # "Forest realm crashes fire glyph and no ocean glyph": {
+    #     "on_scenes": [0x400],
+    #     "has_groups": ["Tracks: Fire Glyph"],
+    #     "not_has_groups": ["Tracks: Ocean Glyph"],
+    #     "unset_if_true": [(STAddr.adv_flags_2, 0x04)],
+    #     "reset_flags": ["RESET fire glyph"]
+    # },
     "Forest realm crashes fire glyph and no forest source tracks": {
         "on_scenes": [0x400],
         "has_groups": ["Tracks: Fire Glyph"],

@@ -533,8 +533,8 @@ ENTRANCE_DATA = {
         "return_name": "Gage Exit",
         "entrance": (0x30, 0, 1),
         "exit": (0x30, 0x1, 0),
-        "entrance_region": "fos",
-        "exit_region": "fos song statue",
+        "entrance_region": "woodland sanc",
+        "exit_region": "woodland sanc song statue",
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE
@@ -543,8 +543,8 @@ ENTRANCE_DATA = {
         "return_name": "Steem Exit",
         "entrance": (0x31, 1, 1),
         "exit": (0x31, 0x2, 0),
-        "entrance_region": "ss",
-        "exit_region": "ss song",
+        "entrance_region": "snow sanc",
+        "exit_region": "snow sanc song",
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.INSIDE,
         "island": EntranceGroups.NONE

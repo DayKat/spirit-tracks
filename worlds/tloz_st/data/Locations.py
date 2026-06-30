@@ -1063,7 +1063,7 @@ LOCATIONS_DATA = {
 
     # Woodland Sanctuary
     "Woodland Sanctuary Stamp Station": {
-        "region_id": "fos stamp station",
+        "region_id": "woodland sanc stamp station",
         "vanilla_item": "Stamp: Woodland Sanctuary",
         "stage_id": 0x30,
         "room_id": 0,
@@ -1072,7 +1072,7 @@ LOCATIONS_DATA = {
         "conditional": True
     },
     "Woodland Sanctuary Song Statue": {
-        "region_id": "fos song statue",
+        "region_id": "woodland sanc song statue",
         "vanilla_item": "Song of Awakening",
         "stage_id": 0x30,
         "room_id": 0,
@@ -1083,7 +1083,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Woodland Sanctuary", "Song Statue"],
     },
     "Woodland Sanctuary Chest": {
-        "region_id": "fos chest",
+        "region_id": "woodland sanc chest",
         "vanilla_item": "Big Red Rupee (200)",
         "x_min": 9228,
         "x_max": 18778,
@@ -1096,7 +1096,7 @@ LOCATIONS_DATA = {
     "Woodland Sanctuary Song of Restoration": {
         "stage_id": 0x30,
         "room_id": 0x1,
-        "region_id": "fos song statue",
+        "region_id": "woodland sanc song statue",
         "address": STAddr.rail_restorations,
         "vanilla_item": "Wooded Temple Tracks",
         "value": 2,
@@ -1448,7 +1448,7 @@ LOCATIONS_DATA = {
 
     # Snowfall Sanctuary
     "Snowfall Sanctuary Stamp Station": {
-        "region_id": "ss stamp station",
+        "region_id": "snow sanc stamp station",
         "vanilla_item": "Stamp: Snowfall Sanctuary",
         "stage_id": 0x31,
         "room_id": 0,
@@ -1464,7 +1464,7 @@ LOCATIONS_DATA = {
         "value": 4,
         "minigame": [1, 2, 3, 4, 5, 6],
         "conditional": True,
-        "region_id": "ss song",
+        "region_id": "snow sanc song",
         "location_groups": ["Snowfall Sanctuary","Restoration Duets"],
     },
     "Snowfall Sanctuary Steem Gift With Snow Source": {
@@ -1698,7 +1698,7 @@ LOCATIONS_DATA = {
 
     # Island Sanctuary
     "Island Sanctuary Stamp Station": {
-        "region_id": "ocs stamp station",
+        "region_id": "island sanc stamp station",
         "vanilla_item": "Stamp: Island Sanctuary",
         "stage_id": 0x32,
         "room_id": 2,
@@ -1709,7 +1709,7 @@ LOCATIONS_DATA = {
     },
 
     "Island Sanctuary Cucco Chest": {
-        "region_id": "ocs north",
+        "region_id": "island sanc north",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x32,
         "room_id": 2,
@@ -1720,7 +1720,7 @@ LOCATIONS_DATA = {
     },
 
     "Island Sanctuary S Island Chest": {
-        "region_id": "ocs S island chest",
+        "region_id": "island sanc S island chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x32,
         "room_id": 0,
@@ -1730,7 +1730,7 @@ LOCATIONS_DATA = {
     },
 
     "Island Sanctuary NW Chest": {
-        "region_id": "ocs nw chest",
+        "region_id": "island sanc nw chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x32,
         "room_id": 2,
@@ -1743,7 +1743,7 @@ LOCATIONS_DATA = {
     "Island Sanctuary Song of Restoration": {
         "stage_id": 0x32,
         "room_id": 0x4,
-        "region_id": "ocs song",
+        "region_id": "island sanc song",
         "vanilla_item": "Marine Temple Tracks",
         "address": STAddr.rail_restorations,
         "value": 0x8,
@@ -1754,7 +1754,7 @@ LOCATIONS_DATA = {
 
     # Papuzia (Papuchia) Village
     "Papuzia Village Song Statue": {
-        "region_id": "papuchia village song statue",
+        "region_id": "papuzia village song statue",
         "vanilla_item": "Song of Birds",
         "stage_id": 0x2C,
         "room_id": 0,
@@ -1766,7 +1766,7 @@ LOCATIONS_DATA = {
     },
 
     "Papuzia Village Stamp Station": {
-        "region_id": "papuchia village stamp station",
+        "region_id": "papuzia village stamp station",
         "vanilla_item": "Stamp: Papuzia Village",
         "stage_id": 0x39,
         "room_id": 0,
@@ -1777,7 +1777,7 @@ LOCATIONS_DATA = {
     },
 
     "Papuzia Village NE Chest": {
-        "region_id": "papuchia village",
+        "region_id": "papuzia village",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x2C,
         "room_id": 0,
@@ -1788,7 +1788,7 @@ LOCATIONS_DATA = {
     },
 
     "Papuzia Village SW Chest": {
-        "region_id": "papuchia village south",
+        "region_id": "papuzia village south",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x39,
         "room_id": 0,
@@ -1800,7 +1800,7 @@ LOCATIONS_DATA = {
     },
 
     "Papuzia Village S Center Chest": {
-        "region_id": "papuchia village south",
+        "region_id": "papuzia village south",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x39,
         "room_id": 0,
@@ -3962,7 +3962,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Island Sanctuary", "Deliver Passengers"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
-        "region_id": "ocs carben",
+        "region_id": "island sanc carben",
     },
     "Pirate Hideout Pick Up Wadatsumi": {
         "stage_id": 0x3a,

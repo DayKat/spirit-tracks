@@ -15,6 +15,8 @@ REGIONS = [
     "trading post portal",
     "forest cave portal",
     "forest ferrus",
+    "e mayscore bridge",
+    "ocean shortcut",
 
     "forest realm rabbits",
     "forest ocean shortcut rabbit",
@@ -29,6 +31,7 @@ REGIONS = [
 
     # Outset Village
     "outset village",
+    "outset station",
     "outset village stamp book",
     "outset 10 stamps",
     "outset 15 stamps",
@@ -41,6 +44,7 @@ REGIONS = [
 
     # Castle Town
     "castle town",
+    "castle station",
     "castle town stamp station",
     "castle town wall",
     "castle town cuccos",
@@ -73,6 +77,10 @@ REGIONS = [
     "tos 3",
     "tos 4",
     "tos 5",
+    "tos forest station",
+    "tos snow station",
+    "tos ocean station",
+    "tos fire station",
 
     "tos 1f",
     "tos 1f chest",
@@ -153,6 +161,7 @@ REGIONS = [
 
     # Mayscore
     "mayscore",
+    "mayscore station",
     "mayscore stamp station",
     "mayscore whip game",
     "mayscore whip race bomb bag",
@@ -167,6 +176,7 @@ REGIONS = [
 
     # Rabbit Haven
     "rabbit haven",
+    "rabbit haven station",
     "rabbit haven chest",
     "rabbit haven net",
     "rabbit haven 5 rabbits",
@@ -182,14 +192,16 @@ REGIONS = [
     # "rabbit haven 50 rabbits"
 
     # Forest Sanctuary
-    "fos",
-    "fos stamp station",
-    "fos song statue",
-    "fos gage",
-    "fos chest",
+    "woodland sanc",
+    "woodland sanc station",
+    "woodland sanc stamp station",
+    "woodland sanc song statue",
+    "woodland sanc gage",
+    "woodland sanc chest",
 
     # Wooded Temple
     "wt",
+    "wt station",
     "wt song statue",
     "wt 1f enemy chest",
     "wt 1f key",
@@ -211,6 +223,7 @@ REGIONS = [
 
     # Trading Post
     "trading post",
+    "trading post station",
     "trading post light song statue",
     "trading post chest",
     "trading post stamp station",
@@ -246,6 +259,7 @@ REGIONS = [
 
     # Anouki Village
     "anouki village",
+    "anouki station",
     "anouki village stamp station",
     "anouki village song statue",
     "anouki village bomb cave chest",
@@ -257,14 +271,17 @@ REGIONS = [
     "av kofu",
 
     # Snow Sanctuary
-    "ss",
-    "ss stamp station",
-    "ss song",
+    "snow sanc",
+    "snow sanc tracks",
+    "snow sanc station",
+    "snow sanc stamp station",
+    "snow sanc song",
     "steem gift",
     "snow sanc shop",
     "snow sanc vessel",
 
     # Blizzard Temple
+    "bt station",
     "bt",
     "bt b1 se",
     "bt b1 e enemy chest",
@@ -281,6 +298,7 @@ REGIONS = [
 
     # Icy Spring
     "icyspring",
+    "icyspring station",
     "icyspring stamp station",
     "icyspring whip chest",
     "icyspring ice",
@@ -288,16 +306,21 @@ REGIONS = [
 
     # Snowdrift Station
     "snowdrift",
+    "snowdrift tracks",
+    "snowdrift station",
     "snowdrift reward",
 
     # Slippery Station
     "slippery",
+    "slippery tracks",
+    "slippery station",
     "slippery amateur",
     "slippery pro",
     "slippery champion",
 
     # Bridge Worker's Home
     "bridge workers",
+    "bridge workers station",
     "bridge workers chest",
     "pick up bridge worker",
 
@@ -325,21 +348,23 @@ REGIONS = [
     "ocean portal rabbits",
     "pirate rabbit",
 
-    #Island Sanctuary
-    "ocs",
-    "ocs north",
-    "ocs stamp station",
-    "ocs cucco chest",
-    "ocs S island chest",
-    "ocs nw chest",
-    "ocs song",
-    "ocs carben",
+    # Island Sanctuary
+    "island sanc",
+    "island sanc station",
+    "island sanc north",
+    "island sanc stamp station",
+    "island sanc cucco chest",
+    "island sanc S island chest",
+    "island sanc nw chest",
+    "island sanc song",
+    "island sanc carben",
 
-    #Papuchia Village
-    "papuchia village",
-    "papuchia village south",
-    "papuchia village song statue",
-    "papuchia village stamp station",
+    # Papuchia Village
+    "papuzia village",
+    "papuzia village station",
+    "papuzia village south",
+    "papuzia village song statue",
+    "papuzia village stamp station",
     "pv dovok",
     "pv carben",
     "pv wadatsumi",
@@ -349,8 +374,9 @@ REGIONS = [
     "papuzia shop arrows",
     "papuzia ice",
 
-    #Ocean Temple
+    # Ocean Temple
     "oct",
+    "oct station",
     "oct song statue",
     "oct whip",
     "oct 2f",
@@ -368,6 +394,7 @@ REGIONS = [
 
     #Pirate Hideout
     "pirate hideout",
+    "pirate hideout station",
     "pirate hideout stamp station",
     "pirate hideout secret cave",
     "pirate wadatsumi",
@@ -375,6 +402,7 @@ REGIONS = [
 
     #Lost at Sea Station
     "lost at sea",
+    "lost at sea station",
     "las outside chest",
     "las 1st room chest",
     "las 2nd room chest",
@@ -392,8 +420,6 @@ REGIONS = [
     "mountain temple tracks",
     "mountain temple door",
     "snurglars",
-    "ends of the earth",
-    "disorientation station",
     "fire realm ferrus",
 
     "fire realm rabbits",
@@ -403,12 +429,21 @@ REGIONS = [
     "eote rabbits",
     "s mountain temple rabbit",
 
+    "disorientation tracks",
+    "disorientation station station",
+    "disorientation station",
     "disorientation bird",
     "disorientation sod",
+
     "eote puzzles",
+    "ends of the earth",
+    "ends of the earth tracks",
+    "ends of the earth station",
+
 
     # Goron Village
     "goron village",
+    "goron village station",
     "goron whip",
     "goron shop",
     "goron shop bombs",
@@ -427,9 +462,12 @@ REGIONS = [
     "valley sanc song",
 
     "gtr",
+    "goron target station",
+    "goron target lobby",
 
     # Mountain Temple
     "mtt",
+    "mtt station",
     "mtt left",
     "mtt right",
     "mtt 2f right",
@@ -450,7 +488,6 @@ REGIONS = [
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
-
     "sand realm",
     "sand restoration",
     "sand connection",
@@ -463,12 +500,15 @@ REGIONS = [
 
     # Sand Sanc
     "sand sanc",
+    "sand sanc station",
     "sand sanc song",
     "sand sanc cuccos",
     "sand sanc stamp stand",
 
     # Desert Temple
     "desert temple",
+    "desert temple door",
+    "desert temple station",
     "dt sw",
     "dt 1f nw",
     "dt 1f n",
@@ -487,6 +527,8 @@ REGIONS = [
 
     # Dark ore mine
     "dark ore mine",
+    "dark ore mine tracks",
+    "dark ore mine station",
     "dark ore mine ore",
     "dark ore mine sod",
 
