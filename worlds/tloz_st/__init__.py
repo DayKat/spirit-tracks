@@ -644,7 +644,8 @@ class SpiritTracksWorld(WorldParent):
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck event", "_can_sell_treasure")
         self.create_event("goron ice event", "_goron_ice")  # Used for GTR
-
+        if self.options.randomize_passengers.value:
+            self.create_event("delivered ferrus", "_delivered_ferrus")
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()

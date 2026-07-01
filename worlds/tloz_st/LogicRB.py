@@ -14,12 +14,16 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["outset village", "outset station", False, None],
         ["outset station", "outset village", False, has_glyph("Forest")],
         ["outset station", "forest realm", True, has_train & has_glyph("Forest")],
-        
-        ["outset village", "outset village stamp book", False, has_passenger("Alfonzo" ,"_picked_up_alfonzo") 
+
+        ["outset village", "niko's house", True, None],
+        ["outset village", "mary's house", True, None],
+        ["outset village", "train workshop", True, None],
+
+        ["niko's house", "niko's stamp book", False, has_passenger("Alfonzo" ,"_picked_up_alfonzo")
          | Filtered(has_glyph("Snow"), options=[OptionFilter(SpiritTracksRandomizePassengers, 0)])],
-        ["outset village stamp book", "outset 10 stamps", False, Has("Stamp", 10)],
-        ["outset village stamp book", "outset 15 stamps", False, Has("Stamp", 15)],
-        ["outset village stamp book", "outset 20 stamps", False, Has("Stamp", 20)],
+        ["niko's stamp book", "outset 10 stamps", False, Has("Stamp", 10)],
+        ["niko's stamp book", "outset 15 stamps", False, Has("Stamp", 15)],
+        ["niko's stamp book", "outset 20 stamps", False, Has("Stamp", 20)],
         ["outset village", "outset village stamp station", False, has_stamp_book],
         ["outset village", "outset village trees", False, has_sod],
         ["outset village", "outset joe", False, has_source("Snow")],
@@ -28,8 +32,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["outset village", "outset cuccos", False, has_wagon & (
                 Has("Cargo: Cuccos (5)", 3) | (
                     Has("Cargo: Cuccos (5)", 2) & ool))],
-        ["outset village", "outset ferrus", False, has_passenger("Alfonzo", "_picked_up_alfonzo")
+        ["outset village", "delivered ferrus", False, has_passenger("Alfonzo", "_picked_up_alfonzo")
             & has_passenger("Ferrus", "_ferrus_1")],
+        ["train workshop", "outset ferrus", None, Has("_delivered_ferrus")],
 
         # ========= Forest Realm ==========
 
@@ -96,14 +101,20 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["castle town", "pick up alfonzo", False, has_glyph("Snow")],
         ["castle town", "castle town teacher", False, has_glyph("Snow") | has_glyph("Ocean") | has_glyph("Fire")],
         ["pick up alfonzo", "alfonzo event", False, None],
-        ["pick up alfonzo", "castle town mona", False, None],
+        ["mona's house", "castle town mona", False, has_glyph("Snow")],
         ["castle town", "castle town fish", False, has_cargo("Fish", "_buy_fish")],
 
         ["castle town", "castle town wall", False, has_bombs],
         ["castle town wall", "castle town stamp station", False, has_stamp_book],
         ["castle town wall", "castle town cuccos", False, ct_cuccos],
 
-        ["castle town", "teao rupees", False, has_rupees(150) | ool],
+        ["castle town", "lucia's house", True, None],
+        ["castle town", "mona's house", True, None],
+        ["castle town", "shitate's shop", True, None],
+        ["castle town", "milo's house", True, None],
+        ["castle town", "teao", True, None],
+
+        ["teao", "teao rupees", False, has_rupees(150) | ool],
         ["teao rupees", "teao 1", False, And(
              has_sword,
              has_whirlwind,
@@ -127,14 +138,46 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # # ======== Hyrule Castle =========
 
-        ["castle town", "hyrule castle", False, None],
-        ["hyrule castle", "hyrule castle sword minigame", False, has_sword & has_source("Snow") & has_rupees(100)],
+        ["castle town", "hyrule castle courtyard", True, None],
+        ["hyrule castle courtyard", "hyrule castle 1f", True, None],
+        ["hyrule castle 1f", "hyrule castle throne room", True, None],
+        ["hyrule castle 1f", "hyrule castle barracks", True, None],
+        ["hyrule castle 1f", "hyrule castle infirmary", True, None],
+        ["hyrule castle 1f", "hyrule castle roof left", True, None],
+        ["hyrule castle 1f", "hyrule castle roof right", True, None],
+
+        ["hyrule castle roof left", "hyrule castle roof right", True, None],
+        ["hyrule castle roof right", "hyrule castle ne ledge", False, None],
+        ["hyrule castle ne ledge", "hyrule castle courtyard", False, None],
+        ["hyrule castle roof right", "hyrule castle 2f", True, None],
+
+        ["hyrule castle 2f", "hyrule castle ne ledge", True, None],
+        ["hyrule castle 2f", "hyrule castle nw ledge", True, None],
+        ["hyrule castle throne room", "hyrule castle 2f left", True, None],
+        ["hyrule castle throne room", "hyrule castle 2f", True, None],
+        ["hyrule castle 2f left", "hyrule castle 2f", True, None],
+        ["hyrule castle 2f", "zelda's room", True, None],
+        ["hyrule castle 2f", "hyrule castle backdoor", True, None],
+
+        ["hyrule castle barracks", "hyrule castle sword minigame", False, has_sword & has_source("Snow") & has_rupees(100)],
 
         # # ======== ToS Tunnel =========
 
-        ["hyrule castle", "tower tunnel", False, None],
-        ["tower tunnel", "tower tunnel block chest", False, can_kill_bat_pit | has_whirlwind | hard_logic],
-        ["tower tunnel", "tower tunnel 2f chest", False, has_small_keys("Tunnel to ToS", 1)],
+        ["hyrule castle backdoor", "hyrule castle backyard", True, None],
+        ["hyrule castle backyard", "tower tunnel 1f", False, None],
+        ["tower tunnel 1f", "tower tunnel block chest", False, can_kill_bat_pit | has_whirlwind | hard_logic],
+        ["tower tunnel 1f", "tower tunnel key door", True, has_small_keys("Tunnel to ToS", 1)],
+        ["tower tunnel key door", "tower tunnel 2f", True, None],
+
+        ["tower tunnel 2f", "tower tunnel 2f north", False, None],
+        ["tower tunnel 2f north", "tower tunnel 2f", False, has_bombs],
+        ["tower tunnel 2f north", "tower tunnel 2f door", False, can_kill_bat],
+        ["tower tunnel 2f door", "tower tunnel 2f north", False, None],
+        ["tower tunnel 2f door", "tower tunnel 3f", False, can_kill_bat],
+        ["tower tunnel 3f", "tower tunnel 2f door", False, None],
+
+        ["tower tunnel 3f", "tower tunnel 3f north", True, has_damage],
+        ["tower tunnel 3f north", "tos", False, None],
 
         # # ========== ToS ===================
 
@@ -249,15 +292,24 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["forest realm", "mayscore station", True, has_glyph("Forest")],
         ["mayscore station", "mayscore", False, has_glyph("Forest")],
         ["mayscore", "mayscore station", False, None],
+        ["mayscore", "mayscore north", True, None],
 
-        ["mayscore", "mayscore stamp station", False, has_stamp_book],
-        ["mayscore", "mayscore whip chest", False, has_whip],
+        ["mayscore", "uriko's shop", True, None],
+        ["mayscore", "morris' house", True, None],
+        ["mayscore", "dovok's house", True, None],
+        ["mayscore", "wood's house", True, None],
+
+        ["mayscore north", "mayscore stamp station", False, has_stamp_book],
+        ["mayscore north", "mayscore whip chest", False, has_whip],
         ["mayscore whip chest", "mayscore whip game", False, has_rupees(200)],
         ["mayscore", "mayscore leaves", False, has_whirlwind],
+        ["mayscore north", "mayscore leaves", False, has_whirlwind],
 
-        ["mayscore", "mayscore dovok", False, has_glyph("Ocean")],
-        ["mayscore dovok", "mayscore wood", False, has_whip],
+        ["dovok's house", "mayscore dovok", False, has_glyph("Ocean")],
+        ["mayscore whip chest", "mayscore wood", False, has_glyph("Ocean")],
         ["mayscore", "mayscore steel", False, has_cargo("Goron Steel", "_buy_steel")],
+        ["morris' house", "mayscore morris", False, has_glyph("Ocean")],
+        ["mayscore", "mayscore quest", False, has_glyph("Ocean")],
 
         # # ======== Forest Sanctuary =========
 
@@ -266,6 +318,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["woodland sanc", "woodland sanc station", False, None],
         ["woodland sanc", "woodland sanc stamp station", False, has_stamp_book],
         ["woodland sanc", "woodland sanc song statue", False, has_spirit_flute],
+        ["woodland sanc", "woodland sanc sanc", False, None],
+        ["woodland sanc sanc", "woodland sanc duet", False, has_spirit_flute],
         ["woodland sanc", "woodland sanc chest", False, has_cuccos],
 
         # # ======== Wooded Temple =========
@@ -721,7 +775,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand realm", "sand realm portal", True, None],
 
         ["sand restoration south", "sand realm portal", False, has_portal("Desert Temple to Sand Realm", True) & has_tracks("Sand Realm")],
-        ["sand realm portal south", "sand restoration", False, has_portal("Desert Temple to Sand Realm", False) & has_temple_tracks("Desert")],
+        ["sand realm portal", "sand restoration south", False, has_portal("Desert Temple to Sand Realm", False) & has_temple_tracks("Desert")],
         ["sand connection", "ocean temple tracks", False, has_portal("Sand Valley to Marine Temple", True) & has_temple_tracks("Marine")],
         ["ocean temple tracks", "sand connection", False, has_portal("Sand Valley to Marine Temple", False) & has_tracks("Fire Realm Sand Portal")],
 
@@ -818,8 +872,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["beedle", "beedle shop", False, has_rupees(required_rupees)],
         ["beedle shop", "beedle shop bombs", False, has_bombs],
 
-        ["mayscore", "mayscore shop", False, has_rupees(required_rupees)],
-        ["castle town", "castle town shop", False, has_rupees(required_rupees)],
+        ["uriko's shop", "mayscore shop", False, has_rupees(required_rupees)],
+        ["shitate's shop", "castle town shop", False, has_rupees(required_rupees)],
         ["papuzia village", "papuzia shop", False, has_rupees(required_rupees)],
         ["papuzia shop", "papuzia shop arrows", False, has_bow],
         ["papuzia shop", "papuzia shop bombs", False, has_bombs],

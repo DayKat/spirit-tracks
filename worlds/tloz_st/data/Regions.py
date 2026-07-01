@@ -35,7 +35,7 @@ REGIONS = [
     # Outset Village
     "outset village",
     "outset station",
-    "outset village stamp book",
+    "niko's stamp book",
     "outset 10 stamps",
     "outset 15 stamps",
     "outset 20 stamps",
@@ -44,6 +44,11 @@ REGIONS = [
     "outset joe",
     "outset cuccos",
     "outset ferrus",
+    "delivered ferrus",
+
+    "niko's house",
+    "mary's house",
+    "train workshop",
 
     # Castle Town
     "castle town",
@@ -65,14 +70,38 @@ REGIONS = [
     "castle town fish",
     "castle town goron",
 
+    "lucia's house",
+    "mona's house",
+    "milo's house",
+    "shitate's shop",
+    "teao",
+
     # Hyrule Castle
-    "hyrule castle",
+    "hyrule castle courtyard",
     "hyrule castle sword minigame",
+    "hyrule castle 1f",
+    "hyrule castle 2f",
+    "hyrule castle 2f left",
+    "hyrule castle roof right",
+    "hyrule castle barracks",
+    "hyrule castle infirmary",
+    "hyrule castle roof left",
+    "hyrule castle throne room",
+    "hyrule castle ne ledge",
+    "hyrule castle nw ledge",
+    "hyrule castle backdoor",
+    "zelda's room",
 
     # Tunnel to Tower
-    "tower tunnel",
+    "hyrule castle backyard",
+    "tower tunnel 1f",
     "tower tunnel block chest",
-    "tower tunnel 2f chest",
+    "tower tunnel key door",
+    "tower tunnel 2f",
+    "tower tunnel 2f north",
+    "tower tunnel 2f door",
+    "tower tunnel 3f",
+    "tower tunnel 3f north",
 
     # Tower of Spirits
     "tos",
@@ -165,17 +194,27 @@ REGIONS = [
     # Mayscore
     "mayscore",
     "mayscore station",
+    "uriko's shop",
+    "morris' house",
+    "wood's house",
+    "dovok's house",
+
+    "mayscore morris",
+    "mayscore quest",
+      "mayscore dovok",
+      "mayscore shop",
+      "mayscore lumber",
+      "mayscore wood",
+      "mayscore leaves",
+      "mayscore steel",
+
     "mayscore stamp station",
+    "mayscore north",
     "mayscore whip game",
     "mayscore whip race bomb bag",
     "mayscore whip race heart container",
     "mayscore whip chest",
-    "mayscore dovok",
-    "mayscore shop",
-    "mayscore lumber",
-    "mayscore wood",
-    "mayscore leaves",
-    "mayscore steel",
+
 
     # Rabbit Haven
     "rabbit haven",
@@ -192,10 +231,10 @@ REGIONS = [
     "rabbit haven 50 rabbits",
     "rabbit haven mona",
 
-    # "rabbit haven 50 rabbits"
-
     # Forest Sanctuary
     "woodland sanc",
+    "woodland sanc sanc",
+    "woodland sanc duet",
     "woodland sanc station",
     "woodland sanc stamp station",
     "woodland sanc song statue",

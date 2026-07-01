@@ -17,7 +17,326 @@ ENTRANCE_DATA = {
     #   "two_way": bool=True. generates a reciprocal entrance, also used for ER generation
     # }
 
-    # ==== Outset ====
+    # Outset
+    "Mayscore West House": {
+        "return_name": "Niko's House Exit",
+        "exit": (0x2F, 0xA, 1),
+        "entrance": (0x2F, 0x0, 1),
+        "exit_region": "niko's house",
+        "entrance_region": "outset village",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Mayscore East House": {
+        "return_name": "Mary's House Exit",
+        "exit": (0x2F, 0xC, 0),
+        "entrance": (0x2F, 0x0, 3),
+        "exit_region": "niko's house",
+        "entrance_region": "outset village",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Mayscore Enter Trainyard": {
+        "return_name": "Alfonzo's Workshop Exit",
+        "exit": (0x2F, 0xB, 0),
+        "entrance": (0x2F, 0x0, 2),
+        "exit_region": "train workshop",
+        "entrance_region": "outset village",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Mayscore
+    "Mayscore Enter North House": {
+        "return_name": "Dovok's House Exit",
+        "exit": (0x2A, 0x4, 0),
+        "entrance": (0x2A, 0x0, 4),
+        "exit_region": "dovok's house",
+        "entrance_region": "mayscore",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Mayscore Enter NW House": {
+        "return_name": "Morris' House Exit",
+        "exit": (0x2A, 0x3, 0),
+        "entrance": (0x2A, 0x0, 3),
+        "exit_region": "morris' house",
+        "entrance_region": "mayscore",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Mayscore Enter NE House": {
+        "return_name": "Wood's House Exit",
+        "exit": (0x2A, 0x2, 0),
+        "entrance": (0x2A, 0x0, 2),
+        "exit_region": "wood's house",
+        "entrance_region": "mayscore",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Mayscore Enter Shop": {
+        "return_name": "Uriko's Shop Exit",
+        "exit": (0x2A, 0x5, 0),
+        "entrance": (0x2A, 0x0, 1),
+        "exit_region": "mayscore shop",
+        "entrance_region": "mayscore",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Mayscore North": {
+        "return_name": "Mayscore Forest South",
+        "exit": (0x38, 0x0, 0),
+        "entrance": (0x2A, 0x0, 5),
+        "exit_region": "mayscore north",
+        "entrance_region": "mayscore",
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Castle Town
+    "Castle Town North": {
+        "return_name": "Hyrule Castle Courtyard South",
+        "exit": (0x28, 0x0, 0),
+        "entrance": (0x29, 0x0, 1),
+        "exit_region": "hyrule castle courtyard",
+        "entrance_region": "castle town",
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Castle Town West House": {
+        "return_name": "Mona's House Exit",
+        "exit": (0x29, 0xc, 0),
+        "entrance": (0x29, 0x0, 5),
+        "exit_region": "mona's house",
+        "entrance_region": "castle town",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Castle Town NW House": {
+        "return_name": "Lucia's House Exit",
+        "exit": (0x29, 0xE, 0),
+        "entrance": (0x29, 0x0, 7),
+        "exit_region": "lucia's house",
+        "entrance_region": "castle town",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Castle Town Enter Shop": {
+        "return_name": "Shitate's Shop Exit",
+        "exit": (0x29, 0xA, 0),
+        "entrance": (0x29, 0x0, 3),
+        "exit_region": "lucia's house",
+        "entrance_region": "castle town",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Castle Town NE House": {
+        "return_name": "Milo's House Exit",
+        "exit": (0x29, 0xD, 0),
+        "entrance": (0x29, 0x0, 6),
+        "exit_region": "milo's house",
+        "entrance_region": "castle town",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Castle Town Enter Take 'em all On": {
+        "return_name": "Take 'em all On Lobby Exit",
+        "exit": (0x29, 0xB, 0),
+        "entrance": (0x29, 0x0, 4),
+        "exit_region": "teao",
+        "entrance_region": "castle town",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Hyrule Castle
+    "Hyrule Castle Courtyard Entrance": {
+        "return_name": "Hyrule Castle 1F Exit",
+        "exit": (0x28, 0x1, 0),
+        "entrance": (0x28, 0x0, 1),
+        "exit_region": "hyrule castle 1f",
+        "entrance_region": "hyrule castle courtyard",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle 1F NW": {
+        "return_name": "Hyrule Castle Infirmary Exit",
+        "exit": (0x28, 0x3, 1),
+        "entrance": (0x28, 0x1, 3),
+        "exit_region": "hyrule castle infirmary",
+        "entrance_region": "hyrule castle 1f",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle 1F NE": {
+        "return_name": "Hyrule Castle Barracks Exit",
+        "exit": (0x28, 0x7, 0),
+        "entrance": (0x28, 0x1, 2),
+        "exit_region": "hyrule castle barracks",
+        "entrance_region": "hyrule castle 1f",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle 1F SE": {
+        "return_name": "Hyrule Castle Roof SE",
+        "exit": (0x28, 0x0, 2),
+        "entrance": (0x28, 0x1, 4),
+        "exit_region": "hyrule castle roof right",
+        "entrance_region": "hyrule castle 1f",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle 1F SW": {
+        "return_name": "Hyrule Castle Roof SW",
+        "exit": (0x28, 0x0, 3),
+        "entrance": (0x28, 0x1, 5),
+        "exit_region": "hyrule castle roof left",
+        "entrance_region": "hyrule castle 1f",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle 1F Main Staircase": {
+        "return_name": "Hyrule Castle Throne Room Exit",
+        "exit": (0x28, 0x6, 0),
+        "entrance": (0x28, 0x1, 1),
+        "exit_region": "hyrule castle throne room",
+        "entrance_region": "hyrule castle 1f",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Roof Central Door": {
+        "return_name": "Hyrule Castle 2F Central Exit",
+        "exit": (0x28, 0x2, 1),
+        "entrance": (0x28, 0x0, 4),
+        "exit_region": "hyrule castle 2f",
+        "entrance_region": "hyrule castle roof",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Roof NE": {
+        "return_name": "Hyrule Castle 2F NE Exit",
+        "exit": (0x28, 0x2, 4),
+        "entrance": (0x28, 0x0, 5),
+        "exit_region": "hyrule castle 2f",
+        "entrance_region": "hyrule castle ne ledge",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Zelda's Room Exit": {
+        "return_name": "Hyrule Castle 2F NE Staircase",
+        "exit": (0x28, 0x2, 3),
+        "entrance": (0x28, 0x5, 0),
+        "exit_region": "hyrule castle 2f",
+        "entrance_region": "zelda's room",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.DOWN,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Throne Room NE": {
+        "return_name": "Hyrule Castle 2F NE Door",
+        "exit": (0x28, 0x2, 7),
+        "entrance": (0x28, 0x6, 2),
+        "exit_region": "hyrule castle 2f",
+        "entrance_region": "hyrule castle throne room",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Roof NW": {
+        "return_name": "Hyrule Castle 2F NW Exit",
+        "exit": (0x28, 0x2, 5),
+        "entrance": (0x28, 0x0, 6),
+        "exit_region": "hyrule castle 2f",
+        "entrance_region": "hyrule castle nw ledge",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Throne Room NW": {
+        "return_name": "Hyrule Castle 2F NW Door",
+        "exit": (0x28, 0x2, 6),
+        "entrance": (0x28, 0x6, 1),
+        "exit_region": "hyrule castle 2f left",
+        "entrance_region": "hyrule castle throne room",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Back Staircase": {
+        "return_name": "Hyrule Castle 2F NW Staircase",
+        "exit": (0x28, 0x2, 2),
+        "entrance": (0x28, 0x1, 7),
+        "exit_region": "hyrule castle 2f",
+        "entrance_region": "hyrule castle backdoor",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Hyrule Castle Back Exit": {
+        "return_name": "Hyrule Castle Backyard Castle",
+        "exit": (0x28, 0x4, 0),
+        "entrance": (0x28, 0x1, 6),
+        "exit_region": "hyrule castle 2f",
+        "entrance_region": "hyrule castle backdoor",
+        "type": EntranceGroups.CASTLE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    "Hyrule Castle Backyard Cave": {
+        "return_name": "Tunnel to the Tower 1F Exit",
+        "exit": (0x18, 0x0, 0),
+        "entrance": (0x28, 0x4, 1),
+        "exit_region": "tower tunnel 1f",
+        "entrance_region": "hyrule castle backyard",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Tunnel to the Tower 1F Staircase": {
+        "return_name": "Tunnel to the Tower 2F Exit",
+        "exit": (0x18, 0x1, 0),
+        "entrance": (0x18, 0x0, 1),
+        "exit_region": "tower tunnel key door",
+        "entrance_region": "tower tunnel 2f",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Tunnel to the Tower 2F Staircase": {
+        "return_name": "Tunnel to the Tower 3F Exit",
+        "exit": (0x18, 0x2, 0),
+        "entrance": (0x18, 0x1, 1),
+        "exit_region": "tower tunnel 2f door",
+        "entrance_region": "tower tunnel 3f",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # ==== Overworld ====
     "Outset Board Train": {
         "return_name": "Forest Realm Outset Station",
         "exit": (0x4, 0x0, 1),
@@ -26,7 +345,7 @@ ENTRANCE_DATA = {
         "entrance_region": "outset village",
         "reverse_required_groups": ["Tracks: Forest Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Outset to Tutorial": {
@@ -36,7 +355,7 @@ ENTRANCE_DATA = {
         "exit_region": "forest realm",
         "entrance_region": "outset village",
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Mayscore Board Train": {
@@ -47,7 +366,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mayscore",
         "reverse_required_groups": ["Tracks: Forest Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Castle Town Board Train": {
@@ -58,7 +377,7 @@ ENTRANCE_DATA = {
         "entrance_region": "castle town",
         "reverse_required_groups": ["Tracks: Forest Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Woodland Sanctuary Board Train": {
@@ -69,7 +388,7 @@ ENTRANCE_DATA = {
         "entrance_region": "woodland sanc",
         "reverse_required_groups": ["Tracks: Forest Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Wooded Temple Lobby Board Train": {
@@ -80,7 +399,7 @@ ENTRANCE_DATA = {
         "entrance_region": "wt",
         "reverse_required_groups": [("Tracks: Wooded Temple Tracks", "Tracks: Forest Source")],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Rabbit Haven Board Train": {
@@ -91,7 +410,7 @@ ENTRANCE_DATA = {
         "entrance_region": "rabbit haven",
         "reverse_required_groups": ["Tracks: Snow Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Anouki Village Board Train": {
@@ -102,7 +421,7 @@ ENTRANCE_DATA = {
         "entrance_region": "anouki village",
         "reverse_required_groups": ["Tracks: Snow Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Snowfall Sanctuary Board Train": {
@@ -113,7 +432,7 @@ ENTRANCE_DATA = {
         "entrance_region": "snow sanc",
         "reverse_required_groups": ["Tracks: Snow Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Snow Realm Icy Spring": {
@@ -124,7 +443,7 @@ ENTRANCE_DATA = {
         "entrance": (0x5, 0x0, 0x3),
         "exit": (0x35, 0x0, 0x0),
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Bridge Worker's Board Train": {
@@ -135,7 +454,7 @@ ENTRANCE_DATA = {
         "entrance_region": "bridge workers",
         "reverse_required_groups": ["Tracks: Snow Source"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Blizzard Temple Lobby Board Train": {
@@ -146,7 +465,7 @@ ENTRANCE_DATA = {
         "entrance_region": "bt",
         "reverse_required_groups": [("Tracks: Blizzard Temple Tracks", "Tracks: Snow Source")],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Slippery Station Board Train": {
@@ -157,7 +476,7 @@ ENTRANCE_DATA = {
         "entrance_region": "slippery",
         "reverse_required_groups": ["Tracks: Slippery Station"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Snowdrift Board Train": {
@@ -168,7 +487,7 @@ ENTRANCE_DATA = {
         "entrance_region": "snowdrift",
         "reverse_required_groups": ["Tracks: Snowdrift Station"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
 
@@ -180,7 +499,7 @@ ENTRANCE_DATA = {
         "entrance_region": "trading post",
         "reverse_required_groups": ["Tracks: Ocean Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Papuzia Board Train": {
@@ -191,7 +510,7 @@ ENTRANCE_DATA = {
         "entrance_region": "papuzia",
         "reverse_required_groups": ["Tracks: Ocean Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Island Sanctuary Board Train": {
@@ -202,7 +521,7 @@ ENTRANCE_DATA = {
         "entrance_region": "island sanc",
         "reverse_required_groups": ["Tracks: Ocean Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Marine Temple Lobby Board Train": {
@@ -213,7 +532,7 @@ ENTRANCE_DATA = {
         "entrance_region": "oct",
         "reverse_required_groups": [("Tracks: Ocean Source", "Tracks: Marine Temple Tracks")],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Marine Temple Train Exit Water Warp": {
@@ -223,7 +542,7 @@ ENTRANCE_DATA = {
         "entrance_region": "oct",
         "reverse_required_groups": [("Tracks: Ocean Source", "Tracks: Marine Temple Tracks")],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE,
         "two_way": False
     },
@@ -235,7 +554,7 @@ ENTRANCE_DATA = {
         "entrance_region": "pirate hideout",
         "reverse_required_groups": ["Tracks: Pirate Hideout"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Lost at Sea Board Train": {
@@ -246,7 +565,7 @@ ENTRANCE_DATA = {
         "entrance_region": "lost at sea",
         "reverse_required_groups": ["Tracks: Lost at Sea Station"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Dune Sanctuary Board Train": {
@@ -257,7 +576,7 @@ ENTRANCE_DATA = {
         "entrance_region": "sand sanc",
         "reverse_required_groups": ["Tracks: Sand Realm"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Desert Temple Lobby Board Train": {
@@ -268,7 +587,7 @@ ENTRANCE_DATA = {
         "entrance_region": "desert temple",
         "reverse_required_groups": ["Tracks: Desert Temple Tracks"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
 
@@ -280,7 +599,7 @@ ENTRANCE_DATA = {
         "exit": (0x2E, 0x0, 0x0),
         "required_groups": [("Tracks: Fire Glyph", "Tracks: Fire Source")],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Goron Target Range Board Train": {
@@ -291,7 +610,7 @@ ENTRANCE_DATA = {
         "entrance_region": "goron target lobby",
         "reverse_required_groups": ["Tracks: Fire Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Goron Target Range Exit": {
@@ -301,7 +620,7 @@ ENTRANCE_DATA = {
         "entrance_region": "gtr",
         "reverse_required_groups": ["Tracks: Fire Glyph"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE,
         "two_way": False
     },
@@ -313,7 +632,7 @@ ENTRANCE_DATA = {
         "entrance_region": "mtt",
         "reverse_required_groups": [("Tracks: Mountain Temple Tracks", "Tracks: Fire Source")],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Disorientation Station Board Train": {
@@ -324,7 +643,7 @@ ENTRANCE_DATA = {
         "entrance_region": "disorientation station",
         "reverse_required_groups": ["Tracks: Disorientation Station"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Ends of the Earth Board Train": {
@@ -335,7 +654,7 @@ ENTRANCE_DATA = {
         "entrance_region": "ends of the earth",
         "reverse_required_groups": ["Tracks: Ends of the Earth"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Dark Ore Mine Board Train": {
@@ -346,7 +665,7 @@ ENTRANCE_DATA = {
         "entrance_region": "dark ore mine",
         "reverse_required_groups": ["Tracks: Dark Ore Mine"],
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
 
@@ -565,7 +884,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos",
         "exit_region": "tos forest station",
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits to Snow Realm": {
@@ -575,7 +894,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos",
         "exit_region": "tos snow station",
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits to Ocean Realm": {
@@ -585,7 +904,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos",
         "exit_region": "tos ocean station",
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits to Fire Realm": {
@@ -595,7 +914,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos",
         "exit_region": "tos fire station",
         "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.OUTSIDE,
+        "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
 
@@ -1002,7 +1321,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos",
         "exit_region": "tos 1f",
         "type": EntranceGroups.TOS_SECTION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Enter Section 2": {
@@ -1012,7 +1331,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 2",
         "exit_region": "tos 4f",
         "type": EntranceGroups.TOS_SECTION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Enter Section 3": {
@@ -1022,7 +1341,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 3",
         "exit_region": "tos 8f",
         "type": EntranceGroups.TOS_SECTION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Enter Section 4": {
@@ -1032,7 +1351,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 4",
         "exit_region": "tos 13f",
         "type": EntranceGroups.TOS_SECTION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Enter Section 5": {
@@ -1042,7 +1361,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 5",
         "exit_region": "tos 18f",
         "type": EntranceGroups.TOS_SECTION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Exit Staven": {
@@ -1052,7 +1371,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos staven",
         "exit_region": "tos summit lower",
         "type": EntranceGroups.TOS_SECTION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Summit Enter Altar": {
@@ -1062,7 +1381,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 6",
         "exit_region": "tos 30f",
         "type": EntranceGroups.TOS_SECTION,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
 
@@ -1074,7 +1393,7 @@ ENTRANCE_DATA = {
         "exit": (0x17, 0x0, 0x0),
         "reverse_one_way_data": {"y": 0},
         "type": EntranceGroups.DUNGEON_ENTRANCE,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "ToS 3F Blue Portal": {
@@ -1084,7 +1403,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 3f rail map",
         "exit_region": "tos",
         "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "ToS 7F Blue Portal": {
@@ -1094,7 +1413,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 7f rail map",
         "exit_region": "tos",
         "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "ToS 12F Blue Portal": {
@@ -1104,7 +1423,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 11f",
         "exit_region": "tos",
         "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "ToS 17F Blue Portal": {
@@ -1114,7 +1433,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 16f",
         "exit_region": "tos",
         "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "ToS 24F Blue Portal": {
@@ -1124,7 +1443,7 @@ ENTRANCE_DATA = {
         "entrance_region": "tos 24f",
         "exit_region": "tos",
         "type": EntranceGroups.WARP_PORTAL,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "ToS 23F Blue Warp Before Staven": {
@@ -1149,14 +1468,14 @@ ENTRANCE_DATA = {
     },
     # Misc entrances
 
-    "Forest Sanctuary Enter Sanctuary": {
-        "return_name": "Gage Exit",
+    "Woodland Sanctuary Enter Sanctuary": {
+        "return_name": "Gage's Sanctuary Exit",
         "entrance": (0x30, 0, 1),
         "exit": (0x30, 0x1, 0),
         "entrance_region": "woodland sanc",
-        "exit_region": "woodland sanc song statue",
+        "exit_region": "woodland sanc sanc",
         "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Snow Sanctuary Enter Inner Sanctuary": {
@@ -1166,7 +1485,7 @@ ENTRANCE_DATA = {
         "entrance_region": "snow sanc",
         "exit_region": "snow sanc song",
         "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Desert Temple Enter Boss": {
@@ -1176,7 +1495,7 @@ ENTRANCE_DATA = {
         "entrance": (0x1D, 0x4, 0x1),
         "exit": (0x22, 0x0, 0),
         "type": EntranceGroups.BOSS,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Desert Temple Enter Post-Fight": {
@@ -1186,7 +1505,7 @@ ENTRANCE_DATA = {
         "entrance": (0x1D, 0x4, 0x1),
         "exit": (0x22, 0x1, 0),
         "type": EntranceGroups.BOSS,
-        "direction": EntranceGroups.INSIDE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
     "Papuzia NW House": {

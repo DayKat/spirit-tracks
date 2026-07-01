@@ -66,7 +66,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Outset Village"],
     },
     "Outset Niko Stamp Book": {
-        "region_id": "outset village stamp book",
+        "region_id": "niko's stamp book",
         "vanilla_item": "Stamp Book",
         "stage_id": 0x2F,
         "room_id": 0x0A,
@@ -225,7 +225,7 @@ LOCATIONS_DATA = {
 
     # Hyrule Castle
     "Hyrule Castle Exterior NW Chest": {
-        "region_id": "hyrule castle",
+        "region_id": "hyrule castle nw ledge",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x28,
         "room_id": 0,
@@ -235,7 +235,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Hyrule Castle"],
     },
     "Hyrule Castle 2F Indoors Chest": {
-        "region_id": "hyrule castle",
+        "region_id": "hyrule castle 2f",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x28,
         "room_id": 2,
@@ -244,7 +244,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Hyrule Castle"],
     },
     "Hyrule Castle 1F Back Chest": {
-        "region_id": "hyrule castle",
+        "region_id": "hyrule castle backdoor",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x28,
         "room_id": 1,
@@ -256,7 +256,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Hyrule Castle"],
     },
     "Hyrule Castle 3F Spirit Flute": {
-        "region_id": "hyrule castle",
+        "region_id": "zelda's room",
         "vanilla_item": "Spirit Flute",
         "stage_id": 0x28,
         "room_id": 5,
@@ -285,7 +285,7 @@ LOCATIONS_DATA = {
         'dungeon': "Tunnel to ToS",
     },
     "Tunnel to ToS 2F Chest": {
-        "region_id": "tower tunnel 2f chest",
+        "region_id": "tower tunnel 2f",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x18,
         "room_id": 1,
@@ -1116,7 +1116,7 @@ LOCATIONS_DATA = {
     "Woodland Sanctuary Song of Restoration": {
         "stage_id": 0x30,
         "room_id": 0x1,
-        "region_id": "woodland sanc song statue",
+        "region_id": "woodland sanc duet",
         "address": STAddr.rail_restorations,
         "vanilla_item": "Wooded Temple Tracks",
         "value": 2,
@@ -4268,7 +4268,7 @@ LOCATIONS_DATA |= {
         "room_id": 0x3,
         "address": STAddr.adv_flags_35,
         "value": 0x80,
-        "region_id": "mayscore dovok",
+        "region_id": "mayscore morris",
         "vanilla_item": "Passenger: Morris",
         "location_groups": ["Mayscore", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
@@ -4280,7 +4280,7 @@ LOCATIONS_DATA |= {
         "room_id": 0x0,
         "address": STAddr.adv_flags_35,
         "value": 0x40,
-        "region_id": "mayscore dovok",
+        "region_id": "mayscore quest",
         "vanilla_item": "Passenger: Yamahiko",
         "location_groups": ["Mayscore", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
@@ -4292,7 +4292,7 @@ LOCATIONS_DATA |= {
         "room_id": 0x0,
         "address": STAddr.adv_flags_36,
         "value": 0x1,
-        "region_id": "mayscore dovok",
+        "region_id": "mayscore quest",
         "vanilla_item": "Passenger: Mash",
         "location_groups": ["Mayscore", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],

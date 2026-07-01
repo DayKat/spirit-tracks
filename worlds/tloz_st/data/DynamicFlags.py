@@ -2521,6 +2521,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Remove Marine Temple Zelda Text": {
         "on_scenes": [0x1B0A],
         "set_if_true": [(STAddr.adv_flags_a, 0x1)]
+    },
+    "Remove rock in tunnel to tower": {
+        "on_scenes": [0x1802],
+        "unset_if_true": [(STAddr.adv_flags_0, 0x4)],
+        "reset_flags": ["RESET anjean cs"]
+    },
+    "RESET anjean cs": {
+        "set_if_true": [(STAddr.adv_flags_0, 0x4)],
     }
 }
 

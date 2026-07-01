@@ -266,6 +266,7 @@ class EntranceGroups(IntEnum):
     OVERWORLD_TRAIN = 12 << 3
     TOS_ROOM = 13 << 3
     TOS_LOBBY = 14 << 3
+    CASTLE = 15 << 3
 
     AREA_MASK = 0xF << 3
     DIRECTION_MASK = 0x7
