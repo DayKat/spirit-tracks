@@ -418,9 +418,17 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["anouki station", "anouki village", False, has_glyph("Snow")],
         ["anouki village", "anouki station", False, None],
 
+        ["anouki village", "honcho's house", True, None],
+        ["anouki village", "bulu's house", True, None],
+        ["anouki village", "kofu's house", True, None],
+        ["anouki village", "noko's house", True, None],
+        ["anouki village", "yefu's house", True, None],
+        ["anouki village", "yeko's house", True, None],
+        ["anouki village", "ice block cave", False, has_bombs],
+        ["ice block cave", "anouki village", False, None],
+
         ["anouki village", "anouki village stamp station", False, has_stamp_book],
         ["anouki village", "anouki village song statue", False, has_spirit_flute],
-        ["anouki village", "anouki village bomb cave chest", False, has_bombs],
         ["anouki village", "anouki village lake chest", False, has_boomerang],
 
         ["anouki village", "av noko", False, has_temple_tracks("Blizzard")],
@@ -431,23 +439,27 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["anouki village", "av kenzo", False, (has_passenger("Kenzo", "_kenzo_2") | no_passengers)
         | (has_cargo("Lumber", "_buy_lumber") | no_cargo)],
         ["anouki village", "av goron", False, has_passenger("Snow Goron", "_goron")],
-        ["av goron", "av kofu", False, has_glyph("Fire") | has_source("Fire")],
+        ["honcho's house", "av kofu", False, (has_glyph("Fire") | has_source("Fire")) & Has("_av_goron")],
 
         # =========== Snow Sanctuary ==========
-
-        ["snow sanc tracks", "snow sanc station", True, has_glyph("Snow")],
-        ["snow sanc station", "snow sanc", False, has_glyph("Snow")],
-        ["snow sanc", "snow sanc station", False, None],
 
         ["snow realm", "snow sanc tracks", False, Has("Snow Sanctuary Cave Key") & has_cannon],
         ["snow sanc tracks", "snow realm", False, has_cannon],
         ["blizzard temple tracks", "snow sanc tracks", True, has_temple_tracks("Blizzard") & has_glyph("Snow")],
+        ["snow sanc tracks", "snow sanc station", True, has_glyph("Snow")],
+        ["snow sanc station", "snow sanc", False, has_glyph("Snow")],
+        ["snow sanc", "snow sanc station", False, None],
+
         ["snow sanc", "snow sanc stamp station", False, has_stamp_book],
-        ["snow sanc", "snow sanc song", False, has_spirit_flute],
+        ["snow sanc", "snow sanc cave", True, None],
+        ["snow sanc", "snowfall supermarket", True, None],
+        ["snow sanc cave", "snow sanc sanc", True, None],
+        ["snow sanc sanc", "snow sanc song", False, has_spirit_flute],
         ["snow sanc song", "steem gift", False, has_source("Snow")]
             if world.options.randomize_minigames.value else
-            ["snow sanc", "steem gift", False, has_source("Snow")],
+            ["snow sanc sanc", "steem gift", False, has_source("Snow")],
         ["snow sanc", "snow sanc vessel", False, has_cargo("Vessel", "_buy_fish")],
+        ["snow sanc vessel", "snow sanc sanc", False, ool],
 
         ## ========== Blizzard Temple =========
 
@@ -474,6 +486,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["icyspring station", "icyspring", False, has_temple_tracks("Blizzard")],
         ["icyspring", "icyspring station", False, None],
 
+        ["icyspring", "ferrus' trailer", True, None],
         ["icyspring", "icyspring stamp station", False, has_stamp_book & has_boomerang],
         ["icyspring", "icyspring whip chest", False, has_whip],
         ["icyspring", "icyspring noko", False, has_temple_tracks("Blizzard") & (# for ferrus logic
@@ -485,23 +498,31 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snowdrift tracks", "snowdrift station", True, has_tracks("Snowdrift Station")],
         ["snowdrift station", "snowdrift", False, has_tracks("Snowdrift Station")],
         ["snowdrift", "snowdrift station", False, None],
-        ["snowdrift", "snowdrift reward", False, (has_range | (has_sword_beam & hard_logic)) & can_kill_freezards],
+        ["snowdrift", "snowdrift cave", True, None],
+        ["snowdrift cave", "snowdrift reward", False, (has_range | (has_sword_beam & hard_logic)) & can_kill_freezards],
+
+        ["snowdrift cave", "octive arena", True, None],
+        ["snowdrift cave", "frostflame cave", True, None],
+        ["snowdrift cave", "small skating", True, None],
+        ["snowdrift cave", "big ice puzzle", True, None],
 
         # ========== Slippery Station ==========
         ["slippery tracks", "slippery station", True, has_tracks("Slippery Station")],
         ["slippery station", "slippery", False, has_tracks("Slippery Station")],
         ["slippery", "slippery station", False, None],
         ["blizzard temple tracks", "slippery tracks", True, has_tracks("Slippery Station") & has_temple_tracks("Blizzard") & soft_cannon & (has_source("Snow") | has_tracks("N Icy Spring"))],
-        ["slippery", "slippery amateur", False, None],
-        ["slippery", "slippery pro", False, None],
-        ["slippery", "slippery champion", False, None],
+        ["skating rink", "slippery station", True, None],
+        ["skating rink", "slippery amateur", False, None],
+        ["skating rink", "slippery pro", False, None],
+        ["skating rink", "slippery champion", False, None],
 
         # ========== Bridge Worker's Home =======
         ["snow realm source", "bridge workers station", True, has_source("Snow")],
         ["bridge workers station", "bridge workers", False, has_source("Snow")],
         ["bridge workers", "bridge workers station", False, None],
         ["bridge workers", "bridge workers chest", False, has_sod],
-        ["bridge workers", "pick up bridge worker", False, has_glyph("Ocean")],
+        ["bridge workers", "kenzo's house", True, None],
+        ["kenzo's house", "pick up bridge worker", False, has_glyph("Ocean")],
 
         # ========== Ocean Realm =============
         ["forest realm", "e mayscore bridge", True, has_tracks("E Mayscore Bridge") & has_glyph("Forest")],
@@ -867,7 +888,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
     overworld_logic += [
         # Shops
-        ["snow sanc", "snow sanc shop", False, has_rupees(required_rupees)],
+        ["snowfall supermarket", "snow sanc shop", False, has_rupees(required_rupees)],
 
         ["beedle", "beedle shop", False, has_rupees(required_rupees)],
         ["beedle shop", "beedle shop bombs", False, has_bombs],

@@ -1444,7 +1444,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Anouki Village"],
     },
     "Anouki Village Bomb Cave Chest": {
-        "region_id": "anouki village bomb cave chest",
+        "region_id": "ice block cave",
         "vanilla_item": "Big Red Rupee (200)",
         "stage_id": 0x2B,
         "room_id": 0x07,

@@ -336,6 +336,204 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
 
+    # FOS
+    "Woodland Sanctuary Enter Sanctuary": {
+        "return_name": "Gage's Sanctuary Exit",
+        "entrance": (0x30, 0, 1),
+        "exit": (0x30, 0x1, 0),
+        "entrance_region": "woodland sanc",
+        "exit_region": "woodland sanc sanc",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    # Snow realm
+    "Anouki Village SW House": {
+        "return_name": "Yefu's House Exit",
+        "entrance": (0x2B, 0, 5),
+        "exit": (0x2B, 0x5, 0),
+        "entrance_region": "anouki village",
+        "exit_region": "yefu's house",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Anouki Village S House": {
+        "return_name": "Noko's House Exit",
+        "entrance": (0x2B, 0, 4),
+        "exit": (0x2B, 0x4, 0),
+        "entrance_region": "anouki village",
+        "exit_region": "noko's house",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Anouki Village SE House": {
+        "return_name": "Bulu's House Exit",
+        "entrance": (0x2B, 0, 3),
+        "exit": (0x2B, 0x3, 0),
+        "entrance_region": "anouki village",
+        "exit_region": "bulu's house",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Anouki Village NE House": {
+        "return_name": "Kofu's House Exit",
+        "entrance": (0x2B, 0, 2),
+        "exit": (0x2B, 0x2, 0),
+        "entrance_region": "anouki village",
+        "exit_region": "kofu's house",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Anouki Village NW House": {
+        "return_name": "Yeko's House Exit",
+        "entrance": (0x2B, 0, 6),
+        "exit": (0x2B, 0x6, 0),
+        "entrance_region": "anouki village",
+        "exit_region": "yeko's house",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Anouki Village N House": {
+        "return_name": "Honcho's House Exit",
+        "entrance": (0x2B, 0, 1),
+        "exit": (0x2B, 0x1, 0),
+        "entrance_region": "anouki village",
+        "exit_region": "honcho's house",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Anouki Village Bomb Cave": {
+        "return_name": "Small Ice Puzzle Cave Exit",
+        "entrance": (0x2B, 0, 7),
+        "exit": (0x2B, 0x7, 0),
+        "entrance_region": "anouki village",
+        "exit_region": "ice block cave",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Snowfall sanc
+    "Snowfall Sanctuary Enter Cave": {
+        "return_name": "Head Statue Cave Exit",
+        "entrance": (0x31, 0, 1),
+        "exit": (0x31, 0x1, 0),
+        "entrance_region": "snow sanc",
+        "exit_region": "snow sanc cave",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Head Statue Cave Door": {
+        "return_name": "Steem's Sanctuary Exit",
+        "entrance": (0x31, 1, 1),
+        "exit": (0x31, 0x2, 0),
+        "entrance_region": "snow sanc cave",
+        "exit_region": "snow sanc sanc",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Snowfall Sanctuary Enter Shop": {
+        "return_name": "Snowfall Supermarket Exit",
+        "entrance": (0x31, 0, 2),
+        "exit": (0x31, 0x3, 0),
+        "entrance_region": "snow sanc",
+        "exit_region": "snowfall supermarket",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    # Small Stations
+    "Icy Spring Enter Trailer": {
+        "return_name": "Ferrus' Trailer Exit",
+        "entrance": (0x35, 0, 1),
+        "exit": (0x35, 0x1, 0),
+        "entrance_region": "icyspring",
+        "exit_region": "ferrus' trailer",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Bridge Worker's Enter House": {
+        "return_name": "Kenzo's House Exit",
+        "entrance": (0x36, 0, 1),
+        "exit": (0x36, 0x1, 0),
+        "entrance_region": "icyspring",
+        "exit_region": "ferrus' trailer",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Slippery Station Cave": {
+        "return_name": "Skating Rink Exit",
+        "entrance": (0x3F, 0xA, 1),
+        "exit": (0x3F, 0x6, 0),
+        "entrance_region": "icyspring",
+        "exit_region": "ferrus' trailer",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    # Snowdrift
+    "Snowdrift Station Cave": {
+        "return_name": "Snowdrift Cave Exit",
+        "entrance": (0x3F, 0x0, 1),
+        "exit": (0x3F, 0x1, 0),
+        "entrance_region": "snowdrift",
+        "exit_region": "snowdrift cave",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Snowdrift Cave SE": {
+        "return_name": "Octive Arena Exit",
+        "entrance": (0x3F, 0x1, 1),
+        "exit": (0x3F, 0x2, 0),
+        "entrance_region": "snowdrift cave",
+        "exit_region": "octive arena",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Snowdrift Cave NE": {
+        "return_name": "Frostflame Cave Exit",
+        "entrance": (0x3F, 0x1, 3),
+        "exit": (0x3F, 0x3, 0),
+        "entrance_region": "snowdrift cave",
+        "exit_region": "frostflame cave",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Snowdrift Cave SW": {
+        "return_name": "Small Skating Cave Exit",
+        "entrance": (0x3F, 0x1, 2),
+        "exit": (0x3F, 0x4, 0),
+        "entrance_region": "snowdrift cave",
+        "exit_region": "small skating",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Snowdrift Cave NW": {
+        "return_name": "Big Ice Puzzle Cave Exit",
+        "entrance": (0x3F, 0x1, 4),
+        "exit": (0x3F, 0x5, 0),
+        "entrance_region": "snowdrift cave",
+        "exit_region": "big ice puzzle",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+
+
     # ==== Overworld ====
     "Outset Board Train": {
         "return_name": "Forest Realm Outset Station",
@@ -440,7 +638,7 @@ ENTRANCE_DATA = {
         "entrance_region": "icyspring station",
         "exit_region": "icyspring",
         "required_groups": ["Tracks: Blizzard Temple Tracks"],
-        "entrance": (0x5, 0x0, 0x3),
+        "entrance": (0x35, 0x0, 0x3),
         "exit": (0x35, 0x0, 0x0),
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.UP,
@@ -1467,27 +1665,6 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     # Misc entrances
-
-    "Woodland Sanctuary Enter Sanctuary": {
-        "return_name": "Gage's Sanctuary Exit",
-        "entrance": (0x30, 0, 1),
-        "exit": (0x30, 0x1, 0),
-        "entrance_region": "woodland sanc",
-        "exit_region": "woodland sanc sanc",
-        "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
-    },
-    "Snow Sanctuary Enter Inner Sanctuary": {
-        "return_name": "Steem Exit",
-        "entrance": (0x31, 1, 1),
-        "exit": (0x31, 0x2, 0),
-        "entrance_region": "snow sanc",
-        "exit_region": "snow sanc song",
-        "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
-    },
     "Desert Temple Enter Boss": {
         "return_name": "Skeldritch Exit",
         "entrance_region": "dt b2",

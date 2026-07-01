@@ -315,8 +315,19 @@ REGIONS = [
     "av goron",
     "av kofu",
 
+    "honcho's house",
+    "bulu's house",
+    "kofu's house",
+    "noko's house",
+    "yeko's house",
+    "yefu's house",
+    "ice block cave",
+
     # Snow Sanctuary
     "snow sanc",
+    "snow sanc cave",
+    "snow sanc sanc",
+    "snowfall supermarket",
     "snow sanc tracks",
     "snow sanc station",
     "snow sanc stamp station",
@@ -348,15 +359,23 @@ REGIONS = [
     "icyspring whip chest",
     "icyspring ice",
     "icyspring noko",
+    "ferrus' trailer",
 
     # Snowdrift Station
     "snowdrift",
+    "snowdrift cave",
     "snowdrift tracks",
     "snowdrift station",
     "snowdrift reward",
 
+    "octive arena",
+    "frostflame cave",
+    "small skating",
+    "big ice puzzle",
+
     # Slippery Station
     "slippery",
+    "skating rink",
     "slippery tracks",
     "slippery station",
     "slippery amateur",
@@ -365,10 +384,10 @@ REGIONS = [
 
     # Bridge Worker's Home
     "bridge workers",
+    "kenzo's house",
     "bridge workers station",
     "bridge workers chest",
     "pick up bridge worker",
-
 
     # Beedle
     "beedle",
