@@ -85,15 +85,15 @@ DYNAMIC_ENTRANCES = {
 
     # Outset pre-glyph bounce
     "Bounce Outset without cannon": {
-        "entrance": "Outset to Forest Realm",
-        "destination": "Outset to Forest Realm",
+        "entrance": "Outset Board Train",
+        "destination": "Outset Board Train",
         "has_items": [("Cannon", 0)],
         "has_slot_data": [("cannon_logic", 0)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
     "Bounce Outset without glyph cannonless": {
-        "entrance": "Outset to Forest Realm",
-        "destination": "Outset to Forest Realm",
+        "entrance": "Outset Board Train",
+        "destination": "Outset Board Train",
         "not_has_groups": ["Tracks: Forest Glyph"],
         "message": "You need Forest Glyph to board the train here"
     },
@@ -112,14 +112,14 @@ DYNAMIC_ENTRANCES = {
     },
     "Bounce Tutorial to rail cannon": {
         "entrance": "Outset to Tutorial",
-        "destination": "Forest Realm to Outset",
+        "destination": "Forest Realm Outset Station",
         "has_slot_data": [("cannon_logic", 0)],
         "has_items": [("Cannon", 1)],
         "has_groups": ["Tracks: Forest Glyph"],
     },
     "Bounce Tutorial to rail cannonless": {
         "entrance": "Outset to Tutorial",
-        "destination": "Forest Realm to Outset",
+        "destination": "Forest Realm Outset Station",
         "has_groups": ["Tracks: Forest Glyph"],
         "has_slot_data": [("cannon_logic", [1, 2, 3])],
     },
@@ -449,8 +449,8 @@ DYNAMIC_ENTRANCES = {
         "not_has_locations": ["Desert Temple Dungeon Reward"],
     },
     "Fire realm bounce snow realm without btt": {
-        "entrance": "Fire Realm East Tower",
-        "destination": "Fire Realm East Tower",
+        "entrance": "Fire Realm East Fire Glyph",
+        "destination": "Fire Realm East Fire Glyph",
         "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "message": "The game crashes here without the blizzard temple tracks. Sorry!"
     },
@@ -466,7 +466,7 @@ DYNAMIC_ENTRANCES = {
     },
     "Prevent softlock in icy spring with ferrus": {
         "entrance": "Icy Spring Train",
-        "destination": "Fire Realm Goron Village",
+        "destination": "Fire Realm Goron Village Station",
         "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "message": "You got here with Ferrus, putting you somewhere safe"
     },

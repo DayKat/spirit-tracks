@@ -1495,4 +1495,22 @@ class SpiritTracksClient(DSZeldaClient):
             ident = identifiers.get(i, "")
             print(f"{hex_f(k)}: {hex_f(i)} {ident}")
 
+    async def conditional_er(self, ctx, exit_data, silent=False) -> bool:
+        def check_or(group):
+            for or_group in group:
+                if self.has_from_group(ctx, or_group):
+                    return True
+            return False
 
+        # Check for required items from item groups
+        for and_group in exit_data.required_group:
+            if isinstance(and_group, tuple):
+                if not check_or(and_group):
+                    if not silent:
+                        logger.info(f"Missing Tracks: {' OR '.join([i.split('Tracks: ')[1] for i in and_group])}")
+                    return False
+            elif not self.has_from_group(ctx, and_group):
+                if not silent:
+                    logger.info(f"Missing Tracks: {' AND '.join([i.split('Tracks: ')[1] for i in exit_data.required_group])}")
+                return False
+        return True

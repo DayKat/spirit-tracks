@@ -220,6 +220,7 @@ class EntranceGroups(IntEnum):
     TRAIN_PORTAL = 9 << 3
     EVENT = 10 << 3
     TOS_SECTION = 11 << 3
+    OVERWORLD_TRAIN = 12 << 3
 
     AREA_MASK = 0xF << 3
 
@@ -238,3 +239,61 @@ OPPOSITE_ENTRANCE_GROUPS = {
 class STTransition(DSTransition):
     entrance_groups = EntranceGroups
     opposite_entrance_groups = OPPOSITE_ENTRANCE_GROUPS
+    required_groups: list[str | tuple[str]]
+
+    @classmethod
+    def from_data(cls, entrance_data):
+        res = dict()
+        counter = {}
+        ident = 0
+        for name, data in entrance_data.items():
+            data["id"] = ident
+            res[name] = cls(name, data)
+            # print(f"{i} {ENTRANCES[name].entrance_region} -> {ENTRANCES[name].exit_region}")
+            ident += 1
+            point = data["entrance_region"] + "<=>" + data["exit_region"]
+            counter.setdefault(point, 0)
+            counter[point] += 1
+            if "one_way_data" in data:
+                res[name].extra_data |= data["one_way_data"]
+
+            if data.get("two_way", True):
+                two_way = True
+            else:
+                two_way = False
+            reverse_name = data.get("return_name", f"Unnamed Entrance {ident}")
+            reverse_data = {
+                "entrance_region": data.get("reverse_exit_region", data["exit_region"]),
+                "exit_region": data.get("reverse_entrance_region", data["entrance_region"]),
+                "id": ident,
+                "entrance": data.get("exit", data.get("entrance", None)),
+                "exit": data["entrance"],
+                "two_way": two_way,
+                "type": data["type"],
+                "island": data.get("return_island", data.get("island", cls.entrance_groups.NONE)),
+                "direction": cls.opposite_entrance_groups[data["direction"]],
+                "coords": data.get("coords", None),
+
+            }
+            if "extra_data" in data:
+                reverse_data["extra_data"] = data["extra_data"]
+            if "reverse_one_way_data" in data:
+                reverse_data.setdefault("extra_data", {})
+                reverse_data["extra_data"] = data["reverse_one_way_data"]
+            if reverse_name in res:
+                print(f"DUPLICATE ENTRANCE!!! {reverse_name}")
+            res[reverse_name] = cls(reverse_name, reverse_data)
+
+            res[name].vanilla_reciprocal = res[reverse_name]
+            res[reverse_name].vanilla_reciprocal = res[name]
+
+            res[name].required_groups = data.get("required_groups", [])
+            res[reverse_name].required_groups = data.get("reverse_required_groups", [])
+
+            # print(f"{i} {ENTRANCES[reverse_name].entrance_region} -> {ENTRANCES[reverse_name].exit_region}")
+            ident += 1
+            point: str = reverse_data["entrance_region"] + "<=>" + reverse_data["exit_region"]
+            counter.setdefault(point, 0)
+            counter[point] += 1
+        return res
+

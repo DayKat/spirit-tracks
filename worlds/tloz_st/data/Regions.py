@@ -248,6 +248,7 @@ REGIONS = [
     "snow realm source",
     "blizzard temple tracks",
     "snow bridge north",
+    "snow bridge mid",
     "snow bridge south",
     "icyspring tracks",
     "snow bridge portal",
@@ -347,6 +348,9 @@ REGIONS = [
     "las tracks",
     "ocean portal tracks",
     "ocean portal",
+
+    "undersea entrance",
+    "undersea tracks",
 
     "ocean rabbits",
     "las rabbit",
@@ -497,6 +501,7 @@ REGIONS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
     "sand realm",
+    "sand realm exit",
     "sand restoration",
     "sand restoration south",
     "sand restoration rocktite",

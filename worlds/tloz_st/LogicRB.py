@@ -76,7 +76,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["n castle town tracks", "snow bridge south", True, has_tracks("N Castle Town") & has_tracks("Snow Realm Bridge")],
         ["n castle town tracks", "n castle town tracks north", True, has_tracks("N Castle Town")],
         ["n castle town tracks north", "snow realm source", True, has_tracks("N Castle Town") & has_source("Snow") & soft_cannon],
-        ["snow bridge north", "snow bridge south", True, has_tracks("Snow Realm Bridge")],
+        ["snow bridge mid", "snow bridge south", True, has_tracks("Snow Realm Bridge")],
+        ["snow bridge north", "snow bridge mid", True, has_tracks("Snow Realm Bridge")],
         ["wtt", "snow bridge south", True, has_temple_tracks("Wooded") & has_tracks("Snow Realm Bridge") & soft_cannon],
         ["snow bridge north", "snow realm", True, has_glyph("Snow") & has_tracks("Snow Realm Bridge")],
         ["snow bridge north", "snow realm source", True, has_source("Snow") & has_tracks("Snow Realm Bridge")],
@@ -445,12 +446,15 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["ocean temple tracks", "ocean realm source", True, has_source("Ocean") & has_temple_tracks("Marine")],
         ["ocean realm", "pirate hideout tracks", True, has_tracks("Pirate Hideout") & has_glyph("Ocean")],
         ["ocean realm source", "pirate hideout tracks", True, has_source("Ocean") & has_tracks("Pirate Hideout")],
-        ["ocean temple tracks", "oct station", True, has_temple_tracks("Marine")],
-        ["ocean realm source", "oct station", True, has_source("Ocean")],
         ["ocean realm source", "ocean portal tracks", True, has_source("Ocean") & has_tracks("Ocean Portal")],
         ["ocean temple tracks", "ocean portal tracks", True, has_temple_tracks("Marine") & has_tracks("Ocean Portal")],
         ["ocean portal tracks", "sand realm", False, has_tracks("Sand Realm") & has_tracks("Ocean Portal")],
         ["ocean portal tracks", "ocean portal", False, has_cannon],
+
+        ["ocean temple tracks", "undersea entrance", True, has_temple_tracks("Marine")],
+        ["ocean realm source", "undersea entrance", True, has_source("Ocean")],
+        ["undersea entrance", "undersea tracks", True, has_temple_tracks("Marine") | has_source("Ocean")],
+        ["undersea tracks", "oct station", True, has_temple_tracks("Marine") | has_source("Ocean")],
 
         # Ocean Portals
         ["trading post tracks", "ocean portal tracks", False, 
@@ -672,8 +676,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand realm", "sand connection south", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
         ["sand connection south", "sand connection", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
 
-        ["sand realm", "sand restoration rocktite", False, has_temple_tracks("Desert") & has_tracks("Sand Realm")],
-        ["sand restoration rocktite", "sand realm", False, has_temple_tracks("Desert")],
+        ["sand realm exit", "sand restoration rocktite", False, has_temple_tracks("Desert") & has_tracks("Sand Realm")],
+        ["sand restoration rocktite", "sand realm exit", False, has_temple_tracks("Desert")],
+        ["sand realm", "sand realm exit", True, has_temple_tracks("Desert") & has_tracks("Sand Realm")],
         ["sand restoration rocktite", "sand restoration", True, has_cannon & has_temple_tracks("Desert")],
         ["sand restoration", "sand restoration south", True, has_temple_tracks("Desert")],
 
