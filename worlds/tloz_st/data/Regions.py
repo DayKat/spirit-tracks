@@ -265,6 +265,11 @@ REGIONS = [
 
     # Trading Post
     "trading post",
+    "trading post tunnel",
+    "trading post north",
+    "trading post island",
+    "trading post cave",
+    "linebeck's shop",
     "trading post station",
     "trading post light song statue",
     "trading post chest",
@@ -418,6 +423,10 @@ REGIONS = [
 
     # Island Sanctuary
     "island sanc",
+    "island sanc peninsula",
+    "island sanc sanc",
+    "island sanc cave east",
+    "island sanc cave west",
     "island sanc station",
     "island sanc north",
     "island sanc stamp station",
@@ -441,6 +450,15 @@ REGIONS = [
     "papuzia shop bombs",
     "papuzia shop arrows",
     "papuzia ice",
+
+    "papuzia archipelago north",
+    "papuzia archipelago",
+
+    "fuku's house",
+    "wise one's house",
+    "wise one buy vessel",
+    "orca's house",
+    "kogane's shop",
 
     # Ocean Temple
     "oct",
@@ -471,6 +489,8 @@ REGIONS = [
     #Lost at Sea Station
     "lost at sea",
     "lost at sea station",
+    "las lobby",
+    "las cliff",
     "las outside chest",
     "las 1st room chest",
     "las 2nd room chest",

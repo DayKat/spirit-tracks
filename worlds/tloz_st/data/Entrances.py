@@ -533,6 +533,163 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
 
+    # Trading post
+    "Trading Post Enter Shop": {
+        "return_name": "Linebeck III's Shop Exit",
+        "entrance": (0x37, 0x0, 1),
+        "exit": (0x37, 0xA, 0),
+        "entrance_region": "trading post",
+        "exit_region": "linebeck's shop",
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Trading Post South Cave": {
+        "return_name": "Like-Like Tunnel Exit",
+        "entrance": (0x37, 0x0, 2),
+        "exit": (0x37, 0x1, 0),
+        "entrance_region": "trading post",
+        "exit_region": "trading post tunnel",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Trading Post North Staircase": {
+        "return_name": "Like-Like Tunnel Staircase",
+        "entrance": (0x37, 0x0, 3),
+        "exit": (0x37, 0x1, 1),
+        "entrance_region": "trading post",
+        "exit_region": "trading post tunnel",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Trading Post Island Cave": {
+        "return_name": "Linebeck's Treasure's Cave",
+        "entrance": (0x37, 0x0, 4),
+        "exit": (0x37, 0x2, 0),
+        "entrance_region": "trading post island",
+        "exit_region": "trading post cave",
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Papuzia
+    "Papuzia NW House": {
+        "return_name": "Fuku's House Exit",
+        "entrance_region": "papuzia village",
+        "exit_region": "fuku's house",
+        "entrance": (0x2c, 0x0, 0x1),
+        "exit": (0x2c, 0x1, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Papuzia Enter Wise One's House": {
+        "return_name": "Wise One's House Exit",
+        "entrance_region": "papuzia village",
+        "exit_region": "wise one's house",
+        "entrance": (0x2c, 0x0, 0x4),
+        "exit": (0x2c, 0x4, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Papuzia South House": {
+        "return_name": "Orca's House Exit",
+        "entrance_region": "papuzia village",
+        "exit_region": "orca's house",
+        "entrance": (0x2c, 0x0, 0x3),
+        "exit": (0x2c, 0x3, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Papuzia Enter Shop": {
+        "return_name": "Kogane's Shop Exit",
+        "entrance_region": "papuzia village",
+        "exit_region": "kogane's shop",
+        "entrance": (0x2c, 0x0, 0x2),
+        "exit": (0x2c, 0x2, 0x0),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Papuzia South": {
+        "return_name": "Papuzia Archipelago North",
+        "entrance_region": "papuzia village south",
+        "exit_region": "papuzia archipelago north",
+        "entrance": (0x2c, 0x0, 0x5),
+        "exit": (0x39, 0x0, 0x0),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.DOWN,
+        "island": EntranceGroups.NONE
+    },
+
+    # Island Sanctuary
+    "Island Sanctuary South Cave": {
+        "return_name": "Crab Cave Exit",
+        "entrance_region": "island sanc",
+        "exit_region": "island sanc cave west",
+        "entrance": (0x32, 0x0, 0x1),
+        "exit": (0x32, 0x1, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Island Sanctuary North Staircase": {
+        "return_name": "Crab Cave Staircase",
+        "entrance_region": "island sanc north",
+        "exit_region": "island sanc cave east",
+        "entrance": (0x32, 0x2, 0x0),
+        "exit": (0x32, 0x1, 0x1),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Island Sanctuary North Cave": {
+        "return_name": "Carben's Sanctuary Exit",
+        "entrance_region": "island sanc north",
+        "exit_region": "island sanc sanc",
+        "entrance": (0x32, 0x2, 0x2),
+        "exit": (0x32, 0x4, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Island Sanctuary South Peninsula": {
+        "return_name": "Island Sanctuary North South",
+        "entrance_region": "island sanc peninsula",
+        "exit_region": "island sanc north",
+        "entrance": (0x32, 0x0, 0x2),
+        "exit": (0x32, 0x2, 0x1),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Ocean Islands
+    "Pirate Hideout Cave": {
+        "return_name": "Treasure Cave Exit",
+        "entrance_region": "pirate hideout",
+        "exit_region": "pirate hideout secret cave",
+        "entrance": (0x3A, 0x0, 0x3),
+        "exit": (0x3A, 0x1, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Cave": {
+        "return_name": "Lost at Sea Lobby Exit",
+        "entrance_region": "lost at sea",
+        "exit_region": "las lobby",
+        "entrance": (0x39, 0xA, 0x1),
+        "exit": (0x39, 0xB, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
 
     # ==== Overworld ====
     "Outset Board Train": {
@@ -1683,26 +1840,6 @@ ENTRANCE_DATA = {
         "exit": (0x22, 0x1, 0),
         "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
-    },
-    "Papuzia NW House": {
-        "return_name": "Papuzia House",
-        "entrance_region": "papuzia village",
-        "exit_region": "papuzia nw house",
-        "entrance": (0x2c, 0x0, 0x1),
-        "exit": (0x2c, 0x1, 0x0),
-        "type": EntranceGroups.HOUSE,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "Papuzia South": {
-        "return_name": "South Papuzia North",
-        "entrance_region": "papuzia village",
-        "exit_region": "papuzia south",
-        "entrance": (0x2c, 0x0, 0x5),
-        "exit": (0x39, 0x0, 0x0),
-        "type": EntranceGroups.OVERWORLD,
-        "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
 }

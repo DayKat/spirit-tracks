@@ -638,15 +638,18 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("icyspring ice", "_buy_ice")
             self.create_event("castle town buy cuccos", "_buy_cuccos")
             self.create_event("papuzia buy cargo", "_buy_fish")
+            self.create_event("wise one buy vessel", "_buy_vessel")
             self.create_event("dark ore mine ore", "_buy_ore")
             self.create_event("goron steel", "_buy_steel")
         # UT Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck event", "_can_sell_treasure")
         self.create_event("goron ice event", "_goron_ice")  # Used for GTR
+        self.create_event("papuzia village song statue", "_papuzia_sob")
         if self.options.randomize_passengers.value:
             self.create_event("delivered ferrus", "_delivered_ferrus")
             self.create_event("av goron", "_av_goron")
+            self.create_event("island sanc carben", "_deliver_carben")
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
 

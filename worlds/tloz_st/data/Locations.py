@@ -1727,7 +1727,6 @@ LOCATIONS_DATA = {
         "location_groups": ["Island Sanctuary"],
         "conditional": True
     },
-
     "Island Sanctuary Cucco Chest": {
         "region_id": "island sanc north",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
@@ -1738,7 +1737,6 @@ LOCATIONS_DATA = {
         "location_groups": ["Island Sanctuary"],
         "require_item": ["Boomerang"], #Possibly also need whirlwind
     },
-
     "Island Sanctuary S Island Chest": {
         "region_id": "island sanc S island chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
@@ -1748,7 +1746,6 @@ LOCATIONS_DATA = {
         "require_item": ["Song of Birds", "Whip"],
         "location_groups": ["Island Sanctuary"],
     },
-
     "Island Sanctuary NW Chest": {
         "region_id": "island sanc nw chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
@@ -1756,10 +1753,8 @@ LOCATIONS_DATA = {
         "room_id": 2,
         "x_max": -90000,
         "z_max": -40000,
-        "require_item": ["Song of Birds", "Whip"],
         "location_groups": ["Island Sanctuary"],
     },
-
     "Island Sanctuary Song of Restoration": {
         "stage_id": 0x32,
         "room_id": 0x4,
@@ -1781,21 +1776,17 @@ LOCATIONS_DATA = {
         "x_min": 10000,
         "x_max": 30000,
         "z_min": 40000,
-        "require_item": ["Spirit Flute", "Song of Discovery"],
         "location_groups": ["Papuzia Village", "Song Statue"],
     },
-
-    "Papuzia Village Stamp Station": {
+    "Papuzia Archipelago Stamp Station": {
         "region_id": "papuzia village stamp station",
         "vanilla_item": "Stamp: Papuzia Village",
         "stage_id": 0x39,
         "room_id": 0,
         "stamp": 7,
-        "require_item": ["Stamp Book", "Song of Birds", "Whip"],
-        "location_groups": ["Papuzia Village"],
+        "location_groups": ["Papuzia Village", "Papuzia Archipelago"],
         "conditional": True
     },
-
     "Papuzia Village NE Chest": {
         "region_id": "papuzia village",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
@@ -1806,31 +1797,26 @@ LOCATIONS_DATA = {
         "z_max": -25000,
         "location_groups": ["Papuzia Village"],
     },
-
-    "Papuzia Village SW Chest": {
-        "region_id": "papuzia village south",
+    "Papuzia Archipelago W Chest": {
+        "region_id": "papuzia archipelago",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x39,
         "room_id": 0,
         "x_max": -40000,
         "z_min": -20000,
         "z_max": 15000,
-        "require_item": ["Spirit Flute", "Song of Birds", "Whip"],
-        "location_groups": ["Papuzia Village"],
+        "location_groups": ["Papuzia Village", "Papuzia Archipelago"],
     },
-
-    "Papuzia Village S Center Chest": {
-        "region_id": "papuzia village south",
+    "Papuzia Archipelago Center Island Chest": {
+        "region_id": "papuzia archipelago",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x39,
         "room_id": 0,
         "x_min": 5000,
         "x_max": 40000,
         "z_max": -45000,
-        "require_item": ["Spirit Flute", "Song of Birds", "Whip"],
-        "location_groups": ["Papuzia Village"],
+        "location_groups": ["Papuzia Village", "Papuzia Archipelago"],
     },
-
 
     # Marine (Ocean) Temple
     "Marine Temple Song Statue": {
@@ -3767,7 +3753,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "papuzia buy cargo",
+        "region_id": "wise one buy vessel",
 
         "no_model": True
     },

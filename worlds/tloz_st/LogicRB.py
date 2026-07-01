@@ -359,18 +359,25 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["trading post station", "trading post", False, has_glyph("Ocean")],
         ["trading post", "trading post station", False, None],
 
-        ["trading post", "trading post light song statue", False, has_spirit_flute],
-        ["trading post", "trading post chest", False, (has_range | has_sword_beam) & has_sod & (has_sol | hard_logic)],
-        ["trading post", "trading post stamp station", False, has_bombs & has_stamp_book],
-        ["trading post", "trading post leaves", False, has_whirlwind],
+        ["trading post", "linebeck's shop", True, None],
+        ["trading post", "trading post tunnel", True, None],
+        ["trading post north", "trading post tunnel", True, None],
+        ["trading post north", "trading post island", True, has_range | has_sword_beam],
+        ["trading post island", "trading post cave", False, has_range | has_sword_beam | has_bombs],
+        ["trading post cave", "trading post island", False, None],
+
+        ["trading post north", "trading post light song statue", False, has_spirit_flute],
+        ["trading post cave", "trading post chest", False, has_sod & (has_sol | hard_logic)],
+        ["trading post tunnel", "trading post stamp station", False, has_bombs & has_stamp_book],
+        ["trading post north", "trading post leaves", False, has_whirlwind],
 
         ["trading post", "trading post bridge worker", False, has_passenger("Kenzo", "_kenzo_1")],
         ["trading post bridge worker", "linebeck trading", False, Has("Treasure: Regal Ring", player)]
             if world.options.randomize_passengers.value else
             ["trading post", "linebeck trading", False, Has("Treasure: Regal Ring")],
         ["linebeck trading", "linebeck event", False, None],
-        ["linebeck event", "trading post pick up kenzo", False, has_glyph("Snow")],
-        ["linebeck event", "linebeck dark ore", False, has_cargo("Dark Ore", "_buy_ore")],
+        ["trading post", "trading post pick up kenzo", False, Has("_can_sell_treasure") & has_glyph("Snow")],
+        ["linebeck's shop", "linebeck dark ore", False, Has("_can_sell_treasure") & has_cargo("Dark Ore", "_buy_ore")],
 
         # # ========== Rabbit Haven ========
 
@@ -458,7 +465,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snow sanc song", "steem gift", False, has_source("Snow")]
             if world.options.randomize_minigames.value else
             ["snow sanc sanc", "steem gift", False, has_source("Snow")],
-        ["snow sanc", "snow sanc vessel", False, has_cargo("Vessel", "_buy_fish")],
+        ["snow sanc", "snow sanc vessel", False, has_cargo("Vessel", "_buy_vessel")],
         ["snow sanc vessel", "snow sanc sanc", False, ool],
 
         ## ========== Blizzard Temple =========
@@ -570,16 +577,24 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["ocean realm", "island sanc station", True, has_glyph("Ocean")],
         ["island sanc station", "island sanc", False, has_glyph("Ocean")],
         ["island sanc", "island sanc station", False, None],
-        ["island sanc", "island sanc north", False, has_boomerang | (has_sob & has_whip & hard_logic)],
-        ["island sanc north", "island sanc stamp station", False, has_stamp_book & has_sob & has_whip],
 
+        ["island sanc", "island sanc peninsula", False, has_sob & has_whip & hard_logic],
+        ["island sanc peninsula", "island sanc", False, None],
+        ["island sanc peninsula", "island sanc north", True, None],
         ["island sanc", "island sanc S island chest", False, hard_birds],
+
+        ["island sanc", "island sanc cave west", True, None],
+        ["island sanc cave west", "island sanc cave east", False, has_boomerang],
+        ["island sanc cave east", "island sanc cave west", False, has_bombs],
+        ["island sanc cave west", "island sanc north", True, None],
+
         ["island sanc north", "island sanc nw chest", False, hard_birds],
-        ["island sanc north", "island sanc song", False, has_spirit_flute]
-        if world.options.randomize_passengers == "no_passengers" else
-        ["island sanc carben", "island sanc song", False, has_spirit_flute & (has_boomerang | (has_sob & has_whip & hard_logic))],
-        ["island sanc", "island sanc carben", False, has_passenger("Carben", "_carben") & Or(
-            not_vanilla_passengers | has_sword, has_whip, has_temple_tracks("Marine"), ool)],
+        ["island sanc north", "island sanc stamp station", False, has_stamp_book & has_sob & has_whip],
+        ["island sanc north", "island sanc sanc", False, None],
+        ["island sanc sanc", "island sanc song", False, has_spirit_flute]
+            if world.options.randomize_passengers == "no_passengers" else
+            ["island sanc sanc", "island sanc song", False, has_spirit_flute & Has("_deliver_carben")],
+        ["island sanc", "island sanc carben", False, has_passenger("Carben", "_carben")],
 
         # ========== Papuzia Village =============
         ["ocean realm", "papuzia village station", True, has_glyph("Ocean")],
@@ -587,11 +602,21 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["papuzia village", "papuzia village station", False, None],
         ["papuzia village", "papuzia village song statue", False, has_sod],
         ["papuzia village", "pv dovok", False, has_passenger("Dovok", "_dovok")],
-        ["papuzia village south", "papuzia village stamp station", False, has_stamp_book & has_sob],
+        ["pv dovok", "orca's house", False, ool],
+        ["pv wadatsumi", "orca's house", False, ool],
+
+        ["papuzia village", "fuku's house", True, None],
+        ["papuzia village", "wise one's house", True, None],
+        ["papuzia village", "orca's house", True, None],
+        ["papuzia village", "kogane's shop", True, None],
 
         ["papuzia village", "pv carben", False, has_sod],
         ["papuzia village", "pv wadatsumi", False, has_passenger("Wadatsumi", "_wadatsumi")],
         ["papuzia village song statue", "papuzia village south", False, hard_birds],
+        ["papuzia village south", "papuzia village", False, Has("_papuzia_sob") & hard_birds],
+        ["papuzia village south", "papuzia archipelago north", True, None],
+        ["papuzia archipelago north", "papuzia archipelago", False, hard_birds],
+        ["papuzia archipelago", "papuzia village stamp station", False, has_stamp_book & has_sob],
         # You need a warp to start to return without bird song, patched with a dynaentrance
         # I don't like that this is locked behind song statue, but flags might not let us get there earlier
 
@@ -637,6 +662,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["pirate hideout", "pirate hideout station", False, None],
         ["pirate hideout", "pirate hideout stamp station", False, has_stamp_book & has_whip & has_sob],
         ["pirate hideout", "pirate hideout secret cave", False, has_bombs],
+        ["pirate hideout secret cave", "pirate hideout", False, None],
         ["pirate hideout", "pirate hideout minigame", False, has_bow],
         # Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
         ["pirate hideout", "pirate wadatsumi", False, has_glyph("Ocean")]
@@ -651,7 +677,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["lost at sea", "lost at sea station", False, None],
 
         ["lost at sea", "las outside chest", False, has_sod & (has_sol | hard_logic)],
-        ["lost at sea", "las 1st room chest", False, has_soa & hard_birds & (hard_logic | has_sol)],
+        ["lost at sea", "las cliff", False, hard_birds],
+        ["las cliff", "lost at sea", False, None],
+        ["lost at sea", "las lobby", False, hard_logic | has_sol],
+        ["las lobby", "lost at sea", False, None],
+        ["las lobby", "las 1st room chest", False, has_soa],
         ["las 1st room chest", "las 2nd room chest", False, has_boomerang],
         ["las 2nd room chest", "las 3rd room chest", False, has_whirlwind],
         ["las 3rd room chest", "las 4th room chest", False, has_whip],
@@ -895,10 +925,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["uriko's shop", "mayscore shop", False, has_rupees(required_rupees)],
         ["shitate's shop", "castle town shop", False, has_rupees(required_rupees)],
-        ["papuzia village", "papuzia shop", False, has_rupees(required_rupees)],
+        ["kogane's shop", "papuzia shop", False, has_rupees(required_rupees)],
         ["papuzia shop", "papuzia shop arrows", False, has_bow],
         ["papuzia shop", "papuzia shop bombs", False, has_bombs],
-        ["trading post", "trading post shield", False, has_rupees(required_rupees)],
+        ["linebeck's shop", "trading post shield", False, has_rupees(required_rupees)],
         ["goron village", "goron shop", False, has_rupees(required_rupees)],
         ["goron shop", "goron shop bombs", False, has_bombs],
         ["goron shop", "goron shop bow", False, has_bow],
@@ -909,6 +939,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             if world.options.randomize_cargo in [2, 3] else
             ["icyspring noko", "icyspring ice", False, has_wagon & has_rupees(required_rupees)], #  You can bully noko for free ice
         ["papuzia village", "papuzia buy cargo", False, has_wagon & has_rupees(required_rupees)],
+        ["wise one's house", "wise one buy vessel", False, has_wagon & has_rupees(required_rupees)],
         ["goron ice event", "goron steel", False, has_wagon & has_rupees(required_rupees)],
         ["dark ore mine", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)]
     ]
