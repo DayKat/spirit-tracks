@@ -705,10 +705,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand realm", "sand connection south", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
         ["sand connection south", "sand connection", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
 
-        ["sand realm exit", "sand restoration rocktite", False, has_temple_tracks("Desert") & has_tracks("Sand Realm")],
+        ["sand realm exit", "sand restoration rocktite", False, has_temple_tracks("Desert")],
         ["sand restoration rocktite", "sand realm exit", False, has_temple_tracks("Desert")],
         ["sand realm", "sand realm exit", True, has_temple_tracks("Desert") & has_tracks("Sand Realm")],
-        ["sand restoration rocktite", "sand restoration", True, has_cannon & has_temple_tracks("Desert")],
+        ["sand restoration rocktite", "sand restoration", True,  has_temple_tracks("Desert") & (has_cannon | [OptionFilter(SpiritTracksShuffleTrainTransitions, 0, "ne")])],
         ["sand restoration", "sand restoration south", True, has_temple_tracks("Desert")],
 
         ["sand realm", "sand realm rabbits", False, has_net],
@@ -720,8 +720,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand connection", "sand connection portal", True, has_cannon],
         ["sand realm", "sand realm portal", True, None],
 
-        ["sand restoration", "sand realm portal", False, has_portal("Desert Temple to Sand Realm", True) & has_tracks("Sand Realm")],
-        ["sand realm portal", "sand restoration", False, has_portal("Desert Temple to Sand Realm", False) & has_temple_tracks("Desert")],
+        ["sand restoration south", "sand realm portal", False, has_portal("Desert Temple to Sand Realm", True) & has_tracks("Sand Realm")],
+        ["sand realm portal south", "sand restoration", False, has_portal("Desert Temple to Sand Realm", False) & has_temple_tracks("Desert")],
         ["sand connection", "ocean temple tracks", False, has_portal("Sand Valley to Marine Temple", True) & has_temple_tracks("Marine")],
         ["ocean temple tracks", "sand connection", False, has_portal("Sand Valley to Marine Temple", False) & has_tracks("Fire Realm Sand Portal")],
 

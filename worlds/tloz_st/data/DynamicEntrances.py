@@ -10,6 +10,7 @@ DYNAMIC_ENTRANCES = {
     "Exit ToS to snow without source": {
         "entrance": "Tower of Spirits to Snow Realm",
         "destination": "Tower of Spirits to Snow Realm",
+        "has_slot_data": [("shuffle_stations", 0)],
         "not_has_groups": ["Tracks: Snow Source"],
         "message": "You don't have the snow source!"
     },
@@ -17,12 +18,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Tower of Spirits to Ocean Realm",
         "destination": "Tower of Spirits to Ocean Realm",
         "not_has_groups": ["Tracks: Ocean Source"],
+        "has_slot_data": [("shuffle_stations", 0)],
         "message": "You don't have the Ocean source!"
     },
     "Exit ToS to fire without source": {
         "entrance": "Tower of Spirits to Fire Realm",
         "destination": "Tower of Spirits to Fire Realm",
         "not_has_groups": ["Tracks: Fire Source"],
+        "has_slot_data": [("shuffle_stations", 0)],
         "message": "You don't have the Fire source!"
     },
 
@@ -88,32 +91,34 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Outset Board Train",
         "destination": "Outset Board Train",
         "has_items": [("Cannon", 0)],
-        "has_slot_data": [("cannon_logic", 0)],
+        "has_slot_data": [("cannon_logic", 0), ("shuffle_stations", 0)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
     "Bounce Outset without glyph cannonless": {
         "entrance": "Outset Board Train",
         "destination": "Outset Board Train",
         "not_has_groups": ["Tracks: Forest Glyph"],
+        "has_slot_data": [("shuffle_stations", 0)],
         "message": "You need Forest Glyph to board the train here"
     },
     "Bounce Tutorial cannon": {
         "entrance": "Outset to Tutorial",
         "destination": "Outset to Tutorial",
         "has_items": [("Cannon", 0)],
-        "has_slot_data": [("cannon_logic", 0)],
+        "has_slot_data": [("cannon_logic", 0), ("shuffle_stations", 0)],
         "message": "You need Forest Glyph and Cannon to board the train here"
     },
     "Bounce Tutorial cannonless": {
         "entrance": "Outset to Tutorial",
         "destination": "Outset to Tutorial",
         "not_has_groups": ["Tracks: Forest Glyph"],
+        "has_slot_data": [("shuffle_stations", 0)],
         "message": "You need Forest Glyph to board the train here"
     },
     "Bounce Tutorial to rail cannon": {
         "entrance": "Outset to Tutorial",
         "destination": "Forest Realm Outset Station",
-        "has_slot_data": [("cannon_logic", 0)],
+        "has_slot_data": [("cannon_logic", 0), ("shuffle_stations", 0)],
         "has_items": [("Cannon", 1)],
         "has_groups": ["Tracks: Forest Glyph"],
     },
@@ -121,7 +126,7 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Outset to Tutorial",
         "destination": "Forest Realm Outset Station",
         "has_groups": ["Tracks: Forest Glyph"],
-        "has_slot_data": [("cannon_logic", [1, 2, 3])],
+        "has_slot_data": [("cannon_logic", [1, 2, 3]), ("shuffle_stations", 0)],
     },
 
     # Portal Bounces

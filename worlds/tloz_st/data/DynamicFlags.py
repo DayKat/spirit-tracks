@@ -820,7 +820,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
 
     "Woodland sanctuary allow leaving": {
-        "on_scenes": [0x3000],
+        "on_scenes": [0x3000, 0x400],
         "set_if_true": [(STAddr.adv_flags_1, 1)]
     },
     "Gage don't have spirit flute": {
@@ -2370,6 +2370,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Add fire glyph in tos lobby if fire source": {
         "on_scenes": [0x1400, 0x1401],
         "has_groups": ["Tracks: Fire Source"],
+        "set_if_true": [(STAddr.adv_flags_2, 4)],
+        "has_slot_data": [("shuffle_stations", 0)],
+        "reset_flags": ["RESET not has fire glyph"]
+    },
+    "Add fire glyph in tos lobby if station shuffle": {
+        "on_scenes": [0x1400, 0x1401],
+        "has_slot_data": [("shuffle_stations", [1, 2, 3, 4, 5, 6])],
         "set_if_true": [(STAddr.adv_flags_2, 4)],
         "reset_flags": ["RESET not has fire glyph"]
     },

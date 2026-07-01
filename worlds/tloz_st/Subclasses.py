@@ -326,10 +326,10 @@ class STTransition(DSTransition):
             }
             if reverse_data["coords"] == "flip_h":
                 c = data["coords"]
-                reverse_data["coords"] = (c[0], c[1], -c[2])
+                reverse_data["coords"] = (-c[0], c[1], c[2])
             elif reverse_data["coords"] == "flip_v":
                 c = data["coords"]
-                reverse_data["coords"] = (-c[0], c[1], c[2])
+                reverse_data["coords"] = (c[0], c[1],- c[2])
 
             if "extra_data" in data:
                 reverse_data["extra_data"] = data["extra_data"]

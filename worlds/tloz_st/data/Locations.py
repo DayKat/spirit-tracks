@@ -305,6 +305,7 @@ LOCATIONS_DATA = {
         "z_max": -55000,
         'dungeon': "ToS",
         "conditional": "tears",
+        "always_exist": True,
         "delay_pickup": "ToS 1F Chest",
         "tos_section": 1
     },

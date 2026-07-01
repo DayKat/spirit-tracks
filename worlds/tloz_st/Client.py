@@ -1511,24 +1511,31 @@ class SpiritTracksClient(DSZeldaClient):
                     return False
             elif not self.has_from_group(ctx, and_group):
                 if not silent:
-                    logger.info(f"Missing Tracks: {' AND '.join([i.split('Tracks: ')[1] for i in exit_data.required_group])}")
+                    logger.info(f"Missing Tracks: {' AND '.join([i.split('Tracks: ')[1] for i in exit_data.required_groups])}")
                 return False
         return True
 
     def add_special_er_data(self, ctx, er_map, scene, detect_data: "STTransition", exit_data: "STTransition"):
+        print(f"Checking ER map {detect_data.name} => {exit_data.name}")
+
+        # Outset tutorial
+        if detect_data.name == "Outset Board Train":
+            outset_exit = self.entrances["Outset to Tutorial"]
+            er_map.setdefault(0x2f00, {})[outset_exit] = exit_data
+
         # GTR has 2 exits
         if detect_data.exit == (0x7, 0, 4):
             gtr_exit = self.entrances["Goron Target Range Exit"]
-            er_map[0x3c01][gtr_exit] = exit_data
+            er_map.setdefault(0x3c01, {})[gtr_exit] = exit_data
 
         # Marine temple shortcut wants to link to underwater
-        if exit_data.entrance == (0x1B, 0xA, 0):
+        if exit_data.name == "Marine Temple Lobby Board Train":
             oct_exit = self.entrances["Marine Temple Train Exit Water Warp"]
-            er_map[0x1b0a][oct_exit] = detect_data
+            er_map.setdefault(0x1b0a, {})[oct_exit] = detect_data
 
         # Skip desert rocktite cave
         if exit_data.name == "Ocean Realm North Rocktite Cave":
             rocktite_entrance = self.entrances["Desert Rocktite Fight Entrance"]
-            er_map[0x600][rocktite_entrance] = detect_data
+            er_map.setdefault(0x600, {})[rocktite_entrance] = detect_data
 
         return er_map

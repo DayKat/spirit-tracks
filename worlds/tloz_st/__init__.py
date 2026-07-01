@@ -1287,7 +1287,7 @@ class SpiritTracksWorld(WorldParent):
                     # print(f"Disconnecting {e.name}")
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
-            if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
+            if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off" or True:
                 print(f"Reconnecting entrances {self.ut_pairings}")
                 for i, pairing in self.ut_pairings.items():
                     _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
