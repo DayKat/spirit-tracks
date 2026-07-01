@@ -2,7 +2,7 @@
 from .DSZeldaClient.subclasses import DSTransition
 from .DSZeldaClient.ItemClass import DSItem, receive_normal, remove_vanilla_normal, receive_small_key, remove_vanilla_progressive
 from enum import IntEnum
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Iterable
 
 if TYPE_CHECKING:
     from .Client import SpiritTracksClient
@@ -199,6 +199,49 @@ class STItem(DSItem):
             return remove_vanilla_tracks
         return super().get_remove_vanilla_function()
 
+direction_lookup = {
+    0: "none",
+    1: "left",
+    2: "right",
+    3: "up",
+    4: "down",
+    5: "enter",
+    6: "exit"}
+type_lookup = {
+    0: "none",
+    1: "house",
+    2: "cave",
+    3: "station",
+    4: "overworld",
+    5: "dungeon_entr",
+    6: "boss",
+    7: "dungeon_room",
+    8: "warp",
+    9: "portal",
+    10: "event",
+    11: "tos_section",
+    12: "transition",
+    13: "tos_room",
+    14: "tos_lobby"
+}
+
+def decode_entrance_groups(group):
+    direction = group & EntranceGroups.DIRECTION_MASK
+    area = (group & EntranceGroups.AREA_MASK) >> 3
+    # island = (group & EntranceGroups.ISLAND_MASK) >> 7
+
+    return f"{direction_lookup[direction]}-{type_lookup[area]}"
+
+def decode_recursive(data):
+    if isinstance(data, dict):
+        return {decode_recursive(k): decode_recursive(v) for k, v in data.items()}
+    elif isinstance(data, Iterable):
+        return [decode_recursive(i) for i in data]
+    elif isinstance(data, int):
+        return decode_entrance_groups(data)
+    return data
+
+
 class EntranceGroups(IntEnum):
     NONE = 0
     # Directions
@@ -221,8 +264,14 @@ class EntranceGroups(IntEnum):
     EVENT = 10 << 3
     TOS_SECTION = 11 << 3
     OVERWORLD_TRAIN = 12 << 3
+    TOS_ROOM = 13 << 3
+    TOS_LOBBY = 14 << 3
 
     AREA_MASK = 0xF << 3
+    DIRECTION_MASK = 0x7
+
+    def __str__(self):
+        return decode_entrance_groups(self.value)
 
 OPPOSITE_ENTRANCE_GROUPS = {
     EntranceGroups.RIGHT: EntranceGroups.LEFT,

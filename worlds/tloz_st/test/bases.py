@@ -1,10 +1,7 @@
 from BaseClasses import LocationProgressType
 from test.bases import *
 
-
-class TestGeneration(WorldTestBase):
-    game = "Spirit Tracks"
-    options = {
+options_old = {
         "rabbitsanity": "unique_checks",
         "rabbit_max_location_count": 1,
         "rabbit_location_count_distribution": "for_each",
@@ -54,5 +51,11 @@ class TestGeneration(WorldTestBase):
             "Completed Ocean Glyph": 1,
             "Completed Fire Glyph": 1,
         }
+    }
 
+class TestGeneration(WorldTestBase):
+    game = "Spirit Tracks"
+    options = {
+        "shuffle_stations": "shuffle_pool_a",
+        "shuffle_train_transitions": "shuffle_pool_b"
     }

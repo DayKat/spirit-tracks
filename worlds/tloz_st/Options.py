@@ -440,6 +440,7 @@ class SpiritTracksToSBase(Toggle):
     """
     If True, Prevents Tower of Spirit access until you have the `Tower of Spirits Base` item
     Creates an additional progressive tower section item instead if you play with progressive tower sections.
+    Currently not compatible with station shuffle
     """
     display_name = "ToS Unlock Base Item"
     default = 0
@@ -453,6 +454,30 @@ class SpiritTracksShuffleToSSections(Choice):
     display_name = "Shuffle ToS Sections"
     option_no_shuffle = 0
     option_shuffle = 1
+
+class SpiritTracksShuffleStations(Choice):
+    """
+    Shuffle Stations
+    """
+    display_name = "Shuffle Stations"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+    # 5 can be own station?
+
+class SpiritTracksShuffleTrainTransitions(Choice):
+    """
+    Shuffle the transitions between different realms, and the entrance to the underwater tracks.
+    """
+    display_name = "Shuffle Train Transitions"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+    # 5 can be own station?
 
 class SpiritTracksShopsanity(OptionSet):
     """
@@ -740,7 +765,6 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # ToS stuff
     tos_section_unlocks: SpiritTracksToSSectionUnlocks
     tos_unlock_base_item: SpiritTracksToSBase
-    shuffle_tos_sections: SpiritTracksShuffleToSSections
     tos_shortcuts: SpiritTracksToSShortcuts
 
     randomize_tears: SpiritTracksRandomizeTears
@@ -767,6 +791,11 @@ class SpiritTracksOptions(PerGameCommonOptions):
     rabbit_pack_size: SpiritTracksRabbitPackSize
     rabbit_extra_items: SpiritTracksExtraRabbits
     # rabbit_hints: SpiritTracksRabbitHints
+
+    # Entrance Rando
+    shuffle_stations: SpiritTracksShuffleStations
+    shuffle_train_transitions: SpiritTracksShuffleTrainTransitions
+    shuffle_tos_sections: SpiritTracksShuffleToSSections
 
     # Cosmetic
     starting_train: SpiritTracksStartingTrain
@@ -818,7 +847,6 @@ st_option_groups = [
     OptionGroup("ToS Options", [
         SpiritTracksToSSectionUnlocks,
         SpiritTracksToSBase,
-        SpiritTracksShuffleToSSections,
         SpiritTracksToSShortcuts,
         SpiritTracksRandomizeTears,
         SpiritTracksTearSize,
@@ -838,6 +866,11 @@ st_option_groups = [
         SpiritTracksRabbitPackSize,
         SpiritTracksExtraRabbits,
         SpiritTracksRabbitHints
+    ]),
+    OptionGroup("Entrance Randomizer Options", [
+        SpiritTracksShuffleStations,
+        SpiritTracksShuffleTrainTransitions,
+        SpiritTracksShuffleToSSections
     ]),
     OptionGroup("Cosmetic Options", [
         SpiritTracksStartingTrain,

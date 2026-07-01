@@ -6,7 +6,7 @@ from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, 
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
-from entrance_rando import randomize_entrances
+from entrance_rando import randomize_entrances, bake_target_group_lookup
 
 from .Util import *
 from .Options import *
@@ -22,7 +22,7 @@ from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_en
 from entrance_rando import disconnect_entrance_for_randomization
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
-from .Subclasses import EntranceGroups
+from .Subclasses import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, decode_recursive, decode_entrance_groups
 
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
@@ -210,6 +210,8 @@ class SpiritTracksWorld(WorldParent):
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
+            if self.options.shuffle_stations.value:  # Don't want to deal with this yet
+                self.options.tos_unlock_base_item.value = 0
             # print(f"Rabbit items: {self.rabbit_item_dict}")
 
             self.plando_tos_sections()
@@ -1222,13 +1224,60 @@ class SpiritTracksWorld(WorldParent):
                 if dev_prints:
                     print(f"Connecting backwards {r2} => {r1}")
 
-    @staticmethod
-    def create_er_target_groups(type_option_lookup):
-        directions = [5, 6]
-        entr_types = [11 << 3]
 
-        return {5 + (11 << 3): [6 + (11 << 3)],
-                6 + (11 << 3): [5 + (11 << 3)]}
+    def create_er_target_groups(self, type_option_lookup):
+        pools = [[]]*3
+
+        for a, option in type_option_lookup.items():
+            pool_norm = option.value - 2
+            if 0 <= pool_norm <= 2:
+                pools[pool_norm].append(a)
+
+        unique_groups = {entrance.randomization_group for entrance in self.multiworld.get_entrances(self.player)
+                         if entrance.parent_region and not entrance.connected_region}
+        print(f"Unique Groups: {decode_recursive(unique_groups)}")
+
+        def in_pool(etype: int) -> int | None:
+            for i in range(3):
+                if etype in pools[i]:
+                    return i
+            return None
+
+        def get_target_groups(g: int) -> list[int]:
+            direction = g & EntranceGroups.DIRECTION_MASK
+            etype = g & EntranceGroups.AREA_MASK
+            pool = in_pool(etype)
+            print(f"\t{direction}_{etype}_{pool}")
+
+            # Choose target directions
+            if direction == 0:
+                target_directions = range(7)
+            else:
+                target_directions = [0, OPPOSITE_ENTRANCE_GROUPS[direction]]
+
+            # Choose target entrance types from pool options
+            if pool is not None:
+                target_etyps = pools[pool]
+            else:
+                target_etyps = [etype]
+
+            res = []
+            print(f"\t\tTarget dirs: {target_directions}")
+            print(f"\t\tTarget etypes: {target_etyps}")
+            for d in target_directions:
+                for t in target_etyps:
+                    new_group = d | t
+                    print(f"Try match: {decode_entrance_groups(new_group)}")
+                    if new_group in unique_groups:
+                        res.append(new_group)
+            return res
+        return bake_target_group_lookup(self, get_target_groups)
+
+        # directions = [5, 6]
+        # entr_types = [11 << 3]
+        #
+        # return {5 + (11 << 3): [6 + (11 << 3)],
+        #         6 + (11 << 3): [5 + (11 << 3)]}
 
     def connect_entrances(self) -> None:
         if self.is_ut:
@@ -1248,14 +1297,26 @@ class SpiritTracksWorld(WorldParent):
 
         # Choose entrances to shuffle based on settings
         type_option_lookup = {
-            11: self.options.shuffle_tos_sections
+            11: self.options.shuffle_tos_sections,
+            3: self.options.shuffle_stations,
+            12: self.options.shuffle_train_transitions
         }
         entrances_to_shuffle: list["Entrance"] = []
+        directionless_entrances: list["Entrance"] = []
         for e in self.valid_entrances:
             # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
             if type_option_lookup.get((e.randomization_group & EntranceGroups.AREA_MASK) >> 3, False):
                 entrances_to_shuffle.append(e)
+                if e.randomization_group & 7 == 0 :
+                    directionless_entrances.append(e)
 
+        # Assign direction pairs do directionless entrances
+        self.random.shuffle(directionless_entrances)
+        for i in range(len(directionless_entrances)//2):
+            new_direction = self.random.choice([1, 3, 5])
+            directionless_entrances[i*2].randomization_group |= new_direction
+            directionless_entrances[i*2+1].randomization_group |= new_direction+1
+            print(f"Setting new group: {directionless_entrances[i*2]} => {decode_entrance_groups(directionless_entrances[i*2].randomization_group)}")
 
         # Disconnect entrances to shuffle
         for entrance in entrances_to_shuffle:
@@ -1266,7 +1327,7 @@ class SpiritTracksWorld(WorldParent):
 
         # Get target groups
         groups = self.create_er_target_groups(type_option_lookup)
-        # print(f"Shuffling Entrances {entrances_to_shuffle} with groups {groups}")
+        # print(f"Shuffling Entrances {entrances_to_shuffle} with groups {decode_recursive(groups)}")
 
         # Entrance Rando
         if self.tower_pairings:
