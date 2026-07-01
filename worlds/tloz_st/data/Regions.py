@@ -521,6 +521,7 @@ REGIONS = [
     "sand sanc song",
     "sand sanc cuccos",
     "sand sanc stamp stand",
+    "sand sanc sand wand",
 
     # Desert Temple
     "desert temple",

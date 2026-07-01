@@ -1296,7 +1296,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Start Precision read for evil train deletion
         if not self._just_entered_game:
-            if self.current_stage == 4: # and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
+            if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
                 self.precision_mode = [Address.from_pointer(STAddr.fr_actor_table_start+17*4+3), 0,
                                        "delete_ow_actors", STAddr.fr_actor_table_start]
             if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
@@ -1503,7 +1503,7 @@ class SpiritTracksClient(DSZeldaClient):
             return False
 
         # Check for required items from item groups
-        for and_group in exit_data.required_group:
+        for and_group in exit_data.required_groups:
             if isinstance(and_group, tuple):
                 if not check_or(and_group):
                     if not silent:
@@ -1514,3 +1514,21 @@ class SpiritTracksClient(DSZeldaClient):
                     logger.info(f"Missing Tracks: {' AND '.join([i.split('Tracks: ')[1] for i in exit_data.required_group])}")
                 return False
         return True
+
+    def add_special_er_data(self, ctx, er_map, scene, detect_data: "STTransition", exit_data: "STTransition"):
+        # GTR has 2 exits
+        if detect_data.exit == (0x7, 0, 4):
+            gtr_exit = self.entrances["Goron Target Range Exit"]
+            er_map[0x3c01][gtr_exit] = exit_data
+
+        # Marine temple shortcut wants to link to underwater
+        if exit_data.entrance == (0x1B, 0xA, 0):
+            oct_exit = self.entrances["Marine Temple Train Exit Water Warp"]
+            er_map[0x1b0a][oct_exit] = detect_data
+
+        # Skip desert rocktite cave
+        if exit_data.name == "Ocean Realm North Rocktite Cave":
+            rocktite_entrance = self.entrances["Desert Rocktite Fight Entrance"]
+            er_map[0x600][rocktite_entrance] = detect_data
+
+        return er_map

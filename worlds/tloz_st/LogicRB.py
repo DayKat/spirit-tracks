@@ -11,7 +11,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # ====== Outset Village ==============
 
         #[region 1, region 2, two-directional, logic requirements],
-        ["outset village", "outset station", True, None],
+        ["outset village", "outset station", False, None],
+        ["outset station", "outset village", False, has_glyph("Forest")],
         ["outset station", "forest realm", True, has_train & has_glyph("Forest")],
         
         ["outset village", "outset village stamp book", False, has_passenger("Alfonzo" ,"_picked_up_alfonzo") 
@@ -88,7 +89,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # # ======== Castle Town =========
 
-        ["castle station", "castle town", True, None],
+        ["castle station", "castle town", False, has_glyph("Forest")],
+        ["castle town", "castle station", False, None],
         ["forest realm", "castle station", True, has_glyph("Forest")],
         ["castle town", "castle town goron", False, has_passenger("City Goron", "_goron")],
         ["castle town", "pick up alfonzo", False, has_glyph("Snow")],
@@ -245,7 +247,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # # ======== Mayscore =========
 
         ["forest realm", "mayscore station", True, has_glyph("Forest")],
-        ["mayscore station", "mayscore", True, None],
+        ["mayscore station", "mayscore", False, has_glyph("Forest")],
+        ["mayscore", "mayscore station", False, None],
 
         ["mayscore", "mayscore stamp station", False, has_stamp_book],
         ["mayscore", "mayscore whip chest", False, has_whip],
@@ -259,7 +262,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # # ======== Forest Sanctuary =========
 
         ["forest realm", "woodland sanc station", True, has_glyph("Forest")],
-        ["woodland sanc station", "woodland sanc", True, None],
+        ["woodland sanc station", "woodland sanc", False, has_glyph("Forest")],
+        ["woodland sanc", "woodland sanc station", False, None],
         ["woodland sanc", "woodland sanc stamp station", False, has_stamp_book],
         ["woodland sanc", "woodland sanc song statue", False, has_spirit_flute],
         ["woodland sanc", "woodland sanc chest", False, has_cuccos],
@@ -268,7 +272,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["wtt", "wt station", True, has_temple_tracks("Wooded")],
         ["forest source", "wt station", True, has_source("Forest")],
-        ["wt station", "wt", True, None],
+        ["wt station", "wt", False, has_temple_tracks("Wooded") | has_source("Forest")],
+        ["wt", "wt station", False, None],
         ["wt", "wt stamp station", False, has_stamp_book & (has_whirlwind | hard_logic)],
         ["wt", "wt song statue", False, has_spirit_flute],
         ["wt", "wt 1f enemy chest", False, has_damage],
@@ -297,7 +302,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["forest realm", "trading post tracks", True, has_glyph("Ocean") & soft_cannon & has_glyph("Forest")],
         ["trading post tracks", "trading post station", True, has_glyph("Ocean")],
-        ["trading post station", "trading post", True, None],
+        ["trading post station", "trading post", False, has_glyph("Ocean")],
+        ["trading post", "trading post station", False, None],
+
         ["trading post", "trading post light song statue", False, has_spirit_flute],
         ["trading post", "trading post chest", False, (has_range | has_sword_beam) & has_sod & (has_sol | hard_logic)],
         ["trading post", "trading post stamp station", False, has_bombs & has_stamp_book],
@@ -314,7 +321,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # # ========== Rabbit Haven ========
 
         ["snow realm fr", "rabbit haven station", True, has_glyph("Snow")],
-        ["rabbit haven station", "rabbit haven", True, None],
+        ["rabbit haven station", "rabbit haven", False, has_glyph("Snow")],
+        ["rabbit haven", "rabbit haven station", False, None],
+
         ["rabbit haven", "rabbit haven 5 rabbits", False, has_total_rabbits(5)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, has_rabbit_items("Grass", 10)],
         ["rabbit haven", "rabbit haven 10 snow rabbits", False, has_rabbit_items("Snow", 10)],
@@ -337,7 +346,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["blizzard temple tracks rabbits", "snow realm early blizzard rabbits", False, has_source("Snow") | hard_logic],
         ["snow realm source", "blizzard temple tracks", True, has_source("Snow") & has_temple_tracks("Blizzard")],
 
-        ["blizzard temple tracks rabbits", "snowdrift station rabbit", False, has_tracks("Snowdrift Station")],
+        ["snowdrift tracks", "snowdrift station rabbit", False, has_net],
         ["blizzard temple tracks", "icyspring tracks", True, has_tracks("N Icy Spring") & has_temple_tracks("Blizzard")],
         ["icyspring tracks", "icyspring rabbits", False, has_net],
         ["icyspring tracks", "icyspring portal", False, has_cannon],
@@ -352,7 +361,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # ======== Anouki Village ========
 
         ["snow realm", "anouki station", True, has_glyph("Snow")],
-        ["anouki station", "anouki village", True, None],
+        ["anouki station", "anouki village", False, has_glyph("Snow")],
+        ["anouki village", "anouki station", False, None],
+
         ["anouki village", "anouki village stamp station", False, has_stamp_book],
         ["anouki village", "anouki village song statue", False, has_spirit_flute],
         ["anouki village", "anouki village bomb cave chest", False, has_bombs],
@@ -371,7 +382,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # =========== Snow Sanctuary ==========
 
         ["snow sanc tracks", "snow sanc station", True, has_glyph("Snow")],
-        ["snow sanc station", "snow sanc", True, None],
+        ["snow sanc station", "snow sanc", False, has_glyph("Snow")],
+        ["snow sanc", "snow sanc station", False, None],
 
         ["snow realm", "snow sanc tracks", False, Has("Snow Sanctuary Cave Key") & has_cannon],
         ["snow sanc tracks", "snow realm", False, has_cannon],
@@ -387,7 +399,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["snow realm source", "bt station", True, has_source('Snow') & soft_cannon],
         ["blizzard temple tracks", "bt station", True, has_temple_tracks("Blizzard")],
-        ["bt station", "bt", True, None],
+        ["bt station", "bt", False, has_temple_tracks("Blizzard") | has_source('Snow')],
+        ["bt", "bt station", False, None],
 
         ["bt", "bt b1 se", False, can_ring_bell & has_whirlwind],
         ["bt b1 se", "bt b1 e enemy chest", False, None],
@@ -404,7 +417,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # ========== Icy Spring ==========
 
         ["blizzard temple tracks", "icyspring station", True, has_temple_tracks("Blizzard")],
-        ["icyspring station", "icyspring", True, None],
+        ["icyspring station", "icyspring", False, has_temple_tracks("Blizzard")],
+        ["icyspring", "icyspring station", False, None],
+
         ["icyspring", "icyspring stamp station", False, has_stamp_book & has_boomerang],
         ["icyspring", "icyspring whip chest", False, has_whip],
         ["icyspring", "icyspring noko", False, has_temple_tracks("Blizzard") & (# for ferrus logic
@@ -414,12 +429,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["blizzard temple tracks", "snowdrift tracks", True, has_tracks("Snowdrift Station") & soft_cannon & has_temple_tracks("Blizzard")],
         ["snowdrift tracks", "snowdrift station", True, has_tracks("Snowdrift Station")],
-        ["snowdrift station", "snowdrift", True, None],
+        ["snowdrift station", "snowdrift", False, has_tracks("Snowdrift Station")],
+        ["snowdrift", "snowdrift station", False, None],
         ["snowdrift", "snowdrift reward", False, (has_range | (has_sword_beam & hard_logic)) & can_kill_freezards],
 
         # ========== Slippery Station ==========
         ["slippery tracks", "slippery station", True, has_tracks("Slippery Station")],
-        ["slippery station", "slippery", True, None],
+        ["slippery station", "slippery", False, has_tracks("Slippery Station")],
+        ["slippery", "slippery station", False, None],
         ["blizzard temple tracks", "slippery tracks", True, has_tracks("Slippery Station") & has_temple_tracks("Blizzard") & soft_cannon & (has_source("Snow") | has_tracks("N Icy Spring"))],
         ["slippery", "slippery amateur", False, None],
         ["slippery", "slippery pro", False, None],
@@ -427,7 +444,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ========== Bridge Worker's Home =======
         ["snow realm source", "bridge workers station", True, has_source("Snow")],
-        ["bridge workers station", "bridge workers", True, None],
+        ["bridge workers station", "bridge workers", False, has_source("Snow")],
+        ["bridge workers", "bridge workers station", False, None],
         ["bridge workers", "bridge workers chest", False, has_sod],
         ["bridge workers", "pick up bridge worker", False, has_glyph("Ocean")],
 
@@ -475,7 +493,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ========== Island Sanctuary =============
         ["ocean realm", "island sanc station", True, has_glyph("Ocean")],
-        ["island sanc station", "island sanc", True, None],
+        ["island sanc station", "island sanc", False, has_glyph("Ocean")],
+        ["island sanc", "island sanc station", False, None],
         ["island sanc", "island sanc north", False, has_boomerang | (has_sob & has_whip & hard_logic)],
         ["island sanc north", "island sanc stamp station", False, has_stamp_book & has_sob & has_whip],
 
@@ -489,7 +508,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ========== Papuzia Village =============
         ["ocean realm", "papuzia village station", True, has_glyph("Ocean")],
-        ["papuzia village station", "papuzia village", True, None],
+        ["papuzia village station", "papuzia village", False, has_glyph("Ocean")],
+        ["papuzia village", "papuzia village station", False, None],
         ["papuzia village", "papuzia village song statue", False, has_sod],
         ["papuzia village", "pv dovok", False, has_passenger("Dovok", "_dovok")],
         ["papuzia village south", "papuzia village stamp station", False, has_stamp_book & has_sob],
@@ -506,7 +526,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
              & (Has("Cargo: Mega Ice", 3) | (Has("Cargo: Mega Ice", 1) & ool))],
 
         # ========= Marine Temple ==================
-        ["oct station", "oct", True, None],
+        ["oct station", "oct", False, has_temple_tracks("Marine") | has_source("Ocean")],
+        ["oct", "oct station", False, None],
         ["oct", "oct song statue", False, has_spirit_flute],
         ["oct 2f", "oct whip chest", False, has_sword | (hard_logic & (has_bombs | (has_boomerang & has_damage)))],
         # you can't escape stunlock without sword, and the fight scripts you into it from the start
@@ -537,7 +558,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ========= Pirate Hideout ==============
         ["pirate hideout tracks", "pirate hideout station", True, has_tracks("Pirate Hideout")],
-        ["pirate hideout station", "pirate hideout", True, None],
+        ["pirate hideout station", "pirate hideout", False, has_tracks("Pirate Hideout")],
+        ["pirate hideout", "pirate hideout station", False, None],
         ["pirate hideout", "pirate hideout stamp station", False, has_stamp_book & has_whip & has_sob],
         ["pirate hideout", "pirate hideout secret cave", False, has_bombs],
         ["pirate hideout", "pirate hideout minigame", False, has_bow],
@@ -550,7 +572,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # ======== Lost at Sea Station ==========
         ["ocean temple tracks", "las tracks", True, has_temple_tracks("Marine") & has_tracks("Lost at Sea Station")],
         ["las tracks", "lost at sea station", True, has_tracks("Lost at Sea Station")],
-        ["lost at sea station", "lost at sea", True, None],
+        ["lost at sea station", "lost at sea", False, has_tracks("Lost at Sea Station")],
+        ["lost at sea", "lost at sea station", False, None],
+
         ["lost at sea", "las outside chest", False, has_sod & (has_sol | hard_logic)],
         ["lost at sea", "las 1st room chest", False, has_soa & hard_birds & (hard_logic | has_sol)],
         ["las 1st room chest", "las 2nd room chest", False, has_boomerang],
@@ -596,7 +620,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # Goron Village
         ["fire realm", "goron village station", True, has_glyph("Fire")],
-        ["goron village", "goron village station", True, None],
+        ["goron village", "goron village station", False, has_glyph("Fire") | has_source("Fire")],
+        ["goron village station", "goron village", False, None],
         ["fire source", "goron village station", True, has_source("Fire")],
 
         ["goron village", "goron whip", False, has_whip],
@@ -627,13 +652,15 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # Goron Target Game
         ["fire realm", "goron target station", True, has_glyph("Fire")],
         ["goron target lobby", "gtr", False, has_cannon & Has("_goron_ice", player) & has_rupees(50)],
-        ["goron target station", "goron target lobby", True, None],
+        ["goron target station", "goron target lobby", False, has_glyph("Fire")],
+        ["goron target lobby", "goron target station", False, None],
 
         # Mountain Temple
         ["mountain temple tracks", "mountain temple door", False, None],
         ["fire source", "mountain temple door", False, None],
         ["mountain temple door", "mtt station", False, Has("Mountain Temple Snurglar Key", 3) | Has("Snurglar Keyring")],
-        ["mtt station", "mtt", True, None],
+        ["mtt station", "mtt", False, has_temple_tracks("Mountain") | has_source("Fire")],
+        ["mtt", "mtt station", False, None],
         ["mtt station", "mountain temple tracks", False, has_temple_tracks("Mountain")],
         ["mtt station", "fire source", False, has_source("Fire")],
 
@@ -662,14 +689,16 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # Disorientation Station
         ["disorientation tracks", "disorientation station station", True, has_tracks("Disorientation Station")],
-        ["disorientation station", "disorientation station station", True, None],
+        ["disorientation station", "disorientation station station", False, None],
+        ["disorientation station station", "disorientation station", False, has_tracks("Disorientation Station")],
         ["disorientation station", "disorientation bird", False, hard_birds],
         ["disorientation bird", "disorientation sod", False, has_sod],
 
         # Ends of the Earth
         ["ends of the earth tracks", "ends of the earth station", True, has_tracks("Ends of the Earth")],
-        ["ends of the earth station", "ends of the earth", True, None],
-        ["ends of the earth", "eote puzzles", False, has_sand_wand],
+        ["ends of the earth station", "ends of the earth", False, has_tracks("Ends of the Earth")],
+        ["ends of the earth", "ends of the earth station", False, None],
+        ["ends of the earth", "eote puzzles", False, None],
 
         # ===== Sand Realm =====
         ["ocean realm source", "sand realm", True, has_source("Ocean") & has_tracks("Sand Realm")],
@@ -698,9 +727,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc station", True, has_tracks("Sand Realm")],
-        ["sand sanc station", "sand sanc", True, None],
+        ["sand sanc station", "sand sanc", False, has_tracks("Sand Realm")],
+        ["sand sanc", "sand sanc station", False, None],
         ["sand sanc", "sand sanc song", False, has_spirit_flute],
-        ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book]
+        ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book],
+        ["sand sanc", "sand sanc sand wand", False, has_sand_wand],
     ]
 
     if world.options.randomize_cargo.value == 0:
@@ -721,7 +752,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand restoration", "desert temple door", False, has_cannon],
         ["desert temple door", "desert temple station", False, None],
         ["desert temple station", "sand restoration", False, has_temple_tracks("Desert")],
-        ["desert temple station", "desert temple", True, None],
+        ["desert temple station", "desert temple", False, has_temple_tracks("Desert")],
+        ["desert temple", "desert temple station", False, None],
 
         ["desert temple", "dt sw", False, has_sand_wand],
         ["dt sw", "dt 1f nw", False, has_bow],
@@ -752,7 +784,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand restoration", "dark ore mine tracks", False, has_tracks("Dark Ore Mine") & soft_cannon],
         ["dark ore mine tracks", "sand restoration", False, has_temple_tracks("Desert") & has_cannon],
         ["dark ore mine tracks", "dark ore mine station", True, has_tracks("Dark Ore Mine")],
-        ["dark ore mine station", "dark ore mine", True, None],
+        ["dark ore mine station", "dark ore mine", False, has_tracks("Dark Ore Mine")],
+        ["dark ore mine", "dark ore mine station", False, None],
         ["dark ore mine", "dark ore mine sod", False, has_sod],
 
         # ===== Dark Realm =====

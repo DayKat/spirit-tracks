@@ -335,7 +335,10 @@
   {"name": "Dune Sanctuary", "sections": [
     {"name": "Dune Sanctuary Song of Restoration"},
     {"name": "Dune Sanctuary Deliver Cuccos"},
-    {"name": "Dune Sanctuary Stamp Station"}
+    {"name": "Dune Sanctuary Stamp Station"},
+    {"name": "Dune Sanctuary Dig Rupee N"},
+    {"name": "Dune Sanctuary Dig Rupee NE"},
+    {"name": "Dune Sanctuary Dig Rupee SE"}
   ], "map_locations":[{"map": "Overview", "x": 692, "y": 428}]},
     {"name": "Dark Ore Mine", "sections": [
       {"name": "Dark Ore Mine Buried Chest"},

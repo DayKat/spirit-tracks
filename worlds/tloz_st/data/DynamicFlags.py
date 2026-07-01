@@ -819,6 +819,10 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.rail_restorations, 0x10)]
     },
 
+    "Woodland sanctuary allow leaving": {
+        "on_scenes": [0x3000],
+        "set_if_true": [(STAddr.adv_flags_1, 1)]
+    },
     "Gage don't have spirit flute": {
         "on_scenes": [0x3001],
         "has_items": [("Spirit Flute", 0)],

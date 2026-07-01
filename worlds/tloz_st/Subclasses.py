@@ -272,9 +272,16 @@ class STTransition(DSTransition):
                 "type": data["type"],
                 "island": data.get("return_island", data.get("island", cls.entrance_groups.NONE)),
                 "direction": cls.opposite_entrance_groups[data["direction"]],
-                "coords": data.get("coords", None),
+                "coords": data.get("reverse_coords", data.get("coords", None)),
 
             }
+            if reverse_data["coords"] == "flip_h":
+                c = data["coords"]
+                reverse_data["coords"] = (c[0], c[1], -c[2])
+            elif reverse_data["coords"] == "flip_v":
+                c = data["coords"]
+                reverse_data["coords"] = (-c[0], c[1], c[2])
+
             if "extra_data" in data:
                 reverse_data["extra_data"] = data["extra_data"]
             if "reverse_one_way_data" in data:

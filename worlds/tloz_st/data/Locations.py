@@ -888,6 +888,14 @@ LOCATIONS_DATA = {
         "z_min": -15000,
         "x_min": 10000,
     },
+    "ToS 21F Bomb Wall Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x2E,
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        "region_id": "tos 21f bombs",
+        'dungeon': "ToS",
+        "tos_section": 5,
+    },
     "ToS 22F Boss Key": {
         "vanilla_item": "Boss Key (ToS 5)",
         "region_id": "tos 22f",
@@ -963,6 +971,17 @@ LOCATIONS_DATA = {
         "x_min": 80000,
         "z_min": 20000,
         "delay_pickup": ["ToS 29F SE Extinguish Torches Chest"]
+    },
+    "ToS 29F SE Extinguish Torches Chest": {
+        "stage_id": 0x13,
+        "room_id": 0x1F,
+        "region_id": "tos 29f se",
+        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
+        'dungeon': "ToS",
+        "tos_section": 6,
+        "x_min": 80000,
+        "z_min": 20000,
+        "delay_pickup": ["ToS 29F SE Eyes in the Dark Chest"]
     },
     "ToS 30F SE Wrecker Chest": {
         "stage_id": 0x13,
@@ -2562,6 +2581,29 @@ LOCATIONS_DATA = {
         "stamp": 0xB,
         "location_groups": ["Dune Sanctuary"],
         "conditional": True
+    },
+    "Dune Sanctuary Dig Rupee N": {
+        "stage_id": 0x34,
+        "x_min": -0,
+        "x_max": 20000,
+        "z_max": -40000,
+        "vanilla_item": "Big Green Rupee (100)",
+        "region_id": "sand sanc sand wand",
+    },
+    "Dune Sanctuary Dig Rupee NE": {
+        "stage_id": 0x34,
+        "x_min": -85000,
+        "z_max": -45000,
+        "vanilla_item": "Big Green Rupee (100)",
+        "region_id": "sand sanc sand wand",
+    },
+    "Dune Sanctuary Dig Rupee SE": {
+        "stage_id": 0x34,
+        "x_min": 95000,
+        "z_min": -5000,
+        "z_max": 20000,
+        "vanilla_item": "Big Green Rupee (100)",
+        "region_id": "sand sanc sand wand",
     },
     # Dark Ore Mine
     "Dark Ore Mine Buried Chest": {
@@ -4268,14 +4310,6 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "no_model": True
     },
-    "ToS 21F Bomb Wall Chest": {
-        "stage_id": 0x13,
-        "room_id": 0x2E,
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        "region_id": "tos 21f bombs",
-        'dungeon': "ToS",
-        "tos_section": 5,
-    },
     "Mountain Temple 2F Stalfos": {  # Dummy location for stalfos treasure drop conflict
         "stage_id": 0x1C,
         "room_id": 0x6,
@@ -4293,17 +4327,6 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "x_max": -20000,
     },
-    "ToS 29F SE Extinguish Torches Chest": {
-        "stage_id": 0x13,
-        "room_id": 0x1F,
-        "region_id": "tos 29f se",
-        "vanilla_item": ITEM_GROUPS["Rare Treasures"],
-        'dungeon': "ToS",
-        "tos_section": 6,
-        "x_min": 80000,
-        "z_min": 20000,
-        "delay_pickup": ["ToS 29F SE Eyes in the Dark Chest"]
-    },
     "Desert Temple B1 Stalfos": {
         "stage_id": 0x1D,
         "room_id": 0x3,
@@ -4312,7 +4335,7 @@ LOCATIONS_DATA |= {
         "vanilla_item": "Treasure: Stalfos Skull",
         "region_id": "dt b1 damage",
         "conditional": True
-    },
+    }
 
 }
 
