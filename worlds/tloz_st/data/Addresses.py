@@ -117,6 +117,12 @@ class STAddr:
     equipped_car = Address(0x265390, size=4)
     equipped_cart = Address(0x265394, size=4)
 
+    map_open = Address(0x0BA3D0)
+    selected_station = Address(0x0BA65C)
+    exiting_map = Address(0x260A44)
+    last_x = Address(0x049B36, size=2)
+    quick_pen_coords = Address(0x0B509C, size=3)
+
     # Passenger data
     has_passenger_0 = Address(0x265598, size=4)
     has_passenger_1 = Address(0x2655AC, size=4)

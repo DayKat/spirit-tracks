@@ -1097,6 +1097,16 @@ ENTRANCE_DATA |= {
 
 
     # ==== Overworld ====
+    "Outset to Tutorial": {
+        "return_name": "Tutorial to Outset",
+        "exit": (0x8, 0x0, 0),
+        "entrance": (0x2F, 0x0, 0),
+        "exit_region": "forest realm",
+        "entrance_region": "outset village",
+        "type": EntranceGroups.STATION,
+        "direction": EntranceGroups.DOWN,
+        "island": EntranceGroups.NONE
+    },
     "Outset Board Train": {
         "return_name": "Forest Realm Outset Station",
         "exit": (0x4, 0x0, 1),
@@ -1104,16 +1114,6 @@ ENTRANCE_DATA |= {
         "exit_region": "outset station",
         "entrance_region": "outset village",
         "reverse_required_groups": ["Tracks: Forest Glyph"],
-        "type": EntranceGroups.STATION,
-        "direction": EntranceGroups.DOWN,
-        "island": EntranceGroups.NONE
-    },
-    "Outset to Tutorial": {
-        "return_name": "Tutorial to Outset",
-        "exit": (0x8, 0x0, 0),
-        "entrance": (0x2F, 0x0, 0),
-        "exit_region": "forest realm",
-        "entrance_region": "outset village",
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
@@ -1825,7 +1825,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "pick up alfonzo",
         "exit_region": "alfonzo event",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1834,7 +1834,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "wt stagnox",
         "exit_region": "event_stagnox",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1843,7 +1843,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "bt fraaz",
         "exit_region": "event_fraaz",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1852,7 +1852,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "oct phytops",
         "exit_region": "event_phytops",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1861,7 +1861,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "defeat vulcano",
         "exit_region": "event_vulcano",
-        "entrance": (0x21, 0x0, 0x0),
+        "entrance": (0x21, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1870,7 +1870,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "skeldritch",
         "exit_region": "skeldritch event",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1879,7 +1879,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos 3f rail map",
         "exit_region": "event_3f",
-        "entrance": (0x13, 0x2, 0x0),
+        "entrance": (0x13, 0x2, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1888,7 +1888,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos 7f rail map",
         "exit_region": "event_7f",
-        "entrance": (0x13, 0x6, 0x0),
+        "entrance": (0x13, 0x6, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1897,7 +1897,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos 11f",
         "exit_region": "event_12f",
-        "entrance": (0x13, 0xB, 0x0),
+        "entrance": (0x13, 0xB, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1951,7 +1951,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "linebeck trading",
         "exit_region": "linebeck event",
-        "entrance": (0x37, 0x0, 0x0),
+        "entrance": (0x37, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1960,7 +1960,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "goron ice",
         "exit_region": "goron ice event",
-        "entrance": (0x2e, 0x0, 0x0),
+        "entrance": (0x2e, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1972,7 +1972,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "wt stagnox",
         "exit_region": "goal_stagnox",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1981,7 +1981,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "bt fraaz",
         "exit_region": "goal_fraaz",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1990,7 +1990,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "oct phytops",
         "exit_region": "goal_phytops",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -1999,7 +1999,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "mtt boss",
         "exit_region": "goal_vulcano",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2008,7 +2008,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "skeldritch",
         "exit_region": "skeldritch goal",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2017,7 +2017,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos 3f rail map",
         "exit_region": "goal_forest_glyph",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2026,7 +2026,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos 11f",
         "exit_region": "goal_ocean_glyph",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2035,7 +2035,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos 16f",
         "exit_region": "goal_fire_glyph",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2044,7 +2044,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos staven",
         "exit_region": "goal_staven",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2053,7 +2053,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "tos 24f",
         "exit_region": "goal_compass",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2062,7 +2062,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "malladus 2",
         "exit_region": "malladus event",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2071,7 +2071,7 @@ ENTRANCE_DATA |= {
         "two_way": False,
         "entrance_region": "dark realm trains",
         "exit_region": "dark realm event",
-        "entrance": (0x29, 0x0, 0x0),
+        "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE

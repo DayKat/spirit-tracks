@@ -24,7 +24,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
-                    STAddr.loading_room, STAddr.mid_load, STAddr.saving]
+                    STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
 read_keys_train = [STAddr.train_health]
 
@@ -237,6 +237,11 @@ class SpiritTracksClient(DSZeldaClient):
         self.display_actors = 0
         self.oct_bk_offset = None
 
+        self.selected_station: int = 0
+        self.map_warp: None | STTransition = None
+        self.unlocked_map: int = 0
+        self.has_map_tracks: bool = False
+
 
     def printl_goal_info(self, ctx):
         slot_data = ctx.slot_data
@@ -406,7 +411,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.loading_stage = False
                 return mid_load
 
-        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0x4, 0xFF]
+        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0x1, 0x4, 0xFF]
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu: "Address" = read_result[STAddr.menu]
@@ -645,6 +650,7 @@ class SpiritTracksClient(DSZeldaClient):
         await self.detect_boss_key(ctx)
         await self.process_train_speed(ctx, read_result)
         await self.detect_ut_event(ctx, self.current_scene)
+        await self.process_map_warp(ctx)
 
         if read_result[STAddr.menu] == 9:
             clog = await STAddr.flip_clog.read(ctx, silent=True)
@@ -654,6 +660,9 @@ class SpiritTracksClient(DSZeldaClient):
             elif clog == 0 and self.warp_to_start_flag:
                 self.warp_to_start_flag = False
                 logger.info("Canceled warp to start.")
+            elif self.map_warp:
+                self.map_warp = None
+                logger.info("Canceled map warp.")
 
     async def set_train_speed(self, ctx):
         await write_multiple(ctx, train_speed_addresses, self.train_speed)
@@ -1571,3 +1580,63 @@ class SpiritTracksClient(DSZeldaClient):
         if current_destination and not await self.conditional_er(ctx, current_destination):
             return current_destination.vanilla_reciprocal
         return None
+
+    async def process_map_warp(self, ctx):
+        async def check_tos():
+            raw_coords = await STAddr.quick_pen_coords.read(ctx, silent=True)
+            if 0x40 < raw_coords & 0xFF < 0x70 < (raw_coords & 0xFF0000) >> 16 < 0x90:
+                return True
+            return False
+
+
+        if self.read_result[STAddr.menu] in [1, 5]:
+            if not self.unlocked_map:
+                await STAddr.adv_flags_2.set_bits(ctx, 0x4)
+                self.unlocked_map = 1
+                print(f"Adding tracks init {1}")
+            if self.read_result.get(STAddr.map_open, 0):
+                selected_station = await STAddr.selected_station.read(ctx, silent=True)
+                if selected_station:
+                    if self.unlocked_map < 2 and not self.has_from_group(ctx, "Tracks: Fire Glyph"):
+                        await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
+                        self.unlocked_map = 2
+                        print(f"Removing tracks {2}")
+                    if selected_station != self.selected_station:
+                        self.selected_station = selected_station
+                        if selected_station == 0x3f and await STAddr.last_x.read(ctx) > 0x45:
+                            self.map_warp = entrance_tuple_to_entrance[(0x3F, 0xA, 0)]
+                        else:
+                            self.map_warp = entrance_tuple_to_entrance.get(
+                                map_warp_redirects.get(selected_station, None),
+                                entrance_tuple_to_entrance.get(
+                                    (selected_station, 0, 0),
+                                    None))
+                        if not self.map_warp:
+                            logger.info(f"Oops that didn't work {(selected_station, 0, 0)}")
+                        elif await self.conditional_er(ctx, self.map_warp):
+                            logger.info(f"Selected station to warp to: {self.map_warp.name} {hex_f(self.map_warp.entrance)}")
+                        else:
+                            self.map_warp = None
+                    in_submap = await STAddr.exiting_map.read(ctx, silent=True) != 0xFF
+
+                    if self.unlocked_map == 2 and in_submap:
+                        self.unlocked_map = 3
+                        print(f"Loaded submap {3}")
+                    elif self.unlocked_map == 3 and not in_submap:
+                        await STAddr.adv_flags_2.set_bits(ctx, 0x4)
+                        self.unlocked_map = 4
+                        print(f"Unlocked submap {4}")
+                elif self.unlocked_map == 4:  # not selected_station
+                    self.unlocked_map = 1
+                    print(f"Reset cycle {1}")
+                elif self.selected_station != 0x14 and await check_tos():
+                    self.map_warp = self.entrances["Tower of Spirits to Forest Realm"]
+                    self.selected_station = 0x14
+                    logger.info(f"Selected station to warp to: {self.map_warp.name} {hex_f(self.map_warp.entrance)}")
+
+
+        elif self.unlocked_map and not self.has_from_group(ctx, "Tracks: Fire Glyph"):
+            await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
+            self.unlocked_map = 0
+            self.selected_station = 0
+            print(f"Quitting tracks {0}")

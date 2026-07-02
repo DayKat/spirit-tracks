@@ -812,6 +812,11 @@ pool_name_lookup = {
     2: "pool_c"
 }
 
+map_warp_redirects: dict[int, tuple[int, int, int]] = {
+    0x3C: (0x3c, 1, 1),
+
+}
+
 TOS_FLOOR_TO_SECTION: dict[int, int] = TOS_FLOOR_TO_SECTION_SAFE | TOS_FLOOR_SECTIONS_CANCEL_TEARS
 
 #TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}
