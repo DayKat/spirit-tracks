@@ -83,8 +83,12 @@ def _check_slot_data(ctx, data):
                     if value not in slot_value:
                         return False
             else:
-                if slot_value != value:
-                    return False
+                if args and args[0] == "not":
+                    if slot_value == value:
+                        return False
+                else:
+                    if slot_value != value:
+                        return False
     return True
 
 def build_scene_to_dynamic_flag(ctx) -> Dict[int, list[dict]]:

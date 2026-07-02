@@ -67,7 +67,7 @@ class STAddr:
     train_speed_med = Address(0x135FFC, size=4)   # 0x73 115
     train_speed_stop = Address(0x135FF4, size=4)  # 0
     train_speed_reverse = Address(0x135FEC, size=4) # -143
-    train_speed_pointer = Address(0x13F578, size=4)  # + 0x94 to get actual train speed
+    train_speed_pointer = Address(0x13F578, size=3)  # + 0x94 to get actual train speed
 
     train_action = Address(0x2CA23C) # forest, but near train speed pointer
     train_gear = Address(0x2CA438)  # forest, find pointer
@@ -173,7 +173,7 @@ class STAddr:
     tos_boss_door_pointer = Address(0x265668, size=4)
 
     snurglin_keys = Address(0x2e986c)
-    snurglar_pointer = Address(0x0499F4, size=4)
+    snurglar_pointer = Address(0x0499F4, size=3)
     mountain_gate = Address(0x2e3640)
 
     # Stamps

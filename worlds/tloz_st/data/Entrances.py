@@ -136,7 +136,7 @@ ENTRANCE_DATA = {
         "return_name": "Shitate's Shop Exit",
         "exit": (0x29, 0xA, 0),
         "entrance": (0x29, 0x0, 3),
-        "exit_region": "lucia's house",
+        "exit_region": "shitate's shop",
         "entrance_region": "castle town",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.UP,
@@ -768,7 +768,7 @@ ENTRANCE_DATA = {
     "Goron Village Enter SE House": {
         "return_name": "Goron 2 Pots House Exit",
         "entrance_region": "goron plaza",
-        "exit_region": "goron neighbour's",
+        "exit_region": "goron neighbour's house",
         "entrance": (0x2e, 0x0, 0xE),
         "exit": (0x2e, 0xE, 0x1),
         "type": EntranceGroups.HOUSE,
@@ -1266,7 +1266,7 @@ ENTRANCE_DATA |= {
         "return_name": "Ocean Realm Papuzia Station",
         "exit": (0x6, 0x0, 0),
         "entrance": (0x2C, 0x0, 0),
-        "exit_region": "papuzia station",
+        "exit_region": "papuzia village station",
         "entrance_region": "papuzia",
         "reverse_required_groups": ["Tracks: Ocean Glyph"],
         "type": EntranceGroups.STATION,
@@ -1355,7 +1355,7 @@ ENTRANCE_DATA |= {
         "return_name": "Goron Village Board Train",
         "entrance_region": "goron village station",
         "exit_region": "goron village",
-        "entrance": (0x7, 0x0, 0x3),
+        "entrance": (0x7, 0x0, 0x0),
         "exit": (0x2E, 0x0, 0x0),
         "required_groups": [("Tracks: Fire Glyph", "Tracks: Fire Source")],
         "type": EntranceGroups.STATION,
@@ -2257,6 +2257,7 @@ ENTRANCE_DATA |= {
 ENTRANCES = STTransition.from_data(ENTRANCE_DATA)
 entrance_id_to_entrance = {e.id: e for e in ENTRANCES.values()}
 entrance_id_to_region = {e.id: e.entrance_region for e in ENTRANCES.values()}
+entrance_tuple_to_entrance: dict[tuple[int, int, int], STTransition] = {e.entrance: e for e in ENTRANCES.values()}
 
 location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox",
                          "Blizzard Temple Dungeon Reward": "EVENT: Defeat Fraaz",

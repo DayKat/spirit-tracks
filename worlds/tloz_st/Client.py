@@ -3,7 +3,7 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.Entrances import ENTRANCES, boss_events
+from .data.Entrances import ENTRANCES, boss_events, entrance_tuple_to_entrance
 from settings import get_settings
 from typing import Literal
 
@@ -230,7 +230,6 @@ class SpiritTracksClient(DSZeldaClient):
         self.boss_key_read = None
         self.snurglar_addr = None
         self.last_anticipated_locations = []
-        self.delay_room_action: int = 0
         self.saving = False
         self.saving_safety = False
 
@@ -374,7 +373,7 @@ class SpiritTracksClient(DSZeldaClient):
             read_keys += read_keys_train
             self.health_address = STAddr.train_health
 
-            train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+            train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx))
             printl(f"Train speed thingy {hex(train_speed_thingy)}")
             if 0x400000 > train_speed_thingy > 0:
                 self.train_speed_pointer = train_speed_thingy
@@ -407,7 +406,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.loading_stage = False
                 return mid_load
 
-        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0xFF]
+        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0x4, 0xFF]
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu: "Address" = read_result[STAddr.menu]
@@ -659,48 +658,19 @@ class SpiritTracksClient(DSZeldaClient):
     async def set_train_speed(self, ctx):
         await write_multiple(ctx, train_speed_addresses, self.train_speed)
         self.last_train_gear = -1  # force a quick speed increase
-        self.train_speed_pointer = (await STAddr.train_speed_pointer.read(ctx)) - 0x2000000
+        self.train_speed_pointer = await STAddr.train_speed_pointer.read(ctx)
         try:
             self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
+            self.train_gear_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_GEAR_OFFSET)
+            print(f"Setting gear addr {hex_f(self.train_gear_addr)}")
+            if self.train_gear_addr not in self.main_read_list:
+                self.main_read_list.append(self.train_gear_addr)
         except AssertionError:
             logger.warning(f"Tried to load train speed while not on train")
             return
 
     async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.anticipate_location(ctx, read_result)
-        if self.delay_room_action:
-            self.delay_room_action -= 1
-            if self.delay_room_action > 0:
-                return
-
-            # Set train speed stuff
-            if self.current_stage in range(4, 0xb):
-                await self.set_train_speed(ctx)
-
-            # Set Shop Models for on purchase
-            if self.current_scene in potion_location_lookup:
-                await self.set_shop_models(ctx, False)
-
-            # Lift item restrictions in TEAO boss rooms
-            if self.current_scene in range(0x4b00, 0x5000):
-                await STAddr.item_restrictions.overwrite(ctx, 0)
-
-            # Change respawn data in special scenes
-            if self.current_stage in special_respawn_stages:
-                await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
-                                     special_respawn_stages[self.current_stage])
-
-            # Change respawn data to outside tower section in ToS
-            if self.current_stage == 0x13:
-                section = TOS_FLOOR_TO_SECTION[self.current_room]
-                entrance = self.entrances[TOS_SECTION_TO_EXIT[section]]
-                reverse_entrance: "STTransition" = self.entrance_id_to_entrance[
-                    ctx.slot_data["er_pairings"][str(entrance.id)]] if str(entrance.id) in ctx.slot_data[
-                    "er_pairings"] else entrance.vanilla_reciprocal
-                respawn_data = reverse_entrance.entrance
-                printl(f"Setting ToS respawn room {respawn_data}")
-                await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
-                                     respawn_data)
 
         if self.display_goal:
             self.printl_goal_info(ctx)
@@ -709,6 +679,42 @@ class SpiritTracksClient(DSZeldaClient):
         if self.display_actors:
             await self.print_train_actors(ctx, self.display_actors)
             self.display_actors = 0
+
+    async def delay_room_action(self, ctx):
+        # Set train speed stuff
+        if self.current_stage in range(4, 0xb):
+            await self.set_train_speed(ctx)
+
+        # Set Shop Models for on purchase
+        if self.current_scene in potion_location_lookup:
+            await self.set_shop_models(ctx, False)
+
+        # Lift item restrictions in TEAO boss rooms
+        if self.current_scene in range(0x4b00, 0x5000):
+            await STAddr.item_restrictions.overwrite(ctx, 0)
+
+        # Change respawn data in special scenes
+        if self.current_stage in special_respawn_stages:
+            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                 special_respawn_stages[self.current_stage])
+
+        # Change respawn data to outside tower section in ToS
+        if self.current_stage == 0x13:
+            section = TOS_FLOOR_TO_SECTION[self.current_room]
+            entrance = self.entrances[TOS_SECTION_TO_EXIT[section]]
+            reverse_entrance: "STTransition" = self.entrance_id_to_entrance[
+                ctx.slot_data["er_pairings"][str(entrance.id)]] if str(entrance.id) in ctx.slot_data[
+                "er_pairings"] else entrance.vanilla_reciprocal
+            respawn_data = reverse_entrance.entrance
+            printl(f"Setting ToS respawn room {respawn_data}")
+            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                 respawn_data)
+
+        # Set up snurglar reads
+        if self.current_scene == 0x700:
+            await self.set_up_snurglar_data(ctx)
+        else:
+            self.snurglar_addr = None
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
@@ -1210,8 +1216,32 @@ class SpiritTracksClient(DSZeldaClient):
         printl(f"BK pointer from table read: {pointer_addr} -> {hex(pointer)} actor table: {actor_table}")
         return pointer_addr, pointer
 
+    async def set_up_snurglar_data(self, ctx):
+        self.snurglar_status = 0
+        snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
+
+        snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0)
+
+        printl(f"Tried snurglar flags @ {snurglar_flags}")
+        if not (0x400000 > snurglar_flags > 0):
+            return
+        self.snurglar_addr = snurglar_flags
+        for color in ["Gold", "Purple", "Orange"]:
+            self.watches[f"Snurglars {color} Key"] = snurglar_flags
+
+        if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
+            if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
+                    or not self.item_count(ctx, "Cannon")
+                    or all([LOCATIONS_DATA[i]['id'] in ctx.checked_locations for i in LOCATION_GROUPS["Snurglars"]])):
+                printl(f"Got Snurglar keys, opening mountain temple")
+                await self.snurglar_addr.overwrite(ctx, 0x30)
+            else:
+                printl(f"Got Snurglar keys, adding to main read list")
+                self.main_read_list.append(snurglar_flags)
+
     async def process_hard_coded_rooms(self, ctx, current_scene):
-        self.delay_room_action = 5
+        printl(f"Processing hard coded room stuff")
+
         if current_scene == 0x2f00 and not await STAddr.set_starting_train.read(ctx) & 4:
             await self.set_starting_train(ctx)
             await STAddr.set_starting_train.set_bits(ctx, 4)
@@ -1267,27 +1297,6 @@ class SpiritTracksClient(DSZeldaClient):
         else:
             self.boss_key_y, self.boss_key_read = None, None
 
-        if current_scene == 0x700:
-            snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
-
-            snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0 - 0x2000000)
-            self.snurglar_addr = snurglar_flags
-            printl(f"Got snurglar flags @ {snurglar_flags}")
-            for color in ["Gold", "Purple", "Orange"]:
-                self.watches[f"Snurglars {color} Key"] = snurglar_flags
-
-            if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
-                if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
-                        or not self.item_count(ctx, "Cannon")
-                        or all([LOCATIONS_DATA[i]['id'] in ctx.checked_locations for i in LOCATION_GROUPS["Snurglars"]])):
-                    printl(f"Got Snurglar keys, opening mountain temple")
-                    await self.snurglar_addr.overwrite(ctx, 0x30)
-                else:
-                    printl(f"Got Snurglar keys, adding to main read list")
-                    self.main_read_list.append(snurglar_flags)
-        else:
-            self.snurglar_addr = None
-
         if current_scene not in potion_location_lookup:
             treasure = None
             if ctx.slot_data["excess_random_treasure"] == 2:
@@ -1339,7 +1348,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_train_speed(self, ctx, read_result):
         if self.current_stage in range(4, 0xb):
-            if not hasattr(self, "train_speed_addr"):
+            if not hasattr(self, "train_speed_addr") or not hasattr(self, "train_gear_addr"):
                 await self.set_train_speed(ctx)
 
             instant_switch = False
@@ -1348,7 +1357,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.update_train_speed = False
                 instant_switch = True
 
-            current_gear = read_result[self.train_gear_addr]
+            current_gear = read_result.get(self.train_gear_addr, 0)
             if current_gear != self.last_train_gear or instant_switch:
                 self.last_train_gear = current_gear
 
@@ -1555,3 +1564,10 @@ class SpiritTracksClient(DSZeldaClient):
             self.starting_entrance = (0x2F, 0, 1)
         else:
             self.starting_entrance = (0x2F, 0xA, 1)
+
+    async def conditional_bounce(self, ctx, scene: int, entrance: int) -> "STTransition" or None:
+        e_tuple = ((scene & 0xFF00) >> 8, scene & 0xFF, entrance)
+        current_destination = entrance_tuple_to_entrance.get(e_tuple)
+        if current_destination and not await self.conditional_er(ctx, current_destination):
+            return current_destination.vanilla_reciprocal
+        return None

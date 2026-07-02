@@ -484,7 +484,7 @@ class SpiritTracksShuffleHouses(Choice):
     """
     Shuffle entrances to houses. Hyrule castle is shuffled separately.
     All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
-    Adds 58 (unpaired) entrances.
+    Adds 62 (unpaired) entrances.
     """
     display_name = "Shuffle Houses"
     option_no_shuffle = 0
