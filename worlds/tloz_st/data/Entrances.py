@@ -18,7 +18,7 @@ ENTRANCE_DATA = {
     # }
 
     # Outset
-    "Mayscore West House": {
+    "Outset West House": {
         "return_name": "Niko's House Exit",
         "exit": (0x2F, 0xA, 1),
         "entrance": (0x2F, 0x0, 1),
@@ -28,17 +28,17 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Mayscore East House": {
+    "Outset East House": {
         "return_name": "Mary's House Exit",
         "exit": (0x2F, 0xC, 0),
         "entrance": (0x2F, 0x0, 3),
-        "exit_region": "niko's house",
+        "exit_region": "mary's house",
         "entrance_region": "outset village",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Mayscore Enter Trainyard": {
+    "Outset Enter Trainyard": {
         "return_name": "Alfonzo's Workshop Exit",
         "exit": (0x2F, 0xB, 0),
         "entrance": (0x2F, 0x0, 2),
@@ -84,7 +84,7 @@ ENTRANCE_DATA = {
         "return_name": "Uriko's Shop Exit",
         "exit": (0x2A, 0x5, 0),
         "entrance": (0x2A, 0x0, 1),
-        "exit_region": "mayscore shop",
+        "exit_region": "uriko's shop",
         "entrance_region": "mayscore",
         "type": EntranceGroups.HOUSE,
         "direction": EntranceGroups.UP,
@@ -229,7 +229,7 @@ ENTRANCE_DATA = {
         "exit": (0x28, 0x2, 1),
         "entrance": (0x28, 0x0, 4),
         "exit_region": "hyrule castle 2f",
-        "entrance_region": "hyrule castle roof",
+        "entrance_region": "hyrule castle roof right",
         "type": EntranceGroups.CASTLE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -298,7 +298,7 @@ ENTRANCE_DATA = {
         "return_name": "Hyrule Castle Backyard Castle",
         "exit": (0x28, 0x4, 0),
         "entrance": (0x28, 0x1, 6),
-        "exit_region": "hyrule castle 2f",
+        "exit_region": "hyrule castle backyard",
         "entrance_region": "hyrule castle backdoor",
         "type": EntranceGroups.CASTLE,
         "direction": EntranceGroups.UP,
@@ -329,8 +329,8 @@ ENTRANCE_DATA = {
         "return_name": "Tunnel to the Tower 3F Exit",
         "exit": (0x18, 0x2, 0),
         "entrance": (0x18, 0x1, 1),
-        "exit_region": "tower tunnel 2f door",
-        "entrance_region": "tower tunnel 3f",
+        "exit_region": "tower tunnel 3f",
+        "entrance_region": "tower tunnel 2f door",
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -341,7 +341,7 @@ ENTRANCE_DATA = {
         "return_name": "Gage's Sanctuary Exit",
         "entrance": (0x30, 0, 1),
         "exit": (0x30, 0x1, 0),
-        "entrance_region": "woodland sanc",
+        "entrance_region": "woodland sanc door",
         "exit_region": "woodland sanc sanc",
         "type": EntranceGroups.CAVE,
         "direction": EntranceGroups.UP,
@@ -1643,6 +1643,7 @@ ENTRANCE_DATA |= {
         "exit": (0x4, 0x0, 6),
         "entrance_region": "tos",
         "exit_region": "tos forest station",
+        "reverse_required_groups": [("Tracks: Forest Glyph", "Tracks: Forest Source")],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
@@ -1653,6 +1654,7 @@ ENTRANCE_DATA |= {
         "exit": (0x5, 0x0, 6),
         "entrance_region": "tos",
         "exit_region": "tos snow station",
+        "reverse_required_groups": ["Tracks: Snow Source"],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
@@ -1663,6 +1665,7 @@ ENTRANCE_DATA |= {
         "exit": (0x6, 0x0, 4),
         "entrance_region": "tos",
         "exit_region": "tos ocean station",
+        "reverse_required_groups": ["Tracks: Ocean Source"],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
@@ -1673,6 +1676,7 @@ ENTRANCE_DATA |= {
         "exit": (0x7, 0x0, 2),
         "entrance_region": "tos",
         "exit_region": "tos fire station",
+        "reverse_required_groups": ["Tracks: Fire Source"],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE

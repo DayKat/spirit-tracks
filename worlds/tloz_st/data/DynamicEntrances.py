@@ -466,8 +466,9 @@ DYNAMIC_ENTRANCES = {
         "message": "There are no tracks on the other side!"
     },
     "Prevent softlock in papuzia south": {
-        "entrance": "South Papuzia North",
-        "destination": "Papuzia NW House"
+        "entrance": "Papuzia Archipelago North",
+        "destination": "Papuzia NW House",
+        "has_slot_data": [("shuffle_overworld", 0)]
     },
     "Prevent softlock in icy spring with ferrus": {
         "entrance": "Icy Spring Train",

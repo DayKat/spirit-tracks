@@ -120,7 +120,7 @@ class SpiritTracksWorld(WorldParent):
     item_name_to_id = build_item_name_to_id_dict()
     item_name_groups = ITEM_GROUPS
     location_name_groups = LOCATION_GROUPS
-    origin_region_name = "outset village"
+    origin_region_name = "menu"
     glitches_item_name = "_UT_Glitched_Logic"
     ut_can_gen_without_yaml = True
     tracker_world = {"map_page_folder": "tracker",
@@ -213,7 +213,8 @@ class SpiritTracksWorld(WorldParent):
             if self.options.shuffle_stations.value:  # Don't want to deal with this yet
                 self.options.tos_unlock_base_item.value = 0
             # print(f"Rabbit items: {self.rabbit_item_dict}")
-
+            if "all" in self.options.entrance_directionality.value:
+                self.options.entrance_directionality.value = set(self.options.entrance_directionality.valid_keys)
             self.plando_tos_sections()
             # print(f"Tower Sections: {self.tower_section_lookup}")
             self.track_items = self.choose_track_items()
@@ -1332,11 +1333,12 @@ class SpiritTracksWorld(WorldParent):
         print("no of entrances:", len(entrances_to_shuffle))
 
         # Get pool data
-        pools = [[]]*3
+        pools = [[], [], []]
         for a, option in type_option_lookup.items():
             pool_norm = option.value - 2
             if 0 <= pool_norm <= 2:
                 pools[pool_norm].append(a)
+            print(pools)
 
         # self.random.shuffle(directionless_entrances)  oh no need to care about pools at this stage...
 
@@ -1598,6 +1600,10 @@ class SpiritTracksWorld(WorldParent):
                    "randomize_stamps",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections", "tos_shortcuts",
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
+                   "shuffle_stations", "shuffle_overworld",  # used to disable dynamic flags
+                   "shuffle_hyrule_castle",  # prevent zelda warp
+                   "shuffle_eote",  # include eote locs if shuffled
+                   "shuffle_train_transitions",  # for desert rocktite cannon logic lol
                    "death_link"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]

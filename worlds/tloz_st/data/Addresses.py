@@ -41,6 +41,7 @@ class STAddr:
     
     menu = Address(0x260958)
     equipped_item = Address(0x265318, size=4)
+    flip_clog = Address(0x04C3DC)
     
     health = Address(0x2651BC)
     heart_count = Address(0x2651BD)

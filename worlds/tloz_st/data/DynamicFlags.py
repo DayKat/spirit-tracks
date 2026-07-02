@@ -1224,6 +1224,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Prevent Kenzo from leaving TP snow glyph": {
         "on_scenes": [0x3700],
         "not_has_groups": ["Tracks: Snow Glyph"],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
     "Prevent Kenzo from leaving TP randomize": {
@@ -2377,7 +2378,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Add fire glyph in tos lobby if station shuffle": {
         "on_scenes": [0x1400, 0x1401],
-        "has_slot_data": [("shuffle_stations", [1, 2, 3, 4, 5, 6])],
+        "has_slot_data": [("shuffle_stations", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_2, 4)],
         "reset_flags": ["RESET not has fire glyph"]
     },
@@ -2530,6 +2531,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "RESET anjean cs": {
         "set_if_true": [(STAddr.adv_flags_0, 0x4)],
+    },
+    "Prevent zelda warp": {
+        "on_scenes": [0x2802],
+        "has_slot_data": [("shuffle_hyrule_castle", 0, "not")],
+        "set_if_true": [(STAddr.adv_flags_6, 0x10)],
     }
 }
 

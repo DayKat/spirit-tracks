@@ -9,7 +9,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
     overworld_logic = [
 
         # ====== Outset Village ==============
-
+        ["menu", "niko's house", False, None],
         #[region 1, region 2, two-directional, logic requirements],
         ["outset village", "outset station", False, None],
         ["outset station", "outset village", False, has_glyph("Forest")],
@@ -318,9 +318,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["woodland sanc", "woodland sanc station", False, None],
         ["woodland sanc", "woodland sanc stamp station", False, has_stamp_book],
         ["woodland sanc", "woodland sanc song statue", False, has_spirit_flute],
-        ["woodland sanc", "woodland sanc sanc", True, None],
+        ["woodland sanc", "woodland sanc door", False, None],
+        ["woodland sanc door", "woodland sanc sanc", True, None],
         ["woodland sanc sanc", "woodland sanc duet", False, has_spirit_flute],
-        ["woodland sanc", "woodland sanc chest", False, has_cuccos],
+        ["woodland sanc", "woodland sanc chest", False, has_cuccos], 
 
         # # ======== Wooded Temple =========
 

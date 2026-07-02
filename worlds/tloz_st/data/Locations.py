@@ -2496,7 +2496,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Ends of the Earth"],
         "minigame": [1, 3, 4],
         "conditional": True,
-        "slot_data": [("randomize_minigames", [1, 3, 4])],
+        "any_slot_data": [("randomize_minigames", [1, 3, 4]), ("shuffle_eote", [1, 2, 3, 4])],
     },
     "Ends of the Earth Master Small Chest": {
         "stage_id": 0x41,
@@ -2506,7 +2506,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Ends of the Earth"],
         "minigame": [1, 3, 4],
         "conditional": True,
-        "slot_data": [("randomize_minigames", [1, 3, 4])],
+        "any_slot_data": [("randomize_minigames", [1, 3, 4]), ("shuffle_eote", [1, 2, 3, 4])],
     },
     "Ends of the Earth Tempered Big Chest": {
         "stage_id": 0x41,
@@ -2516,7 +2516,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Ends of the Earth"],
         "minigame": [2, 3, 4],
         "conditional": True,
-        "slot_data": [("randomize_minigames", [2, 3, 4])],
+        "any_slot_data": [("randomize_minigames", [2, 3, 4]), ("shuffle_eote", [1, 2, 3, 4])],
     },
     "Ends of the Earth Tempered Small Chest": {
         "stage_id": 0x41,
@@ -2526,7 +2526,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Ends of the Earth"],
         "minigame": [2, 3, 4],
         "conditional": True,
-        "slot_data": [("randomize_minigames", [2, 3, 4])],
+        "any_slot_data": [("randomize_minigames", [2, 3, 4]), ("shuffle_eote", [1, 2, 3, 4])],
     },
     "Ends of the Earth Golden Big Chest": {
         "stage_id": 0x41,
@@ -2536,7 +2536,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Ends of the Earth"],
         "minigame": [4, 5],
         "conditional": True,
-        "slot_data": [("randomize_minigames", [4, 5])],
+        "any_slot_data": [("randomize_minigames", [4, 5]), ("shuffle_eote", [1, 2, 3, 4])],
     },
     "Ends of the Earth Golden Small Chest": {
         "stage_id": 0x41,
@@ -2546,7 +2546,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Ends of the Earth"],
         "minigame": [4, 5],
         "conditional": True,
-        "slot_data": [("randomize_minigames", [4, 5])],
+        "any_slot_data": [("randomize_minigames", [4, 5]), ("shuffle_eote", [1, 2, 3, 4])],
     },
 
     # ========= Sand Realm ==========

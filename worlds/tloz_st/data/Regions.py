@@ -1,6 +1,7 @@
 REGIONS = [
     "goal",
     "beat required dungeons",
+    "menu",
 
     # Forest Realm
     "forest realm",
@@ -234,6 +235,7 @@ REGIONS = [
 
     # Forest Sanctuary
     "woodland sanc",
+    "woodland sanc door",
     "woodland sanc sanc",
     "woodland sanc duet",
     "woodland sanc station",

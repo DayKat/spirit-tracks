@@ -299,6 +299,8 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def set_special_starting_flags(self, ctx: "BizHawkClientContext") -> list[tuple[int, list, str]]:
         res = []
+        if ctx.slot_data.get("shuffle_hyrule_castle", 0) > 0:
+            res.append(STAddr.adv_flags_6.get_inner_write_list(0xFC))
         return res
 
     def get_coord_address(self, at_sea=None, multi=False):
@@ -405,7 +407,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.loading_stage = False
                 return mid_load
 
-        return not read_result.get(STAddr.loading_room, 27)
+        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0xFF]
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu: "Address" = read_result[STAddr.menu]
@@ -645,6 +647,15 @@ class SpiritTracksClient(DSZeldaClient):
         await self.process_train_speed(ctx, read_result)
         await self.detect_ut_event(ctx, self.current_scene)
 
+        if read_result[STAddr.menu] == 9:
+            clog = await STAddr.flip_clog.read(ctx, silent=True)
+            if clog == 0x14 and not self.warp_to_start_flag:
+                self.warp_to_start_flag = True
+                logger.info(f"Primed a warp to start. Enter any entrance or save and quit warp to Outset")
+            elif clog == 0 and self.warp_to_start_flag:
+                self.warp_to_start_flag = False
+                logger.info("Canceled warp to start.")
+
     async def set_train_speed(self, ctx):
         await write_multiple(ctx, train_speed_addresses, self.train_speed)
         self.last_train_gear = -1  # force a quick speed increase
@@ -708,7 +719,6 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Opening Mountain Temple! {self.snurglar_addr}")
                 await self.snurglar_addr.set_bits(ctx, 0x10)
                 self.main_read_list.remove(self.snurglar_addr)
-
 
     async def anticipate_location(self, ctx: "BizHawkClientContext", read_result: dict):
         if read_result[STAddr.stage] < 0x13 or self.getting_location:
@@ -1539,3 +1549,9 @@ class SpiritTracksClient(DSZeldaClient):
             er_map.setdefault(0x600, {})[rocktite_entrance] = detect_data
 
         return er_map
+
+    async def enter_game(self, ctx):
+        if ctx.slot_data.get("shuffle_houses", 0) > 0:
+            self.starting_entrance = (0x2F, 0, 1)
+        else:
+            self.starting_entrance = (0x2F, 0xA, 1)
