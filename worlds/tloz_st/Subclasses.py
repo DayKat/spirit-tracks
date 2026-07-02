@@ -267,8 +267,10 @@ class EntranceGroups(IntEnum):
     TOS_ROOM = 13 << 3
     TOS_LOBBY = 14 << 3
     CASTLE = 15 << 3
+    DISORIENTATION = 16 << 3
+    EOTE = 17 << 3
 
-    AREA_MASK = 0xF << 3
+    AREA_MASK = 0x1F << 3
     DIRECTION_MASK = 0x7
 
     def __str__(self):

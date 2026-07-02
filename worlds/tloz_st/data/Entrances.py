@@ -690,6 +690,411 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
+    "Dune Sanctuary Secret Staircase": {
+        "return_name": "Sandy Tunnel Right Staircase",
+        "entrance_region": "sand sanc",
+        "exit_region": "sand sanc tunnel",
+        "entrance": (0x34, 0x0, 0x1),
+        "exit": (0x34, 0x1, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Rael's Sanctuary Exit": {
+        "return_name": "Sandy Tunnel Left Entrance",
+        "entrance_region": "sand sanc",
+        "exit_region": "sand sanc tunnel",
+        "entrance": (0x34, 0x2, 0x0),
+        "exit": (0x34, 0x1, 0x1),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Fire realm
+
+    # Goron village
+    "Goron Village West": {
+        "return_name": "Goron Field East",
+        "entrance_region": "goron village",
+        "exit_region": "goron field",
+        "entrance": (0x2e, 0x0, 0x3),
+        "exit": (0x2d, 0x3, 0x1),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.LEFT,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Field North": {
+        "return_name": "Mountain Altar South",
+        "entrance_region": "goron field north",
+        "exit_region": "mountain altar",
+        "entrance": (0x2d, 0x3, 0x2),
+        "exit": (0x2d, 0x2, 0x1),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    "Goron Village Enter Shop": {
+        "return_name": "Goron Shop Exit",
+        "entrance_region": "goron village",
+        "exit_region": "goron village shop",
+        "entrance": (0x2e, 0x0, 0x2),
+        "exit": (0x2e, 0x6, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enter SW House": {
+        "return_name": "Goron 3 Pots House Exit",
+        "entrance_region": "goron plaza",
+        "exit_region": "goron house 3 pots",
+        "entrance": (0x2e, 0x0, 0xc),
+        "exit": (0x2e, 0xc, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enter Center House": {
+        "return_name": "Kofu's New House Exit",
+        "entrance_region": "goron plaza",
+        "exit_region": "kofu's new house",
+        "entrance": (0x2e, 0x0, 0xD),
+        "exit": (0x2e, 0xD, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enter SE House": {
+        "return_name": "Goron 2 Pots House Exit",
+        "entrance_region": "goron plaza",
+        "exit_region": "goron neighbour's",
+        "entrance": (0x2e, 0x0, 0xE),
+        "exit": (0x2e, 0xE, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enter Elder's House": {
+        "return_name": "Elder Goron House Exit",
+        "entrance_region": "goron plaza",
+        "exit_region": "goron elder's house",
+        "entrance": (0x2e, 0x0, 0xA),
+        "exit": (0x2e, 0xA, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enter NW House": {
+        "return_name": "Mouldy Goron House Exit",
+        "entrance_region": "goron plaza",
+        "exit_region": "mouldy goron house",
+        "entrance": (0x2e, 0x0, 0xB),
+        "exit": (0x2e, 0xB, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enter East Lava House": {
+        "return_name": "Lava Goron House Exit",
+        "entrance_region": "goron ice 2",
+        "exit_region": "comfy goron's house",
+        "entrance": (0x2e, 0x0, 0xF),
+        "exit": (0x2e, 0xF, 0x1),
+        "type": EntranceGroups.HOUSE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    "Elder Goron House Enter Cave": {
+        "return_name": "Burning Tunnel West Exit",
+        "entrance_region": "goron elder's house",
+        "exit_region": "valley sanc tunnel west",
+        "entrance": (0x2e, 0xA, 0x2),
+        "exit": (0x2e, 0x1, 0x1),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enclave Staircase": {
+        "return_name": "Burning Tunnel East Staircase",
+        "entrance_region": "goron village north",
+        "exit_region": "valley sanc tunnel east",
+        "entrance": (0x2e, 0x0, 0x5),
+        "exit": (0x2e, 0x1, 0x2),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Goron Village Enclave North": {
+        "return_name": "Valley Sanctuary South",
+        "entrance_region": "goron village north",
+        "exit_region": "valley sanc",
+        "entrance": (0x2e, 0x0, 0x4),
+        "exit": (0x33, 0x0, 0x1),
+        "type": EntranceGroups.OVERWORLD,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Valley Sanctuary Cave": {
+        "return_name": "Embrose's Sanctuary Exit",
+        "entrance_region": "valley sanc door",
+        "exit_region": "valley sanc sanc",
+        "entrance": (0x33, 0x0, 0x2),
+        "exit": (0x33, 0x3, 0x1),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Dark Ore Mine
+    "Dark Ore Mine Left Cave": {
+        "return_name": "Dark Ore Tunnels Left Exit",
+        "entrance_region": "dark ore mine",
+        "exit_region": "dark ore tunnels left",
+        "entrance": (0x3D, 0x0, 0x3),
+        "exit": (0x3D, 0x1, 0x2),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Dark Ore Mine Center Cave": {
+        "return_name": "Dark Ore Tunnels Center Exit",
+        "entrance_region": "dark ore mine",
+        "exit_region": "dark ore tunnels mid",
+        "entrance": (0x3D, 0x0, 0x2),
+        "exit": (0x3D, 0x1, 0x1),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Dark Ore Mine Right Cave": {
+        "return_name": "Dark Ore Tunnels Right Exit",
+        "entrance_region": "dark ore mine",
+        "exit_region": "dark ore tunnels right",
+        "entrance": (0x3D, 0x0, 0x4),
+        "exit": (0x3D, 0x1, 0x3),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    # Disorientation Station
+    "Disorientation Station Cave": {
+        "return_name": "Disorientation 5 Staircase",
+        "entrance_region": "disorientation top",
+        "exit_region": "d5",
+        "entrance": (0x40, 0x0, 0x1),
+        "exit": (0x40, 0x5, 0x5),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "D8 Up": {
+        "return_name": "D2 Down",
+        "entrance_region": "d8",
+        "exit_region": "d2",
+        "entrance": (0x40, 0x8, 0x1),
+        "exit": (0x40, 0x2, 0x3),
+        "type": EntranceGroups.DISORIENTATION,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    }
+}
+
+ENTRANCE_DATA |= {  # Horizontal
+    f"D{i+3*j} Right": {
+        "return_name": f"D{i+3*j+1} Left",
+        "entrance_region": f"d{i+3*j}",
+        "exit_region": f"d{i+3*j+1}",
+        "entrance": (0x40, i+3*j, 0x4),
+        "exit": (0x40, i+3*j+1, 0x2),
+        "type": EntranceGroups.DISORIENTATION,
+        "direction": EntranceGroups.RIGHT,
+        "island": EntranceGroups.NONE
+    } for i in range(1, 4) for j in range(2)
+}
+ENTRANCE_DATA |= { # Horizontal looping
+    f"D{3+3*j} Right": {
+        "return_name": f"D{1+3*j} Left",
+        "entrance_region": f"d{3+3*j}",
+        "exit_region": f"d{1+3*j}",
+        "entrance": (0x40, 3+3*j, 0x4),
+        "exit": (0x40, 3*j+1, 0x2),
+        "type": EntranceGroups.DISORIENTATION,
+        "direction": EntranceGroups.RIGHT,
+        "island": EntranceGroups.NONE
+    } for j in range(3)
+}
+ENTRANCE_DATA |= { # Vertical
+    f"D{i+3*j} Up": {
+        "return_name": f"D{i+3*j+3} Down",
+        "entrance_region": f"d{i+3*j}",
+        "exit_region": f"d{i+3*j+3}",
+        "entrance": (0x40, i+3*j, 0x1),
+        "exit": (0x40, i+3*j+3, 0x3),
+        "type": EntranceGroups.DISORIENTATION,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    } for i in range(1, 4) for j in range(2)
+}
+
+ENTRANCE_DATA |= {
+    # Ends of the Earth
+    "Ends of the Earth Master Cave": {
+        "return_name": "EotE 1 Exit",
+        "entrance_region": "ends of the earth",
+        "exit_region": "eote 1",
+        "entrance": (0x41, 0x0, 0x2),
+        "exit": (0x41, 0x1, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Ends of the Earth Tempered Cave": {
+        "return_name": "EotE 5 Exit",
+        "entrance_region": "ends of the earth",
+        "exit_region": "eote 5",
+        "entrance": (0x41, 0x0, 0x1),
+        "exit": (0x41, 0x5, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Ends of the Earth Golden Cave": {
+        "return_name": "EotE 9 Exit",
+        "entrance_region": "ends of the earth",
+        "exit_region": "eote 9",
+        "entrance": (0x41, 0x0, 0x3),
+        "exit": (0x41, 0x9, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    "EotE 1 Lower Entrance": {
+        "return_name": "EotE 2 Exit",
+        "entrance_region": "eote 1",
+        "exit_region": "eote 2",
+        "entrance": (0x41, 0x1, 0x1),
+        "exit": (0x41, 0x2, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE 2 Door": {
+        "return_name": "EotE 3 Exit",
+        "entrance_region": "eote 2",
+        "exit_region": "eote 3",
+        "entrance": (0x41, 0x2, 0x1),
+        "exit": (0x41, 0x3, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE 3 Door": {
+        "return_name": "EotE 4 Exit",
+        "entrance_region": "eote 3",
+        "exit_region": "eote 4",
+        "entrance": (0x41, 0x3, 0x1),
+        "exit": (0x41, 0x4, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE 1 Upper Entrance": {
+        "return_name": "EotE 4 Chest Exit",
+        "entrance_region": "eote 1 chest",
+        "exit_region": "eote 4 chest",
+        "entrance": (0x41, 0x1, 0x2),
+        "exit": (0x41, 0x4, 0x1),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    "EotE 5 Lower Entrance": {
+        "return_name": "EotE 6 Exit",
+        "entrance_region": "eote 5",
+        "exit_region": "eote 6",
+        "entrance": (0x41, 0x5, 0x1),
+        "exit": (0x41, 0x6, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE 6 Door": {
+        "return_name": "EotE 7 Exit",
+        "entrance_region": "eote 6",
+        "exit_region": "eote 7",
+        "entrance": (0x41, 0x6, 0x1),
+        "exit": (0x41, 0x7, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE 7 Door": {
+        "return_name": "EotE 8 Exit",
+        "entrance_region": "eote 7",
+        "exit_region": "eote 8",
+        "entrance": (0x41, 0x7, 0x1),
+        "exit": (0x41, 0x8, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE 5 Upper Entrance": {
+        "return_name": "EotE 8 Chest Exit",
+        "entrance_region": "eote 5 chest",
+        "exit_region": "eote 8 chest",
+        "entrance": (0x41, 0x5, 0x2),
+        "exit": (0x41, 0x8, 0x1),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
+    "EotE 9 Lower Entrance": {
+        "return_name": "EotE A Exit",
+        "entrance_region": "eote 9",
+        "exit_region": "eote a",
+        "entrance": (0x41, 0x9, 0x1),
+        "exit": (0x41, 0xa, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE A Door": {
+        "return_name": "EotE B Exit",
+        "entrance_region": "eote a",
+        "exit_region": "eote b",
+        "entrance": (0x41, 0xa, 0x1),
+        "exit": (0x41, 0xb, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE B Door": {
+        "return_name": "EotE C Exit",
+        "entrance_region": "eote b",
+        "exit_region": "eote c",
+        "entrance": (0x41, 0xb, 0x1),
+        "exit": (0x41, 0xc, 0x0),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "EotE 9 Upper Entrance": {
+        "return_name": "EotE C Chest Exit",
+        "entrance_region": "eote 9 chest",
+        "exit_region": "eote c chest",
+        "entrance": (0x41, 0x9, 0x2),
+        "exit": (0x41, 0xc, 0x1),
+        "type": EntranceGroups.EOTE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+
 
     # ==== Overworld ====
     "Outset Board Train": {

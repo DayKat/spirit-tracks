@@ -2166,17 +2166,17 @@ LOCATIONS_DATA = {
 
     # ========= Fire Realm ==========
     # Goron Villaga
-    "Goron Village West Steel Chest": {  # Used for a delay pickup to make sure the key gets removed
+    "Goron Field Steel Chest": {  # Used for a delay pickup to make sure the key gets removed
         "stage_id": 0x2D,
         "room_id": 0x3,
         "z_max": 20000,
         "z_min": 0,
         "x_min": 50000,
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
-        "region_id": "goron village",
+        "region_id": "goron field",
         "location_groups": ["Goron Village"],
     },
-    "Goron Village West Stamp Station": {
+    "Goron Field Stamp Station": {
         "stage_id": 0x2D,
         "room_id": 0x3,
         "stamp": 0x9,
@@ -2185,22 +2185,22 @@ LOCATIONS_DATA = {
         "conditional": True,
         "location_groups": ["Goron Village"],
     },
-    "Goron Village West NE Chest": {
+    "Goron Field NE Chest": {
         "stage_id": 0x2D,
         "room_id": 0x3,
         "z_max": -55000,
         "x_min": 95000,
-        "region_id": "goron whip",
+        "region_id": "goron field ne",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Goron Village"],
     },
-    "Goron Village West Center Chest": {
+    "Goron Field Center Chest": {
         "stage_id": 0x2D,
         "room_id": 0x3,
         "z_min": 15000,
         "x_max": 20000,
         "x_min": 5000,
-        "region_id": "goron whip",
+        "region_id": "goron field ne",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Goron Village"],
     },
@@ -2222,7 +2222,7 @@ LOCATIONS_DATA = {
         "room_id": 0x0,
         "y": 14746,
         "x_max": -45000,
-        "region_id": "goron ice event",
+        "region_id": "goron plaza",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Goron Village"],
     },
@@ -2234,7 +2234,7 @@ LOCATIONS_DATA = {
         "y": 4915,
         "x_max": -15000,
         "x_min": -35000,
-        "region_id": "valley sanc tunnel",
+        "region_id": "valley sanc tunnel east",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Valley Sanctuary", "Goron Village"],
     },
@@ -2243,7 +2243,7 @@ LOCATIONS_DATA = {
         "room_id": 0x0,
         "x_max": -85000,
         "z_max": -50000,
-        "region_id": "valley sanc",
+        "region_id": "valley sanc upper",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "location_groups": ["Valley Sanctuary"],
     },
@@ -2457,7 +2457,7 @@ LOCATIONS_DATA = {
     },
     "Disorientation Station Climb Chest": {
         "stage_id": 0x40,
-        "region_id": "disorientation bird",
+        "region_id": "disorientation top",
         "x_max": -85000,
         "z_min": -10000,
         "vanilla_item": "Red Rupee (20)",
@@ -2465,7 +2465,7 @@ LOCATIONS_DATA = {
     },
     "Disorientation Station Cliff Chest": {
         "stage_id": 0x40,
-        "region_id": "disorientation bird",
+        "region_id": "disorientation top",
         "x_min": 55000,
         "z_max": -40000,
         "vanilla_item": "Big Green Rupee (100)",
@@ -2482,7 +2482,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x40,
         "x_max": -55000,
         "z_max": -30000,
-        "region_id": "disorientation sod",
+        "region_id": "disorientation gift",
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Disorientation Station"],
     },
@@ -2491,7 +2491,7 @@ LOCATIONS_DATA = {
     "Ends of the Earth Master Big Chest": {
         "stage_id": 0x41,
         "room_id": 0x4,
-        "region_id": "eote puzzles",
+        "region_id": "eote 4 chest",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "location_groups": ["Ends of the Earth"],
         "minigame": [1, 3, 4],
@@ -2501,7 +2501,7 @@ LOCATIONS_DATA = {
     "Ends of the Earth Master Small Chest": {
         "stage_id": 0x41,
         "room_id": 0x1,
-        "region_id": "eote puzzles",
+        "region_id": "eote 1 chest",
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
         "minigame": [1, 3, 4],
@@ -2511,7 +2511,7 @@ LOCATIONS_DATA = {
     "Ends of the Earth Tempered Big Chest": {
         "stage_id": 0x41,
         "room_id": 0x8,
-        "region_id": "eote puzzles",
+        "region_id": "eote 8 chest",
         "vanilla_item": "Heart Container",
         "location_groups": ["Ends of the Earth"],
         "minigame": [2, 3, 4],
@@ -2521,7 +2521,7 @@ LOCATIONS_DATA = {
     "Ends of the Earth Tempered Small Chest": {
         "stage_id": 0x41,
         "room_id": 0x5,
-        "region_id": "eote puzzles",
+        "region_id": "eote 5 chest",
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
         "minigame": [2, 3, 4],
@@ -2531,7 +2531,7 @@ LOCATIONS_DATA = {
     "Ends of the Earth Golden Big Chest": {
         "stage_id": 0x41,
         "room_id": 0xC,
-        "region_id": "eote puzzles",
+        "region_id": "eote c chest",
         "vanilla_item": "Treasure: Regal Ring",
         "location_groups": ["Ends of the Earth"],
         "minigame": [4, 5],
@@ -2541,7 +2541,7 @@ LOCATIONS_DATA = {
     "Ends of the Earth Golden Small Chest": {
         "stage_id": 0x41,
         "room_id": 0x9,
-        "region_id": "eote puzzles",
+        "region_id": "eote 9 chest",
         "vanilla_item": "Big Green Rupee (100)",
         "location_groups": ["Ends of the Earth"],
         "minigame": [4, 5],

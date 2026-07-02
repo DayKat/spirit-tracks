@@ -641,11 +641,13 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("wise one buy vessel", "_buy_vessel")
             self.create_event("dark ore mine ore", "_buy_ore")
             self.create_event("goron steel", "_buy_steel")
-        # UT Events
+        # Logic Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck event", "_can_sell_treasure")
         self.create_event("goron ice event", "_goron_ice")  # Used for GTR
+        self.create_event("kagoron event", "_visit_kagoron")
         self.create_event("papuzia village song statue", "_papuzia_sob")
+        self.create_event("disorientation sod", "_disorientation_chest")
         if self.options.randomize_passengers.value:
             self.create_event("delivered ferrus", "_delivered_ferrus")
             self.create_event("av goron", "_av_goron")

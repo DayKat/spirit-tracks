@@ -729,30 +729,69 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["goron village station", "goron village", False, None],
         ["fire source", "goron village station", True, has_source("Fire")],
 
-        ["goron village", "goron whip", False, has_whip],
-        ["goron whip", "goron village stamp", False, has_stamp_book],
-        ["goron ice event", "valley sanc tunnel", False, has_whip],
-        ["valley sanc tunnel", "valley sanc", False, has_boomerang],
-        ["valley sanc", "valley sanc stamp", False, has_stamp_book],
-        ["valley sanc", "valley sanc song", False, has_sol],
-        ["goron ice event", "pick up gorons", False, has_glyph("Snow")],
-        ["goron ice event", "gv kofu", False, has_passenger("Kofu", "_kofu")],
+        ["goron village", "goron village shop", True, None],
+        ["goron village", "goron village kagoron", False, Has("_visit_kagoron")],
 
-        ["goron village", "goron ice", False, None]
-            if world.options.randomize_cargo == "no_cargo" else (
-            ["goron whip", "goron ice", False, has_cargo("Mega Ice", "_buy_ice")]
-                if world.options.randomize_cargo.value in [1, 2] else
-                ["goron whip", "goron ice", False, has_wagon & (
-                    Has("Cargo: Mega Ice", 2) | (
-                        Has("Cargo: Mega Ice", 1) & ool))]
-        ),
+        ["goron village", "goron field", True, None],
+        ["goron field", "goron whip", False, has_whip],
+        ["goron whip", "goron field north", False, None],
+        ["goron field north", "mountain altar", True, None],
+        ["mountain altar", "kagoron event", False, None],
+        ["goron field north", "goron field", False, None],
+        ["goron field north", "goron field ne", False, has_whip],
+        ["goron whip", "goron village stamp", False, has_stamp_book],
 
         ["goron ice", "goron ice event", False, None],
-        ["goron ice event", "goron ice 2", False, None]
-            if world.options.randomize_cargo.value in [0, 1, 2] else
+        ["goron ice event", "pick up gorons", False, has_glyph("Snow")],
+        ["goron ice event", "gv kofu", False, has_passenger("Kofu", "_kofu")],
+        ["goron ice event", "goron plaza", False, None],
+        ["goron plaza", "goron village", False, None],
+
+        ["goron plaza", "goron house 3 pots", True, None],
+        ["goron plaza", "goron neighbour's house", True, None],
+        ["goron plaza", "kofu's new house", True, None],
+        ["goron plaza", "mouldy goron house", True, None],
+        ["goron plaza", "goron elder's house", True, None],
+        ["goron ice 2", "comfy goron's house", True, None],
+
+        ["goron elder's house", "valley sanc tunnel west", True, None],
+        ["valley sanc tunnel west", "valley sanc tunnel east", False, has_whip],
+        ["valley sanc tunnel east", "valley sanc tunnel west", False, None],
+        ["valley sanc tunnel east", "goron village north", True, None],
+        ["goron village north", "valley sanc", True, None],
+
+        ["valley sanc", "valley sanc upper", None, has_boomerang],
+        ["valley sanc upper", "valley sanc stamp", False, has_stamp_book],
+        ["valley sanc upper", "valley sanc east", False, None],
+        ["valley sanc east", "valley sanc", False, None],
+        ["valley sanc east", "valley sanc door", False, has_sol],
+        ["valley sanc door", "valley sanc sanc", True, None],
+        ["valley sanc sanc", "valley sanc song", False, has_spirit_flute],
+
+    ]
+
+    if world.options.randomize_cargo == "no_cargo":
+        goron_logic = [
+            ["goron village", "goron ice", False, None],
+            ["goron ice event", "goron ice 2", True, None]
+        ]
+    elif world.options.randomize_cargo.value in [1, 2]:
+        goron_logic = [
+            ["goron village kagoron", "goron ice", False, has_cargo("Mega Ice", "_buy_ice")],
+            ["goron ice event", "goron ice 2", False, None],  # need to open from the other side still
+            ["goron ice 2", "goron ice event", False, Has("_goron_ice_event")]
+        ]
+    else:
+        goron_logic = [
+            ["goron village kagoron", "goron ice", False, has_wagon & (
+                Has("Cargo: Mega Ice", 2) | (
+                    Has("Cargo: Mega Ice", 1) & ool))],
             ["goron ice event", "goron ice 2", False, has_wagon & (
-                Has("Cargo: Mega Ice", 3) | (
-                    Has("Cargo: Mega Ice", 2) & ool))],
+                    Has("Cargo: Mega Ice", 3) | (
+                    Has("Cargo: Mega Ice", 2) & ool))]
+            ]
+    overworld_logic += goron_logic
+    overworld_logic += [
 
         # Goron Target Game
         ["fire realm", "goron target station", True, has_glyph("Fire")],
@@ -797,13 +836,67 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["disorientation station", "disorientation station station", False, None],
         ["disorientation station station", "disorientation station", False, has_tracks("Disorientation Station")],
         ["disorientation station", "disorientation bird", False, hard_birds],
-        ["disorientation bird", "disorientation sod", False, has_sod],
+        ["disorientation bird", "disorientation top", False, has_sod],
+        ["disorientation top", "disorientation station", False, None],
+        ["disorientation top", "disorientation gift", False, Has("_disorientation_chest")],
+        ["d3", "disorientation sod", False, has_sod],
+        ["d5", "disorientation top", True, None],
+
+        ["d1", "d2", True, None],
+        ["d3", "d2", True, None],
+        ["d1", "d3", True, None],
+
+        ["d4", "d5", True, None],
+        ["d4", "d6", True, None],
+        ["d6", "d5", True, None],
+
+        ["d7", "d8", True, None],
+        ["d9", "d8", True, None],
+        ["d7", "d9", True, None],
+
+        ["d1", "d4", True, None],
+        ["d4", "d7", True, None],
+        ["d3", "d6", True, None],
+        ["d6", "d9", True, None],
+
+        ["d2", "d5", True, None],
+        ["d5", "d8", True, None],
+        ["d8", "d2", True, None],
 
         # Ends of the Earth
         ["ends of the earth tracks", "ends of the earth station", True, has_tracks("Ends of the Earth")],
         ["ends of the earth station", "ends of the earth", False, has_tracks("Ends of the Earth")],
         ["ends of the earth", "ends of the earth station", False, None],
-        ["ends of the earth", "eote puzzles", False, None],
+
+        ["ends of the earth", "eote 1", True, None],
+        ["eote 1", "eote 2", True, None],
+        ["eote 2", "eote 3", False, has_sand_wand],
+        ["eote 3", "eote 2", False, None],
+        ["eote 3", "eote 4", False, has_sand_wand],
+        ["eote 4", "eote 3", False, None],
+        ["eote 4", "eote 4 chest", False, has_sand_wand],
+        ["eote 1 chest", "eote 4 chest", True, None],
+        ["eote 1 chest", "eote 1", False, None],
+
+        ["ends of the earth", "eote 5", True, None],
+        ["eote 5", "eote 6", True, None],
+        ["eote 6", "eote 7", False, has_sand_wand],
+        ["eote 7", "eote 6", False, None],
+        ["eote 7", "eote 8", False, has_sand_wand],
+        ["eote 8", "eote 7", False, None],
+        ["eote 8", "eote 8 chest", False, has_sand_wand],
+        ["eote 5 chest", "eote 8 chest", True, None],
+        ["eote 5 chest", "eote 5", False, None],
+
+        ["ends of the earth", "eote 9", True, None],
+        ["eote 9", "eote a", True, None],
+        ["eote a", "eote b", False, has_sand_wand],
+        ["eote b", "eote a", False, None],
+        ["eote b", "eote c", False, has_sand_wand],
+        ["eote c", "eote b", False, None],
+        ["eote c", "eote c chest", False, has_sand_wand],
+        ["eote 9 chest", "eote c chest", True, None],
+        ["eote 9 chest", "eote 9", False, None],
 
         # ===== Sand Realm =====
         ["ocean realm source", "sand realm", True, has_source("Ocean") & has_tracks("Sand Realm")],
@@ -837,6 +930,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand sanc", "sand sanc song", False, has_spirit_flute],
         ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book],
         ["sand sanc", "sand sanc sand wand", False, has_sand_wand],
+        ["sand sanc", "sand sanc tunnel", True, None],
+        ["sand sanc sanc", "sand sanc tunnel", True, None],
     ]
 
     if world.options.randomize_cargo.value == 0:
@@ -891,7 +986,13 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dark ore mine tracks", "dark ore mine station", True, has_tracks("Dark Ore Mine")],
         ["dark ore mine station", "dark ore mine", False, has_tracks("Dark Ore Mine")],
         ["dark ore mine", "dark ore mine station", False, None],
-        ["dark ore mine", "dark ore mine sod", False, has_sod],
+
+        ["dark ore tunnels left", "dark ore mine sod", False, has_sod],
+        ["dark ore mine", "dark ore tunnels left", True, None],
+        ["dark ore mine", "dark ore tunnels right", True, None],
+        ["dark ore mine", "dark ore tunnels mid", True, None],
+        ["dark ore tunnels left", "dark ore tunnels mid", True, None],
+        ["dark ore tunnels right", "dark ore tunnels mid", True, None],
 
         # ===== Dark Realm =====
         ["dark realm portal", "dark realm trains", False, has_dungeon_rewards],
@@ -929,7 +1030,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["papuzia shop", "papuzia shop arrows", False, has_bow],
         ["papuzia shop", "papuzia shop bombs", False, has_bombs],
         ["linebeck's shop", "trading post shield", False, has_rupees(required_rupees)],
-        ["goron village", "goron shop", False, has_rupees(required_rupees)],
+        ["goron village shop", "goron shop", False, has_rupees(required_rupees)],
         ["goron shop", "goron shop bombs", False, has_bombs],
         ["goron shop", "goron shop bow", False, has_bow],
 
@@ -940,8 +1041,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
             ["icyspring noko", "icyspring ice", False, has_wagon & has_rupees(required_rupees)], #  You can bully noko for free ice
         ["papuzia village", "papuzia buy cargo", False, has_wagon & has_rupees(required_rupees)],
         ["wise one's house", "wise one buy vessel", False, has_wagon & has_rupees(required_rupees)],
-        ["goron ice event", "goron steel", False, has_wagon & has_rupees(required_rupees)],
-        ["dark ore mine", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)]
+        ["goron field", "goron steel", False, has_wagon & has_rupees(required_rupees) & Has("_goron_ice")],
+        ["dark ore tunnels mid", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)]
     ]
 
     # Generate rabbit total items

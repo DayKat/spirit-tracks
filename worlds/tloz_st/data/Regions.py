@@ -524,31 +524,87 @@ REGIONS = [
     "disorientation station",
     "disorientation bird",
     "disorientation sod",
+    "disorientation top",
+    "disorientation gift",
 
-    "eote puzzles",
+    "d1",
+    "d2",
+    "d3",
+    "d4",
+    "d5",
+    "d6",
+    "d7",
+    "d8",
+    "d9",
+
     "ends of the earth",
     "ends of the earth tracks",
     "ends of the earth station",
+
+    "eote 1",
+    "eote 2",
+    "eote 3",
+    "eote 4",
+    "eote 5",
+    "eote 6",
+    "eote 7",
+    "eote 8",
+    "eote 9",
+    "eote a",
+    "eote b",
+    "eote c",
+
+    "eote 1 chest",
+    "eote 4 chest",
+    "eote 5 chest",
+    "eote 8 chest",
+    "eote 9 chest",
+    "eote c chest",
+
 
 
     # Goron Village
     "goron village",
     "goron village station",
+    "goron plaza",
+
+    "goron field",
+    "goron field north",
+    "mountain altar",
+    "kagoron event",
+    "goron field ne",
     "goron whip",
+    "goron village stamp",
+
+    "goron village shop",
     "goron shop",
     "goron shop bombs",
     "goron shop bow",
     "goron steel",
+
+    "goron village kagoron",
     "goron ice",
-    "goron village stamp",
     "goron ice 2",
     "goron ice event",
     "pick up gorons",
     "gv kofu",
 
-    "valley sanc tunnel",
+    "goron house 3 pots",
+    "goron neighbour's house",
+    "kofu's new house",
+    "mouldy goron house",
+    "goron elder's house",
+    "comfy goron's house",
+
+    "valley sanc tunnel west",
+    "valley sanc tunnel east",
+    "goron village north",
     "valley sanc",
+    "valley sanc upper",
+    "valley sanc east",
+    "valley sanc door",
     "valley sanc stamp",
+    "valley sanc sanc",
     "valley sanc song",
 
     "gtr",
@@ -595,6 +651,8 @@ REGIONS = [
 
     # Sand Sanc
     "sand sanc",
+    "sand sanc tunnel",
+    "sand sanc sanc",
     "sand sanc station",
     "sand sanc song",
     "sand sanc cuccos",
@@ -627,6 +685,10 @@ REGIONS = [
     "dark ore mine station",
     "dark ore mine ore",
     "dark ore mine sod",
+
+    "dark ore tunnels left",
+    "dark ore tunnels right",
+    "dark ore tunnels mid",
 
     # Dark realm
     "dark realm portal",
