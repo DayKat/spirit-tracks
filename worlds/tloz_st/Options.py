@@ -457,7 +457,8 @@ class SpiritTracksShuffleToSSections(Choice):
 
 class SpiritTracksShuffleStations(Choice):
     """
-    Shuffle Stations
+    Shuffle Stations.
+    Adds 60 (unpaired) entrances.
     """
     display_name = "Shuffle Stations"
     option_no_shuffle = 0
@@ -470,6 +471,7 @@ class SpiritTracksShuffleStations(Choice):
 class SpiritTracksShuffleTrainTransitions(Choice):
     """
     Shuffle the transitions between different realms, and the entrance to the underwater tracks.
+    Adds 24 (unpaired) entrances.
     """
     display_name = "Shuffle Train Transitions"
     option_no_shuffle = 0
@@ -477,7 +479,96 @@ class SpiritTracksShuffleTrainTransitions(Choice):
     option_shuffle_pool_a = 2
     option_shuffle_pool_b = 3
     option_shuffle_pool_c = 4
-    # 5 can be own station?
+
+class SpiritTracksShuffleHouses(Choice):
+    """
+    Shuffle entrances to houses. Hyrule castle is shuffled separately.
+    All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
+    Adds 54 (unpaired) entrances.
+    """
+    display_name = "Shuffle Houses"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
+class SpiritTracksShuffleCaves(Choice):
+    """
+    Shuffle cave entrances. Disorientation Station and Ends of the Earth internals are shuffled separately.
+    Adds 66 (unpaired) entrances.
+    """
+    display_name = "Shuffle Caves"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
+class SpiritTracksShuffleTransitions(Choice):
+    """
+    Shuffle overworld transitions (for link).
+    """
+    display_name = "Shuffle Overworld Transitions"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
+class SpiritTracksShuffleHyruleCastle(Choice):
+    """
+    Shuffle hyrule castle entrances.
+    Adds 24 (unpaired) entrances.
+    """
+    display_name = "Shuffle Hyrule Castle"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
+class SpiritTracksShuffleDisorientationStation(Choice):
+    """
+    Shuffle the inside of Disorientation Station.
+    The entrance stairs are still in the cave pool.
+    Adds 28 (unpaired) entrances.
+    """
+    display_name = "Shuffle Disorientation Station Interior"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
+class SpiritTracksShuffleEotE(Choice):
+    """
+    Shuffle the inside of Ends of the Earth.
+    The entrances to each difficulty are still in the cave pool.
+    Always includes the EotE chests, no matter the minigame option.
+    Adds 24 (unpaired) entrances.
+    """
+    display_name = "Shuffle Ends of the Earth Interior"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
+class SpiritTracksEntranceDirectionality(OptionSet):
+    """
+    Choose what entrance groups care about directionality (left entrance leads to right, house exterior leads to interior etc.).
+    Pool options override individuals, individuals only count for shuffle_alone.
+    Valid options are: houses, caves, stations, overworld, train,
+      castle, disorientation, eote, pool_a, pool_b, pool_c, all
+    Pools with lots of dead ends can cause gen errors if not careful.
+    """
+    display_name = "Entrance Directionality"
+    default = {"houses", "stations"}
+    # supports_weighting = True
+    valid_keys = ["houses", "caves", "stations", "overworld", "train",
+      "castle", "disorientation", "eote", "pool_a", "pool_b", "pool_c", "all"]
+
 
 class SpiritTracksShopsanity(OptionSet):
     """
@@ -793,9 +884,22 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # rabbit_hints: SpiritTracksRabbitHints
 
     # Entrance Rando
+    shuffle_houses: SpiritTracksShuffleHouses
+    shuffle_caves: SpiritTracksShuffleCaves
+    shuffle_overworld: SpiritTracksShuffleTransitions
     shuffle_stations: SpiritTracksShuffleStations
     shuffle_train_transitions: SpiritTracksShuffleTrainTransitions
+    # shuffle_portals
+    # shuffle_dungeon_entrances:
+    # shuffle_bosses
     shuffle_tos_sections: SpiritTracksShuffleToSSections
+    # shuffle_dungeon_interiors
+    # shuffle_tos_interiors
+    # shuffle_warps
+    shuffle_hyrule_castle: SpiritTracksShuffleHyruleCastle
+    shuffle_disorientation: SpiritTracksShuffleDisorientationStation
+    shuffle_eote: SpiritTracksShuffleEotE
+    entrance_directionality: SpiritTracksEntranceDirectionality
 
     # Cosmetic
     starting_train: SpiritTracksStartingTrain

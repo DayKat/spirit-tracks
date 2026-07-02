@@ -164,7 +164,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # # ======== ToS Tunnel =========
 
         ["hyrule castle backdoor", "hyrule castle backyard", True, None],
-        ["hyrule castle backyard", "tower tunnel 1f", False, None],
+        ["hyrule castle backyard", "tower tunnel 1f", True, None],
         ["tower tunnel 1f", "tower tunnel block chest", False, can_kill_bat_pit | has_whirlwind | hard_logic],
         ["tower tunnel 1f", "tower tunnel key door", True, has_small_keys("Tunnel to ToS", 1)],
         ["tower tunnel key door", "tower tunnel 2f", True, None],
@@ -192,8 +192,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["tos ocean station", "tos", True, None],
         ["tos fire station", "tos", True, None],
 
-
-        ["tos", "tos 1f", True, None],
+        ["tos", "tos 1", True, None],
+        ["tos 1", "tos 1f", True, None],
         ["tos", "tos 2", False, can_enter_tos_section(2)],
         ["tos", "tos 3", False, can_enter_tos_section(3)],
         ["tos", "tos 4", False, can_enter_tos_section(4)],
@@ -318,7 +318,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["woodland sanc", "woodland sanc station", False, None],
         ["woodland sanc", "woodland sanc stamp station", False, has_stamp_book],
         ["woodland sanc", "woodland sanc song statue", False, has_spirit_flute],
-        ["woodland sanc", "woodland sanc sanc", False, None],
+        ["woodland sanc", "woodland sanc sanc", True, None],
         ["woodland sanc sanc", "woodland sanc duet", False, has_spirit_flute],
         ["woodland sanc", "woodland sanc chest", False, has_cuccos],
 
@@ -372,7 +372,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["trading post north", "trading post leaves", False, has_whirlwind],
 
         ["trading post", "trading post bridge worker", False, has_passenger("Kenzo", "_kenzo_1")],
-        ["trading post bridge worker", "linebeck trading", False, Has("Treasure: Regal Ring", player)]
+        ["trading post bridge worker", "linebeck trading", False, Has("Treasure: Regal Ring")]
             if world.options.randomize_passengers.value else
             ["trading post", "linebeck trading", False, Has("Treasure: Regal Ring")],
         ["linebeck trading", "linebeck event", False, None],
@@ -391,7 +391,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["rabbit haven", "rabbit haven 10 ocean rabbits", False, has_rabbit_items("Ocean", 10)],
         ["rabbit haven", "rabbit haven 10 mountain rabbits", False, has_rabbit_items("Mountain", 10)],
         ["rabbit haven", "rabbit haven 10 sand rabbits", False, has_rabbit_items("Sand", 10)],
-        ["rabbit haven", "rabbit haven 50 rabbits", False, DebugRule()],
+        ["rabbit haven", "rabbit haven 50 rabbits", False, has_all_rabbits],
         ["rabbit haven", "rabbit haven 1 of each rabbits", False, has_all_rabbit_types],
         ["rabbit haven", "rabbit haven mona", False, has_passenger("Mona", "_mona")],
 
@@ -586,11 +586,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["island sanc", "island sanc cave west", True, None],
         ["island sanc cave west", "island sanc cave east", False, has_boomerang],
         ["island sanc cave east", "island sanc cave west", False, has_bombs],
-        ["island sanc cave west", "island sanc north", True, None],
+        ["island sanc cave east", "island sanc north", True, None],
 
         ["island sanc north", "island sanc nw chest", False, hard_birds],
         ["island sanc north", "island sanc stamp station", False, has_stamp_book & has_sob & has_whip],
-        ["island sanc north", "island sanc sanc", False, None],
+        ["island sanc north", "island sanc sanc", True, None],
         ["island sanc sanc", "island sanc song", False, has_spirit_flute]
             if world.options.randomize_passengers == "no_passengers" else
             ["island sanc sanc", "island sanc song", False, has_spirit_flute & Has("_deliver_carben")],
@@ -795,7 +795,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # Goron Target Game
         ["fire realm", "goron target station", True, has_glyph("Fire")],
-        ["goron target lobby", "gtr", False, has_cannon & Has("_goron_ice", player) & has_rupees(50)],
+        ["goron target lobby", "gtr", False, has_cannon & Has("_goron_ice") & has_rupees(50)],
         ["goron target station", "goron target lobby", False, has_glyph("Fire")],
         ["goron target lobby", "goron target station", False, None],
 

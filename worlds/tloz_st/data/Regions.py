@@ -105,6 +105,7 @@ REGIONS = [
 
     # Tower of Spirits
     "tos",
+    "tos 1",
     "tos 2",
     "tos 3",
     "tos 4",

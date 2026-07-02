@@ -57,5 +57,16 @@ class TestGeneration(WorldTestBase):
     game = "Spirit Tracks"
     options = {
         "shuffle_stations": "shuffle_pool_a",
-        "shuffle_train_transitions": "shuffle_pool_b"
+        "shuffle_train_transitions": "shuffle_pool_a",
+
+        "shuffle_caves": "shuffle_pool_b",
+        "shuffle_houses": "shuffle_pool_b",
+
+        "shuffle_hyrule_castle": "shuffle_pool_b",
+        "shuffle_eote": "shuffle_pool_b",
+        "shuffle_disorientation": "shuffle_alone",
+
+        "shuffle_tos_sections": "shuffle",
+
+        "entrance_directionality": {"pool_b"}
     }

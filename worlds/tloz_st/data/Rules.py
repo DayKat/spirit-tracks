@@ -239,13 +239,6 @@ has_dungeon_rewards = ([
             OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons, operator="ne")]
             | Has("_dungeon_reward", count=FromOption(SpiritTracksDungeonCount), options=[OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons)]))
 
-
-def st_has_dungeon_rewards(state, player):
-    if state.multiworld.worlds[player].options.dark_realm_access != "dungeons":
-        return True
-    dungeon_count = state.multiworld.worlds[player].options.dungeons_required.value
-    return state.has("_dungeon_reward", player, dungeon_count)
-
 @dataclasses.dataclass
 class HasShuffledSection(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
     item_name: str

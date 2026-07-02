@@ -507,6 +507,8 @@ class SpiritTracksWorld(WorldParent):
             if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_dungeons:
                 return True  # If plandoed dungeon include
             # print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data['minigame']}")
+            if location_name in LOCATION_GROUPS["Ends of the Earth"] and self.options.shuffle_eote.value:
+                return True
             return self.options.randomize_minigames.value in location_data["minigame"]
         if location_name in LOCATION_GROUPS["Stamp Stands"]:
             return self.options.randomize_stamps.value in [1, 2, 3]
@@ -1196,7 +1198,7 @@ class SpiritTracksWorld(WorldParent):
                     break
             else:
                 raise ValueError(f"Unable to find randomized transition for {region}")
-
+            print(f"\tRemoving dangling exit from {region.name}: {_exit.name}")
             region.exits.remove(_exit)
 
         def remove_dangling_entrance(region: Region) -> None:
@@ -1206,6 +1208,7 @@ class SpiritTracksWorld(WorldParent):
                     break
             else:
                 raise ValueError(f"Invalid target region for {region}")
+            print(f"\tRemoving dangling entr from {region.name}: {_entrance.name}")
             region.entrances.remove(_entrance)
 
         for entr_name, exit_name in plando_pairings:
@@ -1230,60 +1233,52 @@ class SpiritTracksWorld(WorldParent):
                 if dev_prints:
                     print(f"Connecting backwards {r2} => {r1}")
 
+    @staticmethod
+    def in_pool(p, etype: int) -> int | None:
+        print(f"Pools: {p} etype {etype}")
+        for i in range(3):
+            if etype in p[i]:
+                return i
+        return None
 
-    def create_er_target_groups(self, type_option_lookup):
-        pools = [[]]*3
 
-        for a, option in type_option_lookup.items():
-            pool_norm = option.value - 2
-            if 0 <= pool_norm <= 2:
-                pools[pool_norm].append(a)
-
+    def create_er_target_groups(self, type_option_lookup, pools):
         unique_groups = {entrance.randomization_group for entrance in self.multiworld.get_entrances(self.player)
                          if entrance.parent_region and not entrance.connected_region}
         print(f"Unique Groups: {decode_recursive(unique_groups)}")
 
-        def in_pool(etype: int) -> int | None:
-            for i in range(3):
-                if etype in pools[i]:
-                    return i
-            return None
-
         def get_target_groups(g: int) -> list[int]:
             direction = g & EntranceGroups.DIRECTION_MASK
             etype = g & EntranceGroups.AREA_MASK
-            pool = in_pool(etype)
+            pool = self.in_pool(pools, etype >> 3)
             print(f"\t{direction}_{etype}_{pool}")
 
-            # Choose target directions
-            if direction == 0:
-                target_directions = range(7)
-            else:
-                target_directions = [0, OPPOSITE_ENTRANCE_GROUPS[direction]]
 
             # Choose target entrance types from pool options
             if pool is not None:
                 target_etyps = pools[pool]
             else:
-                target_etyps = [etype]
+                target_etyps = [etype>>3]
+
+            # Choose target directions
+            if (direction == 0
+                or (pool is not None and pool_name_lookup[pool] not in self.options.entrance_directionality.value)
+                or (pool is None and directionality_etype_lookup[etype >> 3] not in self.options.entrance_directionality.value)):
+                target_directions = range(5)
+            else:
+                target_directions = [0, OPPOSITE_ENTRANCE_GROUPS[direction]]
 
             res = []
             print(f"\t\tTarget dirs: {target_directions}")
             print(f"\t\tTarget etypes: {target_etyps}")
             for d in target_directions:
                 for t in target_etyps:
-                    new_group = d | t
-                    print(f"Try match: {decode_entrance_groups(new_group)}")
+                    new_group = d | (t << 3)
+                    # print(f"Try match: {decode_entrance_groups(new_group)}")
                     if new_group in unique_groups:
                         res.append(new_group)
             return res
         return bake_target_group_lookup(self, get_target_groups)
-
-        # directions = [5, 6]
-        # entr_types = [11 << 3]
-        #
-        # return {5 + (11 << 3): [6 + (11 << 3)],
-        #         6 + (11 << 3): [5 + (11 << 3)]}
 
     def connect_entrances(self) -> None:
         if self.is_ut:
@@ -1303,10 +1298,29 @@ class SpiritTracksWorld(WorldParent):
 
         # Choose entrances to shuffle based on settings
         type_option_lookup = {
-            11: self.options.shuffle_tos_sections,
+            1: self.options.shuffle_houses,
+            2: self.options.shuffle_caves,
             3: self.options.shuffle_stations,
-            12: self.options.shuffle_train_transitions
+            4: self.options.shuffle_overworld,
+            11: self.options.shuffle_tos_sections,
+            12: self.options.shuffle_train_transitions,
+            15: self.options.shuffle_hyrule_castle,
+            16: self.options.shuffle_disorientation,
+            17: self.options.shuffle_eote
         }
+        none_option_types = {  # when assigning direction pairings to NONE-directional entrances, these are the directions for each etype
+            1: [3, 4],
+            2: [3, 4],
+            3: [3, 4],
+            4: [1, 2, 3, 4],
+            11: [3, 4],
+            12: [1, 2, 3, 4],
+            15: [3, 4],
+            16: [1, 2, 3, 4],
+            17: [3, 4],
+        }
+
+        # Filter active entrances
         entrances_to_shuffle: list["Entrance"] = []
         directionless_entrances: list["Entrance"] = []
         for e in self.valid_entrances:
@@ -1315,14 +1329,49 @@ class SpiritTracksWorld(WorldParent):
                 entrances_to_shuffle.append(e)
                 if e.randomization_group & 7 == 0 :
                     directionless_entrances.append(e)
+        print("no of entrances:", len(entrances_to_shuffle))
+
+        # Get pool data
+        pools = [[]]*3
+        for a, option in type_option_lookup.items():
+            pool_norm = option.value - 2
+            if 0 <= pool_norm <= 2:
+                pools[pool_norm].append(a)
+
+        # self.random.shuffle(directionless_entrances)  oh no need to care about pools at this stage...
 
         # Assign direction pairs do directionless entrances
-        self.random.shuffle(directionless_entrances)
+        directional_pool_cache = {}
         for i in range(len(directionless_entrances)//2):
-            new_direction = self.random.choice([1, 3, 5])
+
+            # Figure out what directions exist in their pool
+            current_etype = (directionless_entrances[i*2].randomization_group & EntranceGroups.AREA_MASK) >> 3
+            if current_etype in directional_pool_cache:
+                if directional_pool_cache[current_etype] is None:
+                    continue
+                direction_choice = directional_pool_cache[current_etype]
+            else:
+                pool = self.in_pool(pools, current_etype)
+                if pool is None:
+                    if directionality_etype_lookup[current_etype] not in self.options.entrance_directionality.value:
+                        directional_pool_cache[current_etype] = None
+                        continue  # direction doesn't matter!
+                    direction_choice = none_option_types[current_etype]
+                    directional_pool_cache[current_etype] = direction_choice
+                else:
+                    if pool_name_lookup[pool] not in self.options.entrance_directionality.value:
+                        directional_pool_cache[current_etype] = None
+                        continue  # direction doesn't matter!
+                    direction_choice = set()
+                    for j in pools[pool]:
+                        direction_choice |= set(none_option_types[j])
+                    direction_choice = list(direction_choice)
+                    directional_pool_cache[current_etype] = direction_choice
+
+            new_direction = self.random.choice(direction_choice)
             directionless_entrances[i*2].randomization_group |= new_direction
-            directionless_entrances[i*2+1].randomization_group |= new_direction+1
-            print(f"Setting new group: {directionless_entrances[i*2]} => {decode_entrance_groups(directionless_entrances[i*2].randomization_group)}")
+            directionless_entrances[i*2+1].randomization_group |= OPPOSITE_ENTRANCE_GROUPS[new_direction]
+            print(f"Setting new group: {directionless_entrances[i*2]} => {decode_entrance_groups(directionless_entrances[i*2].randomization_group)} {direction_choice}")
 
         # Disconnect entrances to shuffle
         for entrance in entrances_to_shuffle:
@@ -1332,14 +1381,15 @@ class SpiritTracksWorld(WorldParent):
             disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
 
         # Get target groups
-        groups = self.create_er_target_groups(type_option_lookup)
+        groups = self.create_er_target_groups(type_option_lookup, pools)
         # print(f"Shuffling Entrances {entrances_to_shuffle} with groups {decode_recursive(groups)}")
 
         # Entrance Rando
         if self.tower_pairings:
+            print(f"ToS Plando")
             self.connect_plando(self.tower_pairings)
         self.er_placement_state = randomize_entrances(self, True, groups)
-        # print(f"ER Placements: {self.er_placement_state.pairings}")
+        print(f"ER Placements: {self.er_placement_state.pairings}")
 
     def get_pre_fill_items(self):
         return self.pre_fill_items

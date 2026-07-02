@@ -222,7 +222,10 @@ type_lookup = {
     11: "tos_section",
     12: "transition",
     13: "tos_room",
-    14: "tos_lobby"
+    14: "tos_lobby",
+    15: "castle",
+    16: "disorientation",
+    17: "eote"
 }
 
 def decode_entrance_groups(group):
@@ -249,8 +252,6 @@ class EntranceGroups(IntEnum):
     RIGHT = 2
     UP = 3
     DOWN = 4
-    INSIDE = 5
-    OUTSIDE = 6
     # Types
     HOUSE = 1 << 3
     CAVE = 2 << 3
@@ -282,9 +283,7 @@ OPPOSITE_ENTRANCE_GROUPS = {
     EntranceGroups.UP: EntranceGroups.DOWN,
     EntranceGroups.DOWN: EntranceGroups.UP,
     0: 0,
-    EntranceGroups.NONE: EntranceGroups.NONE,
-    EntranceGroups.INSIDE: EntranceGroups.OUTSIDE,
-    EntranceGroups.OUTSIDE: EntranceGroups.INSIDE
+    EntranceGroups.NONE: EntranceGroups.NONE
 }
 
 # Entrance data format

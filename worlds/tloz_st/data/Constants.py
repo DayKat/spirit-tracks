@@ -791,6 +791,27 @@ TOS_FLOOR_TO_SECTION_SAFE: dict[int, int] = {
     0x24: 6,  # 25F
 }
 
+directionality_etype_lookup: dict[int, str] = {
+    1: "houses",
+    2: "caves",
+    3: "stations",
+    4: "overworld",
+    5: "dungeon_entrances",
+    6: "bosses",
+    7: "dungeon_rooms",
+    11: "tos_section",
+    12: "train",
+    15: "castle",
+    16: "disorientation",
+    17: "eote"
+}
+
+pool_name_lookup = {
+    0: "pool_a",
+    1: "pool_b",
+    2: "pool_c"
+}
+
 TOS_FLOOR_TO_SECTION: dict[int, int] = TOS_FLOOR_TO_SECTION_SAFE | TOS_FLOOR_SECTIONS_CANCEL_TEARS
 
 #TREASURE_READ_LIST = {i: (0x1BA5AC + i * 4, 4, "Main RAM") for i in range(8)}
