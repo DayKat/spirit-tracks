@@ -2254,7 +2254,7 @@ ENTRANCE_DATA |= {
 }
 
 
-ENTRANCES = STTransition.from_data(ENTRANCE_DATA)
+ENTRANCES: dict[str, STTransition] = STTransition.from_data(ENTRANCE_DATA)
 entrance_id_to_entrance = {e.id: e for e in ENTRANCES.values()}
 entrance_id_to_region = {e.id: e.entrance_region for e in ENTRANCES.values()}
 entrance_tuple_to_entrance: dict[tuple[int, int, int], STTransition] = {e.entrance: e for e in ENTRANCES.values()}

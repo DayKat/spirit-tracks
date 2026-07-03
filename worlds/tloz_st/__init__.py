@@ -1,6 +1,6 @@
 import math
 import random
-from typing import List, Union, ClassVar, Any, Optional, Tuple
+from typing import List, Union, ClassVar, Any, Optional, Tuple, TYPE_CHECKING
 import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
 from Fill import fill_restrictive, FillError
@@ -32,6 +32,10 @@ except ModuleNotFoundError:
     print(f"Spirit Tracks is using legacy logic")
     WorldParent = World
     from .Logic import create_connections
+
+if TYPE_CHECKING:
+    from .Subclasses import STTransition
+
 
 try:
     DEPRIORITIZED_SKIP_BALANCING_FALLBACK = ItemClassification.progression_deprioritized_skip_balancing
@@ -126,7 +130,9 @@ class SpiritTracksWorld(WorldParent):
     tracker_world = {"map_page_folder": "tracker",
                      "map_page_maps": "maps/maps.json",
                      "map_page_locations": ["locations/overworld.json", "entrances/entrances.json"]}
-    found_entrances_datastorage_key = ["st_checked_entrances_{player}_{team}"]
+    found_entrances_datastorage_key = ["st_checked_entrances_{player}_{team}",
+                                       "st_traversed_entrances_{player}_{team}",
+                                       "st_redisconnected_entrances_{player}_{team}"]
 
     # Rule builder attributes
     item_mapping = ITEM_MAPPING
@@ -149,7 +155,9 @@ class SpiritTracksWorld(WorldParent):
         self.rabbit_realm_items: dict[str, dict[str, int]] = {"Grass": {}, "Snow": {}}
         self.item_mapping_collect: dict[str, tuple[str, int]] = {}
 
-        self.ut_checked_entrances = set()
+        self.ut_checked_entrances: set[int] = set()
+        self.ut_traversed_entrances: set[int] = set()
+        self.ut_redisconnected_entrances: set[int] = set()
         self.ut_pairings = {}
         self.ut_events = []
         self.is_ut = getattr(self.multiworld, "generation_is_fake", False)
@@ -158,7 +166,7 @@ class SpiritTracksWorld(WorldParent):
 
         self.er_placement_state = None
         self.valid_entrances: list["Entrance"] = []
-        self.plando_pairings = {}  # int: int pairing
+        self.plando_pairings: dict[int, int] = {}  # int: int pairing
         self.tower_pairings = []  # zip object of entrance strings
         self.tower_section_lookup = {i:i for i in range(1, 7)}  # tower section lookup for logic
 
@@ -1201,7 +1209,7 @@ class SpiritTracksWorld(WorldParent):
                     break
             else:
                 raise ValueError(f"Unable to find randomized transition for {region}")
-            print(f"\tRemoving dangling exit from {region.name}: {_exit.name}")
+            # print(f"\tRemoving dangling exit from {region.name}: {_exit.name}")
             region.exits.remove(_exit)
 
         def remove_dangling_entrance(region: Region, name: str) -> None:
@@ -1211,12 +1219,12 @@ class SpiritTracksWorld(WorldParent):
                     break
             else:
                 raise ValueError(f"Invalid target region for {region}")
-            print(f"\tRemoving dangling entr from {region.name}: {_entrance.name}")
+            # print(f"\tRemoving dangling entr from {region.name}: {_entrance.name}")
             region.entrances.remove(_entrance)
 
         for entr_name, exit_name in plando_pairings:
             # get the connecting regions
-            r1 = ENTRANCES[entr_name]
+            r1: "STTransition" = ENTRANCES[entr_name]
             reg1 = self.get_region(r1.entrance_region)
             remove_dangling_exit(reg1, entr_name)
 
@@ -1225,6 +1233,7 @@ class SpiritTracksWorld(WorldParent):
             remove_dangling_entrance(reg2, exit_name)
             # connect the regions
             reg1.connect(reg2)
+            self.plando_pairings[r1.id] = r2.id
             if dev_prints:
                 print(f"Plando Connecting {r1} => {r2} with regions {reg1} => {reg2}")
 
@@ -1233,6 +1242,7 @@ class SpiritTracksWorld(WorldParent):
                 remove_dangling_exit(reg2, exit_name)
                 remove_dangling_entrance(reg1, entr_name)
                 reg2.connect(reg1)
+                self.plando_pairings[r2.id] = r1.id
                 if dev_prints:
                     print(f"Connecting backwards {r2} => {r1}")
 
@@ -1290,7 +1300,7 @@ class SpiritTracksWorld(WorldParent):
                     # print(f"Disconnecting {e.name}")
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
-            if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off" or True:
+            if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
                 print(f"Reconnecting entrances {self.ut_pairings}")
                 for i, pairing in self.ut_pairings.items():
                     _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
@@ -1623,7 +1633,8 @@ class SpiritTracksWorld(WorldParent):
                    "shuffle_hyrule_castle",  # prevent zelda warp
                    "shuffle_eote",  # include eote locs if shuffled
                    "shuffle_train_transitions",  # for desert rocktite cannon logic lol
-                   "death_link", "enable_map_warp"]
+                   "death_link", "enable_map_warp",
+                   "ut_blocked_entrances_behaviour"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]
@@ -1660,24 +1671,64 @@ class SpiritTracksWorld(WorldParent):
 
         if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
             print(f"Don't defer entrances when off")
+            return
 
-        if "st_checked_entrances" in key and stored_data:
+        def connect(connection):
+            pairing = self.ut_pairings.get(str(connection), None)
+            # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
+            if pairing is not None:
+                exit_name = entrance_id_to_entrance[connection].name
+                _exit: "Entrance" = self.get_entrance(exit_name)
+                entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
+                print(f"Connecting: {_exit} => {entrance_region} | {connection}: {pairing}")
+                _exit.connect(entrance_region)
+
+                if exit_name == "EVENT: Bring Ice to Kagoron":
+                    self.get_region("goron village").connect(self.get_region("goron ice"))
+
+                if exit_name in boss_events:
+                    print(f"Globally connecting outset village => {_exit.parent_region}")
+                    self.get_region("outset village").connect(_exit.parent_region)
+
+        def disconnect(connection):
+            entr_id = connection
+            if str(entr_id) not in self.ut_pairings or entr_id in self.ut_traversed_entrances:
+                return
+            e = self.get_entrance(entrance_id_to_entrance[entr_id].name)
+            if (entr_id in stored_data and e.parent_region and e.connected_region
+                    and entr_id in self.ut_checked_entrances
+                    and entr_id not in self.ut_traversed_entrances):
+                print(f"Disconnecting {e.name}")
+                child_region = e.connected_region
+                parent_region = e.parent_region
+
+                # disconnect the edge
+                child_region.entrances.remove(e)
+                e.connected_region = None
+                # Create target
+                parent_region.create_er_target(e.name)
+
+        if not stored_data:
+            return
+
+        if "st_traversed_entrances" in key:
+            new_connections = set(stored_data) - self.ut_traversed_entrances
+            self.ut_checked_entrances.update(new_connections)
+            for i in new_connections:
+                connect(i)
+
+        elif "st_redisconnected_entrances" in key:
+            if not self.ut_traversed_entrances:
+                return
+            new_connections = set(stored_data) - self.ut_traversed_entrances
+            self.ut_redisconnected_entrances.update(new_connections)
+            for i in new_connections:
+                disconnect(i)
+
+        elif "st_checked_entrances" in key:
             new_connections = set(stored_data) - self.ut_checked_entrances
             self.ut_checked_entrances |= new_connections
 
             for i in new_connections:
-                pairing = self.ut_pairings.get(str(i), None)
-                # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
-                if pairing is not None:
-                    exit_name = entrance_id_to_entrance[i].name
-                    _exit: "Entrance" = self.get_entrance(exit_name)
-                    entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
-                    print(f"Connecting: {_exit} => {entrance_region} | {i}: {pairing}")
-                    _exit.connect(entrance_region)
-
-                    if exit_name == "EVENT: Bring Ice to Kagoron":
-                        self.get_region("goron village").connect(self.get_region("goron ice"))
-
-                    if exit_name in boss_events:
-                        print(f"Globally connecting outset village => {_exit.parent_region}")
-                        self.get_region("outset village").connect(_exit.parent_region)
+                if i not in self.ut_redisconnected_entrances:
+                    connect(i)

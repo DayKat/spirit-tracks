@@ -31,6 +31,8 @@ read_keys_train = [STAddr.train_health]
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
 checked_entrances_key = "st_checked_entrances"
+traversed_entrances_key = "st_traversed_entrances"
+redisconnected_entrances_key = "st_redisconnected_entrances"
 
 def count_bits(n):
     count = 0
@@ -161,6 +163,8 @@ class SpiritTracksClient(DSZeldaClient):
     train_speed_pointer: "Address"
     train_gear_addr: "Address"
 
+    item_reconnect_lookup, item_and_reconnect_lookup = build_item_name_to_reconnected_entrances()
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -199,7 +203,10 @@ class SpiritTracksClient(DSZeldaClient):
         self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
         self.rabbit_counter = [0]*5  # list of counts for each rabbit type caught in the overworld
 
-        self.visited_entrances = set()
+        self.traversed_entrances = set()
+        self.checked_entrances = set()
+        self.redisconnected_entrances = set()
+
         self.event_reads = []
         self.sent_event = False
         self.event_data = []
@@ -626,6 +633,23 @@ class SpiritTracksClient(DSZeldaClient):
             bit = 2 ** (self.current_stage-0x1a)
             await STAddr.sources.unset_bits(ctx, bit)
 
+        if ctx.slot_data.get("ut_blocked_entrances_behaviour") == 2:
+            await self.check_item_disconnects(ctx, item_name)
+
+    async def check_item_disconnects(self, ctx, item_name):
+        entrances: set = set()
+        if item_name in self.item_reconnect_lookup:
+            entrances.update(self.item_reconnect_lookup[item_name])
+        if item_name in self.item_and_reconnect_lookup:
+            for group, data in self.item_and_reconnect_lookup[item_name].items():
+                if self.has_from_group(ctx, group):
+                    entrances.update(data)
+        reverse_entrances = {ctx.slot_data["er_pairings"][str(e)] for e in entrances if str(e) in ctx.slot_data["er_pairings"]}
+        self.redisconnected_entrances |= set(get_stored_data(ctx, redisconnected_entrances_key, set()))
+        new_entrances = reverse_entrances - (self.redisconnected_entrances | self.traversed_entrances)
+        print(f"Redisconnect? {reverse_entrances} new: {new_entrances}")
+        if new_entrances:
+            await self.store_data(ctx, storage_key(ctx, redisconnected_entrances_key), new_entrances)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
@@ -1068,14 +1092,19 @@ class SpiritTracksClient(DSZeldaClient):
     # UT store entrances to defer
     async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data,
                                       interaction="traverse"):
-        self.visited_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
+        self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
+        self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
         new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
             "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
         printl(f"New Storage Data: {new_data}")
 
-        if new_data:
+        if interaction == "check":
             key = storage_key(ctx, checked_entrances_key)
-            await self.store_data(ctx, key, new_data)
+        elif interaction == "traverse":
+            key = storage_key(ctx, traversed_entrances_key)
+        else:
+            return
+        await self.store_data(ctx, key, new_data)
 
     async def reset_snurglar_door(self, ctx):
         if self.last_scene == 0x700:
@@ -1084,7 +1113,6 @@ class SpiritTracksClient(DSZeldaClient):
                 if i not in ctx.checked_locations:
                     await self.snurglar_addr.unset_bits(ctx, 0x30)
                     break
-
 
     async def detected_new_scene(self, ctx):
         await self.save_tos_keycount(ctx)
@@ -1482,8 +1510,8 @@ class SpiritTracksClient(DSZeldaClient):
         for i in range(80):
             rl.append(Address.from_pointer(array_start + i * 4, size=3))
         actors = await read_multiple(ctx, rl)
-        print(f"Actors: {actors}")
-        actors_start = [Address.from_pointer(v, size=4) for v in actors.values() if v]
+        print(f"Actors: {hex_f(actors)}")
+        actors_start = [Address.from_pointer(v, size=4) for v in actors.values() if 0 < v < 0x400000]
         lables = [k for k, v in actors.items() if v]
         reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=lables)
         return reads_2

@@ -837,6 +837,19 @@ class SpiritTracksEntrancePlando(PlandoConnections):
     entrances = frozenset(ENTRANCES.keys())
     exits = frozenset(ENTRANCES.keys())
 
+class SpiritTracksUTBlockedEntrances(Choice):
+    """
+    How UT handles entrances if you check an entrance that is blocked, for example entering the overworld without the right tracks.
+    - mark_on_check: checking a blocked entrance will mark it as checked, even if you can't pass it.
+    - mark_on_pass: checking a blocked entrance will not mark as checked, you have to actually pass it to mark it.
+    - unmark_when_opened: checking a blocked entrance will mark it as checked, but once you unlock the requirements for traversing it the entrance will be unchecked.
+    """
+    display_name = "UT Blocked Entrances Behaviour"
+    option_mark_on_check = 0
+    option_mark_on_pass = 1
+    option_unmark_when_opened = 2
+    default = 0
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -929,6 +942,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     entrance_directionality: SpiritTracksEntranceDirectionality
 
     # QoL
+    ut_blocked_entrances_behaviour: SpiritTracksUTBlockedEntrances
     enable_map_warp: SpiritTracksMapWarp
 
     # Cosmetic
@@ -1015,7 +1029,8 @@ st_option_groups = [
         SpiritTracksEntranceDirectionality
     ]),
     OptionGroup("QoL Options", [
-        SpiritTracksMapWarp
+        SpiritTracksMapWarp,
+        SpiritTracksUTBlockedEntrances
     ]),
     OptionGroup("Cosmetic Options", [
         SpiritTracksStartingTrain,

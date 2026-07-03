@@ -1403,7 +1403,7 @@ LOCATIONS_DATA = {
 
     # Anouki Village
     "Anouki Village Pair Villagers": {
-        "region_id": "anouki village",
+        "region_id": "honcho's house",
         "vanilla_item": "Red Rupee (20)",
         "item_override": "Snowfall Sanctuary Cave Key",
         "stage_id": 0x2B,

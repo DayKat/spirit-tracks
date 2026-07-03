@@ -174,3 +174,47 @@ def build_location_to_goal():
             goal_locations.append(loc_name)
     return goal_locations
 
+def build_item_name_to_reconnected_entrances() -> tuple[dict, dict]:
+    """Creates 2 lookups, one from items to the entrance that depend on them, and one for if they get anded as well"""
+    res: dict[str, set[int]] = {}
+    and_groups: dict[str, dict[str, set[int]]] = {}
+    for entrance in ENTRANCES.values():
+        if not entrance.required_groups:
+            continue
+        if len(entrance.required_groups) > 1:
+            g1, g2 = entrance.required_groups[:2]
+            for item in ITEM_GROUPS[g1]:
+                if item in ITEM_GROUPS[g2]:
+                    res.setdefault(item, set()).add(entrance.id)
+                else:
+                    and_groups.setdefault(item, dict())
+                    and_groups[item].setdefault(g2, set()).add(entrance.id)
+            for item in ITEM_GROUPS[g2]:
+                if item in ITEM_GROUPS[g1]:
+                    res.setdefault(item, set()).add(entrance.id)
+                else:
+                    and_groups.setdefault(item, dict())
+                    and_groups[item].setdefault(g1, set()).add(entrance.id)
+            continue
+        groups = entrance.required_groups[0] if isinstance(entrance.required_groups[0], tuple) else {entrance.required_groups[0]}
+        for group in groups:
+            for item in ITEM_GROUPS[group]:
+                res.setdefault(item, set()).add(entrance.id)
+
+    # Debug printout
+    # e_id_to_e = build_entrance_id_to_data()
+    # for i, e_set in res.items():
+    #     print(f"{i}")
+    #     for e in e_set:
+    #         print(f"\t{e_id_to_e[e]}")
+    # print(f"\n")
+    # for i, a_dict in and_groups.items():
+    #     print(f"{i}")
+    #     for a, e_set in a_dict.items():
+    #         print(f"\t{a}")
+    #         for e in e_set:
+    #             print(f"\t\t{e_id_to_e[e]}")
+
+    return res, and_groups
+
+
