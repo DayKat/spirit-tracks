@@ -792,6 +792,7 @@ TOS_FLOOR_TO_SECTION_SAFE: dict[int, int] = {
 }
 
 directionality_etype_lookup: dict[int, str] = {
+    0: "plando",
     1: "houses",
     2: "caves",
     3: "stations",

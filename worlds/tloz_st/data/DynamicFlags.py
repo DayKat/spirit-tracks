@@ -2533,35 +2533,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_0, 0x4)],
     },
     "Prevent zelda warp": {
-        "on_scenes": [0x2802],
+        "on_scenes": [0x2802, 0x2805],
         "has_slot_data": [("shuffle_hyrule_castle", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_6, 0x10)],
     }
 }
 
-# for name, data in DYNAMIC_FLAGS.items():
-#     if "has_groups" in data:
-#         groups = data["has_groups"]
-#         data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in ITEM_GROUPS[groups[0]]]
-#         # print(data["any_has_items"])
-#         # print(f"{DYNAMIC_FLAGS[name]}")
-#         if len(groups) > 1:
-#             data["any_has_items2"] = [(i, 1) for i in ITEM_GROUPS[groups[1]]]
-#             # print(data["any_has_items2"])
-#     if "any_has_groups" in data:
-#         items = []
-#         for group in data["any_has_groups"]:
-#             items.extend(ITEM_GROUPS[group])
-#         data["any_has_items"] = data.get("any_has_items", []) + [(i, 1) for i in items]
-#         # print(data["any_has_items"])
-#     if "not_has_groups" in data:
-#         items = []
-#         for group in data["not_has_groups"]:
-#             items.extend(ITEM_GROUPS[group])
-#         data["has_items"] = data.get("has_items", []) + [(i, 0) for i in items]
-#         # print(data["has_items"])
-#     DYNAMIC_FLAGS[name] = data
-#     # print(DYNAMIC_FLAGS[name])
+
 """
 "Dynamic Flag Name": {
     "on_scenes": list[int],

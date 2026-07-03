@@ -402,6 +402,8 @@ class SpiritTracksWorld(WorldParent):
             force_require = [list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]]
 
         if self.options.plando_dungeon_pool:
+            if "all" in self.options.plando_dungeon_pool.value:
+                self.options.plando_dungeon_pool.value = set(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
             case_compare = {k.lower(): v for k, v in DUNGEON_TO_BOSS_ITEM_LOCATION.items()}
             required_dungeons = list({case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value})
         else:
@@ -1192,20 +1194,20 @@ class SpiritTracksWorld(WorldParent):
 
     # Based on the messenger's plando connection by Aaron Wagner
     def connect_plando(self, plando_pairings) -> None:
-        def remove_dangling_exit(region: Region) -> None:
+        def remove_dangling_exit(region: Region, name: str) -> None:
             # find the disconnected exit and remove references to it
             for _exit in region.exits:
-                if not _exit.connected_region:
+                if not _exit.connected_region and _exit.name == name:
                     break
             else:
                 raise ValueError(f"Unable to find randomized transition for {region}")
             print(f"\tRemoving dangling exit from {region.name}: {_exit.name}")
             region.exits.remove(_exit)
 
-        def remove_dangling_entrance(region: Region) -> None:
+        def remove_dangling_entrance(region: Region, name: str) -> None:
             # find the disconnected entrance and remove references to it
             for _entrance in region.entrances:
-                if not _entrance.parent_region:
+                if not _entrance.parent_region and _entrance.name == name:
                     break
             else:
                 raise ValueError(f"Invalid target region for {region}")
@@ -1216,11 +1218,11 @@ class SpiritTracksWorld(WorldParent):
             # get the connecting regions
             r1 = ENTRANCES[entr_name]
             reg1 = self.get_region(r1.entrance_region)
-            remove_dangling_exit(reg1)
+            remove_dangling_exit(reg1, entr_name)
 
             r2 = ENTRANCES[exit_name]
             reg2 = self.get_region(r2.entrance_region)
-            remove_dangling_entrance(reg2)
+            remove_dangling_entrance(reg2, exit_name)
             # connect the regions
             reg1.connect(reg2)
             if dev_prints:
@@ -1228,8 +1230,8 @@ class SpiritTracksWorld(WorldParent):
 
             # pretend the user set the plando direction as "both" regardless of what they actually put on coupled
             if True:
-                remove_dangling_exit(reg2)
-                remove_dangling_entrance(reg1)
+                remove_dangling_exit(reg2, exit_name)
+                remove_dangling_entrance(reg1, entr_name)
                 reg2.connect(reg1)
                 if dev_prints:
                     print(f"Connecting backwards {r2} => {r1}")
@@ -1253,7 +1255,6 @@ class SpiritTracksWorld(WorldParent):
             etype = g & EntranceGroups.AREA_MASK
             pool = self.in_pool(pools, etype >> 3)
             print(f"\t{direction}_{etype}_{pool}")
-
 
             # Choose target entrance types from pool options
             if pool is not None:
@@ -1299,6 +1300,7 @@ class SpiritTracksWorld(WorldParent):
 
         # Choose entrances to shuffle based on settings
         type_option_lookup = {
+            0: 0,  # Plando entrances
             1: self.options.shuffle_houses,
             2: self.options.shuffle_caves,
             3: self.options.shuffle_stations,
@@ -1310,6 +1312,7 @@ class SpiritTracksWorld(WorldParent):
             17: self.options.shuffle_eote
         }
         none_option_types = {  # when assigning direction pairings to NONE-directional entrances, these are the directions for each etype
+            0: [1, 2, 3, 4],
             1: [3, 4],
             2: [3, 4],
             3: [3, 4],
@@ -1324,17 +1327,30 @@ class SpiritTracksWorld(WorldParent):
         # Filter active entrances
         entrances_to_shuffle: list["Entrance"] = []
         directionless_entrances: list["Entrance"] = []
+        plando_disconnects: set[str] = set()
+        for i in self.options.plando_transitions.value:
+            plando_disconnects.add(i.entrance)
+            plando_disconnects.add(ENTRANCES[i.entrance].vanilla_reciprocal.name)
+            plando_disconnects.add(i.exit)
+            plando_disconnects.add(ENTRANCES[i.exit].vanilla_reciprocal.name)
         for e in self.valid_entrances:
-            # print(f"ER: {e.name} {bin(e.randomization_group)} {bin(EntranceGroups.AREA_MASK)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
             if type_option_lookup.get((e.randomization_group & EntranceGroups.AREA_MASK) >> 3, False):
                 entrances_to_shuffle.append(e)
+                # print(f"ER: {e.name} {bin(e.randomization_group)} (e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
                 if e.randomization_group & 7 == 0 :
                     directionless_entrances.append(e)
+            elif e.name in plando_disconnects:
+                entrances_to_shuffle.append(e)
+                e.randomization_group = 0
+                directionless_entrances.append(e)
+                # print(f"Plando ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
+
         print("no of entrances:", len(entrances_to_shuffle))
 
         # Get pool data
         pools = [[], [], []]
         for a, option in type_option_lookup.items():
+            if a == 0: continue
             pool_norm = option.value - 2
             if 0 <= pool_norm <= 2:
                 pools[pool_norm].append(a)
@@ -1390,6 +1406,9 @@ class SpiritTracksWorld(WorldParent):
         if self.tower_pairings:
             print(f"ToS Plando")
             self.connect_plando(self.tower_pairings)
+        if self.options.plando_transitions.value:
+            plando_data = [(e.entrance, e.exit) for e in self.options.plando_transitions]
+            self.connect_plando(plando_data)
         self.er_placement_state = randomize_entrances(self, True, groups)
         print(f"ER Placements: {self.er_placement_state.pairings}")
 
@@ -1604,7 +1623,7 @@ class SpiritTracksWorld(WorldParent):
                    "shuffle_hyrule_castle",  # prevent zelda warp
                    "shuffle_eote",  # include eote locs if shuffled
                    "shuffle_train_transitions",  # for desert rocktite cannon logic lol
-                   "death_link"]
+                   "death_link", "enable_map_warp"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
         slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]

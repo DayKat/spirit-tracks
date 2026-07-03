@@ -330,7 +330,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def has_special_dynamic_requirements(self, ctx: "BizHawkClientContext", data) -> bool:
         def check_dungeon_reqs():
             if "dungeons" in data:
-                if ctx.slot_data["dark_realm_access"] != 1:
+                if ctx.slot_data["dark_realm_access"] not in [1, 3]:
                     return data["dungeons"]  # Case where dungeons are not required for dark realm
                 printl(f"{ctx.slot_data['required_dungeons']}")
                 dungeon_locs = ctx.slot_data["required_dungeons"]
@@ -1582,7 +1582,11 @@ class SpiritTracksClient(DSZeldaClient):
         return None
 
     async def process_map_warp(self, ctx):
+        if not ctx.slot_data["enable_map_warp"]:
+            return
+
         async def check_tos():
+            """Check for coords on the map that don't zoom in to a station."""
             raw_coords = await STAddr.quick_pen_coords.read(ctx, silent=True)
             if 0x40 < raw_coords & 0xFF < 0x70 < (raw_coords & 0xFF0000) >> 16 < 0x90:
                 return True

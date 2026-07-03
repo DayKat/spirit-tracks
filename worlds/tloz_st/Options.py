@@ -2,9 +2,10 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
-   ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet
+    ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet, PlandoConnections
 from worlds.tloz_st.data.Items import ITEMS_DATA
 from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION
+from.data.Entrances import ENTRANCES
 
 # YAML options
 
@@ -96,11 +97,12 @@ class SpiritTracksDungeonPoolPlando(OptionSet):
     Special Options include:
     - Lost At Sea
     - Take 'em All On 3
+    - all (includes lost at sea and teao3)
     Overrides tos_dungeon_options.
     """
     display_name = "Plando Dungeon Pool"
     default = set()
-    valid_keys = list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys())
+    valid_keys = list(DUNGEON_TO_BOSS_ITEM_LOCATION.keys()) + ["all"]
 
 
 class SpiritTracksEndgameScope(Choice):
@@ -811,6 +813,30 @@ class SpiritTracksToSShortcuts(Toggle):
     display_name = "Tower of Spirits Shortcuts"
     default = 0
 
+class SpiritTracksMapWarp(Toggle):
+    """
+    Enable warping to any previously visited station or realm by opening the rail map and tapping a station.
+    Requires the forest glyph to enable the rail map menu icon.
+    You can always warp to start by flipping the collection screen.
+    """
+    display_name = "Enable Map Warp"
+    default = 0
+
+class SpiritTracksEntrancePlando(PlandoConnections):
+    """
+    Plando entrance connections. Format is a list of dictionaries:
+    - entrance: "Entrance Name"
+      exit: "Exit Name"
+      direction: "Direction"
+      percentage: 100
+    Direction must be one of 'entrance', 'exit', or 'both', and defaults to 'both' if omitted.
+    Percentage is an integer from 1 to 100, and defaults to 100 when omitted.
+    Will disconnect entrances for you, and randomize their dangling entrances with each other if their entrance groups allow it.
+    """
+    display_name = "Entrance Plando"
+    entrances = frozenset(ENTRANCES.keys())
+    exits = frozenset(ENTRANCES.keys())
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -899,7 +925,11 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_hyrule_castle: SpiritTracksShuffleHyruleCastle
     shuffle_disorientation: SpiritTracksShuffleDisorientationStation
     shuffle_eote: SpiritTracksShuffleEotE
+    plando_transitions: SpiritTracksEntrancePlando
     entrance_directionality: SpiritTracksEntranceDirectionality
+
+    # QoL
+    enable_map_warp: SpiritTracksMapWarp
 
     # Cosmetic
     starting_train: SpiritTracksStartingTrain
@@ -981,7 +1011,11 @@ st_option_groups = [
         SpiritTracksShuffleHyruleCastle,
         SpiritTracksShuffleDisorientationStation,
         SpiritTracksShuffleEotE,
+        SpiritTracksEntrancePlando,
         SpiritTracksEntranceDirectionality
+    ]),
+    OptionGroup("QoL Options", [
+        SpiritTracksMapWarp
     ]),
     OptionGroup("Cosmetic Options", [
         SpiritTracksStartingTrain,
