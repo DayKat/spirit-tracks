@@ -519,7 +519,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["slippery station", "slippery", False, has_tracks("Slippery Station")],
         ["slippery", "slippery station", False, None],
         ["blizzard temple tracks", "slippery tracks", True, has_tracks("Slippery Station") & has_temple_tracks("Blizzard") & soft_cannon & (has_source("Snow") | has_tracks("N Icy Spring"))],
-        ["skating rink", "slippery station", True, None],
+        ["skating rink", "slippery", True, None],
         ["skating rink", "slippery amateur", False, None],
         ["skating rink", "slippery pro", False, None],
         ["skating rink", "slippery champion", False, None],

@@ -1713,7 +1713,7 @@ class SpiritTracksWorld(WorldParent):
 
         if "st_traversed_entrances" in key:
             new_connections = set(stored_data) - self.ut_traversed_entrances
-            self.ut_checked_entrances.update(new_connections)
+            self.ut_traversed_entrances.update(new_connections)
             for i in new_connections:
                 connect(i)
 

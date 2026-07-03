@@ -302,6 +302,7 @@ class STAddr:
     item_model_table = Address(0x0af590)  # size=big
 
     fr_actor_table_start = Address(0x2D21BC, size=4)
+    fr_actor_table_start_no_cannon = Address(0x2D1A60, size=4)
     sr_actor_table_start = Address(0x2D2F0C, size=4)
 
 #  = Address()

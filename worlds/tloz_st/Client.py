@@ -1353,8 +1353,9 @@ class SpiritTracksClient(DSZeldaClient):
         # Start Precision read for evil train deletion
         if not self._just_entered_game:
             if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
-                self.precision_mode = [Address.from_pointer(STAddr.fr_actor_table_start+17*4+3), 0,
-                                       "delete_ow_actors", STAddr.fr_actor_table_start]
+                # Wow cannon changes where ow actor table loads, and i don't have a good pointer :'(
+                pointer = STAddr.fr_actor_table_start if self.item_count(ctx, "Cannon") else STAddr.fr_actor_table_start_no_cannon
+                self.precision_mode = [Address.from_pointer(pointer+17*4+3), 0, "delete_ow_actors", pointer]
             if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
                 self.precision_mode = [Address.from_pointer(STAddr.sr_actor_table_start + 17 * 4 + 3), 0,
                                        "delete_ow_actors", STAddr.sr_actor_table_start]
@@ -1601,6 +1602,10 @@ class SpiritTracksClient(DSZeldaClient):
             self.starting_entrance = (0x2F, 0, 1)
         else:
             self.starting_entrance = (0x2F, 0xA, 1)
+
+        self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
+        self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
+        self.redisconnected_entrances |= set(get_stored_data(ctx, redisconnected_entrances_key, set()))
 
     async def conditional_bounce(self, ctx, scene: int, entrance: int) -> "STTransition" or None:
         e_tuple = ((scene & 0xFF00) >> 8, scene & 0xFF, entrance)
