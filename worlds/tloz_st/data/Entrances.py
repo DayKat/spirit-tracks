@@ -38,7 +38,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Outset Enter Trainyard": {
+    "Outset Alfonzo's Workshop": {
         "return_name": "Alfonzo's Workshop Exit",
         "exit": (0x2F, 0xB, 0),
         "entrance": (0x2F, 0x0, 2),
@@ -50,7 +50,7 @@ ENTRANCE_DATA = {
     },
 
     # Mayscore
-    "Mayscore Enter North House": {
+    "Mayscore North House": {
         "return_name": "Dovok's House Exit",
         "exit": (0x2A, 0x4, 0),
         "entrance": (0x2A, 0x0, 4),
@@ -60,7 +60,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Mayscore Enter NW House": {
+    "Mayscore NW House": {
         "return_name": "Morris' House Exit",
         "exit": (0x2A, 0x3, 0),
         "entrance": (0x2A, 0x0, 3),
@@ -70,7 +70,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Mayscore Enter NE House": {
+    "Mayscore NE House": {
         "return_name": "Wood's House Exit",
         "exit": (0x2A, 0x2, 0),
         "entrance": (0x2A, 0x0, 2),
@@ -80,7 +80,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Mayscore Enter Shop": {
+    "Mayscore Shop": {
         "return_name": "Uriko's Shop Exit",
         "exit": (0x2A, 0x5, 0),
         "entrance": (0x2A, 0x0, 1),
@@ -132,7 +132,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Castle Town Enter Shop": {
+    "Castle Town Shop": {
         "return_name": "Shitate's Shop Exit",
         "exit": (0x29, 0xA, 0),
         "entrance": (0x29, 0x0, 3),
@@ -152,7 +152,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Castle Town Enter Take 'em all On": {
+    "Castle Town Take 'em all On": {
         "return_name": "Take 'em all On Lobby Exit",
         "exit": (0x29, 0xB, 0),
         "entrance": (0x29, 0x0, 4),
@@ -337,7 +337,7 @@ ENTRANCE_DATA = {
     },
 
     # FOS
-    "Woodland Sanctuary Enter Sanctuary": {
+    "Woodland Sanctuary Cave": {
         "return_name": "Gage's Sanctuary Exit",
         "entrance": (0x30, 0, 1),
         "exit": (0x30, 0x1, 0),
@@ -420,7 +420,7 @@ ENTRANCE_DATA = {
     },
 
     # Snowfall sanc
-    "Snowfall Sanctuary Enter Cave": {
+    "Snowfall Sanctuary Cave": {
         "return_name": "Head Statue Cave Exit",
         "entrance": (0x31, 0, 1),
         "exit": (0x31, 0x1, 0),
@@ -440,7 +440,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Snowfall Sanctuary Enter Shop": {
+    "Snowfall Sanctuary Shop": {
         "return_name": "Snowfall Supermarket Exit",
         "entrance": (0x31, 0, 2),
         "exit": (0x31, 0x3, 0),
@@ -451,7 +451,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     # Small Stations
-    "Icy Spring Enter Trailer": {
+    "Icy Spring Trailer": {
         "return_name": "Ferrus' Trailer Exit",
         "entrance": (0x35, 0, 1),
         "exit": (0x35, 0x1, 0),
@@ -461,7 +461,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Bridge Worker's Enter House": {
+    "Bridge Worker's House": {
         "return_name": "Kenzo's House Exit",
         "entrance": (0x36, 0, 1),
         "exit": (0x36, 0x1, 0),
@@ -534,7 +534,7 @@ ENTRANCE_DATA = {
     },
 
     # Trading post
-    "Trading Post Enter Shop": {
+    "Trading Post Shop": {
         "return_name": "Linebeck III's Shop Exit",
         "entrance": (0x37, 0x0, 1),
         "exit": (0x37, 0xA, 0),
@@ -586,7 +586,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Papuzia Enter Wise One's House": {
+    "Papuzia Wise One's House": {
         "return_name": "Wise One's House Exit",
         "entrance_region": "papuzia village",
         "exit_region": "wise one's house",
@@ -606,7 +606,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Papuzia Enter Shop": {
+    "Papuzia Shop": {
         "return_name": "Kogane's Shop Exit",
         "entrance_region": "papuzia village",
         "exit_region": "kogane's shop",
@@ -735,7 +735,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
 
-    "Goron Village Enter Shop": {
+    "Goron Village Shop": {
         "return_name": "Goron Shop Exit",
         "entrance_region": "goron village",
         "exit_region": "goron village shop",
@@ -745,7 +745,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Goron Village Enter SW House": {
+    "Goron Village SW House": {
         "return_name": "Goron 3 Pots House Exit",
         "entrance_region": "goron plaza",
         "exit_region": "goron house 3 pots",
@@ -755,7 +755,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Goron Village Enter Center House": {
+    "Goron Village Center House": {
         "return_name": "Kofu's New House Exit",
         "entrance_region": "goron plaza",
         "exit_region": "kofu's new house",
@@ -765,7 +765,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Goron Village Enter SE House": {
+    "Goron Village SE House": {
         "return_name": "Goron 2 Pots House Exit",
         "entrance_region": "goron plaza",
         "exit_region": "goron neighbour's house",
@@ -775,7 +775,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Goron Village Enter Elder's House": {
+    "Goron Village Elder's House": {
         "return_name": "Elder Goron House Exit",
         "entrance_region": "goron plaza",
         "exit_region": "goron elder's house",
@@ -785,7 +785,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Goron Village Enter NW House": {
+    "Goron Village NW House": {
         "return_name": "Mouldy Goron House Exit",
         "entrance_region": "goron plaza",
         "exit_region": "mouldy goron house",
@@ -795,7 +795,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Goron Village Enter East Lava House": {
+    "Goron Village East Lava House": {
         "return_name": "Lava Goron House Exit",
         "entrance_region": "goron ice 2",
         "exit_region": "comfy goron's house",
@@ -806,7 +806,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
 
-    "Elder Goron House Enter Cave": {
+    "Elder Goron House Cave": {
         "return_name": "Burning Tunnel West Exit",
         "entrance_region": "goron elder's house",
         "exit_region": "valley sanc tunnel west",
@@ -858,7 +858,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Dark Ore Mine Center Cave": {
+    "Dark Ore Mine Cave": {
         "return_name": "Dark Ore Tunnels Center Exit",
         "entrance_region": "dark ore mine",
         "exit_region": "dark ore tunnels mid",

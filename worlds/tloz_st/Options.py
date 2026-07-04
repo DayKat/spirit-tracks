@@ -557,6 +557,62 @@ class SpiritTracksShuffleEotE(Choice):
     option_shuffle_pool_b = 3
     option_shuffle_pool_c = 4
 
+class SpiritTracksShuffleDungeonRooms(Choice):
+    """
+    Shuffle the entrances inside dungeons.
+    Has special option `shuffle in own dungeon`, that doesn't mix rooms from different dungeons.
+    """
+    display_name = "Shuffle Dungeon Interiors"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+    option_shuffle_in_own_dungeon = 5
+
+class SpiritTracksShuffleWarps(Choice):
+    """
+    Shuffles 2-way blue warps.
+    Has special option `shuffle in own dungeon`, that keeps them connecting in their local dungeon.
+        Acts as a mixed pool with other options that pick it.
+        If dungeon entrances are shuffled alone, shuffle_in_own_dungeon for warps follows the new dungeon.
+    """
+    display_name = "Shuffle Blue Warps"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+    option_shuffle_in_own_dungeon = 5
+
+class SpiritTracksShuffleDungeonEntrances(Choice):
+    """
+    Shuffles the entrances between dungeon stations and the start of dungeons.
+    Has special option `shuffle in own dungeon`, that keeps them connecting in their local dungeon.
+        Acts as a mixed pool with other options that pick it.
+    """
+    display_name = "Shuffle Dungeon Entrances"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+    option_shuffle_in_own_dungeon = 5
+
+class SpiritTracksShuffleBosses(Choice):
+    """
+    Shuffles the entrances to dungeon bosses.
+    Has special option `shuffle in own dungeon`, that keeps them connecting in their local dungeon.
+        Acts as a mixed pool with other options that pick it.
+    """
+    display_name = "Shuffle Bosses"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+    option_shuffle_in_own_dungeon = 5
+
 class SpiritTracksEntranceDirectionality(OptionSet):
     """
     Choose what entrance groups care about directionality (left entrance leads to right, house exterior leads to interior etc.).
@@ -947,12 +1003,12 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_stations: SpiritTracksShuffleStations
     shuffle_train_transitions: SpiritTracksShuffleTrainTransitions
     # shuffle_portals
-    # shuffle_dungeon_entrances:
-    # shuffle_bosses
+    shuffle_dungeon_entrances: SpiritTracksShuffleDungeonEntrances
+    shuffle_bosses: SpiritTracksShuffleBosses
     shuffle_tos_sections: SpiritTracksShuffleToSSections
-    # shuffle_dungeon_interiors
+    shuffle_dungeon_rooms: SpiritTracksShuffleDungeonRooms
     # shuffle_tos_interiors
-    # shuffle_warps
+    shuffle_warps: SpiritTracksShuffleWarps
     shuffle_hyrule_castle: SpiritTracksShuffleHyruleCastle
     shuffle_disorientation: SpiritTracksShuffleDisorientationStation
     shuffle_eote: SpiritTracksShuffleEotE
@@ -1041,7 +1097,11 @@ st_option_groups = [
         SpiritTracksShuffleTransitions,
         SpiritTracksShuffleStations,
         SpiritTracksShuffleTrainTransitions,
+        SpiritTracksShuffleDungeonEntrances,
         SpiritTracksShuffleToSSections,
+        SpiritTracksShuffleBosses,
+        SpiritTracksShuffleDungeonRooms,
+        SpiritTracksShuffleWarps,
         SpiritTracksShuffleHyruleCastle,
         SpiritTracksShuffleDisorientationStation,
         SpiritTracksShuffleEotE,

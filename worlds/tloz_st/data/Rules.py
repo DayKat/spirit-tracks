@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from ..__init__ import SpiritTracksWorld
 
-has_sword = Has("Sword (Progressive)") | Has("Sword") | Has("Lokomo Sword")
+has_sword = Has("Sword (Progressive)") | Has("Sword")
 has_shield = Has("Shield") | Has("Ancient Shield")
 has_whirlwind = Has("Whirlwind")
 has_boomerang = Has("Boomerang")
@@ -33,12 +33,16 @@ has_sob = has_spirit_flute & Has("Song of Birds")
 has_sol = has_spirit_flute & Has("Song of Light")
 has_sod = has_spirit_flute & Has("Song of Discovery")
 
+normal_key_options = [OptionFilter(SpiritTracksShuffleDungeonRooms, 0), OptionFilter(SpiritTracksShuffleBosses, 1, "le"), OptionFilter(SpiritTracksShuffleWarps, 0)]
+
 # Keys
-def has_small_keys(dungeon, count, _ool=None):
+def has_small_keys(dungeon, count, _ool=None, event=None):
     _ool = _ool if _ool is not None else count
-    return Or(Has(f"Small Key ({dungeon})", count),
-            ool & Has(f"Small Key ({dungeon})", _ool),
-            Has(f"Keyring ({dungeon})"))
+    return Or(Has(f"Keyring ({dungeon})"),
+        Has(f"Small Key ({dungeon})", count, options=[OptionFilter(SpiritTracksShuffleDungeonRooms, 0)]),
+            ool & Has(f"Small Key ({dungeon})", _ool, options=[OptionFilter(SpiritTracksShuffleDungeonRooms, 0)]),
+            Filtered(BadKeys(dungeon, event), options=[OptionFilter(SpiritTracksShuffleDungeonRooms, 0, "ne")])
+            )
 
 def has_boss_key(dungeon):
     return (Has(f"Boss Key ({dungeon})")
@@ -122,7 +126,7 @@ has_bow_of_light = Or(
         options=no_tear_items))
 
 def can_possess_phantom(floor):
-    return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & has_tears(floor)) | Has("Lokomo Sword")
+    return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & (Has("Lokomo Sword") | has_tears(floor)))
 
 # Passengers, cargo
 def has_passenger(passenger, event):
@@ -154,6 +158,7 @@ glitched_logic = ool | [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option
 has_train = has_glyph("Forest") & (has_cannon | [OptionFilter(SpiritTracksCannonLogic, 1, "gt")] | (ool & [OptionFilter(SpiritTracksCannonLogic, 0, "gt")]))
 has_good_damage = has_bombs | has_sword | has_bow
 has_damage = has_good_damage | has_whip
+can_kill_moth = has_whirlwind | has_bow | has_bombs | has_whip | (has_boomerang | has_sword) | has_sword_beam
 can_kill_bat = has_damage | has_boomerang
 can_kill_bat_pit = can_kill_bat | has_whirlwind
 can_kill_bubble = has_bombs | has_bow | has_whip | (has_sword & (has_boomerang | has_whirlwind))
@@ -267,3 +272,23 @@ class DebugRule(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
         def _evaluate(self, state: CollectionState) -> bool:
             # print([(r, state.count(f"{r} Rabbit", self.player)) for r in rabbit_realms])
             return all([state.has(f"{r} Rabbit", self.player, 10) for r in rabbit_realms])
+
+
+class BadKeys(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
+    dungeon: str
+    event: str
+    def __init__(self, dungeon, event):
+        self.dungeon = dungeon
+        self.event = event
+
+    @override
+    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
+        return self.Resolved(self.dungeon, self.event, player=world.player)
+
+    class Resolved(Rule.Resolved):
+        dungeon: str
+        event: str
+
+        @override
+        def _evaluate(self, state: CollectionState) -> bool:
+            return state.count(f"Small Key ({self.dungeon})", self.player) >= state.count(self.event, self.player)
