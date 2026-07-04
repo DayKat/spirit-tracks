@@ -578,7 +578,7 @@ class SpiritTracksClient(DSZeldaClient):
             await self.update_rabbit_count(ctx)
         if "Treasure:" in item_name:
             await self.update_treasure_tracker(ctx, "item_process")
-        if item_name == "Bombs (Progressive)" and self.current_scene == 0x4503:
+        if item_name in ["Bombs (Progressive)", "Bomb Bag"] and self.current_scene == 0x4503:
             await STAddr.adv_flags_22.unset_bits(ctx, 2)
 
         if self.reload_on_item:
@@ -1498,11 +1498,19 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def refill_ammo(self, ctx, text=""):
         await self.full_heal(ctx)
-        bomb_prog = self.item_count(ctx, "Bombs (Progressive)")
-        arrow_prog = self.item_count(ctx, "Bow (Progressive)")
+        if self.item_count(ctx, "Bomb Bag"):
+            bomb_prog = 1 + self.item_count(ctx, "Bomb Bag Upgrade")
+        else:
+            bomb_prog = self.item_count(ctx, "Bombs (Progressive)")
+        if self.item_count(ctx, "Bow"):
+            arrow_prog = 1 + self.item_count(ctx, "Quiver Upgrade")
+        else:
+            arrow_prog = self.item_count(ctx, "Bow (Progressive)")
         if bomb_prog:
+            bomb_prog = min(bomb_prog, len(self.item_data["Bombs (Progressive)"].give_ammo))
             await STAddr.bomb_count.overwrite(ctx, self.item_data["Bombs (Progressive)"].give_ammo[bomb_prog-1])
         if arrow_prog:
+            arrow_prog = min(arrow_prog, len(self.item_data["Bow (Progressive)"].give_ammo))
             await STAddr.arrow_count.overwrite(ctx, self.item_data["Bow (Progressive)"].give_ammo[arrow_prog-1])
 
     @staticmethod

@@ -11,13 +11,13 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from ..__init__ import SpiritTracksWorld
 
-has_sword = Has("Sword (Progressive)") | Has("Sword")
-has_shield = Has("Shield")
+has_sword = Has("Sword (Progressive)") | Has("Sword") | Has("Lokomo Sword")
+has_shield = Has("Shield") | Has("Ancient Shield")
 has_whirlwind = Has("Whirlwind")
 has_boomerang = Has("Boomerang")
 has_whip = Has("Whip")
-has_bow = Has("Bow (Progressive)")
-has_bombs = Has("Bombs (Progressive)")
+has_bow = Has("Bow (Progressive)") | Has("Bow")
+has_bombs = Has("Bombs (Progressive)") | Has("Bomb Bag")
 has_sand_wand = Has("Sand Wand")
 has_sword_beam = has_sword & Has("Sword Beam Scroll")
 has_stamp_book = Has("Stamp Book")
@@ -122,7 +122,7 @@ has_bow_of_light = Or(
         options=no_tear_items))
 
 def can_possess_phantom(floor):
-    return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & has_tears(floor))
+    return has_bow_of_light | Has("Sword (Progressive)", 2) | (has_sword & has_tears(floor)) | Has("Lokomo Sword")
 
 # Passengers, cargo
 def has_passenger(passenger, event):
@@ -237,7 +237,7 @@ def has_rupees(count):
 
 has_dungeon_rewards = ([
             OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons, operator="ne")]
-            | Has("_dungeon_reward", count=FromOption(SpiritTracksDungeonCount), options=[OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons)]))
+            | Has("_dungeon_reward", count=FromOption(SpiritTracksDungeonCount), options=[OptionFilter(SpiritTracksDarkRealmUnlock, [1, 3], "in")]))
 
 @dataclasses.dataclass
 class HasShuffledSection(Rule["SpiritTracksWorld"], game="Spirit Tracks"):

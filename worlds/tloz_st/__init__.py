@@ -777,11 +777,11 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"Locking stamp item {item_name} to {loc_name}")
                 continue
             if any([
-                item_name in ["Filler Item", "Treasure", "Nothing!",
+                item_name in ["Filler Item", "Treasure", "Nothing!", "Compass of Light",
                               "Heart Container", "Tear of Light",
                               "Shield", "Prize Postcards (10)", "Sand Source"],
                 item_name.startswith("Stamp"),
-                item_name in ITEM_GROUPS["All Rails"],
+                item_name in ITEM_GROUPS["Basic Tracks"],
                 item_name in ITEM_GROUPS["Main Items"],
                 item_name in ITEM_GROUPS["All Treasures"],
                 item_name in ITEM_GROUPS["Rupee Items"],
@@ -812,8 +812,13 @@ class SpiritTracksWorld(WorldParent):
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
 
         # add progression items first
-        add_items = [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3),
-                     ("Repair Trading Post Bridge", 1), ("Shield", 2), ("Treasure: Regal Ring", 1)]
+        add_items = [("Repair Trading Post Bridge", 1), ("Treasure: Regal Ring", 1)]
+        if self.options.progressive_equipment:
+            add_items += [("Bombs (Progressive)", 3), ("Bow (Progressive)", 3)]
+        else:
+            add_items += [("Bomb Bag", 1), ("Bow", 1), ("Bomb Bag Upgrade", 2), ("Quiver Upgrade", 2)]
+        if self.options.shields_in_pool:
+            add_items += [("Shield", math.ceil(filler_item_count/60)), ("Ancient Shield", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["Non-Progressive Main Items"]]
         if self.options.dark_realm_access in ["shattered_compass" or "both"] and self.options.compass_shard_total.value > 1:
             add_items += [("Compass of Light Shard", self.options.compass_shard_total.value)]
@@ -1108,7 +1113,11 @@ class SpiritTracksWorld(WorldParent):
         add_items = []
 
         if not spirit_weapon:
-            add_items += [("Sword (Progressive)", 2), ("Bow of Light", 1)]
+            if self.options.progressive_equipment:
+                add_items += [("Sword (Progressive)", 2)]
+            else:
+                add_items += [("Sword", 1), ("Lokomo Sword", 1)]
+            add_items += [("Bow of Light", 1)]
         else:
             add_items += [("Sword", 1)]
 

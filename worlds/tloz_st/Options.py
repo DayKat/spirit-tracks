@@ -850,6 +850,23 @@ class SpiritTracksUTBlockedEntrances(Choice):
     option_unmark_when_opened = 2
     default = 0
 
+class SpiritTracksProgressiveEquipment(Toggle):
+    """
+    Toggle if bow, bombs and sword have progressive items (true) or a main item and capacity upgrades (false).
+    You can use the lokomo sword without the normal sword.
+    """
+    display_name = "Progressive Equipment"
+    default = 1
+
+class SpiritTracksShields(Toggle):
+    """
+    Toggle if shields are in the item pool.
+    You can always buy shields in shops after buying the randomized item on that slot.
+    Shields ruin speedrunning strats so that's why this is an option~
+    """
+    display_name = "Shields in Pool"
+    default = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -879,12 +896,13 @@ class SpiritTracksOptions(PerGameCommonOptions):
     keyrings: SpiritTracksKeyrings
     big_keyrings: SpiritTracksBigKeyrings
 
+    progressive_equipment: SpiritTracksProgressiveEquipment
+    start_with_train: SpiritTracksStartWithTrain
     track_pool: SpiritTracksTrackGroupings
+    shields_in_pool: SpiritTracksShields
 
     randomize_minigames: SpiritTracksRandomizeMinigames
     minigame_hints: SpiritTracksMinigameHints
-
-    start_with_train: SpiritTracksStartWithTrain
 
     randomize_stamps: SpiritTracksStampItems
     stamp_pack_sizes: SpiritTracksStampItemPacks
@@ -981,7 +999,9 @@ st_option_groups = [
         SpiritTracksBigKeyrings,
     ]),
     OptionGroup("Randomization Options", [
+        SpiritTracksProgressiveEquipment,
         SpiritTracksTrackGroupings,
+        SpiritTracksShields,
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,
         SpiritTracksStampItems,

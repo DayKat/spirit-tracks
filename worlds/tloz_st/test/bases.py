@@ -56,6 +56,9 @@ options_old = {
 class TestGeneration(WorldTestBase):
     game = "Spirit Tracks"
     options = {
+        "progressive_equipment": False,
+        "randomize_shields": False,
+
         "shuffle_stations": "no_shuffle",
         "shuffle_train_transitions": "no_shuffle",
 

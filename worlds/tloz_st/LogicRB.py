@@ -828,7 +828,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt boss", "defeat vulcano", False, Or(
             has_sword,
             has_whip,
-            Has("Bombs (Progressive)", 2))],
+            Has("Bombs (Progressive)", 2),
+            Has("Bomb Bag") & Has("Bomb Bag Upgrade"))],
         ["defeat vulcano", "event_vulcano", False, None],
         ["defeat vulcano", "goal_vulcano", False, None],
 

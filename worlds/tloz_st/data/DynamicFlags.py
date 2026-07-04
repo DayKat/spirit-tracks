@@ -1115,23 +1115,32 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "not_has_locations": ["Beedle Shop Bomb Bag"],
         "has_slot_data": [("shopsanity", "uniques")],
         "unset_if_true": [(STAddr.adv_flags_22, 0x02), (STAddr.bomb_capacity, 3)],
-        "reset_flags": ["RESET beedle bomb bag flag"]
+        "reset_flags": ["RESET beedle bomb bag flag", "RESET beedle bomb bag flag progressive"]
     },
-    "RESET beedle bomb bag flag": {
+    "RESET beedle bomb bag flag progressive": {
         "has_items": [("Bombs (Progressive)", 1)],
         "set_if_true": [(STAddr.adv_flags_22, 0x02)],
         "overwrite_if_true": [(STAddr.bomb_capacity, "Bombs (Progressive)", -1)]
+    },
+    "RESET beedle bomb bag flag": {
+        "has_items": [("Bomb Bag Upgrade", 1)],
+        "set_if_true": [(STAddr.adv_flags_22, 0x02)],
+        "overwrite_if_true": [(STAddr.bomb_capacity, "Bomb Bag Upgrade")]
     },
     "Remove Goron Quiver count": {
         "on_scenes": [0x2e06],
         "not_has_locations": ["Goron Shop Quiver"],
         "has_slot_data": [("shopsanity", "uniques")],
         "unset_if_true": [(STAddr.arrow_capacity, 3)],
-        "reset_flags": ["RESET Goron Quiver count"]
+        "reset_flags": ["RESET Goron Quiver count", "RESET Goron Quiver count progressive"]
     },
-    "RESET Goron Quiver count": {
+    "RESET Goron Quiver count progressive": {
         "has_items": [("Bow (Progressive)", 1)],
         "overwrite_if_true": [(STAddr.arrow_capacity, "Bow (Progressive)", -1)]
+    },
+    "RESET Goron Quiver count": {
+        "has_items": [("Quiver Upgrade", 1)],
+        "overwrite_if_true": [(STAddr.arrow_capacity, "Quiver Upgrade")]
     },
     "Add beedle bomb flag": {
         "on_scenes": [0x4503],
@@ -1970,7 +1979,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     #Prevent minigame from being played if no bow has been found
     "Pirate Hideout Minigame Missing Bow": {
         "on_scenes": [0x3A00],
-        "has_items": [("Bow (Progressive)", 0)],
+        "has_items": [("Bow (Progressive)", 0), ("Bow", 0)],
     #   "unset_if_true": [(STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_24, 0xA), (STAddr.adv_flags_4f, 0x6)],
         "set_if_true": [(STAddr.adv_flags_24, 0x2)], #Should remove Wadatsumi from area and not let minigame be played?
         "reset_flags": ["RESET Pirate Minigame Access"],
@@ -2019,7 +2028,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     #Check for Wadatsumi being delivered previously, and then set Gorons to appear
     "Wadatsumi Saved Already": {
         "on_scenes": [0x3A00],
-        "has_items": [("Bow (Progressive)", 1)],
+        "any_has_items": [("Bow (Progressive)", 1), ("Bow", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "has_locations": ["Pirate Hideout Pick Up Wadatsumi"],
         # "check_bits": [(STAddr.adv_flags_34, 0x20)],
@@ -2027,14 +2036,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Wadatsumi Saved Already vanilla": {
         "on_scenes": [0x3A00],
-        "has_items": [("Bow (Progressive)", 1)],
+        "any_has_items": [("Bow (Progressive)", 1), ("Bow", 1)],
         "has_slot_data": [("randomize_passengers", 1)],
         "has_locations": ["Papuzia Village Wadatsumi's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
     "Wadatsumi Saved Already no papuzia": {
         "on_scenes": [0x3A00],
-        "has_items": [("Bow (Progressive)", 1)],
+        "any_has_items": [("Bow (Progressive)", 1), ("Bow", 1)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
         "not_has_groups": ["Tracks: Ocean Glyph"],
         "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
