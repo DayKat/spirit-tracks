@@ -71,9 +71,9 @@ class TestGeneration(WorldTestBase):
 
         "shuffle_tos_sections": "no_shuffle",
 
-        "shuffle_dungeon_entrances": "no_shuffle",
+        "shuffle_dungeon_entrances": "shuffle_in_own_dungeon_shuffle",
         "shuffle_bosses": "no_shuffle",
-        "shuffle_dungeon_rooms": "shuffle_alone",
+        "shuffle_dungeon_rooms": "shuffle_in_own_dungeon",
 
         "entrance_directionality": {"stations"},
 

@@ -420,27 +420,33 @@ BOSS_LOCATION_TO_POST_LOCATIONS = {
 }
 
 DUNGEON_TO_ENTRANCE = {
-    "Wooded Temple": "Wooded Temple Lobby Enter Dungeon"
+    "Wooded Temple": "Wooded Temple Lobby Enter Dungeon",
+    "Blizzard Temple": "Blizzard Temple Lobby Enter Dungeon",
 }
 
 DUNGEON_TO_EXIT = {
-    "Wooded Temple": "Wooded Temple 1F Exit"
+    "Wooded Temple": "Wooded Temple 1F Exit",
+    "Blizzard Temple": "Blizzard Temple 1F South Exit",
 }
 
 DUNGEON_TO_WARP_ENTRANCE = {
-    "Wooded Temple": "Wooded Temple Lobby Blue Warp"
+    "Wooded Temple": "Wooded Temple Lobby Blue Warp",
+    "Blizzard Temple": "Blizzard Temple Lobby Blue Warp",
 }
 
 DUNGEON_TO_WARP_EXIT = {
-    "Wooded Temple": "Wooded Temple 4F Blue Warp"
+    "Wooded Temple": "Wooded Temple 4F Blue Warp",
+    "Blizzard Temple": "Blizzard Temple 3F Blue Warp",
 }
 
 DUNGEON_TO_BOSS_STAIRCASE = {
-    "Wooded Temple": "Wooded Temple 4F N Staircase"
+    "Wooded Temple": "Wooded Temple 4F N Staircase",
+    "Blizzard Temple": "Blizzard Temple 3F North Staircase",
 }
 
 BOSS_LOCATION_TO_EXIT = {
-    "Stagnox Boss Reward": "Stagnox Exit"
+    "Stagnox Boss Reward": "Stagnox Exit",
+    "Fraaz Boss Reward": "Fraaz Exit",
 }
 
 DUNGEON_KEY_DATA = {
@@ -843,7 +849,8 @@ BOSS_LOCATION_TO_ENTRANCE: dict[str, str] = {
     "Stagnox Boss Reward": "Stagnox Exit"
 }
 DUNGEON_LOBBY_ENTRANCES: dict[str, tuple[str, str]] = {
-    "Wooded Temple": ("Wooded Temple Lobby Enter Dungeon","Wooded Temple Lobby Blue Warp")
+    "Wooded Temple": ("Wooded Temple Lobby Enter Dungeon","Wooded Temple Lobby Blue Warp"),
+    "Blizzard Temple": ("Blizzard Temple Lobby Enter Dungeon","Blizzard Temple Lobby Blue Warp"),
 }
 
 map_warp_redirects: dict[int, tuple[int, int, int]] = {

@@ -930,6 +930,14 @@ class SpiritTracksShields(Toggle):
     display_name = "Shields in Pool"
     default = 1
 
+class SpiritTracksOpenBlizzardTemple(Toggle):
+    """
+    The bell doors in Blizzard Temple are open from the start.
+    """
+    display_name = "Open Blizzard Temple"
+    default = 0
+
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -958,6 +966,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     randomize_boss_keys: SpiritTracksRandomizeBossKeys
     keyrings: SpiritTracksKeyrings
     big_keyrings: SpiritTracksBigKeyrings
+    open_bt: SpiritTracksOpenBlizzardTemple
 
     progressive_equipment: SpiritTracksProgressiveEquipment
     start_with_train: SpiritTracksStartWithTrain
@@ -1074,6 +1083,7 @@ st_option_groups = [
         SpiritTracksRandomizePassengers,
         SpiritTracksRandomizeCargo,
         SpiritTracksStartWithTrain,
+        SpiritTracksOpenBlizzardTemple
     ]),
     OptionGroup("ToS Options", [
         SpiritTracksToSSectionUnlocks,

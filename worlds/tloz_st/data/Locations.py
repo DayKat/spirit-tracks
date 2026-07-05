@@ -1510,7 +1510,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple B1 E Enemy Chest": {
-        "region_id": "bt b1 e enemy chest",
+        "region_id": "bt b1 e",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1A,
         "room_id": 1,
@@ -1554,7 +1554,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple B1 Stamp Station": {
-        "region_id": "bt stamp station",
+        "region_id": "bt b1 stamp station",
         "vanilla_item": "Stamp: Blizzard Temple",
         "stage_id": 0x1A,
         "room_id": 1,
@@ -1563,7 +1563,7 @@ LOCATIONS_DATA = {
         "conditional": True
     },
     "Blizzard Temple B1 NW Enemy Chest": {
-        "region_id": "bt west",
+        "region_id": "bt b1 w chest",
         "vanilla_item": "Big Green Rupee (100)",
         "stage_id": 0x1A,
         "room_id": 1,
@@ -1571,10 +1571,10 @@ LOCATIONS_DATA = {
         "x_max": -72624,
         "z_min": -62715,
         "z_max": -42615,
-        "dungeon": "Blizzard Temple",
+        "dungeon": "Blizzard Temple"
     },
     "Blizzard Temple 1F NW Chest": {
-        "region_id": "bt west",
+        "region_id": "bt 1f nw bell",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 0,
@@ -1585,7 +1585,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple 1F Torch Chest": {
-        "region_id": "bt west",
+        "region_id": "bt 1f n chest",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 0,
@@ -1596,7 +1596,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
     },
     "Blizzard Temple 2F Boss Key": {
-        "region_id": "bt west",
+        "region_id": "bt 2f boss key",
         "vanilla_item": "Boss Key (Blizzard Temple)",
         "dungeon": "Blizzard Temple",
         "conditional": True

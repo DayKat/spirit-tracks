@@ -250,7 +250,7 @@ dungeon_to_enum = {
 def decode_entrance_groups(group):
     direction = group & EntranceGroups.DIRECTION_MASK
     area = (group & EntranceGroups.AREA_MASK) >> 3
-    dung = (group & EntranceGroups.DIRECTION_MASK) >> 8
+    dung = (group & EntranceGroups.DUNGEON_MASK) >> 8
     dung_text = ""
     if dung:
         dung_text = f"-{dungeon_lookup[dung]}"

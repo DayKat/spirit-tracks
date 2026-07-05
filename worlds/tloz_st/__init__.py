@@ -681,8 +681,10 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("island sanc carben", "_deliver_carben")
         # DER events. might add if statement later
         self.create_event("wt blue warp", "_wt_warp")
-        self.create_event("wt 1f keydoor", "_wt_key")
-        self.create_event("wt 2f keydoor", "_wt_key")
+        self.create_event("bt blue warp", "_bt_warp")
+
+        self.create_event("bt 1f ne bell", "_bt_bell_2")
+        self.create_event("bt 1f nw bell", "_bt_bell_3")
 
 
     def exclude_locations_automatically(self):
@@ -1321,6 +1323,8 @@ class SpiritTracksWorld(WorldParent):
             res = []
             print(f"\t\tTarget dirs: {target_directions}")
             print(f"\t\tTarget etypes: {target_etyps}")
+            if dungeon:
+                print(f"\t\tTarget dungeons: {target_dungeons}")
             for d in target_directions:
                 for t in target_etyps:
                     for dung in target_dungeons:
@@ -1370,6 +1374,10 @@ class SpiritTracksWorld(WorldParent):
             2: [3, 4],
             3: [3, 4],
             4: [1, 2, 3, 4],
+            5: [3, 4],
+            6: [3, 4],
+            7: [3, 4],
+            8: [3, 4],
             11: [3, 4],
             12: [1, 2, 3, 4],
             15: [3, 4],
@@ -1389,14 +1397,16 @@ class SpiritTracksWorld(WorldParent):
                                            (dungeon_to_enum[dung] << 8)
         shuffled_dungeon_lookup = {}
         if self.options.shuffle_dungeon_entrances.value in [1, 6]:
-            shuffled_dungeons = DUNGEON_NAMES[2:3]
+            shuffled_dungeons = DUNGEON_NAMES[2:4]
             self.random.shuffle(shuffled_dungeons)
-            shuffled_dungeon_lookup = {o: n for o, n in zip(DUNGEON_NAMES[2:3], shuffled_dungeons)}
+            shuffled_dungeon_lookup = {o: n for o, n in zip(DUNGEON_NAMES[2:4], shuffled_dungeons)}
+            print(f"Shuffled dungeon lookup: {shuffled_dungeon_lookup}")
             for dung, entr in DUNGEON_LOBBY_ENTRANCES.items():
                 for e in entr:
                     entrance = self.get_entrance(e)
-                    entrance.randomization_group = entrance.randomization_group & EntranceGroups.NON_DUNGEON_MASK + \
+                    entrance.randomization_group = (entrance.randomization_group & EntranceGroups.NON_DUNGEON_MASK) + \
                                                    (dungeon_to_enum[shuffled_dungeon_lookup[dung]] << 8)
+                    print(f"New Target group: {entrance} {decode_entrance_groups(entrance.randomization_group)}")
             if self.options.shuffle_warps.value == 0:
                 plando_disconnects.update(DUNGEON_TO_WARP_ENTRANCE.values())
                 plando_disconnects.update(DUNGEON_TO_WARP_EXIT.values())
@@ -1708,7 +1718,7 @@ class SpiritTracksWorld(WorldParent):
                    "randomize_tears", "spirit_weapons", "tear_sections",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
                    "starting_train", "multiworld_item_default_models",
-                   "randomize_stamps",
+                   "randomize_stamps", "open_bt",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections", "tos_shortcuts",
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
                    "shuffle_stations", "shuffle_overworld",  # used to disable dynamic flags

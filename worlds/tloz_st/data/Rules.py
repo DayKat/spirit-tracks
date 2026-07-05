@@ -201,10 +201,13 @@ can_kill_moth = has_whirlwind | has_bow | has_bombs | has_whip | (has_boomerang 
 can_kill_bat = has_damage | has_boomerang
 can_kill_bat_pit = can_kill_bat | has_whirlwind
 can_kill_bubble = has_bombs | has_bow | has_whip | (has_sword & (has_boomerang | has_whirlwind))
+can_kill_ice_bat = has_bombs | has_bow | has_whip | has_boomerang | (has_sword & has_whirlwind)
+
 has_range = has_bow | has_boomerang
 has_range_objects = has_range | has_whirlwind  # range with
 has_short_range = has_range | has_whip | has_sword_beam | has_bombs
 can_ring_bell = has_sword | has_boomerang
+can_break_grass = can_ring_bell | has_bombs
 can_rotate_repeater = has_sword | has_boomerang | has_whip
 has_cuccos = has_sob | has_whirlwind
 ct_cuccos = has_sob | (has_whirlwind & hard_logic)

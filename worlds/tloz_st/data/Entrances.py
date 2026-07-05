@@ -2325,6 +2325,138 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.WOODED
     },
 
+    # Blizzard Temple
+    "Blizzard Temple Lobby Enter Dungeon": {
+        "return_name": "Blizzard Temple 1F South Exit",
+        "entrance_region": "bt lobby",
+        "exit_region": "bt 1f exit",
+        "entrance": (0x1a, 0x4, 1),
+        "exit": (0x1a, 0x5, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F South Entrance": {
+        "return_name": "Blizzard Temple 1F Main South",
+        "entrance_region": "bt 1f s",
+        "exit_region": "bt 1f",
+        "entrance": (0x1a, 0x5, 5),
+        "exit": (0x1a, 0x0, 7),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F Main East": {
+        "return_name": "Blizzard Temple 1F SE Entrance",
+        "entrance_region": "bt 1f e",
+        "exit_region": "bt 1f se",
+        "entrance": (0x1a, 0x0, 8),
+        "exit": (0x1a, 0x5, 6),
+        "direction": EntranceGroups.DOWN,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F SE Staircase": {
+        "return_name": "Blizzard Temple B1 SE Staircase",
+        "entrance_region": "bt 1f se door",
+        "exit_region": "bt b1 se",
+        "entrance": (0x1a, 0x5, 1),
+        "exit": (0x1a, 0x1, 1),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F NE Staircase": {
+        "return_name": "Blizzard Temple B1 NE Staircase",
+        "entrance_region": "bt 1f ne",
+        "exit_region": "bt b1 ne door",
+        "entrance": (0x1a, 0x0, 2),
+        "exit": (0x1a, 0x1, 2),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F Main SW": {
+        "return_name": "Blizzard Temple 1F SW Entrance",
+        "entrance_region": "bt 1f",
+        "exit_region": "bt 1f sw",
+        "entrance": (0x1a, 0x0, 6),
+        "exit": (0x1a, 0x5, 4),
+        "direction": EntranceGroups.DOWN,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F SW Staircase": {
+        "return_name": "Blizzard Temple B1 SW Staircase",
+        "entrance_region": "bt 1f sw door",
+        "exit_region": "bt b1 sw",
+        "entrance": (0x1a, 0x5, 3),
+        "exit": (0x1a, 0x1, 3),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F NW Staircase": {
+        "return_name": "Blizzard Temple B1 NW Staircase",
+        "entrance_region": "bt 1f nw",
+        "exit_region": "bt b1 nw",
+        "entrance": (0x1a, 0x0, 4),
+        "exit": (0x1a, 0x1, 4),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F NW Entrance": {
+        "return_name": "Blizzard Temple 1F West Entrance",
+        "entrance_region": "bt 1f nw",
+        "exit_region": "bt 1f w",
+        "entrance": (0x1a, 0x0, 9),
+        "exit": (0x1a, 0x5, 7),
+        "direction": EntranceGroups.DOWN,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 1F North Staircase": {
+        "return_name": "Blizzard Temple 2F North Staircase",
+        "entrance_region": "bt 1f nw",
+        "exit_region": "bt 1f w",
+        "entrance": (0x1a, 0x0, 5),
+        "exit": (0x1a, 0x2, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 2F South Staircase": {
+        "return_name": "Blizzard Temple 3F South Staircase",
+        "entrance_region": "bt 2f boss door",
+        "exit_region": "bt 3f",
+        "entrance": (0x1a, 0x2, 1),
+        "exit": (0x1a, 0x3, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 3F North Staircase": {
+        "return_name": "Fraaz Exit",
+        "entrance_region": "bt 3f",
+        "exit_region": "bt pre fraaz",
+        "entrance": (0x1a, 0x3, 1),
+        "exit": (0x1F, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.BOSS,
+        "island": EntranceGroups.BLIZZARD
+    },
+    "Blizzard Temple 3F Blue Warp": {
+        "return_name": "Blizzard Temple Lobby Blue Warp",
+        "entrance_region": "bt 3f",
+        "exit_region": "bt blue warp",
+        "entrance": (0x1a, 0x3, 2),
+        "exit": (0x1a, 0x4, 3),
+        "direction": EntranceGroups.DOWN,
+        "type": EntranceGroups.WARP_PORTAL,
+        "island": EntranceGroups.BLIZZARD
+    },
+
     # Misc entrances
     "Desert Temple Enter Boss": {
         "return_name": "Skeldritch Exit",
