@@ -362,6 +362,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wt 2f moth", "wt 2f left", False, can_kill_moth & has_small_keys_er("Wooded Temple", 2)],
         ["wt 2f left", "wt 2f keydoor", False, None],
         ["wt 2f moth", "wt 2f keydoor", False, can_kill_moth],
+        ["wt 2f moth", "wt 2f moth door", False, can_kill_moth],
+        ["wt 2f moth door", "wt 3f", True, None],
         ["wt 2f moth", "wt 3f", False, can_kill_moth],
         ["wt 3f", "wt 2f moth", False, None],
 

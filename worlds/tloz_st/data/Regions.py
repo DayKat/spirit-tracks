@@ -268,6 +268,7 @@ REGIONS = [
     "wt 3f left",
     "wt 3f chestnut chest",
     "wt 2f moth",
+    "wt 2f moth door",
     "wt 2f keydoor",
 
     "wt 3f",

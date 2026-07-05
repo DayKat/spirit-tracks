@@ -1499,7 +1499,7 @@ LOCATIONS_DATA = {
 
     # Blizzard Temple
     "Blizzard Temple B1 SE Chest": {
-        "region_id": "bt b1 se",
+        "region_id": "bt b1 e",
         "vanilla_item": "Red Rupee (20)",
         "stage_id": 0x1A,
         "room_id": 1,

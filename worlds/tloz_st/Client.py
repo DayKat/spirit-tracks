@@ -1680,8 +1680,9 @@ class SpiritTracksClient(DSZeldaClient):
                     logger.info(f"Selected station to warp to: {self.map_warp.name} {hex_f(self.map_warp.entrance)}")
 
 
-        elif self.unlocked_map and not self.has_from_group(ctx, "Tracks: Fire Glyph"):
-            await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
+        elif self.unlocked_map:
+            if not self.has_from_group(ctx, "Tracks: Fire Glyph"):
+                await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
             self.unlocked_map = 0
             self.selected_station = 0
             print(f"Quitting tracks {0}")

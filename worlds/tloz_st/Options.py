@@ -605,8 +605,10 @@ class SpiritTracksShuffleDungeonEntrances(Choice):
 class SpiritTracksShuffleBosses(Choice):
     """
     Shuffles the entrances to dungeon bosses.
-    Has special option `shuffle in own dungeon`, that keeps them connecting in their local dungeon.
-        Acts as a mixed pool with other options that pick it.
+    - shuffle_in_own_dungeon_vanilla: the boss will only shuffle to its vanilla dungeon,
+        but to any entrance in that dungeon that's also in the in_own_dungeon pool
+    - shuffle_in_own_dungeon_shuffle: the game pre-picks what boss goes to what dungeon entrance,
+        and that entrance can shuffle to any entrance in that dungeon also in the in_own_dungeon pool.
     """
     display_name = "Shuffle Bosses"
     option_no_shuffle = 0
@@ -615,6 +617,7 @@ class SpiritTracksShuffleBosses(Choice):
     option_shuffle_pool_b = 3
     option_shuffle_pool_c = 4
     option_shuffle_in_own_dungeon = 5
+    option_shuffle_in_own_dungeon_shuffle = 6
 
 class SpiritTracksEntranceDirectionality(OptionSet):
     """
@@ -937,6 +940,14 @@ class SpiritTracksOpenBlizzardTemple(Toggle):
     display_name = "Open Blizzard Temple"
     default = 0
 
+class SpiritTracksOpenBlueWarps(Toggle):
+    """
+    2-directional blue warps are open from the start.
+    Nice if they're entrance shuffled.
+    """
+    display_name = "Open Blue Warps"
+    default = 0
+
 
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
@@ -966,7 +977,8 @@ class SpiritTracksOptions(PerGameCommonOptions):
     randomize_boss_keys: SpiritTracksRandomizeBossKeys
     keyrings: SpiritTracksKeyrings
     big_keyrings: SpiritTracksBigKeyrings
-    open_bt: SpiritTracksOpenBlizzardTemple
+    open_blizzard_temple: SpiritTracksOpenBlizzardTemple
+    open_blue_warps: SpiritTracksOpenBlueWarps
 
     progressive_equipment: SpiritTracksProgressiveEquipment
     start_with_train: SpiritTracksStartWithTrain
@@ -1070,20 +1082,20 @@ st_option_groups = [
         SpiritTracksKeyrings,
         SpiritTracksBigKeyrings,
     ]),
-    OptionGroup("Randomization Options", [
+    OptionGroup("Item Options", [
         SpiritTracksProgressiveEquipment,
         SpiritTracksTrackGroupings,
         SpiritTracksShields,
+        SpiritTracksStartWithTrain,
+    ]),
+    OptionGroup("More Randomization", [
         SpiritTracksRandomizeMinigames,
         SpiritTracksMinigameHints,
         SpiritTracksStampItems,
         SpiritTracksStampItemPacks,
-        SpiritTracksRandomizePortals,
-        SpiritTracksPortalLocations,
         SpiritTracksRandomizePassengers,
         SpiritTracksRandomizeCargo,
-        SpiritTracksStartWithTrain,
-        SpiritTracksOpenBlizzardTemple
+        SpiritTracksPortalLocations,
     ]),
     OptionGroup("ToS Options", [
         SpiritTracksToSSectionUnlocks,
@@ -1107,6 +1119,11 @@ st_option_groups = [
         SpiritTracksRabbitPackSize,
         SpiritTracksExtraRabbits,
         SpiritTracksRabbitHints
+    ]),
+    OptionGroup("World Options", [
+        SpiritTracksRandomizePortals,
+        SpiritTracksOpenBlueWarps,
+        SpiritTracksOpenBlizzardTemple,
     ]),
     OptionGroup("Entrance Randomizer Options", [
         SpiritTracksShuffleHouses,

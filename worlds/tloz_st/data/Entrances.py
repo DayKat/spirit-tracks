@@ -1222,7 +1222,7 @@ ENTRANCE_DATA |= {
         "exit": (0x5, 0x0, 1),
         "entrance": (0x1A, 0x4, 0),
         "exit_region": "bt station",
-        "entrance_region": "bt",
+        "entrance_region": "bt lobby",
         "reverse_required_groups": [("Tracks: Blizzard Temple Tracks", "Tracks: Snow Source")],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -2286,7 +2286,7 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 2F Central Staircase": {
         "return_name": "Wooded Temple 3F N Staircase",
-        "entrance_region": "wt 2f moth",
+        "entrance_region": "wt 2f moth door",
         "exit_region": "wt 3f",
         "entrance": (0x19, 0x1, 2),
         "exit": (0x19, 0x2, 0),
@@ -2418,8 +2418,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F North Staircase": {
         "return_name": "Blizzard Temple 2F North Staircase",
-        "entrance_region": "bt 1f nw",
-        "exit_region": "bt 1f w",
+        "entrance_region": "bt 1f n",
+        "exit_region": "bt 2f",
         "entrance": (0x1a, 0x0, 5),
         "exit": (0x1a, 0x2, 0),
         "direction": EntranceGroups.NONE,

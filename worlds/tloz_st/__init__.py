@@ -6,7 +6,7 @@ from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, 
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
-from entrance_rando import randomize_entrances, bake_target_group_lookup
+from entrance_rando import randomize_entrances, bake_target_group_lookup, EntranceRandomizationError
 
 from .Util import *
 from .Options import *
@@ -115,7 +115,7 @@ class SpiritTracksWorld(WorldParent):
     options_dataclass = SpiritTracksOptions
     options: SpiritTracksOptions
     settings: ClassVar[SpiritTracksSettings]
-    required_client_version = (0, 6, 3)
+    required_client_version = (0, 6, 7)
     web = SpiritTracksWeb()
     topology_present = True
 
@@ -1281,7 +1281,7 @@ class SpiritTracksWorld(WorldParent):
 
     @staticmethod
     def in_pool(p, etype: int) -> int | None:
-        print(f"Pools: {p} etype {etype}")
+        # print(f"Pools: {p} etype {etype}")
         for i in range(4):
             if etype in p[i]:
                 return i
@@ -1422,14 +1422,14 @@ class SpiritTracksWorld(WorldParent):
         for e in self.valid_entrances:
             if type_option_lookup.get((e.randomization_group & EntranceGroups.AREA_MASK) >> 3, False):
                 entrances_to_shuffle.append(e)
-                print(f"ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
+                # print(f"ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
                 if e.randomization_group & 7 == 0 :
                     directionless_entrances.append(e)
             elif e.name in plando_disconnects:
                 entrances_to_shuffle.append(e)
                 e.randomization_group = 0
                 directionless_entrances.append(e)
-                print(f"Plando ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
+                # print(f"Plando ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
 
         print("no of entrances:", len(entrances_to_shuffle))
 
@@ -1511,8 +1511,27 @@ class SpiritTracksWorld(WorldParent):
 
 
         # Randomize Entrances
-        self.er_placement_state = randomize_entrances(self, True, groups)
-        print(f"ER Placements: {self.er_placement_state.pairings}")
+        st_max_er_attempts = 10
+        for i in range(st_max_er_attempts):
+            try:
+                self.er_placement_state = randomize_entrances(self, True, groups)
+                print(f"ER Placements: {self.er_placement_state.pairings}")
+                break
+            except EntranceRandomizationError as error:
+                print(f"Spirit tracks failed ER {i+1} time(s), retrying")
+                if i >= st_max_er_attempts - 1:
+                    raise EntranceRandomizationError(
+                        f"Spirit Tracks: failed GER after {st_max_er_attempts} attempts.")
+                # disconnect entrances again, but only if they got connected before
+                for region in self.get_regions():
+                    # print(f"\tRegion: {region} | exits {[e for e in region.get_exits()]}")
+                    for _exit in region.get_exits():
+                        if (_exit.parent_region
+                                and _exit.connected_region
+                                and _exit in entrances_to_shuffle):
+                            # print(f"Disconnecting entrance {_exit} {_exit.randomization_group}")
+                            target_name = ENTRANCES[_exit.name].vanilla_reciprocal.name
+                            disconnect_entrance_for_randomization(_exit, one_way_target_name=target_name)
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
@@ -1718,7 +1737,7 @@ class SpiritTracksWorld(WorldParent):
                    "randomize_tears", "spirit_weapons", "tear_sections",
                    "dark_realm_access", "endgame_scope", "dungeons_required",
                    "starting_train", "multiworld_item_default_models",
-                   "randomize_stamps", "open_bt",
+                   "randomize_stamps", "open_blizzard_temple", "open_blue_warps",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections", "tos_shortcuts",
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
                    "shuffle_stations", "shuffle_overworld",  # used to disable dynamic flags
