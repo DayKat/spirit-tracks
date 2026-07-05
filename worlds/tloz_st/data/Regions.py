@@ -245,26 +245,42 @@ REGIONS = [
     "woodland sanc chest",
 
     # Wooded Temple
-    "wt",
+    "wt lobby",
     "wt station",
     "wt song statue",
-    "wt 1f enemy chest",
-    "wt 1f key",
+    "wt 1f",
     "wt 1f switch chest",
+    "wt stamp station",
+    "wt 1f right arena",
+    "wt 1f enemy chest",
+
+    "wt 2f",
     "wt 2f enemy chest",
     "wt 2f poison chest",
+    "wt 2f north",
+    "wt 1f north",
+    "wt 1f key",
+
+    "wt 1f left",
+    "wt 1f keydoor",
+    "wt 1f left arena",
     "wt 2f left",
     "wt 3f left",
     "wt 3f chestnut chest",
+    "wt 2f moth",
+    "wt 2f keydoor",
+
     "wt 3f",
     "wt 3f se chest",
     "wt 3f bk",
+    "wt 3f boss door",
     "wt 4f",
+    "wt blue warp",
+
+    "wt pre stagnox",
     "wt stagnox",
     "goal_stagnox",
     "event_stagnox",
-    "wt stamp station",
-    "post wt",
 
     # Trading Post
     "trading post",

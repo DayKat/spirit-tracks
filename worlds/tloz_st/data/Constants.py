@@ -386,21 +386,21 @@ DUNGEON_TO_BOSS_ITEM_LOCATION = {
     "ToS 4": "ToS 17F Fire Rail Glyph",
     "ToS 5": "ToS 23F Defeat Staven",
     "ToS 6": "ToS 24F Final Chest",
-    "Wooded Temple": "Wooded Temple Dungeon Reward",
-    "Blizzard Temple": "Blizzard Temple Dungeon Reward",
-    "Marine Temple": "Marine Temple Dungeon Reward",
-    "Mountain Temple": "Mountain Temple Dungeon Reward",
-    "Desert Temple": "Desert Temple Dungeon Reward",
+    "Wooded Temple": "Stagnox Boss Reward",
+    "Blizzard Temple": "Fraaz Boss Reward",
+    "Marine Temple": "Cactops Boss Reward",
+    "Mountain Temple": "Vulcano Boss Reward",
+    "Desert Temple": "Capbone Boss Reward",
     "Take 'em All On 3": "Castle Town Take 'em All On Level 3",
     "Lost at Sea": "Lost at Sea Final Chest"
 }
 
 BOSS_LOCATION_TO_EVENT_REGION = {
-    "Wooded Temple Dungeon Reward": "wt stagnox",
-    "Blizzard Temple Dungeon Reward": "bt fraaz",
-    "Marine Temple Dungeon Reward": "oct phytops",
-    "Mountain Temple Dungeon Reward": "mtt boss",
-    "Desert Temple Dungeon Reward": "skeldritch",
+    "Stagnox Boss Reward": "wt stagnox",
+    "Fraaz Boss Reward": "bt fraaz",
+    "Cactops Boss Reward": "oct phytops",
+    "Vulcano Boss Reward": "mtt boss",
+    "Capbone Boss Reward": "skeldritch",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",
@@ -412,11 +412,35 @@ BOSS_LOCATION_TO_EVENT_REGION = {
 }
 
 BOSS_LOCATION_TO_POST_LOCATIONS = {
-    "Wooded Temple Dungeon Reward": ["Wooded Temple Boss Heart Container"],
-    "Blizzard Temple Dungeon Reward": ["Blizzard Temple Boss Heart Container"],
-    "Marine Temple Dungeon Reward": ["Marine Temple Heart Container"],
-    "Mountain Temple Dungeon Reward": ["Mountain Temple Boss Heart Container"],
-    "Desert Temple Dungeon Reward": ["Desert Temple Boss Heart Container", "Desert Temple Bow of Light Chest"]
+    "Stagnox Boss Reward": ["Wooded Temple Boss Heart Container"],
+    "Fraaz Boss Reward": ["Blizzard Temple Boss Heart Container"],
+    "Cactops Boss Reward": ["Marine Temple Heart Container"],
+    "Vulcano Boss Reward": ["Mountain Temple Boss Heart Container"],
+    "Capbone Boss Reward": ["Desert Temple Boss Heart Container", "Desert Temple Bow of Light Chest"]
+}
+
+DUNGEON_TO_ENTRANCE = {
+    "Wooded Temple": "Wooded Temple Lobby Enter Dungeon"
+}
+
+DUNGEON_TO_EXIT = {
+    "Wooded Temple": "Wooded Temple 1F Exit"
+}
+
+DUNGEON_TO_WARP_ENTRANCE = {
+    "Wooded Temple": "Wooded Temple Lobby Blue Warp"
+}
+
+DUNGEON_TO_WARP_EXIT = {
+    "Wooded Temple": "Wooded Temple 4F Blue Warp"
+}
+
+DUNGEON_TO_BOSS_STAIRCASE = {
+    "Wooded Temple": "Wooded Temple 4F N Staircase"
+}
+
+BOSS_LOCATION_TO_EXIT = {
+    "Stagnox Boss Reward": "Stagnox Exit"
 }
 
 DUNGEON_KEY_DATA = {
@@ -800,6 +824,7 @@ directionality_etype_lookup: dict[int, str] = {
     5: "dungeon_entrances",
     6: "bosses",
     7: "dungeon_rooms",
+    8: "blue_warps",
     11: "tos_section",
     12: "train",
     15: "castle",
@@ -810,7 +835,15 @@ directionality_etype_lookup: dict[int, str] = {
 pool_name_lookup = {
     0: "pool_a",
     1: "pool_b",
-    2: "pool_c"
+    2: "pool_c",
+    3: "in_own_dungeon"
+}
+
+BOSS_LOCATION_TO_ENTRANCE: dict[str, str] = {
+    "Stagnox Boss Reward": "Stagnox Exit"
+}
+DUNGEON_LOBBY_ENTRANCES: dict[str, tuple[str, str]] = {
+    "Wooded Temple": ("Wooded Temple Lobby Enter Dungeon","Wooded Temple Lobby Blue Warp")
 }
 
 map_warp_redirects: dict[int, tuple[int, int, int]] = {

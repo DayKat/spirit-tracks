@@ -121,15 +121,6 @@ async def remove_vanilla_bow(client: "SpiritTracksClient", ctx, item: "STItem", 
     bow_item = client.item_data["Bow (Progressive)"]
     return await remove_vanilla_progressive(client, ctx, bow_item, rii)
 
-    bow_count = min(client.item_count(ctx, "Bow (Progressive)"), 3)
-    bow_item = client.item_data["Bow (Progressive)"]
-    if bow_count == 0:
-        return await remove_vanilla_progressive(client, ctx, bow_item, rii)
-    prog_address, prog_value = bow_item.progressive[bow_count-1]
-    if bow_count == 1:
-        prog_value |= await prog_address.read(ctx)
-    return [prog_address.get_inner_write_list(prog_value), bow_item.ammo_address.get_inner_write_list(bow_item.give_ammo[bow_count-1])]
-
 async def remove_vanilla_bow_of_light(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     if not ctx.slot_data["spirit_weapons"]:
         return await remove_vanilla_normal(client, ctx, item, rii)
@@ -208,7 +199,7 @@ direction_lookup = {
     5: "enter",
     6: "exit"}
 type_lookup = {
-    0: "none",
+    0: "plando",
     1: "house",
     2: "cave",
     3: "station",
@@ -227,13 +218,44 @@ type_lookup = {
     16: "disorientation",
     17: "eote"
 }
+dungeon_lookup = {
+    0: "none",
+    1: "tos_1",
+    2: "tos_2",
+    3: "tos_3",
+    4: "tos_4",
+    5: "tos_5",
+    6: "tos_6",
+    7: "wooded",
+    8: "blizzard",
+    9: "marine",
+    10: "mountain",
+    11: "desert"
+}
+
+dungeon_to_enum = {
+    'ToS 1': 1,
+    'ToS 2': 2,
+    'ToS 3': 3,
+    'ToS 4': 4,
+    'ToS 5': 5,
+    'ToS 6': 6,
+    'Wooded Temple': 7,
+    'Blizzard Temple': 8,
+    'Marine Temple': 9,
+    'Mountain Temple': 10,
+    'Desert Temple': 11,
+}
 
 def decode_entrance_groups(group):
     direction = group & EntranceGroups.DIRECTION_MASK
     area = (group & EntranceGroups.AREA_MASK) >> 3
-    # island = (group & EntranceGroups.ISLAND_MASK) >> 7
+    dung = (group & EntranceGroups.DIRECTION_MASK) >> 8
+    dung_text = ""
+    if dung:
+        dung_text = f"-{dungeon_lookup[dung]}"
 
-    return f"{direction_lookup[direction]}-{type_lookup[area]}"
+    return f"{direction_lookup[direction]}-{type_lookup[area]}{dung_text}"
 
 def decode_recursive(data):
     if isinstance(data, dict):
@@ -271,8 +293,23 @@ class EntranceGroups(IntEnum):
     DISORIENTATION = 16 << 3
     EOTE = 17 << 3
 
+    # dungeons
+    TOS_1 = 1 << 8
+    TOS_2 = 2 << 8
+    TOS_3 = 3 << 8
+    TOS_4 = 4 << 8
+    TOS_5 = 5 << 8
+    TOS_6 = 6 << 8
+    WOODED = 7 << 8
+    BLIZZARD = 8 << 8
+    MARINE = 9 << 8
+    MOUNTAIN = 10 << 8
+    DESERT = 11 << 8
+
     AREA_MASK = 0x1F << 3
     DIRECTION_MASK = 0x7
+    DUNGEON_MASK = 0xF << 8
+    NON_DUNGEON_MASK = 0xFF
 
     def __str__(self):
         return decode_entrance_groups(self.value)

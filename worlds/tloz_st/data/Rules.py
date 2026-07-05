@@ -34,15 +34,54 @@ has_sol = has_spirit_flute & Has("Song of Light")
 has_sod = has_spirit_flute & Has("Song of Discovery")
 
 normal_key_options = [OptionFilter(SpiritTracksShuffleDungeonRooms, 0), OptionFilter(SpiritTracksShuffleBosses, 1, "le"), OptionFilter(SpiritTracksShuffleWarps, 0)]
+event_key_options = [OptionFilter(SpiritTracksShuffleDungeonRooms, 0, "gt"), OptionFilter(SpiritTracksShuffleBosses, 1, "gt"), OptionFilter(SpiritTracksShuffleWarps, 0, "gt")]
+
+# For handling key events
+class BadKeys(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
+    dungeon: str
+    event: str
+    def __init__(self, dungeon, event):
+        self.dungeon = dungeon
+        self.event = event
+
+    @override
+    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
+        return self.Resolved(self.dungeon, self.event, caching_enabled=False, player=world.player)
+
+    class Resolved(Rule.Resolved):
+        dungeon: str
+        event: str
+
+        @override
+        def _evaluate(self, state: CollectionState) -> bool:
+            print(f"Has {state.count(f'Small Key ({self.dungeon})', self.player)}/{state.count(self.event, self.player)} Small Key ({self.dungeon})s")
+            return state.count(f"Small Key ({self.dungeon})", self.player) >= max(state.count(self.event, self.player), 1)
+
+def option_or(rule: Rule, options: Iterable):
+    """Check if any of the options are resolved"""
+    res = [Filtered(rule, options=[o]) for o in options]
+    return Or(*res)
 
 # Keys
-def has_small_keys(dungeon, count, _ool=None, event=None):
+def has_small_keys_er(dungeon, count, _ool=None, er=None):
     _ool = _ool if _ool is not None else count
-    return Or(Has(f"Keyring ({dungeon})"),
-        Has(f"Small Key ({dungeon})", count, options=[OptionFilter(SpiritTracksShuffleDungeonRooms, 0)]),
-            ool & Has(f"Small Key ({dungeon})", _ool, options=[OptionFilter(SpiritTracksShuffleDungeonRooms, 0)]),
-            Filtered(BadKeys(dungeon, event), options=[OptionFilter(SpiritTracksShuffleDungeonRooms, 0, "ne")])
-            )
+    er = count if er is None else er
+    return Or(Has(f"Keyring ({dungeon})"),  # keyring always works
+        Has(f"Small Key ({dungeon})", count, options=normal_key_options),
+        ool & Has(f"Small Key ({dungeon})", _ool, options=normal_key_options),
+        option_or(Has(f"Small Key ({dungeon})", er), event_key_options),
+        option_or(Has(f"Small Key ({dungeon})", 1) & ool, event_key_options),
+              )
+
+
+def has_small_keys(dungeon, count, _ool=None):
+    _ool = _ool if _ool is not None else count
+    return Or(Has(f"Keyring ({dungeon})"),  # keyring always works
+        Has(f"Small Key ({dungeon})", count),
+        ool & Has(f"Small Key ({dungeon})", _ool),)
+
+def has_single_small_key(dungeon):
+    return Has(f"Keyring ({dungeon})") | Has(f"Small Key ({dungeon})")
 
 def has_boss_key(dungeon):
     return (Has(f"Boss Key ({dungeon})")
@@ -274,21 +313,3 @@ class DebugRule(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
             return all([state.has(f"{r} Rabbit", self.player, 10) for r in rabbit_realms])
 
 
-class BadKeys(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
-    dungeon: str
-    event: str
-    def __init__(self, dungeon, event):
-        self.dungeon = dungeon
-        self.event = event
-
-    @override
-    def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
-        return self.Resolved(self.dungeon, self.event, player=world.player)
-
-    class Resolved(Rule.Resolved):
-        dungeon: str
-        event: str
-
-        @override
-        def _evaluate(self, state: CollectionState) -> bool:
-            return state.count(f"Small Key ({self.dungeon})", self.player) >= state.count(self.event, self.player)

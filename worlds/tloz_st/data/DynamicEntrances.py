@@ -451,7 +451,7 @@ DYNAMIC_ENTRANCES = {
     "Skeldritch avoid post fight stuffs": {
         "entrance": "Desert Temple Enter Post-Fight",
         "destination": "Skeldritch Exit",
-        "not_has_locations": ["Desert Temple Dungeon Reward"],
+        "not_has_locations": ["Capbone Boss Reward"],
     },
     "Fire realm bounce snow realm without btt": {
         "entrance": "Fire Realm East Fire Glyph",

@@ -78,7 +78,7 @@
   {"name": "Wooded Temple 3F SE Chest"},
   {"name": "Wooded Temple 3F Boss Key"},
   {"name": "Wooded Temple Boss Heart Container"},
-  {"name": "Wooded Temple Dungeon Reward"}
+  {"name": "Stagnox Boss Reward"}
 ], "map_locations":[{"map": "Overview", "x": 214, "y": 420}]},
   {"name": "Wooded Temple", "sections": [{"name": "EVENT: Defeat Stagnox"}, {"name": "GOAL: Defeat Stagnox"}], "map_locations":[{"map": "Overview", "x": 214, "y": 404}]},
   {"name": "Rabbit Haven", "sections": [
@@ -142,7 +142,7 @@
     {"name": "Blizzard Temple 1F Torch Chest"},
     {"name": "Blizzard Temple 2F Boss Key"},
     {"name": "Blizzard Temple Boss Heart Container"},
-    {"name": "Blizzard Temple Dungeon Reward"}
+    {"name": "Fraaz Boss Reward"}
   ], "map_locations":[{"map": "Overview", "x": 115, "y": 46}]},
   {"name": "Blizzard Temple Events", "sections": [{"name": "EVENT: Defeat Fraaz"}, {"name": "GOAL: Defeat Fraaz"}], "map_locations":[{"map": "Overview", "x": 115, "y": 30}]},
   {"name": "Icy Spring", "sections": [
@@ -283,7 +283,7 @@
     {"name": "Marine Temple 6F W Chest"},
     {"name": "Marine Temple 6F Boss Key"},
     {"name": "Marine Temple Heart Container"},
-    {"name": "Marine Temple Dungeon Reward"}
+    {"name": "Cactops Boss Reward"}
   ], "map_locations":[{"map": "Overview", "x": 932, "y": 522}]},
   {"name": "Marine Temple Events", "sections": [
     {"name": "EVENT: Defeat Cactops"},
@@ -360,7 +360,7 @@
           {"name": "Desert Temple B1 NW Buried Rupee"},
           {"name": "Desert Temple B1 Boss Key"},
           {"name": "Desert Temple Boss Heart Container"},
-          {"name": "Desert Temple Dungeon Reward"},
+          {"name": "Capbone Boss Reward"},
           {"name": "Desert Temple Bow of Light Chest"}
   ], "map_locations":[{"map": "Overview", "x": 862, "y": 440}]},
   {"name": "Desert Temple Events", "sections": [
@@ -419,7 +419,7 @@
           {"name": "Mountain Temple B3 N Chest"},
           {"name": "Mountain Temple B3 Boss Key"},
           {"name": "Mountain Temple Boss Heart Container"},
-          {"name": "Mountain Temple Dungeon Reward"}
+          {"name": "Vulcano Boss Reward"}
       ], "map_locations":[{"map": "Overview", "x": 814, "y": 158}]},
       {"name": "Fire Temple Events", "sections": [
           {"name": "EVENT: Defeat Vulcano"},

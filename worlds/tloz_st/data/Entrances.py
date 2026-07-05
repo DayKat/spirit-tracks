@@ -1156,7 +1156,7 @@ ENTRANCE_DATA |= {
         "exit": (0x4, 0x0, 4),
         "entrance": (0x19, 0xA, 0),
         "exit_region": "wt station",
-        "entrance_region": "wt",
+        "entrance_region": "wt lobby",
         "reverse_required_groups": [("Tracks: Wooded Temple Tracks", "Tracks: Forest Source")],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -2230,6 +2230,101 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
+
+    # ===== Dungeons =====
+
+    # wooded temple
+    "Wooded Temple Lobby Enter Dungeon": {
+        "return_name": "Wooded Temple 1F Exit",
+        "entrance_region": "wt lobby",
+        "exit_region": "wt 1f",
+        "entrance": (0x19, 0xA, 1),
+        "exit": (0x19, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 1F SE Staircase": {
+        "return_name": "Wooded Temple 2F SE Staircase",
+        "entrance_region": "wt 1f right arena",
+        "exit_region": "wt 2f",
+        "entrance": (0x19, 0x0, 1),
+        "exit": (0x19, 0x1, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 1F NW Staircase": {
+        "return_name": "Wooded Temple 2F NW Staircase",
+        "entrance_region": "wt 1f north",
+        "exit_region": "wt 2f north",
+        "entrance": (0x19, 0x0, 2),
+        "exit": (0x19, 0x1, 1),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 1F SW Staircase": {
+        "return_name": "Wooded Temple 2F SW Staircase",
+        "entrance_region": "wt 1f left arena",
+        "exit_region": "wt 2f left",
+        "entrance": (0x19, 0x0, 3),
+        "exit": (0x19, 0x1, 3),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 2F W Staircase": {
+        "return_name": "Wooded Temple 3F W Staircase",
+        "entrance_region": "wt 2f left",
+        "exit_region": "wt 3f left",
+        "entrance": (0x19, 0x1, 4),
+        "exit": (0x19, 0x2, 2),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 2F Central Staircase": {
+        "return_name": "Wooded Temple 3F N Staircase",
+        "entrance_region": "wt 2f moth",
+        "exit_region": "wt 3f",
+        "entrance": (0x19, 0x1, 2),
+        "exit": (0x19, 0x2, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 3F S Staircase": {
+        "return_name": "Wooded Temple 4F S Staircase",
+        "entrance_region": "wt 3f boss door",
+        "exit_region": "wt 4f",
+        "entrance": (0x19, 0x2, 1),
+        "exit": (0x19, 0x3, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 4F N Staircase": {
+        "return_name": "Stagnox Exit",
+        "entrance_region": "wt 4f",
+        "exit_region": "wt pre stagnox",
+        "entrance": (0x19, 0x3, 1),
+        "exit": (0x1E, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.BOSS,
+        "island": EntranceGroups.WOODED
+    },
+    "Wooded Temple 4F Blue Warp": {
+        "return_name": "Wooded Temple Lobby Blue Warp",
+        "entrance_region": "wt 4f",
+        "exit_region": "wt blue warp",
+        "entrance": (0x19, 0x3, 2),
+        "exit": (0x19, 0xA, 2),
+        "direction": EntranceGroups.DOWN,
+        "type": EntranceGroups.WARP_PORTAL,
+        "island": EntranceGroups.WOODED
+    },
+
     # Misc entrances
     "Desert Temple Enter Boss": {
         "return_name": "Skeldritch Exit",
@@ -2239,7 +2334,7 @@ ENTRANCE_DATA |= {
         "exit": (0x22, 0x0, 0),
         "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
+        "island": EntranceGroups.DESERT
     },
     "Desert Temple Enter Post-Fight": {
         "return_name": "Skeldritch Post-Fight Exit",
@@ -2249,7 +2344,7 @@ ENTRANCE_DATA |= {
         "exit": (0x22, 0x1, 0),
         "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
+        "island": EntranceGroups.DESERT
     },
 }
 
@@ -2259,17 +2354,17 @@ entrance_id_to_entrance = {e.id: e for e in ENTRANCES.values()}
 entrance_id_to_region = {e.id: e.entrance_region for e in ENTRANCES.values()}
 entrance_tuple_to_entrance: dict[tuple[int, int, int], STTransition] = {e.entrance: e for e in ENTRANCES.values()}
 
-location_event_lookup = {"Wooded Temple Dungeon Reward": "EVENT: Defeat Stagnox",
-                         "Blizzard Temple Dungeon Reward": "EVENT: Defeat Fraaz",
+location_event_lookup = {"Stagnox Boss Reward": "EVENT: Defeat Stagnox",
+                         "Fraaz Boss Reward": "EVENT: Defeat Fraaz",
                          "ToS 3F Forest Rail Glyph": "EVENT: Reach ToS 3F",
                          "ToS 7F Snow Rail Glyph": "EVENT: Reach ToS 7F",
                          "ToS 12F Ocean Rail Glyph": "EVENT: Reach ToS 12F",
                          "ToS 17F Fire Rail Glyph": "EVENT: Reach ToS 17F",
                          "ToS 23F Defeat Staven": "EVENT: Defeat Staven",
                          "ToS 24F Final Chest": "EVENT: Reach ToS 24F",
-                         "Marine Temple Dungeon Reward": "EVENT: Defeat Cactops",
-                         "Mountain Temple Dungeon Reward": "EVENT: Defeat Vulcano",
-                         "Desert Temple Dungeon Reward": "EVENT: Defeat Skeldritch",
+                         "Cactops Boss Reward": "EVENT: Defeat Cactops",
+                         "Vulcano Boss Reward": "EVENT: Defeat Vulcano",
+                         "Capbone Boss Reward": "EVENT: Defeat Skeldritch",
                          "Castle Town Take 'em All On Level 3": "EVENT: Complete Take 'em All On 3",
                          "Lost at Sea Final Chest": "EVENT: Complete Lost at Sea Dungeon"}
 boss_events = set(location_event_lookup.values())

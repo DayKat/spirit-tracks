@@ -588,8 +588,10 @@ class SpiritTracksShuffleWarps(Choice):
 class SpiritTracksShuffleDungeonEntrances(Choice):
     """
     Shuffles the entrances between dungeon stations and the start of dungeons.
-    Has special option `shuffle in own dungeon`, that keeps them connecting in their local dungeon.
-        Acts as a mixed pool with other options that pick it.
+    - shuffle_in_own_dungeon_vanilla: the dungeon entrance will only shuffle to its own dungeon,
+        but to any entrance in that dungeon that's also in the in_own_dungeon pool
+    - shuffle_in_own_dungeon_shuffle: the game pre-picks what dungeon goes to what dungeon entrance,
+        and that entrance can shuffle to any entrance in that dungeon also in the in_own_dungeon pool.
     """
     display_name = "Shuffle Dungeon Entrances"
     option_no_shuffle = 0
@@ -597,7 +599,8 @@ class SpiritTracksShuffleDungeonEntrances(Choice):
     option_shuffle_pool_a = 2
     option_shuffle_pool_b = 3
     option_shuffle_pool_c = 4
-    option_shuffle_in_own_dungeon = 5
+    option_shuffle_in_own_dungeon_vanilla = 5
+    option_shuffle_in_own_dungeon_shuffle = 6
 
 class SpiritTracksShuffleBosses(Choice):
     """
@@ -618,14 +621,18 @@ class SpiritTracksEntranceDirectionality(OptionSet):
     Choose what entrance groups care about directionality (left entrance leads to right, house exterior leads to interior etc.).
     Pool options override individuals, individuals only count for shuffle_alone.
     Valid options are: houses, caves, stations, overworld, train,
-      castle, disorientation, eote, pool_a, pool_b, pool_c, all
+      dungeon_entrances, bosses, dungeon_rooms, blue_warps,
+      castle, disorientation, eote, pool_a, pool_b, pool_c, in_own_dungeon, all
     Pools with lots of dead ends can cause gen errors if not careful.
+    Staircases do not have directions.
     """
     display_name = "Entrance Directionality"
-    default = {"houses", "stations"}
+    default = {"houses", "stations", "dungeon_entrances", "bosses", "in_own_dungeon"}
     # supports_weighting = True
     valid_keys = ["houses", "caves", "stations", "overworld", "train",
-      "castle", "disorientation", "eote", "pool_a", "pool_b", "pool_c", "all"]
+                  "dungeon_entrances", "bosses", "dungeon_rooms", "blue_warps",
+                  "castle", "disorientation", "eote",
+                  "pool_a", "pool_b", "pool_c", "in_own_dungeon", "all"]
 
 
 class SpiritTracksShopsanity(OptionSet):

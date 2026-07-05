@@ -1236,7 +1236,7 @@ LOCATIONS_DATA = {
         "dungeon": "Wooded Temple",
         "location_groups": ["Stagnox"],
     },
-    "Wooded Temple Dungeon Reward": {
+    "Stagnox Boss Reward": {
         "region_id": "wt stagnox",
         "vanilla_item": "Forest Source",
         "address": STAddr.adv_flags_0,
@@ -1609,7 +1609,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
         "location_groups": ["Fraaz"],
     },
-    "Blizzard Temple Dungeon Reward": {
+    "Fraaz Boss Reward": {
         "region_id": "bt fraaz",
         "vanilla_item": "Snow Source", #TODO tracks did not get removed, and check sent on room entry
         "address": STAddr.adv_flags_0,
@@ -1946,7 +1946,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Cactops"],
     },
 
-    "Marine Temple Dungeon Reward": {
+    "Cactops Boss Reward": {
         "region_id": "oct phytops",
         "vanilla_item": "Ocean Source",
         "address": STAddr.adv_flags_0,
@@ -2423,7 +2423,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "dungeon": "Mountain Temple",
     },
-    "Mountain Temple Dungeon Reward": {
+    "Vulcano Boss Reward": {
         "address": STAddr.adv_flags_0,
         "value": 0x80,
         "stage_id": 0x21,
@@ -2744,7 +2744,7 @@ LOCATIONS_DATA = {
         "region_id": "skeldritch",
         "location_groups": ["Skeldritch"],
     },
-    "Desert Temple Dungeon Reward": {
+    "Capbone Boss Reward": {
         "stage_id": 0x22,
         "room_id": 0x1,
         "vanilla_item": "Sand Source",

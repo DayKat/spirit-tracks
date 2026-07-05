@@ -71,12 +71,16 @@ class TestGeneration(WorldTestBase):
 
         "shuffle_tos_sections": "no_shuffle",
 
-        "entrance_directionality": {"pool_b"},
+        "shuffle_dungeon_entrances": "no_shuffle",
+        "shuffle_bosses": "no_shuffle",
+        "shuffle_dungeon_rooms": "shuffle_alone",
 
-        "plando_transitions": [
-            {"entrance": "Outset East House",
-             "exit": "Tower of Spirits to Forest Realm"},
-            {"entrance": "Anouki Village SW House",
-             "exit": "Kofu's New House Exit"}
-        ]
+        "entrance_directionality": {"stations"},
+
+        # "plando_transitions": [
+        #     {"entrance": "Outset East House",
+        #      "exit": "Tower of Spirits to Forest Realm"},
+        #     {"entrance": "Anouki Village SW House",
+        #      "exit": "Kofu's New House Exit"}
+        # ]
     }

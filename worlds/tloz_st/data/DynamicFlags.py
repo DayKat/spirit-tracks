@@ -119,26 +119,26 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Stagnox location": {
         "on_scenes": [0x1E00], #TODO seems this can also be 0x1900 instead? or maybe not taking away source fast enough?
-        "not_has_locations": ["Wooded Temple Dungeon Reward"],
+        "not_has_locations": ["Stagnox Boss Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x10)],
         "reset_flags": ["RESET stagnox reward"]
     },
     "Cactops location": {
         "on_scenes": [0x2000],
-        "not_has_locations": ["Marine Temple Dungeon Reward"],
+        "not_has_locations": ["Cactops Boss Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x40)],
         "on_entrance": [0],
         "reset_flags": ["RESET Add Ocean source", "RESET Remove Ocean source"]
     },
     "Cragma/Vulcano location": {
         "on_scenes": [0x2100],
-        "not_has_locations": ["Mountain Temple Dungeon Reward"],
+        "not_has_locations": ["Vulcano Boss Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x80)],
         "reset_flags": ["RESET Add Fire source", "RESET Remove Fire source"]
     },
     "Skeldritch location": {
         "on_scenes": [0x2200],
-        "not_has_locations": ["Desert Temple Dungeon Reward"],
+        "not_has_locations": ["Capbone Boss Reward"],
         "unset_if_true": [(STAddr.adv_flags_1a, 0x01)],
     },
     "Reset skeldritch flags post fight": {
@@ -164,7 +164,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Remove Forest Source": {
         "on_scenes": [0x1E03, 0x1E0A],
-        "has_locations": ["Wooded Temple Dungeon Reward"],
+        "has_locations": ["Stagnox Boss Reward"],
         "not_has_groups": ["Tracks: Forest Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x10)],
     },
@@ -284,7 +284,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Fraaz location": {
         "on_scenes": [0x1F00],
-        "not_has_locations": ["Blizzard Temple Dungeon Reward"],
+        "not_has_locations": ["Fraaz Boss Reward"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
         "reset_flags": ["RESET Add Snow Source", "RESET fraaz don't have source"]
     },
@@ -294,7 +294,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Remove Snow Source": {
         "on_scenes": [0x1F03, 0x1F04], #TODO check
-        "has_locations": ["Blizzard Temple Dungeon Reward"],
+        "has_locations": ["Fraaz Boss Reward"],
         "not_has_groups": ["Tracks: Snow Source"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20)],
     },
