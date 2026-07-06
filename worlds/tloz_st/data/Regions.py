@@ -787,6 +787,7 @@ REGIONS = [
     "dt 1f n",
     "dt 1f n earthquake",
     "dt 2f",
+    "dt 2f west",
     "dt 2f sw",
     "dt 3f",
     "dt 3f chest",

@@ -6,7 +6,7 @@ from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, 
 from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
-from entrance_rando import randomize_entrances, bake_target_group_lookup, EntranceRandomizationError
+from entrance_rando import randomize_entrances, bake_target_group_lookup, EntranceRandomizationError, disconnect_entrance_for_randomization
 
 from .Util import *
 from .Options import *
@@ -19,7 +19,6 @@ from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
                              location_event_lookup, goal_event_lookup, boss_events)
-from entrance_rando import disconnect_entrance_for_randomization
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
 from .Subclasses import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, decode_recursive, decode_entrance_groups, \

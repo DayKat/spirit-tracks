@@ -122,6 +122,14 @@ STAGE_FLAGS = {
     0x3d: [0x2, 0x0, 0x9, 0x0],  # DOM
 }
 
+OPEN_WARPS = [
+    [0, 0, 0, 0x40],
+    [0, 0, 0, 0x80],
+    [0, 0, 0, 0x40],
+    [0, 2, 0, 0],
+    [0, 0, 0, 0x40],
+]
+
 @dataclass
 class ItemModel:
     name: str
@@ -757,6 +765,22 @@ special_respawn_stages = {
     0x15: (0x14, 1, 1),  # Tower
     0x23: (0x13, 0x14, 0)  # Staven
 }
+
+unsafe_respawn_stages = [
+    0x19, 0x1E,
+    0x1a, 0x1F,
+    0x1b, 0x20,
+    0x1c, 0x21,
+    0x1d, 0x22,
+]
+
+safe_respawn_rooms = [
+    0x190A,
+    0x1A04,
+    0x1B0A,
+    0x1C0A,
+    0x1D06
+]
 
 TOS_FLOOR_SECTIONS_CANCEL_TEARS: dict[int, int] = {
     2: 1,

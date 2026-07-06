@@ -417,8 +417,8 @@ DYNAMIC_ENTRANCES = {
         "message": "You need the Fire Source to enter this section!"
     },
     "Bounce OCT 7F cause crash": {
-        "entrance": "Marine Temple 7F Exit",
-        "destination": "Marine Temple 7F Exit",
+        "entrance": "Marine Temple 7F South Staircase",
+        "destination": "Marine Temple 7F South Staircase",
         "has_locations": ["Marine Temple 6F Boss Key"],
         "message": "Oops you can't do that, it crashes for some reason"
     },

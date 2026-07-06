@@ -76,6 +76,8 @@ class TestGeneration(WorldTestBase):
         "shuffle_dungeon_rooms": "shuffle_in_own_dungeon",
         "shuffle_warps": "no_shuffle",
 
+        "keyrings": "all",
+
         "entrance_directionality": {"dungeon_entrances"},
 
         # "plando_transitions": [

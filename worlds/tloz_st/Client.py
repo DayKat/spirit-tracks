@@ -248,6 +248,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.map_warp: None | STTransition = None
         self.unlocked_map: int = 0
         self.has_map_tracks: bool = False
+        self.stage_flags: dict[int, list[int]] = STAGE_FLAGS
+        self.safe_respawn = None
 
 
     def printl_goal_info(self, ctx):
@@ -730,6 +732,9 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_stage in special_respawn_stages:
             await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
                                  special_respawn_stages[self.current_stage])
+        elif self.safe_respawn:
+            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                 self.safe_respawn)
 
         # Change respawn data to outside tower section in ToS
         if self.current_stage == 0x13:
@@ -935,6 +940,11 @@ class SpiritTracksClient(DSZeldaClient):
         if self.snurglar_addr and location["name"] in LOCATION_GROUPS["Snurglars"]:
             await self.snurglar_addr.unset_bits(ctx, 0x0F)
 
+        if location["name"] == "Capbone Boss Reward" and ctx.slot_data["shuffle_bosses"]:
+            post_fight = self.entrances["Desert Temple Enter Post-Fight"]
+            entrance = self.er_map[0x2200][self.entrances["Capbone Exit"]]
+            self.er_map.setdefault(entrance.scene, {})[entrance.vanilla_reciprocal] = post_fight
+
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
@@ -1045,20 +1055,15 @@ class SpiritTracksClient(DSZeldaClient):
             await STAddr.arrow_count.overwrite(ctx, 0)
 
     async def set_stage_flags(self, ctx, stage):
-        if stage in STAGE_FLAGS:
+        if stage in self.stage_flags:
             stage_address = await STAddr.stage_flag_pointer.read(ctx)
             stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
-            if ctx.slot_data["randomize_passengers"] == 0:
-                if stage == 0x35:
-                    STAGE_FLAGS[stage] = [0x16, 0x00, 0x00, 0x00]
-                elif stage == 0x35:
-                    STAGE_FLAGS[stage] = [0x16, 0x04, 0x00, 0x00]
-            printl(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {[hex(i) for i in STAGE_FLAGS[stage]]}")
-            await stage_flag_address.set_bits(ctx, STAGE_FLAGS[stage])
+
+            printl(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {hex_f(self.stage_flags[stage])}")
+            await stage_flag_address.set_bits(ctx, self.stage_flags[stage])
         if self.set_train_in_overworld:
             await self.set_starting_train(ctx)
             self.set_train_in_overworld = False
-
 
     async def set_tears(self, ctx):
         set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
@@ -1560,7 +1565,7 @@ class SpiritTracksClient(DSZeldaClient):
             ident = identifiers.get(i, "")
             print(f"{hex_f(k)}: {hex_f(i)} {ident}")
 
-    async def conditional_er(self, ctx, exit_data, silent=False) -> bool:
+    async def conditional_er(self, ctx, exit_data, silent=False, detect_data=None) -> bool:
         def check_or(group):
             for or_group in group:
                 if self.has_from_group(ctx, or_group):
@@ -1578,6 +1583,7 @@ class SpiritTracksClient(DSZeldaClient):
                 if not silent:
                     logger.info(f"Missing Tracks: {' AND '.join([i.split('Tracks: ')[1] for i in exit_data.required_groups])}")
                 return False
+        await self.update_safe_respawn(ctx, exit_data, detect_data)
         return True
 
     def add_special_er_data(self, ctx, er_map, scene, detect_data: "STTransition", exit_data: "STTransition"):
@@ -1603,7 +1609,21 @@ class SpiritTracksClient(DSZeldaClient):
             rocktite_entrance = self.entrances["Desert Rocktite Fight Entrance"]
             er_map.setdefault(0x600, {})[rocktite_entrance] = detect_data
 
+        if exit_data.name == "Capbone Exit":
+            post_fight = self.entrances["Desert Temple Enter Post-Fight"]
+            er_map.setdefault(post_fight.scene, {})[post_fight.vanilla_reciprocal] = detect_data
+            if self.location_name_to_id["Capbone Boss Reward"] in ctx.checked_locations:
+                er_map.setdefault(detect_data.scene, {})[exit_data] = post_fight
+            else:
+                er_map.setdefault(detect_data.scene, {})[post_fight] = exit_data
+        if detect_data.name == "Desert Temple B2 North Entrance":
+            desert_exit = self.entrances["Desert Temple Enter Post-Fight"]
+            er_map.setdefault(0x1d04, {})[desert_exit] = exit_data
+
         return er_map
+
+    def update_stage_flag(self, stage: int, new: list[int]):
+        self.stage_flags[stage] = [o | n for o, n in zip(STAGE_FLAGS[stage], new)]
 
     async def enter_game(self, ctx):
         if ctx.slot_data.get("shuffle_houses", 0) > 0:
@@ -1615,10 +1635,28 @@ class SpiritTracksClient(DSZeldaClient):
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
         self.redisconnected_entrances |= set(get_stored_data(ctx, redisconnected_entrances_key, set()))
 
+        # Set settings specific stage flags
+        self.stage_flags = STAGE_FLAGS
+        if ctx.slot_data["randomize_passengers"] == 0:
+            self.stage_flags[0x35] = [0x16, 0x00, 0x00, 0x00]
+        if ctx.slot_data["open_blizzard_temple"]:
+            self.update_stage_flag(0x1A, [0x20, 0x22, 0, 0])
+        if ctx.slot_data["open_blue_warps"]:
+            for stage, flags in zip(range(0x19, 0x1E), OPEN_WARPS):
+                self.update_stage_flag(stage, flags)
+
+    async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
+        if new_exit.stage in unsafe_respawn_stages and new_exit.scene not in safe_respawn_rooms:
+            if self.safe_respawn is None:
+                return
+            self.safe_respawn = last_detect.entrance
+            return
+        self.safe_respawn = None
+
     async def conditional_bounce(self, ctx, scene: int, entrance: int) -> "STTransition" or None:
         e_tuple = ((scene & 0xFF00) >> 8, scene & 0xFF, entrance)
         current_destination = entrance_tuple_to_entrance.get(e_tuple)
-        if current_destination and not await self.conditional_er(ctx, current_destination):
+        if current_destination and not await self.conditional_er(ctx, current_destination, detect_data=current_destination.vanilla_reciprocal):
             return current_destination.vanilla_reciprocal
         return None
 

@@ -2220,16 +2220,6 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Marine Temple 6F Boss Door Staircase": {
-        "return_name": "Marine Temple 7F Exit",
-        "entrance": (0x1b, 0x5, 3),
-        "exit": (0x1b, 0x6, 0),
-        "entrance_region": "oct 6f chest",
-        "exit_region": "oct phytops",
-        "type": EntranceGroups.DUNGEON_ROOM,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
-    },
 
     # ===== Dungeons =====
 
@@ -2785,7 +2775,7 @@ ENTRANCE_DATA |= {
     "Desert Temple 1F Upper Staircase": {
         "return_name": "Desert Temple 2F Left Staircase",
         "entrance_region": "dt",
-        "exit_region": "dt 2f",
+        "exit_region": "dt 2f west",
         "entrance": (0x1d, 0x0, 1),
         "exit": (0x1d, 0x1, 0),
         "direction": EntranceGroups.NONE,

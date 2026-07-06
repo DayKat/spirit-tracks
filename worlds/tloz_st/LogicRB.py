@@ -1146,7 +1146,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["dt sw", "dt 1f n earthquake", False, has_bow],
 
-        ["dt", "dt 2f", False, has_small_keys("Desert Temple", 2, 1)],
+        ["dt", "dt 2f west", False, has_small_keys("Desert Temple", 2, 1)],
         ["dt 2f west", "dt", False, None],
         ["dt 2f west", "dt 2f", False, None],
         ["dt 2f", "dt 2f sw", False, has_sand_wand],

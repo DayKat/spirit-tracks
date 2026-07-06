@@ -69,7 +69,7 @@ def has_small_keys_er(dungeon, count, _ool=None, er=None):
     return Or(Has(f"Keyring ({dungeon})"),  # keyring always works
         Has(f"Small Key ({dungeon})", count, options=normal_key_options),
         ool & Has(f"Small Key ({dungeon})", _ool, options=normal_key_options),
-        option_or(Has(f"Small Key ({dungeon})", er), event_key_options),
+        Has(f"Small Key ({dungeon})", er),
         option_or(Has(f"Small Key ({dungeon})", 1) & ool, event_key_options),
               )
 
