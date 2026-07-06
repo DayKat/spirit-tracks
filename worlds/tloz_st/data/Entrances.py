@@ -1859,7 +1859,7 @@ ENTRANCE_DATA |= {
     },
     "EVENT: Defeat Vulcano": {
         "two_way": False,
-        "entrance_region": "defeat vulcano",
+        "entrance_region": "mtt vulcano",
         "exit_region": "event_vulcano",
         "entrance": (0x21, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
@@ -1868,7 +1868,7 @@ ENTRANCE_DATA |= {
     },
     "EVENT: Defeat Skeldritch": {
         "two_way": False,
-        "entrance_region": "skeldritch",
+        "entrance_region": "dt skeldritch",
         "exit_region": "skeldritch event",
         "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
@@ -1997,7 +1997,7 @@ ENTRANCE_DATA |= {
     },
     "GOAL: Defeat Vulcano": {
         "two_way": False,
-        "entrance_region": "mtt boss",
+        "entrance_region": "mtt pre vulcano",
         "exit_region": "goal_vulcano",
         "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
@@ -2006,7 +2006,7 @@ ENTRANCE_DATA |= {
     },
     "GOAL: Defeat Skeldritch": {
         "two_way": False,
-        "entrance_region": "skeldritch",
+        "entrance_region": "dt skeldritch",
         "exit_region": "skeldritch goal",
         "entrance": (0x29, 0x0, 0xF),
         "type": EntranceGroups.EVENT,

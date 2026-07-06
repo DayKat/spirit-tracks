@@ -6,7 +6,7 @@ from .Subclasses import STTransition
 
 def make_overworld_logic(player: int, origin_name: str, world):
     tower_section_lookup = world.tower_section_lookup
-    overworld_logic = [
+    overworld_logic: list[list] = [
 
         # ====== Outset Village ==============
         ["menu", "niko's house", False, None],
@@ -377,7 +377,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["wt 4f", "wt blue warp", True, None],
         ["wt blue warp", "wt lobby", False, None],
-        ["wt lobby", "wt blue warp", False, Has("_wt_warp")],
+        ["wt lobby", "wt blue warp", False, Has("_wt_warp") | open_warps],
         ["wt 4f", "wt pre stagnox", False, None],
         ["wt pre stagnox", "wt 4f", False, has_sword & has_whirlwind],
         ["wt pre stagnox", "wt stagnox", False, has_sword & has_whirlwind],
@@ -556,7 +556,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 1f n", "bt 1f", False, True_() & [OptionFilter(SpiritTracksOpenBlizzardTemple, 1)]],
         ["bt 1f n", "bt 2f", True, None],
 
-        ["bt 2f", "bt 2f boss door", False, has_boss_key("Blizzard Temple")],
+        ["bt 2f", "bt 2f boss door", True, has_boss_key("Blizzard Temple")],
         ["bt 2f", "bt 2f e", False, has_boomerang & has_damage],
         ["bt 2f e", "bt 2f boss key", False, has_whirlwind],
         ["bt 2f", "bt 2f boss key", False, Filtered(has_whirlwind, options=[OptionFilter(SpiritTracksRandomizeBossKeys, 0, "ne")]) & hard_logic],
@@ -567,7 +567,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["bt 3f", "bt blue warp", True, None],
         ["bt blue warp", "bt lobby", False, None],
-        ["bt lobby", "bt blue warp", False, Has("_bt_warp")],
+        ["bt lobby", "bt blue warp", False, Has("_bt_warp") | open_warps],
 
         ["bt pre fraaz", "bt fraaz", False, has_sword & has_boomerang],
         ["bt fraaz", "goal_fraaz", False, None],
@@ -712,33 +712,85 @@ def make_overworld_logic(player: int, origin_name: str, world):
              & (Has("Cargo: Mega Ice", 3) | (Has("Cargo: Mega Ice", 1) & ool))],
 
         # ========= Marine Temple ==================
-        ["oct station", "oct", False, has_temple_tracks("Marine") | has_source("Ocean")],
-        ["oct", "oct station", False, None],
-        ["oct", "oct song statue", False, has_spirit_flute],
-        ["oct 2f", "oct whip chest", False, has_sword | (hard_logic & (has_bombs | (has_boomerang & has_damage)))],
+        ["oct station", "oct lobby", False, has_temple_tracks("Marine") | has_source("Ocean")],
+        ["oct lobby", "oct station", False, None],
+        ["oct lobby", "oct song statue", False, has_spirit_flute],
+        ["oct lobby", "oct 1f", True, None],
+
+        ["oct 1f", "oct 1f whip", False, has_whip],
+        ["oct 1f", "oct 1f right", False, hard_logic | Has("_oct_boulders")],
+        ["oct 1f whip", "oct 1f right", False, None],
+        ["oct 1f right", "oct 1f", False, None],
+
+        ["oct 1f", "oct 2f", True, None],
+        ["oct 2f", "oct 2f boulders", False, can_kill_bat],
+        ["oct 2f", "oct boomerang room", False, has_bombs],
+        ["oct boomerang room", "oct 2f", False, None],
+        ["oct boomerang room", "oct boomerang switch", False, has_boomerang],
+        ["oct 2f", "oct stamp room", False, has_bombs],
+        ["oct stamp room", "oct 2f", False, None],
+        ["oct stamp room", "oct stamp station", False, has_stamp_book & has_whip & Has("_oct_boomerang")],
+
+        ["oct 1f right", "oct 2f right", True, None],
+        ["oct 2f right", "oct 2f logs", False, has_whip],
+        ["oct 2f right", "oct 3f east", True, None],
+
+        ["oct 3f east", "oct 3f arena", False, None],
+        ["oct 3f arena", "oct 3f post arena", False, has_sword],
+        ["oct 3f east", "oct 3f post arena", False, hard_logic & ((has_bombs & (glitched_logic | has_whirlwind)) | (has_boomerang & has_damage))],
         # you can't escape stunlock without sword, and the fight scripts you into it from the start
-        ["oct", "oct whip", False, has_whip],
-        ["oct", "oct 2f", None, Or(
-            has_whip,
-            can_kill_bat,
-            hard_logic # damageboost through the boulders
-        )],
-        ["oct", "oct stamp station", False, has_stamp_book & has_whip & has_bombs & has_boomerang],
-        ["oct whip chest", "oct 3f whip", False, has_whip],
-        ["oct 3f whip", "oct 6f chest", False, has_small_keys("Marine Temple", 1)],
-        ["oct 6f chest", "oct bk", False, has_small_keys("Marine Temple", 2) |
-                                                        And(glitched_logic,
-                                                             has_whirlwind,
-                                                             has_bombs)],
-        ["oct 6f chest", "oct bk loc", False, has_whirlwind & hard_logic],
-        ["oct bk", "oct bk loc", False, None],
-        ["oct bk", "oct phytops", False, None]
-            if world.options.randomize_boss_keys == 0 else
-            ["oct 6f chest", "oct phytops", False, has_boss_key("Marine Temple")],
+        ["oct 3f post arena", "oct 3f east", False, None],
+
+        ["oct 3f post arena", "oct 3f north", False, has_whip],
+        ["oct 3f north", "oct 3f arena", False, has_whip],
+        ["oct 3f north", "oct 3f n chest", False, has_whip],
+        ["oct 3f north", "oct 4f north", False, has_small_keys_er("Marine Temple", 1, er=2)],
+        ["oct 4f north", "oct 3f north", False, None],
+
+        ["oct 3f post arena", "oct 3f west", False, has_whip],
+        ["oct 3f west", "oct 3f arena", False, has_whip],
+        ["oct 3f west", "oct 4f west", True, None],
+
+        ["oct 4f north", "oct 4f west", False, None],
+        ["oct 4f west", "oct 4f south", False, has_whip],
+        ["oct 4f south", "oct 3f south", True, None],
+        ["oct 3f south", "oct 3f arena", False, has_whip],
+        ["oct 3f south", "oct 3f s chest", False, has_whip],
+
+        ["oct 4f north", "oct 4f east", True, has_whip],
+        ["oct 4f east", "oct 5f", False, has_whip],
+        ["oct 5f", "oct 4f east", False, None],
+
+        ["oct 5f", "oct 5f nw", True, has_whip],
+        ["oct 5f", "oct 5f sw", True, has_whip],
+        ["oct 5f sw", "oct 6f sw", True, None],
+        ["oct 6f sw", "oct 6f sw arena", False, has_whip | has_bow | has_bombs],
+        ["oct 5f nw", "oct 6f nw", True, None],
+        ["oct 5f", "oct 5f se", False, has_whip & has_small_keys("Marine Temple", 2)],
+        ["oct 5f se", "oct 6f se", True, None],
+
+        ["oct 6f nw", "oct 6f", True, has_whip],
+        ["oct 6f", "oct 6f w chest", False, has_whip],
+        ["oct 6f w chest", "oct 6f e chest", False, Has("_oct_6f_arena")],
+        ["oct 6f se", "oct 6f bk", False, has_whip],
+        ["oct 6f", "oct 6f bk", False, glitched_logic & has_whirlwind & has_bombs],
+        ["oct 6f bk", "oct 6f bk loc", False, None],
+        ["oct 6f", "oct 6f bk loc", False, has_whirlwind],
+        ["oct 6f bk", "oct 6f boss door", False, True_() & vanilla_boss_keys],
+        ["oct 6f", "oct 6f boss door", True, has_boss_key("Marine Temple")],
+        ["oct 6f boss door", "oct 7f south", True, None],
+
+        ["oct 7f south", "oct 7f north", True, has_whip],
+        ["oct 7f north", "oct pre phytops", False, None],
+        ["oct pre phytops", "oct 7f north", False, has_whip & has_good_damage],
+        ["oct pre phytops", "oct phytops", False, has_whip & has_good_damage],
         ["oct phytops", "event_phytops", False, None],
         ["oct phytops", "goal_phytops", False, None],
 
-        ["oct", "oct ferrus", False, has_passenger("Ferrus", "_ferrus_2")
+        ["oct 7f north", "oct blue warp", True, None],
+        ["oct lobby", "oct blue warp", False, Has("_oct_warp") | open_warps],
+        ["oct blue warp", "oct lobby", False, None],
+        ["oct lobby", "oct ferrus", False, has_passenger("Ferrus", "_ferrus_2")
                        & (randomize_passengers | ool | Has("_ferrus_backup"))],
         # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
 
@@ -889,34 +941,79 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mountain temple tracks", "mountain temple door", False, None],
         ["fire source", "mountain temple door", False, None],
         ["mountain temple door", "mtt station", False, Has("Mountain Temple Snurglar Key", 3) | Has("Snurglar Keyring")],
-        ["mtt station", "mtt", False, has_temple_tracks("Mountain") | has_source("Fire")],
-        ["mtt", "mtt station", False, None],
+        ["mtt station", "mtt lobby", False, has_temple_tracks("Mountain") | has_source("Fire")],
+        ["mtt lobby", "mtt station", False, None],
         ["mtt station", "mountain temple tracks", False, has_temple_tracks("Mountain")],
         ["mtt station", "fire source", False, has_source("Fire")],
 
-        ["mtt", "mtt song statue", False, has_spirit_flute],
-        ["mtt", "mtt left", False, has_damage],
-        ["mtt left", "mtt right", False, has_range | has_bombs],
-        ["mtt left", "mtt 2f right", False, has_range | has_sword | has_whip],
-        ["mtt", "mtt center", False, mtt_center],
-        ["mtt center", "mtt heatoise", False, has_good_damage],
-        ["mtt heatoise", "mtt 1f ne", False, has_bow],
-        ["mtt 1f ne", "mtt b1", False, can_rotate_repeater],
-        ["mtt b1", "mtt b2", False, has_whip],
-        ["mtt b2", "mtt b1 arena", False, has_boomerang],
-        ["mtt b1", "mtt b1 cart", False, has_small_keys("Mountain Temple", 3, 1)],
-        # ["mtt b1 cart", "mtt b1 arena", False, None], # Removed!
-        ["mtt b1 cart", "mtt stamp", False, has_stamp_book],
-        ["mtt b1 cart", "mtt bk", False, has_whirlwind],
-        ["mtt bk", "mtt boss", False, None] if world.options.randomize_boss_keys.value == 0 else
-        ["mtt b1 cart", "mtt boss", False, has_boss_key("Mountain Temple")],
-        ["mtt boss", "defeat vulcano", False, Or(
-            has_sword,
-            has_whip,
-            Has("Bombs (Progressive)", 2),
-            Has("Bomb Bag") & Has("Bomb Bag Upgrade"))],
-        ["defeat vulcano", "event_vulcano", False, None],
-        ["defeat vulcano", "goal_vulcano", False, None],
+        ["mtt lobby", "mtt song statue", False, has_spirit_flute],
+        ["mtt lobby", "mtt 1f", True, None],
+        ["mtt 1f", "mtt 1f left", False, has_damage],
+        ["mtt 1f left", "mtt 1f", False, None],
+
+        ["mtt 1f left", "mtt 1f right", False, has_short_range],
+        ["mtt 1f left", "mtt 2f left", True, None],
+        ["mtt 1f right", "mtt 2f right", True, None],
+        ["mtt 2f right", "mtt 2f chest", False, can_kill_bat],
+
+        ["mtt 1f", "mtt 1f door", False, has_small_keys_er("Mountain Temple", 2, er=3) & Or(
+            has_bombs, has_boomerang, hard_logic & (has_bow | has_sword_beam | has_whip)
+        )],
+        ["mtt 1f left", "mtt 1f door", False, glitched_logic & has_boomerang & has_small_keys_er("Mountain Temple", 1, er=3)],
+        ["mtt 1f left", "mtt 1f oob", False, glitched_logic & has_bombs],
+        ["mtt 1f oob", "mtt 1f door", False, None],
+        ["mtt 1f oob", "mtt 1f n", False, None],
+        ["mtt 1f oob", "mtt 1f ne", False, None],
+        ["mtt 1f door", "mtt 2f arena", False, None],
+        ["mtt 2f arena", "mtt 1f door", False, has_good_damage],
+
+        ["mtt 2f arena", "mtt 2f post arena", False, has_good_damage],
+        ["mtt 2f post arena", "mtt 2f ne", False, has_bow],
+        ["mtt 2f ne", "mtt 1f ne", True, None],
+        ["mtt 1f ne", "mtt 1f n", False, has_bow & can_rotate_repeater],
+        ["mtt 1f n", "mtt 1f ne", False, has_bow],
+        ["mtt 1f n", "mtt b1 n", True, None],
+
+        ["mtt b1 n", "mtt b2 n", False, None],
+        ["mtt b2 n", "mtt b1 n", False, has_bow | has_bombs | has_sword_beam | has_whip],
+        ["mtt b2 n", "mtt b2", False, has_bow | has_bombs | has_sword_beam | has_whip],
+        ["mtt b2", "mtt b2 e", False, has_bow & has_whip],
+        ["mtt b2 e", "mtt b2 se", False, has_boomerang],
+
+        ["mtt b2 se", "mtt b1 arena", True, None],
+        ["mtt b1 arena", "mtt b1 post arena", False, has_bow],
+        ["mtt b1 post arena", "mtt b1 arena exit", False, None],
+        ["mtt b1 arena exit", "mtt b2 sw", True, None],
+
+        ["mtt b2 sw", "mtt b2 w", False, has_bow & can_rotate_repeater],
+        ["mtt b2 w", "mtt b2", False, has_whip],
+
+        ["mtt b1 n", "mtt b1 cart", True, has_small_keys("Mountain Temple", 3, 1)],
+        ["mtt b1 cart", "mtt b1 cart exit", False, has_bow],
+        ["mtt b1 cart exit", "mtt b1 cart", False, None],
+        ["mtt b1 cart exit", "mtt b1 stamp", False, has_range & has_stamp_book],
+        ["mtt b1 cart exit", "mtt b2 s", True, None],
+        ["mtt b2 s", "mtt b3", True, None],
+
+        ["mtt b3", "mtt b3 ne", False, has_short_range],
+        ["mtt b3 ne", "mtt b3 chest", False, has_whip],
+        ["mtt b3 ne", "mtt b3 bk", False, has_whirlwind],
+        ["mtt b3 ne", "mtt b3 n", False, None],
+        ["mtt b3 n", "mtt b3 chest", False, hard_logic],
+        ["mtt b3 n", "mtt b3 ne", False, has_whip],
+        ["mtt b3 bk", "mtt b3 boss door", False, has_boss_key("Mountain Temple") | vanilla_boss_keys],
+        ["mtt b3 boss door", "mtt b3 n", False, has_boss_key("Mountain Temple")],
+        ["mtt b3 boss door", "mtt b4", True, None],
+
+        ["mtt b4", "mtt blue warp", True, None],
+        ["mtt blue warp", "mtt lobby", False, None],
+        ["mtt lobby", "mtt blue warp", False, Has("_mtt_warp") | open_warps],
+
+        ["mtt b4", "mtt pre vulcano", False, None],
+        ["mtt pre vulcano", "mtt b4", False, can_kill_vulcano],
+        ["mtt pre vulcano", "mtt vulcano", False, can_kill_vulcano],
+        ["mtt vulcano", "event_vulcano", False, None],
+        ["mtt vulcano", "goal_vulcano", False, None],
 
         # Disorientation Station
         ["disorientation tracks", "disorientation station station", True, has_tracks("Disorientation Station")],
@@ -1039,33 +1136,46 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand restoration", "desert temple door", False, has_cannon],
         ["desert temple door", "desert temple station", False, None],
         ["desert temple station", "sand restoration", False, has_temple_tracks("Desert")],
-        ["desert temple station", "desert temple", False, has_temple_tracks("Desert")],
-        ["desert temple", "desert temple station", False, None],
+        ["desert temple station", "dt lobby", False, has_temple_tracks("Desert")],
+        ["dt lobby", "desert temple station", False, None],
 
-        ["desert temple", "dt sw", False, has_sand_wand],
+        ["dt lobby", "dt", True, None],
+        ["dt", "dt sw", False, has_sand_wand],
         ["dt sw", "dt 1f nw", False, has_bow],
-        ["desert temple", "dt 1f n", False, has_bow],
+        ["dt", "dt 1f n", False, has_bow],
 
         ["dt sw", "dt 1f n earthquake", False, has_bow],
 
-        ["desert temple", "dt 2f", False, has_small_keys("Desert Temple", 2, 1)],
+        ["dt", "dt 2f", False, has_small_keys("Desert Temple", 2, 1)],
+        ["dt 2f", "dt", False, None],
         ["dt 2f", "dt 2f sw", False, has_sand_wand],
-        ["dt 2f", "dt 3f", False, has_damage],
+        ["dt 2f", "dt 3f", True, None],
+        ["dt 3f", "dt 3f chest", False, has_damage],
 
-        ["dt sw", "dt b1", False, has_small_keys("Desert Temple", 2, 1)],
+        ["dt", "dt b1 stairs", False, has_sand_wand],
+        ["dt b1 stairs", "dt", False, None],
+        ["dt b1 stairs", "dt b1", False, has_small_keys("Desert Temple", 2, 1) & has_sand_wand],
         ["dt b1", "dt stamp stand", False, has_stamp_book],
-        ["dt b1", "dt b1 2", False, has_range | has_bombs],
-        ["dt b1 2", "dt b1 damage", False, has_damage],
-        ["dt b1", "dt b2", False, glitched_logic & has_bombs & has_sword],
+        ["dt b1", "dt b1 s", False, has_range | has_bombs],
+        ["dt b1 s", "dt b1 damage", False, has_damage],
+        ["dt b1", "dt b1 boss door", False, glitched_logic & has_bombs & has_sword],
+        ["dt b1 boss door", "dt b2 s", True, None],
 
-        # ["dt b1 2", "dt b2", False, st_has_boss_key("Desert Temple")],
-        ["dt b1 damage", "dt b2", False, None]
+        ["dt b1 damage", "dt b1 boss door", False, None]
             if world.options.randomize_boss_keys.value == 0
-            else ["dt b1 2", "dt b2", False, has_boss_key("Desert Temple")],
-        ["dt b2", "skeldritch", False, has_good_damage],
+            else ["dt b1 s", "dt b1 boss door", False, has_boss_key("Desert Temple")],
+        ["dt b2 s", "dt b2 n", False, has_sand_wand],
+        ["dt b2 n", "dt b2 s", False, None],
+        ["dt b2 n", "dt pre skeldritch", False, None],
+        ["dt pre skeldritch", "dt b2 n", False, has_sand_wand & has_good_damage],
+        ["dt pre skeldritch", "dt skeldritch", False, None],
         # Whip is not good enough damage
-        ["skeldritch", "skeldritch event", False, None],
-        ["skeldritch", "skeldritch goal", False, None],
+        ["dt skeldritch", "skeldritch event", False, None],
+        ["dt skeldritch", "skeldritch goal", False, None],
+
+        ["dt b2 n", "dt blue warp", True, None],
+        ["dt blue warp", "dt lobby", False, Has("_dt_warp") | open_warps],
+        ["dt lobby", "dt blue warp", False, None],
 
         # ===== Dark ore mine =====
         ["sand restoration", "dark ore mine tracks", False, has_tracks("Dark Ore Mine") & soft_cannon],
@@ -1176,6 +1286,7 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
         for entr_data in logic_array:
             if entr_data is None:
                 continue
+
             reg1, reg2, is_two_way, rule = entr_data
 
             region_1 = world.get_region(reg1)

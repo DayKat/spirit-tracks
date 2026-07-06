@@ -1831,7 +1831,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Song Statue"]
     },
     "Marine Temple 3F Whip Chest": {
-        "region_id": "oct whip chest",
+        "region_id": "oct 3f post arena",
         "vanilla_item": "Whip",
         "stage_id": 0x1B,
         "room_id": 2,
@@ -1840,40 +1840,36 @@ LOCATIONS_DATA = {
         "z_min": -25000,
         "z_max": 25000,
         "dungeon": "Marine Temple",
-        "require_item": [],
     },
 
     "Marine Temple 2F Log Chest": {
-        "region_id": "oct whip",
+        "region_id": "oct 2f logs",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x1B,
         "room_id": 1,
         "x_min": -40000,
         "z_min": 50000,
         "dungeon": "Marine Temple",
-        "require_item": ["Whip"],
     },
 
     "Marine Temple 1F Vines Chest": {
-        "region_id": "oct whip",
+        "region_id": "oct 1f whip",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x1B,
         "room_id": 0,
         "x_min": 55000,
         "z_min": -10000,
         "dungeon": "Marine Temple",
-        "require_item": ["Whip"],
     },
 
     "Marine Temple 1F Lever Chest": {
-        "region_id": "oct whip",
+        "region_id": "oct 1f whip",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1B,
         "room_id": 0,
         "x_min": 0,
         "z_max": -45000,
         "dungeon": "Marine Temple",
-        "require_item": ["Whip"],
     },
 
     "Marine Temple 2F Stamp Station": {
@@ -1887,46 +1883,41 @@ LOCATIONS_DATA = {
         "conditional": True
     },
 
-    "Marine Temple 3F Puzzle Chest": {
-        "region_id": "oct 3f whip",
+    "Marine Temple 3F South Chest": {
+        "region_id": "oct 3f s chest",
         "vanilla_item": "Small Key (Marine Temple)",
         "stage_id": 0x1B,
         "room_id": 2,
         "x_max": -30000,
         "z_min": 30000,
         "dungeon": "Marine Temple",
-        "require_item": ["Whip"],
     },
-
     "Marine Temple 3F NE Chest": {
-        "region_id": "oct 3f whip",
+        "region_id": "oct 3f n chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1B,
         "room_id": 2,
         "x_min": 50000,
         "z_max": -40000,
         "dungeon": "Marine Temple",
-        "require_item": ["Whip"],
     },
     "Marine Temple 6F E Chest": {
-        "region_id": "oct 6f chest",
+        "region_id": "oct 6f e chest",
         "vanilla_item": "Small Key (Marine Temple)",
         "stage_id": 0x1B,
         "room_id": 5,
         "x_min": 75000,
         "z_max": -5000,
         "dungeon": "Marine Temple",
-        "require_item": ["Whip"],
     },
     "Marine Temple 6F W Chest": {
-        "region_id": "oct 6f chest",
+        "region_id": "oct 6f w chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x1B,
         "room_id": 5,
         "x_max": -50000,
         "z_max": -5000,
         "dungeon": "Marine Temple",
-        "require_item": ["Whip"],
     },
     "Marine Temple 6F Boss Key": {
         "region_id": "oct bk loc",
@@ -2303,7 +2294,7 @@ LOCATIONS_DATA = {
     "Mountain Temple 2F Left Chest": {
         "stage_id": 0x1C,
         "room_id": 0x6,
-        "region_id": "mtt left",
+        "region_id": "mtt 2f left",
         "vanilla_item": "Small Key (Mountain Temple)",
         "x_max": -50000,
         "z_min": -45000,
@@ -2312,7 +2303,7 @@ LOCATIONS_DATA = {
     "Mountain Temple 1F Right Maze Chest": {
         "stage_id": 0x1C,
         "room_id": 0x0,
-        "region_id": "mtt right",
+        "region_id": "mtt 1f right",
         "vanilla_item": ["Red Potion", "Big Green Rupee (100)"],
         "x_min": -50000,
         "z_min": 60000,
@@ -2321,7 +2312,7 @@ LOCATIONS_DATA = {
     "Mountain Temple 2F Center Chest": {
         "stage_id": 0x1C,
         "room_id": 0x6,
-        "region_id": "mtt 2f right",
+        "region_id": "mtt 2f chest",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "x_min": -10000,
         "x_max": 0,
@@ -2331,7 +2322,7 @@ LOCATIONS_DATA = {
     "Mountain Temple 2F NW Chest": {
         "stage_id": 0x1C,
         "room_id": 0x6,
-        "region_id": "mtt 2f right",
+        "region_id": "mtt 2f chest",
         "vanilla_item": "Small Key (Mountain Temple)",
         "x_max": -45000,
         "z_max": -55000,
@@ -2341,7 +2332,7 @@ LOCATIONS_DATA = {
     "Mountain Temple 2F Heatoise Chest": {
         "stage_id": 0x1C,
         "room_id": 0x6,
-        "region_id": "mtt heatoise",
+        "region_id": "mtt 2f post arena",
         "vanilla_item": "Bow (Progressive)",
         "item_override": "Nothing!",
         "x_min": -10000,
@@ -2360,7 +2351,7 @@ LOCATIONS_DATA = {
     "Mountain Temple B2 NE Chest": {
         "stage_id": 0x1C,
         "room_id": 3,
-        "region_id": "mtt b2",
+        "region_id": "mtt b2 e",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "x_min": 80000,
         "z_max": -50000,
@@ -2369,7 +2360,7 @@ LOCATIONS_DATA = {
     "Mountain Temple B2 SE Chest": {
         "stage_id": 0x1C,
         "room_id": 3,
-        "region_id": "mtt b2",
+        "region_id": "mtt b2 e",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "x_min": 50000,
         "z_min": 50000,
@@ -2378,7 +2369,7 @@ LOCATIONS_DATA = {
     "Mountain Temple B1 Heatoise Chest": {
         "stage_id": 0x1C,
         "room_id": 2,
-        "region_id": "mtt b1 arena",
+        "region_id": "mtt b1 post arena",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "z_min": 10000,
         "y": 0,
@@ -2387,7 +2378,7 @@ LOCATIONS_DATA = {
     "Mountain Temple B2 NW Chest": {
         "stage_id": 0x1C,
         "room_id": 3,
-        "region_id": "mtt b1 arena",
+        "region_id": "mtt b2 w",
         "vanilla_item": "Small Key (Mountain Temple)",
         "x_max": -80000,
         "z_max": -50000,
@@ -2396,7 +2387,7 @@ LOCATIONS_DATA = {
     "Mountain Temple B1 Stamp Station": {
         "stage_id": 0x1C,
         "room_id": 2,
-        "region_id": "mtt stamp",
+        "region_id": "mtt b1 stamp",
         "vanilla_item": "Stamp: Mountain Temple",
         "stamp": 0xF,
         "dungeon": "Mountain Temple"
@@ -2404,14 +2395,14 @@ LOCATIONS_DATA = {
     "Mountain Temple B3 N Chest": {
         "stage_id": 0x1C,
         "room_id": 4,
-        "region_id": "mtt b1 cart",
+        "region_id": "mtt b3 chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "x_max": 25000,
         "z_max": -60000,
         "dungeon": "Mountain Temple"
     },
     "Mountain Temple B3 Boss Key": {
-        "region_id": "mtt bk",
+        "region_id": "mtt b3 bk",
         "vanilla_item": "Boss Key (Mountain Temple)",
         "dungeon": "Mountain Temple",
         "conditional": True,
@@ -2419,7 +2410,7 @@ LOCATIONS_DATA = {
     },
     "Mountain Temple Boss Heart Container": {
         "stage_id": 0x21,
-        "region_id": "mtt boss",
+        "region_id": "mtt vulcano",
         "vanilla_item": "Heart Container",
         "dungeon": "Mountain Temple",
     },
@@ -2427,7 +2418,7 @@ LOCATIONS_DATA = {
         "address": STAddr.adv_flags_0,
         "value": 0x80,
         "stage_id": 0x21,
-        "region_id": "mtt boss",
+        "region_id": "mtt vulcano",
         "vanilla_item": "Fire Source",
         "ut_connect": "EVENT: Defeat Vulcano",
         "goal": "GOAL: Defeat Vulcano",
@@ -2649,7 +2640,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x1D,
         "room_id": 0x2,
         "vanilla_item": "Sand Wand",
-        "region_id": "dt 3f",
+        "region_id": "dt 3f chest",
         "y": 9830,
         "dungeon": "Desert Temple",
     },
@@ -2708,7 +2699,7 @@ LOCATIONS_DATA = {
         "z_min": -15000,
         "z_max": 0,
         "vanilla_item": "Red Rupee (20)",
-        "region_id": "dt b1 2",
+        "region_id": "dt b1 s",
         "dungeon": "Desert Temple",
     },
     "Desert Temple B1 SW Stalfos Chest": {
@@ -2741,7 +2732,7 @@ LOCATIONS_DATA = {
         "room_id": 0x1,
         "vanilla_item": "Heart Container",
         "dungeon": "Desert Temple",
-        "region_id": "skeldritch",
+        "region_id": "dt skeldritch",
         "location_groups": ["Skeldritch"],
     },
     "Capbone Boss Reward": {
@@ -2750,7 +2741,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Sand Source",
         "address": STAddr.adv_flags_1a,
         "value": 0x1,
-        "region_id": "skeldritch",
+        "region_id": "dt skeldritch",
         "location_groups": ["Skeldritch"],
         "ut_connect": "EVENT: Defeat Skeldritch",
         "goal": "GOAL: Defeat Skeldritch",
@@ -2763,7 +2754,7 @@ LOCATIONS_DATA = {
         "y": 9830,
         "vanilla_item": "Bow of Light",
         "item_override": "Nothing!",
-        "region_id": "skeldritch",
+        "region_id": "dt skeldritch",
         "dungeon": "Desert Temple",
         "location_groups": ["Skeldritch"],
     },

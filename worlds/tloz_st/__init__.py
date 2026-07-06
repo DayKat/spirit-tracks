@@ -682,9 +682,15 @@ class SpiritTracksWorld(WorldParent):
         # DER events. might add if statement later
         self.create_event("wt blue warp", "_wt_warp")
         self.create_event("bt blue warp", "_bt_warp")
+        self.create_event("oct blue warp", "_oct_warp")
+        self.create_event("mtt blue warp", "_mtt_warp")
+        self.create_event("dt blue warp", "_dt_warp")
 
         self.create_event("bt 1f ne bell", "_bt_bell_2")
         self.create_event("bt 1f nw bell", "_bt_bell_3")
+        self.create_event("oct 2f boulders", "_oct_boulders")
+        self.create_event("oct boomerang switch", "_oct_boomerang")
+        self.create_event("oct 6f sw arena", "_oct_6f_arena")
 
 
     def exclude_locations_automatically(self):

@@ -217,6 +217,7 @@ hard_birds = has_whip & (has_sob | hard_logic)
 can_fight_malladus = has_sword & has_bow_of_light
 
 soft_cannon = has_cannon | ool | [OptionFilter(SpiritTracksCannonLogic, 3)]
+open_warps = [OptionFilter(SpiritTracksOpenBlueWarps, 1)]
 
 can_enter_tos = (
         [OptionFilter(SpiritTracksToSBase, 0)] |
@@ -246,6 +247,11 @@ tos_15f_glitched = Or(
         )
     )
 )
+can_kill_vulcano = has_bow & Or(
+            has_sword,
+            has_whip,
+            Has("Bombs (Progressive)", 2),
+            Has("Bomb Bag") & Has("Bomb Bag Upgrade"))
 
 mtt_center = Or(
     And(  # 2 Keys, normal
