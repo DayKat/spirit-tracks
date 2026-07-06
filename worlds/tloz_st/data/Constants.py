@@ -412,41 +412,59 @@ BOSS_LOCATION_TO_EVENT_REGION = {
 }
 
 BOSS_LOCATION_TO_POST_LOCATIONS = {
-    "Stagnox Boss Reward": ["Wooded Temple Boss Heart Container"],
-    "Fraaz Boss Reward": ["Blizzard Temple Boss Heart Container"],
-    "Cactops Boss Reward": ["Marine Temple Heart Container"],
-    "Vulcano Boss Reward": ["Mountain Temple Boss Heart Container"],
-    "Capbone Boss Reward": ["Desert Temple Boss Heart Container", "Desert Temple Bow of Light Chest"]
+    "Stagnox Boss Reward": ["Stagnox Heart Container"],
+    "Fraaz Boss Reward": ["Fraaz Heart Container"],
+    "Cactops Boss Reward": ["Cactops Heart Container"],
+    "Vulcano Boss Reward": ["Vulcano Heart Container"],
+    "Capbone Boss Reward": ["Capbone Boss Reward", "Desert Temple Bow of Light Chest"]
 }
 
 DUNGEON_TO_ENTRANCE = {
     "Wooded Temple": "Wooded Temple Lobby Enter Dungeon",
     "Blizzard Temple": "Blizzard Temple Lobby Enter Dungeon",
+    "Marine Temple": "Marine Temple Lobby Enter Dungeon",
+    "Mountain Temple": "Mountain Temple Lobby Enter Dungeon",
+    "Desert Temple": "Desert Temple Lobby Enter Dungeon",
 }
 
 DUNGEON_TO_EXIT = {
     "Wooded Temple": "Wooded Temple 1F Exit",
     "Blizzard Temple": "Blizzard Temple 1F South Exit",
+    "Marine Temple": "Marine Temple 1F Exit",
+    "Mountain Temple": "Mountain Temple 1F Exit",
+    "Desert Temple": "Desert Temple 1F Exit",
 }
 
 DUNGEON_TO_WARP_ENTRANCE = {
     "Wooded Temple": "Wooded Temple Lobby Blue Warp",
     "Blizzard Temple": "Blizzard Temple Lobby Blue Warp",
+    "Marine Temple": "Marine Temple Lobby Blue Warp",
+    "Mountain Temple": "Mountain Temple Lobby Blue Warp",
+    "Desert Temple": "Desert Temple Lobby Blue Warp",
 }
 
 DUNGEON_TO_WARP_EXIT = {
     "Wooded Temple": "Wooded Temple 4F Blue Warp",
     "Blizzard Temple": "Blizzard Temple 3F Blue Warp",
+    "Marine Temple": "Marine Temple 7F Blue Warp",
+    "Mountain Temple": "Mountain Temple B4 Blue Warp",
+    "Desert Temple": "Desert Temple B2 Blue Warp",
 }
 
 DUNGEON_TO_BOSS_STAIRCASE = {
     "Wooded Temple": "Wooded Temple 4F N Staircase",
     "Blizzard Temple": "Blizzard Temple 3F North Staircase",
+    "Marine Temple": "Marine Temple 7F North Staircase",
+    "Mountain Temple": "Mountain Temple B4 North Staircase",
+    "Desert Temple": "Desert Temple B2 North Entrance",
 }
 
 BOSS_LOCATION_TO_EXIT = {
     "Stagnox Boss Reward": "Stagnox Exit",
     "Fraaz Boss Reward": "Fraaz Exit",
+    "Cactops Boss Reward": "Cactops Exit",
+    "Vulcano Boss Reward": "Vulcano Exit",
+    "Capbone Boss Reward": "Capbone Exit",
 }
 
 DUNGEON_KEY_DATA = {
@@ -588,34 +606,6 @@ BOSS_KEY_DATA = {
         "door_coords": 0x4ffc000000000000affc,
         "deletion_data": (4, 0)
     },
-}
-
-HINTS_ON_SCENE = {
-    # 0xB11: {  # Mercay Shop
-    #     "island_shop": True
-    # },
-    # 0xC0E: {  # Molida Shop
-    #     "island_shop": True
-    # },
-    # 0x1014: {  # Goron Shop
-    #     "island_shop": True
-    # },
-    # 0x130B: {  # Eddo Cannon Island
-    #     "unique": ["Cannon Island Cannon", "Cannon Island Salvage Arm"]
-    # },
-    # 0x500: {  # Beedle Shop
-    #     "unique": ["Beedle Shop Wisdom Gem"],
-    #     "beedle": True  # TODO: make this modular, instead of hard coding item requirements
-    # },
-    # 0xb0A: {  # Oshus Dungeon hints
-    #     "dungeon_hints": 1
-    # },
-    # 0x2600: {  # TotOK Dungeon hints
-    #     "dungeon_hints": 2
-    # },
-    # 0x1701: {
-    #     "spirit_island_hints": True
-    # },
 }
 
 
@@ -846,11 +836,18 @@ pool_name_lookup = {
 }
 
 BOSS_LOCATION_TO_ENTRANCE: dict[str, str] = {
-    "Stagnox Boss Reward": "Stagnox Exit"
+    "Stagnox Boss Reward": "Stagnox Exit",
+    "Fraaz Boss Reward": "Fraaz Exit",
+    "Cactops Boss Reward": "Cactops Exit",
+    "Vulcano Boss Reward": "Vulcano Exit",
+    "Skeldritch Boss Reward": "Skeldritch Exit"
 }
 DUNGEON_LOBBY_ENTRANCES: dict[str, tuple[str, str]] = {
     "Wooded Temple": ("Wooded Temple Lobby Enter Dungeon","Wooded Temple Lobby Blue Warp"),
     "Blizzard Temple": ("Blizzard Temple Lobby Enter Dungeon","Blizzard Temple Lobby Blue Warp"),
+    "Marine Temple": ("Marine Temple Lobby Enter Dungeon", "Marine Temple Lobby Blue Warp"),
+    "Mountain Temple": ("Mountain Temple Lobby Enter Dungeon", "Mountain Temple Lobby Blue Warp"),
+    "Desert Temple": ("Desert Temple Lobby Enter Dungeon", "Desert Temple Lobby Blue Warp"),
 }
 
 map_warp_redirects: dict[int, tuple[int, int, int]] = {

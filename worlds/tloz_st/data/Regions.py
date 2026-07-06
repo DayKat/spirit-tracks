@@ -529,6 +529,7 @@ REGIONS = [
     "oct 3f east",
     "oct 3f west",
     "oct 3f north",
+    "oct 3f ne",
     "oct 3f south",
     "oct 3f arena",
     "oct 3f post arena",
@@ -716,6 +717,7 @@ REGIONS = [
     "mtt 2f ne",
     "mtt 1f ne",
     "mtt 1f n",
+    "mtt 1f n chest",
 
     "mtt b1 n",
     "mtt b2 n",

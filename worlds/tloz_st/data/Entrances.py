@@ -2216,7 +2216,7 @@ ENTRANCE_DATA |= {
         "exit": (0x17, 0x0, 6),
         "entrance_region": "tos 22f",
         "exit_region": "tos 5",
-        "type": EntranceGroups.WARP_PORTAL,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
@@ -2457,17 +2457,383 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.BLIZZARD
     },
 
-    # Misc entrances
-    "Desert Temple Enter Boss": {
-        "return_name": "Skeldritch Exit",
-        "entrance_region": "dt b2",
-        "exit_region": "skeltritch",
-        "entrance": (0x1D, 0x4, 0x1),
-        "exit": (0x22, 0x0, 0),
-        "type": EntranceGroups.BOSS,
+    # Marine Temple
+    "Marine Temple Lobby Enter Dungeon": {
+        "return_name": "Marine Temple 1F Exit",
+        "entrance_region": "oct lobby",
+        "exit_region": "oct 1f",
+        "entrance": (0x1b, 0xA, 1),
+        "exit": (0x1b, 0x0, 0),
         "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 1F North Staircase": {
+        "return_name": "Marine Temple 2F North Staircase",
+        "entrance_region": "oct 1f",
+        "exit_region": "oct 2f",
+        "entrance": (0x1b, 0x0, 1),
+        "exit": (0x1b, 0x1, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 2F Left Bomb Cave": {
+        "return_name": "Marine Temple Stamp Room Exit",
+        "entrance_region": "oct 2f",
+        "exit_region": "oct stamp room",
+        "entrance": (0x1b, 0x1, 3),
+        "exit": (0x1b, 0x7, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 2F Right Bomb Cave": {
+        "return_name": "Marine Temple Switch Room Exit",
+        "entrance_region": "oct 2f",
+        "exit_region": "oct boomerang room",
+        "entrance": (0x1b, 0x1, 4),
+        "exit": (0x1b, 0x7, 1),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 1F East Staircase": {
+        "return_name": "Marine Temple 2F NE Staircase",
+        "entrance_region": "oct 1f right",
+        "exit_region": "oct 2f right",
+        "entrance": (0x1b, 0x0, 2),
+        "exit": (0x1b, 0x1, 2),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 2F East Staircase": {
+        "return_name": "Marine Temple 3F East Staircase",
+        "entrance_region": "oct 2f right",
+        "exit_region": "oct 3f east",
+        "entrance": (0x1b, 0x1, 1),
+        "exit": (0x1b, 0x2, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 3F North Staircase": {
+        "return_name": "Marine Temple 4F North Staircase",
+        "entrance_region": "oct 3f ne",
+        "exit_region": "oct 4f north",
+        "entrance": (0x1b, 0x2, 3),
+        "exit": (0x1b, 0x3, 2),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 3F West Staircase": {
+        "return_name": "Marine Temple 4F West Staircase",
+        "entrance_region": "oct 3f west",
+        "exit_region": "oct 4f west",
+        "entrance": (0x1b, 0x2, 1),
+        "exit": (0x1b, 0x3, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 3F South Staircase": {
+        "return_name": "Marine Temple 4F South Staircase",
+        "entrance_region": "oct 3f south",
+        "exit_region": "oct 4f south",
+        "entrance": (0x1b, 0x2, 2),
+        "exit": (0x1b, 0x3, 3),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 4F East Staircase": {
+        "return_name": "Marine Temple 5F East Staircase",
+        "entrance_region": "oct 4f east",
+        "exit_region": "oct 5f",
+        "entrance": (0x1b, 0x3, 1),
+        "exit": (0x1b, 0x4, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 5F NW Staircase": {
+        "return_name": "Marine Temple 6F NW Staircase",
+        "entrance_region": "oct 5f nw",
+        "exit_region": "oct 6f nw",
+        "entrance": (0x1b, 0x4, 2),
+        "exit": (0x1b, 0x5, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 5F SW Staircase": {
+        "return_name": "Marine Temple 6F SW Staircase",
+        "entrance_region": "oct 5f sw",
+        "exit_region": "oct 6f sw",
+        "entrance": (0x1b, 0x4, 1),
+        "exit": (0x1b, 0x5, 1),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 5F SE Staircase": {
+        "return_name": "Marine Temple 6F SE Staircase",
+        "entrance_region": "oct 5f se",
+        "exit_region": "oct 6f se",
+        "entrance": (0x1b, 0x4, 4),
+        "exit": (0x1b, 0x5, 2),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 6F Central Staircase": {
+        "return_name": "Marine Temple 7F South Staircase",
+        "entrance_region": "oct 6f boss door",
+        "exit_region": "oct 7f south",
+        "entrance": (0x1b, 0x5, 3),
+        "exit": (0x1b, 0x6, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 7F North Staircase": {
+        "return_name": "Cactops Exit",
+        "entrance_region": "oct 7f north",
+        "exit_region": "oct pre phytops",
+        "entrance": (0x1b, 0x6, 1),
+        "exit": (0x20, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.BOSS,
+        "island": EntranceGroups.MARINE
+    },
+    "Marine Temple 7F Blue Warp": {
+        "return_name": "Marine Temple Lobby Blue Warp",
+        "entrance_region": "oct 7f north",
+        "exit_region": "oct blue warp",
+        "entrance": (0x1b, 0x6, 2),
+        "exit": (0x1b, 0xA, 2),
+        "direction": EntranceGroups.DOWN,
+        "type": EntranceGroups.WARP_PORTAL,
+        "island": EntranceGroups.MARINE
+    },
+
+    # Mountain Temple
+    "Mountain Temple Lobby Enter Dungeon": {
+        "return_name": "Mountain Temple 1F Exit",
+        "entrance_region": "mtt lobby",
+        "exit_region": "mtt 1f",
+        "entrance": (0x1c, 0xA, 1),
+        "exit": (0x1c, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple 1F SW Staircase": {
+        "return_name": "Mountain Temple 2F SW Staircase",
+        "entrance_region": "mtt 1f left",
+        "exit_region": "mtt 2f left",
+        "entrance": (0x1c, 0x0, 5),
+        "exit": (0x1c, 0x6, 3),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple 1F SE Staircase": {
+        "return_name": "Mountain Temple 2F SE Staircase",
+        "entrance_region": "mtt 1f right",
+        "exit_region": "mtt 2f right",
+        "entrance": (0x1c, 0x0, 4),
+        "exit": (0x1c, 0x6, 2),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple 1F Central Staircase": {
+        "return_name": "Mountain Temple 2F Central Staircase",
+        "entrance_region": "mtt 1f door",
+        "exit_region": "mtt 2f arena",
+        "entrance": (0x1c, 0x0, 1),
+        "exit": (0x1c, 0x6, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple 1F NE Staircase": {
+        "return_name": "Mountain Temple 2F NE Staircase",
+        "entrance_region": "mtt 1f ne",
+        "exit_region": "mtt 2f ne",
+        "entrance": (0x1c, 0x0, 3),
+        "exit": (0x1c, 0x6, 1),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple 1F North Staircase": {
+        "return_name": "Mountain Temple B1 NE Staircase",
+        "entrance_region": "mtt 1f n",
+        "exit_region": "mtt b1 n",
+        "entrance": (0x1c, 0x0, 2),
+        "exit": (0x1c, 0x2, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple B1 North Staircase": {
+        "return_name": "Mountain Temple B2 North Staircase",
+        "entrance_region": "mtt b1 n",
+        "exit_region": "mtt b2 n",
+        "entrance": (0x1c, 0x2, 1),
+        "exit": (0x1c, 0x3, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple B1 East Staircase": {
+        "return_name": "Mountain Temple B2 East Staircase",
+        "entrance_region": "mtt b1 arena",
+        "exit_region": "mtt b2 se",
+        "entrance": (0x1c, 0x2, 3),
+        "exit": (0x1c, 0x3, 4),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple B1 West Staircase": {
+        "return_name": "Mountain Temple B2 West Staircase",
+        "entrance_region": "mtt b1 arena exit",
+        "exit_region": "mtt b2 sw",
+        "entrance": (0x1c, 0x2, 4),
+        "exit": (0x1c, 0x3, 5),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple B1 Central Staircase": {
+        "return_name": "Mountain Temple B2 Central Staircase",
+        "entrance_region": "mtt b1 cart exit",
+        "exit_region": "mtt b2 s",
+        "entrance": (0x1c, 0x2, 2),
+        "exit": (0x1c, 0x3, 2),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple B2 South Staircase": {
+        "return_name": "Mountain Temple B3 South Staircase",
+        "entrance_region": "mtt b2 s",
+        "exit_region": "mtt b3",
+        "entrance": (0x1c, 0x3, 3),
+        "exit": (0x1c, 0x4, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple B3 North Staircase": {
+        "return_name": "Mountain Temple B4 South Staircase",
+        "entrance_region": "mtt b3 boss door",
+        "exit_region": "mtt b4",
+        "entrance": (0x1c, 0x4, 2),
+        "exit": (0x1c, 0x5, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple B4 North Staircase": {
+        "return_name": "Vulcano Exit",
+        "entrance_region": "mtt b4",
+        "exit_region": "mtt pre vulcano",
+        "entrance": (0x1c, 0x5, 2),
+        "exit": (0x21, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.BOSS,
+        "island": EntranceGroups.MOUNTAIN
+    },
+    "Mountain Temple Lobby Blue Warp": {
+        "return_name": "Mountain Temple B4 Blue Warp",
+        "entrance_region": "mtt blue warp",
+        "exit_region": "mtt b4",
+        "entrance": (0x1c, 0xa, 2),
+        "exit": (0x1c, 0x5, 1),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.WARP_PORTAL,
+        "island": EntranceGroups.MOUNTAIN
+    },
+
+    # Desert Temple
+    "Desert Temple Lobby Enter Dungeon": {
+        "return_name": "Desert Temple 1F Exit",
+        "entrance_region": "dt lobby",
+        "exit_region": "dt",
+        "entrance": (0x1d, 0x6, 1),
+        "exit": (0x1d, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.DUNGEON_ENTRANCE,
         "island": EntranceGroups.DESERT
     },
+    "Desert Temple 1F Lower Staircase": {
+        "return_name": "Desert Temple B1 Left Staircase",
+        "entrance_region": "dt",
+        "exit_region": "dt b1 stairs",
+        "entrance": (0x1d, 0x0, 2),
+        "exit": (0x1d, 0x3, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.DESERT
+    },
+    "Desert Temple 1F Upper Staircase": {
+        "return_name": "Desert Temple 2F Left Staircase",
+        "entrance_region": "dt",
+        "exit_region": "dt 2f",
+        "entrance": (0x1d, 0x0, 1),
+        "exit": (0x1d, 0x1, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.DESERT
+    },
+    "Desert Temple 3F Staircase": {
+        "return_name": "Desert Temple 2F Right Staircase",
+        "entrance_region": "dt 3f",
+        "exit_region": "dt 2f",
+        "entrance": (0x1d, 0x4, 0),
+        "exit": (0x1d, 0x3, 1),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.DESERT
+    },
+    "Desert Temple B1 Boss Door Staircase": {
+        "return_name": "Desert Temple B2 South Staircase",
+        "entrance_region": "dt b1 boss door",
+        "exit_region": "dt b2 s",
+        "entrance": (0x1d, 0x0, 0),
+        "exit": (0x1d, 0x0, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.DUNGEON_ROOM,
+        "island": EntranceGroups.DESERT
+    },
+    "Desert Temple B2 North Entrance": {
+        "return_name": "Capbone Exit",
+        "entrance_region": "dt b2 n",
+        "exit_region": "dt pre skeldritch",
+        "entrance": (0x1d, 0x4, 2),
+        "exit": (0x22, 0x0, 0),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.BOSS,
+        "island": EntranceGroups.DESERT
+    },
+    "Desert Temple Lobby Blue Warp": {
+        "return_name": "Desert Temple B2 Blue Warp",
+        "entrance_region": "dt b2 n",
+        "exit_region": "dt blue warp",
+        "entrance": (0x1d, 0x6, 3),
+        "exit": (0x1d, 0x4, 2),
+        "direction": EntranceGroups.UP,
+        "type": EntranceGroups.WARP_PORTAL,
+        "island": EntranceGroups.DESERT
+    },
+
+    # Misc entrances
     "Desert Temple Enter Post-Fight": {
         "return_name": "Skeldritch Post-Fight Exit",
         "entrance_region": "dt b2",

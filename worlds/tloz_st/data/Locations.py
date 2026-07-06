@@ -1228,7 +1228,7 @@ LOCATIONS_DATA = {
         "dungeon": "Wooded Temple",
         "conditional": True,
     },
-    "Wooded Temple Boss Heart Container": {
+    "Stagnox Heart Container": {
         "region_id": "wt stagnox",
         "vanilla_item": "Heart Container",
         "stage_id": 0x1E,
@@ -1601,7 +1601,7 @@ LOCATIONS_DATA = {
         "dungeon": "Blizzard Temple",
         "conditional": True
     },
-    "Blizzard Temple Boss Heart Container": {
+    "Fraaz Heart Container": {
         "region_id": "bt fraaz",
         "vanilla_item": "Heart Container",
         "stage_id": 0x1F,
@@ -1926,7 +1926,7 @@ LOCATIONS_DATA = {
         "conditional": True
     },
 
-    "Marine Temple Heart Container": {
+    "Cactops Heart Container": {
         "region_id": "oct phytops",
         "vanilla_item": "Heart Container",
         "stage_id": 0x20,
@@ -2342,7 +2342,7 @@ LOCATIONS_DATA = {
     "Mountain Temple 1F NE Chest": {
         "stage_id": 0x1C,
         "room_id": 0,
-        "region_id": "mtt 1f ne",
+        "region_id": "mtt 1f n chest",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "x_min": 60000,
         "z_max": -40000,
@@ -2408,7 +2408,7 @@ LOCATIONS_DATA = {
         "conditional": True,
         "no_model": True
     },
-    "Mountain Temple Boss Heart Container": {
+    "Vulcano Heart Container": {
         "stage_id": 0x21,
         "region_id": "mtt vulcano",
         "vanilla_item": "Heart Container",
@@ -2727,7 +2727,7 @@ LOCATIONS_DATA = {
         "dungeon": "Desert Temple",
         "conditional": True
     },
-    "Desert Temple Boss Heart Container": {
+    "Capbone Heart Container": {
         "stage_id": 0x22,
         "room_id": 0x1,
         "vanilla_item": "Heart Container",

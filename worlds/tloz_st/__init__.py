@@ -1403,9 +1403,9 @@ class SpiritTracksWorld(WorldParent):
                                            (dungeon_to_enum[dung] << 8)
         shuffled_dungeon_lookup = {}
         if self.options.shuffle_dungeon_entrances.value in [1, 6]:
-            shuffled_dungeons = DUNGEON_NAMES[2:4]
+            shuffled_dungeons = DUNGEON_NAMES[2:]
             self.random.shuffle(shuffled_dungeons)
-            shuffled_dungeon_lookup = {o: n for o, n in zip(DUNGEON_NAMES[2:4], shuffled_dungeons)}
+            shuffled_dungeon_lookup = {o: n for o, n in zip(DUNGEON_NAMES[2:], shuffled_dungeons)}
             print(f"Shuffled dungeon lookup: {shuffled_dungeon_lookup}")
             for dung, entr in DUNGEON_LOBBY_ENTRANCES.items():
                 for e in entr:
