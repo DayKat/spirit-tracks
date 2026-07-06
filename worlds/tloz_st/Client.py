@@ -940,10 +940,10 @@ class SpiritTracksClient(DSZeldaClient):
         if self.snurglar_addr and location["name"] in LOCATION_GROUPS["Snurglars"]:
             await self.snurglar_addr.unset_bits(ctx, 0x0F)
 
-        if location["name"] == "Capbone Boss Reward" and ctx.slot_data["shuffle_bosses"]:
+        if location["name"] == "Capbone Boss Reward" and str(self.entrances["Capbone Exit"].id) in ctx.slot_data["er_pairings"]:
             post_fight = self.entrances["Desert Temple Enter Post-Fight"]
-            entrance = self.er_map[0x2200][self.entrances["Capbone Exit"]]
-            self.er_map.setdefault(entrance.scene, {})[entrance.vanilla_reciprocal] = post_fight
+            entrance = self.entrance_id_to_entrance[ctx.slot_data["er_pairings"][str(self.entrances["Capbone Exit"].id)]]
+            self.er_map.setdefault(entrance.scene, {})[entrance] = post_fight
 
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
@@ -1610,12 +1610,12 @@ class SpiritTracksClient(DSZeldaClient):
             er_map.setdefault(0x600, {})[rocktite_entrance] = detect_data
 
         if exit_data.name == "Capbone Exit":
-            post_fight = self.entrances["Desert Temple Enter Post-Fight"]
-            er_map.setdefault(post_fight.scene, {})[post_fight.vanilla_reciprocal] = detect_data
+            post_fight = self.entrances["Skeldritch Post-Fight Exit"]
+            er_map.setdefault(post_fight.scene, {})[post_fight] = detect_data
             if self.location_name_to_id["Capbone Boss Reward"] in ctx.checked_locations:
-                er_map.setdefault(detect_data.scene, {})[exit_data] = post_fight
+                er_map.setdefault(detect_data.scene, {})[detect_data] = post_fight
             else:
-                er_map.setdefault(detect_data.scene, {})[post_fight] = exit_data
+                er_map.setdefault(detect_data.scene, {})[detect_data] = exit_data
         if detect_data.name == "Desert Temple B2 North Entrance":
             desert_exit = self.entrances["Desert Temple Enter Post-Fight"]
             er_map.setdefault(0x1d04, {})[desert_exit] = exit_data
@@ -1623,7 +1623,7 @@ class SpiritTracksClient(DSZeldaClient):
         return er_map
 
     def update_stage_flag(self, stage: int, new: list[int]):
-        self.stage_flags[stage] = [o | n for o, n in zip(STAGE_FLAGS[stage], new)]
+        self.stage_flags[stage] = [o | n for o, n in zip(STAGE_FLAGS.get(stage, [0,0,0,0]), new)]
 
     async def enter_game(self, ctx):
         if ctx.slot_data.get("shuffle_houses", 0) > 0:

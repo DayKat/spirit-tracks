@@ -752,7 +752,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 3f west", "oct 3f arena", False, has_whip & hard_logic],
         ["oct 3f west", "oct 4f west", True, None],
 
-        ["oct 4f north", "oct 4f west", False, None],
+        ["oct 4f north", "oct 4f west", False, has_whip],
         ["oct 4f west", "oct 4f south", False, has_whip],
         ["oct 4f south", "oct 3f south", True, None],
         ["oct 3f south", "oct 3f arena", False, has_whip & hard_logic],
@@ -782,7 +782,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 6f boss door", "oct 7f south", True, None],
 
         ["oct 7f south", "oct 7f north", True, has_whip],
-        ["oct 7f north", "oct pre phytops", False, None],
+        ["oct 7f north", "oct pre phytops", False, has_whip],
         ["oct pre phytops", "oct 7f north", False, has_whip & has_good_damage],
         ["oct pre phytops", "oct phytops", False, has_whip & has_good_damage],
         ["oct phytops", "event_phytops", False, None],
@@ -1170,7 +1170,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dt b2 n", "dt b2 s", False, None],
         ["dt b2 n", "dt pre skeldritch", False, None],
         ["dt pre skeldritch", "dt b2 n", False, has_sand_wand & has_good_damage],
-        ["dt pre skeldritch", "dt skeldritch", False, None],
+        ["dt pre skeldritch", "dt skeldritch", False, has_sand_wand & has_good_damage],
         # Whip is not good enough damage
         ["dt skeldritch", "skeldritch event", False, None],
         ["dt skeldritch", "skeldritch goal", False, None],

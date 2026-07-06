@@ -71,10 +71,10 @@ class TestGeneration(WorldTestBase):
 
         "shuffle_tos_sections": "no_shuffle",
 
-        "shuffle_dungeon_entrances": "no_shuffle",
-        "shuffle_bosses": "no_shuffle",
+        "shuffle_dungeon_entrances": "shuffle_in_own_dungeon_shuffle",
+        "shuffle_bosses": "shuffle_in_own_dungeon_shuffle",
         "shuffle_dungeon_rooms": "shuffle_in_own_dungeon",
-        "shuffle_warps": "no_shuffle",
+        "shuffle_warps": "shuffle_in_own_dungeon",
 
         "keyrings": "all",
 

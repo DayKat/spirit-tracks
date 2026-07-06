@@ -1920,7 +1920,7 @@ LOCATIONS_DATA = {
         "dungeon": "Marine Temple",
     },
     "Marine Temple 6F Boss Key": {
-        "region_id": "oct bk loc",
+        "region_id": "oct 6f bk loc",
         "vanilla_item": "Boss Key (Marine Temple)",
         "dungeon": "Marine Temple",
         "conditional": True
