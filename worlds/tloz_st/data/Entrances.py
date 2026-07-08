@@ -2924,5 +2924,3 @@ goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          9: "GOAL: Defeat Staven",
                          10: "GOAL: Reach ToS 24F",
                          -1: "GOAL: Defeat Malladus"}
-
-print(f"{[i for i, j in ENTRANCES.items() if j.category_group == EntranceGroups.DISORIENTATION]}")

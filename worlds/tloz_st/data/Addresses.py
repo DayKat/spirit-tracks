@@ -187,6 +187,11 @@ class STAddr:
     stamp_ids = Address(0x268f8c, size=20)
     stamp_coords = Address(0x268F50, size=40)
 
+    # Zelda
+    zelda_pointer = Address(0x0D34, size=3, domain="Data TCM")
+    zelda_text = Address(0x327C04, size=4)
+    zelda_x = Address(0x327b0c, size=4)
+
     # Adventure Flags
     adv_flags_0 = sources = Address(0x265714)
     adv_flags_1 = restorations = Address(0x265715)

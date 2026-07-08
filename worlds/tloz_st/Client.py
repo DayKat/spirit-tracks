@@ -26,7 +26,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open]
-read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
+read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health, STAddr.zelda_text]
 read_keys_train = [STAddr.train_health]
 
 rabbit_storage_key = "rabbit_locs"
@@ -679,6 +679,11 @@ class SpiritTracksClient(DSZeldaClient):
         await self.process_train_speed(ctx, read_result)
         await self.detect_ut_event(ctx, self.current_scene)
         await self.process_map_warp(ctx)
+
+        if self.current_stage == 0x13 and self.read_result[STAddr.zelda_text] == 0x30000:
+            link_coords = await self.get_coords(ctx)
+            await write_multiple(ctx, [Address.from_pointer(STAddr.zelda_x + i*4, size=4) for i in range(3)],
+                                 list(link_coords.values()))
 
         if read_result[STAddr.menu] == 9:
             clog = await STAddr.flip_clog.read(ctx, silent=True)
