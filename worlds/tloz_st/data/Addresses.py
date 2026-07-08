@@ -60,6 +60,7 @@ class STAddr:
     gPlayer = Address.pointer(0x0fec)
     gMapManager = Address.pointer(0x0e60)
     stage_flag_pointer = Address(0x265164, size=4)
+    mobj_table_pointer = Address(0x0499DC, size=3)
     
     watched_intro = Address(0x265726)
 
@@ -304,6 +305,9 @@ class STAddr:
     fr_actor_table_start = Address(0x2D21BC, size=4)
     fr_actor_table_start_no_cannon = Address(0x2D1A60, size=4)
     sr_actor_table_start = Address(0x2D2F0C, size=4)
+    actor_manager = Address(0x0ce4, size=3, domain="Data TCM")
+
+    instant_blue_warp = Address(0x269108)  # 17 to prevent blue warps working immediately
 
 #  = Address()
 #  = Address()

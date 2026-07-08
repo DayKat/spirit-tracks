@@ -199,7 +199,7 @@ has_good_damage = has_bombs | has_sword | has_bow
 has_damage = has_good_damage | has_whip
 can_kill_moth = has_whirlwind | has_bow | has_bombs | has_whip | (has_boomerang | has_sword) | has_sword_beam
 can_kill_bat = has_damage | has_boomerang
-can_kill_bat_pit = can_kill_bat | has_whirlwind
+can_kill_bat_pit = has_boomerang | has_whirlwind | has_whip | has_bow | has_sword_beam
 can_kill_bubble = has_bombs | has_bow | has_whip | (has_sword & (has_boomerang | has_whirlwind))
 can_kill_ice_bat = has_bombs | has_bow | has_whip | has_boomerang | (has_sword & has_whirlwind)
 

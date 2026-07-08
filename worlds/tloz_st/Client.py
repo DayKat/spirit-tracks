@@ -6,6 +6,7 @@ from .data.Items import ITEMS
 from .data.Entrances import ENTRANCES, boss_events, entrance_tuple_to_entrance
 from settings import get_settings
 from typing import Literal
+from .Subclasses import EntranceGroups
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
@@ -249,7 +250,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.unlocked_map: int = 0
         self.has_map_tracks: bool = False
         self.stage_flags: dict[int, list[int]] = STAGE_FLAGS
-        self.safe_respawn = None
+        self.safe_respawn: tuple[int, int, int] | None = None
+        self.warp_portal_addr: Address | None = None
 
 
     def printl_goal_info(self, ctx):
@@ -747,6 +749,30 @@ class SpiritTracksClient(DSZeldaClient):
             printl(f"Setting ToS respawn room {respawn_data}")
             await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
                                  respawn_data)
+
+        # Set key watches
+        if self.current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+            actor_table = await self.get_actor_table(ctx)
+            data = BOSS_KEY_DATA[self.current_scene]
+            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                printl(f"Has found location {data['location']}, deleting boss key")
+                await self.delete_boss_key(ctx)
+            else:
+                if "search_data" in data:
+                    data["search_data"][4] = actor_table
+                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], return_index=True)
+                    self.oct_bk_offset = offset
+                    printl(f"Found bk in actor loop: {pointer}")
+                else:
+                    pointer = await actor_table.read(ctx)
+
+                if pointer and pointer < 0x400000:
+                    printl(f"Found Boss Key object: {hex_f(pointer)}")
+                    offset = 12 if self.current_stage == 0x1c else 8
+                    self.boss_key_read = Address.from_pointer(pointer + offset, size=4)
+                    self.boss_key_y = data["y"]
+                    printl(f"BK Read: {self.boss_key_read}")
+                printl(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
 
         # Set up snurglar reads
         if self.current_scene == 0x700:
@@ -1251,8 +1277,8 @@ class SpiritTracksClient(DSZeldaClient):
         await bizhawk.write(ctx.bizhawk_ctx, res)
 
     async def get_tos_bk_pointer(self, ctx) -> tuple[Address, int]:
-        actor_table = await STAddr.tos_actor_table_pointer_safe.read(ctx)
-        offset = 1040 + 8  # start of table + tos bk index
+        actor_table = await self.get_actor_table(ctx)
+        offset = 0  # start of table + tos bk index
         pointer_addr = Address.from_pointer(actor_table + offset, size=3)
         pointer = await pointer_addr.read(ctx)
         printl(f"BK pointer from table read: {pointer_addr} -> {hex(pointer)} actor table: {actor_table}")
@@ -1302,28 +1328,8 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Boss key rando stuff
         if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+            actor_table = await self.get_actor_table(ctx)
             data = BOSS_KEY_DATA[self.current_scene]
-            # Set key watches
-            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
-                printl(f"Has found location {data['location']}, deleting boss key")
-                await self.delete_boss_key(ctx)
-            else:
-                if "search_data" in data:
-                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], return_index=True)
-                    self.oct_bk_offset = offset
-                    printl(f"Found bk in actor loop: {pointer}")
-                elif "pointer" in data:
-                    pointer = await data["pointer"].read(ctx)
-                    printl(f"bk pointer: {data['pointer']} -> {hex(pointer)}")
-                else:
-                    pointer_addr, pointer = await self.get_tos_bk_pointer(ctx)
-
-                if pointer < 0x400000:
-                    offset = 12 if self.current_stage == 0x1c else 8
-                    self.boss_key_read = Address.from_pointer(pointer+offset, size=4)
-                    self.boss_key_y = data["y"]
-                    printl(f"BK Read: {self.boss_key_read}")
-                printl(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
 
             # Open door
             if self.item_count(ctx, f"Boss Key ({data['dungeon']})") or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"]):
@@ -1359,11 +1365,12 @@ class SpiritTracksClient(DSZeldaClient):
         if not self._just_entered_game:
             if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
                 # Wow cannon changes where ow actor table loads, and i don't have a good pointer :'(
-                pointer = STAddr.fr_actor_table_start if self.item_count(ctx, "Cannon") else STAddr.fr_actor_table_start_no_cannon
-                self.precision_mode = [Address.from_pointer(pointer+17*4+3), 0, "delete_ow_actors", pointer]
+                actor_table = await self.get_actor_table(ctx)
+                self.precision_mode = [Address.from_pointer(actor_table+17*4+3), 0, "delete_ow_actors", actor_table]
             if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
-                self.precision_mode = [Address.from_pointer(STAddr.sr_actor_table_start + 17 * 4 + 3), 0,
-                                       "delete_ow_actors", STAddr.sr_actor_table_start]
+                actor_table = await self.get_actor_table(ctx)
+                self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), 0,
+                                       "delete_ow_actors", actor_table]
 
 
     @staticmethod
@@ -1442,15 +1449,18 @@ class SpiritTracksClient(DSZeldaClient):
         pointer = await STAddr.boss_key_deletion_pointer.read(ctx)
         printl(f"Deleting boss key @ {hex(pointer)}")
         size, offset = BOSS_KEY_DATA[self.current_scene].get("deletion_data", (12, 0))
+        actor_table = await self.get_actor_table(ctx)
         if self.current_stage == 0x1b:
             if not self.oct_bk_offset:
                 data = BOSS_KEY_DATA[0x1b05]
+                data["search_data"][4] = actor_table
                 _, self.oct_bk_offset = await self.find_table_object(ctx, *data["search_data"], return_index=True)
                 if not self.oct_bk_offset:
                     return
-            pointer += (self.oct_bk_offset-2)*4  # Ocean temple bk does not load into the first slot in memory
+            pointer = actor_table  # Ocean temple bk does not load into the first slot in memory
+            offset, size = self.oct_bk_offset*4, 4
             self.oct_bk_offset = None
-            await Address.from_pointer(pointer+60, 4).overwrite(ctx, 0)  # also needs this to not crash
+            # await Address.from_pointer(pointer, 4).overwrite(ctx, 0)  # also needs this to not crash
         if self.current_stage == 0x13:
             pointer, _ = await self.get_tos_bk_pointer(ctx)
         deletion_address = Address.from_pointer(pointer+offset, size)
@@ -1547,7 +1557,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def print_train_actors(self, ctx, offset=11):
         """Print debug info about train actors"""
-        actor_table = STAddr.sr_actor_table_start
+        actor_table = await self.get_actor_table(ctx)
         actor_idents = await self.get_table_data(ctx, actor_table, offset)
         print(f"Printing Actors")
         identifiers = {
@@ -1646,10 +1656,12 @@ class SpiritTracksClient(DSZeldaClient):
                 self.update_stage_flag(stage, flags)
 
     async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
+        if new_exit.category_group == EntranceGroups.WARP_PORTAL:
+            await STAddr.instant_blue_warp.overwrite(ctx, 0x19)  # prevent blue warps from isntant-warping you
         if new_exit.stage in unsafe_respawn_stages and new_exit.scene not in safe_respawn_rooms:
             if self.safe_respawn is None:
-                return
-            self.safe_respawn = last_detect.entrance
+                self.safe_respawn = last_detect.entrance
+                printl(f"Set new safe respawn: {hex_f(self.safe_respawn)}")
             return
         self.safe_respawn = None
 
@@ -1724,3 +1736,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.unlocked_map = 0
             self.selected_station = 0
             print(f"Quitting tracks {0}")
+
+    @staticmethod
+    async def get_actor_table(ctx):
+        actor_manager = await STAddr.actor_manager.read(ctx)
+        actor_table = await Address.from_pointer(actor_manager, size=3).read(ctx)
+        return Address.from_pointer(actor_table, size=3)

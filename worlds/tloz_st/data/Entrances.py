@@ -894,8 +894,8 @@ ENTRANCE_DATA = {
         "return_name": "D2 Down",
         "entrance_region": "d8",
         "exit_region": "d2",
-        "entrance": (0x40, 0x8, 0x1),
-        "exit": (0x40, 0x2, 0x3),
+        "entrance": (0x40, 0x8, 0x3),
+        "exit": (0x40, 0x2, 0x1),
         "type": EntranceGroups.DISORIENTATION,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -912,8 +912,9 @@ ENTRANCE_DATA |= {  # Horizontal
         "type": EntranceGroups.DISORIENTATION,
         "direction": EntranceGroups.RIGHT,
         "island": EntranceGroups.NONE
-    } for i in range(1, 4) for j in range(2)
+    } for i in range(1, 4) for j in range(3)
 }
+
 ENTRANCE_DATA |= { # Horizontal looping
     f"D{3+3*j} Right": {
         "return_name": f"D{1+3*j} Left",
@@ -931,8 +932,8 @@ ENTRANCE_DATA |= { # Vertical
         "return_name": f"D{i+3*j+3} Down",
         "entrance_region": f"d{i+3*j}",
         "exit_region": f"d{i+3*j+3}",
-        "entrance": (0x40, i+3*j, 0x1),
-        "exit": (0x40, i+3*j+3, 0x3),
+        "entrance": (0x40, i+3*j, 0x3),
+        "exit": (0x40, i+3*j+3, 0x1),
         "type": EntranceGroups.DISORIENTATION,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -2806,7 +2807,7 @@ ENTRANCE_DATA |= {
         "return_name": "Capbone Exit",
         "entrance_region": "dt b2 n",
         "exit_region": "dt pre skeldritch",
-        "entrance": (0x1d, 0x4, 2),
+        "entrance": (0x1d, 0x4, 1),
         "exit": (0x22, 0x0, 0),
         "direction": EntranceGroups.UP,
         "type": EntranceGroups.BOSS,
@@ -2833,6 +2834,61 @@ ENTRANCE_DATA |= {
         "type": EntranceGroups.BOSS,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.DESERT
+    },
+    "Stagnox Blue Warp": {
+        "return_name": "Wooded Temple Lobby Boss Warp",
+        "entrance_region": "wt stagnox",
+        "exit_region": "wt lobby",
+        "entrance": (0x1E, 0x0, 5),
+        "exit": (0x19, 0xA, 1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.WOODED,
+        "two_way": False
+    },
+    "Fraaz Blue Warp": {
+        "return_name": "Blizzard Temple Lobby Boss Warp",
+        "entrance_region": "bt fraaz",
+        "exit_region": "bt lobby",
+        "entrance": (0x1F, 0x0, 5),
+        "exit": (0x1A, 0x4, 2),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.BLIZZARD,
+        "two_way": False
+    },
+    "Cactops Blue Warp": {
+        "return_name": "Marine Temple Lobby Boss Warp",
+        "entrance_region": "oct phytops",
+        "exit_region": "oct lobby",
+        "entrance": (0x20, 0x0, 5),
+        "exit": (0x1B, 0xC, 1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.MARINE,
+        "two_way": False
+    },
+    "Vulcano Blue Warp": {
+        "return_name": "Mountain Temple Lobby Boss Warp",
+        "entrance_region": "mtt vulcano",
+        "exit_region": "mtt lobby",
+        "entrance": (0x21, 0x0, 5),
+        "exit": (0x1C, 0xC, 1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.MOUNTAIN,
+        "two_way": False
+    },
+    "Desert Temple Bow of Light Room Blue Warp": {
+        "return_name": "Desert Temple Lobby Boss Warp",
+        "entrance_region": "dt skeldritch",
+        "exit_region": "dt lobby",
+        "entrance": (0x1d, 0x5, 1),
+        "exit": (0x1D, 0x6, 1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.DESERT,
+        "two_way": False
     },
 }
 
@@ -2868,3 +2924,5 @@ goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          9: "GOAL: Defeat Staven",
                          10: "GOAL: Reach ToS 24F",
                          -1: "GOAL: Defeat Malladus"}
+
+print(f"{[i for i, j in ENTRANCES.items() if j.category_group == EntranceGroups.DISORIENTATION]}")

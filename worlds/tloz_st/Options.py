@@ -616,7 +616,7 @@ class SpiritTracksShuffleBosses(Choice):
     option_shuffle_pool_a = 2
     option_shuffle_pool_b = 3
     option_shuffle_pool_c = 4
-    option_shuffle_in_own_dungeon = 5
+    option_shuffle_in_own_dungeon_vanilla = 5
     option_shuffle_in_own_dungeon_shuffle = 6
 
 class SpiritTracksEntranceDirectionality(OptionSet):
@@ -948,6 +948,22 @@ class SpiritTracksOpenBlueWarps(Toggle):
     display_name = "Open Blue Warps"
     default = 0
 
+class SpiritTracksERRetries(Range):
+    """
+    How many times the entrance shuffle tries again if it fails before giving up.
+    Default is 10
+    """
+    range_start = 0
+    range_end = 100
+    default = 10
+    display_name = "Entrance Shuffle Retries"
+
+class SpiritTracksDecoupleEntrances(Toggle):
+    """
+    Decouple shuffled entrances, so entrances are no longer bidirectional.
+    """
+    default = 0
+    display_name = "Decouple Shuffled Entrances"
 
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
@@ -1042,6 +1058,8 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_eote: SpiritTracksShuffleEotE
     plando_transitions: SpiritTracksEntrancePlando
     entrance_directionality: SpiritTracksEntranceDirectionality
+    decouple_shuffled_entrances: SpiritTracksDecoupleEntrances
+    entrance_shuffle_retries: SpiritTracksERRetries
 
     # QoL
     ut_blocked_entrances_behaviour: SpiritTracksUTBlockedEntrances
@@ -1140,7 +1158,9 @@ st_option_groups = [
         SpiritTracksShuffleDisorientationStation,
         SpiritTracksShuffleEotE,
         SpiritTracksEntrancePlando,
-        SpiritTracksEntranceDirectionality
+        SpiritTracksEntranceDirectionality,
+        SpiritTracksDecoupleEntrances,
+        SpiritTracksERRetries
     ]),
     OptionGroup("QoL Options", [
         SpiritTracksMapWarp,

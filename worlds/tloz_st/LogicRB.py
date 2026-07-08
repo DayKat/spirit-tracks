@@ -165,7 +165,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["hyrule castle backdoor", "hyrule castle backyard", True, None],
         ["hyrule castle backyard", "tower tunnel 1f", True, None],
-        ["tower tunnel 1f", "tower tunnel block chest", False, can_kill_bat_pit | has_whirlwind | hard_logic],
+        ["tower tunnel 1f", "tower tunnel block chest", False, can_kill_bat_pit | has_bombs | hard_logic],
         ["tower tunnel 1f", "tower tunnel key door", True, has_single_small_key("Tunnel to ToS")],
         ["tower tunnel key door", "tower tunnel 2f", True, None],
 
@@ -360,19 +360,13 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wt 3f left", "wt 3f chestnut chest", False, has_range_objects | has_sword_beam],
         ["wt 2f left", "wt 2f moth", False, has_small_keys_er("Wooded Temple", 2)],
         ["wt 2f moth", "wt 2f left", False, can_kill_moth & has_small_keys_er("Wooded Temple", 2)],
-        ["wt 2f left", "wt 2f keydoor", False, None],
-        ["wt 2f moth", "wt 2f keydoor", False, can_kill_moth],
         ["wt 2f moth", "wt 2f moth door", False, can_kill_moth],
         ["wt 2f moth door", "wt 3f", True, None],
-        ["wt 2f moth", "wt 3f", False, can_kill_moth],
-        ["wt 3f", "wt 2f moth", False, None],
 
         ["wt 3f", "wt 3f se chest", False, has_whirlwind | hard_logic],
         ["wt 3f", "wt 3f bk", False, has_whirlwind | (has_bombs & hard_logic)],
-        ["wt 3f bk", "wt 3f boss door", False, None]
-            if world.options.randomize_boss_keys.value == 0 else
-            ["wt 3f", "wt 3f boss door", False, has_boss_key("Wooded Temple")],
-        ["wt 3f boss door", "wt 3f", False, None],
+        ["wt 3f bk", "wt 3f boss door", False, True_() | vanilla_boss_keys],
+        ["wt 3f", "wt 3f boss door", True, has_boss_key("Wooded Temple")],
         ["wt 3f boss door", "wt 4f", True, None],
 
         ["wt 4f", "wt blue warp", True, None],
@@ -531,6 +525,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 1f ne", "bt 1f ne chest", False, can_kill_bat_pit],
         ["bt 1f ne", "bt 1f ne bell", False, has_boomerang],
         ["bt 1f ne bell", "bt 1f", False, None],
+        ["bt 1f ne bell", "bt 1f n chest", False, ool & Filtered(Has("_bt_bell_2") & Has("_bt_bell_3"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
 
         ["bt 1f", "bt 1f sw", False, Filtered(has_boomerang & Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
         ["bt 1f sw", "bt 1f", False, Filtered(Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
@@ -551,8 +546,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 1f nw", "bt 1f nw bell", False, has_boomerang],
         ["bt 1f nw bell", "bt 1f", False, None],
 
-        ["bt 1f", "bt 1f n", False, Filtered(Has("_bt_bell_2") & Has("_bt_bell_3"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
-        ["bt 1f n", "bt 1f n chest", False, Has("_bt_bell_3")],  # need torch access (or ice keese hl?)
+        ["bt 1f", "bt 1f n", False, Filtered(Has("_bt_bell_2") & Has("_bt_bell_3") & has_boomerang, options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
+        ["bt 1f n", "bt 1f n chest", False, Has("_bt_bell_3") & has_boomerang & Filtered(Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],  # need torch access (or ice keese hl?)
         ["bt 1f n", "bt 1f", False, True_() & [OptionFilter(SpiritTracksOpenBlizzardTemple, 1)]],
         ["bt 1f n", "bt 2f", True, None],
 

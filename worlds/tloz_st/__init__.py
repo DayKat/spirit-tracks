@@ -421,8 +421,7 @@ class SpiritTracksWorld(WorldParent):
                     continue
                 new_boss = self.shuffled_bosses[dung]
                 pre_pick_boss_pairings[dung] = new_boss
-
-
+            # print(f"bosses: {self.shuffled_bosses} pre pick {pre_pick_boss_pairings}")
 
         if self.options.plando_dungeon_pool:
             if "all" in self.options.plando_dungeon_pool.value:
@@ -912,7 +911,7 @@ class SpiritTracksWorld(WorldParent):
                 keyrings = chosen_keyrings
             res += [(i, 1) for i in keyrings]
 
-        print(f"Key Items: {res}")
+        # print(f"Key Items: {res}")
         return res
 
     def choose_track_items(self):
@@ -1398,8 +1397,9 @@ class SpiritTracksWorld(WorldParent):
                 continue
             # Change dungeon for the boss' entrance randomization group to the newly shuffled one
             entrance = self.get_entrance(BOSS_LOCATION_TO_ENTRANCE[boss])
-            entrance.randomization_group = entrance.randomization_group & EntranceGroups.NON_DUNGEON_MASK + \
+            entrance.randomization_group = (entrance.randomization_group & EntranceGroups.NON_DUNGEON_MASK) + \
                                            (dungeon_to_enum[dung] << 8)
+            print(f"New Target group: {entrance} {decode_entrance_groups(entrance.randomization_group)}")
         shuffled_dungeon_lookup = {}
         if self.options.shuffle_dungeon_entrances.value in [1, 6]:
             shuffled_dungeons = DUNGEON_NAMES[2:]
@@ -1427,7 +1427,7 @@ class SpiritTracksWorld(WorldParent):
         for e in self.valid_entrances:
             if type_option_lookup.get((e.randomization_group & EntranceGroups.AREA_MASK) >> 3, False):
                 entrances_to_shuffle.append(e)
-                # print(f"ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
+                print(f"ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
                 if e.randomization_group & 7 == 0 :
                     directionless_entrances.append(e)
             elif e.name in plando_disconnects:
@@ -1451,7 +1451,7 @@ class SpiritTracksWorld(WorldParent):
 
         # Assign direction pairs do directionless entrances
         directional_pool_cache = {}
-        print(f"Directionless entrances: {directionless_entrances}")
+        # print(f"Directionless entrances: {directionless_entrances}")
         for i in range(len(directionless_entrances)//2):
 
             # Figure out what directions exist in their pool
@@ -1507,19 +1507,17 @@ class SpiritTracksWorld(WorldParent):
         if shuffled_dungeon_lookup and self.options.shuffle_warps.value == 0:
             plando_data += [(DUNGEON_TO_WARP_ENTRANCE[dung_old], DUNGEON_TO_WARP_EXIT[dung_new])
                            for dung_old, dung_new in shuffled_dungeon_lookup.items()]
-        if self.shuffled_bosses:
-            # plando_data += [(DUNGEON_TO_BOSS_STAIRCASE[dung], BOSS_LOCATION_TO_EXIT[boss_loc])
-            #                for dung, boss_loc in self.shuffled_bosses.items()]
+        if self.shuffled_bosses and self.options.shuffle_bosses.value == 1:
             plando_data += [(DUNGEON_TO_BOSS_STAIRCASE["Wooded Temple"], BOSS_LOCATION_TO_EXIT["Stagnox Boss Reward"])]
         print(f"Plando Data: {plando_data}")
         self.connect_plando(plando_data)
 
-
         # Randomize Entrances
-        st_max_er_attempts = 10
+        st_max_er_attempts = self.options.entrance_shuffle_retries.value
+        coupled = not self.options.decouple_shuffled_entrances.value
         for i in range(st_max_er_attempts):
             try:
-                self.er_placement_state = randomize_entrances(self, True, groups)
+                self.er_placement_state = randomize_entrances(self, coupled, groups)
                 print(f"ER Placements: {self.er_placement_state.pairings}")
                 break
             except EntranceRandomizationError as error:
@@ -1537,6 +1535,18 @@ class SpiritTracksWorld(WorldParent):
                             # print(f"Disconnecting entrance {_exit} {_exit.randomization_group}")
                             target_name = ENTRANCES[_exit.name].vanilla_reciprocal.name
                             disconnect_entrance_for_randomization(_exit, one_way_target_name=target_name)
+
+    def redirect_boss_warps(self, pairings: dict[int, int]):
+        # post shuffle force connections
+        if self.options.shuffle_bosses.value or self.options.shuffle_dungeon_rooms.value or self.options.shuffle_dungeon_entrances.value:
+            if self.options.shuffle_bosses.value:
+                self.plando_pairings |= {ENTRANCES[boss_warp].id: pairings[ENTRANCES[boss_exit].id]
+                                         for boss_exit, boss_warp in BOSS_EXIT_TO_BOSS_WARP.items()}
+            else:
+                entrance_names = {boss_warp: ENTRANCES[boss_exit].vanilla_reciprocal.name
+                                  for boss_exit, boss_warp in BOSS_EXIT_TO_BOSS_WARP.items()}
+                self.plando_pairings |= {ENTRANCES[boss_warp].id: ENTRANCES[boss_exit].id
+                                         for boss_warp, boss_exit in entrance_names.items()}
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
@@ -1762,6 +1772,7 @@ class SpiritTracksWorld(WorldParent):
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        self.redirect_boss_warps(pairings)
         pairings |= self.plando_pairings
         slot_data["er_pairings"] = pairings
         slot_data["tower_section_lookup"] = self.tower_section_lookup

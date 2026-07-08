@@ -84,7 +84,6 @@ STARTING_FLAGS = [
 # then endian is opposite of what it usually is cause i like to use spreadsheets to import it.
 # check the stage flag page in the spreadsheet to see what each bit corresponds to.
 STAGE_FLAGS = {
-
     0x04: [0x02, 0x00, 0x00, 0x00], # Forest Realm
     0x2F: [0x9E, 0x00, 0x00, 0x00], # Outset Village
     0x29: [0x10, 0x00, 0x00, 0x00], # Castle Town
@@ -122,6 +121,7 @@ STAGE_FLAGS = {
     0x3d: [0x2, 0x0, 0x9, 0x0],  # DOM
 }
 
+# Stage flags for opening blue warps
 OPEN_WARPS = [
     [0, 0, 0, 0x40],
     [0, 0, 0, 0x80],
@@ -577,7 +577,7 @@ BOSS_KEY_DATA = {
         "location": "Marine Temple 6F Boss Key",
         "door": STAddr.oct_boss_door,
         "dungeon": "Marine Temple",
-        "search_data": (16, 3, 59392, 4, STAddr.oct_actor_table_start),
+        "search_data": [16, 3, 59392, 4, STAddr.oct_actor_table_start],
         "deletion_data": (8, 0)  # size, offset
     },
     0x1c04: {
@@ -772,6 +772,8 @@ unsafe_respawn_stages = [
     0x1b, 0x20,
     0x1c, 0x21,
     0x1d, 0x22,
+    0x28, 0x18, # HC
+    0x40, 0x41  # DO, EotE
 ]
 
 safe_respawn_rooms = [
@@ -779,7 +781,9 @@ safe_respawn_rooms = [
     0x1A04,
     0x1B0A,
     0x1C0A,
-    0x1D06
+    0x1D06,
+    0x4000,
+    0x4100
 ]
 
 TOS_FLOOR_SECTIONS_CANCEL_TEARS: dict[int, int] = {
@@ -864,7 +868,7 @@ BOSS_LOCATION_TO_ENTRANCE: dict[str, str] = {
     "Fraaz Boss Reward": "Fraaz Exit",
     "Cactops Boss Reward": "Cactops Exit",
     "Vulcano Boss Reward": "Vulcano Exit",
-    "Skeldritch Boss Reward": "Skeldritch Exit"
+    "Capbone Boss Reward": "Capbone Exit"
 }
 DUNGEON_LOBBY_ENTRANCES: dict[str, tuple[str, str]] = {
     "Wooded Temple": ("Wooded Temple Lobby Enter Dungeon","Wooded Temple Lobby Blue Warp"),
@@ -872,6 +876,14 @@ DUNGEON_LOBBY_ENTRANCES: dict[str, tuple[str, str]] = {
     "Marine Temple": ("Marine Temple Lobby Enter Dungeon", "Marine Temple Lobby Blue Warp"),
     "Mountain Temple": ("Mountain Temple Lobby Enter Dungeon", "Mountain Temple Lobby Blue Warp"),
     "Desert Temple": ("Desert Temple Lobby Enter Dungeon", "Desert Temple Lobby Blue Warp"),
+}
+
+BOSS_EXIT_TO_BOSS_WARP = {
+    "Stagnox Exit": "Stagnox Blue Warp",
+    "Fraaz Exit": "Fraaz Blue Warp",
+    "Cactops Exit": "Cactops Blue Warp",
+    "Vulcano Exit": "Vulcano Blue Warp",
+    "Capbone Exit": "Desert Temple Bow of Light Room Blue Warp",
 }
 
 map_warp_redirects: dict[int, tuple[int, int, int]] = {
