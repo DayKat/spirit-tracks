@@ -3289,7 +3289,7 @@ LOCATIONS_DATA |= {
     # Portal Checks
     "Forest Realm Shoot Cave Portal": {
         "stage_id": 0x04,
-        "region_id": "forest cave portal",
+        "region_id": "forest cave portal loc",
         "address": STAddr.activate_portals,
         "value": 0x40,
         "location_groups": ["Portal Checks"],
@@ -3313,7 +3313,7 @@ LOCATIONS_DATA |= {
     },
     "Snow Realm Shoot Bridge Portal": {
         "stage_id": 0x05,
-        "region_id": "snow bridge portal",
+        "region_id": "snow bridge portal loc",
         "address": STAddr.activate_portals,
         "value": 0x10,
         "location_groups": ["Portal Checks"],
@@ -3321,7 +3321,7 @@ LOCATIONS_DATA |= {
     },
     "Snow Realm Shoot N Portal": {
         "stage_id": 0x05,
-        "region_id": "icyspring portal",
+        "region_id": "icyspring portal loc",
         "address": STAddr.adv_flags_31,
         "value": 0x2,
         "location_groups": ["Portal Checks"],
@@ -3329,7 +3329,7 @@ LOCATIONS_DATA |= {
     },
     "Ocean Realm Shoot W Portal": {
         "stage_id": 0x06,
-        "region_id": "ocean portal",
+        "region_id": "ocean portal loc",
         "address": STAddr.adv_flags_31,
         "value": 0x4,
         "location_groups": ["Portal Checks"],
@@ -3347,7 +3347,7 @@ LOCATIONS_DATA |= {
     },
     "Fire Realm Shoot Sand Portal": {
         "stage_id": 0x07,
-        "region_id": "sand connection portal",
+        "region_id": "sand connection portal loc",
         "address": STAddr.adv_flags_30,
         "value": 0x80,
         "location_groups": ["Portal Checks"],

@@ -219,6 +219,8 @@ class SpiritTracksWorld(WorldParent):
             self.active_rabbit_locations = self.choose_rabbit_locations()
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
+            if self.options.shuffle_portals.value and self.options.portal_behavior.value == 2:
+                self.options.portal_behavior.value = 1
             if self.options.shuffle_stations.value:  # Don't want to deal with this yet
                 self.options.tos_unlock_base_item.value = 0
             # print(f"Rabbit items: {self.rabbit_item_dict}")
@@ -1366,6 +1368,7 @@ class SpiritTracksWorld(WorldParent):
             6: self.options.shuffle_bosses,
             7: self.options.shuffle_dungeon_rooms,
             8: self.options.shuffle_warps,
+            9: self.options.shuffle_portals,
             11: self.options.shuffle_tos_sections,
             12: self.options.shuffle_train_transitions,
             15: self.options.shuffle_hyrule_castle,
@@ -1382,6 +1385,7 @@ class SpiritTracksWorld(WorldParent):
             6: [3, 4],
             7: [3, 4],
             8: [3, 4],
+            9: [1, 2, 3, 4],
             11: [3, 4],
             12: [1, 2, 3, 4],
             15: [3, 4],
@@ -1757,7 +1761,7 @@ class SpiritTracksWorld(WorldParent):
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
                    "shuffle_stations", "shuffle_overworld",  # used to disable dynamic flags
                    "shuffle_hyrule_castle",  # prevent zelda warp
-                   "shuffle_eote",  # include eote locs if shuffled
+                   "shuffle_portals", "shuffle_eote",  # include eote locs if shuffled
                    "shuffle_train_transitions",  # for desert rocktite cannon logic lol
                    "shuffle_dungeon_rooms", "shuffle_warps", "shuffle_bosses", "shuffle_dungeon_entrances",
                    "death_link", "enable_map_warp",

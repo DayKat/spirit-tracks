@@ -67,7 +67,7 @@ class TestGeneration(WorldTestBase):
 
         "shuffle_hyrule_castle": "no_shuffle",
         "shuffle_eote": "no_shuffle",
-        "shuffle_disorientation": "shuffle_alone",
+        "shuffle_disorientation": "no_shuffle",
 
         "shuffle_tos_sections": "no_shuffle",
 
@@ -75,6 +75,8 @@ class TestGeneration(WorldTestBase):
         "shuffle_bosses": "no_shuffle",
         "shuffle_dungeon_rooms": "no_shuffle",
         "shuffle_warps": "no_shuffle",
+
+        "shuffle_portals": "shuffle_alone",
 
         "keyrings": "all",
 

@@ -6,6 +6,17 @@ from .Subclasses import STTransition
 
 def make_overworld_logic(player: int, origin_name: str, world):
     tower_section_lookup = world.tower_section_lookup
+
+    def get_portal_logic(r1, pr1, r2, pr2, t1, t2, pi):
+        return (
+            [pr1, pr2, False, has_tracks(t1) & has_portal(pi, True)],
+            [pr2, pr1, False, has_tracks(t2) & has_portal(pi, False)],
+            [r1, pr1, False, None],
+            [r2, pr2, False, None],
+            [pr1, r1, False, has_tracks(t1) & has_portal(pi, False)],
+            [pr2, r2, False, has_tracks(t2) & has_portal(pi, False)]
+        )
+
     overworld_logic: list[list] = [
 
         # ====== Outset Village ==============
@@ -45,15 +56,20 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["forest realm", "n castle town tracks", True, has_tracks("N Castle Town") & has_glyph("Forest")],
         ["wtt", "snow realm fr", True, has_temple_tracks("Wooded") & has_glyph("Snow")],
         ["wtt", "w castle town tracks", True, has_tracks("W Castle Town") & has_source("Forest")],
-        ["forest realm", "snow realm south portal", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
-        ["snow realm south", "forest realm", False, has_portal("Hyrule Castle to Anouki Village", True) & has_glyph("Forest")],
-        ["snow realm south portal", "snow realm south", False, None],
-        ["snow realm south portal", "snow realm", False, None],
+
+        ["forest realm n portal", "snow realm south portal", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Forest")],
+        ["snow realm south portal", "forest realm n portal", False, has_portal("Hyrule Castle to Anouki Village", True) & has_glyph("Snow")],
+        ["forest realm n portal", "forest realm", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Forest")],
+        ["forest realm", "forest realm n portal", False, None],
+        ["snow realm south", "snow realm south portal", False, None],
+        ["snow realm", "snow realm south portal", False, None],  # Need to separate some entrances here to make cannon logic work, don't care rn
+        ["snow realm south portal", "snow realm south", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
+        ["snow realm south portal", "snow realm", False, has_portal("Hyrule Castle to Anouki Village", False) & has_glyph("Snow")],
         ["forest realm", "dark realm portal", True, has_compass & has_glyph("Forest")],
 
         # cave
         ["forest realm", "forest cave tracks", True, has_tracks("Forest Realm SW Cave") & has_glyph("Forest")],
-        ["forest cave tracks", "forest cave portal", False, has_cannon],
+        ["forest cave tracks", "forest cave portal loc", False, has_cannon],
         ["forest cave tracks", "w forest tracks", True, has_tracks("Forest Realm SW Cave") & has_tracks("W Forest Realm")],
         ["w forest tracks", "snow realm", True, has_glyph("Snow") & has_tracks("W Forest Realm")],
         ["w forest tracks", "wtt", True, has_temple_tracks("Wooded") & has_tracks("W Forest Realm")],
@@ -87,7 +103,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wtt", "snow bridge south", True, has_temple_tracks("Wooded") & has_tracks("Snow Realm Bridge") & soft_cannon],
         ["snow bridge north", "snow realm", True, has_glyph("Snow") & has_tracks("Snow Realm Bridge")],
         ["snow bridge north", "snow realm source", True, has_source("Snow") & has_tracks("Snow Realm Bridge")],
-        ["snow bridge north", "snow bridge portal", False, has_cannon],
+        ["snow bridge north", "snow bridge portal loc", False, has_cannon],
 
         ["wtt", "forest ferrus", False, has_passenger("Ferrus", "_ferrus_3")],
         ["forest source", "forest ferrus", False, has_passenger("Ferrus", "_ferrus_3")],
@@ -439,13 +455,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snowdrift tracks", "snowdrift station rabbit", False, has_net],
         ["blizzard temple tracks", "icyspring tracks", True, has_tracks("N Icy Spring") & has_temple_tracks("Blizzard")],
         ["icyspring tracks", "icyspring rabbits", False, has_net],
-        ["icyspring tracks", "icyspring portal", False, has_cannon],
+        ["icyspring tracks", "icyspring portal loc", False, has_cannon],
 
         ["blizzard temple tracks", "snow realm ferrus", False, 
             has_source("Snow") & has_passenger("Alfonzo", "_picked_up_alfonzo")],
 
-        ["forest realm se portal track", "blizzard temple tracks", False, has_temple_tracks("Blizzard") & has_portal("Trading Post to E Snow Realm", True)],
-        ["blizzard temple tracks", "forest realm se portal track", False, has_tracks("Forest Realm SE Portal") & has_portal("Trading Post to E Snow Realm", False)],
+        *get_portal_logic("forest realm se portal track", "forest realm se portal",
+                          "blizzard temple tracks", "btt e portal",
+                          "Forest Realm SE Portal", "Blizzard Temple Tracks", "Trading Post to E Snow Realm"),
         ["forest realm se portal track", "trading post portal", False, has_cannon],
 
         # ======== Anouki Village ========
@@ -630,7 +647,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["ocean realm source", "ocean portal tracks", True, has_source("Ocean") & has_tracks("Ocean Portal")],
         ["ocean temple tracks", "ocean portal tracks", True, has_temple_tracks("Marine") & has_tracks("Ocean Portal")],
         ["ocean portal tracks", "sand realm", False, has_tracks("Sand Realm") & has_tracks("Ocean Portal")],
-        ["ocean portal tracks", "ocean portal", False, has_cannon],
+        ["ocean portal tracks", "ocean portal loc", False, has_cannon],
 
         ["ocean temple tracks", "undersea entrance", True, has_temple_tracks("Marine")],
         ["ocean realm source", "undersea entrance", True, has_source("Ocean")],
@@ -638,14 +655,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["undersea tracks", "oct station", True, has_temple_tracks("Marine") | has_source("Ocean")],
 
         # Ocean Portals
-        ["trading post tracks", "ocean portal tracks", False, 
-            has_tracks("Ocean Portal") & has_portal("Mayscore to Ocean Portal Tracks",False)],
-        ["ocean portal tracks", "trading post tracks", False, has_glyph("Ocean")
-         & has_portal("Mayscore to Ocean Portal Tracks", True)],
-        ["snow bridge north", "ocean temple tracks", False, has_temple_tracks("Marine")
-         & has_portal("Snow Bridge to Island Sanctuary", True)],
-        ["ocean temple tracks", "snow bridge north", False, has_tracks("Snow Realm Bridge")
-         & has_portal("Snow Bridge to Island Sanctuary", False)],
+        *get_portal_logic("ocean portal tracks", "ocean portal",
+                          "trading post tracks", "s mayscore portal",
+                          "Ocean Portal", "Ocean Glyph", "Mayscore to Ocean Portal Tracks"),
+        *get_portal_logic("snow bridge north", "snow bridge portal",
+                          "ocean temple tracks", "island sanc portal",
+                          "Snow Realm Bridge", "Marine Temple Tracks", "Snow Bridge to Island Sanctuary"),
 
         # Ocean Rabbits
         ["ocean temple tracks", "ocean rabbits", False, has_net],
@@ -852,10 +867,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["fire source", "s mountain temple rabbit", False, has_net],
         ["mountain temple tracks", "s mountain temple rabbit", False, has_net],
 
-        ["fire realm", "forest cave tracks", False, has_tracks("Forest Realm SW Cave") & has_portal("Forest Cave to Goron Village",False)],
-        ["forest cave tracks", "fire realm", False, has_glyph("Fire") & has_portal("Forest Cave to Goron Village", True)],
-        ["mountain temple tracks", "icyspring tracks", False, has_tracks("N Icy Spring") & has_portal("Icy Spring to Mountain Temple",False)],
-        ["icyspring tracks", "mountain temple tracks", False, has_temple_tracks("Mountain") & has_portal("Icy Spring to Mountain Temple", True)],
+        *get_portal_logic("forest cave tracks", "forest cave portal",
+                          "fire realm", "fire realm portal",
+                          "Forest Realm SW Cave", "Fire Glyph", "Forest Cave to Goron Village"),
+        *get_portal_logic("icyspring tracks", "icyspring portal",
+                          "mountain temple tracks", "mountain temple portal",
+                          "N Icy Spring", "Mountain Temple Tracks", "Icy Spring to Mountain Temple"),
 
         # Goron Village
         ["fire realm", "goron village station", True, has_glyph("Fire")],
@@ -1094,13 +1111,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand connection", "sand connection rabbit", False, has_net],
 
         ["sand restoration south", "sand restoration portal", True, has_cannon],
-        ["sand connection", "sand connection portal", True, has_cannon],
-        ["sand realm", "sand realm portal", True, None],
+        ["sand connection", "sand connection portal loc", True, has_cannon],
 
-        ["sand restoration south", "sand realm portal", False, has_portal("Desert Temple to Sand Realm", True) & has_tracks("Sand Realm")],
-        ["sand realm portal", "sand restoration south", False, has_portal("Desert Temple to Sand Realm", False) & has_temple_tracks("Desert")],
-        ["sand connection", "ocean temple tracks", False, has_portal("Sand Valley to Marine Temple", True) & has_temple_tracks("Marine")],
-        ["ocean temple tracks", "sand connection", False, has_portal("Sand Valley to Marine Temple", False) & has_tracks("Fire Realm Sand Portal")],
+        *get_portal_logic("sand restoration south", "desert temple portal",
+                          "sand realm", "sand realm portal",
+                          "Desert Temple Tracks", "Sand Realm", "Desert Temple to Sand Realm"),
+        *get_portal_logic("sand connection", "sand connection portal",
+                          "ocean temple tracks", "ocean temple portal",
+                          "Fire Realm Sand Portal", "Marine Temple Tracks", "Sand Valley to Marine Temple"),
 
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc station", True, has_tracks("Sand Realm")],
@@ -1271,7 +1289,7 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
             world.set_rule(entrance, rule_)
 
         if entrance_data:
-            # print(f"Creating connection {r1} -> {r2} | {entrance_data.name}")
+            # print(f"Creating connection {r1} -> {r2} | {entrance_data.name} {rule_}")
             rando_type_bool = entrance_data.two_way
             entrance.randomization_type = EntranceType.TWO_WAY if rando_type_bool else EntranceType.ONE_WAY
             entrance.randomization_group = entrance_data.direction | entrance_data.category_group | entrance_data.island

@@ -293,7 +293,7 @@ class SpiritTracksRandomizePortals(Choice):
     How to handle the train portals.
     - always_open: You can always take the portals, as long as you have the tracks on both sides
     - open_one_way: You can always take the portals, but you have to unlock them from the side with the gem first
-    - open_with_items: creates an item for each portal pair, that is required to use each portal.
+    - open_with_items: creates an item for each portal pair, that is required to use each portal. Does not work with portal_shuffle.
     """
     display_name = "Portal Behavior"
     option_open_one_way = 0
@@ -557,6 +557,18 @@ class SpiritTracksShuffleEotE(Choice):
     option_shuffle_pool_b = 3
     option_shuffle_pool_c = 4
 
+class SpiritTracksShufflePortals(Choice):
+    """
+    Shuffle train portals.
+    Always disables portal items.
+    """
+    display_name = "Shuffle Train Portals"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
 class SpiritTracksShuffleDungeonRooms(Choice):
     """
     Shuffle the entrances inside dungeons.
@@ -623,7 +635,7 @@ class SpiritTracksEntranceDirectionality(OptionSet):
     """
     Choose what entrance groups care about directionality (left entrance leads to right, house exterior leads to interior etc.).
     Pool options override individuals, individuals only count for shuffle_alone.
-    Valid options are: houses, caves, stations, overworld, train,
+    Valid options are: houses, caves, stations, overworld, train, portals,
       dungeon_entrances, bosses, dungeon_rooms, blue_warps,
       castle, disorientation, eote, pool_a, pool_b, pool_c, in_own_dungeon, all
     Pools with lots of dead ends can cause gen errors if not careful.
@@ -632,7 +644,7 @@ class SpiritTracksEntranceDirectionality(OptionSet):
     display_name = "Entrance Directionality"
     default = {"houses", "stations", "dungeon_entrances", "bosses", "in_own_dungeon"}
     # supports_weighting = True
-    valid_keys = ["houses", "caves", "stations", "overworld", "train",
+    valid_keys = ["houses", "caves", "stations", "overworld", "train", "portals",
                   "dungeon_entrances", "bosses", "dungeon_rooms", "blue_warps",
                   "castle", "disorientation", "eote",
                   "pool_a", "pool_b", "pool_c", "in_own_dungeon", "all"]
@@ -1046,7 +1058,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_overworld: SpiritTracksShuffleTransitions
     shuffle_stations: SpiritTracksShuffleStations
     shuffle_train_transitions: SpiritTracksShuffleTrainTransitions
-    # shuffle_portals
+    shuffle_portals: SpiritTracksShufflePortals
     shuffle_dungeon_entrances: SpiritTracksShuffleDungeonEntrances
     shuffle_bosses: SpiritTracksShuffleBosses
     shuffle_tos_sections: SpiritTracksShuffleToSSections
@@ -1160,7 +1172,8 @@ st_option_groups = [
         SpiritTracksEntrancePlando,
         SpiritTracksEntranceDirectionality,
         SpiritTracksDecoupleEntrances,
-        SpiritTracksERRetries
+        SpiritTracksERRetries,
+        SpiritTracksShufflePortals
     ]),
     OptionGroup("QoL Options", [
         SpiritTracksMapWarp,

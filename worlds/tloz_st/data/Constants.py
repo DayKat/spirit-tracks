@@ -849,6 +849,7 @@ directionality_etype_lookup: dict[int, str] = {
     6: "bosses",
     7: "dungeon_rooms",
     8: "blue_warps",
+    9: "portals",
     11: "tos_section",
     12: "train",
     15: "castle",

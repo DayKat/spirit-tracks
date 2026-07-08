@@ -16,7 +16,7 @@ REGIONS = [
     "w wooded temple tracks",
     "w wooded temple tracks north",
     "trading post portal",
-    "forest cave portal",
+    "forest cave portal loc",
     "forest ferrus",
     "e mayscore bridge",
     "ocean shortcut",
@@ -32,6 +32,21 @@ REGIONS = [
 
     "trading post tracks",
 
+    # all portals
+    "forest realm n portal",
+    "forest realm se portal",
+    "btt e portal",
+    "icyspring portal",
+    "mountain temple portal",
+    "snow bridge portal",
+    "island sanc portal",
+    "forest cave portal",
+    "fire realm portal",
+    "ocean portal",
+    "s mayscore portal",
+    "desert temple portal",
+    "sand connection portal",
+    "ocean temple portal",
 
     # Outset Village
     "outset village",
@@ -315,8 +330,8 @@ REGIONS = [
     "snow bridge mid",
     "snow bridge south",
     "icyspring tracks",
-    "snow bridge portal",
-    "icyspring portal",
+    "snow bridge portal loc",
+    "icyspring portal loc",
     "snow realm ferrus",
 
     "snow realm rabbits",
@@ -460,7 +475,7 @@ REGIONS = [
     "pirate hideout tracks",
     "las tracks",
     "ocean portal tracks",
-    "ocean portal",
+    "ocean portal loc",
 
     "undersea entrance",
     "undersea tracks",
@@ -764,7 +779,7 @@ REGIONS = [
     "sand connection rabbit",
     "sand realm portal",
     "sand restoration portal",
-    "sand connection portal",
+    "sand connection portal loc",
 
     # Sand Sanc
     "sand sanc",

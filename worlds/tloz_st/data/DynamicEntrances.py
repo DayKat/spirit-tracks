@@ -134,13 +134,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Forest Realm North Portal",
         "destination": "Forest Realm North Portal",
         "not_has_groups": ["Tracks: Snow Glyph"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Snow Glyph!"
     },
     "Bounce forest portal north item portal": {
         "entrance": "Forest Realm North Portal",
         "destination": "Forest Realm North Portal",
         "has_items": [("Portal Unlock: Hyrule Castle to Anouki Village", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -148,13 +149,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Forest Realm South Portal",
         "destination": "Forest Realm South Portal",
         "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Blizzard Temple Tracks!"
     },
     "Bounce forest portal south item": {
         "entrance": "Forest Realm South Portal",
         "destination": "Forest Realm South Portal",
         "has_items": [("Portal Unlock: Trading Post to E Snow Realm", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -162,13 +164,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Snow Realm East Portal",
         "destination": "Snow Realm East Portal",
         "not_has_groups": ["Tracks: Forest Realm SE Portal"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Forest Realm SE Portal Tracks!"
     },
     "Bounce snow portal east item": {
         "entrance": "Snow Realm East Portal",
         "destination": "Snow Realm East Portal",
         "has_items": [("Portal Unlock: Trading Post to E Snow Realm", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -176,13 +179,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Sand Realm Sanctuary Portal",
         "destination": "Sand Realm Sanctuary Portal",
         "not_has_groups": ["Tracks: Desert Temple Tracks"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Desert Temple Tracks!"
     },
     "Bounce sand portal sanc item": {
         "entrance": "Sand Realm Sanctuary Portal",
         "destination": "Sand Realm Sanctuary Portal",
         "has_items": [("Portal Unlock: Desert Temple to Sand Realm", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -190,13 +194,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Sand Realm Temple Portal",
         "destination": "Sand Realm Temple Portal",
         "not_has_groups": ["Tracks: Sand Realm"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Sand Realm Tracks!"
     },
     "Bounce sand portal temple item": {
         "entrance": "Sand Realm Temple Portal",
         "destination": "Sand Realm Temple Portal",
         "has_items": [("Portal Unlock: Desert Temple to Sand Realm", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -204,13 +209,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Fire Realm Sand Portal",
         "destination": "Fire Realm Sand Portal",
         "not_has_groups": ["Tracks: Marine Temple Tracks"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Marine Temple Tracks!"
     },
     "Bounce sand fire portal item": {
         "entrance": "Fire Realm Sand Portal",
         "destination": "Fire Realm Sand Portal",
         "has_items": [("Portal Unlock: Sand Valley to Marine Temple", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -218,20 +224,21 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Ocean Realm Temple Portal",
         "destination": "Ocean Realm Temple Portal",
         "not_has_groups": ["Tracks: Fire Realm Sand Portal"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Fire Realm Sand Portal Tracks!"
     },
     "Bounce marine temple portal item": {
         "entrance": "Ocean Realm Temple Portal",
         "destination": "Ocean Realm Temple Portal",
         "has_items": [("Portal Unlock: Sand Valley to Marine Temple", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
     "Bounce snow portal west item": {  # No need for other bounce condition, unlocked with forest glyph
         "entrance": "Snow Realm West Portal",
         "destination": "Snow Realm West Portal",
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "has_items": [("Portal Unlock: Hyrule Castle to Anouki Village", 0)],
         "message": "You don't have access to this portal!"
     },
@@ -239,6 +246,7 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Snow Realm West Portal",
         "destination": "Snow Realm West Portal",
         "not_has_groups": ["Tracks: Forest Glyph"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Forest Glyph!"
     },
 
@@ -246,13 +254,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Snow Realm North Portal",
         "destination": "Snow Realm North Portal",
         "not_has_groups": ["Tracks: Mountain Temple Tracks"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Mountain Temple Tracks!"
     },
     "Bounce icyspring item": {
         "entrance": "Snow Realm North Portal",
         "destination": "Snow Realm North Portal",
         "has_items": [("Portal Unlock: Icy Spring to Mountain Temple", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -260,13 +269,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Snow Realm Bridge Portal",
         "destination": "Snow Realm Bridge Portal",
         "not_has_groups": ["Tracks: Marine Temple Tracks"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Marine Temple Tracks!"
     },
     "Bounce snow bridge portal item": {
         "entrance": "Snow Realm Bridge Portal",
         "destination": "Snow Realm Bridge Portal",
         "has_items": [("Portal Unlock: Snow Bridge to Island Sanctuary", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -274,13 +284,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Ocean Realm South Portal",
         "destination": "Ocean Realm South Portal",
         "not_has_groups": ["Tracks: Snow Realm Bridge"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Snow Realm Bridge Tracks!"
     },
     "Bounce island sanc portal item": {
         "entrance": "Ocean Realm South Portal",
         "destination": "Ocean Realm South Portal",
         "has_items": [("Portal Unlock: Snow Bridge to Island Sanctuary", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -288,13 +299,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Ocean Realm West Portal",
         "destination": "Ocean Realm West Portal",
         "not_has_groups": ["Tracks: Ocean Glyph"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Ocean Glyph!"
     },
     "Bounce ocean west portal item": {
         "entrance": "Ocean Realm West Portal",
         "destination": "Ocean Realm West Portal",
         "has_items": [("Portal Unlock: Mayscore to Ocean Portal Tracks", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -302,13 +314,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Forest Realm Mayscore Portal",
         "destination": "Forest Realm Mayscore Portal",
         "not_has_groups": ["Tracks: Ocean Portal"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Ocean Portal Tracks!"
     },
     "Bounce mayscore portal item": {
         "entrance": "Forest Realm Mayscore Portal",
         "destination": "Forest Realm Mayscore Portal",
         "has_items": [("Portal Unlock: Mayscore to Ocean Portal Tracks", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -316,13 +329,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Mountain Portal",
         "destination": "Mountain Portal",
         "not_has_groups": ["Tracks: N Icy Spring"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the N Icy Spring Tracks!"
     },
     "Bounce mountain item": {
         "entrance": "Mountain Portal",
         "destination": "Mountain Portal",
         "has_items": [("Portal Unlock: Icy Spring to Mountain Temple", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -330,13 +344,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Forest Realm Cave Portal",
         "destination": "Forest Realm Cave Portal",
         "not_has_groups": ["Tracks: Fire Glyph"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Fire Glyph!"
     },
     "Bounce Cave portal item": {
         "entrance": "Forest Realm Cave Portal",
         "destination": "Forest Realm Cave Portal",
         "has_items": [("Portal Unlock: Forest Cave to Goron Village", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 
@@ -344,13 +359,14 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Fire Realm Portal",
         "destination": "Fire Realm Portal",
         "not_has_groups": ["Tracks: Forest Realm SW Cave"],
+        "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the Forest Realm SW Cave Tracks!"
     },
     "Bounce goron portal item": {
         "entrance": "Fire Realm Portal",
         "destination": "Fire Realm Portal",
         "has_items": [("Portal Unlock: Forest Cave to Goron Village", 0)],
-        "has_slot_data": [["portal_behavior", 2]],
+        "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"
     },
 

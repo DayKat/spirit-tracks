@@ -126,12 +126,12 @@ def has_tracks(tracks):
     return HasGroup(f"Tracks: {tracks}")
 
 def has_portal(portal, forward):
-    option = SpiritTracksRandomizePortals
-    if forward:
-        return ([OptionFilter(option, 1, operator="le")]
-                | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
-    return ([OptionFilter(option, 1)]
-        | Has(f"Portal Unlock: {portal}", options=[OptionFilter(option, 2)]))
+    res = False_() if forward else True_()
+    return Or(
+        True_() & [OptionFilter(SpiritTracksRandomizePortals, 1)],
+        (res | has_cannon) & [OptionFilter(SpiritTracksRandomizePortals, 0)],
+        Has(f"Portal Unlock: {portal}") & (res | has_cannon) & [OptionFilter(SpiritTracksRandomizePortals, 2)],
+    )
 
 no_tear_items = [OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_no_tears, "ne"),
                 OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_vanilla, "ne")]
