@@ -3748,7 +3748,7 @@ LOCATIONS_DATA |= {
 
         "no_model": True
     },
-    "Goron Village West Buy Steel": {
+    "Goron Field Buy Steel": {
         "stage_id": 0x2D,
         "room_id": 0x3,
         "address": STAddr.cargo_0,

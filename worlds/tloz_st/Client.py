@@ -1602,12 +1602,13 @@ class SpiritTracksClient(DSZeldaClient):
         return True
 
     def add_special_er_data(self, ctx, er_map, scene, detect_data: "STTransition", exit_data: "STTransition"):
-        print(f"Checking ER map {detect_data.name} => {exit_data.name}")
+        #print(f"Checking ER map {detect_data.name} => {exit_data.name}")
 
         # Outset tutorial
         if detect_data.name == "Outset Board Train":
             outset_exit = self.entrances["Outset to Tutorial"]
             er_map.setdefault(0x2f00, {})[outset_exit] = exit_data
+            print(f"special ER: {outset_exit} => {exit_data}")
 
         # GTR has 2 exits
         if detect_data.exit == (0x7, 0, 4):

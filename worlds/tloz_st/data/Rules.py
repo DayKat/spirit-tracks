@@ -125,12 +125,13 @@ def has_temple_tracks(temple):
 def has_tracks(tracks):
     return HasGroup(f"Tracks: {tracks}")
 
-def has_portal(portal, forward):
-    res = False_() if forward else True_()
+def has_portal(portal, forward, event, _exit=False):
+    not_fw = False_() if forward else True_()
+    no_event = True_() if _exit else False_()
     return Or(
         True_() & [OptionFilter(SpiritTracksRandomizePortals, 1)],
-        (res | has_cannon) & [OptionFilter(SpiritTracksRandomizePortals, 0)],
-        Has(f"Portal Unlock: {portal}") & (res | has_cannon) & [OptionFilter(SpiritTracksRandomizePortals, 2)],
+        (Has(event) | no_event) & [OptionFilter(SpiritTracksRandomizePortals, 0)],
+        Has(f"Portal Unlock: {portal}") & (not_fw | has_cannon) & [OptionFilter(SpiritTracksRandomizePortals, 2)],
     )
 
 no_tear_items = [OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_no_tears, "ne"),

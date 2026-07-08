@@ -692,6 +692,17 @@ class SpiritTracksWorld(WorldParent):
         self.create_event("oct boomerang switch", "_oct_boomerang")
         self.create_event("oct 6f sw arena", "_oct_6f_arena")
 
+        # Portal events
+        if self.options.portal_behavior.value == 0:
+            self.create_event("forest cave portal loc", "_cave_portal")
+            self.create_event("trading post portal", "_tp_portal")
+            self.create_event("anouki portal", "_sr_portal")
+            self.create_event("snow bridge portal loc", "_bridge_portal")
+            self.create_event("icyspring portal loc", "_icyspring_portal")
+            self.create_event("ocean portal loc", "_ocean_portal")
+            self.create_event("sand restoration portal", "_dt_portal")
+            self.create_event("sand connection portal loc", "_sand_portal")
+
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
