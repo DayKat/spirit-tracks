@@ -172,6 +172,8 @@ class SpiritTracksWorld(WorldParent):
         self.tower_section_lookup = {i:i for i in range(1, 7)}  # tower section lookup for logic
         self.exclude_tos_5 = 0
         self.shuffled_bosses: dict[str, str] = {}
+        self.shuffled_dungeon_lookup: dict[str, str] = {}
+        self.near_dungeon_lookup: dict[str, str] = {}  # loc: dung
 
         self.stamp_items = []
         self.stamp_pack_order = []
@@ -181,6 +183,7 @@ class SpiritTracksWorld(WorldParent):
         self.tears_included_small: int = 16
         self.required_rupees = 0
         self.track_items = []
+
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -273,7 +276,7 @@ class SpiritTracksWorld(WorldParent):
         self.create_item_mappings()
 
         self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_dungeons]
-        # print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_dungeons}")
+        print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_dungeons}")
         if 5 in self.non_required_sections and self.options.exclude_sections:
             self.exclude_tos_5 = 1
         self.required_rupees = self.get_required_rupees()
@@ -412,6 +415,12 @@ class SpiritTracksWorld(WorldParent):
             self.options.dark_realm_access.value = 0
             force_require = [list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]]
 
+        # Choose dungeon entrance-dungeon pairing if applicable
+        if self.options.shuffle_dungeon_entrances.value in [1, 6]:
+            shuffled_dungeons = DUNGEON_NAMES[2:]
+            self.random.shuffle(shuffled_dungeons)
+            self.shuffled_dungeon_lookup = {o: n for o, n in zip(DUNGEON_NAMES[2:], shuffled_dungeons)}
+
         # Match boss to dungeon when bosses are shuffled to match them properly in plando
         pre_pick_boss_pairings = DUNGEON_TO_BOSS_ITEM_LOCATION
         if self.options.shuffle_bosses.value in [1, 6]:
@@ -477,6 +486,23 @@ class SpiritTracksWorld(WorldParent):
             region = Region(region_name, self.player, self.multiworld)
             self.multiworld.regions.append(region)
 
+        # Map post/pre dungeon items to their dungeons
+        reverse_dungeon_lookup = {v: k for k, v in self.shuffled_dungeon_lookup.items()}
+        for dung_name in DUNGEON_NAMES[2:]:
+            if dung_name in self.shuffled_bosses:
+                print(f"Shuffled_bosses: {self.shuffled_bosses}")
+                boss_loc = self.shuffled_bosses[dung_name]
+                self.near_dungeon_lookup |= {loc: dung_name for loc in BOSS_LOCATION_TO_POST_LOCATIONS.get(boss_loc, [])}
+                print(f"Removing boss locations: {self.near_dungeon_lookup}")
+            elif self.options.shuffle_bosses.value in [0, 5]:
+                boss_dungeon = DUNGEON_TO_BOSS_ITEM_LOCATION.get(dung_name)
+                self.near_dungeon_lookup |= {loc: dung_name for loc in BOSS_LOCATION_TO_POST_LOCATIONS.get(boss_dungeon, [])}
+            if dung_name in reverse_dungeon_lookup:
+                self.near_dungeon_lookup |= {loc: dung_name for loc in DUNGEON_NAME_TO_LOBBY_LOCATION.get(reverse_dungeon_lookup[dung_name], [])}
+            elif self.options.shuffle_dungeon_entrances.value in [0, 5]:
+                self.near_dungeon_lookup |= {loc: dung_name for loc in DUNGEON_NAME_TO_LOBBY_LOCATION.get(dung_name, [])}
+
+
         # Create locations
         for location_name, location_data in LOCATIONS_DATA.items():
             if not self.location_is_active(location_name, location_data):
@@ -489,6 +515,7 @@ class SpiritTracksWorld(WorldParent):
         self.exclude_locations_automatically()
 
     def create_event(self, region_name, event_item_name):
+        print(f"Creating event: {event_item_name} {self.non_required_dungeons} {self.options.randomize_boss_keys.value}")
         region = self.get_region(region_name)
         location = Location(self.player, region_name + ".event", None, region)
         region.locations.append(location)
@@ -503,7 +530,7 @@ class SpiritTracksWorld(WorldParent):
             loc.place_locked_item(SpiritTracksItem(event_item_name, ItemClassification.progression, None, self.player))
 
     def location_is_active(self, location_name, location_data):
-        if not location_data.get("conditional", False) and "rabbit" not in location_data and "dungeon" not in location_data and "tos_section" not in location_data:
+        if not location_data.get("conditional", False) and "rabbit" not in location_data and "dungeon" not in location_data and "tos_section" not in location_data and "post_dungeon" not in location_data:
             return True
 
         if "tos_section" in location_data:
@@ -513,13 +540,16 @@ class SpiritTracksWorld(WorldParent):
             tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
             return bk and tears and (location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove")
         if "dungeon" in location_data:
-            passengers = self.options.randomize_passengers.value if location_name == "Marine Temple Ferrus Force Gem" else True
             stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
             bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
             # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
-            if location_name == "Marine Temple Ferrus Force Gem":
-                return self.options.randomize_passengers.value
-            return passengers and stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
+            return stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
+        if location_name == "Marine Temple Lobby Ferrus Force Gem":
+            return self.options.randomize_passengers.value
+        if location_name in self.near_dungeon_lookup:
+            if self.options.exclude_dungeons.value != 2:
+                return True
+            return self.near_dungeon_lookup[location_name] not in self.non_required_dungeons
 
         if "rabbit" in location_data:
             return location_name in self.active_rabbit_locations
@@ -679,18 +709,36 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("delivered ferrus", "_delivered_ferrus")
             self.create_event("av goron", "_av_goron")
             self.create_event("island sanc carben", "_deliver_carben")
-        # DER events. might add if statement later
-        self.create_event("wt blue warp", "_wt_warp")
-        self.create_event("bt blue warp", "_bt_warp")
-        self.create_event("oct blue warp", "_oct_warp")
-        self.create_event("mtt blue warp", "_mtt_warp")
-        self.create_event("dt blue warp", "_dt_warp")
 
-        self.create_event("bt 1f ne bell", "_bt_bell_2")
-        self.create_event("bt 1f nw bell", "_bt_bell_3")
-        self.create_event("oct 2f boulders", "_oct_boulders")
-        self.create_event("oct boomerang switch", "_oct_boomerang")
-        self.create_event("oct 6f sw arena", "_oct_6f_arena")
+        # DER events. might add if statement later
+        if self.options.exclude_dungeons.value == 2:
+            if "Wooded Temple" not in self.non_required_dungeons:
+                self.create_event("wt blue warp", "_wt_warp")
+            if "Blizzard Temple" not in self.non_required_dungeons:
+                self.create_event("bt blue warp", "_bt_warp")
+                self.create_event("bt 1f ne bell", "_bt_bell_2")
+                self.create_event("bt 1f nw bell", "_bt_bell_3")
+            if "Marine Temple" not in self.non_required_dungeons:
+                self.create_event("oct blue warp", "_oct_warp")
+                self.create_event("oct 2f boulders", "_oct_boulders")
+                self.create_event("oct boomerang switch", "_oct_boomerang")
+                self.create_event("oct 6f sw arena", "_oct_6f_arena")
+            if "Mountain Temple" not in self.non_required_dungeons:
+                self.create_event("mtt blue warp", "_mtt_warp")
+            if "Desert Temple" not in self.non_required_dungeons:
+                self.create_event("dt blue warp", "_dt_warp")
+        else:
+            self.create_event("wt blue warp", "_wt_warp")
+            self.create_event("bt blue warp", "_bt_warp")
+            self.create_event("oct blue warp", "_oct_warp")
+            self.create_event("mtt blue warp", "_mtt_warp")
+            self.create_event("dt blue warp", "_dt_warp")
+
+            self.create_event("bt 1f ne bell", "_bt_bell_2")
+            self.create_event("bt 1f nw bell", "_bt_bell_3")
+            self.create_event("oct 2f boulders", "_oct_boulders")
+            self.create_event("oct boomerang switch", "_oct_boomerang")
+            self.create_event("oct 6f sw arena", "_oct_6f_arena")
 
         # Portal events
         if self.options.portal_behavior.value == 0:
@@ -710,8 +758,14 @@ class SpiritTracksWorld(WorldParent):
         self.ut_locations_to_exclude = locations_to_exclude.copy()
         self.locations_to_exclude = locations_to_exclude
 
+        # Filter excluded dungeons, and account for dungeon/boss shuffle
         if self.options.exclude_dungeons == "exclude":
-            self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "dungeon" in d and d["dungeon"] in self.non_required_dungeons])
+            self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if
+                                              "dungeon" in d and d["dungeon"] in self.non_required_dungeons])
+            for loc_name, dung_name in self.near_dungeon_lookup:
+                if dung_name in self.non_required_dungeons:
+                    self.locations_to_exclude.add(loc_name)
+
             self.locations_to_exclude -= {"Marine Temple Ferrus Force Gem"}
 
         if self.options.exclude_sections == "exclude":
@@ -732,6 +786,7 @@ class SpiritTracksWorld(WorldParent):
                 self.locations_to_exclude.add(loc)
 
         for name in self.locations_to_exclude:
+            print(f"Excluded Location: {name}")
             try:
                 self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
             except KeyError:  # Would it be more efficient to check if location is in active locations first?
@@ -1415,17 +1470,13 @@ class SpiritTracksWorld(WorldParent):
             entrance.randomization_group = (entrance.randomization_group & EntranceGroups.NON_DUNGEON_MASK) + \
                                            (dungeon_to_enum[dung] << 8)
             print(f"New Target group: {entrance} {decode_entrance_groups(entrance.randomization_group)}")
-        shuffled_dungeon_lookup = {}
-        if self.options.shuffle_dungeon_entrances.value in [1, 6]:
-            shuffled_dungeons = DUNGEON_NAMES[2:]
-            self.random.shuffle(shuffled_dungeons)
-            shuffled_dungeon_lookup = {o: n for o, n in zip(DUNGEON_NAMES[2:], shuffled_dungeons)}
-            print(f"Shuffled dungeon lookup: {shuffled_dungeon_lookup}")
+        if self.shuffled_dungeon_lookup:
+            print(f"Shuffled dungeon lookup: {self.shuffled_dungeon_lookup}")
             for dung, entr in DUNGEON_LOBBY_ENTRANCES.items():
                 for e in entr:
                     entrance = self.get_entrance(e)
                     entrance.randomization_group = (entrance.randomization_group & EntranceGroups.NON_DUNGEON_MASK) + \
-                                                   (dungeon_to_enum[shuffled_dungeon_lookup[dung]] << 8)
+                                                   (dungeon_to_enum[self.shuffled_dungeon_lookup[dung]] << 8)
                     print(f"New Target group: {entrance} {decode_entrance_groups(entrance.randomization_group)}")
             if self.options.shuffle_warps.value == 0:
                 plando_disconnects.update(DUNGEON_TO_WARP_ENTRANCE.values())
@@ -1516,14 +1567,14 @@ class SpiritTracksWorld(WorldParent):
         if self.options.plando_transitions.value:
             plando_data += [(e.entrance, e.exit) for e in self.options.plando_transitions]
         if self.options.shuffle_dungeon_entrances.value == 1:
-            print(f"Shuffled dungeons: {shuffled_dungeon_lookup}")
+            print(f"Shuffled dungeons: {self.shuffled_dungeon_lookup}")
             plando_data += [(DUNGEON_TO_ENTRANCE[dung_old], DUNGEON_TO_EXIT[dung_new])
-                           for dung_old, dung_new in shuffled_dungeon_lookup.items()]
-        if shuffled_dungeon_lookup and self.options.shuffle_warps.value == 0:
+                           for dung_old, dung_new in self.shuffled_dungeon_lookup.items()]
+        if self.shuffled_dungeon_lookup and self.options.shuffle_warps.value == 0:
             plando_data += [(DUNGEON_TO_WARP_ENTRANCE[dung_old], DUNGEON_TO_WARP_EXIT[dung_new])
-                           for dung_old, dung_new in shuffled_dungeon_lookup.items()]
+                           for dung_old, dung_new in self.shuffled_dungeon_lookup.items()]
         if self.shuffled_bosses and self.options.shuffle_bosses.value == 1:
-            plando_data += [(DUNGEON_TO_BOSS_STAIRCASE["Wooded Temple"], BOSS_LOCATION_TO_EXIT["Stagnox Boss Reward"])]
+            plando_data += [(DUNGEON_TO_BOSS_STAIRCASE[dung], BOSS_LOCATION_TO_EXIT[boss]) for dung, boss in self.shuffled_bosses.items()]
         print(f"Plando Data: {plando_data}")
         self.connect_plando(plando_data)
 
@@ -1638,6 +1689,8 @@ class SpiritTracksWorld(WorldParent):
             # print(f"Pre-filling {dung_name}")
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
                                       if "dungeon" in loc and loc["dungeon"] == dung_name]
+            dungeon_location_names += [name for name, dung in self.near_dungeon_lookup.items() if dung == dung_name]
+
             dungeon_locations = [loc for loc in self.multiworld.get_locations(self.player)
                                  if loc.name in dungeon_location_names and not loc.locked]
 
@@ -1655,8 +1708,8 @@ class SpiritTracksWorld(WorldParent):
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
-            # print(f"pre filling {dung_name}: {confined_dungeon_items}")
-            # print(f"\tlocations {dungeon_location_names}")
+            print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            print(f"\tlocations {dungeon_location_names}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 

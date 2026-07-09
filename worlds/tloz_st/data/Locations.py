@@ -1136,7 +1136,7 @@ LOCATIONS_DATA = {
         "x_max": -14885,
         "z_min": -51620,
         "z_max": -39275,
-        "dungeon": "Wooded Temple",
+        "post_dungeon": "Wooded Temple",
         "location_groups": ["Song Statue"]
     },
     "Wooded Temple 1F Stamp Station": {
@@ -1233,7 +1233,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "stage_id": 0x1E,
         "room_id": 0,
-        "dungeon": "Wooded Temple",
+        "post_dungeon": "Wooded Temple",
         "location_groups": ["Stagnox"],
     },
     "Stagnox Boss Reward": {
@@ -1243,7 +1243,7 @@ LOCATIONS_DATA = {
         "value": 0x10,
         "stage_id": 0x1E,
         "room_id": 0,
-        "dungeon": "Wooded Temple",
+        "post_dungeon": "Wooded Temple",
         "goal": "GOAL: Defeat Stagnox",
         "ut_connect": "EVENT: Defeat Stagnox",
         "location_groups": ["Stagnox"],
@@ -1606,7 +1606,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Heart Container",
         "stage_id": 0x1F,
         "room_id": 0,
-        "dungeon": "Blizzard Temple",
+        "post_dungeon": "Blizzard Temple",
         "location_groups": ["Fraaz"],
     },
     "Fraaz Boss Reward": {
@@ -1616,7 +1616,7 @@ LOCATIONS_DATA = {
         "value": 0x20,
         "stage_id": 0x1F,
         "room_id": 0,
-        "dungeon": "Blizzard Temple",
+        "post_dungeon": "Blizzard Temple",
         "goal": "GOAL: Defeat Fraaz",
         "ut_connect": "EVENT: Defeat Fraaz",
         "location_groups": ["Fraaz"],
@@ -1827,7 +1827,7 @@ LOCATIONS_DATA = {
         "room_id": 0xA,
         "x_max": -16000,
         "z_max": -35000,
-        "dungeon": "Marine Temple",
+        "post_dungeon": "Marine Temple",
         "location_groups": ["Song Statue"]
     },
     "Marine Temple 3F Whip Chest": {
@@ -1932,7 +1932,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x20,
         "room_id": 0,
         "y": 88472,
-        "dungeon": "Marine Temple",
+        "post_dungeon": "Marine Temple",
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "location_groups": ["Cactops"],
     },
@@ -1944,7 +1944,7 @@ LOCATIONS_DATA = {
         "value": 0x40,
         "stage_id": 0x20,
         "room_id": 0,
-        "dungeon": "Marine Temple",
+        "post_dungeon": "Marine Temple",
         "require_item": ["Whip", "Sword (Progressive)", "Small Key (Ocean Temple)"],
         "goal": "GOAL: Defeat Cactops",
         "location_groups": ["Cactops"],
@@ -2289,7 +2289,7 @@ LOCATIONS_DATA = {
         "region_id": "mtt song statue",
         "vanilla_item": "Song of Healing",
         "item_override": "Nothing!",
-        "dungeon": "Mountain Temple"
+        "post_dungeon": "Mountain Temple"
     },
     "Mountain Temple 2F Left Chest": {
         "stage_id": 0x1C,
@@ -2412,7 +2412,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x21,
         "region_id": "mtt vulcano",
         "vanilla_item": "Heart Container",
-        "dungeon": "Mountain Temple",
+        "post_dungeon": "Mountain Temple",
     },
     "Vulcano Boss Reward": {
         "address": STAddr.adv_flags_0,
@@ -2422,7 +2422,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Fire Source",
         "ut_connect": "EVENT: Defeat Vulcano",
         "goal": "GOAL: Defeat Vulcano",
-        "dungeon": "Mountain Temple",
+        "post_dungeon": "Mountain Temple",
         "no_model": True
     },
     # Goron Target Range
@@ -2731,7 +2731,7 @@ LOCATIONS_DATA = {
         "stage_id": 0x22,
         "room_id": 0x1,
         "vanilla_item": "Heart Container",
-        "dungeon": "Desert Temple",
+        "post_dungeon": "Desert Temple",
         "region_id": "dt skeldritch",
         "location_groups": ["Skeldritch"],
     },
@@ -2745,7 +2745,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Skeldritch"],
         "ut_connect": "EVENT: Defeat Skeldritch",
         "goal": "GOAL: Defeat Skeldritch",
-        "dungeon": "Desert Temple",
+        "post_dungeon": "Desert Temple",
         "no_model": True
     },
     "Desert Temple Bow of Light Chest": {
@@ -2755,7 +2755,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Bow of Light",
         "item_override": "Nothing!",
         "region_id": "dt skeldritch",
-        "dungeon": "Desert Temple",
+        "post_dungeon": "Desert Temple",
         "location_groups": ["Skeldritch"],
     },
 
@@ -4219,7 +4219,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "fire realm ferrus"
     },
-    "Marine Temple Ferrus Force Gem": {
+    "Marine Temple Lobby Ferrus Force Gem": {
         "stage_id": 0x1B,
         "room_id": 0xa,
         "address": STAddr.adv_flags_f,
@@ -4228,7 +4228,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Deliver Passengers"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
-        "dungeon": "Marine Temple",  # Yas allow it to have local dungeon items!
+        # "dungeon": "Marine Temple",  # Yas allow it to have local dungeon items!
         "region_id": "oct ferrus"
     },
     "Forest Realm Ferrus Gift": {

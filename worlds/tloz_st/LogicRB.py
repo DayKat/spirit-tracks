@@ -381,7 +381,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["wt 3f", "wt 3f se chest", False, has_whirlwind | hard_logic],
         ["wt 3f", "wt 3f bk", False, has_whirlwind | (has_bombs & hard_logic)],
-        ["wt 3f bk", "wt 3f boss door", False, True_() | vanilla_boss_keys],
+        ["wt 3f bk", "wt 3f boss door", False, True_() & vanilla_boss_keys],
         ["wt 3f", "wt 3f boss door", True, has_boss_key("Wooded Temple")],
         ["wt 3f boss door", "wt 4f", True, None],
 
@@ -1018,8 +1018,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt b3 ne", "mtt b3 n", False, None],
         ["mtt b3 n", "mtt b3 chest", False, hard_logic],
         ["mtt b3 n", "mtt b3 ne", False, has_whip],
-        ["mtt b3 bk", "mtt b3 boss door", False, has_boss_key("Mountain Temple") | vanilla_boss_keys],
-        ["mtt b3 boss door", "mtt b3 n", False, has_boss_key("Mountain Temple")],
+        ["mtt b3 bk", "mtt b3 boss door", False, True_() & vanilla_boss_keys],
+        ["mtt b3 boss door", "mtt b3 n", True, has_boss_key("Mountain Temple")],
         ["mtt b3 boss door", "mtt b4", True, None],
 
         ["mtt b4", "mtt blue warp", True, None],

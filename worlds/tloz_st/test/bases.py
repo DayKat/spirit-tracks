@@ -71,16 +71,18 @@ class TestGeneration(WorldTestBase):
 
         "shuffle_tos_sections": "no_shuffle",
 
-        "shuffle_dungeon_entrances": "no_shuffle",
-        "shuffle_bosses": "no_shuffle",
+        "shuffle_dungeon_entrances": "shuffle_alone",
+        "shuffle_bosses": "shuffle_alone",
         "shuffle_dungeon_rooms": "no_shuffle",
         "shuffle_warps": "no_shuffle",
 
-        "shuffle_portals": "shuffle_alone",
+        "shuffle_portals": "no_shuffle",
 
         "keyrings": "all",
+        "dungeons_required": 3,
+        "exclude_dungeons": "remove",
 
-        "entrance_directionality": {"dungeon_entrances"},
+        "entrance_directionality": {"dungeon_entrances", "pool_a"},
 
         # "plando_transitions": [
         #     {"entrance": "Outset East House",

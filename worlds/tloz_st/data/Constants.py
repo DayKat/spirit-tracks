@@ -420,11 +420,11 @@ BOSS_LOCATION_TO_EVENT_REGION = {
 }
 
 BOSS_LOCATION_TO_POST_LOCATIONS = {
-    "Stagnox Boss Reward": ["Stagnox Heart Container"],
-    "Fraaz Boss Reward": ["Fraaz Heart Container"],
-    "Cactops Boss Reward": ["Cactops Heart Container"],
-    "Vulcano Boss Reward": ["Vulcano Heart Container"],
-    "Capbone Boss Reward": ["Capbone Boss Reward", "Desert Temple Bow of Light Chest"]
+    "Stagnox Boss Reward": ["Stagnox Boss Reward", "Stagnox Heart Container"],
+    "Fraaz Boss Reward": ["Fraaz Boss Reward", "Fraaz Heart Container"],
+    "Cactops Boss Reward": ["Cactops Boss Reward", "Cactops Heart Container"],
+    "Vulcano Boss Reward": ["Vulcano Boss Reward", "Vulcano Heart Container"],
+    "Capbone Boss Reward": ["Capbone Boss Reward", "Capbone Heart Container", "Desert Temple Bow of Light Chest"]
 }
 
 DUNGEON_TO_ENTRANCE = {
@@ -473,6 +473,20 @@ BOSS_LOCATION_TO_EXIT = {
     "Cactops Boss Reward": "Cactops Exit",
     "Vulcano Boss Reward": "Vulcano Exit",
     "Capbone Boss Reward": "Capbone Exit",
+}
+
+DUNGEON_NAME_TO_BOSS_LOCATIONS = {
+    "Wooded Temple": ["Stagnox Boss Reward", "Stagnox Heart Container"],
+    "Blizzard Temple": ["Fraaz Boss Reward", "Fraaz Heart Container"],
+    "Marine Temple": ["Cactops Boss Reward", "Cactops Heart Container"],
+    "Mountain Temple": ["Vulcano Boss Reward", "Vulcano Heart Container"],
+    "Desert Temple": ["Capbone Boss Reward", "Capbone Heart Container", "Desert Temple Bow of Light Chest"],
+}
+
+DUNGEON_NAME_TO_LOBBY_LOCATION = {
+    "Wooded Temple": ["Wooded Temple Lobby Song Statue"],
+    "Marine Temple": ["Marine Temple Lobby Song Statue", "Marine Temple Lobby Ferrus Force Gem"],
+    "Mountain Temple": ["Mountain Temple Lobby Song Statue"],
 }
 
 DUNGEON_KEY_DATA = {

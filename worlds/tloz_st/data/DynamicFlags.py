@@ -1281,7 +1281,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x1B0a],
         "has_items": [("Passenger: Ferrus", 1)],
         "has_slot_data": [("randomize_passengers", [2, 3])],
-        "not_has_locations": ["Marine Temple Ferrus Force Gem"],
+        "not_has_locations": ["Marine Temple Lobby Ferrus Force Gem"],
         "set_if_true": [(STAddr.adv_flags_3b, 0x4)],
         "unset_if_true": [(STAddr.adv_flags_3b, 0x12)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x1b),
@@ -1302,7 +1302,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Spawn Ferrus in forest vanilla": {
         "on_scenes": [0x400],
         "has_slot_data": [("randomize_passengers", 1)],
-        "has_locations": ["Marine Temple Ferrus Force Gem"],
+        "has_locations": ["Marine Temple Lobby Ferrus Force Gem"],
         "set_if_true": [(STAddr.adv_flags_52, 0x10)]
     },
     # Anouki chief location
