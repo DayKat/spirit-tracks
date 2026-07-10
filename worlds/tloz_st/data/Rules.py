@@ -36,26 +36,19 @@ has_sod = has_spirit_flute & Has("Song of Discovery")
 normal_key_options = [OptionFilter(SpiritTracksShuffleDungeonRooms, 0), OptionFilter(SpiritTracksShuffleBosses, 1, "le"), OptionFilter(SpiritTracksShuffleWarps, 0)]
 event_key_options = [OptionFilter(SpiritTracksShuffleDungeonRooms, 0, "gt"), OptionFilter(SpiritTracksShuffleBosses, 1, "gt"), OptionFilter(SpiritTracksShuffleWarps, 0, "gt")]
 
-# For handling key events
-class BadKeys(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
+@dataclasses.dataclass
+class DungeonIsRemoved(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
     dungeon: str
-    event: str
-    def __init__(self, dungeon, event):
-        self.dungeon = dungeon
-        self.event = event
 
     @override
     def _instantiate(self, world: "SpiritTracksWorld") -> Rule.Resolved:
-        return self.Resolved(self.dungeon, self.event, caching_enabled=False, player=world.player)
+        removed = self.dungeon in world.non_required_dungeons
+        if removed:
+            return True_().resolve(world)
+        return False_().resolve(world)
 
-    class Resolved(Rule.Resolved):
-        dungeon: str
-        event: str
-
-        @override
-        def _evaluate(self, state: CollectionState) -> bool:
-            print(f"Has {state.count(f'Small Key ({self.dungeon})', self.player)}/{state.count(self.event, self.player)} Small Key ({self.dungeon})s")
-            return state.count(f"Small Key ({self.dungeon})", self.player) >= max(state.count(self.event, self.player), 1)
+def dungeon_is_removed(dung):
+    return DungeonIsRemoved(dung) & [OptionFilter(SpiritTracksExcludeDungeons, 2)]
 
 def option_or(rule: Rule, options: Iterable):
     """Check if any of the options are resolved"""
@@ -71,6 +64,7 @@ def has_small_keys_er(dungeon, count, _ool=None, er=None):
         ool & Has(f"Small Key ({dungeon})", _ool, options=normal_key_options),
         Has(f"Small Key ({dungeon})", er),
         option_or(Has(f"Small Key ({dungeon})", 1) & ool, event_key_options),
+        dungeon_is_removed(dungeon)
               )
 
 
@@ -78,14 +72,19 @@ def has_small_keys(dungeon, count, _ool=None):
     _ool = _ool if _ool is not None else count
     return Or(Has(f"Keyring ({dungeon})"),  # keyring always works
         Has(f"Small Key ({dungeon})", count),
-        ool & Has(f"Small Key ({dungeon})", _ool),)
+        ool & Has(f"Small Key ({dungeon})", _ool),
+        dungeon_is_removed(dungeon)
+              )
 
 def has_single_small_key(dungeon):
-    return Has(f"Keyring ({dungeon})") | Has(f"Small Key ({dungeon})")
+    return Has(f"Keyring ({dungeon})") | Has(f"Small Key ({dungeon})") | dungeon_is_removed(dungeon)
 
 def has_boss_key(dungeon):
-    return (Has(f"Boss Key ({dungeon})")
-            | Has(f"Keyring ({dungeon})", options=[OptionFilter(SpiritTracksBigKeyrings, 1)]))
+    return Or(
+            Has(f"Boss Key ({dungeon})"),
+            Has(f"Keyring ({dungeon})", options=[OptionFilter(SpiritTracksBigKeyrings, 1)]),
+            dungeon_is_removed(dungeon)
+    )
 
 # Rabbits
 has_net = Has("Rabbit Net") & has_cannon
@@ -310,6 +309,7 @@ class HasShuffledSection(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
 
     def __str__(self):
         return "Has Progressive tears for shuffle level"
+
 
 class DebugRule(Rule["SpiritTracksWorld"], game="Spirit Tracks"):
     @override

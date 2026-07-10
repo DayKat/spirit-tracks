@@ -272,12 +272,12 @@ class SpiritTracksClient(DSZeldaClient):
             logger.info(f"You need the Compass of Light to access the Dark Realm. You {has_compass}have it.")
         if slot_data["dark_realm_access"] in [1, 3]:
             specific = "specific " if slot_data.get("require_specific_dungeons", False) else ""
-            dungeon_locs = slot_data["required_dungeons"]
+            dungeon_locs = slot_data["required_boss_locs"]
             has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
             logger.info(
                 f"You need to complete {specific}dungeons to enter the dark realm. Progress: {has_locs}/{slot_data['dungeons_required']}")
             if slot_data.get("dungeon_hints", 1):
-                dungeons_locs = [self.location_id_to_name[i] for i in slot_data["required_dungeons"]]
+                dungeons_locs = [self.location_id_to_name[i] for i in slot_data["required_boss_locs"]]
                 logger.info(f"Your dungeons: {dungeons_locs}")
         if slot_data["dark_realm_access"] in [2, 3]:
             shard_count = self.item_count(ctx, "Compass of Light Shard")
@@ -344,7 +344,7 @@ class SpiritTracksClient(DSZeldaClient):
                 if ctx.slot_data["dark_realm_access"] not in [1, 3]:
                     return data["dungeons"]  # Case where dungeons are not required for dark realm
                 printl(f"{ctx.slot_data['required_dungeons']}")
-                dungeon_locs = ctx.slot_data["required_dungeons"]
+                dungeon_locs = ctx.slot_data["required_boss_locs"]
                 has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
                 comp = has_locs >= ctx.slot_data["dungeons_required"]
                 printl(f"Checking dungeons: {has_locs} >= {ctx.slot_data['dungeons_required']} for comp {data['dungeons']}")
@@ -1226,7 +1226,10 @@ class SpiritTracksClient(DSZeldaClient):
             else:
                 await self.key_address.overwrite(ctx, 0)
             return True
-
+        if STAGES[stage] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2:
+            key_data = DUNGEON_KEY_DATA[stage]
+            await self.key_address.overwrite(ctx, key_data["filter"]//key_data["value"])
+            return True
         return False
 
     async def detect_ut_event(self, ctx, scene):
@@ -1336,8 +1339,10 @@ class SpiritTracksClient(DSZeldaClient):
             actor_table = await self.get_actor_table(ctx)
             data = BOSS_KEY_DATA[self.current_scene]
 
-            # Open door
-            if self.item_count(ctx, f"Boss Key ({data['dungeon']})") or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"]):
+            # Open boss door
+            if (self.item_count(ctx, f"Boss Key ({data['dungeon']})")
+                    or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"])
+                    or (data["dungeon"] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2)):
                 if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
                     printl(f"Opening boss door for {hex(current_scene)}")
                     if await data["door"].read(ctx) != 0x5:

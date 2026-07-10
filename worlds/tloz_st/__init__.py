@@ -142,7 +142,7 @@ class SpiritTracksWorld(WorldParent):
         super().__init__(multiworld, player)
 
         self.pre_fill_items: List[SpiritTracksItem] = []
-        self.required_dungeons = []
+        self.required_boss_locs = []
         self.non_required_dungeons = []
         self.non_required_sections = []
         self.dungeon_name_groups = {}
@@ -200,23 +200,23 @@ class SpiritTracksWorld(WorldParent):
                     setattr(self.options, key, opt.from_any(value))
             lookup = build_rabbit_location_id_to_name_dict()
             self.active_rabbit_locations = [lookup[i] for i in slot_data["active_rabbit_locs"]]
-            self.required_dungeons = [self.location_id_to_name[i] for i in slot_data["required_dungeons"]]
+            self.required_boss_locs = [self.location_id_to_name[i] for i in slot_data["required_boss_locs"]]
             self.ut_pairings = slot_data["er_pairings"]
             self.tower_section_lookup = {int(k): v for k, v in slot_data["tower_section_lookup"].items()}
             self.hide_ut_map_stuff()
             self.pick_ut_events()
             self.exclude_tos_5 = slot_data["exclude_tos_5"]
-            self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
+            self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_boss_locs]
         else:
-            self.required_dungeons = self.pick_required_dungeons()
-            self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons]
-            # db_list = [(s, DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"], DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_dungeons) for s in range(1, 7)]
-            # print(f"Req dungs {self.required_dungeons} => {self.non_required_sections} {db_list}")
+            self.required_boss_locs = self.pick_required_dungeons()
+            self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_boss_locs]
+            # db_list = [(s, DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"], DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_boss_locs) for s in range(1, 7)]
+            # print(f"Req dungs {self.required_boss_locs} => {self.non_required_sections} {db_list}")
             if self.options.exclude_sections == "remove":
                 self.sections_included = 6 - len(self.non_required_sections)
                 self.tears_included_small = min(self.sections_included, 5)*3+1
                 self.tears_included_big = min(self.sections_included, 5)+1
-            # print(f"Required Dungeons: {self.required_dungeons}")
+            # print(f"Required Dungeons: {self.required_boss_locs}")
             self.restrict_non_local_items()
             self.options.compass_shard_count.value = min(self.options.compass_shard_count.value, self.options.compass_shard_total.value)
             self.active_rabbit_locations = self.choose_rabbit_locations()
@@ -263,7 +263,7 @@ class SpiritTracksWorld(WorldParent):
                 len(self.non_required_sections) == 5,
                 self.options.randomize_tears.value in [1, 2],
                 self.options.spirit_weapons.value,
-                tos_summit_boss in self.required_dungeons
+                tos_summit_boss in self.required_boss_locs
             ]):
                 self.options.spirit_weapons.value = 0
                 # print(f"ToS Summit needs final spirit weapon. Turning off spirit weapons.")
@@ -275,8 +275,8 @@ class SpiritTracksWorld(WorldParent):
             # print(f"Shopsanity {self.options.shopsanity.value}")
         self.create_item_mappings()
 
-        self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_dungeons]
-        print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_dungeons}")
+        self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_boss_locs]
+        print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_boss_locs}")
         if 5 in self.non_required_sections and self.options.exclude_sections:
             self.exclude_tos_5 = 1
         self.required_rupees = self.get_required_rupees()
@@ -368,7 +368,7 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.goal == "defeat_malladus" and self.options.dark_realm_access in ["dungeons", "both"]:
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
-                events += [location_event_lookup[loc] for loc in self.required_dungeons]
+                events += [location_event_lookup[loc] for loc in self.required_boss_locs]
             else:
                 events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz", "EVENT: Defeat Cactops", "EVENT: Defeat Vulcano", "EVENT: Defeat Skeldritch"]
                 if self.options.tos_dungeon_options == "final_section":
@@ -558,7 +558,7 @@ class SpiritTracksWorld(WorldParent):
         if location_name in LOCATION_GROUPS["Rabbit Rewards"]:
             return self.options.rabbitsanity.value
         if "minigame" in location_data and self.options.randomize_minigames.value:
-            if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_dungeons:
+            if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_boss_locs:
                 return True  # If plandoed dungeon include
             # print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data['minigame']}")
             if location_name in LOCATION_GROUPS["Ends of the Earth"] and self.options.shuffle_eote.value:
@@ -623,7 +623,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.goal == "defeat_malladus":
             self.create_event("malladus goal", "_beaten_game")
             if self.options.dark_realm_access in ["dungeons", "both"]:
-                for loc in self.required_dungeons:
+                for loc in self.required_boss_locs:
                     self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
         else:
             goal_loc = list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]
@@ -771,7 +771,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.exclude_dungeons == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if
                                               "dungeon" in d and d["dungeon"] in self.non_required_dungeons])
-            for loc_name, dung_name in self.near_dungeon_lookup:
+            for loc_name, dung_name in self.near_dungeon_lookup.items():
                 if dung_name in self.non_required_dungeons:
                     self.locations_to_exclude.add(loc_name)
 
@@ -1615,7 +1615,8 @@ class SpiritTracksWorld(WorldParent):
         # post shuffle force connections
         if self.options.shuffle_bosses.value or self.options.shuffle_dungeon_rooms.value or self.options.shuffle_dungeon_entrances.value:
             if self.options.shuffle_bosses.value:
-                self.plando_pairings |= {ENTRANCES[boss_warp].id: pairings[ENTRANCES[boss_exit].id]
+                print(entrance_id_to_entrance[451].name)
+                self.plando_pairings |= {ENTRANCES[boss_warp].id: pairings.get(ENTRANCES[boss_exit].id, ENTRANCES[boss_exit].vanilla_reciprocal.id)
                                          for boss_exit, boss_warp in BOSS_EXIT_TO_BOSS_WARP.items()}
             else:
                 entrance_names = {boss_warp: ENTRANCES[boss_exit].vanilla_reciprocal.name
@@ -1717,8 +1718,8 @@ class SpiritTracksWorld(WorldParent):
                 if self.options.randomize_tears == "in_tos":
                     confined_dungeon_items += [item for item in self.pre_fill_items
                                           if "Tear of Light" in item.name]
-            print(f"pre filling {dung_name}: {confined_dungeon_items}")
-            print(f"\tlocations {dungeon_location_names}")
+            # print(f"pre filling {dung_name}: {confined_dungeon_items}")
+            # print(f"\tlocations {dungeon_location_names}")
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
 
@@ -1772,9 +1773,6 @@ class SpiritTracksWorld(WorldParent):
                 state.prog_items[self.player][m[0]] -= m[1]
 
         return True
-
-    # def post_fill(self) -> None:
-    #     self.get_location_models()
 
     def get_location_models(self):
         # get item placement models to send to client
@@ -1841,10 +1839,11 @@ class SpiritTracksWorld(WorldParent):
                    "ut_blocked_entrances_behaviour"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
-        slot_data["required_dungeons"] = [self.location_name_to_id[i] for i in self.required_dungeons]
+        slot_data["required_boss_locs"] = [self.location_name_to_id[i] for i in self.required_boss_locs]
         slot_data["stamp_pack_order"] = self.stamp_pack_order
         slot_data["model_lookup"] = self.get_location_models()
         slot_data["exclude_tos_5"] = self.exclude_tos_5
+        slot_data["non_required_dungeons"] = self.non_required_dungeons
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
@@ -1862,7 +1861,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.dark_realm_access in ["dungeons", "both"]:
             title_str = "Required Dungeons" if self.options.require_specific_dungeons else "Dungeon Locations"
             spoiler_handle.write(f"\n\n{title_str} ({self.multiworld.player_name[self.player]}):\n")
-            for dung in self.required_dungeons:
+            for dung in self.required_boss_locs:
                 spoiler_handle.write(f"\t- {dung}\n")
 
     # UT stuff
