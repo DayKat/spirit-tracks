@@ -519,7 +519,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'address': STAddr.tracks_2,
         'value': 0x1,
         'item_groups': ["Rail Items", "Ocean Realm Tracks", "Misc Tracks",
-                        "Pirate Tracks", "Minor Ocean Tracks", "Tracks: Pirate Hideout"],
+                        "Minor Ocean Tracks", "Tracks: Pirate Hideout"],
         "model": "Ocean Glyph",
         "vanilla_model": "Force Gem 18", 
         "id": 49,

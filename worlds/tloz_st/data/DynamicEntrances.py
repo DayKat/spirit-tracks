@@ -470,12 +470,12 @@ DYNAMIC_ENTRANCES = {
         "not_has_locations": ["Capbone Boss Reward"],
         "has_slot_data": [("shuffle_bosses", 0)]
     },
-    "Fire realm bounce snow realm without btt": {
-        "entrance": "Fire Realm East Fire Glyph",
-        "destination": "Fire Realm East Fire Glyph",
-        "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
-        "message": "The game crashes here without the blizzard temple tracks. Sorry!"
-    },
+    # "Fire realm bounce snow realm without btt": {
+    #     "entrance": "Fire Realm East Fire Glyph",
+    #     "destination": "Fire Realm East Fire Glyph",
+    #     "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
+    #     "message": "The game crashes here without the blizzard temple tracks. Sorry!"
+    # },
     "W Wooded Temple Tracks Bounce N": {
         "entrance": "Forest Realm North W Wooded Temple",
         "destination": "Forest Realm North W Wooded Temple",

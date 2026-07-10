@@ -2388,7 +2388,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Add fire glyph in tos lobby if station shuffle": {
         "on_scenes": [0x1400, 0x1401],
         "has_slot_data": [("shuffle_stations", 0, "not")],
-        "set_if_true": [(STAddr.adv_flags_2, 4)],
+        "set_if_true": [(STAddr.adv_flags_2, 4), (STAddr.adv_flags_0, 0x80)],
         "reset_flags": ["RESET not has fire glyph"]
     },
     "Add fire restoration flag in fire overworld": {

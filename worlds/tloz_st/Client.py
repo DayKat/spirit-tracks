@@ -18,6 +18,7 @@ SMALL_KEY_OFFSET = 0x260
 STAGE_FLAGS_OFFSET = 176
 TRAIN_SPEED_OFFSET = 0x94
 TRAIN_GEAR_OFFSET = 0x27c
+ZELDA_TEXT_OFFSET = 276
 TRAIN_QUICK_STATION_OFFSET = 0x80
 default_train_speed = (-143, 0, 115, 193)
 
@@ -26,7 +27,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open]
-read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health, STAddr.zelda_text]
+read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
 read_keys_train = [STAddr.train_health]
 
 rabbit_storage_key = "rabbit_locs"
@@ -137,7 +138,7 @@ def cmd_warp_to_start(self: "BizHawkClientCommandProcessor"):
     client = get_client_as_command_processor(self)
     client.warp_to_start_flag = not client.warp_to_start_flag
     if client.warp_to_start_flag:
-        self.output(f"Primed a warp to start. Enter any entrance or save and quit warp to Outset")
+        self.output(f"Primed a warp to start. Enter any entrance or save and quit warp to ")
     else:
         self.output(f"Canceled Warp to Start")
     return True
@@ -252,6 +253,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.stage_flags: dict[int, list[int]] = STAGE_FLAGS
         self.safe_respawn: tuple[int, int, int] | None = None
         self.warp_portal_addr: Address | None = None
+        self.safe_respawn_rooms: list[int] = safe_respawn_rooms
+        self.zelda_text_address: Address | None = None
 
 
     def printl_goal_info(self, ctx):
@@ -317,10 +320,6 @@ class SpiritTracksClient(DSZeldaClient):
         if ctx.slot_data.get("shuffle_hyrule_castle", 0) > 0:
             res.append(STAddr.adv_flags_6.get_inner_write_list(0xFC))
 
-        # Process bonus starting locations
-        for i in range(1, 11):
-            await self._process_checked_locations(ctx, f"Bonus Starting Item {i}")
-
         return res
 
     def get_coord_address(self, at_sea=None, multi=False):
@@ -348,7 +347,7 @@ class SpiritTracksClient(DSZeldaClient):
             if "dungeons" in data:
                 if ctx.slot_data["dark_realm_access"] not in [1, 3]:
                     return data["dungeons"]  # Case where dungeons are not required for dark realm
-                printl(f"{ctx.slot_data['required_dungeons']}")
+                printl(f"{ctx.slot_data['required_boss_locs']}")
                 dungeon_locs = ctx.slot_data["required_boss_locs"]
                 has_locs = sum([1 for loc in ctx.checked_locations if loc in dungeon_locs])
                 comp = has_locs >= ctx.slot_data["dungeons_required"]
@@ -412,6 +411,11 @@ class SpiritTracksClient(DSZeldaClient):
                 self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
                 read_keys.append(self.addr_drinking_potion)
             printl(f"Potion pointer {hex(potion_addr)}")
+
+            if stage == 0x13:
+                self.zelda_text_address = Address.from_pointer(await STAddr.zelda_pointer.read(ctx) + ZELDA_TEXT_OFFSET, size=4)
+                read_keys.append(self.zelda_text_address)
+
 
         self.main_read_list = read_keys
         # printl(f"read keys len: {len(read_keys)}")
@@ -692,16 +696,18 @@ class SpiritTracksClient(DSZeldaClient):
         await self.detect_ut_event(ctx, self.current_scene)
         await self.process_map_warp(ctx)
 
-        if self.current_stage == 0x13 and self.read_result[STAddr.zelda_text] == 0x30000:
+        if self.current_stage == 0x13 and self.read_result[self.zelda_text_address] == 0x30000:
             link_coords = await self.get_coords(ctx)
-            await write_multiple(ctx, [Address.from_pointer(STAddr.zelda_x + i*4, size=4) for i in range(3)],
+            zelda_pointer = await STAddr.zelda_pointer.read(ctx)
+            await write_multiple(ctx, [Address.from_pointer(zelda_pointer + 7*4 + i*4, size=4) for i in range(3)],
                                  list(link_coords.values()))
 
         if read_result[STAddr.menu] == 9:
             clog = await STAddr.flip_clog.read(ctx, silent=True)
             if clog == 0x14 and not self.warp_to_start_flag:
                 self.warp_to_start_flag = True
-                logger.info(f"Primed a warp to start. Enter any entrance or save and quit warp to Outset")
+                stage = ENTRANCES[ctx.slot_data["starting_entrance"]].stage
+                logger.info(f"Primed a warp to start. Enter any entrance or save and quit warp to {STAGES.get(stage, 'ERROR')}.")
             elif clog == 0 and self.warp_to_start_flag:
                 self.warp_to_start_flag = False
                 logger.info("Canceled warp to start.")
@@ -1659,10 +1665,9 @@ class SpiritTracksClient(DSZeldaClient):
         self.stage_flags[stage] = [o | n for o, n in zip(STAGE_FLAGS.get(stage, [0,0,0,0]), new)]
 
     async def enter_game(self, ctx):
-        if ctx.slot_data.get("shuffle_houses", 0) > 0:
-            self.starting_entrance = (0x2F, 0, 1)
-        else:
-            self.starting_entrance = (0x2F, 0xA, 1)
+        starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
+        self.starting_entrance = starting_entr.entrance
+        self.safe_respawn_rooms = safe_respawn_rooms + [starting_entr.scene]
 
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
@@ -1681,7 +1686,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
         if new_exit.category_group == EntranceGroups.WARP_PORTAL:
             await STAddr.instant_blue_warp.overwrite(ctx, 0x19)  # prevent blue warps from isntant-warping you
-        if new_exit.stage in unsafe_respawn_stages and new_exit.scene not in safe_respawn_rooms:
+        if new_exit.stage in unsafe_respawn_stages and new_exit.scene not in self.safe_respawn_rooms:
             if self.safe_respawn is None:
                 self.safe_respawn = last_detect.entrance
                 printl(f"Set new safe respawn: {hex_f(self.safe_respawn)}")
@@ -1765,3 +1770,10 @@ class SpiritTracksClient(DSZeldaClient):
         actor_manager = await STAddr.actor_manager.read(ctx)
         actor_table = await Address.from_pointer(actor_manager, size=3).read(ctx)
         return Address.from_pointer(actor_table, size=3)
+
+    async def _set_starting_flags(self, ctx):
+        await super()._set_starting_flags(ctx)
+
+        # Process bonus starting locations
+        for i in range(1, 11):
+            await self._process_checked_locations(ctx, f"Bonus Starting Item {i}")

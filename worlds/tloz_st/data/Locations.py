@@ -4320,8 +4320,8 @@ LOCATIONS_DATA |= {
     f"Bonus Starting Item {i}": {
         "region_id": "menu",
         "conditional": True,
-        "value": i+1
-    } for i in range(11)
+        "value": i
+    } for i in range(1, 11)
 }
 
 # Create location groups from loc data

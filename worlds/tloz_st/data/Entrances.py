@@ -1449,7 +1449,7 @@ ENTRANCE_DATA |= {
         "exit_region": "snow realm south",
         "extra_data": {"x_max": -240000},
         "coords": (-368640, 983, -342045),
-        "reverse_coords": "flip_h",
+        "reverse_coords": "flip_v",
         "entrance": (0x4, 0x0, 0xFB),
         "exit": (0x5, 0x0, 0xFC),
         "required_groups": ["Tracks: Snow Glyph"],
@@ -1750,7 +1750,7 @@ ENTRANCE_DATA |= {
         "exit": (0x4, 0, 0xd),
         "entrance_region": "ocean portal",
         "exit_region": "s mayscore portal",
-        "required_groups": ["Tracks: Marine Temple Tracks"],
+        "required_groups": ["Tracks: Ocean Portal"],
         "reverse_required_groups": ["Tracks: Ocean Glyph"],
         "type": EntranceGroups.TRAIN_PORTAL,
         "direction": EntranceGroups.NONE,
@@ -1775,7 +1775,7 @@ ENTRANCE_DATA |= {
         "entrance_region": "sand connection portal",
         "exit_region": "ocean temple portal",
         "required_groups": ["Tracks: Fire Realm Sand Portal"],
-        "reverse_required_groups": ["Tracks: Ocean Portal"],
+        "reverse_required_groups": ["Tracks: Marine Temple Tracks"],
         "type": EntranceGroups.TRAIN_PORTAL,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
@@ -2179,7 +2179,7 @@ ENTRANCE_DATA |= {
     },
     "ToS 3F Blue Portal": {
         "two_way": False,
-        "entrance": (0x13, 2, 0),
+        "entrance": (0x13, 2, 1),
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 3f rail map",
         "exit_region": "tos",
@@ -2189,7 +2189,7 @@ ENTRANCE_DATA |= {
     },
     "ToS 7F Blue Portal": {
         "two_way": False,
-        "entrance": (0x13, 6, 0),
+        "entrance": (0x13, 6, 1),
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 7f rail map",
         "exit_region": "tos",
@@ -2199,7 +2199,7 @@ ENTRANCE_DATA |= {
     },
     "ToS 12F Blue Portal": {
         "two_way": False,
-        "entrance": (0x13, 0xB, 0),
+        "entrance": (0x13, 0xB, 1),
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 11f",
         "exit_region": "tos",
@@ -2209,7 +2209,7 @@ ENTRANCE_DATA |= {
     },
     "ToS 17F Blue Portal": {
         "two_way": False,
-        "entrance": (0x13, 0xF, 0),
+        "entrance": (0x13, 0xF, 1),
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 16f",
         "exit_region": "tos",
@@ -2219,7 +2219,7 @@ ENTRANCE_DATA |= {
     },
     "ToS 24F Blue Portal": {
         "two_way": False,
-        "entrance": (0x13, 0x23, 0),
+        "entrance": (0x13, 0x23, 1),
         "exit": (0x14, 0x1, 1),
         "entrance_region": "tos 24f",
         "exit_region": "tos",
