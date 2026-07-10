@@ -314,6 +314,7 @@ class STAddr:
 
     instant_blue_warp = Address(0x269108)  # 17 to prevent blue warps working immediately
 
+    fade_timer = Address(0x0b5164, size=2)
 #  = Address()
 #  = Address()
 #  = Address()

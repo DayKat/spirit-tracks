@@ -1268,7 +1268,7 @@ ENTRANCE_DATA |= {
         "exit": (0x6, 0x0, 0),
         "entrance": (0x2C, 0x0, 0),
         "exit_region": "papuzia village station",
-        "entrance_region": "papuzia",
+        "entrance_region": "papuzia village",
         "reverse_required_groups": ["Tracks: Ocean Glyph"],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -2906,13 +2906,23 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.DESERT,
         "two_way": False
     },
+    "Menu Enter Game": {
+        "entrance_region": "menu",
+        "exit_region": "niko's house",
+        "entrance": (0x79, 0xFF, 0),
+        "exit": (0x2F, 0xA, 0),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+        "two_way": False
+    },
 }
 
 
 ENTRANCES: dict[str, STTransition] = STTransition.from_data(ENTRANCE_DATA)
 entrance_id_to_entrance = {e.id: e for e in ENTRANCES.values()}
 entrance_id_to_region = {e.id: e.entrance_region for e in ENTRANCES.values()}
-entrance_tuple_to_entrance: dict[tuple[int, int, int], STTransition] = {e.entrance: e for e in ENTRANCES.values()}
+entrance_tuple_to_entrance: dict[tuple, STTransition] = {e.entrance: e for e in ENTRANCES.values()}
 
 location_event_lookup = {"Stagnox Boss Reward": "EVENT: Defeat Stagnox",
                          "Fraaz Boss Reward": "EVENT: Defeat Fraaz",

@@ -20,7 +20,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
     overworld_logic: list[list] = [
 
         # ====== Outset Village ==============
-        ["menu", "niko's house", False, None],
+        # ["menu", "niko's house", False, None],
         #[region 1, region 2, two-directional, logic requirements],
         ["outset village", "outset station", False, None],
         ["outset station", "outset village", False, has_glyph("Forest")],

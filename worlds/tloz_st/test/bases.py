@@ -84,6 +84,9 @@ class TestGeneration(WorldTestBase):
 
         "entrance_directionality": {"dungeon_entrances", "pool_a"},
 
+        "randomize_start": {"stations"},
+        "free_starting_items": 2
+
         # "plando_transitions": [
         #     {"entrance": "Outset East House",
         #      "exit": "Tower of Spirits to Forest Realm"},

@@ -316,6 +316,11 @@ class SpiritTracksClient(DSZeldaClient):
         res = []
         if ctx.slot_data.get("shuffle_hyrule_castle", 0) > 0:
             res.append(STAddr.adv_flags_6.get_inner_write_list(0xFC))
+
+        # Process bonus starting locations
+        for i in range(1, 11):
+            await self._process_checked_locations(ctx, f"Bonus Starting Item {i}")
+
         return res
 
     def get_coord_address(self, at_sea=None, multi=False):
@@ -381,6 +386,8 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def watched_intro_cs(self, ctx):
         watched_intro = await STAddr.watched_intro.read(ctx) & 1
+        if not watched_intro and await STAddr.fade_timer.read(ctx) < 0xffff:
+            self.precision_mode = [STAddr.stage, 0x79, "intro_warp"]
         return watched_intro
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
@@ -477,6 +484,11 @@ class SpiritTracksClient(DSZeldaClient):
             self.precision_operation.clear()
             await bizhawk.unlock(ctx.bizhawk_ctx)
             ctx.watcher_timeout = 0.1
+
+        if self.precision_operation and self.precision_operation[0] == "intro_warp":
+            s, r, e = ENTRANCES[ctx.slot_data["starting_entrance"]].entrance
+            entrance_writes = [a.get_inner_write_list(v) for a, v in zip(self.scene_addr, [s, r, 0, e])]
+            await bizhawk.write(ctx.bizhawk_ctx, entrance_writes)
 
     async def store_event(self, ctx, event_name):
         entr = self.entrances[event_name]

@@ -317,7 +317,8 @@ class SpiritTracksDeathLink(DeathLink):
 class SpiritTracksStartWithTrain(Toggle):
     """
     Starts you with a forest glyph including track and cannon depending on cannon logic, giving you train access from the start.
-    On by default to give people more checks in the beginning
+    On by default to give people more checks in the beginning.
+    Is currently not too keen on entrance/starting randomization, but might have some compatibility soon.
     """
     display_name = "Start With Train"
     default = 1
@@ -977,6 +978,28 @@ class SpiritTracksDecoupleEntrances(Toggle):
     default = 0
     display_name = "Decouple Shuffled Entrances"
 
+class SpiritTracksRandomizeStart(OptionSet):
+    """
+    Where you start the game.
+    Is a set of entrances it will roll from.
+    Special options include:
+    - niko: the vanilla start.
+    - tos: start in Tower of Spirits
+    - stations: adds all stations to the pool. Note that most stations have zero sphere 0 locations
+    """
+    default = {'niko'}
+    valid_keys = frozenset(set(ENTRANCES.keys()) | {"niko", "tos", "stations"})
+
+class SpiritTracksFreeStartingItems(Range):
+    """
+    Gives you this many free items on starting the game.
+    Useful with random start on solo seeds, to ensure that starting is possible.
+    """
+    range_start = 0
+    range_end = 10
+    default = 0
+    display_name = "Free Starting Items"
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -1009,7 +1032,6 @@ class SpiritTracksOptions(PerGameCommonOptions):
     open_blue_warps: SpiritTracksOpenBlueWarps
 
     progressive_equipment: SpiritTracksProgressiveEquipment
-    start_with_train: SpiritTracksStartWithTrain
     track_pool: SpiritTracksTrackGroupings
     shields_in_pool: SpiritTracksShields
 
@@ -1052,6 +1074,11 @@ class SpiritTracksOptions(PerGameCommonOptions):
     rabbit_extra_items: SpiritTracksExtraRabbits
     # rabbit_hints: SpiritTracksRabbitHints
 
+    # Start Options
+    randomize_start: SpiritTracksRandomizeStart
+    free_starting_items: SpiritTracksFreeStartingItems
+    start_with_train: SpiritTracksStartWithTrain
+
     # Entrance Rando
     shuffle_houses: SpiritTracksShuffleHouses
     shuffle_caves: SpiritTracksShuffleCaves
@@ -1068,6 +1095,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_hyrule_castle: SpiritTracksShuffleHyruleCastle
     shuffle_disorientation: SpiritTracksShuffleDisorientationStation
     shuffle_eote: SpiritTracksShuffleEotE
+
     plando_transitions: SpiritTracksEntrancePlando
     entrance_directionality: SpiritTracksEntranceDirectionality
     decouple_shuffled_entrances: SpiritTracksDecoupleEntrances
@@ -1115,8 +1143,7 @@ st_option_groups = [
     OptionGroup("Item Options", [
         SpiritTracksProgressiveEquipment,
         SpiritTracksTrackGroupings,
-        SpiritTracksShields,
-        SpiritTracksStartWithTrain,
+        SpiritTracksShields
     ]),
     OptionGroup("More Randomization", [
         SpiritTracksRandomizeMinigames,
@@ -1154,6 +1181,11 @@ st_option_groups = [
         SpiritTracksRandomizePortals,
         SpiritTracksOpenBlueWarps,
         SpiritTracksOpenBlizzardTemple,
+    ]),
+    OptionGroup("Starting Options", [
+       SpiritTracksRandomizeStart,
+        SpiritTracksFreeStartingItems,
+        SpiritTracksStartWithTrain,
     ]),
     OptionGroup("Entrance Randomizer Options", [
         SpiritTracksShuffleHouses,
