@@ -45,6 +45,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
                     Has("Cargo: Cuccos (5)", 2) & ool))],
         ["outset village", "delivered ferrus", False, has_passenger("Alfonzo", "_picked_up_alfonzo")
             & has_passenger("Ferrus", "_ferrus_1")],
+        ["delivered ferrus", "outset ferrus event", False, None],
         ["train workshop", "outset ferrus", None, Has("_delivered_ferrus")],
 
         # ========= Forest Realm ==========
@@ -70,6 +71,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # cave
         ["forest realm", "forest cave tracks", True, has_tracks("Forest Realm SW Cave") & has_glyph("Forest")],
         ["forest cave tracks", "forest cave portal loc", False, has_cannon],
+        ["forest cave portal loc", "cave portal event", False, None],
         ["forest cave tracks", "w forest tracks", True, has_tracks("Forest Realm SW Cave") & has_tracks("W Forest Realm")],
         ["w forest tracks", "snow realm", True, has_glyph("Snow") & has_tracks("W Forest Realm")],
         ["w forest tracks", "wtt", True, has_temple_tracks("Wooded") & has_tracks("W Forest Realm")],
@@ -104,6 +106,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snow bridge north", "snow realm", True, has_glyph("Snow") & has_tracks("Snow Realm Bridge")],
         ["snow bridge north", "snow realm source", True, has_source("Snow") & has_tracks("Snow Realm Bridge")],
         ["snow bridge north", "snow bridge portal loc", False, has_cannon],
+        ["snow bridge portal loc", "snow bridge portal event", False, None],
 
         ["wtt", "forest ferrus", False, has_passenger("Ferrus", "_ferrus_3")],
         ["forest source", "forest ferrus", False, has_passenger("Ferrus", "_ferrus_3")],
@@ -387,6 +390,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["wt 4f", "wt blue warp", True, None],
         ["wt blue warp", "wt lobby", False, None],
+        ["wt blue warp", "wt warp event", False, None],
         ["wt lobby", "wt blue warp", False, Has("_wt_warp") | open_warps],
         ["wt 4f", "wt pre stagnox", False, None],
         ["wt pre stagnox", "wt 4f", False, has_sword & has_whirlwind],
@@ -445,6 +449,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snow realm south", "snow realm fr", True, has_glyph("Snow")],
         ["snow realm south", "snow realm", True, soft_cannon],
         ["snow realm south", "anouki portal", False, has_cannon],
+        ["anouki portal", "anouki portal event", False, None],
         ["snow realm", "blizzard temple tracks", True, has_temple_tracks("Blizzard") & has_glyph("Snow")],
         ["snow realm", "snow realm rabbits", False, has_net],
         ["blizzard temple tracks", "blizzard temple tracks rabbits", False, has_net],
@@ -456,6 +461,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["blizzard temple tracks", "icyspring tracks", True, has_tracks("N Icy Spring") & has_temple_tracks("Blizzard")],
         ["icyspring tracks", "icyspring rabbits", False, has_net],
         ["icyspring tracks", "icyspring portal loc", False, has_cannon],
+        ["icyspring portal loc", "icyspring portal event", False, None],
 
         ["blizzard temple tracks", "snow realm ferrus", False, 
             has_source("Snow") & has_passenger("Alfonzo", "_picked_up_alfonzo")],
@@ -465,6 +471,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
                           "Forest Realm SE Portal", "Blizzard Temple Tracks",
                           "Trading Post to E Snow Realm", "_tp_portal"),
         ["forest realm se portal track", "trading post portal", False, has_cannon],
+        ["trading post portal", "trading post portal event", False, None],
 
         # ======== Anouki Village ========
 
@@ -493,6 +500,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["anouki village", "av kenzo", False, (has_passenger("Kenzo", "_kenzo_2") | no_passengers)
         | (has_cargo("Lumber", "_buy_lumber") | no_cargo)],
         ["anouki village", "av goron", False, has_passenger("Snow Goron", "_goron")],
+        ["av goron", "av goron event", False, None],
         ["honcho's house", "av kofu", False, (has_glyph("Fire") | has_source("Fire")) & Has("_av_goron")],
 
         # =========== Snow Sanctuary ==========
@@ -580,6 +588,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 3f", "bt blue warp", True, None],
         ["bt blue warp", "bt lobby", False, None],
         ["bt lobby", "bt blue warp", False, Has("_bt_warp") | open_warps],
+        ["bt blue warp", "bt warp event", False, None],
 
         ["bt pre fraaz", "bt fraaz", False, has_damage & has_boomerang],
         ["bt fraaz", "goal_fraaz", False, None],
@@ -648,6 +657,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["ocean temple tracks", "ocean portal tracks", True, has_temple_tracks("Marine") & has_tracks("Ocean Portal")],
         ["ocean portal tracks", "sand realm", False, has_tracks("Sand Realm") & has_tracks("Ocean Portal")],
         ["ocean portal tracks", "ocean portal loc", False, has_cannon],
+        ["ocean portal loc", "ocean portal event", False, None],
 
         ["ocean temple tracks", "undersea entrance", True, has_temple_tracks("Marine")],
         ["ocean realm source", "undersea entrance", True, has_source("Ocean")],
@@ -693,6 +703,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             if world.options.randomize_passengers == "no_passengers" else
             ["island sanc sanc", "island sanc song", False, has_spirit_flute & Has("_deliver_carben")],
         ["island sanc", "island sanc carben", False, has_passenger("Carben", "_carben")],
+        ["island sanc carben", "carben event", False, None],
 
         # ========== Papuzia Village =============
         ["ocean realm", "papuzia village station", True, has_glyph("Ocean")],
@@ -794,8 +805,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 6f boss door", "oct 7f south", True, None],
 
         ["oct 7f south", "oct 7f north", True, has_whip],
-        ["oct 7f north", "oct pre phytops", False, has_whip],
-        ["oct pre phytops", "oct 7f north", False, has_whip & has_good_damage],
+        ["oct 7f thorns", "oct 7f north", False, None],
+        ["oct 7f north", "oct 7f thorns", False, has_whip],
+        ["oct 7f thorns", "oct pre phytops", False, None],
+        ["oct pre phytops", "oct 7f thorns", False, has_whip & has_good_damage],
         ["oct pre phytops", "oct phytops", False, has_whip & has_good_damage],
         ["oct phytops", "event_phytops", False, None],
         ["oct phytops", "goal_phytops", False, None],
@@ -803,6 +816,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 7f north", "oct blue warp", True, None],
         ["oct lobby", "oct blue warp", False, Has("_oct_warp") | open_warps],
         ["oct blue warp", "oct lobby", False, None],
+        ["oct blue warp", "oct warp event", False, None],
         ["oct lobby", "oct ferrus", False, has_passenger("Ferrus", "_ferrus_2")
                        & (randomize_passengers | ool | Has("_ferrus_backup"))],
         # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
@@ -1023,6 +1037,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["mtt b4", "mtt blue warp", True, None],
         ["mtt blue warp", "mtt lobby", False, None],
+        ["mtt blue warp", "mtt warp event", False, None],
         ["mtt lobby", "mtt blue warp", False, Has("_mtt_warp") | open_warps],
 
         ["mtt b4", "mtt pre vulcano", False, None],
@@ -1039,7 +1054,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["disorientation bird", "disorientation top", False, has_sod],
         ["disorientation top", "disorientation station", False, None],
         ["disorientation top", "disorientation gift", False, Has("_disorientation_chest")],
-        ["d3", "disorientation sod", False, has_sod],
+        ["d9", "disorientation sod", False, has_sod],
+        ["disorientation sod", "disorientation event", False, None],
         ["d5", "disorientation top", True, None],
 
         ["d1", "d2", True, None],
@@ -1114,8 +1130,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand restoration south", "sand restoration south rabbits", False, has_net],
         ["sand connection", "sand connection rabbit", False, has_net],
 
-        ["sand restoration south", "sand restoration portal", True, has_cannon],
-        ["sand connection", "sand connection portal loc", True, has_cannon],
+        ["sand restoration south", "sand restoration portal", False, has_cannon],
+        ["sand connection", "sand connection portal loc", False, has_cannon],
+        ["sand restoration portal", "sand restoration portal event", False, None],
+        ["sand connection portal loc", "sand connection portal event", False, None],
 
         *get_portal_logic("sand restoration south", "desert temple portal",
                           "sand realm", "sand realm portal",
@@ -1196,6 +1214,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["dt b2 n", "dt blue warp", True, None],
         ["dt blue warp", "dt lobby", False, None],
+        ["dt blue warp", "dt warp event", False, None],
         ["dt lobby", "dt blue warp", False, Has("_dt_warp") | open_warps],
 
         # ===== Dark ore mine =====

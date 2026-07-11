@@ -47,6 +47,15 @@ REGIONS = [
     "desert temple portal",
     "sand connection portal",
     "ocean temple portal",
+    # portal events
+    "cave portal event",
+    "snow bridge portal event",
+    "anouki portal event",
+    "icyspring portal event",
+    "trading post portal event",
+    "ocean portal event",
+    "sand restoration portal event",
+    "sand connection portal event",
 
     # Outset Village
     "outset village",
@@ -61,6 +70,7 @@ REGIONS = [
     "outset cuccos",
     "outset ferrus",
     "delivered ferrus",
+    "outset ferrus event",
 
     "niko's house",
     "mary's house",
@@ -293,6 +303,7 @@ REGIONS = [
     "wt 3f boss door",
     "wt 4f",
     "wt blue warp",
+    "wt warp event",
 
     "wt pre stagnox",
     "wt stagnox",
@@ -354,6 +365,7 @@ REGIONS = [
     "av fence",
     "av kenzo",
     "av goron",
+    "av goron event",
     "av kofu",
 
     "honcho's house",
@@ -417,6 +429,7 @@ REGIONS = [
     "bt 2f boss key",
     "bt 3f",
     "bt blue warp",
+              "bt warp event",
 
     "bt pre fraaz",
     "bt fraaz",
@@ -501,6 +514,7 @@ REGIONS = [
     "island sanc nw chest",
     "island sanc song",
     "island sanc carben",
+    "carben event",
 
     # Papuchia Village
     "papuzia village",
@@ -575,7 +589,10 @@ REGIONS = [
     
     "oct 7f south",
     "oct 7f north",
+    "oct 7f thorns",
     "oct blue warp",
+    "oct warp event",
+
     "oct pre phytops",
     "oct phytops",
     "event_phytops",
@@ -630,6 +647,7 @@ REGIONS = [
     "disorientation sod",
     "disorientation top",
     "disorientation gift",
+    "disorientation event",
 
     "d1",
     "d2",
@@ -764,6 +782,7 @@ REGIONS = [
     "event_vulcano",
     "goal_vulcano",
     "mtt blue warp",
+    "mtt warp event",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Sand Realm
@@ -822,6 +841,7 @@ REGIONS = [
     "skeldritch event",
     "skeldritch goal",
     "dt blue warp",
+    "dt warp event",
 
     # Dark ore mine
     "dark ore mine",

@@ -2607,7 +2607,7 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 7F North Staircase": {
         "return_name": "Cactops Exit",
-        "entrance_region": "oct 7f north",
+        "entrance_region": "oct 7f thorns",
         "exit_region": "oct pre phytops",
         "entrance": (0x1b, 0x6, 1),
         "exit": (0x20, 0x0, 0),
@@ -2915,6 +2915,174 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
         "two_way": False
+    },
+
+    # New Events
+    "EVENT: Visit Kagoron at the Mountain Altar": {
+        "two_way": False,
+        "entrance_region": "mountain altar",
+        "exit_region": "kagoron event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Bring Ferrus to Outset": {
+        "two_way": False,
+        "entrance_region": "delivered ferrus",
+        "exit_region": "outset ferrus event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Bring Goron to Anouki Village": {
+        "two_way": False,
+        "entrance_region": "av goron",
+        "exit_region": "av goron event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Bring Carben to Island Sanctuary": {
+        "two_way": False,
+        "entrance_region": "island sanc carben",
+        "exit_region": "carben event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Disorientation Maze Find Chest": {
+        "two_way": False,
+        "entrance_region": "disorientation sod",
+        "exit_region": "disorientation event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+
+    # Open Dungeon Warps
+    "EVENT: Wooded Temple Open Blue Warp": {
+        "two_way": False,
+        "entrance_region": "wt blue warp",
+        "exit_region": "wt warp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Blizzard Temple Open Blue Warp": {
+        "two_way": False,
+        "entrance_region": "bt blue warp",
+        "exit_region": "bt warp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Marine Temple Open Blue Warp": {
+        "two_way": False,
+        "entrance_region": "oct blue warp",
+        "exit_region": "oct warp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Mountain Temple Open Blue Warp": {
+        "two_way": False,
+        "entrance_region": "mtt blue warp",
+        "exit_region": "mtt warp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Desert Temple Open Blue Warp": {
+        "two_way": False,
+        "entrance_region": "dt blue warp",
+        "exit_region": "dt warp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+
+    # Open Train Portals
+    "EVENT: Unlock Forest Realm Cave Portal": {
+        "two_way": False,
+        "entrance_region": "forest cave portal loc",
+        "exit_region": "cave portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Unlock Snow Bridge Portal": {
+        "two_way": False,
+        "entrance_region": "snow bridge portal loc",
+        "exit_region": "snow bridge portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Unlock Anouki Village Portal": {
+        "two_way": False,
+        "entrance_region": "anouki portal",
+        "exit_region": "anouki portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Unlock Icy Spring Portal": {
+        "two_way": False,
+        "entrance_region": "icyspring portal loc",
+        "exit_region": "icyspring portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Unlock Forest Realm SE Portal": {
+        "two_way": False,
+        "entrance_region": "trading post portal",
+        "exit_region": "trading post portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Unlock Ocean Portal": {
+        "two_way": False,
+        "entrance_region": "ocean portal loc",
+        "exit_region": "ocean portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Unlock Desert Temple Portal": {
+        "two_way": False,
+        "entrance_region": "sand restoration portal",
+        "exit_region": "sand restoration portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Unlock Sand Connection Portal": {
+        "two_way": False,
+        "entrance_region": "sand connection portal loc",
+        "exit_region": "sand connection portal event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
     },
 }
 

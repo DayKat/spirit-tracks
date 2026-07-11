@@ -395,7 +395,9 @@ class SpiritTracksWorld(WorldParent):
         if self.options.randomize_cargo == "vanilla":
             pass
         if self.options.randomize_cargo.value > 0:
-            events += ["EVENT: Bring Ice to Kagoron"]
+            events += [
+                "EVENT: Visit Kagoron at the Mountain Altar",
+                "EVENT: Bring Ice to Kagoron"]
 
         if self.options.goal == "defeat_malladus" and self.options.dark_realm_access in ["dungeons", "both"]:
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
@@ -406,6 +408,35 @@ class SpiritTracksWorld(WorldParent):
                     events += ["EVENT: Defeat Staven"]
                 elif self.options.tos_dungeon_options == "all_sections":
                     events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F", "EVENT: Reach ToS 12F", "EVENT: Reach ToS 17F", "EVENT: Defeat Staven", "EVENT: Reach ToS 24F"]
+
+        if not self.options.open_blue_warps.value and self.options.shuffle_warps.value:
+            events += [
+                "EVENT: Desert Temple Open Blue Warp",
+                "EVENT: Mountain Temple Open Blue Warp",
+                "EVENT: Marine Temple Open Blue Warp",
+                "EVENT: Blizzard Temple Open Blue Warp",
+                "EVENT: Wooded Temple Open Blue Warp"
+            ]
+        if self.options.shuffle_houses.value and self.options.randomize_passengers.value:
+            events += ["EVENT: Bring Goron to Anouki Village",
+                       "EVENT: Bring Ferrus to Outset"]
+
+        if self.options.randomize_passengers.value and self.options.shuffle_caves.value:
+            events += ["EVENT: Bring Carben to Island Sanctuary"]
+
+        if self.options.shuffle_portals.value and self.options.portal_behavior.value == 0:
+            events += [
+                "EVENT: Unlock Forest Realm Cave Portal",
+                "EVENT: Unlock Snow Bridge Portal",
+                "EVENT: Unlock Anouki Village Portal",
+                "EVENT: Unlock Icy Spring Portal",
+                "EVENT: Unlock Forest Realm SE Portal",
+                "EVENT: Unlock Ocean Portal",
+                "EVENT: Unlock Desert Temple Portal",
+                "EVENT: Unlock Sand Connection Portal"
+            ]
+        if self.options.shuffle_caves.value:
+            events += ["EVENT: Disorientation Maze Find Chest"]
 
         self.ut_events = events
         self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if
@@ -734,11 +765,18 @@ class SpiritTracksWorld(WorldParent):
         self.create_event("goron ice event", "_goron_ice")  # Used for GTR
         self.create_event("kagoron event", "_visit_kagoron")
         self.create_event("papuzia village song statue", "_papuzia_sob")
-        self.create_event("disorientation sod", "_disorientation_chest")
+        self.create_event("disorientation event", "_disorientation_chest")
         if self.options.randomize_passengers.value:
-            self.create_event("delivered ferrus", "_delivered_ferrus")
-            self.create_event("av goron", "_av_goron")
-            self.create_event("island sanc carben", "_deliver_carben")
+            self.create_event("outset ferrus event", "_delivered_ferrus")
+            self.create_event("av goron event", "_av_goron")
+            self.create_event("carben event", "_deliver_carben")
+
+        def create_blue_warp_events():
+            self.create_event("wt warp event", "_wt_warp")
+            self.create_event("bt warp event", "_bt_warp")
+            self.create_event("oct warp event", "_oct_warp")
+            self.create_event("mtt warp event", "_mtt_warp")
+            self.create_event("dt warp event", "_dt_warp")
 
         # DER events. might add if statement later
         if self.options.exclude_dungeons.value == 2:
@@ -752,45 +790,30 @@ class SpiritTracksWorld(WorldParent):
             if not self.options.open_blue_warps.value:
                 if self.shuffled_dungeon_lookup and self.options.shuffle_warps.value in [0, 5]:
                     if self.shuffled_dungeon_lookup["Wooded Temple"] not in self.non_required_dungeons:
-                        self.create_event("wt blue warp", "_wt_warp")
+                        self.create_event("wt warp event", "_wt_warp")
                     if self.shuffled_dungeon_lookup["Blizzard Temple"] not in self.non_required_dungeons:
-                        self.create_event("bt blue warp", "_bt_warp")
+                        self.create_event("bt warp event", "_bt_warp")
                     if self.shuffled_dungeon_lookup["Marine Temple"] not in self.non_required_dungeons:
-                        self.create_event("oct blue warp", "_oct_warp")
+                        self.create_event("oct warp event", "_oct_warp")
                     if self.shuffled_dungeon_lookup["Mountain Temple"] not in self.non_required_dungeons:
-                        self.create_event("mtt blue warp", "_mtt_warp")
+                        self.create_event("mtt warp event", "_mtt_warp")
                     if self.shuffled_dungeon_lookup["Desert Temple"] not in self.non_required_dungeons:
-                        self.create_event("dt blue warp", "_dt_warp")
+                        self.create_event("dt warp event", "_dt_warp")
                 else:
-                    print(f"UT is creating warp events")
-                    self.create_event("wt blue warp", "_wt_warp")
-                    self.create_event("bt blue warp", "_bt_warp")
-                    self.create_event("oct blue warp", "_oct_warp")
-                    self.create_event("mtt blue warp", "_mtt_warp")
-                    self.create_event("dt blue warp", "_dt_warp")
+                    create_blue_warp_events()
         else:
-            self.create_event("wt blue warp", "_wt_warp")
-            self.create_event("bt blue warp", "_bt_warp")
-            self.create_event("oct blue warp", "_oct_warp")
-            self.create_event("mtt blue warp", "_mtt_warp")
-            self.create_event("dt blue warp", "_dt_warp")
+            create_blue_warp_events()
 
-            self.create_event("bt 1f ne bell", "_bt_bell_2")
-            self.create_event("bt 1f nw bell", "_bt_bell_3")
-            self.create_event("oct 2f boulders", "_oct_boulders")
-            self.create_event("oct boomerang switch", "_oct_boomerang")
-            self.create_event("oct 6f sw arena", "_oct_6f_arena")
-
-        # Portal events
+        # Train Portal events
         if self.options.portal_behavior.value == 0:
-            self.create_event("forest cave portal loc", "_cave_portal")
-            self.create_event("trading post portal", "_tp_portal")
-            self.create_event("anouki portal", "_sr_portal")
-            self.create_event("snow bridge portal loc", "_bridge_portal")
-            self.create_event("icyspring portal loc", "_icyspring_portal")
-            self.create_event("ocean portal loc", "_ocean_portal")
-            self.create_event("sand restoration portal", "_dt_portal")
-            self.create_event("sand connection portal loc", "_sand_portal")
+            self.create_event("cave portal event", "_cave_portal")
+            self.create_event("trading post portal event", "_tp_portal")
+            self.create_event("anouki portal event", "_sr_portal")
+            self.create_event("snow bridge portal event", "_bridge_portal")
+            self.create_event("icyspring portal event", "_icyspring_portal")
+            self.create_event("ocean portal event", "_ocean_portal")
+            self.create_event("sand restoration portal event", "_dt_portal")
+            self.create_event("sand connection portal event", "_sand_portal")
 
 
     def exclude_locations_automatically(self):

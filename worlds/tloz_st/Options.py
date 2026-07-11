@@ -895,7 +895,6 @@ class SpiritTracksToSShortcuts(Toggle):
 class SpiritTracksMapWarp(Toggle):
     """
     Enable warping to any previously visited station or realm by opening the rail map and tapping a station.
-    Requires the forest glyph to enable the rail map menu icon.
     You can always warp to start by flipping the collection screen.
     """
     display_name = "Enable Map Warp"
