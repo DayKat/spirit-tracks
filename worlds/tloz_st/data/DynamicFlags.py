@@ -2545,6 +2545,16 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2802, 0x2805],
         "has_slot_data": [("shuffle_hyrule_castle", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_6, 0x10)],
+    },
+    "Remove forest glyph on train map warp": {
+        "on_scenes": [0x400, 0x500, 0x600, 0x700],
+        "has_slot_data": [("enable_map_warp", 1)],
+        "not_has_groups": ["Tracks: Forest Glyph"],
+        "unset_if_true": [(STAddr.adv_flags_1, 0x80)],
+        "reset_flags": ["RESET map warp forest glyph"]
+    },
+    "RESET map warp forest glyph": {
+        "set_if_true": [(STAddr.adv_flags_1, 0x80)]
     }
 }
 

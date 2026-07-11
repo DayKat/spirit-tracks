@@ -96,10 +96,16 @@ class SpiritTracksSettings(settings.Group):
         The train will instantly switch to the new speed when changing gears, no acceleration required.
         Does not apply to your stop gear.
         """
+    class STUTConnectMaps(str):
+        """
+        UT will account for unlocked map warps with /get_logical_path.
+        Turn off in case you want to see the normal path.
+        """
 
     train_speed: STTrainSpeed = STTrainSpeed([-143, 0, 115, 193])
     train_snap_speed: Union[STTrainSnapSpeed, bool] = True
     train_quick_station: Union[STTrainInstantStation, bool] = True
+    ut_connect_map_warps: Union[STUTConnectMaps, bool] = True
 
 dev_prints = False
 
@@ -133,7 +139,8 @@ class SpiritTracksWorld(WorldParent):
                      "map_page_locations": ["locations/overworld.json", "entrances/entrances.json"]}
     found_entrances_datastorage_key = ["st_checked_entrances_{player}_{team}",
                                        "st_traversed_entrances_{player}_{team}",
-                                       "st_redisconnected_entrances_{player}_{team}"]
+                                       "st_redisconnected_entrances_{player}_{team}",
+                                       "st_visited_scenes_{player}_{team}"]
 
     # Rule builder attributes
     item_mapping = ITEM_MAPPING
@@ -159,6 +166,7 @@ class SpiritTracksWorld(WorldParent):
         self.ut_checked_entrances: set[int] = set()
         self.ut_traversed_entrances: set[int] = set()
         self.ut_redisconnected_entrances: set[int] = set()
+        self.ut_visited_scenes: set[int] = set()
         self.ut_pairings = {}
         self.ut_events = []
         self.is_ut = getattr(self.multiworld, "generation_is_fake", False)
@@ -754,6 +762,7 @@ class SpiritTracksWorld(WorldParent):
                     if self.shuffled_dungeon_lookup["Desert Temple"] not in self.non_required_dungeons:
                         self.create_event("dt blue warp", "_dt_warp")
                 else:
+                    print(f"UT is creating warp events")
                     self.create_event("wt blue warp", "_wt_warp")
                     self.create_event("bt blue warp", "_bt_warp")
                     self.create_event("oct blue warp", "_oct_warp")
@@ -1900,9 +1909,25 @@ class SpiritTracksWorld(WorldParent):
     def interpret_slot_data(slot_data: dict[str, Any]):
         return slot_data
 
+    def ut_add_warp_connection(self, key, stored_data):
+        """Create direct connections to map warp locations for glp"""
+        if not self.options.enable_map_warp.value or not self.settings.get('ut_get_logical_path_shortcuts', True):
+            print(f"Map warp shortcuts disabled.")
+            return
+        if "st_visited_scenes" in key:
+            new_scenes = set(stored_data) - self.ut_visited_scenes
+            self.ut_visited_scenes |= new_scenes
+            for scene in new_scenes:
+                reg = self.get_region(WARP_SCENES[scene].region)
+                print(f"Connecting map warp: {reg}")
+                self.get_region("menu").connect(reg, f"Map Warp to {reg.name}")
+
+
     def reconnect_found_entrances(self, key, stored_data):
         print(f"UT Tried to defer entrances! key {key}"
               f" {stored_data}")
+
+        self.ut_add_warp_connection(key, stored_data)
 
         if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
             print(f"Don't defer entrances when off")

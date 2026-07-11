@@ -35,6 +35,7 @@ saved_scene_key = "last_saved_scene"
 checked_entrances_key = "st_checked_entrances"
 traversed_entrances_key = "st_traversed_entrances"
 redisconnected_entrances_key = "st_redisconnected_entrances"
+visited_scenes_key = "st_visited_scenes"
 
 def count_bits(n):
     count = 0
@@ -256,6 +257,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.safe_respawn_rooms: list[int] = safe_respawn_rooms
         self.zelda_text_address: Address | None = None
 
+        self.map_warp_item_cache: tuple[bool] | False = None
+
 
     def printl_goal_info(self, ctx):
         slot_data = ctx.slot_data
@@ -319,6 +322,8 @@ class SpiritTracksClient(DSZeldaClient):
         res = []
         if ctx.slot_data.get("shuffle_hyrule_castle", 0) > 0:
             res.append(STAddr.adv_flags_6.get_inner_write_list(0xFC))
+        if ctx.slot_data["enable_map_warp"]:
+            res.append(STAddr.adv_flags_1.get_inner_write_list(0x80))
 
         return res
 
@@ -1384,6 +1389,13 @@ class SpiritTracksClient(DSZeldaClient):
                 self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), 0,
                                        "delete_ow_actors", actor_table]
 
+        # Save visited scenes
+        if ctx.slot_data.get("enable_map_warp", 1):
+            warp_data = WARP_SCENES.get(self.current_scene, False)
+            if warp_data and warp_data.is_valid(self.current_entrance, ctx.slot_data):
+                self.visited_scenes.add(self.current_scene)
+                await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [self.current_scene])
+
     async def open_boss_door(self, ctx):
         current_scene = self.current_scene
         if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
@@ -1676,6 +1688,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
         self.redisconnected_entrances |= set(get_stored_data(ctx, redisconnected_entrances_key, set()))
+        self.visited_scenes |= set(get_stored_data(ctx, visited_scenes_key, set()))
 
         # Set settings specific stage flags
         self.stage_flags = STAGE_FLAGS
@@ -1725,38 +1738,54 @@ class SpiritTracksClient(DSZeldaClient):
                 return "Desert Temple Lobby Enter Dungeon"
             return False
 
+        def set_warp_flag(e: "STTransition"):
+            self.selected_station = entrance.stage
+            if e.scene in self.visited_scenes:
+                self.map_warp = entrance
+                logger.info(f"Selected station to warp to: {e.name}")
+            else:
+                logger.info(f"You have yet to visit {e.name}.")
 
         if self.read_result[STAddr.menu] in [1, 5]:
+            if not self.map_warp_item_cache:
+                self.map_warp_item_cache = (self.has_from_group(ctx, "Tracks: Forest Glyph"),
+                                            self.has_from_group(ctx, "Tracks: Fire Glyph"))
+                print(f"Set map warp cache: {self.map_warp_item_cache}")
+
             if not self.unlocked_map:
                 await STAddr.adv_flags_2.set_bits(ctx, 0x4)
                 self.unlocked_map = 1
                 print(f"Adding tracks init {1}")
+                self.visited_scenes |= set(get_stored_data(ctx, visited_scenes_key, set()))
+                print(f"visited scenes: {self.visited_scenes} {set(get_stored_data(ctx, visited_scenes_key, set()))}")
             if self.read_result.get(STAddr.map_open, 0):
                 if self.warp_to_start_flag:
                     self.warp_to_start_flag = None
                     logger.info(f"Canceled warp to start")
                 selected_station = await STAddr.selected_station.read(ctx, silent=True)
                 if selected_station:
-                    if self.unlocked_map < 2 and not self.has_from_group(ctx, "Tracks: Fire Glyph"):
-                        await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
+                    if self.unlocked_map < 2:
+                        if not self.map_warp_item_cache[0]:
+                            await STAddr.adv_flags_1.unset_bits(ctx, 0x80)
+                        if not self.map_warp_item_cache[1]:
+                            await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
                         self.unlocked_map = 2
                         print(f"Removing tracks {2}")
                     if selected_station != self.selected_station:
+                        print(f"Selecting station")
                         self.selected_station = selected_station
                         if selected_station == 0x3f and await STAddr.last_x.read(ctx) > 0x45:
-                            self.map_warp = entrance_tuple_to_entrance[(0x3F, 0xA, 0)]
+                            entrance = entrance_tuple_to_entrance[(0x3F, 0xA, 0)]
                         else:
-                            self.map_warp = entrance_tuple_to_entrance.get(
+                            entrance = entrance_tuple_to_entrance.get(
                                 map_warp_redirects.get(selected_station, None),
                                 entrance_tuple_to_entrance.get(
                                     (selected_station, 0, 0),
                                     None))
-                        if not self.map_warp:
+                        if not entrance:
                             logger.info(f"Oops that didn't work {(selected_station, 0, 0)}")
-                        elif await self.conditional_er(ctx, self.map_warp):
-                            logger.info(f"Selected station to warp to: {self.map_warp.name} {hex_f(self.map_warp.entrance)}")
-                        else:
-                            self.map_warp = None
+                        elif await self.conditional_er(ctx, entrance):
+                            set_warp_flag(entrance)
                     in_submap = await STAddr.exiting_map.read(ctx, silent=True) != 0xFF
 
                     if self.unlocked_map == 2 and in_submap:
@@ -1769,22 +1798,22 @@ class SpiritTracksClient(DSZeldaClient):
                 elif self.unlocked_map == 4:  # not selected_station
                     self.unlocked_map = 1
                     print(f"Reset cycle {1}")
+                    if not self.map_warp_item_cache[0]:
+                        await STAddr.adv_flags_1.set_bits(ctx, 0x80)
                 else:
                     coord_warp = await check_tos()
                     if not coord_warp:
                         return
                     entrance = self.entrances[coord_warp]
                     if self.selected_station != entrance.stage:
-                        self.map_warp = entrance
-                        self.selected_station = entrance.stage
-                        logger.info(f"Selected station to warp to: {self.map_warp.name} {hex_f(self.map_warp.entrance)}")
-
+                        set_warp_flag(entrance)
 
         elif self.unlocked_map:
-            if not self.has_from_group(ctx, "Tracks: Fire Glyph"):
+            if not self.map_warp_item_cache[1]:
                 await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
             self.unlocked_map = 0
             self.selected_station = 0
+            self.map_warp_item_cache = None
             print(f"Quitting tracks {0}")
 
     @staticmethod

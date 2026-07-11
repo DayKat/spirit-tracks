@@ -112,7 +112,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["castle station", "castle town", False, has_glyph("Forest")],
         ["castle town", "castle station", False, None],
-        ["forest realm", "castle station", True, has_glyph("Forest")],
+        ["forest realm", "castle station", True, has_glyph("Forest") & soft_cannon],
         ["castle town", "castle town goron", False, has_passenger("City Goron", "_goron")],
         ["castle town", "pick up alfonzo", False, has_glyph("Snow")],
         ["castle town", "castle town teacher", False, has_glyph("Snow") | has_glyph("Ocean") | has_glyph("Fire")],

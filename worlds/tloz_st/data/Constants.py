@@ -1,3 +1,4 @@
+import dataclasses
 from dataclasses import dataclass
 
 from .Addresses import STAddr
@@ -12,7 +13,7 @@ STARTING_FLAGS = [
     # easier to bugfix)
 
     [STAddr.adv_flags_0, 0x04],  # restore spirit train cutscene skip
-    [STAddr.adv_flags_1, 0x00],  # forest restoration duet done
+    # [STAddr.adv_flags_1, 0x00],  # forest restoration duet done
     [STAddr.adv_flags_2, 0xF0],  # sword tutorial and intro stuff
     [STAddr.adv_flags_3, 0x47],  # split ToS and zelda 1st convo
     [STAddr.adv_flags_4, 0xB4],  # load train to ToS
@@ -877,6 +878,74 @@ pool_name_lookup = {
     2: "pool_c",
     3: "in_own_dungeon"
 }
+
+@dataclass
+class WarpStorageData:
+    scene: int
+    region: str
+    valid_entrances: set = None
+    invalid_entrances: set = None
+    special_options: bool = False
+
+    def __eq__(self, other):
+        return self.scene == other
+
+    def __ne__(self, other):
+        return self.scene != other
+
+    def __hash__(self):
+        return self.scene
+
+    def is_valid(self, entr, slot_data):
+        if self.special_options:
+            return self.process_special(entr, slot_data)
+        res = True if not self.valid_entrances else entr in self.valid_entrances
+        res = res if not self.invalid_entrances else entr not in self.invalid_entrances
+        return  res
+
+    def process_special(self, entr, slot_data):
+        if self.scene == 0x2e00:
+            if slot_data["randomize_cargo"]:
+                return entr in {0, 2, 3}
+            return entr not in {4, 5}
+
+        return False
+
+_warp_data = [
+    WarpStorageData(0x2f00, "outset village"),
+    WarpStorageData(0x2a00, "mayscore"),
+    WarpStorageData(0x2900, "castle town"),
+    WarpStorageData(0x3000, "woodland sanc", {0}),
+    WarpStorageData(0x190a, "wt lobby"),
+    WarpStorageData(0x3e00, "rabbit haven"),
+    WarpStorageData(0x2b00, "anouki village"),
+    WarpStorageData(0x3100, "snow sanc"),
+    WarpStorageData(0x3500, "icyspring"),
+    WarpStorageData(0x3600, "bridge workers"),
+    WarpStorageData(0x1a04, "bt lobby"),
+    WarpStorageData(0x3f0a, "slippery"),
+    WarpStorageData(0x3f00, "snowdrift"),
+    WarpStorageData(0x3700, "trading post", {0, 1, 2}),
+    WarpStorageData(0x2c00, "papuzia village", invalid_entrances={5}),
+    WarpStorageData(0x3200, "island sanc"),
+    WarpStorageData(0x1b0a, "oct lobby"),
+    WarpStorageData(0x3a00, "pirate hideout"),
+    WarpStorageData(0x390a, "lost at sea"),
+    WarpStorageData(0x3400, "sand sanc"),
+    WarpStorageData(0x1d06, "dt lobby"),
+    WarpStorageData(0x2e00, "goron village", special_options=True),
+    WarpStorageData(0x3c00, "goron target lobby"),
+    WarpStorageData(0x1c0a, "mtt lobby"),
+    WarpStorageData(0x4000, "disorientation station"),
+    WarpStorageData(0x4100, "ends of the earth"),
+    WarpStorageData(0x3d00, "dark ore mine"),
+    WarpStorageData(0x400, "castle station", {0, 1, 2, 3, 6, 0xa}),
+    WarpStorageData(0x500, "anouki station", {0, 0xA}),
+    WarpStorageData(0x600, "papuzia village station", {0, 2}),
+    WarpStorageData(0x700, "goron village station", {0}),
+    WarpStorageData(0x1401, "tos")
+]
+WARP_SCENES: dict[int, "WarpStorageData"] = {data.scene: data for data in _warp_data}
 
 BOSS_LOCATION_TO_ENTRANCE: dict[str, str] = {
     "Stagnox Boss Reward": "Stagnox Exit",
