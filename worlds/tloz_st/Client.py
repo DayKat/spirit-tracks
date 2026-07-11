@@ -749,6 +749,9 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_scene in potion_location_lookup:
             await self.set_shop_models(ctx, False)
 
+        # Open boss doors
+        await self.open_boss_door(ctx)
+
         # Lift item restrictions in TEAO boss rooms
         if self.current_scene in range(0x4b00, 0x5000):
             await STAddr.item_restrictions.overwrite(ctx, 0)
@@ -1150,6 +1153,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
         new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
             "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
+        if detect_data.name == "Marine Temple Train Exit Water Warp":
+            new_data.add(self.entrances["Marine Temple Lobby Board Train"].id)
         printl(f"New Storage Data: {new_data}")
 
         if interaction == "check":
@@ -1352,27 +1357,6 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
             await self.set_tears(ctx)
 
-        # Boss key rando stuff
-        if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
-            actor_table = await self.get_actor_table(ctx)
-            data = BOSS_KEY_DATA[self.current_scene]
-
-            # Open boss door
-            if (self.item_count(ctx, f"Boss Key ({data['dungeon']})")
-                    or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"])
-                    or (data["dungeon"] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2)):
-                if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
-                    printl(f"Opening boss door for {hex(current_scene)}")
-                    if await data["door"].read(ctx) != 0x5:
-                        await data["door"].overwrite(ctx, 3)
-                elif any([
-                    current_scene == 0x1309 and self.location_name_to_id["ToS 10F Boss Key"] in ctx.checked_locations,
-                    current_scene == 0x1318 and self.location_name_to_id["ToS 22F Boss Key"] in ctx.checked_locations
-                ]):
-                    await self.open_tos_boss_door(ctx, current_scene)
-        else:
-            self.boss_key_y, self.boss_key_read = None, None
-
         if current_scene not in potion_location_lookup:
             treasure = None
             if ctx.slot_data["excess_random_treasure"] == 2:
@@ -1400,6 +1384,26 @@ class SpiritTracksClient(DSZeldaClient):
                 self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), 0,
                                        "delete_ow_actors", actor_table]
 
+    async def open_boss_door(self, ctx):
+        current_scene = self.current_scene
+        if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+            data = BOSS_KEY_DATA[self.current_scene]
+
+            # Open boss door
+            if (self.item_count(ctx, f"Boss Key ({data['dungeon']})")
+                    or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"])
+                    or (data["dungeon"] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2)):
+                if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                    printl(f"Opening boss door for {hex(current_scene)}")
+                    if await data["door"].read(ctx) != 0x5:
+                        await data["door"].overwrite(ctx, 3)
+                elif any([
+                    current_scene == 0x1309 and self.location_name_to_id["ToS 10F Boss Key"] in ctx.checked_locations,
+                    current_scene == 0x1318 and self.location_name_to_id["ToS 22F Boss Key"] in ctx.checked_locations
+                ]):
+                    await self.open_tos_boss_door(ctx, current_scene)
+        else:
+            self.boss_key_y, self.boss_key_read = None, None
 
     @staticmethod
     async def open_tos_boss_door(ctx, scene):
@@ -1708,7 +1712,17 @@ class SpiritTracksClient(DSZeldaClient):
             """Check for coords on the map that don't zoom in to a station."""
             raw_coords = await STAddr.quick_pen_coords.read(ctx, silent=True)
             if 0x40 < raw_coords & 0xFF < 0x70 < (raw_coords & 0xFF0000) >> 16 < 0x90:
-                return True
+                return "ToS Lobby Staircase"
+            if 0x15 < raw_coords & 0xFF < 0x29 and 0xc1 < (raw_coords & 0xFF0000) >> 16 < 0xda:
+                return "Mountain Temple Lobby Enter Dungeon"
+            if 0x59 < raw_coords & 0xFF < 0x75 and 0x23 < (raw_coords & 0xFF0000) >> 16 < 0x35:
+                return "Wooded Temple Lobby Enter Dungeon"
+            if 0x6 < raw_coords & 0xFF < 0x20 and 0x16 < (raw_coords & 0xFF0000) >> 16 < 0x2b:
+                return "Blizzard Temple Lobby Enter Dungeon"
+            if 0x87 < raw_coords & 0xFF < 0x9c and 0xdb < (raw_coords & 0xFF0000) >> 16 < 0xf4:
+                return "Marine Temple Lobby Enter Dungeon"
+            if 0x64 < raw_coords & 0xFF < 0x70 and 0xcc < (raw_coords & 0xFF0000) >> 16 < 0xe8:
+                return "Desert Temple Lobby Enter Dungeon"
             return False
 
 
@@ -1718,6 +1732,9 @@ class SpiritTracksClient(DSZeldaClient):
                 self.unlocked_map = 1
                 print(f"Adding tracks init {1}")
             if self.read_result.get(STAddr.map_open, 0):
+                if self.warp_to_start_flag:
+                    self.warp_to_start_flag = None
+                    logger.info(f"Canceled warp to start")
                 selected_station = await STAddr.selected_station.read(ctx, silent=True)
                 if selected_station:
                     if self.unlocked_map < 2 and not self.has_from_group(ctx, "Tracks: Fire Glyph"):
@@ -1752,10 +1769,15 @@ class SpiritTracksClient(DSZeldaClient):
                 elif self.unlocked_map == 4:  # not selected_station
                     self.unlocked_map = 1
                     print(f"Reset cycle {1}")
-                elif self.selected_station != 0x14 and await check_tos():
-                    self.map_warp = self.entrances["Tower of Spirits to Forest Realm"]
-                    self.selected_station = 0x14
-                    logger.info(f"Selected station to warp to: {self.map_warp.name} {hex_f(self.map_warp.entrance)}")
+                else:
+                    coord_warp = await check_tos()
+                    if not coord_warp:
+                        return
+                    entrance = self.entrances[coord_warp]
+                    if self.selected_station != entrance.stage:
+                        self.map_warp = entrance
+                        self.selected_station = entrance.stage
+                        logger.info(f"Selected station to warp to: {self.map_warp.name} {hex_f(self.map_warp.entrance)}")
 
 
         elif self.unlocked_map:

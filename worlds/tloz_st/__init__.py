@@ -516,13 +516,14 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"Shuffled_bosses: {self.shuffled_bosses}")
                 boss_loc = self.shuffled_bosses[dung_name]
                 self.near_dungeon_lookup |= {loc: dung_name for loc in BOSS_LOCATION_TO_POST_LOCATIONS.get(boss_loc, [])}
-            elif self.options.shuffle_bosses.value in [0, 5]:
+            else:
                 boss_dungeon = DUNGEON_TO_BOSS_ITEM_LOCATION.get(dung_name)
                 self.near_dungeon_lookup |= {loc: dung_name for loc in BOSS_LOCATION_TO_POST_LOCATIONS.get(boss_dungeon, [])}
             if dung_name in reverse_dungeon_lookup:
                 self.near_dungeon_lookup |= {loc: dung_name for loc in DUNGEON_NAME_TO_LOBBY_LOCATION.get(reverse_dungeon_lookup[dung_name], [])}
-            elif self.options.shuffle_dungeon_entrances.value in [0, 5]:
+            else:
                 self.near_dungeon_lookup |= {loc: dung_name for loc in DUNGEON_NAME_TO_LOBBY_LOCATION.get(dung_name, [])}
+        # print(f"ndl: {self.near_dungeon_lookup}")
 
         # Create locations
         for location_name, location_data in LOCATIONS_DATA.items():
@@ -1623,7 +1624,8 @@ class SpiritTracksWorld(WorldParent):
                 print(f"ER Placements: {self.er_placement_state.pairings}")
                 break
             except EntranceRandomizationError as error:
-                print(f"Spirit tracks failed ER {i+1} time(s), retrying")
+                if st_max_er_attempts > 5 and i % 5 == 4:
+                    print(f"Spirit tracks failed ER {i+1} time(s), retrying")
                 if i >= st_max_er_attempts - 1:
                     raise EntranceRandomizationError(
                         f"Spirit Tracks: failed GER after {st_max_er_attempts} attempts.")
@@ -1863,6 +1865,7 @@ class SpiritTracksWorld(WorldParent):
                    "shuffle_train_transitions",  # for desert rocktite cannon logic lol
                    "shuffle_dungeon_rooms", "shuffle_warps", "shuffle_bosses", "shuffle_dungeon_entrances",
                    "death_link", "enable_map_warp",
+                   "free_starting_items",
                    "ut_blocked_entrances_behaviour"]
         slot_data = self.options.as_dict(*options)
         slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
@@ -1910,7 +1913,10 @@ class SpiritTracksWorld(WorldParent):
             # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
             if pairing is not None:
                 exit_name = entrance_id_to_entrance[connection].name
-                _exit: "Entrance" = self.get_entrance(exit_name)
+                try:
+                    _exit: "Entrance" = self.get_entrance(exit_name)
+                except KeyError:
+                    return
                 entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
                 print(f"Connecting: {_exit} => {entrance_region} | {connection}: {pairing}")
                 _exit.connect(entrance_region)
@@ -1960,7 +1966,6 @@ class SpiritTracksWorld(WorldParent):
         elif "st_checked_entrances" in key:
             new_connections = set(stored_data) - self.ut_checked_entrances
             self.ut_checked_entrances |= new_connections
-
             for i in new_connections:
                 if i not in self.ut_redisconnected_entrances:
                     connect(i)

@@ -71,15 +71,15 @@ class TestGeneration(WorldTestBase):
 
         "shuffle_tos_sections": "no_shuffle",
 
-        "shuffle_dungeon_entrances": "shuffle_alone",
-        "shuffle_bosses": "shuffle_alone",
-        "shuffle_dungeon_rooms": "no_shuffle",
+        "shuffle_dungeon_entrances": "shuffle_pool_a",
+        "shuffle_bosses": "shuffle_pool_a",
+        "shuffle_dungeon_rooms": "shuffle_pool_a",
         "shuffle_warps": "shuffle_pool_a",
 
         "shuffle_portals": "no_shuffle",
 
         "keyrings": "all",
-        "dungeons_required": 2,
+        "dungeons_required": 5,
         "exclude_dungeons": "remove",
 
         "entrance_directionality": {"dungeon_entrances", "pool_a"},

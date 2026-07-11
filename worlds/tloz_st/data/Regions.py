@@ -268,6 +268,7 @@ REGIONS = [
     "wt stamp station",
     "wt 1f right arena",
     "wt 1f enemy chest",
+    "wt 1f se door",
 
     "wt 2f",
     "wt 2f enemy chest",

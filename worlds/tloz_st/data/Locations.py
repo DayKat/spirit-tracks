@@ -1612,8 +1612,8 @@ LOCATIONS_DATA = {
     "Fraaz Boss Reward": {
         "region_id": "bt fraaz",
         "vanilla_item": "Snow Source", #TODO tracks did not get removed, and check sent on room entry
-        "address": STAddr.adv_flags_0,
-        "value": 0x20,
+        "address": STAddr.adv_flags_16,
+        "value": 0x80,
         "stage_id": 0x1F,
         "room_id": 0,
         "post_dungeon": "Blizzard Temple",
@@ -1940,8 +1940,8 @@ LOCATIONS_DATA = {
     "Cactops Boss Reward": {
         "region_id": "oct phytops",
         "vanilla_item": "Ocean Source",
-        "address": STAddr.adv_flags_0,
-        "value": 0x40,
+        "address": STAddr.adv_flags_17,
+        "value": 0x1,
         "stage_id": 0x20,
         "room_id": 0,
         "post_dungeon": "Marine Temple",
@@ -2415,8 +2415,8 @@ LOCATIONS_DATA = {
         "post_dungeon": "Mountain Temple",
     },
     "Vulcano Boss Reward": {
-        "address": STAddr.adv_flags_0,
-        "value": 0x80,
+        "address": STAddr.adv_flags_20,
+        "value": 0x10,
         "stage_id": 0x21,
         "region_id": "mtt vulcano",
         "vanilla_item": "Fire Source",

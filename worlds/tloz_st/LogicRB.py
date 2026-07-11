@@ -353,8 +353,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wt 1f", "wt 1f right arena", False, None],
         ["wt 1f right arena", "wt 1f", False, has_damage],
         ["wt 1f right arena", "wt 1f enemy chest", False, has_damage],
-        ["wt 1f right arena", "wt 2f", False, has_damage],
-        ["wt 2f", "wt 1f right arena", False, None],
+        ["wt 1f right arena", "wt 1f se door", False, has_damage],
+        ["wt 1f se door", "wt 2f", True, None],
 
         ["wt 2f", "wt 2f enemy chest", False, has_damage],
         ["wt 2f", "wt 2f poison chest", False, has_whirlwind | hard_logic],
@@ -557,7 +557,6 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt b1 w", "bt b1 stamp station", False, has_stamp_book],
         ["bt b1 w", "bt b1 nw", False, None],
         ["bt b1 w", "bt b1 w chest", False, can_kill_bubble | has_whirlwind],
-        ["bt b1 nw", "bt b1 w", False, has_boomerang],
         ["bt b1 nw", "bt 1f nw", True, None],
 
         ["bt 1f nw", "bt 1f w", True, None],
@@ -576,13 +575,13 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 2f boss key", "bt 2f boss door", False, True_() & vanilla_boss_keys],
         ["bt 2f boss door", "bt 3f", True, None],
         ["bt 3f", "bt pre fraaz", False, None],
-        ["bt pre fraaz", "bt 3f", False, has_sword & has_boomerang],
+        ["bt pre fraaz", "bt 3f", False, has_damage & has_boomerang],
 
         ["bt 3f", "bt blue warp", True, None],
         ["bt blue warp", "bt lobby", False, None],
         ["bt lobby", "bt blue warp", False, Has("_bt_warp") | open_warps],
 
-        ["bt pre fraaz", "bt fraaz", False, has_sword & has_boomerang],
+        ["bt pre fraaz", "bt fraaz", False, has_damage & has_boomerang],
         ["bt fraaz", "goal_fraaz", False, None],
         ["bt fraaz", "event_fraaz", False, None],
 
@@ -881,8 +880,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # Goron Village
         ["fire realm", "goron village station", True, has_glyph("Fire")],
-        ["goron village", "goron village station", False, has_glyph("Fire") | has_source("Fire")],
-        ["goron village station", "goron village", False, None],
+        ["goron village", "goron village station", False, None],
+        ["goron village station", "goron village", False, has_glyph("Fire") | has_source("Fire")],
         ["fire source", "goron village station", True, has_source("Fire")],
 
         ["goron village", "goron village shop", True, None],
@@ -1153,9 +1152,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ===== Desert Temple =====
     overworld_logic += [
-        ["sand restoration", "desert temple door", False, has_cannon],
+        ["sand restoration south", "desert temple door", False, has_cannon],
         ["desert temple door", "desert temple station", False, None],
-        ["desert temple station", "sand restoration", False, has_temple_tracks("Desert")],
+        ["desert temple station", "sand restoration south", False, has_temple_tracks("Desert")],
         ["desert temple station", "dt lobby", False, has_temple_tracks("Desert")],
         ["dt lobby", "desert temple station", False, None],
 
@@ -1196,8 +1195,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dt skeldritch", "skeldritch goal", False, None],
 
         ["dt b2 n", "dt blue warp", True, None],
-        ["dt blue warp", "dt lobby", False, Has("_dt_warp") | open_warps],
-        ["dt lobby", "dt blue warp", False, None],
+        ["dt blue warp", "dt lobby", False, None],
+        ["dt lobby", "dt blue warp", False, Has("_dt_warp") | open_warps],
 
         # ===== Dark ore mine =====
         ["sand restoration", "dark ore mine tracks", False, has_tracks("Dark Ore Mine") & soft_cannon],
