@@ -736,7 +736,7 @@ ENTRANCE_TO_TOS_ORDER = {
 }
 
 EXIT_TO_TOS_SECTION = {
-    "ToS 30F Exit": 6,
+    "ToS 31F Exit": 6,
     "ToS 18F Exit": 5,
     "ToS 13F Exit": 4,
     "ToS 8F Exit": 3,
@@ -773,7 +773,7 @@ BOSS_WARP_SCENE_LOOKUP = {
     0x130b: "ToS 8F Exit",
     0x130f: "ToS 13F Exit",
     0x1314: "ToS 18F Exit",
-    0x1323: "ToS 30F Exit",
+    0x1323: "ToS 31F Exit",
 }
 
 special_respawn_stages = {

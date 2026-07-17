@@ -858,7 +858,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Dark Ore Mine Cave": {
+    "Dark Ore Mine Center Cave": {
         "return_name": "Dark Ore Tunnels Center Exit",
         "entrance_region": "dark ore mine",
         "exit_region": "dark ore tunnels mid",
@@ -1503,8 +1503,8 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Fire Realm East Fire Glyph": {
-        "return_name": "Snow Realm West Fire Glyph",
+    "Fire Realm West Fire Glyph": {
+        "return_name": "Snow Realm East Fire Glyph",
         "entrance_region": "fire realm",
         "exit_region": "fire realm west",
         "extra_data": {"z_min": 0},
@@ -1518,8 +1518,8 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.LEFT,
         "island": EntranceGroups.NONE
     },
-    "Fire Realm East Gorge Tracks": {
-        "return_name": "Snow Realm West Gorge Tracks",
+    "Fire Realm West Gorge Tracks": {
+        "return_name": "Snow Realm East Gorge Tracks",
         "entrance_region": "gorge tracks east",
         "exit_region": "gorge tracks west",
         "extra_data": {"z_max": 0},
@@ -2039,6 +2039,15 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    "GOAL: Reach ToS 7F": {
+        "two_way": False,
+        "entrance_region": "tos 7f rail map",
+        "exit_region": "goal_forest_glyph",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
     "GOAL: Reach ToS 12F": {
         "two_way": False,
         "entrance_region": "tos 11f",
@@ -2156,7 +2165,7 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE
     },
     "Tower of Spirits Summit Enter Altar": {
-        "return_name": "ToS 30F Exit",
+        "return_name": "ToS 31F Exit",
         "entrance": (0x15, 0, 2),
         "exit": (0x13, 0x1d, 0),
         "entrance_region": "tos 6",

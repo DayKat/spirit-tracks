@@ -1,0 +1,5 @@
+Spirit Tracks:
+  goal: -1
+  start_with_train: 1
+  decouple_entrances: 0
+  entrance_shuffle_retries: 10

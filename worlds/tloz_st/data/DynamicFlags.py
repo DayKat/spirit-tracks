@@ -68,7 +68,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow learning healing song": {
         "on_scenes": [0x190A],
-        "not_has_locations": ["Wooded Temple Song Statue"],
+        "not_has_locations": ["Wooded Temple Lobby Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
     },
     "reset soh": {
@@ -77,12 +77,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow learning healing song oct": {
         "on_scenes": [0x1b0a],
-        "not_has_locations": ["Marine Temple Song Statue"],
+        "not_has_locations": ["Marine Temple Lobby Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
     },
     "Allow learning healing song mtt": {
         "on_scenes": [0x1c0A],
-        "not_has_locations": ["Mountain Temple Song Statue"],
+        "not_has_locations": ["Mountainne Temple Lobby Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
     },
     "RESET soh statue": {

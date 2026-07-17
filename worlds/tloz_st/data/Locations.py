@@ -1127,7 +1127,7 @@ LOCATIONS_DATA = {
 
     # Wooded Temple
 
-    "Wooded Temple Song Statue": {
+    "Wooded Temple Lobby Song Statue": {
         "region_id": "wt song statue",
         "vanilla_item": "Song of Healing",
         "stage_id": 0x19,
@@ -1819,7 +1819,7 @@ LOCATIONS_DATA = {
     },
 
     # Marine (Ocean) Temple
-    "Marine Temple Song Statue": {
+    "Marine Temple Lobby Song Statue": {
         "region_id": "oct song statue",
         "vanilla_item": "Song of Healing",
         "item_override": "Nothing!",
@@ -2283,7 +2283,7 @@ LOCATIONS_DATA = {
     },
 
     # Mountain Temple
-    "Mountain Temple Song Statue": {
+    "Mountainne Temple Lobby Song Statue": {
         "stage_id": 0x1C,
         "room_id": 0xa,
         "region_id": "mtt song statue",
@@ -2963,7 +2963,7 @@ LOCATIONS_DATA = {
     },
 
     # Ocean Rabbits
-    "Rabbit E Lost at Sea": {
+    "Rabbit W Lost at Sea": {
         "region_id": "las rabbit",
         "vanilla_item": "Ocean Rabbit",
         "stage_id": 0x06,
@@ -3003,7 +3003,7 @@ LOCATIONS_DATA = {
         "slot_data": [("rabbitsanity", [1, 2, 3, 4])],
         "location_groups": ["Unique Ocean Rabbits"]
     },
-    "Rabbit N Marine Temple": {
+    "Rabbit W Marine Temple": {
         "region_id": "ocean rabbits",
         "vanilla_item": "Ocean Rabbit",
         "stage_id": 0x06,

@@ -7,6 +7,7 @@ from Fill import fill_restrictive, FillError
 from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
 from entrance_rando import randomize_entrances, bake_target_group_lookup, EntranceRandomizationError, disconnect_entrance_for_randomization
+from .tracker.tracker_util import get_hidden_map_icons
 
 from .Util import *
 from .Options import *
@@ -136,7 +137,8 @@ class SpiritTracksWorld(WorldParent):
     ut_can_gen_without_yaml = True
     tracker_world = {"map_page_folder": "tracker",
                      "map_page_maps": "maps/maps.json",
-                     "map_page_locations": ["locations/overworld.json", "entrances/entrances.json"]}
+                     "map_page_locations": ["locations/overworld.json",
+                                            "entrances/entrances.json"]}
     found_entrances_datastorage_key = ["st_checked_entrances_{player}_{team}",
                                        "st_traversed_entrances_{player}_{team}",
                                        "st_redisconnected_entrances_{player}_{team}",
@@ -171,7 +173,8 @@ class SpiritTracksWorld(WorldParent):
         self.ut_events = []
         self.is_ut = getattr(self.multiworld, "generation_is_fake", False)
 
-        self.ut_map_page_hidden_entrances = {"Overview": []}
+        self.ut_map_page_hidden_entrances = {}
+        self.ut_map_page_hidden_locations = {}
 
         self.er_placement_state = None
         self.valid_entrances: list["Entrance"] = []
@@ -213,8 +216,8 @@ class SpiritTracksWorld(WorldParent):
             self.required_boss_locs = [self.location_id_to_name[i] for i in slot_data["required_boss_locs"]]
             self.ut_pairings = slot_data["er_pairings"]
             self.tower_section_lookup = {int(k): v for k, v in slot_data["tower_section_lookup"].items()}
-            self.hide_ut_map_stuff()
             self.pick_ut_events()
+            self.ut_map_page_hidden_locations, self.ut_map_page_hidden_entrances = get_hidden_map_icons(self)
             self.starting_entrance = slot_data["starting_entrance"]
             self.exclude_tos_5 = slot_data["exclude_tos_5"]
             self.non_required_sections = [s for s in range(1, 7) if DUNGEON_TO_BOSS_ITEM_LOCATION[f"ToS {s}"] not in self.required_boss_locs]
@@ -377,10 +380,11 @@ class SpiritTracksWorld(WorldParent):
         return required_rupees
 
     def hide_ut_map_stuff(self):
-        self.tracker_world["map_page_locations"].append("locations/tos_singles.json")
-        if not self.options.shuffle_tos_sections:
-            self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values()
-                                                              if e.category_group == EntranceGroups.TOS_SECTION]
+        pass
+        # self.tracker_world["map_page_locations"].append("locations/tos_singles.json")
+        # if not self.options.shuffle_tos_sections:
+        #     self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values()
+        #                                                       if e.category_group == EntranceGroups.TOS_SECTION]
 
     def pick_ut_events(self):
         events = ["EVENT: Give Regal Ring to Linebeck"]
@@ -439,9 +443,8 @@ class SpiritTracksWorld(WorldParent):
             events += ["EVENT: Disorientation Maze Find Chest"]
 
         self.ut_events = events
-        self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if
-                                             e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
-        print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
+        # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
+        # print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
         for e in events:
             event = ENTRANCES[e]
             self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
@@ -830,7 +833,7 @@ class SpiritTracksWorld(WorldParent):
                 if dung_name in self.non_required_dungeons:
                     self.locations_to_exclude.add(loc_name)
 
-            self.locations_to_exclude -= {"Marine Temple Ferrus Force Gem"}
+            self.locations_to_exclude -= {"Marine Temple Lobby Ferrus Force Gem"}
 
         if self.options.exclude_sections == "exclude":
             self.locations_to_exclude.update([loc for loc, d in LOCATIONS_DATA.items() if "tos_section" in d and d["tos_section"] in self.non_required_sections])
@@ -1950,6 +1953,8 @@ class SpiritTracksWorld(WorldParent):
         print(f"UT Tried to defer entrances! key {key}"
               f" {stored_data}")
 
+        if not stored_data: return
+
         self.ut_add_warp_connection(key, stored_data)
 
         if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
@@ -1993,9 +1998,6 @@ class SpiritTracksWorld(WorldParent):
                 e.connected_region = None
                 # Create target
                 parent_region.create_er_target(e.name)
-
-        if not stored_data:
-            return
 
         if "st_traversed_entrances" in key:
             new_connections = set(stored_data) - self.ut_traversed_entrances
