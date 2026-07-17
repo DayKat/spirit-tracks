@@ -1111,10 +1111,14 @@ class SpiritTracksClient(DSZeldaClient):
             await STAddr.bomb_count.overwrite(ctx, 0)
             await STAddr.arrow_count.overwrite(ctx, 0)
 
+    async def get_stage_flags(self, ctx):
+        stage_address = await STAddr.stage_flag_pointer.read(ctx)
+        self.stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
+        return self.stage_flag_address
+
     async def set_stage_flags(self, ctx, stage):
         if stage in self.stage_flags:
-            stage_address = await STAddr.stage_flag_pointer.read(ctx)
-            stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
+            stage_flag_address = await self.get_stage_flags(ctx)
 
             printl(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {hex_f(self.stage_flags[stage])}")
             await stage_flag_address.set_bits(ctx, self.stage_flags[stage])
@@ -1182,6 +1186,7 @@ class SpiritTracksClient(DSZeldaClient):
         await self.save_tos_keycount(ctx)
         self.event_reads = []
         self.sent_event = False
+        self.boss_key_y = None
         if self.last_scene == 0x700:
             await self.reset_snurglar_door(ctx)
 
@@ -1268,7 +1273,7 @@ class SpiritTracksClient(DSZeldaClient):
             if not self.event_reads:
                 data = UT_EVENT_DATA[scene]
                 data = [data] if isinstance(data, dict) else data
-                printl(f"Event Data {UT_EVENT_DATA} {data}")
+                printl(f"Event Data {data}")
                 self.event_data = data
                 for i, event in enumerate(data):
                     address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]

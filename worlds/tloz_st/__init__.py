@@ -1900,6 +1900,7 @@ class SpiritTracksWorld(WorldParent):
                    "randomize_stamps", "open_blizzard_temple", "open_blue_warps",
                    "tos_section_unlocks", "tos_unlock_base_item", "shuffle_tos_sections", "tos_shortcuts",
                    "shopsanity", "shop_hints", "rupee_farming_logic", "excess_random_treasure",
+                   "shuffle_houses", "shuffle_caves", "shuffle_disorientation",  # for map switching
                    "shuffle_stations", "shuffle_overworld",  # used to disable dynamic flags
                    "shuffle_hyrule_castle",  # prevent zelda warp
                    "shuffle_portals", "shuffle_eote",  # include eote locs if shuffled

@@ -110,7 +110,11 @@
   {"name": "Snowfall Sanctuary", "sections": [{"name": "Snowfall Sanctuary Song of Restoration"}, {"name": "Snowfall Sanctuary Steem Gift With Snow Source"}], "map_locations": [{"map": "Snowfall Sanctuary", "x": 68, "y": 20}]},
   {"name": "Snowfall Sanctuary", "sections": [{"name": "Snowfall Supermarket Heart Container"}, {"name": "Snowfall Supermarket Red Potion"}, {"name": "Snowfall Supermarket Purple Potion"}, {"name": "Snowfall Supermarket Shield"}, {"name": "Snowfall Supermarket Postcards"}, {"name": "Snowfall Supermarket Treasure"}], "map_locations": [{"map": "Snowfall Sanctuary", "x": 160, "y": 122}]},
   {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Snowfall Sanctuary Song of Restoration"}, {"name": "Snowfall Sanctuary Steem Gift With Snow Source"}], "map_locations": [{"map": "Steem's Sanctuary", "x": 124, "y": 120}]},
-  {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Snowfall Supermarket Heart Container"}, {"name": "Snowfall Supermarket Red Potion"}, {"name": "Snowfall Supermarket Purple Potion"}, {"name": "Snowfall Supermarket Shield"}, {"name": "Snowfall Supermarket Postcards"}, {"name": "Snowfall Supermarket Treasure"}], "map_locations": [{"map": "Snowfall Supermarket", "x": 128, "y": 88}]},
+  {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Snowfall Supermarket Postcards"}], "map_locations": [{"map": "Snowfall Supermarket", "x": 124, "y": 96}]},
+    {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Snowfall Supermarket Shield"}], "map_locations": [{"map": "Snowfall Supermarket", "x": 120, "y": 88}]},
+    {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Snowfall Supermarket Heart Container"}, {"name": "Snowfall Supermarket Treasure"}], "map_locations": [{"map": "Snowfall Supermarket", "x": 132, "y": 96}]},
+    {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Snowfall Supermarket Purple Potion"}], "map_locations": [{"map": "Snowfall Supermarket", "x": 136, "y": 88}]},
+    {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Snowfall Supermarket Red Potion"}], "map_locations": [{"map": "Snowfall Supermarket", "x": 128, "y": 88}]},
   {"name": "Wooded Temple 3F", "sections": [{"name": "Stagnox Heart Container"}, {"name": "Stagnox Boss Reward"}], "map_locations": [{"map": "Wooded Temple 3F", "x": 128, "y": 88}]},
 
   {"name": "Bridge Worker", "sections": [{"name": "Bridge Worker's Home Buried Chest"}], "map_locations": [{"map": "Bridge Worker", "x": 194, "y": 58}]},

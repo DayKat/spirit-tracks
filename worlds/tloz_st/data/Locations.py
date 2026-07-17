@@ -2467,6 +2467,7 @@ LOCATIONS_DATA = {
         "room_id": 0x9,
         "region_id": "disorientation sod",
         "vanilla_item": "Treasure: Priceless Stone",
+        "ut_connect": "EVENT: Disorientation Maze Find Chest",
         "location_groups": ["Disorientation Station"],
     },
     "Disorientation Station Guard Gift": {
@@ -3293,7 +3294,9 @@ LOCATIONS_DATA |= {
         "address": STAddr.activate_portals,
         "value": 0x40,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "ut_connect": "EVENT: Unlock Forest Realm Cave Portal",
+        "always_exist": True,
     },
     "Forest Realm Shoot SE Portal": {
         "stage_id": 0x04,
@@ -3301,7 +3304,9 @@ LOCATIONS_DATA |= {
         "address": STAddr.activate_portals,
         "value": 0x20,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "ut_connect": "EVENT: Unlock Forest Realm SE Portal",
+        "always_exist": True,
     },
     "Snow Realm Shoot SW Portal": {
         "stage_id": 0x05,
@@ -3309,7 +3314,9 @@ LOCATIONS_DATA |= {
         "address": STAddr.activate_portals,
         "value": 0x8,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "ut_connect": "EVENT: Unlock Anouki Village Portal",
+        "always_exist": True,
     },
     "Snow Realm Shoot Bridge Portal": {
         "stage_id": 0x05,
@@ -3317,7 +3324,9 @@ LOCATIONS_DATA |= {
         "address": STAddr.activate_portals,
         "value": 0x10,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "ut_connect": "EVENT: Unlock Snow Bridge Portal",
+        "always_exist": True,
     },
     "Snow Realm Shoot N Portal": {
         "stage_id": 0x05,
@@ -3325,7 +3334,9 @@ LOCATIONS_DATA |= {
         "address": STAddr.adv_flags_31,
         "value": 0x2,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "ut_connect": "EVENT: Unlock Icy Spring Portal",
+        "always_exist": True,
     },
     "Ocean Realm Shoot W Portal": {
         "stage_id": 0x06,
@@ -3333,7 +3344,9 @@ LOCATIONS_DATA |= {
         "address": STAddr.adv_flags_31,
         "value": 0x4,
         "location_groups": ["Portal Checks"],
-        "conditional": True
+        "conditional": True,
+        "ut_connect": "EVENT: Unlock Ocean Portal",
+        "always_exist": True,
     },
     "Sand Realm Shoot Temple Portal": {
         "stage_id": 0x06,
@@ -3343,7 +3356,9 @@ LOCATIONS_DATA |= {
         "location_groups": ["Portal Checks"],
         "conditional": True,
         "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
-        "from_coords": {"x_min": 80000}
+        "from_coords": {"x_min": 80000},
+        "ut_connect": "EVENT: Unlock Desert Temple Portal",
+        "always_exist": True,
     },
     "Fire Realm Shoot Sand Portal": {
         "stage_id": 0x07,
@@ -3352,6 +3367,8 @@ LOCATIONS_DATA |= {
         "value": 0x80,
         "location_groups": ["Portal Checks"],
         "conditional": True,
+        "ut_connect": "EVENT: Unlock Sand Connection Portal",
+        "always_exist": True,
     },
 
     # Shops
@@ -3981,6 +3998,7 @@ LOCATIONS_DATA |= {
         "vanilla_item": "Forest Realm SE Portal Tracks",
         "location_groups": ["Island Sanctuary", "Deliver Passengers"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "ut_connect": "EVENT: Bring Carben to Island Sanctuary",
         "conditional": True,
         "region_id": "island sanc carben",
     },
@@ -4158,6 +4176,7 @@ LOCATIONS_DATA |= {
         "vanilla_item": "N Icy Spring Tracks",
         "location_groups": ["Anouki Village", "Deliver Passengers"],
         "slot_data": [("randomize_passengers", [1, 2, 3])],
+        "ut_connect": "EVENT: Bring Goron to Anouki Village",
         "conditional": True,
         "region_id": "av goron"
     },
