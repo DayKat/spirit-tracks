@@ -1196,7 +1196,7 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE
     },
-    "Snow Realm Icy Spring": {
+    "Snow Realm Icy Spring Station": {
         "return_name": "Icy Spring Train",
         "entrance_region": "icyspring station",
         "exit_region": "icyspring",

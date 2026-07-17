@@ -253,6 +253,69 @@ map_lookup: dict[int, str] = {
     209: "Disorientation Dungeon"
 }
 
+station_section_link: dict[str, str] = {
+    "Overview Castle Town": "Forest Realm Castle Town Station",
+    "Overview Hyrule Castle": ["Forest Realm Castle Town Station", "Castle Town North"],
+    "Overview Outset": "Forest Realm Outset Station",
+    "Overview Mayscore": "Forest Realm Mayscore Station",
+    "Overview Woodland": "Forest Realm Woodland Sanctuary Station",
+    "Overview Rabbit Haven": "Forest Realm Rabbit Haven Station",
+    "Overview Trading Post": "Forest Realm Trading Post Station",
+    "Overview WT": ["Forest Realm Wooded Temple Station", "Wooded Temple Lobby Enter Dungeon"],
+
+    "Overview Anouki": "Snow Realm Anouki Village Station",
+    "Overview Snowfall": "Snow Realm Snowfall Sanctuary Station",
+    "Overview BT": ["Snow Realm Blizzard Temple Station", "Blizzard Temple Lobby Enter Dungeon"],
+    "Overview Icyspring": "Snow Realm Icy Spring Station",
+    "Overview Snowdrift": "Snow Realm Snowdrift Station",
+    "Overview Slippery": "Snow Realm Slippery Station",
+    "Overview Kenzo": "Snow Realm Bridge Worker's Station",
+
+    "Overview Papuzia": "Ocean Realm Papuzia Station",
+    "Overview Island": "Ocean Realm Island Sanctuary Station",
+    "Overview OCT": ["Undersea Marine Temple Station", "Marine Temple Lobby Enter Dungeon"],
+    "Overview Pirate": "Ocean Realm Pirate Hideout Station",
+    "Overview LAS": "Ocean Realm Lost at Sea Station",
+    "Overview Dune": "Ocean Realm Dune Sanctuary Station",
+    "Overview DT": ["Ocean Realm Desert Temple Station", "Desert Temple Lobby Enter Dungeon"],
+
+    "Overview Disorientation": "Fire Realm Disorientation Station",
+    "Overview EotE": "Fire Realm Ends of the Earth Station",
+    "Overview DOM": "Fire Realm Dark Ore Mine Station",
+    "Overview Goron": "Fire Realm Goron Village Station",
+    "Overview Valley": ["Fire Realm Goron Village Station", "Goron Village Enclave North", "Elder Goron House Cave", "Goron Village Elder's House"],
+    "Overview GTR": "Fire Realm Goron Target Range Station",
+    "Overview MTT": ["Fire Realm Mountain Temple Station", "Mountain Temple Lobby Enter Dungeon"],
+}
+
+boss_event_link: dict[str, list[str]] = {
+    "Overview WT Events": [
+        "Forest Realm Wooded Temple Station",
+        "Wooded Temple Lobby Enter Dungeon",
+        "Wooded Temple 4F N Staircase"],
+    "Overview BT Events": [
+        "Snow Realm Blizzard Temple Station",
+        "Blizzard Temple Lobby Enter Dungeon",
+        "Blizzard Temple 3F North Staircase"],
+    "Overview OCT Events": [
+        "Ocean Realm Dive Underwater",
+        "Undersea Marine Temple Station",
+        "Marine Temple Lobby Enter Dungeon",
+        "Marine Temple 7F North Staircase"],
+    "Overview MTT Events": [
+        "Fire Realm Mountain Temple Station",
+        "Mountain Temple Lobby Enter Dungeon",
+        "Mountain Temple B4 North Staircase"],
+    "Overview DT Events": [
+        "Ocean Realm Desert Temple Station",
+        "Desert Temple Lobby Enter Dungeon",
+        "Desert Temple B2 North Entrance"],
+    "Overview OCT Undersea Events": [
+        "Undersea Marine Temple Station",
+        "Marine Temple Lobby Enter Dungeon",
+        "Marine Temple 7F North Staircase"],
+}
+
 def get_hidden_map_icons(world: "SpiritTracksWorld"):
     import json
     import pkgutil
@@ -273,34 +336,62 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
     entr_hidden: dict[str, list[str]] = {}
     locs_hidden: dict[str, list[int]] = {}  # map_name: [loc_ids]
     events_hidden = {}
-    map_coord_checks = {}
+    map_coord_checks: dict[str, list[tuple[int, int]]] = {}
 
     # Handle entrances
     for entrance in entr_data:
-        entr_grouping = entrance.get("name")
+        entr_section = entrance.get("name")
         entr_names = [s.get("name") for s in entrance.get("sections", [])]
-        map_locs = entrance.get("map_locations", [])
-        maps = map_locs[0].get("map", "Check Overview")
+        map_locs = [m for m in entrance.get("map_locations", [])]
+        map_loc_names = [m["map"] for m in map_locs]
+
         for entr_name in entr_names:
             if entr_name not in ENTRANCES:
                 print(f"Wrong Entrance in tracker data: {entr_name}")
             elif ENTRANCES[entr_name].id not in active_entrances:
-                entr_hidden.setdefault(maps, []).append(entr_name)
+                for map_loc in map_loc_names:
+                    entr_hidden.setdefault(map_loc, []).append(entr_name)
             else:
-                coords = [(i["x"], i["y"]) for i in map_locs]
-                map_coord_checks.setdefault(maps, []).append(coords)
+                for map_loc in map_locs:
+                    coords = (map_loc["x"], map_loc["y"])
+                    map_coord_checks.setdefault(map_loc["map"], []).append(coords)
+
+        # Filter out stations using station_section_link
+        if entr_section in boss_event_link:
+            blocking_entrances = [ENTRANCES[e].id for e in boss_event_link[entr_section]]
+            for blocking_entrance in blocking_entrances:
+                if blocking_entrance in active_entrances:
+                    for loc_map in map_loc_names:
+                        entr_hidden.setdefault(loc_map, [])
+                        entr_hidden[loc_map] += entr_names
+
+    # print(f"map_coord_checks: {map_coord_checks}")
+
     # Handle locations and coord check entrances
     for loc in loc_data:
+        loc_section = loc["name"]
         loc_names = [s.get("name") for s in loc.get("sections", [])]
         loc_map_locations = loc.get("map_locations")
         loc_maps = [l["map"] for l in loc_map_locations]
         loc_coords = [(l["x"], l["y"]) for l in loc_map_locations]
 
+        # Filter out stations using station_section_link
+        if loc_section in station_section_link:
+            _e = station_section_link[loc_section]
+            _e = _e if isinstance(_e, list) else [_e]
+            blocking_entrances = [ENTRANCES[i].id for i in _e]
+            for blocking_entrance in blocking_entrances:
+                if blocking_entrance in active_entrances:
+                    for loc_map in loc_maps:
+                        locs_hidden.setdefault(loc_map, [])
+                        locs_hidden[loc_map] += [world.location_name_to_id[n] for n in loc_names]
+
         for loc_map in loc_maps:
             if loc_map in map_coord_checks:
-                #print(f"Testing {loc_map} coords {loc_coords} in {[i[0] for i in map_coord_checks[loc_map]]}")
+                # print(f"Testing {loc_map} coords {loc_coords} in {[i for i in map_coord_checks[loc_map]]}")
+                coords_in_map = [i for i in map_coord_checks[loc_map]]
                 for c in loc_coords:
-                    if c in [i[0] for i in map_coord_checks[loc_map]]:
+                    if c in coords_in_map:
                         loc_ids = []
                         for loc2 in loc_names:
                             if "EVENT" in loc2 or "GOAL" in loc2:
@@ -309,6 +400,37 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
                                 loc_ids.append(world.location_name_to_id[loc2])
                         locs_hidden.setdefault(loc_map, [])
                         locs_hidden[loc_map] += loc_ids
+
+
+    # Hard coded examples
+    if ENTRANCES["Forest Realm Trading Post Station"].id in active_entrances:
+        entr_hidden.setdefault("Overview", []).append("EVENT: Give Regal Ring to Linebeck")
+        entr_hidden.setdefault("Forest Realm", []).append("EVENT: Give Regal Ring to Linebeck")
+    if any([ENTRANCES[e].id in active_entrances for e in ["Fire Realm Goron Village Station",
+                                                          "Goron Village West",
+                                                          "Goron Field North"]]):
+        entr_hidden.setdefault("Overview", []).append("EVENT: Visit Kagoron at the Mountain Altar")
+        entr_hidden.setdefault("Fire Realm", []).append("EVENT: Visit Kagoron at the Mountain Altar")
+    if ENTRANCES["Fire Realm Goron Village Station"].id in active_entrances:
+        entr_hidden.setdefault("Overview", []).append("EVENT: Bring Ice to Kagoron")
+        entr_hidden.setdefault("Fire Realm", []).append("EVENT: Bring Ice to Kagoron")
+
+    if ENTRANCES["Ocean Realm Dive Underwater"].id in active_entrances:
+        entr_hidden.setdefault("Overview", []).append("Undersea Marine Temple Station")
+        entr_hidden.setdefault("Ocean Realm", []).append("Undersea Marine Temple Station")
+    if ENTRANCES["Lost at Sea Cave"].id in active_entrances:
+        entr_hidden.setdefault("Overview", []).append("EVENT: Complete Lost at Sea Dungeon")
+        entr_hidden.setdefault("Ocean Realm", []).append("EVENT: Complete Lost at Sea Dungeon")
+        entr_hidden.setdefault("Lost at Sea Station", []).append("EVENT: Complete Lost at Sea Dungeon")
+    if ENTRANCES["Castle Town Take 'em all On"].id in active_entrances:
+        entr_hidden.setdefault("Overview", []).append("EVENT: Complete Take 'em All On 3")
+        entr_hidden.setdefault("Forest Realm", []).append("EVENT: Complete Take 'em All On 3")
+    if ENTRANCES["Forest Realm Castle Town Station"].id in active_entrances:
+        entr_hidden.setdefault("Castle Town", []).append("EVENT: Complete Take 'em All On 3")
+        entr_hidden.setdefault("Overview", []).append("EVENT: Complete Take 'em All On 3")  # these are duplicated, is fine.
+        entr_hidden.setdefault("Forest Realm", []).append("EVENT: Complete Take 'em All On 3")
+
+
 
     print(f"hidden entrances: {entr_hidden}")
     return locs_hidden, entr_hidden

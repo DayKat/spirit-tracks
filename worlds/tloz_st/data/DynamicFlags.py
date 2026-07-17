@@ -82,7 +82,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Allow learning healing song mtt": {
         "on_scenes": [0x1c0A],
-        "not_has_locations": ["Mountainne Temple Lobby Song Statue"],
+        "not_has_locations": ["Mountain Temple Lobby Song Statue"],
         "unset_if_true": [(STAddr.songs, 0x02)],
     },
     "RESET soh statue": {

@@ -162,7 +162,7 @@ LOCATIONS_DATA = {
         "z_max": 28116,
         "location_groups": ["Castle Town"],
     },
-    "Castle Town Empty House Roof Chest": {
+    "Castle Town Lucia's House Roof Chest": {
         "region_id": "castle town cuccos",
         "vanilla_item": ITEM_GROUPS["Rare Treasures"],
         "stage_id": 0x29,
@@ -2283,7 +2283,7 @@ LOCATIONS_DATA = {
     },
 
     # Mountain Temple
-    "Mountainne Temple Lobby Song Statue": {
+    "Mountain Temple Lobby Song Statue": {
         "stage_id": 0x1C,
         "room_id": 0xa,
         "region_id": "mtt song statue",
