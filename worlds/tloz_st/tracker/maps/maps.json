@@ -229,6 +229,9 @@
 
   {"name": "Embrose's Sanctuary", "img": "images/goron/embrose.png", "location_size": 7, "location_border_thickness": 1},
   {"name": "Sandy Tunnel", "img": "images/ocean_realm/dune_tunnel.png", "location_size": 7, "location_border_thickness": 1},
-  {"name": "Rael's Sanctuary", "img": "images/ocean_realm/rael.png", "location_size": 7, "location_border_thickness": 1}
+  {"name": "Rael's Sanctuary", "img": "images/ocean_realm/rael.png", "location_size": 7, "location_border_thickness": 1},
 
+  {"name": "Dark Trains", "img": "images/train/dark.png", "location_size": 14, "location_border_thickness": 2},
+  {"name": "Cosmic Ocean", "img": "images/train/cosmic.png", "location_size": 14, "location_border_thickness": 2},
+  {"name": "Disorientation Dungeon", "img": "images/disorientation/full.png", "location_size": 7, "location_border_thickness": 1}
 ]

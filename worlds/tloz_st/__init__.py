@@ -113,6 +113,10 @@ dev_prints = False
 class SpiritTracksItem(Item):
     game = "Spirit Tracks"
 
+def map_func(i):
+    print(f"Map func: {i}, {type(i)}")
+    return i if i else 0
+
 class SpiritTracksWorld(WorldParent):
     """
     The Legend of Zelda: Spirit Tracks is the train bound handheld sequel to Phantom Hourglass.
@@ -137,8 +141,10 @@ class SpiritTracksWorld(WorldParent):
     ut_can_gen_without_yaml = True
     tracker_world = {"map_page_folder": "tracker",
                      "map_page_maps": "maps/maps.json",
+                     "map_page_settings_key": "{slot}_{team}_UT_MAP",
                      "map_page_locations": ["locations/overworld.json",
-                                            "entrances/entrances.json"]}
+                                            "entrances/entrances.json"],
+                     "map_page_index": map_func}
     found_entrances_datastorage_key = ["st_checked_entrances_{player}_{team}",
                                        "st_traversed_entrances_{player}_{team}",
                                        "st_redisconnected_entrances_{player}_{team}",

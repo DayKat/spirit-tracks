@@ -975,6 +975,283 @@ map_warp_redirects: dict[int, tuple[int, int, int]] = {
 
 }
 
+@dataclass
+class SceneData:
+    scene: int
+    name: str
+    room_type: str
+    map_id: int = 0
+
+    def __bool__(self):
+        return True
+
+SCENES: list[SceneData] = [
+    SceneData(0x400, "Forest Realm", "train", 1),
+    SceneData(0x500, "Snow Realm", "train", 2),
+    SceneData(0x600, "Ocean Realm", "train", 3),
+    SceneData(0x700, "Fire Realm", "train", 4),
+    SceneData(0xA00, "Undersea Tracks", "train", 5),
+
+    SceneData(0xB00, "Rocktite Tunnel", "train", 2),
+    SceneData(0xC00, "Rocktite Tunnel", "train", 4),
+    SceneData(0xD00, "Rocktite Tunnel", "train", 4),
+
+    SceneData(0x2f00, "Outset", "overworld", 6),
+    SceneData(0x2F0A, "Niko's House", "house", 121),
+    SceneData(0x2F0C, "Mary's House", "house", 123),
+    SceneData(0x2F0B, "Alfonzo's Workshop", "house", 122),
+
+    SceneData(0x2A00, "Mayscore", "overworld", 7),
+    SceneData(0x2A04, "Dovok's House", "house", 127),
+    SceneData(0x2A03, "Morris' House", "house", 126),
+    SceneData(0x2A02, "Wood's House", "house", 125),
+    SceneData(0x2A05, "Uriko's Shop", "useful house", 124),
+    SceneData(0x3800, "Mayscore Forest", "overworld", 8),
+
+    SceneData(0x2900, "Castle Town", "overworld", 9),
+    SceneData(0x290C, "Mona's House", "house", 130),
+    SceneData(0x290E, "Lucia's House", "house", 131),
+    SceneData(0x290A, "Shitate's Shop", "useful house", 129),
+    SceneData(0x290D, "Milo's House", "house", 132),
+    SceneData(0x290B, "Take 'em All On Lobby", "house", 133),
+
+    SceneData(0x2800, "Hyrule Castle Courtyard", "Castle", 134),
+    SceneData(0x2801, "Hyrule Castle 1F", "Castle", 135),
+    SceneData(0x2803, "Hyrule Castle Infirmary", "Castle", 138),
+    SceneData(0x2807, "Hyrule Castle Barracks", "Castle", 137),
+    SceneData(0x2806, "Hyrule Castle Throne Room", "Castle", 139),
+    SceneData(0x2802, "Hyrule Castle 2F", "Castle", 136),
+    SceneData(0x2805, "Zelda's Room", "Castle", 140),
+    SceneData(0x2804, "Hyrule Castle Backyard", "Castle", 141),
+    SceneData(0x1800, "Tunnel to the Tower 1F", "useful cave", 142),
+    SceneData(0x1801, "Tunnel to the Tower 2F", "useful cave", 143),
+    SceneData(0x1802, "Tunnel to the Tower 3F", "useful cave", 144),
+
+    SceneData(0x3000, "Woodland Sanctuary", "overworld", 10),
+    SceneData(0x3001, "Gage's Sanctuary", "cave", 128),
+
+    SceneData(0x3E00, "Rabbit Haven", "overworld", 11),
+
+    SceneData(0x2B00, "Anouki Village", "overworld", 13),
+    SceneData(0x2B05, "Yefu's House", "house", 149),
+    SceneData(0x2B04, "Noko's House", "house", 150),
+    SceneData(0x2B03, "Bulu's House", "house", 151),
+    SceneData(0x2B02, "Kofu's House", "house", 154),
+    SceneData(0x2B06, "Yeko's House", "house", 152),
+    SceneData(0x2B01, "Honcho's House", "house", 153),
+    SceneData(0x2B07, "Small Ice Puzzle Cave", "cave", 148),
+
+    SceneData(0x3100, "Snowfall Sanctuary", "overworld", 14),
+    SceneData(0x3101, "Head Statue Cave", "cave", 155),
+    SceneData(0x3102, "Steem's Sanctuary", "cave", 156),
+    SceneData(0x3103, "Snowfall Supermarket", "useful house", 157),
+
+    SceneData(0x3500, "Icy Spring", "overworld", 16),
+    SceneData(0x3501, "Ferrus' Trailer", "house", 159),
+
+    SceneData(0x3600, "Bridge Worker's", "overworld", 15),
+    SceneData(0x3601, "Kenzo's House", "house", 158),
+
+    SceneData(0x3F0A, "Slippery Station", "overworld", 17),
+    SceneData(0x3F06, "Skating Rink", "useful cave", 160),
+
+    SceneData(0x3F00, "Snowdrift Station", "overworld", 18),
+    SceneData(0x3F01, "Snowdrift Cave", "useful cave", 161),
+    SceneData(0x3F02, "Octive Arena", "cave", 162),
+    SceneData(0x3F03, "Frostflame Cave", "cave", 164),
+    SceneData(0x3F04, "Small Skating Cave", "cave", 163),
+    SceneData(0x3F05, "Big Ice Puzzle Cave", "cave", 165),
+
+    SceneData(0x3700, "Trading Post", "overworld", 12),
+    SceneData(0x370A, "Linebeck's Shop", "house", 146),
+    SceneData(0x3701, "Like-Like Tunnel", "useful cave", 145),
+    SceneData(0x3702, "Linebeck's Treasure Cave", "useful cave", 147),
+
+    SceneData(0x2C00, "Papuzia Village", "overworld", 19),
+    SceneData(0x2C01, "Fuku's House", "house", 170),
+    SceneData(0x2C04, "Wise One's House", "house", 169),
+    SceneData(0x2C03, "Orca's House", "house", 168),
+    SceneData(0x2C02, "Kogane's Shop", "useful house", 167),
+    SceneData(0x3900, "Papuzia Archipelago", "overworld", 20),
+
+    SceneData(0x3200, "Island Sanctuary South", "overworld", 21),
+    SceneData(0x3201, "Island Sanctuary South", "overworld", 22),
+    SceneData(0x3202, "Crab Cave", "cave", 171),
+    SceneData(0x3204, "Carben's Sanctuary", "cave", 172),
+
+    SceneData(0x3A00, "Pirate Hideout", "overworld", 23),
+    SceneData(0x3A01, "Treasure Cave", "cave"),
+
+    SceneData(0x390A, "Lost at Sea Stations", "overworld", 24),
+    SceneData(0x390B, "Lost at Sea Lobby", "cave", 114),
+    SceneData(0x3902, "Lost at Sea 1", "cave", 115),
+    SceneData(0x3903, "Lost at Sea 2", "cave", 116),
+    SceneData(0x3904, "Lost at Sea 3", "cave", 117),
+    SceneData(0x3905, "Lost at Sea 4", "cave", 118),
+    SceneData(0x3906, "Lost at Sea 5", "cave", 119),
+    SceneData(0x3907, "Lost at Sea 6", "cave", 120),
+
+    SceneData(0x3400, "Dune Sanctuary", "overworld", 32),
+    SceneData(0x3401, "Sandy Tunnel", "cave", 205),
+    SceneData(0x3402, "Rael's Sanctuary", "cave", 206),
+
+    SceneData(0x2E00, "Goron Village", "overworld", 25),
+    SceneData(0x2D03, "Goron Field", "overworld", 26),
+    SceneData(0x2E02, "Mountain Altar", "overworld", 195),
+    SceneData(0x2E06, "Goron Shop", "useful house", 196),
+    SceneData(0x2E0C, "Goron 3 Pots House", "house", 199),
+    SceneData(0x2E0D, "Kofu's New House", "house", 197),
+    SceneData(0x2E0E, "Goron 2 Pots House", "house", 201),
+    SceneData(0x2E0A, "Goron Elder's House", "useful house", 198),
+    SceneData(0x2E0B, "Mouldy Goron's House", "house", 200),
+    SceneData(0x2E0F, "Lava Goron's House", "house", 202),
+    SceneData(0x2E01, "Burning Tunnel", "useful cave", 203),
+    SceneData(0x3300, "Valley Sanctuary", "overworld", 27),
+    SceneData(0x3301, "Embrose's Sanctuary", "cave", 204),
+
+    SceneData(0x3D00, "Dark Ore Mine", "overworld", 30),
+    SceneData(0x3D01, "Dark Ore Mine Tunnels", "useful cave", 182),
+
+    SceneData(0x4000, "Disorientation Station", "overworld", 29),
+    SceneData(0x4001, "D1", "disorientation", 173),
+    SceneData(0x4002, "D2", "disorientation", 174),
+    SceneData(0x4003, "D3", "disorientation", 175),
+    SceneData(0x4004, "D4", "disorientation", 176),
+    SceneData(0x4005, "D5", "disorientation", 177),
+    SceneData(0x4006, "D6", "disorientation", 178),
+    SceneData(0x4007, "D7", "disorientation", 179),
+    SceneData(0x4008, "D8", "disorientation", 180),
+    SceneData(0x4009, "D9", "disorientation", 181),
+
+    SceneData(0x4100, "Ends of the Earth", "overworld", 31),
+    SceneData(0x4101, "EotE 1", "eote", 183),
+    SceneData(0x4102, "EotE 2", "eote", 184),
+    SceneData(0x4103, "EotE 3", "eote", 185),
+    SceneData(0x4104, "EotE 4", "eote", 186),
+    SceneData(0x4105, "EotE 5", "eote", 187),
+    SceneData(0x4106, "EotE 6", "eote", 188),
+    SceneData(0x4107, "EotE 7", "eote", 189),
+    SceneData(0x4108, "EotE 8", "eote", 190),
+    SceneData(0x4109, "EotE 9", "eote", 191),
+    SceneData(0x410A, "EotE A", "eote", 192),
+    SceneData(0x410B, "EotE B", "eote", 193),
+    SceneData(0x410C, "EotE C", "eote", 194),
+
+    SceneData(0x3c00, "Goron Target Range", "overworld", 28),
+    SceneData(0x3c01, "Goron Target Range", "overworld", 28),
+    SceneData(0xE00, "Goron Target Range", "train", 28),
+
+    SceneData(0xF00, "Dark Realm", "train", 207),
+    SceneData(0x1000, "Demon Train Fight", "train", 208),
+    SceneData(0x10FF, "Demon Train Fight", "train", 208),
+    SceneData(0x1100, "Demon Train Fight", "train", 208),
+    SceneData(0x1200, "Demon Train Fight", "train", 208),
+    SceneData(0x12FF, "Demon Train Fight", "train", 208),
+    SceneData(0x2400, "Cole Fight", "train", 208),
+    SceneData(0x2500, "Malladus Fight", "train", 208),
+    SceneData(0x2600, "Malladus Fight", "train", 208),
+    SceneData(0x2700, "Malladus Fight", "train", 208),
+
+    SceneData(0x1400, "ToS Lobby", "tos", 33),
+    SceneData(0x1401, "ToS Lobby", "tos", 33),
+    SceneData(0x1700, "ToS Staircase", "tos", 34),
+    SceneData(0x1500, "ToS Summit", "tos", 34),
+
+    SceneData(0x1300, "ToS 1F", "tos", 73),
+    SceneData(0x1301, "ToS 2F", "tos", 74),
+    SceneData(0x1302, "ToS 3F", "tos", 76),
+    SceneData(0x1328, "ToS 2F Secret", "tos", 75),
+
+    SceneData(0x1303, "ToS 4F", "tos", 77),
+    SceneData(0x1304, "ToS 5F", "tos", 78),
+    SceneData(0x1305, "ToS 6F", "tos", 80),
+    SceneData(0x1306, "ToS 7F", "tos", 81),
+    SceneData(0x1329, "ToS 5F Secret", "tos", 79),
+
+    SceneData(0x1307, "ToS 8F", "tos", 82),
+    SceneData(0x1308, "ToS 9F", "tos", 85),
+    SceneData(0x1309, "ToS 10F", "tos", 87),
+    SceneData(0x130a, "ToS 11F", "tos", 88),
+    SceneData(0x130b, "ToS 12F", "tos", 89),
+    SceneData(0x132A, "ToS 8F S Secret", "tos", 84),
+    SceneData(0x1315, "ToS 8F N Secret", "tos", 83),
+    SceneData(0x1316, "ToS 9F Secret", "tos", 86),
+
+    SceneData(0x130c, "ToS 13F", "tos", 90),
+    SceneData(0x130d, "ToS 14F", "tos", 91),
+    SceneData(0x130e, "ToS 15F", "tos", 92),
+    SceneData(0x1310, "ToS 16F", "tos", 93),
+    SceneData(0x130f, "ToS 17F", "tos", 95),
+    SceneData(0x132B, "ToS 6F Secret", "tos", 94),
+
+    SceneData(0x1311, "ToS 18F", "tos", 96),
+    SceneData(0x1312, "ToS 19F", "tos", 97),
+    SceneData(0x1313, "ToS 20F", "tos", 98),
+    SceneData(0x1317, "ToS 21F", "tos", 99),
+    SceneData(0x1318, "ToS 22F", "tos", 101),
+    SceneData(0x1314, "ToS 23F", "tos", 102),
+    SceneData(0x132E, "ToS 21F Secret", "tos", 100),
+    SceneData(0x2300, "ToS Staven", "tos", 103),
+
+    SceneData(0x131d, "ToS 31F", "tos", 104),
+    SceneData(0x131e, "ToS 30F", "tos", 105),
+    SceneData(0x131f, "ToS 29F", "tos", 106),
+    SceneData(0x1320, "ToS 28F", "tos", 109),
+    SceneData(0x1321, "ToS 27F", "tos", 110),
+    SceneData(0x1322, "ToS 26F", "tos", 111),
+    SceneData(0x1324, "ToS 25F", "tos", 112),
+    SceneData(0x1323, "ToS 24F", "tos", 113),
+    SceneData(0x132C, "ToS 29F Passage", "tos", 107),
+    SceneData(0x132D, "ToS 30F Passage", "tos", 108),
+
+    SceneData(0x190A, "Wooded Temple Lobby", "dungeon", 35),
+    SceneData(0x1900, "Wooded Temple 1F", "dungeon", 36),
+    SceneData(0x1901, "Wooded Temple 2F", "dungeon", 37),
+    SceneData(0x1902, "Wooded Temple 3F", "dungeon", 38),
+    SceneData(0x1903, "Wooded Temple 4F", "dungeon", 39),
+    SceneData(0x1E00, "Stagnox", "boss", 40),
+
+    SceneData(0x1A04, "Blizzard Temple Lobby", "dungeon", 41),
+    SceneData(0x1A05, "Blizzard Temple 1F", "dungeon", 42),
+    SceneData(0x1A00, "Blizzard Temple 1F", "dungeon", 42),
+    SceneData(0x1A01, "Blizzard Temple B1", "dungeon", 43),
+    SceneData(0x1A02, "Blizzard Temple 2F", "dungeon", 44),
+    SceneData(0x1A03, "Blizzard Temple 3F", "dungeon", 45),
+    SceneData(0x1F00, "Fraaz", "boss", 46),
+
+    SceneData(0x1B0A, "Marine Temple Lobby", "dungeon", 47),
+    SceneData(0x1B00, "Marine Temple 1F", "dungeon", 48),
+    SceneData(0x1B01, "Marine Temple 2F", "dungeon", 49),
+    SceneData(0x1B02, "Marine Temple 3F", "dungeon", 50),
+    SceneData(0x1B03, "Marine Temple 4F", "dungeon", 51),
+    SceneData(0x1B04, "Marine Temple 5F", "dungeon", 52),
+    SceneData(0x1B05, "Marine Temple 6F", "dungeon", 53),
+    SceneData(0x1B06, "Marine Temple 7F", "dungeon", 54),
+    SceneData(0x1B07, "Marine Temple Stamp Room", "dungeon", 55),
+    SceneData(0x2000, "Cactops", "boss", 56),
+
+    SceneData(0x1C0A, "Mountain Temple Lobby", "dungeon", 57),
+    SceneData(0x1C00, "Mountain Temple 1F", "dungeon", 58),
+    SceneData(0x1C06, "Mountain Temple 2F", "dungeon", 59),
+    SceneData(0x1C01, "Mountain Temple 2F", "dungeon", 59),
+    SceneData(0x1C02, "Mountain Temple B1", "dungeon", 60),
+    SceneData(0x1C03, "Mountain Temple B2", "dungeon", 61),
+    SceneData(0x1C04, "Mountain Temple B3", "dungeon", 62),
+    SceneData(0x1C05, "Mountain Temple B4", "dungeon", 63),
+    SceneData(0x2100, "Vulcano", "boss", 64),
+
+    SceneData(0x1D06, "Desert Temple Lobby", "dungeon", 65),
+    SceneData(0x1D00, "Desert Temple 1F", "dungeon", 66),
+    SceneData(0x1D01, "Desert Temple 2F", "dungeon", 67),
+    SceneData(0x1D02, "Desert Temple 3F", "dungeon", 68),
+    SceneData(0x1D03, "Desert Temple B1", "dungeon", 69),
+    SceneData(0x1D04, "Desert Temple B2", "dungeon", 70),
+    SceneData(0x2200, "Capbone", "boss", 71),
+    SceneData(0x2201, "Capbone", "boss", 71),
+    SceneData(0x1D05, "Desert Temple B4", "boss", 72),
+]
+
+scene_lookup: dict[int, SceneData] = {s.scene: s for s in SCENES}
 
 
 

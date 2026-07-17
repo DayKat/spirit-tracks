@@ -1828,3 +1828,31 @@ class SpiritTracksClient(DSZeldaClient):
         # Process bonus starting locations
         for i in range(1, 11):
             await self._process_checked_locations(ctx, f"Bonus Starting Item {i}")
+
+    async def ut_bounce_scene(self, ctx, scene):
+        scene_data = scene_lookup.get(scene)
+        if not scene_data:
+            return
+        map_id = scene_data.map_id
+        if not ctx.slot_data["shuffle_houses"] and scene_data.room_type == "house":
+            printl(f"Not map switching due to house: {hex(scene)}")
+            return
+        if not ctx.slot_data["shuffle_caves"] and scene_data.room_type == "cave":
+            printl(f"Not map switching due to cave: {hex(scene)}")
+            return
+
+        if not ctx.slot_data["shuffle_stations"] and map_id <= 4:
+            map_id = 0
+
+        if not ctx.slot_data["shuffle_disorientation"] and scene_data.room_type == "disorientation":
+            map_id = 209
+        if not ctx.slot_data["shuffle_eote"] and scene_data.room_type == "eote":
+            map_id = 31
+
+        printl(f"Storing new scene for UT {hex(scene)}")
+        await ctx.send_msgs([{
+            "cmd": "Set",
+            "key": f"{ctx.slot}_{ctx.team}_UT_MAP",
+            "default": 0,
+            "operations": [{"operation": "replace", "value": map_id}]
+        }])
