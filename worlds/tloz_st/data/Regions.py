@@ -600,6 +600,10 @@ REGIONS = [
     "goal_phytops",
     "oct ferrus",
 
+    "oct 2f boulders event",
+    "oct boomerang switch event",
+    "oct 6f sw arena event",
+
     #Pirate Hideout
     "pirate hideout",
     "pirate hideout station",

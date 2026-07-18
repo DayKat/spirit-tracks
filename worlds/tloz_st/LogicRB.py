@@ -748,9 +748,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["oct 1f", "oct 2f", True, None],
         ["oct 2f", "oct 2f boulders", False, has_boomerang | has_bombs],
+        ["oct 2f boulders", "oct 2f boulders event", False, None],
         ["oct 2f", "oct boomerang room", False, has_bombs],
         ["oct boomerang room", "oct 2f", False, None],
         ["oct boomerang room", "oct boomerang switch", False, has_boomerang & has_whip],
+        ["oct boomerang switch", "oct boomerang switch event", False, has_boomerang & has_whip],
         ["oct 2f", "oct stamp room", False, has_bombs],
         ["oct stamp room", "oct 2f", False, None],
         ["oct stamp room", "oct stamp station", False, has_stamp_book & has_whip & Has("_oct_boomerang")],
@@ -790,6 +792,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 5f", "oct 5f sw", True, has_whip],
         ["oct 5f sw", "oct 6f sw", True, None],
         ["oct 6f sw", "oct 6f sw arena", False, has_whip | has_bow | has_bombs],
+        ["oct 6f sw arena", "oct 6f sw arena event",  False, None],
         ["oct 5f nw", "oct 6f nw", True, None],
         ["oct 5f", "oct 5f se", False, has_whip & has_small_keys("Marine Temple", 2)],
         ["oct 5f se", "oct 6f se", True, None],
@@ -861,7 +864,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["blizzard temple tracks", "fire realm west", True, has_glyph("Fire") & has_temple_tracks("Blizzard")],
         ["snow realm source", "fire realm west", True, has_glyph("Fire") & has_source("Snow")],
-        ["fire realm west entr" "fire realm west", True, has_glyph("Fire")],
+        ["fire realm west entr", "fire realm west", True, has_glyph("Fire")],
         ["fire realm", "fire realm west entr", True, has_glyph("Fire")],
 
         ["fire realm", "fire source", True, has_glyph("Fire") & has_source("Fire")],

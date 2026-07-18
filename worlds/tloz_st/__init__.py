@@ -448,6 +448,13 @@ class SpiritTracksWorld(WorldParent):
         if self.options.shuffle_caves.value:
             events += ["EVENT: Disorientation Maze Find Chest"]
 
+        if self.options.shuffle_dungeon_rooms.value and "Marine Temple" not in self.non_required_dungeons:
+            events += ["EVENT: Marine Temple 6F Arena"]
+            if self.options.randomize_stamps.value:
+                events += ["EVENT: Marine Temple Stamp Room Switch"]
+            if not self.options.logic.value:
+                events += ["EVENT: Marine Temple 2F Boulders"]
+
         self.ut_events = events
         # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
         # print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
@@ -792,9 +799,9 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("bt 1f ne bell", "_bt_bell_2")
             self.create_event("bt 1f nw bell", "_bt_bell_3")
         if "Marine Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
-            self.create_event("oct 2f boulders", "_oct_boulders")
-            self.create_event("oct boomerang switch", "_oct_boomerang")
-            self.create_event("oct 6f sw arena", "_oct_6f_arena")
+            self.create_event("oct 2f boulders event", "_oct_boulders")
+            self.create_event("oct boomerang switch event", "_oct_boomerang")
+            self.create_event("oct 6f sw arena event", "_oct_6f_arena")
         if (not self.options.open_blue_warps.value
             and self.options.exclude_dungeons.value == 2
             and self.shuffled_dungeon_lookup

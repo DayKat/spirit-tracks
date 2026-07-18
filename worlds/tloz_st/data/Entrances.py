@@ -3093,6 +3093,34 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+    # Dungeon Events
+    "EVENT: Marine Temple 6F Arena": {
+        "two_way": False,
+        "entrance_region": "oct 6f sw arena",
+        "exit_region": "oct 6f sw arena event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Marine Temple 2F Boulders": {
+        "two_way": False,
+        "entrance_region": "oct 2f boulders",
+        "exit_region": "oct 2f boulders event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Marine Temple Stamp Room Switch": {
+        "two_way": False,
+        "entrance_region": "oct boomerang switch",
+        "exit_region": "oct boomerang switch event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 }
 
 
