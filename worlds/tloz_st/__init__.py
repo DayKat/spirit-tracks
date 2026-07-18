@@ -788,28 +788,27 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("dt warp event", "_dt_warp")
 
         # DER events. might add if statement later
-        if self.options.exclude_dungeons.value == 2:
-            if "Blizzard Temple" not in self.non_required_dungeons:
-                self.create_event("bt 1f ne bell", "_bt_bell_2")
-                self.create_event("bt 1f nw bell", "_bt_bell_3")
-            if "Marine Temple" not in self.non_required_dungeons:
-                self.create_event("oct 2f boulders", "_oct_boulders")
-                self.create_event("oct boomerang switch", "_oct_boomerang")
-                self.create_event("oct 6f sw arena", "_oct_6f_arena")
-            if not self.options.open_blue_warps.value:
-                if self.shuffled_dungeon_lookup and self.options.shuffle_warps.value in [0, 5]:
-                    if self.shuffled_dungeon_lookup["Wooded Temple"] not in self.non_required_dungeons:
-                        self.create_event("wt warp event", "_wt_warp")
-                    if self.shuffled_dungeon_lookup["Blizzard Temple"] not in self.non_required_dungeons:
-                        self.create_event("bt warp event", "_bt_warp")
-                    if self.shuffled_dungeon_lookup["Marine Temple"] not in self.non_required_dungeons:
-                        self.create_event("oct warp event", "_oct_warp")
-                    if self.shuffled_dungeon_lookup["Mountain Temple"] not in self.non_required_dungeons:
-                        self.create_event("mtt warp event", "_mtt_warp")
-                    if self.shuffled_dungeon_lookup["Desert Temple"] not in self.non_required_dungeons:
-                        self.create_event("dt warp event", "_dt_warp")
-                else:
-                    create_blue_warp_events()
+        if "Blizzard Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
+            self.create_event("bt 1f ne bell", "_bt_bell_2")
+            self.create_event("bt 1f nw bell", "_bt_bell_3")
+        if "Marine Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
+            self.create_event("oct 2f boulders", "_oct_boulders")
+            self.create_event("oct boomerang switch", "_oct_boomerang")
+            self.create_event("oct 6f sw arena", "_oct_6f_arena")
+        if (not self.options.open_blue_warps.value
+            and self.options.exclude_dungeons.value == 2
+            and self.shuffled_dungeon_lookup
+            and self.options.shuffle_warps.value in [0, 5]):
+                if self.shuffled_dungeon_lookup["Wooded Temple"] not in self.non_required_dungeons:
+                    self.create_event("wt warp event", "_wt_warp")
+                if self.shuffled_dungeon_lookup["Blizzard Temple"] not in self.non_required_dungeons:
+                    self.create_event("bt warp event", "_bt_warp")
+                if self.shuffled_dungeon_lookup["Marine Temple"] not in self.non_required_dungeons:
+                    self.create_event("oct warp event", "_oct_warp")
+                if self.shuffled_dungeon_lookup["Mountain Temple"] not in self.non_required_dungeons:
+                    self.create_event("mtt warp event", "_mtt_warp")
+                if self.shuffled_dungeon_lookup["Desert Temple"] not in self.non_required_dungeons:
+                    self.create_event("dt warp event", "_dt_warp")
         else:
             create_blue_warp_events()
 

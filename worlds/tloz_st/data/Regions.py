@@ -334,6 +334,7 @@ REGIONS = [
     "snow realm",
     "snow realm fr",
     "snow realm south",
+    "snow realm s entr",
     "snow realm south portal",
     "anouki portal",
     "snow realm source",
@@ -625,6 +626,7 @@ REGIONS = [
 
     "fire realm",
     "fire realm west",
+    "fire realm west entr",
     "gorge tracks east",
     "gorge tracks west",
     "fire source",

@@ -38,7 +38,7 @@
   {"name": "Dune Sanctuary", "img": "images/ocean_realm/dune.png", "location_size": 7, "location_border_thickness": 1},
 
   {"name": "Tower of Spirits Lobby", "img": "images/tos/basement.png", "location_size": 7, "location_border_thickness": 1},
-  {"name": "Tower of Spirits", "img": "images/tos/tower_2.png", "location_size": 7, "location_border_thickness": 1},
+  {"name": "Tower of Spirits", "img": "images/tos/tower_2.png", "location_size": 14, "location_border_thickness": 2},
 
   {"name": "Wooded Temple Lobby", "img": "images/wooded_temple/lobby.png", "location_size": 7, "location_border_thickness": 1},
   {"name": "Wooded Temple 1F", "img": "images/wooded_temple/1f.png", "location_size": 7, "location_border_thickness": 1},

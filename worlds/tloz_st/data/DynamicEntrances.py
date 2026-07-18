@@ -491,6 +491,7 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Icy Spring Train",
         "destination": "Fire Realm Goron Village Station",
         "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
+        "has_slot_data": [("shuffle_stations", 0)],
         "message": "You got here with Ferrus, putting you somewhere safe"
     },
     # ToS Shortcuts: Open

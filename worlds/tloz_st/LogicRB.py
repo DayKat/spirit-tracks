@@ -93,7 +93,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wtt", "wt rabbit", False, has_net],
         ["forest source", "wt rabbit", False, has_net],
         ["w forest tracks", "s rabbit haven rabbits", False, has_net],
-        ["snow realm fr", "nr rabbit haven rabbit", False, has_net],
+        ["snow realm fr", "nr rabbit haven rabbit", False, has_net & has_glyph("Snow")],
 
         # Snow bridge
         ["w castle town tracks", "snow bridge south", True, has_tracks("W Castle Town") & has_tracks("Snow Realm Bridge")],
@@ -447,6 +447,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # # ============ Snow Realm ===============
 
         ["snow realm south", "snow realm fr", True, has_glyph("Snow")],
+        ["snow realm south", "snow realm s entr", True, has_glyph("Snow")],
         ["snow realm south", "snow realm", True, soft_cannon],
         ["snow realm south", "anouki portal", False, has_cannon],
         ["anouki portal", "anouki portal event", False, None],
@@ -679,7 +680,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["las tracks", "las rabbit", False, has_net],
         ["ocean realm source", "ocean source rabbits", False, has_net],
         ["ocean portal tracks", "ocean portal rabbits", False, has_net],
-        ["ocean shortcut east", "pirate rabbit", False, has_net],
+        ["ocean shortcut east", "pirate rabbit", False, has_net & has_tracks("Forest Realm Ocean Shortcut")],
 
         # ========== Island Sanctuary =============
         ["ocean realm", "island sanc station", True, has_glyph("Ocean")],
@@ -860,7 +861,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["blizzard temple tracks", "fire realm west", True, has_glyph("Fire") & has_temple_tracks("Blizzard")],
         ["snow realm source", "fire realm west", True, has_glyph("Fire") & has_source("Snow")],
-        ["fire realm", "fire realm west", True, has_glyph("Fire")],
+        ["fire realm west entr" "fire realm west", True, has_glyph("Fire")],
+        ["fire realm", "fire realm west entr", True, has_glyph("Fire")],
 
         ["fire realm", "fire source", True, has_glyph("Fire") & has_source("Fire")],
         ["mountain temple tracks", "fire source", True, has_temple_tracks("Mountain") & has_source("Fire")],

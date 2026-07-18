@@ -1446,7 +1446,7 @@ ENTRANCE_DATA |= {
     "Forest Realm North Snow Glyph": {
         "return_name": "Snow Realm South Snow Glyph",
         "entrance_region": "snow realm fr",
-        "exit_region": "snow realm south",
+        "exit_region": "snow realm s entr",
         "extra_data": {"x_max": -240000},
         "coords": (-368640, 983, -342045),
         "reverse_coords": "flip_v",
@@ -1505,7 +1505,7 @@ ENTRANCE_DATA |= {
     },
     "Fire Realm West Fire Glyph": {
         "return_name": "Snow Realm East Fire Glyph",
-        "entrance_region": "fire realm",
+        "entrance_region": "fire realm west entr",
         "exit_region": "fire realm west",
         "extra_data": {"z_min": 0},
         "coords": (463671, 0, 147456),

@@ -113,16 +113,16 @@ has_all_rabbit_types = HasFromListUnique("Grass Rabbit", "Snow Rabbit", "Ocean R
 has_compass = Has("Compass of Light") | Has("Compass of Light Shard", count=FromOption(SpiritTracksCompassShardCount))
 
 def has_glyph(realm):
-    return HasGroup(f"Tracks: {realm} Glyph")
+    return HasGroup(f"Tracks: {realm} Glyph") & has_train
 
 def has_source(realm):
-    return HasGroup(f"Tracks: {realm} Source")
+    return HasGroup(f"Tracks: {realm} Source") & has_train
 
 def has_temple_tracks(temple):
-    return HasGroup(f"Tracks: {temple} Temple Tracks")
+    return HasGroup(f"Tracks: {temple} Temple Tracks") & has_train
 
 def has_tracks(tracks):
-    return HasGroup(f"Tracks: {tracks}")
+    return HasGroup(f"Tracks: {tracks}") & has_train
 
 def has_portal(portal, forward, event, _exit=False):
     not_fw = False_() if forward else True_()
@@ -194,7 +194,7 @@ glitched_logic = ool | [OptionFilter(SpiritTracksLogic, SpiritTracksLogic.option
 
 
 # Composites
-has_train = has_glyph("Forest") & (has_cannon | [OptionFilter(SpiritTracksCannonLogic, 1, "gt")] | (ool & [OptionFilter(SpiritTracksCannonLogic, 0, "gt")]))
+has_train = has_cannon | [OptionFilter(SpiritTracksCannonLogic, 1, "gt")] | (ool & [OptionFilter(SpiritTracksCannonLogic, 0, "gt")])
 has_good_damage = has_bombs | has_sword | has_bow
 has_damage = has_good_damage | has_whip
 can_kill_moth = has_whirlwind | has_bow | has_bombs | has_whip | (has_boomerang | has_sword) | has_sword_beam

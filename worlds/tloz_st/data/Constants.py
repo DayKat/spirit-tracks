@@ -1102,12 +1102,12 @@ SCENES: list[SceneData] = [
     SceneData(0x3900, "Papuzia Archipelago", "overworld", 20),
 
     SceneData(0x3200, "Island Sanctuary South", "overworld", 21),
-    SceneData(0x3201, "Island Sanctuary South", "overworld", 22),
-    SceneData(0x3202, "Crab Cave", "cave", 171),
+    SceneData(0x3202, "Island Sanctuary North", "overworld", 22),
+    SceneData(0x3201, "Crab Cave", "cave", 171),
     SceneData(0x3204, "Carben's Sanctuary", "cave", 172),
 
     SceneData(0x3A00, "Pirate Hideout", "overworld", 23),
-    SceneData(0x3A01, "Treasure Cave", "cave"),
+    SceneData(0x3A01, "Treasure Cave", "cave", 166),
 
     SceneData(0x390A, "Lost at Sea Stations", "overworld", 24),
     SceneData(0x390B, "Lost at Sea Lobby", "cave", 114),
