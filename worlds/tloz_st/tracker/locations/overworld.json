@@ -186,7 +186,22 @@
   {"name": "Goron Field", "sections": [{"name": "Goron Field NE Chest"}], "map_locations": [{"map": "Goron Field", "x": 230, "y": 30}]},
   {"name": "Goron Field", "sections": [{"name": "Goron Field Center Chest"}], "map_locations": [{"map": "Goron Field", "x": 142, "y": 122}]},
   {"name": "Goron Village", "sections": [{"name": "Goron Village Get Wagon"}], "map_locations": [{"map": "Goron Village", "x": 130, "y": 128}]},
-  {"name": "Goron Village Interior", "sections": [{"name": "Goron Shop Bomb Refill"}, {"name": "Goron Shop Shield"}, {"name": "Goron Shop Purple Potion"}, {"name": "Goron Shop Yellow Potion"}, {"name": "Goron Shop Quiver"}, {"name": "Goron Shop Postcards"}], "map_locations": [{"map": "Goron Shop", "x": 128, "y": 88}]},
+  {"name": "Goron Village Interior", "sections": [
+      {"name": "Goron Shop Bomb Refill"}
+    ], "map_locations": [{"map": "Goron Shop", "x": 120, "y": 84}]},
+    {"name": "Goron Village Interior", "sections": [
+      {"name": "Goron Shop Shield"}
+    ], "map_locations": [{"map": "Goron Shop", "x": 124, "y": 92}]},
+    {"name": "Goron Village Interior", "sections": [
+      {"name": "Goron Shop Purple Potion"}
+    ], "map_locations": [{"map": "Goron Shop", "x": 136, "y": 84}]},
+    {"name": "Goron Village Interior", "sections": [
+      {"name": "Goron Shop Yellow Potion"}
+    ], "map_locations": [{"map": "Goron Shop", "x": 128, "y": 84}]},
+    {"name": "Goron Village Interior", "sections": [
+      {"name": "Goron Shop Quiver"},
+      {"name": "Goron Shop Postcards"}
+      ], "map_locations": [{"map": "Goron Shop", "x": 132, "y": 92}]},
   {"name": "Goron Village", "sections": [{"name": "Goron Field Steel Chest"}, {"name": "Goron Field Stamp Station"}, {"name": "Goron Field NE Chest"}, {"name": "Goron Field Center Chest"}, {"name": "Goron Field Buy Steel"}], "map_locations": [{"map": "Goron Village", "x": 26, "y": 96}]},
   {"name": "Goron Field", "sections": [{"name": "Goron Field Buy Steel"}], "map_locations": [{"map": "Goron Field", "x": 200, "y": 130}]},
   {"name": "Goron Village", "sections": [{"name": "Goron Village Kofu Force Gem"}], "map_locations": [{"map": "Goron Village", "x": 192, "y": 150}]},

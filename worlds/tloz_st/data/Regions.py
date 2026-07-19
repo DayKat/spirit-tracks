@@ -647,6 +647,7 @@ REGIONS = [
     "disorientation rabbits",
     "eote rabbits",
     "s mountain temple rabbit",
+    "total rabbits",
 
     "disorientation tracks",
     "disorientation station station",

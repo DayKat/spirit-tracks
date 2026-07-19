@@ -1505,6 +1505,7 @@ class SpiritTracksClient(DSZeldaClient):
             pointer = actor_table  # Ocean temple bk does not load into the first slot in memory
             offset, size = self.oct_bk_offset*4, 4
             print(f"Got offset from search: {offset} {hex_f(pointer+offset)} {self.oct_bk_offset}")
+            self.oct_bk_offset = None
         if self.current_stage == 0x13:
             pointer, _ = await self.get_tos_bk_pointer(ctx)
         deletion_address = Address.from_pointer(pointer+offset, size)
@@ -1770,7 +1771,7 @@ class SpiritTracksClient(DSZeldaClient):
             """Check for coords on the map that don't zoom in to a station."""
             raw_coords = await STAddr.quick_pen_coords.read(ctx, silent=True)
             if 0x40 < raw_coords & 0xFF < 0x70 < (raw_coords & 0xFF0000) >> 16 < 0x90:
-                return "ToS Lobby Staircase"
+                return "Tower of Spirits Lobby Staircase"
             if 0x15 < raw_coords & 0xFF < 0x29 and 0xc1 < (raw_coords & 0xFF0000) >> 16 < 0xda:
                 return "Mountain Temple Lobby Enter Dungeon"
             if 0x59 < raw_coords & 0xFF < 0x75 and 0x23 < (raw_coords & 0xFF0000) >> 16 < 0x35:

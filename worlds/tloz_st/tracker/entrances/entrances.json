@@ -13,8 +13,8 @@
   {"name": "Mayscore", "sections": [{"name": "Mayscore NE House"}], "map_locations": [{"map": "Mayscore", "x": 156, "y": 104}]},
   {"name": "Mayscore", "sections": [{"name": "Mayscore North"}], "map_locations": [{"map": "Mayscore", "x": 212, "y": 24}]},
   {"name": "Mayscore", "sections": [{"name": "Mayscore Board Train"}], "map_locations": [{"map": "Mayscore", "x": 130, "y": 154}]},
-  {"name": "Mayscore Interior", "sections": [{"name": "Wood's House Exit"}], "map_locations": [{"map": "Wood's House", "x": 128, "y": 116}]},
-  {"name": "Mayscore Interior", "sections": [{"name": "Morris' House Exit"}], "map_locations": [{"map": "Morris' House", "x": 128, "y": 116}]},
+  {"name": "Mayscore Interior", "sections": [{"name": "Wood's House Exit"}], "map_locations": [{"map": "Wood's House", "x": 102, "y": 116}]},
+  {"name": "Mayscore Interior", "sections": [{"name": "Morris' House Exit"}], "map_locations": [{"map": "Morris' House", "x": 102, "y": 116}]},
   {"name": "Mayscore Interior", "sections": [{"name": "Dovok's House Exit"}], "map_locations": [{"map": "Dovok's House", "x": 128, "y": 116}]},
   {"name": "Mayscore Interior", "sections": [{"name": "Uriko's Shop Exit"}], "map_locations": [{"map": "Mayscore Shop", "x": 128, "y": 116}]},
   {"name": "Mayscore Forest", "sections": [{"name": "Mayscore Forest South"}], "map_locations": [{"map": "Mayscore Forest", "x": 64, "y": 148}]},
@@ -416,7 +416,7 @@
 
   {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits to Fire Realm"}], "map_locations": [{"map": "Tower of Spirits Lobby", "x": 174, "y": 50}]},
 
-  {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Lobby Staircase"}], "map_locations": [{"map": "Tower of Spirits Lobby", "x": 129, "y": 20}]},
+  {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Lobby Staircase"}], "map_locations": [{"map": "Tower of Spirits Lobby", "x": 128, "y": 20}]},
   {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Staircase Exit"}], "map_locations": [{"map": "Tower of Spirits", "x": 63, "y": 460}]},
 
   {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Enter Section 1"}], "map_locations": [{"map": "Tower of Spirits", "x": 47, "y": 427}]},

@@ -447,7 +447,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # # ============ Snow Realm ===============
 
-        ["snow realm south", "snow realm fr", True, has_glyph("Snow")],
+        ["snow realm s entr", "snow realm fr", True, has_glyph("Snow")],
         ["snow realm south", "snow realm s entr", True, has_glyph("Snow")],
         ["snow realm south", "snow realm", True, soft_cannon],
         ["snow realm south", "anouki portal", False, has_cannon],
@@ -605,8 +605,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["icyspring", "ferrus' trailer", True, None],
         ["icyspring", "icyspring stamp station", False, has_stamp_book & has_boomerang],
         ["icyspring", "icyspring whip chest", False, has_whip],
-        ["icyspring", "icyspring noko", False, has_temple_tracks("Blizzard") & (# for ferrus logic
-                has_passenger("Noko", "_noko") | no_passengers)],
+        ["icyspring", "icyspring noko", False, has_passenger("Noko", "_noko") | no_passengers],
 
         # ============ Snowdrift Station =========
 
@@ -1289,14 +1288,16 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["papuzia village", "papuzia buy cargo", False, has_wagon & has_rupees(required_rupees)],
         ["wise one's house", "wise one buy vessel", False, has_wagon & has_rupees(required_rupees)],
         ["goron field", "goron steel", False, has_wagon & has_rupees(required_rupees) & Has("_goron_ice")],
-        ["dark ore tunnels mid", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)]
+        ["dark ore tunnels mid", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)],
+
+        ["menu", "total rabbits", False, has_net]
     ]
 
     # Generate rabbit total items
     if world.options.rabbitsanity in ["on_total", "both"]:
         # print(f"Creating total rabbit logic")
         overworld_logic += [
-            [f"forest realm rabbits", f"{rabbit} Rabbit Count {i}", False, caught_rabbits(rabbit, i)
+            [f"total rabbits", f"{rabbit} Rabbit Count {i}", False, caught_rabbits(rabbit, i)
              ] for i in range(1, 11) for rabbit in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]
         ]
 

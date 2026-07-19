@@ -986,7 +986,7 @@ _warp_data = [
     WarpStorageData(0x500, "anouki station", {0, 0xA}),
     WarpStorageData(0x600, "papuzia village station", {0, 2}),
     WarpStorageData(0x700, "goron village station", {0}),
-    WarpStorageData(0x1401, "tos")
+    WarpStorageData(0x1401, "tos lobby")
 ]
 WARP_SCENES: dict[int, "WarpStorageData"] = {data.scene: data for data in _warp_data}
 

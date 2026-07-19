@@ -7,13 +7,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Clear Rocks"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)],
-        "reset_flags": ["RESET forest glyph"]
+        "reset_flags": ["RESET forest glyph", "RESET map warp forest glyph"]
     },
     "Outset Bee Boy": {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Bee Tree"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x44), (STAddr.adv_flags_1, 0x80)],
-        "reset_flags": ["RESET forest glyph", "RESET Remove Ocean source"]
+        "reset_flags": ["RESET forest glyph", "RESET Remove Ocean source", "RESET map warp forest glyph"]
     },
     "Allow leaving Outset": {
         "on_scenes": [0x2F00],
@@ -344,7 +344,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal near castle town always open": {
         "on_scenes": [0x0400],
         "has_groups": ["Tracks: Snow Glyph"],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
+    },
+    "Allow Portal near castle town always open shuffle": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]  # activates portal to sw snow realm
     },
     "Allow Portal near castle town item": {
@@ -377,8 +382,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Open anouki portal open portals": {
         "on_scenes": [0x0500],
-        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ["shuffle_portals", 0]],
         "has_groups": ["Tracks: Forest Glyph"],
+        "set_if_true": [(STAddr.adv_flags_30, 0x08)]
+    },
+    "Open anouki portal open portals shuffle": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ["shuffle_portals", 0, "not"]],
         "set_if_true": [(STAddr.adv_flags_30, 0x08)]
     },
     "Open anouki portal item": {
@@ -392,7 +402,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow portal snow realm E to Forest S always open": {
         "on_scenes": [0x500],
         "has_groups": ["Tracks: Forest Realm SE Portal"],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
+    },
+    "Allow portal snow realm E to Forest S always open shuffle": {
+        "on_scenes": [0x500],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "Allow portal snow realm E to Forest S item": {
@@ -424,7 +439,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "open portals s trading post": {
         "on_scenes": [0x400],
         "has_groups": ["Tracks: Blizzard Temple Tracks"],
-        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ["shuffle_portals", 0]],
+        "set_if_true": [(STAddr.adv_flags_30, 0x20)]
+    },
+    "open portals s trading post shuffle": {
+        "on_scenes": [0x400],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ["shuffle_portals", 0, "not"]],
         "set_if_true": [(STAddr.adv_flags_30, 0x20)]
     },
     "open portal s trading post item": {
@@ -447,7 +467,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal near marine temple always open": {
         "on_scenes": [0x600],
         "has_groups": ["Tracks: Fire Realm Sand Portal"],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+    "Allow Portal near marine temple always open shuffle": {
+        "on_scenes": [0x600],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Allow Portal near marine temple item": {
@@ -479,7 +504,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Open Portal sand connection to marine always open": {
         "on_scenes": [0x700],
         "has_groups": ["Tracks: Fire Realm Sand Portal"],
-        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x80)]
+    },
+    "Open Portal sand connection to marine always open shuffle": {
+        "on_scenes": [0x700],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_30, 0x80)]
     },
     "Open Portal sand connection to marine items": {
@@ -493,14 +523,27 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
         "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
-        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)],
+        "not_on_entrance": [0x7, 0xB, 0xFB],
+    },
+    "Allow Portal sand temple shortcut always open shuffle": {
+        "on_scenes": [0x600],
+        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "not_on_entrance": [0x7, 0xB, 0xFB],
     },
     "Allow Portal sand temple shortcut always open from top": {
         "on_scenes": [0x600],
         "has_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
-        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)],
+        "on_entrance": [0xFB],
+        "coords": {"x_max": 80000},
+    },
+    "Allow Portal sand temple shortcut always open from top shuffle": {
+        "on_scenes": [0x600],
+        "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "on_entrance": [0xFB],
         "coords": {"x_max": 80000},
@@ -561,7 +604,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Open Portal sand temple shortcut always open": {
         "on_scenes": [0x600],
         "has_groups": ["Tracks: Desert Temple Tracks", "Tracks: Sand Realm"],
-        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1)],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x01)]
+    },
+    "Open Portal sand temple shortcut always open shuffle": {
+        "on_scenes": [0x600],
+        "has_slot_data": [("portal_checks", 0), ("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)]
     },
     "Open Portal sand temple shortcut item": {
@@ -581,7 +629,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal icy spring always open": {
         "on_scenes": [0x0500],
         "has_groups": ["Tracks: Mountain Temple Tracks"],
-        "has_slot_data": [("portal_behavior", 1), ["portal_checks", 0]],
+        "has_slot_data": [("portal_behavior", 1), ["portal_checks", 0], ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)],
+    },
+    "Allow Portal icy spring always open shuffle": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [("portal_behavior", 1), ["portal_checks", 0], ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)],
     },
     "Allow Portal icy spring with item": {
@@ -595,7 +648,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal mountain always open": {
         "on_scenes": [0x0700],
         "has_groups": ["Tracks: N Icy Spring"],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x02)],
+    },
+    "Allow Portal mountain always open shuffle": {
+        "on_scenes": [0x0700],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x02)],
     },
     "Allow Portal mountain with item": {
@@ -621,7 +679,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal goron village open portals": {
         "on_scenes": [0x0700],
         "has_groups": ["Tracks: Forest Realm SW Cave"],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.activate_portals, 0x40)]
+    },
+    "Allow Portal goron village open portals shuffle": {
+        "on_scenes": [0x0700],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.activate_portals, 0x40)]
     },
     "Allow Portal goron village item": {
@@ -647,7 +710,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Open cave portal open portals": {
         "on_scenes": [0x0400],
         "has_groups": ["Tracks: Fire Glyph"],
-        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.activate_portals, 0x40)]
+    },
+    "Open cave portal open portals shuffle": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.activate_portals, 0x40)]
     },
     "Open cave portal item": {
@@ -667,7 +735,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal mayscore open portals": {
         "on_scenes": [0x0400],
         "has_groups": ["Tracks: Ocean Portal"],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Allow Portal mayscore open portals shuffle": {
+        "on_scenes": [0x0400],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x4)]
     },
     "Allow Portal mayscore item": {
@@ -693,7 +766,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Open ocean portal open portals": {
         "on_scenes": [0x0600],
         "has_groups": ["Tracks: Ocean Glyph"],
-        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_31, 0x4)]
+    },
+    "Open ocean portal open portals shuffle": {
+        "on_scenes": [0x0600],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x4)]
     },
     "Open ocean portal": {
@@ -713,7 +791,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow Portal island sanctuary open portals": {
         "on_scenes": [0x0600],
         "has_groups": ["Tracks: Snow Realm Bridge"],
-        "has_slot_data": [("portal_behavior", 1)],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Allow Portal island sanctuary open portals shuffle": {
+        "on_scenes": [0x0600],
+        "has_slot_data": [("portal_behavior", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_30, 0x10)]
     },
     "Allow Portal island sanctuary item": {
@@ -739,7 +822,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Open snow bridge portal open portals": {
         "on_scenes": [0x0500],
         "has_groups": ["Tracks: Ocean Portal"],
-        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1]],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ("shuffle_portals", 0)],
+        "set_if_true": [(STAddr.adv_flags_30, 0x10)]
+    },
+    "Open snow bridge portal open portals shuffle": {
+        "on_scenes": [0x0500],
+        "has_slot_data": [["portal_checks", 0], ["portal_behavior", 1], ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_30, 0x10)]
     },
     "Open snow bridge portal": {
@@ -2554,6 +2642,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "reset_flags": ["RESET map warp forest glyph"]
     },
     "RESET map warp forest glyph": {
+        "has_slot_data": [("enable_map_warp", 1)],
         "set_if_true": [(STAddr.adv_flags_1, 0x80)]
     }
 }
