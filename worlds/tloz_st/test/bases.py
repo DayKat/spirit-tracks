@@ -86,7 +86,10 @@ class TestGeneration(WorldTestBase):
         "entrance_directionality": {"dungeon_entrances", "pool_a"},
 
         "randomize_start": {"stations"},
-        "free_starting_items": 2
+        "free_starting_items": 2,
+
+        "randomize_passengers": "randomize",
+        "passenger_pickup": "visit"
 
         # "plando_transitions": [
         #     {"entrance": "Outset East House",

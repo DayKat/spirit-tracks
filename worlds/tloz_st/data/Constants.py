@@ -928,6 +928,7 @@ class WarpStorageData:
     valid_entrances: set = None
     invalid_entrances: set = None
     special_options: bool = False
+    event: str = ""
 
     def __eq__(self, other):
         return self.scene == other
@@ -955,28 +956,28 @@ class WarpStorageData:
         return False
 
 _warp_data = [
-    WarpStorageData(0x2f00, "outset village"),
+    WarpStorageData(0x2f00, "outset village", event="EVENT: Visit Outset"),
     WarpStorageData(0x2a00, "mayscore"),
-    WarpStorageData(0x2900, "castle town"),
+    WarpStorageData(0x2900, "castle town", event="EVENT: Visit Castle Town"),
     WarpStorageData(0x3000, "woodland sanc", {0}),
     WarpStorageData(0x190a, "wt lobby"),
-    WarpStorageData(0x3e00, "rabbit haven"),
-    WarpStorageData(0x2b00, "anouki village"),
+    WarpStorageData(0x3e00, "rabbit haven", event="EVENT: Visit Rabbit Haven"),
+    WarpStorageData(0x2b00, "anouki village", event="EVENT: Visit Anouki Village"),
     WarpStorageData(0x3100, "snow sanc"),
-    WarpStorageData(0x3500, "icyspring"),
+    WarpStorageData(0x3500, "icyspring", event="EVENT: Visit Icy Spring"),
     WarpStorageData(0x3600, "bridge workers"),
     WarpStorageData(0x1a04, "bt lobby"),
     WarpStorageData(0x3f0a, "slippery"),
     WarpStorageData(0x3f00, "snowdrift"),
-    WarpStorageData(0x3700, "trading post", {0, 1, 2}),
-    WarpStorageData(0x2c00, "papuzia village", invalid_entrances={5}),
+    WarpStorageData(0x3700, "trading post", {0, 1, 2}, event="EVENT: Visit Trading Post"),
+    WarpStorageData(0x2c00, "papuzia village", invalid_entrances={5}, event="EVENT: Visit Trading Post"),
     WarpStorageData(0x3200, "island sanc"),
-    WarpStorageData(0x1b0a, "oct lobby"),
+    WarpStorageData(0x1b0a, "oct lobby", event="EVENT: Visit Marine Temple"),
     WarpStorageData(0x3a00, "pirate hideout"),
     WarpStorageData(0x390a, "lost at sea"),
     WarpStorageData(0x3400, "sand sanc"),
     WarpStorageData(0x1d06, "dt lobby"),
-    WarpStorageData(0x2e00, "goron village", special_options=True),
+    WarpStorageData(0x2e00, "goron village", special_options=True, event="EVENT: Visit Goron Village"),
     WarpStorageData(0x3c00, "goron target lobby"),
     WarpStorageData(0x1c0a, "mtt lobby"),
     WarpStorageData(0x4000, "disorientation station"),

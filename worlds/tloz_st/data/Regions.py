@@ -57,6 +57,17 @@ REGIONS = [
     "sand restoration portal event",
     "sand connection portal event",
 
+    # visited stations
+    "visited outset",
+    "visited castle town",
+    "visited rabbit haven",
+    "visited anouki village",
+    "visited icyspring",
+    "visited trading post",
+    "visited papuzia",
+    "visited marine temple",
+    "visited goron village",
+
     # Outset Village
     "outset village",
     "outset station",
@@ -717,7 +728,8 @@ REGIONS = [
     "goron ice",
     "goron ice 2",
     "goron ice event",
-    "pick up gorons",
+    "pick up snow goron",
+    "pick up city goron",
     "gv kofu",
 
     "goron house 3 pots",

@@ -4128,7 +4128,7 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
         "exact_read": True,
-        "region_id": "pick up gorons",
+        "region_id": "pick up snow goron",
         "no_model": True
     },
     "Goron Village Pick Up City Goron": {
@@ -4140,7 +4140,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Goron Village", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "region_id": "goron ice event",
+        "region_id": "pick up city goron",
         "no_model": True
     },
     "Castle Town Goron Force Gem": {

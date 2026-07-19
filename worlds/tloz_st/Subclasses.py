@@ -328,6 +328,7 @@ class STTransition(DSTransition):
     entrance_groups = EntranceGroups
     opposite_entrance_groups = OPPOSITE_ENTRANCE_GROUPS
     required_groups: list[str | tuple[str]]
+    vanilla_reciprocal: "STTransition"
 
     @classmethod
     def from_data(cls, entrance_data):

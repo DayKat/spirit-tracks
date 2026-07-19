@@ -47,6 +47,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             & has_passenger("Ferrus", "_ferrus_1")],
         ["delivered ferrus", "outset ferrus event", False, None],
         ["train workshop", "outset ferrus", None, Has("_delivered_ferrus")],
+        ["outset village", "visited outset", False, None],
 
         # ========= Forest Realm ==========
 
@@ -116,12 +117,13 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["castle station", "castle town", False, has_glyph("Forest")],
         ["castle town", "castle station", False, None],
         ["forest realm", "castle station", True, has_glyph("Forest") & soft_cannon],
-        ["castle town", "castle town goron", False, has_passenger("City Goron", "_goron")],
-        ["castle town", "pick up alfonzo", False, has_glyph("Snow")],
-        ["castle town", "castle town teacher", False, has_glyph("Snow") | has_glyph("Ocean") | has_glyph("Fire")],
+        ["castle town", "castle town goron", False, has_passenger("City Goron", "_city_goron")],
+        ["castle town", "pick up alfonzo", False, (has_glyph("Snow") & has_glyph("Forest") & pickup_tracks) | (Has("_visit_outset") & pickup_visit)],
+        ["castle town", "castle town teacher", False, ((has_glyph("Snow") | has_glyph("Ocean") | has_glyph("Fire") | has_source("Fire")) & pickup_tracks) | (HasAny("_visit_av", "_visit_papuzia", "_visit_gv") & pickup_visit)],
         ["pick up alfonzo", "alfonzo event", False, None],
-        ["mona's house", "castle town mona", False, has_glyph("Snow")],
+        ["mona's house", "castle town mona", False, pickup_passenger("Snow Glyph", "_visit_rabbit")],
         ["castle town", "castle town fish", False, has_cargo("Fish", "_buy_fish")],
+        ["castle town", "visited castle town", False, None],
 
         ["castle town", "castle town wall", False, has_bombs],
         ["castle town wall", "castle town stamp station", False, has_stamp_book],
@@ -325,11 +327,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mayscore", "mayscore leaves", False, has_whirlwind],
         ["mayscore north", "mayscore leaves", False, has_whirlwind],
 
-        ["dovok's house", "mayscore dovok", False, has_glyph("Ocean")],
-        ["mayscore whip chest", "mayscore wood", False, has_glyph("Ocean")],
+        ["dovok's house", "mayscore dovok", False, pickup_passenger("Ocean Glyph", "_visit_papuzia")],
+        ["mayscore whip chest", "mayscore wood", False, pickup_passenger("Ocean Glyph", "_visit_papuzia")],
         ["mayscore", "mayscore steel", False, has_cargo("Goron Steel", "_buy_steel")],
-        ["morris' house", "mayscore morris", False, has_glyph("Ocean")],
-        ["mayscore", "mayscore quest", False, has_glyph("Ocean")],
+        ["morris' house", "mayscore morris", False, pickup_passenger("Ocean Glyph", "_visit_papuzia")],
+        ["mayscore", "mayscore quest", False, pickup_passenger("Ocean Glyph", "_visit_papuzia")],
 
         # # ======== Forest Sanctuary =========
 
@@ -408,6 +410,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["trading post tracks", "trading post station", True, has_glyph("Ocean")],
         ["trading post station", "trading post", False, has_glyph("Ocean")],
         ["trading post", "trading post station", False, None],
+        ["trading post", "visited trading post", False, None],
 
         ["trading post", "linebeck's shop", True, None],
         ["trading post", "trading post tunnel", True, None],
@@ -426,7 +429,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             if world.options.randomize_passengers.value else
             ["trading post", "linebeck trading", False, Has("Treasure: Regal Ring")],
         ["linebeck trading", "linebeck event", False, None],
-        ["trading post", "trading post pick up kenzo", False, Has("_can_sell_treasure") & has_glyph("Snow")],
+        ["trading post", "trading post pick up kenzo", False, Has("_can_sell_treasure") & pickup_passenger("Snow Glyph", "_visit_av")],
         ["linebeck's shop", "linebeck dark ore", False, Has("_can_sell_treasure") & has_cargo("Dark Ore", "_buy_ore")],
 
         # # ========== Rabbit Haven ========
@@ -434,6 +437,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snow realm fr", "rabbit haven station", True, has_glyph("Snow")],
         ["rabbit haven station", "rabbit haven", False, has_glyph("Snow")],
         ["rabbit haven", "rabbit haven station", False, None],
+        ["rabbit haven", "visited rabbit haven", False, None],
 
         ["rabbit haven", "rabbit haven 5 rabbits", False, has_total_rabbits(5)],
         ["rabbit haven", "rabbit haven 10 forest rabbits", False, has_rabbit_items("Grass", 10)],
@@ -466,7 +470,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["icyspring portal loc", "icyspring portal event", False, None],
 
         ["blizzard temple tracks", "snow realm ferrus", False, 
-            has_source("Snow") & has_passenger("Alfonzo", "_picked_up_alfonzo")],
+            has_source("Snow") & has_passenger("Alfonzo", "_picked_up_alfonzo")
+         & pickup_passenger("Forest Glyph", "_visit_outset")],
 
         *get_portal_logic("forest realm se portal track", "forest realm se portal",
                           "blizzard temple tracks", "btt e portal",
@@ -480,6 +485,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snow realm", "anouki station", True, has_glyph("Snow")],
         ["anouki station", "anouki village", False, has_glyph("Snow")],
         ["anouki village", "anouki station", False, None],
+        ["anouki village", "visited anouki village", False, None],
 
         ["anouki village", "honcho's house", True, None],
         ["anouki village", "bulu's house", True, None],
@@ -494,16 +500,16 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["anouki village", "anouki village song statue", False, has_spirit_flute],
         ["anouki village", "anouki village lake chest", False, has_boomerang],
 
-        ["anouki village", "av noko", False, has_temple_tracks("Blizzard")],
+        ["anouki village", "av noko", False, pickup_passenger("Blizzard Temple Tracks", "_visit_icyspring")],
         ["anouki village", "av fence", False, (
                 has_passenger("Kenzo", "_kenzo_2") | no_passengers
             ) & (
                 has_cargo("Lumber", "_buy_lumber") | no_cargo)],
         ["anouki village", "av kenzo", False, (has_passenger("Kenzo", "_kenzo_2") | no_passengers)
         | (has_cargo("Lumber", "_buy_lumber") | no_cargo)],
-        ["anouki village", "av goron", False, has_passenger("Snow Goron", "_goron")],
+        ["anouki village", "av goron", False, has_passenger("Snow Goron", "_snow_goron")],
         ["av goron", "av goron event", False, None],
-        ["honcho's house", "av kofu", False, (has_glyph("Fire") | has_source("Fire")) & Has("_av_goron")],
+        ["honcho's house", "av kofu", False, Has("_av_goron") & (((has_glyph("Fire") | has_source("Fire")) & pickup_tracks) | Has("_visit_gv", options=pickup_visit))],
 
         # =========== Snow Sanctuary ==========
 
@@ -601,6 +607,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["blizzard temple tracks", "icyspring station", True, has_temple_tracks("Blizzard")],
         ["icyspring station", "icyspring", False, has_temple_tracks("Blizzard")],
         ["icyspring", "icyspring station", False, None],
+        ["icyspring", "visited icyspring", False, None],
 
         ["icyspring", "ferrus' trailer", True, None],
         ["icyspring", "icyspring stamp station", False, has_stamp_book & has_boomerang],
@@ -637,7 +644,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bridge workers", "bridge workers station", False, None],
         ["bridge workers", "bridge workers chest", False, has_sod],
         ["bridge workers", "kenzo's house", True, None],
-        ["kenzo's house", "pick up bridge worker", False, has_glyph("Ocean")],
+        ["kenzo's house", "pick up bridge worker", False, pickup_passenger("Ocean Glyph", "_visit_tp")],
 
         # ========== Ocean Realm =============
         ["forest realm", "e mayscore bridge", True, has_tracks("E Mayscore Bridge") & has_glyph("Forest")],
@@ -714,6 +721,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["papuzia village", "pv dovok", False, has_passenger("Dovok", "_dovok")],
         ["pv dovok", "orca's house", False, ool],
         ["pv wadatsumi", "orca's house", False, ool],
+        ["papuzia village", "visited papuzia", False, None],
 
         ["papuzia village", "fuku's house", True, None],
         ["papuzia village", "wise one's house", True, None],
@@ -740,6 +748,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct lobby", "oct station", False, None],
         ["oct lobby", "oct song statue", False, has_spirit_flute],
         ["oct lobby", "oct 1f", True, None],
+        ["oct lobby", "visited marine temple", False, None],
 
         ["oct 1f", "oct 1f whip", False, has_whip],
         ["oct 1f", "oct 1f right", False, hard_logic | Has("_oct_boulders")],
@@ -835,9 +844,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["pirate hideout", "pirate hideout minigame", False, has_bow],
         ["pirate hideout", "pirate hangout", True, None],
         # Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
-        ["pirate hideout", "pirate wadatsumi", False, has_glyph("Ocean")]
+        ["pirate hideout", "pirate wadatsumi", False, pickup_passenger("Ocean Glyph", "_visit_papuzia")]
             if world.options.randomize_minigames.value in [0] else
-            ["pirate hideout", "pirate wadatsumi", False, has_bow & has_glyph("Ocean")],
+            ["pirate hideout", "pirate wadatsumi", False, has_bow & pickup_passenger("Ocean Glyph", "_visit_papuzia")],
         # First hideout minigame gives you bow automatically, and then it shows in top right, even with no items, but doesn't let you use it. With an item, it doesn't show
 
         # ======== Lost at Sea Station ==========
@@ -877,7 +886,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["fire realm", "sand connection", True, has_glyph("Fire") & has_tracks("Fire Realm Sand Portal")],
         ["mountain temple tracks", "dark ore mine tracks", True, has_temple_tracks("Mountain") & has_tracks("Dark Ore Mine")],
         ["mountain temple tracks", "snurglars", True, has_cannon],
-        ["fire realm", "fire realm ferrus", False, has_temple_tracks("Marine")],
+        ["fire realm", "fire realm ferrus", False, ((has_temple_tracks("Marine") | has_source("Ocean")) & pickup_tracks) | (Has("_visit_oct") & pickup_visit)],
         ["fire realm ferrus", "icyspring", False, ool & vanilla_passengers],
 
         ["fire realm", "fire realm rabbits", False, has_net],
@@ -903,6 +912,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["goron village", "goron village station", False, None],
         ["goron village station", "goron village", False, has_glyph("Fire") | has_source("Fire")],
         ["fire source", "goron village station", True, has_source("Fire")],
+        ["goron village", "visited goron village", False, None],
 
         ["goron village", "goron village shop", True, None],
         ["goron village", "goron village kagoron", False, Has("_visit_kagoron")],
@@ -917,7 +927,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["goron whip", "goron village stamp", False, has_stamp_book],
 
         ["goron ice", "goron ice event", False, None],
-        ["goron ice event", "pick up gorons", False, has_glyph("Snow")],
+        ["goron ice event", "pick up snow goron", False, pickup_passenger("Snow Glyph", "_visit_av")],
+        ["goron ice event", "pick up city goron", False, pickup_passenger("Forest Glyph", "_visit_ct")],
         ["goron ice event", "gv kofu", False, has_passenger("Kofu", "_kofu")],
         ["goron ice event", "goron plaza", False, None],
         ["goron plaza", "goron village", False, None],
@@ -1251,7 +1262,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["malladus 2", "malladus event", False, can_fight_malladus],
 
         ["forest realm", "beedle", False, has_source("Snow")],
+        ["snow realm", "beedle", False, has_source("Snow")],
+        ["blizzard temple tracks", "beedle", False, has_source("Snow")],
         ["snow realm source", "beedle", False, has_source("Snow")],
+        ["fire realm", "beedle", False, has_source("Snow")],
+        ["mountain temple tracks", "beedle", False, has_source("Snow")],
+        ["ocean realm", "beedle", False, has_source("Snow")],
+        ["ocean temple tracks", "beedle", False, has_source("Snow")],
+        ["sand realm", "beedle", False, has_source("Snow")],
         ["beedle", "beedle joe", False, has_passenger("Joe", "_joe")]
     ]
 

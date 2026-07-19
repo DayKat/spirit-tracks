@@ -373,11 +373,38 @@ class SpiritTracksClient(DSZeldaClient):
 
             return True
 
+        def check_visited_scenes():
+            desired_scenes = data.get("visited_scenes", [])
+            if not desired_scenes:
+                return True
+
+            for scene in desired_scenes:
+                if scene in ctx.stored_data[storage_key(ctx, visited_scenes_key)]:
+                    return True
+            printl(f"\t{data['name']} has not visited scenes {hex_f(desired_scenes)}")
+            return False
+
+        def check_unvisited_scenes():
+            desired_scenes = data.get("not_visited_scenes", [])
+            if not desired_scenes:
+                return True
+
+            for scene in desired_scenes:
+                if scene in ctx.stored_data[storage_key(ctx, visited_scenes_key)]:
+                    return False
+            printl(f"\t{data['name']} has visited bad scenes {hex_f(desired_scenes)}")
+            return True
+
+
         if not check_dungeon_reqs():
             printl(f"\t{data['name']} does not have dungeon requirements")
             return False
         if not await check_coords():
             printl(f"\t{data['name']} does not have coordinate requirements")
+            return False
+        if not check_visited_scenes():
+            return False
+        if not check_unvisited_scenes():
             return False
         return True
 
@@ -1151,8 +1178,8 @@ class SpiritTracksClient(DSZeldaClient):
         await self.get_saved_scene(ctx, saved_scene_key)
 
     # UT store entrances to defer
-    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data, exit_data,
-                                      interaction="traverse"):
+    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data: "STTransition", exit_data: "STTransition",
+                                      interaction: str="traverse"):
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
         new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
@@ -1396,6 +1423,9 @@ class SpiritTracksClient(DSZeldaClient):
             if warp_data and warp_data.is_valid(self.current_entrance, ctx.slot_data):
                 self.visited_scenes.add(self.current_scene)
                 await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [self.current_scene])
+                if warp_data.event:
+                    event_entr = ENTRANCES[warp_data.event]
+                    await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
 
     async def open_boss_door(self, ctx):
         current_scene = self.current_scene

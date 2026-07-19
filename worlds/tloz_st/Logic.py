@@ -602,7 +602,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["valley sanc tunnel", "valley sanc", False, lambda state: st_has_boomerang(state, player)],
         ["valley sanc", "valley sanc stamp", False, lambda state: st_has_stamp_book(state, player)],
         ["valley sanc", "valley sanc song", False, lambda state: st_has_light_song(state, player)],
-        ["goron ice event", "pick up gorons", False, lambda state: st_has_glyph(state, player, "Snow")],
+        ["goron ice event", "pick up snow goron", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["goron ice event", "gv kofu", False, lambda state: st_has_passenger(state, player, "Kofu", "_kofu")],
 
         ["goron village", "goron ice", False, None] if options.randomize_cargo == "no_cargo" else (

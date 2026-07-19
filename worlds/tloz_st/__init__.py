@@ -450,6 +450,19 @@ class SpiritTracksWorld(WorldParent):
         if self.options.shuffle_caves.value:
             events += ["EVENT: Disorientation Maze Find Chest"]
 
+        if self.options.randomize_passengers.value and self.options.passenger_pickup.value == 1:
+            events += [
+                "EVENT: Visit Outset",
+                "EVENT: Visit Castle Town",
+                "EVENT: Visit Rabbit Haven",
+                "EVENT: Visit Anouki Village",
+                "EVENT: Visit Icy Spring",
+                "EVENT: Visit Trading Post",
+                "EVENT: Visit Papuzia Village",
+                "EVENT: Visit Marine Temple",
+                "EVENT: Visit Goron Village",
+            ]
+
         if self.options.shuffle_dungeon_rooms.value and "Marine Temple" not in self.non_required_dungeons:
             events += ["EVENT: Marine Temple 6F Arena"]
             if self.options.randomize_stamps.value:
@@ -764,7 +777,8 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("pv carben", "_carben")
             self.create_event("pirate wadatsumi", "_wadatsumi")
             self.create_event("av kofu", "_kofu")
-            self.create_event("pick up gorons", "_goron")
+            self.create_event("pick up snow goron", "_snow_goron")
+            self.create_event("pick up city goron", "_city_goron")
             self.create_event("snow realm ferrus", "_ferrus_1")
             self.create_event("fire realm ferrus", "_ferrus_2")
             self.create_event("oct ferrus", "_ferrus_3")
@@ -820,6 +834,17 @@ class SpiritTracksWorld(WorldParent):
                     self.create_event("dt warp event", "_dt_warp")
         else:
             create_blue_warp_events()
+
+        if self.options.randomize_passengers.value and self.options.passenger_pickup.value == 1:
+            self.create_event("visited outset", "_visit_outset")
+            self.create_event("visited castle town", "_visit_ct")
+            self.create_event("visited rabbit haven", "_visit_rabbit")
+            self.create_event("visited anouki village", "_visit_av")
+            self.create_event("visited icyspring", "_visit_icyspring")
+            self.create_event("visited trading post", "_visit_tp")
+            self.create_event("visited papuzia", "_visit_papuzia")
+            self.create_event("visited marine temple", "_visit_oct")
+            self.create_event("visited goron village", "_visit_gv")
 
         # Train Portal events
         if self.options.portal_behavior.value == 0:
@@ -1901,7 +1926,7 @@ class SpiritTracksWorld(WorldParent):
                    "big_keyrings",
                    "randomize_minigames", "minigame_hints",
                    "rabbitsanity", # "rabbit_hints",
-                   "randomize_passengers", "randomize_cargo",
+                   "randomize_passengers", "passenger_pickup", "randomize_cargo",
                    "exclude_locations",
                    "portal_behavior", "portal_checks",
                    "randomize_tears", "spirit_weapons", "tear_sections",

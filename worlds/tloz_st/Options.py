@@ -1015,6 +1015,16 @@ class SpiritTracksFreeStartingItems(Range):
     default = 0
     display_name = "Free Starting Items"
 
+class SpiritTracksPassengerPickupRequirement(Choice):
+    """
+    What is required to pick up passengers with passenger rando.
+    - tracks: you need any tracks that lead to their destination station, even if the tracks are unreachable or the station is shuffled.
+    - visit: you need to have visited the passenger's destination to pick them up.
+    """
+    display_name = "Passenger Pickup Requirement"
+    option_tracks = 0
+    option_visit = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -1057,6 +1067,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     stamp_pack_sizes: SpiritTracksStampItemPacks
 
     randomize_passengers: SpiritTracksRandomizePassengers
+    passenger_pickup: SpiritTracksPassengerPickupRequirement
     randomize_cargo: SpiritTracksRandomizeCargo
 
     # ToS stuff
@@ -1103,10 +1114,10 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_portals: SpiritTracksShufflePortals
     shuffle_dungeon_entrances: SpiritTracksShuffleDungeonEntrances
     shuffle_bosses: SpiritTracksShuffleBosses
+    shuffle_dungeon_rooms: SpiritTracksShuffleDungeonRooms
     shuffle_tos_sections: SpiritTracksShuffleToSSections
     shuffle_tos_staircase: SpiritTracksShuffleToSStaircase
-    shuffle_dungeon_rooms: SpiritTracksShuffleDungeonRooms
-    # shuffle_tos_interiors
+    # shuffle_glyph_rooms
     shuffle_warps: SpiritTracksShuffleWarps
     shuffle_hyrule_castle: SpiritTracksShuffleHyruleCastle
     shuffle_disorientation: SpiritTracksShuffleDisorientationStation
@@ -1167,6 +1178,7 @@ st_option_groups = [
         SpiritTracksStampItems,
         SpiritTracksStampItemPacks,
         SpiritTracksRandomizePassengers,
+        SpiritTracksPassengerPickupRequirement,
         SpiritTracksRandomizeCargo,
         SpiritTracksPortalLocations,
     ]),

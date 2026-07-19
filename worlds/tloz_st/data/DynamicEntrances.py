@@ -480,6 +480,7 @@ DYNAMIC_ENTRANCES = {
         "entrance": "Forest Realm North W Wooded Temple",
         "destination": "Forest Realm North W Wooded Temple",
         "not_has_groups": ["Tracks: Snow Glyph"],
+        "has_slot_data": [("shuffle_train_transitions", 0)],
         "message": "There are no tracks on the other side!"
     },
     "Prevent softlock in papuzia south": {

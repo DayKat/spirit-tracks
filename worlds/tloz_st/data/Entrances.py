@@ -3136,6 +3136,87 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
+    "EVENT: Visit Outset": {
+        "two_way": False,
+        "entrance_region": "outset village",
+        "exit_region": "visit outset",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Castle Town": {
+        "two_way": False,
+        "entrance_region": "castle town",
+        "exit_region": "visit castle town",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Rabbit Haven": {
+        "two_way": False,
+        "entrance_region": "rabbit haven",
+        "exit_region": "visit rabbit haven",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Anouki Village": {
+        "two_way": False,
+        "entrance_region": "anouki village",
+        "exit_region": "visit anouki village",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Icy Spring": {
+        "two_way": False,
+        "entrance_region": "icyspring",
+        "exit_region": "visit icyspring",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Trading Post": {
+        "two_way": False,
+        "entrance_region": "trading post",
+        "exit_region": "visit trading post",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Papuzia Village": {
+        "two_way": False,
+        "entrance_region": "papuzia village",
+        "exit_region": "visit papuzia",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Marine Temple": {
+        "two_way": False,
+        "entrance_region": "oct lobby",
+        "exit_region": "visit marine temple",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Visit Goron Village": {
+        "two_way": False,
+        "entrance_region": "goron village",
+        "exit_region": "visit goron village",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 }
 
 

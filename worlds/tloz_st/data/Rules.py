@@ -171,6 +171,12 @@ def can_possess_phantom(floor):
 def has_passenger(passenger, event):
     return Has(f"Passenger: {passenger}") | Has(event)
 
+pickup_tracks = [OptionFilter(SpiritTracksPassengerPickupRequirement, 0)]
+pickup_visit = [OptionFilter(SpiritTracksPassengerPickupRequirement, 1)]
+
+def pickup_passenger(tracks: str, event: str):
+    return Filtered(has_tracks(tracks), options=pickup_tracks) | Has(event, options=pickup_visit)
+
 def has_cargo(cargo, event):
     return has_wagon & (
             Has(f"Cargo: {cargo}") | Has(event)
