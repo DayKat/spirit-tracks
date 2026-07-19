@@ -250,7 +250,8 @@ map_lookup: dict[int, str] = {
 
     207: "Dark Realm",
     208: "Cosmic Ocean",
-    209: "Disorientation Dungeon"
+    209: "Disorientation Dungeon",
+    210: "Pirate Hangout"
 }
 
 station_section_link: dict[str, str] = {
@@ -314,6 +315,11 @@ boss_event_link: dict[str, list[str]] = {
         "Undersea Marine Temple Station",
         "Marine Temple Lobby Enter Dungeon",
         "Marine Temple 7F North Staircase"],
+
+    "Ferrus Outset Event": ["Forest Realm Outset Station"],
+    "Carben Island Event": ["Ocean Realm Island Sanctuary Station"],
+    "Goron Anouki Event": ["Snow Realm Anouki Village Station"],
+    "Disorientation Event": ["Fire Realm Disorientation Station", "Disorientation Station Cave"],
 }
 
 def get_hidden_map_icons(world: "SpiritTracksWorld"):

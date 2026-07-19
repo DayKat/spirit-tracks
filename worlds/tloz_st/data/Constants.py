@@ -592,8 +592,8 @@ BOSS_KEY_DATA = {
         "location": "Marine Temple 6F Boss Key",
         "door": STAddr.oct_boss_door,
         "dungeon": "Marine Temple",
-        "search_data": [16, 3, 59392, 4, STAddr.oct_actor_table_start],
-        "deletion_data": (8, 0)  # size, offset
+        "search_data": [16, 3, 59392, 4],
+        # "deletion_data": (8, 0)  # size, offset
     },
     0x1c04: {
         "y": -48000,
@@ -601,6 +601,7 @@ BOSS_KEY_DATA = {
         "location": "Mountain Temple B3 Boss Key",
         "door": STAddr.mtt_boss_door,
         "dungeon": "Mountain Temple",
+        "search_data": [16, 1, 0xD800, 4],
         "deletion_data": (4, 64)
     },
     0x1d03: {
@@ -609,6 +610,7 @@ BOSS_KEY_DATA = {
         "location": "Desert Temple B1 Boss Key",
         "door": STAddr.dt_boss_door,
         "dungeon": "Desert Temple",
+        "search_data": [16, 1, 0xFFFED800, 4],
         "deletion_data": (4, 8)
     },
     0x1309: {
@@ -721,12 +723,24 @@ UT_EVENT_DATA = {
     0x2E00: [{"address": STAddr.adv_flags_1f,
               "value": 0x80,
               "entrance": "EVENT: Bring Ice to Kagoron"}],
-    0x2E02: [{"address": STAddr.adv_flags_18,
+    0x2D02: [{"address": STAddr.adv_flags_18,
               "value": 0x8,
-              "EVENT": "Visit Kagoron at the Mountain Altar"}],
+              "entrance": "EVENT: Visit Kagoron at the Mountain Altar"}],
     0x2F00: [{"address": STAddr.adv_flags_3b,
               "value": 0x2,
-              "EVENT": "EVENT: Bring Ferrus to Outset"}],
+              "entrance": "EVENT: Bring Ferrus to Outset"}],
+    0x1b01: [{"address": "stage_flags",
+              "value": 0x2,
+              "offset": 1,
+              "entrance": "EVENT: Marine Temple 2F Boulders"}],
+    0x1b05: [{"address": "stage_flags",
+              "value": 0x20,
+              "offset": 1,
+              "entrance": "EVENT: Marine Temple 6F Arena"}],
+    0x1b07: [{"address": "stage_flags",
+              "value": 0x2,
+              "offset": 2,
+              "entrance": "EVENT: Marine Temple Stamp Room Switch"}],
     # Warps
     0x1903: [{"address": "stage_flags",
               "value": 0x40,
@@ -892,8 +906,9 @@ directionality_etype_lookup: dict[int, str] = {
     7: "dungeon_rooms",
     8: "blue_warps",
     9: "portals",
-    11: "tos_section",
+    11: "tos_sections",
     12: "train",
+    13: "tos_staircase",
     15: "castle",
     16: "disorientation",
     17: "eote"
@@ -932,9 +947,10 @@ class WarpStorageData:
 
     def process_special(self, entr, slot_data):
         if self.scene == 0x2e00:
+            res = {4, 5, 6}
             if slot_data["randomize_cargo"]:
-                return entr in {0, 2, 3}
-            return entr not in {4, 5}
+                res.add(0xF)
+            return entr not in res
 
         return False
 
@@ -1011,6 +1027,9 @@ class SceneData:
 
     def __bool__(self):
         return True
+
+    def __str__(self):
+        return f"{self.name} ({hex(self.scene)}, {self.map_id})"
 
 SCENES: list[SceneData] = [
     SceneData(0x400, "Forest Realm", "train", 1),
@@ -1108,6 +1127,7 @@ SCENES: list[SceneData] = [
 
     SceneData(0x3A00, "Pirate Hideout", "overworld", 23),
     SceneData(0x3A01, "Treasure Cave", "cave", 166),
+    SceneData(0x3B00, "Pirate Hangout", "cave", 210),
 
     SceneData(0x390A, "Lost at Sea Stations", "overworld", 24),
     SceneData(0x390B, "Lost at Sea Lobby", "cave", 114),
@@ -1124,7 +1144,7 @@ SCENES: list[SceneData] = [
 
     SceneData(0x2E00, "Goron Village", "overworld", 25),
     SceneData(0x2D03, "Goron Field", "overworld", 26),
-    SceneData(0x2E02, "Mountain Altar", "overworld", 195),
+    SceneData(0x2D02, "Mountain Altar", "overworld", 195),
     SceneData(0x2E06, "Goron Shop", "useful house", 196),
     SceneData(0x2E0C, "Goron 3 Pots House", "house", 199),
     SceneData(0x2E0D, "Kofu's New House", "house", 197),

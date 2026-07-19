@@ -565,7 +565,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Trading Post Island Cave": {
-        "return_name": "Linebeck's Treasure's Cave",
+        "return_name": "Linebeck's Treasure's Cave Exit",
         "entrance": (0x37, 0x0, 4),
         "exit": (0x37, 0x2, 0),
         "entrance_region": "trading post island",
@@ -1566,7 +1566,7 @@ ENTRANCE_DATA |= {
     "Ocean Realm North Sand Connection": {
         "return_name": "Fire Realm South Sand Connection",
         "entrance_region": "sand connection south",
-        "exit_region": "sand connection",
+        "exit_region": "sand connection mid",
         "extra_data": {"x_max": -300000},
         "coords": (-319488, 1393, -342045),
         "reverse_coords": "flip_v",
@@ -1623,8 +1623,8 @@ ENTRANCE_DATA |= {
     },
     "Ocean Realm North Desert Temple": {
         "return_name": "Fire Realm South Desert Temple",
-        "entrance_region": "sand restoration south",
-        "exit_region": "sand restoration",
+        "entrance_region": "sand restoration south exit",
+        "exit_region": "sand restoration mid",
         "extra_data": {"x_min": 400000},
         "coords": (417792, 1695, -334526),
         "reverse_coords": (417792, 983, 342045),
@@ -2110,6 +2110,7 @@ ENTRANCE_DATA |= {
         "exit": (0x13, 0x0, 0),
         "entrance_region": "tos 1",
         "exit_region": "tos 1f",
+        "one_way_data": {"tower": 1},
         "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -2120,6 +2121,7 @@ ENTRANCE_DATA |= {
         "exit": (0x13, 0x3, 0),
         "entrance_region": "tos 2",
         "exit_region": "tos 4f",
+        "one_way_data": {"tower": 2},
         "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -2130,6 +2132,7 @@ ENTRANCE_DATA |= {
         "exit": (0x13, 0x7, 0),
         "entrance_region": "tos 3",
         "exit_region": "tos 8f",
+        "one_way_data": {"tower": 3},
         "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -2140,6 +2143,7 @@ ENTRANCE_DATA |= {
         "exit": (0x13, 0xC, 0),
         "entrance_region": "tos 4",
         "exit_region": "tos 13f",
+        "one_way_data": {"tower": 4},
         "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -2150,6 +2154,7 @@ ENTRANCE_DATA |= {
         "exit": (0x13, 0x11, 0),
         "entrance_region": "tos 5",
         "exit_region": "tos 18f",
+        "one_way_data": {"tower": 5},
         "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
@@ -2175,14 +2180,14 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE
     },
 
-    "ToS Lobby Staircase": {
-        "return_name": "ToS Staircase Exit",
+    "Tower of Spirits Lobby Staircase": {
+        "return_name": "Tower of Spirits Staircase Exit",
         "entrance_region": "tos",
         "exit_region": "tos",
         "entrance": (0x14, 0x1, 0x1),  # Needs extra data for staircase side
         "exit": (0x17, 0x0, 0x0),
         "reverse_one_way_data": {"y": 0},
-        "type": EntranceGroups.DUNGEON_ENTRANCE,
+        "type": EntranceGroups.TOS_LOBBY,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
@@ -3119,6 +3124,16 @@ ENTRANCE_DATA |= {
         "entrance": (0x0, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Pirate Hideout Game Cave": {
+        "return_name": "Pirate Hangout Exit",
+        "entrance_region": "pirate hideout",
+        "exit_region": "pirate hangout",
+        "entrance": (0x3A, 0x0, 0x1),
+        "exit": (0x3B, 0x0, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
 }

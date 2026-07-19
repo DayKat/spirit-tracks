@@ -52,7 +52,21 @@
   {"name": "Castle Town", "sections": [{"name": "Hyrule Castle Exterior NW Chest"}, {"name": "Hyrule Castle 1F Back Chest"}, {"name": "Hyrule Castle 1F Sword Minigame 60 Points"}, {"name": "Hyrule Castle 2F Indoors Chest"}, {"name": "Hyrule Castle 3F Spirit Flute"}, {"name": "Tunnel to ToS 1F Block Chest"}, {"name": "Tunnel to ToS 2F Chest"}], "map_locations": [{"map": "Castle Town", "x": 128, "y": 16}]},
   {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Deliver Fish"}], "map_locations": [{"map": "Lucia's House", "x": 128, "y": 88}]},
   {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Pick Up Mona"}], "map_locations": [{"map": "Mona's House", "x": 130, "y": 88}]},
-  {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Shop Treasure 1"}, {"name": "Castle Town Shop Treasure 2"}, {"name": "Castle Town Shop Red Potion"}, {"name": "Castle Town Shop Shield"}, {"name": "Castle Town Shop Postcards"}], "map_locations": [{"map": "Castle Town Shop", "x": 128, "y": 88}]},
+  {"name": "Castle Town Interior", "sections": [
+    {"name": "Castle Town Shop Treasure 1"}
+      ], "map_locations": [{"map": "Castle Town Shop", "x": 124, "y": 96}]},
+      {"name": "Castle Town Interior", "sections": [
+    {"name": "Castle Town Shop Treasure 2"}
+              ], "map_locations": [{"map": "Castle Town Shop", "x": 132, "y": 96}]},
+      {"name": "Castle Town Interior", "sections": [
+    {"name": "Castle Town Shop Red Potion"}
+              ], "map_locations": [{"map": "Castle Town Shop", "x": 128, "y": 88}]},
+      {"name": "Castle Town Interior", "sections": [
+    {"name": "Castle Town Shop Shield"}
+              ], "map_locations": [{"map": "Castle Town Shop", "x": 120, "y": 88}]},
+      {"name": "Castle Town Interior", "sections": [
+    {"name": "Castle Town Shop Postcards"}
+  ], "map_locations": [{"map": "Castle Town Shop", "x": 136, "y": 88}]},
   {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Take 'em All On Lobby", "x": 128, "y": 88}]},
 
   {"name": "Hyrule Castle", "sections": [{"name": "Hyrule Castle Exterior NW Chest"}], "map_locations": [{"map": "Hyrule Castle Courtyard", "x": 42, "y": 26}]},
@@ -208,7 +222,7 @@
   {"name": "Pirate Hideout", "sections": [{"name": "Pirate Hideout Stamp Station"}], "map_locations": [{"map": "Pirate Hideout", "x": 94, "y": 90}]},
   {"name": "Pirate Hideout", "sections": [{"name": "Pirate Hideout Pick Up Wadatsumi"}], "map_locations": [{"map": "Pirate Hideout", "x": 66, "y": 122}]},
   {"name": "Pirate Hideout", "sections": [{"name": "Pirate Hideout Secret Cave Left Treasure"}, {"name": "Pirate Hideout Secret Cave Mid Treasure"}, {"name": "Pirate Hideout Secret Cave Right Treasure"}], "map_locations": [{"map": "Pirate Hideout", "x": 80, "y": 116}]},
-  {"name": "Pirate Hideout", "sections": [{"name": "Pirate Hideout Minigame 3000-4000"}, {"name": "Pirate Hideout Minigame 4000-5000"}, {"name": "Pirate Hideout Minigame 5000+"}, {"name": "Pirate Hideout Pick Up Wadatsumi"}], "map_locations": [{"map": "Pirate Hideout", "x": 140, "y": 32}]},
+  {"name": "Pirate Hideout", "sections": [{"name": "Pirate Hideout Minigame 3000-4000"}, {"name": "Pirate Hideout Minigame 4000-5000"}, {"name": "Pirate Hideout Minigame 5000+"}, {"name": "Pirate Hideout Pick Up Wadatsumi"}], "map_locations": [{"map": "Pirate Hideout", "x": 140, "y": 40}]},
   {"name": "Pirate Hideout Cave", "sections": [{"name": "Pirate Hideout Secret Cave Left Treasure"}], "map_locations": [{"map": "Treasure Cave", "x": 118, "y": 74}]},
   {"name": "Pirate Hideout Cave", "sections": [{"name": "Pirate Hideout Secret Cave Mid Treasure"}], "map_locations": [{"map": "Treasure Cave", "x": 130, "y": 74}]},
   {"name": "Pirate Hideout Cave", "sections": [{"name": "Pirate Hideout Secret Cave Right Treasure"}], "map_locations": [{"map": "Treasure Cave", "x": 146, "y": 86}]},
@@ -466,7 +480,15 @@
 
   {"name": "Overview Outset", "sections": [{"name": "Outset Clear Rocks"}, {"name": "Outset Bee Tree"}, {"name": "Outset Stamp Station"}, {"name": "Outset Beach Tree Buried Chest"}, {"name": "Outset Niko's House Tree Buried Chest"}, {"name": "Outset Niko Stamp Book"}, {"name": "Outset Niko 10 Stamps Reward"}, {"name": "Outset Niko 15 Stamps Reward"}, {"name": "Outset Niko 20 Stamps Reward"}, {"name": "Outset Pick Up Joe"}, {"name": "Outset Deliver Cuccos"}, {"name": "Outset Ferrus Force Gem"}],
     "map_locations": [{"map": "Overview", "x": 236, "y": 728}, {"map": "Forest Realm", "x": 236, "y": 344}]},
-  {"name": "Overview Castle Town", "sections": [{"name": "Castle Town Shop Treasure 1"}, {"name": "Castle Town Shop Treasure 2"}, {"name": "Castle Town Shop Red Potion"}, {"name": "Castle Town Shop Shield"}, {"name": "Castle Town Shop Postcards"}, {"name": "Castle Town Stamp Station"}, {"name": "Castle Town Left Wall Chest"}, {"name": "Castle Town Right Wall Chest"}, {"name": "Castle Town Minigame Roof"}, {"name": "Castle Town Ramp House Chest"}, {"name": "Castle Town Lucia's House Roof Chest"}, {"name": "Castle Town Pick Up Teacher"}, {"name": "Castle Town Pick Up Mona"}, {"name": "Castle Town Pick Up Alfonzo"}, {"name": "Castle Town Goron Force Gem"}, {"name": "Castle Town Buy Cuccos"}, {"name": "Castle Town Deliver Fish"}, {"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Overview", "x": 404, "y": 450}, {"map": "Forest Realm", "x": 404, "y": 66}]},
+  {"name": "Overview Castle Town", "sections": [
+    {"name": "Castle Town Shop Treasure 1"},
+    {"name": "Castle Town Shop Treasure 2"},
+    {"name": "Castle Town Shop Red Potion"},
+    {"name": "Castle Town Shop Shield"},
+    {"name": "Castle Town Shop Postcards"},
+    {"name": "Castle Town Stamp Station"},
+    {"name": "Castle Town Left Wall Chest"},
+    {"name": "Castle Town Right Wall Chest"}, {"name": "Castle Town Minigame Roof"}, {"name": "Castle Town Ramp House Chest"}, {"name": "Castle Town Lucia's House Roof Chest"}, {"name": "Castle Town Pick Up Teacher"}, {"name": "Castle Town Pick Up Mona"}, {"name": "Castle Town Pick Up Alfonzo"}, {"name": "Castle Town Goron Force Gem"}, {"name": "Castle Town Buy Cuccos"}, {"name": "Castle Town Deliver Fish"}, {"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Overview", "x": 404, "y": 450}, {"map": "Forest Realm", "x": 404, "y": 66}]},
   {"name": "Overview Hyrule Castle", "sections": [{"name": "Hyrule Castle Exterior NW Chest"}, {"name": "Hyrule Castle 2F Indoors Chest"}, {"name": "Hyrule Castle 3F Spirit Flute"}, {"name": "Hyrule Castle 1F Back Chest"}, {"name": "Hyrule Castle 1F Sword Minigame 60 Points"}, {"name": "Tunnel to ToS 1F Block Chest"}, {"name": "Tunnel to ToS 2F Chest"}], "map_locations": [{"map": "Overview", "x": 404, "y": 434}, {"map": "Forest Realm", "x": 404, "y": 50}]},
   {"name": "Overview Mayscore", "sections": [{"name": "Mayscore Shop Treasure 1"}, {"name": "Mayscore Shop Treasure 2"}, {"name": "Mayscore Shop Red Potion"}, {"name": "Mayscore Shop Shield"}, {"name": "Mayscore Shop Postcards"}, {"name": "Mayscore Pick Up Dovok"}, {"name": "Mayscore Pick Up Morris"}, {"name": "Mayscore Pick Up Yamahiko"}, {"name": "Mayscore Pick Up Mash"}, {"name": "Mayscore Pick Up Wood"}, {"name": "Mayscore Buy Lumber"}, {"name": "Mayscore Deliver Steel"}, {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"}, {"name": "Mayscore Whip Race 1:15-1:30"}, {"name": "Mayscore Whip Race 1:05-1:15"}, {"name": "Mayscore Whip Race Sub 1:05"}], "map_locations": [{"map": "Overview", "x": 332, "y": 594}, {"map": "Forest Realm", "x": 332, "y": 210}]},
   {"name": "Overview Woodland", "sections": [{"name": "Woodland Sanctuary Stamp Station"}, {"name": "Woodland Sanctuary Song Statue"}, {"name": "Woodland Sanctuary Chest"}, {"name": "Woodland Sanctuary Song of Restoration"}], "map_locations": [{"map": "Overview", "x": 212, "y": 572}, {"map": "Forest Realm", "x": 212, "y": 188}]},

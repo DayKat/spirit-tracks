@@ -69,12 +69,12 @@ class TestGeneration(WorldTestBase):
         "shuffle_eote": "no_shuffle",
         "shuffle_disorientation": "no_shuffle",
 
-        "shuffle_tos_sections": "no_shuffle",
+        "shuffle_tos_sections": "shuffle_pool_a",
 
         "shuffle_dungeon_entrances": "shuffle_pool_a",
-        "shuffle_bosses": "shuffle_pool_a",
-        "shuffle_dungeon_rooms": "shuffle_pool_a",
-        "shuffle_warps": "shuffle_pool_a",
+        "shuffle_bosses": "no_shuffle",
+        "shuffle_dungeon_rooms": "no_shuffle",
+        "shuffle_warps": "no_shuffle",
 
         "shuffle_portals": "no_shuffle",
 

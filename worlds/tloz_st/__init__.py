@@ -331,6 +331,16 @@ class SpiritTracksWorld(WorldParent):
                 self.tower_section_lookup |= {s: 6 for s in self.non_required_sections}
                 # print(self.tower_section_lookup)
             return
+        elif self.options.shuffle_tos_sections.value > 1:
+            # Randomly choose section lookup when sections are in mixed pools
+            if self.options.exclude_sections == "remove":
+                section_order = [s for s in range(1, 7) if s not in self.non_required_sections]
+            else:
+                section_order = list(range(1, 7))
+            self.random.shuffle(section_order)
+            self.tower_section_lookup = {r: s for r, s in zip(range(1, 7), section_order)}
+            self.tower_section_lookup |= {s: 6 for s in range(1, 7) if s not in self.tower_section_lookup}
+            return
 
         # Sophisticated shuffle to avoid loops
         entrances = list(ENTRANCE_TO_TOS_ORDER.keys())
@@ -347,7 +357,6 @@ class SpiritTracksWorld(WorldParent):
                 banned_connections["Tower of Spirits Summit Enter Altar"].append("ToS 18F Exit")
         self.plando_pairings |= {ENTRANCES[e1].id: ENTRANCES[e2].id for e1, e2 in self.tower_pairings}
         self.plando_pairings |= {e2: e1 for e1, e2 in self.plando_pairings.items()}
-
 
         # Get lookup table for logic progressive tear sections
         sort_filter = {}
@@ -384,13 +393,6 @@ class SpiritTracksWorld(WorldParent):
             required_rupees += 550
         # print(f"Required Rupees (gen) {required_rupees}")
         return required_rupees
-
-    def hide_ut_map_stuff(self):
-        pass
-        # self.tracker_world["map_page_locations"].append("locations/tos_singles.json")
-        # if not self.options.shuffle_tos_sections:
-        #     self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values()
-        #                                                       if e.category_group == EntranceGroups.TOS_SECTION]
 
     def pick_ut_events(self):
         events = ["EVENT: Give Regal Ring to Linebeck"]
@@ -1522,6 +1524,7 @@ class SpiritTracksWorld(WorldParent):
             9: self.options.shuffle_portals,
             11: self.options.shuffle_tos_sections,
             12: self.options.shuffle_train_transitions,
+            14: self.options.shuffle_tos_staircase,
             15: self.options.shuffle_hyrule_castle,
             16: self.options.shuffle_disorientation,
             17: self.options.shuffle_eote
@@ -1539,6 +1542,7 @@ class SpiritTracksWorld(WorldParent):
             9: [1, 2, 3, 4],
             11: [3, 4],
             12: [1, 2, 3, 4],
+            14: [3, 4],
             15: [3, 4],
             16: [1, 2, 3, 4],
             17: [3, 4],

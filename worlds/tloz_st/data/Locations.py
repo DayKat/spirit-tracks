@@ -2200,7 +2200,7 @@ LOCATIONS_DATA = {
         "room_id": 0x0,
         "address": STAddr.adv_flags_21,
         "value": 8,  # Spawn kagoron during cutscene lol
-        "region_id": "goron whip",
+        "region_id": "goron village kagoron",
         "vanilla_item": "Wagon",
         "item_override": "Nothing!",
         "slot_data": [("randomize_cargo", [1, 2, 3])],

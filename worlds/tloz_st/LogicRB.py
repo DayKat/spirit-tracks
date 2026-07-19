@@ -196,7 +196,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["tower tunnel 3f", "tower tunnel 2f door", False, None],
 
         ["tower tunnel 3f", "tower tunnel 3f north", True, has_damage],
-        ["tower tunnel 3f north", "tos", False, None],
+        ["tower tunnel 3f north", "tos lobby", False, None],
 
         # # ========== ToS ===================
 
@@ -206,19 +206,20 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["ocean realm source", "tos ocean station", True, can_enter_tos & has_source("Ocean")],
         ["fire source", "tos fire station", True, can_enter_tos & has_source("Fire")],
 
-        ["tos forest station", "tos", True, None],  # TODO: Figure out what unlocks exits from the inside
-        ["tos snow station", "tos", True, None],
-        ["tos ocean station", "tos", True, None],
-        ["tos fire station", "tos", True, None],
+        ["tos forest station", "tos lobby", True, None],
+        ["tos snow station", "tos lobby", True, None],
+        ["tos ocean station", "tos lobby", True, None],
+        ["tos fire station", "tos lobby", True, None],
+        ["tos lobby", "tos", True, can_enter_tos],
 
-        ["tos", "tos 1", True, None],
-        ["tos 1", "tos 1f", True, None],
-        ["tos", "tos 2", False, can_enter_tos_section(2)],
-        ["tos", "tos 3", False, can_enter_tos_section(3)],
-        ["tos", "tos 4", False, can_enter_tos_section(4)],
-        ["tos", "tos 5", False, can_enter_tos_section(5)],
+        ["tos", "tos 1", True, can_enter_tos_section(1)],
+        ["tos", "tos 2", True, can_enter_tos_section(2)],
+        ["tos", "tos 3", True, can_enter_tos_section(3)],
+        ["tos", "tos 4", True, can_enter_tos_section(4)],
+        ["tos", "tos 5", True, can_enter_tos_section(5)],
         ["tos 5", "tos 23f", False, None] if world.exclude_tos_5 else None,
 
+        ["tos 1", "tos 1f", True, None],
         ["tos 1f", "tos 1f chest", False, has_range | has_sword_beam],
         ["tos 1f", "tos 1f switch", False, can_kill_bat | can_possess_phantom(1)], # Phantom can hit switch
         ["tos 1f", "tos 2f", False, can_possess_phantom(1) | vanilla_tears],
@@ -833,6 +834,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["pirate hideout", "pirate hideout secret cave", False, has_bombs],
         ["pirate hideout secret cave", "pirate hideout", False, None],
         ["pirate hideout", "pirate hideout minigame", False, has_bow],
+        ["pirate hideout", "pirate hangout", True, None],
         # Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
         ["pirate hideout", "pirate wadatsumi", False, has_glyph("Ocean")]
             if world.options.randomize_minigames.value in [0] else
@@ -1056,7 +1058,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["disorientation station", "disorientation station station", False, None],
         ["disorientation station station", "disorientation station", False, has_tracks("Disorientation Station")],
         ["disorientation station", "disorientation bird", False, hard_birds],
-        ["disorientation bird", "disorientation top", False, has_sod],
+        ["disorientation bird", "disorientation top", False, None],
         ["disorientation top", "disorientation station", False, None],
         ["disorientation top", "disorientation gift", False, Has("_disorientation_chest")],
         ["d9", "disorientation sod", False, has_sod],
@@ -1122,13 +1124,16 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # ===== Sand Realm =====
         ["ocean realm source", "sand realm", True, has_source("Ocean") & has_tracks("Sand Realm")],
         ["sand realm", "sand connection south", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
-        ["sand connection south", "sand connection", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
+        ["sand connection south", "sand connection mid", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
+        ["sand connection", "sand connection mid", True, has_tracks("Sand Realm") & has_tracks("Fire Realm Sand Portal")],
 
         ["sand realm exit", "sand restoration rocktite", False, has_temple_tracks("Desert")],
         ["sand restoration rocktite", "sand realm exit", False, has_temple_tracks("Desert")],
         ["sand realm", "sand realm exit", True, has_temple_tracks("Desert") & has_tracks("Sand Realm")],
         ["sand restoration rocktite", "sand restoration", True,  has_temple_tracks("Desert") & (has_cannon | [OptionFilter(SpiritTracksShuffleTrainTransitions, 0, "ne")])],
-        ["sand restoration", "sand restoration south", True, has_temple_tracks("Desert")],
+        ["sand restoration south exit", "sand restoration south", True, has_temple_tracks("Desert")],
+        ["sand restoration mid", "sand restoration south exit", True, has_temple_tracks("Desert")],
+        ["sand restoration mid", "sand restoration", True, has_temple_tracks("Desert")],
 
         ["sand realm", "sand realm rabbits", False, has_net],
         ["sand restoration", "sand restoration rabbits", False, has_net],

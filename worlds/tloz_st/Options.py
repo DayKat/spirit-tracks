@@ -452,11 +452,15 @@ class SpiritTracksShuffleToSSections(Choice):
     """
     Shuffle Tower of Spirits Sections.
     Also includes the summit as its own section.
-    Progressive tears will respect the new ordering.
+    Progressive tears will respect the new ordering if shuffled alone, otherwise sections are assigned randomly.
     """
     display_name = "Shuffle ToS Sections"
     option_no_shuffle = 0
-    option_shuffle = 1
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+    # option_shuffle_with_dungeons = 6  adding them to the dungeon pool requires me being in a better headspace
 
 class SpiritTracksShuffleStations(Choice):
     """
@@ -570,6 +574,16 @@ class SpiritTracksShufflePortals(Choice):
     option_shuffle_pool_b = 3
     option_shuffle_pool_c = 4
 
+class SpiritTracksShuffleToSStaircase(Choice):
+    """
+    Shuffle the single entrance pair between the ToS lobby and staircase.
+    """
+    display_name = "Shuffle ToS Staircase"
+    option_no_shuffle = 0
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
 class SpiritTracksShuffleDungeonRooms(Choice):
     """
     Shuffle the entrances inside dungeons.
@@ -638,15 +652,17 @@ class SpiritTracksEntranceDirectionality(OptionSet):
     Pool options override individuals, individuals only count for shuffle_alone.
     Valid options are: houses, caves, stations, overworld, train, portals,
       dungeon_entrances, bosses, dungeon_rooms, blue_warps,
+      tos_sections, tos_staircase,
       castle, disorientation, eote, pool_a, pool_b, pool_c, in_own_dungeon, all
-    Pools with lots of dead ends can cause gen errors if not careful.
+    Pools with lots of dead ends have a high chance to cause gen errors.
     Staircases do not have directions.
     """
     display_name = "Entrance Directionality"
-    default = {"houses", "stations", "dungeon_entrances", "bosses", "in_own_dungeon"}
+    default = {"houses", "stations", "dungeon_entrances", "tos_sections", "bosses"}
     # supports_weighting = True
     valid_keys = ["houses", "caves", "stations", "overworld", "train", "portals",
                   "dungeon_entrances", "bosses", "dungeon_rooms", "blue_warps",
+                  "tos_sections", "tos_staircase",
                   "castle", "disorientation", "eote",
                   "pool_a", "pool_b", "pool_c", "in_own_dungeon", "all"]
 
@@ -1088,6 +1104,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_dungeon_entrances: SpiritTracksShuffleDungeonEntrances
     shuffle_bosses: SpiritTracksShuffleBosses
     shuffle_tos_sections: SpiritTracksShuffleToSSections
+    shuffle_tos_staircase: SpiritTracksShuffleToSStaircase
     shuffle_dungeon_rooms: SpiritTracksShuffleDungeonRooms
     # shuffle_tos_interiors
     shuffle_warps: SpiritTracksShuffleWarps
@@ -1194,6 +1211,7 @@ st_option_groups = [
         SpiritTracksShuffleTrainTransitions,
         SpiritTracksShuffleDungeonEntrances,
         SpiritTracksShuffleToSSections,
+        SpiritTracksShuffleToSStaircase,
         SpiritTracksShuffleBosses,
         SpiritTracksShuffleDungeonRooms,
         SpiritTracksShuffleWarps,

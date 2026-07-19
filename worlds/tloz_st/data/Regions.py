@@ -131,6 +131,7 @@ REGIONS = [
 
     # Tower of Spirits
     "tos",
+    "tos lobby",
     "tos 1",
     "tos 2",
     "tos 3",
@@ -606,6 +607,7 @@ REGIONS = [
 
     #Pirate Hideout
     "pirate hideout",
+    "pirate hangout",
     "pirate hideout station",
     "pirate hideout stamp station",
     "pirate hideout secret cave",
@@ -795,9 +797,12 @@ REGIONS = [
     "sand realm",
     "sand realm exit",
     "sand restoration",
+    "sand restoration mid",
+    "sand restoration south exit",
     "sand restoration south",
     "sand restoration rocktite",
     "sand connection",
+    "sand connection mid",
     "sand connection south",
     "sand realm rabbits",
     "sand restoration rabbits",

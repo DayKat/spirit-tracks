@@ -229,7 +229,7 @@ def can_enter_tos_section(section):
     sources = [None, "Forest", "Snow", "Ocean", "Fire"]
     if section == 1:
         return can_enter_tos
-    return Or([OptionFilter(SpiritTracksToSSectionUnlocks, 0)] |
+    return can_enter_tos & Or(True_() & [OptionFilter(SpiritTracksToSSectionUnlocks, 0)],
               Filtered(has_source(sources[section-1]), options=[OptionFilter(SpiritTracksToSSectionUnlocks, 1)]),
               Has("Progressive ToS Section", section, options=[OptionFilter(SpiritTracksToSSectionUnlocks, 2), OptionFilter(SpiritTracksToSBase, 1)]),
               Has("Progressive ToS Section", section-1, options=[OptionFilter(SpiritTracksToSSectionUnlocks, 2), OptionFilter(SpiritTracksToSBase, 0)]))
