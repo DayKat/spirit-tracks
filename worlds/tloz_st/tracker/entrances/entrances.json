@@ -416,8 +416,8 @@
 
   {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits to Fire Realm"}], "map_locations": [{"map": "Tower of Spirits Lobby", "x": 174, "y": 50}]},
 
-  {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Lobby Staircase"}], "map_locations": [{"map": "Tower of Spirits Lobby", "x": 127, "y": 20}]},
-  {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Lobby Staircase"}], "map_locations": [{"map": "Tower of Spirits", "x": 125, "y": 471}]},
+  {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Lobby Staircase"}], "map_locations": [{"map": "Tower of Spirits Lobby", "x": 129, "y": 20}]},
+  {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Staircase Exit"}], "map_locations": [{"map": "Tower of Spirits", "x": 63, "y": 460}]},
 
   {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Enter Section 1"}], "map_locations": [{"map": "Tower of Spirits", "x": 47, "y": 427}]},
   {"name": "Tower of Spirits", "sections": [{"name": "Tower of Spirits Enter Section 2"}], "map_locations": [{"map": "Tower of Spirits", "x": 47, "y": 377}]},
