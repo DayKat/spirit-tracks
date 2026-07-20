@@ -200,6 +200,7 @@ class SpiritTracksWorld(WorldParent):
         self.tears_included_small: int = 16
         self.required_rupees = 0
         self.track_items = []
+        self.raw_track_items = []
 
         self.starting_entrance: str = "Niko's House Exit"
 
@@ -310,7 +311,13 @@ class SpiritTracksWorld(WorldParent):
             starting_entrances.add("Niko's House Exit")
         if "tos" in starting_entrances:
             starting_entrances.remove("tos")
-            starting_entrances.add("ToS Lobby Staircase")
+            starting_entrances.update(["Tower of Spirits to Forest Realm", "Tower of Spirits to Snow Realm",
+                                       "Tower of Spirits to Ocean Realm", "Tower of Spirits to Fire Realm",])
+        if "towns" in starting_entrances:
+            starting_entrances.remove("towns")
+            starting_entrances.update(["Outset Board Train", "Mayscore Board Train",
+                                       "Castle Town Board Train", "Anouki Village Board Train",
+                                       "Papuzia Village Board Train", "Goron Village Board Train"])
 
         if "stations" in starting_entrances:
             stations = {n: e for n, e in ENTRANCES.items() if
@@ -447,7 +454,7 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Unlock Desert Temple Portal",
                 "EVENT: Unlock Sand Connection Portal"
             ]
-        if self.options.shuffle_caves.value:
+        if self.options.shuffle_caves.value or self.options.shuffle_disorientation.value:
             events += ["EVENT: Disorientation Maze Find Chest"]
 
         if self.options.randomize_passengers.value and self.options.passenger_pickup.value == 1:
@@ -1114,18 +1121,38 @@ class SpiritTracksWorld(WorldParent):
                 skip_pools.update([i for i in ITEMS[new_track].item_groups if i.startswith("Tracks:")])
         add_items = [(i, 1) for i in track_items]
         # print(len(add_items), add_items)
-
-        if self.options.start_with_train:
-            if self.options.shuffle_stations:
-                pass
-            elif self.starting_entrance == "Niko's House Exit" and not self.options.shuffle_houses and not self.options.shuffle_stations:
-                valid_starting_tracks = [track for track in track_items if track in ITEM_GROUPS["Tracks: Forest Glyph"]]
-                self.options.start_inventory_from_pool.value.update({self.random.choice(valid_starting_tracks): 1})
-            if self.options.cannon_logic.value in [0, 1]:
-                self.options.start_inventory_from_pool.value.update({"Cannon": 1})
-                # print(self.options.start_inventory_from_pool.value)
+        self.raw_track_items = track_items
 
         return add_items
+
+    def choose_starting_tracks(self):
+        if not self.options.start_with_train.value:
+            return
+        pairings = {}
+        if self.er_placement_state:
+            for e1, e2 in self.er_placement_state.pairings:
+                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+
+        if self.starting_entrance == "Niko's House Exit" and not self.options.shuffle_houses:
+            starting_entrance = ENTRANCES["Outset Board Train"]
+        else:
+            starting_entrance = ENTRANCES[self.starting_entrance]
+        reciprocal = entrance_id_to_entrance[pairings.get(starting_entrance.id, starting_entrance.vanilla_reciprocal.id)]
+        # print(f"Starting entrance {self.starting_entrance} | {starting_entrance}, reciprocal {reciprocal}")
+
+        if reciprocal.required_groups:
+            starting_tracks = set()
+            for group in reciprocal.required_groups:
+                if isinstance(group, tuple):
+                    group = self.random.choice(group)
+                valid_starting_tracks = [track for track in self.raw_track_items if track in ITEM_GROUPS[group]]
+                # print(f"Valid starting tracks: {valid_starting_tracks} group {group}")
+                starting_tracks.add(self.random.choice(valid_starting_tracks))
+            self.options.start_inventory_from_pool.value.update({track: 1 for track in starting_tracks})
+
+        if self.options.cannon_logic.value in [0, 1]:
+            self.options.start_inventory_from_pool.value.update({"Cannon": 1})
+        # print(self.options.start_inventory_from_pool.value)
 
     def choose_filler_items(self, filler_count, item_pool_dict):
         rupees_required = self.get_required_rupees()
@@ -1733,6 +1760,7 @@ class SpiritTracksWorld(WorldParent):
         return self.pre_fill_items
 
     def pre_fill(self) -> None:
+        self.choose_starting_tracks()
         self.pre_fill_tos_sections()
         self.pre_fill_dungeon_items()
 

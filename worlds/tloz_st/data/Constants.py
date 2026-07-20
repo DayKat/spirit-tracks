@@ -1132,12 +1132,12 @@ SCENES: list[SceneData] = [
 
     SceneData(0x390A, "Lost at Sea Stations", "overworld", 24),
     SceneData(0x390B, "Lost at Sea Lobby", "cave", 114),
-    SceneData(0x3902, "Lost at Sea 1", "cave", 115),
-    SceneData(0x3903, "Lost at Sea 2", "cave", 116),
-    SceneData(0x3904, "Lost at Sea 3", "cave", 117),
-    SceneData(0x3905, "Lost at Sea 4", "cave", 118),
-    SceneData(0x3906, "Lost at Sea 5", "cave", 119),
-    SceneData(0x3907, "Lost at Sea 6", "cave", 120),
+    SceneData(0x4202, "Lost at Sea 1", "useful cave", 115),
+    SceneData(0x4203, "Lost at Sea 2", "useful cave", 116),
+    SceneData(0x4204, "Lost at Sea 3", "useful cave", 117),
+    SceneData(0x4205, "Lost at Sea 4", "useful cave", 118),
+    SceneData(0x4206, "Lost at Sea 5", "useful cave", 119),
+    SceneData(0x4207, "Lost at Sea 6", "useful cave", 120),
 
     SceneData(0x3400, "Dune Sanctuary", "overworld", 32),
     SceneData(0x3401, "Sandy Tunnel", "cave", 205),

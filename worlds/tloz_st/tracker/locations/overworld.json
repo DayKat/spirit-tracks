@@ -51,7 +51,7 @@
 
   {"name": "Castle Town", "sections": [{"name": "Castle Town Pick Up Alfonzo"}], "map_locations": [{"map": "Castle Town", "x": 138, "y": 156}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town Pick Up Teacher"}], "map_locations": [{"map": "Castle Town", "x": 154, "y": 140}]},
-  {"name": "Castle Town", "sections": [{"name": "Castle Town Goron Force Gem"}], "map_locations": [{"map": "Castle Town", "x": 142, "y": 96}]},
+  {"name": "Castle Town", "sections": [{"name": "Castle Town Goron Force Gem"}, {"name": "Castle Town Deliver Fish"}], "map_locations": [{"map": "Castle Town", "x": 142, "y": 96}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town Buy Cuccos"}], "map_locations": [{"map": "Castle Town", "x": 66, "y": 62}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town Right Wall Chest"}], "map_locations": [{"map": "Castle Town", "x": 168, "y": 142}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town Minigame Roof"}], "map_locations": [{"map": "Castle Town", "x": 194, "y": 108}]},

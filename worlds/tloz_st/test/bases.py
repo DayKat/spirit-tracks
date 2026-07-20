@@ -85,7 +85,8 @@ class TestGeneration(WorldTestBase):
 
         "entrance_directionality": {"dungeon_entrances", "pool_a"},
 
-        "randomize_start": {"stations"},
+        "randomize_start": {"niko"},
+        "start_with_train": True,
         "free_starting_items": 2,
 
         "randomize_passengers": "randomize",

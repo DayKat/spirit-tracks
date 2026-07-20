@@ -310,7 +310,7 @@ class STAddr:
     sr_actor_table_start = Address(0x2D2F0C, size=4)
     actor_manager = Address(0x0ce4, size=3, domain="Data TCM")
 
-    instant_blue_warp = Address(0x269108)  # 17 to prevent blue warps working immediately
+    entrance_animation = Address(0x269108)  # 17 to prevent blue warps working immediately
 
     fade_timer = Address(0x0b5164, size=2)
 #  = Address()

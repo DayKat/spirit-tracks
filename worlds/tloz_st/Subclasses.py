@@ -100,8 +100,6 @@ async def remove_vanilla_tracks(client: "SpiritTracksClient", ctx, item: "STItem
     prev = await item.address.read(ctx, silent=True)
     return item.address.get_write_list(prev & (~item.value))
 
-
-
 async def remove_cargo(client: "SpiritTracksClient", ctx, item: "STItem", rii):
     if ctx.slot_data["randomize_cargo"] == 1:
         return []

@@ -258,6 +258,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.zelda_text_address: Address | None = None
 
         self.map_warp_item_cache: tuple[bool] | False = None
+        self.block_entrance_animation: bool = False
 
 
     def printl_goal_info(self, ctx):
@@ -519,7 +520,9 @@ class SpiritTracksClient(DSZeldaClient):
         if self.precision_operation and self.precision_operation[0] == "delete_ow_actors":
             await self.frame_advance(ctx)  # lol it be picky
             await self.delete_bad_ow_actors(ctx, self.precision_operation[1])
-            await STAddr.instant_blue_warp.overwrite(ctx, 0x30)
+            if (self.current_entrance == 4 and self.current_stage == 4) or (self.current_entrance == 1 and self.current_stage == 0x5):
+                await STAddr.entrance_animation.overwrite(ctx, 0x30)
+                self.block_entrance_animation = True
             self.precision_operation.clear()
             await bizhawk.unlock(ctx.bizhawk_ctx)
             ctx.watcher_timeout = 0.1
@@ -1219,6 +1222,8 @@ class SpiritTracksClient(DSZeldaClient):
             printl(f"Setting shop models")
             await self.set_shop_models(ctx)
 
+        await self.change_entrance_animation(ctx)
+
         if not self._just_entered_game and self.last_stage == self.current_stage and self.current_stage in [4, 5]:
             print(f"Starting special operation")
             await self.setup_evil_train_deletion(ctx, "special_ow_actors", 2)
@@ -1802,14 +1807,26 @@ class SpiritTracksClient(DSZeldaClient):
             for stage, flags in zip(range(0x19, 0x1E), OPEN_WARPS):
                 self.update_stage_flag(stage, flags)
 
-    async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
+    async def change_entrance_animation(self, ctx):
+        if self.block_entrance_animation:
+            self.block_entrance_animation = False
+            return
+        lookup = (self.current_stage, self.current_room, self.current_entrance)
+        new_exit = entrance_tuple_to_entrance.get(lookup, None)
+        print(f"New exit for animation change: {new_exit}")
+        if not new_exit:
+            return
         if new_exit.category_group == EntranceGroups.WARP_PORTAL:
-            await STAddr.instant_blue_warp.overwrite(ctx, 0x19)  # prevent blue warps from isntant-warping you
-        if new_exit.stage == 0xA:
-            await STAddr.instant_blue_warp.overwrite(ctx, 0x30)  # prevent path drawing underwater
-        if (new_exit.category_group == EntranceGroups.STATION and new_exit.direction == EntranceGroups.UP) or new_exit.category_group == EntranceGroups.TRAIN_PORTAL:
-            await STAddr.instant_blue_warp.overwrite(ctx, 0x39)
+            await STAddr.entrance_animation.overwrite(ctx, 0x19)  # prevent blue warps from isntant-warping you
+        elif new_exit.stage == 0xA:
+            await STAddr.entrance_animation.overwrite(ctx, 0x30)  # prevent path drawing underwater
+        elif (new_exit.category_group == EntranceGroups.STATION and new_exit.direction == EntranceGroups.UP) or new_exit.category_group == EntranceGroups.TRAIN_PORTAL:
+            if self.current_scene != self.last_scene:
+                await STAddr.entrance_animation.overwrite(ctx, 0x39)
 
+
+    async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
+        # await self.change_entrance_animation(ctx, new_exit)
         if new_exit.stage in unsafe_respawn_stages and new_exit.scene not in self.safe_respawn_rooms:
             if self.safe_respawn is None:
                 self.safe_respawn = last_detect.entrance

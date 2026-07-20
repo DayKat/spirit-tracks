@@ -318,7 +318,7 @@ class SpiritTracksStartWithTrain(Toggle):
     """
     Starts you with a forest glyph including track and cannon depending on cannon logic, giving you train access from the start.
     On by default to give people more checks in the beginning.
-    Is currently not too keen on entrance/starting randomization, but might have some compatibility soon.
+    If stations are shuffle or randomized start is on, if your starting entrance links to a track it will give you tracks that unlock that.
     """
     display_name = "Start With Train"
     default = 1
