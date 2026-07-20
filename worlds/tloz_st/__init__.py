@@ -582,7 +582,11 @@ class SpiritTracksWorld(WorldParent):
 
     def create_regions(self):
         # Create regions
-        for region_name in REGIONS:
+        all_regions = set(REGIONS)
+        if self.is_ut:
+            all_regions.update(set(ENTRANCES.keys()))
+
+        for region_name in all_regions:
             region = Region(region_name, self.player, self.multiworld)
             self.multiworld.regions.append(region)
 

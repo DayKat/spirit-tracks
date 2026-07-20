@@ -1000,11 +1000,12 @@ class SpiritTracksRandomizeStart(OptionSet):
     Special options include:
     - niko: the vanilla start.
     - tos: start in Tower of Spirits
+    - towns: start in one of the six major settlements
     - stations: adds all stations to the pool. Note that most stations have zero sphere 0 locations
     """
     default = {'niko'}
     display_name = "Randomize Start"
-    valid_keys = frozenset(set(ENTRANCES.keys()) | {"niko", "tos", "stations"})
+    valid_keys = frozenset(set(ENTRANCES.keys()) | {"niko", "tos", "stations", "towns"})
 
 class SpiritTracksFreeStartingItems(Range):
     """

@@ -1330,6 +1330,17 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
         make_overworld_logic(player, origin_name, world)
     ]
 
+    if world.is_ut:
+        # from .data.Constants import region_aliases
+        from .data.Regions import REGIONS
+        # alias_logic = []
+        # for region, aliases in region_aliases.items():
+        #     for alias in aliases:
+        #         alias_logic.append([region, alias, False, None])
+        # all_logic.append(alias_logic)
+        all_logic.append([[entr.entrance_region, entr.name, False, None] for entr in ENTRANCES.values() if entr.name not in REGIONS])
+
+
     entrance_lookup = {(e.entrance_region, e.exit_region): e for e in ENTRANCES.values()}
     world.set_completion_rule(Has("_beaten_game"))
 

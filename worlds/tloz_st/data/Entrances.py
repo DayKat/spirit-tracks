@@ -1611,7 +1611,7 @@ ENTRANCE_DATA |= {
     "Desert Rocktite Fight Exit": {
         "return_name": "Fire Realm Exit Rocktite Fight",
         "entrance_region": "sand restoration rocktite",
-        "exit_region": "disorientation station tracks",
+        "exit_region": "sand restoration mid",
         "entrance": (0xC, 0x0, 0x0),
         "exit": (0x7, 0x0, 0x6),
         "required_groups": ["Tracks: Desert Temple Tracks"],
@@ -2857,8 +2857,8 @@ ENTRANCE_DATA |= {
     # Misc entrances
     "Desert Temple Enter Post-Fight": {
         "return_name": "Skeldritch Post-Fight Exit",
-        "entrance_region": "dt b2",
-        "exit_region": "skeldritch",
+        "entrance_region": "dt b2 n",
+        "exit_region": "dt skeldritch",
         "entrance": (0x1D, 0x4, 0x1),
         "exit": (0x22, 0x1, 0),
         "type": EntranceGroups.BOSS,

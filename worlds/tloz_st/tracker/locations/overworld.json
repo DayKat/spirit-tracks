@@ -256,6 +256,7 @@
   {"name": "Pirate Hideout Cave", "sections": [{"name": "Pirate Hideout Secret Cave Mid Treasure"}], "map_locations": [{"map": "Treasure Cave", "x": 130, "y": 74}]},
   {"name": "Pirate Hideout Cave", "sections": [{"name": "Pirate Hideout Secret Cave Right Treasure"}], "map_locations": [{"map": "Treasure Cave", "x": 146, "y": 86}]},
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia Village Wadatsumi's Force Gem"}, {"name": "Papuzia Village Orca's Force Gem"}], "map_locations": [{"map": "Papuzia Village", "x": 68, "y": 46}]},
+  {"name": "Papuzia Village", "sections": [{"name": "Papuzia Village Orca's Force Gem"}], "map_locations": [{"map": "Orca's House", "x": 128, "y": 116}]},
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia Village Buy Fish"}, {"name": "Papuzia Village Deliver Ice"}], "map_locations": [{"map": "Papuzia Village", "x": 62, "y": 134}]},
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia Village Song Statue"}, {"name": "Papuzia Village Pick Up Carben"}], "map_locations": [{"map": "Papuzia Village", "x": 146, "y": 146}]},
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia Village NE Chest"}], "map_locations": [{"map": "Papuzia Village", "x": 154, "y": 58}]},
