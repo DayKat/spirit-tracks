@@ -1003,6 +1003,7 @@ class SpiritTracksRandomizeStart(OptionSet):
     - stations: adds all stations to the pool. Note that most stations have zero sphere 0 locations
     """
     default = {'niko'}
+    display_name = "Randomize Start"
     valid_keys = frozenset(set(ENTRANCES.keys()) | {"niko", "tos", "stations"})
 
 class SpiritTracksFreeStartingItems(Range):

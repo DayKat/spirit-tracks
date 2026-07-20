@@ -20,7 +20,21 @@
   {"name": "Mayscore Forest", "sections": [{"name": "Mayscore Stamp Station"}], "map_locations": [{"map": "Mayscore Forest", "x": 70, "y": 74}]},
   {"name": "Mayscore Interior", "sections": [{"name": "Mayscore Pick Up Morris"}], "map_locations": [{"map": "Morris' House", "x": 148, "y": 92}]},
   {"name": "Mayscore Interior", "sections": [{"name": "Mayscore Pick Up Dovok"}], "map_locations": [{"map": "Dovok's House", "x": 132, "y": 92}]},
-  {"name": "Mayscore Interior", "sections": [{"name": "Mayscore Shop Treasure 1"}, {"name": "Mayscore Shop Treasure 2"}, {"name": "Mayscore Shop Red Potion"}, {"name": "Mayscore Shop Shield"}, {"name": "Mayscore Shop Postcards"}], "map_locations": [{"map": "Mayscore Shop", "x": 128, "y": 88}]},
+  {"name": "Mayscore Interior", "sections": [
+    {"name": "Mayscore Shop Treasure 1"}
+          ], "map_locations": [{"map": "Mayscore Shop", "x": 124, "y": 96}]},
+    {"name": "Mayscore Interior", "sections": [
+    {"name": "Mayscore Shop Treasure 2"}
+          ], "map_locations": [{"map": "Mayscore Shop", "x": 132, "y": 96}]},
+    {"name": "Mayscore Interior", "sections": [
+    {"name": "Mayscore Shop Red Potion"}
+          ], "map_locations": [{"map": "Mayscore Shop", "x": 128, "y": 88}]},
+    {"name": "Mayscore Interior", "sections": [
+    {"name": "Mayscore Shop Shield"}
+      ], "map_locations": [{"map": "Mayscore Shop", "x": 120, "y": 88}]},
+    {"name": "Mayscore Interior", "sections": [
+    {"name": "Mayscore Shop Postcards"}
+  ], "map_locations": [{"map": "Mayscore Shop", "x": 136, "y": 88}]},
   {"name": "Mayscore Forest", "sections": [{"name": "Mayscore Whip Race 1:15-1:30"}, {"name": "Mayscore Whip Race 1:05-1:15"}, {"name": "Mayscore Whip Race Sub 1:05"}, {"name": "Mayscore Pick Up Wood"}], "map_locations": [{"map": "Mayscore Forest", "x": 190, "y": 46}]},
   {"name": "Mayscore Forest", "sections": [{"name": "Mayscore Whip Chest"}], "map_locations": [{"map": "Mayscore Forest", "x": 74, "y": 46}]},
 
@@ -168,7 +182,7 @@
   {"name": "Disorientation Station Cave", "sections": [{"name": "Disorientation Station Maze Chest"}], "map_locations": [{"map": "Disorientation 9", "x": 142, "y": 90}]},
 
   {"name": "Disorientation Station Cave", "sections": [{"name": "Disorientation Station Maze Chest"}], "map_locations": [{"map": "Disorientation Dungeon", "x": 288, "y": 46}]},
-  {"name": "Dark Ore Mine", "sections": [{"name": "Dark Ore Mine Buy Ore"}, {"name": "Dark Ore Mine Buried Chest"}], "map_locations": [{"map": "Dark Ore Mine", "x": 128, "y": 108}]},
+  {"name": "Dark Ore Mine", "sections": [{"name": "Dark Ore Mine Buy Ore"}, {"name": "Dark Ore Mine Buried Chest"}], "map_locations": [{"map": "Dark Ore Mine", "x": 128, "y": 108}, {"map": "Dark Ore Mine", "x": 72, "y": 88}, {"map": "Dark Ore Mine", "x": 184, "y": 88}]},
   {"name": "Dark Ore Mine Cave", "sections": [{"name": "Dark Ore Mine Buy Ore"}], "map_locations": [{"map": "Dark Ore Tunnels", "x": 128, "y": 102}]},
   {"name": "Dark Ore Mine Cave", "sections": [{"name": "Dark Ore Mine Buried Chest"}], "map_locations": [{"map": "Dark Ore Tunnels", "x": 186, "y": 66}]},
   {"name": "Ends of the Earth", "sections": [{"name": "Ends of the Earth Master Big Chest"}, {"name": "Ends of the Earth Master Small Chest"}], "map_locations": [{"map": "Ends of the Earth Station", "x": 124, "y": 80}]},
@@ -251,7 +265,7 @@
   {"name": "Papuzia Village Interior", "sections": [{"name": "Papuzia Village Buy Vessel"}], "map_locations": [{"map": "Wise One's House", "x": 128, "y": 92}]},
   {"name": "Papuzia Village Interior", "sections": [
     {"name": "Papuzia Shop Arrows"}
-      ], "map_locations": [{"map": "Papuzia Shop", "x": 124, "y": 99}]},
+      ], "map_locations": [{"map": "Papuzia Shop", "x": 124, "y": 96}]},
     {"name": "Papuzia Village Interior", "sections": [
       {"name": "Papuzia Shop Purple Potion"}
         ], "map_locations": [{"map": "Papuzia Shop", "x": 136, "y": 88}]},

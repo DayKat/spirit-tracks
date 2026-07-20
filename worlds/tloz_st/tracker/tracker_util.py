@@ -438,5 +438,5 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
 
 
 
-    print(f"hidden entrances: {entr_hidden}")
+    # print(f"hidden entrances: {entr_hidden}")
     return locs_hidden, entr_hidden

@@ -970,7 +970,7 @@ _warp_data = [
     WarpStorageData(0x3f0a, "slippery"),
     WarpStorageData(0x3f00, "snowdrift"),
     WarpStorageData(0x3700, "trading post", {0, 1, 2}, event="EVENT: Visit Trading Post"),
-    WarpStorageData(0x2c00, "papuzia village", invalid_entrances={5}, event="EVENT: Visit Trading Post"),
+    WarpStorageData(0x2c00, "papuzia village", invalid_entrances={5}, event="EVENT: Visit Papuzia Village"),
     WarpStorageData(0x3200, "island sanc"),
     WarpStorageData(0x1b0a, "oct lobby", event="EVENT: Visit Marine Temple"),
     WarpStorageData(0x3a00, "pirate hideout"),

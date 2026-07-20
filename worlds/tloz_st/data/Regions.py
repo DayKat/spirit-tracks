@@ -57,16 +57,16 @@ REGIONS = [
     "sand restoration portal event",
     "sand connection portal event",
 
-    # visited stations
-    "visited outset",
-    "visited castle town",
-    "visited rabbit haven",
-    "visited anouki village",
-    "visited icyspring",
-    "visited trading post",
-    "visited papuzia",
-    "visited marine temple",
-    "visited goron village",
+    # visit stations
+    "visit outset",
+    "visit castle town",
+    "visit rabbit haven",
+    "visit anouki village",
+    "visit icyspring",
+    "visit trading post",
+    "visit papuzia",
+    "visit marine temple",
+    "visit goron village",
 
     # Outset Village
     "outset village",

@@ -1626,7 +1626,7 @@ ENTRANCE_DATA |= {
         "entrance_region": "sand restoration south exit",
         "exit_region": "sand restoration mid",
         "extra_data": {"x_min": 400000},
-        "coords": (417792, 1695, -334526),
+        "coords": (417792, 0, -334526),
         "reverse_coords": (417792, 983, 342045),
         "entrance": (0x6, 0x0, 0xFB),
         "exit": (0x7, 0x0, 0xFC),
@@ -3214,6 +3214,17 @@ ENTRANCE_DATA |= {
         "exit_region": "visit goron village",
         "entrance": (0x0, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Tower of Spirits Staircase Elevators": {
+        "two_way": False,
+        "entrance_region": "tos lobby",
+        "exit_region": "tos 1",
+        "entrance": (0x14, 0x1, 0x1),
+        "exit": (0x17, 0x0, 0x0),
+        # "reverse_one_way_data": {"y": 0},
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },

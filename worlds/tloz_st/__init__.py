@@ -472,7 +472,7 @@ class SpiritTracksWorld(WorldParent):
 
         self.ut_events = events
         # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
-        # print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
+        print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
         for e in events:
             event = ENTRANCES[e]
             self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
@@ -836,15 +836,15 @@ class SpiritTracksWorld(WorldParent):
             create_blue_warp_events()
 
         if self.options.randomize_passengers.value and self.options.passenger_pickup.value == 1:
-            self.create_event("visited outset", "_visit_outset")
-            self.create_event("visited castle town", "_visit_ct")
-            self.create_event("visited rabbit haven", "_visit_rabbit")
-            self.create_event("visited anouki village", "_visit_av")
-            self.create_event("visited icyspring", "_visit_icyspring")
-            self.create_event("visited trading post", "_visit_tp")
-            self.create_event("visited papuzia", "_visit_papuzia")
-            self.create_event("visited marine temple", "_visit_oct")
-            self.create_event("visited goron village", "_visit_gv")
+            self.create_event("visit outset", "_visit_outset")
+            self.create_event("visit castle town", "_visit_ct")
+            self.create_event("visit rabbit haven", "_visit_rabbit")
+            self.create_event("visit anouki village", "_visit_av")
+            self.create_event("visit icyspring", "_visit_icyspring")
+            self.create_event("visit trading post", "_visit_tp")
+            self.create_event("visit papuzia", "_visit_papuzia")
+            self.create_event("visit marine temple", "_visit_oct")
+            self.create_event("visit goron village", "_visit_gv")
 
         # Train Portal events
         if self.options.portal_behavior.value == 0:

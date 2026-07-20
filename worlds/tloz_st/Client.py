@@ -378,10 +378,11 @@ class SpiritTracksClient(DSZeldaClient):
             if not desired_scenes:
                 return True
 
+            visited_scenes = get_stored_data(ctx, visited_scenes_key, [])
             for scene in desired_scenes:
-                if scene in ctx.stored_data[storage_key(ctx, visited_scenes_key)]:
+                if scene in visited_scenes:
                     return True
-            printl(f"\t{data['name']} has not visited scenes {hex_f(desired_scenes)}")
+            printl(f"\t{data['name']} has not visited scenes {hex_f(desired_scenes)} {get_stored_data(ctx, visited_scenes_key, [])}")
             return False
 
         def check_unvisited_scenes():
@@ -389,8 +390,9 @@ class SpiritTracksClient(DSZeldaClient):
             if not desired_scenes:
                 return True
 
+            visited_scenes = get_stored_data(ctx, visited_scenes_key, [])
             for scene in desired_scenes:
-                if scene in ctx.stored_data[storage_key(ctx, visited_scenes_key)]:
+                if scene in visited_scenes:
                     return False
             printl(f"\t{data['name']} has visited bad scenes {hex_f(desired_scenes)}")
             return True
@@ -517,6 +519,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.precision_operation and self.precision_operation[0] == "delete_ow_actors":
             await self.frame_advance(ctx)  # lol it be picky
             await self.delete_bad_ow_actors(ctx, self.precision_operation[1])
+            await STAddr.instant_blue_warp.overwrite(ctx, 0x30)
             self.precision_operation.clear()
             await bizhawk.unlock(ctx.bizhawk_ctx)
             ctx.watcher_timeout = 0.1
@@ -1216,6 +1219,23 @@ class SpiritTracksClient(DSZeldaClient):
             printl(f"Setting shop models")
             await self.set_shop_models(ctx)
 
+        if not self._just_entered_game and self.last_stage == self.current_stage and self.current_stage in [4, 5]:
+            print(f"Starting special operation")
+            await self.setup_evil_train_deletion(ctx, "special_ow_actors", 2)
+        if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
+            print(f"Starting delete operation")
+            self.precision_operation = None
+            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
+
+    async def setup_evil_train_deletion(self, ctx, operation: str, comp: int):
+        if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
+            actor_table = await self.get_actor_table(ctx)
+            self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp, operation, actor_table]
+        if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
+            actor_table = await self.get_actor_table(ctx)
+            self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp,
+                                   operation, actor_table]
+
     async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
         """Laad shop models in bulk"""
         valid_locations = []
@@ -1408,28 +1428,25 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Start Precision read for evil train deletion
         if not self._just_entered_game:
-            if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
-                # Wow cannon changes where ow actor table loads, and i don't have a good pointer :'(
-                actor_table = await self.get_actor_table(ctx)
-                self.precision_mode = [Address.from_pointer(actor_table+17*4+3), 0, "delete_ow_actors", actor_table]
-            if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
-                actor_table = await self.get_actor_table(ctx)
-                self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), 0,
-                                       "delete_ow_actors", actor_table]
+            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
 
         # Save visited scenes
-        if ctx.slot_data.get("enable_map_warp", 1):
+        if ctx.slot_data.get("enable_map_warp", 1) or ctx.slot_data["passenger_pickup"] == 1:
             warp_data = WARP_SCENES.get(self.current_scene, False)
             if warp_data and warp_data.is_valid(self.current_entrance, ctx.slot_data):
                 self.visited_scenes.add(self.current_scene)
                 await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [self.current_scene])
+                print(f"Visited {warp_data.region}")
                 if warp_data.event:
                     event_entr = ENTRANCES[warp_data.event]
                     await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
 
     async def open_boss_door(self, ctx):
         current_scene = self.current_scene
-        if current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+        if current_scene in BOSS_KEY_DATA and (
+                ctx.slot_data.get("randomize_boss_keys", 0)
+                or (BOSS_KEY_DATA[self.current_scene]["dungeon"] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2)
+        ):
             data = BOSS_KEY_DATA[self.current_scene]
 
             # Open boss door
@@ -1651,6 +1668,9 @@ class SpiritTracksClient(DSZeldaClient):
             print(f"{hex_f(k)}: {hex_f(i)} {ident}")
 
     async def conditional_er(self, ctx, exit_data, silent=False, detect_data=None) -> bool:
+        if self._just_entered_game:
+            return True
+
         def check_or(group):
             for or_group in group:
                 if self.has_from_group(ctx, or_group):
@@ -1736,10 +1756,12 @@ class SpiritTracksClient(DSZeldaClient):
             er_map.setdefault(0x1b0a, {})[oct_exit] = detect_data
 
         # Skip desert rocktite cave
-        if exit_data.name == "Ocean Realm North Rocktite Cave":
-            rocktite_entrance = self.entrances["Desert Rocktite Fight Entrance"]
-            er_map.setdefault(0x600, {})[rocktite_entrance] = detect_data
+        if detect_data.name == "Ocean Realm North Rocktite Cave":
+            rocktite_entrance = self.entrances["Ocean Realm North Rocktite Cave Fight"]
+            er_map.setdefault(0x600, {})[rocktite_entrance] = exit_data
+            print(f"{rocktite_entrance} => {detect_data}")
 
+        # Capbone states
         if exit_data.name == "Capbone Exit":
             post_fight = self.entrances["Skeldritch Post-Fight Exit"]
             er_map.setdefault(post_fight.scene, {})[post_fight] = detect_data
@@ -1750,6 +1772,10 @@ class SpiritTracksClient(DSZeldaClient):
         if detect_data.name == "Desert Temple B2 North Entrance":
             desert_exit = self.entrances["Desert Temple Enter Post-Fight"]
             er_map.setdefault(0x1d04, {})[desert_exit] = exit_data
+        # ToS elevator linkup
+        if detect_data.name == "Tower of Spirits Staircase Exit":
+            elevator = self.entrances["Tower of Spirits Staircase Elevators"]
+            er_map.setdefault(0x1700, {})[elevator] = exit_data
 
         return er_map
 
@@ -1779,6 +1805,11 @@ class SpiritTracksClient(DSZeldaClient):
     async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
         if new_exit.category_group == EntranceGroups.WARP_PORTAL:
             await STAddr.instant_blue_warp.overwrite(ctx, 0x19)  # prevent blue warps from isntant-warping you
+        if new_exit.stage == 0xA:
+            await STAddr.instant_blue_warp.overwrite(ctx, 0x30)  # prevent path drawing underwater
+        if (new_exit.category_group == EntranceGroups.STATION and new_exit.direction == EntranceGroups.UP) or new_exit.category_group == EntranceGroups.TRAIN_PORTAL:
+            await STAddr.instant_blue_warp.overwrite(ctx, 0x39)
+
         if new_exit.stage in unsafe_respawn_stages and new_exit.scene not in self.safe_respawn_rooms:
             if self.safe_respawn is None:
                 self.safe_respawn = last_detect.entrance

@@ -18,7 +18,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Allow leaving Outset": {
         "on_scenes": [0x2F00],
         "has_locations": ["Outset Clear Rocks", "Outset Bee Tree"],
-        "has_groups": ["Tracks: Forest Glyph"],
         "set_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x80)]
     },
     "Allow keep door open": {
