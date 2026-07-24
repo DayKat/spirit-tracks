@@ -74,7 +74,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["forest cave tracks", "forest cave portal loc", False, has_cannon],
         ["forest cave portal loc", "cave portal event", False, None],
         ["forest cave tracks", "w forest tracks", True, has_tracks("Forest Realm SW Cave") & has_tracks("W Forest Realm")],
-        ["w forest tracks", "snow realm", True, has_glyph("Snow") & has_tracks("W Forest Realm")],
+        ["w forest tracks", "snow realm fr", True, has_glyph("Snow") & has_tracks("W Forest Realm")],
         ["w forest tracks", "wtt", True, has_temple_tracks("Wooded") & has_tracks("W Forest Realm")],
 
         # W Wooded temple
@@ -88,7 +88,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         # Rabbits
         ["forest realm", "forest realm rabbits", False, has_net],
         ["ocean shortcut", "forest ocean shortcut rabbit", False, has_tracks("Forest Realm Ocean Shortcut")],
-        ["e mayscore bridge", "e mayscore rabbits", False, has_tracks("E Mayscore Bridge")],
+        ["e mayscore bridge", "e mayscore rabbits", False, has_tracks("E Mayscore Bridge") & has_net],
         ["forest realm se portal track", "sw trading post rabbit", False, has_net],
         ["forest realm rabbits", "sw trading post rabbit", False, has_glyph("Ocean") & hard_logic],
         ["wtt", "wt rabbit", False, has_net],
@@ -1168,7 +1168,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand realm", "sand sanc station", True, has_tracks("Sand Realm")],
         ["sand sanc station", "sand sanc", False, has_tracks("Sand Realm")],
         ["sand sanc", "sand sanc station", False, None],
-        ["sand sanc", "sand sanc song", False, has_spirit_flute],
+        ["sand sanc sanc", "sand sanc song", False, has_spirit_flute],
         ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book],
         ["sand sanc", "sand sanc sand wand", False, has_sand_wand],
         ["sand sanc", "sand sanc tunnel", True, None],

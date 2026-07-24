@@ -1911,6 +1911,43 @@ class SpiritTracksWorld(WorldParent):
 
         return True
 
+    def extend_hint_information(self, hint_data: Dict[int, Dict[int, str]]):
+        player_hint_data = dict()
+
+        pairings = dict()
+        if self.er_placement_state:
+            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
+                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        if not pairings:  # If not er, don't bother trying anything else
+            return
+
+        def create_hint_entrances(key):
+            hint_entrances = loc_data[key]
+            hint_entrances = [hint_entrances] if isinstance(hint_entrances, str) else hint_entrances
+            hint_entrances_ids = [e.id for name, e in ENTRANCES.items() if name in hint_entrances]
+
+            for entrance_id in hint_entrances_ids:
+                reverse_id = reverse_pairings.get(entrance_id, None)
+                if reverse_id is not None and (reverse_id not in dead_end_ids or self.options.decouple_shuffled_entrances.value):
+                    entrance_list.add(entrance_id_to_entrance[reverse_id].name)
+
+        reverse_pairings = {e2: int(e1) for e1, e2 in pairings.items()}
+        dead_end_ids = [e.id for name, e in ENTRANCES.items() if name in DEAD_END_ENTRANCES]
+
+        for loc, loc_data in LOCATIONS_DATA.items():
+            if "hint_entrance" in loc_data:
+                entrance_list = set()
+                create_hint_entrances("hint_entrance")
+                if not entrance_list and "hint_entrance_secondary" in loc_data:
+                    create_hint_entrances("hint_entrance_secondary")
+                if not entrance_list and "hint_entrance_tertiary" in loc_data:
+                    create_hint_entrances("hint_entrance_tertiary")
+
+                if entrance_list:
+                    player_hint_data[loc_data["id"]] = ", ".join(entrance_list)
+
+        hint_data[self.player] = player_hint_data
+
     def get_location_models(self):
         # get item placement models to send to client
         default_models = {

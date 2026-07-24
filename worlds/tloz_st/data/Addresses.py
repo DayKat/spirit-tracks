@@ -156,14 +156,6 @@ class STAddr:
 
     oct_actor_table_start = Address(0x3251D8, size=3)
 
-    # Candidates for ToS 3 bk pointers
-    # 332858
-    # 332A20
-    # 332BB4
-    # 332BD4
-    # 332D1C
-    # 33DBFC
-
     # Boss door openers
     wt_boss_door = Address(0x3368FE)
     bt_boss_door = Address(0x33099E)

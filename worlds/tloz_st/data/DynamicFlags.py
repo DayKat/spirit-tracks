@@ -1353,14 +1353,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Prevent Kenzo from leaving TP snow glyph": {
         "on_scenes": [0x3700],
         "not_has_groups": ["Tracks: Snow Glyph"],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_3d, 2), ("passenger_pickup", 0)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("passenger_pickup", 0)],
+        "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
     "Prevent Kenzo from leaving TP visit": {
         "on_scenes": [0x3700],
         "not_visited_scenes": [0x2b00],
-        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_3d, 2), ("passenger_pickup", 1)],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("passenger_pickup", 1)],
+        "unset_if_true": [(STAddr.adv_flags_3d, 2)],
     },
     "Prevent Kenzo from leaving TP randomize": {
         "on_scenes": [0x3700],

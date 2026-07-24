@@ -318,6 +318,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'backup_filler': True,
         'address': STAddr.heart_count,
         'value': 4,
+        "max": 0x40,
         "tags": ["monotone_incremental"],
         "base_count": 12,
         'item_groups': ["Upgrade Items"],

@@ -489,7 +489,7 @@ DYNAMIC_ENTRANCES = {
         "has_slot_data": [("shuffle_overworld", 0)]
     },
     "Prevent softlock in icy spring with ferrus": {
-        "entrance": "Icy Spring Train",
+        "entrance": "Icy Spring Board Train",
         "destination": "Fire Realm Goron Village Station",
         "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "has_slot_data": [("shuffle_stations", 0)],

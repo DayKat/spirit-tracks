@@ -284,7 +284,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
-    "Hyrule Castle Back Staircase": {
+    "Hyrule Castle 1F Back Staircase": {
         "return_name": "Hyrule Castle 2F NW Staircase",
         "exit": (0x28, 0x2, 2),
         "entrance": (0x28, 0x1, 7),
@@ -294,7 +294,7 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Hyrule Castle Back Exit": {
+    "Hyrule Castle 1F Back Exit": {
         "return_name": "Hyrule Castle Backyard Castle",
         "exit": (0x28, 0x4, 0),
         "entrance": (0x28, 0x1, 6),
@@ -545,7 +545,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Trading Post South Cave": {
-        "return_name": "Like-Like Tunnel Exit",
+        "return_name": "Like-Like Tunnel South",
         "entrance": (0x37, 0x0, 2),
         "exit": (0x37, 0x1, 0),
         "entrance_region": "trading post",
@@ -555,7 +555,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Trading Post North Staircase": {
-        "return_name": "Like-Like Tunnel Staircase",
+        "return_name": "Like-Like Tunnel North",
         "entrance": (0x37, 0x0, 3),
         "exit": (0x37, 0x1, 1),
         "entrance_region": "trading post north",
@@ -659,7 +659,7 @@ ENTRANCE_DATA = {
         "island": EntranceGroups.NONE
     },
     "Island Sanctuary South Peninsula": {
-        "return_name": "Island Sanctuary North South",
+        "return_name": "Island Sanctuary North Peninsula",
         "entrance_region": "island sanc peninsula",
         "exit_region": "island sanc north",
         "entrance": (0x32, 0x0, 0x2),
@@ -670,7 +670,7 @@ ENTRANCE_DATA = {
     },
 
     # Ocean Islands
-    "Pirate Hideout Cave": {
+    "Pirate Hideout Bomb Cave": {
         "return_name": "Treasure Cave Exit",
         "entrance_region": "pirate hideout",
         "exit_region": "pirate hideout secret cave",
@@ -1197,7 +1197,7 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE
     },
     "Snow Realm Icy Spring Station": {
-        "return_name": "Icy Spring Train",
+        "return_name": "Icy Spring Board Train",
         "entrance_region": "icyspring station",
         "exit_region": "icyspring",
         "required_groups": ["Tracks: Blizzard Temple Tracks"],
