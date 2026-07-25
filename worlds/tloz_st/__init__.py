@@ -422,7 +422,7 @@ class SpiritTracksWorld(WorldParent):
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
                 events += [location_event_lookup[loc] for loc in self.required_boss_locs]
             else:
-                events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz", "EVENT: Defeat Cactops", "EVENT: Defeat Vulcano", "EVENT: Defeat Skeldritch"]
+                events += ["EVENT: Defeat Stagnox", "EVENT: Defeat Fraaz", "EVENT: Defeat Cactops", "EVENT: Defeat Vulcano", "EVENT: Defeat Capbone"]
                 if self.options.tos_dungeon_options == "final_section":
                     events += ["EVENT: Defeat Staven"]
                 elif self.options.tos_dungeon_options == "all_sections":
@@ -1916,8 +1916,9 @@ class SpiritTracksWorld(WorldParent):
 
         pairings = dict()
         if self.er_placement_state:
-            for e1, e2 in self.er_placement_state.pairings + self.manual_er_pairings + self.plando_er_pairings:
+            for e1, e2 in self.er_placement_state.pairings:
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        pairings |= self.plando_pairings
         if not pairings:  # If not er, don't bother trying anything else
             return
 

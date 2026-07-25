@@ -3234,7 +3234,7 @@ LOCATIONS_DATA = {
         "value": 0x1,
         "region_id": "dt skeldritch",
         "location_groups": ["Skeldritch"],
-        "ut_connect": "EVENT: Defeat Skeldritch",
+        "ut_connect": "EVENT: Defeat Capbone",
         "goal": "GOAL: Defeat Skeldritch",
         "post_dungeon": "Desert Temple",
         "no_model": True,

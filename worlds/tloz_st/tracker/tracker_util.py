@@ -251,7 +251,8 @@ map_lookup: dict[int, str] = {
     207: "Dark Realm",
     208: "Cosmic Ocean",
     209: "Disorientation Dungeon",
-    210: "Pirate Hangout"
+    210: "Pirate Hangout",
+    211: "Beedle"
 }
 
 station_section_link: dict[str, str] = {

@@ -1883,7 +1883,7 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "EVENT: Defeat Skeldritch": {
+    "EVENT: Defeat Capbone": {
         "two_way": False,
         "entrance_region": "dt skeldritch",
         "exit_region": "skeldritch event",
@@ -3246,7 +3246,7 @@ location_event_lookup = {"Stagnox Boss Reward": "EVENT: Defeat Stagnox",
                          "ToS 24F Final Chest": "EVENT: Reach ToS 24F",
                          "Cactops Boss Reward": "EVENT: Defeat Cactops",
                          "Vulcano Boss Reward": "EVENT: Defeat Vulcano",
-                         "Capbone Boss Reward": "EVENT: Defeat Skeldritch",
+                         "Capbone Boss Reward": "EVENT: Defeat Capbone",
                          "Castle Town Take 'em All On Level 3": "EVENT: Complete Take 'em All On 3",
                          "Lost at Sea Final Chest": "EVENT: Complete Lost at Sea Dungeon"}
 boss_events = set(location_event_lookup.values())

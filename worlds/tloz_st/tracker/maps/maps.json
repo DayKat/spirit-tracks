@@ -234,5 +234,6 @@
   {"name": "Dark Trains", "img": "images/train/dark.png", "location_size": 14, "location_border_thickness": 2},
   {"name": "Cosmic Ocean", "img": "images/train/cosmic.png", "location_size": 14, "location_border_thickness": 2},
   {"name": "Disorientation Dungeon", "img": "images/disorientation/full.png", "location_size": 7, "location_border_thickness": 1},
-  {"name": "Pirate Minigame", "img": "images/ocean_realm/pirate_game.png", "location_size": 7, "location_border_thickness": 1}
+  {"name": "Pirate Minigame", "img": "images/ocean_realm/pirate_game.png", "location_size": 7, "location_border_thickness": 1},
+  {"name": "Beedle's Shop", "img": "images/train/beedle.png", "location_size": 7, "location_border_thickness": 1}
 ]
