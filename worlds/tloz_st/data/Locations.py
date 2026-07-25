@@ -2367,7 +2367,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Plain Phantom Chest": {
-        "region_id": "las 1st room chest",
+        "region_id": "las 1",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
         "room_id": 0x2,
@@ -2379,7 +2379,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Torch Phantom Chest": {
-        "region_id": "las 2nd room chest",
+        "region_id": "las 2",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
         "room_id": 0x3,
@@ -2390,7 +2390,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Warp Phantom Chest": {
-        "region_id": "las 3rd room chest",
+        "region_id": "las 3",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
         "room_id": 4,
@@ -2402,7 +2402,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Wrecker Phantom SW Chest": {
-        "region_id": "las 4th room chest",
+        "region_id": "las 4",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
         "room_id": 5,
@@ -2413,7 +2413,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Wrecker Phantom NE Chest": {
-        "region_id": "las 4th room chest",
+        "region_id": "las 4",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
         "room_id": 5,
@@ -2424,7 +2424,7 @@ LOCATIONS_DATA = {
 
     },
     "Lost at Sea Final Challenge SE Chest": {
-        "region_id": "las 5th room",
+        "region_id": "las 5 se",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
         "room_id": 6,
@@ -2436,7 +2436,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Final Challenge NE Chest": {
-        "region_id": "las 5th room",
+        "region_id": "las 5",
         "vanilla_item": ITEM_GROUPS["Uncommon Treasures"],
         "stage_id": 0x42,
         "room_id": 6,
@@ -2448,7 +2448,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Final Challenge SW Chest": {
-        "region_id": "las 5th room",
+        "region_id": "las 5 sw",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
         "room_id": 6,
@@ -2460,7 +2460,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Final Challenge NW Chest": {
-        "region_id": "las 5th room",
+        "region_id": "las 5 nw",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x42,
         "room_id": 6,
@@ -2472,7 +2472,7 @@ LOCATIONS_DATA = {
     },
 
     "Lost at Sea Final Chest": {
-        "region_id": "las 5th room",
+        "region_id": "las 6",
         "vanilla_item": "Treasure: Regal Ring",
         "stage_id": 0x42,
         "room_id": 7,

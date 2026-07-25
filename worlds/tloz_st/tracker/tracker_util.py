@@ -288,6 +288,8 @@ station_section_link: dict[str, str] = {
     "Overview Valley": ["Fire Realm Goron Village Station", "Goron Village Enclave North", "Elder Goron House Cave", "Goron Village Elder's House"],
     "Overview GTR": "Fire Realm Goron Target Range Station",
     "Overview MTT": ["Fire Realm Mountain Temple Station", "Mountain Temple Lobby Enter Dungeon"],
+
+    "Lost at Sea Station Cave": ["Lost at Sea Lobby Enter Dungeon"],
 }
 
 boss_event_link: dict[str, list[str]] = {
@@ -321,6 +323,7 @@ boss_event_link: dict[str, list[str]] = {
     "Carben Island Event": ["Ocean Realm Island Sanctuary Station"],
     "Goron Anouki Event": ["Snow Realm Anouki Village Station"],
     "Disorientation Event": ["Fire Realm Disorientation Station", "Disorientation Station Cave"],
+
 }
 
 def get_hidden_map_icons(world: "SpiritTracksWorld"):

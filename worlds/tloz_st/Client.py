@@ -1192,6 +1192,8 @@ class SpiritTracksClient(DSZeldaClient):
             "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
         if detect_data.name == "Marine Temple Train Exit Water Warp":
             new_data.add(self.entrances["Marine Temple Lobby Board Train"].id)
+        elif detect_data.name == "Lost at Sea Lobby Enter Dungeon One-Way":
+            new_data.add(self.entrances["Lost at Sea Lobby Enter Dungeon"].id)
         printl(f"New Storage Data: {new_data}")
 
         if interaction == "check":

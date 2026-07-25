@@ -682,7 +682,7 @@ ENTRANCE_DATA = {
     },
     "Lost at Sea Cave": {
         "return_name": "Lost at Sea Lobby Exit",
-        "entrance_region": "lost at sea",
+        "entrance_region": "las cliff",
         "exit_region": "las lobby",
         "entrance": (0x39, 0xA, 0x1),
         "exit": (0x39, 0xB, 0x0),
@@ -1948,7 +1948,7 @@ ENTRANCE_DATA |= {
     },
     "EVENT: Complete Lost at Sea Dungeon": {
         "two_way": False,
-        "entrance_region": "las 5th room",
+        "entrance_region": "las 6",
         "exit_region": "las_event",
         "entrance": (0x13, 0x23, 0x0),
         "type": EntranceGroups.EVENT,
@@ -3226,6 +3226,87 @@ ENTRANCE_DATA |= {
         # "reverse_one_way_data": {"y": 0},
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Lobby Enter Dungeon One-Way": {
+        "return_name": "Lost at Sea Dungeon Plain Phantom Spawn",
+        "entrance_region": "las loop",
+        "two_way": False,
+        "exit_region": "las 1",
+        "exit": (0x42, 0x2, 0x0),
+        "entrance": (0x39, 0xB, 0x1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Plain Phantom Staircase": {
+        "return_name": "Lost at Sea Dungeon Torch Phantom North",
+        "entrance_region": "las 1",
+        "exit_region": "las 2",
+        "exit": (0x42, 0x3, 0x0),
+        "entrance": (0x42, 0x2, 0x1),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Warp Phantom South": {
+        "return_name": "Lost at Sea Dungeon Torch Phantom South",
+        "entrance_region": "las 3",
+        "exit_region": "las 2",
+        "entrance": (0x42, 0x4, 0x0),
+        "exit": (0x42, 0x3, 0x1),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Warp Phantom North": {
+        "return_name": "Lost at Sea Dungeon Wrecker Phantom West",
+        "entrance_region": "las 3",
+        "exit_region": "las 4",
+        "entrance": (0x42, 0x4, 0x1),
+        "exit": (0x42, 0x5, 0x0),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Wrecker Phantom East": {
+        "return_name": "Lost at Sea Dungeon Quad Room South",
+        "entrance_region": "las 4 door",
+        "exit_region": "las 5",
+        "entrance": (0x42, 0x5, 0x1),
+        "exit": (0x42, 0x6, 0x0),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Quad Room North": {
+        "return_name": "Lost at Sea Dungeon Reward Room South",
+        "entrance_region": "las 5 door",
+        "exit_region": "las 6",
+        "entrance": (0x42, 0x6, 0x1),
+        "exit": (0x42, 0x7, 0x0),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Reward Room Warp One-Way": {
+        "return_name": "Lost at Sea Dungeon Return Warp",
+        "entrance_region": "las 6",
+        "exit_region": "las loop",
+        "entrance": (0x42, 0x7, 0x1),
+        "exit": (0x39, 0xB, 0x1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Lobby Enter Dungeon": {
+        "return_name": "Lost at Sea Dungeon Reward Room Warp",
+        "entrance_region": "las lobby",
+        "exit_region": "las loop",
+        "exit": (0x42, 0x7, 0x1),
+        "entrance": (0x39, 0xB, 0x1),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
 }

@@ -59,7 +59,7 @@ class TestGeneration(WorldTestBase):
         "progressive_equipment": False,
         "randomize_shields": False,
 
-        "shuffle_stations": "shuffle_pool_a",
+        "shuffle_stations": "no_shuffle",
         "shuffle_train_transitions": "no_shuffle",
 
         "shuffle_caves": "no_shuffle",
@@ -70,7 +70,7 @@ class TestGeneration(WorldTestBase):
         "shuffle_disorientation": "no_shuffle",
 
         "shuffle_tos_sections": "no_shuffle",
-        "shuffle_tos_staircase": "shuffle_pool_a",
+        "shuffle_tos_staircase": "no_shuffle",
 
         "shuffle_dungeon_entrances": "no_shuffle",
         "shuffle_bosses": "no_shuffle",
@@ -78,6 +78,7 @@ class TestGeneration(WorldTestBase):
         "shuffle_warps": "no_shuffle",
 
         "shuffle_portals": "no_shuffle",
+        "shuffle_las": "shuffle_alone",
 
         "keyrings": "all",
         "dungeons_required": 5,

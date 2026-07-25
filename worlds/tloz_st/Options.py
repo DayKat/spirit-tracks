@@ -4,7 +4,7 @@ from datetime import datetime
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
     ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet, PlandoConnections
 from worlds.tloz_st.data.Items import ITEMS_DATA
-from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION
+from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION, directionality_etype_lookup, pool_name_lookup
 from.data.Entrances import ENTRANCES
 
 # YAML options
@@ -566,8 +566,21 @@ class SpiritTracksShufflePortals(Choice):
     """
     Shuffle train portals.
     Always disables portal items.
+    Portal locations are fine!
     """
     display_name = "Shuffle Train Portals"
+    option_no_shuffle = 0
+    option_shuffle_alone = 1
+    option_shuffle_pool_a = 2
+    option_shuffle_pool_b = 3
+    option_shuffle_pool_c = 4
+
+class SpiritTracksShuffleLas(Choice):
+    """
+    Shuffle lost at sea dungeon.
+    The entrance and exit one-ways get looped together.
+    """
+    display_name = "Shuffle Lost at Sea Dungeon"
     option_no_shuffle = 0
     option_shuffle_alone = 1
     option_shuffle_pool_a = 2
@@ -653,18 +666,15 @@ class SpiritTracksEntranceDirectionality(OptionSet):
     Valid options are: houses, caves, stations, overworld, train, portals,
       dungeon_entrances, bosses, dungeon_rooms, blue_warps,
       tos_sections, tos_staircase,
-      castle, disorientation, eote, pool_a, pool_b, pool_c, in_own_dungeon, all
+      castle, disorientation, eote, las,
+      pool_a, pool_b, pool_c, in_own_dungeon, all
     Pools with lots of dead ends have a high chance to cause gen errors.
     Staircases do not have directions.
     """
     display_name = "Entrance Directionality"
     default = {"houses", "stations", "dungeon_entrances", "tos_sections", "bosses"}
     # supports_weighting = True
-    valid_keys = ["houses", "caves", "stations", "overworld", "train", "portals",
-                  "dungeon_entrances", "bosses", "dungeon_rooms", "blue_warps",
-                  "tos_sections", "tos_staircase",
-                  "castle", "disorientation", "eote",
-                  "pool_a", "pool_b", "pool_c", "in_own_dungeon", "all"]
+    valid_keys = list(directionality_etype_lookup.values()) + list(pool_name_lookup.values()) + ["all"]
 
 
 class SpiritTracksShopsanity(OptionSet):
@@ -1124,6 +1134,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     shuffle_hyrule_castle: SpiritTracksShuffleHyruleCastle
     shuffle_disorientation: SpiritTracksShuffleDisorientationStation
     shuffle_eote: SpiritTracksShuffleEotE
+    shuffle_las: SpiritTracksShuffleLas
 
     plando_transitions: SpiritTracksEntrancePlando
     entrance_directionality: SpiritTracksEntranceDirectionality
@@ -1232,6 +1243,7 @@ st_option_groups = [
         SpiritTracksShuffleHyruleCastle,
         SpiritTracksShuffleDisorientationStation,
         SpiritTracksShuffleEotE,
+        SpiritTracksShuffleLas,
         SpiritTracksEntrancePlando,
         SpiritTracksEntranceDirectionality,
         SpiritTracksDecoupleEntrances,

@@ -611,7 +611,7 @@
   {"name": "Ocean Realm Sand", "sections": [{"name": "Sand Realm Temple Portal"}], "map_locations": [{"map": "Ocean Realm", "x": 468, "y": 54}]},
   {"name": "Ocean Realm Sand", "sections": [{"name": "Sand Realm Sanctuary Portal"}], "map_locations": [{"map": "Ocean Realm", "x": 146, "y": 134}]},
   {"name": "Fire Realm", "sections": [{"name": "Mountain Portal"}], "map_locations": [{"map": "Fire Realm", "x": 362, "y": 254}]},
-  {"name": "Fire Realm", "sections": [{"name": "Fire Realm Portal"}], "map_locations": [{"map": "Fire Realm", "x": 182, "y": 154}]},
+  {"name": "Fire Realm", "sections": [{"name": "Fire Realm Portal"}], "map_locations": [{"map": "Fire Realm", "x": 182, "y": 200}]},
   {"name": "Fire Realm Sand", "sections": [{"name": "Fire Realm Sand Portal"}], "map_locations": [{"map": "Fire Realm", "x": 110, "y": 366}]},
 
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm North Portal"}], "map_locations": [{"map": "Overview", "x": 334, "y": 542}]},
@@ -628,6 +628,19 @@
   {"name": "Overview Ocean Sand", "sections": [{"name": "Sand Realm Temple Portal"}], "map_locations": [{"map": "Overview", "x": 980, "y": 438}]},
   {"name": "Overview Ocean Sand", "sections": [{"name": "Sand Realm Sanctuary Portal"}], "map_locations": [{"map": "Overview", "x": 658, "y": 518}]},
   {"name": "Overview Fire", "sections": [{"name": "Mountain Portal"}], "map_locations": [{"map": "Overview", "x": 874, "y": 254}]},
-  {"name": "Overview Fire", "sections": [{"name": "Fire Realm Portal"}], "map_locations": [{"map": "Overview", "x": 694, "y": 154}]},
-  {"name": "Overview Fire Sand", "sections": [{"name": "Fire Realm Sand Portal"}], "map_locations": [{"map": "Overview", "x": 622, "y": 366}]}
+  {"name": "Overview Fire", "sections": [{"name": "Fire Realm Portal"}], "map_locations": [{"map": "Overview", "x": 694, "y": 200}]},
+  {"name": "Overview Fire Sand", "sections": [{"name": "Fire Realm Sand Portal"}], "map_locations": [{"map": "Overview", "x": 622, "y": 366}]},
+
+  {"name": "Lost at Sea Lobby", "sections": [{"name": "Lost at Sea Lobby Enter Dungeon"}], "map_locations": [{"map": "Lost at Sea Lobby", "x": 128, "y": 98}]},
+  {"name": "Lost at Sea 1", "sections": [{"name": "Lost at Sea Dungeon Plain Phantom Staircase"}], "map_locations": [{"map": "Lost at Sea 1", "x": 128, "y": 31}]},
+  {"name": "Lost at Sea 2", "sections": [{"name": "Lost at Sea Dungeon Torch Phantom North"}], "map_locations": [{"map": "Lost at Sea 2", "x": 128, "y": 31}]},
+  {"name": "Lost at Sea 2", "sections": [{"name": "Lost at Sea Dungeon Torch Phantom South"}], "map_locations": [{"map": "Lost at Sea 2", "x": 128, "y": 128}]},
+  {"name": "Lost at Sea 3", "sections": [{"name": "Lost at Sea Dungeon Warp Phantom South"}], "map_locations": [{"map": "Lost at Sea 3", "x": 128, "y": 128}]},
+  {"name": "Lost at Sea 3", "sections": [{"name": "Lost at Sea Dungeon Warp Phantom North"}], "map_locations": [{"map": "Lost at Sea 3", "x": 128, "y": 63}]},
+  {"name": "Lost at Sea 4", "sections": [{"name": "Lost at Sea Dungeon Wrecker Phantom West"}], "map_locations": [{"map": "Lost at Sea 4", "x": 128, "y": 68}]},
+  {"name": "Lost at Sea 4", "sections": [{"name": "Lost at Sea Dungeon Wrecker Phantom East"}], "map_locations": [{"map": "Lost at Sea 4", "x": 128, "y": 127}]},
+  {"name": "Lost at Sea 5", "sections": [{"name": "Lost at Sea Dungeon Quad Room South"}], "map_locations": [{"map": "Lost at Sea 5", "x": 128, "y": 127}]},
+  {"name": "Lost at Sea 5", "sections": [{"name": "Lost at Sea Dungeon Quad Room North"}], "map_locations": [{"map": "Lost at Sea 5", "x": 128, "y": 29}]},
+  {"name": "Lost at Sea 6", "sections": [{"name": "Lost at Sea Dungeon Reward Room South"}], "map_locations": [{"map": "Lost at Sea 6", "x": 128, "y": 126}]},
+  {"name": "Lost at Sea 6", "sections": [{"name": "Lost at Sea Dungeon Reward Room Warp"}], "map_locations": [{"map": "Lost at Sea 6", "x": 111, "y": 79}]}
 ]

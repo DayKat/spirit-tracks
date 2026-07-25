@@ -868,6 +868,8 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("sand restoration portal event", "_dt_portal")
             self.create_event("sand connection portal event", "_sand_portal")
 
+        self.create_event("las 6", "_las6")
+
 
     def exclude_locations_automatically(self):
         locations_to_exclude = set()
@@ -1583,7 +1585,8 @@ class SpiritTracksWorld(WorldParent):
             14: self.options.shuffle_tos_staircase,
             15: self.options.shuffle_hyrule_castle,
             16: self.options.shuffle_disorientation,
-            17: self.options.shuffle_eote
+            17: self.options.shuffle_eote,
+            18: self.options.shuffle_las
         }
         none_option_types = {  # when assigning direction pairings to NONE-directional entrances, these are the directions for each etype
             0: [1, 2, 3, 4],
@@ -1602,6 +1605,7 @@ class SpiritTracksWorld(WorldParent):
             15: [3, 4],
             16: [1, 2, 3, 4],
             17: [3, 4],
+            18: [3, 4],
         }
 
         plando_disconnects: set[str] = set()
@@ -1747,6 +1751,26 @@ class SpiritTracksWorld(WorldParent):
                             target_name = ENTRANCES[_exit.name].vanilla_reciprocal.name
                             disconnect_entrance_for_randomization(_exit, one_way_target_name=target_name)
 
+    def generate_basic(self) -> None:
+        # Add bonus rules based on entrance placement
+        # pairings = {}
+        # if self.er_placement_state:
+        #     for e1, e2 in self.er_placement_state.pairings:
+        #         pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        # pairings |= self.plando_pairings
+        if ((hasattr(self.er_placement_state, "placements")
+                 and self.get_entrance("Lost at Sea Lobby Enter Dungeon") not in self.er_placement_state.placements)
+              or ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id in self.plando_pairings):
+            self.get_region("las loop").connect(self.get_region("las 1"))
+        if self.is_ut and str(ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id) not in self.ut_pairings:
+            # print(f"Connecting LAS Loop {self.ut_pairings}")
+            self.get_region("las loop").connect(self.get_region("las 1"))
+
+            # from rule_builder.rules import False_, True_
+            # print(f"Changing access rules! Lost at Sea Lobby Enter Dungeon One-Way")
+            # self.set_rule(self.get_entrance("Lost at Sea Lobby Enter Dungeon One-Way"), False_())
+            # self.set_rule(self.get_entrance("Lost at Sea Dungeon Return Warp"), True_())
+
     def redirect_boss_warps(self, pairings: dict[int, int]):
         # post shuffle force connections
         if self.options.shuffle_bosses.value or self.options.shuffle_dungeon_rooms.value or self.options.shuffle_dungeon_entrances.value:
@@ -1759,6 +1783,11 @@ class SpiritTracksWorld(WorldParent):
                                   for boss_exit, boss_warp in BOSS_EXIT_TO_BOSS_WARP.items()}
                 self.plando_pairings |= {ENTRANCES[boss_warp].id: ENTRANCES[boss_exit].id
                                          for boss_warp, boss_exit in entrance_names.items()}
+
+        # Lost at sea matching
+        las_entrance = ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id
+        if las_entrance in pairings:
+            self.plando_pairings[ENTRANCES["Lost at Sea Lobby Enter Dungeon One-Way"].id] = pairings[las_entrance]
 
     def get_pre_fill_items(self):
         return self.pre_fill_items

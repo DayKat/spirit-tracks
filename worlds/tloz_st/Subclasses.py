@@ -214,7 +214,8 @@ type_lookup = {
     14: "tos_lobby",
     15: "castle",
     16: "disorientation",
-    17: "eote"
+    17: "eote",
+    18: "las"
 }
 dungeon_lookup = {
     0: "none",
@@ -290,6 +291,7 @@ class EntranceGroups(IntEnum):
     CASTLE = 15 << 3
     DISORIENTATION = 16 << 3
     EOTE = 17 << 3
+    LAS = 18 << 3
 
     # dungeons
     TOS_1 = 1 << 8

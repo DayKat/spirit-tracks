@@ -1,4 +1,4 @@
-from ..DSZeldaClient.subclasses import Address, Pointer
+from ..DSZeldaClient.subclasses import Address
 
 addr_null = Address(0)
 
@@ -13,7 +13,10 @@ class STAddr:
     game_state = Address(0x060C48)
     loading_room = Address(0x0c2FF0)
     mid_load = Address(0x265190)
-    
+
+    # DTCM stuff
+    adventure_flag_pointer = Address(0x09b8, size=4, domain="Data TCM")
+
     received_item_index = Address(0x265780, size=2)
     slot_id = Address(0x265782, size=2)
     

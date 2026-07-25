@@ -911,7 +911,8 @@ directionality_etype_lookup: dict[int, str] = {
     13: "tos_staircase",
     15: "castle",
     16: "disorientation",
-    17: "eote"
+    17: "eote",
+    18: "las",
 }
 
 pool_name_lookup = {
@@ -1132,7 +1133,7 @@ SCENES: list[SceneData] = [
     SceneData(0x3B00, "Pirate Hangout", "cave", 210),
 
     SceneData(0x390A, "Lost at Sea Stations", "overworld", 24),
-    SceneData(0x390B, "Lost at Sea Lobby", "cave", 114),
+    SceneData(0x390B, "Lost at Sea Lobby", "useful cave", 114),
     SceneData(0x4202, "Lost at Sea 1", "useful cave", 115),
     SceneData(0x4203, "Lost at Sea 2", "useful cave", 116),
     SceneData(0x4204, "Lost at Sea 3", "useful cave", 117),
