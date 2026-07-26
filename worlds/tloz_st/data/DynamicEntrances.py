@@ -326,15 +326,15 @@ DYNAMIC_ENTRANCES = {
     },
 
     "Bounce mountain portal": {
-        "entrance": "Mountain Portal",
-        "destination": "Mountain Portal",
+        "entrance": "Fire Realm Mountain Portal",
+        "destination": "Fire Realm Mountain Portal",
         "not_has_groups": ["Tracks: N Icy Spring"],
         "has_slot_data": [("shuffle_portals", 0)],
         "message": "You don't have the N Icy Spring Tracks!"
     },
     "Bounce mountain item": {
-        "entrance": "Mountain Portal",
-        "destination": "Mountain Portal",
+        "entrance": "Fire Realm Mountain Portal",
+        "destination": "Fire Realm Mountain Portal",
         "has_items": [("Portal Unlock: Icy Spring to Mountain Temple", 0)],
         "has_slot_data": [["portal_behavior", 2], ("shuffle_portals", 0)],
         "message": "You don't have access to this portal!"

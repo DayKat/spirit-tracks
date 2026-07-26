@@ -257,7 +257,7 @@ map_lookup: dict[int, str] = {
 
 station_section_link: dict[str, str] = {
     "Overview Castle Town": "Forest Realm Castle Town Station",
-    "Overview Hyrule Castle": ["Forest Realm Castle Town Station", "Castle Town North"],
+    "Overview Hyrule Castle": ["Forest Realm Castle Town Station", "Castle Town North", "Hyrule Castle Courtyard Entrance"],
     "Overview Outset": "Forest Realm Outset Station",
     "Overview Mayscore": "Forest Realm Mayscore Station",
     "Overview Woodland": "Forest Realm Woodland Sanctuary Station",
@@ -285,6 +285,7 @@ station_section_link: dict[str, str] = {
     "Overview EotE": "Fire Realm Ends of the Earth Station",
     "Overview DOM": "Fire Realm Dark Ore Mine Station",
     "Overview Goron": "Fire Realm Goron Village Station",
+    "Overview Goron Field": ["Goron Village West", "Fire Realm Goron Village Station"],
     "Overview Valley": ["Fire Realm Goron Village Station", "Goron Village Enclave North", "Elder Goron House Cave", "Goron Village Elder's House"],
     "Overview GTR": "Fire Realm Goron Target Range Station",
     "Overview MTT": ["Fire Realm Mountain Temple Station", "Mountain Temple Lobby Enter Dungeon"],
@@ -323,6 +324,12 @@ boss_event_link: dict[str, list[str]] = {
     "Carben Island Event": ["Ocean Realm Island Sanctuary Station"],
     "Goron Anouki Event": ["Snow Realm Anouki Village Station"],
     "Disorientation Event": ["Fire Realm Disorientation Station", "Disorientation Station Cave"],
+
+    "Mayscore Stamp Event": ["Mayscore North"],
+    "Papuzia Stamp Event": ["Papuzia South"],
+    "Island Sanctuary Stamp Event": ["Island Sanctuary South Peninsula"],
+    "Goron Stamp Event": ["Goron Village West"],
+    "Valley Sanctuary Stamp Event": ["Fire Realm Goron Village Station", "Goron Village Enclave North", "Elder Goron House Cave", "Goron Village Elder's House"]
 
 }
 

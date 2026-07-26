@@ -1719,7 +1719,7 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE
     },
     "Snow Realm North Portal": {
-        "return_name": "Mountain Portal",
+        "return_name": "Fire Realm Mountain Portal",
         "entrance": (0x5, 0, 0xD),  # Random value, probably not correct
         "exit": (0x7, 0x0, 0x14),
         "entrance_region": "icyspring portal",
