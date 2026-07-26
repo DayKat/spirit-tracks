@@ -35,7 +35,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["niko's stamp book", "outset 10 stamps", False, Has("Stamp", 10)],
         ["niko's stamp book", "outset 15 stamps", False, Has("Stamp", 15)],
         ["niko's stamp book", "outset 20 stamps", False, Has("Stamp", 20)],
-        ["outset village", "outset village stamp station", False, has_stamp_book],
+        ["outset village", "outset stamp station", False, has_stamp_book],
+        ["outset stamp station", "outset stamp event", False, has_stamp_book],
         ["outset village", "outset village trees", False, has_sod],
         ["outset village", "outset joe", False, has_source("Snow")],
         ["outset village", "outset cuccos", False, has_cargo("Cuccos", "_buy_cuccos")]
@@ -127,6 +128,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["castle town", "castle town wall", False, has_bombs],
         ["castle town wall", "castle town stamp station", False, has_stamp_book],
+        ["castle town stamp station", "castle town stamp event", False, None],
         ["castle town wall", "castle town cuccos", False, ct_cuccos],
 
         ["castle town", "lucia's house", True, None],
@@ -193,7 +195,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["tower tunnel 2f", "tower tunnel 2f north", False, None],
         ["tower tunnel 2f north", "tower tunnel 2f", False, has_bombs],
         ["tower tunnel 2f north", "tower tunnel 2f door", False, can_kill_bat],
-        ["tower tunnel 2f door", "tower tunnel 2f north", False, None],
+        # ["tower tunnel 2f door", "tower tunnel 2f north", False, None],  # depends on entrance animation?
         ["tower tunnel 2f door", "tower tunnel 3f", False, can_kill_bat],
         ["tower tunnel 3f", "tower tunnel 2f door", False, None],
 
@@ -294,7 +296,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["tos staven", "tos summit lower", True, None],
         ["tos summit lower", "tos summit", True, None],
-        ["tos summit", "tos stamp stand", False, has_stamp_book],
+        ["tos summit", "tos stamp station", False, has_stamp_book],
+        ["tos stamp station", "tos stamp event", False, has_stamp_book],
         ["tos summit", "tos 6", False, has_bow_of_light],
         ["tos 30f", "tos 6", True, None],
 
@@ -322,6 +325,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mayscore", "wood's house", True, None],
 
         ["mayscore north", "mayscore stamp station", False, has_stamp_book],
+        ["mayscore stamp station", "mayscore stamp event", False, None],
         ["mayscore north", "mayscore whip chest", False, has_whip],
         ["mayscore whip chest", "mayscore whip game", False, has_rupees(200)],
         ["mayscore", "mayscore leaves", False, has_whirlwind],
@@ -339,6 +343,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["woodland sanc station", "woodland sanc", False, has_glyph("Forest")],
         ["woodland sanc", "woodland sanc station", False, None],
         ["woodland sanc", "woodland sanc stamp station", False, has_stamp_book],
+        ["woodland sanc stamp station", "woodland sanc stamp event",False, None],
         ["woodland sanc", "woodland sanc song statue", False, has_spirit_flute],
         ["woodland sanc", "woodland sanc door", False, None],
         ["woodland sanc door", "woodland sanc sanc", True, None],
@@ -356,6 +361,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["wt 1f", "wt 1f switch chest", False, has_whirlwind | hard_logic],
         ["wt 1f switch chest", "wt stamp station", False, has_stamp_book],
+        ["wt stamp station", "wt stamp event", False, None],
         ["wt 1f", "wt 1f right arena", False, None],
         ["wt 1f right arena", "wt 1f", False, has_damage],
         ["wt 1f right arena", "wt 1f enemy chest", False, has_damage],
@@ -422,6 +428,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["trading post north", "trading post light song statue", False, has_spirit_flute],
         ["trading post cave", "trading post chest", False, has_sod & (has_sol | hard_logic)],
         ["trading post tunnel", "trading post stamp station", False, has_bombs & has_stamp_book],
+        ["trading post stamp station", "trading post stamp event", False, None],
         ["trading post north", "trading post leaves", False, has_whirlwind],
 
         ["trading post", "trading post bridge worker", False, has_passenger("Kenzo", "_kenzo_1")],
@@ -497,6 +504,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["ice block cave", "anouki village", False, None],
 
         ["anouki village", "anouki village stamp station", False, has_stamp_book],
+        ["anouki village stamp station", "anouki village stamp event", False, None],
         ["anouki village", "anouki village song statue", False, has_spirit_flute],
         ["anouki village", "anouki village lake chest", False, has_boomerang],
 
@@ -521,6 +529,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snow sanc", "snow sanc station", False, None],
 
         ["snow sanc", "snow sanc stamp station", False, has_stamp_book],
+        ["snow sanc stamp station", "snow sanc stamp event", False, None],
         ["snow sanc", "snow sanc cave", True, None],
         ["snow sanc", "snowfall supermarket", True, None],
         ["snow sanc cave", "snow sanc sanc", True, None],
@@ -571,6 +580,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt b1 sw", "bt b1 sw chest", False, has_boomerang],
         ["bt b1 sw chest", "bt b1 w", False, has_single_small_key("Blizzard Temple") & can_kill_freezards_torch & has_whirlwind],
         ["bt b1 w", "bt b1 stamp station", False, has_stamp_book],
+        ["bt b1 stamp station", "bt b1 stamp event", False, has_stamp_book],
         ["bt b1 w", "bt b1 nw", False, None],
         ["bt b1 w", "bt b1 w chest", False, can_kill_bubble | has_whirlwind],
         ["bt b1 nw", "bt 1f nw", True, None],
@@ -611,6 +621,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["icyspring", "ferrus' trailer", True, None],
         ["icyspring", "icyspring stamp station", False, has_stamp_book & has_boomerang],
+        ["icyspring stamp station", "icyspring stamp event", False, None],
         ["icyspring", "icyspring whip chest", False, has_whip],
         ["icyspring", "icyspring noko", False, has_passenger("Noko", "_noko") | no_passengers],
 
@@ -706,6 +717,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["island sanc north", "island sanc nw chest", False, hard_birds],
         ["island sanc north", "island sanc stamp station", False, has_stamp_book & has_sob & has_whip],
+        ["island sanc stamp station", "island sanc stamp event", False, None],
         ["island sanc north", "island sanc sanc", True, None],
         ["island sanc sanc", "island sanc song", False, has_spirit_flute]
             if world.options.randomize_passengers == "no_passengers" else
@@ -735,6 +747,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["papuzia village south", "papuzia archipelago north", True, None],
         ["papuzia archipelago north", "papuzia archipelago", False, hard_birds],
         ["papuzia archipelago", "papuzia village stamp station", False, has_stamp_book & has_sob],
+        ["papuzia village stamp station", "papuzia village stamp event", False, None],
         # You need a warp to start to return without bird song, patched with a dynaentrance
         # I don't like that this is locked behind song statue, but flags might not let us get there earlier
 
@@ -765,6 +778,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 2f", "oct stamp room", False, has_bombs],
         ["oct stamp room", "oct 2f", False, None],
         ["oct stamp room", "oct stamp station", False, has_stamp_book & has_whip & Has("_oct_boomerang")],
+        ["oct stamp station", "oct stamp event", False, None],
 
         ["oct 1f right", "oct 2f right", True, None],
         ["oct 2f right", "oct 2f logs", False, has_whip],
@@ -839,6 +853,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["pirate hideout station", "pirate hideout", False, has_tracks("Pirate Hideout")],
         ["pirate hideout", "pirate hideout station", False, None],
         ["pirate hideout", "pirate hideout stamp station", False, has_stamp_book & has_whip & has_sob],
+        ["pirate hideout stamp station", "pirate hideout stamp event", False, None],
         ["pirate hideout", "pirate hideout secret cave", False, has_bombs],
         ["pirate hideout secret cave", "pirate hideout", False, None],
         ["pirate hideout", "pirate hideout minigame", False, has_bow],
@@ -941,7 +956,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mountain altar", "kagoron event", False, None],
         ["goron field north", "goron field", False, None],
         ["goron field north", "goron field ne", False, has_whip],
-        ["goron whip", "goron village stamp", False, has_stamp_book],
+        ["goron whip", "goron field stamp station", False, has_stamp_book],
+        ["goron field stamp station", "goron field stamp event", False, None],
 
         ["goron ice", "goron ice event", False, None],
         ["goron ice event", "pick up snow goron", False, pickup_passenger("Snow Glyph", "_visit_av")],
@@ -964,7 +980,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["goron village north", "valley sanc", True, None],
 
         ["valley sanc", "valley sanc upper", None, has_boomerang],
-        ["valley sanc upper", "valley sanc stamp", False, has_stamp_book],
+        ["valley sanc upper", "valley sanc stamp station", False, has_stamp_book],
+        ["valley sanc stamp station", "valley sanc stamp event", False, None],
         ["valley sanc upper", "valley sanc east", False, None],
         ["valley sanc east", "valley sanc", False, None],
         ["valley sanc east", "valley sanc door", False, has_sol],
@@ -1055,7 +1072,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt b1 n", "mtt b1 cart", True, has_small_keys("Mountain Temple", 3, 1)],
         ["mtt b1 cart", "mtt b1 cart exit", False, has_bow],
         ["mtt b1 cart exit", "mtt b1 cart", False, None],
-        ["mtt b1 cart exit", "mtt b1 stamp", False, has_range & has_stamp_book],
+        ["mtt b1 cart exit", "mtt b1 stamp station", False, has_range & has_stamp_book],
+        ["mtt b1 stamp station", "mtt b1 stamp event", False, None],
         ["mtt b1 cart exit", "mtt b2 s", True, None],
         ["mtt b2 s", "mtt b3", True, None],
 
@@ -1186,7 +1204,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand sanc station", "sand sanc", False, has_tracks("Sand Realm")],
         ["sand sanc", "sand sanc station", False, None],
         ["sand sanc sanc", "sand sanc song", False, has_spirit_flute],
-        ["sand sanc cuccos", "sand sanc stamp stand", False, has_stamp_book],
+        ["sand sanc cuccos", "sand sanc stamp station", False, has_stamp_book],
+        ["sand sanc stamp station", "sand sanc stamp event", False, None],
         ["sand sanc", "sand sanc sand wand", False, has_sand_wand],
         ["sand sanc", "sand sanc tunnel", True, None],
         ["sand sanc sanc", "sand sanc tunnel", True, None],
@@ -1231,11 +1250,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dt", "dt b1 stairs", False, has_sand_wand],
         ["dt b1 stairs", "dt", False, None],
         ["dt b1 stairs", "dt b1", False, has_small_keys("Desert Temple", 2, 1) & has_sand_wand],
-        ["dt b1", "dt stamp stand", False, has_stamp_book],
+        ["dt b1", "dt stamp station", False, has_stamp_book],
+        ["dt stamp station", "dt stamp event", False, None],
         ["dt b1", "dt b1 s", False, has_range | has_bombs],
         ["dt b1 s", "dt b1 damage", False, has_damage],
         ["dt b1", "dt b1 boss door", False, glitched_logic & has_bombs & has_sword],
         ["dt b1 boss door", "dt b2 s", True, None],
+        ["dt b1 boss door", "dt b1 s", False, has_boss_key("Desert Temple") & has_sand_wand],
+        ["dt b1 s", "dt b1 stairs", False, None],
 
         ["dt b1 damage", "dt b1 boss door", False, None]
             if world.options.randomize_boss_keys.value == 0

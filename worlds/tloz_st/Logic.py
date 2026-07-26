@@ -25,7 +25,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["outset village stamp book", "outset 10 stamps", False, lambda state: state.has("Stamp", player, 10)],
         ["outset village stamp book", "outset 15 stamps", False, lambda state: state.has("Stamp", player, 15)],
         ["outset village stamp book", "outset 20 stamps", False, lambda state: state.has("Stamp", player, 20)],
-        ["outset village", "outset village stamp station", False, lambda state: st_has_stamp_book(state, player)],
+        ["outset village", "outset stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["outset village", "outset village trees", False, lambda state: st_has_discovery_song(state, player)],
         ["outset village", "outset joe", False, lambda state: st_has_source(state, player, "Snow")],
         ["outset village", "outset cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
@@ -237,7 +237,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
 
         ["tos staven", "tos summit lower", True, None],
         ["tos summit lower", "tos summit", True, None],
-        ["tos summit", "tos stamp stand", False, lambda state: st_has_stamp_book(state, player)],
+        ["tos summit", "tos stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["tos summit", "tos 6", False, lambda state: st_has_bow_of_light(state, player)],
         ["tos 30f", "tos 6", True, None],
 
@@ -597,10 +597,10 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["fire realm", "goron village", False, None],
         ["fire source", "goron village", False, None],
         ["goron village", "goron whip", False, lambda state: st_has_whip(state, player)],
-        ["goron whip", "goron village stamp", False, lambda state: st_has_stamp_book(state, player)],
+        ["goron whip", "goron field stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["goron ice event", "valley sanc tunnel", False, lambda state: st_has_whip(state, player)],
         ["valley sanc tunnel", "valley sanc", False, lambda state: st_has_boomerang(state, player)],
-        ["valley sanc", "valley sanc stamp", False, lambda state: st_has_stamp_book(state, player)],
+        ["valley sanc", "valley sanc stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["valley sanc", "valley sanc song", False, lambda state: st_has_light_song(state, player)],
         ["goron ice event", "pick up snow goron", False, lambda state: st_has_glyph(state, player, "Snow")],
         ["goron ice event", "gv kofu", False, lambda state: st_has_passenger(state, player, "Kofu", "_kofu")],
@@ -678,7 +678,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         # ===== Sand Sanc =====
         ["sand realm", "sand sanc", False, None],
         ["sand sanc", "sand sanc song", False, lambda state: st_has_spirit_flute(state, player)],
-        ["sand sanc cuccos", "sand sanc stamp stand", False, lambda state: st_has_stamp_book(state, player)],
+        ["sand sanc cuccos", "sand sanc stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["sand sanc", "sand sanc cuccos", False, None] if options.randomize_cargo.value == 0
         else (
             ["sand sanc", "sand sanc cuccos", False, lambda state: st_has_cargo(state, player, "Cuccos", "_buy_cuccos")]
@@ -701,7 +701,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["dt 2f", "dt 3f", False, lambda state: st_has_damage(state, player)],
 
         ["dt sw", "dt b1", False, lambda state: st_desert_temple_keys(state, player)],
-        ["dt b1", "dt stamp stand", False, lambda state: st_has_stamp_book(state, player)],
+        ["dt b1", "dt stamp station", False, lambda state: st_has_stamp_book(state, player)],
         ["dt b1", "dt b1 2", False, lambda state: st_has_range(state, player) or st_has_bombs(state, player)],
         ["dt b1 2", "dt b1 damage", False, lambda state: st_has_damage(state, player)],
         ["dt b1", "dt b2", False, lambda state: st_option_glitched_logic(state, player) and st_has_bombs(state, player) and st_has_sword(state, player)],

@@ -469,6 +469,31 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Visit Marine Temple",
                 "EVENT: Visit Goron Village",
             ]
+        if self.options.randomize_stamps.value in [1, 4]:
+            events += [
+                "EVENT: Outset Stamp Station",
+                "EVENT: Mayscore Forest Stamp Station",
+                "EVENT: Castle Town Stamp Station",
+                "EVENT: Woodland Sanctuary Stamp Station",
+                "EVENT: Anouki Village Stamp Station",
+                "EVENT: Snowfall Sanctuary Stamp Station",
+                "EVENT: Icy Spring Stamp Station",
+                "EVENT: Trading Post Tunnel Stamp Station",
+                "EVENT: Papuzia Archipelago Stamp Station",
+                "EVENT: Island Sanctuary Stamp Station",
+                "EVENT: Pirate Hideout Stamp Station",
+                "EVENT: Goron Field Stamp Station",
+                "EVENT: Valley Sanctuary Stamp Station",
+                "EVENT: Dune Sanctuary Stamp Station",
+                "EVENT: Tower of Spirits Summit Stamp Station"
+            ]
+            events += [event for dungeon, event in zip(DUNGEON_NAMES[2:], [
+                "EVENT: Wooded Temple Stamp Station",
+                "EVENT: Blizzard Temple Stamp Station",
+                "EVENT: Marine Temple Stamp Station",
+                "EVENT: Mountain Temple Stamp Station",
+                "EVENT: Desert Temple Stamp Station"
+            ]) if dungeon not in self.non_required_dungeons]
 
         if self.options.shuffle_dungeon_rooms.value and "Marine Temple" not in self.non_required_dungeons:
             events += ["EVENT: Marine Temple 6F Arena"]
@@ -769,7 +794,7 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.randomize_stamps.value in [1, 4]:
             excluded_dungeons = self.non_required_dungeons if self.options.exclude_dungeons else []
-            [self.create_event(LOCATIONS_DATA[loc]["region_id"], "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
+            [self.create_event(LOCATIONS_DATA[loc]["region_id"].replace("station", "event"), "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
 
         # Create rupee farming events
         rupee_farming_regions = ["mayscore whip game", "mayscore leaves",

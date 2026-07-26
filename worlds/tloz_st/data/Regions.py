@@ -68,6 +68,29 @@ REGIONS = [
     "visit marine temple",
     "visit goron village",
 
+    # Stamp events
+    "outset stamp event",
+    "mayscore stamp event",
+    "castle town stamp event",
+    "woodland sanc stamp event",
+    "anouki village stamp event",
+    "snow sanc stamp event",
+    "icyspring stamp event",
+    "trading post stamp event",
+    "papuzia village stamp event",
+    "island sanc stamp event",
+    "pirate hideout stamp event",
+    "goron field stamp event",
+    "valley sanc stamp event",
+    "sand sanc stamp event",
+
+    "wt stamp event",
+    "bt b1 stamp event",
+    "oct stamp event",
+    "mtt b1 stamp event",
+    "dt stamp event",
+    "tos stamp event",
+
     # Outset Village
     "outset village",
     "outset station",
@@ -75,7 +98,7 @@ REGIONS = [
     "outset 10 stamps",
     "outset 15 stamps",
     "outset 20 stamps",
-    "outset village stamp station",
+    "outset stamp station",
     "outset village trees",
     "outset joe",
     "outset cuccos",
@@ -218,7 +241,7 @@ REGIONS = [
     "tos summit",
     "tos summit lower",
     "tos 6",
-    "tos stamp stand",
+    "tos stamp station",
 
     "tos 30f",
     "tos 30f bomb wall",
@@ -723,7 +746,7 @@ REGIONS = [
     "kagoron event",
     "goron field ne",
     "goron whip",
-    "goron village stamp",
+    "goron field stamp station",
 
     "goron village shop",
     "goron shop",
@@ -753,7 +776,7 @@ REGIONS = [
     "valley sanc upper",
     "valley sanc east",
     "valley sanc door",
-    "valley sanc stamp",
+    "valley sanc stamp station",
     "valley sanc sanc",
     "valley sanc song",
 
@@ -794,7 +817,7 @@ REGIONS = [
     "mtt b1 arena exit",
     "mtt b1 cart",
     "mtt b1 cart exit",
-    "mtt b1 stamp",
+    "mtt b1 stamp station",
     "mtt b2 s",
 
     "mtt b3",
@@ -839,7 +862,7 @@ REGIONS = [
     "sand sanc station",
     "sand sanc song",
     "sand sanc cuccos",
-    "sand sanc stamp stand",
+    "sand sanc stamp station",
     "sand sanc sand wand",
 
     # Desert Temple
@@ -860,7 +883,7 @@ REGIONS = [
 
     "dt b1 stairs",
     "dt b1",
-    "dt stamp stand",
+    "dt stamp station",
     "dt b1 s",
     "dt b1 damage",
     "dt b1 boss door",

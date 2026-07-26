@@ -363,8 +363,13 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
                     entr_hidden.setdefault(map_loc, []).append(entr_name)
             else:
                 for map_loc in map_locs:
-                    coords = (map_loc["x"], map_loc["y"])
-                    map_coord_checks.setdefault(map_loc["map"], []).append(coords)
+                    if world.options.randomize_stamps.value == 1 and entr_name.endswith("Stamp Station"):
+                        entr_hidden.setdefault(map_loc["map"], []).append(entr_name)
+                    else:
+                        coords = (map_loc["x"], map_loc["y"])
+                        map_coord_checks.setdefault(map_loc["map"], []).append(coords)
+
+
 
         # Filter out stations using station_section_link
         if entr_section in boss_event_link:

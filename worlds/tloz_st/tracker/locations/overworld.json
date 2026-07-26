@@ -337,7 +337,7 @@
   {"name": "Desert Temple 2F", "sections": [{"name": "Desert Temple 2F Right Chest"}], "map_locations": [{"map": "Desert Temple 2F", "x": 174, "y": 82}]},
   {"name": "Desert Temple 2F", "sections": [{"name": "Desert Temple 2F Left Chest"}], "map_locations": [{"map": "Desert Temple 2F", "x": 126, "y": 82}]},
   {"name": "Desert Temple 3F", "sections": [{"name": "Desert Temple 3F Chest"}], "map_locations": [{"map": "Desert Temple 3F", "x": 80, "y": 58}]},
-  {"name": "Desert Temple B1", "sections": [{"name": "Blizzard Temple B1 Stamp Station"}], "map_locations": [{"map": "Desert Temple B1", "x": 102, "y": 30}]},
+  {"name": "Desert Temple B1", "sections": [{"name": "Desert Temple B1 Stamp Station"}], "map_locations": [{"map": "Desert Temple B1", "x": 102, "y": 30}]},
   {"name": "Desert Temple B1", "sections": [{"name": "Desert Temple B1 Near Boss Door Chest"}], "map_locations": [{"map": "Desert Temple B1", "x": 170, "y": 82}]},
   {"name": "Desert Temple B1", "sections": [{"name": "Desert Temple B1 SW Stalfos Chest"}], "map_locations": [{"map": "Desert Temple B1", "x": 40, "y": 150}]},
   {"name": "Desert Temple B1", "sections": [{"name": "Desert Temple B1 NW Buried Rupee"}], "map_locations": [{"map": "Desert Temple B1", "x": 30, "y": 26}]},

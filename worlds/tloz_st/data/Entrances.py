@@ -680,6 +680,16 @@ ENTRANCE_DATA = {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
+    "Pirate Hideout Game Cave": {
+        "return_name": "Pirate Hangout Exit",
+        "entrance_region": "pirate hideout",
+        "exit_region": "pirate hangout",
+        "entrance": (0x3A, 0x0, 0x1),
+        "exit": (0x3B, 0x0, 0x0),
+        "type": EntranceGroups.CAVE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
     "Lost at Sea Cave": {
         "return_name": "Lost at Sea Lobby Exit",
         "entrance_region": "las cliff",
@@ -1837,272 +1847,6 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE
     },
 
-    # Events
-    "EVENT: Pick up Alfonzo": {
-        "two_way": False,
-        "entrance_region": "pick up alfonzo",
-        "exit_region": "alfonzo event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Stagnox": {
-        "two_way": False,
-        "entrance_region": "wt stagnox",
-        "exit_region": "event_stagnox",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Fraaz": {
-        "two_way": False,
-        "entrance_region": "bt fraaz",
-        "exit_region": "event_fraaz",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Cactops": {
-        "two_way": False,
-        "entrance_region": "oct phytops",
-        "exit_region": "event_phytops",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Vulcano": {
-        "two_way": False,
-        "entrance_region": "mtt vulcano",
-        "exit_region": "event_vulcano",
-        "entrance": (0x21, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Capbone": {
-        "two_way": False,
-        "entrance_region": "dt skeldritch",
-        "exit_region": "skeldritch event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 3F": {
-        "two_way": False,
-        "entrance_region": "tos 3f rail map",
-        "exit_region": "event_3f",
-        "entrance": (0x13, 0x2, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 7F": {
-        "two_way": False,
-        "entrance_region": "tos 7f rail map",
-        "exit_region": "event_7f",
-        "entrance": (0x13, 0x6, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 12F": {
-        "two_way": False,
-        "entrance_region": "tos 11f",
-        "exit_region": "event_12f",
-        "entrance": (0x13, 0xB, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 17F": {
-        "two_way": False,
-        "entrance_region": "tos 16f",
-        "exit_region": "event_17f",
-        "entrance": (0x13, 0xF, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Staven": {
-        "two_way": False,
-        "entrance_region": "tos staven",
-        "exit_region": "event_staven",
-        "entrance": (0x23, 0x0, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 24F": {
-        "two_way": False,
-        "entrance_region": "tos 24f",
-        "exit_region": "event_24f",
-        "entrance": (0x13, 0x23, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Complete Lost at Sea Dungeon": {
-        "two_way": False,
-        "entrance_region": "las 6",
-        "exit_region": "las_event",
-        "entrance": (0x13, 0x23, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Complete Take 'em All On 3": {
-        "two_way": False,
-        "entrance_region": "teao 3",
-        "exit_region": "teao_event",
-        "entrance": (0x13, 0x23, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Give Regal Ring to Linebeck": {
-        "two_way": False,
-        "entrance_region": "linebeck trading",
-        "exit_region": "linebeck event",
-        "entrance": (0x37, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Bring Ice to Kagoron": {
-        "two_way": False,
-        "entrance_region": "goron ice",
-        "exit_region": "goron ice event",
-        "entrance": (0x2e, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-
-    # Goals
-
-    "GOAL: Defeat Stagnox": {
-        "two_way": False,
-        "entrance_region": "wt stagnox",
-        "exit_region": "goal_stagnox",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Fraaz": {
-        "two_way": False,
-        "entrance_region": "bt fraaz",
-        "exit_region": "goal_fraaz",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Cactops": {
-        "two_way": False,
-        "entrance_region": "oct phytops",
-        "exit_region": "goal_phytops",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Vulcano": {
-        "two_way": False,
-        "entrance_region": "mtt pre vulcano",
-        "exit_region": "goal_vulcano",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Skeldritch": {
-        "two_way": False,
-        "entrance_region": "dt skeldritch",
-        "exit_region": "skeldritch goal",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 3F": {
-        "two_way": False,
-        "entrance_region": "tos 3f rail map",
-        "exit_region": "goal_forest_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 7F": {
-        "two_way": False,
-        "entrance_region": "tos 7f rail map",
-        "exit_region": "goal_forest_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 12F": {
-        "two_way": False,
-        "entrance_region": "tos 11f",
-        "exit_region": "goal_ocean_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 17F": {
-        "two_way": False,
-        "entrance_region": "tos 16f",
-        "exit_region": "goal_fire_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Staven": {
-        "two_way": False,
-        "entrance_region": "tos staven",
-        "exit_region": "goal_staven",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 24F": {
-        "two_way": False,
-        "entrance_region": "tos 24f",
-        "exit_region": "goal_compass",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Malladus": {
-        "two_way": False,
-        "entrance_region": "malladus 2",
-        "exit_region": "malladus event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Enter Dark Realm": {
-        "two_way": False,
-        "entrance_region": "dark realm trains",
-        "exit_region": "dark realm event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-
     # Order later
     "Tower of Spirits Enter Section 1": {
         "return_name": "ToS 1F Exit",
@@ -2191,6 +1935,17 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
+    "Tower of Spirits Staircase Elevators": {
+        "two_way": False,
+        "entrance_region": "tos lobby",
+        "exit_region": "tos 1",
+        "exit": (0x14, 0x1, 0x1),
+        "entrance": (0x17, 0x0, 0x0),
+        # "reverse_one_way_data": {"y": 0},
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
     "ToS 3F Blue Portal": {
         "two_way": False,
         "entrance": (0x13, 2, 1),
@@ -2251,6 +2006,7 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+
 
     # ===== Dungeons =====
 
@@ -2854,6 +2610,88 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.DESERT
     },
 
+    # Lost at Sea Dungeon
+    "Lost at Sea Lobby Enter Dungeon One-Way": {
+        "return_name": "Lost at Sea Dungeon Plain Phantom Spawn",
+        "entrance_region": "las loop",
+        "two_way": False,
+        "exit_region": "las 1",
+        "exit": (0x42, 0x2, 0x0),
+        "entrance": (0x39, 0xB, 0x1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Plain Phantom Staircase": {
+        "return_name": "Lost at Sea Dungeon Torch Phantom North",
+        "entrance_region": "las 1",
+        "exit_region": "las 2",
+        "exit": (0x42, 0x3, 0x0),
+        "entrance": (0x42, 0x2, 0x1),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Warp Phantom South": {
+        "return_name": "Lost at Sea Dungeon Torch Phantom South",
+        "entrance_region": "las 3",
+        "exit_region": "las 2",
+        "entrance": (0x42, 0x4, 0x0),
+        "exit": (0x42, 0x3, 0x1),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Warp Phantom North": {
+        "return_name": "Lost at Sea Dungeon Wrecker Phantom West",
+        "entrance_region": "las 3",
+        "exit_region": "las 4",
+        "entrance": (0x42, 0x4, 0x1),
+        "exit": (0x42, 0x5, 0x0),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Wrecker Phantom East": {
+        "return_name": "Lost at Sea Dungeon Quad Room South",
+        "entrance_region": "las 4 door",
+        "exit_region": "las 5",
+        "entrance": (0x42, 0x5, 0x1),
+        "exit": (0x42, 0x6, 0x0),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Quad Room North": {
+        "return_name": "Lost at Sea Dungeon Reward Room South",
+        "entrance_region": "las 5 door",
+        "exit_region": "las 6",
+        "entrance": (0x42, 0x6, 0x1),
+        "exit": (0x42, 0x7, 0x0),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Dungeon Reward Room Warp One-Way": {
+        "return_name": "Lost at Sea Dungeon Return Warp",
+        "entrance_region": "las 6",
+        "exit_region": "las lobby",
+        "entrance": (0x42, 0x7, 0x1),
+        "exit": (0x39, 0xB, 0x1),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
+    "Lost at Sea Lobby Enter Dungeon": {
+        "return_name": "Lost at Sea Dungeon Reward Room Warp",
+        "entrance_region": "las lobby",
+        "exit_region": "las loop",
+        "exit": (0x42, 0x7, 0x1),
+        "entrance": (0x39, 0xB, 0x1),
+        "type": EntranceGroups.LAS,
+        "direction": EntranceGroups.UP,
+        "island": EntranceGroups.NONE
+    },
     # Misc entrances
     "Desert Temple Enter Post-Fight": {
         "return_name": "Skeldritch Post-Fight Exit",
@@ -2930,7 +2768,271 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE,
         "two_way": False
     },
+    # Events
+    "EVENT: Pick up Alfonzo": {
+        "two_way": False,
+        "entrance_region": "pick up alfonzo",
+        "exit_region": "alfonzo event",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Stagnox": {
+        "two_way": False,
+        "entrance_region": "wt stagnox",
+        "exit_region": "event_stagnox",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Fraaz": {
+        "two_way": False,
+        "entrance_region": "bt fraaz",
+        "exit_region": "event_fraaz",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Cactops": {
+        "two_way": False,
+        "entrance_region": "oct phytops",
+        "exit_region": "event_phytops",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Vulcano": {
+        "two_way": False,
+        "entrance_region": "mtt vulcano",
+        "exit_region": "event_vulcano",
+        "entrance": (0x21, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Capbone": {
+        "two_way": False,
+        "entrance_region": "dt skeldritch",
+        "exit_region": "skeldritch event",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 3F": {
+        "two_way": False,
+        "entrance_region": "tos 3f rail map",
+        "exit_region": "event_3f",
+        "entrance": (0x13, 0x2, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 7F": {
+        "two_way": False,
+        "entrance_region": "tos 7f rail map",
+        "exit_region": "event_7f",
+        "entrance": (0x13, 0x6, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 12F": {
+        "two_way": False,
+        "entrance_region": "tos 11f",
+        "exit_region": "event_12f",
+        "entrance": (0x13, 0xB, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 17F": {
+        "two_way": False,
+        "entrance_region": "tos 16f",
+        "exit_region": "event_17f",
+        "entrance": (0x13, 0xF, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Defeat Staven": {
+        "two_way": False,
+        "entrance_region": "tos staven",
+        "exit_region": "event_staven",
+        "entrance": (0x23, 0x0, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Reach ToS 24F": {
+        "two_way": False,
+        "entrance_region": "tos 24f",
+        "exit_region": "event_24f",
+        "entrance": (0x13, 0x23, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Complete Lost at Sea Dungeon": {
+        "two_way": False,
+        "entrance_region": "las 6",
+        "exit_region": "las_event",
+        "entrance": (0x13, 0x23, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Complete Take 'em All On 3": {
+        "two_way": False,
+        "entrance_region": "teao 3",
+        "exit_region": "teao_event",
+        "entrance": (0x13, 0x23, 0x0),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Give Regal Ring to Linebeck": {
+        "two_way": False,
+        "entrance_region": "linebeck trading",
+        "exit_region": "linebeck event",
+        "entrance": (0x37, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Bring Ice to Kagoron": {
+        "two_way": False,
+        "entrance_region": "goron ice",
+        "exit_region": "goron ice event",
+        "entrance": (0x2e, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 
+    # Goals
+
+    "GOAL: Defeat Stagnox": {
+        "two_way": False,
+        "entrance_region": "wt stagnox",
+        "exit_region": "goal_stagnox",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Fraaz": {
+        "two_way": False,
+        "entrance_region": "bt fraaz",
+        "exit_region": "goal_fraaz",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Cactops": {
+        "two_way": False,
+        "entrance_region": "oct phytops",
+        "exit_region": "goal_phytops",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Vulcano": {
+        "two_way": False,
+        "entrance_region": "mtt pre vulcano",
+        "exit_region": "goal_vulcano",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Skeldritch": {
+        "two_way": False,
+        "entrance_region": "dt skeldritch",
+        "exit_region": "skeldritch goal",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Reach ToS 3F": {
+        "two_way": False,
+        "entrance_region": "tos 3f rail map",
+        "exit_region": "goal_forest_glyph",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Reach ToS 7F": {
+        "two_way": False,
+        "entrance_region": "tos 7f rail map",
+        "exit_region": "goal_forest_glyph",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Reach ToS 12F": {
+        "two_way": False,
+        "entrance_region": "tos 11f",
+        "exit_region": "goal_ocean_glyph",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Reach ToS 17F": {
+        "two_way": False,
+        "entrance_region": "tos 16f",
+        "exit_region": "goal_fire_glyph",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Staven": {
+        "two_way": False,
+        "entrance_region": "tos staven",
+        "exit_region": "goal_staven",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Reach ToS 24F": {
+        "two_way": False,
+        "entrance_region": "tos 24f",
+        "exit_region": "goal_compass",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Defeat Malladus": {
+        "two_way": False,
+        "entrance_region": "malladus 2",
+        "exit_region": "malladus event",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "GOAL: Enter Dark Realm": {
+        "two_way": False,
+        "entrance_region": "dark realm trains",
+        "exit_region": "dark realm event",
+        "entrance": (0x29, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
     # New Events
     "EVENT: Visit Kagoron at the Mountain Altar": {
         "two_way": False,
@@ -3126,16 +3228,8 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Pirate Hideout Game Cave": {
-        "return_name": "Pirate Hangout Exit",
-        "entrance_region": "pirate hideout",
-        "exit_region": "pirate hangout",
-        "entrance": (0x3A, 0x0, 0x1),
-        "exit": (0x3B, 0x0, 0x0),
-        "type": EntranceGroups.CAVE,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
-    },
+
+    # Visit station events
     "EVENT: Visit Outset": {
         "two_way": False,
         "entrance_region": "outset village",
@@ -3217,96 +3311,187 @@ ENTRANCE_DATA |= {
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Tower of Spirits Staircase Elevators": {
+
+    # Stamp Events
+    "EVENT: Outset Stamp Station": {
         "two_way": False,
-        "entrance_region": "tos lobby",
-        "exit_region": "tos 1",
-        "exit": (0x14, 0x1, 0x1),
-        "entrance": (0x17, 0x0, 0x0),
-        # "reverse_one_way_data": {"y": 0},
-        "type": EntranceGroups.NONE,
+        "entrance_region": "outset stamp station",
+        "exit_region": "outset stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Lost at Sea Lobby Enter Dungeon One-Way": {
-        "return_name": "Lost at Sea Dungeon Plain Phantom Spawn",
-        "entrance_region": "las loop",
+    "EVENT: Mayscore Forest Stamp Station": {
         "two_way": False,
-        "exit_region": "las 1",
-        "exit": (0x42, 0x2, 0x0),
-        "entrance": (0x39, 0xB, 0x1),
-        "type": EntranceGroups.NONE,
-        "direction": EntranceGroups.UP,
-        "island": EntranceGroups.NONE
-    },
-    "Lost at Sea Dungeon Plain Phantom Staircase": {
-        "return_name": "Lost at Sea Dungeon Torch Phantom North",
-        "entrance_region": "las 1",
-        "exit_region": "las 2",
-        "exit": (0x42, 0x3, 0x0),
-        "entrance": (0x42, 0x2, 0x1),
-        "type": EntranceGroups.LAS,
+        "entrance_region": "mayscore stamp station",
+        "exit_region": "mayscore stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Lost at Sea Dungeon Warp Phantom South": {
-        "return_name": "Lost at Sea Dungeon Torch Phantom South",
-        "entrance_region": "las 3",
-        "exit_region": "las 2",
-        "entrance": (0x42, 0x4, 0x0),
-        "exit": (0x42, 0x3, 0x1),
-        "type": EntranceGroups.LAS,
+    "EVENT: Castle Town Stamp Station": {
+        "two_way": False,
+        "entrance_region": "castle town stamp station",
+        "exit_region": "castle town stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Lost at Sea Dungeon Warp Phantom North": {
-        "return_name": "Lost at Sea Dungeon Wrecker Phantom West",
-        "entrance_region": "las 3",
-        "exit_region": "las 4",
-        "entrance": (0x42, 0x4, 0x1),
-        "exit": (0x42, 0x5, 0x0),
-        "type": EntranceGroups.LAS,
+    "EVENT: Woodland Sanctuary Stamp Station": {
+        "two_way": False,
+        "entrance_region": "woodland sanc stamp station",
+        "exit_region": "woodland sanc stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Lost at Sea Dungeon Wrecker Phantom East": {
-        "return_name": "Lost at Sea Dungeon Quad Room South",
-        "entrance_region": "las 4 door",
-        "exit_region": "las 5",
-        "entrance": (0x42, 0x5, 0x1),
-        "exit": (0x42, 0x6, 0x0),
-        "type": EntranceGroups.LAS,
+    "EVENT: Anouki Village Stamp Station": {
+        "two_way": False,
+        "entrance_region": "anouki village stamp station",
+        "exit_region": "anouki village stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Lost at Sea Dungeon Quad Room North": {
-        "return_name": "Lost at Sea Dungeon Reward Room South",
-        "entrance_region": "las 5 door",
-        "exit_region": "las 6",
-        "entrance": (0x42, 0x6, 0x1),
-        "exit": (0x42, 0x7, 0x0),
-        "type": EntranceGroups.LAS,
-        "direction": EntranceGroups.UP,
+    "EVENT: Snowfall Sanctuary Stamp Station": {
+        "two_way": False,
+        "entrance_region": "snow sanc stamp station",
+        "exit_region": "snow sanc stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Lost at Sea Dungeon Reward Room Warp One-Way": {
-        "return_name": "Lost at Sea Dungeon Return Warp",
-        "entrance_region": "las 6",
-        "exit_region": "las lobby",
-        "entrance": (0x42, 0x7, 0x1),
-        "exit": (0x39, 0xB, 0x1),
-        "type": EntranceGroups.NONE,
-        "direction": EntranceGroups.UP,
+    "EVENT: Icy Spring Stamp Station": {
+        "two_way": False,
+        "entrance_region": "icyspring stamp station",
+        "exit_region": "icyspring stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
-    "Lost at Sea Lobby Enter Dungeon": {
-        "return_name": "Lost at Sea Dungeon Reward Room Warp",
-        "entrance_region": "las lobby",
-        "exit_region": "las loop",
-        "exit": (0x42, 0x7, 0x1),
-        "entrance": (0x39, 0xB, 0x1),
-        "type": EntranceGroups.LAS,
-        "direction": EntranceGroups.UP,
+    "EVENT: Trading Post Tunnel Stamp Station": {
+        "two_way": False,
+        "entrance_region": "trading post stamp station",
+        "exit_region": "trading post stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Papuzia Archipelago Stamp Station": {
+        "two_way": False,
+        "entrance_region": "papuzia village stamp station",
+        "exit_region": "papuzia village stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Island Sanctuary Stamp Station": {
+        "two_way": False,
+        "entrance_region": "island sanc stamp station",
+        "exit_region": "island sanc stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Pirate Hideout Stamp Station": {
+        "two_way": False,
+        "entrance_region": "pirate hideout stamp station",
+        "exit_region": "pirate hideout stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Goron Field Stamp Station": {
+        "two_way": False,
+        "entrance_region": "goron field stamp station",
+        "exit_region": "goron field stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Valley Sanctuary Stamp Station": {
+        "two_way": False,
+        "entrance_region": "valley sanc stamp station",
+        "exit_region": "valley sanc stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Dune Sanctuary Stamp Station": {
+        "two_way": False,
+        "entrance_region": "sand sanc stamp station",
+        "exit_region": "sand sanc stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+
+    "EVENT: Wooded Temple Stamp Station": {
+        "two_way": False,
+        "entrance_region": "wt stamp station",
+        "exit_region": "wt stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Blizzard Temple Stamp Station": {
+        "two_way": False,
+        "entrance_region": "bt b1 stamp station",
+        "exit_region": "bt b1 stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Marine Temple Stamp Station": {
+        "two_way": False,
+        "entrance_region": "oct stamp station",
+        "exit_region": "oct stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Mountain Temple Stamp Station": {
+        "two_way": False,
+        "entrance_region": "mtt b1 stamp station",
+        "exit_region": "mtt b1 stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Desert Temple Stamp Station": {
+        "two_way": False,
+        "entrance_region": "dt stamp station",
+        "exit_region": "dt stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "EVENT: Tower of Spirits Summit Stamp Station": {
+        "two_way": False,
+        "entrance_region": "tos stamp station",
+        "exit_region": "tos stamp event",
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
 }
