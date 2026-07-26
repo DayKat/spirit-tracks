@@ -419,8 +419,8 @@ class SpiritTracksClient(DSZeldaClient):
         await STAddr.health.overwrite(ctx, hearts+bonus)
 
     async def watched_intro_cs(self, ctx):
-        watched_intro = await STAddr.watched_intro.read(ctx) & 1
-        if not watched_intro and await STAddr.fade_timer.read(ctx) < 0xffff:
+        watched_intro = await STAddr.watched_intro.read(ctx, silent=True) & 1
+        if not watched_intro and await STAddr.fade_timer.read(ctx, silent=True) < 0xffff:
             self.precision_mode = [STAddr.stage, 0x79, "wts"]
         return watched_intro
 
@@ -1190,10 +1190,11 @@ class SpiritTracksClient(DSZeldaClient):
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
         new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
             "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
+
         if detect_data.name == "Marine Temple Train Exit Water Warp":
             new_data.add(self.entrances["Marine Temple Lobby Board Train"].id)
         elif detect_data.name == "Lost at Sea Lobby Enter Dungeon One-Way":
-            new_data.add(self.entrances["Lost at Sea Lobby Enter Dungeon"].id)
+            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Lost at Sea Lobby Enter Dungeon"].id)])
         printl(f"New Storage Data: {new_data}")
 
         if interaction == "check":

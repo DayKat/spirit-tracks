@@ -880,9 +880,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["las lobby", "las loop", False, has_soa],
         ["las loop", "las lobby", False, Has("_las6")],
-        # ["las loop", "las 1", False, None],
+        ["las loop", "las 1", False, None],
         ["las 6", "las loop", False, None],
-        ["las loop", "las 6", False, None],
+        # ["las loop", "las 6", False, None],
 
         # ===== Fire Realm =====
         ["gorge tracks east", "fire realm", True, has_glyph("Fire") & has_tracks("Snow Realm Gorge")],

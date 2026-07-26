@@ -3292,7 +3292,7 @@ ENTRANCE_DATA |= {
     "Lost at Sea Dungeon Reward Room Warp One-Way": {
         "return_name": "Lost at Sea Dungeon Return Warp",
         "entrance_region": "las 6",
-        "exit_region": "las loop",
+        "exit_region": "las lobby",
         "entrance": (0x42, 0x7, 0x1),
         "exit": (0x39, 0xB, 0x1),
         "type": EntranceGroups.NONE,

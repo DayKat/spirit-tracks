@@ -1753,22 +1753,21 @@ class SpiritTracksWorld(WorldParent):
 
     def generate_basic(self) -> None:
         # Add bonus rules based on entrance placement
-        # pairings = {}
-        # if self.er_placement_state:
-        #     for e1, e2 in self.er_placement_state.pairings:
-        #         pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
-        # pairings |= self.plando_pairings
-        if ((hasattr(self.er_placement_state, "placements")
-                 and self.get_entrance("Lost at Sea Lobby Enter Dungeon") not in self.er_placement_state.placements)
-              or ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id in self.plando_pairings):
-            self.get_region("las loop").connect(self.get_region("las 1"))
-        if self.is_ut and str(ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id) not in self.ut_pairings:
-            # print(f"Connecting LAS Loop {self.ut_pairings}")
-            self.get_region("las loop").connect(self.get_region("las 1"))
+        pairings = {}
+        if self.er_placement_state:
+            for e1, e2 in self.er_placement_state.pairings:
+                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        pairings |= self.plando_pairings
+        pairings |= {int(k): v for k, v in self.ut_pairings.items()}
+        if ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id in pairings:
+            # self.get_region("las loop").connect(self.get_region("las 1"))
 
             # from rule_builder.rules import False_, True_
             # print(f"Changing access rules! Lost at Sea Lobby Enter Dungeon One-Way")
-            # self.set_rule(self.get_entrance("Lost at Sea Lobby Enter Dungeon One-Way"), False_())
+            entering_entr = pairings.get(ENTRANCES["Lost at Sea Dungeon Reward Room Warp"].id, 0)
+            if entering_entr:
+                entr_name = entrance_id_to_entrance[entering_entr].name
+                self.set_rule(self.get_entrance("Lost at Sea Lobby Enter Dungeon One-Way"), self.get_entrance(entr_name).access_rule)
             # self.set_rule(self.get_entrance("Lost at Sea Dungeon Return Warp"), True_())
 
     def redirect_boss_warps(self, pairings: dict[int, int]):
@@ -1786,8 +1785,11 @@ class SpiritTracksWorld(WorldParent):
 
         # Lost at sea matching
         las_entrance = ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id
+        las_exit = ENTRANCES["Lost at Sea Dungeon Reward Room Warp"].id
         if las_entrance in pairings:
             self.plando_pairings[ENTRANCES["Lost at Sea Lobby Enter Dungeon One-Way"].id] = pairings[las_entrance]
+            self.plando_pairings[pairings[las_exit]] = ENTRANCES["Lost at Sea Dungeon Plain Phantom Spawn"].id
+
 
     def get_pre_fill_items(self):
         return self.pre_fill_items

@@ -642,5 +642,6 @@
   {"name": "Lost at Sea 5", "sections": [{"name": "Lost at Sea Dungeon Quad Room South"}], "map_locations": [{"map": "Lost at Sea 5", "x": 128, "y": 127}]},
   {"name": "Lost at Sea 5", "sections": [{"name": "Lost at Sea Dungeon Quad Room North"}], "map_locations": [{"map": "Lost at Sea 5", "x": 128, "y": 29}]},
   {"name": "Lost at Sea 6", "sections": [{"name": "Lost at Sea Dungeon Reward Room South"}], "map_locations": [{"map": "Lost at Sea 6", "x": 128, "y": 126}]},
-  {"name": "Lost at Sea 6", "sections": [{"name": "Lost at Sea Dungeon Reward Room Warp"}], "map_locations": [{"map": "Lost at Sea 6", "x": 111, "y": 79}]}
+  {"name": "Lost at Sea 6", "sections": [{"name": "Lost at Sea Dungeon Reward Room Warp"}], "map_locations": [{"map": "Lost at Sea 6", "x": 111, "y": 79}]},
+  {"name": "Lost at Sea 6", "sections": [{"name": "Lost at Sea Dungeon Reward Room Warp"}], "map_locations": [{"map": "Lost at Sea 1", "x": 128, "y": 142}]}
 ]

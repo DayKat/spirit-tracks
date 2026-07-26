@@ -578,7 +578,8 @@ class SpiritTracksShufflePortals(Choice):
 class SpiritTracksShuffleLas(Choice):
     """
     Shuffle lost at sea dungeon.
-    The entrance and exit one-ways get looped together.
+    When shuffled, the two one way entrances are linked to a single entrance in a decoupled manner.
+    Puzzles reset after leaving.
     """
     display_name = "Shuffle Lost at Sea Dungeon"
     option_no_shuffle = 0
