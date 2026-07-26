@@ -1903,6 +1903,8 @@ class SpiritTracksClient(DSZeldaClient):
                         self.selected_station = selected_station
                         if selected_station == 0x3f and await STAddr.last_x.read(ctx) > 0x45:
                             entrance = entrance_tuple_to_entrance[(0x3F, 0xA, 0)]
+                        elif selected_station == 0x39:  # Lost at sea
+                            entrance = entrance_tuple_to_entrance[(0x39, 0xA, 0)]
                         else:
                             entrance = entrance_tuple_to_entrance.get(
                                 map_warp_redirects.get(selected_station, None),

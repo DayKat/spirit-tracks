@@ -1527,7 +1527,7 @@ LOCATIONS_DATA = {
         "item_override": "Nothing!",
         "stage_id": 0x3E,
         "room_id": 0,
-        'address': STAddr.adv_flags_53,
+        'address': STAddr.adv_flags_52,
         'value': 0x8,
         "conditional": True,
         "delay_reset": True,

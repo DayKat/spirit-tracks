@@ -10,7 +10,8 @@ class STAddr:
     game_identifier = Address(0, 0, 16, "ROM")
     game_version = Address(0x1E, 0x1E, 1, "ROM")
     
-    game_state = Address(0x060C48)
+    # game_state = Address(0x060C48)
+    game_state = Address(0x260867)
     loading_room = Address(0x0c2FF0)
     mid_load = Address(0x265190)
 
