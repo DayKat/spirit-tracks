@@ -1323,7 +1323,7 @@ ENTRANCE_DATA |= {
         "exit_region": "ocean temple tracks",
         "entrance_region": "oct lobby",
         "reverse_required_groups": [("Tracks: Ocean Source", "Tracks: Marine Temple Tracks")],
-        "type": EntranceGroups.STATION,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.DOWN,
         "island": EntranceGroups.NONE,
         "two_way": False
@@ -1624,7 +1624,7 @@ ENTRANCE_DATA |= {
         "exit": (0xC, 0x0, 0x0),
         "required_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
         "reverse_required_groups": ["Tracks: Sand Realm", "Tracks: Desert Temple Tracks"],
-        "type": EntranceGroups.OVERWORLD_TRAIN,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
         "two_way": False
@@ -1637,7 +1637,7 @@ ENTRANCE_DATA |= {
         "exit": (0x7, 0x0, 0x6),
         "required_groups": ["Tracks: Desert Temple Tracks"],
         "reverse_required_groups": ["Tracks: Desert Temple Tracks"],
-        "type": EntranceGroups.OVERWORLD_TRAIN,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.NONE,
         "island": EntranceGroups.NONE,
         "two_way": False

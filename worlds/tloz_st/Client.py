@@ -3,7 +3,7 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.Entrances import ENTRANCES, boss_events, entrance_tuple_to_entrance
+from .data.Entrances import ENTRANCES, entrance_tuple_to_entrance
 from settings import get_settings
 from typing import Literal
 from .Subclasses import EntranceGroups
@@ -195,40 +195,41 @@ class SpiritTracksClient(DSZeldaClient):
         self.item_groups = ITEM_GROUPS
 
         # Mandatory addresses
-        self.addr_game_state = STAddr.game_state
-        self.addr_slot_id = STAddr.slot_id
-        self.addr_stage = STAddr.stage
-        self.addr_room = STAddr.room
-        self.addr_entrance = STAddr.entrance
-        self.addr_received_item_index = STAddr.received_item_index
-        self.health_address = STAddr.health
+        self.addr_game_state: "Address" = STAddr.game_state
+        self.addr_slot_id: "Address" = STAddr.slot_id
+        self.addr_stage: "Address" = STAddr.stage
+        self.addr_room: "Address" = STAddr.room
+        self.addr_entrance: "Address" = STAddr.entrance
+        self.addr_received_item_index: "Address" = STAddr.received_item_index
+        self.health_address: "Address" = STAddr.health
 
-        self.update_rabbits = False
-        self.rabbit_tracker = [0]*7  # list of bytes(as ints) for found overworld rabbits
-        self.rabbit_counter = [0]*5  # list of counts for each rabbit type caught in the overworld
+        self.update_rabbits: bool = False
+        self.rabbit_tracker: list[int] = [0]*7  # list of bytes(as ints) for found overworld rabbits
+        self.rabbit_counter: list[int] = [0]*5  # list of counts for each rabbit type caught in the overworld
 
         self.traversed_entrances = set()
         self.checked_entrances = set()
         self.redisconnected_entrances = set()
 
-        self.event_reads = []
-        self.sent_event = False
-        self.event_data = []
-        self.entrances = ENTRANCES
+        self.event_reads: list["Address"] = []
+        self.sent_event: bool = False
+        self.event_data: list[dict] = []
+        self.entrances: dict[str, "STTransition"] = ENTRANCES
         self.boss_warp_entrance = None
         self.location_id_to_name = {loc["id"]: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
-        self.exit_coords_addr = (STAddr.train_trans_x, STAddr.train_trans_y, STAddr.train_trans_z)
+        self.exit_coords_addr: tuple["Address"] = (STAddr.train_trans_x, STAddr.train_trans_y, STAddr.train_trans_z)
 
         # Train speed stuff
-        self.reset_cycles = 0
-        self.last_train_gear = 2
-        self.reload_on_item = False
-        self.train_snap_speed = True
-        self.train_quick_station = True
+        self.reset_cycles: int = 0
+        self.last_train_gear: int = 2
+        self.reload_on_item: bool = False
+        self.train_snap_speed: bool = True
+        self.train_quick_station: bool = True
         self.update_train_speed: bool = False
         self.train_speed = [-143, 0, 115, 193]
-        self.key_address = STAddr.small_keys
+        self.has_set_starting_train: bool = False
 
+        self.key_address = STAddr.small_keys
         self.hint_data = HINT_DATA
         self.got_item_no_loc = False
         self.potion_tracker = [0, 0]
@@ -264,6 +265,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.max_total_rabbits: list[int] = [0]*5
         self.processed_locations: set = set()
 
+    # Commands
 
     def printl_goal_info(self, ctx):
         slot_data = ctx.slot_data
@@ -295,42 +297,30 @@ class SpiritTracksClient(DSZeldaClient):
             logger.info(
                 f"You need Compass Shards to access the Dark Realm. You have {shard_count}/{slot_data['compass_shard_count']}")
 
+    async def print_train_actors(self, ctx, offset=11):
+        """Print debug info about train actors"""
+        actor_table = await self.get_actor_table(ctx)
+        actor_idents = await self.get_table_data(ctx, actor_table, offset)
+        print(f"Printing Actors")
+        identifiers = {
+            0x21405e8: "Demon Train",
+            0x2140860: "Moink... or not",
+            0x22d7184: "Outset Rabbit",
+            0x2141438: "False crasher",
+            0x21413bc: "One of these crashes",
+            0x2149988: "Still Train",
+            0x2140efc: "Train Spawner CS Trigger?",
+            0x2141854: "Snow realm crasher"
+        }
+
+        for k, i in actor_idents.items():
+            ident = identifiers.get(i, "")
+            print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+
+    # Utility
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
-
-    async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
-        rom_name_bytes = await STAddr.game_identifier.read_bytes(ctx)
-        rom_name = bytes([byte for byte in rom_name_bytes[0] if byte != 0]).decode("ascii")
-        printl(f"Rom Name: {rom_name}")
-        if rom_name == "SPIRITTRACKSBKIP":  # EU
-            version = await STAddr.game_version.read(ctx)
-            if version != 0:
-                logger.info(f"Wrong rom version 1.{version}, please use version 1.0")
-                return False
-
-            # Set commands
-            if "train_speed" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["train"] = cmd_train_option
-            if "warp_to_start" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
-            if "goal" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["goal"] = cmd_goal
-            if "print_actors" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["print_actors"] = cmd_print_actors
-            return True
-        elif rom_name == "SPIRITTRACKSBKIE":  # US
-            logger.info(f"The US Version is not supported yet, please use the EU version 1.0")
-        return False
-
-    async def set_special_starting_flags(self, ctx: "BizHawkClientContext") -> list[tuple[int, list, str]]:
-        res = []
-        if ctx.slot_data.get("shuffle_hyrule_castle", 0) > 0:
-            res.append(STAddr.adv_flags_6.get_inner_write_list(0xFC))
-        if ctx.slot_data["enable_map_warp"]:
-            res.append(STAddr.adv_flags_1.get_inner_write_list(0x80))
-
-        return res
 
     def get_coord_address(self, at_sea=None, multi=False):
         return STAddr.link_x, STAddr.link_y, STAddr.link_z
@@ -351,6 +341,23 @@ class SpiritTracksClient(DSZeldaClient):
             "z": coords[STAddr.link_z]
         }
 
+    @staticmethod
+    async def get_table_data(ctx, array_start, comp_offset) -> dict["Address", int]:
+        rl = []
+        for i in range(80):
+            rl.append(Address.from_pointer(array_start + i * 4, size=3))
+        actors = await read_multiple(ctx, rl)
+        print(f"Actors: {hex_f(actors)}")
+        actors_start = [Address.from_pointer(v, size=4) for v in actors.values() if 0 < v < 0x400000]
+        lables = [k for k, v in actors.items() if v]
+        reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=lables)
+        return reads_2
+
+    @staticmethod
+    async def get_actor_table(ctx):
+        actor_manager = await STAddr.actor_manager.read(ctx)
+        actor_table = await Address.from_pointer(actor_manager, size=3).read(ctx)
+        return Address.from_pointer(actor_table, size=3)
 
     async def has_special_dynamic_requirements(self, ctx: "BizHawkClientContext", data) -> bool:
         def check_dungeon_reqs():
@@ -413,20 +420,82 @@ class SpiritTracksClient(DSZeldaClient):
             return False
         if not check_unvisited_scenes():
             return False
+
+        # Update stage flags
+        if "update_stage_flags" in data and "on_scenes" in data:
+            self.update_stage_flag((data["on_scenes"][0] & 0xFF00) >> 8, data["update_stage_flags"])
+
         return True
 
+    async def store_event(self, ctx, event_name: str):
+        await self.store_events(ctx, [event_name])
+
+    async def store_events(self, ctx, event_list: Iterable[str]):
+        print(f"Storing Events: {event_list}")
+        entrance_ids = {ENTRANCES[e].id for e in event_list}
+        key = storage_key(ctx, traversed_entrances_key)
+        self.traversed_entrances |= set(get_stored_data(ctx, key, set()))
+        new_events = {e for e in entrance_ids if e not in self.traversed_entrances}
+        if new_events:
+            print(f"\tStoring new events: {new_events} {self.traversed_entrances}")
+            await self.store_data(ctx, key, new_events)
+
+    async def refill_ammo(self, ctx, text=""):
+        await self.full_heal(ctx)
+        if self.item_count(ctx, "Bomb Bag"):
+            bomb_prog = 1 + self.item_count(ctx, "Bomb Bag Upgrade")
+        else:
+            bomb_prog = self.item_count(ctx, "Bombs (Progressive)")
+        if self.item_count(ctx, "Bow"):
+            arrow_prog = 1 + self.item_count(ctx, "Quiver Upgrade")
+        else:
+            arrow_prog = self.item_count(ctx, "Bow (Progressive)")
+        if bomb_prog:
+            bomb_prog = min(bomb_prog, len(self.item_data["Bombs (Progressive)"].give_ammo))
+            await STAddr.bomb_count.overwrite(ctx, self.item_data["Bombs (Progressive)"].give_ammo[bomb_prog-1])
+        if arrow_prog:
+            arrow_prog = min(arrow_prog, len(self.item_data["Bow (Progressive)"].give_ammo))
+            await STAddr.arrow_count.overwrite(ctx, self.item_data["Bow (Progressive)"].give_ammo[arrow_prog-1])
 
     async def full_heal(self, ctx, bonus=0):
-
         hearts = (self.item_count(ctx, "Heart Container") + 3)*4
         printl(f"Full Heal: {hearts}")
         await STAddr.health.overwrite(ctx, hearts+bonus)
 
-    async def watched_intro_cs(self, ctx):
-        watched_intro = await STAddr.watched_intro.read(ctx, silent=True) & 1
-        if not watched_intro and await STAddr.fade_timer.read(ctx, silent=True) < 0xffff:
-            self.precision_mode = [STAddr.stage, 0x79, "wts"]
-        return watched_intro
+    # Initialization
+
+    async def check_game_version(self, ctx: "BizHawkClientContext") -> bool:
+        rom_name_bytes = await STAddr.game_identifier.read_bytes(ctx)
+        rom_name = bytes([byte for byte in rom_name_bytes[0] if byte != 0]).decode("ascii")
+        printl(f"Rom Name: {rom_name}")
+        if rom_name == "SPIRITTRACKSBKIP":  # EU
+            version = await STAddr.game_version.read(ctx)
+            if version != 0:
+                logger.info(f"Wrong rom version 1.{version}, please use version 1.0")
+                return False
+
+            # Set commands
+            if "train_speed" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["train"] = cmd_train_option
+            if "warp_to_start" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
+            if "goal" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["goal"] = cmd_goal
+            if "print_actors" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["print_actors"] = cmd_print_actors
+            return True
+        elif rom_name == "SPIRITTRACKSBKIE":  # US
+            logger.info(f"The US Version is not supported yet, please use the EU version 1.0")
+        return False
+
+    # Main Loop
+
+    async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
+        await super().game_watcher(ctx)
+
+
+    def clear_variables(self):
+        pass
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always
@@ -461,18 +530,66 @@ class SpiritTracksClient(DSZeldaClient):
         # printl(self.main_read_list, read_keys)
         # printl(f"Slot data {ctx.slot_data}")
 
-    def process_loading_variable(self, read_result) -> bool:
-        mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
-        if self._loading_scene and not self.loading_stage:
-            if mid_load:
-                self.loading_stage = True
+    async def on_connect(self, ctx):
+        self.rabbit_tracker = [0]*7
+        await ctx.send_msgs([{
+                "cmd": "Get",
+                "keys": [storage_key(ctx, rabbit_storage_key)],
+            }])
 
-        if self.loading_stage:
-            if not mid_load:
-                self.loading_stage = False
-                return mid_load
+        # Get train settings from host.yaml
+        host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
+        printl(f"SETTINGS: {host_settings.get('train_speed', self.train_speed)}")
+        self.train_speed = host_settings.get("train_speed", self.train_speed)
+        self.train_snap_speed = host_settings.get("train_snap_speed", self.train_snap_speed)
+        self.train_quick_station = host_settings.get("train_quick_station", self.train_quick_station)
 
-        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0x1, 0x4, 0xFF]
+    async def process_in_menu(self, ctx, read_result):
+        await self.get_saved_scene(ctx, saved_scene_key)
+
+    async def watched_intro_cs(self, ctx):
+        watched_intro = await STAddr.watched_intro.read(ctx, silent=True) & 1
+        if not watched_intro and await STAddr.fade_timer.read(ctx, silent=True) < 0xffff:
+            self.precision_mode = [STAddr.stage, 0x79, "wts"]
+        return watched_intro
+
+    async def _set_starting_flags(self, ctx):
+        await super()._set_starting_flags(ctx)
+
+        # Process bonus starting locations
+        for i in range(1, 11):
+            await self._process_checked_locations(ctx, f"Bonus Starting Item {i}")
+
+    async def set_special_starting_flags(self, ctx: "BizHawkClientContext") -> list[tuple[int, list, str]]:
+        res = []
+        if ctx.slot_data.get("shuffle_hyrule_castle", 0) > 0:
+            res.append(STAddr.adv_flags_6.get_inner_write_list(0xFC))
+        if ctx.slot_data["enable_map_warp"]:
+            res.append(STAddr.adv_flags_1.get_inner_write_list(0x80))
+
+        return res
+
+    async def enter_game(self, ctx):
+        starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
+        self.starting_entrance = starting_entr.entrance
+        self.safe_respawn_rooms = safe_respawn_rooms + [starting_entr.scene]
+
+        self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
+        self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
+        self.redisconnected_entrances |= set(get_stored_data(ctx, redisconnected_entrances_key, set()))
+        self.visited_scenes |= set(get_stored_data(ctx, visited_scenes_key, set()))
+
+        # Set settings specific stage flags
+        self.stage_flags = STAGE_FLAGS
+        if ctx.slot_data["randomize_passengers"] == 0:
+            self.stage_flags[0x35] = [0x16, 0x00, 0x00, 0x00]
+        if ctx.slot_data["open_blizzard_temple"]:
+            self.update_stage_flag(0x1A, [0x20, 0x22, 0, 0])
+        if ctx.slot_data["open_blue_warps"]:
+            for stage, flags in zip(range(0x19, 0x1E), OPEN_WARPS):
+                self.update_stage_flag(stage, flags)
+
+        self.get_max_total_rabbit_counts(ctx)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu: "Address" = read_result[STAddr.menu]
@@ -531,17 +648,292 @@ class SpiritTracksClient(DSZeldaClient):
             await bizhawk.unlock(ctx.bizhawk_ctx)
             ctx.watcher_timeout = 0.1
 
-    async def store_event(self, ctx, event_name: str):
-        await self.store_events(ctx, [event_name])
+    def process_loading_variable(self, read_result) -> bool:
+        mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
+        if self._loading_scene and not self.loading_stage:
+            if mid_load:
+                self.loading_stage = True
 
-    async def store_events(self, ctx, event_list: Iterable[str]):
-        print(f"Storing Events: {event_list}")
-        entrance_ids = {ENTRANCES[e].id for e in event_list}
-        key = storage_key(ctx, traversed_entrances_key)
-        traversed_entrances = set(get_stored_data(ctx, key, set()))
-        new_events = {e for e in entrance_ids if e not in traversed_entrances}
-        if new_events:
-            await self.store_data(ctx, key, new_events)
+        if self.loading_stage:
+            if not mid_load:
+                self.loading_stage = False
+                return mid_load
+
+        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0x1, 0x4, 0xFF]
+
+    async def detected_new_scene(self, ctx):
+        await self.save_tos_keycount(ctx)
+        self.event_reads = []
+        self.sent_event = False
+        self.boss_key_y = None
+        if self.last_scene == 0x700:
+            await self.reset_snurglar_door(ctx)
+
+        if self.current_scene in potion_location_lookup:
+            printl(f"Setting shop models")
+            await self.set_shop_models(ctx)
+
+        await self.change_entrance_animation(ctx)
+
+        if not self._just_entered_game and self.last_stage == self.current_stage and self.current_stage in [4, 5]:
+            print(f"Starting special operation")
+            await self.setup_evil_train_deletion(ctx, "special_ow_actors", 2)
+        if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
+            print(f"Starting delete operation")
+            self.precision_operation = None
+            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
+
+    async def process_on_room_load(self, ctx, current_scene, read_result: dict):
+        await self.update_treasure_tracker(ctx, "room_load")
+        await self.update_potion_tracker(ctx, "room_load")
+        await self.update_rabbit_count(ctx)
+
+        # printl(F"Room load goal: {ctx.slot_data['goal']}, {ctx.slot_data['endgame_scope']}, {self.current_stage}")
+        if (ctx.slot_data["goal"] == -1 and ctx.slot_data["endgame_scope"] == 5
+                and self.current_stage in [0xF, 0x10, 0x24, 0x25, 0x27]):
+            self.has_goal_location = True
+            await self.store_event(ctx, "GOAL: Enter Dark Realm")
+
+    async def process_hard_coded_rooms(self, ctx, current_scene):
+        printl(f"Processing hard coded room stuff")
+
+        if self.save_ammo:
+            await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))
+            self.save_ammo = None
+
+        if current_scene in ammo_shop_lookup and "ammo" in ctx.slot_data["shopsanity"]:
+            ammo_addresses = [STAddr.bomb_count, STAddr.arrow_count]
+            self.save_ammo = await read_multiple(ctx, ammo_addresses)
+            await write_multiple(ctx, ammo_addresses, [0, 0])
+
+        # Give tears of light when entering ToS
+        if self.current_stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
+            await self.set_tears(ctx)
+
+        if current_scene not in potion_location_lookup:
+            treasure = None
+            if ctx.slot_data["excess_random_treasure"] == 2:
+                treasure = ITEM_MODEL_LOOKUP["Red Rupee"].value
+            elif ctx.slot_data["excess_random_treasure"] == 0:
+                treasure = ITEM_MODEL_LOOKUP["Nothing"].value
+            await self.reset_treasure_models(ctx, treasure)
+
+        if current_scene == 0x1c02 and self.current_entrance != 3:
+            # Amazing that this works at all
+            pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
+            await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
+
+        if current_scene == 0x131e:  # Set tears for ToS 6 on 30F instead of 31F.
+            await self.set_tears(ctx)
+
+        # Start Precision read for evil train deletion
+        if not self._just_entered_game:
+            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
+
+        # Save visited scenes
+        if ctx.slot_data.get("enable_map_warp", 1) or ctx.slot_data["passenger_pickup"] == 1:
+            warp_data = WARP_SCENES.get(self.current_scene, False)
+            if warp_data and warp_data.is_valid(self.current_entrance, ctx.slot_data):
+                self.visited_scenes.add(self.current_scene)
+                await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [self.current_scene])
+                print(f"Visited {warp_data.region}")
+                if warp_data.event:
+                    event_entr = ENTRANCES[warp_data.event]
+                    await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
+
+        # Validate locations
+        await self.validate_location_processing(ctx)
+
+    async def delay_room_action(self, ctx):
+        # Set train speed stuff
+        if self.current_stage in range(4, 0xb):
+            await self.set_train_speed(ctx)
+
+        # Set starting train
+        if not await STAddr.set_starting_train.read(ctx) & 4:
+            await self.set_starting_train(ctx)
+            await STAddr.set_starting_train.set_bits(ctx, 4)
+
+        # Set Shop Models for on purchase
+        if self.current_scene in potion_location_lookup:
+            await self.set_shop_models(ctx, False)
+
+        # Open boss doors
+        await self.open_boss_door(ctx)
+
+        # Lift item restrictions in TEAO boss rooms
+        if self.current_scene in range(0x4b00, 0x5000):
+            await STAddr.item_restrictions.overwrite(ctx, 0)
+
+        # Change respawn data in special scenes
+        if self.current_stage in special_respawn_stages:
+            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                 special_respawn_stages[self.current_stage])
+        elif self.safe_respawn:
+            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                 self.safe_respawn)
+
+        # Change respawn data to outside tower section in ToS
+        if self.current_stage == 0x13:
+            section = TOS_FLOOR_TO_SECTION[self.current_room]
+            entrance = self.entrances[TOS_SECTION_TO_EXIT[section]]
+            reverse_entrance: "STTransition" = self.entrance_id_to_entrance[
+                ctx.slot_data["er_pairings"][str(entrance.id)]] if str(entrance.id) in ctx.slot_data[
+                "er_pairings"] else entrance.vanilla_reciprocal
+            respawn_data = reverse_entrance.entrance
+            printl(f"Setting ToS respawn room {respawn_data}")
+            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
+                                 respawn_data)
+
+        # Set key watches
+        if self.current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+            actor_table = await self.get_actor_table(ctx)
+            data = BOSS_KEY_DATA[self.current_scene]
+            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                printl(f"Has found location {data['location']}, deleting boss key")
+                await self.delete_boss_key(ctx)
+            else:
+                if "search_data" in data:
+                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], actor_table, return_index=True, reverse=False)
+                    self.oct_bk_offset = offset
+                    printl(f"Found bk in actor loop: {pointer} {offset}")
+                else:
+                    pointer = await actor_table.read(ctx)
+
+                if pointer and pointer < 0x400000:
+                    printl(f"Found Boss Key object: {hex_f(pointer)}")
+                    offset = 12 if self.current_stage == 0x1c else 8
+                    self.boss_key_read = Address.from_pointer(pointer + offset, size=4)
+                    self.boss_key_y = data["y"]
+                    printl(f"BK Read: {self.boss_key_read}")
+                printl(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
+
+        # Set up snurglar reads
+        if self.current_scene == 0x700:
+            await self.set_up_snurglar_data(ctx)
+        else:
+            self.snurglar_addr = None
+
+    async def process_in_game(self, ctx, read_result: dict):
+        await super().process_in_game(ctx, read_result)
+        # Detect stamp stand locations
+        if self.in_stamp_stand and not self.receiving_location:
+            self.receiving_location = True
+            stamp_location = self.scene_to_stamp[self.current_scene]
+            await self.update_stamps(ctx)
+            await self._process_checked_locations(ctx, stamp_location)
+
+        await self.detect_boss_key(ctx)
+        await self.process_train_speed(ctx, read_result)
+        await self.detect_ut_event(ctx, self.current_scene)
+        await self.process_map_warp(ctx)
+
+        if self.current_stage == 0x13 and self.read_result[self.zelda_text_address] == 0x30000:
+            link_coords = await self.get_coords(ctx)
+            zelda_pointer = await STAddr.zelda_pointer.read(ctx)
+            await write_multiple(ctx, [Address.from_pointer(zelda_pointer + 7*4 + i*4, size=4) for i in range(3)],
+                                 list(link_coords.values()))
+
+        if read_result[STAddr.menu] == 9:
+            clog = await STAddr.flip_clog.read(ctx, silent=True)
+            if clog == 0x14 and not self.warp_to_start_flag:
+                self.warp_to_start_flag = True
+                stage = ENTRANCES[ctx.slot_data["starting_entrance"]].stage
+                logger.info(f"Primed a warp to start. Enter any entrance or save and quit warp to {STAGES.get(stage, 'ERROR')}.")
+            elif clog == 0 and self.warp_to_start_flag:
+                self.warp_to_start_flag = False
+                logger.info("Canceled warp to start.")
+            elif self.map_warp:
+                self.map_warp = None
+                logger.info("Canceled map warp.")
+
+    async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
+        await self.anticipate_location(ctx, read_result)
+
+        if self.display_goal:
+            self.printl_goal_info(ctx)
+            self.display_goal = False
+
+        if self.display_actors:
+            await self.print_train_actors(ctx, self.display_actors)
+            self.display_actors = 0
+
+    async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
+        await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
+        await self.drink_potion(ctx, read_result)
+
+        if self.snurglar_addr in read_result:
+            if read_result[self.snurglar_addr] & 0x20:
+                printl(f"Opening Mountain Temple! {self.snurglar_addr}")
+                await self.snurglar_addr.set_bits(ctx, 0x10)
+                self.main_read_list.remove(self.snurglar_addr)
+
+    # Misc item handling
+
+    async def receive_item_post_processing(self, ctx, item_name, item_data):
+        printl(f"Post Processing {item_name}")
+
+        if "Rabbit" in item_name:
+            await self.update_rabbit_count(ctx)
+        if "Treasure:" in item_name:
+            await self.update_treasure_tracker(ctx, "item_process")
+        if item_name in ["Bombs (Progressive)", "Bomb Bag"] and self.current_scene == 0x4503:
+            await STAddr.adv_flags_22.unset_bits(ctx, 2)
+
+        if self.reload_on_item:
+            printl(f"Reloading dynamic entrances")
+            self.reload_on_item = False
+            await self._set_dynamic_entrances(ctx, self.current_scene)
+            await self._set_dynamic_flags(ctx, self.current_scene)
+        if item_name == "Compass of Light Shard" and ctx.slot_data["dark_realm_access"] in [2, 3]:
+            required_shards = ctx.slot_data["compass_shard_count"]
+            if self.item_count(ctx, "Compass of Light Shard") >= required_shards:
+                logger.info(f"Got {required_shards} Compass of Light Shards, unlocking the track to the Dark Realm!")
+                await STAddr.rail_restorations.set_bits(ctx, 0x40)
+                await STAddr.adv_flags_25.set_bits(ctx, 0x60)
+
+        # Get spirit weapons from final tear of light
+        if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
+            section_count = min(5, ctx.slot_data["section_count"])
+            if any([
+                self.item_count(ctx, "Tear of Light (All Sections)") >= 4,
+                self.item_count(ctx, "Tear of Light (Progressive)") >= section_count*3 + 1,
+                self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
+                self.item_count(ctx, "Big Tear of Light (Progressive)") >= section_count + 1]):
+                await STAddr.adv_flags_16.set_bits(ctx, 1)
+                await STAddr.items_2.set_bits(ctx, 4)
+                logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
+
+        if item_name in ["Cannon", "Wagon"] and ctx.slot_data["starting_train"] != -1:
+            self.set_train_in_overworld = True
+            await self.set_starting_train(ctx)
+
+        if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup and item_name in ITEM_GROUPS["Ammo Items"]:
+            addr = item_data.ammo_address if hasattr(item_data, "ammo_address") else item_data.address
+            await addr.overwrite(ctx, 0)
+            item_count = self.item_count(ctx, item_data.refill) if item_name in ITEM_GROUPS["Refill Items"] else self.item_count(ctx, item_name)
+            self.save_ammo[addr] = item_data.give_ammo[item_count-1]
+
+        # Open boss door if got key in that room
+        if (item_name.startswith("Boss Key") or
+            (item_name.startswith("Keyring") and ctx.slot_data["big_keyrings"])
+        ) and self.current_scene in BOSS_KEY_DATA:
+            if self.current_stage == 0x13:
+                await self.open_tos_boss_door(ctx, self.current_scene)
+            else:
+                data = BOSS_KEY_DATA[self.current_scene]
+                if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
+                    printl(f"Opening boss door for {hex(self.current_scene)}")
+                    await data["door"].overwrite(ctx, 3)
+
+        # Complex blocked scenes for sources in boss rooms
+        if (self.current_scene in BOSS_ROOM_TO_BLOCKED_ITEM_GROUP and
+            BOSS_ROOM_TO_BLOCKED_ITEM_GROUP[self.current_scene] in item_data.item_groups):
+            bit = 2 ** (self.current_stage-0x1a)
+            await STAddr.sources.unset_bits(ctx, bit)
+
+        if ctx.slot_data.get("ut_blocked_entrances_behaviour") == 2:
+            await self.check_item_disconnects(ctx, item_name)
 
     async def update_potion_tracker(self, ctx, spec=""):
         reads = await read_multiple(ctx, [STAddr.potion_0, STAddr.potion_1])
@@ -566,7 +958,6 @@ class SpiritTracksClient(DSZeldaClient):
             if location:
                 if self.location_name_to_id[location] not in ctx.checked_locations:
                     await self._process_checked_locations(ctx, location)
-
 
     async def check_ammo_shop(self, ctx):
         if self.save_ammo is None or "ammo" not in ctx.slot_data["shopsanity"]:
@@ -636,71 +1027,6 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.treasure_tracker = new_treasure
 
-    async def receive_item_post_processing(self, ctx, item_name, item_data):
-        printl(f"Post Processing {item_name}")
-
-        if "Rabbit" in item_name:
-            await self.update_rabbit_count(ctx)
-        if "Treasure:" in item_name:
-            await self.update_treasure_tracker(ctx, "item_process")
-        if item_name in ["Bombs (Progressive)", "Bomb Bag"] and self.current_scene == 0x4503:
-            await STAddr.adv_flags_22.unset_bits(ctx, 2)
-
-        if self.reload_on_item:
-            printl(f"Reloading dynamic entrances")
-            self.reload_on_item = False
-            await self._set_dynamic_entrances(ctx, self.current_scene)
-            await self._set_dynamic_flags(ctx, self.current_scene)
-        if item_name == "Compass of Light Shard" and ctx.slot_data["dark_realm_access"] in [2, 3]:
-            required_shards = ctx.slot_data["compass_shard_count"]
-            if self.item_count(ctx, "Compass of Light Shard") >= required_shards:
-                logger.info(f"Got {required_shards} Compass of Light Shards, unlocking the track to the Dark Realm!")
-                await STAddr.rail_restorations.set_bits(ctx, 0x40)
-                await STAddr.adv_flags_25.set_bits(ctx, 0x60)
-
-        # Get spirit weapons from final tear of light
-        if "Tear of Light" in item_name and ctx.slot_data["spirit_weapons"] == 1:
-            section_count = min(5, ctx.slot_data["section_count"])
-            if any([
-                self.item_count(ctx, "Tear of Light (All Sections)") >= 4,
-                self.item_count(ctx, "Tear of Light (Progressive)") >= section_count*3 + 1,
-                self.item_count(ctx, "Big Tear of Light (All Sections)") >= 2,
-                self.item_count(ctx, "Big Tear of Light (Progressive)") >= section_count + 1]):
-                await STAddr.adv_flags_16.set_bits(ctx, 1)
-                await STAddr.items_2.set_bits(ctx, 4)
-                logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
-
-        if item_name in ["Cannon", "Wagon"] and ctx.slot_data["starting_train"] != -1:
-            self.set_train_in_overworld = True
-            await self.set_starting_train(ctx)
-
-        if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup and item_name in ITEM_GROUPS["Ammo Items"]:
-            addr = item_data.ammo_address if hasattr(item_data, "ammo_address") else item_data.address
-            await addr.overwrite(ctx, 0)
-            item_count = self.item_count(ctx, item_data.refill) if item_name in ITEM_GROUPS["Refill Items"] else self.item_count(ctx, item_name)
-            self.save_ammo[addr] = item_data.give_ammo[item_count-1]
-
-        # Open boss door if got key in that room
-        if (item_name.startswith("Boss Key") or
-            (item_name.startswith("Keyring") and ctx.slot_data["big_keyrings"])
-        ) and self.current_scene in BOSS_KEY_DATA:
-            if self.current_stage == 0x13:
-                await self.open_tos_boss_door(ctx, self.current_scene)
-            else:
-                data = BOSS_KEY_DATA[self.current_scene]
-                if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
-                    printl(f"Opening boss door for {hex(self.current_scene)}")
-                    await data["door"].overwrite(ctx, 3)
-
-        # Complex blocked scenes for sources in boss rooms
-        if (self.current_scene in BOSS_ROOM_TO_BLOCKED_ITEM_GROUP and
-            BOSS_ROOM_TO_BLOCKED_ITEM_GROUP[self.current_scene] in item_data.item_groups):
-            bit = 2 ** (self.current_stage-0x1a)
-            await STAddr.sources.unset_bits(ctx, bit)
-
-        if ctx.slot_data.get("ut_blocked_entrances_behaviour") == 2:
-            await self.check_item_disconnects(ctx, item_name)
-
     async def check_item_disconnects(self, ctx, item_name):
         entrances: set = set()
         if item_name in self.item_reconnect_lookup:
@@ -716,149 +1042,143 @@ class SpiritTracksClient(DSZeldaClient):
         if new_entrances:
             await self.store_data(ctx, storage_key(ctx, redisconnected_entrances_key), new_entrances)
 
-    async def process_on_room_load(self, ctx, current_scene, read_result: dict):
-        await self.update_treasure_tracker(ctx, "room_load")
-        await self.update_potion_tracker(ctx, "room_load")
-        await self.update_rabbit_count(ctx)
+    async def drink_potion(self, ctx, read_results):
+        drinking_potion = read_results.get(self.addr_drinking_potion, 0)
+        if drinking_potion == 0x3b:
+            self.drinking_potion = True
+        if self.drinking_potion and drinking_potion == 0x39:
+            self.drinking_potion = False
+            await self.update_potion_tracker(ctx, "drunk_potion")
 
-        # printl(F"Room load goal: {ctx.slot_data['goal']}, {ctx.slot_data['endgame_scope']}, {self.current_stage}")
-        if (ctx.slot_data["goal"] == -1 and ctx.slot_data["endgame_scope"] == 5
-                and self.current_stage in [0xF, 0x10, 0x24, 0x25, 0x27]):
-            self.has_goal_location = True
-            await self.store_event(ctx, "GOAL: Enter Dark Realm")
+    async def get_item_read(self, ctx, item_name) -> int:
+        if item_name == "Red Potion":
+            return await STAddr.all_potions.read(ctx)
 
-    async def process_in_game(self, ctx, read_result: dict):
-        await super().process_in_game(ctx, read_result)
-        # Detect stamp stand locations
-        if self.in_stamp_stand and not self.receiving_location:
-            self.receiving_location = True
-            stamp_location = self.scene_to_stamp[self.current_scene]
-            await self.update_stamps(ctx)
-            await self._process_checked_locations(ctx, stamp_location)
+        return await super().get_item_read(ctx, item_name)
 
-        await self.detect_boss_key(ctx)
-        await self.process_train_speed(ctx, read_result)
-        await self.detect_ut_event(ctx, self.current_scene)
-        await self.process_map_warp(ctx)
+    async def update_stamps(self, ctx: "BizHawkClientContext"):
+        # Set all stamp coords to 0x484848b8 repeating with starting flags
+        # Fill stamp book as we go
+        stamp_ids = await STAddr.stamp_ids.read(ctx)
+        stamps = [(stamp_ids & (0xFF << 8*i)) >> 8*i for i in range(20)]
+        has_stamps = [s for s in stamps if s != 255]
+        stamp_count = len(has_stamps)
 
-        if self.current_stage == 0x13 and self.read_result[self.zelda_text_address] == 0x30000:
-            link_coords = await self.get_coords(ctx)
-            zelda_pointer = await STAddr.zelda_pointer.read(ctx)
-            await write_multiple(ctx, [Address.from_pointer(zelda_pointer + 7*4 + i*4, size=4) for i in range(3)],
-                                 list(link_coords.values()))
+        def remove_wrong_stamps(indexes):
+            for i in indexes:
+                stamps[i] = 0xFF
 
-        if read_result[STAddr.menu] == 9:
-            clog = await STAddr.flip_clog.read(ctx, silent=True)
-            if clog == 0x14 and not self.warp_to_start_flag:
-                self.warp_to_start_flag = True
-                stage = ENTRANCES[ctx.slot_data["starting_entrance"]].stage
-                logger.info(f"Primed a warp to start. Enter any entrance or save and quit warp to {STAGES.get(stage, 'ERROR')}.")
-            elif clog == 0 and self.warp_to_start_flag:
-                self.warp_to_start_flag = False
-                logger.info("Canceled warp to start.")
-            elif self.map_warp:
-                self.map_warp = None
-                logger.info("Canceled map warp.")
+        def add_missing_stamps(values):
+            for v in values:
+                stamps[stamps.index(255)] = v
 
-    async def set_train_speed(self, ctx):
-        await write_multiple(ctx, train_speed_addresses, self.train_speed)
-        self.last_train_gear = -1  # force a quick speed increase
-        self.train_speed_pointer = await STAddr.train_speed_pointer.read(ctx)
-        try:
-            self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
-            self.train_gear_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_GEAR_OFFSET)
-            print(f"Setting gear addr {hex_f(self.train_gear_addr)}")
-            if self.train_gear_addr not in self.main_read_list:
-                self.main_read_list.append(self.train_gear_addr)
-        except AssertionError:
-            logger.warning(f"Tried to load train speed while not on train")
-            return
+        wrong_stamp_indexes = []
+        missing_stamps = []
 
-    async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
-        await self.anticipate_location(ctx, read_result)
+        if ctx.slot_data["randomize_stamps"] == 1:  # vanilla_with_location
+            stamp_locations_received = [LOCATIONS_DATA[self.location_id_to_name[i]]["stamp"] for i in ctx.checked_locations if self.location_id_to_name[i] in LOCATION_GROUPS["Stamp Stands"]]
+            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
+            missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
 
-        if self.display_goal:
-            self.printl_goal_info(ctx)
-            self.display_goal = False
+        elif ctx.slot_data["randomize_stamps"] in [2, 3]: # stamp items
+            stamp_items_received = [self.item_id_to_name[i.item] for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamps"]]
+            stamp_values_received = [self.item_data[i].value for i in stamp_items_received]
+            stamp_pack_count = sum([self.item_data[self.item_id_to_name[i.item]].value for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamp Packs"]])
+            stamp_pack_count = min(stamp_pack_count, len(ctx.slot_data.get("stamp_pack_order", [])))
+            stamp_values_received += ctx.slot_data.get("stamp_pack_order",[])[:stamp_pack_count]
 
-        if self.display_actors:
-            await self.print_train_actors(ctx, self.display_actors)
-            self.display_actors = 0
+            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_values_received]
+            missing_stamps = [i for i in stamp_values_received if i not in has_stamps]
 
-    async def delay_room_action(self, ctx):
-        # Set train speed stuff
-        if self.current_stage in range(4, 0xb):
-            await self.set_train_speed(ctx)
+        remove_wrong_stamps(wrong_stamp_indexes)
+        add_missing_stamps(missing_stamps)
+        await STAddr.stamp_ids.overwrite(ctx, stamps)
+        has_stamps = [s for s in stamps if s != 255]
+        stamp_count = len(has_stamps)
 
-        # Set Shop Models for on purchase
-        if self.current_scene in potion_location_lookup:
-            await self.set_shop_models(ctx, False)
+        printl(f"Has {stamp_count} stamps: {stamps}")
 
-        # Open boss doors
-        await self.open_boss_door(ctx)
+    async def set_tears(self, ctx):
+        set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
+                     or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
+        if not set_tears:
+            section = TOS_FLOOR_TO_SECTION_SAFE.get(self.current_room, 0)
+            if section == 0:  # These rooms remove tears
+                return
+            if section and ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data.get("tear_sections", 2) == 2:
+                printl(f"Section {section} is order {ctx.slot_data['tower_section_lookup']}!")
+                section = ctx.slot_data["tower_section_lookup"][str(section)]
 
-        # Lift item restrictions in TEAO boss rooms
-        if self.current_scene in range(0x4b00, 0x5000):
-            await STAddr.item_restrictions.overwrite(ctx, 0)
-
-        # Change respawn data in special scenes
-        if self.current_stage in special_respawn_stages:
-            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
-                                 special_respawn_stages[self.current_stage])
-        elif self.safe_respawn:
-            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
-                                 self.safe_respawn)
-
-        # Change respawn data to outside tower section in ToS
-        if self.current_stage == 0x13:
-            section = TOS_FLOOR_TO_SECTION[self.current_room]
-            entrance = self.entrances[TOS_SECTION_TO_EXIT[section]]
-            reverse_entrance: "STTransition" = self.entrance_id_to_entrance[
-                ctx.slot_data["er_pairings"][str(entrance.id)]] if str(entrance.id) in ctx.slot_data[
-                "er_pairings"] else entrance.vanilla_reciprocal
-            respawn_data = reverse_entrance.entrance
-            printl(f"Setting ToS respawn room {respawn_data}")
-            await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance],
-                                 respawn_data)
-
-        # Set key watches
-        if self.current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
-            actor_table = await self.get_actor_table(ctx)
-            data = BOSS_KEY_DATA[self.current_scene]
-            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
-                printl(f"Has found location {data['location']}, deleting boss key")
-                await self.delete_boss_key(ctx)
-            else:
-                if "search_data" in data:
-                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], actor_table, return_index=True, reverse=False)
-                    self.oct_bk_offset = offset
-                    printl(f"Found bk in actor loop: {pointer} {offset}")
-                else:
-                    pointer = await actor_table.read(ctx)
-
-                if pointer and pointer < 0x400000:
-                    printl(f"Found Boss Key object: {hex_f(pointer)}")
-                    offset = 12 if self.current_stage == 0x1c else 8
-                    self.boss_key_read = Address.from_pointer(pointer + offset, size=4)
-                    self.boss_key_y = data["y"]
-                    printl(f"BK Read: {self.boss_key_read}")
-                printl(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
-
-        # Set up snurglar reads
-        if self.current_scene == 0x700:
-            await self.set_up_snurglar_data(ctx)
+            if section == 6 or section == 0:
+                return
+            big_prog_sub = section - 1
+            set_tears = (self.item_count(ctx, f"Tear of Light (ToS {section})")
+                         or self.item_count(ctx, f"Big Tear of Light (ToS {section})") * 3
+                         or max(0, (self.item_count(ctx, "Big Tear of Light (Progressive)") - big_prog_sub) * 3)
+                         or max(0, self.item_count(ctx, "Tear of Light (Progressive)") - big_prog_sub * 3)
+                         )
+            set_tears = min(set_tears, 3)
+            printl(f"Setting tears for section {section} tears {set_tears}")
         else:
-            self.snurglar_addr = None
+            printl(f"Setting tears {set_tears}")
 
-    async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
-        await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
-        await self.drink_potion(ctx, read_result)
+        await STAddr.tears_of_light.overwrite(ctx, set_tears)
 
-        if self.snurglar_addr in read_result:
-            if read_result[self.snurglar_addr] & 0x20:
-                printl(f"Opening Mountain Temple! {self.snurglar_addr}")
-                await self.snurglar_addr.set_bits(ctx, 0x10)
-                self.main_read_list.remove(self.snurglar_addr)
+    async def detect_ut_event(self, ctx, scene):
+        """
+        Send UT event locations on certain flags being set in certain scenes.
+        """
+        if scene in UT_EVENT_DATA and not self.sent_event:
+            if not self.event_reads:
+                data = UT_EVENT_DATA[scene]
+                data = [data] if isinstance(data, dict) else data
+                printl(f"Event Data {data}")
+                self.event_data = data
+                await self.get_stage_flags(ctx)
+                for i, event in enumerate(data):
+                    address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
+                    self.event_data[i]["address"] = address
+                    self.event_reads.append(address)
+
+            read_results = await read_multiple(ctx, self.event_reads)
+            for event, res in zip(self.event_data, read_results.values()):
+                # printl(read_results)
+                if event["value"] & res:
+                    if "entrance" in event:
+                        printl(f"Event detection Success!, {event['entrance']}")
+                        entrance = self.entrances[event["entrance"]]
+                        await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
+                    # elif "event" in event:  # not implemented yet
+                    #     printl(f"Event detection Success!, {event['event']}")
+                    #     key = storage_key(ctx, ut_events_key)
+                    #     await self.store_data(ctx, key, [event["event"]])
+
+                    self.event_reads.remove(event["address"])
+                    self.event_data.remove(event)
+            if not self.event_data:
+                printl(f"All events sent!")
+                self.sent_event = True
+
+        else:
+            self.sent_event = True
+
+    @staticmethod
+    async def set_starting_train(ctx):
+        res = []
+        train = ctx.slot_data["starting_train"]
+        if train == -1:  # all parts
+            res += STAddr.train_parts.get_write_list(0xFFFFFFFF)
+            train = 0
+        else:
+            res += STAddr.train_parts.get_write_list(0xF << (train*4))
+        res += [a.get_inner_write_list(train) for a in [
+            STAddr.equipped_engine, STAddr.equipped_cannon, STAddr.equipped_car, STAddr.equipped_cart,
+        ]]
+        printl(f"Setting starting train {res}")
+        await bizhawk.write(ctx.bizhawk_ctx, res)
+
+
+    # Model Stuff
 
     async def anticipate_location(self, ctx: "BizHawkClientContext", read_result: dict):
         if read_result[STAddr.stage] < 0x13 or self.getting_location:
@@ -980,13 +1300,24 @@ class SpiritTracksClient(DSZeldaClient):
         if write_list:
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
 
-    async def drink_potion(self, ctx, read_results):
-        drinking_potion = read_results.get(self.addr_drinking_potion, 0)
-        if drinking_potion == 0x3b:
-            self.drinking_potion = True
-        if self.drinking_potion and drinking_potion == 0x39:
-            self.drinking_potion = False
-            await self.update_potion_tracker(ctx, "drunk_potion")
+    async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
+        """Laad shop models in bulk"""
+        valid_locations = []
+        valid_locations += list(self.location_area_to_watches.get(self.current_scene, {}).keys())
+        # valid_locations += list(ammo_shop_lookup.get(self.current_scene, {}).values())
+        if not on_load:
+            valid_locations += list(potion_location_lookup.get(self.current_scene, {}).values())
+            valid_locations += [loc for treasures in SHOP_TREASURE_DATA.get(self.current_scene, []) for loc in treasures.get("locations", [])]
+        printl(f"Setting shop models {self.current_scene}: {valid_locations}")
+        for loc in valid_locations.copy():
+            if self.location_name_to_id[loc] in ctx.checked_locations:
+                valid_locations.remove(loc)
+                printl(f"Already checked location {loc}!")
+        await self.swap_models(ctx, valid_locations)
+        if on_load:
+            await self.reset_treasure_models(ctx)
+
+    # Misc location handling
 
     def cancel_location_read(self, location) -> bool:
         if "stamp" in location:
@@ -994,6 +1325,16 @@ class SpiritTracksClient(DSZeldaClient):
         if "rabbit" in location:
             return True
         return False
+
+    async def validate_location_processing(self, ctx):
+        """Catch locations sent from console, and post process them"""
+        self.processed_locations |= set(get_stored_data(ctx, processed_locations_key, set()))
+        # print(f"Processed locations: {self.processed_locations} {get_stored_data(ctx, processed_locations_key, set())}")
+        diff = set(ctx.checked_locations) - self.processed_locations
+        if not self.processed_locations or not diff: return
+        for loc_id in diff:
+            print(f"Got location from console: {self.location_id_to_name[loc_id]}")
+            await self.check_location_post_processing(ctx, self.location_id_to_location[loc_id])
 
     async def check_location_post_processing(self, ctx, location: dict):
         printl(f"Post processing loc {location}")
@@ -1043,14 +1384,16 @@ class SpiritTracksClient(DSZeldaClient):
 
         await self.store_data(ctx, storage_key(ctx, processed_locations_key), {location['id']}, default=set())
 
-    # fixes conflict with bizhawk_UT
-    async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
-        await super().game_watcher(ctx)
+    async def process_post_receive(self, ctx):
+        if not self.delay_pickup:
+            await self.update_treasure_tracker(ctx, "post_receive")  # always update treasure tracker, lots of random treasures on ground!
 
-    async def process_game_completion(self, ctx: "BizHawkClientContext"):
-        if self.has_goal_location:
-            return True
-        return False
+        if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup:
+            await STAddr.bomb_count.overwrite(ctx, 0)
+            await STAddr.arrow_count.overwrite(ctx, 0)
+
+
+    # Rabbit handling
 
     async def update_rabbit_count(self, ctx):
         if self.current_stage in [4, 5, 6, 7]:
@@ -1117,30 +1460,12 @@ class SpiritTracksClient(DSZeldaClient):
         self.rabbit_counter = [count_bits(all_rabbits & (0x3FF << n*10)) for n in range(5)]
         printl(f"Updating Rabbit tracker: {[hex(i) for i in self.rabbit_tracker]} {self.rabbit_counter}")
 
-    async def validate_location_processing(self, ctx):
-        """Catch locations sent from console, and post process them"""
-        self.processed_locations |= set(get_stored_data(ctx, processed_locations_key, set()))
-        print(f"Processed locations: {self.processed_locations} {get_stored_data(ctx, processed_locations_key, set())}")
-        diff = set(ctx.checked_locations) - self.processed_locations
-        if not self.processed_locations or not diff: return
-        for loc_id in diff:
-            print(f"Got location from console: {self.location_id_to_name[loc_id]}")
-            await self.check_location_post_processing(ctx, self.location_id_to_location[loc_id])
+    # Important Processes
 
-    async def on_connect(self, ctx):
-        self.rabbit_tracker = [0]*7
-        await ctx.send_msgs([{
-                "cmd": "Get",
-                "keys": [storage_key(ctx, rabbit_storage_key)],
-            }])
-
-        # Get train settings from host.yaml
-        host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
-        printl(f"SETTINGS: {host_settings.get('train_speed', self.train_speed)}")
-        self.train_speed = host_settings.get("train_speed", self.train_speed)
-        self.train_snap_speed = host_settings.get("train_snap_speed", self.train_snap_speed)
-        self.train_quick_station = host_settings.get("train_quick_station", self.train_quick_station)
-
+    async def process_game_completion(self, ctx: "BizHawkClientContext"):
+        if self.has_goal_location:
+            return True
+        return False
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
         if read_result[STAddr.menu] and stage >= 0x13:
@@ -1172,19 +1497,7 @@ class SpiritTracksClient(DSZeldaClient):
                 await ctx.send_death(ctx.player_names[ctx.slot] + message)
                 self.last_deathlink = ctx.last_death_link
 
-    async def get_item_read(self, ctx, item_name) -> int:
-        if item_name == "Red Potion":
-            return await STAddr.all_potions.read(ctx)
-
-        return await super().get_item_read(ctx, item_name)
-
-    async def process_post_receive(self, ctx):
-        if not self.delay_pickup:
-            await self.update_treasure_tracker(ctx, "post_receive")  # always update treasure tracker, lots of random treasures on ground!
-
-        if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup:
-            await STAddr.bomb_count.overwrite(ctx, 0)
-            await STAddr.arrow_count.overwrite(ctx, 0)
+    # Stage Flags
 
     async def get_stage_flags(self, ctx):
         stage_address = await STAddr.stage_flag_pointer.read(ctx)
@@ -1202,58 +1515,34 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_starting_train(ctx)
             self.set_train_in_overworld = False
 
-    async def set_tears(self, ctx):
-        set_tears = (self.item_count(ctx, "Tear of Light (All Sections)")
-                     or self.item_count(ctx, "Big Tear of Light (All Sections)") * 3)
-        if not set_tears:
-            section = TOS_FLOOR_TO_SECTION_SAFE.get(self.current_room, 0)
-            if section == 0:  # These rooms remove tears
-                return
-            if section and ctx.slot_data["shuffle_tos_sections"] and ctx.slot_data.get("tear_sections", 2) == 2:
-                printl(f"Section {section} is order {ctx.slot_data['tower_section_lookup']}!")
-                section = ctx.slot_data["tower_section_lookup"][str(section)]
+    def update_stage_flag(self, stage: int, new: list[int]):
+        print(f"Updating Stage Flags: {hex_f(stage)} {hex_f(new)}")
+        self.stage_flags[stage] = [o | n for o, n in zip(STAGE_FLAGS.get(stage, [0,0,0,0]), new)]
 
-            if section == 6 or section == 0:
-                return
-            big_prog_sub = section - 1
-            set_tears = (self.item_count(ctx, f"Tear of Light (ToS {section})")
-                         or self.item_count(ctx, f"Big Tear of Light (ToS {section})") * 3
-                         or max(0, (self.item_count(ctx, "Big Tear of Light (Progressive)") - big_prog_sub) * 3)
-                         or max(0, self.item_count(ctx, "Tear of Light (Progressive)") - big_prog_sub * 3)
-                         )
-            set_tears = min(set_tears, 3)
-            printl(f"Setting tears for section {section} tears {set_tears}")
-        else:
-            printl(f"Setting tears {set_tears}")
 
-        await STAddr.tears_of_light.overwrite(ctx, set_tears)
+    # Snurglars
 
-    async def process_in_menu(self, ctx, read_result):
-        await self.get_saved_scene(ctx, saved_scene_key)
+    async def set_up_snurglar_data(self, ctx):
+        snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
 
-    # UT store entrances to defer
-    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data: "STTransition", exit_data: "STTransition",
-                                      interaction: str="traverse"):
-        self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
-        self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
-        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
-            "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
+        snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0)
 
-        if detect_data.name == "Marine Temple Train Exit Water Warp":
-            new_data.add(self.entrances["Marine Temple Lobby Board Train"].id)
-        elif detect_data.name == "Lost at Sea Lobby Enter Dungeon One-Way":
-            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Lost at Sea Lobby Enter Dungeon"].id)])
-        elif detect_data.name == "Ocean Realm North Rocktite Cave Fight":
-            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Ocean Realm North Rocktite Cave"].id)])
-        printl(f"New Storage Data: {new_data}")
-
-        if interaction == "check" and [i for i in new_data if new_data not in self.checked_entrances]:
-            key = storage_key(ctx, checked_entrances_key)
-        elif interaction == "traverse" and [i for i in new_data if new_data not in self.traversed_entrances]:
-            key = storage_key(ctx, traversed_entrances_key)
-        else:
+        printl(f"Tried snurglar flags @ {snurglar_flags}")
+        if not (0x400000 > snurglar_flags > 0):
             return
-        await self.store_data(ctx, key, new_data)
+        self.snurglar_addr = snurglar_flags
+        for color in ["Gold", "Purple", "Orange"]:
+            self.watches[f"Snurglars {color} Key"] = snurglar_flags
+
+        if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
+            if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
+                    or not self.item_count(ctx, "Cannon")
+                    or all([LOCATIONS_DATA[i]['id'] in ctx.checked_locations for i in LOCATION_GROUPS["Snurglars"]])):
+                printl(f"Got Snurglar keys, opening mountain temple")
+                await self.snurglar_addr.overwrite(ctx, 0x30)
+            else:
+                printl(f"Got Snurglar keys, adding to main read list")
+                self.main_read_list.append(snurglar_flags)
 
     async def reset_snurglar_door(self, ctx):
         if self.last_scene == 0x700:
@@ -1263,70 +1552,7 @@ class SpiritTracksClient(DSZeldaClient):
                     await self.snurglar_addr.unset_bits(ctx, 0x30)
                     break
 
-    async def detected_new_scene(self, ctx):
-        await self.save_tos_keycount(ctx)
-        self.event_reads = []
-        self.sent_event = False
-        self.boss_key_y = None
-        if self.last_scene == 0x700:
-            await self.reset_snurglar_door(ctx)
-
-        if self.current_scene in potion_location_lookup:
-            printl(f"Setting shop models")
-            await self.set_shop_models(ctx)
-
-        await self.change_entrance_animation(ctx)
-
-        if not self._just_entered_game and self.last_stage == self.current_stage and self.current_stage in [4, 5]:
-            print(f"Starting special operation")
-            await self.setup_evil_train_deletion(ctx, "special_ow_actors", 2)
-        if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
-            print(f"Starting delete operation")
-            self.precision_operation = None
-            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
-
-    async def setup_evil_train_deletion(self, ctx, operation: str, comp: int):
-        if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
-            actor_table = await self.get_actor_table(ctx)
-            self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp, operation, actor_table]
-        if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
-            actor_table = await self.get_actor_table(ctx)
-            self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp,
-                                   operation, actor_table]
-
-    async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
-        """Laad shop models in bulk"""
-        valid_locations = []
-        valid_locations += list(self.location_area_to_watches.get(self.current_scene, {}).keys())
-        # valid_locations += list(ammo_shop_lookup.get(self.current_scene, {}).values())
-        if not on_load:
-            valid_locations += list(potion_location_lookup.get(self.current_scene, {}).values())
-            valid_locations += [loc for treasures in SHOP_TREASURE_DATA.get(self.current_scene, []) for loc in treasures.get("locations", [])]
-        printl(f"Setting shop models {self.current_scene}: {valid_locations}")
-        for loc in valid_locations.copy():
-            if self.location_name_to_id[loc] in ctx.checked_locations:
-                valid_locations.remove(loc)
-                printl(f"Already checked location {loc}!")
-        await self.swap_models(ctx, valid_locations)
-        if on_load:
-            await self.reset_treasure_models(ctx)
-
-
-    async def save_scene(self, ctx, read_result, save_addr, save_key, save_comp: "Iterable"):
-        if read_result.get(save_addr, False) in save_comp and not self.save_spam_protection:
-            if not self.warp_to_start_flag:
-                check_respawn = await read_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room])
-                self.last_saved_scene = check_respawn[STAddr.respawn_stage] << 8 | check_respawn[STAddr.respawn_room]
-            else:
-                await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance], self.starting_entrance)
-                self.last_saved_scene = self.starting_entrance[0] << 8 | self.starting_entrance[1]
-            printl(f"Saving scene {hex(self.last_saved_scene)}")
-            await self.store_data(ctx, storage_key(ctx, save_key), self.last_saved_scene, "replace", default=0)
-            self.save_spam_protection = True
-            await self.save_tos_keycount(ctx)
-            return True
-        return False
-
+    # Keys and doors
 
     async def save_tos_keycount(self, ctx):
         """ToS keycount is not dependent on stage, so save current count on room change or save"""
@@ -1365,143 +1591,6 @@ class SpiritTracksClient(DSZeldaClient):
             return True
         return False
 
-    async def detect_ut_event(self, ctx, scene):
-        """
-        Send UT event locations on certain flags being set in certain scenes.
-        """
-        if scene in UT_EVENT_DATA and not self.sent_event:
-            if not self.event_reads:
-                data = UT_EVENT_DATA[scene]
-                data = [data] if isinstance(data, dict) else data
-                printl(f"Event Data {data}")
-                self.event_data = data
-                await self.get_stage_flags(ctx)
-                for i, event in enumerate(data):
-                    address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
-                    self.event_data[i]["address"] = address
-                    self.event_reads.append(address)
-
-            read_results = await read_multiple(ctx, self.event_reads)
-            for event, res in zip(self.event_data, read_results.values()):
-                # printl(read_results)
-                if event["value"] & res:
-                    if "entrance" in event:
-                        printl(f"Event detection Success!, {event['entrance']}")
-                        entrance = self.entrances[event["entrance"]]
-                        await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
-                    # elif "event" in event:  # not implemented yet
-                    #     printl(f"Event detection Success!, {event['event']}")
-                    #     key = storage_key(ctx, ut_events_key)
-                    #     await self.store_data(ctx, key, [event["event"]])
-
-                    self.event_reads.remove(event["address"])
-                    self.event_data.remove(event)
-            if not self.event_data:
-                printl(f"All events sent!")
-                self.sent_event = True
-
-        else:
-            self.sent_event = True
-
-    @staticmethod
-    async def set_starting_train(ctx):
-        res = []
-        train = ctx.slot_data["starting_train"]
-        if train == -1:  # all parts
-            res += STAddr.train_parts.get_write_list(0xFFFFFFFF)
-            train = 0
-        else:
-            res += STAddr.train_parts.get_write_list(0xF << (train*4))
-        res += [a.get_inner_write_list(train) for a in [
-            STAddr.equipped_engine, STAddr.equipped_cannon, STAddr.equipped_car, STAddr.equipped_cart,
-        ]]
-        printl(f"Setting starting train {res}")
-        await bizhawk.write(ctx.bizhawk_ctx, res)
-
-    async def get_tos_bk_pointer(self, ctx) -> tuple[Address, int]:
-        actor_table = await self.get_actor_table(ctx)
-        offset = 0  # start of table + tos bk index
-        pointer_addr = Address.from_pointer(actor_table + offset, size=3)
-        pointer = await pointer_addr.read(ctx)
-        printl(f"BK pointer from table read: {pointer_addr} -> {hex(pointer)} actor table: {actor_table}")
-        return pointer_addr, pointer
-
-    async def set_up_snurglar_data(self, ctx):
-        self.snurglar_status = 0
-        snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
-
-        snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0)
-
-        printl(f"Tried snurglar flags @ {snurglar_flags}")
-        if not (0x400000 > snurglar_flags > 0):
-            return
-        self.snurglar_addr = snurglar_flags
-        for color in ["Gold", "Purple", "Orange"]:
-            self.watches[f"Snurglars {color} Key"] = snurglar_flags
-
-        if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
-            if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
-                    or not self.item_count(ctx, "Cannon")
-                    or all([LOCATIONS_DATA[i]['id'] in ctx.checked_locations for i in LOCATION_GROUPS["Snurglars"]])):
-                printl(f"Got Snurglar keys, opening mountain temple")
-                await self.snurglar_addr.overwrite(ctx, 0x30)
-            else:
-                printl(f"Got Snurglar keys, adding to main read list")
-                self.main_read_list.append(snurglar_flags)
-
-    async def process_hard_coded_rooms(self, ctx, current_scene):
-        printl(f"Processing hard coded room stuff")
-
-        if current_scene == 0x2f00 and not await STAddr.set_starting_train.read(ctx) & 4:
-            await self.set_starting_train(ctx)
-            await STAddr.set_starting_train.set_bits(ctx, 4)
-        if self.save_ammo:
-            await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))
-            self.save_ammo = None
-
-        if current_scene in ammo_shop_lookup and "ammo" in ctx.slot_data["shopsanity"]:
-            ammo_addresses = [STAddr.bomb_count, STAddr.arrow_count]
-            self.save_ammo = await read_multiple(ctx, ammo_addresses)
-            await write_multiple(ctx, ammo_addresses, [0, 0])
-
-        # Give tears of light when entering ToS
-        if self.current_stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
-            await self.set_tears(ctx)
-
-        if current_scene not in potion_location_lookup:
-            treasure = None
-            if ctx.slot_data["excess_random_treasure"] == 2:
-                treasure = ITEM_MODEL_LOOKUP["Red Rupee"].value
-            elif ctx.slot_data["excess_random_treasure"] == 0:
-                treasure = ITEM_MODEL_LOOKUP["Nothing"].value
-            await self.reset_treasure_models(ctx, treasure)
-
-        if current_scene == 0x1c02 and self.current_entrance != 3:
-            # Amazing that this works at all
-            pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
-            await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
-
-        if current_scene == 0x131e:  # Set tears for ToS 6 on 30F instead of 31F.
-            await self.set_tears(ctx)
-
-        # Start Precision read for evil train deletion
-        if not self._just_entered_game:
-            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
-
-        # Save visited scenes
-        if ctx.slot_data.get("enable_map_warp", 1) or ctx.slot_data["passenger_pickup"] == 1:
-            warp_data = WARP_SCENES.get(self.current_scene, False)
-            if warp_data and warp_data.is_valid(self.current_entrance, ctx.slot_data):
-                self.visited_scenes.add(self.current_scene)
-                await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [self.current_scene])
-                print(f"Visited {warp_data.region}")
-                if warp_data.event:
-                    event_entr = ENTRANCES[warp_data.event]
-                    await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
-
-        # Validate locations
-        await self.validate_location_processing(ctx)
-
     async def open_boss_door(self, ctx):
         current_scene = self.current_scene
         if current_scene in BOSS_KEY_DATA and (
@@ -1526,6 +1615,14 @@ class SpiritTracksClient(DSZeldaClient):
         else:
             self.boss_key_y, self.boss_key_read = None, None
 
+    async def get_tos_bk_pointer(self, ctx) -> tuple[Address, int]:
+        actor_table = await self.get_actor_table(ctx)
+        offset = 0  # start of table + tos bk index
+        pointer_addr = Address.from_pointer(actor_table + offset, size=3)
+        pointer = await pointer_addr.read(ctx)
+        printl(f"BK pointer from table read: {pointer_addr} -> {hex(pointer)} actor table: {actor_table}")
+        return pointer_addr, pointer
+
     @staticmethod
     async def open_tos_boss_door(ctx, scene):
         printl(f"Opening ToS boss door")
@@ -1549,43 +1646,6 @@ class SpiritTracksClient(DSZeldaClient):
         if await boss_door.read(ctx) != 5:
             await boss_door.overwrite(ctx, 3)
 
-    async def process_train_speed(self, ctx, read_result):
-        if self.current_stage in range(4, 0xb):
-            if not hasattr(self, "train_speed_addr") or not hasattr(self, "train_gear_addr"):
-                await self.set_train_speed(ctx)
-
-            instant_switch = False
-            if self.update_train_speed:
-                await write_multiple(ctx, train_speed_addresses, self.train_speed)
-                self.update_train_speed = False
-                instant_switch = True
-
-            current_gear = read_result.get(self.train_gear_addr, 0)
-            if current_gear != self.last_train_gear or instant_switch:
-                self.last_train_gear = current_gear
-
-                if self.train_quick_station and current_gear == 1:
-                    train_action_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
-                    await train_action_addr.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
-                # Instant-set train speed
-                if self.train_snap_speed and current_gear != 1:
-                    await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10, silent=True)
-
-
-    def update_boss_warp(self, ctx, stage, scene_id):
-        if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
-            reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
-            reverse_exit_id = self.entrances[reverse_exit].id
-            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", self.entrances[reverse_exit].vanilla_reciprocal.id)
-            if pair is None:
-                printl(f"Boss Entrance not Randomized")
-                self.boss_warp_entrance = reverse_exit
-            self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
-            printl(f"Warp Stage: {stage}, current warp {self.boss_warp_entrance}")
-            return self.boss_warp_entrance
-
-        return None
-
     async def detect_boss_key(self, ctx):
         """Called each cycle while in a boss key room to detect a change in boss key position"""
         if self.boss_key_y is not None:
@@ -1596,7 +1656,6 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Found boss key location {loc} {bk_read} > {self.boss_key_y + 10} {hex(self.current_stage)}")
                 await self.delete_boss_key(ctx)
                 self.boss_key_y, self.boss_key_read = None, None
-
 
     async def delete_boss_key(self, ctx):
         pointer = await STAddr.boss_key_deletion_pointer.read(ctx)
@@ -1621,77 +1680,52 @@ class SpiritTracksClient(DSZeldaClient):
         # printl(f"Deleting boss key @ {STAddr.boss_key_deletion}")
         await deletion_address.overwrite(ctx, 0)
 
-    async def update_stamps(self, ctx: "BizHawkClientContext"):
-        # Set all stamp coords to 0x484848b8 repeating with starting flags
-        # Fill stamp book as we go
-        stamp_ids = await STAddr.stamp_ids.read(ctx)
-        stamps = [(stamp_ids & (0xFF << 8*i)) >> 8*i for i in range(20)]
-        has_stamps = [s for s in stamps if s != 255]
-        stamp_count = len(has_stamps)
+    # Train stuff
 
-        def remove_wrong_stamps(indexes):
-            for i in indexes:
-                stamps[i] = 0xFF
+    async def set_train_speed(self, ctx):
+        await write_multiple(ctx, train_speed_addresses, self.train_speed)
+        self.last_train_gear = -1  # force a quick speed increase
+        self.train_speed_pointer = await STAddr.train_speed_pointer.read(ctx)
+        try:
+            self.train_speed_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_SPEED_OFFSET, size=4)
+            self.train_gear_addr = Address.from_pointer(self.train_speed_pointer + TRAIN_GEAR_OFFSET)
+            print(f"Setting gear addr {hex_f(self.train_gear_addr)}")
+            if self.train_gear_addr not in self.main_read_list:
+                self.main_read_list.append(self.train_gear_addr)
+        except AssertionError:
+            logger.warning(f"Tried to load train speed while not on train")
+            return
 
-        def add_missing_stamps(values):
-            for v in values:
-                stamps[stamps.index(255)] = v
+    async def process_train_speed(self, ctx, read_result):
+        if self.current_stage in range(4, 0xb):
+            if not hasattr(self, "train_speed_addr") or not hasattr(self, "train_gear_addr"):
+                await self.set_train_speed(ctx)
 
-        wrong_stamp_indexes = []
-        missing_stamps = []
+            instant_switch = False
+            if self.update_train_speed:
+                await write_multiple(ctx, train_speed_addresses, self.train_speed)
+                self.update_train_speed = False
+                instant_switch = True
 
-        if ctx.slot_data["randomize_stamps"] == 1:  # vanilla_with_location
-            stamp_locations_received = [LOCATIONS_DATA[self.location_id_to_name[i]]["stamp"] for i in ctx.checked_locations if self.location_id_to_name[i] in LOCATION_GROUPS["Stamp Stands"]]
-            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
-            missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
+            current_gear = read_result.get(self.train_gear_addr, 0)
+            if current_gear != self.last_train_gear or instant_switch:
+                self.last_train_gear = current_gear
 
-        elif ctx.slot_data["randomize_stamps"] in [2, 3]: # stamp items
-            stamp_items_received = [self.item_id_to_name[i.item] for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamps"]]
-            stamp_values_received = [self.item_data[i].value for i in stamp_items_received]
-            stamp_pack_count = sum([self.item_data[self.item_id_to_name[i.item]].value for i in ctx.items_received if self.item_id_to_name[i.item] in ITEM_GROUPS["Stamp Packs"]])
-            stamp_pack_count = min(stamp_pack_count, len(ctx.slot_data.get("stamp_pack_order", [])))
-            stamp_values_received += ctx.slot_data.get("stamp_pack_order",[])[:stamp_pack_count]
+                if self.train_quick_station and current_gear == 1:
+                    train_action_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
+                    await train_action_addr.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
+                # Instant-set train speed
+                if self.train_snap_speed and current_gear != 1:
+                    await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10, silent=True)
 
-            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_values_received]
-            missing_stamps = [i for i in stamp_values_received if i not in has_stamps]
-
-        remove_wrong_stamps(wrong_stamp_indexes)
-        add_missing_stamps(missing_stamps)
-        await STAddr.stamp_ids.overwrite(ctx, stamps)
-        has_stamps = [s for s in stamps if s != 255]
-        stamp_count = len(has_stamps)
-
-        printl(f"Has {stamp_count} stamps: {stamps}")
-
-
-    async def refill_ammo(self, ctx, text=""):
-        await self.full_heal(ctx)
-        if self.item_count(ctx, "Bomb Bag"):
-            bomb_prog = 1 + self.item_count(ctx, "Bomb Bag Upgrade")
-        else:
-            bomb_prog = self.item_count(ctx, "Bombs (Progressive)")
-        if self.item_count(ctx, "Bow"):
-            arrow_prog = 1 + self.item_count(ctx, "Quiver Upgrade")
-        else:
-            arrow_prog = self.item_count(ctx, "Bow (Progressive)")
-        if bomb_prog:
-            bomb_prog = min(bomb_prog, len(self.item_data["Bombs (Progressive)"].give_ammo))
-            await STAddr.bomb_count.overwrite(ctx, self.item_data["Bombs (Progressive)"].give_ammo[bomb_prog-1])
-        if arrow_prog:
-            arrow_prog = min(arrow_prog, len(self.item_data["Bow (Progressive)"].give_ammo))
-            await STAddr.arrow_count.overwrite(ctx, self.item_data["Bow (Progressive)"].give_ammo[arrow_prog-1])
-
-    @staticmethod
-    async def get_table_data(ctx, array_start, comp_offset) -> dict["Address", int]:
-        rl = []
-        for i in range(80):
-            rl.append(Address.from_pointer(array_start + i * 4, size=3))
-        actors = await read_multiple(ctx, rl)
-        print(f"Actors: {hex_f(actors)}")
-        actors_start = [Address.from_pointer(v, size=4) for v in actors.values() if 0 < v < 0x400000]
-        lables = [k for k, v in actors.items() if v]
-        reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=lables)
-        return reads_2
+    async def setup_evil_train_deletion(self, ctx, operation: str, comp: int):
+        if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
+            actor_table = await self.get_actor_table(ctx)
+            self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp, operation, actor_table]
+        if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
+            actor_table = await self.get_actor_table(ctx)
+            self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp,
+                                   operation, actor_table]
 
     async def delete_bad_ow_actors(self, ctx, table_start):
         actor_idents = await self.get_table_data(ctx, table_start, 12)
@@ -1708,25 +1742,28 @@ class SpiritTracksClient(DSZeldaClient):
         actor_print = {k: crash_causers[i] for k, i in actor_idents.items() if i in crash_causers}
         printl(f"Deleting bad actors: {hex_f(actor_print)}")
 
-    async def print_train_actors(self, ctx, offset=11):
-        """Print debug info about train actors"""
-        actor_table = await self.get_actor_table(ctx)
-        actor_idents = await self.get_table_data(ctx, actor_table, offset)
-        print(f"Printing Actors")
-        identifiers = {
-            0x21405e8: "Demon Train",
-            0x2140860: "Moink... or not",
-            0x22d7184: "Outset Rabbit",
-            0x2141438: "False crasher",
-            0x21413bc: "One of these crashes",
-            0x2149988: "Still Train",
-            0x2140efc: "Train Spawner CS Trigger?",
-            0x2141854: "Snow realm crasher"
-        }
+    # ER stuff
 
-        for k, i in actor_idents.items():
-            ident = identifiers.get(i, "")
-            print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+    def update_boss_warp(self, ctx, stage, scene_id):
+        if scene_id in BOSS_WARP_SCENE_LOOKUP:  # Boss rooms
+            reverse_exit = BOSS_WARP_SCENE_LOOKUP[scene_id]
+            reverse_exit_id = self.entrances[reverse_exit].id
+            pair = ctx.slot_data["er_pairings"].get(f"{reverse_exit_id}", self.entrances[reverse_exit].vanilla_reciprocal.id)
+            if pair is None:
+                printl(f"Boss Entrance not Randomized")
+                self.boss_warp_entrance = reverse_exit
+            self.boss_warp_entrance = self.entrance_id_to_entrance[pair]
+            printl(f"Warp Stage: {stage}, current warp {self.boss_warp_entrance}")
+            return self.boss_warp_entrance
+
+        return None
+
+    async def conditional_bounce(self, ctx, scene: int, entrance: int) -> "STTransition" or None:
+        e_tuple = ((scene & 0xFF00) >> 8, scene & 0xFF, entrance)
+        current_destination = entrance_tuple_to_entrance.get(e_tuple)
+        if current_destination and not await self.conditional_er(ctx, current_destination, detect_data=current_destination.vanilla_reciprocal):
+            return current_destination.vanilla_reciprocal
+        return None
 
     async def conditional_er(self, ctx, exit_data, silent=False, detect_data=None) -> bool:
         if self._just_entered_game:
@@ -1840,31 +1877,6 @@ class SpiritTracksClient(DSZeldaClient):
 
         return er_map
 
-    def update_stage_flag(self, stage: int, new: list[int]):
-        self.stage_flags[stage] = [o | n for o, n in zip(STAGE_FLAGS.get(stage, [0,0,0,0]), new)]
-
-    async def enter_game(self, ctx):
-        starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
-        self.starting_entrance = starting_entr.entrance
-        self.safe_respawn_rooms = safe_respawn_rooms + [starting_entr.scene]
-
-        self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
-        self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
-        self.redisconnected_entrances |= set(get_stored_data(ctx, redisconnected_entrances_key, set()))
-        self.visited_scenes |= set(get_stored_data(ctx, visited_scenes_key, set()))
-
-        # Set settings specific stage flags
-        self.stage_flags = STAGE_FLAGS
-        if ctx.slot_data["randomize_passengers"] == 0:
-            self.stage_flags[0x35] = [0x16, 0x00, 0x00, 0x00]
-        if ctx.slot_data["open_blizzard_temple"]:
-            self.update_stage_flag(0x1A, [0x20, 0x22, 0, 0])
-        if ctx.slot_data["open_blue_warps"]:
-            for stage, flags in zip(range(0x19, 0x1E), OPEN_WARPS):
-                self.update_stage_flag(stage, flags)
-
-        self.get_max_total_rabbit_counts(ctx)
-
     async def change_entrance_animation(self, ctx):
         if self.block_entrance_animation:
             self.block_entrance_animation = False
@@ -1882,6 +1894,75 @@ class SpiritTracksClient(DSZeldaClient):
             if self.current_scene != self.last_scene:
                 await STAddr.entrance_animation.overwrite(ctx, 0x39)
 
+    # Respawn stuff
+
+    async def ut_bounce_scene(self, ctx, scene):
+        scene_data = scene_lookup.get(scene)
+        # print(f"Scene data: {scene_data}")
+        if not scene_data:
+            return
+        map_id = scene_data.map_id
+        if not ctx.slot_data["shuffle_houses"] and scene_data.room_type == "house":
+            printl(f"Not map switching due to house: {hex(scene)}")
+            return
+        if not ctx.slot_data["shuffle_caves"] and scene_data.room_type == "cave":
+            printl(f"Not map switching due to cave: {hex(scene)}")
+            return
+
+        if not ctx.slot_data["shuffle_train_transitions"] and map_id <= 4:
+            map_id = 0
+
+        if not ctx.slot_data["shuffle_disorientation"] and scene_data.room_type == "disorientation":
+            map_id = 209
+        if not ctx.slot_data["shuffle_eote"] and scene_data.room_type == "eote":
+            map_id = 31
+
+        printl(f"Storing new scene for UT {hex(scene)}")
+        await ctx.send_msgs([{
+            "cmd": "Set",
+            "key": f"{ctx.slot}_{ctx.team}_UT_MAP",
+            "default": 0,
+            "operations": [{"operation": "replace", "value": map_id}]
+        }])
+
+    async def store_visited_entrances(self, ctx: "BizHawkClientContext", detect_data: "STTransition", exit_data: "STTransition",
+                                      interaction: str="traverse"):
+        self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
+        self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
+        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
+            "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
+
+        if detect_data.name == "Marine Temple Train Exit Water Warp":
+            new_data.add(self.entrances["Marine Temple Lobby Board Train"].id)
+        elif detect_data.name == "Lost at Sea Lobby Enter Dungeon One-Way":
+            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Lost at Sea Lobby Enter Dungeon"].id)])
+        elif detect_data.name == "Ocean Realm North Rocktite Cave Fight":
+            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Ocean Realm North Rocktite Cave"].id)])
+        printl(f"New Storage Data: {new_data}")
+
+        if interaction == "check" and [i for i in new_data if new_data not in self.checked_entrances]:
+            key = storage_key(ctx, checked_entrances_key)
+        elif interaction == "traverse" and [i for i in new_data if new_data not in self.traversed_entrances]:
+            key = storage_key(ctx, traversed_entrances_key)
+        else:
+            return
+        print(f"Storing new data: {key} {new_data} {self.traversed_entrances}")
+        await self.store_data(ctx, key, new_data)
+
+    async def save_scene(self, ctx, read_result, save_addr, save_key, save_comp: "Iterable"):
+        if read_result.get(save_addr, False) in save_comp and not self.save_spam_protection:
+            if not self.warp_to_start_flag:
+                check_respawn = await read_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room])
+                self.last_saved_scene = check_respawn[STAddr.respawn_stage] << 8 | check_respawn[STAddr.respawn_room]
+            else:
+                await write_multiple(ctx, [STAddr.respawn_stage, STAddr.respawn_room, STAddr.respawn_entrance], self.starting_entrance)
+                self.last_saved_scene = self.starting_entrance[0] << 8 | self.starting_entrance[1]
+            printl(f"Saving scene {hex(self.last_saved_scene)}")
+            await self.store_data(ctx, storage_key(ctx, save_key), self.last_saved_scene, "replace", default=0)
+            self.save_spam_protection = True
+            await self.save_tos_keycount(ctx)
+            return True
+        return False
 
     async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
         # await self.change_entrance_animation(ctx, new_exit)
@@ -1891,13 +1972,6 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Set new safe respawn: {hex_f(self.safe_respawn)}")
             return
         self.safe_respawn = None
-
-    async def conditional_bounce(self, ctx, scene: int, entrance: int) -> "STTransition" or None:
-        e_tuple = ((scene & 0xFF00) >> 8, scene & 0xFF, entrance)
-        current_destination = entrance_tuple_to_entrance.get(e_tuple)
-        if current_destination and not await self.conditional_er(ctx, current_destination, detect_data=current_destination.vanilla_reciprocal):
-            return current_destination.vanilla_reciprocal
-        return None
 
     async def process_map_warp(self, ctx):
         if not ctx.slot_data["enable_map_warp"]:
@@ -2000,44 +2074,4 @@ class SpiritTracksClient(DSZeldaClient):
             self.map_warp_item_cache = None
             print(f"Quitting tracks {0}")
 
-    @staticmethod
-    async def get_actor_table(ctx):
-        actor_manager = await STAddr.actor_manager.read(ctx)
-        actor_table = await Address.from_pointer(actor_manager, size=3).read(ctx)
-        return Address.from_pointer(actor_table, size=3)
 
-    async def _set_starting_flags(self, ctx):
-        await super()._set_starting_flags(ctx)
-
-        # Process bonus starting locations
-        for i in range(1, 11):
-            await self._process_checked_locations(ctx, f"Bonus Starting Item {i}")
-
-    async def ut_bounce_scene(self, ctx, scene):
-        scene_data = scene_lookup.get(scene)
-        # print(f"Scene data: {scene_data}")
-        if not scene_data:
-            return
-        map_id = scene_data.map_id
-        if not ctx.slot_data["shuffle_houses"] and scene_data.room_type == "house":
-            printl(f"Not map switching due to house: {hex(scene)}")
-            return
-        if not ctx.slot_data["shuffle_caves"] and scene_data.room_type == "cave":
-            printl(f"Not map switching due to cave: {hex(scene)}")
-            return
-
-        if not ctx.slot_data["shuffle_train_transitions"] and map_id <= 4:
-            map_id = 0
-
-        if not ctx.slot_data["shuffle_disorientation"] and scene_data.room_type == "disorientation":
-            map_id = 209
-        if not ctx.slot_data["shuffle_eote"] and scene_data.room_type == "eote":
-            map_id = 31
-
-        printl(f"Storing new scene for UT {hex(scene)}")
-        await ctx.send_msgs([{
-            "cmd": "Set",
-            "key": f"{ctx.slot}_{ctx.team}_UT_MAP",
-            "default": 0,
-            "operations": [{"operation": "replace", "value": map_id}]
-        }])

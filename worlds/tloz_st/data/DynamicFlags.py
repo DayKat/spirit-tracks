@@ -1827,7 +1827,8 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3500],
         "has_locations": ["Icy Spring Noko's Force Gem"],
         "has_slot_data": [("randomize_passengers", [1, 2, 3])],
-        "set_if_true": [(STAddr.adv_flags_3a, 0x50)],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x50), (STAddr.adv_flags_3d, 0x10)],
+        "update_stage_flags": [0x4, 0, 0, 0]
     },
     "No passengers icyspring": {
         "on_scenes": [0x3500],

@@ -522,7 +522,7 @@
   {"name": "Fire Realm Sand", "sections": [{"name": "EVENT: Unlock Sand Connection Portal"}], "map_locations": [{"map": "Fire Realm", "x": 110, "y": 334}]},
 
   {"name": "Fire Realm", "sections": [{"name": "EVENT: Disorientation Maze Find Chest"}], "map_locations": [{"map": "Disorientation Dungeon", "x": 288, "y": 38}]},
-  {"name": "Fire Realm", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}, {"name": "EVENT: Bring Ice to Kagoron"}], "map_locations": [{"map": "Fire Realm", "x": 220, "y": 234}]},
+  {"name": "Fire Realm", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}, {"name": "EVENT: Bring Ice to Kagoron"}], "map_locations": [{"map": "Fire Realm", "x": 226, "y": 234}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Outset Station"}], "map_locations": [{"map": "Overview", "x": 236, "y": 710}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Castle Town Station"}], "map_locations": [{"map": "Overview", "x": 404, "y": 470}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Mayscore Station"}], "map_locations": [{"map": "Overview", "x": 332, "y": 614}]},
@@ -573,7 +573,7 @@
   {"name": "Overview Fire", "sections": [{"name": "Fire Realm Mountain Temple Station"}], "map_locations": [{"map": "Overview", "x": 814, "y": 170}]},
   {"name": "Overview Fire", "sections": [{"name": "Fire Realm to Tower of Spirits"}], "map_locations": [{"map": "Overview", "x": 549, "y": 328}]},
   {"name": "Overview Fire Sand", "sections": [{"name": "EVENT: Unlock Sand Connection Portal"}], "map_locations": [{"map": "Overview", "x": 622, "y": 334}]},
-  {"name": "Overview Fire", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}, {"name": "EVENT: Bring Ice to Kagoron"}], "map_locations": [{"map": "Overview", "x": 732, "y": 234}]},
+  {"name": "Overview Fire", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}, {"name": "EVENT: Bring Ice to Kagoron"}], "map_locations": [{"map": "Overview", "x": 738, "y": 234}]},
   {"name": "Overview", "sections": [{"name": "Tower of Spirits Enter Section 1"}], "map_locations": [{"map": "Overview", "x": 496, "y": 388}]},
   {"name": "Overview", "sections": [{"name": "Tower of Spirits Enter Section 2"}], "map_locations": [{"map": "Overview", "x": 496, "y": 372}]},
   {"name": "Overview", "sections": [{"name": "Tower of Spirits Enter Section 3"}], "map_locations": [{"map": "Overview", "x": 496, "y": 356}]},
