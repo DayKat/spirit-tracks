@@ -428,7 +428,7 @@ class SpiritTracksWorld(WorldParent):
                 elif self.options.tos_dungeon_options == "all_sections":
                     events += ["EVENT: Reach ToS 3F", "EVENT: Reach ToS 7F", "EVENT: Reach ToS 12F", "EVENT: Reach ToS 17F", "EVENT: Defeat Staven", "EVENT: Reach ToS 24F"]
 
-        if not self.options.open_blue_warps.value and self.options.shuffle_warps.value:
+        if not self.options.open_blue_warps.value and self.options.shuffle_warps.value and "warps" in self.options.extra_events.value:
             events += [
                 "EVENT: Desert Temple Open Blue Warp",
                 "EVENT: Mountain Temple Open Blue Warp",
@@ -443,7 +443,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.randomize_passengers.value and self.options.shuffle_caves.value:
             events += ["EVENT: Bring Carben to Island Sanctuary"]
 
-        if self.options.shuffle_portals.value and self.options.portal_behavior.value == 0:
+        if self.options.shuffle_portals.value and self.options.portal_behavior.value == 0 and "portals" in self.options.extra_events.value:
             events += [
                 "EVENT: Unlock Forest Realm Cave Portal",
                 "EVENT: Unlock Snow Bridge Portal",
@@ -457,7 +457,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.shuffle_caves.value or self.options.shuffle_disorientation.value:
             events += ["EVENT: Disorientation Maze Find Chest"]
 
-        if self.options.randomize_passengers.value and self.options.passenger_pickup.value == 1:
+        if self.options.randomize_passengers.value and self.options.passenger_pickup.value == 1 and "visits" in self.options.extra_events.value:
             events += [
                 "EVENT: Visit Outset",
                 "EVENT: Visit Castle Town",
@@ -469,7 +469,7 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Visit Marine Temple",
                 "EVENT: Visit Goron Village",
             ]
-        if self.options.randomize_stamps.value in [1, 4]:
+        if self.options.randomize_stamps.value in [1, 4] and "stamps" in self.options.extra_events.value:
             events += [
                 "EVENT: Outset Stamp Station",
                 "EVENT: Mayscore Forest Stamp Station",
@@ -501,6 +501,9 @@ class SpiritTracksWorld(WorldParent):
                 events += ["EVENT: Marine Temple Stamp Room Switch"]
             if not self.options.logic.value:
                 events += ["EVENT: Marine Temple 2F Boulders"]
+
+        if self.options.rabbitsanity.value in [3, 4] and "rabbits" in self.options.extra_events.value:
+            events += [f"EVENT: {r}" for r in LOCATION_GROUPS["Unique Rabbits"]]
 
         self.ut_events = events
         # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
@@ -1588,7 +1591,10 @@ class SpiritTracksWorld(WorldParent):
             if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
                 print(f"Reconnecting entrances {self.ut_pairings}")
                 for i, pairing in self.ut_pairings.items():
-                    _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
+                    try:
+                        _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
+                    except KeyError:
+                        continue
                     entrance_region: "Region" = self.get_region(entrance_id_to_region[pairing])
                     _exit.connect(entrance_region)
             return
@@ -2067,7 +2073,7 @@ class SpiritTracksWorld(WorldParent):
                    "shuffle_portals", "shuffle_eote",  # include eote locs if shuffled
                    "shuffle_train_transitions",  # for desert rocktite cannon logic lol
                    "shuffle_dungeon_rooms", "shuffle_warps", "shuffle_bosses", "shuffle_dungeon_entrances",
-                   "death_link", "enable_map_warp",
+                   "death_link", "enable_map_warp", "extra_events",
                    "free_starting_items",
                    "ut_blocked_entrances_behaviour"]
         slot_data = self.options.as_dict(*options)

@@ -36,6 +36,7 @@ checked_entrances_key = "st_checked_entrances"
 traversed_entrances_key = "st_traversed_entrances"
 redisconnected_entrances_key = "st_redisconnected_entrances"
 visited_scenes_key = "st_visited_scenes"
+processed_locations_key = "st_processed_locations"
 
 def count_bits(n):
     count = 0
@@ -259,6 +260,9 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.map_warp_item_cache: tuple[bool] | False = None
         self.block_entrance_animation: bool = False
+
+        self.max_total_rabbits: list[int] = [0]*5
+        self.processed_locations: set = set()
 
 
     def printl_goal_info(self, ctx):
@@ -527,9 +531,17 @@ class SpiritTracksClient(DSZeldaClient):
             await bizhawk.unlock(ctx.bizhawk_ctx)
             ctx.watcher_timeout = 0.1
 
-    async def store_event(self, ctx, event_name):
-        entr = self.entrances[event_name]
-        await self.store_visited_entrances(ctx, entr, entr.vanilla_reciprocal)
+    async def store_event(self, ctx, event_name: str):
+        await self.store_events(ctx, [event_name])
+
+    async def store_events(self, ctx, event_list: Iterable[str]):
+        print(f"Storing Events: {event_list}")
+        entrance_ids = {ENTRANCES[e].id for e in event_list}
+        key = storage_key(ctx, traversed_entrances_key)
+        traversed_entrances = set(get_stored_data(ctx, key, set()))
+        new_events = {e for e in entrance_ids if e not in traversed_entrances}
+        if new_events:
+            await self.store_data(ctx, key, new_events)
 
     async def update_potion_tracker(self, ctx, spec=""):
         reads = await read_multiple(ctx, [STAddr.potion_0, STAddr.potion_1])
@@ -1029,6 +1041,8 @@ class SpiritTracksClient(DSZeldaClient):
             entrance = self.entrance_id_to_entrance[ctx.slot_data["er_pairings"][str(self.entrances["Capbone Exit"].id)]]
             self.er_map.setdefault(entrance.scene, {})[entrance] = post_fight
 
+        await self.store_data(ctx, storage_key(ctx, processed_locations_key), {location['id']}, default=set())
+
     # fixes conflict with bizhawk_UT
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
@@ -1049,6 +1063,23 @@ class SpiritTracksClient(DSZeldaClient):
             printl(f"Updating rabbit bits {hex(rabbit_bits)}")
         await STAddr.rabbits.overwrite(ctx, rabbit_bits)
 
+    def get_max_total_rabbit_counts(self, ctx):
+        counts = [0]*5
+        realm_lookup = {"Grass": 0,
+                        "Snow": 1,
+                        "Ocean": 2,
+                        "Mountain": 3,
+                        "Sand": 4
+                        }
+        for loc_id in ctx.slot_data["active_rabbit_locs"]:
+            loc_data = self.location_id_to_location[loc_id]
+            count = loc_data.get("count", 0)
+            if not count:
+                continue
+            realm_index = realm_lookup[loc_data["realm"]]
+            counts[realm_index] = max(count, counts[realm_index])
+        self.max_total_rabbits = counts
+
     async def store_rabbit(self, ctx, loc_data):
         key = storage_key(ctx, rabbit_storage_key)
         index = loc_data["address"] - STAddr.rabbits
@@ -1060,13 +1091,20 @@ class SpiritTracksClient(DSZeldaClient):
         if ctx.slot_data["rabbitsanity"] in [3, 4]:
             rabbit_type = loc_data["vanilla_item"]
             rabbit_type_lookup = ["Grass Rabbit", "Snow Rabbit", "Ocean Rabbit", "Mountain Rabbit", "Sand Rabbit"]
-            rabbit_count = self.rabbit_counter[rabbit_type_lookup.index(rabbit_type)]
+            type_index = rabbit_type_lookup.index(rabbit_type)
+            rabbit_count = self.rabbit_counter[type_index]
             if rabbit_count <= 0:
                 rabbit_count = 1  # Hope this just works
             plural = "s" if rabbit_count > 1 else ""
             total_loc = f"Catch {rabbit_count} {rabbit_type}{plural}"
             printl(f"Sending rabbit total location {total_loc} {self.rabbit_counter}")
             await self._process_checked_locations(ctx, total_loc)
+
+            # Store total rabbit events
+            if rabbit_count >= self.max_total_rabbits[type_index]:
+                await self.store_events(ctx, [f"EVENT: {loc}" for loc in LOCATION_GROUPS[f"Unique {rabbit_type}s"]])
+            else:
+                await self.store_event(ctx, f"EVENT: {loc_data['name']}")
 
     def update_rabbit_tracker(self, ctx):
         rabbit_storage = ctx.stored_data.get(storage_key(ctx, rabbit_storage_key), None)
@@ -1078,6 +1116,16 @@ class SpiritTracksClient(DSZeldaClient):
         printl(f"\tall rabbits: {hex(all_rabbits)}")
         self.rabbit_counter = [count_bits(all_rabbits & (0x3FF << n*10)) for n in range(5)]
         printl(f"Updating Rabbit tracker: {[hex(i) for i in self.rabbit_tracker]} {self.rabbit_counter}")
+
+    async def validate_location_processing(self, ctx):
+        """Catch locations sent from console, and post process them"""
+        self.processed_locations |= set(get_stored_data(ctx, processed_locations_key, set()))
+        print(f"Processed locations: {self.processed_locations} {get_stored_data(ctx, processed_locations_key, set())}")
+        diff = set(ctx.checked_locations) - self.processed_locations
+        if not self.processed_locations or not diff: return
+        for loc_id in diff:
+            print(f"Got location from console: {self.location_id_to_name[loc_id]}")
+            await self.check_location_post_processing(ctx, self.location_id_to_location[loc_id])
 
     async def on_connect(self, ctx):
         self.rabbit_tracker = [0]*7
@@ -1195,11 +1243,13 @@ class SpiritTracksClient(DSZeldaClient):
             new_data.add(self.entrances["Marine Temple Lobby Board Train"].id)
         elif detect_data.name == "Lost at Sea Lobby Enter Dungeon One-Way":
             new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Lost at Sea Lobby Enter Dungeon"].id)])
+        elif detect_data.name == "Ocean Realm North Rocktite Cave Fight":
+            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Ocean Realm North Rocktite Cave"].id)])
         printl(f"New Storage Data: {new_data}")
 
-        if interaction == "check":
+        if interaction == "check" and [i for i in new_data if new_data not in self.checked_entrances]:
             key = storage_key(ctx, checked_entrances_key)
-        elif interaction == "traverse":
+        elif interaction == "traverse" and [i for i in new_data if new_data not in self.traversed_entrances]:
             key = storage_key(ctx, traversed_entrances_key)
         else:
             return
@@ -1448,6 +1498,9 @@ class SpiritTracksClient(DSZeldaClient):
                 if warp_data.event:
                     event_entr = ENTRANCES[warp_data.event]
                     await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
+
+        # Validate locations
+        await self.validate_location_processing(ctx)
 
     async def open_boss_door(self, ctx):
         current_scene = self.current_scene
@@ -1810,6 +1863,8 @@ class SpiritTracksClient(DSZeldaClient):
             for stage, flags in zip(range(0x19, 0x1E), OPEN_WARPS):
                 self.update_stage_flag(stage, flags)
 
+        self.get_max_total_rabbit_counts(ctx)
+
     async def change_entrance_animation(self, ctx):
         if self.block_entrance_animation:
             self.block_entrance_animation = False
@@ -1971,7 +2026,7 @@ class SpiritTracksClient(DSZeldaClient):
             printl(f"Not map switching due to cave: {hex(scene)}")
             return
 
-        if not ctx.slot_data["shuffle_stations"] and map_id <= 4:
+        if not ctx.slot_data["shuffle_train_transitions"] and map_id <= 4:
             map_id = 0
 
         if not ctx.slot_data["shuffle_disorientation"] and scene_data.room_type == "disorientation":

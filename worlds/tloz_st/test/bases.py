@@ -78,7 +78,7 @@ class TestGeneration(WorldTestBase):
         "shuffle_warps": "no_shuffle",
 
         "shuffle_portals": "no_shuffle",
-        "shuffle_las": "shuffle_alone",
+        "shuffle_las": "no_shuffle",
 
         "keyrings": "all",
         "dungeons_required": 5,
@@ -89,6 +89,8 @@ class TestGeneration(WorldTestBase):
         "randomize_start": {"niko"},
         "start_with_train": True,
         "free_starting_items": 2,
+
+        "rabbitsanity": "both",
 
         "randomize_passengers": "randomize",
         "passenger_pickup": "visit"

@@ -1,5 +1,16 @@
 from ..Subclasses import STTransition, EntranceGroups
 
+def event(reg1:str, reg2:str) -> dict:
+    return {
+        "two_way": False,
+        "entrance_region": reg1,
+        "exit_region": reg2,
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    }
+
 # For adding entrance data. Generates an object for both directions from each entry
 ENTRANCE_DATA = {
     # "Name": {
@@ -2769,731 +2780,156 @@ ENTRANCE_DATA |= {
         "two_way": False
     },
     # Events
-    "EVENT: Pick up Alfonzo": {
-        "two_way": False,
-        "entrance_region": "pick up alfonzo",
-        "exit_region": "alfonzo event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Stagnox": {
-        "two_way": False,
-        "entrance_region": "wt stagnox",
-        "exit_region": "event_stagnox",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Fraaz": {
-        "two_way": False,
-        "entrance_region": "bt fraaz",
-        "exit_region": "event_fraaz",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Cactops": {
-        "two_way": False,
-        "entrance_region": "oct phytops",
-        "exit_region": "event_phytops",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Vulcano": {
-        "two_way": False,
-        "entrance_region": "mtt vulcano",
-        "exit_region": "event_vulcano",
-        "entrance": (0x21, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Capbone": {
-        "two_way": False,
-        "entrance_region": "dt skeldritch",
-        "exit_region": "skeldritch event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 3F": {
-        "two_way": False,
-        "entrance_region": "tos 3f rail map",
-        "exit_region": "event_3f",
-        "entrance": (0x13, 0x2, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 7F": {
-        "two_way": False,
-        "entrance_region": "tos 7f rail map",
-        "exit_region": "event_7f",
-        "entrance": (0x13, 0x6, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 12F": {
-        "two_way": False,
-        "entrance_region": "tos 11f",
-        "exit_region": "event_12f",
-        "entrance": (0x13, 0xB, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 17F": {
-        "two_way": False,
-        "entrance_region": "tos 16f",
-        "exit_region": "event_17f",
-        "entrance": (0x13, 0xF, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Defeat Staven": {
-        "two_way": False,
-        "entrance_region": "tos staven",
-        "exit_region": "event_staven",
-        "entrance": (0x23, 0x0, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Reach ToS 24F": {
-        "two_way": False,
-        "entrance_region": "tos 24f",
-        "exit_region": "event_24f",
-        "entrance": (0x13, 0x23, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Complete Lost at Sea Dungeon": {
-        "two_way": False,
-        "entrance_region": "las 6",
-        "exit_region": "las_event",
-        "entrance": (0x13, 0x23, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Complete Take 'em All On 3": {
-        "two_way": False,
-        "entrance_region": "teao 3",
-        "exit_region": "teao_event",
-        "entrance": (0x13, 0x23, 0x0),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Give Regal Ring to Linebeck": {
-        "two_way": False,
-        "entrance_region": "linebeck trading",
-        "exit_region": "linebeck event",
-        "entrance": (0x37, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Bring Ice to Kagoron": {
-        "two_way": False,
-        "entrance_region": "goron ice",
-        "exit_region": "goron ice event",
-        "entrance": (0x2e, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
 
-    # Goals
+    # Boss Events
+    "EVENT: Defeat Stagnox": event("wt stagnox", "event_stagnox"),
+    "EVENT: Defeat Fraaz": event("bt fraaz", "event_fraaz"),
+    "EVENT: Defeat Cactops": event("oct phytops", "event_phytops"),
+    "EVENT: Defeat Vulcano": event("mtt vulcano", "event_vulcano"),
+    "EVENT: Defeat Capbone": event("dt skeldritch", "skeldritch event"),
+    "EVENT: Reach ToS 3F": event("tos 3f rail map", "event_3f"),
+    "EVENT: Reach ToS 7F": event("tos 7f rail map", "event_7f"),
+    "EVENT: Reach ToS 12F": event("tos 11f", "event_12f"),
+    "EVENT: Reach ToS 17F": event("tos 16f", "event_17f"),
+    "EVENT: Defeat Staven": event("tos staven", "event_staven"),
+    "EVENT: Reach ToS 24F": event("tos 24f", "event_24f"),
+    "EVENT: Complete Lost at Sea Dungeon": event("las 6", "las_event"),
+    "EVENT: Complete Take 'em All On 3": event("teao 3", "teao_event"),
 
-    "GOAL: Defeat Stagnox": {
-        "two_way": False,
-        "entrance_region": "wt stagnox",
-        "exit_region": "goal_stagnox",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Fraaz": {
-        "two_way": False,
-        "entrance_region": "bt fraaz",
-        "exit_region": "goal_fraaz",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Cactops": {
-        "two_way": False,
-        "entrance_region": "oct phytops",
-        "exit_region": "goal_phytops",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Vulcano": {
-        "two_way": False,
-        "entrance_region": "mtt pre vulcano",
-        "exit_region": "goal_vulcano",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Skeldritch": {
-        "two_way": False,
-        "entrance_region": "dt skeldritch",
-        "exit_region": "skeldritch goal",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 3F": {
-        "two_way": False,
-        "entrance_region": "tos 3f rail map",
-        "exit_region": "goal_forest_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 7F": {
-        "two_way": False,
-        "entrance_region": "tos 7f rail map",
-        "exit_region": "goal_forest_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 12F": {
-        "two_way": False,
-        "entrance_region": "tos 11f",
-        "exit_region": "goal_ocean_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 17F": {
-        "two_way": False,
-        "entrance_region": "tos 16f",
-        "exit_region": "goal_fire_glyph",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Staven": {
-        "two_way": False,
-        "entrance_region": "tos staven",
-        "exit_region": "goal_staven",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Reach ToS 24F": {
-        "two_way": False,
-        "entrance_region": "tos 24f",
-        "exit_region": "goal_compass",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Defeat Malladus": {
-        "two_way": False,
-        "entrance_region": "malladus 2",
-        "exit_region": "malladus event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "GOAL: Enter Dark Realm": {
-        "two_way": False,
-        "entrance_region": "dark realm trains",
-        "exit_region": "dark realm event",
-        "entrance": (0x29, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    # New Events
-    "EVENT: Visit Kagoron at the Mountain Altar": {
-        "two_way": False,
-        "entrance_region": "mountain altar",
-        "exit_region": "kagoron event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Bring Ferrus to Outset": {
-        "two_way": False,
-        "entrance_region": "delivered ferrus",
-        "exit_region": "outset ferrus event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Bring Goron to Anouki Village": {
-        "two_way": False,
-        "entrance_region": "av goron",
-        "exit_region": "av goron event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Bring Carben to Island Sanctuary": {
-        "two_way": False,
-        "entrance_region": "island sanc carben",
-        "exit_region": "carben event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Disorientation Maze Find Chest": {
-        "two_way": False,
-        "entrance_region": "disorientation sod",
-        "exit_region": "disorientation event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
+    # Goal Events
+    "GOAL: Defeat Stagnox": event("wt stagnox", "goal_stagnox"),
+    "GOAL: Defeat Fraaz": event("bt fraaz", "goal_fraaz"),
+    "GOAL: Defeat Cactops": event("oct phytops", "goal_phytops"),
+    "GOAL: Defeat Vulcano": event("mtt pre vulcano", "goal_vulcano"),
+    "GOAL: Defeat Skeldritch": event("dt skeldritch", "skeldritch goal"),
+    "GOAL: Reach ToS 3F": event("tos 3f rail map", "goal_forest_glyph"),
+    "GOAL: Reach ToS 7F": event("tos 7f rail map", "goal_forest_glyph"),
+    "GOAL: Reach ToS 12F": event("tos 11f", "goal_ocean_glyph"),
+    "GOAL: Reach ToS 17F": event("tos 16f", "goal_fire_glyph"),
+    "GOAL: Defeat Staven": event("tos staven", "goal_staven"),
+    "GOAL: Reach ToS 24F": event("tos 24f", "goal_compass"),
+    "GOAL: Defeat Malladus": event("malladus 2", "malladus event"),
+    "GOAL: Enter Dark Realm": event("dark realm trains", "dark realm event"),
 
-    # Open Dungeon Warps
-    "EVENT: Wooded Temple Open Blue Warp": {
-        "two_way": False,
-        "entrance_region": "wt blue warp",
-        "exit_region": "wt warp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Blizzard Temple Open Blue Warp": {
-        "two_way": False,
-        "entrance_region": "bt blue warp",
-        "exit_region": "bt warp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Marine Temple Open Blue Warp": {
-        "two_way": False,
-        "entrance_region": "oct blue warp",
-        "exit_region": "oct warp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Mountain Temple Open Blue Warp": {
-        "two_way": False,
-        "entrance_region": "mtt blue warp",
-        "exit_region": "mtt warp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Desert Temple Open Blue Warp": {
-        "two_way": False,
-        "entrance_region": "dt blue warp",
-        "exit_region": "dt warp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
+    # NPC Events
+    "EVENT: Pick up Alfonzo": event("pick up alfonzo", "alfonzo event"),
+    "EVENT: Give Regal Ring to Linebeck": event("linebeck trading", "linebeck event"),
+    "EVENT: Bring Ice to Kagoron": event("goron ice", "goron ice event"),
+    "EVENT: Visit Kagoron at the Mountain Altar": event("mountain altar", "kagoron event"),
+    "EVENT: Bring Ferrus to Outset": event("delivered ferrus", "outset ferrus event"),
+    "EVENT: Bring Goron to Anouki Village": event("av goron", "av goron event"),
+    "EVENT: Bring Carben to Island Sanctuary": event("island sanc carben", "carben event"),
+    "EVENT: Disorientation Maze Find Chest": event("disorientation sod", "disorientation event"),
 
-    # Open Train Portals
-    "EVENT: Unlock Forest Realm Cave Portal": {
-        "two_way": False,
-        "entrance_region": "forest cave portal loc",
-        "exit_region": "cave portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Unlock Snow Bridge Portal": {
-        "two_way": False,
-        "entrance_region": "snow bridge portal loc",
-        "exit_region": "snow bridge portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Unlock Anouki Village Portal": {
-        "two_way": False,
-        "entrance_region": "anouki portal",
-        "exit_region": "anouki portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Unlock Icy Spring Portal": {
-        "two_way": False,
-        "entrance_region": "icyspring portal loc",
-        "exit_region": "icyspring portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Unlock Forest Realm SE Portal": {
-        "two_way": False,
-        "entrance_region": "trading post portal",
-        "exit_region": "trading post portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Unlock Ocean Portal": {
-        "two_way": False,
-        "entrance_region": "ocean portal loc",
-        "exit_region": "ocean portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Unlock Desert Temple Portal": {
-        "two_way": False,
-        "entrance_region": "sand restoration portal",
-        "exit_region": "sand restoration portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Unlock Sand Connection Portal": {
-        "two_way": False,
-        "entrance_region": "sand connection portal loc",
-        "exit_region": "sand connection portal event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
+    # Blue Warp Events
+    "EVENT: Wooded Temple Open Blue Warp": event("wt blue warp", "wt warp event"),
+    "EVENT: Blizzard Temple Open Blue Warp": event("bt blue warp", "bt warp event"),
+    "EVENT: Marine Temple Open Blue Warp": event("oct blue warp", "oct warp event"),
+    "EVENT: Mountain Temple Open Blue Warp": event("mtt blue warp", "mtt warp event"),
+    "EVENT: Desert Temple Open Blue Warp": event("dt blue warp", "dt warp event"),
+
+    # Train Portal Events
+    "EVENT: Unlock Forest Realm Cave Portal": event("forest cave portal loc", "cave portal event"),
+    "EVENT: Unlock Snow Bridge Portal": event("snow bridge portal loc", "snow bridge portal event"),
+    "EVENT: Unlock Anouki Village Portal": event("anouki portal", "anouki portal event"),
+    "EVENT: Unlock Icy Spring Portal": event("icyspring portal loc", "icyspring portal event"),
+    "EVENT: Unlock Forest Realm SE Portal": event("trading post portal", "trading post portal event"),
+    "EVENT: Unlock Ocean Portal": event("ocean portal loc", "ocean portal event"),
+    "EVENT: Unlock Desert Temple Portal": event("sand restoration portal", "sand restoration portal event"),
+    "EVENT: Unlock Sand Connection Portal": event("sand connection portal loc", "sand connection portal event"),
+
     # Dungeon Events
-    "EVENT: Marine Temple 6F Arena": {
-        "two_way": False,
-        "entrance_region": "oct 6f sw arena",
-        "exit_region": "oct 6f sw arena event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Marine Temple 2F Boulders": {
-        "two_way": False,
-        "entrance_region": "oct 2f boulders",
-        "exit_region": "oct 2f boulders event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Marine Temple Stamp Room Switch": {
-        "two_way": False,
-        "entrance_region": "oct boomerang switch",
-        "exit_region": "oct boomerang switch event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
+    "EVENT: Marine Temple 6F Arena": event("oct 6f sw arena", "oct 6f sw arena event"),
+    "EVENT: Marine Temple 2F Boulders": event("oct 2f boulders", "oct 2f boulders event"),
+    "EVENT: Marine Temple Stamp Room Switch": event("oct boomerang switch", "oct boomerang switch event"),
 
-    # Visit station events
-    "EVENT: Visit Outset": {
-        "two_way": False,
-        "entrance_region": "outset village",
-        "exit_region": "visit outset",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Castle Town": {
-        "two_way": False,
-        "entrance_region": "castle town",
-        "exit_region": "visit castle town",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Rabbit Haven": {
-        "two_way": False,
-        "entrance_region": "rabbit haven",
-        "exit_region": "visit rabbit haven",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Anouki Village": {
-        "two_way": False,
-        "entrance_region": "anouki village",
-        "exit_region": "visit anouki village",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Icy Spring": {
-        "two_way": False,
-        "entrance_region": "icyspring",
-        "exit_region": "visit icyspring",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Trading Post": {
-        "two_way": False,
-        "entrance_region": "trading post",
-        "exit_region": "visit trading post",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Papuzia Village": {
-        "two_way": False,
-        "entrance_region": "papuzia village",
-        "exit_region": "visit papuzia",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Marine Temple": {
-        "two_way": False,
-        "entrance_region": "oct lobby",
-        "exit_region": "visit marine temple",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Visit Goron Village": {
-        "two_way": False,
-        "entrance_region": "goron village",
-        "exit_region": "visit goron village",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
+    # Visit Station Events
+    "EVENT: Visit Outset": event("outset village", "visit outset"),
+    "EVENT: Visit Castle Town": event("castle town", "visit castle town"),
+    "EVENT: Visit Rabbit Haven": event("rabbit haven", "visit rabbit haven"),
+    "EVENT: Visit Anouki Village": event("anouki village", "visit anouki village"),
+    "EVENT: Visit Icy Spring": event("icyspring", "visit icyspring"),
+    "EVENT: Visit Trading Post": event("trading post", "visit trading post"),
+    "EVENT: Visit Papuzia Village": event("papuzia village", "visit papuzia"),
+    "EVENT: Visit Marine Temple": event("oct lobby", "visit marine temple"),
+    "EVENT: Visit Goron Village": event("goron village", "visit goron village"),
 
-    # Stamp Events
-    "EVENT: Outset Stamp Station": {
-        "two_way": False,
-        "entrance_region": "outset stamp station",
-        "exit_region": "outset stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Mayscore Forest Stamp Station": {
-        "two_way": False,
-        "entrance_region": "mayscore stamp station",
-        "exit_region": "mayscore stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Castle Town Stamp Station": {
-        "two_way": False,
-        "entrance_region": "castle town stamp station",
-        "exit_region": "castle town stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Woodland Sanctuary Stamp Station": {
-        "two_way": False,
-        "entrance_region": "woodland sanc stamp station",
-        "exit_region": "woodland sanc stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Anouki Village Stamp Station": {
-        "two_way": False,
-        "entrance_region": "anouki village stamp station",
-        "exit_region": "anouki village stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Snowfall Sanctuary Stamp Station": {
-        "two_way": False,
-        "entrance_region": "snow sanc stamp station",
-        "exit_region": "snow sanc stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Icy Spring Stamp Station": {
-        "two_way": False,
-        "entrance_region": "icyspring stamp station",
-        "exit_region": "icyspring stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Trading Post Tunnel Stamp Station": {
-        "two_way": False,
-        "entrance_region": "trading post stamp station",
-        "exit_region": "trading post stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Papuzia Archipelago Stamp Station": {
-        "two_way": False,
-        "entrance_region": "papuzia village stamp station",
-        "exit_region": "papuzia village stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Island Sanctuary Stamp Station": {
-        "two_way": False,
-        "entrance_region": "island sanc stamp station",
-        "exit_region": "island sanc stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Pirate Hideout Stamp Station": {
-        "two_way": False,
-        "entrance_region": "pirate hideout stamp station",
-        "exit_region": "pirate hideout stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Goron Field Stamp Station": {
-        "two_way": False,
-        "entrance_region": "goron field stamp station",
-        "exit_region": "goron field stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Valley Sanctuary Stamp Station": {
-        "two_way": False,
-        "entrance_region": "valley sanc stamp station",
-        "exit_region": "valley sanc stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Dune Sanctuary Stamp Station": {
-        "two_way": False,
-        "entrance_region": "sand sanc stamp station",
-        "exit_region": "sand sanc stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
+    # Stamp Station Events
+    "EVENT: Outset Stamp Station": event("outset stamp station", "outset stamp event"),
+    "EVENT: Mayscore Forest Stamp Station": event("mayscore stamp station", "mayscore stamp event"),
+    "EVENT: Castle Town Stamp Station": event("castle town stamp station", "castle town stamp event"),
+    "EVENT: Woodland Sanctuary Stamp Station": event("woodland sanc stamp station", "woodland sanc stamp event"),
+    "EVENT: Anouki Village Stamp Station": event("anouki village stamp station", "anouki village stamp event"),
+    "EVENT: Snowfall Sanctuary Stamp Station": event("snow sanc stamp station", "snow sanc stamp event"),
+    "EVENT: Icy Spring Stamp Station": event("icyspring stamp station", "icyspring stamp event"),
+    "EVENT: Trading Post Tunnel Stamp Station": event("trading post stamp station", "trading post stamp event"),
+    "EVENT: Papuzia Archipelago Stamp Station": event("papuzia village stamp station", "papuzia village stamp event"),
+    "EVENT: Island Sanctuary Stamp Station": event("island sanc stamp station", "island sanc stamp event"),
+    "EVENT: Pirate Hideout Stamp Station": event("pirate hideout stamp station", "pirate hideout stamp event"),
+    "EVENT: Goron Field Stamp Station": event("goron field stamp station", "goron field stamp event"),
+    "EVENT: Valley Sanctuary Stamp Station": event("valley sanc stamp station", "valley sanc stamp event"),
+    "EVENT: Dune Sanctuary Stamp Station": event("sand sanc stamp station", "sand sanc stamp event"),
+    "EVENT: Wooded Temple Stamp Station": event("wt stamp station", "wt stamp event"),
+    "EVENT: Blizzard Temple Stamp Station": event("bt b1 stamp station", "bt b1 stamp event"),
+    "EVENT: Marine Temple Stamp Station": event("oct stamp station", "oct stamp event"),
+    "EVENT: Mountain Temple Stamp Station": event("mtt b1 stamp station", "mtt b1 stamp event"),
+    "EVENT: Desert Temple Stamp Station": event("dt stamp station", "dt stamp event"),
+    "EVENT: Tower of Spirits Summit Stamp Station": event("tos stamp station", "tos stamp event"),
 
-    "EVENT: Wooded Temple Stamp Station": {
-        "two_way": False,
-        "entrance_region": "wt stamp station",
-        "exit_region": "wt stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Blizzard Temple Stamp Station": {
-        "two_way": False,
-        "entrance_region": "bt b1 stamp station",
-        "exit_region": "bt b1 stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Marine Temple Stamp Station": {
-        "two_way": False,
-        "entrance_region": "oct stamp station",
-        "exit_region": "oct stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Mountain Temple Stamp Station": {
-        "two_way": False,
-        "entrance_region": "mtt b1 stamp station",
-        "exit_region": "mtt b1 stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Desert Temple Stamp Station": {
-        "two_way": False,
-        "entrance_region": "dt stamp station",
-        "exit_region": "dt stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
-    "EVENT: Tower of Spirits Summit Stamp Station": {
-        "two_way": False,
-        "entrance_region": "tos stamp station",
-        "exit_region": "tos stamp event",
-        "entrance": (0x0, 0x0, 0xF),
-        "type": EntranceGroups.EVENT,
-        "direction": EntranceGroups.NONE,
-        "island": EntranceGroups.NONE
-    },
+    # Rabbit Events
+    "EVENT: Rabbit Near Castle Town": event("forest realm rabbits", "forest realm rabbits event"),
+    "EVENT: Rabbit Near Ocean Shortcut": event("forest ocean shortcut rabbit", "forest ocean shortcut rabbit event"),
+    "EVENT: Rabbit E Mayscore": event("e mayscore rabbits", "e mayscore rabbits event"),
+    "EVENT: Rabbit SW Trading Post": event("sw trading post rabbit", "sw trading post rabbit event"),
+    "EVENT: Rabbit E Outset": event("forest realm rabbits", "forest realm rabbits event 2"),
+    "EVENT: Rabbit SW Rabbit Haven": event("s rabbit haven rabbits", "s rabbit haven rabbits event"),
+    "EVENT: Rabbit Near Wooded Temple": event("wt rabbit", "wt rabbit event"),
+    "EVENT: Rabbit Near Rabbit Haven": event("nr rabbit haven rabbit", "nr rabbit haven rabbit event"),
+    "EVENT: Rabbit Past Wooden Bridge": event("e mayscore rabbits", "e mayscore rabbits event 2"),
+    "EVENT: Rabbit S Rabbit Haven": event("s rabbit haven rabbits", "s rabbit haven rabbits event 2"),
+
+    "EVENT: Rabbit Near ToS Fire Realm": event("fire source rabbits", "fire source rabbits event"),
+    "EVENT: Rabbit Near Disorientation Station": event("disorientation rabbits", "disorientation rabbits event"),
+    "EVENT: Rabbit Near Ends of the Earth": event("eote rabbits", "eote rabbits event"),
+    "EVENT: Rabbit NW Mountain": event("mountain rabbits", "mountain rabbits event"),
+    "EVENT: Rabbit NE Mountain": event("mountain rabbits", "mountain rabbits event 2"),
+    "EVENT: Rabbit N Mountain": event("mountain rabbits", "mountain rabbits event 3"),
+    "EVENT: Rabbit S Mountain": event("s mountain temple rabbit", "s mountain temple rabbit event"),
+    "EVENT: Rabbit SE Mountain": event("mountain rabbits", "mountain rabbits event 4"),
+    "EVENT: Rabbit N Fire Glyph": event("fire realm rabbits", "fire realm rabbits event"),
+    "EVENT: Rabbit Near Goron Target Range": event("fire realm rabbits", "fire realm rabbits event 2"),
+    "EVENT: Rabbit E Sand Maze": event("sand restoration rabbits", "sand restoration rabbits event"),
+    "EVENT: Rabbit Mid Sand Maze": event("sand restoration rabbits", "sand restoration rabbits event 2"),
+    "EVENT: Rabbit W Sand Maze": event("sand restoration rabbits", "sand restoration rabbits event 3"),
+    "EVENT: Rabbit Sand Valley": event("sand connection rabbit", "sand connection rabbit event"),
+
+    "EVENT: Rabbit W Lost at Sea": event("las rabbit", "las rabbit event"),
+    "EVENT: Rabbit Near Island Sanctuary": event("ocean rabbits", "ocean rabbits event"),
+    "EVENT: Rabbit E Pirate Hideout": event("ocean source rabbits", "ocean source rabbits event"),
+    "EVENT: Rabbit W Pirate Hideout": event("pirate rabbit", "pirate rabbit event"),
+    "EVENT: Rabbit W Marine Temple": event("ocean rabbits", "ocean rabbits event 2"),
+    "EVENT: Rabbit N Undersea Entrance": event("ocean rabbits", "ocean rabbits event 3"),
+    "EVENT: Rabbit Near Ocean Portal": event("ocean portal rabbits", "ocean portal rabbits event"),
+    "EVENT: Rabbit S Undersea Entrance": event("ocean rabbits", "ocean rabbits event 4"),
+    "EVENT: Rabbit E Ocean": event("ocean rabbits", "ocean rabbits event 5"),
+    "EVENT: Rabbit N Lost at Sea": event("ocean rabbits", "ocean rabbits event 6"),
+    "EVENT: Rabbit E Sand Realm": event("sand realm rabbits", "sand realm rabbits event"),
+    "EVENT: Rabbit N Sand Realm": event("sand realm rabbits", "sand realm rabbits event 2"),
+    "EVENT: Rabbit S Sand Realm": event("sand realm rabbits", "sand realm rabbits event 3"),
+    "EVENT: Rabbit W Sand Realm": event("sand realm rabbits", "sand realm rabbits event 4"),
+    "EVENT: Rabbit W Desert Temple": event("sand restoration south rabbits", "sand restoration south rabbits event"),
+    "EVENT: Rabbit E Desert Temple": event("sand restoration south rabbits", "sand restoration south rabbits event 2"),
+
+    "EVENT: Rabbit NE Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event"),
+    "EVENT: Rabbit SE Blizzard": event("snow realm blizzard rabbits", "snow realm blizzard rabbits event"),
+    "EVENT: Rabbit W Anouki Village": event("snow realm rabbits", "snow realm rabbits event"),
+    "EVENT: Rabbit SW Blizzard": event("snow realm blizzard rabbits", "snow realm blizzard rabbits event 2"),
+    "EVENT: Rabbit E Anouki Village": event("blizzard temple tracks rabbits", "blizzard temple tracks rabbits event"),
+    "EVENT: Rabbit Near Snowdrift Station": event("snowdrift station rabbit", "snowdrift station rabbit event"),
+    "EVENT: Rabbit W Icy Spring Station": event("icyspring rabbits", "icyspring rabbits event"),
+    "EVENT: Rabbit N Icy Spring Station": event("icyspring rabbits", "icyspring rabbits event 2"),
+    "EVENT: Rabbit NW Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event 2"),
+    "EVENT: Rabbit Central Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event 3"),
 }
 
 

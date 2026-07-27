@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 from ..data.Entrances import ENTRANCES
-from ..data.Locations import LOCATIONS_DATA
+from ..data.Locations import LOCATIONS_DATA, LOCATION_GROUPS
 
 if TYPE_CHECKING:
     from .. import SpiritTracksWorld
@@ -372,6 +372,8 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
                 for map_loc in map_locs:
                     if world.options.randomize_stamps.value == 1 and entr_name.endswith("Stamp Station"):
                         entr_hidden.setdefault(map_loc["map"], []).append(entr_name)
+                    elif world.options.rabbitsanity.value in [3, 4] and entr_name.startswith("EVENT: Rabbit"):
+                        continue
                     else:
                         coords = (map_loc["x"], map_loc["y"])
                         map_coord_checks.setdefault(map_loc["map"], []).append(coords)
@@ -451,6 +453,19 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
         entr_hidden.setdefault("Castle Town", []).append("EVENT: Complete Take 'em All On 3")
         entr_hidden.setdefault("Overview", []).append("EVENT: Complete Take 'em All On 3")  # these are duplicated, is fine.
         entr_hidden.setdefault("Forest Realm", []).append("EVENT: Complete Take 'em All On 3")
+
+    if world.options.rabbitsanity.value == 4 and "rabbits" in world.options.extra_events.value:
+        realm_lookup = {
+            4: "Forest Realm",
+            5: "Snow Realm",
+            6: "Ocean Realm",
+            7: "Fire Realm"
+        }
+        for rabbit_loc in LOCATION_GROUPS["Unique Rabbits"]:
+            if rabbit_loc in world.active_rabbit_locations:
+                entr_hidden.setdefault("Overview", []).append(f"EVENT: {rabbit_loc}")
+                entr_hidden.setdefault(realm_lookup[LOCATIONS_DATA[rabbit_loc]["stage_id"]], []).append(f"EVENT: {rabbit_loc}")
+
 
 
 

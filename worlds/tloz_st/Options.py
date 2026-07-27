@@ -1038,6 +1038,19 @@ class SpiritTracksPassengerPickupRequirement(Choice):
     option_tracks = 0
     option_visit = 1
 
+class SpiritTracksExtraEvents(OptionSet):
+    """
+    Enable/disable extra UT events for certain settings.
+    - portals: show events for opening train portals if they open one-way
+    - stamps: show events for stamp stations if playing with vanilla stamps
+    - visits: show events for visiting stations if playing with that passenger pickup requirement
+    - rabbits: shows events for individual rabbits if playing with total rabbits, that all fill out once you get your final total location of that type.
+    - warps: shows events for unlocking blue warps in dungeons.
+    """
+    display_name = "Toggle Events"
+    default = {"portals", "stamps", "visits", "rabbits", "warps"}
+    valid_keys = ["portals", "stamps", "visits", "rabbits", "warps"]
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -1145,6 +1158,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     # QoL
     ut_blocked_entrances_behaviour: SpiritTracksUTBlockedEntrances
     enable_map_warp: SpiritTracksMapWarp
+    extra_events: SpiritTracksExtraEvents
 
     # Cosmetic
     starting_train: SpiritTracksStartingTrain
@@ -1253,7 +1267,8 @@ st_option_groups = [
     ]),
     OptionGroup("QoL Options", [
         SpiritTracksMapWarp,
-        SpiritTracksUTBlockedEntrances
+        SpiritTracksUTBlockedEntrances,
+        SpiritTracksExtraEvents
     ]),
     OptionGroup("Cosmetic Options", [
         SpiritTracksStartingTrain,

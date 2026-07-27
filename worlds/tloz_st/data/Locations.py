@@ -3511,7 +3511,7 @@ LOCATIONS_DATA = {
         "location_groups": ["Unique Ocean Rabbits"]
     },
     "Rabbit W Pirate Hideout": {
-        "region_id": "forest ocean shortcut rabbit",
+        "region_id": "pirate rabbit",
         "vanilla_item": "Ocean Rabbit",
         "stage_id": 0x06,
         "address": STAddr.rabbits_2,
@@ -3791,6 +3791,7 @@ LOCATIONS_DATA |= {
         "region_id": f"{realm} Rabbit Count 1",
         "rabbit": True,
         "count": 1,
+        "realm": realm,
         "location_groups": [f"Total {realm} Rabbits"]
     } for realm in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]}
 
@@ -3799,6 +3800,7 @@ LOCATIONS_DATA |= {
         "region_id": f"{realm} Rabbit Count {count}",
         "rabbit": True,
         "count": count,
+        "realm": realm,
         "location_groups": [f"Total {realm} Rabbits"]
     } for count in range(2, 11) for realm in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]}
 
@@ -5029,10 +5031,19 @@ LOCATION_GROUPS["Shop Locations"] = (LOCATION_GROUPS["Shop Treasure Locations"] 
                                      LOCATION_GROUPS["Shop Shield Locations"] |
                                      LOCATION_GROUPS["Shop Ammo Locations"] |
                                      LOCATION_GROUPS["Shop Postcard Locations"])
-LOCATION_GROUPS["Unique Rabbits"] = LOCATION_GROUPS["Unique Grass Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"] | LOCATION_GROUPS["Unique Mountain Rabbits"]  | LOCATION_GROUPS["Unique Sand Rabbits"]
-LOCATION_GROUPS["Total Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Total Snow Rabbits"]  | LOCATION_GROUPS["Total Mountain Rabbits"]  | LOCATION_GROUPS["Total Sand Rabbits"]
+LOCATION_GROUPS["Unique Rabbits"] = (LOCATION_GROUPS["Unique Grass Rabbits"] |
+                                     LOCATION_GROUPS["Unique Snow Rabbits"] |
+                                     LOCATION_GROUPS["Unique Ocean Rabbits"] |
+                                     LOCATION_GROUPS["Unique Mountain Rabbits"] |
+                                     LOCATION_GROUPS["Unique Sand Rabbits"])
+LOCATION_GROUPS["Total Rabbits"] = (LOCATION_GROUPS["Total Grass Rabbits"] |
+                                    LOCATION_GROUPS["Total Snow Rabbits"] |
+                                    LOCATION_GROUPS["Total Ocean Rabbits"] |
+                                    LOCATION_GROUPS["Total Mountain Rabbits"] |
+                                    LOCATION_GROUPS["Total Sand Rabbits"])
 LOCATION_GROUPS["Grass Rabbits"] = LOCATION_GROUPS["Total Grass Rabbits"] | LOCATION_GROUPS["Unique Grass Rabbits"]
 LOCATION_GROUPS["Snow Rabbits"] = LOCATION_GROUPS["Total Snow Rabbits"] | LOCATION_GROUPS["Unique Snow Rabbits"]
+LOCATION_GROUPS["Ocean Rabbits"] = LOCATION_GROUPS["Total Ocean Rabbits"] | LOCATION_GROUPS["Unique Ocean Rabbits"]
 LOCATION_GROUPS["Mountain Rabbits"] = LOCATION_GROUPS["Total Mountain Rabbits"] | LOCATION_GROUPS["Unique Mountain Rabbits"]
 LOCATION_GROUPS["Sand Rabbits"] = LOCATION_GROUPS["Total Sand Rabbits"] | LOCATION_GROUPS["Unique Sand Rabbits"]
 LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATION_GROUPS["Total Rabbits"]
