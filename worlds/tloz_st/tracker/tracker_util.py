@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING
+import dataclasses
+from typing import TYPE_CHECKING, Iterable
 from ..data.Entrances import ENTRANCES
 from ..data.Locations import LOCATIONS_DATA, LOCATION_GROUPS
 
@@ -255,6 +256,82 @@ map_lookup: dict[int, str] = {
     211: "Beedle"
 }
 
+
+
+@dataclasses.dataclass
+class Interior:
+    blocking_entrances: Iterable[str]
+    locations: Iterable[str]
+    maps: Iterable[str]
+
+
+    def hide_locations(self, active_entr: list[int], hidden_locs: dict) -> dict:
+        def check_entrances():
+            for e in self.blocking_entrances:
+                if ENTRANCES[e].id in active_entr:
+                    return True
+            return False
+
+        if check_entrances():
+            for m in self.maps:
+                hidden_locs.setdefault(m, [])
+                hidden_locs[m] += [LOCATIONS_DATA[loc]["id"] for loc in self.locations]
+        return hidden_locs
+
+interior_data = [
+    Interior(["Outset West House"], LOCATION_GROUPS["Niko"], ["Overview", "Forest Realm"]),
+    Interior(["Outset Alfonzo's Workshop"], ["Outset Ferrus Force Gem"], ["Overview", "Forest Realm"]),
+
+    Interior(["Mayscore North House"], ["Mayscore Pick Up Dovok"], ["Overview", "Forest Realm"]),
+    Interior(["Mayscore NW House"], ["Mayscore Pick Up Morris"], ["Overview", "Forest Realm"]),
+    Interior(["Mayscore Shop"], LOCATION_GROUPS["Mayscore Shop"], ["Overview", "Forest Realm"]),
+    Interior(["Mayscore North"], LOCATION_GROUPS["Mayscore Forest"], ["Overview", "Forest Realm"]),
+
+    Interior(["Castle Town Take 'em all On"], LOCATION_GROUPS["Take 'em All On"], ["Overview", "Forest Realm"]),
+    Interior(["Castle Town West House"], ["Castle Town Pick Up Mona"], ["Overview", "Forest Realm"]),
+    Interior(["Castle Town Shop"], LOCATION_GROUPS["Castle Town Shop"], ["Overview", "Forest Realm"]),
+
+    Interior(["Woodland Sanctuary Cave"], ["Woodland Sanctuary Song of Restoration"], ["Overview", "Forest Realm"]),
+
+    Interior(["Anouki Village N House"], ["Anouki Village Pair Villagers", "Anouki Village Pick Up Kofu"], ["Overview", "Snow Realm"]),
+    Interior(["Anouki Village Bomb Cave"], ["Anouki Village Bomb Cave Chest"], ["Overview", "Snow Realm"]),
+
+    Interior(["Snowfall Sanctuary Shop"], LOCATION_GROUPS["Snowfall Supermarket"], ["Overview", "Snow Realm"]),
+    Interior(["Snowfall Sanctuary Cave", "Head Statue Cave Door"], ["Snowfall Sanctuary Song of Restoration", "Snowfall Sanctuary Steem Gift With Snow Source"], ["Overview", "Snow Realm"]),
+
+    Interior(["Bridge Worker's House"], ["Bridge Worker's Home Pick Up Kenzo"], ["Overview", "Snow Realm"]),
+    Interior(["Slippery Station Cave"], LOCATION_GROUPS["Slippery Station"], ["Overview", "Snow Realm"]),
+    Interior(["Snowdrift Station Cave"], ["Snowdrift Station Puzzle Reward"], ["Overview", "Snow Realm"]),
+
+    Interior(["Trading Post Shop"], ["Trading Post Buy Shield", "Trading Post Deliver Dark Ore"], ["Overview", "Forest Realm"]),
+    Interior(["Trading Post South Cave", "Like-Like Tunnel North"], ["Trading Post Song Statue"], ["Overview", "Forest Realm"]),
+    Interior(["Trading Post South Cave", "Like-Like Tunnel North", "Trading Post Island Cave"], ["Trading Post Buried Chest"], ["Overview", "Forest Realm"]),
+
+    Interior(["Papuzia Shop"], LOCATION_GROUPS["Papuzia Shop"], ["Overview", "Ocean Realm"]),
+    Interior(["Papuzia Wise One's House"], ["Papuzia Village Buy Vessel"], ["Overview", "Ocean Realm"]),
+    Interior(["Papuzia South"], LOCATION_GROUPS["Papuzia Archipelago"], ["Overview", "Ocean Realm"]),
+
+    Interior(["Island Sanctuary South Peninsula"], ["Island Sanctuary NW Chest", "Island Sanctuary Cucco Chest", "Island Sanctuary Stamp Station"], ["Overview", "Ocean Realm"]),
+    Interior(["Island Sanctuary South Peninsula", "Island Sanctuary North Cave"], ["Island Sanctuary Song of Restoration"], ["Overview", "Ocean Realm"]),
+
+    Interior(["Lost at Sea Cave", "Lost at Sea Lobby Enter Dungeon"], LOCATION_GROUPS["LAS Dungeon"], ["Overview", "Ocean Realm"]),
+
+    Interior(["Pirate Hideout Bomb Cave"], ["Pirate Hideout Secret Cave Right Treasure", "Pirate Hideout Secret Cave Mid Treasure", "Pirate Hideout Secret Cave Left Treasure"], ["Overview", "Ocean Realm"]),
+
+    Interior(["Dune Sanctuary Secret Staircase", "Sandy Tunnel Left Entrance"], ["Dune Sanctuary Song of Restoration"], ["Overview", "Ocean Realm"]),
+
+    Interior(["Goron Village Shop"], LOCATION_GROUPS["Goron Shop"], ["Overview", "Fire Realm"]),
+    Interior(["Disorientation Station Cave"], ["Disorientation Station Maze Chest"], ["Overview", "Fire Realm"]),
+
+    Interior(["Ends of the Earth Master Cave", "EotE 1 Lower Entrance", "EotE 2 Door", "EotE 3 Door"], LOCATION_GROUPS["EotE Master"], ["Overview", "Fire Realm"]),
+    Interior(["Ends of the Earth Tempered Cave", "EotE 5 Lower Entrance", "EotE 6 Door", "EotE 7 Door"], LOCATION_GROUPS["EotE Tempered"], ["Overview", "Fire Realm"]),
+    Interior(["Ends of the Earth Golden Cave", "EotE 9 Lower Entrance", "EotE A Door", "EotE B Door"], LOCATION_GROUPS["EotE Golden"], ["Overview", "Fire Realm"]),
+
+    Interior(["Dark Ore Mine Left Cave", "Dark Ore Mine Center Cave", "Dark Ore Mine Right Cave"], LOCATION_GROUPS["Dark Ore Mine"], ["Overview", "Fire Realm"]),
+
+]
+
+
 station_section_link: dict[str, str] = {
     "Overview Castle Town": "Forest Realm Castle Town Station",
     "Overview Hyrule Castle": ["Forest Realm Castle Town Station", "Castle Town North", "Hyrule Castle Courtyard Entrance"],
@@ -466,6 +543,9 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
                 entr_hidden.setdefault("Overview", []).append(f"EVENT: {rabbit_loc}")
                 entr_hidden.setdefault(realm_lookup[LOCATIONS_DATA[rabbit_loc]["stage_id"]], []).append(f"EVENT: {rabbit_loc}")
 
+    # Hide interiors from overview
+    for data in interior_data:
+        locs_hidden = data.hide_locations(active_entrances, locs_hidden)
 
 
 

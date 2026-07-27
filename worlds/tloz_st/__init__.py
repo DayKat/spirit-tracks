@@ -223,6 +223,8 @@ class SpiritTracksWorld(WorldParent):
             self.required_boss_locs = [self.location_id_to_name[i] for i in slot_data["required_boss_locs"]]
             self.ut_pairings = slot_data["er_pairings"]
             self.tower_section_lookup = {int(k): v for k, v in slot_data["tower_section_lookup"].items()}
+            self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if
+                                          DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_boss_locs]
             self.pick_ut_events()
             self.ut_map_page_hidden_locations, self.ut_map_page_hidden_entrances = get_hidden_map_icons(self)
             self.starting_entrance = slot_data["starting_entrance"]
@@ -294,10 +296,11 @@ class SpiritTracksWorld(WorldParent):
                 self.options.starting_train.value = self.random.randint(0, 7)
             if "all" in self.options.shopsanity.value:
                 self.options.shopsanity.value = self.options.shopsanity.valid_keys
-            # print(f"Shopsanity {self.options.shopsanity.value}")
-        self.create_item_mappings()
 
-        self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_boss_locs]
+            self.non_required_dungeons = [d for d in DUNGEON_NAMES[2:] if
+                                          DUNGEON_TO_BOSS_ITEM_LOCATION[d] not in self.required_boss_locs]
+
+        self.create_item_mappings()
         # print(f"non-reqs {self.non_required_dungeons} & {self.non_required_sections}/{self.required_boss_locs}")
         if 5 in self.non_required_sections and self.options.exclude_sections:
             self.exclude_tos_5 = 1
@@ -487,6 +490,7 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Dune Sanctuary Stamp Station",
                 "EVENT: Tower of Spirits Summit Stamp Station"
             ]
+            print(f"non-required dungeons: {self.non_required_dungeons}")
             events += [event for dungeon, event in zip(DUNGEON_NAMES[2:], [
                 "EVENT: Wooded Temple Stamp Station",
                 "EVENT: Blizzard Temple Stamp Station",
