@@ -319,6 +319,10 @@ class SpiritTracksClient(DSZeldaClient):
 
     # Utility
 
+    @staticmethod
+    def in_game_comparison(in_game):
+        return not in_game
+
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
 
@@ -1468,7 +1472,7 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        if read_result[STAddr.menu] and stage >= 0x13:
+        if (read_result[STAddr.menu] and stage >= 0x13):
             return
         dead_health = 0
         if stage < 0x13:  # deaths work badly on train
@@ -1605,8 +1609,12 @@ class SpiritTracksClient(DSZeldaClient):
                     or (data["dungeon"] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2)):
                 if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
                     printl(f"Opening boss door for {hex(current_scene)}")
-                    if await data["door"].read(ctx) != 0x5:
-                        await data["door"].overwrite(ctx, 3)
+                    await STAddr.map_object_table.load(ctx)
+                    door_addr = Address.from_pointer(STAddr.map_object_table + 8, size=3)
+                    door_obj = await door_addr.read(ctx)
+                    door_opener = Address.from_pointer(door_obj + 5*4 + 2)
+                    if await door_opener.read(ctx) != 0x5:
+                        await door_opener.overwrite(ctx, 3)
                 elif any([
                     current_scene == 0x1309 and self.location_name_to_id["ToS 10F Boss Key"] in ctx.checked_locations,
                     current_scene == 0x1318 and self.location_name_to_id["ToS 22F Boss Key"] in ctx.checked_locations
