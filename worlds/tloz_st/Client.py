@@ -790,27 +790,7 @@ class SpiritTracksClient(DSZeldaClient):
                                  respawn_data)
 
         # Set key watches
-        if self.current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
-            actor_table = await self.get_actor_table(ctx)
-            data = BOSS_KEY_DATA[self.current_scene]
-            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
-                printl(f"Has found location {data['location']}, deleting boss key")
-                await self.delete_boss_key(ctx)
-            else:
-                if "search_data" in data:
-                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], actor_table, return_index=True, reverse=False)
-                    self.oct_bk_offset = offset
-                    printl(f"Found bk in actor loop: {pointer} {offset}")
-                else:
-                    pointer = await actor_table.read(ctx)
-
-                if pointer and pointer < 0x400000:
-                    printl(f"Found Boss Key object: {hex_f(pointer)}")
-                    offset = 12 if self.current_stage == 0x1c else 8
-                    self.boss_key_read = Address.from_pointer(pointer + offset, size=4)
-                    self.boss_key_y = data["y"]
-                    printl(f"BK Read: {self.boss_key_read}")
-                printl(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
+        await self.load_boss_key_watch(ctx)
 
         # Set up snurglar reads
         if self.current_scene == 0x700:
@@ -1597,31 +1577,69 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def open_boss_door(self, ctx):
         current_scene = self.current_scene
-        if current_scene in BOSS_KEY_DATA and (
-                ctx.slot_data.get("randomize_boss_keys", 0)
-                or (BOSS_KEY_DATA[self.current_scene]["dungeon"] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2)
+        if current_scene not in BOSS_KEY_DATA:
+            return
+        data = BOSS_KEY_DATA[self.current_scene]
+        if (ctx.slot_data.get("randomize_boss_keys", 0)
+            or (ctx.slot_data["exclude_dungeons"] == 2 and data["dungeon"] in ctx.slot_data["non_required_dungeons"])
+            or (ctx.slot_data["exclude_sections"] == 2 and data.get("section", 0) in ctx.slot_data["non_required_sections"])
         ):
-            data = BOSS_KEY_DATA[self.current_scene]
 
-            # Open boss door
-            if (self.item_count(ctx, f"Boss Key ({data['dungeon']})")
-                    or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"])
-                    or (data["dungeon"] in ctx.slot_data["non_required_dungeons"] and ctx.slot_data["exclude_dungeons"] == 2)):
-                if current_scene & 0xff00 != 0x1300:  # or self.location_name_to_id[data["location"]] in ctx.checked_locations:
-                    printl(f"Opening boss door for {hex(current_scene)}")
-                    await STAddr.map_object_table.load(ctx)
-                    door_addr = Address.from_pointer(STAddr.map_object_table + 8, size=3)
-                    door_obj = await door_addr.read(ctx)
-                    door_opener = Address.from_pointer(door_obj + 5*4 + 2)
-                    if await door_opener.read(ctx) != 0x5:
-                        await door_opener.overwrite(ctx, 3)
-                elif any([
-                    current_scene == 0x1309 and self.location_name_to_id["ToS 10F Boss Key"] in ctx.checked_locations,
-                    current_scene == 0x1318 and self.location_name_to_id["ToS 22F Boss Key"] in ctx.checked_locations
-                ]):
-                    await self.open_tos_boss_door(ctx, current_scene)
-        else:
-            self.boss_key_y, self.boss_key_read = None, None
+            has_key = (
+                    self.item_count(ctx, f"Boss Key ({data['dungeon']})")
+                    or (self.item_count(ctx, f"Keyring ({data['dungeon']})") and ctx.slot_data["big_keyrings"]))
+
+            printl(f"Checking boss door: {has_key}")
+            # Check has boss key
+            if (
+                (  # Normal Dungeons
+                    current_scene & 0xff00 != 0x1300 and (
+                        has_key or (ctx.slot_data["exclude_dungeons"] == 2 and data["dungeon"] in ctx.slot_data["non_required_dungeons"])
+                    )
+                ) or (  # ToS
+                    current_scene & 0xff00 == 0x1300 and (
+                        (  # ToS excluded
+                            ctx.slot_data["exclude_sections"] == 2 and data.get("section", 0) in ctx.slot_data["non_required_sections"]
+                        ) or ( # Tos with key needs key location to open door
+                            has_key and (
+                                (current_scene == 0x1309 and self.location_name_to_id["ToS 10F Boss Key"] in ctx.checked_locations)
+                                or (current_scene == 0x1318 and self.location_name_to_id["ToS 22F Boss Key"] in ctx.checked_locations)
+                            )
+                        )
+                    )
+                )
+            ):
+                # Open boss door
+                printl(f"Opening boss door for {hex(current_scene)}")
+                await STAddr.map_object_table.load(ctx)
+                door_obj = await self.find_table_object(ctx, 64, 1, data["door_coords"],
+                                                        12, STAddr.map_object_table, reverse=False)
+                door_opener = Address.from_pointer(door_obj + 5 * 4 + 2)
+                if await door_opener.read(ctx) != 0x5:
+                    await door_opener.overwrite(ctx, 3)
+
+    async def load_boss_key_watch(self, ctx):
+        if self.current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
+            actor_table = await self.get_actor_table(ctx)
+            data = BOSS_KEY_DATA[self.current_scene]
+            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
+                printl(f"Has found location {data['location']}, deleting boss key")
+                await self.delete_boss_key(ctx)
+            else:
+                if "search_data" in data:
+                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], actor_table, return_index=True, reverse=False)
+                    self.oct_bk_offset = offset
+                    printl(f"Found bk in actor loop: {pointer} {offset}")
+                else:
+                    pointer = await actor_table.read(ctx)
+
+                if pointer and pointer < 0x400000:
+                    printl(f"Found Boss Key object: {hex_f(pointer)}")
+                    offset = 12 if self.current_stage == 0x1c else 8
+                    self.boss_key_read = Address.from_pointer(pointer + offset, size=4)
+                    self.boss_key_y = data["y"]
+                    printl(f"BK Read: {self.boss_key_read}")
+                printl(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
 
     async def get_tos_bk_pointer(self, ctx) -> tuple[Address, int]:
         actor_table = await self.get_actor_table(ctx)
@@ -1630,29 +1648,6 @@ class SpiritTracksClient(DSZeldaClient):
         pointer = await pointer_addr.read(ctx)
         printl(f"BK pointer from table read: {pointer_addr} -> {hex(pointer)} actor table: {actor_table}")
         return pointer_addr, pointer
-
-    @staticmethod
-    async def open_tos_boss_door(ctx, scene):
-        printl(f"Opening ToS boss door")
-        door_coords = BOSS_KEY_DATA[scene].get("door_coords", 0)
-        if not door_coords:
-            return
-        pointer = await STAddr.tos_boss_door_pointer.read(ctx)
-        object_pointer_table = await Address.from_pointer(pointer - 0x2000000, size=128).read(ctx, silent=True)
-        test_pointer = 0
-        for i in range(32):
-            test_pointer = (object_pointer_table & (0xFFFFFF << 32*i)) >> 32*i
-            # printl(f"Test Pointer {hex(test_pointer)}")
-            if not test_pointer:
-                continue
-            coords = await Address.from_pointer(test_pointer+4, size=12).read(ctx, silent=True)
-            # printl(f"Coords: {hex(coords)}")
-            if coords == BOSS_KEY_DATA[scene].get("door_coords", 0):
-                break
-
-        boss_door = Address.from_pointer(test_pointer + 22)
-        if await boss_door.read(ctx) != 5:
-            await boss_door.overwrite(ctx, 3)
 
     async def detect_boss_key(self, ctx):
         """Called each cycle while in a boss key room to detect a change in boss key position"""

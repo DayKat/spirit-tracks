@@ -2087,6 +2087,7 @@ class SpiritTracksWorld(WorldParent):
         slot_data["model_lookup"] = self.get_location_models()
         slot_data["exclude_tos_5"] = self.exclude_tos_5
         slot_data["non_required_dungeons"] = self.non_required_dungeons
+        slot_data["non_required_sections"] = self.non_required_sections
         slot_data["starting_entrance"] = self.starting_entrance
         pairings = {}
         if self.er_placement_state:

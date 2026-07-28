@@ -129,6 +129,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_entrance": [0],
         "reset_flags": ["RESET Add Ocean source", "RESET Remove Ocean source"]
     },
+    "Reset cactops room": {
+        "on_scenes": [0x2000],
+        "not_on_entrance": [0],
+        "reset_flags": ["RESET Add Ocean source", "RESET Remove Ocean source"]
+    },
     "Cragma/Vulcano location": {
         "on_scenes": [0x2100],
         "not_has_locations": ["Vulcano Boss Reward"],

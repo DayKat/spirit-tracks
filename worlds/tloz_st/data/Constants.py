@@ -574,60 +574,53 @@ DUNGEON_KEY_DATA = {
 BOSS_KEY_DATA = {
     0x1902: {
         "y": 4915,
-        "pointer": STAddr.wt_bk_pointer,
         "location": "Wooded Temple 3F Boss Key",
-        "door": STAddr.wt_boss_door,
+        "door_coords": 0x00000FFC00000000FFFFFFFC,
         "dungeon": "Wooded Temple"
     },
     0x1a02: {
         "y": 0,
-        "pointer": STAddr.bt_bk_pointer,
         "location": "Blizzard Temple 2F Boss Key",
-        "door": STAddr.bt_boss_door,
+        "door_coords": 0x00002FFC00000000FFFFDFFC,
         "dungeon": "Blizzard Temple"
     },
     0x1b05: {
         "y": 0,
-        # "pointer": STAddr.oct_bk_pointer,
         "location": "Marine Temple 6F Boss Key",
-        "door": STAddr.oct_boss_door,
+        "door_coords": 0xFFFFAFFC00002666FFFFFFFC,
         "dungeon": "Marine Temple",
         "search_data": [16, 3, 59392, 4],
         # "deletion_data": (8, 0)  # size, offset
     },
     0x1c04: {
         "y": -48000,
-        "pointer": STAddr.mtt_bk_pointer,
         "location": "Mountain Temple B3 Boss Key",
-        "door": STAddr.mtt_boss_door,
+        "door_coords": 0xFFFF0FFC00001333FFFFFFFC,
         "dungeon": "Mountain Temple",
         "search_data": [16, 1, 0xD800, 4],
         "deletion_data": (4, 64)
     },
     0x1d03: {
         "y": -2867,
-        "pointer": STAddr.dt_bk_pointer,
         "location": "Desert Temple B1 Boss Key",
-        "door": STAddr.dt_boss_door,
+        "door_coords": 0xFFFFCFFC0000000000003FFC,
         "dungeon": "Desert Temple",
         "search_data": [16, 1, 0xFFFED800, 4],
         "deletion_data": (4, 8)
     },
     0x1309: {
         "y": 0,
-        # "pointer": STAddr.tos_actor_table_pointer_0,
         "location": "ToS 10F Boss Key",
-        "door": STAddr.tos3_boss_door,
         "dungeon": "ToS 3",
+        "section": 3,
         "door_coords": 0xffff2ffc00000000fffffffc,
         "deletion_data": (4, 0)
     },
     0x1318: {
         "y": 0,
-        # "pointer": STAddr.tos_actor_table_pointer_0,
         "location": "ToS 22F Boss Key",
-        "door": STAddr.tos5_boss_door,
         "dungeon": "ToS 5",
+        "section": 5,
         "door_coords": 0x4ffc000000000000affc,
         "deletion_data": (4, 0)
     },
