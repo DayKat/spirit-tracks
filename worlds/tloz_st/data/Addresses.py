@@ -42,7 +42,7 @@ class STAddr:
     # Version safe loaders
     map_object_table = DoubleAddressLoader(gMapObjectManager, 3)
     actor_table = DoubleAddressLoader(gActorManager, 3)
-    adv_flags_0 = AddressLoader(gAdventureFlags, size=0, load_offset=0x14)
+    adv_flags_0 = AddressLoader(gAdventureFlags, size=1, load_offset=0x14)
 
     # async def load_adv_flags(self, ctx):
     #     print(f"Loading adventure flags")
