@@ -28,7 +28,7 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
-read_keys_train = [STAddr.train_health]
+read_keys_train = [STAddr.train_health, STAddr.rabbit_blocker]
 
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
@@ -339,9 +339,9 @@ class SpiritTracksClient(DSZeldaClient):
 
     # Utility
 
-    @staticmethod
-    def in_game_comparison(in_game):
-        return not in_game
+    # @staticmethod
+    # def in_game_comparison(in_game):
+    #     return in_game
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -573,6 +573,12 @@ class SpiritTracksClient(DSZeldaClient):
         await self.get_saved_scene(ctx, saved_scene_key)
 
     async def watched_intro_cs(self, ctx):
+        if not STAddr.adv_flags_1:
+            s = STAddr.watched_intro
+            print(s)
+            await load_adv_flags(ctx)
+            print(f"intr addr: {STAddr.watched_intro}")
+
         watched_intro = await STAddr.watched_intro.read(ctx, silent=True) & 1
         if not watched_intro and await STAddr.fade_timer.read(ctx, silent=True) < 0xffff:
             self.precision_mode = [STAddr.stage, 0x79, "wts"]
@@ -595,7 +601,6 @@ class SpiritTracksClient(DSZeldaClient):
         return res
 
     async def enter_game(self, ctx):
-        await load_adv_flags(ctx)
         starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
         self.starting_entrance = starting_entr.entrance
         self.safe_respawn_rooms = safe_respawn_rooms + [starting_entr.scene]
@@ -821,6 +826,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.snurglar_addr = None
 
     async def process_in_game(self, ctx, read_result: dict):
+        if self.current_stage <= 7 and read_result[STAddr.rabbit_blocker]:
+            return
+
         await super().process_in_game(ctx, read_result)
         # Detect stamp stand locations
         if self.in_stamp_stand and not self.receiving_location:

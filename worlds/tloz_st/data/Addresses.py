@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from ..DSZeldaClient.subclasses import Address, AddressLoader ,DoubleAddressLoader
 
 addr_null = Address(0)
@@ -7,19 +9,25 @@ async def load_adv_flags(ctx):
     print(f"Loading adventure flags")
     await STAddr.adv_flags_0.load(ctx)
     for i in range(1, 0x5c):
-        setattr(STAddr, f"adv_flags_{hex(i)[2:]}", Address.from_pointer(STAddr.adv_flags_0 + i))
+        getattr(STAddr, f"adv_flags_{hex(i)[2:]}").set_addr(STAddr.adv_flags_0 + i)
 
-    STAddr.sources = STAddr.adv_flags_0
-    STAddr.restorations = STAddr.adv_flags_1
-    STAddr.glyphs = STAddr.adv_flags_2
-    STAddr.activate_portals = STAddr.adv_flags_30
+    #     print(f"{getattr(STAddr, f'adv_flags_{hex(i)[2:]}')}")
+    # print(f"{STAddr.adv_flags_30}")
 
-    STAddr.key_storage_0 = Address.from_pointer(STAddr.adv_flags_0 + 0x70)
-    STAddr.key_storage_tos = Address.from_pointer(STAddr.adv_flags_0 + 0x71)
-    STAddr.key_storage_2 = STAddr.set_starting_train = Address.from_pointer(STAddr.adv_flags_0 + 0x72)
+    STAddr.sources.set_addr(STAddr.adv_flags_0.addr)
+    STAddr.restorations.set_addr(STAddr.adv_flags_1.addr)
+    STAddr.glyphs.set_addr(STAddr.adv_flags_2.addr)
+    STAddr.activate_portals.set_addr(STAddr.adv_flags_30.addr)
 
+    STAddr.watched_intro.set_addr(STAddr.adv_flags_12.addr)
+
+    STAddr.key_storage_0.set_addr(STAddr.adv_flags_0 + 0x70)
+    STAddr.key_storage_tos.set_addr(STAddr.adv_flags_0 + 0x71)
+    STAddr.key_storage_2.set_addr(STAddr.adv_flags_0 + 0x72)
+
+@dataclass
 class STAddr:
-    
+    print(f"Initializing STAddr")
     null = addr_null
     
     # Rom identification
@@ -27,7 +35,7 @@ class STAddr:
     game_version = Address(0x1E, 0x1E, 1, "ROM")
 
     # DTCM stuff
-    gAdventureFlags = Address(0x09b8, size=4, domain="Data TCM")
+    gAdventureFlags = Address(0x09b8, size=3, domain="Data TCM")
     gMapObjectManager = Address(0x0CE8, size=3, domain="Data TCM")
     gActorManager = Address(0x0ce4, size=3, domain="Data TCM")
 
@@ -53,8 +61,8 @@ class STAddr:
 
 
     # Fundamentals
-    # game_state = Address(0x060C48)
-    game_state = Address(0x2609DF)
+    game_state = Address(0x060C48)
+    rabbit_blocker = Address(0x2609DF)
     # game_state = Address(0x260867)
     loading_room = Address(0x0c2FF0)
     mid_load = Address(0x265190)
@@ -107,7 +115,7 @@ class STAddr:
     stage_flag_pointer = Address(0x265164, size=4)
     mobj_table_pointer = Address(0x0499DC, size=3)
     
-    watched_intro = Address(0x265726)
+    watched_intro = Address(0) # Address(0x265726)
 
     train_speed_fast = Address(0x136004, size=4)  # 0xc1 193
     train_speed_med = Address(0x135FFC, size=4)   # 0x73 115
@@ -153,9 +161,9 @@ class STAddr:
     tracks_1 = Address(0x2653B5)
     tracks_2 = Address(0x2653B6)
     source_rails = Address(0x2653B8)
-    key_storage_0 = addr_null # Address(0x265784)
-    key_storage_tos = addr_null # Address(0x265785)
-    key_storage_2 = set_starting_train = addr_null # Address(0x265786)
+    key_storage_0 = Address(0) # Address(0x265784)
+    key_storage_tos = Address(0) # Address(0x265785)
+    key_storage_2 = set_starting_train = Address(0) # Address(0x265786)
 
     train_parts = Address(0x2653A8, size=4)
     equipped_engine = Address(0x265388, size=4)
@@ -203,102 +211,102 @@ class STAddr:
 
     # Adventure Flags
     # adv_flags_0: "Address"
-    adv_flags_1: "Address" = addr_null
-    adv_flags_2: "Address" = addr_null
-    adv_flags_3: "Address" = addr_null
-    adv_flags_4: "Address" = addr_null
-    adv_flags_5: "Address" = addr_null
-    adv_flags_6: "Address" = addr_null
-    adv_flags_7: "Address" = addr_null
-    adv_flags_8: "Address" = addr_null
-    adv_flags_9: "Address" = addr_null
-    adv_flags_a: "Address" = addr_null
-    adv_flags_b: "Address" = addr_null
-    adv_flags_c: "Address" = addr_null
-    adv_flags_d: "Address" = addr_null
-    adv_flags_e: "Address" = addr_null
-    adv_flags_f: "Address" = addr_null
-    adv_flags_10: "Address" = addr_null
-    adv_flags_11: "Address" = addr_null
-    adv_flags_12: "Address" = addr_null
-    adv_flags_13: "Address" = addr_null
-    adv_flags_14: "Address" = addr_null
-    adv_flags_15: "Address" = addr_null
-    adv_flags_16: "Address" = addr_null
-    adv_flags_17: "Address" = addr_null
-    adv_flags_18: "Address" = addr_null
-    adv_flags_19: "Address" = addr_null
-    adv_flags_1a: "Address" = addr_null
-    adv_flags_1b: "Address" = addr_null
-    adv_flags_1c: "Address" = addr_null
-    adv_flags_1d: "Address" = addr_null
-    adv_flags_1e: "Address" = addr_null
-    adv_flags_1f: "Address" = addr_null
-    adv_flags_20: "Address" = addr_null
-    adv_flags_21: "Address" = addr_null
-    adv_flags_22: "Address" = addr_null
-    adv_flags_23: "Address" = addr_null
-    adv_flags_24: "Address" = addr_null
-    adv_flags_25: "Address" = addr_null
-    adv_flags_26: "Address" = addr_null
-    adv_flags_27: "Address" = addr_null
-    adv_flags_28: "Address" = addr_null
-    adv_flags_29: "Address" = addr_null
-    adv_flags_2a: "Address" = addr_null
-    adv_flags_2b: "Address" = addr_null
-    adv_flags_2c: "Address" = addr_null
-    adv_flags_2d: "Address" = addr_null
-    adv_flags_2e: "Address" = addr_null
-    adv_flags_2f: "Address" = addr_null
-    adv_flags_30: "Address" = addr_null
-    adv_flags_31: "Address" = addr_null
-    adv_flags_32: "Address" = addr_null
-    adv_flags_33: "Address" = addr_null
-    adv_flags_34: "Address" = addr_null
-    adv_flags_35: "Address" = addr_null
-    adv_flags_36: "Address" = addr_null
-    adv_flags_37: "Address" = addr_null
-    adv_flags_38: "Address" = addr_null
-    adv_flags_39: "Address" = addr_null
-    adv_flags_3a: "Address" = addr_null
-    adv_flags_3b: "Address" = addr_null
-    adv_flags_3c: "Address" = addr_null
-    adv_flags_3d: "Address" = addr_null
-    adv_flags_3e: "Address" = addr_null
-    adv_flags_3f: "Address" = addr_null
-    adv_flags_40: "Address" = addr_null
-    adv_flags_41: "Address" = addr_null
-    adv_flags_42: "Address" = addr_null
-    adv_flags_43: "Address" = addr_null
-    adv_flags_44: "Address" = addr_null
-    adv_flags_45: "Address" = addr_null
-    adv_flags_46: "Address" = addr_null
-    adv_flags_47: "Address" = addr_null
-    adv_flags_48: "Address" = addr_null
-    adv_flags_49: "Address" = addr_null
-    adv_flags_4a: "Address" = addr_null
-    adv_flags_4b: "Address" = addr_null
-    adv_flags_4c: "Address" = addr_null
-    adv_flags_4d: "Address" = addr_null
-    adv_flags_4e: "Address" = addr_null
-    adv_flags_4f: "Address" = addr_null
-    adv_flags_50: "Address" = addr_null
-    adv_flags_51: "Address" = addr_null
-    adv_flags_52: "Address" = addr_null
-    adv_flags_53: "Address" = addr_null
-    adv_flags_54: "Address" = addr_null
-    adv_flags_55: "Address" = addr_null
-    adv_flags_56: "Address" = addr_null
-    adv_flags_57: "Address" = addr_null
-    adv_flags_58: "Address" = addr_null
-    adv_flags_59: "Address" = addr_null
-    adv_flags_5a: "Address" = addr_null
-    adv_flags_5b: "Address" = addr_null
+    adv_flags_1: "Address" = Address(0)
+    adv_flags_2: "Address" = Address(0)
+    adv_flags_3: "Address" = Address(0)
+    adv_flags_4: "Address" = Address(0)
+    adv_flags_5: "Address" = Address(0)
+    adv_flags_6: "Address" = Address(0)
+    adv_flags_7: "Address" = Address(0)
+    adv_flags_8: "Address" = Address(0)
+    adv_flags_9: "Address" = Address(0)
+    adv_flags_a: "Address" = Address(0)
+    adv_flags_b: "Address" = Address(0)
+    adv_flags_c: "Address" = Address(0)
+    adv_flags_d: "Address" = Address(0)
+    adv_flags_e: "Address" = Address(0)
+    adv_flags_f: "Address" = Address(0)
+    adv_flags_10: "Address" = Address(0)
+    adv_flags_11: "Address" = Address(0)
+    adv_flags_12: "Address" = Address(0)
+    adv_flags_13: "Address" = Address(0)
+    adv_flags_14: "Address" = Address(0)
+    adv_flags_15: "Address" = Address(0)
+    adv_flags_16: "Address" = Address(0)
+    adv_flags_17: "Address" = Address(0)
+    adv_flags_18: "Address" = Address(0)
+    adv_flags_19: "Address" = Address(0)
+    adv_flags_1a: "Address" = Address(0)
+    adv_flags_1b: "Address" = Address(0)
+    adv_flags_1c: "Address" = Address(0)
+    adv_flags_1d: "Address" = Address(0)
+    adv_flags_1e: "Address" = Address(0)
+    adv_flags_1f: "Address" = Address(0)
+    adv_flags_20: "Address" = Address(0)
+    adv_flags_21: "Address" = Address(0)
+    adv_flags_22: "Address" = Address(0)
+    adv_flags_23: "Address" = Address(0)
+    adv_flags_24: "Address" = Address(0)
+    adv_flags_25: "Address" = Address(0)
+    adv_flags_26: "Address" = Address(0)
+    adv_flags_27: "Address" = Address(0)
+    adv_flags_28: "Address" = Address(0)
+    adv_flags_29: "Address" = Address(0)
+    adv_flags_2a: "Address" = Address(0)
+    adv_flags_2b: "Address" = Address(0)
+    adv_flags_2c: "Address" = Address(0)
+    adv_flags_2d: "Address" = Address(0)
+    adv_flags_2e: "Address" = Address(0)
+    adv_flags_2f: "Address" = Address(0)
+    adv_flags_30: "Address" = Address(0)
+    adv_flags_31: "Address" = Address(0)
+    adv_flags_32: "Address" = Address(0)
+    adv_flags_33: "Address" = Address(0)
+    adv_flags_34: "Address" = Address(0)
+    adv_flags_35: "Address" = Address(0)
+    adv_flags_36: "Address" = Address(0)
+    adv_flags_37: "Address" = Address(0)
+    adv_flags_38: "Address" = Address(0)
+    adv_flags_39: "Address" = Address(0)
+    adv_flags_3a: "Address" = Address(0)
+    adv_flags_3b: "Address" = Address(0)
+    adv_flags_3c: "Address" = Address(0)
+    adv_flags_3d: "Address" = Address(0)
+    adv_flags_3e: "Address" = Address(0)
+    adv_flags_3f: "Address" = Address(0)
+    adv_flags_40: "Address" = Address(0)
+    adv_flags_41: "Address" = Address(0)
+    adv_flags_42: "Address" = Address(0)
+    adv_flags_43: "Address" = Address(0)
+    adv_flags_44: "Address" = Address(0)
+    adv_flags_45: "Address" = Address(0)
+    adv_flags_46: "Address" = Address(0)
+    adv_flags_47: "Address" = Address(0)
+    adv_flags_48: "Address" = Address(0)
+    adv_flags_49: "Address" = Address(0)
+    adv_flags_4a: "Address" = Address(0)
+    adv_flags_4b: "Address" = Address(0)
+    adv_flags_4c: "Address" = Address(0)
+    adv_flags_4d: "Address" = Address(0)
+    adv_flags_4e: "Address" = Address(0)
+    adv_flags_4f: "Address" = Address(0)
+    adv_flags_50: "Address" = Address(0)
+    adv_flags_51: "Address" = Address(0)
+    adv_flags_52: "Address" = Address(0)
+    adv_flags_53: "Address" = Address(0)
+    adv_flags_54: "Address" = Address(0)
+    adv_flags_55: "Address" = Address(0)
+    adv_flags_56: "Address" = Address(0)
+    adv_flags_57: "Address" = Address(0)
+    adv_flags_58: "Address" = Address(0)
+    adv_flags_59: "Address" = Address(0)
+    adv_flags_5a: "Address" = Address(0)
+    adv_flags_5b: "Address" = Address(0)
 
-    sources: "Address" = addr_null
-    glyphs: "Address" = addr_null
-    restorations: "Address" = addr_null
-    activate_portals: "Address" = addr_null
+    sources: "Address" = Address(0)
+    glyphs: "Address" = Address(0)
+    restorations: "Address" = Address(0)
+    activate_portals: "Address" = Address(0)
     
     # Treasure
     all_treasure_count = Address(0x269000, size=32)
