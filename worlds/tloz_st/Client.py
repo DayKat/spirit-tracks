@@ -233,7 +233,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.train_quick_station: bool = True
         self.update_train_speed: bool = False
         self.train_speed = [-143, 0, 115, 193]
-        self.has_set_starting_train: bool = False
+        self.set_train_in_overworld: int = 2
 
         self.key_address = STAddr.small_keys
         self.hint_data = HINT_DATA
@@ -242,7 +242,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.save_ammo = None
         self.drinking_potion = False
         self.addr_drinking_potion = None
-        self.set_train_in_overworld: bool = False
+
 
         self.boss_key_y = None
         self.boss_key_read = None
@@ -772,6 +772,9 @@ class SpiritTracksClient(DSZeldaClient):
                     event_entr = ENTRANCES[warp_data.event]
                     await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
 
+        if current_scene == 0x2F0C and ctx.slot_data["starting_train"] == -1:
+            self.set_train_in_overworld: int = 0
+
         # Validate locations
         await self.validate_location_processing(ctx)
 
@@ -923,7 +926,7 @@ class SpiritTracksClient(DSZeldaClient):
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
 
         if item_name in ["Cannon", "Wagon"] and ctx.slot_data["starting_train"] != -1:
-            self.set_train_in_overworld = True
+            self.set_train_in_overworld = 2
             await self.set_starting_train(ctx)
 
         if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup and item_name in ITEM_GROUPS["Ammo Items"]:
@@ -1523,7 +1526,7 @@ class SpiritTracksClient(DSZeldaClient):
             await stage_flag_address.set_bits(ctx, self.stage_flags[stage])
         if self.set_train_in_overworld and stage <= 0xA:
             await self.set_starting_train(ctx)
-            self.set_train_in_overworld = False
+            self.set_train_in_overworld -= 1
 
     def update_stage_flag(self, stage: int, new: list[int]):
         print(f"Updating Stage Flags: {hex_f(stage)} {hex_f(new)}")
