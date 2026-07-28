@@ -359,9 +359,8 @@ class SpiritTracksClient(DSZeldaClient):
 
     @staticmethod
     async def get_actor_table(ctx):
-        actor_manager = await STAddr.actor_manager.read(ctx)
-        actor_table = await Address.from_pointer(actor_manager, size=3).read(ctx)
-        return Address.from_pointer(actor_table, size=3)
+        await STAddr.actor_table.load(ctx)
+        return STAddr.actor_table
 
     async def has_special_dynamic_requirements(self, ctx: "BizHawkClientContext", data) -> bool:
         def check_dungeon_reqs():
@@ -574,6 +573,7 @@ class SpiritTracksClient(DSZeldaClient):
         return res
 
     async def enter_game(self, ctx):
+        await load_adv_flags(STAddr, ctx)
         starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
         self.starting_entrance = starting_entr.entrance
         self.safe_respawn_rooms = safe_respawn_rooms + [starting_entr.scene]
@@ -902,13 +902,7 @@ class SpiritTracksClient(DSZeldaClient):
         if (item_name.startswith("Boss Key") or
             (item_name.startswith("Keyring") and ctx.slot_data["big_keyrings"])
         ) and self.current_scene in BOSS_KEY_DATA:
-            if self.current_stage == 0x13:
-                await self.open_tos_boss_door(ctx, self.current_scene)
-            else:
-                data = BOSS_KEY_DATA[self.current_scene]
-                if data["dungeon"] in item_name and (self.current_scene & 0xff00 != 0x1300 or self.location_name_to_id[data["location"]] in ctx.checked_locations):
-                    printl(f"Opening boss door for {hex(self.current_scene)}")
-                    await data["door"].overwrite(ctx, 3)
+            await self.open_boss_door(ctx)
 
         # Complex blocked scenes for sources in boss rooms
         if (self.current_scene in BOSS_ROOM_TO_BLOCKED_ITEM_GROUP and
@@ -1353,10 +1347,8 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_tears(ctx)
 
         if self.current_scene in [0x1309, 0x1318] and isinstance(location.get("vanilla_item", ""), str) and location.get("vanilla_item", "").startswith("Boss Key"):
-            section = {0x1309: 3, 0x1318: 5}[self.current_scene]
-            if self.item_count(ctx, f"Boss Key (ToS {section})") or (self.item_count(ctx, f"Keyring (ToS {section})") and ctx.slot_data["big_keyrings"]):
-                printl("Opening ToS boss door after having key and getting boss key location")
-                await self.open_tos_boss_door(ctx, self.current_scene)
+            printl("Opening ToS boss door after having key and getting boss key location")
+            await self.open_boss_door(ctx)
 
         if self.snurglar_addr and location["name"] in LOCATION_GROUPS["Snurglars"]:
             await self.snurglar_addr.unset_bits(ctx, 0x0F)
