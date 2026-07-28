@@ -1,4 +1,4 @@
-import dataclasses
+from dataclasses import dataclass
 from typing import TYPE_CHECKING, Iterable
 from ..data.Entrances import ENTRANCES
 from ..data.Locations import LOCATIONS_DATA, LOCATION_GROUPS
@@ -258,7 +258,7 @@ map_lookup: dict[int, str] = {
 
 
 
-@dataclasses.dataclass
+@dataclass
 class Interior:
     blocking_entrances: Iterable[str]
     locations: Iterable[str]
@@ -277,6 +277,25 @@ class Interior:
                 hidden_locs.setdefault(m, [])
                 hidden_locs[m] += [LOCATIONS_DATA[loc]["id"] for loc in self.locations]
         return hidden_locs
+
+@dataclass
+class Enterior:
+    blocking_entrances: Iterable[str]
+    entrances: Iterable[str]
+    maps: Iterable[str]
+
+    def hide_entrances(self, active_entr: list[int], hidden_entrances: dict) -> dict:
+        def check_entrances():
+            for e in self.blocking_entrances:
+                if ENTRANCES[e].id in active_entr:
+                    return True
+            return False
+
+        if check_entrances():
+            for m in self.maps:
+                hidden_entrances.setdefault(m, [])
+                hidden_entrances[m] += list(self.entrances)
+        return hidden_entrances
 
 interior_data = [
     Interior(["Outset West House"], LOCATION_GROUPS["Niko"], ["Overview", "Forest Realm"]),
@@ -331,6 +350,43 @@ interior_data = [
 
 ]
 
+enterior_data: list["Enterior"] = [
+    Enterior(["Forest Realm Outset Station"], [
+        "EVENT: Outset Stamp Station", "EVENT: Bring Ferrus to Outset"
+    ], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Mayscore Station", "Mayscore North"], ["EVENT: Mayscore Forest Stamp Station"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Castle Town Station"], ["EVENT: Castle Town Stamp Station"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Woodland Sanctuary Station"], ["EVENT: Woodland Sanctuary Stamp Station"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Trading Post Station", "Trading Post South Cave"], ["EVENT: Trading Post Tunnel Stamp Station"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Wooded Temple Station", "Wooded Temple Lobby Enter Dungeon"], ["EVENT: Wooded Temple Stamp Station"], ["Overview", "Forest Realm"]),
+
+    Enterior(["Snow Realm Anouki Village Station"], ["EVENT: Anouki Village Stamp Station"], ["Overview", "Snow Realm"]),
+    Enterior(["Snow Realm Snowfall Sanctuary Station"], ["EVENT: Snowfall Sanctuary Stamp Station"], ["Overview", "Snow Realm"]),
+    Enterior(["Snow Realm Icy Spring Station"], ["EVENT: Icy Spring Stamp Station"], ["Overview", "Snow Realm"]),
+    Enterior(["Snow Realm Blizzard Temple Station", "Blizzard Temple Lobby Enter Dungeon",
+              "Blizzard Temple 1F South Entrance", "Blizzard Temple 1F Main SW", "Blizzard Temple 1F SW Staircase"
+              ], ["EVENT: Blizzard Temple Stamp Station",], ["Overview", "Snow Realm"]),
+
+    Enterior(["Ocean Realm Pirate Hideout Station"], ["EVENT: Pirate Hideout Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Island Sanctuary Station", "Island Sanctuary South Peninsula"],
+             ["EVENT: Island Sanctuary Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Undersea Marine Temple Station", "Ocean Realm Dive Underwater",
+                "Marine Temple Lobby Enter Dungeon", "Marine Temple 1F North Staircase", "Marine Temple 2F Left Bomb Cave"
+              ], ["EVENT: Marine Temple Stamp Station"], ["Overview", "Ocean Realm"]),
+
+    Enterior(["Fire Realm Goron Village Station", "Goron Village West"], ["EVENT: Goron Field Stamp Station"], ["Overview", "Fire Realm"]),
+    Enterior(["Fire Realm Goron Village Station", "Goron Village Enclave North",
+              "Goron Village Elder's House", "Elder Goron House Cave", "Burning Tunnel East Staircase"
+              ], ["EVENT: Valley Sanctuary Stamp Station"], ["Overview", "Fire Realm"]),
+    Enterior(["Fire Realm Mountain Temple Station", "Mountain Temple Lobby Enter Dungeon",
+                "Mountain Temple 1F Central Staircase", "Mountain Temple 2F NE Staircase", "Mountain Temple 1F North Staircase"
+              ], ["EVENT: Mountain Temple Stamp Station"], ["Overview", "Fire Realm"]),
+
+    Enterior(["Ocean Realm Dune Sanctuary Station"], ["EVENT: Dune Sanctuary Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Desert Temple Station", "Desert Temple Lobby Enter Dungeon", "Desert Temple 1F Lower Staircase"],
+             ["EVENT: Desert Temple Stamp Station"],["Overview", "Ocean Realm"]),
+]
 
 station_section_link: dict[str, str] = {
     "Overview Castle Town": "Forest Realm Castle Town Station",
@@ -397,7 +453,6 @@ boss_event_link: dict[str, list[str]] = {
         "Marine Temple Lobby Enter Dungeon",
         "Marine Temple 7F North Staircase"],
 
-    "Ferrus Outset Event": ["Forest Realm Outset Station"],
     "Carben Island Event": ["Ocean Realm Island Sanctuary Station"],
     "Goron Anouki Event": ["Snow Realm Anouki Village Station"],
     "Disorientation Event": ["Fire Realm Disorientation Station", "Disorientation Station Cave"],
@@ -406,7 +461,8 @@ boss_event_link: dict[str, list[str]] = {
     "Papuzia Stamp Event": ["Papuzia South"],
     "Island Sanctuary Stamp Event": ["Island Sanctuary South Peninsula"],
     "Goron Stamp Event": ["Goron Village West"],
-    "Valley Sanctuary Stamp Event": ["Goron Village Enclave North"]
+    "Valley Sanctuary Stamp Event": ["Goron Village Enclave North"],
+    "Trading Post Stamp Event": ["Trading Post South Cave"]
 
 }
 
@@ -547,6 +603,8 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
     for data in interior_data:
         locs_hidden = data.hide_locations(active_entrances, locs_hidden)
 
+    for data in enterior_data:
+        entr_hidden = data.hide_entrances(active_entrances, entr_hidden)
 
 
     # print(f"hidden entrances: {entr_hidden}")

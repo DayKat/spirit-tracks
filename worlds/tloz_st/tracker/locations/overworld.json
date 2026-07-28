@@ -503,7 +503,6 @@
   {"name": "Fire Realm Sand", "sections": [{"name": "Rabbit W Sand Maze"}], "map_locations": [{"map": "Fire Realm", "x": 334, "y": 362}]},
   {"name": "Fire Realm Sand", "sections": [{"name": "Rabbit Sand Valley"}], "map_locations": [{"map": "Fire Realm", "x": 144, "y": 356}]},
   {"name": "Fire Realm Sand", "sections": [{"name": "Fire Realm Shoot Sand Portal"}], "map_locations": [{"map": "Fire Realm", "x": 110, "y": 350}]},
-  {"name": "Fire Realm", "sections": [{"name": "Fire Realm Pick Up Ferrus"}], "map_locations": [{"map": "Fire Realm", "x": 158, "y": 108}]},
   {"name": "Fire Realm", "sections": [{"name": "Beedle Shop Uncommon Treasure"}, {"name": "Beedle Shop Rare Treasure"}, {"name": "Beedle Shop Bomb Bag"}, {"name": "Beedle Shop Red Potion"}, {"name": "Beedle Shop Purple Potion"}, {"name": "Beedle Shop Bomb Refill"}, {"name": "Beedle Joe's Force Gem"}], "map_locations": [{"map": "Fire Realm", "x": 162, "y": 302}]},
   {"name": "Fire Realm", "sections": [{"name": "Catch 1 Mountain Rabbit"}, {"name": "Catch 2 Mountain Rabbits"}, {"name": "Catch 3 Mountain Rabbits"}, {"name": "Catch 4 Mountain Rabbits"}, {"name": "Catch 5 Mountain Rabbits"}, {"name": "Catch 6 Mountain Rabbits"}, {"name": "Catch 7 Mountain Rabbits"}, {"name": "Catch 8 Mountain Rabbits"}, {"name": "Catch 9 Mountain Rabbits"}, {"name": "Catch 10 Mountain Rabbits"}], "map_locations": [{"map": "Fire Realm", "x": 178, "y": 294}]},
   {"name": "Fire Realm Sand", "sections": [{"name": "Catch 1 Sand Rabbit"}, {"name": "Catch 2 Sand Rabbits"}, {"name": "Catch 3 Sand Rabbits"}, {"name": "Catch 4 Sand Rabbits"}, {"name": "Catch 5 Sand Rabbits"}, {"name": "Catch 6 Sand Rabbits"}, {"name": "Catch 7 Sand Rabbits"}, {"name": "Catch 8 Sand Rabbits"}, {"name": "Catch 9 Sand Rabbits"}, {"name": "Catch 10 Sand Rabbits"}], "map_locations": [{"map": "Fire Realm", "x": 178, "y": 310}]},
@@ -518,10 +517,63 @@
     {"name": "Castle Town Shop Postcards"},
     {"name": "Castle Town Stamp Station"},
     {"name": "Castle Town Left Wall Chest"},
-    {"name": "Castle Town Right Wall Chest"}, {"name": "Castle Town Minigame Roof"}, {"name": "Castle Town Ramp House Chest"}, {"name": "Castle Town Lucia's House Roof Chest"}, {"name": "Castle Town Pick Up Teacher"}, {"name": "Castle Town Pick Up Mona"}, {"name": "Castle Town Pick Up Alfonzo"}, {"name": "Castle Town Goron Force Gem"}, {"name": "Castle Town Buy Cuccos"}, {"name": "Castle Town Deliver Fish"}, {"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Overview", "x": 404, "y": 450}, {"map": "Forest Realm", "x": 404, "y": 66}]},
-  {"name": "Overview Hyrule Castle", "sections": [{"name": "Hyrule Castle Exterior NW Chest"}, {"name": "Hyrule Castle 2F Indoors Chest"}, {"name": "Hyrule Castle 3F Spirit Flute"}, {"name": "Hyrule Castle 1F Back Chest"}, {"name": "Hyrule Castle 1F Sword Minigame 60 Points"}, {"name": "Tunnel to ToS 1F Block Chest"}, {"name": "Tunnel to ToS 2F Chest"}], "map_locations": [{"map": "Overview", "x": 404, "y": 434}, {"map": "Forest Realm", "x": 404, "y": 50}]},
-  {"name": "Overview Mayscore", "sections": [{"name": "Mayscore Shop Treasure 1"}, {"name": "Mayscore Shop Treasure 2"}, {"name": "Mayscore Shop Red Potion"}, {"name": "Mayscore Shop Shield"}, {"name": "Mayscore Shop Postcards"}, {"name": "Mayscore Pick Up Dovok"}, {"name": "Mayscore Pick Up Morris"}, {"name": "Mayscore Pick Up Yamahiko"}, {"name": "Mayscore Pick Up Mash"}, {"name": "Mayscore Pick Up Wood"}, {"name": "Mayscore Buy Lumber"}, {"name": "Mayscore Deliver Steel"}, {"name": "Mayscore Stamp Station"}, {"name": "Mayscore Whip Chest"}, {"name": "Mayscore Whip Race 1:15-1:30"}, {"name": "Mayscore Whip Race 1:05-1:15"}, {"name": "Mayscore Whip Race Sub 1:05"}], "map_locations": [{"map": "Overview", "x": 332, "y": 594}, {"map": "Forest Realm", "x": 332, "y": 210}]},
-  {"name": "Overview Woodland", "sections": [{"name": "Woodland Sanctuary Stamp Station"}, {"name": "Woodland Sanctuary Song Statue"}, {"name": "Woodland Sanctuary Chest"}, {"name": "Woodland Sanctuary Song of Restoration"}], "map_locations": [{"map": "Overview", "x": 212, "y": 572}, {"map": "Forest Realm", "x": 212, "y": 188}]},
+    {"name": "Castle Town Right Wall Chest"},
+    {"name": "Castle Town Minigame Roof"},
+    {"name": "Castle Town Ramp House Chest"},
+    {"name": "Castle Town Lucia's House Roof Chest"},
+    {"name": "Castle Town Pick Up Teacher"},
+    {"name": "Castle Town Pick Up Mona"},
+    {"name": "Castle Town Pick Up Alfonzo"},
+    {"name": "Castle Town Goron Force Gem"},
+    {"name": "Castle Town Buy Cuccos"},
+    {"name": "Castle Town Deliver Fish"},
+    {"name": "Castle Town Take 'em All On Level 1"},
+    {"name": "Castle Town Take 'em All On Level 2"},
+    {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"},
+    {"name": "Castle Town Take 'em All On Level 3"}
+  ], "map_locations": [
+    {"map": "Overview", "x": 404, "y": 450}, {"map": "Forest Realm", "x": 404, "y": 66}
+  ]},
+  {"name": "Overview Hyrule Castle", "sections": [
+    {"name": "Hyrule Castle Exterior NW Chest"},
+    {"name": "Hyrule Castle 2F Indoors Chest"},
+    {"name": "Hyrule Castle 3F Spirit Flute"},
+    {"name": "Hyrule Castle 1F Back Chest"},
+    {"name": "Hyrule Castle 1F Sword Minigame 60 Points"},
+    {"name": "Tunnel to ToS 1F Block Chest"},
+    {"name": "Tunnel to ToS 2F Chest"}
+  ], "map_locations": [
+    {"map": "Overview", "x": 404, "y": 434}, {"map": "Forest Realm", "x": 404, "y": 50}
+  ]},
+  {"name": "Overview Mayscore", "sections": [
+    {"name": "Mayscore Shop Treasure 1"},
+    {"name": "Mayscore Shop Treasure 2"},
+    {"name": "Mayscore Shop Red Potion"},
+    {"name": "Mayscore Shop Shield"},
+    {"name": "Mayscore Shop Postcards"},
+    {"name": "Mayscore Pick Up Dovok"},
+    {"name": "Mayscore Pick Up Morris"},
+    {"name": "Mayscore Pick Up Yamahiko"},
+    {"name": "Mayscore Pick Up Mash"},
+    {"name": "Mayscore Pick Up Wood"},
+    {"name": "Mayscore Buy Lumber"},
+    {"name": "Mayscore Deliver Steel"},
+    {"name": "Mayscore Stamp Station"},
+    {"name": "Mayscore Whip Chest"},
+    {"name": "Mayscore Whip Race 1:15-1:30"},
+    {"name": "Mayscore Whip Race 1:05-1:15"},
+    {"name": "Mayscore Whip Race Sub 1:05"}
+  ], "map_locations": [
+    {"map": "Overview", "x": 332, "y": 594}, {"map": "Forest Realm", "x": 332, "y": 210}]
+  },
+  {"name": "Overview Woodland", "sections": [
+    {"name": "Woodland Sanctuary Stamp Station"},
+    {"name": "Woodland Sanctuary Song Statue"},
+    {"name": "Woodland Sanctuary Chest"},
+    {"name": "Woodland Sanctuary Song of Restoration"}
+  ], "map_locations": [
+    {"map": "Overview", "x": 212, "y": 572}, {"map": "Forest Realm", "x": 212, "y": 188}
+  ]},
   {"name": "Overview WT", "sections": [{"name": "Wooded Temple Lobby Song Statue"}, {"name": "Wooded Temple 1F Stamp Station"}, {"name": "Wooded Temple 1F Enemy Chest"}, {"name": "Wooded Temple 1F Key"}, {"name": "Wooded Temple 1F Switch Chest"}, {"name": "Wooded Temple 2F Enemy Chest"}, {"name": "Wooded Temple 2F Poison Chest"}, {"name": "Wooded Temple 3F Chestnut Chest"}, {"name": "Wooded Temple 3F SE Chest"}, {"name": "Wooded Temple 3F Boss Key"}, {"name": "Stagnox Heart Container"}, {"name": "Stagnox Boss Reward"}], "map_locations": [{"map": "Overview", "x": 214, "y": 420}, {"map": "Forest Realm", "x": 214, "y": 36}]},
   {"name": "Overview Rabbit Haven", "sections": [{"name": "Rabbit Haven Net Gift"}, {"name": "Rabbit Haven Island Chest"}, {"name": "Rabbit Haven Mona's Force Gem"}, {"name": "Rabbit Haven Rescue 5 Rabbits"}, {"name": "Rabbit Haven Rescue 1 of Each Rabbit"}, {"name": "Rabbit Haven Rescue 10 Grass Rabbits"}, {"name": "Rabbit Haven Rescue 10 Snow Rabbits"}, {"name": "Rabbit Haven Rescue 10 Ocean Rabbits"}, {"name": "Rabbit Haven Rescue 10 Mountain Rabbits"}, {"name": "Rabbit Haven Rescue 10 Sand Rabbits"}, {"name": "Rabbit Haven Rescue 10 of Each Rabbit"}], "map_locations": [{"map": "Overview", "x": 138, "y": 492}, {"map": "Forest Realm", "x": 138, "y": 108}]},
   {"name": "Overview Trading Post", "sections": [{"name": "Trading Post Repair Bridge"}, {"name": "Trading Post Pick Up Kenzo"}, {"name": "Trading Post Buy Shield"}, {"name": "Trading Post Stamp Station"}, {"name": "Trading Post Song Statue"}, {"name": "Trading Post Buried Chest"}, {"name": "Trading Post Deliver Dark Ore"}], "map_locations": [{"map": "Overview", "x": 404, "y": 668}, {"map": "Forest Realm", "x": 404, "y": 284}]},
@@ -615,7 +667,7 @@
   {"name": "Overview Fire Sand", "sections": [{"name": "Rabbit W Sand Maze"}], "map_locations": [{"map": "Overview", "x": 846, "y": 362}]},
   {"name": "Overview Fire Sand", "sections": [{"name": "Rabbit Sand Valley"}], "map_locations": [{"map": "Overview", "x": 656, "y": 356}]},
   {"name": "Overview Fire Sand", "sections": [{"name": "Fire Realm Shoot Sand Portal"}], "map_locations": [{"map": "Overview", "x": 622, "y": 350}]},
-  {"name": "Overview Fire", "sections": [{"name": "Fire Realm Pick Up Ferrus"}], "map_locations": [{"map": "Overview", "x": 670, "y": 108}]},
+  {"name": "Overview Fire", "sections": [{"name": "Fire Realm Pick Up Ferrus"}], "map_locations": [{"map": "Overview", "x": 674, "y": 108}, {"map": "Fire Realm", "x": 162, "y": 108}]},
   {"name": "Oveview", "sections": [{"name": "Beedle Shop Uncommon Treasure"}, {"name": "Beedle Shop Rare Treasure"}, {"name": "Beedle Shop Bomb Bag"}, {"name": "Beedle Shop Red Potion"}, {"name": "Beedle Shop Purple Potion"}, {"name": "Beedle Shop Bomb Refill"}, {"name": "Beedle Joe's Force Gem"}], "map_locations": [{"map": "Overview", "x": 358, "y": 374}]},
   {"name": "Oveview", "sections": [{"name": "Catch 1 Grass Rabbit"}, {"name": "Catch 2 Grass Rabbits"}, {"name": "Catch 3 Grass Rabbits"}, {"name": "Catch 4 Grass Rabbits"}, {"name": "Catch 5 Grass Rabbits"}, {"name": "Catch 6 Grass Rabbits"}, {"name": "Catch 7 Grass Rabbits"}, {"name": "Catch 8 Grass Rabbits"}, {"name": "Catch 9 Grass Rabbits"}, {"name": "Catch 10 Grass Rabbits"}], "map_locations": [{"map": "Overview", "x": 170, "y": 490}]},
   {"name": "Oveview", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations": [{"map": "Overview", "x": 170, "y": 474}]},

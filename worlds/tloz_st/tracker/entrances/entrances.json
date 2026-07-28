@@ -466,10 +466,20 @@
   {"name": "Forest Realm", "sections": [{"name": "EVENT: Unlock Forest Realm Cave Portal"}], "map_locations": [{"map": "Forest Realm", "x": 158, "y": 262}]},
   {"name": "Forest Realm", "sections": [{"name": "EVENT: Unlock Forest Realm SE Portal"}], "map_locations": [{"map": "Forest Realm", "x": 424, "y": 334}]},
 
-  {"name": "Forest Realm", "sections": [{"name": "EVENT: Pick up Alfonzo"}, {"name": "EVENT: Complete Take 'em All On 3"}], "map_locations": [{"map": "Forest Realm", "x": 420, "y": 66}]},
+  {"name": "Forest Realm", "sections": [
+    {"name": "EVENT: Pick up Alfonzo"},
+    {"name": "EVENT: Castle Town Stamp Station"},
+    {"name": "EVENT: Complete Take 'em All On 3"}
+  ], "map_locations": [{"map": "Forest Realm", "x": 420, "y": 66}
+  ]},
 
-  {"name": "Forest Realm", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations": [{"map": "Forest Realm", "x": 420, "y": 284}]},
-
+  {"name": "Forest Realm", "sections": [
+    {"name": "EVENT: Give Regal Ring to Linebeck"},
+    {"name": "EVENT: Trading Post Tunnel Stamp Station"}
+  ], "map_locations": [
+    {"map": "Forest Realm", "x": 420, "y": 284},
+    {"map": "Overview", "x": 420, "y": 668}
+  ]},
   {"name": "Snow Realm", "sections": [{"name": "Snow Realm Anouki Village Station"}], "map_locations": [{"map": "Snow Realm", "x": 164, "y": 302}]},
   {"name": "Snow Realm", "sections": [{"name": "Snow Realm Snowfall Sanctuary Station"}], "map_locations": [{"map": "Snow Realm", "x": 140, "y": 254}]},
   {"name": "Snow Realm", "sections": [{"name": "Snow Realm Blizzard Temple Station"}], "map_locations": [{"map": "Snow Realm", "x": 118, "y": 62}]},
@@ -522,7 +532,15 @@
   {"name": "Fire Realm Sand", "sections": [{"name": "EVENT: Unlock Sand Connection Portal"}], "map_locations": [{"map": "Fire Realm", "x": 110, "y": 334}]},
 
   {"name": "Fire Realm", "sections": [{"name": "EVENT: Disorientation Maze Find Chest"}], "map_locations": [{"map": "Disorientation Dungeon", "x": 288, "y": 38}]},
-  {"name": "Fire Realm", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}, {"name": "EVENT: Bring Ice to Kagoron"}], "map_locations": [{"map": "Fire Realm", "x": 226, "y": 234}]},
+  {"name": "Fire Realm", "sections": [
+    {"name": "EVENT: Visit Kagoron at the Mountain Altar"},
+    {"name": "EVENT: Bring Ice to Kagoron"},
+    {"name": "EVENT: Goron Field Stamp Station"},
+    {"name": "EVENT: Valley Sanctuary Stamp Station"}
+  ], "map_locations": [
+    {"map": "Fire Realm", "x": 226, "y": 234},
+    {"map": "Overview", "x": 738, "y": 234}
+  ]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Outset Station"}], "map_locations": [{"map": "Overview", "x": 236, "y": 710}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Castle Town Station"}], "map_locations": [{"map": "Overview", "x": 404, "y": 470}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Mayscore Station"}], "map_locations": [{"map": "Overview", "x": 332, "y": 614}]},
@@ -534,13 +552,30 @@
   {"name": "Overview Forest", "sections": [{"name": "EVENT: Unlock Forest Realm Cave Portal"}], "map_locations": [{"map": "Overview", "x": 158, "y": 646}]},
   {"name": "Overview Forest", "sections": [{"name": "EVENT: Unlock Forest Realm SE Portal"}], "map_locations": [{"map": "Overview", "x": 424, "y": 718}]},
 
-  {"name": "Ferrus Outset Event", "sections": [{"name": "EVENT: Bring Ferrus to Outset"}], "map_locations": [{"map": "Overview", "x": 252, "y": 728}, {"map": "Forest Realm", "x": 252, "y": 344}]},
-  {"name": "Carben Island Event", "sections": [{"name": "EVENT: Bring Carben to Island Sanctuary"}], "map_locations": [{"map": "Ocean Realm", "x": 224, "y": 284}, {"map": "Overview", "x": 736, "y": 668}]},
-  {"name": "Goron Anouki Event", "sections": [{"name": "EVENT: Bring Goron to Anouki Village"}], "map_locations": [{"map": "Snow Realm", "x": 180, "y": 280}, {"map": "Overview", "x": 180, "y": 280}]},
+  {"name": "Ferrus Outset Event", "sections": [
+    {"name": "EVENT: Bring Ferrus to Outset"},
+    {"name": "EVENT: Outset Stamp Station"}
+  ], "map_locations": [
+    {"map": "Overview", "x": 252, "y": 728},
+    {"map": "Forest Realm", "x": 252, "y": 344}
+  ]},
+  {"name": "Carben Island Event", "sections": [
+    {"name": "EVENT: Bring Carben to Island Sanctuary"},
+    {"name": "EVENT: Island Sanctuary Stamp Station"}
+  ], "map_locations": [
+    {"map": "Ocean Realm", "x": 220, "y": 284},
+    {"map": "Overview", "x": 732, "y": 668}
+  ]},
+  {"name": "Goron Anouki Event", "sections": [
+    {"name": "EVENT: Bring Goron to Anouki Village"},
+    {"name": "EVENT: Anouki Village Stamp Station"}
+  ], "map_locations": [
+    {"map": "Snow Realm", "x": 180, "y": 280},
+    {"map": "Overview", "x": 180, "y": 280}
+  ]},
   {"name": "Disorientation Event", "sections": [{"name": "EVENT: Disorientation Maze Find Chest"}], "map_locations": [{"map": "Fire Realm", "x": 100, "y": 44}, {"map": "Overview", "x": 612, "y": 44}]},
 
   {"name": "Overview Forest", "sections": [{"name": "EVENT: Pick up Alfonzo"}, {"name": "EVENT: Complete Take 'em All On 3"}], "map_locations": [{"map": "Overview", "x": 420, "y": 450}]},
-  {"name": "Overview Forest", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations": [{"map": "Overview", "x": 420, "y": 668}]},
   {"name": "Overview Forest", "sections": [{"name": "GOAL: Defeat Malladus"}, {"name": "GOAL: Enter Dark Realm"}], "map_locations": [{"map": "Overview", "x": 68, "y": 710}]},
   {"name": "Overview Snow", "sections": [{"name": "Snow Realm Anouki Village Station"}], "map_locations": [{"map": "Overview", "x": 164, "y": 302}]},
   {"name": "Overview Snow", "sections": [{"name": "Snow Realm Snowfall Sanctuary Station"}], "map_locations": [{"map": "Overview", "x": 140, "y": 254}]},
@@ -573,7 +608,6 @@
   {"name": "Overview Fire", "sections": [{"name": "Fire Realm Mountain Temple Station"}], "map_locations": [{"map": "Overview", "x": 814, "y": 170}]},
   {"name": "Overview Fire", "sections": [{"name": "Fire Realm to Tower of Spirits"}], "map_locations": [{"map": "Overview", "x": 549, "y": 328}]},
   {"name": "Overview Fire Sand", "sections": [{"name": "EVENT: Unlock Sand Connection Portal"}], "map_locations": [{"map": "Overview", "x": 622, "y": 334}]},
-  {"name": "Overview Fire", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}, {"name": "EVENT: Bring Ice to Kagoron"}], "map_locations": [{"map": "Overview", "x": 738, "y": 234}]},
   {"name": "Overview", "sections": [{"name": "Tower of Spirits Enter Section 1"}], "map_locations": [{"map": "Overview", "x": 496, "y": 388}]},
   {"name": "Overview", "sections": [{"name": "Tower of Spirits Enter Section 2"}], "map_locations": [{"map": "Overview", "x": 496, "y": 372}]},
   {"name": "Overview", "sections": [{"name": "Tower of Spirits Enter Section 3"}], "map_locations": [{"map": "Overview", "x": 496, "y": 356}]},
@@ -587,12 +621,12 @@
   {"name": "Overview", "sections": [{"name": "EVENT: Defeat Staven"}, {"name": "GOAL: Defeat Staven"}], "map_locations": [{"map": "Overview", "x": 528, "y": 324}]},
   {"name": "Overview", "sections": [{"name": "EVENT: Reach ToS 24F"}, {"name": "GOAL: Reach ToS 24F"}], "map_locations": [{"map": "Overview", "x": 528, "y": 308}]},
 
-  {"name": "Overview WT Events", "sections": [{"name": "EVENT: Defeat Stagnox"}, {"name": "GOAL: Defeat Stagnox"}], "map_locations": [{"map": "Forest Realm", "x": 214, "y": 20}, {"map": "Overview", "x": 214, "y": 404}]},
-  {"name": "Overview BT Events", "sections": [{"name": "EVENT: Defeat Fraaz"}, {"name": "GOAL: Defeat Fraaz"}], "map_locations": [{"map": "Snow Realm", "x": 118, "y": 30}, {"map": "Overview", "x": 118, "y": 30}]},
-  {"name": "Overview OCT Events", "sections": [{"name": "EVENT: Defeat Cactops"}, {"name": "GOAL: Defeat Cactops"}], "map_locations": [{"map": "Ocean Realm", "x": 420, "y": 122}, {"map": "Overview", "x": 932, "y": 506}]},
-  {"name": "Overview OCT Undersea Events", "sections": [{"name": "EVENT: Defeat Cactops"}, {"name": "GOAL: Defeat Cactops"}], "map_locations": [{"map": "Ocean Undersea", "x": 219, "y": 68}]},
-  {"name": "Overview MTT Events", "sections": [{"name": "EVENT: Defeat Vulcano"}, {"name": "GOAL: Defeat Vulcano"}], "map_locations": [{"map": "Fire Realm", "x": 302, "y": 138}, {"map": "Overview", "x": 814, "y": 138}]},
-  {"name": "Overview DT Events", "sections": [{"name": "EVENT: Defeat Capbone"}, {"name": "GOAL: Defeat Skeldritch"}], "map_locations": [{"map": "Ocean Realm", "x": 350, "y": 40}, {"map": "Overview", "x": 862, "y": 424}]},
+  {"name": "Overview WT Events", "sections": [{"name": "EVENT: Defeat Stagnox"}, {"name": "GOAL: Defeat Stagnox"}, {"name": "EVENT: Wooded Temple Stamp Station"}], "map_locations": [{"map": "Forest Realm", "x": 214, "y": 20}, {"map": "Overview", "x": 214, "y": 404}]},
+  {"name": "Overview BT Events", "sections": [{"name": "EVENT: Defeat Fraaz"}, {"name": "GOAL: Defeat Fraaz"}, {"name": "EVENT: Blizzard Temple Stamp Station"}], "map_locations": [{"map": "Snow Realm", "x": 118, "y": 30}, {"map": "Overview", "x": 118, "y": 30}]},
+  {"name": "Overview OCT Events", "sections": [{"name": "EVENT: Defeat Cactops"}, {"name": "GOAL: Defeat Cactops"}, {"name": "EVENT: Marine Temple Stamp Station"}], "map_locations": [{"map": "Ocean Realm", "x": 420, "y": 122}, {"map": "Overview", "x": 932, "y": 506}]},
+  {"name": "Overview OCT Undersea Events", "sections": [{"name": "EVENT: Defeat Cactops"}, {"name": "GOAL: Defeat Cactops"}, {"name": "EVENT: Marine Temple Stamp Station"}], "map_locations": [{"map": "Ocean Undersea", "x": 219, "y": 68}]},
+  {"name": "Overview MTT Events", "sections": [{"name": "EVENT: Defeat Vulcano"}, {"name": "GOAL: Defeat Vulcano"}, {"name": "EVENT: Mountain Temple Stamp Station"}], "map_locations": [{"map": "Fire Realm", "x": 302, "y": 138}, {"map": "Overview", "x": 814, "y": 138}]},
+  {"name": "Overview DT Events", "sections": [{"name": "EVENT: Defeat Capbone"}, {"name": "GOAL: Defeat Skeldritch"}, {"name": "EVENT: Desert Temple Stamp Station"}], "map_locations": [{"map": "Ocean Realm", "x": 350, "y": 40}, {"map": "Overview", "x": 862, "y": 424}]},
   {"name": "Overview Dark Realm Events", "sections": [{"name": "GOAL: Defeat Malladus"}, {"name": "GOAL: Enter Dark Realm"}], "map_locations": [{"map": "Forest Realm", "x": 68, "y": 326}]},
 
   {"name": "Forest Realm", "sections": [{"name": "Forest Realm North Portal"}], "map_locations": [{"map": "Forest Realm", "x": 334, "y": 158}]},
@@ -644,31 +678,78 @@
   {"name": "Lost at Sea 6", "sections": [{"name": "Lost at Sea Dungeon Reward Room Warp"}], "map_locations": [{"map": "Lost at Sea 1", "x": 128, "y": 142}]},
 
   {"name": "Outset", "sections": [{"name": "EVENT: Outset Stamp Station"}], "map_locations": [{"map": "Outset Village", "x": 90, "y": 62}]},
-  {"name": "Mayscore Forest", "sections": [{"name": "EVENT: Mayscore Forest Stamp Station"}], "map_locations": [{"map": "Mayscore Forest", "x": 70, "y": 74}]},
-  {"name": "Castle Town", "sections": [{"name": "EVENT: Castle Town Stamp Station"}], "map_locations": [{"map": "Castle Town", "x": 32, "y": 24}]},
-  {"name": "Woodland Sanctuary", "sections": [{"name": "EVENT: Woodland Sanctuary Stamp Station"}], "map_locations": [{"map": "Woodland Sanctuary", "x": 142, "y": 54}]},
-  {"name": "Trading Post Cave", "sections": [{"name": "EVENT: Trading Post Tunnel Stamp Station"}], "map_locations": [{"map": "Like-Like Tunnel", "x": 90, "y": 38}]},
+  {"name": "Mayscore Forest", "sections": [
+    {"name": "EVENT: Mayscore Forest Stamp Station"}
+  ], "map_locations": [
+    {"map": "Mayscore Forest", "x": 70, "y": 74},
+    {"map": "Overview", "x": 348, "y": 594},
+    {"map": "Forest Realm", "x": 348, "y": 210}
+  ]},
+  {"name": "Castle Town", "sections": [
+    {"name": "EVENT: Castle Town Stamp Station"}
+  ], "map_locations": [
+    {"map": "Castle Town", "x": 32, "y": 24}
+  ]},
+  {"name": "Woodland Sanctuary", "sections": [
+    {"name": "EVENT: Woodland Sanctuary Stamp Station"}
+  ], "map_locations": [
+    {"map": "Woodland Sanctuary", "x": 142, "y": 54},
+    {"map": "Overview", "x": 228, "y": 572},
+    {"map": "Forest Realm", "x": 228, "y": 188}
+  ]},
+  {"name": "Trading Post Cave", "sections": [
+    {"name": "EVENT: Trading Post Tunnel Stamp Station"}
+  ], "map_locations": [
+    {"map": "Like-Like Tunnel", "x": 90, "y": 38}]},
   {"name": "Wooded Temple 1F", "sections": [{"name": "EVENT: Wooded Temple Stamp Station"}], "map_locations": [{"map": "Wooded Temple 1F", "x": 154, "y": 38}]},
-  {"name": "Anouki Village", "sections": [{"name": "EVENT: Anouki Village Stamp Station"}], "map_locations": [{"map": "Anouki Village", "x": 210, "y": 46}]},
-  {"name": "Snowfall Sanctuary", "sections": [{"name": "EVENT: Snowfall Sanctuary Stamp Station"}], "map_locations": [{"map": "Snowfall Sanctuary", "x": 50, "y": 82}]},
-  {"name": "Icy Spring", "sections": [{"name": "EVENT: Icy Spring Stamp Station"}], "map_locations": [{"map": "Icy Spring", "x": 130, "y": 34}]},
+  {"name": "Anouki Village", "sections": [{"name": "EVENT: Anouki Village Stamp Station"}], "map_locations": [{"map": "Anouki Village", "x": 210, "y": 46}
+  ]},
+  {"name": "Snowfall Sanctuary", "sections": [{"name": "EVENT: Snowfall Sanctuary Stamp Station"}], "map_locations": [
+    {"map": "Snowfall Sanctuary", "x": 50, "y": 82},
+    {"map": "Overview", "x": 156, "y": 236},
+    {"map": "Snow Realm", "x": 156, "y": 236}
+  ]},
+  {"name": "Icy Spring", "sections": [{"name": "EVENT: Icy Spring Stamp Station"}], "map_locations": [
+    {"map": "Icy Spring", "x": 130, "y": 34},
+    {"map": "Overview", "x": 372, "y": 212},
+    {"map": "Snow Realm", "x": 372, "y": 212}
+  ]},
   {"name": "Blizzard Temple B1", "sections": [{"name": "EVENT: Blizzard Temple Stamp Station"}], "map_locations": [{"map": "Blizzard Temple B1", "x": 118, "y": 30}]},
   {"name": "Goron Field", "sections": [{"name": "EVENT: Goron Field Stamp Station"}], "map_locations": [{"map": "Goron Field", "x": 38, "y": 22}]},
   {"name": "Valley Sanctuary", "sections": [{"name": "EVENT: Valley Sanctuary Stamp Station"}], "map_locations": [{"map": "Valley Sanctuary", "x": 118, "y": 46}]},
   {"name": "Mountain Temple B1", "sections": [{"name": "EVENT: Mountain Temple Stamp Station"}], "map_locations": [{"map": "Mountain Temple B1", "x": 62, "y": 54}]},
   {"name": "Pirate Hideout", "sections": [{"name": "EVENT: Pirate Hideout Stamp Station"}], "map_locations": [{"map": "Pirate Hideout", "x": 94, "y": 90}]},
-  {"name": "Papuzia Archipelago", "sections": [{"name": "EVENT: Papuzia Archipelago Stamp Station"}], "map_locations": [{"map": "Papuzia Archipelago", "x": 42, "y": 142}]},
+  {"name": "Papuzia Archipelago", "sections": [
+    {"name": "EVENT: Papuzia Archipelago Stamp Station"}
+  ], "map_locations": [
+    {"map": "Papuzia Archipelago", "x": 42, "y": 142},
+    {"map": "Overview", "x": 614, "y": 668},
+    {"map": "Ocean Realm", "x": 100, "y": 284}
+  ]},
   {"name": "Island Sanctuary", "sections": [{"name": "EVENT: Island Sanctuary Stamp Station"}], "map_locations": [{"map": "Island Sanctuary North", "x": 122, "y": 86}]},
   {"name": "Marine Temple 2F Cave", "sections": [{"name": "EVENT: Marine Temple Stamp Station"}], "map_locations": [{"map": "Marine Temple 2F Secret", "x": 122, "y": 58}]},
-  {"name": "Dune Sanctuary", "sections": [{"name": "EVENT: Dune Sanctuary Stamp Station"}], "map_locations": [{"map": "Dune Sanctuary", "x": 206, "y": 146}]},
+  {"name": "Dune Sanctuary", "sections": [
+    {"name": "EVENT: Dune Sanctuary Stamp Station"}
+  ], "map_locations": [
+    {"map": "Dune Sanctuary", "x": 206, "y": 146},
+    {"map": "Overview", "x": 708, "y": 428},
+    {"map": "Ocean Realm", "x": 196, "y": 44}
+  ]},
   {"name": "Desert Temple B1", "sections": [{"name": "EVENT: Desert Temple Stamp Station"}], "map_locations": [{"map": "Desert Temple B1", "x": 102, "y": 30}]},
   {"name": "Tower of Spirits Summit", "sections": [{"name": "EVENT: Tower of Spirits Summit Stamp Station"}], "map_locations": [{"map": "Tower of Spirits", "x": 63, "y": 178}]},
 
-  {"name": "Mayscore Stamp Event", "sections": [{"name": "EVENT: Mayscore Forest Stamp Station"}], "map_locations": [{"map": "Mayscore", "x": 204, "y": 24}]},
-  {"name": "Papuzia Stamp Event", "sections": [{"name": "EVENT: Papuzia Archipelago Stamp Station"}], "map_locations": [{"map": "Papuzia Village", "x": 200, "y": 176}]},
+  {"name": "Mayscore Stamp Event", "sections": [
+    {"name": "EVENT: Mayscore Forest Stamp Station"}
+  ], "map_locations": [{"map": "Mayscore", "x": 204, "y": 24}]},
+  {"name": "Papuzia Stamp Event", "sections": [
+    {"name": "EVENT: Papuzia Archipelago Stamp Station"}
+  ], "map_locations": [
+    {"map": "Papuzia Village", "x": 200, "y": 176}
+  ]},
   {"name": "Island Sanctuary Stamp Event", "sections": [{"name": "EVENT: Island Sanctuary Stamp Station"}], "map_locations": [{"map": "Island Sanctuary South", "x": 204, "y": 16}]},
   {"name": "Goron Stamp Event", "sections": [{"name": "EVENT: Goron Field Stamp Station"}], "map_locations": [{"map": "Goron Village", "x": 26, "y": 88}]},
   {"name": "Valley Sanctuary Stamp Event", "sections": [{"name": "EVENT: Valley Sanctuary Stamp Station"}], "map_locations": [{"map": "Goron Village", "x": 192, "y": 18}]},
+  {"name": "Trading Post Stamp Event", "sections": [{"name": "EVENT: Trading Post Tunnel Stamp Station"}], "map_locations": [{"map": "Trading Post", "x": 36, "y": 140}]},
 
   {"name": "Forest Rabbit Event", "sections": [{"name": "EVENT: Rabbit Near Castle Town"}], "map_locations": [{"map": "Forest Realm", "x": 358, "y": 76}, {"map": "Overview", "x": 358, "y": 460}]},
   {"name": "Forest Rabbit Event", "sections": [{"name": "EVENT: Rabbit Near Ocean Shortcut"}], "map_locations": [{"map": "Forest Realm", "x": 454, "y": 196}, {"map": "Overview", "x": 454, "y": 580}]},
