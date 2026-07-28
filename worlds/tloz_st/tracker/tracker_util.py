@@ -352,43 +352,103 @@ interior_data = [
 
 enterior_data: list["Enterior"] = [
     Enterior(["Forest Realm Outset Station"], [
-        "EVENT: Outset Stamp Station", "EVENT: Bring Ferrus to Outset"
+        "EVENT: Outset Stamp Station", "EVENT: Bring Ferrus to Outset", "EVENT: Outset Pick Up Joe"
     ], ["Overview", "Forest Realm"]),
+
     Enterior(["Forest Realm Mayscore Station", "Mayscore North"], ["EVENT: Mayscore Forest Stamp Station"], ["Overview", "Forest Realm"]),
-    Enterior(["Forest Realm Castle Town Station"], ["EVENT: Castle Town Stamp Station"], ["Overview", "Forest Realm"]),
+    Enterior(["Mayscore North"], ["EVENT: Mayscore Forest Stamp Station"], ["Mayscore"]),
+    Enterior(["Forest Realm Mayscore Station"], ["EVENT: Mayscore Buy Lumber"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Mayscore Station", "Mayscore North House"], ["EVENT: Mayscore Pick Up Dovok"], ["Overview", "Forest Realm"]),
+    Enterior(["Mayscore North House"], ["EVENT: Mayscore Pick Up Dovok"], ["Mayscore"]),
+
+    Enterior(["Forest Realm Castle Town Station"], ["EVENT: Castle Town Stamp Station", "EVENT: Castle Town Buy Cuccos"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Castle Town Station", "Castle Town West House"], ["EVENT: Castle Town Pick Up Mona"], ["Overview", "Forest Realm"]),
+    Enterior(["Castle Town West House"], ["EVENT: Castle Town Pick Up Mona"], ["Castle Town"]),
+    Enterior(["Castle Town Take 'em all On"], ["EVENT: Complete Take 'em All On 3"], ["Castle Town"]),
+    Enterior(["Forest Realm Castle Town Station", "Castle Town Take 'em all On"], ["EVENT: Complete Take 'em All On 3"], ["Overview", "Forest Realm"]),
+
     Enterior(["Forest Realm Woodland Sanctuary Station"], ["EVENT: Woodland Sanctuary Stamp Station"], ["Overview", "Forest Realm"]),
+
     Enterior(["Forest Realm Trading Post Station", "Trading Post South Cave"], ["EVENT: Trading Post Tunnel Stamp Station"], ["Overview", "Forest Realm"]),
+    Enterior(["Trading Post South Cave"], ["EVENT: Trading Post Tunnel Stamp Station"], ["Trading Post"]),
+    Enterior(["Forest Realm Trading Post Station"], ["EVENT: Trading Post Drop Off Kenzo", "EVENT: Trading Post Pick Up Kenzo", "EVENT: Give Regal Ring to Linebeck"], ["Overview", "Forest Realm"]),
+
     Enterior(["Forest Realm Wooded Temple Station", "Wooded Temple Lobby Enter Dungeon"], ["EVENT: Wooded Temple Stamp Station"], ["Overview", "Forest Realm"]),
 
-    Enterior(["Snow Realm Anouki Village Station"], ["EVENT: Anouki Village Stamp Station"], ["Overview", "Snow Realm"]),
+    Enterior(["Snow Realm Anouki Village Station"], ["EVENT: Anouki Village Stamp Station", "EVENT: Anouki Village Pick Up Noko", "EVENT: Bring Goron to Anouki Village"], ["Overview", "Snow Realm"]),
+    Enterior(["Snow Realm Anouki Village Station", "Anouki Village N House"], ["EVENT: Anouki Village Pick Up Kofu"], ["Overview", "Snow Realm"]),
+    Enterior(["Anouki Village N House"], ["EVENT: Anouki Village Pick Up Kofu"], ["Anouki Village"]),
+
     Enterior(["Snow Realm Snowfall Sanctuary Station"], ["EVENT: Snowfall Sanctuary Stamp Station"], ["Overview", "Snow Realm"]),
-    Enterior(["Snow Realm Icy Spring Station"], ["EVENT: Icy Spring Stamp Station"], ["Overview", "Snow Realm"]),
+    Enterior(["Snow Realm Icy Spring Station"], [
+        "EVENT: Icy Spring Stamp Station",
+        "EVENT: Icy Spring Drop Off Noko",
+        "EVENT: Icy Spring Buy Mega Ice"
+    ], ["Overview", "Snow Realm"]),
+
+    Enterior(["Bridge Worker's House", "Snow Realm Bridge Worker's Station"], ["EVENT: Bridge Worker's Home Pick Up Kenzo"], ["Overview", "Snow Realm"]),
+    Enterior(["Bridge Worker's House"], ["EVENT: Bridge Worker's Home Pick Up Kenzo"], ["Bridge Worker"]),
+
     Enterior(["Snow Realm Blizzard Temple Station", "Blizzard Temple Lobby Enter Dungeon",
               "Blizzard Temple 1F South Entrance", "Blizzard Temple 1F Main SW", "Blizzard Temple 1F SW Staircase"
-              ], ["EVENT: Blizzard Temple Stamp Station",], ["Overview", "Snow Realm"]),
+              ], ["EVENT: Blizzard Temple Stamp Station"], ["Overview", "Snow Realm"]),
 
-    Enterior(["Ocean Realm Pirate Hideout Station"], ["EVENT: Pirate Hideout Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Pirate Hideout Station"], ["EVENT: Pirate Hideout Stamp Station", "EVENT: Pirate Hideout Pick Up Wadatsumi"], ["Overview", "Ocean Realm"]),
+
     Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Papuzia Village"]),
+    Enterior(["Ocean Realm Papuzia Station"], ["EVENT: Papuzia Village Pick Up Carben", "EVENT: Papuzia Village Buy Fish"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Papuzia Station", "Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Overview", "Ocean Realm"]),
+    Enterior(["Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Papuzia Village"]),
+
     Enterior(["Ocean Realm Island Sanctuary Station", "Island Sanctuary South Peninsula"],
              ["EVENT: Island Sanctuary Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Island Sanctuary South Peninsula"], ["EVENT: Island Sanctuary Stamp Station"], ["Island Sanctuary South"]),
+    Enterior(["Ocean Realm Island Sanctuary Station"], ["EVENT: Bring Carben to Island Sanctuary"], ["Overview", "Ocean Realm"]),
+
     Enterior(["Undersea Marine Temple Station", "Ocean Realm Dive Underwater",
                 "Marine Temple Lobby Enter Dungeon", "Marine Temple 1F North Staircase", "Marine Temple 2F Left Bomb Cave"
               ], ["EVENT: Marine Temple Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Undersea Marine Temple Station", "Ocean Realm Dive Underwater"], ["EVENT: Marine Temple Lobby Drop Off Ferrus"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Dive Underwater", "Undersea Marine Temple Station",
+        "Marine Temple Lobby Enter Dungeon", "Marine Temple 7F North Staircase"
+              ], ["GOAL: Defeat Cactops", "EVENT: Defeat Cactops"], ["Overview", "Ocean Realm"]),
 
-    Enterior(["Fire Realm Goron Village Station", "Goron Village West"], ["EVENT: Goron Field Stamp Station"], ["Overview", "Fire Realm"]),
+    Enterior(["Undersea Marine Temple Station", "Marine Temple Lobby Enter Dungeon",
+              "Marine Temple 1F North Staircase", "Marine Temple 2F Left Bomb Cave"
+              ], ["EVENT: Marine Temple Stamp Station"], ["Ocean Undersea"]),
+    Enterior(["Undersea Marine Temple Station"],
+             ["EVENT: Marine Temple Lobby Drop Off Ferrus"], ["Ocean Undersea"]),
+    Enterior(["Undersea Marine Temple Station",
+              "Marine Temple Lobby Enter Dungeon", "Marine Temple 7F North Staircase"
+              ], ["GOAL: Defeat Cactops", "EVENT: Defeat Cactops"], ["Ocean Undersea"]),
+
+    Enterior(["Fire Realm Goron Village Station", "Goron Village West"], ["EVENT: Goron Field Stamp Station", "EVENT: Goron Field Buy Steel"], ["Overview", "Fire Realm"]),
+    Enterior(["Goron Village West"], ["EVENT: Goron Field Stamp Station", "EVENT: Goron Field Buy Steel"], ["Goron Village"]),
     Enterior(["Fire Realm Goron Village Station", "Goron Village Enclave North",
               "Goron Village Elder's House", "Elder Goron House Cave", "Burning Tunnel East Staircase"
               ], ["EVENT: Valley Sanctuary Stamp Station"], ["Overview", "Fire Realm"]),
+    Enterior(["Goron Village Enclave North"], ["EVENT: Valley Sanctuary Stamp Station"], ["Goron Village"]),
+    Enterior(["Fire Realm Goron Village Station"], [
+        "EVENT: Goron Village Pick Up Snow Goron", "EVENT: Goron Village Pick Up City Goron", "EVENT: Bring Ice to Kagoron"
+    ], ["Overview", "Fire Realm"]),
+    Enterior(["Fire Realm Goron Village Station", "Goron Village West", "Goron Field North"], ["EVENT: Visit Kagoron at the Mountain Altar"], ["Overview", "Fire Realm"]),
+    Enterior(["Goron Village West", "Goron Field North"], ["EVENT: Visit Kagoron at the Mountain Altar"], ["Goron Village"]),
+    Enterior(["Goron Field North"], ["EVENT: Visit Kagoron at the Mountain Altar"], ["Goron Field"]),
+
+    Enterior(["Fire Realm Disorientation Station", "Disorientation Station Cave"], ["EVENT: Disorientation Maze Find Chest"], ["Overview", "Fire Realm"]),
+    Enterior(["Disorientation Station Cave"], ["EVENT: Disorientation Maze Find Chest"], ["Disorientation Station"]),
+
     Enterior(["Fire Realm Mountain Temple Station", "Mountain Temple Lobby Enter Dungeon",
                 "Mountain Temple 1F Central Staircase", "Mountain Temple 2F NE Staircase", "Mountain Temple 1F North Staircase"
               ], ["EVENT: Mountain Temple Stamp Station"], ["Overview", "Fire Realm"]),
 
-    Enterior(["Ocean Realm Dune Sanctuary Station"], ["EVENT: Dune Sanctuary Stamp Station"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Dune Sanctuary Station"], ["EVENT: Dune Sanctuary Stamp Station", "EVENT: Dune Sanctuary Deliver Cuccos"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Desert Temple Station", "Desert Temple Lobby Enter Dungeon", "Desert Temple 1F Lower Staircase"],
              ["EVENT: Desert Temple Stamp Station"],["Overview", "Ocean Realm"]),
 ]
 
-station_section_link: dict[str, str] = {
+station_section_link: dict[str, str] = {  # Location section: blocking entrances
     "Overview Castle Town": "Forest Realm Castle Town Station",
     "Overview Hyrule Castle": ["Forest Realm Castle Town Station", "Castle Town North", "Hyrule Castle Courtyard Entrance"],
     "Overview Outset": "Forest Realm Outset Station",
@@ -426,7 +486,7 @@ station_section_link: dict[str, str] = {
     "Lost at Sea Station Cave": ["Lost at Sea Lobby Enter Dungeon"],
 }
 
-boss_event_link: dict[str, list[str]] = {
+boss_event_link: dict[str, list[str]] = {  # entrance section: blocking entrances
     "Overview WT Events": [
         "Forest Realm Wooded Temple Station",
         "Wooded Temple Lobby Enter Dungeon",
@@ -435,11 +495,6 @@ boss_event_link: dict[str, list[str]] = {
         "Snow Realm Blizzard Temple Station",
         "Blizzard Temple Lobby Enter Dungeon",
         "Blizzard Temple 3F North Staircase"],
-    "Overview OCT Events": [
-        "Ocean Realm Dive Underwater",
-        "Undersea Marine Temple Station",
-        "Marine Temple Lobby Enter Dungeon",
-        "Marine Temple 7F North Staircase"],
     "Overview MTT Events": [
         "Fire Realm Mountain Temple Station",
         "Mountain Temple Lobby Enter Dungeon",
@@ -448,22 +503,6 @@ boss_event_link: dict[str, list[str]] = {
         "Ocean Realm Desert Temple Station",
         "Desert Temple Lobby Enter Dungeon",
         "Desert Temple B2 North Entrance"],
-    "Overview OCT Undersea Events": [
-        "Undersea Marine Temple Station",
-        "Marine Temple Lobby Enter Dungeon",
-        "Marine Temple 7F North Staircase"],
-
-    "Carben Island Event": ["Ocean Realm Island Sanctuary Station"],
-    "Goron Anouki Event": ["Snow Realm Anouki Village Station"],
-    "Disorientation Event": ["Fire Realm Disorientation Station", "Disorientation Station Cave"],
-
-    "Mayscore Stamp Event": ["Mayscore North"],
-    "Papuzia Stamp Event": ["Papuzia South"],
-    "Island Sanctuary Stamp Event": ["Island Sanctuary South Peninsula"],
-    "Goron Stamp Event": ["Goron Village West"],
-    "Valley Sanctuary Stamp Event": ["Goron Village Enclave North"],
-    "Trading Post Stamp Event": ["Trading Post South Cave"]
-
 }
 
 def get_hidden_map_icons(world: "SpiritTracksWorld"):
@@ -560,18 +599,6 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
 
 
     # Hard coded examples
-    if ENTRANCES["Forest Realm Trading Post Station"].id in active_entrances:
-        entr_hidden.setdefault("Overview", []).append("EVENT: Give Regal Ring to Linebeck")
-        entr_hidden.setdefault("Forest Realm", []).append("EVENT: Give Regal Ring to Linebeck")
-    if any([ENTRANCES[e].id in active_entrances for e in ["Fire Realm Goron Village Station",
-                                                          "Goron Village West",
-                                                          "Goron Field North"]]):
-        entr_hidden.setdefault("Overview", []).append("EVENT: Visit Kagoron at the Mountain Altar")
-        entr_hidden.setdefault("Fire Realm", []).append("EVENT: Visit Kagoron at the Mountain Altar")
-    if ENTRANCES["Fire Realm Goron Village Station"].id in active_entrances:
-        entr_hidden.setdefault("Overview", []).append("EVENT: Bring Ice to Kagoron")
-        entr_hidden.setdefault("Fire Realm", []).append("EVENT: Bring Ice to Kagoron")
-
     if ENTRANCES["Ocean Realm Dive Underwater"].id in active_entrances:
         entr_hidden.setdefault("Overview", []).append("Undersea Marine Temple Station")
         entr_hidden.setdefault("Ocean Realm", []).append("Undersea Marine Temple Station")
@@ -579,13 +606,6 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
         entr_hidden.setdefault("Overview", []).append("EVENT: Complete Lost at Sea Dungeon")
         entr_hidden.setdefault("Ocean Realm", []).append("EVENT: Complete Lost at Sea Dungeon")
         entr_hidden.setdefault("Lost at Sea Station", []).append("EVENT: Complete Lost at Sea Dungeon")
-    if ENTRANCES["Castle Town Take 'em all On"].id in active_entrances:
-        entr_hidden.setdefault("Overview", []).append("EVENT: Complete Take 'em All On 3")
-        entr_hidden.setdefault("Forest Realm", []).append("EVENT: Complete Take 'em All On 3")
-    if ENTRANCES["Forest Realm Castle Town Station"].id in active_entrances:
-        entr_hidden.setdefault("Castle Town", []).append("EVENT: Complete Take 'em All On 3")
-        entr_hidden.setdefault("Overview", []).append("EVENT: Complete Take 'em All On 3")  # these are duplicated, is fine.
-        entr_hidden.setdefault("Forest Realm", []).append("EVENT: Complete Take 'em All On 3")
 
     if world.options.rabbitsanity.value == 4 and "rabbits" in world.options.extra_events.value:
         realm_lookup = {

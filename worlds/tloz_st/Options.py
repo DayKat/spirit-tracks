@@ -1046,10 +1046,12 @@ class SpiritTracksExtraEvents(OptionSet):
     - visits: show events for visiting stations if playing with that passenger pickup requirement
     - rabbits: shows events for individual rabbits if playing with total rabbits, that all fill out once you get your final total location of that type.
     - warps: shows events for unlocking blue warps in dungeons.
+    - passengers: shows picking up and intermediate triggers for vanilla passengers
+    - cargo: shows buying vanilla cargo for the first time
     """
     display_name = "Toggle Events"
-    default = {"portals", "stamps", "visits", "rabbits", "warps"}
-    valid_keys = ["portals", "stamps", "visits", "rabbits", "warps"]
+    default = {"portals", "stamps", "visits", "rabbits", "warps", "passengers", "cargo"}
+    valid_keys = ["portals", "stamps", "visits", "rabbits", "warps", "passengers", "cargo"]
 
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):

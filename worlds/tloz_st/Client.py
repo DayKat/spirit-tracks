@@ -1155,7 +1155,7 @@ class SpiritTracksClient(DSZeldaClient):
             read_results = await read_multiple(ctx, self.event_reads)
             for event, res in zip(self.event_data, read_results.values()):
                 # printl(read_results)
-                if event["value"] & res:
+                if (not event.get("exact_read", False) and event["value"] & res) or event["value"] == res:
                     if "entrance" in event:
                         printl(f"Event detection Success!, {event['entrance']}")
                         entrance = self.entrances[event["entrance"]]

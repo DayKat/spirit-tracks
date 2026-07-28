@@ -4337,7 +4337,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "persistent": True,
         "exact_read": True,
-        "region_id": "papuzia buy cargo",
+        "region_id": "papuzia buy fish",
         "hint_entrance": ["Papuzia Board Train", "Papuzia South",
                           "Papuzia Shop", "Papuzia South House", "Papuzia Wise One's House", "Papuzia NW House"],
 
@@ -4424,6 +4424,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "trading post bridge worker",
         "no_model": True,
+        "ut_connect": "EVENT: Trading Post Drop Off Kenzo",
         "hint_entrance": ["Trading Post Board Train", "Trading Post South Cave", "Trading Post Shop"],
     },
     "Trading Post Pick Up Kenzo": {
@@ -4463,7 +4464,8 @@ LOCATIONS_DATA |= {
         "slot_data": [("randomize_passengers", [1, 2, 3])],
         "conditional": True,
         "hint_entrance": ["Icy Spring Trailer", "Icy Spring Board Train"],
-        "region_id": "icyspring noko"
+        "region_id": "icyspring noko",
+        "ut_connect": "EVENT: Icy Spring Drop Off Noko"
     },
     "Anouki Village Repair Fence": {
         "stage_id": 0x2B,
@@ -4498,7 +4500,7 @@ LOCATIONS_DATA |= {
         "room_id": 0xc,
         "address": STAddr.adv_flags_3b,
         "value": 0x20,
-        "region_id": "castle town mona",  # Same Req
+        "region_id": "castle town mona",
         "vanilla_item": "Passenger: Mona",
         "location_groups": ["Castle Town", "Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
@@ -4732,6 +4734,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         "region_id": "sand sanc cuccos",
         "hint_entrance": ["Dune Sanctuary Board Train", "Dune Sanctuary Secret Staircase"],
+        "ut_connect": "EVENT: Dune Sanctuary Deliver Cuccos",
     },
     "Desert Temple 1F N Arena Stalfos Skull": {  # Used for a delay pickup to make sure the key gets removed
         "stage_id": 0x1D,
@@ -4870,7 +4873,9 @@ LOCATIONS_DATA |= {
         "location_groups": ["Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "region_id": "snow realm ferrus"
+        "persistent": True,
+        "region_id": "snow realm ferrus",
+        "ut_connect": "EVENT: Snow Realm Pick Up Ferrus"
     },
     "Outset Ferrus Force Gem": {
         "stage_id": 0x2F,
@@ -4895,7 +4900,9 @@ LOCATIONS_DATA |= {
         "location_groups": ["Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "region_id": "fire realm ferrus"
+        "persistent": True,
+        "region_id": "fire realm ferrus",
+        "ut_connect": "EVENT: Fire Realm Pick Up Ferrus"
     },
     "Marine Temple Lobby Ferrus Force Gem": {
         "stage_id": 0x1B,
@@ -4908,6 +4915,7 @@ LOCATIONS_DATA |= {
         "conditional": True,
         # "dungeon": "Marine Temple",  # Yas allow it to have local dungeon items!
         "region_id": "oct ferrus",
+        "ut_connect": "EVENT: Marine Temple Lobby Drop Off Ferrus",
         "hint_entrance": ["Marine Temple Lobby Board Train", "Marine Temple Lobby Enter Dungeon", "Marine Temple Lobby Blue Warp"],
     },
     "Forest Realm Ferrus Gift": {

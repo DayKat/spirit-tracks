@@ -1,10 +1,10 @@
 from ..Subclasses import STTransition, EntranceGroups
 
-def event(reg1:str, reg2:str) -> dict:
+def event(reg1:str, reg2: str="") -> dict:
     return {
         "two_way": False,
         "entrance_region": reg1,
-        "exit_region": reg2,
+        "exit_region": reg2 if reg2 else reg1 + " event",
         "entrance": (0x0, 0x0, 0xF),
         "type": EntranceGroups.EVENT,
         "direction": EntranceGroups.NONE,
@@ -2816,7 +2816,7 @@ ENTRANCE_DATA |= {
     "EVENT: Give Regal Ring to Linebeck": event("linebeck trading", "linebeck event"),
     "EVENT: Bring Ice to Kagoron": event("goron ice", "goron ice event"),
     "EVENT: Visit Kagoron at the Mountain Altar": event("mountain altar", "kagoron event"),
-    "EVENT: Bring Ferrus to Outset": event("delivered ferrus", "outset ferrus event"),
+    "EVENT: Bring Ferrus to Outset": event("delivered ferrus", "outset delivered ferrus event"),
     "EVENT: Bring Goron to Anouki Village": event("av goron", "av goron event"),
     "EVENT: Bring Carben to Island Sanctuary": event("island sanc carben", "carben event"),
     "EVENT: Disorientation Maze Find Chest": event("disorientation sod", "disorientation event"),
@@ -2930,6 +2930,40 @@ ENTRANCE_DATA |= {
     "EVENT: Rabbit N Icy Spring Station": event("icyspring rabbits", "icyspring rabbits event 2"),
     "EVENT: Rabbit NW Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event 2"),
     "EVENT: Rabbit Central Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event 3"),
+
+    # Vanilla Passenger Events
+    "EVENT: Bridge Worker's Home Pick Up Kenzo": event("pick up bridge worker"),
+    "EVENT: Trading Post Drop Off Kenzo": event("trading post bridge worker"),  # no event item, just connects regions
+    "EVENT: Trading Post Pick Up Kenzo": event("trading post pick up kenzo"),
+
+    "EVENT: Anouki Village Pick Up Kofu": event("av kofu"),
+    "EVENT: Anouki Village Pick Up Noko": event("av noko"),
+    "EVENT: Icy Spring Drop Off Noko": event("icyspring noko"),  # no event item
+
+    "EVENT: Castle Town Pick Up Mona": event("castle town mona"),
+    "EVENT: Outset Pick Up Joe": event("outset joe"),
+    "EVENT: Mayscore Pick Up Dovok": event("mayscore dovok"),
+
+    "EVENT: Papuzia Village Pick Up Carben": event("pv carben"),
+    "EVENT: Pirate Hideout Pick Up Wadatsumi": event("pirate wadatsumi"),
+
+    "EVENT: Goron Village Pick Up Snow Goron": event("pick up snow goron"),
+    "EVENT: Goron Village Pick Up City Goron": event("pick up city goron"),
+
+    "EVENT: Snow Realm Pick Up Ferrus": event("snow realm ferrus"),
+    "EVENT: Fire Realm Pick Up Ferrus": event("fire realm ferrus"),
+    "EVENT: Marine Temple Lobby Drop Off Ferrus": event("oct ferrus"),
+
+    "EVENT: Dune Sanctuary Deliver Cuccos": event("sand sanc cuccos"),
+
+    # Vanilla buy cargo
+    "EVENT: Icy Spring Buy Mega Ice": event("icyspring ice"),
+    "EVENT: Mayscore Buy Lumber": event("mayscore lumber"),
+    "EVENT: Castle Town Buy Cuccos": event("castle town buy cuccos"),
+    "EVENT: Papuzia Village Buy Fish": event("papuzia buy fish"),
+    "EVENT: Papuzia Village Buy Vessel": event("wise one buy vessel"),
+    "EVENT: Goron Field Buy Steel": event("goron steel"),
+    "EVENT: Dark Ore Mine Buy Ore": event("dark ore mine ore"),
 }
 
 

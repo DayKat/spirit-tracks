@@ -104,7 +104,6 @@ REGIONS = [
     "outset cuccos",
     "outset ferrus",
     "delivered ferrus",
-    "outset ferrus event",
 
     "niko's house",
     "mary's house",
@@ -561,7 +560,7 @@ REGIONS = [
     "pv dovok",
     "pv carben",
     "pv wadatsumi",
-    "papuzia buy cargo",
+    "papuzia buy fish",
     "papuzia shop",
     "papuzia shop bombs",
     "papuzia shop arrows",
@@ -667,6 +666,7 @@ REGIONS = [
     "las 6",
     "las_event",
     "las loop",
+    "las loop event",
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Fire Realm
@@ -973,6 +973,35 @@ REGIONS = [
     "icyspring rabbits event 2",
     "snow realm early blizzard rabbits event 2",
     "snow realm early blizzard rabbits event 3",
+
+    # Vanilla NPC Events
+    "pick up bridge worker event",
+    "trading post bridge worker event",
+    "trading post pick up kenzo event",
+    "av kofu event",
+    "av noko event",
+    "icyspring noko event",
+    "castle town mona event",
+    "outset joe event",
+    "mayscore dovok event",
+    "pv carben event",
+    "pirate wadatsumi event",
+    "pick up snow goron event",
+    "pick up city goron event",
+    "snow realm ferrus event",
+    "outset delivered ferrus event",
+    "fire realm ferrus event",
+    "oct ferrus event",
+    "sand sanc cuccos event",
+
+    # Vanilla Cargo Events
+    "icyspring ice event",
+    "mayscore lumber event",
+    "castle town buy cuccos event",
+    "papuzia buy fish event",
+    "wise one buy vessel event",
+    "goron steel event",
+    "dark ore mine ore event",
 
 ] + [
     f"{r} Rabbit Count {i}" for i in range(1, 11) for r in ["Grass", "Snow", "Ocean", "Mountain", "Sand"]

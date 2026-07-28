@@ -460,7 +460,6 @@
   {"name": "Snow Realm", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations": [{"map": "Snow Realm", "x": 128, "y": 350}]},
   {"name": "Snow Realm", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations": [{"map": "Snow Realm", "x": 290, "y": 326}]},
   {"name": "Snow Realm", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations": [{"map": "Snow Realm", "x": 334, "y": 130}]},
-  {"name": "Snow Realm", "sections": [{"name": "Snow Realm Pick Up Ferrus"}], "map_locations": [{"map": "Snow Realm", "x": 166, "y": 180}]},
   {"name": "Snow Realm", "sections": [{"name": "Beedle Shop Uncommon Treasure"}, {"name": "Beedle Shop Rare Treasure"}, {"name": "Beedle Shop Bomb Bag"}, {"name": "Beedle Shop Red Potion"}, {"name": "Beedle Shop Purple Potion"}, {"name": "Beedle Shop Bomb Refill"}, {"name": "Beedle Joe's Force Gem"}], "map_locations": [{"map": "Snow Realm", "x": 398, "y": 98}]},
   {"name": "Snow Realm", "sections": [{"name": "Catch 1 Snow Rabbit"}, {"name": "Catch 2 Snow Rabbits"}, {"name": "Catch 3 Snow Rabbits"}, {"name": "Catch 4 Snow Rabbits"}, {"name": "Catch 5 Snow Rabbits"}, {"name": "Catch 6 Snow Rabbits"}, {"name": "Catch 7 Snow Rabbits"}, {"name": "Catch 8 Snow Rabbits"}, {"name": "Catch 9 Snow Rabbits"}, {"name": "Catch 10 Snow Rabbits"}], "map_locations": [{"map": "Snow Realm", "x": 414, "y": 98}]},
 
@@ -630,7 +629,7 @@
   {"name": "Overview Snow", "sections": [{"name": "Snow Realm Shoot SW Portal"}], "map_locations": [{"map": "Overview", "x": 128, "y": 350}]},
   {"name": "Overview Snow", "sections": [{"name": "Snow Realm Shoot Bridge Portal"}], "map_locations": [{"map": "Overview", "x": 290, "y": 326}]},
   {"name": "Overview Snow", "sections": [{"name": "Snow Realm Shoot N Portal"}], "map_locations": [{"map": "Overview", "x": 334, "y": 130}]},
-  {"name": "Overview Snow", "sections": [{"name": "Snow Realm Pick Up Ferrus"}], "map_locations": [{"map": "Overview", "x": 166, "y": 180}]},
+  {"name": "Overview Snow", "sections": [{"name": "Snow Realm Pick Up Ferrus"}], "map_locations": [{"map": "Overview", "x": 166, "y": 180},{"map": "Snow Realm", "x": 166, "y": 180}]},
 
   {"name": "Overview Ocean", "sections": [{"name": "Rabbit W Lost at Sea"}], "map_locations": [{"map": "Overview", "x": 874, "y": 720}]},
   {"name": "Overview Ocean", "sections": [{"name": "Rabbit Near Island Sanctuary"}], "map_locations": [{"map": "Overview", "x": 760, "y": 698}]},

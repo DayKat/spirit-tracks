@@ -767,7 +767,7 @@ def make_overworld_logic(player: int, origin_name: str, options: SpiritTracksOpt
         ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player)]
             if options.randomize_cargo in [2, 3] else
         ["icyspring noko", "icyspring ice", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)], #  You can bully noko for free ice
-        ["papuzia village", "papuzia buy cargo", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
+        ["papuzia village", "papuzia buy fish", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["goron ice event", "goron steel", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
         ["dark ore mine", "dark ore mine ore", False, lambda state: st_has_wagon(state, player) and st_has_rupees(state, player, required_rupees)],
     ]

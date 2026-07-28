@@ -46,7 +46,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
                     Has("Cargo: Cuccos (5)", 2) & ool))],
         ["outset village", "delivered ferrus", False, has_passenger("Alfonzo", "_picked_up_alfonzo")
             & has_passenger("Ferrus", "_ferrus_1")],
-        ["delivered ferrus", "outset ferrus event", False, None],
+        ["delivered ferrus", "outset delivered ferrus event", False, None],
         ["train workshop", "outset ferrus", None, Has("_delivered_ferrus")],
         ["outset village", "visit outset", False, None],
 
@@ -432,11 +432,13 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["trading post north", "trading post leaves", False, has_whirlwind],
 
         ["trading post", "trading post bridge worker", False, has_passenger("Kenzo", "_kenzo_1")],
-        ["trading post bridge worker", "linebeck trading", False, Has("Treasure: Regal Ring")]
+        ["trading post bridge worker", "trading post bridge worker event", False, None],
+        ["trading post bridge worker event", "linebeck trading", False, Has("Treasure: Regal Ring")]
             if world.options.randomize_passengers.value else
             ["trading post", "linebeck trading", False, Has("Treasure: Regal Ring")],
         ["linebeck trading", "linebeck event", False, None],
         ["trading post", "trading post pick up kenzo", False, Has("_can_sell_treasure") & pickup_passenger("Snow Glyph", "_visit_av")],
+        ["trading post pick up kenzo", "trading post pick up kenzo event", False, None],
         ["linebeck's shop", "linebeck dark ore", False, Has("_can_sell_treasure") & has_cargo("Dark Ore", "_buy_ore")],
 
         # # ========== Rabbit Haven ========
@@ -518,6 +520,29 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["anouki village", "av goron", False, has_passenger("Snow Goron", "_snow_goron")],
         ["av goron", "av goron event", False, None],
         ["honcho's house", "av kofu", False, Has("_av_goron") & (((has_glyph("Fire") | has_source("Fire")) & pickup_tracks) | Has("_visit_gv", options=pickup_visit))],
+
+        # NPC Quest events
+        ["av kofu", "av kofu event", False, None],
+        ["av noko", "av noko event", False, None],
+        ["icyspring noko", "icyspring noko event", False, None],
+        ["castle town mona", "castle town mona event", False, None],
+        ["outset joe", "outset joe event", False, None],
+        ["mayscore dovok", "mayscore dovok event", False, None],
+        ["pv carben", "pv carben event", False, None],
+        ["pirate wadatsumi", "pirate wadatsumi event", False, None],
+        ["pick up snow goron", "pick up snow goron event", False, None],
+        ["pick up city goron", "pick up city goron event", False, None],
+        ["snow realm ferrus", "snow realm ferrus event", False, None],
+        ["fire realm ferrus", "fire realm ferrus event", False, None],
+
+        # Cargo Events
+        ["icyspring ice", "icyspring ice event", False, None],
+        ["mayscore lumber", "mayscore lumber event", False, None],
+        ["castle town buy cuccos", "castle town buy cuccos event", False, None],
+        ["papuzia buy fish", "papuzia buy fish event", False, None],
+        ["wise one buy vessel", "wise one buy vessel event", False, None],
+        ["goron steel", "goron steel event", False, None],
+        ["dark ore mine ore", "dark ore mine ore event", False, None],
 
         # =========== Snow Sanctuary ==========
 
@@ -656,6 +681,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bridge workers", "bridge workers chest", False, has_sod],
         ["bridge workers", "kenzo's house", True, None],
         ["kenzo's house", "pick up bridge worker", False, pickup_passenger("Ocean Glyph", "_visit_tp")],
+        ["pick up bridge worker", "pick up bridge worker event", False, None],
 
         # ========== Ocean Realm =============
         ["forest realm", "e mayscore bridge", True, has_tracks("E Mayscore Bridge") & has_glyph("Forest")],
@@ -846,6 +872,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct blue warp", "oct warp event", False, None],
         ["oct lobby", "oct ferrus", False, has_passenger("Ferrus", "_ferrus_2")
                        & (randomize_passengers | ool | Has("_ferrus_backup"))],
+        ["oct ferrus", "oct ferrus event", False, None],
         # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
 
         # ========= Pirate Hideout ==============
@@ -892,6 +919,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["las 5 door", "las 6", True, None],
         ["las 6", "las_event", False, None],
+        ["las 6", "las loop event", False, None],
 
         ["las lobby", "las loop", False, has_soa],
         ["las loop", "las lobby", False, Has("_las6")],
@@ -1341,8 +1369,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mayscore", "mayscore lumber", False, has_wagon & has_rupees(required_rupees)],
         ["icyspring noko", "icyspring ice", False, has_wagon]
             if world.options.randomize_cargo in [2, 3] else
-            ["icyspring noko", "icyspring ice", False, has_wagon & has_rupees(required_rupees)], #  You can bully noko for free ice
-        ["papuzia village", "papuzia buy cargo", False, has_wagon & has_rupees(required_rupees)],
+            ["icyspring noko event", "icyspring ice", False, has_wagon & has_rupees(required_rupees)], #  You can bully noko for free ice
+        ["papuzia village", "papuzia buy fish", False, has_wagon & has_rupees(required_rupees)],
         ["wise one's house", "wise one buy vessel", False, has_wagon & has_rupees(required_rupees)],
         ["goron field", "goron steel", False, has_wagon & has_rupees(required_rupees) & Has("_goron_ice")],
         ["dark ore tunnels mid", "dark ore mine ore", False, has_wagon & has_rupees(required_rupees)],

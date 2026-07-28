@@ -27,7 +27,7 @@ async def load_adv_flags(ctx):
 
 @dataclass
 class STAddr:
-    print(f"Initializing STAddr")
+    # print(f"Initializing STAddr")
     null = addr_null
     
     # Rom identification

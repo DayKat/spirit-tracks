@@ -1,10 +1,8 @@
 import math
-import random
-from typing import List, Union, ClassVar, Any, Optional, Tuple, TYPE_CHECKING
+from typing import List, Union, ClassVar, Any, TYPE_CHECKING
 import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification, Entrance
 from Fill import fill_restrictive, FillError
-from Options import Accessibility, OptionError
 from worlds.AutoWorld import WebWorld, World
 from entrance_rando import randomize_entrances, bake_target_group_lookup, EntranceRandomizationError, disconnect_entrance_for_randomization
 from .tracker.tracker_util import get_hidden_map_icons
@@ -24,7 +22,6 @@ from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_en
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
 from .Subclasses import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, decode_recursive, decode_entrance_groups, \
     dungeon_to_enum
-from ..earthbound.modules.dungeon_er import shuffle_dungeons
 
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
@@ -509,6 +506,40 @@ class SpiritTracksWorld(WorldParent):
         if self.options.rabbitsanity.value in [3, 4] and "rabbits" in self.options.extra_events.value:
             events += [f"EVENT: {r}" for r in LOCATION_GROUPS["Unique Rabbits"]]
 
+        if self.options.randomize_passengers.value == 1 and "passengers" in self.options.extra_events.value:
+            events += [
+                "EVENT: Bridge Worker's Home Pick Up Kenzo",
+                "EVENT: Trading Post Drop Off Kenzo",
+                "EVENT: Trading Post Pick Up Kenzo",
+                "EVENT: Anouki Village Pick Up Kofu",
+                "EVENT: Anouki Village Pick Up Noko",
+                "EVENT: Castle Town Pick Up Mona",
+                "EVENT: Outset Pick Up Joe",
+                "EVENT: Mayscore Pick Up Dovok",
+                "EVENT: Papuzia Village Pick Up Carben",
+                "EVENT: Pirate Hideout Pick Up Wadatsumi",
+                "EVENT: Goron Village Pick Up Snow Goron",
+                "EVENT: Goron Village Pick Up City Goron",
+                "EVENT: Snow Realm Pick Up Ferrus",
+                "EVENT: Fire Realm Pick Up Ferrus",
+                "EVENT: Marine Temple Lobby Drop Off Ferrus",
+            ]
+            if self.options.randomize_cargo.value:
+                events += ["EVENT: Icy Spring Drop Off Noko"]
+            if self.options.randomize_stamps.value:
+                events += ["EVENT: Dune Sanctuary Deliver Cuccos"]
+
+        if self.options.randomize_cargo.value == 1 and "cargo" in self.options.extra_events.value:
+            events += [
+                "EVENT: Icy Spring Buy Mega Ice",
+                "EVENT: Mayscore Buy Lumber",
+                "EVENT: Castle Town Buy Cuccos",
+                "EVENT: Papuzia Village Buy Fish",
+                "EVENT: Papuzia Village Buy Vessel",
+                "EVENT: Goron Field Buy Steel",
+                "EVENT: Dark Ore Mine Buy Ore"
+            ]
+
         self.ut_events = events
         # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
         print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
@@ -810,30 +841,30 @@ class SpiritTracksWorld(WorldParent):
         [self.create_event(reg, "_rupee_farming_spot") for reg in rupee_farming_regions]
         # Passenger Events
         if self.options.randomize_passengers == "vanilla":
-            self.create_event("pick up bridge worker", "_kenzo_1")
-            self.create_event("trading post pick up kenzo", "_kenzo_2")
-            self.create_event("av noko", "_noko")
-            self.create_event("castle town mona", "_mona")
-            self.create_event("outset joe", "_joe")
+            self.create_event("pick up bridge worker event", "_kenzo_1")
+            self.create_event("trading post pick up kenzo event", "_kenzo_2")
+            self.create_event("av noko event", "_noko")
+            self.create_event("castle town mona event", "_mona")
+            self.create_event("outset joe event", "_joe")
             self.create_event("alfonzo event", "_picked_up_alfonzo")
-            self.create_event("mayscore dovok", "_dovok")
-            self.create_event("pv carben", "_carben")
-            self.create_event("pirate wadatsumi", "_wadatsumi")
-            self.create_event("av kofu", "_kofu")
-            self.create_event("pick up snow goron", "_snow_goron")
-            self.create_event("pick up city goron", "_city_goron")
-            self.create_event("snow realm ferrus", "_ferrus_1")
-            self.create_event("fire realm ferrus", "_ferrus_2")
-            self.create_event("oct ferrus", "_ferrus_3")
+            self.create_event("mayscore dovok event", "_dovok")
+            self.create_event("pv carben event", "_carben")
+            self.create_event("pirate wadatsumi event", "_wadatsumi")
+            self.create_event("av kofu event", "_kofu")
+            self.create_event("pick up snow goron event", "_snow_goron")
+            self.create_event("pick up city goron event", "_city_goron")
+            self.create_event("snow realm ferrus event", "_ferrus_1")
+            self.create_event("fire realm ferrus event", "_ferrus_2")
+            self.create_event("oct ferrus event", "_ferrus_3")
             self.create_event("icyspring", "_ferrus_backup")
         if self.options.randomize_cargo == "vanilla":
-            self.create_event("mayscore lumber", "_buy_lumber")
-            self.create_event("icyspring ice", "_buy_ice")
-            self.create_event("castle town buy cuccos", "_buy_cuccos")
-            self.create_event("papuzia buy cargo", "_buy_fish")
-            self.create_event("wise one buy vessel", "_buy_vessel")
-            self.create_event("dark ore mine ore", "_buy_ore")
-            self.create_event("goron steel", "_buy_steel")
+            self.create_event("mayscore lumber event", "_buy_lumber")
+            self.create_event("icyspring ice event", "_buy_ice")
+            self.create_event("castle town buy cuccos event", "_buy_cuccos")
+            self.create_event("papuzia buy fish event", "_buy_fish")
+            self.create_event("wise one buy vessel event", "_buy_vessel")
+            self.create_event("dark ore mine ore event", "_buy_ore")
+            self.create_event("goron steel event", "_buy_steel")
         # Logic Events
         # self.create_event("alfonzo event", "_picked_up_alfonzo")
         self.create_event("linebeck event", "_can_sell_treasure")
@@ -842,7 +873,7 @@ class SpiritTracksWorld(WorldParent):
         self.create_event("papuzia village song statue", "_papuzia_sob")
         self.create_event("disorientation event", "_disorientation_chest")
         if self.options.randomize_passengers.value:
-            self.create_event("outset ferrus event", "_delivered_ferrus")
+            self.create_event("outset delivered ferrus event", "_delivered_ferrus")
             self.create_event("av goron event", "_av_goron")
             self.create_event("carben event", "_deliver_carben")
 
@@ -900,7 +931,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("sand restoration portal event", "_dt_portal")
             self.create_event("sand connection portal event", "_sand_portal")
 
-        self.create_event("las 6", "_las6")
+        self.create_event("las loop event", "_las6")
 
 
     def exclude_locations_automatically(self):

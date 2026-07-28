@@ -92,7 +92,8 @@ class TestGeneration(WorldTestBase):
 
         "rabbitsanity": "both",
 
-        "randomize_passengers": "randomize",
+        "randomize_passengers": "vanilla",
+        "randomize_cargo": "vanilla",
         "passenger_pickup": "visit"
 
         # "plando_transitions": [
