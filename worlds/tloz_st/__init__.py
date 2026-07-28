@@ -402,21 +402,17 @@ class SpiritTracksWorld(WorldParent):
         return required_rupees
 
     def pick_ut_events(self):
-        events = ["EVENT: Give Regal Ring to Linebeck"]
+        events = ["EVENT: Trading Post Give Regal Ring to Linebeck"]
 
         if self.options.goal.value == -1 and self.options.endgame_scope == "enter_dark_realm":
             events.append("GOAL: Enter Dark Realm")
         else:
             events.append(goal_event_lookup[self.options.goal.value])
 
-        if self.options.randomize_passengers == "vanilla":
-            events += ["EVENT: Pick up Alfonzo"]
-        if self.options.randomize_cargo == "vanilla":
-            pass
         if self.options.randomize_cargo.value > 0:
             events += [
-                "EVENT: Visit Kagoron at the Mountain Altar",
-                "EVENT: Bring Ice to Kagoron"]
+                "EVENT: Mountain Altar Visit Kagoron",
+                "EVENT: Goron Village Bring Ice to Kagoron"]
 
         if self.options.goal == "defeat_malladus" and self.options.dark_realm_access in ["dungeons", "both"]:
             if self.options.dungeon_hints or not self.options.require_specific_dungeons:
@@ -437,11 +433,11 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Wooded Temple Open Blue Warp"
             ]
         if self.options.shuffle_houses.value and self.options.randomize_passengers.value:
-            events += ["EVENT: Bring Goron to Anouki Village",
-                       "EVENT: Bring Ferrus to Outset"]
+            events += ["EVENT: Anouki Village Drop Off Goron",
+                       "EVENT: Outset Drop Off Ferrus"]
 
         if self.options.randomize_passengers.value and self.options.shuffle_caves.value:
-            events += ["EVENT: Bring Carben to Island Sanctuary"]
+            events += ["EVENT: Island Sanctuary Drop Off Carben"]
 
         if self.options.shuffle_portals.value and self.options.portal_behavior.value == 0 and "portals" in self.options.extra_events.value:
             events += [
@@ -508,6 +504,7 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.randomize_passengers.value == 1 and "passengers" in self.options.extra_events.value:
             events += [
+                "EVENT: Castle Town Pick Up Alfonzo",
                 "EVENT: Bridge Worker's Home Pick Up Kenzo",
                 "EVENT: Trading Post Drop Off Kenzo",
                 "EVENT: Trading Post Pick Up Kenzo",
@@ -2184,7 +2181,7 @@ class SpiritTracksWorld(WorldParent):
                 print(f"Connecting: {_exit} => {entrance_region} | {connection}: {pairing}")
                 _exit.connect(entrance_region)
 
-                if exit_name == "EVENT: Bring Ice to Kagoron":
+                if exit_name == "EVENT: Goron Village Bring Ice to Kagoron":
                     self.get_region("goron village").connect(self.get_region("goron ice"))
 
                 if exit_name in boss_events:

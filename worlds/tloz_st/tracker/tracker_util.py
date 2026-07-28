@@ -280,6 +280,7 @@ class Interior:
 
 @dataclass
 class Enterior:
+    """Portmanteau of Entrance and Interior"""
     blocking_entrances: Iterable[str]
     entrances: Iterable[str]
     maps: Iterable[str]
@@ -352,7 +353,7 @@ interior_data = [
 
 enterior_data: list["Enterior"] = [
     Enterior(["Forest Realm Outset Station"], [
-        "EVENT: Outset Stamp Station", "EVENT: Bring Ferrus to Outset", "EVENT: Outset Pick Up Joe"
+        "EVENT: Outset Stamp Station", "EVENT: Outset Drop Off Ferrus", "EVENT: Outset Pick Up Joe", "EVENT: Visit Outset"
     ], ["Overview", "Forest Realm"]),
 
     Enterior(["Forest Realm Mayscore Station", "Mayscore North"], ["EVENT: Mayscore Forest Stamp Station"], ["Overview", "Forest Realm"]),
@@ -361,21 +362,22 @@ enterior_data: list["Enterior"] = [
     Enterior(["Forest Realm Mayscore Station", "Mayscore North House"], ["EVENT: Mayscore Pick Up Dovok"], ["Overview", "Forest Realm"]),
     Enterior(["Mayscore North House"], ["EVENT: Mayscore Pick Up Dovok"], ["Mayscore"]),
 
-    Enterior(["Forest Realm Castle Town Station"], ["EVENT: Castle Town Stamp Station", "EVENT: Castle Town Buy Cuccos"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Castle Town Station"], ["EVENT: Castle Town Stamp Station", "EVENT: Castle Town Buy Cuccos", "EVENT: Visit Castle Town"], ["Overview", "Forest Realm"]),
     Enterior(["Forest Realm Castle Town Station", "Castle Town West House"], ["EVENT: Castle Town Pick Up Mona"], ["Overview", "Forest Realm"]),
     Enterior(["Castle Town West House"], ["EVENT: Castle Town Pick Up Mona"], ["Castle Town"]),
     Enterior(["Castle Town Take 'em all On"], ["EVENT: Complete Take 'em All On 3"], ["Castle Town"]),
     Enterior(["Forest Realm Castle Town Station", "Castle Town Take 'em all On"], ["EVENT: Complete Take 'em All On 3"], ["Overview", "Forest Realm"]),
 
     Enterior(["Forest Realm Woodland Sanctuary Station"], ["EVENT: Woodland Sanctuary Stamp Station"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Rabbit Haven Station"], ["EVENT: Visit Rabbit Haven"], ["Overview", "Forest Realm"]),
 
     Enterior(["Forest Realm Trading Post Station", "Trading Post South Cave"], ["EVENT: Trading Post Tunnel Stamp Station"], ["Overview", "Forest Realm"]),
     Enterior(["Trading Post South Cave"], ["EVENT: Trading Post Tunnel Stamp Station"], ["Trading Post"]),
-    Enterior(["Forest Realm Trading Post Station"], ["EVENT: Trading Post Drop Off Kenzo", "EVENT: Trading Post Pick Up Kenzo", "EVENT: Give Regal Ring to Linebeck"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Trading Post Station"], ["EVENT: Visit Trading Post", "EVENT: Trading Post Drop Off Kenzo", "EVENT: Trading Post Pick Up Kenzo", "EVENT: Trading Post Give Regal Ring to Linebeck"], ["Overview", "Forest Realm"]),
 
     Enterior(["Forest Realm Wooded Temple Station", "Wooded Temple Lobby Enter Dungeon"], ["EVENT: Wooded Temple Stamp Station"], ["Overview", "Forest Realm"]),
 
-    Enterior(["Snow Realm Anouki Village Station"], ["EVENT: Anouki Village Stamp Station", "EVENT: Anouki Village Pick Up Noko", "EVENT: Bring Goron to Anouki Village"], ["Overview", "Snow Realm"]),
+    Enterior(["Snow Realm Anouki Village Station"], ["EVENT: Visit Anouki Village", "EVENT: Anouki Village Stamp Station", "EVENT: Anouki Village Pick Up Noko", "EVENT: Anouki Village Drop Off Goron"], ["Overview", "Snow Realm"]),
     Enterior(["Snow Realm Anouki Village Station", "Anouki Village N House"], ["EVENT: Anouki Village Pick Up Kofu"], ["Overview", "Snow Realm"]),
     Enterior(["Anouki Village N House"], ["EVENT: Anouki Village Pick Up Kofu"], ["Anouki Village"]),
 
@@ -383,7 +385,8 @@ enterior_data: list["Enterior"] = [
     Enterior(["Snow Realm Icy Spring Station"], [
         "EVENT: Icy Spring Stamp Station",
         "EVENT: Icy Spring Drop Off Noko",
-        "EVENT: Icy Spring Buy Mega Ice"
+        "EVENT: Icy Spring Buy Mega Ice",
+"EVENT: Visit Icy Spring"
     ], ["Overview", "Snow Realm"]),
 
     Enterior(["Bridge Worker's House", "Snow Realm Bridge Worker's Station"], ["EVENT: Bridge Worker's Home Pick Up Kenzo"], ["Overview", "Snow Realm"]),
@@ -397,19 +400,19 @@ enterior_data: list["Enterior"] = [
 
     Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Papuzia Village"]),
-    Enterior(["Ocean Realm Papuzia Station"], ["EVENT: Papuzia Village Pick Up Carben", "EVENT: Papuzia Village Buy Fish"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Papuzia Station"], ["EVENT: Visit Papuzia Village", "EVENT: Papuzia Village Pick Up Carben", "EVENT: Papuzia Village Buy Fish"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Papuzia Station", "Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Overview", "Ocean Realm"]),
     Enterior(["Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Papuzia Village"]),
 
     Enterior(["Ocean Realm Island Sanctuary Station", "Island Sanctuary South Peninsula"],
              ["EVENT: Island Sanctuary Stamp Station"], ["Overview", "Ocean Realm"]),
     Enterior(["Island Sanctuary South Peninsula"], ["EVENT: Island Sanctuary Stamp Station"], ["Island Sanctuary South"]),
-    Enterior(["Ocean Realm Island Sanctuary Station"], ["EVENT: Bring Carben to Island Sanctuary"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Island Sanctuary Station"], ["EVENT: Island Sanctuary Drop Off Carben"], ["Overview", "Ocean Realm"]),
 
     Enterior(["Undersea Marine Temple Station", "Ocean Realm Dive Underwater",
                 "Marine Temple Lobby Enter Dungeon", "Marine Temple 1F North Staircase", "Marine Temple 2F Left Bomb Cave"
               ], ["EVENT: Marine Temple Stamp Station"], ["Overview", "Ocean Realm"]),
-    Enterior(["Undersea Marine Temple Station", "Ocean Realm Dive Underwater"], ["EVENT: Marine Temple Lobby Drop Off Ferrus"], ["Overview", "Ocean Realm"]),
+    Enterior(["Undersea Marine Temple Station", "Ocean Realm Dive Underwater"], ["EVENT: Marine Temple Lobby Drop Off Ferrus", "EVENT: Visit Marine Temple"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Dive Underwater", "Undersea Marine Temple Station",
         "Marine Temple Lobby Enter Dungeon", "Marine Temple 7F North Staircase"
               ], ["GOAL: Defeat Cactops", "EVENT: Defeat Cactops"], ["Overview", "Ocean Realm"]),
@@ -418,7 +421,7 @@ enterior_data: list["Enterior"] = [
               "Marine Temple 1F North Staircase", "Marine Temple 2F Left Bomb Cave"
               ], ["EVENT: Marine Temple Stamp Station"], ["Ocean Undersea"]),
     Enterior(["Undersea Marine Temple Station"],
-             ["EVENT: Marine Temple Lobby Drop Off Ferrus"], ["Ocean Undersea"]),
+             ["EVENT: Marine Temple Lobby Drop Off Ferrus", "EVENT: Visit Marine Temple"], ["Ocean Undersea"]),
     Enterior(["Undersea Marine Temple Station",
               "Marine Temple Lobby Enter Dungeon", "Marine Temple 7F North Staircase"
               ], ["GOAL: Defeat Cactops", "EVENT: Defeat Cactops"], ["Ocean Undersea"]),
@@ -430,11 +433,11 @@ enterior_data: list["Enterior"] = [
               ], ["EVENT: Valley Sanctuary Stamp Station"], ["Overview", "Fire Realm"]),
     Enterior(["Goron Village Enclave North"], ["EVENT: Valley Sanctuary Stamp Station"], ["Goron Village"]),
     Enterior(["Fire Realm Goron Village Station"], [
-        "EVENT: Goron Village Pick Up Snow Goron", "EVENT: Goron Village Pick Up City Goron", "EVENT: Bring Ice to Kagoron"
+        "EVENT: Goron Village Pick Up Snow Goron", "EVENT: Goron Village Pick Up City Goron", "EVENT: Goron Village Bring Ice to Kagoron", "EVENT: Visit Goron Village"
     ], ["Overview", "Fire Realm"]),
-    Enterior(["Fire Realm Goron Village Station", "Goron Village West", "Goron Field North"], ["EVENT: Visit Kagoron at the Mountain Altar"], ["Overview", "Fire Realm"]),
-    Enterior(["Goron Village West", "Goron Field North"], ["EVENT: Visit Kagoron at the Mountain Altar"], ["Goron Village"]),
-    Enterior(["Goron Field North"], ["EVENT: Visit Kagoron at the Mountain Altar"], ["Goron Field"]),
+    Enterior(["Fire Realm Goron Village Station", "Goron Village West", "Goron Field North"], ["EVENT: Mountain Altar Visit Kagoron"], ["Overview", "Fire Realm"]),
+    Enterior(["Goron Village West", "Goron Field North"], ["EVENT: Mountain Altar Visit Kagoron"], ["Goron Village"]),
+    Enterior(["Goron Field North"], ["EVENT: Mountain Altar Visit Kagoron"], ["Goron Field"]),
 
     Enterior(["Fire Realm Disorientation Station", "Disorientation Station Cave"], ["EVENT: Disorientation Maze Find Chest"], ["Overview", "Fire Realm"]),
     Enterior(["Disorientation Station Cave"], ["EVENT: Disorientation Maze Find Chest"], ["Disorientation Station"]),
@@ -618,7 +621,7 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
             if rabbit_loc in world.active_rabbit_locations:
                 entr_hidden.setdefault("Overview", []).append(f"EVENT: {rabbit_loc}")
                 entr_hidden.setdefault(realm_lookup[LOCATIONS_DATA[rabbit_loc]["stage_id"]], []).append(f"EVENT: {rabbit_loc}")
-
+    print(f"hidden entrances: {entr_hidden}")
     # Hide interiors from overview
     for data in interior_data:
         locs_hidden = data.hide_locations(active_entrances, locs_hidden)
@@ -627,5 +630,5 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
         entr_hidden = data.hide_entrances(active_entrances, entr_hidden)
 
 
-    # print(f"hidden entrances: {entr_hidden}")
+    print(f"hidden entrances: {entr_hidden}")
     return locs_hidden, entr_hidden

@@ -8,7 +8,7 @@
   {"name": "Outset", "sections": [{"name": "Outset Board Train"}], "map_locations": [{"map": "Outset Village", "x": 160, "y": 50}]},
 
   {"name": "Mayscore", "sections": [{"name": "Mayscore Shop"}], "map_locations": [{"map": "Mayscore", "x": 84, "y": 116}]},
-  {"name": "Mayscore", "sections": [{"name": "Mayscore North House"}], "map_locations": [{"map": "Mayscore", "x": 124, "y": 68}]},
+  {"name": "Mayscore", "sections": [{"name": "Mayscore North House"}, {"name": "EVENT: Mayscore Pick Up Dovok"}], "map_locations": [{"map": "Mayscore", "x": 124, "y": 68}]},
   {"name": "Mayscore", "sections": [{"name": "Mayscore NW House"}], "map_locations": [{"map": "Mayscore", "x": 104, "y": 88}]},
   {"name": "Mayscore", "sections": [{"name": "Mayscore NE House"}], "map_locations": [{"map": "Mayscore", "x": 156, "y": 104}]},
   {"name": "Mayscore", "sections": [{"name": "Mayscore North"}], "map_locations": [{"map": "Mayscore", "x": 212, "y": 24}]},
@@ -25,7 +25,7 @@
   {"name": "Rabbit Haven", "sections": [{"name": "Rabbit Haven Board Train"}], "map_locations": [{"map": "Rabbit Haven", "x": 30, "y": 142}]},
   {"name": "Wooded Temple", "sections": [{"name": "Wooded Temple Lobby Board Train"}], "map_locations": [{"map": "Wooded Temple Lobby", "x": 118, "y": 108}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town Board Train"}], "map_locations": [{"map": "Castle Town", "x": 128, "y": 156}]},
-  {"name": "Castle Town", "sections": [{"name": "Castle Town West House"}], "map_locations": [{"map": "Castle Town", "x": 62, "y": 92}]},
+  {"name": "Castle Town", "sections": [{"name": "Castle Town West House"}, {"name": "EVENT: Castle Town Pick Up Mona"}], "map_locations": [{"map": "Castle Town", "x": 62, "y": 92}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town NW House"}], "map_locations": [{"map": "Castle Town", "x": 96, "y": 60}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town Shop"}], "map_locations": [{"map": "Castle Town", "x": 160, "y": 60}]},
   {"name": "Castle Town", "sections": [{"name": "Castle Town Take 'em all On"}], "map_locations": [{"map": "Castle Town", "x": 198, "y": 124}]},
@@ -80,7 +80,7 @@
   {"name": "Trading Post Cave", "sections": [{"name": "Like-Like Tunnel South"}], "map_locations": [{"map": "Like-Like Tunnel", "x": 132, "y": 170}]},
   {"name": "Trading Post Cave", "sections": [{"name": "Like-Like Tunnel North"}], "map_locations": [{"map": "Like-Like Tunnel", "x": 120, "y": 44}]},
   {"name": "Trading Post Cave", "sections": [{"name": "Linebeck's Treasure's Cave Exit"}], "map_locations": [{"map": "Linebeck's Treasure Cave", "x": 128, "y": 150}]},
-  {"name": "Trading Post", "sections": [{"name": "EVENT: Give Regal Ring to Linebeck"}], "map_locations": [{"map": "Trading Post", "x": 104, "y": 156}]},
+  {"name": "Trading Post", "sections": [{"name": "EVENT: Trading Post Give Regal Ring to Linebeck"}], "map_locations": [{"map": "Trading Post", "x": 104, "y": 156}]},
   {"name": "Castle Town", "sections": [{"name": "EVENT: Complete Take 'em All On 3"}], "map_locations": [{"map": "Castle Town", "x": 198, "y": 116}]},
   {"name": "Castle Town Interior", "sections": [{"name": "EVENT: Complete Take 'em All On 3"}], "map_locations": [{"map": "Take 'em All On Lobby", "x": 128, "y": 80}]},
   {"name": "Wooded Temple", "sections": [{"name": "Wooded Temple Lobby Enter Dungeon"}], "map_locations": [{"map": "Wooded Temple Lobby", "x": 128, "y": 40}]},
@@ -110,6 +110,7 @@
   {"name": "Anouki Village", "sections": [{"name": "Anouki Village SE House"}], "map_locations": [{"map": "Anouki Village", "x": 180, "y": 70}]},
   {"name": "Anouki Village", "sections": [{"name": "Anouki Village NW House"}], "map_locations": [{"map": "Anouki Village", "x": 84, "y": 34}]},
   {"name": "Anouki Village", "sections": [{"name": "Anouki Village N House"}], "map_locations": [{"map": "Anouki Village", "x": 128, "y": 30}]},
+  {"name": "Anouki Village", "sections": [{"name": "EVENT: Anouki Village Pick Up Kofu"}], "map_locations": [{"map": "Anouki Village", "x": 128, "y": 22}]},
   {"name": "Anouki Village", "sections": [{"name": "Anouki Village NE House"}], "map_locations": [{"map": "Anouki Village", "x": 172, "y": 34}]},
   {"name": "Anouki Village Interior", "sections": [{"name": "Yefu's House Exit"}], "map_locations": [{"map": "Yefu's House", "x": 128, "y": 116}]},
   {"name": "Anouki Village Interior", "sections": [{"name": "Noko's House Exit"}], "map_locations": [{"map": "Noko's House", "x": 128, "y": 116}]},
@@ -126,7 +127,7 @@
   {"name": "Snowfall Sanctuary Cave", "sections": [{"name": "Head Statue Cave Door"}], "map_locations": [{"map": "Head Statue Cave", "x": 124, "y": 36}]},
   {"name": "Snowfall Sanctuary Interior", "sections": [{"name": "Steem's Sanctuary Exit"}], "map_locations": [{"map": "Steem's Sanctuary", "x": 124, "y": 158}]},
   {"name": "Bridge Worker", "sections": [{"name": "Bridge Worker's Board Train"}], "map_locations": [{"map": "Bridge Worker", "x": 94, "y": 162}]},
-  {"name": "Bridge Worker", "sections": [{"name": "Bridge Worker's House"}], "map_locations": [{"map": "Bridge Worker", "x": 170, "y": 58}]},
+  {"name": "Bridge Worker", "sections": [{"name": "Bridge Worker's House"}, {"name": "EVENT: Bridge Worker's Home Pick Up Kenzo"}], "map_locations": [{"map": "Bridge Worker", "x": 170, "y": 58}]},
   {"name": "Bridge Worker Interior", "sections": [{"name": "Kenzo's House Exit"}], "map_locations": [{"map": "Kenzo's House", "x": 118, "y": 116}]},
   {"name": "Icy Spring", "sections": [{"name": "Icy Spring Board Train"}], "map_locations": [{"map": "Icy Spring", "x": 146, "y": 142}]},
   {"name": "Icy Spring", "sections": [{"name": "Icy Spring Trailer"}], "map_locations": [{"map": "Icy Spring", "x": 180, "y": 88}]},
@@ -260,7 +261,7 @@
   {"name": "Goron Village Interior", "sections": [{"name": "Goron Shop Exit"}], "map_locations": [{"map": "Goron Shop", "x": 128, "y": 106}]},
   {"name": "Goron Field", "sections": [{"name": "Goron Field East"}], "map_locations": [{"map": "Goron Field", "x": 234, "y": 154}]},
   {"name": "Goron Field", "sections": [{"name": "Goron Field North"}], "map_locations": [{"map": "Goron Field", "x": 102, "y": 18}]},
-  {"name": "Goron Village", "sections": [{"name": "EVENT: Bring Ice to Kagoron"}], "map_locations": [{"map": "Goron Village", "x": 94, "y": 140}]},
+  {"name": "Goron Village", "sections": [{"name": "EVENT: Goron Village Bring Ice to Kagoron"}], "map_locations": [{"map": "Goron Village", "x": 94, "y": 140}]},
   {"name": "Goron Village Interior", "sections": [{"name": "Kofu's New House Exit"}], "map_locations": [{"map": "Kofu's New House", "x": 128, "y": 106}]},
   {"name": "Goron Village Interior", "sections": [{"name": "Elder Goron House Exit"}], "map_locations": [{"map": "Elder Goron House", "x": 128, "y": 106}]},
   {"name": "Goron Village Interior", "sections": [{"name": "Elder Goron House Cave"}], "map_locations": [{"map": "Elder Goron House", "x": 128, "y": 72}]},
@@ -317,7 +318,7 @@
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia South"}], "map_locations": [{"map": "Papuzia Village", "x": 208, "y": 176}]},
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia Shop"}], "map_locations": [{"map": "Papuzia Village", "x": 32, "y": 132}]},
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia South House"}], "map_locations": [{"map": "Papuzia Village", "x": 116, "y": 136}]},
-  {"name": "Papuzia Village", "sections": [{"name": "Papuzia Wise One's House"}], "map_locations": [{"map": "Papuzia Village", "x": 160, "y": 96}]},
+  {"name": "Papuzia Village", "sections": [{"name": "Papuzia Wise One's House"}, {"name": "EVENT: Papuzia Village Buy Vessel"}], "map_locations": [{"map": "Papuzia Village", "x": 160, "y": 96}]},
   {"name": "Papuzia Village", "sections": [{"name": "Papuzia NW House"}], "map_locations": [{"map": "Papuzia Village", "x": 216, "y": 60}]},
   {"name": "Papuzia Archipelago", "sections": [{"name": "Papuzia Archipelago North"}], "map_locations": [{"map": "Papuzia Archipelago", "x": 210, "y": 16}]},
   {"name": "Papuzia Village Interior", "sections": [{"name": "Kogane's Shop Exit"}], "map_locations": [{"map": "Papuzia Shop", "x": 128, "y": 116}]},
@@ -399,12 +400,12 @@
   {"name": "Capbone", "sections": [{"name": "Capbone Exit"}], "map_locations": [{"map": "Capbone Arena", "x": 128, "y": 170}]},
   {"name": "Capbone", "sections": [{"name": "EVENT: Defeat Capbone"}, {"name": "GOAL: Defeat Skeldritch"}], "map_locations": [{"map": "Capbone Arena", "x": 128, "y": 62}]},
 
-  {"name": "Outset", "sections": [{"name": "EVENT: Bring Ferrus to Outset"}], "map_locations": [{"map": "Outset Village", "x": 168, "y": 50}]},
-  {"name": "Anouki Village", "sections": [{"name": "EVENT: Bring Goron to Anouki Village"}], "map_locations": [{"map": "Anouki Village", "x": 152, "y": 152}]},
+  {"name": "Outset", "sections": [{"name": "EVENT: Outset Drop Off Ferrus"}], "map_locations": [{"map": "Outset Village", "x": 168, "y": 50}]},
+  {"name": "Anouki Village", "sections": [{"name": "EVENT: Anouki Village Drop Off Goron"}], "map_locations": [{"map": "Anouki Village", "x": 152, "y": 152}]},
   {"name": "Disorientation 9", "sections": [{"name": "EVENT: Disorientation Maze Find Chest"}], "map_locations": [{"map": "Disorientation 9", "x": 142, "y": 82}]},
-  {"name": "Goron Field", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}], "map_locations": [{"map": "Goron Field", "x": 102, "y": 18}]},
-  {"name": "Goron Field Interior", "sections": [{"name": "EVENT: Visit Kagoron at the Mountain Altar"}], "map_locations": [{"map": "Mountain Altar", "x": 126, "y": 94}]},
-  {"name": "Island Sanctuary", "sections": [{"name": "EVENT: Bring Carben to Island Sanctuary"}], "map_locations": [{"map": "Island Sanctuary South", "x": 150, "y": 134}]},
+  {"name": "Goron Field", "sections": [{"name": "EVENT: Mountain Altar Visit Kagoron"}], "map_locations": [{"map": "Goron Field", "x": 102, "y": 18}]},
+  {"name": "Goron Field Interior", "sections": [{"name": "EVENT: Mountain Altar Visit Kagoron"}], "map_locations": [{"map": "Mountain Altar", "x": 126, "y": 94}]},
+  {"name": "Island Sanctuary", "sections": [{"name": "EVENT: Island Sanctuary Drop Off Carben"}], "map_locations": [{"map": "Island Sanctuary South", "x": 150, "y": 134}]},
   {"name": "Wooded Temple 4F", "sections": [{"name": "EVENT: Wooded Temple Open Blue Warp"}], "map_locations": [{"map": "Wooded Temple 4F", "x": 118, "y": 58}]},
   {"name": "Blizzard Temple 3F", "sections": [{"name": "EVENT: Blizzard Temple Open Blue Warp"}], "map_locations": [{"map": "Blizzard Temple 3F", "x": 110, "y": 54}]},
   {"name": "Marine Temple 7F", "sections": [{"name": "EVENT: Marine Temple Open Blue Warp"}], "map_locations": [{"map": "Marine Temple 7F", "x": 110, "y": 58}]},
@@ -467,8 +468,9 @@
   {"name": "Forest Realm", "sections": [{"name": "EVENT: Unlock Forest Realm SE Portal"}], "map_locations": [{"map": "Forest Realm", "x": 424, "y": 334}]},
 
   {"name": "Forest Realm", "sections": [
+    {"name": "EVENT: Visit Castle Town"},
     {"name": "EVENT: Castle Town Stamp Station"},
-    {"name": "EVENT: Pick up Alfonzo"},
+    {"name": "EVENT: Castle Town Pick Up Alfonzo"},
     {"name": "EVENT: Castle Town Pick Up Mona"},
     {"name": "EVENT: Castle Town Buy Cuccos"},
     {"name": "EVENT: Complete Take 'em All On 3"}
@@ -478,9 +480,10 @@
   ]},
 
   {"name": "Forest Realm", "sections": [
+    {"name": "EVENT: Visit Trading Post"},
     {"name": "EVENT: Trading Post Tunnel Stamp Station"},
     {"name": "EVENT: Trading Post Drop Off Kenzo"},
-    {"name": "EVENT: Give Regal Ring to Linebeck"},
+    {"name": "EVENT: Trading Post Give Regal Ring to Linebeck"},
     {"name": "EVENT: Trading Post Pick Up Kenzo"}
   ], "map_locations": [
     {"map": "Forest Realm", "x": 420, "y": 284},
@@ -539,8 +542,9 @@
 
   {"name": "Fire Realm", "sections": [{"name": "EVENT: Disorientation Maze Find Chest"}], "map_locations": [{"map": "Disorientation Dungeon", "x": 288, "y": 38}]},
   {"name": "Fire Realm", "sections": [
-    {"name": "EVENT: Visit Kagoron at the Mountain Altar"},
-    {"name": "EVENT: Bring Ice to Kagoron"},
+    {"name": "EVENT: Visit Goron Village"},
+    {"name": "EVENT: Mountain Altar Visit Kagoron"},
+    {"name": "EVENT: Goron Village Bring Ice to Kagoron"},
     {"name": "EVENT: Goron Village Pick Up Snow Goron"},
     {"name": "EVENT: Goron Village Pick Up City Goron"},
     {"name": "EVENT: Goron Field Buy Steel"},
@@ -562,24 +566,26 @@
   {"name": "Overview Forest", "sections": [{"name": "EVENT: Unlock Forest Realm SE Portal"}], "map_locations": [{"map": "Overview", "x": 424, "y": 718}]},
 
   {"name": "Outset Events", "sections": [
+    {"name": "EVENT: Visit Outset"},
     {"name": "EVENT: Outset Stamp Station"},
     {"name": "EVENT: Outset Pick Up Joe"},
-    {"name": "EVENT: Bring Ferrus to Outset"}
+    {"name": "EVENT: Outset Drop Off Ferrus"}
   ], "map_locations": [
     {"map": "Overview", "x": 252, "y": 728},
     {"map": "Forest Realm", "x": 252, "y": 344}
   ]},
   {"name": "Carben Island Event", "sections": [
-    {"name": "EVENT: Bring Carben to Island Sanctuary"},
+    {"name": "EVENT: Island Sanctuary Drop Off Carben"},
     {"name": "EVENT: Island Sanctuary Stamp Station"}
   ], "map_locations": [
     {"map": "Ocean Realm", "x": 220, "y": 284},
     {"map": "Overview", "x": 732, "y": 668}
   ]},
   {"name": "Goron Anouki Event", "sections": [
+    {"name": "EVENT: Visit Anouki Village"},
     {"name": "EVENT: Anouki Village Stamp Station"},
     {"name": "EVENT: Anouki Village Pick Up Noko"},
-    {"name": "EVENT: Bring Goron to Anouki Village"},
+    {"name": "EVENT: Anouki Village Drop Off Goron"},
     {"name": "EVENT: Anouki Village Pick Up Kofu"}
   ], "map_locations": [
     {"map": "Snow Realm", "x": 180, "y": 280},
@@ -637,12 +643,14 @@
   {"name": "Overview OCT Events", "sections": [
     {"name": "EVENT: Defeat Cactops"},
     {"name": "GOAL: Defeat Cactops"},
+    {"name": "EVENT: Visit Marine Temple"},
     {"name": "EVENT: Marine Temple Stamp Station"},
     {"name": "EVENT: Marine Temple Lobby Drop Off Ferrus"}
   ], "map_locations": [{"map": "Ocean Realm", "x": 420, "y": 122}, {"map": "Overview", "x": 932, "y": 506}]},
   {"name": "Overview OCT Undersea Events", "sections": [
     {"name": "EVENT: Defeat Cactops"},
     {"name": "GOAL: Defeat Cactops"},
+    {"name": "EVENT: Visit Marine Temple"},
     {"name": "EVENT: Marine Temple Stamp Station"},
     {"name": "EVENT: Marine Temple Lobby Drop Off Ferrus"}
   ], "map_locations": [{"map": "Ocean Undersea", "x": 219, "y": 68}]},
@@ -733,6 +741,7 @@
     {"map": "Snow Realm", "x": 156, "y": 236}
   ]},
   {"name": "Icy Spring", "sections": [
+    {"name": "EVENT: Visit Icy Spring"},
     {"name": "EVENT: Icy Spring Stamp Station"},
     {"name": "EVENT: Icy Spring Drop Off Noko"},
     {"name": "EVENT: Icy Spring Buy Mega Ice"}
@@ -755,8 +764,9 @@
     {"map": "Papuzia Archipelago", "x": 42, "y": 142}
   ]},
   {"name": "Papuzia Events", "sections": [
-    {"name": "EVENT: Papuzia Archipelago Stamp Station"},
+    {"name": "EVENT: Visit Papuzia Village"},
     {"name": "EVENT: Papuzia Village Pick Up Carben"},
+    {"name": "EVENT: Papuzia Archipelago Stamp Station"},
     {"name": "EVENT: Papuzia Village Buy Fish"},
     {"name": "EVENT: Papuzia Village Buy Vessel"}
   ], "map_locations": [
@@ -789,7 +799,7 @@
     {"map": "Papuzia Village", "x": 200, "y": 176}
   ]},
   {"name": "Island Sanctuary Stamp Event", "sections": [{"name": "EVENT: Island Sanctuary Stamp Station"}], "map_locations": [{"map": "Island Sanctuary South", "x": 204, "y": 16}]},
-  {"name": "Goron Stamp Event", "sections": [{"name": "EVENT: Goron Field Stamp Station"}], "map_locations": [{"map": "Goron Village", "x": 26, "y": 88}]},
+  {"name": "Goron Stamp Event", "sections": [{"name": "EVENT: Goron Field Stamp Station"}, {"name": "EVENT: Mountain Altar Visit Kagoron"}, {"name": "EVENT: Goron Field Buy Steel"}], "map_locations": [{"map": "Goron Village", "x": 26, "y": 88}]},
   {"name": "Valley Sanctuary Stamp Event", "sections": [{"name": "EVENT: Valley Sanctuary Stamp Station"}], "map_locations": [{"map": "Goron Village", "x": 192, "y": 18}]},
   {"name": "Trading Post Stamp Event", "sections": [{"name": "EVENT: Trading Post Tunnel Stamp Station"}], "map_locations": [{"map": "Trading Post", "x": 36, "y": 140}]},
 
@@ -875,5 +885,7 @@
 
   {"name": "Overview Kenzo", "sections": [{"name": "EVENT: Bridge Worker's Home Pick Up Kenzo"}], "map_locations": [{"map": "Overview", "x": 396, "y": 284}, {"map": "Snow Realm", "x": 396, "y": 284}]},
   {"name": "Overview Pirate", "sections": [{"name": "EVENT: Pirate Hideout Stamp Station"}, {"name": "EVENT: Pirate Hideout Pick Up Wadatsumi"}], "map_locations": [{"map": "Overview", "x": 608, "y": 564}, {"map": "Ocean Realm", "x": 96, "y": 180}]},
-  {"name": "Overview DOM", "sections": [{"name": "EVENT: Dark Ore Mine Buy Ore"}], "map_locations": [{"map": "Overview", "x": 974, "y": 116}, {"map": "Fire Realm", "x": 460, "y": 116}]}
+  {"name": "Overview DOM", "sections": [{"name": "EVENT: Dark Ore Mine Buy Ore"}], "map_locations": [{"map": "Overview", "x": 974, "y": 116}, {"map": "Fire Realm", "x": 460, "y": 116}]},
+  {"name": "Dark Ore Mine", "sections": [{"name": "EVENT: Dark Ore Mine Buy Ore"}], "map_locations": [{"map": "Dark Ore Mine", "x": 128, "y": 100}, {"map": "Dark Ore Mine", "x": 72, "y": 80}, {"map": "Dark Ore Mine", "x": 184, "y": 80}]},
+  {"name": "Overview Rabbit Haven", "sections": [{"name": "EVENT: Visit Rabbit Haven"}], "map_locations": [{"map": "Overview", "x": 138, "y": 476}, {"map": "Forest Realm", "x": 138, "y": 92}]}
 ]

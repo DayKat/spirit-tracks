@@ -2812,13 +2812,13 @@ ENTRANCE_DATA |= {
     "GOAL: Enter Dark Realm": event("dark realm trains", "dark realm event"),
 
     # NPC Events
-    "EVENT: Pick up Alfonzo": event("pick up alfonzo", "alfonzo event"),
-    "EVENT: Give Regal Ring to Linebeck": event("linebeck trading", "linebeck event"),
-    "EVENT: Bring Ice to Kagoron": event("goron ice", "goron ice event"),
-    "EVENT: Visit Kagoron at the Mountain Altar": event("mountain altar", "kagoron event"),
-    "EVENT: Bring Ferrus to Outset": event("delivered ferrus", "outset delivered ferrus event"),
-    "EVENT: Bring Goron to Anouki Village": event("av goron", "av goron event"),
-    "EVENT: Bring Carben to Island Sanctuary": event("island sanc carben", "carben event"),
+    "EVENT: Castle Town Pick Up Alfonzo": event("pick up alfonzo", "alfonzo event"),
+    "EVENT: Trading Post Give Regal Ring to Linebeck": event("linebeck trading", "linebeck event"),
+    "EVENT: Goron Village Bring Ice to Kagoron": event("goron ice", "goron ice event"),
+    "EVENT: Mountain Altar Visit Kagoron": event("mountain altar", "kagoron event"),
+    "EVENT: Outset Drop Off Ferrus": event("delivered ferrus", "outset delivered ferrus event"),
+    "EVENT: Anouki Village Drop Off Goron": event("av goron", "av goron event"),
+    "EVENT: Island Sanctuary Drop Off Carben": event("island sanc carben", "carben event"),
     "EVENT: Disorientation Maze Find Chest": event("disorientation sod", "disorientation event"),
 
     # Blue Warp Events
