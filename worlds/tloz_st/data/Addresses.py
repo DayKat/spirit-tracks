@@ -62,8 +62,8 @@ class STAddr:
 
     # Fundamentals
     game_state = Address(0x060C48)
-    rabbit_blocker = Address(0x2609DF)
-    # game_state = Address(0x260867)
+    # rabbit_blocker = Address(0x2609DF)
+    rabbit_blocker = Address(0x260867)
     loading_room = Address(0x0c2FF0)
     mid_load = Address(0x265190)
 

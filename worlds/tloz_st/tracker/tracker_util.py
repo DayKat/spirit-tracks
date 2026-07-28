@@ -406,7 +406,7 @@ boss_event_link: dict[str, list[str]] = {
     "Papuzia Stamp Event": ["Papuzia South"],
     "Island Sanctuary Stamp Event": ["Island Sanctuary South Peninsula"],
     "Goron Stamp Event": ["Goron Village West"],
-    "Valley Sanctuary Stamp Event": ["Fire Realm Goron Village Station", "Goron Village Enclave North", "Elder Goron House Cave", "Goron Village Elder's House"]
+    "Valley Sanctuary Stamp Event": ["Goron Village Enclave North"]
 
 }
 

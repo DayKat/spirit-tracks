@@ -668,7 +668,7 @@
   {"name": "Papuzia Stamp Event", "sections": [{"name": "EVENT: Papuzia Archipelago Stamp Station"}], "map_locations": [{"map": "Papuzia Village", "x": 200, "y": 176}]},
   {"name": "Island Sanctuary Stamp Event", "sections": [{"name": "EVENT: Island Sanctuary Stamp Station"}], "map_locations": [{"map": "Island Sanctuary South", "x": 204, "y": 16}]},
   {"name": "Goron Stamp Event", "sections": [{"name": "EVENT: Goron Field Stamp Station"}], "map_locations": [{"map": "Goron Village", "x": 26, "y": 88}]},
-  {"name": "Valley Sanctuary Stamp Event", "sections": [{"name": "EVENT: Valley Sanctuary Stamp Station"}], "map_locations": [{"map": "Goron Village", "x": 92, "y": 26}]},
+  {"name": "Valley Sanctuary Stamp Event", "sections": [{"name": "EVENT: Valley Sanctuary Stamp Station"}], "map_locations": [{"map": "Goron Village", "x": 192, "y": 18}]},
 
   {"name": "Forest Rabbit Event", "sections": [{"name": "EVENT: Rabbit Near Castle Town"}], "map_locations": [{"map": "Forest Realm", "x": 358, "y": 76}, {"map": "Overview", "x": 358, "y": 460}]},
   {"name": "Forest Rabbit Event", "sections": [{"name": "EVENT: Rabbit Near Ocean Shortcut"}], "map_locations": [{"map": "Forest Realm", "x": 454, "y": 196}, {"map": "Overview", "x": 454, "y": 580}]},

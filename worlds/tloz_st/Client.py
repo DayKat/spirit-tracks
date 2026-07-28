@@ -826,7 +826,8 @@ class SpiritTracksClient(DSZeldaClient):
             self.snurglar_addr = None
 
     async def process_in_game(self, ctx, read_result: dict):
-        if self.current_stage <= 7 and read_result[STAddr.rabbit_blocker]:
+        if self.current_stage <= 7 and not read_result[STAddr.rabbit_blocker]:
+            printl(f"Rabbit Blocker!")
             return
 
         await super().process_in_game(ctx, read_result)

@@ -7,7 +7,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2F00],
         "not_has_locations": ["Outset Clear Rocks"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x04), (STAddr.adv_flags_1, 0x82)],
-        "reset_flags": ["RESET forest glyph", "RESET map warp forest glyph"]
+        "reset_flags": ["RESET forest glyph", "RESET map warp forest glyph", "RESET Add Snow Source"]
     },
     "Outset Bee Boy": {
         "on_scenes": [0x2F00],
