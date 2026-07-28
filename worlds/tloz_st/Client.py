@@ -160,6 +160,12 @@ def cmd_print_actors(self: "BizHawkClientCommandProcessor", offset: int=12):
         self.output(f"Error: Offset needs to be an int")
     return True
 
+def cmd_count_entrances(self: "BizHawkClientCommandProcessor"):
+    """Count how many randomized entrances you have checked out of the total in this seed."""
+    client = get_client_as_command_processor(self)
+    client.display_entrances = True
+    return True
+
 class SpiritTracksClient(DSZeldaClient):
     game = "Spirit Tracks"
     system = "NDS"
@@ -247,6 +253,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.display_goal = False
         self.display_actors = 0
+        self.display_entrances = False
         self.oct_bk_offset = None
 
         self.selected_station: int = 0
@@ -316,6 +323,19 @@ class SpiritTracksClient(DSZeldaClient):
         for k, i in actor_idents.items():
             ident = identifiers.get(i, "")
             print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+
+    async def count_visited_entrances(self, ctx):
+        self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
+        self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
+
+        valid_entrances = len([e for e in ctx.slot_data["er_pairings"] if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]])
+        visited_entrances = len([e for e in self.checked_entrances | self.traversed_entrances if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]])
+        traversed_entrances = len([e for e in self.traversed_entrances if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]])
+
+        if ctx.slot_data["ut_blocked_entrances_behaviour"] == 2:
+            logger.info(f"You have checked {traversed_entrances}/{visited_entrances}/{valid_entrances} entrances (traversed/checked/total).")
+        else:
+            logger.info(f"You have checked {traversed_entrances}/{valid_entrances} entrances (checked/total).")
 
     # Utility
 
@@ -486,6 +506,8 @@ class SpiritTracksClient(DSZeldaClient):
                 ctx.command_processor.commands["goal"] = cmd_goal
             if "print_actors" not in ctx.command_processor.commands:
                 ctx.command_processor.commands["print_actors"] = cmd_print_actors
+            if "count_entrances" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["count_entrances"] = cmd_count_entrances
             return True
         elif rom_name == "SPIRITTRACKSBKIE":  # US
             logger.info(f"The US Version is not supported yet, please use the EU version 1.0")
@@ -573,7 +595,7 @@ class SpiritTracksClient(DSZeldaClient):
         return res
 
     async def enter_game(self, ctx):
-        await load_adv_flags(STAddr, ctx)
+        await load_adv_flags(ctx)
         starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
         self.starting_entrance = starting_entr.entrance
         self.safe_respawn_rooms = safe_respawn_rooms + [starting_entr.scene]
@@ -837,6 +859,9 @@ class SpiritTracksClient(DSZeldaClient):
         if self.display_goal:
             self.printl_goal_info(ctx)
             self.display_goal = False
+        if self.display_entrances:
+            await self.count_visited_entrances(ctx)
+            self.display_entrances = False
 
         if self.display_actors:
             await self.print_train_actors(ctx, self.display_actors)
@@ -1487,7 +1512,7 @@ class SpiritTracksClient(DSZeldaClient):
 
             printl(f"Setting stage flags for stage {hex(stage)} at {stage_flag_address}: {hex_f(self.stage_flags[stage])}")
             await stage_flag_address.set_bits(ctx, self.stage_flags[stage])
-        if self.set_train_in_overworld:
+        if self.set_train_in_overworld and stage <= 0xA:
             await self.set_starting_train(ctx)
             self.set_train_in_overworld = False
 

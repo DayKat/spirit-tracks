@@ -3,20 +3,20 @@ from ..DSZeldaClient.subclasses import Address, AddressLoader ,DoubleAddressLoad
 addr_null = Address(0)
 
 
-async def load_adv_flags(cls, ctx):
+async def load_adv_flags(ctx):
     print(f"Loading adventure flags")
-    await cls.adv_flags_0.load(ctx)
+    await STAddr.adv_flags_0.load(ctx)
     for i in range(1, 0x5c):
-        setattr(cls, f"adv_flags_{hex(i)[2:]}", Address.from_pointer(cls.adv_flags_0 + i))
+        setattr(STAddr, f"adv_flags_{hex(i)[2:]}", Address.from_pointer(STAddr.adv_flags_0 + i))
 
-    cls.sources = cls.adv_flags_0
-    cls.restorations = cls.adv_flags_1
-    cls.glyphs = cls.adv_flags_2
-    cls.activate_portals = cls.adv_flags_30
+    STAddr.sources = STAddr.adv_flags_0
+    STAddr.restorations = STAddr.adv_flags_1
+    STAddr.glyphs = STAddr.adv_flags_2
+    STAddr.activate_portals = STAddr.adv_flags_30
 
-    cls.key_storage_0 = Address.from_pointer(cls.adv_flags_0 + 0x70)
-    cls.key_storage_tos = Address.from_pointer(cls.adv_flags_0 + 0x71)
-    cls.key_storage_2 = cls.set_starting_train = Address.from_pointer(cls.adv_flags_0 + 0x72)
+    STAddr.key_storage_0 = Address.from_pointer(STAddr.adv_flags_0 + 0x70)
+    STAddr.key_storage_tos = Address.from_pointer(STAddr.adv_flags_0 + 0x71)
+    STAddr.key_storage_2 = STAddr.set_starting_train = Address.from_pointer(STAddr.adv_flags_0 + 0x72)
 
 class STAddr:
     
@@ -153,9 +153,9 @@ class STAddr:
     tracks_1 = Address(0x2653B5)
     tracks_2 = Address(0x2653B6)
     source_rails = Address(0x2653B8)
-    key_storage_0 = Address(0x265784)
-    key_storage_tos = Address(0x265785)
-    key_storage_2 = set_starting_train = Address(0x265786)
+    key_storage_0 = addr_null # Address(0x265784)
+    key_storage_tos = addr_null # Address(0x265785)
+    key_storage_2 = set_starting_train = addr_null # Address(0x265786)
 
     train_parts = Address(0x2653A8, size=4)
     equipped_engine = Address(0x265388, size=4)
