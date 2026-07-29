@@ -1229,7 +1229,7 @@ SCENES: list[SceneData] = [
     SceneData(0x2E0F, "Lava Goron's House", "house", 202),
     SceneData(0x2E01, "Burning Tunnel", "useful cave", 203),
     SceneData(0x3300, "Valley Sanctuary", "overworld", 27),
-    SceneData(0x3301, "Embrose's Sanctuary", "cave", 204),
+    SceneData(0x3303, "Embrose's Sanctuary", "cave", 204),
 
     SceneData(0x3D00, "Dark Ore Mine", "overworld", 30),
     SceneData(0x3D01, "Dark Ore Mine Tunnels", "useful cave", 182),

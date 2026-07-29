@@ -1729,7 +1729,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x2b00],
         "has_slot_data": [("randomize_passengers", [2, 3]), ("passenger_pickup", 1)],
         "visited_scenes": [0x3500],
-        # "check_bits": [(STAddr.adv_flags_3a, 0x10, "not")],
         "not_has_locations": ["Anouki Village Pick Up Noko"],
         "unset_if_true": [(STAddr.adv_flags_3a, 0x10)],
     },
@@ -1741,7 +1740,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Can't pick up Noko visit": {
         "on_scenes": [0x2b00],
-        "has_slot_data": [("passenger_pickup", 1)],
+        "has_slot_data": [("passenger_pickup", 1), ("randomize_passengers", [2, 3])],
         "not_visited_scenes": [0x3500],
         "set_if_true": [(STAddr.adv_flags_3a, 0x10)],
     },
@@ -1845,6 +1844,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x3500],
         "has_slot_data": [("randomize_passengers", 0)],
         "set_if_true": [(STAddr.adv_flags_3a, 0x50), (STAddr.adv_flags_3d, 0x10)],
+        "update_stage_flags": [0x16, 0x00, 0x00, 0x00]
     },
     "Can pick up Mona": {
         "on_scenes": [0x290c],
@@ -2974,7 +2974,18 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "RESET map warp forest glyph": {
         "has_slot_data": [("enable_map_warp", 1)],
         "set_if_true": [(STAddr.adv_flags_1, 0x80)]
-    }
+    },
+    # Set stage flaggy bits
+    "Open Blizzard Temple": {
+        "on_scenes": [0x1A00, 0x1A01, 0x1A02, 0x1A03, 0x1A04],
+        "has_slot_data": [("open_blizzard_temple", 1)],
+        "update_stage_flags": [0x20, 0x22, 0, 0]
+    },
+    "Open Blizzard Temple warp": {
+        "on_scenes": [0x1A00, 0x1A01, 0x1A02, 0x1A03, 0x1A04],
+        "has_slot_data": [("open_blue_warps", 1)],
+        "update_stage_flags": [0x20, 0x22, 0, 0]
+    },
 }
 
 

@@ -356,7 +356,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_stage < 0x13:
             coords = await read_multiple(ctx, STAddr.train_coords, True)
             train_coords = {l: c for c, l in zip(coords.values(), ['x', 'y', 'z'])}
-            # printl(f"Train coords: {train_coords}")
+            printl(f"Train coords: {train_coords}")
             return train_coords
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
         # printl(f"Coords: {coords}")
@@ -612,18 +612,13 @@ class SpiritTracksClient(DSZeldaClient):
         self.visited_scenes |= set(get_stored_data(ctx, visited_scenes_key, set()))
 
         # Set settings specific stage flags
-        self.stage_flags = STAGE_FLAGS
-        if ctx.slot_data["randomize_passengers"] == 0:
-            self.stage_flags[0x35] = [0x16, 0x00, 0x00, 0x00]
-        if ctx.slot_data["open_blizzard_temple"]:
-            self.update_stage_flag(0x1A, [0x20, 0x22, 0, 0])
         if ctx.slot_data["open_blue_warps"]:
             for stage, flags in zip(range(0x19, 0x1E), OPEN_WARPS):
                 self.update_stage_flag(stage, flags)
 
         self.get_max_total_rabbit_counts(ctx)
 
-        if ctx["starting_train"] == -1:
+        if ctx.slot_data["starting_train"] == -1:
             await self.save_custom_train(ctx)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
@@ -711,11 +706,13 @@ class SpiritTracksClient(DSZeldaClient):
         await self.change_entrance_animation(ctx)
 
         if not self._just_entered_game and self.last_stage == self.current_stage and self.current_stage in [4, 5]:
-            print(f"Starting special operation")
+            printl(f"Starting special operation")
             await self.setup_evil_train_deletion(ctx, "special_ow_actors", 2)
+            print(f"Setup special operation {self.precision_operation}")
         if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
-            print(f"Starting delete operation")
+            printl(f"Starting delete operation")
             self.precision_operation = None
+            await self._set_er_coords(ctx)
             await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
@@ -753,16 +750,12 @@ class SpiritTracksClient(DSZeldaClient):
                 treasure = ITEM_MODEL_LOOKUP["Nothing"].value
             await self.reset_treasure_models(ctx, treasure)
 
-        if current_scene == 0x1c02 and self.current_entrance != 3:
-            # Amazing that this works at all
-            pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
-            await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
-
         if current_scene == 0x131e:  # Set tears for ToS 6 on 30F instead of 31F.
             await self.set_tears(ctx)
 
         # Start Precision read for evil train deletion
         if not self._just_entered_game:
+            printl(f"Started normal train deletion")
             await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
 
         # Save visited scenes
@@ -776,10 +769,11 @@ class SpiritTracksClient(DSZeldaClient):
                     event_entr = ENTRANCES[warp_data.event]
                     await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
 
-        if self.last_scene == 0x2f0C and ctx.slot_data["starting_train"] == -1:
+        print(f"last scene {hex_f(self.last_scene)}")
+        if self.last_scene == 0x2f0B and ctx.slot_data["starting_train"] == -1:
             await self.save_custom_train(ctx)
 
-        if current_scene == 0x2F0C and ctx.slot_data["starting_train"] == -1:
+        if current_scene == 0x2F0B and ctx.slot_data["starting_train"] == -1:
             self.set_train_in_overworld: int = 0
 
         # Validate locations
@@ -834,6 +828,12 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_up_snurglar_data(ctx)
         else:
             self.snurglar_addr = None
+
+        # Move mtt b1 heatoise arena hitbox
+        if self.current_scene == 0x1c02 and self.current_entrance != 3:
+            # Amazing that this works at all
+            pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
+            await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
 
     async def process_in_game(self, ctx, read_result: dict):
         if self.current_stage <= 7 and not read_result[STAddr.rabbit_blocker]:
@@ -1189,9 +1189,9 @@ class SpiritTracksClient(DSZeldaClient):
         if train == -1:  # all parts
             res += STAddr.train_parts.get_write_list(0xFFFFFFFF)
             if self.saved_train_parts:
-                res += [a.get_inner_write_list(train) for a, p in zip(STAddr.train_part_array, self.saved_train_parts)]
+                res += [a.get_inner_write_list(p) for a, p in zip(STAddr.train_part_array, self.saved_train_parts)]
             else:
-                res += [a.get_inner_write_list(train) for a in STAddr.train_part_array]
+                res += [a.get_inner_write_list(0) for a in STAddr.train_part_array]
         else:
             res += STAddr.train_parts.get_write_list(0xF << (train*4))
             res += [a.get_inner_write_list(train) for a in STAddr.train_part_array]
@@ -1773,7 +1773,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp, operation, actor_table]
         if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
             actor_table = await self.get_actor_table(ctx)
-            self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp,
+            self.precision_mode = [Address.from_pointer(actor_table + 16 * 4 + 3), comp,
                                    operation, actor_table]
 
     async def delete_bad_ow_actors(self, ctx, table_start):
@@ -1978,15 +1978,17 @@ class SpiritTracksClient(DSZeldaClient):
                                       interaction: str="traverse"):
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
-        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
-            "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
 
         if detect_data.name == "Marine Temple Train Exit Water Warp":
-            new_data.add(self.entrances["Marine Temple Lobby Board Train"].id)
+            detect_data = self.entrances["Marine Temple Lobby Board Train"]
         elif detect_data.name == "Lost at Sea Lobby Enter Dungeon One-Way":
-            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Lost at Sea Lobby Enter Dungeon"].id)])
+            detect_data = self.entrances["Lost at Sea Lobby Enter Dungeon"]
         elif detect_data.name == "Ocean Realm North Rocktite Cave Fight":
-            new_data.add(ctx.slot_data["er_pairings"][str(self.entrances["Ocean Realm North Rocktite Cave"].id)])
+            detect_data = self.entrances["Ocean Realm North Rocktite Cave"]
+
+
+        new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
+            "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
         printl(f"New Storage Data: {new_data}")
 
         if interaction == "check" and [i for i in new_data if new_data not in self.checked_entrances]:

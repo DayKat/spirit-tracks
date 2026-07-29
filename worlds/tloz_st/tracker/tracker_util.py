@@ -442,6 +442,9 @@ enterior_data: list["Enterior"] = [
     Enterior(["Fire Realm Disorientation Station", "Disorientation Station Cave"], ["EVENT: Disorientation Maze Find Chest"], ["Overview", "Fire Realm"]),
     Enterior(["Disorientation Station Cave"], ["EVENT: Disorientation Maze Find Chest"], ["Disorientation Station"]),
 
+    Enterior(["Fire Realm Dark Ore Mine Station", "Dark Ore Mine Left Cave", "Dark Ore Mine Center Cave", "Dark Ore Mine Right Cave"], ["EVENT: Dark Ore Mine Buy Ore"], ["Overview", "Fire Realm"]),
+    Enterior(["Dark Ore Mine Left Cave", "Dark Ore Mine Center Cave", "Dark Ore Mine Right Cave"], ["EVENT: Dark Ore Mine Buy Ore"], ["Dark Ore Mine"]),
+
     Enterior(["Fire Realm Mountain Temple Station", "Mountain Temple Lobby Enter Dungeon",
                 "Mountain Temple 1F Central Staircase", "Mountain Temple 2F NE Staircase", "Mountain Temple 1F North Staircase"
               ], ["EVENT: Mountain Temple Stamp Station"], ["Overview", "Fire Realm"]),

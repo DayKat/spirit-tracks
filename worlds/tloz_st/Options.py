@@ -351,6 +351,7 @@ class SpiritTracksTearSize(Choice):
     display_name = "Tears of Light Size"
     option_small = 0
     option_large = 1
+    alias_big = 1
     default = 0
 
 class SpiritTracksTearGroup(Choice):
