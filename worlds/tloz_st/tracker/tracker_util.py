@@ -362,7 +362,10 @@ enterior_data: list["Enterior"] = [
     Enterior(["Forest Realm Mayscore Station", "Mayscore North House"], ["EVENT: Mayscore Pick Up Dovok"], ["Overview", "Forest Realm"]),
     Enterior(["Mayscore North House"], ["EVENT: Mayscore Pick Up Dovok"], ["Mayscore"]),
 
-    Enterior(["Forest Realm Castle Town Station"], ["EVENT: Castle Town Stamp Station", "EVENT: Castle Town Buy Cuccos", "EVENT: Visit Castle Town"], ["Overview", "Forest Realm"]),
+    Enterior(["Forest Realm Castle Town Station"], [
+        "EVENT: Castle Town Stamp Station", "EVENT: Castle Town Buy Cuccos",
+        "EVENT: Visit Castle Town", "EVENT: Castle Town Pick Up Alfonzo"
+    ], ["Overview", "Forest Realm"]),
     Enterior(["Forest Realm Castle Town Station", "Castle Town West House"], ["EVENT: Castle Town Pick Up Mona"], ["Overview", "Forest Realm"]),
     Enterior(["Castle Town West House"], ["EVENT: Castle Town Pick Up Mona"], ["Castle Town"]),
     Enterior(["Castle Town Take 'em all On"], ["EVENT: Complete Take 'em All On 3"], ["Castle Town"]),

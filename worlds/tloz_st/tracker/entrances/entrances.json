@@ -466,6 +466,7 @@
   {"name": "Forest Realm", "sections": [{"name": "Forest Realm East Ocean Shortcut"}], "map_locations": [{"map": "Forest Realm", "x": 504, "y": 182}]},
   {"name": "Forest Realm", "sections": [{"name": "EVENT: Unlock Forest Realm Cave Portal"}], "map_locations": [{"map": "Forest Realm", "x": 158, "y": 262}]},
   {"name": "Forest Realm", "sections": [{"name": "EVENT: Unlock Forest Realm SE Portal"}], "map_locations": [{"map": "Forest Realm", "x": 424, "y": 334}]},
+    {"name": "Castle Town", "sections": [{"name": "EVENT: Castle Town Pick Up Alfonzo"}], "map_locations": [{"map": "Castle Town", "x": 138, "y": 156}]},
 
   {"name": "Forest Realm", "sections": [
     {"name": "EVENT: Visit Castle Town"},
@@ -871,7 +872,7 @@
   {"name": "Goron Village", "sections": [{"name": "EVENT: Goron Village Pick Up Snow Goron"}], "map_locations": [{"map": "Goron Village", "x": 154, "y": 122}]},
   {"name": "Goron Village", "sections": [{"name": "EVENT: Goron Village Pick Up City Goron"}], "map_locations": [{"map": "Goron Village", "x": 108, "y": 35}]},
   {"name": "Marine Temple", "sections": [{"name": "EVENT: Marine Temple Lobby Drop Off Ferrus"}], "map_locations": [{"map": "Marine Temple Lobby", "x": 118, "y": 92}]},
-  {"name": "Dune Sanctuary", "sections": [{"name": "EVENT: Dune Sanctuary Deliver Cuccos"}], "map_locations": [{"map": "Dune Sanctuary", "x": 58, "y": 134}]},
+  {"name": "Dune Sanctuary", "sections": [{"name": "EVENT: Dune Sanctuary Deliver Cuccos"}], "map_locations": [{"map": "Dune Sanctuary", "x": 58, "y": 132}]},
 
   {"name": "Overview Snow", "sections": [{"name": "EVENT: Snow Realm Pick Up Ferrus"}], "map_locations": [{"map": "Overview", "x": 166, "y": 180}, {"map": "Snow Realm", "x": 166, "y": 180}]},
   {"name": "Overview Fire", "sections": [{"name": "EVENT: Fire Realm Pick Up Ferrus"}], "map_locations": [{"map": "Overview", "x": 674, "y": 108}, {"map": "Fire Realm", "x": 162, "y": 108}]},

@@ -1233,6 +1233,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand sanc", "sand sanc station", False, None],
         ["sand sanc sanc", "sand sanc song", False, has_spirit_flute],
         ["sand sanc cuccos", "sand sanc stamp station", False, has_stamp_book],
+        ["sand sanc cuccos", "sand sanc cuccos event", False, None],
         ["sand sanc stamp station", "sand sanc stamp event", False, None],
         ["sand sanc", "sand sanc sand wand", False, has_sand_wand],
         ["sand sanc", "sand sanc tunnel", True, None],

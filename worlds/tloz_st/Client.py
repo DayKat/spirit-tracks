@@ -184,7 +184,6 @@ class SpiritTracksClient(DSZeldaClient):
         self.starting_entrance = (0x2F, 0, 1)  # stage, room, entrance
         self.scene_addr = (STAddr.stage, STAddr.room, STAddr.floor, STAddr.entrance)  # Stage, room, floor, entrance
 
-        self.exit_coords_addr = ()  # TODO: x, y, z. what coords to spawn link at when entering a continuous transition
         self.er_y_offest = 0  # In ph i use coords who's y is 164 off the entrance y
         self.stage_flag_offset = STAGE_FLAGS_OFFSET
 
@@ -223,7 +222,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.entrances: dict[str, "STTransition"] = ENTRANCES
         self.boss_warp_entrance = None
         self.location_id_to_name = {loc["id"]: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
-        self.exit_coords_addr: tuple["Address"] = (STAddr.train_trans_x, STAddr.train_trans_y, STAddr.train_trans_z)
+        self.exit_coords_addr: tuple = (STAddr.train_trans_x, STAddr.train_trans_y, STAddr.train_trans_z)
 
         # Train speed stuff
         self.reset_cycles: int = 0
@@ -356,7 +355,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_stage < 0x13:
             coords = await read_multiple(ctx, STAddr.train_coords, True)
             train_coords = {l: c for c, l in zip(coords.values(), ['x', 'y', 'z'])}
-            printl(f"Train coords: {train_coords}")
+            # printl(f"Train coords: {train_coords}")
             return train_coords
         coords = await read_multiple(ctx, self.get_coord_address(multi=multi), signed=True)
         # printl(f"Coords: {coords}")
@@ -622,6 +621,12 @@ class SpiritTracksClient(DSZeldaClient):
             await self.save_custom_train(ctx)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
+        if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
+            printl(f"Starting delete operation")
+            self.precision_operation = None
+            await self._set_er_coords(ctx)
+            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
+
         current_menu: "Address" = read_result[STAddr.menu]
         self.in_stamp_stand = current_menu == 0x0E
         getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving] and not self.saving
@@ -709,11 +714,6 @@ class SpiritTracksClient(DSZeldaClient):
             printl(f"Starting special operation")
             await self.setup_evil_train_deletion(ctx, "special_ow_actors", 2)
             print(f"Setup special operation {self.precision_operation}")
-        if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
-            printl(f"Starting delete operation")
-            self.precision_operation = None
-            await self._set_er_coords(ctx)
-            await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
 
     async def process_on_room_load(self, ctx, current_scene, read_result: dict):
         await self.update_treasure_tracker(ctx, "room_load")
@@ -1784,9 +1784,16 @@ class SpiritTracksClient(DSZeldaClient):
             0x21413bc: "One of these crashes",
             0x2149988: "Still Train",
             0x2140efc: "Train Spawner CS Trigger?",
-            0x2141854: "Snow realm crasher"
+            0x2141854: "Snow realm crasher",
+            0x22db898: "Snow realm delayed crasher",
+            0x22dc798: "srdc 2",
+            0x22e5098: "tanks 3",
+            0x22e5f98: "tanks 4",
+            0x22e6898: "tanks 5",
+            0x22e7798: "tanks 6"
         }
         crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
+        await self.frame_advance(ctx)
         await write_multiple(ctx, crash_list, [0]*len(crash_list))
         actor_print = {k: crash_causers[i] for k, i in actor_idents.items() if i in crash_causers}
         printl(f"Deleting bad actors: {hex_f(actor_print)}")
