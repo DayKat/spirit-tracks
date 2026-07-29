@@ -271,6 +271,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.max_total_rabbits: list[int] = [0]*5
         self.processed_locations: set = set()
+        self.saved_train_parts: list[int] = []
 
     # Commands
 
@@ -622,6 +623,9 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.get_max_total_rabbit_counts(ctx)
 
+        if ctx["starting_train"] == -1:
+            await self.save_custom_train(ctx)
+
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         current_menu: "Address" = read_result[STAddr.menu]
         self.in_stamp_stand = current_menu == 0x0E
@@ -772,6 +776,9 @@ class SpiritTracksClient(DSZeldaClient):
                     event_entr = ENTRANCES[warp_data.event]
                     await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
 
+        if self.last_scene == 0x2f0C and ctx.slot_data["starting_train"] == -1:
+            await self.save_custom_train(ctx)
+
         if current_scene == 0x2F0C and ctx.slot_data["starting_train"] == -1:
             self.set_train_in_overworld: int = 0
 
@@ -784,7 +791,7 @@ class SpiritTracksClient(DSZeldaClient):
             await self.set_train_speed(ctx)
 
         # Set starting train
-        if not await STAddr.set_starting_train.read(ctx) & 4:
+        if not await STAddr.set_starting_train.read(ctx) & 4 or self.set_train_in_overworld:
             await self.set_starting_train(ctx)
             await STAddr.set_starting_train.set_bits(ctx, 4)
 
@@ -926,8 +933,7 @@ class SpiritTracksClient(DSZeldaClient):
                 logger.info(f"You Unlocked the Lokomo Sword and the Bow of Light!")
 
         if item_name in ["Cannon", "Wagon"] and ctx.slot_data["starting_train"] != -1:
-            self.set_train_in_overworld = 2
-            await self.set_starting_train(ctx)
+            await self.reset_train_model(ctx)
 
         if "ammo" in ctx.slot_data["shopsanity"] and self.current_scene in ammo_shop_lookup and item_name in ITEM_GROUPS["Ammo Items"]:
             addr = item_data.ammo_address if hasattr(item_data, "ammo_address") else item_data.address
@@ -1177,21 +1183,29 @@ class SpiritTracksClient(DSZeldaClient):
         else:
             self.sent_event = True
 
-    @staticmethod
-    async def set_starting_train(ctx):
+    async def set_starting_train(self, ctx):
         res = []
         train = ctx.slot_data["starting_train"]
         if train == -1:  # all parts
             res += STAddr.train_parts.get_write_list(0xFFFFFFFF)
-            train = 0
+            if self.saved_train_parts:
+                res += [a.get_inner_write_list(train) for a, p in zip(STAddr.train_part_array, self.saved_train_parts)]
+            else:
+                res += [a.get_inner_write_list(train) for a in STAddr.train_part_array]
         else:
             res += STAddr.train_parts.get_write_list(0xF << (train*4))
-        res += [a.get_inner_write_list(train) for a in [
-            STAddr.equipped_engine, STAddr.equipped_cannon, STAddr.equipped_car, STAddr.equipped_cart,
-        ]]
+            res += [a.get_inner_write_list(train) for a in STAddr.train_part_array]
         printl(f"Setting starting train {res}")
         await bizhawk.write(ctx.bizhawk_ctx, res)
 
+    async def reset_train_model(self, ctx):
+        await STAddr.set_starting_train.unset_bits(ctx, 4)
+        self.set_train_in_overworld = 2
+
+    async def save_custom_train(self, ctx):
+        train_parts = await read_multiple(ctx, STAddr.train_part_array)
+        self.saved_train_parts = [p if p < 0xff else 0 for p in train_parts.values()]
+        print(f"Saving custom train {self.saved_train_parts}")
 
     # Model Stuff
 
@@ -1374,7 +1388,7 @@ class SpiritTracksClient(DSZeldaClient):
             event_name = location["ut_connect"]
             await self.store_event(ctx, event_name)
 
-        if location["name"] in ["Outset Bee Tree", "Outset Clear Rfocks"]:
+        if location["name"] in ["Outset Bee Tree", "Outset Clear Rocks"]:
             self.reload_on_item = True
 
         if "Tear of Light" in location.get("vanilla_item", "") and ctx.slot_data["randomize_tears"] != -1:
@@ -1389,6 +1403,9 @@ class SpiritTracksClient(DSZeldaClient):
 
         if self.snurglar_addr and location["name"] in LOCATION_GROUPS["Snurglars"]:
             await self.snurglar_addr.unset_bits(ctx, 0x0F)
+
+        if location["name"] == "Goron Village Get Wagon":
+            await self.reset_train_model(ctx)
 
         if location["name"] == "Capbone Boss Reward" and str(self.entrances["Capbone Exit"].id) in ctx.slot_data["er_pairings"]:
             post_fight = self.entrances["Desert Temple Enter Post-Fight"]

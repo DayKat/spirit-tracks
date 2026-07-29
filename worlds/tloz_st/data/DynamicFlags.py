@@ -2798,12 +2798,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_4, 0x4)]
     },
     "Goron village remove wagon": {
-        "on_scenes": [0x2d00],
+        "on_scenes": [0x2e00],
         "reset_flags": ["RESET remove wagon"]
     },
     "RESET remove wagon": {
         "has_items": [("Wagon", 0)],
-        "unset_if_true": [(STAddr.adv_flags_4, 0x2)]
+        "unset_if_true": [(STAddr.adv_flags_4, 0x2)],
+        "set_if_true": [(STAddr.adv_flags_4, 0x4)]
     },
     "GTR Easy": {
         "on_scenes": [0xE00, 0x3c00],
