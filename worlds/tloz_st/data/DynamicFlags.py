@@ -1526,6 +1526,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
         "unset_if_true": [(STAddr.adv_flags_1f, 0x80)],
     },
+    "Backup gv kagoron": {
+        "on_scenes": [0x2e00],
+        "has_slot_data": [("randomize_cargo", [1, 2, 3])],
+        "check_bits": [(STAddr.adv_flags_59, 0x4, "not")],
+        "has_locations": ["Goron Village Get Wagon"],
+        "set_if_true": [(STAddr.adv_flags_21, 0x8)],
+        "unset_if_true": [(STAddr.adv_flags_21, 0x2)],
+    },
     "RESET Wagon": {
         "has_items": [("Wagon", 1)],
         "set_if_true": [(STAddr.adv_flags_4, 0x02)],
@@ -1673,6 +1681,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", 1), ("passenger_pickup", 0)],
         "check_bits": [(STAddr.adv_flags_18, 0x20, "not")],
         "set_if_true": [(STAddr.adv_flags_c, 0x80)],  # allow him to travel
+    },
+    "Respawn kenzo vanilla": {
+        "on_scenes": [0x3601],
+        "not_has_locations": ["Trading Post Repair Bridge"],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "check_bits": [(STAddr.adv_flags_18, 0x20), (STAddr.passenger_tag_0, 0x43524654, "not")],
+        "unset_if_true": [(STAddr.adv_flags_18, 0x20)],
+        "set_if_true": [(STAddr.adv_flags_c, 0x80)],
     },
     "Can pick up Kenzo vanilla visit": {
         "on_scenes": [0x3601],
@@ -2743,6 +2759,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("passenger_pickup", 1)],
         "set_if_true": [(STAddr.adv_flags_38, 2)],
     },
+    "GV remove snow goron quest done vanilla": {
+        "on_scenes": [0x2E00],
+        "has_slot_data": [("randomize_passengers", [1])],
+        "has_locations": ["Anouki Village Goron Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_38, 2)],
+    },
     "GV add snow goron visit": {
         "on_scenes": [0x2E00],
         "visited_scenes": [0x2b00],
@@ -2753,6 +2775,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "GV add snow goron visit vanilla": {
         "on_scenes": [0x2E00],
         "visited_scenes": [0x2b00],
+        "not_has_locations": ["Anouki Village Goron Force Gem"],
         "check_bits": [(STAddr.adv_flags_59, 0x4)],
         "unset_if_true": [(STAddr.adv_flags_38, 2)],
         "has_slot_data": [("randomize_passengers", 1), ("passenger_pickup", 1)],
@@ -2778,6 +2801,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_3a, 1)],
         "has_slot_data": [("randomize_passengers", 1), ("passenger_pickup", 0)],
     },
+    "GV remove City goron quest done vanilla": {
+        "on_scenes": [0x2E00],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "has_locations": ["Castle Town Goron Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_3a, 1)],
+    },
     "GV remove City goron no visit": {
         "on_scenes": [0x2E00],
         "not_visited_scenes": [0x2900],
@@ -2794,6 +2823,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "GV add City goron visit vanilla": {
         "on_scenes": [0x2E00],
         "visited_scenes": [0x2900],
+        "not_has_locations": ["Castle Town Goron Force Gem"],
         "check_bits": [(STAddr.adv_flags_59, 0x4)],
         "unset_if_true": [(STAddr.adv_flags_3a, 1)],
         "has_slot_data": [("randomize_passengers", 1), ("passenger_pickup", 1)],

@@ -401,7 +401,7 @@
   {"name": "Capbone", "sections": [{"name": "EVENT: Defeat Capbone"}, {"name": "GOAL: Defeat Skeldritch"}], "map_locations": [{"map": "Capbone Arena", "x": 128, "y": 62}]},
 
   {"name": "Outset", "sections": [{"name": "EVENT: Outset Drop Off Ferrus"}], "map_locations": [{"map": "Outset Village", "x": 168, "y": 50}]},
-  {"name": "Anouki Village", "sections": [{"name": "EVENT: Anouki Village Drop Off Goron"}], "map_locations": [{"map": "Anouki Village", "x": 152, "y": 152}]},
+  {"name": "Anouki Village", "sections": [{"name": "EVENT: Anouki Village Drop Off Goron"}], "map_locations": [{"map": "Anouki Village", "x": 148, "y": 152}]},
   {"name": "Disorientation 9", "sections": [{"name": "EVENT: Disorientation Maze Find Chest"}], "map_locations": [{"map": "Disorientation 9", "x": 142, "y": 82}]},
   {"name": "Goron Field", "sections": [{"name": "EVENT: Mountain Altar Visit Kagoron"}], "map_locations": [{"map": "Goron Field", "x": 102, "y": 18}]},
   {"name": "Goron Field Interior", "sections": [{"name": "EVENT: Mountain Altar Visit Kagoron"}], "map_locations": [{"map": "Mountain Altar", "x": 126, "y": 94}]},
@@ -786,7 +786,7 @@
   {"name": "Dune Sanctuary", "sections": [
     {"name": "EVENT: Dune Sanctuary Stamp Station"}
   ], "map_locations": [
-    {"map": "Dune Sanctuary", "x": 206, "y": 146}
+    {"map": "Dune Sanctuary", "x": 206, "y": 148}
   ]},
   {"name": "Desert Temple B1", "sections": [{"name": "EVENT: Desert Temple Stamp Station"}], "map_locations": [{"map": "Desert Temple B1", "x": 102, "y": 30}]},
   {"name": "Tower of Spirits Summit", "sections": [{"name": "EVENT: Tower of Spirits Summit Stamp Station"}], "map_locations": [{"map": "Tower of Spirits", "x": 63, "y": 178}]},

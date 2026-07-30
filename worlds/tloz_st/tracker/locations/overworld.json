@@ -130,7 +130,7 @@
   {"name": "Anouki Village", "sections": [{"name": "Anouki Village Bomb Cave Chest"}], "map_locations": [{"map": "Anouki Village", "x": 148, "y": 14}]},
   {"name": "Anouki Village Interior", "sections": [{"name": "Anouki Village Pair Villagers"}, {"name": "Anouki Village Pick Up Kofu"}], "map_locations": [{"map": "Honcho's House", "x": 132, "y": 86}]},
   {"name": "Anouki Village Cave", "sections": [{"name": "Anouki Village Bomb Cave Chest"}], "map_locations": [{"map": "Small Ice Puzzle Cave", "x": 146, "y": 66}]},
-  {"name": "Anouki Village", "sections": [{"name": "Anouki Village Goron Force Gem"}], "map_locations": [{"map": "Anouki Village", "x": 152, "y": 144}]},
+  {"name": "Anouki Village", "sections": [{"name": "Anouki Village Goron Force Gem"}], "map_locations": [{"map": "Anouki Village", "x": 148, "y": 144}]},
   {"name": "Anouki Village", "sections": [{"name": "Anouki Village Pick Up Noko"}], "map_locations": [{"map": "Anouki Village", "x": 58, "y": 82}]},
 
   {"name": "Snowfall Sanctuary", "sections": [{"name": "Snowfall Sanctuary Deliver Vessel"}], "map_locations": [{"map": "Snowfall Sanctuary", "x": 146, "y": 150}]},

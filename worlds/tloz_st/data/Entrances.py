@@ -2704,7 +2704,7 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE
     },
     # Misc entrances
-    "Desert Temple Enter Post-Fight": {
+    "Desert Temple B2 North Post-Fight": {
         "return_name": "Skeldritch Post-Fight Exit",
         "entrance_region": "dt b2 n",
         "exit_region": "dt skeldritch",
@@ -2986,6 +2986,15 @@ location_event_lookup = {"Stagnox Boss Reward": "EVENT: Defeat Stagnox",
                          "Castle Town Take 'em All On Level 3": "EVENT: Complete Take 'em All On 3",
                          "Lost at Sea Final Chest": "EVENT: Complete Lost at Sea Dungeon"}
 boss_events = set(location_event_lookup.values())
+cargo_events = {
+    "EVENT: Icy Spring Buy Mega Ice",
+    "EVENT: Mayscore Buy Lumber",
+    "EVENT: Castle Town Buy Cuccos",
+    "EVENT: Papuzia Village Buy Fish",
+    "EVENT: Papuzia Village Buy Vessel",
+    "EVENT: Goron Field Buy Steel",
+    "EVENT: Dark Ore Mine Buy Ore",
+}
 goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          1: "GOAL: Defeat Fraaz",
                          2: "GOAL: Defeat Cactops",

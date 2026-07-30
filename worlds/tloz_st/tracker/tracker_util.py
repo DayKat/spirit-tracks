@@ -419,6 +419,7 @@ enterior_data: list["Enterior"] = [
     Enterior(["Ocean Realm Dive Underwater", "Undersea Marine Temple Station",
         "Marine Temple Lobby Enter Dungeon", "Marine Temple 7F North Staircase"
               ], ["GOAL: Defeat Cactops", "EVENT: Defeat Cactops"], ["Overview", "Ocean Realm"]),
+Enterior(["Ocean Realm Dive Underwater"], ["Undersea Marine Temple Station"], ["Overview", "Ocean Realm"]),
 
     Enterior(["Undersea Marine Temple Station", "Marine Temple Lobby Enter Dungeon",
               "Marine Temple 1F North Staircase", "Marine Temple 2F Left Bomb Cave"
@@ -428,6 +429,10 @@ enterior_data: list["Enterior"] = [
     Enterior(["Undersea Marine Temple Station",
               "Marine Temple Lobby Enter Dungeon", "Marine Temple 7F North Staircase"
               ], ["GOAL: Defeat Cactops", "EVENT: Defeat Cactops"], ["Ocean Undersea"]),
+
+    Enterior(["Lost at Sea Cave", "Ocean Realm Lost at Sea Station", "Lost at Sea Lobby Enter Dungeon"], ["EVENT: Complete Lost at Sea Dungeon"], ["Overview", "Ocean Realm"]),
+    Enterior(["Lost at Sea Cave", "Lost at Sea Lobby Enter Dungeon"], ["EVENT: Complete Lost at Sea Dungeon"], ["Lost at Sea Station"]),
+Enterior(["Lost at Sea Lobby Enter Dungeon"], ["EVENT: Complete Lost at Sea Dungeon"], ["Lost at Sea Lobby"]),
 
     Enterior(["Fire Realm Goron Village Station", "Goron Village West"], ["EVENT: Goron Field Stamp Station", "EVENT: Goron Field Buy Steel"], ["Overview", "Fire Realm"]),
     Enterior(["Goron Village West"], ["EVENT: Goron Field Stamp Station", "EVENT: Goron Field Buy Steel"], ["Goron Village"]),
@@ -608,14 +613,6 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
 
 
     # Hard coded examples
-    if ENTRANCES["Ocean Realm Dive Underwater"].id in active_entrances:
-        entr_hidden.setdefault("Overview", []).append("Undersea Marine Temple Station")
-        entr_hidden.setdefault("Ocean Realm", []).append("Undersea Marine Temple Station")
-    if ENTRANCES["Lost at Sea Cave"].id in active_entrances:
-        entr_hidden.setdefault("Overview", []).append("EVENT: Complete Lost at Sea Dungeon")
-        entr_hidden.setdefault("Ocean Realm", []).append("EVENT: Complete Lost at Sea Dungeon")
-        entr_hidden.setdefault("Lost at Sea Station", []).append("EVENT: Complete Lost at Sea Dungeon")
-
     if world.options.rabbitsanity.value == 4 and "rabbits" in world.options.extra_events.value:
         realm_lookup = {
             4: "Forest Realm",
@@ -627,7 +624,7 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
             if rabbit_loc in world.active_rabbit_locations:
                 entr_hidden.setdefault("Overview", []).append(f"EVENT: {rabbit_loc}")
                 entr_hidden.setdefault(realm_lookup[LOCATIONS_DATA[rabbit_loc]["stage_id"]], []).append(f"EVENT: {rabbit_loc}")
-    print(f"hidden entrances: {entr_hidden}")
+
     # Hide interiors from overview
     for data in interior_data:
         locs_hidden = data.hide_locations(active_entrances, locs_hidden)
@@ -635,6 +632,5 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
     for data in enterior_data:
         entr_hidden = data.hide_entrances(active_entrances, entr_hidden)
 
-
-    print(f"hidden entrances: {entr_hidden}")
+    # print(f"hidden entrances: {entr_hidden}")
     return locs_hidden, entr_hidden

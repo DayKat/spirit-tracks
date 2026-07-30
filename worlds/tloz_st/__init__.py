@@ -17,7 +17,7 @@ from .data.ModelLookups import all_lookups
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
 from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
-                             location_event_lookup, goal_event_lookup, boss_events)
+                             location_event_lookup, goal_event_lookup, boss_events, cargo_events)
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
 from .Subclasses import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, decode_recursive, decode_entrance_groups, \
@@ -2187,9 +2187,9 @@ class SpiritTracksWorld(WorldParent):
                 if exit_name == "EVENT: Goron Village Bring Ice to Kagoron":
                     self.get_region("goron village").connect(self.get_region("goron ice"))
 
-                if exit_name in boss_events:
+                if exit_name in boss_events or exit_name in cargo_events:
                     print(f"Globally connecting outset village => {_exit.parent_region}")
-                    self.get_region("outset village").connect(_exit.parent_region)
+                    self.get_region("menu").connect(_exit.parent_region)
 
         def disconnect(connection):
             entr_id = connection

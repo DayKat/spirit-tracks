@@ -465,7 +465,7 @@ DYNAMIC_ENTRANCES = {
         "destination": "_connected_dungeon_entrance",
     },
     "Skeldritch avoid post fight stuffs": {
-        "entrance": "Desert Temple Enter Post-Fight",
+        "entrance": "Desert Temple B2 North Post-Fight",
         "destination": "Capbone Exit",
         "not_has_locations": ["Capbone Boss Reward"],
         "has_slot_data": [("shuffle_bosses", 0)]

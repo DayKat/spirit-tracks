@@ -298,7 +298,7 @@ class SpiritTracksClient(DSZeldaClient):
                 f"You need to complete {specific}dungeons to enter the dark realm. Progress: {has_locs}/{slot_data['dungeons_required']}")
             if slot_data.get("dungeon_hints", 1):
                 dungeons_locs = [self.location_id_to_name[i] for i in slot_data["required_boss_locs"]]
-                logger.info(f"Your dungeons: {dungeons_locs}")
+                logger.info(f"Your dungeon locations: {dungeons_locs}")
         if slot_data["dark_realm_access"] in [2, 3]:
             shard_count = self.item_count(ctx, "Compass of Light Shard")
             logger.info(
@@ -381,16 +381,33 @@ class SpiritTracksClient(DSZeldaClient):
         }
 
     @staticmethod
-    async def get_table_data(ctx, array_start, comp_offset, size=4, table_label=True) -> dict["Address", int]:
+    async def get_table_data(ctx, array_start, comp_offset, size:int or list=4, table_label=True) -> dict["Address", int | list[int]]:
+        """
+        Collect data from a table of pointers at a given offset.
+        """
+
         rl = []
         for i in range(128):
             rl.append(Address.from_pointer(array_start + i * 4, size=3))
         actors = await read_multiple(ctx, rl)
         print(f"Objects: {hex_f(actors)}")
-        actors_start = [Address.from_pointer(v, size=size) for v in actors.values() if 0 < v < 0x400000]
+
         if table_label:
             labels = [k for k, v in actors.items() if v]
         else: labels = None
+
+        # Multiple offsets at once
+        if isinstance(comp_offset, Iterable):
+            actors_start = [[Address.from_pointer(v, size=i) for v in actors.values() if 0 < v < 0x400000] for i in size]
+            reads: dict["Address", list[int]] = {}
+            for i, offset in enumerate(comp_offset):
+                reads_2 = await read_multiple(ctx, actors_start[i], offset=offset * 4, keys=labels)
+                for r, v in reads_2.items():
+                    reads.setdefault(r, [0]*len(comp_offset))[i] = v
+            return reads
+
+        # single offset
+        actors_start = [Address.from_pointer(v, size=size) for v in actors.values() if 0 < v < 0x400000]
         reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=labels)
         return reads_2
 
@@ -1428,7 +1445,7 @@ class SpiritTracksClient(DSZeldaClient):
             await self.reset_train_model(ctx)
 
         if location["name"] == "Capbone Boss Reward" and str(self.entrances["Capbone Exit"].id) in ctx.slot_data["er_pairings"]:
-            post_fight = self.entrances["Desert Temple Enter Post-Fight"]
+            post_fight = self.entrances["Desert Temple B2 North Post-Fight"]
             entrance = self.entrance_id_to_entrance[ctx.slot_data["er_pairings"][str(self.entrances["Capbone Exit"].id)]]
             self.er_map.setdefault(entrance.scene, {})[entrance] = post_fight
 
@@ -1518,7 +1535,7 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        if (read_result[STAddr.menu] and stage >= 0x13):
+        if (read_result[STAddr.menu] and stage >= 0x13) or self.current_scene in [0x3802]:
             return
         dead_health = 0
         if stage < 0x13:  # deaths work badly on train
@@ -1944,7 +1961,7 @@ class SpiritTracksClient(DSZeldaClient):
             else:
                 er_map.setdefault(detect_data.scene, {})[detect_data] = exit_data
         if detect_data.name == "Desert Temple B2 North Entrance":
-            desert_exit = self.entrances["Desert Temple Enter Post-Fight"]
+            desert_exit = self.entrances["Desert Temple B2 North Post-Fight"]
             er_map.setdefault(0x1d04, {})[desert_exit] = exit_data
         # ToS elevator linkup
         if detect_data.name == "Tower of Spirits Staircase Exit":
@@ -2012,7 +2029,8 @@ class SpiritTracksClient(DSZeldaClient):
             detect_data = self.entrances["Lost at Sea Lobby Enter Dungeon"]
         elif detect_data.name == "Ocean Realm North Rocktite Cave Fight":
             detect_data = self.entrances["Ocean Realm North Rocktite Cave"]
-
+        elif detect_data.name == "Desert Temple B2 North Post-Fight":
+            detect_data = self.entrances["Desert Temple B2 North Entrance"]
 
         new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
             "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
@@ -2152,14 +2170,26 @@ class SpiritTracksClient(DSZeldaClient):
             self.map_warp_item_cache = None
             print(f"Quitting tracks {0}")
 
-
     async def skip_map_object_cutscenes(self, ctx):
+        whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
+        spike_stages = [0x13, 0x42]
+        if self.current_stage not in whitelisted_stages:
+            return
+        offsets = [24, 34.5]  # bridges, doors
+        sizes = [2, 2]
+        if self.current_stage in spike_stages:
+            offsets.append(19.75)  # spikes
+            sizes.append(1)
         await STAddr.map_object_table.load(ctx)
-        bridges = await self.get_table_data(ctx, STAddr.map_object_table, 24, 2, table_label=False)
-        cutscenes_to_delete = [Address.from_pointer(a+24*4, size=2) for a, v in bridges.items() if v == 0x101]
+        reads = await self.get_table_data(ctx, STAddr.map_object_table, offsets, sizes, table_label=False)
 
-        doors = await self.get_table_data(ctx, STAddr.map_object_table, 34.5, 2, table_label=False)
-        cutscenes_to_delete += [Address.from_pointer(a + 34 * 4 + 2, size=1) for a, v in doors.items() if v == 0x101]
-        print(f"Deleting cutscenes: {hex_f(bridges)} \n  {hex_f(doors)} \n  {hex_f(cutscenes_to_delete)}")
+        cutscenes_to_delete = [Address.from_pointer(a+24*4, size=2) for a, v in reads.items() if v[0] == 0x101]
+        cutscenes_to_delete += [Address.from_pointer(a + 34 * 4 + 2, size=1) for a, v in reads.items() if v[1] == 0x101]
+
+        if self.current_stage in spike_stages:
+            spike_cs = [Address.from_pointer(a+19*4+3, size=1) for a, v in reads.items() if v[2] == 0x1]
+            cutscenes_to_delete += spike_cs
+
+        print(f"Deleting cutscenes: {hex_f(reads)} \n  {hex_f(cutscenes_to_delete)}")
         if cutscenes_to_delete:
             await write_multiple(ctx, cutscenes_to_delete, [0]*len(cutscenes_to_delete))
