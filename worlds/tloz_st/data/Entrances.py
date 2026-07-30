@@ -1178,7 +1178,7 @@ ENTRANCE_DATA |= {
         "exit": (0x4, 0x0, 4),
         "entrance": (0x19, 0xA, 0),
         "exit_region": "wt station",
-        "entrance_region": "wt lobby",
+        "entrance_region": "wooded temple lobby",
         "reverse_required_groups": [("Tracks: Wooded Temple Tracks", "Tracks: Forest Source")],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -1244,7 +1244,7 @@ ENTRANCE_DATA |= {
         "exit": (0x5, 0x0, 1),
         "entrance": (0x1A, 0x4, 0),
         "exit_region": "bt station",
-        "entrance_region": "bt lobby",
+        "entrance_region": "blizzard temple lobby",
         "reverse_required_groups": [("Tracks: Blizzard Temple Tracks", "Tracks: Snow Source")],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -1311,7 +1311,7 @@ ENTRANCE_DATA |= {
         "exit": (0xA, 0x0, 1),
         "entrance": (0x1B, 0xA, 0),
         "exit_region": "oct station",
-        "entrance_region": "oct lobby",
+        "entrance_region": "marine temple lobby",
         "reverse_required_groups": [("Tracks: Ocean Source", "Tracks: Marine Temple Tracks")],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -1321,7 +1321,7 @@ ENTRANCE_DATA |= {
         "exit": (0x6, 0x0, 3),
         "entrance": (0x1B, 0xA, 0),
         "exit_region": "ocean temple tracks",
-        "entrance_region": "oct lobby",
+        "entrance_region": "marine temple lobby",
         "reverse_required_groups": [("Tracks: Ocean Source", "Tracks: Marine Temple Tracks")],
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.DOWN,
@@ -1366,7 +1366,7 @@ ENTRANCE_DATA |= {
         "exit": (0x6, 0x0, 7),
         "entrance": (0x1D, 0x6, 0),
         "exit_region": "desert temple station",
-        "entrance_region": "dt lobby",
+        "entrance_region": "desert temple lobby",
         "reverse_required_groups": ["Tracks: Desert Temple Tracks"],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -1411,7 +1411,7 @@ ENTRANCE_DATA |= {
         "exit": (0x7, 0x0, 1),
         "entrance": (0x1c, 0xA, 0),
         "exit_region": "mtt station",
-        "entrance_region": "mtt lobby",
+        "entrance_region": "mountain temple lobby",
         "reverse_required_groups": [("Tracks: Mountain Temple Tracks", "Tracks: Fire Source")],
         "type": EntranceGroups.STATION,
         "direction": EntranceGroups.DOWN,
@@ -2024,7 +2024,7 @@ ENTRANCE_DATA |= {
     # wooded temple
     "Wooded Temple Lobby Enter Dungeon": {
         "return_name": "Wooded Temple 1F Exit",
-        "entrance_region": "wt lobby",
+        "entrance_region": "wooded temple lobby",
         "exit_region": "wt 1f",
         "entrance": (0x19, 0xA, 1),
         "exit": (0x19, 0x0, 0),
@@ -2105,7 +2105,7 @@ ENTRANCE_DATA |= {
     "Wooded Temple 4F Blue Warp": {
         "return_name": "Wooded Temple Lobby Blue Warp",
         "entrance_region": "wt blue warp",
-        "exit_region": "wt lobby",
+        "exit_region": "wooded temple lobby",
         "entrance": (0x19, 0x3, 2),
         "exit": (0x19, 0xA, 2),
         "direction": EntranceGroups.DOWN,
@@ -2116,7 +2116,7 @@ ENTRANCE_DATA |= {
     # Blizzard Temple
     "Blizzard Temple Lobby Enter Dungeon": {
         "return_name": "Blizzard Temple 1F South Exit",
-        "entrance_region": "bt lobby",
+        "entrance_region": "blizzard temple lobby",
         "exit_region": "bt 1f exit",
         "entrance": (0x1a, 0x4, 1),
         "exit": (0x1a, 0x5, 0),
@@ -2237,7 +2237,7 @@ ENTRANCE_DATA |= {
     "Blizzard Temple 3F Blue Warp": {
         "return_name": "Blizzard Temple Lobby Blue Warp",
         "entrance_region": "bt blue warp",
-        "exit_region": "bt lobby",
+        "exit_region": "blizzard temple lobby",
         "entrance": (0x1a, 0x3, 2),
         "exit": (0x1a, 0x4, 3),
         "direction": EntranceGroups.DOWN,
@@ -2248,7 +2248,7 @@ ENTRANCE_DATA |= {
     # Marine Temple
     "Marine Temple Lobby Enter Dungeon": {
         "return_name": "Marine Temple 1F Exit",
-        "entrance_region": "oct lobby",
+        "entrance_region": "marine temple lobby",
         "exit_region": "oct 1f",
         "entrance": (0x1b, 0xA, 1),
         "exit": (0x1b, 0x0, 0),
@@ -2399,7 +2399,7 @@ ENTRANCE_DATA |= {
     "Marine Temple 7F Blue Warp": {
         "return_name": "Marine Temple Lobby Blue Warp",
         "entrance_region": "oct blue warp",
-        "exit_region": "oct lobby",
+        "exit_region": "marine temple lobby",
         "entrance": (0x1b, 0x6, 2),
         "exit": (0x1b, 0xA, 2),
         "direction": EntranceGroups.DOWN,
@@ -2410,7 +2410,7 @@ ENTRANCE_DATA |= {
     # Mountain Temple
     "Mountain Temple Lobby Enter Dungeon": {
         "return_name": "Mountain Temple 1F Exit",
-        "entrance_region": "mtt lobby",
+        "entrance_region": "mountain temple lobby",
         "exit_region": "mtt 1f",
         "entrance": (0x1c, 0xA, 1),
         "exit": (0x1c, 0x0, 0),
@@ -2540,7 +2540,7 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple Lobby Blue Warp": {
         "return_name": "Mountain Temple B4 Blue Warp",
-        "entrance_region": "mtt lobby",
+        "entrance_region": "mountain temple lobby",
         "exit_region": "mtt blue warp",
         "entrance": (0x1c, 0xa, 2),
         "exit": (0x1c, 0x5, 1),
@@ -2552,7 +2552,7 @@ ENTRANCE_DATA |= {
     # Desert Temple
     "Desert Temple Lobby Enter Dungeon": {
         "return_name": "Desert Temple 1F Exit",
-        "entrance_region": "dt lobby",
+        "entrance_region": "desert temple lobby",
         "exit_region": "dt",
         "entrance": (0x1d, 0x6, 1),
         "exit": (0x1d, 0x0, 0),
@@ -2612,7 +2612,7 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple Lobby Blue Warp": {
         "return_name": "Desert Temple B2 Blue Warp",
-        "entrance_region": "dt lobby",
+        "entrance_region": "desert temple lobby",
         "exit_region": "dt blue warp",
         "entrance": (0x1d, 0x6, 3),
         "exit": (0x1d, 0x4, 2),
@@ -2717,7 +2717,7 @@ ENTRANCE_DATA |= {
     "Stagnox Blue Warp": {
         "return_name": "Wooded Temple Lobby Boss Warp",
         "entrance_region": "wt stagnox",
-        "exit_region": "wt lobby",
+        "exit_region": "wooded temple lobby",
         "entrance": (0x1E, 0x0, 5),
         "exit": (0x19, 0xA, 1),
         "type": EntranceGroups.NONE,
@@ -2728,7 +2728,7 @@ ENTRANCE_DATA |= {
     "Fraaz Blue Warp": {
         "return_name": "Blizzard Temple Lobby Boss Warp",
         "entrance_region": "bt fraaz",
-        "exit_region": "bt lobby",
+        "exit_region": "blizzard temple lobby",
         "entrance": (0x1F, 0x0, 5),
         "exit": (0x1A, 0x4, 2),
         "type": EntranceGroups.NONE,
@@ -2739,7 +2739,7 @@ ENTRANCE_DATA |= {
     "Cactops Blue Warp": {
         "return_name": "Marine Temple Lobby Boss Warp",
         "entrance_region": "oct phytops",
-        "exit_region": "oct lobby",
+        "exit_region": "marine temple lobby",
         "entrance": (0x20, 0x0, 5),
         "exit": (0x1B, 0xA, 2),
         "type": EntranceGroups.NONE,
@@ -2750,7 +2750,7 @@ ENTRANCE_DATA |= {
     "Vulcano Blue Warp": {
         "return_name": "Mountain Temple Lobby Boss Warp",
         "entrance_region": "mtt vulcano",
-        "exit_region": "mtt lobby",
+        "exit_region": "mountain temple lobby",
         "entrance": (0x21, 0x0, 5),
         "exit": (0x1C, 0xA, 2),
         "type": EntranceGroups.NONE,
@@ -2761,7 +2761,7 @@ ENTRANCE_DATA |= {
     "Desert Temple Bow of Light Room Blue Warp": {
         "return_name": "Desert Temple Lobby Boss Warp",
         "entrance_region": "dt skeldritch",
-        "exit_region": "dt lobby",
+        "exit_region": "desert temple lobby",
         "entrance": (0x1d, 0x5, 1),
         "exit": (0x1D, 0x6, 2),
         "type": EntranceGroups.NONE,
@@ -2851,7 +2851,7 @@ ENTRANCE_DATA |= {
     "EVENT: Visit Icy Spring": event("icyspring", "visit icyspring"),
     "EVENT: Visit Trading Post": event("trading post", "visit trading post"),
     "EVENT: Visit Papuzia Village": event("papuzia village", "visit papuzia"),
-    "EVENT: Visit Marine Temple": event("oct lobby", "visit marine temple"),
+    "EVENT: Visit Marine Temple": event("marine temple lobby", "visit marine temple"),
     "EVENT: Visit Goron Village": event("goron village", "visit goron village"),
 
     # Stamp Station Events

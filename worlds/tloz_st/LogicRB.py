@@ -354,10 +354,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["wtt", "wt station", True, has_temple_tracks("Wooded")],
         ["forest source", "wt station", True, has_source("Forest")],
-        ["wt station", "wt lobby", False, has_temple_tracks("Wooded") | has_source("Forest")],
-        ["wt lobby", "wt station", False, None],
-        ["wt lobby", "wt song statue", False, has_spirit_flute],
-        ["wt lobby", "wt 1f", True, None],
+        ["wt station", "wooded temple lobby", False, has_temple_tracks("Wooded") | has_source("Forest")],
+        ["wooded temple lobby", "wt station", False, None],
+        ["wooded temple lobby", "wt song statue", False, has_spirit_flute],
+        ["wooded temple lobby", "wt 1f", True, None],
 
         ["wt 1f", "wt 1f switch chest", False, has_whirlwind | hard_logic],
         ["wt 1f switch chest", "wt stamp station", False, has_stamp_book],
@@ -398,9 +398,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wt 3f boss door", "wt 4f", True, None],
 
         ["wt 4f", "wt blue warp", True, None],
-        ["wt blue warp", "wt lobby", False, None],
+        ["wt blue warp", "wooded temple lobby", False, None],
         ["wt blue warp", "wt warp event", False, None],
-        ["wt lobby", "wt blue warp", False, Has("_wt_warp") | open_warps],
+        ["wooded temple lobby", "wt blue warp", False, Has("_wt_warp") | open_warps],
         ["wt 4f", "wt pre stagnox", False, None],
         ["wt pre stagnox", "wt 4f", False, has_sword & has_whirlwind],
         ["wt pre stagnox", "wt stagnox", False, has_sword & has_whirlwind],
@@ -569,10 +569,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["snow realm source", "bt station", True, has_source('Snow') & soft_cannon],
         ["blizzard temple tracks", "bt station", True, has_temple_tracks("Blizzard")],
-        ["bt station", "bt lobby", False, has_temple_tracks("Blizzard") | has_source('Snow')],
-        ["bt lobby", "bt station", False, None],
+        ["bt station", "blizzard temple lobby", False, has_temple_tracks("Blizzard") | has_source('Snow')],
+        ["blizzard temple lobby", "bt station", False, None],
 
-        ["bt lobby", "bt 1f exit", True, None],
+        ["blizzard temple lobby", "bt 1f exit", True, None],
         ["bt 1f exit", "bt 1f s", True, can_break_grass],
         ["bt 1f s", "bt 1f", True, None],
 
@@ -629,8 +629,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt pre fraaz", "bt 3f", False, has_damage & has_boomerang],
 
         ["bt 3f", "bt blue warp", True, None],
-        ["bt blue warp", "bt lobby", False, None],
-        ["bt lobby", "bt blue warp", False, Has("_bt_warp") | open_warps],
+        ["bt blue warp", "blizzard temple lobby", False, None],
+        ["blizzard temple lobby", "bt blue warp", False, Has("_bt_warp") | open_warps],
         ["bt blue warp", "bt warp event", False, None],
 
         ["bt pre fraaz", "bt fraaz", False, has_damage & has_boomerang],
@@ -783,11 +783,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
              & (Has("Cargo: Mega Ice", 3) | (Has("Cargo: Mega Ice", 1) & ool))],
 
         # ========= Marine Temple ==================
-        ["oct station", "oct lobby", False, has_temple_tracks("Marine") | has_source("Ocean")],
-        ["oct lobby", "oct station", False, None],
-        ["oct lobby", "oct song statue", False, has_spirit_flute],
-        ["oct lobby", "oct 1f", True, None],
-        ["oct lobby", "visit marine temple", False, None],
+        ["oct station", "marine temple lobby", False, has_temple_tracks("Marine") | has_source("Ocean")],
+        ["marine temple lobby", "oct station", False, None],
+        ["marine temple lobby", "oct song statue", False, has_spirit_flute],
+        ["marine temple lobby", "oct 1f", True, None],
+        ["marine temple lobby", "visit marine temple", False, None],
 
         ["oct 1f", "oct 1f whip", False, has_whip],
         ["oct 1f", "oct 1f right", False, hard_logic | Has("_oct_boulders")],
@@ -867,10 +867,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct phytops", "goal_phytops", False, None],
 
         ["oct 7f north", "oct blue warp", True, None],
-        ["oct lobby", "oct blue warp", False, Has("_oct_warp") | open_warps],
-        ["oct blue warp", "oct lobby", False, None],
+        ["marine temple lobby", "oct blue warp", False, Has("_oct_warp") | open_warps],
+        ["oct blue warp", "marine temple lobby", False, None],
         ["oct blue warp", "oct warp event", False, None],
-        ["oct lobby", "oct ferrus", False, has_passenger("Ferrus", "_ferrus_2")
+        ["marine temple lobby", "oct ferrus", False, has_passenger("Ferrus", "_ferrus_2")
                        & (randomize_passengers | ool | Has("_ferrus_backup"))],
         ["oct ferrus", "oct ferrus event", False, None],
         # If you fail the train journey in vanilla, make sure you have access to icyspring for backup.
@@ -1051,13 +1051,13 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mountain temple tracks", "mountain temple door", False, None],
         ["fire source", "mountain temple door", False, None],
         ["mountain temple door", "mtt station", False, Has("Mountain Temple Snurglar Key", 3) | Has("Snurglar Keyring")],
-        ["mtt station", "mtt lobby", False, has_temple_tracks("Mountain") | has_source("Fire")],
-        ["mtt lobby", "mtt station", False, None],
+        ["mtt station", "mountain temple lobby", False, has_temple_tracks("Mountain") | has_source("Fire")],
+        ["mountain temple lobby", "mtt station", False, None],
         ["mtt station", "mountain temple tracks", False, has_temple_tracks("Mountain")],
         ["mtt station", "fire source", False, has_source("Fire")],
 
-        ["mtt lobby", "mtt song statue", False, has_spirit_flute],
-        ["mtt lobby", "mtt 1f", True, None],
+        ["mountain temple lobby", "mtt song statue", False, has_spirit_flute],
+        ["mountain temple lobby", "mtt 1f", True, None],
         ["mtt 1f", "mtt 1f left", False, has_damage],
         ["mtt 1f left", "mtt 1f", False, None],
 
@@ -1116,9 +1116,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt b3 boss door", "mtt b4", True, None],
 
         ["mtt b4", "mtt blue warp", True, None],
-        ["mtt blue warp", "mtt lobby", False, None],
+        ["mtt blue warp", "mountain temple lobby", False, None],
         ["mtt blue warp", "mtt warp event", False, None],
-        ["mtt lobby", "mtt blue warp", False, Has("_mtt_warp") | open_warps],
+        ["mountain temple lobby", "mtt blue warp", False, Has("_mtt_warp") | open_warps],
 
         ["mtt b4", "mtt pre vulcano", False, None],
         ["mtt pre vulcano", "mtt b4", False, can_kill_vulcano],
@@ -1258,10 +1258,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["sand restoration south", "desert temple door", False, has_cannon],
         ["desert temple door", "desert temple station", False, None],
         ["desert temple station", "sand restoration south", False, has_temple_tracks("Desert")],
-        ["desert temple station", "dt lobby", False, has_temple_tracks("Desert")],
-        ["dt lobby", "desert temple station", False, None],
+        ["desert temple station", "desert temple lobby", False, has_temple_tracks("Desert")],
+        ["desert temple lobby", "desert temple station", False, None],
 
-        ["dt lobby", "dt", True, None],
+        ["desert temple lobby", "dt", True, None],
         ["dt", "dt sw", False, has_sand_wand],
         ["dt sw", "dt 1f nw", False, has_bow],
         ["dt", "dt 1f n", False, has_bow],
@@ -1301,9 +1301,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dt skeldritch", "skeldritch goal", False, None],
 
         ["dt b2 n", "dt blue warp", True, None],
-        ["dt blue warp", "dt lobby", False, None],
+        ["dt blue warp", "desert temple lobby", False, None],
         ["dt blue warp", "dt warp event", False, None],
-        ["dt lobby", "dt blue warp", False, Has("_dt_warp") | open_warps],
+        ["desert temple lobby", "dt blue warp", False, Has("_dt_warp") | open_warps],
 
         # ===== Dark ore mine =====
         ["sand restoration", "dark ore mine tracks", False, has_tracks("Dark Ore Mine") & soft_cannon],

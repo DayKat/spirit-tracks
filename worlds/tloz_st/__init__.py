@@ -1615,6 +1615,9 @@ class SpiritTracksWorld(WorldParent):
 
         if self.is_ut:
             disconnect_ids = {int(i) for i in self.ut_pairings.keys()}
+            las_ow = ENTRANCES["Lost at Sea Lobby Enter Dungeon One-Way"].id
+            if las_ow in disconnect_ids:
+                disconnect_ids.remove(las_ow)
             for e in self.valid_entrances:
                 if ENTRANCES[e.name].id in disconnect_ids:
                     # print(f"Disconnecting {e.name}")

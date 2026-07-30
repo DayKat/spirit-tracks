@@ -4866,6 +4866,7 @@ LOCATIONS_DATA |= {
     },
     "Snow Realm Pick Up Ferrus": {
         "stage_id": 0x5,
+        "from_entrances": [0xFA],
         "address": STAddr.passenger_tag_0,
         "value": 0x544D4E51,  # bitand of the two ferrus IDs
         # "exact_read": True,
@@ -4873,7 +4874,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "persistent": True,
+        "always_exist": True,
         "region_id": "snow realm ferrus",
         "ut_connect": "EVENT: Snow Realm Pick Up Ferrus"
     },
@@ -4892,6 +4893,7 @@ LOCATIONS_DATA |= {
     },
     "Fire Realm Pick Up Ferrus": {
         "stage_id": 0x7,
+        "from_entrances": [0xFA],
         "address": STAddr.passenger_tag_0,
         "value": 0x544D4E51,  # bitand of the two ferrus IDs
         # "exact_read": True,
@@ -4900,7 +4902,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Pick Up Passengers"],
         "slot_data": [("randomize_passengers", [2, 3])],
         "conditional": True,
-        "persistent": True,
+        "always_exist": True,
         "region_id": "fire realm ferrus",
         "ut_connect": "EVENT: Fire Realm Pick Up Ferrus"
     },

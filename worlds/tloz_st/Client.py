@@ -324,6 +324,21 @@ class SpiritTracksClient(DSZeldaClient):
             ident = identifiers.get(i, "")
             print(f"{hex_f(k)}: {hex_f(i)} {ident}")
 
+    async def print_map_objects(self, ctx, offset=24):
+        """Print debug info about train actors"""
+        await STAddr.map_object_table.load(ctx)
+        actor_idents = await self.get_table_data(ctx, STAddr.map_object_table, offset)
+        print(f"Printing Map Object Table")
+        identifiers = {
+            0x1330101: "Skippable Cutscenes",
+            0x1330001: "Skippable Open",
+            0x1330100: "Skippable Close",
+        }
+
+        for k, i in actor_idents.items():
+            ident = identifiers.get(i, "")
+            print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+
     async def count_visited_entrances(self, ctx):
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
@@ -366,15 +381,17 @@ class SpiritTracksClient(DSZeldaClient):
         }
 
     @staticmethod
-    async def get_table_data(ctx, array_start, comp_offset) -> dict["Address", int]:
+    async def get_table_data(ctx, array_start, comp_offset, size=4, table_label=True) -> dict["Address", int]:
         rl = []
-        for i in range(80):
+        for i in range(128):
             rl.append(Address.from_pointer(array_start + i * 4, size=3))
         actors = await read_multiple(ctx, rl)
-        print(f"Actors: {hex_f(actors)}")
-        actors_start = [Address.from_pointer(v, size=4) for v in actors.values() if 0 < v < 0x400000]
-        lables = [k for k, v in actors.items() if v]
-        reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=lables)
+        print(f"Objects: {hex_f(actors)}")
+        actors_start = [Address.from_pointer(v, size=size) for v in actors.values() if 0 < v < 0x400000]
+        if table_label:
+            labels = [k for k, v in actors.items() if v]
+        else: labels = None
+        reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=labels)
         return reads_2
 
     @staticmethod
@@ -762,8 +779,9 @@ class SpiritTracksClient(DSZeldaClient):
         if ctx.slot_data.get("enable_map_warp", 1) or ctx.slot_data["passenger_pickup"] == 1:
             warp_data = WARP_SCENES.get(self.current_scene, False)
             if warp_data and warp_data.is_valid(self.current_entrance, ctx.slot_data):
-                self.visited_scenes.add(self.current_scene)
-                await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [self.current_scene])
+                if self.current_scene not in self.visited_scenes:
+                    await self.store_data(ctx, storage_key(ctx, visited_scenes_key), [self.current_scene])
+                    self.visited_scenes.add(self.current_scene)
                 print(f"Visited {warp_data.region}")
                 if warp_data.event:
                     event_entr = ENTRANCES[warp_data.event]
@@ -783,6 +801,8 @@ class SpiritTracksClient(DSZeldaClient):
         # Set train speed stuff
         if self.current_stage in range(4, 0xb):
             await self.set_train_speed(ctx)
+
+        await self.skip_map_object_cutscenes(ctx)
 
         # Set starting train
         if not await STAddr.set_starting_train.read(ctx) & 4 or self.set_train_in_overworld:
@@ -883,7 +903,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.display_entrances = False
 
         if self.display_actors:
-            await self.print_train_actors(ctx, self.display_actors)
+            await self.print_map_objects(ctx, self.display_actors)
             self.display_actors = 0
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
@@ -2060,7 +2080,7 @@ class SpiritTracksClient(DSZeldaClient):
             else:
                 logger.info(f"You have yet to visit {e.name}.")
 
-        if self.read_result[STAddr.menu] in [1, 5]:
+        if self.read_result[STAddr.menu] in [1, 2, 5]:
             if not self.map_warp_item_cache:
                 self.map_warp_item_cache = (self.has_from_group(ctx, "Tracks: Forest Glyph"),
                                             self.has_from_group(ctx, "Tracks: Fire Glyph"))
@@ -2133,3 +2153,13 @@ class SpiritTracksClient(DSZeldaClient):
             print(f"Quitting tracks {0}")
 
 
+    async def skip_map_object_cutscenes(self, ctx):
+        await STAddr.map_object_table.load(ctx)
+        bridges = await self.get_table_data(ctx, STAddr.map_object_table, 24, 2, table_label=False)
+        cutscenes_to_delete = [Address.from_pointer(a+24*4, size=2) for a, v in bridges.items() if v == 0x101]
+
+        doors = await self.get_table_data(ctx, STAddr.map_object_table, 34.5, 2, table_label=False)
+        cutscenes_to_delete += [Address.from_pointer(a + 34 * 4 + 2, size=1) for a, v in doors.items() if v == 0x101]
+        print(f"Deleting cutscenes: {hex_f(bridges)} \n  {hex_f(doors)} \n  {hex_f(cutscenes_to_delete)}")
+        if cutscenes_to_delete:
+            await write_multiple(ctx, cutscenes_to_delete, [0]*len(cutscenes_to_delete))

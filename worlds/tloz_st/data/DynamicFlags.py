@@ -1425,9 +1425,15 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                               (STAddr.passenger_tag_0, 0x544D4E41),
                               (STAddr.has_passenger_0, 0)],
     },
-    "Reset ferrus": {
+    "Reset ferrus marine temple": {
         "on_scenes": [0x1B0a],
         "has_slot_data": [("randomize_passengers", [2, 3])],
+        "reset_flags": ["RESET Passengers"]
+    },
+    "Reset ferrus marine temple vanilla": {
+        "on_scenes": [0x1B0a],
+        "has_slot_data": [("randomize_passengers", [1])],
+        "check_bits": [(STAddr.passenger_goal, 0x1b)],
         "reset_flags": ["RESET Passengers"]
     },
     "Spawn Ferrus in forest randomized": {

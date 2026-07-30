@@ -304,7 +304,7 @@ REGIONS = [
     "woodland sanc chest",
 
     # Wooded Temple
-    "wt lobby",
+    "wooded temple lobby",
     "wt station",
     "wt song statue",
     "wt 1f",
@@ -426,7 +426,7 @@ REGIONS = [
 
     # Blizzard Temple
     "bt station",
-    "bt lobby",
+    "blizzard temple lobby",
     "bt 1f exit",
     "bt 1f s",
     "bt 1f",
@@ -576,7 +576,7 @@ REGIONS = [
     "kogane's shop",
 
     # Ocean Temple
-    "oct lobby",
+    "marine temple lobby",
     "oct station",
     "oct song statue",
     "oct 1f",
@@ -785,7 +785,7 @@ REGIONS = [
     "goron target lobby",
 
     # Mountain Temple
-    "mtt lobby",
+    "mountain temple lobby",
     "mtt station",
     "mtt 1f",
     "mtt 1f left",
@@ -869,7 +869,7 @@ REGIONS = [
     "desert temple",
     "desert temple door",
     "desert temple station",
-    "dt lobby",
+    "desert temple lobby",
     "dt",
     "dt sw",
     "dt 1f nw",
