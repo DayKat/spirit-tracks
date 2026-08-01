@@ -454,6 +454,7 @@ REGIONS = [
     
     "bt 1f nw",
     "bt 1f w",
+    "bt 1f torches",
     "bt 1f nw bell",
     "bt 1f n",
     "bt 1f n chest",

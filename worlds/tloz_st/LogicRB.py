@@ -593,7 +593,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 1f ne", "bt 1f ne chest", False, can_kill_bat_pit],
         ["bt 1f ne", "bt 1f ne bell", False, has_boomerang],
         ["bt 1f ne bell", "bt 1f", False, None],
-        ["bt 1f ne bell", "bt 1f n chest", False, ool & Filtered(Has("_bt_bell_2") & Has("_bt_bell_3"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
+        ["bt 1f ne bell", "bt 1f torches", False, ool],
 
         ["bt 1f", "bt 1f sw", False, Filtered(has_boomerang & Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
         ["bt 1f sw", "bt 1f", False, Filtered(Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
@@ -613,9 +613,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 1f nw", "bt 1f w", True, None],
         ["bt 1f nw", "bt 1f nw bell", False, has_boomerang],
         ["bt 1f nw bell", "bt 1f", False, None],
+        ["bt 1f nw bell", "bt 1f torches", False, None],
 
         ["bt 1f", "bt 1f n", False, Filtered(Has("_bt_bell_2") & Has("_bt_bell_3") & has_boomerang, options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
-        ["bt 1f n", "bt 1f n chest", False, Has("_bt_bell_3") & has_boomerang & Filtered(Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],  # need torch access (or ice keese hl?)
+        ["bt 1f n", "bt 1f n chest", False, Has("_bt_torches")],
         ["bt 1f n", "bt 1f", False, True_() & [OptionFilter(SpiritTracksOpenBlizzardTemple, 1)]],
         ["bt 1f n", "bt 2f", True, None],
 
@@ -821,7 +822,6 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 3f north", "oct 3f n chest", False, has_whip],
         ["oct 3f north", "oct 3f ne", True, has_small_keys_er("Marine Temple", 1, er=2)],
         ["oct 3f ne", "oct 4f north", True, None],
-        ["oct 4f north", "oct 3f north", False, None],
 
         ["oct 3f post arena", "oct 3f west", False, has_whip],
         ["oct 3f west", "oct 3f arena", False, has_whip & hard_logic],
@@ -837,7 +837,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["oct 4f east", "oct 5f", False, has_whip | has_bombs],
         ["oct 5f", "oct 4f east", False, None],
 
-        ["oct 5f", "oct 5f nw", True, has_whip],
+        ["oct 5f", "oct 5f nw", False, has_whip],
         ["oct 5f", "oct 5f sw", True, has_whip],
         ["oct 5f sw", "oct 6f sw", True, None],
         ["oct 6f sw", "oct 6f sw arena", False, has_whip | has_bow | has_bombs],

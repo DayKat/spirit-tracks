@@ -251,7 +251,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.saving_safety = False
 
         self.display_goal = False
-        self.display_actors = 0
+        self.display_actors = -1
         self.display_entrances = False
         self.oct_bk_offset = None
 
@@ -271,6 +271,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.max_total_rabbits: list[int] = [0]*5
         self.processed_locations: set = set()
         self.saved_train_parts: list[int] = []
+
+        self.key_door_watches: list["Address"] = []
 
     # Commands
 
@@ -305,7 +307,7 @@ class SpiritTracksClient(DSZeldaClient):
                 f"You need Compass Shards to access the Dark Realm. You have {shard_count}/{slot_data['compass_shard_count']}")
 
     async def print_train_actors(self, ctx, offset=11):
-        """Print debug info about train actors"""
+        """Print debug info about actors"""
         actor_table = await self.get_actor_table(ctx)
         actor_idents = await self.get_table_data(ctx, actor_table, offset)
         print(f"Printing Actors")
@@ -325,14 +327,20 @@ class SpiritTracksClient(DSZeldaClient):
             print(f"{hex_f(k)}: {hex_f(i)} {ident}")
 
     async def print_map_objects(self, ctx, offset=24):
-        """Print debug info about train actors"""
+        """Print debug info about map objects"""
         await STAddr.map_object_table.load(ctx)
         actor_idents = await self.get_table_data(ctx, STAddr.map_object_table, offset)
         print(f"Printing Map Object Table")
         identifiers = {
-            0x1330101: "Skippable Cutscenes",
-            0x1330001: "Skippable Open",
-            0x1330100: "Skippable Close",
+            0x21151AC: "Key Door",
+            0x2115ed0: "Staircase",
+            0x2115bc4: "Tablet",
+            0x2115b08: "Pot",
+            0x211527c: "Blue Door",
+            0x2115c20: "Chestnut",
+            0x2116084: "Stamp Stand",
+            0x214f234: "Eye",
+            0x2122d30: "Rail Switch"
         }
 
         for k, i in actor_idents.items():
@@ -819,7 +827,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_stage in range(4, 0xb):
             await self.set_train_speed(ctx)
 
-        await self.skip_map_object_cutscenes(ctx)
+        await self.process_map_objects(ctx)
 
         # Set starting train
         if not await STAddr.set_starting_train.read(ctx) & 4 or self.set_train_in_overworld:
@@ -919,9 +927,9 @@ class SpiritTracksClient(DSZeldaClient):
             await self.count_visited_entrances(ctx)
             self.display_entrances = False
 
-        if self.display_actors:
+        if self.display_actors > -1:
             await self.print_map_objects(ctx, self.display_actors)
-            self.display_actors = 0
+            self.display_actors = -1
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
@@ -932,6 +940,17 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Opening Mountain Temple! {self.snurglar_addr}")
                 await self.snurglar_addr.set_bits(ctx, 0x10)
                 self.main_read_list.remove(self.snurglar_addr)
+
+        # Prevent key door cs skips from opening too slow and closing again
+        if self.key_door_watches:
+            reads = await read_multiple(ctx, self.key_door_watches)
+            for a, v in reads.items():
+                if 8 > v > 2:
+                    await write_multiple(ctx, [a, Address.from_pointer(a+27*4, 1)], [7, 0xff])
+                    self.key_door_watches.remove(a)
+                    break
+                if v == 8:
+                    self.key_door_watches.remove(a)
 
     # Misc item handling
 
@@ -2193,3 +2212,78 @@ class SpiritTracksClient(DSZeldaClient):
         print(f"Deleting cutscenes: {hex_f(reads)} \n  {hex_f(cutscenes_to_delete)}")
         if cutscenes_to_delete:
             await write_multiple(ctx, cutscenes_to_delete, [0]*len(cutscenes_to_delete))
+
+    async def process_map_objects(self, ctx):
+        whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
+        if self.current_stage not in whitelisted_stages:
+            return
+
+        await STAddr.map_object_table.load(ctx)
+        actor_idents = await self.get_table_data(ctx, STAddr.map_object_table, 0, size=3, table_label=False)
+        print(f"Actor Table: {hex_f(actor_idents)}")
+        identifiers = {
+            0x1151AC: "Key Door",
+            0x11527c: "Blue Door",
+            0x1150d8: "Arena Door",
+            0x11535c: "Red Door",
+            0x1379a8: "Big Door",
+            0x157c14: "Bell Door",
+
+            0x115ed0: "Staircase",
+            0x115bc4: "Tablet",
+            0x115b08: "Pot",
+
+            0x115c9c: "Permanent Torch",
+
+            0x115c20: "Chestnut",
+            0x116084: "Stamp Stand",
+            0x14f234: "Eye",
+            0x122d30: "Rail Switch",
+            0x162dac: "Pillar",
+            0x162eac: "Entrance",
+            0x1157dc: "Chest",
+            0x115e08: "Bridge",
+            0xb3774: "Divider",
+            0x14f150: "Arrow Trap",
+            0x116214: "Tongue Statue",
+            0x115e74: "Whip Log",
+            0x178344: "Grass",
+
+            0x14ef4c: "Spikes",
+            0x14f5ac: "Big Chest",
+            0x115dac: "Cracked Wall",
+            0xb370c: "Pressure Pad",
+            0x1155e4: "Stairs",
+            0x33ed6c: "Switch",
+            0x164f10: "Swap Pad",
+
+            0x341aec: "Sand Bridge",
+            0x1227d8: "Sword Statue"
+        }
+
+        write_list = []
+        for addr, i in actor_idents.items():
+            if addr == 0x5544:
+                printl("Map Object Overflow!")
+                break
+            if i not in identifiers:
+                print(f"Unknown map object: {hex_f(i)} @ {addr}")
+                continue
+
+            if identifiers.get(i) in ["Blue Door", "Key Door", "Arena Door", "Bell Door"]:
+                write_list.append(Address.from_pointer(addr+34*4+2, size=1).get_inner_write_list(0))
+
+                if identifiers.get(i) == "Key Door":
+                    self.key_door_watches.append(Address.from_pointer(addr + 22, 1))
+
+            if identifiers.get(i) in ["Bridge"]:
+                write_list.append(Address.from_pointer(addr+24*4, size=2).get_inner_write_list(0))
+
+            if identifiers.get(i) in ["Spikes"]:
+                write_list.append(Address.from_pointer(addr+19*4+3, size=1).get_inner_write_list(0))
+
+            if identifiers.get(i) in ["Whip Log"]:
+                print(f"Log: {addr}")
+
+        if write_list:
+            await bizhawk.write(ctx.bizhawk_ctx, write_list)
