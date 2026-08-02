@@ -1,6 +1,7 @@
 from .Addresses import STAddr
 from .Items import ITEM_GROUPS
 from typing import Any
+from .Constants import OPEN_WARPS
 
 DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Outset Rei": {
@@ -1422,13 +1423,19 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_3b, 0x4)],
         "unset_if_true": [(STAddr.adv_flags_3b, 0x12)],
         "overwrite_if_true": [(STAddr.passenger_goal, 0x1b),
-                              (STAddr.passenger_tag_0, 0x544D4E41),
+                              (STAddr.passenger_tag_0, 0x544D4E50),
                               (STAddr.has_passenger_0, 0)],
     },
     "Reset ferrus marine temple": {
         "on_scenes": [0x1B0a],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "reset_flags": ["RESET Passengers"]
+    },
+    "Ferrus outset backup vanilla": {
+        "on_scenes": [0x2f00],
+        "has_slot_data": [("randomize_passengers", 1)],
+        "check_bits": [(STAddr.passenger_goal, 0x2f, "exact")],
+        "set_if_true": [(STAddr.adv_flags_3a, 0x80)],
     },
     "Reset ferrus marine temple vanilla": {
         "on_scenes": [0x1B0a],
@@ -2230,6 +2237,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
                               (STAddr.passenger_tag_0, 0x53595741),
                               (STAddr.has_passenger_0, 0)],
     },
+    "Carben Sanc backup": {
+        "on_scenes": [0x3204],
+        "has_locations": ["Island Sanctuary Carben's Force Gem"],
+        "has_slot_data": [("randomize_passengers", [1, 2, 3])],
+        "set_if_true": [(STAddr.adv_flags_9, 0x30)],
+    },
     "Remove Carben OCS": {
         "on_scenes": [0x3200],
         "has_slot_data": [("randomize_passengers", [2, 3])],
@@ -3013,14 +3026,44 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     # Set stage flaggy bits
     "Open Blizzard Temple": {
-        "on_scenes": [0x1A00, 0x1A01, 0x1A02, 0x1A03, 0x1A04],
+        "on_scenes": [0x1A00],
         "has_slot_data": [("open_blizzard_temple", 1)],
         "update_stage_flags": [0x20, 0x22, 0, 0]
     },
     "Open Blizzard Temple warp": {
-        "on_scenes": [0x1A00, 0x1A01, 0x1A02, 0x1A03, 0x1A04],
+        "on_scenes": [0x1A04],
         "has_slot_data": [("open_blue_warps", 1)],
-        "update_stage_flags": [0x20, 0x22, 0, 0]
+        "update_stage_flags": OPEN_WARPS[1]
+    },
+    "Open Wooded Temple warp backup": {
+        "on_scenes": [0x190a],
+        "has_slot_data": [("open_blue_warps", 0)],
+        "has_traversed_entrances": ["EVENT: Wooded Temple Open Blue Warp"],
+        "update_stage_flags": OPEN_WARPS[0]
+    },
+    "Open Blizzard Temple warp backup": {
+        "on_scenes": [0x1a04],
+        "has_slot_data": [("open_blue_warps", 0)],
+        "has_traversed_entrances": ["EVENT: Blizzard Temple Open Blue Warp"],
+        "update_stage_flags": OPEN_WARPS[1]
+    },
+    "Open Marine Temple warp backup": {
+        "on_scenes": [0x1b0a],
+        "has_slot_data": [("open_blue_warps", 0)],
+        "has_traversed_entrances": ["EVENT: Marine Temple Open Blue Warp"],
+        "update_stage_flags": OPEN_WARPS[2]
+    },
+    "Open Mountain Temple warp backup": {
+        "on_scenes": [0x1c0a],
+        "has_slot_data": [("open_blue_warps", 0)],
+        "has_traversed_entrances": ["EVENT: Mountain Temple Open Blue Warp"],
+        "update_stage_flags": OPEN_WARPS[3]
+    },
+    "Open Desert Temple warp backup": {
+        "on_scenes": [0x1d06],
+        "has_slot_data": [("open_blue_warps", 0)],
+        "has_traversed_entrances": ["EVENT: Desert Temple Open Blue Warp"],
+        "update_stage_flags": OPEN_WARPS[4]
     },
 }
 

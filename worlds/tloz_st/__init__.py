@@ -111,7 +111,6 @@ class SpiritTracksItem(Item):
     game = "Spirit Tracks"
 
 def map_func(i):
-    print(f"Map func: {i}, {type(i)}")
     return i if i else 0
 
 class SpiritTracksWorld(WorldParent):
@@ -882,9 +881,9 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("dt warp event", "_dt_warp")
 
         # DER events. might add if statement later
-        if "Blizzard Temple" not in self.non_required_dungeons:
+        if "Blizzard Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
             self.create_event("bt 1f torches", "_bt_torches")
-            if self.options.exclude_dungeons.value != 2:
+            if not self.options.open_blizzard_temple.value:
                 self.create_event("bt 1f ne bell", "_bt_bell_2")
                 self.create_event("bt 1f nw bell", "_bt_bell_3")
         if "Marine Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
@@ -1827,16 +1826,20 @@ class SpiritTracksWorld(WorldParent):
                 pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
         pairings |= self.plando_pairings
         pairings |= {int(k): v for k, v in self.ut_pairings.items()}
-        if ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id in pairings:
-            # self.get_region("las loop").connect(self.get_region("las 1"))
 
-            # from rule_builder.rules import False_, True_
-            # print(f"Changing access rules! Lost at Sea Lobby Enter Dungeon One-Way")
+        # las triple entrance
+        if ENTRANCES["Lost at Sea Lobby Enter Dungeon"].id in pairings:
             entering_entr = pairings.get(ENTRANCES["Lost at Sea Dungeon Reward Room Warp"].id, 0)
             if entering_entr:
                 entr_name = entrance_id_to_entrance[entering_entr].name
                 self.set_rule(self.get_entrance("Lost at Sea Lobby Enter Dungeon One-Way"), self.get_entrance(entr_name).access_rule)
-            # self.set_rule(self.get_entrance("Lost at Sea Dungeon Return Warp"), True_())
+
+        # mtt arena does werid things from er
+        mt_id = ENTRANCES["Mountain Temple 2F Central Staircase"].id
+        if mt_id in pairings and entrance_id_to_entrance[pairings[mt_id]].stage != 0x1C:
+            from .data.Rules import has_bow
+            self.set_rule(self.get_entrance("mtt 2f arena -> mtt 2f post arena"), has_bow)
+
 
     def redirect_boss_warps(self, pairings: dict[int, int]):
         # post shuffle force connections

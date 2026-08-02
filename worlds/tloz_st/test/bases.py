@@ -59,11 +59,11 @@ class TestGeneration(WorldTestBase):
         "progressive_equipment": False,
         "randomize_shields": False,
 
-        "shuffle_stations": "no_shuffle",
+        "shuffle_stations": "shuffle_pool_a",
         "shuffle_train_transitions": "no_shuffle",
 
         "shuffle_caves": "no_shuffle",
-        "shuffle_houses": "no_shuffle",
+        "shuffle_houses": "shuffle_pool_a",
 
         "shuffle_hyrule_castle": "no_shuffle",
         "shuffle_eote": "no_shuffle",
@@ -74,7 +74,7 @@ class TestGeneration(WorldTestBase):
 
         "shuffle_dungeon_entrances": "no_shuffle",
         "shuffle_bosses": "no_shuffle",
-        "shuffle_dungeon_rooms": "no_shuffle",
+        "shuffle_dungeon_rooms": "shuffle_pool_a",
         "shuffle_warps": "no_shuffle",
 
         "shuffle_portals": "no_shuffle",
@@ -84,7 +84,7 @@ class TestGeneration(WorldTestBase):
         "dungeons_required": 5,
         "exclude_dungeons": "remove",
 
-        "entrance_directionality": {"dungeon_entrances", "pool_a"},
+        "entrance_directionality": {},
 
         "randomize_start": {"niko"},
         "start_with_train": True,

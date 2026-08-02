@@ -417,7 +417,7 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "ToS 23F Defeat Staven": "tos staven",
     "ToS 24F Final Chest": "tos 24f",
     "Castle Town Take 'em All On Level 3": "teao 3",
-    "Lost at Sea Final Chest": "las 6"
+    "Lost at Sea Final Chest": "las event shield"
 }
 
 BOSS_LOCATION_TO_POST_LOCATIONS = {
@@ -1466,6 +1466,75 @@ DEAD_END_ENTRANCES: list[str] = [  # Used for extra entrance hints
     "Desert Temple 3F Staircase",
     "Capbone Exit",
 ]
+
+map_object_identifiers = {
+    0x1151AC: "Key Door",
+    0x11527c: "Blue Door",
+    0x1150d8: "Arena Door",
+    0x1217b4: "Red Pattern Door",
+    0x11535c: "Big Red Door",
+    0x1379a8: "Big Door",
+    0x157c14: "Bell Door",
+    0x16019c: "Gem Door",
+    0x12e060: "Boss Door",  # Bliz
+    0x12e0d0: "Boss Door",  # ToS 3
+
+    0x115ed0: "Staircase",
+    0x162eac: "Entrance",
+    0x1155e4: "Stairs",
+    0x115dac: "Cracked Wall",
+    0x115520: "Exit",
+
+    0x1157dc: "Chest",
+    0x14f62c: "Big Chest",
+    0x14f5ac: "Big Chest",
+    0x155c70: "Sign",
+    0x115bc4: "Tablet",
+    0x178128: "Map Board",
+    0x116084: "Stamp Stand",
+    0x178260: "Song Statue",
+    0x116134: "Gossip Stone",
+
+    0x115b08: "Pot",
+    0x155938: "Rock",
+    0x115c20: "Chestnut",
+    0x115728: "Bomb Flower",
+    0x115f2c: "Cracked Brick",
+    0x1650a8: "Tall Cracked Brick",
+
+    0x115c9c: "Torch",
+    0x115e08: "Bridge",
+    0x341aec: "Sand Bridge",
+    0x14ef4c: "Spikes",
+    0x14f480: "Flames",
+
+    0x33ed6c: "Switch",
+    0x1156cc: "Switch",  # Are all switches unique?
+    0x122d30: "Rail Switch",
+    0xb370c: "Pressure Pad",
+    0x1211f4: "Sand Block Switch",
+
+    0x14f234: "Eye",
+    0x14f150: "Arrow Trap",
+    0x116214: "Tongue Statue",
+    0x1227d8: "Sword Statue",
+    0x115e74: "Whip Log",
+    0x14f1d8: "Windmill",
+
+    0xb3774: "Divider",
+    0x121198: "Sand Divider",
+    0x177fb4: "Fence",
+    0x162dac: "Pillar",
+    0x163888: "Head Statue",
+    0x155860: "Tree",
+
+    0x11565c: "Grass",
+    0x12f358: "Rails",
+    0x178344: "Frozen Grass",
+    0x178474: "Snow",
+    0x164f10: "Swap Pad",
+    0x12f2f0: "Train Platform"
+}
 
 TOS_FLOOR_TO_SECTION: dict[int, int] = TOS_FLOOR_TO_SECTION_SAFE | TOS_FLOOR_SECTIONS_CANCEL_TEARS
 

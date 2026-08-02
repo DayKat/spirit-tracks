@@ -665,6 +665,7 @@ REGIONS = [
     "las 5 se",
     "las 5 door",
     "las 6",
+    "las event shield",
     "las_event",
     "las loop",
     "las loop event",

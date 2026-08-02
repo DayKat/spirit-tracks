@@ -288,6 +288,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["tos 20f", "tos 19f center 2", False, has_bow & can_rotate_repeater],
         ["tos 20f", "tos 19f center chest", False, has_bow],
         ["tos 20f", "tos 22f", False, has_bow & can_rotate_repeater & has_whip],
+        ["tos 20f", "tos 19f south", False, can_possess_phantom(5)],
         ["tos 22f", "tos 21f bombs", False, has_bombs],
         ["tos 22f", "tos 23f", False, has_boss_key("ToS 5") | (vanilla_boss_keys & (has_bow | has_sword_beam))],
         ["tos 23f", "tos staven", False, has_sword],
@@ -918,7 +919,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["las 5", "las 5 nw", False, has_whip],
 
         ["las 5 door", "las 6", True, None],
-        ["las 6", "las_event", False, None],
+        ["las 6", "las event shield", False, None],
+        ["las event shield", "las_event", False, None],
         ["las 6", "las loop event", False, None],
 
         ["las lobby", "las loop", False, has_soa],
@@ -1076,7 +1078,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt 1f oob", "mtt 1f ne", False, None],
         ["mtt 1f door", "mtt 2f arena", True, None],
 
-        ["mtt 2f arena", "mtt 2f post arena", False, has_sword | has_bow],
+        ["mtt 2f arena", "mtt 2f post arena", False, has_good_damage],
         ["mtt 2f post arena", "mtt 2f ne", False, has_bow],
         ["mtt 2f ne", "mtt 1f ne", True, None],
         ["mtt 1f ne", "mtt 1f n", False, has_bow & can_rotate_repeater],

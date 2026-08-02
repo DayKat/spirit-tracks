@@ -2793,7 +2793,7 @@ ENTRANCE_DATA |= {
     "EVENT: Reach ToS 17F": event("tos 16f", "event_17f"),
     "EVENT: Defeat Staven": event("tos staven", "event_staven"),
     "EVENT: Reach ToS 24F": event("tos 24f", "event_24f"),
-    "EVENT: Complete Lost at Sea Dungeon": event("las 6", "las_event"),
+    "EVENT: Complete Lost at Sea Dungeon": event("las event shield", "las_event"),
     "EVENT: Complete Take 'em All On 3": event("teao 3", "teao_event"),
 
     # Goal Events
