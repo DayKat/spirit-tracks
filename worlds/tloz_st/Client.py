@@ -1193,6 +1193,12 @@ class SpiritTracksClient(DSZeldaClient):
             wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_values_received]
             missing_stamps = [i for i in stamp_values_received if i not in has_stamps]
 
+
+        elif ctx.slot_data["randomize_stamps"] == 4:
+            stamp_locations_received = [LOCATIONS_DATA[i]["stamp"] for i in LOCATION_GROUPS["Stamp Stands"] if self.entrances[LOCATIONS_DATA[i]["ut_connect"]].id in self.traversed_entrances]
+            wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
+            missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
+
         remove_wrong_stamps(wrong_stamp_indexes)
         add_missing_stamps(missing_stamps)
         await STAddr.stamp_ids.overwrite(ctx, stamps)

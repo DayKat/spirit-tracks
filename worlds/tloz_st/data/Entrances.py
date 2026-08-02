@@ -3016,6 +3016,29 @@ cargo_events = {
     "EVENT: Goron Field Buy Steel",
     "EVENT: Dark Ore Mine Buy Ore",
 }
+
+stamp_events = {
+    "EVENT: Outset Stamp Station",
+    "EVENT: Mayscore Forest Stamp Station",
+    "EVENT: Castle Town Stamp Station",
+    "EVENT: Woodland Sanctuary Stamp Station",
+    "EVENT: Anouki Village Stamp Station",
+    "EVENT: Snowfall Sanctuary Stamp Station",
+    "EVENT: Icy Spring Stamp Station",
+    "EVENT: Trading Post Tunnel Stamp Station",
+    "EVENT: Papuzia Archipelago Stamp Station",
+    "EVENT: Island Sanctuary Stamp Station",
+    "EVENT: Pirate Hideout Stamp Station",
+    "EVENT: Goron Field Stamp Station",
+    "EVENT: Valley Sanctuary Stamp Station",
+    "EVENT: Dune Sanctuary Stamp Station",
+    "EVENT: Tower of Spirits Summit Stamp Station",
+    "EVENT: Wooded Temple Stamp Station",
+    "EVENT: Blizzard Temple Stamp Station",
+    "EVENT: Marine Temple Stamp Station",
+    "EVENT: Mountain Temple Stamp Station",
+    "EVENT: Desert Temple Stamp Station"
+}
 goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          1: "GOAL: Defeat Fraaz",
                          2: "GOAL: Defeat Cactops",
