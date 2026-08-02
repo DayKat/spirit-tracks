@@ -1,7 +1,7 @@
 from .Addresses import STAddr
-from .Items import ITEM_GROUPS
 from typing import Any
 from .Constants import OPEN_WARPS
+from .Locations import LOCATIONS_DATA
 
 DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Outset Rei": {
@@ -1599,6 +1599,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x290B],
         "has_groups": ["Tracks: Sand Source"],
         "has_slot_data": [("randomize_minigames", [4, 5])],
+        "set_if_true": [(STAddr.adv_flags_2a, 0xC)],
+        "on_entrance": [0],
+        "reset_flags": ["RESET TEAO 1", "RESET TEAO 2"]
+    },
+    "TEAO Unlock goal": {
+        "on_scenes": [0x290B],
+        "has_groups": ["Tracks: Sand Source"],
+        "has_slot_data": [("required_boss_locs", LOCATIONS_DATA["Castle Town Take 'em All On Level 3"]['id'])],
         "set_if_true": [(STAddr.adv_flags_2a, 0xC)],
         "on_entrance": [0],
         "reset_flags": ["RESET TEAO 1", "RESET TEAO 2"]

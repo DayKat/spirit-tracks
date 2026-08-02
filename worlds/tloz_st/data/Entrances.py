@@ -2964,6 +2964,27 @@ ENTRANCE_DATA |= {
     "EVENT: Papuzia Village Buy Vessel": event("wise one buy vessel"),
     "EVENT: Goron Field Buy Steel": event("goron steel"),
     "EVENT: Dark Ore Mine Buy Ore": event("dark ore mine ore"),
+
+    "Mountain Temple 2F Central Staircase Alt": {
+        "return_name": "MTT Fake",
+        "entrance_region": "mtt 2f arena",
+        "exit_region": "mtt 1f",
+        "exit": (0x1c, 0x0, 1),
+        "entrance": (0x1c, 0x1, 0),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
+    "MTT Fake 2": {
+        "return_name": "Mountain Temple 2F NE Staircase Alt",
+        "entrance_region": "mtt 1f n",
+        "exit_region": "mtt 2f ne",
+        "entrance": (0x1c, 0x0, 3),
+        "exit": (0x1c, 0x1, 1),
+        "direction": EntranceGroups.NONE,
+        "type": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    },
 }
 
 

@@ -721,7 +721,9 @@ class SpiritTracksWorld(WorldParent):
         if location_name in LOCATION_GROUPS["Rabbit Rewards"]:
             return self.options.rabbitsanity.value
         if "minigame" in location_data and self.options.randomize_minigames.value:
-            if location_name == "Castle Town Take 'em All On Level 3" and "Castle Town Take 'em All On Level 3" in self.required_boss_locs:
+            if (location_name in ["Castle Town Take 'em All On Level 3",
+                                 "Castle Town Take 'em All On Level 3 Capbone Chest"]
+                    and "Castle Town Take 'em All On Level 3" in self.required_boss_locs):
                 return True  # If plandoed dungeon include
             # print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data['minigame']}")
             if location_name in LOCATION_GROUPS["Ends of the Earth"] and self.options.shuffle_eote.value:
@@ -1833,12 +1835,6 @@ class SpiritTracksWorld(WorldParent):
             if entering_entr:
                 entr_name = entrance_id_to_entrance[entering_entr].name
                 self.set_rule(self.get_entrance("Lost at Sea Lobby Enter Dungeon One-Way"), self.get_entrance(entr_name).access_rule)
-
-        # mtt arena does werid things from er
-        mt_id = ENTRANCES["Mountain Temple 2F Central Staircase"].id
-        if mt_id in pairings and entrance_id_to_entrance[pairings[mt_id]].stage != 0x1C:
-            from .data.Rules import has_bow
-            self.set_rule(self.get_entrance("mtt 2f arena -> mtt 2f post arena"), has_bow)
 
 
     def redirect_boss_warps(self, pairings: dict[int, int]):

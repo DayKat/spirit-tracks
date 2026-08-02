@@ -921,11 +921,14 @@ class SpiritTracksClient(DSZeldaClient):
         await self.detect_ut_event(ctx, self.current_scene)
         await self.process_map_warp(ctx)
 
-        if self.current_stage == 0x13 and self.read_result[self.zelda_text_address] == 0x30000:
-            link_coords = await self.get_coords(ctx)
-            zelda_pointer = await STAddr.zelda_pointer.read(ctx)
-            await write_multiple(ctx, [Address.from_pointer(zelda_pointer + 7*4 + i*4, size=4) for i in range(3)],
-                                 list(link_coords.values()))
+        if self.current_stage == 0x13:
+            if self.read_result[self.zelda_text_address] == 0x30000:
+                link_coords = await self.get_coords(ctx)
+                zelda_pointer = await STAddr.zelda_pointer.read(ctx)
+                await write_multiple(ctx, [Address.from_pointer(zelda_pointer + 7*4 + i*4, size=4) for i in range(3)],
+                                     list(link_coords.values()))
+            elif self.read_result[self.zelda_text_address] != 0xFFFFFFFF:
+                await self.zelda_text_address.overwrite(ctx, 0xFFFFFFFF)
 
         if read_result[STAddr.menu] == 9:
             clog = await STAddr.flip_clog.read(ctx, silent=True)
@@ -951,7 +954,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.display_entrances = False
 
         if self.display_actors > -1:
-            await self.print_map_objects(ctx, self.display_actors)
+            await self.print_train_actors(ctx, self.display_actors)
             self.display_actors = -1
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
@@ -2014,6 +2017,20 @@ class SpiritTracksClient(DSZeldaClient):
         if detect_data.name == "Tower of Spirits Staircase Exit":
             elevator = self.entrances["Tower of Spirits Staircase Elevators"]
             er_map.setdefault(0x1700, {})[elevator] = exit_data
+
+        # Fake mountain temple room
+        if detect_data.name == "Mountain Temple 2F Central Staircase":
+            mtt_alt = self.entrances["Mountain Temple 2F Central Staircase Alt"]
+            er_map.setdefault(0x1c01, {})[mtt_alt] = exit_data
+        if exit_data.name == "Mountain Temple 2F Central Staircase":
+            mtt_alt = self.entrances["Mountain Temple 2F Central Staircase Alt"]
+            er_map.setdefault(detect_data.scene, {})[detect_data] = mtt_alt
+        if detect_data.name == "Mountain Temple 2F NE Staircase":
+            mtt_alt = self.entrances["Mountain Temple 2F NE Staircase Alt"]
+            er_map.setdefault(0x1c01, {})[mtt_alt] = exit_data
+        if exit_data.name == "Mountain Temple 2F NE Staircase":
+            mtt_alt = self.entrances["Mountain Temple 2F NE Staircase Alt"]
+            er_map.setdefault(detect_data.scene, {})[detect_data] = mtt_alt
 
         return er_map
 
