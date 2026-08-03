@@ -433,6 +433,7 @@ REGIONS = [
     "bt 1f e",
     "bt 1f se",
     "bt 1f se door",
+    "bt 1f e shortcut",
 
     "bt b1 se",
     "bt b1 e",
@@ -458,6 +459,7 @@ REGIONS = [
     "bt 1f nw bell",
     "bt 1f n",
     "bt 1f n chest",
+    "bt 1f n shortcut",
 
     "bt 2f",
     "bt 2f boss door",
@@ -539,6 +541,7 @@ REGIONS = [
     # Island Sanctuary
     "island sanc",
     "island sanc peninsula",
+    "island sanc shortcut",
     "island sanc sanc",
     "island sanc cave east",
     "island sanc cave west",
@@ -610,6 +613,7 @@ REGIONS = [
     "oct 5f",
     "oct 5f nw",
     "oct 5f sw",
+    "oct 5f s",
     "oct 5f se",
 
     "oct 6f nw",
@@ -802,6 +806,7 @@ REGIONS = [
     "mtt 2f arena",
     "mtt 2f post arena",
     "mtt 2f ne",
+    "mtt 2f ne door",
     "mtt 1f ne",
     "mtt 1f n",
     "mtt 1f n chest",
@@ -813,6 +818,7 @@ REGIONS = [
     "mtt b2 w",
     "mtt b2 se",
     "mtt b2 sw",
+    "mtt b2 se shortcut",
 
     "mtt b1 arena",
     "mtt b1 post arena",

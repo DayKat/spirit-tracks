@@ -536,6 +536,34 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Dark Ore Mine Buy Ore"
             ]
 
+        if "shortcuts" in self.options.extra_events.value:
+            events += ['EVENT: Wooded Temple 1F Shortcut',
+                       'EVENT: Wooded Temple 2F Windmill',
+                       'EVENT: Blizzard Temple B1 SE Windmill',
+                       'EVENT: Blizzard Temple 1F NE Door',
+                       'EVENT: Blizzard Temple 1F NW Door',
+                       'EVENT: Marine Temple 3F South Log',
+                       'EVENT: Marine Temple 4F West Door',
+                       'EVENT: Marine Temple 4F South Bridge',
+                       'EVENT: Marine Temple 5F North Logs',
+                       'EVENT: Marine Temple 5F SE Door',
+                       'EVENT: Mountain Temple 1F Blue Platform',
+                       'EVENT: Mountain Temple 1F Main Door',
+                       'EVENT: Mountain Temple 2F Heatoise Arena',
+                       'EVENT: Mountain Temple B2 Stalfos Arena',
+                       'EVENT: Mountain Temple B2 SE Blue Platform',
+                       'EVENT: Mountain Temple B2 W Shortcut',
+                       'EVENT: Mountain Temple B1 Arena',
+                       'EVENT: Desert Temple B1 Shortcut',
+                       'EVENT: Tunnel to the Tower 2F Door',
+                       'EVENT: Island Sanctuary Bridge',
+                       'EVENT: Valley Sanctuary Door']
+            if not self.options.open_blizzard_temple.value:
+                events += [
+                    'EVENT: Blizzard Temple 1F Bell Door 1',
+                    'EVENT: Blizzard Temple 1F Bell Door 3'
+                ]
+
         self.ut_events = events
         # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
         print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
@@ -2191,6 +2219,10 @@ class SpiritTracksWorld(WorldParent):
                 if exit_name in boss_events or exit_name in cargo_events:
                     print(f"Globally connecting outset village => {_exit.parent_region}")
                     self.get_region("menu").connect(_exit.parent_region)
+            else:
+                entr = entrance_id_to_entrance[connection]
+                if "silent_event" in entr.extra_data:
+                    self.get_region(entr.entrance_region).connect(self.get_region(entr.exit_region))
 
         def disconnect(connection):
             entr_id = connection

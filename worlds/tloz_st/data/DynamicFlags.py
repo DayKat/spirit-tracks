@@ -3073,6 +3073,125 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_traversed_entrances": ["EVENT: Desert Temple Open Blue Warp"],
         "update_stage_flags": OPEN_WARPS[4]
     },
+
+    # GLP shortcut backups
+    "WT 1f shortcut door": {
+        "on_scenes": [0x1900],
+        "has_traversed_entrances": ["EVENT: Wooded Temple 1F Shortcut"],
+        "update_stage_flags": [0x80]
+    },
+    "WT 2f windmill door": {
+        "on_scenes": [0x1901],
+        "has_traversed_entrances": ["EVENT: Wooded Temple 1F Shortcut"],
+        "update_stage_flags": [0x20]
+    },
+    "BT 1f bell door 1": {
+        "on_scenes": [0x1a00],
+        "has_slot_data": [("open_blizzard_temple", 0)],
+        "has_traversed_entrances": ["EVENT: Blizzard Temple 1F Bell Door 1"],
+        "update_stage_flags": [0x20]
+    },
+    "BT 1f bell door 3": {
+        "on_scenes": [0x1a00],
+        "has_slot_data": [("open_blizzard_temple", 0)],
+        "has_traversed_entrances": ["EVENT: Blizzard Temple 1F Bell Door 3"],
+        "update_stage_flags": [0, 0x20]
+    },
+    "BT 1f ne door": {
+        "on_scenes": [0x1a00],
+        "has_traversed_entrances": ["EVENT: Blizzard Temple 1F NE Door"],
+        "update_stage_flags": [0x80]
+    },
+    "BT 1f nw door": {
+        "on_scenes": [0x1a00],
+        "has_traversed_entrances": ["EVENT: Blizzard Temple 1F NW Door"],
+        "update_stage_flags": [0, 0x8]
+    },
+    "BT b1 se windmill": {
+        "on_scenes": [0x1a01],
+        "has_traversed_entrances": ["EVENT: Blizzard Temple B1 SE Windmill"],
+        "update_stage_flags": [0, 0x80]
+    },
+    "OCT 3f s shortcut": {
+        "on_scenes": [0x1b02],
+        "has_traversed_entrances": ["EVENT: Marine Temple 3F South Log"],
+        "update_stage_flags": [0x4]
+    },
+    "OCT 4f w shortcut": {
+        "on_scenes": [0x1b03],
+        "has_traversed_entrances": ["EVENT: Marine Temple 4F West Door"],
+        "update_stage_flags": [0x8]
+    },
+    "OCT 4f s bridge": {
+        "on_scenes": [0x1b03],
+        "has_traversed_entrances": ["EVENT: Marine Temple 4F South Bridge"],
+        "update_stage_flags": [0x60]
+    },
+    "OCT 5f n branches": {
+        "on_scenes": [0x1b04],
+        "has_traversed_entrances": ["EVENT: Marine Temple 5F North Logs"],
+        "update_stage_flags": [0, 0x4]
+    },
+    "OCT 5f se door": {
+        "on_scenes": [0x1b04],
+        "has_traversed_entrances": ["EVENT: Marine Temple 5F SE Door"],
+        "update_stage_flags": [0, 0x8]
+    },
+    "MTT 1f blue platform": {
+        "on_scenes": [0x1c00],
+        "has_traversed_entrances": ["EVENT: Mountain Temple 1F Blue Platform"],
+        "update_stage_flags": [0, 0x4]
+    },
+    "MTT 1f main door": {
+        "on_scenes": [0x1c00],
+        "has_traversed_entrances": ["EVENT: Mountain Temple 1F Main Door"],
+        "update_stage_flags": [0x4]
+    },
+    "MTT 2f heatoise arena": {
+        "on_scenes": [0x1c06, 0x1c01],
+        "has_traversed_entrances": ["EVENT: Mountain Temple 2F Heatoise Arena"],
+        "update_stage_flags": [0x8]
+    },
+    "MTT b1 heatoise arena": {
+        "on_scenes": [0x1c02],
+        "has_traversed_entrances": ["EVENT: Mountain Temple B1 Arena"],
+        "update_stage_flags": [0x40]
+    },
+    "MTT b2 stalfos arena": {
+        "on_scenes": [0x1c03],
+        "has_traversed_entrances": ["EVENT: Mountain Temple B2 Stalfos Arena"],
+        "update_stage_flags": [0x20]
+    },
+    "MTT b2 light torches": {
+        "on_scenes": [0x1c03],
+        "has_traversed_entrances": ["EVENT: Mountain Temple B2 SE Blue Platform"],
+        "update_stage_flags": [0x80]
+    },
+    "MTT b2 w shortcut": {
+        "on_scenes": [0x1c03],
+        "has_traversed_entrances": ["EVENT: Mountain Temple B2 W Shortcut"],
+        "update_stage_flags": [0, 0x40]
+    },
+    "DT b1 shortcut door": {
+        "on_scenes": [0x1d03],
+        "has_traversed_entrances": ["EVENT: Desert Temple B1 Shortcut"],
+        "update_stage_flags": [0, 0, 0, 0x8]
+    },
+    "Tunnel to ToS 2f door": {
+        "on_scenes": [0x1801],
+        "has_traversed_entrances": ["EVENT: Tunnel to the Tower 2F Door"],
+        "update_stage_flags": [0x2]
+    },
+    "Island Sanc bridge": {
+        "on_scenes": [0x3200],
+        "has_traversed_entrances": ["EVENT: Island Sanctuary Bridge"],
+        "update_stage_flags": [0, 0x8]
+    },
+    "Valley Sanc door": {
+        "on_scenes": [0x3300],
+        "has_traversed_entrances": ["EVENT: Valley Sanctuary Door"],
+        "update_stage_flags": [0, 0x1]
+    },
 }
 
 

@@ -833,6 +833,144 @@ UT_EVENT_DATA = {
               "value": 0x40,
               "offset": 3,
               "entrance": "EVENT: Desert Temple Open Blue Warp"}],
+
+    # GLP shortcuts
+    0x1900: [{
+        "entrance": "EVENT: Wooded Temple 1F Shortcut",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x80
+    }],
+    0x1901: [{
+        "entrance": "EVENT: Wooded Temple 2F Windmill",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x4
+    }],
+    0x1a00: [{
+        "entrance": "EVENT: Blizzard Temple 1F Bell Door 1",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x20
+    },{
+        "entrance": "EVENT: Blizzard Temple 1F NE Door",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x80
+    },{
+        "entrance": "EVENT: Blizzard Temple 1F NW Door",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x8
+    },{
+        "entrance": "EVENT: Blizzard Temple 1F Bell Door 3",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x20
+    }],
+    0x1a01: [{
+        "entrance": "EVENT: Blizzard Temple B1 SE Windmill",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x80
+    }],
+    0x1b02: [{
+        "entrance": "EVENT: Marine Temple 3F South Log",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x4
+    }],
+    0x1b03: [{
+        "entrance": "EVENT: Marine Temple 4F West Door",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x8
+    },{
+        "entrance": "EVENT: Marine Temple 4F South Bridge",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x40  # with flags, also open 0x20
+    }],
+    0x1b04: [{
+        "entrance": "EVENT: Marine Temple 5F North Logs",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x4
+    },{
+        "entrance": "EVENT: Marine Temple 5F SE Door",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x8
+    }],
+    0x1c00: [{
+        "entrance": "EVENT: Mountain Temple 1F Blue Platform",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x4
+    },{
+        "entrance": "EVENT: Mountain Temple 1F Main Door",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x4
+    }],
+    0x1c06: [{
+        "entrance": "EVENT: Mountain Temple 2F Heatoise Arena",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x8
+    }],
+    0x1c01: [{
+        "entrance": "EVENT: Mountain Temple 2F Heatoise Arena",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x8
+    }],
+    0x1c02: [{
+        "entrance": "EVENT: Mountain Temple B1 Arena",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x40
+    }],
+    0x1c03: [{
+        "entrance": "EVENT: Mountain Temple B2 Stalfos Arena",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x20
+    },{
+        "entrance": "EVENT: Mountain Temple B2 SE Blue Platform",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x80
+    },{
+        "entrance": "EVENT: Mountain Temple B2 W Shortcut",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x40
+    }],
+    0x1d03: [{
+        "entrance": "EVENT: Desert Temple B1 Shortcut",
+        "address": "stage_flags",
+        "offset": 3,
+        "value": 0x8
+    }],
+    0x1801: [{
+        "entrance": "EVENT: Tunnel to the Tower 2F Door",
+        "address": "stage_flags",
+        "offset": 0,
+        "value": 0x2
+    }],
+    0x3200: [{
+        "entrance": "EVENT: Island Sanctuary Bridge",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x8
+    }],
+    0x3300: [{
+        "entrance": "EVENT: Valley Sanctuary Door",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x1
+    }],
 }
 
 

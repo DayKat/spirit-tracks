@@ -888,5 +888,34 @@
   {"name": "Overview Pirate", "sections": [{"name": "EVENT: Pirate Hideout Stamp Station"}, {"name": "EVENT: Pirate Hideout Pick Up Wadatsumi"}], "map_locations": [{"map": "Overview", "x": 608, "y": 564}, {"map": "Ocean Realm", "x": 96, "y": 180}]},
   {"name": "Overview DOM", "sections": [{"name": "EVENT: Dark Ore Mine Buy Ore"}], "map_locations": [{"map": "Overview", "x": 974, "y": 116}, {"map": "Fire Realm", "x": 460, "y": 116}]},
   {"name": "Dark Ore Mine", "sections": [{"name": "EVENT: Dark Ore Mine Buy Ore"}], "map_locations": [{"map": "Dark Ore Mine", "x": 128, "y": 100}, {"map": "Dark Ore Mine", "x": 72, "y": 80}, {"map": "Dark Ore Mine", "x": 184, "y": 80}]},
-  {"name": "Overview Rabbit Haven", "sections": [{"name": "EVENT: Visit Rabbit Haven"}], "map_locations": [{"map": "Overview", "x": 138, "y": 476}, {"map": "Forest Realm", "x": 138, "y": 92}]}
+  {"name": "Overview Rabbit Haven", "sections": [{"name": "EVENT: Visit Rabbit Haven"}], "map_locations": [{"map": "Overview", "x": 138, "y": 476}, {"map": "Forest Realm", "x": 138, "y": 92}]},
+
+  {"name": "WT Shortcut", "sections": [{"name": "EVENT: Wooded Temple 1F Shortcut"}], "map_locations": [{"map": "Wooded Temple 1F", "x": 136, "y": 36}]},
+  {"name": "WT Shortcut", "sections": [{"name": "EVENT: Wooded Temple 2F Windmill"}], "map_locations": [{"map": "Wooded Temple 2F", "x": 173, "y": 34}]},
+
+  {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F Bell Door 1"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 125, "y": 82}]},
+  {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F NE Door"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 189, "y": 53}]},
+  {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F NW Door"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 90, "y": 80}]},
+  {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F Bell Door 3"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 114, "y": 97}]},
+  {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple B1 SE Windmill"}], "map_locations": [{"map": "Blizzard Temple B1", "x": 210, "y": 157}]},
+
+  {"name": "OCT Shortcut", "sections": [{"name": "EVENT: Marine Temple 3F South Log"}], "map_locations": [{"map": "Marine Temple 3F", "x": 106, "y": 131}]},
+  {"name": "OCT Shortcut", "sections": [{"name": "EVENT: Marine Temple 4F West Door"}], "map_locations": [{"map": "Marine Temple 4F", "x": 65, "y": 35}]},
+  {"name": "OCT Shortcut", "sections": [{"name": "EVENT: Marine Temple 4F South Bridge"}], "map_locations": [{"map": "Marine Temple 4F", "x": 141, "y": 59}]},
+  {"name": "OCT Shortcut", "sections": [{"name": "EVENT: Marine Temple 5F North Logs"}], "map_locations": [{"map": "Marine Temple 5F", "x": 84, "y": 95}]},
+  {"name": "OCT Shortcut", "sections": [{"name": "EVENT: Marine Temple 5F SE Door"}], "map_locations": [{"map": "Marine Temple 5F", "x": 128, "y": 95}]},
+
+  {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple 1F Blue Platform"}], "map_locations": [{"map": "Mountain Temple 1F", "x": 89, "y": 86}]},
+  {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple 1F Main Door"}], "map_locations": [{"map": "Mountain Temple 1F", "x": 112, "y": 84}, {"map": "Mountain Temple 1F", "x": 144, "y": 84}]},
+  {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple 2F Heatoise Arena"}], "map_locations": [{"map": "Mountain Temple 2F", "x": 128, "y": 53}]},
+  {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple B2 Stalfos Arena"}], "map_locations": [{"map": "Mountain Temple B2", "x": 128, "y": 56}]},
+  {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple B2 SE Blue Platform"}], "map_locations": [{"map": "Mountain Temple B2", "x": 205, "y": 154}]},
+  {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple B2 W Shortcut"}], "map_locations": [{"map": "Mountain Temple B2", "x": 89, "y": 77}]},
+  {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple B1 Arena"}], "map_locations": [{"map": "Mountain Temple B1", "x": 128, "y": 144}]},
+
+  {"name": "DT Shortcut", "sections": [{"name": "EVENT: Desert Temple B1 Shortcut"}], "map_locations": [{"map": "Desert Temple B1", "x": 111, "y": 137}]},
+
+  {"name": "TttT Shortcut", "sections": [{"name": "EVENT: Tunnel to the Tower 2F Door"}], "map_locations": [{"map": "Tunnel to ToS 2F", "x": 137, "y": 59}]},
+  {"name": "Island Sanc Shortcut", "sections": [{"name": "EVENT: Island Sanctuary Bridge"}], "map_locations": [{"map": "Island Sanctuary South", "x": 219, "y": 53}]},
+  {"name": "Valley Sanc Shortcut", "sections": [{"name": "EVENT: Valley Sanctuary Door"}], "map_locations": [{"map": "Valley Sanctuary", "x": 204, "y": 85}]}
 ]

@@ -1049,10 +1049,12 @@ class SpiritTracksExtraEvents(OptionSet):
     - warps: shows events for unlocking blue warps in dungeons.
     - passengers: shows picking up and intermediate triggers for vanilla passengers
     - cargo: shows buying vanilla cargo for the first time
+    - shortcuts: adds events for unlockable shortcuts, that don't progress logic. these are unlocked for /get_logical_path even if the event is disabled,
+    and persist through save file resets.
     """
     display_name = "Toggle Events"
     default = {"portals", "stamps", "visits", "rabbits", "warps", "passengers", "cargo"}
-    valid_keys = ["portals", "stamps", "visits", "rabbits", "warps", "passengers", "cargo"]
+    valid_keys = ["portals", "stamps", "visits", "rabbits", "warps", "passengers", "cargo", "shortcuts"]
 
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):

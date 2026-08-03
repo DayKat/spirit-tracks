@@ -1,3 +1,4 @@
+import itertools
 
 from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
@@ -1636,7 +1637,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     def update_stage_flag(self, stage: int, new: list[int]):
         print(f"Updating Stage Flags: {hex_f(stage)} {hex_f(new)}")
-        self.stage_flags[stage] = [o | n for o, n in zip(STAGE_FLAGS.get(stage, [0,0,0,0]), new)]
+        self.stage_flags[stage] = [o | n for o, n in itertools.zip_longest(STAGE_FLAGS.get(stage, [0,0,0,0]), new, fillvalue=0)]
         self.reload_stage_flags = True
 
 

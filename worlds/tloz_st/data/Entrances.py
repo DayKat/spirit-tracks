@@ -11,6 +11,18 @@ def event(reg1:str, reg2: str="") -> dict:
         "island": EntranceGroups.NONE
     }
 
+def silent_event(reg1: str, reg2: str):
+    return {
+        "two_way": False,
+        "entrance_region": reg1,
+        "exit_region": reg2,
+        "extra_data": {"silent_event": True},
+        "entrance": (0x0, 0x0, 0xF),
+        "type": EntranceGroups.EVENT,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE
+    }
+
 # For adding entrance data. Generates an object for both directions from each entry
 ENTRANCE_DATA = {
     # "Name": {
@@ -2451,7 +2463,7 @@ ENTRANCE_DATA |= {
     "Mountain Temple 1F NE Staircase": {
         "return_name": "Mountain Temple 2F NE Staircase",
         "entrance_region": "mtt 1f ne",
-        "exit_region": "mtt 2f ne",
+        "exit_region": "mtt 2f ne door",
         "entrance": (0x1c, 0x0, 3),
         "exit": (0x1c, 0x6, 1),
         "direction": EntranceGroups.NONE,
@@ -2985,6 +2997,35 @@ ENTRANCE_DATA |= {
         "type": EntranceGroups.NONE,
         "island": EntranceGroups.NONE
     },
+
+    "EVENT: Wooded Temple 1F Shortcut": silent_event("wt 1f","wt 1f north"),
+    "EVENT: Wooded Temple 2F Windmill": silent_event("wt 2f north","wt 2f enemy chest"),
+
+    "EVENT: Blizzard Temple 1F Bell Door 1": silent_event("bt 1f e shortcut","bt 1f"),
+    "EVENT: Blizzard Temple B1 SE Windmill": silent_event("bt b1 e","bt b1 se"),
+    "EVENT: Blizzard Temple 1F NE Door": silent_event("bt 1f","bt 1f ne"),
+    "EVENT: Blizzard Temple 1F NW Door": silent_event("bt 1f n shortcut","bt 1f"),
+    "EVENT: Blizzard Temple 1F Bell Door 3": silent_event("bt 1f","bt 1f nw bell"),
+
+    "EVENT: Marine Temple 3F South Log": silent_event("oct 3f arena","oct 3f south"),
+    "EVENT: Marine Temple 4F West Door": silent_event("oct 4f west","oct 4f north"),
+    "EVENT: Marine Temple 4F South Bridge": silent_event("oct 4f south","oct 4f west"),
+    "EVENT: Marine Temple 5F North Logs": silent_event("oct 5f nw","oct 5f"),
+    "EVENT: Marine Temple 5F SE Door": silent_event("oct 5f se","oct 5f s"),
+
+    "EVENT: Mountain Temple 1F Blue Platform": silent_event("mtt 1f right","mtt 1f"),
+    "EVENT: Mountain Temple 1F Main Door": silent_event("mtt 1f door","mtt 1f"),
+    "EVENT: Mountain Temple 2F Heatoise Arena": silent_event("mtt 2f ne","mtt 2f arena"),
+    "EVENT: Mountain Temple B2 Stalfos Arena": silent_event("mtt b2","mtt b2 n"),
+    "EVENT: Mountain Temple B2 SE Blue Platform": silent_event("mtt b2 se","mtt b2 e"),
+    "EVENT: Mountain Temple B2 W Shortcut": silent_event("mtt b2","mtt b2 se shortcut"),  # Requires whip
+    "EVENT: Mountain Temple B1 Arena": silent_event("mtt b1 arena exit", "mtt b1 arena"),
+
+    "EVENT: Desert Temple B1 Shortcut": silent_event("dt b1 stairs", "dt b1 s"),
+
+    "EVENT: Tunnel to the Tower 2F Door": silent_event("island sanc", "island sanc shortcut"),  # ow logic
+    "EVENT: Island Sanctuary Bridge": silent_event("tower tunnel 2f door", "tower tunnel 2f north"),
+    "EVENT: Valley Sanctuary Door": silent_event("valley sanc door", "valley sanc east"),
 }
 
 
