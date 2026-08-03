@@ -3114,7 +3114,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "OCT 3f s shortcut": {
         "on_scenes": [0x1b02],
-        "has_traversed_entrances": ["EVENT: Marine Temple 3F South Log"],
+        "has_traversed_entrances": ["EVENT: Marine Temple 3F South Branch"],
         "update_stage_flags": [0x4]
     },
     "OCT 4f w shortcut": {
@@ -3129,7 +3129,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "OCT 5f n branches": {
         "on_scenes": [0x1b04],
-        "has_traversed_entrances": ["EVENT: Marine Temple 5F North Logs"],
+        "has_traversed_entrances": ["EVENT: Marine Temple 5F North Branches"],
         "update_stage_flags": [0, 0x4]
     },
     "OCT 5f se door": {
@@ -3139,7 +3139,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "MTT 1f blue platform": {
         "on_scenes": [0x1c00],
-        "has_traversed_entrances": ["EVENT: Mountain Temple 1F Blue Platform"],
+        "has_traversed_entrances": ["EVENT: Mountain Temple 1F SW Switch"],
         "update_stage_flags": [0, 0x4]
     },
     "MTT 1f main door": {
@@ -3164,12 +3164,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "MTT b2 light torches": {
         "on_scenes": [0x1c03],
-        "has_traversed_entrances": ["EVENT: Mountain Temple B2 SE Blue Platform"],
+        "has_traversed_entrances": ["EVENT: Mountain Temple B2 SE Torches"],
         "update_stage_flags": [0x80]
     },
     "MTT b2 w shortcut": {
         "on_scenes": [0x1c03],
-        "has_traversed_entrances": ["EVENT: Mountain Temple B2 W Shortcut"],
+        "has_traversed_entrances": ["EVENT: Mountain Temple B2 W Branch"],
         "update_stage_flags": [0, 0x40]
     },
     "DT b1 shortcut door": {

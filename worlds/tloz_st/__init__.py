@@ -536,32 +536,32 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Dark Ore Mine Buy Ore"
             ]
 
-        if "shortcuts" in self.options.extra_events.value:
-            events += ['EVENT: Wooded Temple 1F Shortcut',
-                       'EVENT: Wooded Temple 2F Windmill',
-                       'EVENT: Blizzard Temple B1 SE Windmill',
-                       'EVENT: Blizzard Temple 1F NE Door',
-                       'EVENT: Blizzard Temple 1F NW Door',
-                       'EVENT: Marine Temple 3F South Log',
-                       'EVENT: Marine Temple 4F West Door',
-                       'EVENT: Marine Temple 4F South Bridge',
-                       'EVENT: Marine Temple 5F North Logs',
-                       'EVENT: Marine Temple 5F SE Door',
-                       'EVENT: Mountain Temple 1F Blue Platform',
-                       'EVENT: Mountain Temple 1F Main Door',
-                       'EVENT: Mountain Temple 2F Heatoise Arena',
-                       'EVENT: Mountain Temple B2 Stalfos Arena',
-                       'EVENT: Mountain Temple B2 SE Blue Platform',
-                       'EVENT: Mountain Temple B2 W Shortcut',
-                       'EVENT: Mountain Temple B1 Arena',
-                       'EVENT: Desert Temple B1 Shortcut',
-                       'EVENT: Tunnel to the Tower 2F Door',
-                       'EVENT: Island Sanctuary Bridge',
-                       'EVENT: Valley Sanctuary Door']
+        if "shortcuts" in self.options.extra_events.value and getattr(self.multiworld, "enforce_deferred_connections", "off") == "on":
+            events += ["EVENT: Wooded Temple 1F Shortcut",
+                       "EVENT: Wooded Temple 2F Windmill",
+                       "EVENT: Blizzard Temple B1 SE Windmill",
+                       "EVENT: Blizzard Temple 1F NE Door",
+                       "EVENT: Blizzard Temple 1F NW Door",
+                       "EVENT: Marine Temple 3F South Branch",
+                       "EVENT: Marine Temple 4F West Door",
+                       "EVENT: Marine Temple 4F South Bridge",
+                       "EVENT: Marine Temple 5F North Branches",
+                       "EVENT: Marine Temple 5F SE Door",
+                       "EVENT: Mountain Temple 1F SW Switch",
+                       "EVENT: Mountain Temple 1F Main Door",
+                       "EVENT: Mountain Temple 2F Heatoise Arena",
+                       "EVENT: Mountain Temple B2 Stalfos Arena",
+                       "EVENT: Mountain Temple B2 SE Torches",
+                       "EVENT: Mountain Temple B2 W Branch",
+                       "EVENT: Mountain Temple B1 Arena",
+                       "EVENT: Desert Temple B1 Shortcut",
+                       "EVENT: Tunnel to the Tower 2F Door",
+                       "EVENT: Island Sanctuary Bridge",
+                       "EVENT: Valley Sanctuary Door"]
             if not self.options.open_blizzard_temple.value:
                 events += [
-                    'EVENT: Blizzard Temple 1F Bell Door 1',
-                    'EVENT: Blizzard Temple 1F Bell Door 3'
+                    "EVENT: Blizzard Temple 1F Bell Door 1",
+                    "EVENT: Blizzard Temple 1F Bell Door 3"
                 ]
 
         self.ut_events = events
@@ -653,7 +653,7 @@ class SpiritTracksWorld(WorldParent):
         return required_dungeons
 
     def restrict_non_local_items(self):
-        # Restrict non_local_items option in cases where it's incompatible with other options that enforce items
+        # Restrict non_local_items option in cases where it"s incompatible with other options that enforce items
         # to be placed locally (e.g. dungeon items with keysanity off)
         if not self.options.keysanity == "anywhere":
             self.options.non_local_items.value -= self.item_name_groups["Small Keys"]
@@ -845,7 +845,7 @@ class SpiritTracksWorld(WorldParent):
             mountain_regions = {"fire realm rabbits": 2,
                                 "mountain rabbits": 4,
                                 "fire source rabbits": 1,
-                                "disorientation rabbits": 1,
+                                "disorientation rabbits": 1,''
                                 "eote rabbits": 1,
                                 "s mountain temple rabbit": 1}
             sand_regions = {"sand realm rabbits": 4,
@@ -2222,6 +2222,7 @@ class SpiritTracksWorld(WorldParent):
             else:
                 entr = entrance_id_to_entrance[connection]
                 if "silent_event" in entr.extra_data:
+                    print(f"Connecting silent entrance: {entr.entrance_region} -> {entr.exit_region}")
                     self.get_region(entr.entrance_region).connect(self.get_region(entr.exit_region))
 
         def disconnect(connection):

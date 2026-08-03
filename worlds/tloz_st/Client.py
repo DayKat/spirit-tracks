@@ -208,6 +208,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.addr_entrance: "Address" = STAddr.entrance
         self.addr_received_item_index: "Address" = STAddr.received_item_index
         self.health_address: "Address" = STAddr.health
+        self.mot_active_address: "Address" = STAddr.map_object_table
 
         self.update_rabbits: bool = False
         self.rabbit_tracker: list[int] = [0]*7  # list of bytes(as ints) for found overworld rabbits
@@ -276,6 +277,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.key_door_watches: list["Address"] = []
         self.boss_door_addr = None
         self.reload_stage_flags: bool = False
+        self.reload_map_objects: int = 0
 
     # Commands
 
@@ -523,6 +525,7 @@ class SpiritTracksClient(DSZeldaClient):
         if new_events:
             print(f"\tStoring new events: {new_events} {self.traversed_entrances}")
             await self.store_data(ctx, key, new_events)
+        self.traversed_entrances.update(new_events)
 
     async def refill_ammo(self, ctx, text=""):
         await self.full_heal(ctx)
@@ -606,6 +609,9 @@ class SpiritTracksClient(DSZeldaClient):
                 read_keys.append(self.addr_drinking_potion)
             printl(f"Potion pointer {hex(potion_addr)}")
 
+            self.mot_active_address = Address.from_pointer(await STAddr.gMapObjectManager.read(ctx)+3)
+            read_keys.append(self.mot_active_address)
+
             if stage == 0x13:
                 self.zelda_text_address = Address.from_pointer(await STAddr.zelda_pointer.read(ctx) + ZELDA_TEXT_OFFSET, size=4)
                 read_keys.append(self.zelda_text_address)
@@ -682,6 +688,10 @@ class SpiritTracksClient(DSZeldaClient):
             await self.save_custom_train(ctx)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
+        # reload when necissary
+        if not self.reload_map_objects and read_result[self.mot_active_address] != 2:
+            self.reload_map_objects = 1
+
         if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
             printl(f"Starting delete operation")
             self.precision_operation = None
@@ -794,6 +804,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         printl(f"Processing hard coded room stuff")
+        self.reload_map_objects = 1
 
         if self.save_ammo:
             await write_multiple(ctx, list(self.save_ammo.keys()), list(self.save_ammo.values()))
@@ -846,15 +857,13 @@ class SpiritTracksClient(DSZeldaClient):
         # Validate locations
         await self.validate_location_processing(ctx)
 
-        # Process map objects
-        # await self.process_map_objects(ctx)
-
     async def delay_room_action(self, ctx):
+        print(f"# Delay Room Action")
         # Set train speed stuff
         if self.current_stage in range(4, 0xb):
             await self.set_train_speed(ctx)
 
-        await self.process_map_objects(ctx)
+        # await self.process_map_objects(ctx)
 
         # Set starting train
         if not await STAddr.set_starting_train.read(ctx) & 4:
@@ -961,6 +970,10 @@ class SpiritTracksClient(DSZeldaClient):
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
         await self.drink_potion(ctx, read_result)
+
+        if self.reload_map_objects == 1 and read_result[self.mot_active_address] == 2:
+            self.reload_map_objects = 0
+            await self.process_map_objects(ctx)
 
         if self.snurglar_addr in read_result:
             if read_result[self.snurglar_addr] & 0x20:
@@ -1197,6 +1210,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         elif ctx.slot_data["randomize_stamps"] == 4:
             stamp_locations_received = [LOCATIONS_DATA[i]["stamp"] for i in LOCATION_GROUPS["Stamp Stands"] if self.entrances[LOCATIONS_DATA[i]["ut_connect"]].id in self.traversed_entrances]
+            print(f"traversed: {self.traversed_entrances}, stamps: {stamp_locations_received}")
             wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
             missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
 
@@ -1249,19 +1263,19 @@ class SpiritTracksClient(DSZeldaClient):
                     address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
                     self.event_data[i]["address"] = address
                     self.event_reads.append(address)
+                print(f"Event reads: {hex_f(self.event_reads)}")
 
             read_results = await read_multiple(ctx, self.event_reads)
-            for event, res in zip(self.event_data, read_results.values()):
-                # printl(read_results)
+            for event in self.event_data:
+                if event["address"] == "stage_flags":
+                    res = read_results[Address.from_pointer(self.stage_flag_address + event.get("offset", 0))]
+                else:
+                    res = read_results[event["address"]]
                 if (not event.get("exact_read", False) and event["value"] & res) or event["value"] == res:
                     if "entrance" in event:
                         printl(f"Event detection Success!, {event['entrance']}")
                         entrance = self.entrances[event["entrance"]]
                         await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
-                    # elif "event" in event:  # not implemented yet
-                    #     printl(f"Event detection Success!, {event['event']}")
-                    #     key = storage_key(ctx, ut_events_key)
-                    #     await self.store_data(ctx, key, [event["event"]])
 
                     self.event_reads.remove(event["address"])
                     self.event_data.remove(event)
@@ -1872,6 +1886,8 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def delete_bad_ow_actors(self, ctx, table_start):
         actor_idents = await self.get_table_data(ctx, table_start, 12)
+        crash_causers_0 = {0x1387b4: "Tanks"}
+
         crash_causers = {
             0x21405e8: "Demon Train",
             0x2140860: "Moink... or not",
@@ -1886,10 +1902,12 @@ class SpiritTracksClient(DSZeldaClient):
             0x22e6898: "tanks 5",
             0x22e7798: "tanks 6"
         }
+        actor_idents_0 = await self.get_table_data(ctx, table_start, 0, size=3)
         crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
+        crash_list += [Address.from_pointer(k.addr, size=4) for k, i in actor_idents_0.items() if i in crash_causers_0]
         await self.frame_advance(ctx)
         await write_multiple(ctx, crash_list, [0]*len(crash_list))
-        actor_print = {k: crash_causers[i] for k, i in actor_idents.items() if i in crash_causers}
+        actor_print = {k: (crash_causers | crash_causers_0)[i] for k, i in (actor_idents | actor_idents_0).items() if i in (crash_causers | crash_causers_0)}
         printl(f"Deleting bad actors: {hex_f(actor_print)}")
 
     # ER stuff
@@ -2057,6 +2075,8 @@ class SpiritTracksClient(DSZeldaClient):
         elif (new_exit.category_group == EntranceGroups.STATION and new_exit.direction == EntranceGroups.UP) or new_exit.category_group == EntranceGroups.TRAIN_PORTAL:
             if self.current_scene != self.last_scene:
                 await STAddr.entrance_animation.overwrite(ctx, 0x39)
+        elif "animation_override" in new_exit.extra_data:
+            await STAddr.entrance_animation.overwrite(ctx, new_exit.extra_data["animation_override"])
 
     # Respawn stuff
 
@@ -2266,7 +2286,7 @@ class SpiritTracksClient(DSZeldaClient):
             await write_multiple(ctx, cutscenes_to_delete, [0]*len(cutscenes_to_delete))
 
     async def process_map_objects(self, ctx):
-        whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
+        whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x37, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
         if self.current_stage not in whitelisted_stages:
             return
 

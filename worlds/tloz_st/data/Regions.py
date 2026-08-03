@@ -315,6 +315,7 @@ REGIONS = [
     "wt 1f se door",
 
     "wt 2f",
+    "wt 2f ne arena",
     "wt 2f enemy chest",
     "wt 2f poison chest",
     "wt 2f north",
@@ -799,6 +800,7 @@ REGIONS = [
     "mtt 2f right",
     "mtt 2f left",
     "mtt 2f chest",
+    "mtt 1f door puzzle",
     "mtt 1f door",
     "mtt 1f oob",
     "mtt song statue",

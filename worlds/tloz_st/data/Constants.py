@@ -875,7 +875,7 @@ UT_EVENT_DATA = {
         "value": 0x80
     }],
     0x1b02: [{
-        "entrance": "EVENT: Marine Temple 3F South Log",
+        "entrance": "EVENT: Marine Temple 3F South Branch",
         "address": "stage_flags",
         "offset": 0,
         "value": 0x4
@@ -892,7 +892,7 @@ UT_EVENT_DATA = {
         "value": 0x40  # with flags, also open 0x20
     }],
     0x1b04: [{
-        "entrance": "EVENT: Marine Temple 5F North Logs",
+        "entrance": "EVENT: Marine Temple 5F North Branches",
         "address": "stage_flags",
         "offset": 1,
         "value": 0x4
@@ -903,7 +903,7 @@ UT_EVENT_DATA = {
         "value": 0x8
     }],
     0x1c00: [{
-        "entrance": "EVENT: Mountain Temple 1F Blue Platform",
+        "entrance": "EVENT: Mountain Temple 1F SW Switch",
         "address": "stage_flags",
         "offset": 1,
         "value": 0x4
@@ -937,12 +937,12 @@ UT_EVENT_DATA = {
         "offset": 0,
         "value": 0x20
     },{
-        "entrance": "EVENT: Mountain Temple B2 SE Blue Platform",
+        "entrance": "EVENT: Mountain Temple B2 SE Torches",
         "address": "stage_flags",
         "offset": 0,
         "value": 0x80
     },{
-        "entrance": "EVENT: Mountain Temple B2 W Shortcut",
+        "entrance": "EVENT: Mountain Temple B2 W Branch",
         "address": "stage_flags",
         "offset": 1,
         "value": 0x40
@@ -1667,9 +1667,11 @@ map_object_identifiers = {
     0x155860: "Tree",
 
     0x11565c: "Grass",
+    0x155d50: "Long Grass",
     0x12f358: "Rails",
     0x178344: "Frozen Grass",
     0x178474: "Snow",
+    0x1558d8: "Leaves",
     0x164f10: "Swap Pad",
     0x12f2f0: "Train Platform"
 }

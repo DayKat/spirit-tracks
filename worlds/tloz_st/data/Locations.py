@@ -2131,7 +2131,7 @@ LOCATIONS_DATA = {
         "hint_entrance_tertiary": ["Marine Temple Lobby Board Train"]
     },
 
-    "Marine Temple 2F Log Chest": {
+    "Marine Temple 2F South Chest": {
         "region_id": "oct 2f logs",
         "vanilla_item": ITEM_GROUPS["Common Treasures"],
         "stage_id": 0x1B,

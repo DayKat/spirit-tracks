@@ -369,10 +369,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["wt 1f right arena", "wt 1f se door", False, has_damage],
         ["wt 1f se door", "wt 2f", True, None],
 
-        ["wt 2f", "wt 2f enemy chest", True, has_damage],
+        ["wt 2f", "wt 2f ne arena", False, None],
+        ["wt 2f ne arena", "wt 2f", False, has_damage],
+        ["wt 2f ne arena", "wt 2f enemy chest", False, has_damage],
         ["wt 2f", "wt 2f poison chest", False, has_whirlwind | hard_logic],
         ["wt 2f enemy chest", "wt 2f north", False, has_whirlwind],
-        ["wt 2f", "wt 2f north", False, has_whirlwind & hard_logic],
+        ["wt 2f ne arena", "wt 2f north", False, has_whirlwind & hard_logic],
         ["wt 2f north", "wt 1f north", True, None],
         ["wt 1f north", "wt 1f key", False, has_whirlwind | has_boomerang | has_whip],
         ["wt 1f north", "wt 1f", False, None],
@@ -1072,9 +1074,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt 1f right", "mtt 2f right", True, None],
         ["mtt 2f right", "mtt 2f chest", False, can_kill_bat],
 
-        ["mtt 1f", "mtt 1f door", False, has_small_keys_er("Mountain Temple", 2, er=3) & Or(
+        ["mtt 1f", "mtt 1f door puzzle", False, has_small_keys_er("Mountain Temple", 2, er=3) & Or(
             has_bombs, has_boomerang, hard_logic & (has_bow | has_sword_beam | has_whip)
         )],
+        ["mtt 1f door puzzle", "mtt 1f door", False, None],
         ["mtt 1f left", "mtt 1f door", False, glitched_logic & has_boomerang & has_small_keys_er("Mountain Temple", 1, er=3)],
         ["mtt 1f left", "mtt 1f oob", False, glitched_logic & has_bombs],
         ["mtt 1f oob", "mtt 1f door", False, None],
@@ -1449,29 +1452,34 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
     if world.is_ut and "shortcuts" in world.options.extra_events.value:
         overworld_logic += [
-            ["wt 1f","wt 1f north", False, None],
-            ["wt 2f north","wt 2f enemy chest", False, None],
-            ["bt 1f e shortcut","bt 1f", False, None],
-            ["bt b1 e","bt b1 se", False, None],
-            ["bt 1f","bt 1f ne", False, None],
-            ["bt 1f n shortcut","bt 1f", False, None],
-            ["bt 1f","bt 1f nw bell", False, None],
-            ["oct 3f arena","oct 3f south", False, None],
-            ["oct 4f west","oct 4f north", False, None],
-            ["oct 4f south","oct 4f west", False, None],
-            ["oct 5f nw","oct 5f", False, None],
-            ["oct 5f se","oct 5f s", False, None],
-            ["mtt 1f right","mtt 1f", False, None],
-            ["mtt 1f door","mtt 1f", False, None],
-            ["mtt 2f ne","mtt 2f arena", False, None],
-            ["mtt b2","mtt b2 n", False, None],
-            ["mtt b2 se","mtt b2 e", False, None],
-            ["mtt b2","mtt b2 se shortcut", False, None],
-            ["mtt b1 arena exit", "mtt b1 arena", False, None],
-            ["dt b1 stairs", "dt b1 s", False, None],
-            ["island sanc", "island sanc shortcut", False, None],
-            ["tower tunnel 2f door", "tower tunnel 2f north", False, None],
-            ["valley sanc door", "valley sanc east", False, None],
+            ["wt 1f","wt 1f north", False, CanReachRegion("wt 1f north")],
+            ["wt 2f north", "wt 2f ne arena", False, CanReachRegion("wt 2f ne arena") & has_whirlwind],
+
+            ["bt 1f e shortcut","bt 1f", False, CanReachRegion("bt 1f") & can_ring_bell],
+            ["bt b1 e","bt b1 se", False, CanReachRegion("bt b1 se") & has_whirlwind],
+            ["bt 1f", "bt 1f ne", False, CanReachRegion("bt 1f ne") & has_boomerang],
+            ["bt 1f n shortcut","bt 1f", False, CanReachRegion("bt 1f nw bell") & has_boomerang],
+            ["bt 1f", "bt 1f nw", False, CanReachRegion("bt 1f nw") & has_boomerang],
+
+            ["oct 3f arena","oct 3f south", False, CanReachRegion("oct 3f south") & has_whip],
+            ["oct 4f west","oct 4f north", False, CanReachRegion("oct 4f north") & has_whip],
+            ["oct 4f south","oct 4f west", False, CanReachRegion("oct 4f west") & has_whip],
+            ["oct 5f nw","oct 5f", False, CanReachRegion("oct 5f") & has_whip],
+            ["oct 5f se","oct 5f s", False, CanReachRegion("oct 5f s") & has_whip],
+
+            ["mtt 1f right","mtt 1f", False, CanReachRegion("mtt 1f") & has_short_range],
+            ["mtt 1f door","mtt 1f", False, CanReachRegion("mtt 1f door puzzle")],
+            ["mtt 2f ne","mtt 2f arena", False, CanReachRegion("mtt 2f post arena")],
+            ["mtt b2","mtt b2 n", False, CanReachRegion("mtt b2 n") & (has_bow | has_bombs | has_sword_beam | has_whip)],
+            ["mtt b2 se","mtt b2 e", False, CanReachRegion("mtt b2 e") & has_boomerang & has_whip & has_bow],
+            ["mtt b2","mtt b2 se shortcut", False, CanReachRegion("mtt b2 se shortcut") & can_rotate_repeater & has_bow],
+            ["mtt b1 arena exit", "mtt b1 arena", False, CanReachRegion("mtt b1 arena") & has_bow],
+
+            ["dt b1 stairs", "dt b1 s", False, CanReachRegion("dt b1 s")],
+
+            ["island sanc", "island sanc shortcut", False, CanReachRegion("island sanc shortcut")],
+            ["tower tunnel 2f door", "tower tunnel 2f north", False, CanReachRegion("tower tunnel 2f north") & can_kill_bat],
+            ["valley sanc door", "valley sanc east", False, CanReachRegion("valley sanc east") & has_sol],
         ]
 
     # Generate rabbit total items

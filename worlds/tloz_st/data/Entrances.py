@@ -11,8 +11,9 @@ def event(reg1:str, reg2: str="") -> dict:
         "island": EntranceGroups.NONE
     }
 
-def silent_event(reg1: str, reg2: str):
+def silent_event(reg1: str, reg2: str, reverse_entrance=""):
     return {
+        "return_name": reverse_entrance if reverse_entrance else f"{reg2} -> {reg1}",
         "two_way": False,
         "entrance_region": reg1,
         "exit_region": reg2,
@@ -1870,7 +1871,7 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE
     },
 
-    # Order later
+    # ToS Entrances
     "Tower of Spirits Enter Section 1": {
         "return_name": "ToS 1F Exit",
         "entrance": (0x17, 0, 1),
@@ -1975,7 +1976,7 @@ ENTRANCE_DATA |= {
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 3f rail map",
         "exit_region": "tos",
-        "type": EntranceGroups.WARP_PORTAL,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
@@ -1985,7 +1986,7 @@ ENTRANCE_DATA |= {
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 7f rail map",
         "exit_region": "tos",
-        "type": EntranceGroups.WARP_PORTAL,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
@@ -1995,7 +1996,7 @@ ENTRANCE_DATA |= {
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 11f",
         "exit_region": "tos",
-        "type": EntranceGroups.WARP_PORTAL,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
@@ -2005,7 +2006,7 @@ ENTRANCE_DATA |= {
         "exit": (0x14, 0x1, 3),
         "entrance_region": "tos 16f",
         "exit_region": "tos",
-        "type": EntranceGroups.WARP_PORTAL,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
@@ -2015,7 +2016,7 @@ ENTRANCE_DATA |= {
         "exit": (0x14, 0x1, 1),
         "entrance_region": "tos 24f",
         "exit_region": "tos",
-        "type": EntranceGroups.WARP_PORTAL,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.NONE
     },
@@ -2722,7 +2723,7 @@ ENTRANCE_DATA |= {
         "exit_region": "dt skeldritch",
         "entrance": (0x1D, 0x4, 0x1),
         "exit": (0x22, 0x1, 0),
-        "type": EntranceGroups.BOSS,
+        "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.DESERT
     },
@@ -2732,6 +2733,7 @@ ENTRANCE_DATA |= {
         "exit_region": "wooded temple lobby",
         "entrance": (0x1E, 0x0, 5),
         "exit": (0x19, 0xA, 1),
+        "extra_data": {"animation_override": 0x19},
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.WOODED,
@@ -2743,6 +2745,7 @@ ENTRANCE_DATA |= {
         "exit_region": "blizzard temple lobby",
         "entrance": (0x1F, 0x0, 5),
         "exit": (0x1A, 0x4, 2),
+        "extra_data": {"animation_override": 0x19},
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.BLIZZARD,
@@ -2754,6 +2757,7 @@ ENTRANCE_DATA |= {
         "exit_region": "marine temple lobby",
         "entrance": (0x20, 0x0, 5),
         "exit": (0x1B, 0xA, 2),
+        "extra_data": {"animation_override": 0x19},
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MARINE,
@@ -2765,6 +2769,7 @@ ENTRANCE_DATA |= {
         "exit_region": "mountain temple lobby",
         "entrance": (0x21, 0x0, 5),
         "exit": (0x1C, 0xA, 2),
+        "extra_data": {"animation_override": 0x19},
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.MOUNTAIN,
@@ -2776,6 +2781,7 @@ ENTRANCE_DATA |= {
         "exit_region": "desert temple lobby",
         "entrance": (0x1d, 0x5, 1),
         "exit": (0x1D, 0x6, 2),
+        "extra_data": {"animation_override": 0x19},
         "type": EntranceGroups.NONE,
         "direction": EntranceGroups.UP,
         "island": EntranceGroups.DESERT,
@@ -2999,32 +3005,32 @@ ENTRANCE_DATA |= {
     },
 
     "EVENT: Wooded Temple 1F Shortcut": silent_event("wt 1f","wt 1f north"),
-    "EVENT: Wooded Temple 2F Windmill": silent_event("wt 2f north","wt 2f enemy chest"),
+    "EVENT: Wooded Temple 2F Windmill": silent_event("wt 2f north","wt 2f ne arena"),
 
     "EVENT: Blizzard Temple 1F Bell Door 1": silent_event("bt 1f e shortcut","bt 1f"),
     "EVENT: Blizzard Temple B1 SE Windmill": silent_event("bt b1 e","bt b1 se"),
     "EVENT: Blizzard Temple 1F NE Door": silent_event("bt 1f","bt 1f ne"),
-    "EVENT: Blizzard Temple 1F NW Door": silent_event("bt 1f n shortcut","bt 1f"),
-    "EVENT: Blizzard Temple 1F Bell Door 3": silent_event("bt 1f","bt 1f nw bell"),
+    "EVENT: Blizzard Temple 1F NW Door": silent_event("bt 1f","bt 1f nw"),
+    "EVENT: Blizzard Temple 1F Bell Door 3": silent_event("bt 1f n shortcut","bt 1f"),
 
-    "EVENT: Marine Temple 3F South Log": silent_event("oct 3f arena","oct 3f south"),
+    "EVENT: Marine Temple 3F South Branch": silent_event("oct 3f arena","oct 3f south"),
     "EVENT: Marine Temple 4F West Door": silent_event("oct 4f west","oct 4f north"),
     "EVENT: Marine Temple 4F South Bridge": silent_event("oct 4f south","oct 4f west"),
-    "EVENT: Marine Temple 5F North Logs": silent_event("oct 5f nw","oct 5f"),
+    "EVENT: Marine Temple 5F North Branches": silent_event("oct 5f nw","oct 5f"),
     "EVENT: Marine Temple 5F SE Door": silent_event("oct 5f se","oct 5f s"),
 
-    "EVENT: Mountain Temple 1F Blue Platform": silent_event("mtt 1f right","mtt 1f"),
+    "EVENT: Mountain Temple 1F SW Switch": silent_event("mtt 1f right","mtt 1f"),
     "EVENT: Mountain Temple 1F Main Door": silent_event("mtt 1f door","mtt 1f"),
     "EVENT: Mountain Temple 2F Heatoise Arena": silent_event("mtt 2f ne","mtt 2f arena"),
     "EVENT: Mountain Temple B2 Stalfos Arena": silent_event("mtt b2","mtt b2 n"),
-    "EVENT: Mountain Temple B2 SE Blue Platform": silent_event("mtt b2 se","mtt b2 e"),
-    "EVENT: Mountain Temple B2 W Shortcut": silent_event("mtt b2","mtt b2 se shortcut"),  # Requires whip
+    "EVENT: Mountain Temple B2 SE Torches": silent_event("mtt b2 se","mtt b2 e"),
+    "EVENT: Mountain Temple B2 W Branch": silent_event("mtt b2","mtt b2 se shortcut"),  # Requires whip
     "EVENT: Mountain Temple B1 Arena": silent_event("mtt b1 arena exit", "mtt b1 arena"),
 
     "EVENT: Desert Temple B1 Shortcut": silent_event("dt b1 stairs", "dt b1 s"),
 
-    "EVENT: Tunnel to the Tower 2F Door": silent_event("island sanc", "island sanc shortcut"),  # ow logic
-    "EVENT: Island Sanctuary Bridge": silent_event("tower tunnel 2f door", "tower tunnel 2f north"),
+    "EVENT: Island Sanctuary Bridge": silent_event("island sanc", "island sanc shortcut"),  # ow logic
+    "EVENT: Tunnel to the Tower 2F Door": silent_event("tower tunnel 2f door", "tower tunnel 2f north"),
     "EVENT: Valley Sanctuary Door": silent_event("valley sanc door", "valley sanc east"),
 }
 
@@ -3058,28 +3064,6 @@ cargo_events = {
     "EVENT: Dark Ore Mine Buy Ore",
 }
 
-stamp_events = {
-    "EVENT: Outset Stamp Station",
-    "EVENT: Mayscore Forest Stamp Station",
-    "EVENT: Castle Town Stamp Station",
-    "EVENT: Woodland Sanctuary Stamp Station",
-    "EVENT: Anouki Village Stamp Station",
-    "EVENT: Snowfall Sanctuary Stamp Station",
-    "EVENT: Icy Spring Stamp Station",
-    "EVENT: Trading Post Tunnel Stamp Station",
-    "EVENT: Papuzia Archipelago Stamp Station",
-    "EVENT: Island Sanctuary Stamp Station",
-    "EVENT: Pirate Hideout Stamp Station",
-    "EVENT: Goron Field Stamp Station",
-    "EVENT: Valley Sanctuary Stamp Station",
-    "EVENT: Dune Sanctuary Stamp Station",
-    "EVENT: Tower of Spirits Summit Stamp Station",
-    "EVENT: Wooded Temple Stamp Station",
-    "EVENT: Blizzard Temple Stamp Station",
-    "EVENT: Marine Temple Stamp Station",
-    "EVENT: Mountain Temple Stamp Station",
-    "EVENT: Desert Temple Stamp Station"
-}
 goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          1: "GOAL: Defeat Fraaz",
                          2: "GOAL: Defeat Cactops",
