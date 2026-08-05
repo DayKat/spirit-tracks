@@ -588,7 +588,6 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["bt b1 se", "bt b1 e", False, has_whirlwind],
         ["bt b1 e", "bt b1 ne", False, None],
-        ["bt b1 ne", "bt b1 e", False, has_whirlwind],
         ["bt b1 ne", "bt b1 ne enemy chest", False, can_kill_ice_bat],
         ["bt b1 ne", "bt b1 ne door", False, has_short_range | has_boomerang],
         ["bt b1 ne door", "bt b1 ne", False, can_kill_bat],
@@ -1088,7 +1087,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt 2f arena", "mtt 2f post arena", False, has_good_damage],
         ["mtt 2f post arena", "mtt 2f ne", False, None],
         ["mtt 2f ne", "mtt 2f ne door", True, has_bow],
-        ["mtt 2f ne", "mtt 1f ne", True, None],
+        ["mtt 2f ne door", "mtt 1f ne", True, None],
         ["mtt 1f ne", "mtt 1f n", False, has_bow & can_rotate_repeater],
         ["mtt 1f n", "mtt 1f ne", False, has_bow],
         ["mtt 1f ne", "mtt 1f n chest", False, has_bow],
@@ -1297,7 +1296,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dt b1 s", "dt b1 damage", False, has_damage],
         ["dt b1", "dt b1 boss door", False, glitched_logic & has_bombs & has_sword],
         ["dt b1 boss door", "dt b2 s", True, None],
-        ["dt b1 boss door", "dt b1 s", False, has_boss_key("Desert Temple") & has_sand_wand],
+        # ["dt b1 boss door", "dt b1 s", False, has_boss_key("Desert Temple") & has_sand_wand],
         ["dt b1 s", "dt b1 stairs", False, None],
 
         ["dt b1 damage", "dt b1 boss door", False, None]

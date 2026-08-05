@@ -3044,31 +3044,31 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "update_stage_flags": OPEN_WARPS[1]
     },
     "Open Wooded Temple warp backup": {
-        "on_scenes": [0x190a],
+        "on_scenes": [0x190a, 0x1903],
         "has_slot_data": [("open_blue_warps", 0)],
         "has_traversed_entrances": ["EVENT: Wooded Temple Open Blue Warp"],
         "update_stage_flags": OPEN_WARPS[0]
     },
     "Open Blizzard Temple warp backup": {
-        "on_scenes": [0x1a04],
+        "on_scenes": [0x1a04, 0x1a03],
         "has_slot_data": [("open_blue_warps", 0)],
         "has_traversed_entrances": ["EVENT: Blizzard Temple Open Blue Warp"],
         "update_stage_flags": OPEN_WARPS[1]
     },
     "Open Marine Temple warp backup": {
-        "on_scenes": [0x1b0a],
+        "on_scenes": [0x1b0a, 0x1b06],
         "has_slot_data": [("open_blue_warps", 0)],
         "has_traversed_entrances": ["EVENT: Marine Temple Open Blue Warp"],
         "update_stage_flags": OPEN_WARPS[2]
     },
     "Open Mountain Temple warp backup": {
-        "on_scenes": [0x1c0a],
+        "on_scenes": [0x1c0a, 0x1c05],
         "has_slot_data": [("open_blue_warps", 0)],
         "has_traversed_entrances": ["EVENT: Mountain Temple Open Blue Warp"],
         "update_stage_flags": OPEN_WARPS[3]
     },
     "Open Desert Temple warp backup": {
-        "on_scenes": [0x1d06],
+        "on_scenes": [0x1d06, 0x1d04],
         "has_slot_data": [("open_blue_warps", 0)],
         "has_traversed_entrances": ["EVENT: Desert Temple Open Blue Warp"],
         "update_stage_flags": OPEN_WARPS[4]
@@ -3083,7 +3083,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "WT 2f windmill door": {
         "on_scenes": [0x1901],
         "has_traversed_entrances": ["EVENT: Wooded Temple 1F Shortcut"],
-        "update_stage_flags": [0x20]
+        "update_stage_flags": [0, 0x4]
     },
     "BT 1f bell door 1": {
         "on_scenes": [0x1a00],

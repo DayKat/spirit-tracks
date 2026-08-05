@@ -279,6 +279,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.reload_stage_flags: bool = False
         self.reload_map_objects: int = 0
         self.was_in_clog: bool = False
+        self.on_train = False
 
     # Commands
 
@@ -588,8 +589,9 @@ class SpiritTracksClient(DSZeldaClient):
         pass
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
-        read_keys = read_keys_always
+        read_keys = read_keys_always.copy()
         if stage in range(4, 0xb):
+            self.on_train = True
             read_keys += read_keys_train
             self.health_address = STAddr.train_health
 
@@ -600,6 +602,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
                 read_keys.append(self.train_gear_addr)
         else:
+            self.on_train = False
             read_keys += read_keys_land
             self.health_address = STAddr.health
 
@@ -620,8 +623,8 @@ class SpiritTracksClient(DSZeldaClient):
 
 
         self.main_read_list = read_keys
-        # printl(f"read keys len: {len(read_keys)}")
-        # printl(self.main_read_list, read_keys)
+        printl(f"read keys len: {len(read_keys)}")
+        printl(self.main_read_list, read_keys)
         # printl(f"Slot data {ctx.slot_data}")
 
     async def on_connect(self, ctx):
@@ -699,8 +702,8 @@ class SpiritTracksClient(DSZeldaClient):
             await self.save_custom_train(ctx)
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
-        # reload when necissary
-        if not self.reload_map_objects and read_result[self.mot_active_address] != 2:
+        # reload when necessary
+        if not self.reload_map_objects and read_result.get(self.mot_active_address, 2) != 2:
             self.reload_map_objects = 1
 
         if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
@@ -710,29 +713,33 @@ class SpiritTracksClient(DSZeldaClient):
             await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
 
         current_menu: "Address" = read_result[STAddr.menu]
-        self.in_stamp_stand = current_menu == 0x0E
-        getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving] and not self.saving
-        self.getting_location = getting_location or self.reset_cycles
 
-        if self.getting_location:
-            self.reset_cycles = True
+        # Getting location reads
+        if not self.on_train:
+            self.in_stamp_stand = current_menu == 0x0E
 
-        if self.reset_cycles and not getting_location and not read_result[STAddr.getting_item_safety]:
-            self.reset_cycles = False
+            getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving] and not self.saving
+            self.getting_location = getting_location or self.reset_cycles
 
-        # Fix for stamp stand not counting as getting item
-        if self.in_stamp_stand and self.receiving_location:
-            self.getting_location = True
+            if self.getting_location:
+                self.reset_cycles = True
+
+            if self.reset_cycles and not getting_location and not read_result[STAddr.getting_item_safety]:
+                self.reset_cycles = False
+
+            # Fix for stamp stand not counting as getting item
+            if self.in_stamp_stand and self.receiving_location:
+                self.getting_location = True
 
         if not self.saving:
             self.saving = read_result[STAddr.saving]
-            self.saving_safety = read_result[STAddr.getting_item_safety]
+            self.saving_safety = read_result.get(STAddr.getting_item_safety)
         else:
             safe_save = False
             if self.current_stage in range(0x1e, 0x23):
                 safe_save = self.saving_safety == read_result[STAddr.getting_item_safety]
                 # printl(f"Checking Safe Save!")
-            self.saving = read_result[STAddr.getting_location] or read_result[STAddr.saving] or safe_save
+            self.saving = read_result.get(STAddr.getting_item_safety, False) or read_result[STAddr.saving] or safe_save
 
         # Weird scene value on load from menu, set to last saved scene
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
@@ -871,7 +878,7 @@ class SpiritTracksClient(DSZeldaClient):
     async def delay_room_action(self, ctx):
         print(f"# Delay Room Action")
         # Set train speed stuff
-        if self.current_stage in range(4, 0xb):
+        if self.on_train:
             await self.set_train_speed(ctx)
 
         # await self.process_map_objects(ctx)
@@ -988,7 +995,7 @@ class SpiritTracksClient(DSZeldaClient):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
         await self.drink_potion(ctx, read_result)
 
-        if self.reload_map_objects == 1 and read_result[self.mot_active_address] == 2:
+        if self.reload_map_objects == 1 and read_result.get(self.mot_active_address, 0) == 2:
             self.reload_map_objects = 0
             await self.process_map_objects(ctx)
 
@@ -1555,7 +1562,7 @@ class SpiritTracksClient(DSZeldaClient):
     # Rabbit handling
 
     async def update_rabbit_count(self, ctx):
-        if self.current_stage in [4, 5, 6, 7]:
+        if self.on_train:
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
@@ -1935,8 +1942,8 @@ class SpiritTracksClient(DSZeldaClient):
             0x22e7798: "tanks 6"
         }
         actor_idents_0 = await self.get_table_data(ctx, table_start, 0, size=3)
-        old_crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
-        print(f"old crash list: {hex_f(old_crash_list)}")
+        # old_crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
+        # print(f"old crash list: {hex_f(old_crash_list)}")
         crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents_0.items() if i in crash_causers_0]
 
         if crash_list:
@@ -2326,7 +2333,7 @@ class SpiritTracksClient(DSZeldaClient):
             await write_multiple(ctx, cutscenes_to_delete, [0]*len(cutscenes_to_delete))
 
     async def process_map_objects(self, ctx):
-        whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x37, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
+        whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x2E, 0x37, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
         if self.current_stage not in whitelisted_stages:
             return
 
