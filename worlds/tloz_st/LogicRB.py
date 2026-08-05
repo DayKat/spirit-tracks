@@ -115,9 +115,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # # ======== Castle Town =========
 
-        ["castle station", "castle town", False, has_glyph("Forest")],
-        ["castle town", "castle station", False, None],
-        ["forest realm", "castle station", True, has_glyph("Forest") & soft_cannon],
+        ["forest realm (ct)", "castle town", False, has_glyph("Forest")],
+        ["castle town", "forest realm (ct)", False, None],
+        ["forest realm", "forest realm (ct)", True, has_glyph("Forest") & soft_cannon],
         ["castle town", "castle town goron", False, has_passenger("City Goron", "_city_goron")],
         ["castle town", "pick up alfonzo", False, (has_glyph("Snow") & has_glyph("Forest") & pickup_tracks) | (Has("_visit_outset") & pickup_visit)],
         ["castle town", "castle town teacher", False, ((has_glyph("Snow") | has_glyph("Ocean") | has_glyph("Fire") | has_source("Fire")) & pickup_tracks) | (HasAny("_visit_av", "_visit_papuzia", "_visit_gv") & pickup_visit)],
@@ -494,9 +494,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # ======== Anouki Village ========
 
-        ["snow realm", "anouki station", True, has_glyph("Snow")],
-        ["anouki station", "anouki village", False, has_glyph("Snow")],
-        ["anouki village", "anouki station", False, None],
+        ["snow realm", "snow realm (av)", True, has_glyph("Snow")],
+        ["snow realm (av)", "anouki village", False, has_glyph("Snow")],
+        ["anouki village", "snow realm (av)", False, None],
         ["anouki village", "visit anouki village", False, None],
 
         ["anouki village", "honcho's house", True, None],
@@ -759,9 +759,9 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["island sanc carben", "carben event", False, None],
 
         # ========== Papuzia Village =============
-        ["ocean realm", "papuzia village station", True, has_glyph("Ocean")],
-        ["papuzia village station", "papuzia village", False, has_glyph("Ocean")],
-        ["papuzia village", "papuzia village station", False, None],
+        ["ocean realm", "ocean realm (pv)", True, has_glyph("Ocean")],
+        ["ocean realm (pv)", "papuzia village", False, has_glyph("Ocean")],
+        ["papuzia village", "ocean realm (pv)", False, None],
         ["papuzia village", "papuzia village song statue", False, has_sod],
         ["papuzia village", "pv dovok", False, has_passenger("Dovok", "_dovok")],
         ["pv dovok", "orca's house", False, ool],
@@ -976,10 +976,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
                           "Icy Spring to Mountain Temple", "_icyspring_portal"),
 
         # Goron Village
-        ["fire realm", "goron village station", True, has_glyph("Fire")],
-        ["goron village", "goron village station", False, None],
-        ["goron village station", "goron village", False, has_glyph("Fire") | has_source("Fire")],
-        ["fire source", "goron village station", True, has_source("Fire")],
+        ["fire realm", "fire realm (gv)", True, has_glyph("Fire")],
+        ["goron village", "fire realm (gv)", False, None],
+        ["fire realm (gv)", "goron village", False, has_glyph("Fire") | has_source("Fire")],
+        ["fire source", "fire realm (gv)", True, has_source("Fire")],
         ["goron village", "visit goron village", False, None],
 
         ["goron village", "goron village shop", True, None],

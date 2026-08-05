@@ -111,7 +111,7 @@ REGIONS = [
 
     # Castle Town
     "castle town",
-    "castle station",
+    "forest realm (ct)",
     "castle town stamp station",
     "castle town wall",
     "castle town cuccos",
@@ -392,7 +392,7 @@ REGIONS = [
 
     # Anouki Village
     "anouki village",
-    "anouki station",
+    "snow realm (av)",
     "anouki village stamp station",
     "anouki village song statue",
     "anouki village bomb cave chest",
@@ -558,7 +558,7 @@ REGIONS = [
 
     # Papuchia Village
     "papuzia village",
-    "papuzia village station",
+    "ocean realm (pv)",
     "papuzia village south",
     "papuzia village song statue",
     "papuzia village stamp station",
@@ -744,7 +744,7 @@ REGIONS = [
 
     # Goron Village
     "goron village",
-    "goron village station",
+    "fire realm (gv)",
     "goron plaza",
 
     "goron field",

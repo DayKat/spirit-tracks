@@ -2373,7 +2373,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_locations": ["Papuzia Village Wadatsumi's Force Gem"],
         "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
     },
-    "Wadatsumi Saved Already no papuzia item": {
+    "Wadatsumi block no ocean glyph": {
         "on_scenes": [0x3A00],
         "any_has_items": [("Bow (Progressive)", 1), ("Bow", 1)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("passenger_pickup", 0)],
@@ -2381,7 +2381,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_24, 0x2), (STAddr.adv_flags_34, 0xE0), (STAddr.adv_flags_4f, 0x6)],
         "reset_flags": ["RESET Pirate Minigame Access"],
     },
-    "Wadatsumi Saved Already no papuzia visit": {
+    "Wadatsumi block no visit": {
         "on_scenes": [0x3A00],
         "any_has_items": [("Bow (Progressive)", 1), ("Bow", 1)],
         "has_slot_data": [("randomize_passengers", [1, 2, 3]), ("passenger_pickup", 1)],

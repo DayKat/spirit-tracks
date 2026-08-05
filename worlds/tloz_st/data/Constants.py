@@ -1194,10 +1194,10 @@ _warp_data = [
     WarpStorageData(0x4000, "disorientation station"),
     WarpStorageData(0x4100, "ends of the earth"),
     WarpStorageData(0x3d00, "dark ore mine"),
-    WarpStorageData(0x400, "castle station", {0, 1, 2, 3, 6, 0xa}),
-    WarpStorageData(0x500, "anouki station", {0, 0xA}),
-    WarpStorageData(0x600, "papuzia village station", {0, 2}),
-    WarpStorageData(0x700, "goron village station", {0}),
+    WarpStorageData(0x400, "forest realm (ct)", {0, 1, 2, 3, 6, 0xa}),
+    WarpStorageData(0x500, "snow realm (av)", {0, 0xA}),
+    WarpStorageData(0x600, "ocean realm (pv)", {0, 2}),
+    WarpStorageData(0x700, "fire realm (gv)", {0}),
     WarpStorageData(0x1401, "tos lobby")
 ]
 WARP_SCENES: dict[int, "WarpStorageData"] = {data.scene: data for data in _warp_data}

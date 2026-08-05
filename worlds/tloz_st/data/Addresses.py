@@ -331,6 +331,7 @@ class STAddr:
     item_model_table = Address(0x0af590)  # size=big
 
     entrance_animation = Address(0x269108)  # 17 to prevent blue warps working immediately
+    # 9 is the slow culprit
 
     fade_timer = Address(0x0b5164, size=2)
 

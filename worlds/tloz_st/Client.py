@@ -278,6 +278,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.boss_door_addr = None
         self.reload_stage_flags: bool = False
         self.reload_map_objects: int = 0
+        self.was_in_clog: bool = False
 
     # Commands
 
@@ -393,7 +394,7 @@ class SpiritTracksClient(DSZeldaClient):
         for i in range(table_size):
             rl.append(Address.from_pointer(array_start + i * 4, size=3))
         actors = await read_multiple(ctx, rl)
-        print(f"Objects: {hex_f(actors)}")
+        # print(f"Objects: {hex_f(actors)}")
 
         if table_label:
             labels = [k for k, v in actors.items() if v]
@@ -476,8 +477,8 @@ class SpiritTracksClient(DSZeldaClient):
             visited_scenes = get_stored_data(ctx, visited_scenes_key, [])
             for scene in desired_scenes:
                 if scene in visited_scenes:
+                    printl(f"\t{data['name']} has visited bad scenes {hex_f(desired_scenes)}")
                     return False
-            printl(f"\t{data['name']} has visited bad scenes {hex_f(desired_scenes)}")
             return True
 
         def check_traversed_entrances():
@@ -614,6 +615,7 @@ class SpiritTracksClient(DSZeldaClient):
 
             if stage == 0x13:
                 self.zelda_text_address = Address.from_pointer(await STAddr.zelda_pointer.read(ctx) + ZELDA_TEXT_OFFSET, size=4)
+                print(f"Zelda text address: {self.zelda_text_address}")
                 read_keys.append(self.zelda_text_address)
 
 
@@ -624,9 +626,18 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def on_connect(self, ctx):
         self.rabbit_tracker = [0]*7
+        keys_to_fetch = [
+            rabbit_storage_key,
+            saved_scene_key,
+            checked_entrances_key,
+            traversed_entrances_key,
+            redisconnected_entrances_key,
+            visited_scenes_key,
+            processed_locations_key
+        ]
         await ctx.send_msgs([{
                 "cmd": "Get",
-                "keys": [storage_key(ctx, rabbit_storage_key)],
+                "keys": [storage_key(ctx, k) for k in keys_to_fetch],
             }])
 
         # Get train settings from host.yaml
@@ -694,7 +705,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
             printl(f"Starting delete operation")
-            self.precision_operation = None
+            self.precision_operation = []
             await self._set_er_coords(ctx)
             await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
 
@@ -750,7 +761,7 @@ class SpiritTracksClient(DSZeldaClient):
             if (self.current_entrance == 4 and self.current_stage == 4) or (self.current_entrance == 1 and self.current_stage == 0x5):
                 await STAddr.entrance_animation.overwrite(ctx, 0x30)
                 self.block_entrance_animation = True
-            self.precision_operation.clear()
+            self.precision_operation = []
             await bizhawk.unlock(ctx.bizhawk_ctx)
             ctx.watcher_timeout = 0.1
 
@@ -937,7 +948,7 @@ class SpiritTracksClient(DSZeldaClient):
                 zelda_pointer = await STAddr.zelda_pointer.read(ctx)
                 await write_multiple(ctx, [Address.from_pointer(zelda_pointer + 7*4 + i*4, size=4) for i in range(3)],
                                      list(link_coords.values()))
-            elif self.read_result[self.zelda_text_address] != 0xFFFFFFFF:
+            elif self.read_result[self.zelda_text_address] not in [0xFFFFFFFF, 0xd0024]:
                 await self.zelda_text_address.overwrite(ctx, 0xFFFFFFFF)
 
         if read_result[STAddr.menu] == 9:
@@ -952,6 +963,12 @@ class SpiritTracksClient(DSZeldaClient):
             elif self.map_warp:
                 self.map_warp = None
                 logger.info("Canceled map warp.")
+
+            if not self.was_in_clog:
+                await self.update_stamps(ctx)
+                self.was_in_clog = True
+        elif read_result[STAddr.menu] < 9:
+            self.was_in_clog = False
 
     async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.anticipate_location(ctx, read_result)
@@ -1374,6 +1391,10 @@ class SpiritTracksClient(DSZeldaClient):
             vanilla_item = loc_data.get("vanilla_item", []) or loc_data.get("hidden_vanilla_item", [])
             vanilla_items = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
             priority = loc_data.get("priority", 0)
+
+            if loc_data.get("farmable", "") in ["remove", "conditional"] and loc_data["id"] in ctx.checked_locations:
+                continue
+
             for item in vanilla_items:
                 if not priority:
                     # set location_id to None if there's a location conflict
@@ -1432,8 +1453,13 @@ class SpiritTracksClient(DSZeldaClient):
         if write_list:
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
 
+    async def unset_special_vanilla_items(self, ctx, location, item):
+        # las chest is the only conditional for now, if las is shuffled make it give nothing
+        if location.get("farmable", "") == "conditional" and not ctx.slot_data["shuffle_las"]:
+            self.last_vanilla_item.pop()
+
     async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
-        """Laad shop models in bulk"""
+        """Load shop models in bulk"""
         valid_locations = []
         valid_locations += list(self.location_area_to_watches.get(self.current_scene, {}).keys())
         # valid_locations += list(ammo_shop_lookup.get(self.current_scene, {}).values())
@@ -1886,7 +1912,13 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def delete_bad_ow_actors(self, ctx, table_start):
         actor_idents = await self.get_table_data(ctx, table_start, 12)
-        crash_causers_0 = {0x1387b4: "Tanks"}
+        crash_causers_0 = {
+            0x1387b4: "Tanks",
+            0x148d88: "Evil Train",
+            0x137e64: "?",
+            0x137b70: "?",
+            0x138580: "Tank spawner",
+        }
 
         crash_causers = {
             0x21405e8: "Demon Train",
@@ -1903,12 +1935,15 @@ class SpiritTracksClient(DSZeldaClient):
             0x22e7798: "tanks 6"
         }
         actor_idents_0 = await self.get_table_data(ctx, table_start, 0, size=3)
-        crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
-        crash_list += [Address.from_pointer(k.addr, size=4) for k, i in actor_idents_0.items() if i in crash_causers_0]
-        await self.frame_advance(ctx)
-        await write_multiple(ctx, crash_list, [0]*len(crash_list))
-        actor_print = {k: (crash_causers | crash_causers_0)[i] for k, i in (actor_idents | actor_idents_0).items() if i in (crash_causers | crash_causers_0)}
-        printl(f"Deleting bad actors: {hex_f(actor_print)}")
+        old_crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
+        print(f"old crash list: {hex_f(old_crash_list)}")
+        crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents_0.items() if i in crash_causers_0]
+
+        if crash_list:
+            await self.frame_advance(ctx)
+            await write_multiple(ctx, crash_list, [0]*len(crash_list))
+            actor_print = {k: crash_causers_0[i] for k, i in actor_idents_0.items() if i in crash_causers_0}
+            printl(f"Deleting bad actors: {hex_f(actor_print)}")
 
     # ER stuff
 
@@ -2009,7 +2044,7 @@ class SpiritTracksClient(DSZeldaClient):
         if detect_data.name == "Outset Board Train":
             outset_exit = self.entrances["Outset to Tutorial"]
             er_map.setdefault(0x2f00, {})[outset_exit] = exit_data
-            print(f"special ER: {outset_exit} => {exit_data}")
+            printl(f"special ER: {outset_exit} => {exit_data}")
 
         # GTR has 2 exits
         if detect_data.exit == (0x7, 0, 4):
@@ -2065,7 +2100,7 @@ class SpiritTracksClient(DSZeldaClient):
             return
         lookup = (self.current_stage, self.current_room, self.current_entrance)
         new_exit = entrance_tuple_to_entrance.get(lookup, None)
-        print(f"New exit for animation change: {new_exit}")
+        printl(f"New exit for animation change: {new_exit}")
         if not new_exit:
             return
         if new_exit.category_group == EntranceGroups.WARP_PORTAL:
@@ -2077,6 +2112,8 @@ class SpiritTracksClient(DSZeldaClient):
                 await STAddr.entrance_animation.overwrite(ctx, 0x39)
         elif "animation_override" in new_exit.extra_data:
             await STAddr.entrance_animation.overwrite(ctx, new_exit.extra_data["animation_override"])
+        elif await STAddr.entrance_animation.read(ctx) in [0x9]:  # change glitchy entrances
+            await STAddr.entrance_animation.overwrite(ctx, 0x18)
 
     # Respawn stuff
 
@@ -2133,7 +2170,7 @@ class SpiritTracksClient(DSZeldaClient):
             key = storage_key(ctx, traversed_entrances_key)
         else:
             return
-        print(f"Storing new data: {key} {new_data} {self.traversed_entrances}")
+        printl(f"Storing new data: {key} {new_data} {self.traversed_entrances}")
         await self.store_data(ctx, key, new_data)
 
     async def save_scene(self, ctx, read_result, save_addr, save_key, save_comp: "Iterable"):
@@ -2185,6 +2222,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.selected_station = entrance.stage
             if e.scene in self.visited_scenes:
                 self.map_warp = entrance
+                aliases = {
+                    "anouki"
+                }
                 logger.info(f"Selected station to warp to: {e.name}")
             else:
                 logger.info(f"You have yet to visit {e.name}.")
@@ -2193,14 +2233,14 @@ class SpiritTracksClient(DSZeldaClient):
             if not self.map_warp_item_cache:
                 self.map_warp_item_cache = (self.has_from_group(ctx, "Tracks: Forest Glyph"),
                                             self.has_from_group(ctx, "Tracks: Fire Glyph"))
-                print(f"Set map warp cache: {self.map_warp_item_cache}")
+                printl(f"Set map warp cache: {self.map_warp_item_cache}")
 
             if not self.unlocked_map:
                 await STAddr.adv_flags_2.set_bits(ctx, 0x4)
                 self.unlocked_map = 1
-                print(f"Adding tracks init {1}")
+                printl(f"Adding tracks init {1}")
                 self.visited_scenes |= set(get_stored_data(ctx, visited_scenes_key, set()))
-                print(f"visited scenes: {self.visited_scenes} {set(get_stored_data(ctx, visited_scenes_key, set()))}")
+                printl(f"visited scenes: {self.visited_scenes} {set(get_stored_data(ctx, visited_scenes_key, set()))}")
             if self.read_result.get(STAddr.map_open, 0):
                 if self.warp_to_start_flag:
                     self.warp_to_start_flag = None
@@ -2213,9 +2253,9 @@ class SpiritTracksClient(DSZeldaClient):
                         if not self.map_warp_item_cache[1]:
                             await STAddr.adv_flags_2.unset_bits(ctx, 0x4)
                         self.unlocked_map = 2
-                        print(f"Removing tracks {2}")
+                        printl(f"Removing tracks {2}")
                     if selected_station != self.selected_station:
-                        print(f"Selecting station")
+                        printl(f"Selecting station")
                         self.selected_station = selected_station
                         if selected_station == 0x3f and await STAddr.last_x.read(ctx) > 0x45:
                             entrance = entrance_tuple_to_entrance[(0x3F, 0xA, 0)]
@@ -2235,14 +2275,14 @@ class SpiritTracksClient(DSZeldaClient):
 
                     if self.unlocked_map == 2 and in_submap:
                         self.unlocked_map = 3
-                        print(f"Loaded submap {3}")
+                        printl(f"Loaded submap {3}")
                     elif self.unlocked_map == 3 and not in_submap:
                         await STAddr.adv_flags_2.set_bits(ctx, 0x4)
                         self.unlocked_map = 4
-                        print(f"Unlocked submap {4}")
+                        printl(f"Unlocked submap {4}")
                 elif self.unlocked_map == 4:  # not selected_station
                     self.unlocked_map = 1
-                    print(f"Reset cycle {1}")
+                    printl(f"Reset cycle {1}")
                     if not self.map_warp_item_cache[0]:
                         await STAddr.adv_flags_1.set_bits(ctx, 0x80)
                 else:
@@ -2259,7 +2299,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.unlocked_map = 0
             self.selected_station = 0
             self.map_warp_item_cache = None
-            print(f"Quitting tracks {0}")
+            printl(f"Quitting tracks {0}")
 
     async def skip_map_object_cutscenes(self, ctx):
         whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
@@ -2281,7 +2321,7 @@ class SpiritTracksClient(DSZeldaClient):
             spike_cs = [Address.from_pointer(a+19*4+3, size=1) for a, v in reads.items() if v[2] == 0x1]
             cutscenes_to_delete += spike_cs
 
-        print(f"Deleting cutscenes: {hex_f(reads)} \n  {hex_f(cutscenes_to_delete)}")
+        printl(f"Deleting cutscenes: {hex_f(reads)} \n  {hex_f(cutscenes_to_delete)}")
         if cutscenes_to_delete:
             await write_multiple(ctx, cutscenes_to_delete, [0]*len(cutscenes_to_delete))
 
@@ -2293,7 +2333,7 @@ class SpiritTracksClient(DSZeldaClient):
         table_size = await self.load_map_object_table(ctx)
         actor_idents = await self.get_table_data(ctx, STAddr.map_object_table, 0,
                                                  size=3, table_label=False, table_size=table_size)
-        print(f"map objects: {hex_f(actor_idents)}")
+        printl(f"map objects: {hex_f(actor_idents)}")
 
         identifiers = map_object_identifiers
 
@@ -2303,7 +2343,7 @@ class SpiritTracksClient(DSZeldaClient):
                 printl("Map Object Overflow!")
                 break
             if i not in identifiers:
-                print(f"Unknown map object: {hex_f(i)} @ {addr}")
+                printl(f"Unknown map object: {hex_f(i)} @ {addr}")
                 continue
 
             if identifiers.get(i) in ["Blue Door", "Key Door", "Arena Door", "Bell Door", "Gem Door"]:
@@ -2336,5 +2376,5 @@ class SpiritTracksClient(DSZeldaClient):
             #     write_list.append(Address.from_pointer(addr + 33 * 4 + 2, size=1).get_inner_write_list(0))
 
         if write_list:
-            print(f"Deleting Cutscenes: {hex_f(write_list)}")
+            printl(f"Deleting Cutscenes: {hex_f(write_list)}")
             await bizhawk.write(ctx.bizhawk_ctx, write_list)

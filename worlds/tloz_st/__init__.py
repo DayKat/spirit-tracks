@@ -2219,6 +2219,11 @@ class SpiritTracksWorld(WorldParent):
                 if exit_name in boss_events or exit_name in cargo_events:
                     print(f"Globally connecting outset village => {_exit.parent_region}")
                     self.get_region("menu").connect(_exit.parent_region)
+
+                if "silent_event" in ENTRANCES[exit_name].extra_data:
+                    from rule_builder.rules import True_
+                    print(f"Setting blank rule for silent entrance {_exit} -> {entrance_region}")
+                    self.set_rule(_exit, True_())
             else:
                 entr = entrance_id_to_entrance[connection]
                 if "silent_event" in entr.extra_data:
