@@ -27,9 +27,9 @@ train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, ST
 
 # Addresses to read each cycle
 read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
-                    STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open]
+                    STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open, STAddr.rabbit_blocker]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
-read_keys_train = [STAddr.train_health, STAddr.rabbit_blocker]
+read_keys_train = [STAddr.train_health]
 
 rabbit_storage_key = "rabbit_locs"
 saved_scene_key = "last_saved_scene"
@@ -161,6 +161,15 @@ def cmd_print_actors(self: "BizHawkClientCommandProcessor", offset: int=12):
         self.output(f"Error: Offset needs to be an int")
     return True
 
+def cmd_print_objects(self: "BizHawkClientCommandProcessor", offset: int=0):
+    """Debug print certain map object data"""
+    client = get_client_as_command_processor(self)
+    try:
+        client.display_objects = int(offset)
+    except TypeError:
+        self.output(f"Error: Offset needs to be an int")
+    return True
+
 def cmd_count_entrances(self: "BizHawkClientCommandProcessor"):
     """Count how many randomized entrances you have checked out of the total in this seed."""
     client = get_client_as_command_processor(self)
@@ -252,8 +261,9 @@ class SpiritTracksClient(DSZeldaClient):
         self.saving = False
         self.saving_safety = False
 
-        self.display_goal = False
-        self.display_actors = -1
+        self.display_goal: bool = False
+        self.display_actors: int = -1
+        self.display_objects: int = -1
         self.display_entrances = False
         self.oct_bk_offset = None
 
@@ -333,16 +343,18 @@ class SpiritTracksClient(DSZeldaClient):
             ident = identifiers.get(i, "")
             print(f"{hex_f(k)}: {hex_f(i)} {ident}")
 
-    async def print_map_objects(self, ctx, offset=24):
+    async def print_map_objects(self, ctx, offset=0):
         """Print debug info about map objects"""
         table_size = await self.load_map_object_table(ctx)
         actor_idents = await self.get_table_data(ctx, STAddr.map_object_table, offset, table_size=table_size)
-        print(f"Printing Map Object Table")
+        print(f"Printing Map Object Table {offset}")
 
         for k, i in actor_idents.items():
+            ident = ""
             if offset == 0:
                 ident = map_object_identifiers.get(i-0x2000000, "")
-                print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+
+            print(f"{hex_f(k)}: {hex_f(i)} {ident}")
 
     async def count_visited_entrances(self, ctx):
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
@@ -511,6 +523,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Update stage flags
         if "update_stage_flags" in data and "on_scenes" in data:
+            printl(f"\t{data['name']} is setting stage flags")
             self.update_stage_flag((data["on_scenes"][0] & 0xFF00) >> 8, data["update_stage_flags"])
 
         return True
@@ -525,7 +538,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.traversed_entrances |= set(get_stored_data(ctx, key, set()))
         new_events = {e for e in entrance_ids if e not in self.traversed_entrances}
         if new_events:
-            print(f"\tStoring new events: {new_events} {self.traversed_entrances}")
+            print(f"\tStoring new events: {new_events}")
             await self.store_data(ctx, key, new_events)
         self.traversed_entrances.update(new_events)
 
@@ -572,6 +585,8 @@ class SpiritTracksClient(DSZeldaClient):
                 ctx.command_processor.commands["goal"] = cmd_goal
             if "print_actors" not in ctx.command_processor.commands:
                 ctx.command_processor.commands["print_actors"] = cmd_print_actors
+            if "print_objects" not in ctx.command_processor.commands:
+                ctx.command_processor.commands["print_objects"] = cmd_print_objects
             if "count_entrances" not in ctx.command_processor.commands:
                 ctx.command_processor.commands["count_entrances"] = cmd_count_entrances
             return True
@@ -932,7 +947,7 @@ class SpiritTracksClient(DSZeldaClient):
             await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
 
     async def process_in_game(self, ctx, read_result: dict):
-        if self.current_stage <= 7 and not read_result[STAddr.rabbit_blocker]:
+        if not read_result.get(STAddr.rabbit_blocker, 2):
             printl(f"Rabbit Blocker!")
             return
 
@@ -990,6 +1005,9 @@ class SpiritTracksClient(DSZeldaClient):
         if self.display_actors > -1:
             await self.print_train_actors(ctx, self.display_actors)
             self.display_actors = -1
+        if self.display_objects > -1:
+            await self.print_map_objects(ctx, self.display_objects)
+            self.display_objects = -1
 
     async def process_fast(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.save_scene(ctx, read_result, STAddr.saving, saved_scene_key, range(1, 5))
@@ -1297,7 +1315,7 @@ class SpiritTracksClient(DSZeldaClient):
                     res = read_results[event["address"]]
                 if (not event.get("exact_read", False) and event["value"] & res) or event["value"] == res:
                     if "entrance" in event:
-                        printl(f"Event detection Success!, {event['entrance']}")
+                        printl(f"Event detection Success!, {event['entrance']} {hex_f(res)}")
                         entrance = self.entrances[event["entrance"]]
                         await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
 
@@ -1683,8 +1701,8 @@ class SpiritTracksClient(DSZeldaClient):
             self.set_train_in_overworld -= 1
 
     def update_stage_flag(self, stage: int, new: list[int]):
-        print(f"Updating Stage Flags: {hex_f(stage)} {hex_f(new)}")
         self.stage_flags[stage] = [o | n for o, n in itertools.zip_longest(STAGE_FLAGS.get(stage, [0,0,0,0]), new, fillvalue=0)]
+        print(f"Updating Stage Flags: {hex_f(stage)} {hex_f(new)} : {hex_f(self.stage_flags[stage])}")
         self.reload_stage_flags = True
 
 
@@ -2368,6 +2386,9 @@ class SpiritTracksClient(DSZeldaClient):
 
             if identifiers.get(i) in ["Bridge"]:
                 write_list.append(Address.from_pointer(addr+24*4, size=2).get_inner_write_list(0))
+
+            if identifiers.get(i) in ["Switch"]:
+                write_list.append(Address.from_pointer(addr+9*4 + 2, size=1).get_inner_write_list(0))
 
             if identifiers.get(i) in ["Spikes"]:
                 write_list.append(Address.from_pointer(addr+19*4+3, size=1).get_inner_write_list(0))

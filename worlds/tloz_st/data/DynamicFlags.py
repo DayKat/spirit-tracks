@@ -3091,6 +3091,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_traversed_entrances": ["EVENT: Blizzard Temple 1F Bell Door 1"],
         "update_stage_flags": [0x20]
     },
+    "BT 1f bell door 2": {
+        "on_scenes": [0x1a00],
+        "has_slot_data": [("open_blizzard_temple", 0)],
+        "has_traversed_entrances": ["EVENT: Blizzard Temple 1F Bell Door 2"],
+        "update_stage_flags": [0x0, 0x2]
+    },
     "BT 1f bell door 3": {
         "on_scenes": [0x1a00],
         "has_slot_data": [("open_blizzard_temple", 0)],
@@ -3136,6 +3142,16 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x1b04],
         "has_traversed_entrances": ["EVENT: Marine Temple 5F SE Door"],
         "update_stage_flags": [0, 0x8]
+    },
+    "OCT 6f sw arena": {
+        "on_scenes": [0x1b05],
+        "has_traversed_entrances": ["EVENT: Marine Temple 6F Arena"],
+        "update_stage_flags": [0, 0x20]
+    },
+    "OCT stamp room switch": {
+        "on_scenes": [0x1b07],
+        "has_traversed_entrances": ["EVENT: Marine Temple Stamp Room Switch"],
+        "update_stage_flags": [0, 0, 0x1]
     },
     "MTT 1f blue platform": {
         "on_scenes": [0x1c00],

@@ -491,12 +491,15 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Desert Temple Stamp Station"
             ]) if dungeon not in self.non_required_dungeons]
 
-        if self.options.shuffle_dungeon_rooms.value and "Marine Temple" not in self.non_required_dungeons:
-            events += ["EVENT: Marine Temple 6F Arena"]
-            if self.options.randomize_stamps.value:
-                events += ["EVENT: Marine Temple Stamp Room Switch"]
-            if not self.options.logic.value:
-                events += ["EVENT: Marine Temple 2F Boulders"]
+        if self.options.shuffle_dungeon_rooms.value:
+            if "Marine Temple" not in self.non_required_dungeons:
+                events += ["EVENT: Marine Temple 6F Arena"]
+                if self.options.randomize_stamps.value:
+                    events += ["EVENT: Marine Temple Stamp Room Switch"]
+                if not self.options.logic.value:
+                    events += ["EVENT: Marine Temple 2F Boulders"]
+            if "Blizzard Temple" not in self.non_required_dungeons and not self.options.open_blizzard_temple.value:
+                events += ["EVENT: Blizzard Temple 1F Bell Door 2"]
 
         if self.options.rabbitsanity.value in [3, 4] and "rabbits" in self.options.extra_events.value:
             events += [f"EVENT: {r}" for r in LOCATION_GROUPS["Unique Rabbits"]]
@@ -914,7 +917,7 @@ class SpiritTracksWorld(WorldParent):
         if "Blizzard Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
             self.create_event("bt 1f torches", "_bt_torches")
             if not self.options.open_blizzard_temple.value:
-                self.create_event("bt 1f ne bell", "_bt_bell_2")
+                self.create_event("bt 1f ne bell event", "_bt_bell_2")
                 self.create_event("bt 1f nw bell", "_bt_bell_3")
         if "Marine Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
             self.create_event("oct 2f boulders event", "_oct_boulders")
@@ -1642,7 +1645,7 @@ class SpiritTracksWorld(WorldParent):
 
     def connect_entrances(self) -> None:
         starting_region = ENTRANCES[self.starting_entrance].entrance_region
-        self.get_region("menu").connect(self.get_region(starting_region))
+        self.get_region("menu").connect(self.get_region(starting_region), "Warp to Start")
 
         if self.is_ut:
             disconnect_ids = {int(i) for i in self.ut_pairings.keys()}

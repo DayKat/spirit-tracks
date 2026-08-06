@@ -3032,6 +3032,9 @@ ENTRANCE_DATA |= {
     "EVENT: Island Sanctuary Bridge": silent_event("island sanc", "island sanc shortcut"),  # ow logic
     "EVENT: Tunnel to the Tower 2F Door": silent_event("tower tunnel 2f door", "tower tunnel 2f north"),
     "EVENT: Valley Sanctuary Door": silent_event("valley sanc door", "valley sanc east"),
+
+    "EVENT: Blizzard Temple 1F Bell Door 2": event("bt 1f ne bell"),
+
 }
 
 

@@ -597,6 +597,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 1f ne", "bt 1f ne bell", False, has_boomerang],
         ["bt 1f ne bell", "bt 1f", False, None],
         ["bt 1f ne bell", "bt 1f torches", False, ool],
+        ["bt 1f ne bell", "bt 1f ne bell event", False, None],
 
         ["bt 1f", "bt 1f sw", False, Filtered(has_boomerang & Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
         ["bt 1f sw", "bt 1f", False, Filtered(Has("_bt_bell_2"), options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],

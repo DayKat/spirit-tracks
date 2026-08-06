@@ -897,6 +897,7 @@
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F NE Door"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 189, "y": 54}]},
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F NW Door"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 90, "y": 80}]},
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F Bell Door 3"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 114, "y": 97}]},
+    {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F Bell Door 2"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 140, "y": 97}]},
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple B1 SE Windmill"}], "map_locations": [{"map": "Blizzard Temple B1", "x": 210, "y": 158}]},
 
   {"name": "OCT Shortcut", "sections": [{"name": "EVENT: Marine Temple 3F South Branch"}], "map_locations": [{"map": "Marine Temple 3F", "x": 106, "y": 131}]},

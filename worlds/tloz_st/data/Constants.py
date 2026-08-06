@@ -853,6 +853,11 @@ UT_EVENT_DATA = {
         "offset": 0,
         "value": 0x20
     },{
+        "entrance": "EVENT: Blizzard Temple 1F Bell Door 2",
+        "address": "stage_flags",
+        "offset": 1,
+        "value": 0x2
+    },{
         "entrance": "EVENT: Blizzard Temple 1F NE Door",
         "address": "stage_flags",
         "offset": 0,
