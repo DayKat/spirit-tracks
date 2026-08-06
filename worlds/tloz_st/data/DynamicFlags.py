@@ -3028,6 +3028,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "unset_if_true": [(STAddr.adv_flags_1, 0x80)],
         "reset_flags": ["RESET map warp forest glyph"]
     },
+    "ToS 3f reset map": {
+        "on_scenes": [0x1302],
+        "has_slot_data": [("enable_map_warp", 1)],
+        "reset_flags": ["RESET map warp forest glyph"]
+    },
     "RESET map warp forest glyph": {
         "has_slot_data": [("enable_map_warp", 1)],
         "set_if_true": [(STAddr.adv_flags_1, 0x80)]

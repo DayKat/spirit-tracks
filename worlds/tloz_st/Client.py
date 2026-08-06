@@ -1030,6 +1030,8 @@ class SpiritTracksClient(DSZeldaClient):
                 if 8 > v > 2:
                     await write_multiple(ctx, [a, Address.from_pointer(a+27*4, 1)], [7, 0xff])
                     self.key_door_watches.remove(a)
+                    if self.current_stage == 0x13:
+                        await self.save_tos_keycount(ctx)
                     break
                 if v == 8:
                     self.key_door_watches.remove(a)
@@ -1580,7 +1582,7 @@ class SpiritTracksClient(DSZeldaClient):
     # Rabbit handling
 
     async def update_rabbit_count(self, ctx):
-        if self.on_train:
+        if self.current_stage in range(4, 8):  # self.on_train triggers rabbit locs early
             self.update_rabbit_tracker(ctx)
             rabbit_bits = self.rabbit_tracker
         else:
@@ -1943,26 +1945,18 @@ class SpiritTracksClient(DSZeldaClient):
             0x137e64: "?",
             0x137b70: "?",
             0x138580: "Tank spawner",
+            0x13784c: "Demon Train",
+            0x138b10: "Purple Train"
         }
 
         crash_causers = {
             0x21405e8: "Demon Train",
-            0x2140860: "Moink... or not",
-            0x21413bc: "One of these crashes",
-            0x2149988: "Still Train",
-            0x2140efc: "Train Spawner CS Trigger?",
-            0x2141854: "Snow realm crasher",
-            0x22db898: "Snow realm delayed crasher",
-            0x22dc798: "srdc 2",
-            0x22e5098: "tanks 3",
-            0x22e5f98: "tanks 4",
-            0x22e6898: "tanks 5",
-            0x22e7798: "tanks 6"
         }
         actor_idents_0 = await self.get_table_data(ctx, table_start, 0, size=3)
         # old_crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
         # print(f"old crash list: {hex_f(old_crash_list)}")
         crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents_0.items() if i in crash_causers_0]
+        # crash_list += old_crash_list
 
         if crash_list:
             await self.frame_advance(ctx)
