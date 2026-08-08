@@ -375,7 +375,7 @@ DYNAMIC_ENTRANCES = {
     "Bounce Dark realm missing endgame requirements": {
         "entrance": "Enter Dark Realm Portal",
         "destination": "Enter Dark Realm Portal",
-        "message": "You are missing dark realm requirements",
+        "message": "$goal",
         "dungeons": False
     },
     "Dark realm Skip dark trains": {

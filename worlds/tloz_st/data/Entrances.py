@@ -1931,7 +1931,7 @@ ENTRANCE_DATA |= {
         "return_name": "ToS Summit Lower Exit",
         "entrance": (0x23, 0, 1),
         "exit": (0x15, 0x0, 0),
-        "entrance_region": "tos staven",
+        "entrance_region": "tos post staven",
         "exit_region": "tos summit lower",
         "type": EntranceGroups.TOS_SECTION,
         "direction": EntranceGroups.UP,
@@ -3034,6 +3034,7 @@ ENTRANCE_DATA |= {
     "EVENT: Valley Sanctuary Door": silent_event("valley sanc door", "valley sanc east"),
 
     "EVENT: Blizzard Temple 1F Bell Door 2": event("bt 1f ne bell"),
+    "EVENT: Desert Temple B1 Red Door": silent_event("dt b1 mid", "dt b1 s"),
 
 }
 

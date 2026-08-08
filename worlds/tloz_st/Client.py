@@ -528,6 +528,11 @@ class SpiritTracksClient(DSZeldaClient):
 
         return True
 
+    def custom_er_message(self, ctx, message):
+        if message == "$goal":
+            logger.info(f"You're missing dark realm requirements")
+            self.printl_goal_info(ctx)
+
     async def store_event(self, ctx, event_name: str):
         await self.store_events(ctx, [event_name])
 
@@ -1482,7 +1487,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def unset_special_vanilla_items(self, ctx, location, item):
         # las chest is the only conditional for now, if las is shuffled make it give nothing
-        if location.get("farmable", "") == "conditional" and not ctx.slot_data["shuffle_las"]:
+        if location.get("farmable", "") == "conditional" and not str(self.entrances["Lost at Sea Dungeon Reward Room South"].id) in ctx.slot_data["er_pairings"]:
             self.last_vanilla_item.pop()
 
     async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
@@ -1654,7 +1659,9 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead, stage, read_result):
-        if (read_result[STAddr.menu] and stage >= 0x13) or self.current_scene in [0x3802, 0x3b00, 0x3b01, 0x3b02, 0x3b03]:
+        if (read_result[STAddr.menu]
+            or self.current_scene in [0x3802, 0x3b00, 0x3b01, 0x3b02, 0x3b03] # healthless minigames
+            or self.getting_location):
             return
         dead_health = 0
         if stage < 0x13:  # deaths work badly on train
@@ -2053,7 +2060,8 @@ class SpiritTracksClient(DSZeldaClient):
                     return False
 
 
-        await self.update_safe_respawn(ctx, exit_data, detect_data)
+        if detect_data:
+            await self.update_safe_respawn(ctx, exit_data, detect_data)
         return True
 
     def add_special_er_data(self, ctx, er_map, scene, detect_data: "STTransition", exit_data: "STTransition"):
@@ -2183,11 +2191,14 @@ class SpiritTracksClient(DSZeldaClient):
             "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
         printl(f"New Storage Data: {new_data}")
 
-        if interaction == "check" and [i for i in new_data if new_data not in self.checked_entrances]:
+        if interaction == "check" and [i for i in new_data if i not in self.checked_entrances]:
             key = storage_key(ctx, checked_entrances_key)
-        elif interaction == "traverse" and [i for i in new_data if new_data not in self.traversed_entrances]:
+            # self.checked_entrances.update(new_data)
+        elif interaction == "traverse" and [i for i in new_data if i not in self.traversed_entrances]:
             key = storage_key(ctx, traversed_entrances_key)
+            # self.traversed_entrances.update(new_data)
         else:
+            printl(f"entrances {new_data} was not new")
             return
         printl(f"Storing new data: {key} {new_data} {self.traversed_entrances}")
         await self.store_data(ctx, key, new_data)
@@ -2319,30 +2330,6 @@ class SpiritTracksClient(DSZeldaClient):
             self.selected_station = 0
             self.map_warp_item_cache = None
             printl(f"Quitting tracks {0}")
-
-    async def skip_map_object_cutscenes(self, ctx):
-        whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))
-        spike_stages = [0x13, 0x42]
-        if self.current_stage not in whitelisted_stages:
-            return
-        offsets = [24, 34.5]  # bridges, doors
-        sizes = [2, 2]
-        if self.current_stage in spike_stages:
-            offsets.append(19.75)  # spikes
-            sizes.append(1)
-        await STAddr.map_object_table.load(ctx)
-        reads = await self.get_table_data(ctx, STAddr.map_object_table, offsets, sizes, table_label=False)
-
-        cutscenes_to_delete = [Address.from_pointer(a+24*4, size=2) for a, v in reads.items() if v[0] == 0x101]
-        cutscenes_to_delete += [Address.from_pointer(a + 34 * 4 + 2, size=1) for a, v in reads.items() if v[1] == 0x101]
-
-        if self.current_stage in spike_stages:
-            spike_cs = [Address.from_pointer(a+19*4+3, size=1) for a, v in reads.items() if v[2] == 0x1]
-            cutscenes_to_delete += spike_cs
-
-        printl(f"Deleting cutscenes: {hex_f(reads)} \n  {hex_f(cutscenes_to_delete)}")
-        if cutscenes_to_delete:
-            await write_multiple(ctx, cutscenes_to_delete, [0]*len(cutscenes_to_delete))
 
     async def process_map_objects(self, ctx):
         whitelisted_stages = list(range(0x18, 0x1e)) + list(range(0x30, 0x35)) + [0x13, 0x2D, 0x2E, 0x37, 0x3E, 0x3F, 0x41, 0x42] + list(range(0x45, 0x4B))

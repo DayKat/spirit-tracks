@@ -234,6 +234,7 @@ REGIONS = [
     "tos 22f",
     "tos 23f",
     "tos staven",
+    "tos post staven",
     "event_staven",
     "goal_staven",
 
@@ -896,6 +897,7 @@ REGIONS = [
     "dt b1",
     "dt stamp station",
     "dt b1 s",
+    "dt b1 mid",
     "dt b1 damage",
     "dt b1 boss door",
     "dt b2 s",

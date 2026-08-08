@@ -53,9 +53,11 @@ options_old = {
         }
     }
 
-class TestGeneration(WorldTestBase):
-    game = "Spirit Tracks"
-    options = {
+compass_options = {
+    "dark_realm_access": "both",
+}
+
+er_options = {
         "progressive_equipment": False,
         "randomize_shields": False,
 
@@ -103,3 +105,7 @@ class TestGeneration(WorldTestBase):
         #      "exit": "Kofu's New House Exit"}
         # ]
     }
+
+class TestGeneration(WorldTestBase):
+    game = "Spirit Tracks"
+    options = compass_options

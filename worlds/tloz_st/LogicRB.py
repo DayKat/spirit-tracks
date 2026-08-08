@@ -210,10 +210,14 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["ocean realm source", "tos ocean station", True, can_enter_tos & has_source("Ocean")],
         ["fire source", "tos fire station", True, can_enter_tos & has_source("Fire")],
 
-        ["tos forest station", "tos lobby", True, None],
-        ["tos snow station", "tos lobby", True, None],
-        ["tos ocean station", "tos lobby", True, None],
-        ["tos fire station", "tos lobby", True, None],
+        ["tos forest station", "tos lobby", False, can_enter_tos & (has_glyph("Forest") | has_source("Forest"))],
+        ["tos lobby", "tos forest station", False, None],
+        ["tos snow station", "tos lobby", False, can_enter_tos & has_source("Snow")],
+        ["tos lobby", "tos snow station", False, None],
+        ["tos ocean station", "tos lobby", False, can_enter_tos & has_source("Ocean")],
+        ["tos lobby", "tos ocean station", False, None],
+        ["tos fire station", "tos lobby", False, can_enter_tos & has_source("Fire")],
+        ["tos lobby", "tos fire station", False, None],
         ["tos lobby", "tos", True, can_enter_tos],
 
         ["tos", "tos 1", True, can_enter_tos_section(1)],
@@ -281,7 +285,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             hard_logic & can_rotate_repeater & (
                 can_possess_phantom(5) | has_whip))],
         ["tos 19f", "tos 19f center", False, can_possess_phantom(5) | (vanilla_tears & has_bow & has_boomerang)],
-        ["tos 19f center", "tos 19f center chest", False, has_bow & (has_boomerang | has_sword_beam | has_whip)],
+        ["tos 19f center", "tos 19f center chest", False, has_bow & (has_boomerang | has_sword_beam | has_whip | hard_logic)],
         ["tos 19f center", "tos 18f phantom", False, None],
         ["tos 19f center", "tos 20f", False, has_small_keys("ToS 5", 2) | (not_vanilla_tears & has_small_keys("ToS 5", 2, 1))],
 
@@ -292,10 +296,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["tos 22f", "tos 21f bombs", False, has_bombs],
         ["tos 22f", "tos 23f", False, has_boss_key("ToS 5") | (vanilla_boss_keys & (has_bow | has_sword_beam))],
         ["tos 23f", "tos staven", False, has_sword],
+        ["tos staven", "tos post staven", False, None],
+        ["tos post staven", "tos 23f", False, None],
         ["tos staven", "event_staven", False, None],
         ["tos staven", "goal_staven", False, None],
 
-        ["tos staven", "tos summit lower", True, None],
+        ["tos post staven", "tos summit lower", True, None],
         ["tos summit lower", "tos summit", True, None],
         ["tos summit", "tos stamp station", False, has_stamp_book],
         ["tos stamp station", "tos stamp event", False, has_stamp_book],
@@ -1297,12 +1303,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dt b1 s", "dt b1 damage", False, has_damage],
         ["dt b1", "dt b1 boss door", False, glitched_logic & has_bombs & has_sword],
         ["dt b1 boss door", "dt b2 s", True, None],
-        # ["dt b1 boss door", "dt b1 s", False, has_boss_key("Desert Temple") & has_sand_wand],
+        ["dt b1 boss door", "dt b1 mid", False, has_boss_key("Desert Temple") & has_sand_wand],
         ["dt b1 s", "dt b1 stairs", False, None],
 
         ["dt b1 damage", "dt b1 boss door", False, None]
             if world.options.randomize_boss_keys.value == 0
-            else ["dt b1 s", "dt b1 boss door", False, has_boss_key("Desert Temple")],
+            else ["dt b1 s", "dt b1 boss door", False, has_boss_key("Desert Temple") & has_sand_wand],
         ["dt b2 s", "dt b2 n", False, has_sand_wand],
         ["dt b2 n", "dt b2 s", False, None],
         ["dt b2 n", "dt pre skeldritch", False, None],
@@ -1475,7 +1481,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             ["mtt b2","mtt b2 se shortcut", False, CanReachRegion("mtt b2 se shortcut") & can_rotate_repeater & has_bow],
             ["mtt b1 arena exit", "mtt b1 arena", False, CanReachRegion("mtt b1 arena") & has_bow],
 
-            ["dt b1 stairs", "dt b1 s", False, CanReachRegion("dt b1 s")],
+            ["dt b1 mid", "dt b1 s", False, CanReachRegion("dt b1 s")],
 
             ["island sanc", "island sanc shortcut", False, CanReachRegion("island sanc shortcut")],
             ["tower tunnel 2f door", "tower tunnel 2f north", False, CanReachRegion("tower tunnel 2f north") & can_kill_bat],

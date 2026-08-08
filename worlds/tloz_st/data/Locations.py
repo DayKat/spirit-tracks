@@ -2745,6 +2745,7 @@ LOCATIONS_DATA = {
         "x_min": -10000,
         "z_max": -55000,
         "dungeon": "Mountain Temple",
+        "ut_connect": "EVENT: Mountain Temple 2F Heatoise Arena",
         "hint_entrance": ["Mountain Temple 2F Central Staircase"],
         "hint_entrance_secondary": ["Mountain Temple 1F Exit", "Mountain Temple B4 North Staircase", "Mountain Temple B4 Blue Warp"],
         "hint_entrance_tertiary": ["Mountain Temple Lobby Board Train"],

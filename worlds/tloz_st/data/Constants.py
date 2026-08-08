@@ -918,18 +918,6 @@ UT_EVENT_DATA = {
         "offset": 0,
         "value": 0x4
     }],
-    0x1c06: [{
-        "entrance": "EVENT: Mountain Temple 2F Heatoise Arena",
-        "address": "stage_flags",
-        "offset": 0,
-        "value": 0x8
-    }],
-    0x1c01: [{
-        "entrance": "EVENT: Mountain Temple 2F Heatoise Arena",
-        "address": "stage_flags",
-        "offset": 0,
-        "value": 0x8
-    }],
     0x1c02: [{
         "entrance": "EVENT: Mountain Temple B1 Arena",
         "address": "stage_flags",
@@ -957,7 +945,14 @@ UT_EVENT_DATA = {
         "address": "stage_flags",
         "offset": 3,
         "value": 0x8
-    }],
+    },
+    {
+        "entrance": "EVENT: Desert Temple B1 Red Door",
+        "address": "stage_flags",
+        "offset": 2,
+        "value": 0x80
+    }
+    ],
     0x1801: [{
         "entrance": "EVENT: Tunnel to the Tower 2F Door",
         "address": "stage_flags",
@@ -1037,6 +1032,7 @@ special_respawn_stages = {
 }
 
 unsafe_respawn_stages = [
+    0x4, 0x5, 0x8, 0x9, 0xb, 0xc,
     0x19, 0x1E,
     0x1a, 0x1F,
     0x1b, 0x20,
@@ -1629,7 +1625,9 @@ map_object_identifiers = {
     0x115520: "Exit",
 
     0x1157dc: "Chest",
+    0x115970: "Chest Spawner",
     0x14f62c: "Big Chest",
+    0x14f6ac: "Big Chest Spawner",
     0x14f5ac: "Big Chest",
     0x155c70: "Sign",
     0x115bc4: "Tablet",

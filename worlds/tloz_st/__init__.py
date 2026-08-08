@@ -1127,7 +1127,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.shields_in_pool:
             add_items += [("Shield", math.ceil(filler_item_count/60)), ("Ancient Shield", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["Non-Progressive Main Items"]]
-        if self.options.dark_realm_access in ["shattered_compass" or "both"] and self.options.compass_shard_total.value > 1:
+        if self.options.dark_realm_access.value in [2, 3] and self.options.compass_shard_total.value > 1:
             add_items += [("Compass of Light Shard", self.options.compass_shard_total.value)]
         else:
             add_items += [("Compass of Light", 1)]
