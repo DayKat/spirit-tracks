@@ -1198,7 +1198,7 @@ _warp_data = [
     WarpStorageData(0x400, "forest realm (ct)", {0, 1, 2, 3, 6, 0xa}),
     WarpStorageData(0x500, "snow realm (av)", {0, 0xA}),
     WarpStorageData(0x600, "ocean realm (pv)", {0, 2}),
-    WarpStorageData(0x700, "fire realm (gv)", {0}),
+    WarpStorageData(0x700, "fire realm (gv)", {0, 2, 4, 0x12}),
     WarpStorageData(0x1401, "tos lobby")
 ]
 WARP_SCENES: dict[int, "WarpStorageData"] = {data.scene: data for data in _warp_data}

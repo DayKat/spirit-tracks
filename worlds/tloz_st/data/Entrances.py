@@ -3011,7 +3011,7 @@ ENTRANCE_DATA |= {
     "EVENT: Blizzard Temple B1 SE Windmill": silent_event("bt b1 e","bt b1 se"),
     "EVENT: Blizzard Temple 1F NE Door": silent_event("bt 1f","bt 1f ne"),
     "EVENT: Blizzard Temple 1F NW Door": silent_event("bt 1f","bt 1f nw"),
-    "EVENT: Blizzard Temple 1F Bell Door 3": silent_event("bt 1f n shortcut","bt 1f"),
+    "EVENT: Blizzard Temple 1F Bell Door 3": event("bt 1f nw bell"),
 
     "EVENT: Marine Temple 3F South Branch": silent_event("oct 3f arena","oct 3f south"),
     "EVENT: Marine Temple 4F West Door": silent_event("oct 4f west","oct 4f north"),

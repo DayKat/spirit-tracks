@@ -601,7 +601,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "has_traversed_entrances": ["EVENT: Unlock Desert Temple Portal"],
         "on_entrance": [0xFB],
-        "coords": {"x_max": 80000},
+        "coords": {"x_max": 20000},
     },
     "Allow Portal sand temple shortcut always open from top": {
         "on_scenes": [0x600],
@@ -609,14 +609,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1), ("shuffle_portals", 0)],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "on_entrance": [0xFB],
-        "coords": {"x_max": 80000},
+        "coords": {"x_max": 20000},
     },
     "Allow Portal sand temple shortcut always open from top shuffle": {
         "on_scenes": [0x600],
         "has_slot_data": [("portal_behavior", 1), ("portal_checks", 1), ("shuffle_portals", 0, "not")],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
         "on_entrance": [0xFB],
-        "coords": {"x_max": 80000},
+        "coords": {"x_max": 20000},
     },
     "Allow Portal sand temple shortcut with item": {
         "on_scenes": [0x600],
@@ -633,7 +633,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("portal_behavior", 2), ("portal_checks", 1)],
         "on_entrance": [0xFB],
         "set_if_true": [(STAddr.adv_flags_31, 0x01)],
-        "coords": {"x_max": 80000},
+        "coords": {"x_max": 20000},
     },
     "Close sand portal no item realm tracks": {
         "on_scenes": [0x600],
@@ -668,7 +668,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "has_slot_data": [("portal_checks", 1)],
         "not_has_locations": ["Sand Realm Shoot Temple Portal"],
         "on_entrance": [0xFB],
-        "coords": {"x_min": 80000},
+        "coords": {"x_min": 20000},
         "unset_if_true": [(STAddr.adv_flags_31, 0x01)]
     },
     "Open Portal sand temple shortcut always open": {
@@ -3164,13 +3164,13 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x1a00],
         "has_slot_data": [("open_blizzard_temple", 0)],
         "has_traversed_entrances": ["EVENT: Blizzard Temple 1F Bell Door 2"],
-        "update_stage_flags": [0x0, 0x2]
+        "update_stage_flags": [0x20, 0x2]
     },
     "BT 1f bell door 3": {
         "on_scenes": [0x1a00],
         "has_slot_data": [("open_blizzard_temple", 0)],
         "has_traversed_entrances": ["EVENT: Blizzard Temple 1F Bell Door 3"],
-        "update_stage_flags": [0, 0x20]
+        "update_stage_flags": [0x20, 0x22]
     },
     "BT 1f ne door": {
         "on_scenes": [0x1a00],

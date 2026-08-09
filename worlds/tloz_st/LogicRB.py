@@ -88,7 +88,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # Rabbits
         ["forest realm", "forest realm rabbits", False, has_net],
-        ["ocean shortcut", "forest ocean shortcut rabbit", False, has_tracks("Forest Realm Ocean Shortcut")],
+        ["ocean shortcut", "forest ocean shortcut rabbit", False, has_tracks("Forest Realm Ocean Shortcut") & has_net],
         ["e mayscore bridge", "e mayscore rabbits", False, has_tracks("E Mayscore Bridge") & has_net],
         ["forest realm se portal track", "sw trading post rabbit", False, has_net],
         ["forest realm rabbits", "sw trading post rabbit", False, has_glyph("Ocean") & hard_logic],
@@ -623,11 +623,12 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["bt 1f nw", "bt 1f w", True, None],
         ["bt 1f nw", "bt 1f nw bell", True, has_boomerang],
         ["bt 1f nw bell", "bt 1f", False, None],
+        ["bt 1f nw bell", "bt 1f nw bell event", False, None],
         ["bt 1f nw bell", "bt 1f torches", False, None],
 
         ["bt 1f", "bt 1f n", False, Filtered(Has("_bt_bell_2") & Has("_bt_bell_3") & has_boomerang, options=[OptionFilter(SpiritTracksOpenBlizzardTemple, 0)], filtered_resolution=True)],
         ["bt 1f n", "bt 1f n chest", False, Has("_bt_torches")],
-        ["bt 1f n", "bt 1f", False, True_() & [OptionFilter(SpiritTracksOpenBlizzardTemple, 1)]],
+        ["bt 1f n", "bt 1f", False, [OptionFilter(SpiritTracksOpenBlizzardTemple, 1)] | Has("_bt_bell_3")],
         ["bt 1f n", "bt 1f n shortcut", True, None],
         ["bt 1f n", "bt 2f", True, None],
 
@@ -1465,7 +1466,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
             ["bt 1f e shortcut","bt 1f", False, CanReachRegion("bt 1f") & can_ring_bell],
             ["bt b1 e","bt b1 se", False, CanReachRegion("bt b1 se") & has_whirlwind],
             ["bt 1f", "bt 1f ne", False, CanReachRegion("bt 1f ne") & has_boomerang],
-            ["bt 1f n shortcut","bt 1f", False, CanReachRegion("bt 1f nw bell") & has_boomerang],
+            # ["bt 1f n shortcut", "bt 1f", False, CanReachRegion("bt 1f nw bell") & has_boomerang],
             ["bt 1f", "bt 1f nw", False, CanReachRegion("bt 1f nw") & has_boomerang],
 
             ["oct 3f arena","oct 3f south", False, CanReachRegion("oct 3f south") & has_whip],

@@ -22,7 +22,7 @@ A lot of hard logic stuff is just annoying, slow, random, requires damage boosti
 
 ### ToS 5
 - You can block clip to skip the block pushing puzzle in the middle of 18F [(Doesn't affect logic)](https://youtu.be/ycAbPvbO-io?si=MXOnRH2pwCt4k1PE)
-- If you get a normal phantom on 21F, you can ride it over the spikes on 19F to reach that area without bow (normal logic)
+- If you get a normal phantom on 21F, you can ride it over the spikes on 19F to reach that area without bow (normal logic, randomized tears only cause you need to save & quit to escape)
 - You can hit the left arrow repeater on SW 20F from the switch top left (doesn't affect logic)
   - You can rotate the sw repeater with boomerang or beam sword (Normal Logic)
   - you can jump on the pushable block in that room to reach it with whip [(Hard logic)](https://youtu.be/19uhFu6TVK8)

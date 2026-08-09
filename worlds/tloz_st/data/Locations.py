@@ -3890,7 +3890,7 @@ LOCATIONS_DATA |= {
         "location_groups": ["Portal Checks"],
         "conditional": True,
         "from_entrances": [0xFB, 0xB, 0x7],  # Only load when in right bit of track
-        "from_coords": {"x_min": 80000},
+        "from_coords": {"x_min": 20000},
         "ut_connect": "EVENT: Unlock Desert Temple Portal",
         "always_exist": True,
     },

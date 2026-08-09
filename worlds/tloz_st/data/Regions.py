@@ -460,6 +460,7 @@ REGIONS = [
     "bt 1f w",
     "bt 1f torches",
     "bt 1f nw bell",
+    "bt 1f nw bell event",
     "bt 1f n",
     "bt 1f n chest",
     "bt 1f n shortcut",
@@ -470,7 +471,7 @@ REGIONS = [
     "bt 2f boss key",
     "bt 3f",
     "bt blue warp",
-              "bt warp event",
+    "bt warp event",
 
     "bt pre fraaz",
     "bt fraaz",

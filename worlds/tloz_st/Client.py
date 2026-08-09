@@ -468,6 +468,7 @@ class SpiritTracksClient(DSZeldaClient):
             if coord_data:
                 coords = await self.get_coords(ctx)
                 printl(f"\t\tCoords: {coords} reqs {coord_data}")
+                print(f"\t{coord_data.get('x_max', 0xFFFFFFF)} > {coords['x']} > {coord_data.get('x_min', -0xFFFFFFF)} = {coord_data.get('x_max', 0xFFFFFFF) > coords['x'] > coord_data.get('x_min', -0xFFFFFFF)}")
                 return all([
                     coord_data.get("x_max", 0xFFFFFFF) > coords['x'] > coord_data.get("x_min", -0xFFFFFFF),
                     coord_data.get("y", coords['y']) + 2000 > coords['y'] >= coord_data.get("y", coords['y']),
@@ -2202,6 +2203,8 @@ class SpiritTracksClient(DSZeldaClient):
             detect_data = self.entrances["Mountain Temple 2F NE Staircase"]
         elif detect_data.name == "Mountain Temple 2F Central Staircase Alt":
             detect_data = self.entrances["Mountain Temple 2F Central Staircase"]
+        elif detect_data.name == "Tower of Spirits Staircase Elevators":
+            detect_data = self.entrances["Tower of Spirits Staircase Exit"]
 
         new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
             "decouple_shuffled_entrances", False) and detect_data.two_way else {detect_data.id}

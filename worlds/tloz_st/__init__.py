@@ -919,7 +919,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("bt 1f torches", "_bt_torches")
             if not self.options.open_blizzard_temple.value:
                 self.create_event("bt 1f ne bell event", "_bt_bell_2")
-                self.create_event("bt 1f nw bell", "_bt_bell_3")
+                self.create_event("bt 1f nw bell event", "_bt_bell_3")
         if "Marine Temple" not in self.non_required_dungeons or self.options.exclude_dungeons.value != 2:
             self.create_event("oct 2f boulders event", "_oct_boulders")
             self.create_event("oct boomerang switch event", "_oct_boomerang")
