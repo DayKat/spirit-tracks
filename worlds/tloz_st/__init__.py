@@ -492,13 +492,13 @@ class SpiritTracksWorld(WorldParent):
             ]) if dungeon not in self.non_required_dungeons]
 
         if self.options.shuffle_dungeon_rooms.value:
-            if "Marine Temple" not in self.non_required_dungeons:
+            if not ("Marine Temple" in self.non_required_dungeons and self.options.exclude_dungeons.value):
                 events += ["EVENT: Marine Temple 6F Arena"]
                 if self.options.randomize_stamps.value:
                     events += ["EVENT: Marine Temple Stamp Room Switch"]
                 if not self.options.logic.value:
                     events += ["EVENT: Marine Temple 2F Boulders"]
-            if "Blizzard Temple" not in self.non_required_dungeons and not self.options.open_blizzard_temple.value:
+            if not ("Blizzard Temple" in self.non_required_dungeons and self.options.exclude_dungeons.value) and not self.options.open_blizzard_temple.value:
                 events += ["EVENT: Blizzard Temple 1F Bell Door 2"]
 
         if self.options.rabbitsanity.value in [3, 4] and "rabbits" in self.options.extra_events.value:
@@ -2141,6 +2141,7 @@ class SpiritTracksWorld(WorldParent):
                    "shuffle_portals", "shuffle_eote",  # include eote locs if shuffled
                    "shuffle_train_transitions",  # for desert rocktite cannon logic lol
                    "shuffle_dungeon_rooms", "shuffle_warps", "shuffle_bosses", "shuffle_dungeon_entrances",
+                   "decouple_shuffled_entrances",
                    "death_link", "enable_map_warp", "extra_events",
                    "free_starting_items",
                    "ut_blocked_entrances_behaviour"]

@@ -777,6 +777,7 @@ REGIONS = [
     "mouldy goron house",
     "goron elder's house",
     "comfy goron's house",
+    "comfy goron's doorstep",
 
     "valley sanc tunnel west",
     "valley sanc tunnel east",

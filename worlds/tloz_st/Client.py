@@ -360,14 +360,20 @@ class SpiritTracksClient(DSZeldaClient):
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
         self.traversed_entrances |= set(get_stored_data(ctx, traversed_entrances_key, set()))
 
-        valid_entrances = len([e for e in ctx.slot_data["er_pairings"] if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]])
-        visited_entrances = len([e for e in self.checked_entrances | self.traversed_entrances if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]])
-        traversed_entrances = len([e for e in self.traversed_entrances if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]])
+        valid_entrances = [int(e) for e in ctx.slot_data["er_pairings"] if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]]
+        valid_entrance_count = len(valid_entrances)
+        visited_entrances = [e for e in self.checked_entrances | self.traversed_entrances if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]]
+        traversed_entrances = [e for e in self.traversed_entrances if self.entrance_id_to_entrance[int(e)].category_group not in [EntranceGroups.NONE, EntranceGroups.EVENT]]
+
+        remaining = set(valid_entrances) - set(traversed_entrances)
+        remaining_names = [self.entrance_id_to_entrance[e].name for e in remaining]
 
         if ctx.slot_data["ut_blocked_entrances_behaviour"] == 2:
-            logger.info(f"You have checked {traversed_entrances}/{visited_entrances}/{valid_entrances} entrances (traversed/checked/total).")
+            logger.info(f"You have checked {len(traversed_entrances)}/{len(visited_entrances)}/{valid_entrance_count} entrances (traversed/checked/total).")
+            printl(f"Remaining entrances: {remaining_names}")
         else:
-            logger.info(f"You have checked {traversed_entrances}/{valid_entrances} entrances (checked/total).")
+            logger.info(f"You have checked {len(traversed_entrances)}/{valid_entrance_count} entrances (checked/total).")
+
 
     # Utility
 
@@ -870,7 +876,6 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Start Precision read for evil train deletion
         if not self._just_entered_game:
-            printl(f"Started normal train deletion")
             await self.setup_evil_train_deletion(ctx, "delete_ow_actors", 0)
 
         # Save visited scenes
@@ -1310,13 +1315,13 @@ class SpiritTracksClient(DSZeldaClient):
                 await self.get_stage_flags(ctx)
                 for i, event in enumerate(data):
                     address = Address.from_pointer(self.stage_flag_address + event.get("offset", 0), size=event.get("size", 1)) if event["address"] == "stage_flags" else event["address"]
-                    self.event_data[i]["address"] = address
                     self.event_reads.append(address)
                 print(f"Event reads: {hex_f(self.event_reads)}")
 
             read_results = await read_multiple(ctx, self.event_reads)
             for event in self.event_data:
                 if event["address"] == "stage_flags":
+
                     res = read_results[Address.from_pointer(self.stage_flag_address + event.get("offset", 0))]
                 else:
                     res = read_results[event["address"]]
@@ -1326,7 +1331,7 @@ class SpiritTracksClient(DSZeldaClient):
                         entrance = self.entrances[event["entrance"]]
                         await self.store_visited_entrances(ctx, entrance, entrance.vanilla_reciprocal)
 
-                    self.event_reads.remove(event["address"])
+                    # self.event_reads.remove(event["address"])
                     self.event_data.remove(event)
             if not self.event_data:
                 printl(f"All events sent!")
@@ -1942,9 +1947,11 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def setup_evil_train_deletion(self, ctx, operation: str, comp: int):
         if self.current_stage == 4 and not self.has_from_group(ctx, "Tracks: Forest Glyph"):
+            printl(f"Started normal train deletion")
             actor_table = await self.get_actor_table(ctx)
             self.precision_mode = [Address.from_pointer(actor_table + 17 * 4 + 3), comp, operation, actor_table]
         if self.current_stage == 5 and not self.has_from_group(ctx, "Tracks: Blizzard Temple Tracks"):
+            printl(f"Started normal train deletion")
             actor_table = await self.get_actor_table(ctx)
             self.precision_mode = [Address.from_pointer(actor_table + 16 * 4 + 3), comp,
                                    operation, actor_table]
@@ -2191,9 +2198,13 @@ class SpiritTracksClient(DSZeldaClient):
             detect_data = self.entrances["Ocean Realm North Rocktite Cave"]
         elif detect_data.name == "Desert Temple B2 North Post-Fight":
             detect_data = self.entrances["Desert Temple B2 North Entrance"]
+        elif detect_data.name == "Mountain Temple 2F NE Staircase Alt":
+            detect_data = self.entrances["Mountain Temple 2F NE Staircase"]
+        elif detect_data.name == "Mountain Temple 2F Central Staircase Alt":
+            detect_data = self.entrances["Mountain Temple 2F Central Staircase"]
 
         new_data = {detect_data.id, exit_data.id} if not ctx.slot_data.get(
-            "decouple_entrances", False) and detect_data.two_way else {detect_data.id}
+            "decouple_shuffled_entrances", False) and detect_data.two_way else {detect_data.id}
         printl(f"New Storage Data: {new_data}")
 
         if interaction == "check" and [i for i in new_data if i not in self.checked_entrances]:

@@ -831,7 +831,7 @@ ENTRANCE_DATA = {
     },
     "Goron Village East Lava House": {
         "return_name": "Lava Goron House Exit",
-        "entrance_region": "goron ice 2",
+        "entrance_region": "comfy goron's doorstep",
         "exit_region": "comfy goron's house",
         "entrance": (0x2e, 0x0, 0xF),
         "exit": (0x2e, 0xF, 0x1),

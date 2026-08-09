@@ -1013,7 +1013,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["goron plaza", "kofu's new house", True, None],
         ["goron plaza", "mouldy goron house", True, None],
         ["goron plaza", "goron elder's house", True, None],
-        ["goron ice 2", "comfy goron's house", True, None],
+        ["goron ice 2", "comfy goron's doorstep", False, None],
+        ["comfy goron's doorstep", "comfy goron's house", True, None],
 
         ["goron elder's house", "valley sanc tunnel west", True, None],
         ["valley sanc tunnel west", "valley sanc tunnel east", False, has_whip],

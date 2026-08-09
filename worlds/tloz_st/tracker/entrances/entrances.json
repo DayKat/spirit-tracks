@@ -389,7 +389,7 @@
   {"name": "Desert Temple 1F", "sections": [{"name": "Desert Temple 1F Exit"}], "map_locations": [{"map": "Desert Temple 1F", "x": 148, "y": 170}]},
   {"name": "Desert Temple 1F", "sections": [{"name": "Desert Temple 1F Upper Staircase"}], "map_locations": [{"map": "Desert Temple 1F", "x": 176, "y": 84}]},
   {"name": "Desert Temple 1F", "sections": [{"name": "Desert Temple 1F Lower Staircase"}], "map_locations": [{"map": "Desert Temple 1F", "x": 148, "y": 104}]},
-  {"name": "Desert Temple 2F", "sections": [{"name": "Desert Temple 2F Left Staircase"}], "map_locations": [{"map": "Desert Temple 2F", "x": 92, "y": 68}]},
+  {"name": "Desert Temple 2F", "sections": [{"name": "Desert Temple 2F Left Staircase"}], "map_locations": [{"map": "Desert Temple 2F", "x": 92, "y": 88}]},
   {"name": "Desert Temple 2F", "sections": [{"name": "Desert Temple 2F Right Staircase"}], "map_locations": [{"map": "Desert Temple 2F", "x": 152, "y": 36}]},
   {"name": "Desert Temple 3F", "sections": [{"name": "Desert Temple 3F Staircase"}], "map_locations": [{"map": "Desert Temple 3F", "x": 140, "y": 44}]},
   {"name": "Desert Temple B1", "sections": [{"name": "Desert Temple B1 Left Staircase"}], "map_locations": [{"map": "Desert Temple B1", "x": 92, "y": 120}]},
@@ -897,7 +897,7 @@
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F NE Door"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 189, "y": 54}]},
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F NW Door"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 90, "y": 80}]},
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F Bell Door 3"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 114, "y": 97}]},
-    {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F Bell Door 2"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 140, "y": 97}]},
+  {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple 1F Bell Door 2"}], "map_locations": [{"map": "Blizzard Temple 1F", "x": 138, "y": 97}]},
   {"name": "BT Shortcut", "sections": [{"name": "EVENT: Blizzard Temple B1 SE Windmill"}], "map_locations": [{"map": "Blizzard Temple B1", "x": 210, "y": 158}]},
 
   {"name": "OCT Shortcut", "sections": [{"name": "EVENT: Marine Temple 3F South Branch"}], "map_locations": [{"map": "Marine Temple 3F", "x": 106, "y": 131}]},

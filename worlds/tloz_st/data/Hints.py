@@ -71,7 +71,7 @@ HINT_DATA = {
     "Ends of the Earth Master": {
         "scenes": [0x4101],
         "locations": ["Ends of the Earth Master Big Chest", "Ends of the Earth Master Small Chest"],
-        "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 3, 4], ("shuffle_eote", 0))],
+        "slot_data": [("minigame_hints", 1), ("randomize_minigames", [1, 3, 4]), ("shuffle_eote", 0)],
     },
     "Ends of the Earth Tempered": {
         "scenes": [0x4105],
