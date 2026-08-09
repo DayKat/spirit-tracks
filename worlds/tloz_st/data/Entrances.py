@@ -3080,3 +3080,10 @@ goal_event_lookup =     {0: "GOAL: Defeat Stagnox",
                          9: "GOAL: Defeat Staven",
                          10: "GOAL: Reach ToS 24F",
                          -1: "GOAL: Defeat Malladus"}
+
+valid_starts: set[str] = {
+    n for n, d in ENTRANCES.items() if
+    not n.startswith("Unnamed")
+    and d.category_group not in [EntranceGroups.TRAIN_PORTAL, EntranceGroups.OVERWORLD_TRAIN, EntranceGroups.EVENT, EntranceGroups.NONE]
+    and not (d.category_group == EntranceGroups.STATION and d.direction == EntranceGroups.UP)
+}

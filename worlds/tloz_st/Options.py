@@ -1,11 +1,11 @@
 from dataclasses import dataclass
-from datetime import datetime
+
 
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
     ItemDict, ItemsAccessibility, ItemSet, Visibility, NamedRange, OptionGroup, OptionSet, PlandoConnections
-from worlds.tloz_st.data.Items import ITEMS_DATA
+
 from .data.Constants import DUNGEON_TO_BOSS_ITEM_LOCATION, directionality_etype_lookup, pool_name_lookup
-from.data.Entrances import ENTRANCES
+from.data.Entrances import valid_starts, ENTRANCES
 
 # YAML options
 
@@ -1008,7 +1008,7 @@ class SpiritTracksDecoupleEntrances(Toggle):
 class SpiritTracksRandomizeStart(OptionSet):
     """
     Where you start the game.
-    Is a set of entrances it will roll from.
+    Is a set of entrances it will roll from. You cannot start on the train.
     Special options include:
     - niko: the vanilla start.
     - tos: start in Tower of Spirits
@@ -1017,7 +1017,7 @@ class SpiritTracksRandomizeStart(OptionSet):
     """
     default = {'niko'}
     display_name = "Randomize Start"
-    valid_keys = frozenset(set(ENTRANCES.keys()) | {"niko", "tos", "stations", "towns"})
+    valid_keys = frozenset(valid_starts | {"niko", "tos", "stations", "towns"})
 
 class SpiritTracksFreeStartingItems(Range):
     """

@@ -1436,6 +1436,11 @@ class SpiritTracksClient(DSZeldaClient):
                 # Sort locations by priority if applicable
                 if item in item_priority and priority >= item_priority[item]:
                     continue
+
+                if hasattr(self.item_data[item], "progressive_model"):
+                    for prog_item in self.item_data[item].progressive_model:
+                        item_location_check[prog_item] = loc_data['id']
+
                 item_location_check[item] = loc_data['id']
                 item_priority[item] = priority
 

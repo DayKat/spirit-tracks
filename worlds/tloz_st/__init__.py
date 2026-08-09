@@ -316,7 +316,7 @@ class SpiritTracksWorld(WorldParent):
             starting_entrances.remove("towns")
             starting_entrances.update(["Outset Board Train", "Mayscore Board Train",
                                        "Castle Town Board Train", "Anouki Village Board Train",
-                                       "Papuzia Village Board Train", "Goron Village Board Train"])
+                                       "Papuzia Board Train", "Goron Village Board Train"])
 
         if "stations" in starting_entrances:
             stations = {n: e for n, e in ENTRANCES.items() if
@@ -325,7 +325,7 @@ class SpiritTracksWorld(WorldParent):
             starting_entrances.update({s for s in stations})
 
         self.starting_entrance = self.random.choice(list(starting_entrances))
-        print(f"Starting entrance: {self.starting_entrance}")
+        # print(f"Starting entrance: {self.starting_entrance}")
 
     def plando_tos_sections(self):
         """Plando ToS Shuffle early so we can use the ordering in logic"""
@@ -482,7 +482,7 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Dune Sanctuary Stamp Station",
                 "EVENT: Tower of Spirits Summit Stamp Station"
             ]
-            print(f"non-required dungeons: {self.non_required_dungeons}")
+          #  print(f"non-required dungeons: {self.non_required_dungeons}")
             events += [event for dungeon, event in zip(DUNGEON_NAMES[2:], [
                 "EVENT: Wooded Temple Stamp Station",
                 "EVENT: Blizzard Temple Stamp Station",
@@ -598,6 +598,7 @@ class SpiritTracksWorld(WorldParent):
         # Events
             "_stamp_stand": ("Stamp", 1)
         }
+        # print(f"Item mappings: {self.item_mapping_collect}")
 
     def pick_required_dungeons(self) -> list[str]:
         force_require = []
@@ -999,7 +1000,7 @@ class SpiritTracksWorld(WorldParent):
                 self.locations_to_exclude.add(loc)
 
         for name in self.locations_to_exclude:
-            print(f"Excluded Location: {name}")
+            # print(f"Excluded Location: {name}")
             try:
                 self.multiworld.get_location(name, self.player).progress_type = LocationProgressType.EXCLUDED
             except KeyError:  # Would it be more efficient to check if location is in active locations first?
@@ -1646,6 +1647,7 @@ class SpiritTracksWorld(WorldParent):
     def connect_entrances(self) -> None:
         starting_region = ENTRANCES[self.starting_entrance].entrance_region
         self.get_region("menu").connect(self.get_region(starting_region), "Warp to Start")
+        # print(f"Starting entrance: {self.starting_entrance}")
 
         if self.is_ut:
             disconnect_ids = {int(i) for i in self.ut_pairings.keys()}
@@ -1658,7 +1660,7 @@ class SpiritTracksWorld(WorldParent):
                     target_name = ENTRANCES[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
             if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
-                print(f"Reconnecting entrances {self.ut_pairings}")
+                # print(f"Reconnecting entrances {self.ut_pairings}")
                 for i, pairing in self.ut_pairings.items():
                     try:
                         _exit: "Entrance" = self.get_entrance(entrance_id_to_entrance[int(i)].name)
@@ -1751,7 +1753,7 @@ class SpiritTracksWorld(WorldParent):
                 directionless_entrances.append(e)
                 # print(f"Plando ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
 
-        print("no of entrances:", len(entrances_to_shuffle))
+        # print("no of entrances:", len(entrances_to_shuffle))
 
         # Get pool data
         pools = [[], [], [], []]
@@ -1815,7 +1817,7 @@ class SpiritTracksWorld(WorldParent):
         if self.options.plando_transitions.value:
             plando_data += [(e.entrance, e.exit) for e in self.options.plando_transitions]
         if self.options.shuffle_dungeon_entrances.value == 1:
-            print(f"Shuffled dungeons: {self.shuffled_dungeon_lookup}")
+            # print(f"Shuffled dungeons: {self.shuffled_dungeon_lookup}")
             plando_data += [(DUNGEON_TO_ENTRANCE[dung_old], DUNGEON_TO_EXIT[dung_new])
                            for dung_old, dung_new in self.shuffled_dungeon_lookup.items()]
         if self.shuffled_dungeon_lookup and self.options.shuffle_warps.value == 0:
@@ -1823,7 +1825,7 @@ class SpiritTracksWorld(WorldParent):
                            for dung_old, dung_new in self.shuffled_dungeon_lookup.items()]
         if self.shuffled_bosses and self.options.shuffle_bosses.value == 1:
             plando_data += [(DUNGEON_TO_BOSS_STAIRCASE[dung], BOSS_LOCATION_TO_EXIT[boss]) for dung, boss in self.shuffled_bosses.items()]
-        print(f"Plando Data: {plando_data}")
+        # print(f"Plando Data: {plando_data}")
         self.connect_plando(plando_data)
 
         # Randomize Entrances
@@ -1832,7 +1834,7 @@ class SpiritTracksWorld(WorldParent):
         for i in range(st_max_er_attempts):
             try:
                 self.er_placement_state = randomize_entrances(self, coupled, groups)
-                print(f"ER Placements: {self.er_placement_state.pairings}")
+                # print(f"ER Placements: {self.er_placement_state.pairings}")
                 break
             except EntranceRandomizationError as error:
                 if st_max_er_attempts > 5 and i % 5 == 4:
@@ -1872,7 +1874,6 @@ class SpiritTracksWorld(WorldParent):
         # post shuffle force connections
         if self.options.shuffle_bosses.value or self.options.shuffle_dungeon_rooms.value or self.options.shuffle_dungeon_entrances.value:
             if self.options.shuffle_bosses.value:
-                print(entrance_id_to_entrance[451].name)
                 self.plando_pairings |= {ENTRANCES[boss_warp].id: pairings.get(ENTRANCES[boss_exit].id, ENTRANCES[boss_exit].vanilla_reciprocal.id)
                                          for boss_exit, boss_warp in BOSS_EXIT_TO_BOSS_WARP.items()}
             else:
