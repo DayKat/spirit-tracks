@@ -22,6 +22,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         'classification': ItemClassification.progression,
         'progressive': [[STAddr.items_2, 0x02], [STAddr.items_2, 0x04]],
         'item_groups': ["Swords", "Progressive Items", "Equipment"],
+        "set_bit": [[STAddr.items_2, 0x02]],
 
         "model": "Sword", 
         "id": 1,
@@ -77,7 +78,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["progressive_overwrite"],
         "give_ammo": [10, 20, 30],
         "ammo_address": STAddr.bomb_count,
-        "set_bit": [(STAddr.adv_flags_22, 0x2)],
+        "set_bit": [(STAddr.adv_flags_22, 0x2), [STAddr.items_0, 0x10]],
         'item_groups': ["Equipment", "Progressive Items", "Main Items", "Ammo Items",
                         "Bombs"],
         "variant": ["Bomb Bag", "Bomb Bag Upgrade"],
@@ -121,6 +122,7 @@ ITEMS_DATA: dict[str, dict[str, Any]] = {
         "tags": ["progressive_overwrite"],
         'item_groups': ["Equipment", "Progressive Items", "Main Items", "Bows", "Ammo Items"],
         "variant": ["Bow", "Quiver Upgrade"],
+        "set_bit": [[STAddr.items_0, 0x08]],
 
         "model": "Bow",
         "progressive_model": ["Bow", "Medium Quiver", "Large Quiver"], 

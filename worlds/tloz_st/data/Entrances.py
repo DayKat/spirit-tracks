@@ -1584,9 +1584,10 @@ ENTRANCE_DATA |= {
     },
     "Ocean Realm West Ocean Glyph": {
         "return_name": "Forest Realm East Ocean Glyph",
+        "reverse_one_way_data": {"animation_override": 0x30},
         "entrance_region": "ocean realm",
         "exit_region": "ocean realm mid",
-        "extra_data": {"z_min": 10000},
+        "extra_data": {"z_min": 10000},  # This turns train invis but better than crashing
         "coords": (-453624, 9585, 245760),
         "reverse_coords": "flip_h",
         "entrance": (0x6, 0x0, 0xFD),

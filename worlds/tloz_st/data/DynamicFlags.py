@@ -3151,7 +3151,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "WT 2f windmill door": {
         "on_scenes": [0x1901],
-        "has_traversed_entrances": ["EVENT: Wooded Temple 1F Shortcut"],
+        "has_traversed_entrances": ["EVENT: Wooded Temple 2F Windmill"],
         "update_stage_flags": [0, 0x4]
     },
     "BT 1f bell door 1": {
