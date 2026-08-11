@@ -1754,7 +1754,7 @@ class SpiritTracksWorld(WorldParent):
                 directionless_entrances.append(e)
                 # print(f"Plando ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
 
-        print("no of entrances:", len(entrances_to_shuffle), entrances_to_shuffle)
+        # print("no of entrances:", len(entrances_to_shuffle), entrances_to_shuffle)
 
         # Get pool data
         pools = [[], [], [], []]
