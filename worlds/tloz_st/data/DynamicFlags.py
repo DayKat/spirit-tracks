@@ -2109,7 +2109,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Dovok missing visit": {
         "on_scenes": [0x2A04],
         "not_visited_scenes": [0x2c00],
-        "has_slot_data": [("passenger_pickup", 0)],
+        "has_slot_data": [("passenger_pickup", 1)],
         "unset_if_true": [(STAddr.adv_flags_4f, 0x10)],
         "reset_flags": ["RESET Dovok Flag"]
     },
@@ -3261,6 +3261,11 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "on_scenes": [0x1d03],
         "has_traversed_entrances": ["EVENT: Desert Temple B1 Shortcut"],
         "update_stage_flags": [0, 0, 0, 0x8]
+    },
+    "DT b1 red door": {
+        "on_scenes": [0x1d03],
+        "has_traversed_entrances": ["EVENT: Desert Temple B1 Red Door"],
+        "update_stage_flags": [0, 0, 0x80]
     },
     "Tunnel to ToS 2f door": {
         "on_scenes": [0x1801],

@@ -3025,7 +3025,7 @@ ENTRANCE_DATA |= {
     "EVENT: Mountain Temple 2F Heatoise Arena": silent_event("mtt 2f ne","mtt 2f arena"),
     "EVENT: Mountain Temple B2 Stalfos Arena": silent_event("mtt b2","mtt b2 n"),
     "EVENT: Mountain Temple B2 SE Torches": silent_event("mtt b2 se","mtt b2 e"),
-    "EVENT: Mountain Temple B2 W Branch": silent_event("mtt b2","mtt b2 se shortcut"),  # Requires whip
+    "EVENT: Mountain Temple B2 W Branch": silent_event("mtt b2","mtt b2 sw shortcut"),  # Requires whip
     "EVENT: Mountain Temple B1 Arena": silent_event("mtt b1 arena exit", "mtt b1 arena"),
 
     "EVENT: Desert Temple B1 Shortcut": silent_event("dt b1 stairs", "dt b1 s"),

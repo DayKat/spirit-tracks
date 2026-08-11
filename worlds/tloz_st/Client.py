@@ -2203,6 +2203,10 @@ class SpiritTracksClient(DSZeldaClient):
             detect_data = self.entrances["Mountain Temple 2F NE Staircase"]
         elif detect_data.name == "Mountain Temple 2F Central Staircase Alt":
             detect_data = self.entrances["Mountain Temple 2F Central Staircase"]
+        elif exit_data.name == "Mountain Temple 2F NE Staircase Alt":
+            exit_data = self.entrances["Mountain Temple 2F NE Staircase"]
+        elif exit_data.name == "Mountain Temple 2F Central Staircase Alt":
+            exit_data = self.entrances["Mountain Temple 2F Central Staircase"]
         elif detect_data.name == "Tower of Spirits Staircase Elevators":
             detect_data = self.entrances["Tower of Spirits Staircase Exit"]
 

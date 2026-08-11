@@ -824,7 +824,7 @@ REGIONS = [
     "mtt b2 w",
     "mtt b2 se",
     "mtt b2 sw",
-    "mtt b2 se shortcut",
+    "mtt b2 sw shortcut",
 
     "mtt b1 arena",
     "mtt b1 post arena",

@@ -61,11 +61,11 @@ er_options = {
         "progressive_equipment": False,
         "randomize_shields": False,
 
-        "shuffle_stations": "shuffle_pool_a",
+        "shuffle_stations": "no_shuffle",
         "shuffle_train_transitions": "no_shuffle",
 
         "shuffle_caves": "no_shuffle",
-        "shuffle_houses": "shuffle_pool_a",
+        "shuffle_houses": "no_shuffle",
 
         "shuffle_hyrule_castle": "no_shuffle",
         "shuffle_eote": "no_shuffle",
@@ -76,10 +76,10 @@ er_options = {
 
         "shuffle_dungeon_entrances": "no_shuffle",
         "shuffle_bosses": "no_shuffle",
-        "shuffle_dungeon_rooms": "shuffle_pool_a",
+        "shuffle_dungeon_rooms": "no_shuffle",
         "shuffle_warps": "no_shuffle",
 
-        "shuffle_portals": "no_shuffle",
+        "shuffle_portals": "shuffle_alone",
         "shuffle_las": "no_shuffle",
 
         "keyrings": "all",
@@ -108,4 +108,4 @@ er_options = {
 
 class TestGeneration(WorldTestBase):
     game = "Spirit Tracks"
-    options = compass_options
+    options = er_options

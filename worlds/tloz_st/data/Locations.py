@@ -3044,7 +3044,7 @@ LOCATIONS_DATA = {
     },
     "Dune Sanctuary Dig Rupee NE": {
         "stage_id": 0x34,
-        "x_min": -85000,
+        "x_min": 85000,
         "z_max": -45000,
         "vanilla_item": "Big Green Rupee (100)",
         "region_id": "sand sanc sand wand",

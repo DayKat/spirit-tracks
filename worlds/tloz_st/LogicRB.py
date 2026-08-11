@@ -11,8 +11,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         return (
             [pr1, pr2, False, has_tracks(t1) & has_portal(pi, True, event)],
             [pr2, pr1, False, has_tracks(t2) & has_portal(pi, False, event)],
-            [r1, pr1, False, None],
-            [r2, pr2, False, None],
+            [r1, pr1, False, has_portal(pi, True, event)],
+            [r2, pr2, False, has_portal(pi, False, event)],
             [pr1, r1, False, has_tracks(t1) & has_portal(pi, False, event, True)],
             [pr2, r2, False, has_tracks(t2) & has_portal(pi, False, event, True)]
         )
@@ -430,7 +430,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["trading post", "linebeck's shop", True, None],
         ["trading post", "trading post tunnel", True, None],
         ["trading post north", "trading post tunnel", True, None],
-        ["trading post north", "trading post island", True, has_range | has_sword_beam],
+        ["trading post north", "trading post island", False, has_range | has_sword_beam],
+        ["trading post island", "trading post north", False, has_range | has_sword_beam | has_bombs],
         ["trading post island", "trading post cave", False, has_range | has_sword_beam | has_bombs],
         ["trading post cave", "trading post island", False, None],
 
@@ -1112,10 +1113,11 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt b1 arena", "mtt b1 post arena", False, has_bow],
         ["mtt b1 post arena", "mtt b1 arena exit", False, None],
         ["mtt b1 arena exit", "mtt b2 sw", True, None],
-        ["mtt b2 se shortcut", "mtt b2 se", False, has_whip],
 
         ["mtt b2 sw", "mtt b2 w", False, has_bow & can_rotate_repeater],
         ["mtt b2 w", "mtt b2", False, has_whip],
+        ["mtt b2 w", "mtt b2 sw shortcut", False, None],
+        ["mtt b2 sw shortcut", "mtt b2", False, has_whip],
 
         ["mtt b1 n", "mtt b1 cart", True, has_small_keys("Mountain Temple", 3, 1)],
         ["mtt b1 cart", "mtt b1 cart exit", False, has_bow],
@@ -1307,6 +1309,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["dt b1 boss door", "dt b2 s", True, None],
         ["dt b1 boss door", "dt b1 mid", False, has_boss_key("Desert Temple") & has_sand_wand],
         ["dt b1 s", "dt b1 stairs", False, None],
+        ["dt b1 s", "dt b1 mid", False, has_sand_wand],
 
         ["dt b1 damage", "dt b1 boss door", False, None]
             if world.options.randomize_boss_keys.value == 0
@@ -1475,15 +1478,16 @@ def make_overworld_logic(player: int, origin_name: str, world):
             ["oct 5f nw","oct 5f", False, CanReachRegion("oct 5f") & has_whip],
             ["oct 5f se","oct 5f s", False, CanReachRegion("oct 5f s") & has_whip],
 
-            ["mtt 1f right","mtt 1f", False, CanReachRegion("mtt 1f") & has_short_range],
+            # ["mtt 1f right","mtt 1f", False, CanReachRegion("mtt 1f") & has_short_range],  platform does not stay after exiting dungeon
             ["mtt 1f door","mtt 1f", False, CanReachRegion("mtt 1f door puzzle")],
             ["mtt 2f ne","mtt 2f arena", False, CanReachRegion("mtt 2f post arena")],
             ["mtt b2","mtt b2 n", False, CanReachRegion("mtt b2 n") & (has_bow | has_bombs | has_sword_beam | has_whip)],
             ["mtt b2 se","mtt b2 e", False, CanReachRegion("mtt b2 e") & has_boomerang & has_whip & has_bow],
-            ["mtt b2","mtt b2 se shortcut", False, CanReachRegion("mtt b2 se shortcut") & can_rotate_repeater & has_bow],
+            ["mtt b2","mtt b2 sw shortcut", False, CanReachRegion("mtt b2 sw shortcut") & can_rotate_repeater & has_bow],
             ["mtt b1 arena exit", "mtt b1 arena", False, CanReachRegion("mtt b1 arena") & has_bow],
 
             ["dt b1 mid", "dt b1 s", False, CanReachRegion("dt b1 s")],
+            ["dt b1 stairs", "dt b1 s", False, CanReachRegion("dt b1 s")],
 
             ["island sanc", "island sanc shortcut", False, CanReachRegion("island sanc shortcut")],
             ["tower tunnel 2f door", "tower tunnel 2f north", False, CanReachRegion("tower tunnel 2f north") & can_kill_bat],

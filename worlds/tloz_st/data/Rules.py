@@ -128,9 +128,9 @@ def has_portal(portal, forward, event, _exit=False):
     not_fw = False_() if forward else True_()
     no_event = True_() if _exit else False_()
     return Or(
-        True_() & [OptionFilter(SpiritTracksRandomizePortals, 1)],
-        (Has(event) | no_event) & [OptionFilter(SpiritTracksRandomizePortals, 0)],
-        Has(f"Portal Unlock: {portal}") & (not_fw | has_cannon) & [OptionFilter(SpiritTracksRandomizePortals, 2)],
+        (not_fw | has_cannon | [OptionFilter(SpiritTracksPortalLocations, 0)]) & [OptionFilter(SpiritTracksRandomizePortals, 1)],
+        has_cannon & (Has(event) | no_event) & [OptionFilter(SpiritTracksRandomizePortals, 0)],
+        Has(f"Portal Unlock: {portal}") & (not_fw | has_cannon | [OptionFilter(SpiritTracksPortalLocations, 0)]) & [OptionFilter(SpiritTracksRandomizePortals, 2)],
     )
 
 no_tear_items = [OptionFilter(SpiritTracksRandomizeTears, SpiritTracksRandomizeTears.option_no_tears, "ne"),

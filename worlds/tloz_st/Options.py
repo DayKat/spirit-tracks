@@ -458,6 +458,7 @@ class SpiritTracksShuffleToSSections(Choice):
     Shuffle Tower of Spirits Sections.
     Also includes the summit as its own section.
     Progressive tears will respect the new ordering if shuffled alone, otherwise sections are assigned randomly.
+    Adds 14 (unpaired) entrances.
     """
     display_name = "Shuffle ToS Sections"
     option_no_shuffle = 0
@@ -470,7 +471,7 @@ class SpiritTracksShuffleToSSections(Choice):
 class SpiritTracksShuffleStations(Choice):
     """
     Shuffle Stations.
-    Adds 60 (unpaired) entrances.
+    Adds 62 (unpaired) entrances.
     """
     display_name = "Shuffle Stations"
     option_no_shuffle = 0
@@ -496,7 +497,7 @@ class SpiritTracksShuffleHouses(Choice):
     """
     Shuffle entrances to houses. Hyrule castle is shuffled separately.
     All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
-    Adds 62 (unpaired) entrances.
+    Adds 66 (unpaired) entrances.
     """
     display_name = "Shuffle Houses"
     option_no_shuffle = 0
@@ -509,7 +510,7 @@ class SpiritTracksShuffleCaves(Choice):
     """
     Shuffle cave entrances. Disorientation Station and Ends of the Earth internals are shuffled separately.
     All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
-    Adds 66 (unpaired) entrances.
+    Adds 68 (unpaired) entrances.
     """
     display_name = "Shuffle Caves"
     option_no_shuffle = 0
@@ -548,7 +549,7 @@ class SpiritTracksShuffleDisorientationStation(Choice):
     Shuffle the inside of Disorientation Station.
     All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
     The entrance stairs are still in the cave pool.
-    Adds 28 (unpaired) entrances.
+    Adds 32 (unpaired) entrances.
     """
     display_name = "Shuffle Disorientation Station Interior"
     option_no_shuffle = 0
@@ -579,6 +580,7 @@ class SpiritTracksShufflePortals(Choice):
     Always disables portal items.
     Other portal options still work!
     Opening a one-way portal unlocks it's vanilla counterpart, even when shuffled.
+    Adds 16 (unpaired) entrances.
     """
     display_name = "Shuffle Train Portals"
     option_no_shuffle = 0
@@ -593,6 +595,7 @@ class SpiritTracksShuffleLas(Choice):
     All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
     When shuffled, the two one way entrances are linked to a single entrance in a decoupled manner.
     Puzzles reset after leaving.
+    Adds 12 (unpaired) entrances.
     """
     display_name = "Shuffle Lost at Sea Dungeon"
     option_no_shuffle = 0
@@ -605,6 +608,7 @@ class SpiritTracksShuffleToSStaircase(Choice):
     """
     Shuffle the single entrance pair between the ToS lobby and staircase.
     All entrance shuffle options allow you to mix and match them in 3 pools.
+    Adds 2 (unpaired) entrances.
     """
     display_name = "Shuffle ToS Staircase"
     option_no_shuffle = 0
@@ -617,6 +621,7 @@ class SpiritTracksShuffleDungeonRooms(Choice):
     Shuffle the entrances inside dungeons.
     All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
     Has special option `shuffle in own dungeon`, that doesn't mix rooms from different dungeons.
+    Adds 88 (unpaired) entrances.
     """
     display_name = "Shuffle Dungeon Interiors"
     option_no_shuffle = 0
@@ -634,6 +639,7 @@ class SpiritTracksShuffleWarps(Choice):
     Acts as a mixed pool with other options that pick it.
     Opening a blue warp unlocks the vanilla lobby portal, even when shuffled elsewhere.
     If dungeon entrances are shuffled alone, shuffle_in_own_dungeon for warps follow the new dungeon.
+    Adds 10 (unpaired) entrances.
     """
     display_name = "Shuffle Blue Warps"
     option_no_shuffle = 0
@@ -651,6 +657,7 @@ class SpiritTracksShuffleDungeonEntrances(Choice):
         but to any entrance in that dungeon that's also in the in_own_dungeon pool
     - shuffle_in_own_dungeon_shuffle: the game pre-picks what dungeon goes to what dungeon entrance,
         and that entrance can shuffle to any entrance in that dungeon also in the in_own_dungeon pool.
+    Adds 10 (unpaired) entrances.
     """
     display_name = "Shuffle Dungeon Entrances"
     option_no_shuffle = 0
@@ -663,12 +670,13 @@ class SpiritTracksShuffleDungeonEntrances(Choice):
 
 class SpiritTracksShuffleBosses(Choice):
     """
-    Shuffles the entrances to dungeon bosses.
+    Shuffles the entrances to the five main dungeon bosses.
     All entrance shuffle options allow you to mix and match them in 3 pools, or keep them separate.
     - shuffle_in_own_dungeon_vanilla: the boss will only shuffle to its vanilla dungeon,
         but to any entrance in that dungeon that's also in the in_own_dungeon pool
     - shuffle_in_own_dungeon_shuffle: the game pre-picks what boss goes to what dungeon entrance,
         and that entrance can shuffle to any entrance in that dungeon also in the in_own_dungeon pool.
+    Adds 10 (unpaired) entrances.
     """
     display_name = "Shuffle Bosses"
     option_no_shuffle = 0

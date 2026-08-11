@@ -560,7 +560,8 @@ class SpiritTracksWorld(WorldParent):
                        "EVENT: Desert Temple B1 Shortcut",
                        "EVENT: Tunnel to the Tower 2F Door",
                        "EVENT: Island Sanctuary Bridge",
-                       "EVENT: Valley Sanctuary Door"]
+                       "EVENT: Valley Sanctuary Door",
+                       "EVENT: Desert Temple B1 Red Door"]
             if not self.options.open_blizzard_temple.value:
                 events += [
                     "EVENT: Blizzard Temple 1F Bell Door 1",
@@ -1753,7 +1754,7 @@ class SpiritTracksWorld(WorldParent):
                 directionless_entrances.append(e)
                 # print(f"Plando ER: {e.name} {bin(e.randomization_group)} {(e.randomization_group & EntranceGroups.AREA_MASK) >> 3}")
 
-        # print("no of entrances:", len(entrances_to_shuffle))
+        print("no of entrances:", len(entrances_to_shuffle), entrances_to_shuffle)
 
         # Get pool data
         pools = [[], [], [], []]
@@ -2173,6 +2174,24 @@ class SpiritTracksWorld(WorldParent):
             spoiler_handle.write(f"\n\n{title_str} ({self.multiworld.player_name[self.player]}):\n")
             for dung in self.required_boss_locs:
                 spoiler_handle.write(f"\t- {dung}\n")
+
+        pairings: dict[int, int] = {}
+        if self.er_placement_state:
+            for e1, e2 in self.er_placement_state.pairings:
+                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+        self.redirect_boss_warps(pairings)
+        pairings |= self.plando_pairings
+        if pairings:
+            spoiler_handle.write(f"\n\nEntrance Randomization ({self.multiworld.player_name[self.player]}):\n")
+            entrance_formatter: dict[int, list] = {}
+            for e1, e2 in pairings.items():
+                if e2 in entrance_formatter and entrance_formatter[e2][1] == entrance_id_to_entrance[e1].name:
+                    entrance_formatter[e2][2] = True
+                else:
+                    entrance_formatter[e1] = [entrance_id_to_entrance[e1].name, entrance_id_to_entrance[e2].name, False]
+            for e1, e2, two_way in entrance_formatter.values():
+                arrow = "<=>" if two_way else "=>"
+                spoiler_handle.write(f"\t{e1} {arrow} {e2}\n")
 
     # UT stuff
     @staticmethod

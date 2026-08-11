@@ -915,7 +915,7 @@
   {"name": "MTT Shortcut", "sections": [{"name": "EVENT: Mountain Temple B1 Arena"}], "map_locations": [{"map": "Mountain Temple B1", "x": 128, "y": 144}]},
 
   {"name": "DT Shortcut", "sections": [{"name": "EVENT: Desert Temple B1 Shortcut"}], "map_locations": [{"map": "Desert Temple B1", "x": 111, "y": 137}]},
-  {"name": "DT Shortcut", "sections": [{"name": "EVENT: Desert Temple B1 Red Door"}], "map_locations": [{"map": "Desert Temple B1", "x": 141, "y": 137}]},
+  {"name": "DT Shortcut", "sections": [{"name": "EVENT: Desert Temple B1 Red Door"}], "map_locations": [{"map": "Desert Temple B1", "x": 148, "y": 137}]},
 
   {"name": "TttT Shortcut", "sections": [{"name": "EVENT: Tunnel to the Tower 2F Door"}], "map_locations": [{"map": "Tunnel to ToS 2F", "x": 137, "y": 59}]},
   {"name": "Island Sanc Shortcut", "sections": [{"name": "EVENT: Island Sanctuary Bridge"}], "map_locations": [{"map": "Island Sanctuary South", "x": 219, "y": 53}]},
