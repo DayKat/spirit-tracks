@@ -1966,7 +1966,10 @@ class SpiritTracksClient(DSZeldaClient):
             0x137b70: "?",
             0x138580: "Tank spawner",
             0x13784c: "Demon Train",
-            0x138b10: "Purple Train"
+            0x138b10: "Purple Train",
+        }
+        crash_causers_post_fg = {
+            0x2d99c8: "Crasher post forest glyph"  # fire glyph no ocean glyph
         }
 
         crash_causers = {
