@@ -2397,7 +2397,11 @@ ITEMS_DATA |= {
     },
     "Keyring (ToS 3)": {
         'dummy': True,  # Used to prevent a crash on opening boss door on 10F
+        "dungeon": 0x13,
+        "section": 0x3,
         "id": 279,
+        "value": 0,
+        "rooms": [7, 8, 9, 0xa, 0x15, 0x16, 0x2A],
     }
 
 }
