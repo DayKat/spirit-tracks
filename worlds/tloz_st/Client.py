@@ -286,7 +286,6 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.key_door_watches: list["Address"] = []
         self.boss_door_addr = None
-        self.reload_stage_flags: bool = False
         self.reload_map_objects: int = 0
         self.was_in_clog: bool = False
         self.on_train = False
@@ -501,19 +500,6 @@ class SpiritTracksClient(DSZeldaClient):
                     return False
             return True
 
-        def check_traversed_entrances():
-            entrances = data.get("has_traversed_entrances", [])
-            if not entrances:
-                return True
-            if not self.traversed_entrances:
-                return False
-
-            for e in entrances:
-                if ENTRANCES[e].id not in self.traversed_entrances:
-                    return False
-            return True
-
-
         if not check_dungeon_reqs():
             printl(f"\t{data['name']} does not have dungeon requirements")
             return False
@@ -524,14 +510,6 @@ class SpiritTracksClient(DSZeldaClient):
             return False
         if not check_unvisited_scenes():
             return False
-        if not check_traversed_entrances():
-            printl(f"\t{data['name']} has not traversed entrances")
-            return False
-
-        # Update stage flags
-        if "update_stage_flags" in data and "on_scenes" in data:
-            printl(f"\t{data['name']} is setting stage flags")
-            self.update_stage_flag((data["on_scenes"][0] & 0xFF00) >> 8, data["update_stage_flags"])
 
         return True
 
@@ -844,8 +822,6 @@ class SpiritTracksClient(DSZeldaClient):
             self.has_goal_location = True
             await self.store_event(ctx, "GOAL: Enter Dark Realm")
 
-        if self.reload_stage_flags:
-            await self.set_stage_flags(ctx, self.current_stage)
 
     async def process_hard_coded_rooms(self, ctx, current_scene):
         printl(f"Processing hard coded room stuff")
@@ -1710,7 +1686,6 @@ class SpiritTracksClient(DSZeldaClient):
         return self.stage_flag_address
 
     async def set_stage_flags(self, ctx, stage):
-        self.reload_stage_flags = False
         if stage in self.stage_flags:
             stage_flag_address = await self.get_stage_flags(ctx)
 
@@ -1719,11 +1694,6 @@ class SpiritTracksClient(DSZeldaClient):
         if self.set_train_in_overworld and stage <= 0xA:
             await self.set_starting_train(ctx)
             self.set_train_in_overworld -= 1
-
-    def update_stage_flag(self, stage: int, new: list[int]):
-        self.stage_flags[stage] = [o | n for o, n in itertools.zip_longest(STAGE_FLAGS.get(stage, [0,0,0,0]), new, fillvalue=0)]
-        print(f"Updating Stage Flags: {hex_f(stage)} {hex_f(new)} : {hex_f(self.stage_flags[stage])}")
-        self.reload_stage_flags = True
 
 
     # Snurglars
