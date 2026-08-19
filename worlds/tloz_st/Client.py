@@ -403,37 +403,6 @@ class SpiritTracksClient(DSZeldaClient):
         }
 
     @staticmethod
-    async def get_table_data(ctx, array_start, comp_offset, size:int or list=4, table_label=True, table_size=128) -> dict["Address", int | list[int]]:
-        """
-        Collect data from a table of pointers at a given offset.
-        """
-
-        rl = []
-        for i in range(table_size):
-            rl.append(Address.from_pointer(array_start + i * 4, size=3))
-        actors = await read_multiple(ctx, rl)
-        # print(f"Objects: {hex_f(actors)}")
-
-        if table_label:
-            labels = [k for k, v in actors.items() if v]
-        else: labels = None
-
-        # Multiple offsets at once
-        if isinstance(comp_offset, Iterable):
-            actors_start = [[Address.from_pointer(v, size=i) for v in actors.values() if 0 < v < 0x400000] for i in size]
-            reads: dict["Address", list[int]] = {}
-            for i, offset in enumerate(comp_offset):
-                reads_2 = await read_multiple(ctx, actors_start[i], offset=offset * 4, keys=labels)
-                for r, v in reads_2.items():
-                    reads.setdefault(r, [0]*len(comp_offset))[i] = v
-            return reads
-
-        # single offset
-        actors_start = [Address.from_pointer(v, size=size) for v in actors.values() if 0 < v < 0x400000]
-        reads_2 = await read_multiple(ctx, actors_start, offset=comp_offset * 4, keys=labels)
-        return reads_2
-
-    @staticmethod
     async def get_actor_table(ctx):
         await STAddr.actor_table.load(ctx)
         return STAddr.actor_table

@@ -1242,7 +1242,7 @@ class SpiritTracksWorld(WorldParent):
         else:
             starting_entrance = ENTRANCES[self.starting_entrance]
         reciprocal = entrance_id_to_entrance[pairings.get(starting_entrance.id, starting_entrance.vanilla_reciprocal.id)]
-        print(f"Starting entrance {self.starting_entrance} | {starting_entrance}, reciprocal {reciprocal}")
+        # print(f"Starting entrance {self.starting_entrance} | {starting_entrance}, reciprocal {reciprocal}")
 
         if reciprocal.required_groups:
             starting_tracks = set()
@@ -1256,7 +1256,7 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.cannon_logic.value in [0, 1]:
             self.options.start_inventory_from_pool.value.update({"Cannon": 1})
-        print(self.options.start_inventory_from_pool.value)
+        # print(self.options.start_inventory_from_pool.value)
 
     def choose_filler_items(self, filler_count, item_pool_dict):
         rupees_required = self.get_required_rupees()
