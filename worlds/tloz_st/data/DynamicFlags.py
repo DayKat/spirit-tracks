@@ -2674,8 +2674,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     "Goron Village no cargo": {
         "on_scenes": [0x2e00],
         "has_slot_data": [("randomize_cargo", [0])],
-        "set_if_true": [(STAddr.adv_flags_1f, 0x80), (STAddr.adv_flags_59, 0x6),
-                        (STAddr.adv_flags_f, 0x01),(STAddr.adv_flags_2b, 0x4)]
+        "set_if_true": [(STAddr.adv_flags_1f, 0x81), (STAddr.adv_flags_59, 0x6), (STAddr.adv_flags_2b, 0x4)]
     },
     # Papuzia
     "Allow SoB statue": {

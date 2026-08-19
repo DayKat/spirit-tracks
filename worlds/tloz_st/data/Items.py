@@ -2408,7 +2408,7 @@ ITEMS_DATA |= {
 
 ITEM_GROUPS: dict[str, set[str]] = {}
 
-# IDs need to be stabilized at some point, not today
+
 for i, k in enumerate(ITEMS_DATA.items()):
     # Add items to item groups
     item_name, item_data = k
@@ -2441,7 +2441,6 @@ ITEMS: dict[str, "STItem"] = {}
 STItem.all_item_groups = ITEM_GROUPS
 for i, k in enumerate(ITEMS_DATA.items()):
     item_name, item_data = k
-    item_data["id"] = i + 1
     ITEMS[item_name] = STItem(item_name, item_data, ITEMS)
 
 track_groups = {t: g for t, g in ITEM_GROUPS.items() if t.startswith("Tracks:")}

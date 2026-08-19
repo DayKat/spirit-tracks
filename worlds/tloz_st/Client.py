@@ -4,7 +4,7 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.Entrances import ENTRANCES, entrance_tuple_to_entrance
+from .data.Entrances import ENTRANCES, entrance_tuple_to_entrance, entrances_per_scene
 from settings import get_settings
 from typing import Literal
 from .Subclasses import EntranceGroups
@@ -1974,8 +1974,13 @@ class SpiritTracksClient(DSZeldaClient):
         return None
 
     async def conditional_bounce(self, ctx, scene: int, entrance: int) -> "STTransition" or None:
-        e_tuple = ((scene & 0xFF00) >> 8, scene & 0xFF, entrance)
-        current_destination = entrance_tuple_to_entrance.get(e_tuple)
+        coords = await self.get_coords(ctx)
+        current_destination = None
+        for e in entrances_per_scene.get(self.last_scene, []):
+            if e.detect_exit(scene, entrance, coords, self.er_y_offest):
+                current_destination = e
+                break
+        print(f"Bounce detected entrance: {current_destination} from {entrances_per_scene.get(self.last_scene, [])}")
         if current_destination and not await self.conditional_er(ctx, current_destination, detect_data=current_destination.vanilla_reciprocal):
             return current_destination.vanilla_reciprocal
         return None
