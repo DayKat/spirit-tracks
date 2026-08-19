@@ -12,7 +12,7 @@ from .Subclasses import EntranceGroups
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext, BizHawkClientCommandProcessor
     from . import SpiritTracksSettings
-    from .Subclasses import STTransition
+    from .Subclasses import STTransition, STItem
 
 # gMapManager -> mCourse -> mSmallKeys
 SMALL_KEY_OFFSET = 0x260
@@ -795,6 +795,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_reads = []
         self.sent_event = False
         self.boss_key_y = None
+        self.key_door_watches.clear()
         self.boss_door_addr = None
         if self.last_scene == 0x700:
             await self.reset_snurglar_door(ctx)
@@ -1025,7 +1026,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     # Misc item handling
 
-    async def receive_item_post_processing(self, ctx, item_name, item_data):
+    async def receive_item_post_processing(self, ctx, item_name, item_data: "STItem"):
         printl(f"Post Processing {item_name}")
 
         if "Rabbit" in item_name:
@@ -1076,7 +1077,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Complex blocked scenes for sources in boss rooms
         if (self.current_scene in BOSS_ROOM_TO_BLOCKED_ITEM_GROUP and
-            BOSS_ROOM_TO_BLOCKED_ITEM_GROUP[self.current_scene] in item_data.item_groups):
+            BOSS_ROOM_TO_BLOCKED_ITEM_GROUP[self.current_scene] in item_data.all_item_groups):
             bit = 2 ** (self.current_stage-0x1a)
             await STAddr.sources.unset_bits(ctx, bit)
 
@@ -2345,6 +2346,7 @@ class SpiritTracksClient(DSZeldaClient):
         identifiers = map_object_identifiers
 
         write_list = []
+        last_len = 0
         for addr, i in actor_idents.items():
             if addr == 0x5544:
                 printl("Map Object Overflow!")
@@ -2384,6 +2386,9 @@ class SpiritTracksClient(DSZeldaClient):
 
             # if identifiers.get(i) in ["Flames"]:
             #     write_list.append(Address.from_pointer(addr + 33 * 4 + 2, size=1).get_inner_write_list(0))
+            if len(write_list) > last_len:
+                print(f"deleting: {identifiers.get(i)} @ {addr}")
+            last_len = len(write_list)
 
         if write_list:
             printl(f"Deleting Cutscenes: {hex_f(write_list)}")
