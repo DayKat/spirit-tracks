@@ -2325,7 +2325,7 @@ class SpiritTracksClient(DSZeldaClient):
                 continue
 
             if identifiers.get(i) in ["Blue Door", "Key Door", "Arena Door", "Bell Door", "Gem Door"]:
-                if identifiers.get(i) == "Arena Doora" and self.current_scene in [0x4904, 0x3f01]:
+                if identifiers.get(i) == "Arena Door" and self.current_scene in [0x4904, 0x3f01]:
                     continue  # These doors can softlock
                 write_list.append(Address.from_pointer(addr + 33*4 + 2, size=1).get_inner_write_list(0))  # closing
                 write_list.append(Address.from_pointer(addr + 34*4 + 2, size=1).get_inner_write_list(0))  # opening
