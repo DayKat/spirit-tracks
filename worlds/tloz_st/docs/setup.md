@@ -10,7 +10,7 @@
 ## Recommended Software
 
 * [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases) (Includes a full map tracker, with auto-tabbing and entrance rando support. by @catzador and @carrotinator)
-* [Itemtracker](https://github.com/carrotinator/spirit-tracks-poptracker-ap) for [Poptracker](https://github.com/black-sliver/PopTracker) (still work in progress. the branch [carrot_map_tweaks](https://github.com/carrotinator/spirit-tracks-poptracker-ap/tree/carrot-map-tweaks) is most up to date. by @zobeeplays and @carrotinator)
+* [Itemtracker](https://github.com/carrotinator/spirit-tracks-poptracker-ap/releases) for [Poptracker](https://github.com/black-sliver/PopTracker) (still work in progress. the branch [carrot_map_tweaks](https://github.com/carrotinator/spirit-tracks-poptracker-ap/tree/carrot-map-tweaks) is most up to date. by @zobeeplays and @carrotinator)
 
 ## Setup
 
