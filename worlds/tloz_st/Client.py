@@ -806,7 +806,7 @@ class SpiritTracksClient(DSZeldaClient):
             self.save_ammo = await read_multiple(ctx, ammo_addresses)
             await write_multiple(ctx, ammo_addresses, [0, 0])
 
-        # Give tears of light when entering ToS
+        # Give tears of light when entering
         if self.current_stage == 0x13 and ctx.slot_data["randomize_tears"] != -1:
             await self.set_tears(ctx)
 
@@ -817,9 +817,6 @@ class SpiritTracksClient(DSZeldaClient):
             elif ctx.slot_data["excess_random_treasure"] == 0:
                 treasure = ITEM_MODEL_LOOKUP["Nothing"].value
             await self.reset_treasure_models(ctx, treasure)
-
-        if current_scene == 0x131e:  # Set tears for ToS 6 on 30F instead of 31F.
-            await self.set_tears(ctx)
 
         # Start Precision read for evil train deletion
         if not self._just_entered_game:
@@ -1950,7 +1947,7 @@ class SpiritTracksClient(DSZeldaClient):
             if e.detect_exit(scene, entrance, coords, self.er_y_offest):
                 current_destination = e
                 break
-        print(f"Bounce detected entrance: {current_destination} from {entrances_per_scene.get(self.last_scene, [])}")
+        # print(f"Bounce detected entrance: {current_destination} from {entrances_per_scene.get(self.last_scene, [])}")
         if current_destination and not await self.conditional_er(ctx, current_destination, detect_data=current_destination.vanilla_reciprocal):
             return current_destination.vanilla_reciprocal
         return None
