@@ -23,6 +23,7 @@ from .Client import SpiritTracksClient  # Unused, but required to register with 
 from .Subclasses import EntranceGroups, OPPOSITE_ENTRANCE_GROUPS, decode_recursive, decode_entrance_groups, \
     dungeon_to_enum
 
+
 try:  # Backwards compatibility yay
     from rule_builder.cached_world import CachedRuleBuilderWorld as WorldParent
     from .LogicRB import create_connections
@@ -34,6 +35,7 @@ except ModuleNotFoundError:
 
 if TYPE_CHECKING:
     from .Subclasses import STTransition
+    from .DSZeldaClient.LocationClass import DSLocation
 
 
 try:
@@ -706,7 +708,9 @@ class SpiritTracksWorld(WorldParent):
                 continue
 
             is_local = "local" in location_data and location_data["local"] is True
-            self.create_location(location_data['region_id'], location_name, is_local)
+            if location_name in self.required_boss_locs:
+                is_local = True
+            self.create_location(location_data.region, location_name, is_local)
 
         self.create_events()
         self.exclude_locations_automatically()
@@ -865,7 +869,7 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.randomize_stamps.value in [1, 4]:
             excluded_dungeons = self.non_required_dungeons if self.options.exclude_dungeons else []
-            [self.create_event(LOCATIONS_DATA[loc]["region_id"].replace("station", "event"), "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
+            [self.create_event(LOCATIONS_DATA[loc].region.replace("station", "event"), "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
 
         # Create rupee farming events
         rupee_farming_regions = ["mayscore whip game", "mayscore leaves",
@@ -1931,7 +1935,7 @@ class SpiritTracksWorld(WorldParent):
     def pre_fill_tos_sections(self):
         for section in range(1, 7):
             section_names = [name for name, loc in LOCATIONS_DATA.items()
-                             if loc.get("tos_section", 0) == section]
+                             if loc.tos_section == section]
             section_locations = [loc for loc in self.multiworld.get_locations(self.player)
                                  if loc.name in section_names and not loc.locked]
 
@@ -1967,7 +1971,7 @@ class SpiritTracksWorld(WorldParent):
             # Build a list of locations in this dungeon
             # print(f"Pre-filling {dung_name}")
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
-                                      if "dungeon" in loc and loc["dungeon"] == dung_name]
+                                      if "dungeon" in loc and loc.dungeon == dung_name]
             dungeon_location_names += [name for name, dung in self.near_dungeon_lookup.items() if dung == dung_name]
 
             dungeon_locations = [loc for loc in self.multiworld.get_locations(self.player)
@@ -2096,26 +2100,26 @@ class SpiritTracksWorld(WorldParent):
         for loc in self.get_locations():
             item = loc.item
             if item is None: continue
-            loc_data = LOCATIONS_DATA.get(loc.name, {})
+            loc_data: DSLocation = LOCATIONS_DATA.get(loc.name, {})
             if not loc_data or 'stamp' in loc_data or 'no_model' in loc_data:
                 continue
             if item.game in ["Spirit Tracks"]:
                 if ITEMS[item.name].model is not None:
-                    location_models[loc_data['id']] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
+                    location_models[loc_data.id] = ITEM_MODEL_LOOKUP[ITEMS[item.name].model].offset
                     continue
             elif self.options.multiworld_item_model_swaps and item.game in all_lookups:
                 model = all_lookups[item.game].get(item.name, None)
                 if model is not None:
-                    location_models[loc_data['id']] = model
+                    location_models[loc_data.id] = model
                     continue
 
             if dmi in [2]:
                 if item.classification & ItemClassification.useful:
-                    location_models[loc_data['id']] = default_models[dmi][1]
+                    location_models[loc_data.id] = default_models[dmi][1]
                 elif item.classification & ItemClassification.filler:
-                    location_models[loc_data['id']] = default_models[dmi][2]
+                    location_models[loc_data.id] = default_models[dmi][2]
             if item.classification & ItemClassification.trap:
-                location_models[loc_data['id']] = ITEM_MODEL_LOOKUP["Stalfos Skull"].offset
+                location_models[loc_data.id] = ITEM_MODEL_LOOKUP["Stalfos Skull"].offset
 
         return location_models
         # print(f"Location Models: {location_models}")
@@ -2148,7 +2152,7 @@ class SpiritTracksWorld(WorldParent):
                    "free_starting_items",
                    "ut_blocked_entrances_behaviour"]
         slot_data = self.options.as_dict(*options)
-        slot_data["active_rabbit_locs"] = [LOCATIONS_DATA[loc]["id"] for loc in self.active_rabbit_locations]
+        slot_data["active_rabbit_locs"] = [self.location_name_to_id[i] for i in self.active_rabbit_locations]
         slot_data["required_boss_locs"] = [self.location_name_to_id[i] for i in self.required_boss_locs]
         slot_data["stamp_pack_order"] = self.stamp_pack_order
         slot_data["model_lookup"] = self.get_location_models()

@@ -200,8 +200,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.in_stamp_stand: bool = False
         self.scene_to_stamp = build_scene_to_stamp()
         self.goal_locations = build_location_to_goal()
-        self.location_id_to_location = {l['id']: l for l in LOCATIONS_DATA.values()}
-        self.location_id_to_vanilla_item = {l['id']: l.get("vanilla_item", None) for l in LOCATIONS_DATA.values()}
+        self.location_id_to_location = {l.id: l for l in LOCATIONS_DATA.values()}
+        self.location_id_to_vanilla_item = {l.id: l.vanilla_item for l in LOCATIONS_DATA.values()}
 
         self.has_goal_location = False
         self.loading_stage = False  # Used to set stage flags mid loading cause the usual time is too late
@@ -232,7 +232,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_data: list[dict] = []
         self.entrances: dict[str, "STTransition"] = ENTRANCES
         self.boss_warp_entrance = None
-        self.location_id_to_name = {loc["id"]: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
+        self.location_id_to_name = {loc.id: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
         self.exit_coords_addr: tuple = (STAddr.train_trans_x, STAddr.train_trans_y, STAddr.train_trans_z)
 
         # Train speed stuff
@@ -1191,7 +1191,7 @@ class SpiritTracksClient(DSZeldaClient):
         missing_stamps = []
 
         if ctx.slot_data["randomize_stamps"] == 1:  # vanilla_with_location
-            stamp_locations_received = [LOCATIONS_DATA[self.location_id_to_name[i]]["stamp"] for i in ctx.checked_locations if self.location_id_to_name[i] in LOCATION_GROUPS["Stamp Stands"]]
+            stamp_locations_received = [LOCATIONS_DATA[self.location_id_to_name[i]].stamp for i in ctx.checked_locations if self.location_id_to_name[i] in LOCATION_GROUPS["Stamp Stands"]]
             wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
             missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
 
@@ -1207,7 +1207,7 @@ class SpiritTracksClient(DSZeldaClient):
 
 
         elif ctx.slot_data["randomize_stamps"] == 4:
-            stamp_locations_received = [LOCATIONS_DATA[i]["stamp"] for i in LOCATION_GROUPS["Stamp Stands"] if self.entrances[LOCATIONS_DATA[i]["ut_connect"]].id in self.traversed_entrances]
+            stamp_locations_received = [LOCATIONS_DATA[i].stamp for i in LOCATION_GROUPS["Stamp Stands"] if self.entrances[LOCATIONS_DATA[i].ut_connect].id in self.traversed_entrances]
             print(f"traversed: {self.traversed_entrances}, stamps: {stamp_locations_received}")
             wrong_stamp_indexes = [stamps.index(i) for i in has_stamps if i not in stamp_locations_received]
             missing_stamps = [i for i in stamp_locations_received if i not in has_stamps]
@@ -1680,7 +1680,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.item_count(ctx, "Mountain Temple Snurglar Key") >= 3 or self.item_count(ctx, "Snurglar Keyring"):
             if (not any([self.item_count(ctx, i) for i in ITEM_GROUPS["Tracks: Mountain Temple Tracks"]])
                     or not self.item_count(ctx, "Cannon")
-                    or all([LOCATIONS_DATA[i]['id'] in ctx.checked_locations for i in LOCATION_GROUPS["Snurglars"]])):
+                    or all([LOCATIONS_DATA[i].id in ctx.checked_locations for i in LOCATION_GROUPS["Snurglars"]])):
                 printl(f"Got Snurglar keys, opening mountain temple")
                 await self.snurglar_addr.overwrite(ctx, 0x30)
             else:
