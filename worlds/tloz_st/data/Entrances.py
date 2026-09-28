@@ -3037,6 +3037,28 @@ ENTRANCE_DATA |= {
     "EVENT: Blizzard Temple 1F Bell Door 2": event("bt 1f ne bell"),
     "EVENT: Desert Temple B1 Red Door": silent_event("dt b1 mid", "dt b1 s"),
 
+    "Snow Realm Enter Rocktite Fight": {
+        "return_name": "Snow Rocktite Entrance",
+        "entrance_region": "snow realm",
+        "exit_region": "snow sanc station",
+        "entrance": (0x5, 0x0, 0x0),
+        "exit": (0xA, 0x0, 0x0),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+        "two_way": False
+    },
+    "Snow Rocktite Exit": {
+        "return_name": "Snowfall Sanc from Rocktite",
+        "entrance_region": "snow sanc tracks",
+        "exit_region": "snow sanc",
+        "entrance": (0xA, 0x0, 0x0),
+        "exit": (0x31, 0x0, 0x0),
+        "type": EntranceGroups.NONE,
+        "direction": EntranceGroups.NONE,
+        "island": EntranceGroups.NONE,
+        "two_way": False
+    },
 }
 
 

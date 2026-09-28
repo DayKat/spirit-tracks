@@ -251,6 +251,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["tos 7f rail map", "event_7f", False, None],
 
         ["tos 3", "tos 8f", True, None],
+        ["tos 8f", "tos 8f n", False, has_bombs | has_boomerang | hard_logic],
         ["tos 8f", "tos 8f bombs", False, has_bombs],
         ["tos 8f", "tos 9f phantom", False, vanilla_tears | can_possess_phantom(3)], #
         ["tos 9f phantom", "tos 9f nw", False, has_whirlwind],

@@ -656,7 +656,7 @@ new_loc_data: list[DSLocation] = [
                id=49,
                vanilla_item=['Treasure: Palace Dish', 'Treasure: Mystic Jade', 'Treasure: Ancient Coin',
                              'Treasure: Goron Amber'],
-               region="tos 8f",
+               region="tos 8f n",
                dungeon="ToS",
                tos_section=0x3,
                hint_entrance=['ToS 8F Exit'],
@@ -5594,6 +5594,8 @@ for location in new_loc_data:
         LOCATION_GROUPS.setdefault(group, set()).add(location.name)
     if location.dungeon:
         LOCATION_GROUPS.setdefault(location.dungeon, set()).add(location.name)
+    if location.stamp is not None:
+        LOCATION_GROUPS.setdefault("Stamp Stands", set()).add(location.name)
 
 # Combo groups
 # LOCATION_GROUPS["Tower of Spirits"] = {loc for i in range(1, 7) for loc in LOCATION_GROUPS[f"ToS {i}"] }
@@ -5622,6 +5624,7 @@ LOCATION_GROUPS["Sand Rabbits"] = LOCATION_GROUPS["Total Sand Rabbits"] | LOCATI
 LOCATION_GROUPS["Rabbit Locations"] = LOCATION_GROUPS["Unique Rabbits"] | LOCATION_GROUPS["Total Rabbits"]
 LOCATION_GROUPS["Passenger Locations"] = LOCATION_GROUPS["Pick Up Passengers"] | LOCATION_GROUPS["Deliver Passengers"] | LOCATION_GROUPS["Misc Passengers"]
 LOCATION_GROUPS["Cargo Locations"] |= LOCATION_GROUPS["Buy Cargo"] | LOCATION_GROUPS["Deliver Cargo"]
+LOCATION_GROUPS["Rupee Locations"] = LOCATION_GROUPS["Shop Locations"] | LOCATION_GROUPS["Buy Cargo"]
 
 # print(f"Location Groups:")
 # for group, locs in LOCATION_GROUPS.items():

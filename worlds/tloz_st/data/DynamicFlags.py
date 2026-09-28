@@ -1591,6 +1591,12 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "check_bits": [(STAddr.adv_flags_59, 0x4)],
         "set_if_true": [(STAddr.adv_flags_1f, 0x80)],
     },
+    "Backup check goron geyser 2 location": {
+        "on_scenes": [0x2e00],
+        "has_slot_data": [("randomize_cargo", [1, 2, 3])],
+        "has_locations": ["Goron Village Deliver Ice Force Gem"],
+        "set_if_true": [(STAddr.adv_flags_2b, 0x4)],
+    },
     "Backup unset goron geyser": {
         "on_scenes": [0x2e00],
         "has_slot_data": [("randomize_cargo", [1, 2, 3])],

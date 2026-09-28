@@ -25,7 +25,6 @@ options_old = {
         "randomize_boss_keys": "anywhere",
         "keyrings": "all",
 
-
         "shopsanity": {"all"},
         "rupee_farming_logic": "unlimited_farming",
         "excess_random_treasure": "nothing",
@@ -107,7 +106,8 @@ er_options = {
     }
 
 basic = {
-        "start_with_train": True
+        "start_with_train": True,
+        "shopsanity": ["all"]
 }
 
 class TestGeneration(WorldTestBase):

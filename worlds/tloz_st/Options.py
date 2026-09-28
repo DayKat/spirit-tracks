@@ -871,7 +871,7 @@ class SpiritTracksExcludeDungeons(Choice):
     option_include = 0
     option_exclude = 1
     option_remove = 2
-    default = 0
+    default = 1
 
 class SpiritTracksExcludeSections(Choice):
     """

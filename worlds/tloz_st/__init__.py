@@ -673,7 +673,7 @@ class SpiritTracksWorld(WorldParent):
         location = Location(self.player, location_name, self.location_name_to_id[location_name], region)
         region.locations.append(location)
 
-        if local:
+        if local or location_name in self.required_boss_locs or location_name:
             location.item_rule = lambda item: item.player == self.player
 
     def create_regions(self):
@@ -1092,6 +1092,18 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"Locking stamp item {item_name} to {loc_name}")
                 continue
             if any([
+                "Small Key" in item_name and self.options.keysanity == "vanilla",
+                loc_name.endswith("Boss Key") and self.options.randomize_boss_keys == "vanilla_abstract",
+                "force_vanilla" in loc_data and loc_data["force_vanilla"],
+                self.options.randomize_passengers == "vanilla_abstract" and item_name.startswith("Passenger:"),
+                self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:"),
+                item_name == "Mountain Temple Snurglar Key" and self.options.keysanity == "vanilla"
+            ]):
+                # print(f"Forcing item {item_name} to location {loc_name}")
+                forced_item = self.create_item(item_name)
+                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
+                continue
+            if any([
                 item_name in ["Filler Item", "Treasure", "Nothing!", "Compass of Light",
                               "Heart Container", "Tear of Light",
                               "Shield", "Prize Postcards (10)", "Sand Source"],
@@ -1107,18 +1119,6 @@ class SpiritTracksWorld(WorldParent):
                 ]):
                 # print(f"\tBig listicle {item_name}")
                 filler_item_count += 1
-                continue
-            if any([
-                "Small Key" in item_name and self.options.keysanity == "vanilla",
-                loc_name.endswith("Boss Key") and self.options.randomize_boss_keys == "vanilla_abstract",
-                "force_vanilla" in loc_data and loc_data["force_vanilla"],
-                self.options.randomize_passengers == "vanilla_abstract" and item_name.startswith("Passenger:"),
-                self.options.randomize_cargo == "vanilla_abstract" and item_name.startswith("Cargo:"),
-                item_name == "Mountain Temple Snurglar Key" and self.options.keysanity == "vanilla"
-            ]):
-                # print(f"Forcing item {item_name} to location {loc_name}")
-                forced_item = self.create_item(item_name)
-                self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 continue
             # if item_data.classification == ItemClassification.filler:  # Regen all filler items for now
             #     filler_item_count += 1
@@ -1200,7 +1200,7 @@ class SpiritTracksWorld(WorldParent):
                 keyrings = chosen_keyrings
             res += [(i, 1) for i in keyrings]
 
-        # print(f"Key Items: {res}")
+        print(f"Key Items: {res}")
         return res
 
     def choose_track_items(self):
@@ -1265,16 +1265,18 @@ class SpiritTracksWorld(WorldParent):
     def choose_filler_items(self, filler_count, item_pool_dict):
         rupees_required = self.get_required_rupees()
         required_filler = len(self.locations_to_exclude)
+        shop_location_count = len([i for i in self.location_names if i in LOCATION_GROUPS["Rupee Locations"]])
         max_non_filler = filler_count - required_filler
-        # print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
+        print(f"Shop location count: {shop_location_count}")
+        print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
         if max_non_filler <= 0:
             raise FillError(f"Not enough room in item pool for filler items, please adjust your settings.")
 
         # Start with 60% of the remaining filler pool as rupee items, and cascade down until you've got 3 times the required rupees.
         cascade = [99, 100, 150, 200, 300, 500, 2500]
-        filler_values = [2500]*((max_non_filler*6)//10)
+        filler_values = [2500]*(((max_non_filler-shop_location_count)*6)//10)
         total_rupees = rupees_required*2+2500
-        # print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
+        print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
         if sum(filler_values) < total_rupees:
             filler_values += [2500]*math.ceil((total_rupees-sum(filler_values))/2400)
             print(f"Not enough room in filler pool for rupees, adding more regal rings")
@@ -1283,6 +1285,7 @@ class SpiritTracksWorld(WorldParent):
             filler_values.remove(i)
             if i != 100:
                 filler_values.append(cascade[cascade.index(i) - 1])
+        print(f"New rupee sum: {sum(filler_values)}/{rupees_required}")
 
         # Create items for the corresponding values
         rupee_choices = {99: "Big Green Rupee (100)",
@@ -1530,7 +1533,6 @@ class SpiritTracksWorld(WorldParent):
 
         self.filter_confined_dungeon_items_from_pool(items)
         self.multiworld.itempool.extend(items)
-        # print(self.multiworld.itempool)
 
     def get_extra_filler_items(self, item_pool_dict):
         # Create a random list of useful or currency items to turn into filler to satisfy all removed locations

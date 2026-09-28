@@ -199,6 +199,7 @@ REGIONS = [
     "event_7f",
 
     "tos 8f",
+    "tos 8f n",
     "tos 8f bombs",
     "tos 9f nw",
     "tos 9f phantom",

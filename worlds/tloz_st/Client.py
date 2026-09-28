@@ -2045,7 +2045,10 @@ class SpiritTracksClient(DSZeldaClient):
         if detect_data.name == "Ocean Realm North Rocktite Cave":
             rocktite_entrance = self.entrances["Ocean Realm North Rocktite Cave Fight"]
             er_map.setdefault(0x600, {})[rocktite_entrance] = exit_data
-            print(f"{rocktite_entrance} => {detect_data}")
+
+        if detect_data.name == "Snow Realm Snowfall Sanctuary Station":
+            rocktite_entrance = self.entrances["Snow Rocktite Exit"]
+            er_map.setdefault(0xA00, {})[rocktite_entrance] = exit_data
 
         # Capbone states
         if exit_data.name == "Capbone Exit":
@@ -2142,6 +2145,8 @@ class SpiritTracksClient(DSZeldaClient):
             detect_data = self.entrances["Lost at Sea Lobby Enter Dungeon"]
         elif detect_data.name == "Ocean Realm North Rocktite Cave Fight":
             detect_data = self.entrances["Ocean Realm North Rocktite Cave"]
+        elif detect_data.name == "Snow Rocktite Exit":
+            detect_data = self.entrances["Snow Realm Snowfall Sanctuary Station"]
         elif detect_data.name == "Desert Temple B2 North Post-Fight":
             detect_data = self.entrances["Desert Temple B2 North Entrance"]
         elif detect_data.name == "Mountain Temple 2F NE Staircase Alt":
