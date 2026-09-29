@@ -409,7 +409,7 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "Fraaz Boss Reward": "bt fraaz",
     "Cactops Boss Reward": "oct phytops",
     "Vulcano Boss Reward": "mtt pre vulcano",
-    "Capbone Boss Reward": "dt skeldritch",
+    "Capbone Boss Reward": "dt skeldritch safety",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",

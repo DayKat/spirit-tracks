@@ -107,7 +107,9 @@ er_options = {
 
 basic = {
         "start_with_train": True,
-        "shopsanity": ["all"]
+        "shopsanity": ["all"],
+        "randomize_passengers": "randomize",
+        "randomize_cargo": "randomize"
 }
 
 class TestGeneration(WorldTestBase):

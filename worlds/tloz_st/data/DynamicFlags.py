@@ -1621,14 +1621,14 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Lock Snow Realm Rocktite Cave": {
         "on_scenes": [0x500],
-        "has_items": [("Snowfall Sanctuary Cave Key", 0)],
+        "has_items": [("Snow Realm Rocktite Cave Key", 0)],
         "not_has_groups": ["Tracks: Blizzard Temple Tracks"],
         "unset_if_true": [(STAddr.adv_flags_0, 0x20), (STAddr.adv_flags_b, 0x10)],
         "reset_flags": ["RESET Add Snow Source"]
     },
     "Unlock Snow Sanc Cave": {
         "on_scenes": [0x500],
-        "has_items": [("Snowfall Sanctuary Cave Key", 1)],
+        "has_items": [("Snow Realm Rocktite Cave Key", 1)],
         "set_if_true": [(STAddr.adv_flags_b, 0x10)],
     },
     "Anouki shop skip HC": {

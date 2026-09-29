@@ -907,7 +907,8 @@ REGIONS = [
     "dt b2 n",
 
     "dt pre skeldritch",
-    "dt skeldritch",
+    "dt post skeldritch",
+    "dt skeldritch safety",
     "skeldritch event",
     "skeldritch goal",
     "dt blue warp",
