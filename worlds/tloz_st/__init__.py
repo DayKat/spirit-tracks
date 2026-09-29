@@ -1050,7 +1050,7 @@ class SpiritTracksWorld(WorldParent):
         for loc_name, loc_data in LOCATIONS_DATA.items():
             # print(f"New Location: {loc_name} {filler_item_count}")
             if not self.location_is_active(loc_name, loc_data):
-                print(f"{loc_name} is not active")
+                # print(f"{loc_name} is not active")
                 continue
             # If no defined vanilla item, fill with filler
             if "vanilla_item" not in loc_data:
@@ -1532,7 +1532,7 @@ class SpiritTracksWorld(WorldParent):
         self.get_extra_filler_items(item_pool_dict)
         items = []
         for item_name, quantity in item_pool_dict.items():
-            print(f"Creating items: {item_name}: {quantity}")
+            # print(f"Creating items: {item_name}: {quantity}")
             for _ in range(quantity):
                 items.append(self.create_item(item_name))
 

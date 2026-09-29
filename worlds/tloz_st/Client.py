@@ -564,10 +564,11 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always.copy()
-        if stage in range(4, 0xb):
+        if stage in range(4, 0xd):
             self.on_train = True
             read_keys += read_keys_train
             self.health_address = STAddr.train_health
+            self.mot_active_address = None
 
             train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx))
             printl(f"Train speed thingy {hex(train_speed_thingy)}")
@@ -598,7 +599,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.main_read_list = read_keys
         printl(f"read keys len: {len(read_keys)}")
-        printl(self.main_read_list, read_keys)
+        printl(f"main read list: {self.main_read_list}")
         # printl(f"Slot data {ctx.slot_data}")
 
     async def on_connect(self, ctx):
@@ -677,7 +678,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def process_read_list(self, ctx: "BizHawkClientContext", read_result: dict):
         # reload when necessary
-        if not self.reload_map_objects and read_result.get(self.mot_active_address, 2) != 2:
+        if not self.reload_map_objects and self.mot_active_address and read_result.get(self.mot_active_address, 2) != 2:
             self.reload_map_objects = 1
 
         if self.precision_operation and self.precision_operation[0] == "special_ow_actors":
