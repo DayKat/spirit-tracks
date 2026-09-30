@@ -116,14 +116,14 @@ def build_location_name_to_id_dict() -> Dict[str, int]:
     location_name_to_id: Dict[str, int] = {}
     for loc_name, location in LOCATIONS_DATA.items():
         # ids are for sending flags
-        location_name_to_id[loc_name] = location["id"]
+        location_name_to_id[loc_name] = location.id
     return location_name_to_id
 
 def build_rabbit_location_id_to_name_dict() -> Dict[int, str]:
     location_id_to_name: Dict[int, str] = {}
     for loc_name, location in LOCATIONS_DATA.items():
         if "rabbit" in location:
-            index = location["id"]
+            index = location.id
             location_id_to_name[index] = loc_name
     return location_id_to_name
 
@@ -146,15 +146,15 @@ def build_item_id_to_name_dict() -> Dict[int, str]:
 def build_scene_to_stamp() -> Dict[int, str]:
     stamp_locations: Dict[int, str] = {}
     for loc_name, location in LOCATIONS_DATA.items():
-        if location.get("stamp", None) is not None:
-            scene = location.get("stage_id", 0) * 0x100 + location.get("room_id", 0)
+        if location.stamp is not None:
+            scene = location.scenes[0]
             stamp_locations[scene] = loc_name
     return stamp_locations
 
 def build_location_to_goal():
     goal_locations = []
     for loc_name, location in LOCATIONS_DATA.items():
-        if location.get("goal"):
+        if location.goal:
             goal_locations.append(loc_name)
     return goal_locations
 

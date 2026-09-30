@@ -320,7 +320,7 @@ class SpiritTracksClient(DSZeldaClient):
         if slot_data["dark_realm_access"] in [2, 3]:
             shard_count = self.item_count(ctx, "Compass of Light Shard")
             logger.info(
-                f"You need Compass Shards to access the Dark Realm. You have {shard_count}/{slot_data['compass_shard_count']}")
+                f"You need Compass Shards to access the Dark Realm Portal. You have {shard_count}/{slot_data['compass_shard_count']}")
 
     async def print_train_actors(self, ctx, offset=11):
         """Print debug info about actors"""
