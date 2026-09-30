@@ -1946,7 +1946,7 @@ class SpiritTracksClient(DSZeldaClient):
         current_destination = None
         for e in entrances_per_scene.get(self.last_scene, []):
             if e.detect_exit(scene, entrance, coords, self.er_y_offest):
-                current_destination = e
+                current_destination = e.vanilla_reciprocal
                 break
         # print(f"Bounce detected entrance: {current_destination} from {entrances_per_scene.get(self.last_scene, [])}")
         if current_destination and not await self.conditional_er(ctx, current_destination, detect_data=current_destination.vanilla_reciprocal):
@@ -2194,10 +2194,13 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def update_safe_respawn(self, ctx, new_exit: "STTransition", last_detect: "STTransition"):
         # await self.change_entrance_animation(ctx, new_exit)
+        print(f"New exit scene: {hex_f(new_exit.scene)}, last detect {hex_f(last_detect.scene)}")
         if new_exit.stage in unsafe_respawn_stages and new_exit.scene not in self.safe_respawn_rooms:
             if self.safe_respawn is None:
                 self.safe_respawn = last_detect.entrance
-                printl(f"Set new safe respawn: {hex_f(self.safe_respawn)}")
+                printl(f"Set new safe respawn: {hex_f(self.safe_respawn)} {last_detect}")
+            else:
+                printl(f"Keeping old safe respawn: {hex_f(self.safe_respawn)}")
             return
         self.safe_respawn = None
 

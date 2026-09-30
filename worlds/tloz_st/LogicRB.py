@@ -557,7 +557,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         # =========== Snow Sanctuary ==========
 
-        ["snow realm", "snow sanc tracks", True, Has("Snow Sanctuary Cave Key") & has_cannon],
+        ["snow realm", "snow sanc tracks", True, Has("Snow Sanctuary Cave Key") & (has_cannon | has_source("Snow"))],
         # ["snow sanc tracks", "snow realm", False, has_cannon],
         ["blizzard temple tracks", "snow sanc tracks", True, has_temple_tracks("Blizzard") & has_glyph("Snow")],
         ["snow sanc tracks", "snow sanc station", True, has_glyph("Snow")],
