@@ -1531,6 +1531,9 @@ class SpiritTracksWorld(WorldParent):
         item_pool_dict = self.build_item_pool_dict()
         self.get_extra_filler_items(item_pool_dict)
         items = []
+        if "Small Key (ToS 2)" in item_pool_dict and "Keyring (ToS 2)" in item_pool_dict:
+            raise KeyError(f"Both Key and Keyring in pool!")
+
         for item_name, quantity in item_pool_dict.items():
             # print(f"Creating items: {item_name}: {quantity}")
             for _ in range(quantity):
@@ -1848,7 +1851,7 @@ class SpiritTracksWorld(WorldParent):
         for i in range(st_max_er_attempts):
             try:
                 self.er_placement_state = randomize_entrances(self, coupled, groups)
-                # print(f"ER Placements: {self.er_placement_state.pairings}")
+                print(f"ER Placements: {self.er_placement_state.pairings}")
                 break
             except EntranceRandomizationError as error:
                 if st_max_er_attempts > 5 and i % 5 == 4:

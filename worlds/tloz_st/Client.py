@@ -714,7 +714,9 @@ class SpiritTracksClient(DSZeldaClient):
             if self.current_stage in range(0x1e, 0x23):
                 safe_save = self.saving_safety == read_result[STAddr.getting_item_safety]
                 # printl(f"Checking Safe Save!")
-            self.saving = read_result.get(STAddr.getting_item_safety, False) or read_result[STAddr.saving] or safe_save
+            self.saving = read_result.get(STAddr.getting_item_safety, False) or read_result[STAddr.saving] or safe_save or read_result.get(STAddr.getting_location)
+            if not self.saving:
+                printl(f"Save Complete!")
 
         # Weird scene value on load from menu, set to last saved scene
         if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
@@ -2101,7 +2103,7 @@ class SpiritTracksClient(DSZeldaClient):
                 await STAddr.entrance_animation.overwrite(ctx, 0x39)
         elif "animation_override" in new_exit.extra_data:
             await STAddr.entrance_animation.overwrite(ctx, new_exit.extra_data["animation_override"])
-        elif await STAddr.entrance_animation.read(ctx) in [0x9]:  # change glitchy entrances
+        elif await STAddr.entrance_animation.read(ctx) in [0x9, 0x22, 0x23]:  # change glitchy entrances
             await STAddr.entrance_animation.overwrite(ctx, 0x18)
 
     # Respawn stuff
