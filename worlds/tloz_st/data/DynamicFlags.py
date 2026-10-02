@@ -3009,12 +3009,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
         "not_has_locations": ["Snow Realm Pick Up Ferrus"],
         "unset_if_true": [(STAddr.adv_flags_3a, 0x80)]
     },
-    "Reset city goron GV": {
-        "on_scenes": [0x2e00],
-        "not_has_locations": ["Goron Village Pick Up City Goron"],
-        "has_slot_data": [("randomize_passengers", [2, 3])],
-        "unset_if_true": [(STAddr.adv_flags_3a, 1)]
-    },
     "Spawn Ferrus Fire Realm": {
         "on_scenes": [0x700],
         "has_slot_data": [("randomize_passengers", [2, 3]), ("passenger_pickup", 0)],

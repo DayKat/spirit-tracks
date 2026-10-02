@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 # Conditional functions
 def conditional_tos_section(world: "SpiritTracksWorld", self: DSLocation) -> bool:
-    if self.stamp:
+    if self.stamp is not None:
         return world.options.randomize_stamps.value in [1, 2, 3]
     bk = world.options.randomize_boss_keys.value if self.name.endswith("Boss Key") else True
     tears = world.options.randomize_tears.value != -1 if isinstance(self.vanilla_item, str) and self.vanilla_item.startswith("Tear of Light") else True
@@ -1133,6 +1133,7 @@ new_loc_data: list[DSLocation] = [
                dungeon="ToS",
                tos_section=0x5,
                no_model=True,
+               local=True,
                hint_entrance=['ToS 18F Exit'],
                scenes=[0x2300],
                ),
@@ -1514,6 +1515,7 @@ new_loc_data: list[DSLocation] = [
                vanilla_item="Forest Source",
                address=STAddr.adv_flags_0,
                value=0x10,
+               local=True,
                post_dungeon="Wooded Temple",
                goal="GOAL: Defeat Stagnox",
                ut_connect="EVENT: Defeat Stagnox",
@@ -1970,6 +1972,7 @@ new_loc_data: list[DSLocation] = [
                vanilla_item="Snow Source",
                address=STAddr.adv_flags_16,
                value=0x80,
+               local=True,
                post_dungeon="Blizzard Temple",
                goal="GOAL: Defeat Fraaz",
                ut_connect="EVENT: Defeat Fraaz",
@@ -2371,6 +2374,7 @@ new_loc_data: list[DSLocation] = [
                vanilla_item="Ocean Source",
                address=STAddr.adv_flags_17,
                value=0x1,
+               local=True,
                post_dungeon="Marine Temple",
                goal="GOAL: Defeat Cactops",
                location_groups=['Cactops'],
@@ -2470,6 +2474,7 @@ new_loc_data: list[DSLocation] = [
                has_slot_data=[['randomize_minigames', [0x4, 0x5]]],
                hint_entrance=['Pirate Hideout Game Cave', 'Pirate Hideout Board Train', 'Pirate Hideout Bomb Cave'],
                scenes=[0x3a00],
+               no_model=True
                ),
     DSLocation("Lost at Sea Buried Chest",
                id=181,
@@ -2851,6 +2856,7 @@ new_loc_data: list[DSLocation] = [
                hint_entrance_secondary=['Mountain Temple 1F Exit', 'Mountain Temple B4 North Staircase',
                                         'Mountain Temple B4 Blue Warp'],
                hint_entrance_tertiary=['Mountain Temple Lobby Board Train'],
+               scenes=[0x1c06, 0x1c01]
                ),
     DSLocation("Mountain Temple 1F NE Chest",
                id=211,
@@ -2975,6 +2981,7 @@ new_loc_data: list[DSLocation] = [
                id=220,
                address=STAddr.adv_flags_20,
                value=0x10,
+               local=True,
                region="mtt vulcano",
                vanilla_item="Fire Source",
                ut_connect="EVENT: Defeat Vulcano",
@@ -3410,6 +3417,7 @@ new_loc_data: list[DSLocation] = [
                vanilla_item="Sand Source",
                address=STAddr.adv_flags_1a,
                value=0x1,
+               local=True,
                region="dt post skeldritch",
                location_groups=['Skeldritch'],
                ut_connect="EVENT: Defeat Capbone",
@@ -4866,7 +4874,7 @@ new_loc_data: list[DSLocation] = [
     DSLocation("Icy Spring Buy Mega Ice",
                id=398,
                address=STAddr.cargo_0,
-               value=0x14,
+               value=0,
                vanilla_item="Cargo: Mega Ice",
                location_groups=['Icy Spring', 'Buy Cargo'],
                has_slot_data=[['randomize_cargo', [0x0, 0x2, 0x3]]],
@@ -5248,6 +5256,7 @@ new_loc_data: list[DSLocation] = [
                conditional=conditional_cargo,
                region="castle town fish",
                hint_entrance=['Castle Town Board Train', 'Castle Town North'],
+               scenes=[0x2900, 0x290E]
                ),
     DSLocation("Mayscore Deliver Steel",
                id=425,
@@ -5357,8 +5366,9 @@ new_loc_data: list[DSLocation] = [
                ),
     DSLocation("Goron Village Pick Up City Goron",
                id=433,
-               address=STAddr.adv_flags_3a,
-               value=0x1,
+               address=STAddr.passenger_tag_0,
+               value=0x474F4350,
+               exact_read=True,
                vanilla_item="Passenger: City Goron",
                location_groups=['Goron Village', 'Pick Up Passengers'],
                has_slot_data=[['randomize_passengers', [0x2, 0x3]]],

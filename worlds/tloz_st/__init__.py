@@ -673,8 +673,9 @@ class SpiritTracksWorld(WorldParent):
         location = Location(self.player, location_name, self.location_name_to_id[location_name], region)
         region.locations.append(location)
 
-        if local or location_name in self.required_boss_locs or location_name:
+        if local:
             location.item_rule = lambda item: item.player == self.player
+            # print(f"Local item for {self.player_name}: {location.name}")
 
     def create_regions(self):
         # Create regions
@@ -707,7 +708,7 @@ class SpiritTracksWorld(WorldParent):
             if not self.location_is_active(location_name, location_data):
                 continue
 
-            is_local = "local" in location_data and location_data["local"] is True
+            is_local = location_data.local
             if location_name in self.required_boss_locs:
                 is_local = True
             self.create_location(location_data.region, location_name, is_local)
@@ -872,7 +873,7 @@ class SpiritTracksWorld(WorldParent):
              for reg, count in regions.items()]
 
         if self.options.randomize_stamps.value in [1, 4]:
-            excluded_dungeons = self.non_required_dungeons if self.options.exclude_dungeons else []
+            excluded_dungeons = self.non_required_dungeons if self.options.exclude_dungeons.value else []
             [self.create_event(LOCATIONS_DATA[loc].region.replace("station", "event"), "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
 
         # Create rupee farming events
@@ -937,17 +938,16 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("oct 6f sw arena event", "_oct_6f_arena")
         if (not self.options.open_blue_warps.value
             and self.options.exclude_dungeons.value == 2
-            and self.shuffled_dungeon_lookup
             and self.options.shuffle_warps.value in [0, 5]):
-                if self.shuffled_dungeon_lookup["Wooded Temple"] not in self.non_required_dungeons:
+                if self.shuffled_dungeon_lookup.get("Wooded Temple", "Wooded Temple") not in self.non_required_dungeons:
                     self.create_event("wt warp event", "_wt_warp")
-                if self.shuffled_dungeon_lookup["Blizzard Temple"] not in self.non_required_dungeons:
+                if self.shuffled_dungeon_lookup.get("Blizzard Temple", "Blizzard Temple") not in self.non_required_dungeons:
                     self.create_event("bt warp event", "_bt_warp")
-                if self.shuffled_dungeon_lookup["Marine Temple"] not in self.non_required_dungeons:
+                if self.shuffled_dungeon_lookup.get("Marine Temple", "Marine Temple") not in self.non_required_dungeons:
                     self.create_event("oct warp event", "_oct_warp")
-                if self.shuffled_dungeon_lookup["Mountain Temple"] not in self.non_required_dungeons:
+                if self.shuffled_dungeon_lookup.get("Mountain Temple", "Mountain Temple") not in self.non_required_dungeons:
                     self.create_event("mtt warp event", "_mtt_warp")
-                if self.shuffled_dungeon_lookup["Desert Temple"] not in self.non_required_dungeons:
+                if self.shuffled_dungeon_lookup.get("Desert Temple", "Desert Temple") not in self.non_required_dungeons:
                     self.create_event("dt warp event", "_dt_warp")
         else:
             create_blue_warp_events()
@@ -1090,7 +1090,7 @@ class SpiritTracksWorld(WorldParent):
                 # print(f"\ttear")
                 filler_item_count += 1
                 continue
-            if "stamp" in loc_data and self.options.randomize_stamps.value == 2:
+            if loc_data.stamp is not None and self.options.randomize_stamps.value == 2:
                 forced_item = self.create_item(item_name)
                 self.multiworld.get_location(loc_name, self.player).place_locked_item(forced_item)
                 # print(f"Locking stamp item {item_name} to {loc_name}")
@@ -1204,7 +1204,7 @@ class SpiritTracksWorld(WorldParent):
                 keyrings = chosen_keyrings
             res += [(i, 1) for i in keyrings]
 
-        print(f"Key Items: {res}")
+        # print(f"Key Items: {res}")
         return res
 
     def choose_track_items(self):
@@ -1271,8 +1271,8 @@ class SpiritTracksWorld(WorldParent):
         required_filler = len(self.locations_to_exclude)
         shop_location_count = len([i for i in self.location_names if i in LOCATION_GROUPS["Rupee Locations"]])
         max_non_filler = filler_count - required_filler
-        print(f"Shop location count: {shop_location_count}")
-        print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
+        # print(f"Shop location count: {shop_location_count}")
+        # print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
         if max_non_filler <= 0:
             raise FillError(f"Not enough room in item pool for filler items, please adjust your settings.")
 
@@ -1280,7 +1280,7 @@ class SpiritTracksWorld(WorldParent):
         cascade = [99, 100, 150, 200, 300, 500, 2500]
         filler_values = [2500]*(((max_non_filler-shop_location_count)*6)//10)
         total_rupees = rupees_required*2+2500
-        print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
+        # print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
         if sum(filler_values) < total_rupees:
             filler_values += [2500]*math.ceil((total_rupees-sum(filler_values))/2400)
             print(f"Not enough room in filler pool for rupees, adding more regal rings")
@@ -1289,7 +1289,7 @@ class SpiritTracksWorld(WorldParent):
             filler_values.remove(i)
             if i != 100:
                 filler_values.append(cascade[cascade.index(i) - 1])
-        print(f"New rupee sum: {sum(filler_values)}/{rupees_required}")
+        # print(f"New rupee sum: {sum(filler_values)}/{rupees_required}")
 
         # Create items for the corresponding values
         rupee_choices = {99: "Big Green Rupee (100)",
@@ -1531,8 +1531,6 @@ class SpiritTracksWorld(WorldParent):
         item_pool_dict = self.build_item_pool_dict()
         self.get_extra_filler_items(item_pool_dict)
         items = []
-        if "Small Key (ToS 2)" in item_pool_dict and "Keyring (ToS 2)" in item_pool_dict:
-            raise KeyError(f"Both Key and Keyring in pool!")
 
         for item_name, quantity in item_pool_dict.items():
             # print(f"Creating items: {item_name}: {quantity}")
@@ -1826,6 +1824,8 @@ class SpiritTracksWorld(WorldParent):
         # Get target groups
         groups = self.create_er_target_groups(type_option_lookup, pools)
         # print(f"Shuffling Entrances {entrances_to_shuffle} with groups {decode_recursive(groups)}")
+        # print(f"Target Groups: {decode_recursive(groups)}")
+        # print(f"Entrances: {[(e.name, decode_entrance_groups(e.randomization_group)) for e in entrances_to_shuffle]}")
 
         # Entrance Plando
         plando_data: list[tuple[str, str]] = []
@@ -1851,7 +1851,7 @@ class SpiritTracksWorld(WorldParent):
         for i in range(st_max_er_attempts):
             try:
                 self.er_placement_state = randomize_entrances(self, coupled, groups)
-                print(f"ER Placements: {self.er_placement_state.pairings}")
+                # print(f"ER Placements: {self.er_placement_state.pairings}")
                 break
             except EntranceRandomizationError as error:
                 if st_max_er_attempts > 5 and i % 5 == 4:

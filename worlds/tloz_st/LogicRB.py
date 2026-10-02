@@ -672,7 +672,8 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["snowdrift station", "snowdrift", False, has_tracks("Snowdrift Station")],
         ["snowdrift", "snowdrift station", False, None],
         ["snowdrift", "snowdrift cave", True, None],
-        ["snowdrift cave", "snowdrift reward", False, (has_range | (has_sword_beam & hard_logic)) & can_kill_freezards],
+        ["snowdrift cave", "snowdrift reward", False, (has_range | (has_sword_beam & hard_logic))
+         & can_kill_freezards & (hard_logic | (has_boomerang & has_whirlwind))],  # vanilla hint reqs
 
         ["snowdrift cave", "octive arena", True, None],
         ["snowdrift cave", "frostflame cave", True, None],

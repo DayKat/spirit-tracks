@@ -1372,17 +1372,17 @@ class SpiritTracksClient(DSZeldaClient):
         item_priority = {}
         for loc_name in locations:
             loc_data = LOCATIONS_DATA[loc_name]
-            vanilla_item = loc_data.get("vanilla_item", []) or loc_data.get("hidden_vanilla_item", [])
+            vanilla_item = loc_data.vanilla_item or loc_data.hidden_vanilla_item
             vanilla_items = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
-            priority = loc_data.get("priority", 0)
+            priority = loc_data.priority
 
-            if loc_data.get("farmable", "") in ["remove", "conditional"] and loc_data["id"] in ctx.checked_locations:
+            if loc_data.farmable in ["remove", "conditional"] and loc_data.id in ctx.checked_locations:
                 continue
 
             for item in vanilla_items:
                 if not priority:
                     # set location_id to None if there's a location conflict
-                    item_location_check[item] = None if item in item_location_check else loc_data['id']
+                    item_location_check[item] = None if item in item_location_check else loc_data.id
                     continue
 
                 # Sort locations by priority if applicable
@@ -1391,9 +1391,9 @@ class SpiritTracksClient(DSZeldaClient):
 
                 if hasattr(self.item_data[item], "progressive_model"):
                     for prog_item in self.item_data[item].progressive_model:
-                        item_location_check[prog_item] = loc_data['id']
+                        item_location_check[prog_item] = loc_data.id
 
-                item_location_check[item] = loc_data['id']
+                item_location_check[item] = loc_data.id
                 item_priority[item] = priority
 
         printl(f"Items with locations: {[(i, l) for i, l in item_location_check.items()]}")
@@ -1444,7 +1444,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def unset_special_vanilla_items(self, ctx, location, item):
         # las chest is the only conditional for now, if las is shuffled make it give nothing
-        if location.get("farmable", "") == "conditional" and not str(self.entrances["Lost at Sea Dungeon Reward Room South"].id) in ctx.slot_data["er_pairings"]:
+        if location.farmable == "conditional" and not str(self.entrances["Lost at Sea Dungeon Reward Room South"].id) in ctx.slot_data["er_pairings"]:
             self.last_vanilla_item.pop()
 
     async def set_shop_models(self, ctx: "BizHawkClientContext", on_load=True):
