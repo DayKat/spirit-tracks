@@ -160,7 +160,6 @@ class SpiritTracksWorld(WorldParent):
         self.non_required_sections = []
         self.dungeon_name_groups = {}
         self.locations_to_exclude = set()
-        self.ut_locations_to_exclude = set()
         self.extra_filler_items = []
         self.excluded_dungeons = []
         self.active_rabbit_locations: list[str] = []
@@ -199,6 +198,7 @@ class SpiritTracksWorld(WorldParent):
         self.required_rupees = 0
         self.track_items = []
         self.raw_track_items = []
+        self.shop_location_count: int = 0
 
         self.starting_entrance: str = "Niko's House Exit"
 
@@ -245,13 +245,13 @@ class SpiritTracksWorld(WorldParent):
             self.restrict_non_local_items()
             self.options.compass_shard_count.value = min(self.options.compass_shard_count.value, self.options.compass_shard_total.value)
             self.active_rabbit_locations = self.choose_rabbit_locations()
+            # print(f"Rabbit items: {self.rabbit_item_dict}")
             self.rabbit_item_dict = self.choose_rabbit_items()
             self.choose_stamp_items()
             if self.options.shuffle_portals.value and self.options.portal_behavior.value == 2:
                 self.options.portal_behavior.value = 1
             if self.options.shuffle_stations.value:  # Don't want to deal with this yet
                 self.options.tos_unlock_base_item.value = 0
-            # print(f"Rabbit items: {self.rabbit_item_dict}")
             if "all" in self.options.entrance_directionality.value:
                 self.options.entrance_directionality.value = set(self.options.entrance_directionality.valid_keys)
             self.plando_tos_sections()
@@ -712,6 +712,8 @@ class SpiritTracksWorld(WorldParent):
             if location_name in self.required_boss_locs:
                 is_local = True
             self.create_location(location_data.region, location_name, is_local)
+            if location_name in LOCATION_GROUPS["Rupee Locations"]:
+                self.shop_location_count += 1
 
         self.create_events()
         self.exclude_locations_automatically()
@@ -734,99 +736,6 @@ class SpiritTracksWorld(WorldParent):
         if not location_data.conditional:
             return True
         return location_data.conditional(self, location_data)
-        #
-        # if not location_data.get("conditional", False) and "rabbit" not in location_data and "dungeon" not in location_data and "tos_section" not in location_data and "post_dungeon" not in location_data:
-        #     return True
-        #
-        # if "tos_section" in location_data:
-        #     if "stamp" in location_data:
-        #         return self.options.randomize_stamps.value in [1, 2, 3]
-        #     bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
-        #     tears = self.options.randomize_tears.value != -1 if location_data.get("conditional", False) == "tears" else True
-        #     return bk and tears and (location_data["tos_section"] not in self.non_required_sections or self.options.exclude_sections != "remove")
-        # if "dungeon" in location_data:
-        #     stamp = self.options.randomize_stamps.value in [1, 2, 3] if "stamp" in location_data else True
-        #     bk = self.options.randomize_boss_keys.value if location_name.endswith("Boss Key") else True
-        #     # print(f"Location is active: {location_name}? {location_data['dungeon'] not in self.non_required_dungeons}")
-        #     return stamp and bk and (self.options.exclude_dungeons != "remove" or location_data["dungeon"] not in self.non_required_dungeons)
-        # if location_name == "Marine Temple Lobby Ferrus Force Gem":
-        #     return self.options.randomize_passengers.value
-        # if location_name in self.near_dungeon_lookup:
-        #     if self.options.exclude_dungeons.value != 2:
-        #         return True
-        #     return self.near_dungeon_lookup[location_name] not in self.non_required_dungeons
-        #
-        # if location_name.startswith("Bonus Starting Item"):
-        #     return location_data["value"] <= self.options.free_starting_items.value
-        # if "rabbit" in location_data:
-        #     return location_name in self.active_rabbit_locations
-        # if "Portal" in location_name:
-        #     return self.options.portal_checks
-        # if location_name in LOCATION_GROUPS["Rabbit Rewards"]:
-        #     return self.options.rabbitsanity.value
-        # if "minigame" in location_data and self.options.randomize_minigames.value:
-        #     if (location_name in ["Castle Town Take 'em All On Level 3",
-        #                          "Castle Town Take 'em All On Level 3 Capbone Chest"]
-        #             and "Castle Town Take 'em All On Level 3" in self.required_boss_locs):
-        #         return True  # If plandoed dungeon include
-        #     # print(f"Minigame {location_name} {self.options.randomize_minigames.value in location_data['minigame']}")
-        #     if location_name in LOCATION_GROUPS["Ends of the Earth"] and self.options.shuffle_eote.value:
-        #         return True
-        #     return self.options.randomize_minigames.value in location_data["minigame"]
-        # if location_name in LOCATION_GROUPS["Stamp Stands"]:
-        #     return self.options.randomize_stamps.value in [1, 2, 3]
-        # if location_name in LOCATION_GROUPS["Niko"]:
-        #     # If dungeon stamp stands are excluded with vanilla stamps, niko has to give less items
-        #     if self.options.exclude_dungeons.value and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2, 4]:
-        #         if len(self.non_required_dungeons) > 5:
-        #             return location_name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
-        #         return location_name not in ["Outset Niko 20 Stamps Reward"]
-        #     return self.options.randomize_stamps.value
-        # if self.options.shopsanity.value and location_name in LOCATION_GROUPS["Shop Locations"]:
-        #     if location_name in LOCATION_GROUPS["Shop Restock Locations"]:
-        #         if "uniques" in self.options.shopsanity.value:
-        #             return False
-        #         if location_name == "Beedle Shop Purple Potion":
-        #             return "potions" in self.options.shopsanity.value
-        #         if location_name == "Snowfall Supermarket Treasure":
-        #             return "treasure" in self.options.shopsanity.value
-        #         if location_name == "Goron Shop Postcards":
-        #             return "postcards" in self.options.shopsanity.value
-        #     if location_name in LOCATION_GROUPS["Shop Treasure Locations"]:
-        #         return "treasure" in self.options.shopsanity.value
-        #     if location_name in LOCATION_GROUPS["Shop Unique Locations"]:
-        #         return "uniques" in self.options.shopsanity.value
-        #     if location_name in LOCATION_GROUPS["Shop Potion Locations"]:
-        #         return "potions" in self.options.shopsanity.value
-        #     if location_name in LOCATION_GROUPS["Shop Shield Locations"]:
-        #         return "shields" in self.options.shopsanity.value
-        #     if location_name in LOCATION_GROUPS["Shop Postcard Locations"]:
-        #         return "postcards" in self.options.shopsanity.value
-        #     if location_name in LOCATION_GROUPS["Shop Ammo Locations"]:
-        #         return "ammo" in self.options.shopsanity.value
-        # if location_name == "Anouki Village Repair Fence":
-        #     return self.options.randomize_passengers.value or self.options.randomize_cargo.value
-        # if location_name == "Anouki Village Fence Progress Gift":
-        #     return self.options.randomize_passengers.value and self.options.randomize_cargo.value
-        # if self.options.randomize_passengers.value and location_name in LOCATION_GROUPS["Passenger Locations"]:
-        #     if location_data.slot_data:
-        #         for option, values, *args in location_data["slot_data"]:
-        #             if option != "randomize_passengers":
-        #                 continue
-        #             values = values if isinstance(values, list) else [values]
-        #             if self.options.randomize_passengers.value not in values:
-        #                 return False
-        #         return True
-        # if self.options.randomize_cargo.value and location_name in LOCATION_GROUPS["Cargo Locations"]:
-        #     if "slot_data" in location_data:
-        #         for option, values, *args in location_data["slot_data"]:
-        #             if option != "randomize_cargo":
-        #                 continue
-        #             values = values if isinstance(values, list) else [values]
-        #             if self.options.randomize_cargo.value not in values:
-        #                 return False
-        #         return True
-        # return False
 
     def create_events(self):
         if self.options.goal == "defeat_malladus":
@@ -978,10 +887,7 @@ class SpiritTracksWorld(WorldParent):
 
 
     def exclude_locations_automatically(self):
-        locations_to_exclude = set()
-
-        self.ut_locations_to_exclude = locations_to_exclude.copy()
-        self.locations_to_exclude = locations_to_exclude
+        self.locations_to_exclude = set()
 
         # Filter excluded dungeons, and account for dungeon/boss shuffle
         if self.options.exclude_dungeons == "exclude":
@@ -1137,7 +1043,7 @@ class SpiritTracksWorld(WorldParent):
         else:
             add_items += [("Bomb Bag", 1), ("Bow", 1), ("Bomb Bag Upgrade", 2), ("Quiver Upgrade", 2)]
         if self.options.shields_in_pool:
-            add_items += [("Shield", math.ceil(filler_item_count/60)), ("Ancient Shield", 1)]
+            add_items += [("Shield", 3), ("Ancient Shield", 1)]
         add_items += [(i, 1) for i in ITEM_GROUPS["Non-Progressive Main Items"]]
         if self.options.dark_realm_access.value in [2, 3] and self.options.compass_shard_total.value > 1:
             add_items += [("Compass of Light Shard", self.options.compass_shard_total.value)]
@@ -1234,7 +1140,7 @@ class SpiritTracksWorld(WorldParent):
         add_items = [(i, 1) for i in track_items]
         # print(len(add_items), add_items)
         self.raw_track_items = track_items
-
+        # print(f"Track items: {add_items}")
         return add_items
 
     def choose_starting_tracks(self):
@@ -1264,21 +1170,19 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.cannon_logic.value in [0, 1]:
             self.options.start_inventory_from_pool.value.update({"Cannon": 1})
-        # print(self.options.start_inventory_from_pool.value)
+        # print(f"starting items: {self.options.start_inventory_from_pool.value}")
 
     def choose_filler_items(self, filler_count, item_pool_dict):
         rupees_required = self.get_required_rupees()
         required_filler = len(self.locations_to_exclude)
-        shop_location_count = len([i for i in self.location_names if i in LOCATION_GROUPS["Rupee Locations"]])
-        max_non_filler = filler_count - required_filler
-        # print(f"Shop location count: {shop_location_count}")
-        # print(f"Filler Count: {filler_count} | Excluded {required_filler} remaining {max_non_filler}")
+        max_non_filler = filler_count - required_filler - self.shop_location_count
+        # print(f"Filler Count: {filler_count} | Excluded {required_filler} | Shop location count: {self.shop_location_count} | remaining {max_non_filler}")
         if max_non_filler <= 0:
             raise FillError(f"Not enough room in item pool for filler items, please adjust your settings.")
 
         # Start with 60% of the remaining filler pool as rupee items, and cascade down until you've got 3 times the required rupees.
         cascade = [99, 100, 150, 200, 300, 500, 2500]
-        filler_values = [2500]*(((max_non_filler-shop_location_count)*6)//10)
+        filler_values = [2500]*((max_non_filler*6)//10)
         total_rupees = rupees_required*2+2500
         # print(f"Need {rupees_required} rupees, starting with pool of {len(filler_values)} value {sum(filler_values)} for target {total_rupees}")
         if sum(filler_values) < total_rupees:
@@ -2020,12 +1924,11 @@ class SpiritTracksWorld(WorldParent):
         filler_item_names = list(ITEM_GROUPS["Common Treasures"] |
                              # ITEM_GROUPS["Uncommon Treasures"] |
                              ITEM_GROUPS["Refill Items"] |
-                             ITEM_GROUPS["Small Rupees"]
-                             ) + ["Big Green Rupee (100)"]
+                             ITEM_GROUPS["Small Rupees"])
         rare_filler_items = list(ITEM_GROUPS["Potions"])
 
         # 1/5 chance to roll a rare filler item
-        if self.random.randint(1, 15) == 1:
+        if self.random.randint(1, 25) == 1:
             return self.random.choice(rare_filler_items)
         return self.random.choice(filler_item_names)
 
@@ -2038,8 +1941,11 @@ class SpiritTracksWorld(WorldParent):
         mapping = self.item_mapping_collect.get(item.name, None)
         if mapping is not None:
             mapping = mapping if isinstance(mapping, list) else [mapping]
-            # print(f"Mapping {mapping} {state.prog_items[self.player][mapping[0]]} for item {item.name}")
+            # if mapping[0][0].endswith("Rabbit"):
+            #     print(f"Mapping {mapping} {state.prog_items[self.player][mapping[0][0]]} for item {item.name}")
             for m in mapping:
+                # if m[0].endswith("Rabbit") and state.prog_items[self.player][m[0]]+m[1] >= 10:
+                #     print(f"\t{item.name}: {state.prog_items[self.player][m[0]]} += {m[1]} for {m[0]}")
                 state.prog_items[self.player][m[0]] += m[1]
 
         return True

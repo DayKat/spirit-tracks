@@ -687,11 +687,15 @@ DUNGEON_STAGES_TO_ENTRANCE_SCENE = {
 ITEM_MAPPING = {
         i: "Rupees" for i in ITEM_GROUPS["Rupee Items"]
     } | {
-        f"Grass Rabbits ({i})": "Grass Rabbit" for i in list(range(2, 6)) + [10]
-    } | {
-        f"Snow Rabbits ({i})": "Snow Rabbit" for i in list(range(2, 6)) + [10]
+        f"{r} Rabbits ({i})": f"{r} Rabbit" for i in list(range(2, 6)) + [10] for r in rabbit_realms
     } | {
         t : "Treasure" for t in ITEM_GROUPS["All Treasures"]
+    } | {
+        f"Stamp Pack ({i})": ("Stamp", i) for i in range(2, 6)
+    } | {
+        i: ("Stamp", 1) for i in ITEM_GROUPS["Stamps"]
+    } | {
+        "_stamp_stand": ("Stamp", 1)
     }
 
 # Stamp stuff

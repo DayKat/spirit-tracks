@@ -1,0 +1,34 @@
+null:
+  progression_balancing: 50
+Spirit Tracks:
+  accessibility: full
+  plando_items: []
+  remove_items_from_pool: {}
+  death_link: 'false'
+  local_items: []
+  non_local_items: []
+  start_inventory: {}
+  start_inventory_from_pool: {}
+  start_hints: []
+  start_location_hints: []
+  exclude_locations: []
+  priority_locations: []
+  item_links: []
+
+  randomize_start: niko
+  shuffle_houses: no_shuffle
+  shuffle_caves: no_shuffle
+  shuffle_overworld: no_shuffle
+  shuffle_stations: no_shuffle
+  shuffle_portals: no_shuffle
+  shuffle_train_transitions: no_shuffle
+  shuffle_dungeon_entrances: no_shuffle
+  shuffle_tos_sections: no_shuffle
+  shuffle_tos_staircase: no_shuffle
+  shuffle_bosses: no_shuffle
+  shuffle_dungeon_rooms: no_shuffle
+  shuffle_warps: no_shuffle
+  shuffle_hyrule_castle: no_shuffle
+  shuffle_disorientation: no_shuffle
+  shuffle_eote: no_shuffle
+  shuffle_las: no_shuffle
