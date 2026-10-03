@@ -1376,7 +1376,7 @@ class SpiritTracksClient(DSZeldaClient):
             vanilla_items = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
             priority = loc_data.priority
 
-            if loc_data.farmable in ["remove", "conditional"] and loc_data.id in ctx.checked_locations:
+            if vanilla_items is None or (loc_data.farmable in ["remove", "conditional"] and loc_data.id in ctx.checked_locations):
                 continue
 
             for item in vanilla_items:

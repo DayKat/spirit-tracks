@@ -295,9 +295,8 @@ def has_rupees(count):
               Has("Rupees", int(count*0.7)),
               Has("Treasure Rupees", int(count*0.7) + 2500) & Has("_can_sell_treasure"))
 
-
 has_dungeon_rewards = ([
-            OptionFilter(SpiritTracksDarkRealmUnlock, SpiritTracksDarkRealmUnlock.option_dungeons, operator="ne")]
+            OptionFilter(SpiritTracksDarkRealmUnlock, [0, 2], operator="in")]
             | Has("_dungeon_reward", count=FromOption(SpiritTracksDungeonCount), options=[OptionFilter(SpiritTracksDarkRealmUnlock, [1, 3], "in")]))
 
 @dataclasses.dataclass

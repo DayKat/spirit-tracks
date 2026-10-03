@@ -2733,7 +2733,6 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Fire realm prevent ice crash": {
         "on_scenes": [0x700],
-        "not_has_groups": ["Tracks: Fire Glyph"],
         "unset_if_true": [(STAddr.adv_flags_20, 0x20)]
     },
     "RESET Passengers": {
