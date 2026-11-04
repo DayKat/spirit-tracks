@@ -26,8 +26,9 @@ default_train_speed = (-143, 0, 115, 193)
 train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
 # Addresses to read each cycle
-read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.stage, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
+read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open, STAddr.rabbit_blocker]
+read_keys_post_load = [STAddr.stage]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
 read_keys_train = [STAddr.train_health]
 
@@ -233,7 +234,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.entrances: dict[str, "STTransition"] = ENTRANCES
         self.boss_warp_entrance = None
         self.location_id_to_name = {loc.id: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
-        self.exit_coords_addr: tuple = (STAddr.train_trans_x, STAddr.train_trans_y, STAddr.train_trans_z)
+        self.exit_coords_addr: tuple = STAddr.train_coords
 
         # Train speed stuff
         self.reset_cycles: int = 0
@@ -558,9 +559,8 @@ class SpiritTracksClient(DSZeldaClient):
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
         await super().game_watcher(ctx)
 
-
     def clear_variables(self):
-        pass
+        self.loaded_addresses = False
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always.copy()
@@ -595,7 +595,8 @@ class SpiritTracksClient(DSZeldaClient):
                 self.zelda_text_address = Address.from_pointer(await STAddr.zelda_pointer.read(ctx) + ZELDA_TEXT_OFFSET, size=4)
                 print(f"Zelda text address: {self.zelda_text_address}")
                 read_keys.append(self.zelda_text_address)
-
+        if self.loaded_addresses:
+            read_keys += read_keys_post_load
 
         self.main_read_list = read_keys
         printl(f"read keys len: {len(read_keys)}")
@@ -624,6 +625,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.train_speed = host_settings.get("train_speed", self.train_speed)
         self.train_snap_speed = host_settings.get("train_snap_speed", self.train_snap_speed)
         self.train_quick_station = host_settings.get("train_quick_station", self.train_quick_station)
+
+        await load_on_connect(ctx)
 
     async def process_in_menu(self, ctx, read_result):
         await self.get_saved_scene(ctx, saved_scene_key)
@@ -655,6 +658,16 @@ class SpiritTracksClient(DSZeldaClient):
             res.append(STAddr.adv_flags_1.get_inner_write_list(0x80))
 
         return res
+
+    async def load_addresses(self, ctx) -> bool:
+        print(f"loaded? {self.loaded_addresses}")
+        if not self.loaded_addresses:
+            await load_on_enter_game(ctx)
+            self.loaded_addresses = True
+            await self.update_main_read_list(ctx, self.current_stage)
+            print(f"Loaded addresses")
+            return True
+        return False
 
     async def enter_game(self, ctx):
         starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
@@ -719,7 +732,7 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Save Complete!")
 
         # Weird scene value on load from menu, set to last saved scene
-        if read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
+        if self.loaded_addresses and read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
             stage = (self.last_saved_scene & 0xFF00) >> 8
 
             printl(f"Overwriting weird scene: {hex(self.last_saved_scene)}")
@@ -1821,8 +1834,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.boss_key_y, self.boss_key_read = None, None
 
     async def delete_boss_key(self, ctx):
-        pointer = await STAddr.boss_key_deletion_pointer.read(ctx)
-        printl(f"Deleting boss key @ {hex(pointer)}")
+        pointer: int  = 0
         bk_data =  BOSS_KEY_DATA[self.current_scene]
         size, offset = bk_data.get("deletion_data", (12, 0))
         actor_table = await self.get_actor_table(ctx)
@@ -1838,6 +1850,9 @@ class SpiritTracksClient(DSZeldaClient):
             self.oct_bk_offset = None
         if self.current_stage == 0x13:
             pointer, _ = await self.get_tos_bk_pointer(ctx)
+        if not pointer:
+            print(f"No boss key found")
+            return
         deletion_address = Address.from_pointer(pointer+offset, size)
         printl(f"Deleting boss key @ {deletion_address} size {size}")
         # printl(f"Deleting boss key @ {STAddr.boss_key_deletion}")

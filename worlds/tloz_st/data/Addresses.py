@@ -21,9 +21,22 @@ async def load_adv_flags(ctx):
 
     STAddr.watched_intro.set_addr(STAddr.adv_flags_12.addr)
 
+    STAddr.received_item_index.set_addr(STAddr.adv_flags_0 + 0x6C)
+    STAddr.slot_id.set_addr(STAddr.adv_flags_0 + 0x6E)
+
     STAddr.key_storage_0.set_addr(STAddr.adv_flags_0 + 0x70)
     STAddr.key_storage_tos.set_addr(STAddr.adv_flags_0 + 0x71)
     STAddr.key_storage_2.set_addr(STAddr.adv_flags_0 + 0x72)
+
+    STAddr.received_item_index = Address(STAddr.adv_flags_0 + 0x6C, size=2)
+    STAddr.slot_id = Address(STAddr.adv_flags_0 + 0x6E, size=2)
+
+async def load_on_connect(ctx):
+    pass
+
+async def load_on_enter_game(ctx):
+    await STAddr.stage.load(ctx)  # TODO: add double loader support to load_multi()
+    print(f"Loaded stage: {STAddr.stage}")
 
 @dataclass
 class STAddr:
@@ -38,27 +51,17 @@ class STAddr:
     gAdventureFlags = Address(0x09b8, size=3, domain="Data TCM")
     gMapObjectManager = Address(0x0CE8, size=3, domain="Data TCM")
     gActorManager = Address(0x0ce4, size=3, domain="Data TCM")
+    gItemManager = Address.pointer(0x0fb4)
+    gPlayerManager = Address.pointer(0x0fbc)
+    gPlayer = Address.pointer(0x0fec)
+    gMapManager = Address.pointer(0x0e60)
+
+    gStageData = Address.pointer(0x09a4)
 
     # Version safe loaders
     map_object_table = DoubleAddressLoader(gMapObjectManager, 3)
     actor_table = DoubleAddressLoader(gActorManager, 3)
     adv_flags_0 = AddressLoader(gAdventureFlags, size=1, load_offset=0x14, name="adv_flags_0")
-
-    # async def load_adv_flags(self, ctx):
-    #     print(f"Loading adventure flags")
-    #     await self.adv_flags_0.load(ctx)
-    #     for i in range(1, 0x5c):
-    #         setattr(self, f"adv_flags_{hex(i)[2:]}", Address.from_pointer(self.adv_flags_0 + i))
-    #
-    #     self.sources = self.adv_flags_0
-    #     self.restorations = self.adv_flags_1
-    #     self.glyphs = self.adv_flags_2
-    #     self.activate_portals = self.adv_flags_30
-    #
-    #     self.key_storage_0 = Address.from_pointer(self.adv_flags_0 + 0x70)
-    #     self.key_storage_tos = Address.from_pointer(self.adv_flags_0 + 0x71)
-    #     self.key_storage_2 = self.set_starting_train = Address.from_pointer(self.adv_flags_0 + 0x72)
-
 
     # Fundamentals
     game_state = Address(0x060C48)
@@ -70,7 +73,7 @@ class STAddr:
     received_item_index = Address(0x265780, size=2)
     slot_id = Address(0x265782, size=2)
     
-    stage = Address(0x2690E0)
+    stage = DoubleAddressLoader(gStageData, 1, 0x58, 0x8C)
     floor = Address(0x1B2E98)
     room = Address(0x2690EA)
     entrance = Address(0x2690EB)
@@ -106,15 +109,10 @@ class STAddr:
     rabbits_4 = Address(0x262034, name="rabbits_4")
     rabbits_5 = Address(0x262035, name="rabbits_5")
     rabbits_6 = Address(0x262036, name="rabbits_6")
-    
-    gItemManager = Address.pointer(0x0fb4)
-    gPlayerManager = Address.pointer(0x0fbc)
-    gAdventureFlags = Address.pointer(0x0f74)
-    gPlayer = Address.pointer(0x0fec)
-    gMapManager = Address.pointer(0x0e60)
+
     stage_flag_pointer = Address(0x265164, size=4)
     mobj_table_pointer = Address(0x0499DC, size=3)
-    
+
     watched_intro = Address(0) # Address(0x265726)
 
     train_speed_fast = Address(0x136004, size=4)  # 0xc1 193
@@ -123,8 +121,6 @@ class STAddr:
     train_speed_reverse = Address(0x135FEC, size=4) # -143
     train_speed_pointer = Address(0x13F578, size=3)  # + 0x94 to get actual train speed
 
-    train_action = Address(0x2CA23C) # forest, but near train speed pointer
-    train_gear = Address(0x2CA438)  # forest, find pointer
     train_health = Address(0x2653a0)
 
     train_trans_x = Address(0x262090, size=4)
@@ -134,7 +130,7 @@ class STAddr:
     train_x = Address(0x264628, size=4)
     train_y = Address(0x26462C, size=4)
     train_z = Address(0x264630, size=4)
-    train_coords = (train_x, train_y,train_z)
+    train_coords = (train_x, train_y, train_z)
 
     # Inventory
     items_0 = Address(0x265320, name="items_0")
@@ -191,17 +187,11 @@ class STAddr:
     cargo_count_0 = Address(0x2655dc)
     cargo_count_1 = Address(0x2655e8)
 
-    # Boss key pointers
-    boss_key_deletion_pointer = Address(0x265620, size=3)  # points to 3 references, and deleting then deletes the key.
-
+    # Special events
     mtt_b1_heatoise_trigger_pointer = Address(0x1231B4, size=3)
-
-    # Object pointer table
-    tos_boss_door_pointer = Address(0x265668, size=4)
-
-    snurglin_keys = Address(0x2e986c)
     snurglar_pointer = Address(0x0499F4, size=3)
-    mountain_gate = Address(0x2e3640)
+    snurglin_keys = Address(0x2e986c)
+    # mountain_gate = Address(0x2e3640)
 
     # Stamps
     stamp_ids = Address(0x268f8c, size=20)
