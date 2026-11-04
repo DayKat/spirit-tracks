@@ -307,6 +307,8 @@ class SpiritTracksWorld(WorldParent):
         self.required_rupees = self.get_required_rupees()
 
     def choose_starting_entrance(self):
+        if not self.options.randomize_start.value:
+            raise EntranceRandomizationError(f"You need to define at least one starting entrance in the YAML. 'Niko' is the default entrance.")
         starting_entrances = self.options.randomize_start.value
 
         if "niko" in starting_entrances:
