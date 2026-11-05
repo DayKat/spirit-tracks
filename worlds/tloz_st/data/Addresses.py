@@ -51,8 +51,11 @@ async def load_on_enter_game(ctx):
         STAddr.menu,
         STAddr.health,
         STAddr.passenger_tag_0,
-        STAddr.cargo_0
+        STAddr.cargo_0,
+        STAddr.stage_flag_pointer
     ])
+
+    STAddr.mid_load.set_addr(STAddr.stage_flag_pointer+44)
 
     # Item manager assignments
     STAddr.heart_count.set_addr(STAddr.health+1)
@@ -91,6 +94,7 @@ async def load_on_enter_game(ctx):
     STAddr.equipped_cannon.set_addr(train_part_manager+4)
     STAddr.equipped_car.set_addr(train_part_manager + 8)
     STAddr.equipped_cart.set_addr(train_part_manager + 0xC)
+    STAddr.train_health.set_addr(STAddr.health+0x1E4)
 
     # Passengers
     STAddr.has_passenger_0.set_addr(STAddr.passenger_tag_0 + 0x4)
@@ -122,6 +126,38 @@ async def load_on_enter_game(ctx):
     STAddr.rabbits_5.set_addr(STAddr.rabbits + 5)
     STAddr.rabbits_6.set_addr(STAddr.rabbits + 6)
 
+    # Treausure
+    await STAddr.all_treasure_count.load(ctx)
+    print(f"Treasure manager: {STAddr.all_treasure_count}")
+    STAddr.demon_fossil_count.set_addr(STAddr.all_treasure_count + 0)
+    STAddr.stalfos_skull_count.set_addr(STAddr.all_treasure_count + 2)
+    STAddr.star_fragment_count.set_addr(STAddr.all_treasure_count + 4)
+    STAddr.bee_larvae_count.set_addr(STAddr.all_treasure_count + 6)
+    STAddr.wood_heart_count.set_addr(STAddr.all_treasure_count + 8)
+    STAddr.dark_pearl_loop_count.set_addr(STAddr.all_treasure_count + 10)
+    STAddr.white_pearl_loop_count.set_addr(STAddr.all_treasure_count + 12)
+    STAddr.ruto_crown_count.set_addr(STAddr.all_treasure_count + 14)
+    STAddr.dragon_scale_count.set_addr(STAddr.all_treasure_count + 16)
+    STAddr.pirates_necklace_count.set_addr(STAddr.all_treasure_count + 18)
+    STAddr.palace_dish_count.set_addr(STAddr.all_treasure_count + 20)
+    STAddr.goron_amber_count.set_addr(STAddr.all_treasure_count + 22)
+    STAddr.mystic_jade_count.set_addr(STAddr.all_treasure_count + 24)
+    STAddr.ancient_coin_count.set_addr(STAddr.all_treasure_count + 26)
+    STAddr.priceless_stone_count.set_addr(STAddr.all_treasure_count + 28)
+    STAddr.regal_ring_count.set_addr(STAddr.all_treasure_count + 30)
+
+
+
+async def load_on_train(ctx):
+    await load_multi(ctx, [
+        STAddr.train_speed_reverse
+    ])
+    # Train Speed Presets
+    STAddr.train_speed_stop.set_addr(STAddr.train_speed_reverse + 8)
+    STAddr.train_speed_med.set_addr(STAddr.train_speed_reverse + 16)
+    STAddr.train_speed_fast.set_addr(STAddr.train_speed_reverse + 24)
+    STAddr.train_speed_pointer.set_addr(STAddr.train_speed_reverse + 0x958C)
+
 @dataclass
 class STAddr:
     # print(f"Initializing STAddr")
@@ -146,7 +182,9 @@ class STAddr:
     gpCurrentGameModeMgr = Address.pointer(0x0994)
     gSaveManager = Address.pointer(0x0CE0)
     gMiscPointer = Address.pointer(0x01F0)
+    gTrainManager = Address.pointer(0x0640)
     gpMiscAdvManager = MultiAddressLoader(gMiscPointer, 1, [0x1BA08, 0, 0])
+    gStageFlagManager = Address.pointer(0x0CD8)
 
     # Version safe loaders
     map_object_table = DoubleAddressLoader(gMapObjectManager, 3)
@@ -200,15 +238,13 @@ class STAddr:
     rabbits_5 = Address(0x262035, name="rabbits_5")
     rabbits_6 = Address(0x262036, name="rabbits_6")
 
-    stage_flag_pointer = Address(0x265164, size=4)
-    mobj_table_pointer = Address(0x0499DC, size=3)
-
+    stage_flag_pointer = AddressLoader(gStageFlagManager, 4, 4)
     watched_intro = Address(0) # Address(0x265726)
 
     train_speed_fast = Address(0x136004, size=4)  # 0xc1 193
     train_speed_med = Address(0x135FFC, size=4)   # 0x73 115
     train_speed_stop = Address(0x135FF4, size=4)  # 0
-    train_speed_reverse = Address(0x135FEC, size=4) # -143
+    train_speed_reverse = AddressLoader(gTrainManager, 4, 0x9A4) # -143
     train_speed_pointer = Address(0x13F578, size=3)  # + 0x94 to get actual train speed
 
     train_health = Address(0x2653a0)
@@ -262,7 +298,7 @@ class STAddr:
     selected_station = Address(0x0BA65C)
     exiting_map = Address(0x260A44)
     last_x = Address(0x049B36, size=2)
-    quick_pen_coords = Address(0x0B509C, size=3)
+    quick_pen_coords = Address(0x0B509C, size=3)  # there's one in menu too
 
     # Passenger data
     has_passenger_0 = Address(0x265598, size=4)  # passenger happiness
@@ -390,7 +426,7 @@ class STAddr:
     activate_portals: "Address" = Address(0, name="activate_portals")
     
     # Treasure
-    all_treasure_count = Address(0x269000, size=32)
+    all_treasure_count = MultiAddressLoader(gMiscPointer, 32, [0x1ba10, 0, 0x3c])
     demon_fossil_count = Address(0x269000, size=2)
     stalfos_skull_count = Address(0x269002, size=2)
     star_fragment_count = Address(0x269004, size=2)
@@ -413,7 +449,7 @@ class STAddr:
     entrance_animation = Address(0x269108)  # 17 to prevent blue warps working immediately
     # 9 is the slow culprit
 
-    fade_timer = Address(0x0b5164, size=2)
+    fade_timer = Address(0x0b5164, size=2)  # used for entrance warp from intro
 
 
 

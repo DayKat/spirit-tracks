@@ -577,6 +577,8 @@ class SpiritTracksClient(DSZeldaClient):
             read_keys += read_keys_post_load
 
             if stage in range(4, 0xd):
+                await load_on_train(ctx)
+
                 self.on_train = True
                 read_keys += read_keys_train
                 self.health_address = STAddr.train_health
