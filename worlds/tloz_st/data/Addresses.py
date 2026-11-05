@@ -52,7 +52,10 @@ async def load_on_enter_game(ctx):
         STAddr.health,
         STAddr.passenger_tag_0,
         STAddr.cargo_0,
-        STAddr.stage_flag_pointer
+        STAddr.stage_flag_pointer,
+        STAddr.item_model_table,
+        STAddr.getting_location,
+        STAddr.saving
     ])
 
     STAddr.mid_load.set_addr(STAddr.stage_flag_pointer+44)
@@ -146,6 +149,8 @@ async def load_on_enter_game(ctx):
     STAddr.priceless_stone_count.set_addr(STAddr.all_treasure_count + 28)
     STAddr.regal_ring_count.set_addr(STAddr.all_treasure_count + 30)
 
+    # Other
+    await STAddr.entrance_animation.load(ctx)
 
 
 async def load_on_train(ctx):
@@ -186,16 +191,21 @@ class STAddr:
     gpMiscAdvManager = MultiAddressLoader(gMiscPointer, 1, [0x1BA08, 0, 0])
     gStageFlagManager = Address.pointer(0x0CD8)
 
+    # No idea what these actually are, the stuff i want is on huge offsets
+    entranceAnimationManager = Address.pointer(0x9c4)
+    modelTableManager = Address.pointer(0x09D4)
+    itemGetManager = Address.pointer(0x14b8)
+    saveManager = Address.pointer(0x1530)
+
     # Version safe loaders
     map_object_table = DoubleAddressLoader(gMapObjectManager, 3)
     actor_table = DoubleAddressLoader(gActorManager, 3)
     adv_flags_0 = AddressLoader(gAdventureFlags, size=1, load_offset=0x14, name="adv_flags_0")
 
     # Fundamentals
-    game_state = Address(0x060C48)
-    # rabbit_blocker = Address(0x2609DF)
     rabbit_blocker = Address(0x260867)
-    loading_room = Address(0x0c2FF0)
+    # loading_room = Address(0x0c2FF0)
+    loading_room = Address(0x394B, size=1, domain="Data TCM")
     mid_load = Address(0x265190)
 
     received_item_index = Address(0x265780, size=2)
@@ -210,8 +220,8 @@ class STAddr:
     respawn_room = Address(0x26207e)
     respawn_entrance = Address(0x26207f)
 
-    getting_location = Address(0x04B114)
-    saving = Address(0x049BD8)
+    getting_location = AddressLoader(itemGetManager, 1, 0x212) # 0x0x04B114
+    saving = AddressLoader(saveManager, 1, 0x58) # (0x049BD8)
     getting_tear_safety = Address(0x327B8C)
     getting_item_safety = Address(0x264648)
     entering_shop = Address(0x260A44)
@@ -444,9 +454,9 @@ class STAddr:
     priceless_stone_count = Address(0x26901c, size=2)
     regal_ring_count = Address(0x26901e, size=2)
 
-    item_model_table = Address(0x0af590)  # size=big
+    item_model_table = AddressLoader(modelTableManager, 1, 0x30E4C)  # size=big, 0x0af590 (actually starts with a blank 1 byte earlier, but don't think the game uses it)
 
-    entrance_animation = Address(0x269108)  # 17 to prevent blue warps working immediately
+    entrance_animation = MultiAddressLoader(entranceAnimationManager, 1, [0x1234, 0x144])  # 0x269108 | 17 to prevent blue warps working immediately
     # 9 is the slow culprit
 
     fade_timer = Address(0x0b5164, size=2)  # used for entrance warp from intro

@@ -774,7 +774,7 @@ class SpiritTracksClient(DSZeldaClient):
             ctx.watcher_timeout = 0.1
 
     def process_loading_variable(self, read_result) -> bool:
-        mid_load = read_result.get(STAddr.mid_load, True) == 0xFF
+        mid_load = self.loaded_addresses and read_result.get(STAddr.mid_load, True) == 0xFF
         if self._loading_scene and not self.loading_stage:
             if mid_load:
                 self.loading_stage = True
