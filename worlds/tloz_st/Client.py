@@ -26,7 +26,7 @@ default_train_speed = (-143, 0, 115, 193)
 train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
 # Addresses to read each cycle
-read_keys_always = [STAddr.game_state, STAddr.received_item_index, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
+read_keys_always = [STAddr.gStageData, STAddr.received_item_index, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
                     STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open, STAddr.rabbit_blocker]
 read_keys_post_load = [STAddr.stage]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
@@ -211,7 +211,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.item_groups = ITEM_GROUPS
 
         # Mandatory addresses
-        self.addr_game_state: "Address" = STAddr.game_state
+        self.addr_game_state: "Address" = STAddr.gStageData
         self.addr_slot_id: "Address" = STAddr.slot_id
         self.addr_stage: "Address" = STAddr.stage
         self.addr_room: "Address" = STAddr.room
@@ -290,6 +290,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.reload_map_objects: int = 0
         self.was_in_clog: bool = False
         self.on_train = False
+
+        self.title_screen_lock: bool = False
 
     # Commands
 
@@ -376,10 +378,18 @@ class SpiritTracksClient(DSZeldaClient):
 
 
     # Utility
-
-    # @staticmethod
-    # def in_game_comparison(in_game):
-    #     return in_game
+    async def is_in_game(self, ctx, in_game):
+        if not in_game:
+            self.title_screen_lock = False
+            return False
+        elif not self.title_screen_lock and not self.loaded_addresses:
+            current_stage = await Address.from_pointer(in_game).read(ctx)
+            if not current_stage:
+                self.title_screen_lock = True
+                return False
+        elif self.title_screen_lock:
+            return False
+        return True
 
     async def get_small_key_address(self, ctx) -> int:
         return STAddr.small_keys
@@ -560,7 +570,7 @@ class SpiritTracksClient(DSZeldaClient):
         await super().game_watcher(ctx)
 
     def clear_variables(self):
-        self.loaded_addresses = False
+        self.title_screen_lock = False
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always.copy()
@@ -732,13 +742,12 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Save Complete!")
 
         # Weird scene value on load from menu, set to last saved scene
-        if self.loaded_addresses and read_result[STAddr.stage] == 0x79 and self.last_saved_scene:
-            stage = (self.last_saved_scene & 0xFF00) >> 8
+        if self.loaded_addresses and read_result[STAddr.stage] == 0x79:
+            pointer = await STAddr.gStageData.read(ctx)
+            stage = await Address.from_pointer(pointer).read(ctx)
+            room = await Address.from_pointer(pointer+4*7+2, 1).read(ctx)
 
-            printl(f"Overwriting weird scene: {hex(self.last_saved_scene)}")
-            stage, room = (self.last_saved_scene & 0xFF00) >> 8, self.last_saved_scene & 0xFF
-
-            self.current_scene = self.last_saved_scene
+            self.current_scene = (stage << 8) + room
             self.current_stage = read_result[STAddr.stage] = stage
             read_result[STAddr.room] = room
             printl(hex(self.current_scene), hex(self.current_stage))

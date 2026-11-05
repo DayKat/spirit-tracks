@@ -36,6 +36,8 @@ async def load_on_connect(ctx):
 
 async def load_on_enter_game(ctx):
     await STAddr.stage.load(ctx)  # TODO: add double loader support to load_multi()
+    STAddr.room.set_addr(STAddr.stage.addr + 10)
+    STAddr.entrance.set_addr(STAddr.stage.addr + 11)
     print(f"Loaded stage: {STAddr.stage}")
 
 @dataclass
