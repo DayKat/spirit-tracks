@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from ..DSZeldaClient.subclasses import Address, AddressLoader ,DoubleAddressLoader, load_multi
+from ..DSZeldaClient.subclasses import Address, AddressLoader ,DoubleAddressLoader, load_multi, MultiAddressLoader
 
 addr_null = Address(0)
 
@@ -59,6 +59,7 @@ async def load_on_enter_game(ctx):
     item_manager = AddressLoader(STAddr.health+0x2C)
     await item_manager.load(ctx)
 
+    STAddr.equipped_item.set_addr(item_manager)
     STAddr.items_0.set_addr(item_manager.addr+0x8)
     STAddr.items_2.set_addr(item_manager.addr + 0xA)
     STAddr.arrow_capacity.set_addr(item_manager.addr + 4 * 6 + 0)
@@ -102,6 +103,25 @@ async def load_on_enter_game(ctx):
     STAddr.cargo_count_0.set_addr(STAddr.cargo_0+0x4)
     STAddr.cargo_count_1.set_addr(STAddr.cargo_0 + 0x10)
 
+    # Misc Adventure setup
+    await STAddr.gpMiscAdvManager.load(ctx)
+
+    STAddr.songs.set_addr(STAddr.gpMiscAdvManager+0x8C)
+    STAddr.postcard_count.set_addr(STAddr.gpMiscAdvManager + 0x7E)
+    STAddr.stamp_ids.set_addr(STAddr.gpMiscAdvManager + 0x68)
+    STAddr.stamp_coords.set_addr(STAddr.gpMiscAdvManager + 0x2C)
+
+    # Rabbits
+    await STAddr.rabbits.load(ctx)
+    print(f"Rabbit manager: {STAddr.rabbits}")
+    STAddr.rabbits_0.set_addr(STAddr.rabbits + 0)
+    STAddr.rabbits_1.set_addr(STAddr.rabbits + 1)
+    STAddr.rabbits_2.set_addr(STAddr.rabbits + 2)
+    STAddr.rabbits_3.set_addr(STAddr.rabbits + 3)
+    STAddr.rabbits_4.set_addr(STAddr.rabbits + 4)
+    STAddr.rabbits_5.set_addr(STAddr.rabbits + 5)
+    STAddr.rabbits_6.set_addr(STAddr.rabbits + 6)
+
 @dataclass
 class STAddr:
     # print(f"Initializing STAddr")
@@ -125,6 +145,8 @@ class STAddr:
     gStageData = Address.pointer(0x09a4)
     gpCurrentGameModeMgr = Address.pointer(0x0994)
     gSaveManager = Address.pointer(0x0CE0)
+    gMiscPointer = Address.pointer(0x01F0)
+    gpMiscAdvManager = MultiAddressLoader(gMiscPointer, 1, [0x1BA08, 0, 0])
 
     # Version safe loaders
     map_object_table = DoubleAddressLoader(gMapObjectManager, 3)
@@ -169,7 +191,7 @@ class STAddr:
     
     health = AddressLoader(gSaveManager, 1, 0)
     heart_count = AddressLoader(gSaveManager, 1, 1)
-    rabbits = Address(0x262030, size=7)
+    rabbits = MultiAddressLoader(gMiscPointer, 7, [0x2a10, 0, 0xb98])
     rabbits_0 = Address(0x262030, name="rabbits_0")
     rabbits_1 = Address(0x262031, name="rabbits_1")
     rabbits_2 = Address(0x262032, name="rabbits_2")
