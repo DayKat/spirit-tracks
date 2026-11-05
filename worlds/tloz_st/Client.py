@@ -26,9 +26,8 @@ default_train_speed = (-143, 0, 115, 193)
 train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
 # Addresses to read each cycle
-read_keys_always = [STAddr.gStageData, STAddr.received_item_index, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
-                    STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open, STAddr.rabbit_blocker]
-read_keys_post_load = [STAddr.stage]
+read_keys_always = [STAddr.gStageData, STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open, STAddr.rabbit_blocker]
+read_keys_post_load = [STAddr.stage, STAddr.received_item_index, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
 read_keys_train = [STAddr.train_health]
 
@@ -574,39 +573,40 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always.copy()
-        if stage in range(4, 0xd):
-            self.on_train = True
-            read_keys += read_keys_train
-            self.health_address = STAddr.train_health
-            self.mot_active_address = None
-
-            train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx))
-            printl(f"Train speed thingy {hex(train_speed_thingy)}")
-            if 0x400000 > train_speed_thingy > 0:
-                self.train_speed_pointer = train_speed_thingy
-                self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
-                read_keys.append(self.train_gear_addr)
-        else:
-            self.on_train = False
-            read_keys += read_keys_land
-            self.health_address = STAddr.health
-
-            offset = 0xf80 if self.current_stage == 0x29 else 0xf64
-            potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + offset
-            if 0x400000 > potion_addr > 0:
-                self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
-                read_keys.append(self.addr_drinking_potion)
-            printl(f"Potion pointer {hex(potion_addr)}")
-
-            self.mot_active_address = Address.from_pointer(await STAddr.gMapObjectManager.read(ctx)+3)
-            read_keys.append(self.mot_active_address)
-
-            if stage == 0x13:
-                self.zelda_text_address = Address.from_pointer(await STAddr.zelda_pointer.read(ctx) + ZELDA_TEXT_OFFSET, size=4)
-                print(f"Zelda text address: {self.zelda_text_address}")
-                read_keys.append(self.zelda_text_address)
         if self.loaded_addresses:
             read_keys += read_keys_post_load
+
+            if stage in range(4, 0xd):
+                self.on_train = True
+                read_keys += read_keys_train
+                self.health_address = STAddr.train_health
+                self.mot_active_address = None
+
+                train_speed_thingy = (await STAddr.train_speed_pointer.read(ctx))
+                printl(f"Train speed thingy {hex(train_speed_thingy)}")
+                if 0x400000 > train_speed_thingy > 0:
+                    self.train_speed_pointer = train_speed_thingy
+                    self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
+                    read_keys.append(self.train_gear_addr)
+            else:
+                self.on_train = False
+                read_keys += read_keys_land
+                self.health_address = STAddr.health
+
+                offset = 0xf80 if self.current_stage == 0x29 else 0xf64
+                potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + offset
+                if 0x400000 > potion_addr > 0:
+                    self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
+                    read_keys.append(self.addr_drinking_potion)
+                printl(f"Potion pointer {hex(potion_addr)}")
+
+                self.mot_active_address = Address.from_pointer(await STAddr.gMapObjectManager.read(ctx)+3)
+                read_keys.append(self.mot_active_address)
+
+                if stage == 0x13:
+                    self.zelda_text_address = Address.from_pointer(await STAddr.zelda_pointer.read(ctx) + ZELDA_TEXT_OFFSET, size=4)
+                    print(f"Zelda text address: {self.zelda_text_address}")
+                    read_keys.append(self.zelda_text_address)
 
         self.main_read_list = read_keys
         printl(f"read keys len: {len(read_keys)}")

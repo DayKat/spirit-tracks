@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from ..DSZeldaClient.subclasses import Address, AddressLoader ,DoubleAddressLoader
+from ..DSZeldaClient.subclasses import Address, AddressLoader ,DoubleAddressLoader, load_multi
 
 addr_null = Address(0)
 
@@ -35,10 +35,72 @@ async def load_on_connect(ctx):
     pass
 
 async def load_on_enter_game(ctx):
+    # Room data
     await STAddr.stage.load(ctx)  # TODO: add double loader support to load_multi()
+    room_handler = await STAddr.gStageData.read(ctx)
     STAddr.room.set_addr(STAddr.stage.addr + 10)
     STAddr.entrance.set_addr(STAddr.stage.addr + 11)
+
+    STAddr.respawn_stage.set_addr(room_handler+0x14)
+    STAddr.respawn_room.set_addr(room_handler + 0x1E)
+    STAddr.respawn_entrance.set_addr(room_handler + 0x1F)
     print(f"Loaded stage: {STAddr.stage}")
+
+    # Load all single stage loaders in bulk
+    await load_multi(ctx, [
+        STAddr.menu,
+        STAddr.health,
+        STAddr.passenger_tag_0,
+        STAddr.cargo_0
+    ])
+
+    # Item manager assignments
+    STAddr.heart_count.set_addr(STAddr.health+1)
+    item_manager = AddressLoader(STAddr.health+0x2C)
+    await item_manager.load(ctx)
+
+    STAddr.items_0.set_addr(item_manager.addr+0x8)
+    STAddr.items_2.set_addr(item_manager.addr + 0xA)
+    STAddr.arrow_capacity.set_addr(item_manager.addr + 4 * 6 + 0)
+    STAddr.bomb_capacity.set_addr(item_manager.addr + 4 * 6 + 1)
+    STAddr.arrow_count.set_addr(item_manager.addr + 4*6 + 2)
+    STAddr.bomb_count.set_addr(item_manager.addr + 4 * 6 + 3)
+    STAddr.item_restrictions.set_addr(item_manager.addr + 4 * 5)
+
+    STAddr.rupees.set_addr(item_manager.addr + 0x10)
+    STAddr.tears_of_light.set_addr(item_manager.addr + 0x16)
+    STAddr.small_keys.set_addr(item_manager.addr + 0x17)
+
+    STAddr.potion_0.set_addr(item_manager.addr + 0x1C)
+    STAddr.potion_1.set_addr(item_manager.addr + 0x1D)
+    STAddr.all_potions.set_addr(item_manager.addr + 0x1C)
+
+    # Rails
+    rail_manager = AddressLoader(STAddr.health.addr+0x34, 1, 0x38)
+    await rail_manager.load(ctx)
+    STAddr.rail_restorations.set_addr(rail_manager+0)
+    STAddr.tracks_0.set_addr(rail_manager+4)
+    STAddr.tracks_1.set_addr(rail_manager+5)
+    STAddr.tracks_2.set_addr(rail_manager+6)
+
+    # Train Parts
+    train_part_manager = rail_manager - 4*10
+    STAddr.train_parts.set_addr(rail_manager-8)
+    STAddr.equipped_engine.set_addr(train_part_manager+0)
+    STAddr.equipped_cannon.set_addr(train_part_manager+4)
+    STAddr.equipped_car.set_addr(train_part_manager + 8)
+    STAddr.equipped_cart.set_addr(train_part_manager + 0xC)
+
+    # Passengers
+    STAddr.has_passenger_0.set_addr(STAddr.passenger_tag_0 + 0x4)
+    STAddr.has_passenger_1.set_addr(STAddr.passenger_tag_0 + 0x18)
+    STAddr.passenger_tag_1.set_addr(STAddr.passenger_tag_0 + 0x14)
+    STAddr.passenger_goal.set_addr(STAddr.passenger_tag_0 + 0x8)
+
+    # Cargo
+    STAddr.cargo_1.set_addr(STAddr.cargo_0+0xC)
+    STAddr.cargo_count_0.set_addr(STAddr.cargo_0+0x4)
+    STAddr.cargo_count_1.set_addr(STAddr.cargo_0 + 0x10)
 
 @dataclass
 class STAddr:
@@ -57,8 +119,12 @@ class STAddr:
     gPlayerManager = Address.pointer(0x0fbc)
     gPlayer = Address.pointer(0x0fec)
     gMapManager = Address.pointer(0x0e60)
+    gpPassengerManager = Address.pointer(0x0CFC)
+    gpCargoManager = Address.pointer(0x0D04)
 
     gStageData = Address.pointer(0x09a4)
+    gpCurrentGameModeMgr = Address.pointer(0x0994)
+    gSaveManager = Address.pointer(0x0CE0)
 
     # Version safe loaders
     map_object_table = DoubleAddressLoader(gMapObjectManager, 3)
@@ -97,12 +163,12 @@ class STAddr:
     link_y = Address.pointer(0x05D0)
     link_z = Address.pointer(0x05D4)
     
-    menu = Address(0x260958)
+    menu = AddressLoader(gpCurrentGameModeMgr, 1, 0xF8, name="menu")
     equipped_item = Address(0x265318, size=4)
     flip_clog = Address(0x04C3DC)
     
-    health = Address(0x2651BC)
-    heart_count = Address(0x2651BD)
+    health = AddressLoader(gSaveManager, 1, 0)
+    heart_count = AddressLoader(gSaveManager, 1, 1)
     rabbits = Address(0x262030, size=7)
     rabbits_0 = Address(0x262030, name="rabbits_0")
     rabbits_1 = Address(0x262031, name="rabbits_1")
@@ -177,14 +243,14 @@ class STAddr:
     quick_pen_coords = Address(0x0B509C, size=3)
 
     # Passenger data
-    has_passenger_0 = Address(0x265598, size=4)
-    has_passenger_1 = Address(0x2655AC, size=4)
-    passenger_tag_0 = Address(0x265594, size=4)
-    passenger_tag_1 = Address(0x2655A8, size=4)
-    passenger_goal = Address(0x26559C, size=4)
+    has_passenger_0 = Address(0x265598, size=4)  # passenger happiness
+    has_passenger_1 = Address(0x2655AC, size=4)  # passenger happiness on respawn
+    passenger_tag_0 = AddressLoader(gpPassengerManager, size=4)  # passenger id
+    passenger_tag_1 = Address(0x2655A8, size=4)  # passenger id on respawn
+    passenger_goal = Address(0x26559C, size=4)  # goal station stage
 
     # Cargo Data
-    cargo_0 = Address(0x2655d8, size=4)
+    cargo_0 = AddressLoader(gpCargoManager, size=4)
     cargo_1 = Address(0x2655e4, size=4)
     cargo_count_0 = Address(0x2655dc)
     cargo_count_1 = Address(0x2655e8)
