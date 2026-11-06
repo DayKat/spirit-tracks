@@ -55,7 +55,8 @@ async def load_on_enter_game(ctx):
         STAddr.stage_flag_pointer,
         STAddr.item_model_table,
         STAddr.getting_location,
-        STAddr.saving
+        STAddr.saving,
+        STAddr.selected_station
     ])
 
     STAddr.mid_load.set_addr(STAddr.stage_flag_pointer+44)
@@ -151,6 +152,9 @@ async def load_on_enter_game(ctx):
 
     # Other
     await STAddr.entrance_animation.load(ctx)
+    STAddr.quick_pen_coords.set_addr(STAddr.menu + 17*4)
+    STAddr.last_x.set_addr(STAddr.quick_pen_coords + 4)
+    STAddr.exiting_map.set_addr(STAddr.last_x + 0xA4)
 
 
 async def load_on_train(ctx):
@@ -203,7 +207,7 @@ class STAddr:
     adv_flags_0 = AddressLoader(gAdventureFlags, size=1, load_offset=0x14, name="adv_flags_0")
 
     # Fundamentals
-    rabbit_blocker = Address(0x260867)
+    # rabbit_blocker = Address(0x260867)
     # loading_room = Address(0x0c2FF0)
     loading_room = Address(0x394B, size=1, domain="Data TCM")
     mid_load = Address(0x265190)
@@ -304,11 +308,12 @@ class STAddr:
     equipped_cart = Address(0x265394, size=4)
     train_part_array = [equipped_engine, equipped_cannon, equipped_car, equipped_cart]
 
-    map_open = Address(0x0BA3D0)
-    selected_station = Address(0x0BA65C)
+    map_open = Address(0x34B4, domain="Data TCM")
+    selected_station = AddressLoader(entranceAnimationManager, 1, 0x5380)  # Address(0x260A2C)
     exiting_map = Address(0x260A44)
-    last_x = Address(0x049B36, size=2)
-    quick_pen_coords = Address(0x0B509C, size=3)  # there's one in menu too
+    last_x = Address(0x2609A0, size=2)
+    # map_level = Address(0x260A44)  # 8 for big map, 2 for small, FF for tween
+    quick_pen_coords = Address(0x26099C, size=3)  # there's one in menu too
 
     # Passenger data
     has_passenger_0 = Address(0x265598, size=4)  # passenger happiness
@@ -324,7 +329,10 @@ class STAddr:
     cargo_count_1 = Address(0x2655e8)
 
     # Special events
-    mtt_b1_heatoise_trigger_pointer = Address(0x1231B4, size=3)
+    heatoise_pre_pointer = Address.pointer(0x580)
+    mtt_b1_heatoise_trigger_x = MultiAddressLoader(heatoise_pre_pointer, 4, [0x10654, 1384])# Address(0x1231B4, size=3)
+    snurglar_pre_pointer = Address.pointer(0x204)
+    snurglar_flags = MultiAddressLoader(snurglar_pre_pointer, 1, [0x3B34, 0xC0])
     snurglar_pointer = Address(0x0499F4, size=3)
     snurglin_keys = Address(0x2e986c)
     # mountain_gate = Address(0x2e3640)

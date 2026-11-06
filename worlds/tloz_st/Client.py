@@ -26,8 +26,9 @@ default_train_speed = (-143, 0, 115, 193)
 train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
 # Addresses to read each cycle
-read_keys_always = [STAddr.gStageData, STAddr.loading_room, STAddr.mid_load, STAddr.saving, STAddr.map_open, STAddr.rabbit_blocker]
-read_keys_post_load = [STAddr.stage, STAddr.received_item_index, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu]
+read_keys_always = [STAddr.gStageData, STAddr.loading_room, STAddr.map_open]
+read_keys_post_load = [STAddr.stage, STAddr.received_item_index, STAddr.room, STAddr.entrance, STAddr.slot_id, STAddr.menu,
+                       STAddr.mid_load, STAddr.saving]
 read_keys_land = [STAddr.getting_location, STAddr.getting_item_safety, STAddr.health]
 read_keys_train = [STAddr.train_health]
 
@@ -569,7 +570,8 @@ class SpiritTracksClient(DSZeldaClient):
         await super().game_watcher(ctx)
 
     def clear_variables(self):
-        self.title_screen_lock = False
+        # self.title_screen_lock = False
+        pass
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
         read_keys = read_keys_always.copy()
@@ -923,14 +925,15 @@ class SpiritTracksClient(DSZeldaClient):
 
         # Move mtt b1 heatoise arena hitbox
         if self.current_scene == 0x1c02 and self.current_entrance != 3:
-            # Amazing that this works at all
-            pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
-            await Address.from_pointer(pointer+1384, 4).overwrite(ctx, 70000)
+            # Amazing that this works at all. especially with multi-version pointers
+            await STAddr.mtt_b1_heatoise_trigger_x.load(ctx)
+            await STAddr.mtt_b1_heatoise_trigger_x.overwrite(ctx, 70000)
+            # pointer = await STAddr.mtt_b1_heatoise_trigger_pointer.read(ctx)
 
     async def process_in_game(self, ctx, read_result: dict):
-        if not read_result.get(STAddr.rabbit_blocker, 2):
-            printl(f"Rabbit Blocker!")
-            return
+        # if not read_result.get(STAddr.rabbit_blocker, 2):
+        #     printl(f"Rabbit Blocker!")
+        #     return
 
         await super().process_in_game(ctx, read_result)
         # Detect stamp stand locations
@@ -1693,9 +1696,9 @@ class SpiritTracksClient(DSZeldaClient):
     # Snurglars
 
     async def set_up_snurglar_data(self, ctx):
-        snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
-
-        snurglar_flags = Address.from_pointer(snurglar_pointer + 0xC0)
+        # snurglar_pointer = await STAddr.snurglar_pointer.read(ctx)
+        await STAddr.snurglar_flags.load(ctx)
+        snurglar_flags = STAddr.snurglar_flags
 
         printl(f"Tried snurglar flags @ {snurglar_flags}")
         if not (0x400000 > snurglar_flags > 0):
@@ -2276,11 +2279,12 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Adding tracks init {1}")
                 self.visited_scenes |= set(get_stored_data(ctx, visited_scenes_key, set()))
                 printl(f"visited scenes: {self.visited_scenes} {set(get_stored_data(ctx, visited_scenes_key, set()))}")
-            if self.read_result.get(STAddr.map_open, 0):
+            if self.read_result.get(STAddr.map_open, 0) == 1:
                 if self.warp_to_start_flag:
                     self.warp_to_start_flag = None
                     logger.info(f"Canceled warp to start")
                 selected_station = await STAddr.selected_station.read(ctx, silent=True)
+                # selected_station, map_level = (await read_multiple(ctx, [STAddr.selected_station, STAddr.map_level])).values()
                 if selected_station:
                     if self.unlocked_map < 2:
                         if not self.map_warp_item_cache[0]:
