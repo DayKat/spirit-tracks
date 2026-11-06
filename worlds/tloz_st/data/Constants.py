@@ -1673,7 +1673,7 @@ map_object_identifiers = {
     0x163888: "Head Statue",
     0x155860: "Tree",
     0x1781e0: "Pillar", # MTT
-0x14ee84: "Block", # MTT
+    0x14ee84: "Block", # MTT
 
     0x11565c: "Grass",
     0x155d50: "Long Grass",

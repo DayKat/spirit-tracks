@@ -21,7 +21,7 @@ TRAIN_SPEED_OFFSET = 0x94
 TRAIN_GEAR_OFFSET = 0x27c
 ZELDA_TEXT_OFFSET = 276
 TRAIN_QUICK_STATION_OFFSET = 0x80
-default_train_speed = (-143, 0, 115, 193)
+default_train_speed = [-143, 0, 115, 193]
 
 train_speed_addresses = [STAddr.train_speed_reverse, STAddr.train_speed_stop, STAddr.train_speed_med, STAddr.train_speed_fast]
 
@@ -105,7 +105,7 @@ def cmd_train_speed(self: "BizHawkClientCommandProcessor",
         client.update_train_speed = True
         self.output(f"  Setting train speeds: {speed_list}")
         host_settings: SpiritTracksSettings = get_settings().get('tloz_st_options')
-        host_settings.update({f"train_speed": speed_list})
+        host_settings.update({f"train_speed": list(speed_list)})
 
     client = get_client_as_command_processor(self)
     special_speeds = ["list", "default", "reset"]
@@ -1913,7 +1913,11 @@ class SpiritTracksClient(DSZeldaClient):
 
             if self.train_quick_station and current_gear == 1:
                 train_action_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_QUICK_STATION_OFFSET)
-                await train_action_addr.overwrite(ctx, 0x5c, silent=True)  # instant-enter station
+                if self.rom_version.startswith("PAL"):
+                    quick_stop = 0x5c
+                else:
+                    quick_stop = 0x3C
+                await train_action_addr.overwrite(ctx, quick_stop, silent=True)  # instant-enter station
             # Instant-set train speed
             if self.train_snap_speed and current_gear != 1:
                 await self.train_speed_addr.overwrite(ctx, self.train_speed[current_gear]*0x10, silent=True)
