@@ -292,6 +292,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.on_train = False
 
         self.title_screen_lock: bool = False
+        self.rom_version: str = ""
 
     # Commands
 
@@ -384,7 +385,7 @@ class SpiritTracksClient(DSZeldaClient):
             return False
         elif not self.title_screen_lock and not self.loaded_addresses:
             current_stage = await Address.from_pointer(in_game).read(ctx)
-            if not current_stage:
+            if current_stage in [0, 0x50]:
                 self.title_screen_lock = True
                 return False
         elif self.title_screen_lock:
@@ -541,28 +542,30 @@ class SpiritTracksClient(DSZeldaClient):
         rom_name = bytes([byte for byte in rom_name_bytes[0] if byte != 0]).decode("ascii")
         printl(f"Rom Name: {rom_name}")
         if rom_name == "SPIRITTRACKSBKIP":  # EU
-            version = await STAddr.game_version.read(ctx)
-            if version != 0:
-                logger.info(f"Wrong rom version 1.{version}, please use version 1.0")
-                return False
-
-            # Set commands
-            if "train_speed" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["train"] = cmd_train_option
-            if "warp_to_start" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
-            if "goal" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["goal"] = cmd_goal
-            if "print_actors" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["print_actors"] = cmd_print_actors
-            if "print_objects" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["print_objects"] = cmd_print_objects
-            if "count_entrances" not in ctx.command_processor.commands:
-                ctx.command_processor.commands["count_entrances"] = cmd_count_entrances
-            return True
+            self.rom_version = "PAL"
         elif rom_name == "SPIRITTRACKSBKIE":  # US
-            logger.info(f"The US Version is not supported yet, please use the EU version 1.0")
-        return False
+            self.rom_version = "NTSC"
+        else:
+            logger.info(f"Unknown Rom: {rom_name}")
+            return False
+        version = await STAddr.game_version.read(ctx)
+        self.rom_version += f"-{version}"
+        printl(f"Running rom version {self.rom_version}")
+
+        # Set commands
+        if "train_speed" not in ctx.command_processor.commands:
+            ctx.command_processor.commands["train"] = cmd_train_option
+        if "warp_to_start" not in ctx.command_processor.commands:
+            ctx.command_processor.commands["warp_to_start"] = cmd_warp_to_start
+        if "goal" not in ctx.command_processor.commands:
+            ctx.command_processor.commands["goal"] = cmd_goal
+        if "print_actors" not in ctx.command_processor.commands:
+            ctx.command_processor.commands["print_actors"] = cmd_print_actors
+        if "print_objects" not in ctx.command_processor.commands:
+            ctx.command_processor.commands["print_objects"] = cmd_print_objects
+        if "count_entrances" not in ctx.command_processor.commands:
+            ctx.command_processor.commands["count_entrances"] = cmd_count_entrances
+        return True
 
     # Main Loop
 
@@ -786,7 +789,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.loading_stage = False
                 return mid_load
 
-        return not read_result.get(STAddr.loading_room, 27) and read_result[STAddr.menu] in [0, 0x1, 0x4, 0xFF]
+        return not read_result.get(STAddr.loading_room, 27) and read_result.get(STAddr.menu, 0)
 
     async def detected_new_scene(self, ctx):
         await self.save_tos_keycount(ctx)

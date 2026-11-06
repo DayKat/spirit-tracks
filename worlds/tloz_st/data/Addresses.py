@@ -56,7 +56,8 @@ async def load_on_enter_game(ctx):
         STAddr.item_model_table,
         STAddr.getting_location,
         STAddr.saving,
-        STAddr.selected_station
+        STAddr.selected_station,
+        STAddr.getting_item_safety
     ])
 
     STAddr.mid_load.set_addr(STAddr.stage_flag_pointer+44)
@@ -173,8 +174,8 @@ class STAddr:
     null = addr_null
     
     # Rom identification
-    game_identifier = Address(0, 0, 16, "ROM")
-    game_version = Address(0x1E, 0x1E, 1, "ROM")
+    game_identifier = Address(0, 16, "ROM")
+    game_version = Address(0x1E, 1, "ROM")
 
     # DTCM stuff
     gAdventureFlags = Address(0x09b8, size=3, domain="Data TCM")
@@ -227,7 +228,9 @@ class STAddr:
     getting_location = AddressLoader(itemGetManager, 1, 0x212) # 0x0x04B114
     saving = AddressLoader(saveManager, 1, 0x58) # (0x049BD8)
     getting_tear_safety = Address(0x327B8C)
-    getting_item_safety = Address(0x264648)
+
+    item_safety_pointer = Address.pointer(0x9BC)
+    getting_item_safety = AddressLoader(item_safety_pointer, 1, 0xC4)  # Address(0x264648)  not actually in the same structure, but they seem to stick together
     entering_shop = Address(0x260A44)
 
     # drinking_potion = Address(0x317ED0)  # 39 normal, 3b drinking
