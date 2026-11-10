@@ -1,7 +1,7 @@
 import itertools
 
 from .DSZeldaClient.DSZeldaClient import *
-from .DSZeldaClient.subclasses import storage_key, split_bits
+from .DSZeldaClient.subclasses import storage_key, split_bits, to_ascii
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
 from .data.Entrances import ENTRANCES, entrance_tuple_to_entrance, entrances_per_scene
@@ -294,6 +294,8 @@ class SpiritTracksClient(DSZeldaClient):
         self.title_screen_lock: bool = False
         self.rom_version: str = ""
 
+        self.mobj_cache: dict[int, int] = {}
+
     # Commands
 
     def printl_goal_info(self, ctx):
@@ -360,7 +362,7 @@ class SpiritTracksClient(DSZeldaClient):
         for idents, profile in zip(actor_idents.items(), actor_profile.values()):
             k, i = idents
             ident = identifiers.get(i, "")
-            print(f"{hex_f(k)}: {hex_f(i)} | {bytes([byte for byte in split_bits(profiles[profile],4) if byte != 0]).decode('ascii')} {hex_f(ident)} ")
+            print(f"{hex_f(k)}: {hex_f(i)} | {to_ascii(profiles[profile])} {hex_f(ident)} ")
 
     async def print_map_objects(self, ctx, offset=0):
         """Print debug info about map objects"""
@@ -593,6 +595,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     def clear_variables(self):
         # self.title_screen_lock = False
+        self.mobj_cache.clear()
         pass
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
@@ -1983,8 +1986,7 @@ class SpiritTracksClient(DSZeldaClient):
         actor_ids = await read_multiple(ctx, {Address.from_pointer(a, size=4) for a in actor_profiles.values()}, offset=0x20)
         # old_crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
         # print(f"old crash list: {hex_f(old_crash_list)}")
-        crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_profiles.items()
-                      if bytes([byte for byte in split_bits(actor_ids[i],4) if byte != 0]).decode('ascii') in crasher_ids]
+        crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_profiles.items() if to_ascii(actor_ids[i]) in crasher_ids]
         # crash_list += old_crash_list
 
         if crash_list:
@@ -2383,59 +2385,61 @@ class SpiritTracksClient(DSZeldaClient):
             return
 
         table_size = await self.load_map_object_table(ctx)
-        actor_idents = await self.get_table_data(ctx, STAddr.map_object_table, 0,
+        mobj_profiles = await self.get_table_data(ctx, STAddr.map_object_table, 0x3C//4,
                                                  size=3, table_label=False, table_size=table_size)
-        printl(f"map objects: {hex_f(actor_idents)}")
 
-        identifiers = map_object_identifiers
+        identifiers = self.mobj_cache
 
         write_list = []
         last_len = 0
-        for addr, i in actor_idents.items():
+        for addr, i in mobj_profiles.items():
             if addr == 0x5544:
                 printl("Map Object Overflow!")
                 break
             if i not in identifiers:
-                printl(f"Unknown map object: {hex_f(i)} @ {addr}")
+                identifier = to_ascii(await Address.from_pointer(i+0x10, size=4).read(ctx))
+                self.mobj_cache[i] = identifier
+                printl(f"Cached new map object: {hex_f(i)} -> {identifier} @ {hex_f(addr)}")
+
+            object_type = identifiers.get(i)
+            if not object_type:
                 continue
 
-            if identifiers.get(i) in ["Blue Door", "Key Door", "Arena Door", "Bell Door", "Gem Door"]:
-                if identifiers.get(i) == "Arena Door" and self.current_scene in [0x4904, 0x3f01]:
+            if object_type in ['WSRD', # Door Switch
+                               'YKRD', # Key Door
+                                'SDRD',  # Door Arena
+                               'NSRD',   # Door Snow (bell)
+                               'RBRD']:  # Door Gem
+                if object_type == 'SDRD' and self.current_scene in [0x4904, 0x3f01]:
                     continue  # These doors can softlock
                 write_list.append(Address.from_pointer(addr + 33*4 + 2, size=1).get_inner_write_list(0))  # closing
                 write_list.append(Address.from_pointer(addr + 34*4 + 2, size=1).get_inner_write_list(0))  # opening
 
-                if identifiers.get(i) == "Key Door":
+                if object_type == 'YKRD':  # Key Door
                     self.key_door_watches[Address.from_pointer(addr + 22, 1)] = "key"
-                if identifiers.get(i) == "Arena Door":
+                if object_type == 'SDRD':
                     self.key_door_watches[Address.from_pointer(addr + 22, 1)] = "arena"
 
-                # if self.current_scene == 0x4206 and all([LOCATIONS_DATA[l]['id'] in ctx.checked_locations for l in [
-                #         "Lost at Sea Final Challenge SE Chest", "Lost at Sea Final Challenge NE Chest",
-                #         "Lost at Sea Final Challenge SW Chest", "Lost at Sea Final Challenge NW Chest"
-                #     ]]):
-                #         write_list.append(Address.from_pointer(addr + 22).get_inner_write_list(3))
-
-            if identifiers.get(i) in ["Bridge"]:
+            if object_type in ['XERB']:  # Bridge
                 write_list.append(Address.from_pointer(addr+24*4, size=2).get_inner_write_list(0))
 
-            if identifiers.get(i) in ["Switch"]:
+            if object_type in ['TSWS', 'THWS']:  # Switch
                 write_list.append(Address.from_pointer(addr+9*4 + 2, size=1).get_inner_write_list(0))
 
-            if identifiers.get(i) in ["Spikes"]:
+            if object_type in ["PSLF"]:  # Floor Spikes
                 write_list.append(Address.from_pointer(addr+19*4+3, size=1).get_inner_write_list(0))
 
-            if identifiers.get(i) in ["Boss Door"]:
+            if object_type in ["KBRD"]:  # Door BK
                 await self.open_boss_door(ctx, addr)
                 self.boss_door_addr = addr
 
-            if identifiers.get(i) in ["Torch"]:
+            if object_type in ["Torch"]:
                 write_list.append(Address.from_pointer(addr+33*4 + 2, size=1).get_inner_write_list(0))
 
-            # if identifiers.get(i) in ["Flames"]:
+            # if object_type in ["Flames"]:
             #     write_list.append(Address.from_pointer(addr + 33 * 4 + 2, size=1).get_inner_write_list(0))
             if len(write_list) > last_len:
-                print(f"deleting: {identifiers.get(i)} @ {addr}")
+                print(f"deleting: {object_type} @ {addr}")
             last_len = len(write_list)
 
         if write_list:

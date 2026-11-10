@@ -1706,6 +1706,8 @@ interaction_flags: dict[int, str] = {
     0xF: "Insert and text",
 }
 
+
+
 BOSS_KEY_IDS = [0x4b455942, 0x4b455954] # BYEK, TYEK
 
 TOS_FLOOR_TO_SECTION: dict[int, int] = TOS_FLOOR_TO_SECTION_SAFE | TOS_FLOOR_SECTIONS_CANCEL_TEARS
