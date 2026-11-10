@@ -1609,7 +1609,7 @@ DEAD_END_ENTRANCES: list[str] = [  # Used for extra entrance hints
     "Capbone Exit",
 ]
 
-map_object_identifiers = {
+map_object_identifiers: dict[int, str] = {
     0x1151AC: "Key Door",
     0x11527c: "Blue Door",
     0x1150d8: "Arena Door",
@@ -1618,8 +1618,8 @@ map_object_identifiers = {
     0x1379a8: "Big Door",
     0x157c14: "Bell Door",
     0x16019c: "Gem Door",
-    0x12e060: "Boss Door",  # Bliz
-    0x12e0d0: "Boss Door",  # ToS 3
+    0x12e060: "Boss Door",  # Dungeons
+    0x12e0d0: "Boss Door",  # ToS
 
     0x115ed0: "Staircase",
     0x162eac: "Entrance",
@@ -1684,6 +1684,29 @@ map_object_identifiers = {
     0x164f10: "Swap Pad",
     0x12f2f0: "Train Platform"
 }
+
+object_flags: dict[int, str] = {
+    0x17: "Static",
+    0x217: "Interactable",
+    0x317: "Throwable",
+    0x37: "Door",
+    0x35: "Door",
+    0x237: "Tap Door",
+    0x617: "Pressure Pad",
+    0x15: "Chest Spawner"
+}
+
+interaction_flags: dict[int, str] = {
+    0x1: "Lock on",
+    0x2: "Pick Up",
+    0x4: "Freeze Movement",
+    0xd: "Get Item",
+    0x10: "Read",
+    0xE: "Insert",
+    0xF: "Insert and text",
+}
+
+BOSS_KEY_IDS = [0x4b455942, 0x4b455954] # BYEK, TYEK
 
 TOS_FLOOR_TO_SECTION: dict[int, int] = TOS_FLOOR_TO_SECTION_SAFE | TOS_FLOOR_SECTIONS_CANCEL_TEARS
 

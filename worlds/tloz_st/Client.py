@@ -326,10 +326,13 @@ class SpiritTracksClient(DSZeldaClient):
             logger.info(
                 f"You need Compass Shards to access the Dark Realm Portal. You have {shard_count}/{slot_data['compass_shard_count']}")
 
-    async def print_train_actors(self, ctx, offset=11):
+    async def print_train_actors(self, ctx, offset=0):
         """Print debug info about actors"""
         actor_table = await self.get_actor_table(ctx)
-        actor_idents = await self.get_table_data(ctx, actor_table, offset)
+        actor_idents = await self.get_table_data(ctx, actor_table, 0, size=3)
+        # actor_ref = await self.get_table_data(ctx, actor_table, 0x84//4, size=4)
+        actor_profile = await self.get_table_data(ctx, actor_table, 0x90//4, size=3)
+        # actor_flags = await self.get_table_data(ctx, actor_table, 0x58//4, size=8)
         print(f"Printing Actors")
         identifiers = {
             0x21405e8: "Demon Train",
@@ -339,25 +342,41 @@ class SpiritTracksClient(DSZeldaClient):
             0x21413bc: "One of these crashes",
             0x2149988: "Still Train",
             0x2140efc: "Train Spawner CS Trigger?",
-            0x2141854: "Snow realm crasher"
+            # vtable
+            0x2141854: "Snow realm crasher",
+            0x1387b4: "Tanks (crasher)",
+            0x148d88: "Evil Train (crasher)",
+            0x137e64: "? (crasher)",
+            0x137b70: "? (crasher)",
+            0x138580: "Tank spawner (crasher)",
+            0x13784c: "Demon Train (crasher)",
+            0x138b10: "Purple Train (crasher)",
         }
-
-        for k, i in actor_idents.items():
+        profiles = await read_multiple(ctx, {Address.from_pointer(a, 4) for a in actor_profile.values()}, offset=0x20)
+        profile_crashers = {
+            'PSRT',
+            'RTLK'
+        }
+        for idents, profile in zip(actor_idents.items(), actor_profile.values()):
+            k, i = idents
             ident = identifiers.get(i, "")
-            print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+            print(f"{hex_f(k)}: {hex_f(i)} | {bytes([byte for byte in split_bits(profiles[profile],4) if byte != 0]).decode('ascii')} {hex_f(ident)} ")
 
     async def print_map_objects(self, ctx, offset=0):
         """Print debug info about map objects"""
         table_size = await self.load_map_object_table(ctx)
         actor_idents = await self.get_table_data(ctx, STAddr.map_object_table, offset, table_size=table_size)
         print(f"Printing Map Object Table {offset}")
+        print(f"Object data, vtable, object type from vtable | flags")
+        ref_structure = await self.get_table_data(ctx, STAddr.map_object_table, 7, table_size=table_size)
 
-        for k, i in actor_idents.items():
+        for idents, refs in zip(actor_idents.items(), ref_structure.values()):
+            k, i = idents
             ident = ""
             if offset == 0:
                 ident = map_object_identifiers.get(i-0x2000000, "")
 
-            print(f"{hex_f(k)}: {hex_f(i)} {ident}")
+            print(f"{hex_f(k)}: {hex_f(i)} {ident} | ref: {hex_f(refs)}")
 
     async def count_visited_entrances(self, ctx):
         self.checked_entrances |= set(get_stored_data(ctx, checked_entrances_key, set()))
@@ -679,7 +698,9 @@ class SpiritTracksClient(DSZeldaClient):
     async def load_addresses(self, ctx) -> bool:
         print(f"loaded? {self.loaded_addresses}")
         if not self.loaded_addresses:
+            await bizhawk.lock(ctx.bizhawk_ctx)
             await load_on_enter_game(ctx)
+            await bizhawk.unlock(ctx.bizhawk_ctx)
             self.loaded_addresses = True
             await self.update_main_read_list(ctx, self.current_stage)
             print(f"Loaded addresses")
@@ -1816,20 +1837,20 @@ class SpiritTracksClient(DSZeldaClient):
                 printl(f"Has found location {data['location']}, deleting boss key")
                 await self.delete_boss_key(ctx)
             else:
-                if "search_data" in data:
-                    pointer, offset = await self.find_table_object(ctx, *data["search_data"], actor_table, return_index=True, reverse=False)
-                    self.oct_bk_offset = offset
-                    printl(f"Found bk in actor loop: {pointer} {offset}")
-                else:
-                    pointer = await actor_table.read(ctx)
-
-                if pointer and pointer < 0x400000:
-                    printl(f"Found Boss Key object: {hex_f(pointer)}")
-                    offset = 12 if self.current_stage == 0x1c else 8
-                    self.boss_key_read = Address.from_pointer(pointer + offset, size=4)
-                    self.boss_key_y = data["y"]
-                    printl(f"BK Read: {self.boss_key_read}")
-                printl(f"Loaded boss key data: {pointer} y: {self.boss_key_y}")
+                actor_profiles = await self.get_table_data(ctx, actor_table, 0x90//4, size=3)
+                actor_profiles = {k: v for k, v in actor_profiles.items() if 0x200000 > v > 100000}
+                print(f"Profiles: {hex_f(actor_profiles)}")
+                actor_ids = await read_multiple(ctx, {Address.from_pointer(a, size=4) for a in actor_profiles.values()}, offset=0x20)
+                print(hex_f(actor_ids))
+                print(f"Current Actor ids: {[(hex_f(profile), bytes([byte for byte in split_bits(profile, 4) if byte != 0 and byte < 128]).decode('ascii')) for profile in actor_ids.values()]}")
+                for actor, profile in actor_profiles.items():
+                    if actor_ids.get(profile) in BOSS_KEY_IDS:
+                        offset = 12 if self.current_stage == 0x1c else 8  # mtt key checks z
+                        bk_object = await actor.read(ctx)
+                        self.boss_key_read = Address.from_pointer(bk_object + offset, size=4)
+                        self.boss_key_y = data["y"]
+                        printl(f"Loaded boss key data: {self.boss_key_read} y: {self.boss_key_y}")
+                        break
 
     async def get_tos_bk_pointer(self, ctx) -> tuple[Address, int]:
         actor_table = await self.get_actor_table(ctx)
@@ -1851,29 +1872,37 @@ class SpiritTracksClient(DSZeldaClient):
                 self.boss_key_y, self.boss_key_read = None, None
 
     async def delete_boss_key(self, ctx):
-        pointer: int  = 0
         bk_data =  BOSS_KEY_DATA[self.current_scene]
-        size, offset = bk_data.get("deletion_data", (12, 0))
         actor_table = await self.get_actor_table(ctx)
-        if "search_data" in bk_data:
-            print(f"Starting deletion: {self.oct_bk_offset}")
-            if not self.oct_bk_offset:
-                _, self.oct_bk_offset = await self.find_table_object(ctx, *bk_data["search_data"][:4], actor_table,
-                                                              return_index=True, reverse=False)
-                if not self.oct_bk_offset: return
-            pointer = actor_table  # Ocean temple bk does not load into the first slot in memory
-            offset, size = self.oct_bk_offset*4, 4
-            print(f"Got offset from search: {offset} {hex_f(pointer+offset)} {self.oct_bk_offset}")
-            self.oct_bk_offset = None
-        if self.current_stage == 0x13:
-            pointer, _ = await self.get_tos_bk_pointer(ctx)
-        if not pointer:
-            print(f"No boss key found")
-            return
-        deletion_address = Address.from_pointer(pointer+offset, size)
-        printl(f"Deleting boss key @ {deletion_address} size {size}")
-        # printl(f"Deleting boss key @ {STAddr.boss_key_deletion}")
-        await deletion_address.overwrite(ctx, 0)
+        actor_profiles = await self.get_table_data(ctx, actor_table, 0x90 // 4, size=3)
+        actor_ids = await read_multiple(ctx, {Address.from_pointer(a, size=4) for a in actor_profiles.values() if a > 0},
+                                        offset=0x20)
+
+        for actor, profile in actor_profiles.items():
+            if actor_ids[profile] in BOSS_KEY_IDS:
+                print(f"Deleting boss key: {actor} {actor_ids[profile]}")
+                await Address.from_pointer(actor.addr, size=4).overwrite(ctx, 0)
+                break
+
+        # if "search_data" in bk_data:
+        #     print(f"Starting deletion: {self.oct_bk_offset}")
+        #     if not self.oct_bk_offset:
+        #         _, self.oct_bk_offset = await self.find_table_object(ctx, *bk_data["search_data"][:4], actor_table,
+        #                                                       return_index=True, reverse=False)
+        #         if not self.oct_bk_offset: return
+        #     pointer = actor_table  # Ocean temple bk does not load into the first slot in memory
+        #     offset, size = self.oct_bk_offset*4, 4
+        #     print(f"Got offset from search: {offset} {hex_f(pointer+offset)} {self.oct_bk_offset}")
+        #     self.oct_bk_offset = None
+        # if self.current_stage == 0x13:
+        #     pointer, _ = await self.get_tos_bk_pointer(ctx)
+        # if not pointer:
+        #     print(f"No boss key found")
+        #     return
+        # deletion_address = Address.from_pointer(pointer+offset, size)
+        # printl(f"Deleting boss key @ {deletion_address} size {size}")
+        # # printl(f"Deleting boss key @ {STAddr.boss_key_deletion}")
+        # await deletion_address.overwrite(ctx, 0)
 
     # Train stuff
 
@@ -1944,24 +1973,25 @@ class SpiritTracksClient(DSZeldaClient):
             0x13784c: "Demon Train",
             0x138b10: "Purple Train",
         }
-        crash_causers_post_fg = {
-            0x2d99c8: "Crasher post forest glyph"  # fire glyph no ocean glyph
+        crasher_ids = {
+            'RTLK',
+            'PSRT',
+            'TETT',
+            'DRBT'
         }
-
-        crash_causers = {
-            0x21405e8: "Demon Train",
-        }
-        actor_idents_0 = await self.get_table_data(ctx, table_start, 0, size=3)
+        actor_profiles = await self.get_table_data(ctx, table_start, 0x90//4, size=3)
+        actor_ids = await read_multiple(ctx, {Address.from_pointer(a, size=4) for a in actor_profiles.values()}, offset=0x20)
         # old_crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents.items() if i in crash_causers]
         # print(f"old crash list: {hex_f(old_crash_list)}")
-        crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_idents_0.items() if i in crash_causers_0]
+        crash_list = [Address.from_pointer(k.addr, size=4) for k, i in actor_profiles.items()
+                      if bytes([byte for byte in split_bits(actor_ids[i],4) if byte != 0]).decode('ascii') in crasher_ids]
         # crash_list += old_crash_list
 
         if crash_list:
             await self.frame_advance(ctx)
             await write_multiple(ctx, crash_list, [0]*len(crash_list))
-            actor_print = {k: crash_causers_0[i] for k, i in actor_idents_0.items() if i in crash_causers_0}
-            printl(f"Deleting bad actors: {hex_f(actor_print)}")
+            # actor_print = {k: crash_causers_0[i] for k, i in actor_idents_0.items() if i in crash_causers_0}
+            printl(f"Deleting bad actors: {hex_f(actor_ids)}")
 
     # ER stuff
 
