@@ -671,11 +671,10 @@ class SpiritTracksClient(DSZeldaClient):
         await self.get_saved_scene(ctx, saved_scene_key)
 
     async def watched_intro_cs(self, ctx):
+        print(f"Checking Intro")
         if not STAddr.adv_flags_1:
-            s = STAddr.watched_intro
-            print(s)
             await load_adv_flags(ctx)
-            print(f"intr addr: {STAddr.watched_intro}")
+            print(f"loaded intr addr: {STAddr.watched_intro}")
 
         watched_intro = await STAddr.watched_intro.read(ctx, silent=True) & 1
         if not watched_intro and await STAddr.fade_timer.read(ctx, silent=True) < 0xffff:
@@ -703,7 +702,8 @@ class SpiritTracksClient(DSZeldaClient):
         if not self.loaded_addresses:
             await bizhawk.lock(ctx.bizhawk_ctx)
             await load_on_enter_game(ctx)
-            await bizhawk.unlock(ctx.bizhawk_ctx)
+            if not self.precision_operation:
+                await bizhawk.unlock(ctx.bizhawk_ctx)
             self.loaded_addresses = True
             await self.update_main_read_list(ctx, self.current_stage)
             print(f"Loaded addresses")
@@ -803,7 +803,7 @@ class SpiritTracksClient(DSZeldaClient):
             ctx.watcher_timeout = 0.1
 
     def process_loading_variable(self, read_result) -> bool:
-        mid_load = self.loaded_addresses and read_result.get(STAddr.mid_load, True) == 0xFF
+        mid_load = self.loaded_addresses and read_result.get(STAddr.mid_load, 2) == 0
         if self._loading_scene and not self.loading_stage:
             if mid_load:
                 self.loading_stage = True
@@ -811,9 +811,10 @@ class SpiritTracksClient(DSZeldaClient):
         if self.loading_stage:
             if not mid_load:
                 self.loading_stage = False
+                # print(f"\tMid load {mid_load}")
                 return mid_load
-
-        return not read_result.get(STAddr.loading_room, 27) and read_result.get(STAddr.menu, 0)
+        #print(f"\tNormal load {read_result.get(STAddr.loading_room, 27)} {read_result.get(STAddr.menu, 0)}")
+        return (not read_result.get(STAddr.loading_room, 27) and read_result.get(STAddr.menu, 0)) or not read_result.get(STAddr.mid_load, 2)
 
     async def detected_new_scene(self, ctx):
         await self.save_tos_keycount(ctx)
@@ -1705,7 +1706,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def get_stage_flags(self, ctx):
         stage_address = await STAddr.stage_flag_pointer.read(ctx)
-        self.stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET - 0x2000000, size=4)
+        self.stage_flag_address = Address.from_pointer(stage_address + STAGE_FLAGS_OFFSET, size=4)
         print(f"Got stage flag address: {hex_f(self.stage_flag_address)}")
         return self.stage_flag_address
 

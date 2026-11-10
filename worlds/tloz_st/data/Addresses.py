@@ -31,6 +31,9 @@ async def load_adv_flags(ctx):
     STAddr.received_item_index = Address(STAddr.adv_flags_0 + 0x6C, size=2)
     STAddr.slot_id = Address(STAddr.adv_flags_0 + 0x6E, size=2)
 
+    await STAddr.fade_timer.load(ctx)
+    await STAddr.stage.load(ctx)  # load this here for randomized start
+
 async def load_on_connect(ctx):
     pass
 
@@ -57,10 +60,11 @@ async def load_on_enter_game(ctx):
         STAddr.getting_location,
         STAddr.saving,
         STAddr.selected_station,
-        STAddr.getting_item_safety
+        STAddr.getting_item_safety,
+        # STAddr.fade_timer
     ])
 
-    STAddr.mid_load.set_addr(STAddr.stage_flag_pointer+44)
+    STAddr.mid_load.set_addr(STAddr.stage_flag_pointer+3)
 
     # Item manager assignments
     STAddr.heart_count.set_addr(STAddr.health+1)
@@ -255,7 +259,7 @@ class STAddr:
     rabbits_5 = Address(0x262035, name="rabbits_5")
     rabbits_6 = Address(0x262036, name="rabbits_6")
 
-    stage_flag_pointer = AddressLoader(gStageFlagManager, 4, 4)
+    stage_flag_pointer = AddressLoader(gStageFlagManager, 3, 4)
     watched_intro = Address(0) # Address(0x265726)
 
     train_speed_fast = Address(0x136004, size=4)  # 0xc1 193
@@ -470,7 +474,8 @@ class STAddr:
     entrance_animation = MultiAddressLoader(entranceAnimationManager, 1, [0x1234, 0x144])  # 0x269108 | 17 to prevent blue warps working immediately
     # 9 is the slow culprit
 
-    fade_timer = Address(0x0b5164, size=2)  # used for entrance warp from intro
+    fade_pointer = Address.pointer(0x200)
+    fade_timer = AddressLoader(fade_pointer, size=2, load_offset=0xa4)  # used for entrance warp from intro
 
 
 
