@@ -61,7 +61,8 @@
       {"name": "ToS 19F Center E Chest"},
       {"name": "ToS 21F Bomb Wall Chest"},
       {"name": "ToS 22F Boss Key"},
-      {"name": "ToS 23F Defeat Staven"}
+      {"name": "ToS 23F Defeat Staven"},
+    {"name": "ToS 23F Defeat Byrne"}
   ], "map_locations":[{"map": "Overview", "x": 512, "y": 324}]},
   {"name": "ToS 5 Events", "sections": [
     {"name": "EVENT: Defeat Staven"},

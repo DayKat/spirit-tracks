@@ -202,6 +202,14 @@ class SpiritTracksWorld(WorldParent):
 
         self.starting_entrance: str = "Niko's House Exit"
 
+    def get_loc_id(self, name):
+        if not hasattr(self.options, "localization"):
+            return self.location_name_to_id[name]
+        localization = self.options.localization.value
+        loc_data = LOCATIONS_DATA[name]
+        if loc_data.pair_data:
+            return loc_data.pair_data[localization]
+        return loc_data.id
 
     def generate_early(self):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -2070,10 +2078,11 @@ class SpiritTracksWorld(WorldParent):
                    "decouple_shuffled_entrances",
                    "death_link", "enable_map_warp", "extra_events",
                    "free_starting_items",
-                   "ut_blocked_entrances_behaviour"]
+                   "ut_blocked_entrances_behaviour",
+                   "localization"]
         slot_data = self.options.as_dict(*options)
-        slot_data["active_rabbit_locs"] = [self.location_name_to_id[i] for i in self.active_rabbit_locations]
-        slot_data["required_boss_locs"] = [self.location_name_to_id[i] for i in self.required_boss_locs]
+        slot_data["active_rabbit_locs"] = [self.get_loc_id(i) for i in self.active_rabbit_locations]
+        slot_data["required_boss_locs"] = [self.get_loc_id(i) for i in self.required_boss_locs]
         slot_data["stamp_pack_order"] = self.stamp_pack_order
         slot_data["model_lookup"] = self.get_location_models()
         slot_data["exclude_tos_5"] = self.exclude_tos_5

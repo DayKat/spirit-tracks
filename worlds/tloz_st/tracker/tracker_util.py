@@ -594,7 +594,7 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
                 if blocking_entrance in active_entrances:
                     for loc_map in loc_maps:
                         locs_hidden.setdefault(loc_map, [])
-                        locs_hidden[loc_map] += [world.location_name_to_id[n] for n in loc_names]
+                        locs_hidden[loc_map] += [world.get_loc_id(n) for n in loc_names]
 
         for loc_map in loc_maps:
             if loc_map in map_coord_checks:
@@ -607,7 +607,7 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
                             if "EVENT" in loc2 or "GOAL" in loc2:
                                 entr_hidden.setdefault(loc_map, []).append(loc2)
                             else:
-                                loc_ids.append(world.location_name_to_id[loc2])
+                                loc_ids.append(world.get_loc_id(loc2))
                         locs_hidden.setdefault(loc_map, [])
                         locs_hidden[loc_map] += loc_ids
 

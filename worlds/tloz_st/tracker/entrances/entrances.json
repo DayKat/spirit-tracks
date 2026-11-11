@@ -823,7 +823,7 @@
   {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit N Mountain"}], "map_locations": [{"map": "Overview", "x": 814, "y": 120}, {"map": "Fire Realm", "x": 302, "y": 120}]},
   {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit S Mountain"}], "map_locations": [{"map": "Overview", "x": 778, "y": 194}, {"map": "Fire Realm", "x": 266, "y": 194}]},
   {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit SE Mountain"}], "map_locations": [{"map": "Overview", "x": 898, "y": 228}, {"map": "Fire Realm", "x": 386, "y": 228}]},
-  {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit N Fire Glyph"}], "map_locations": [{"map": "Overview", "x": 658, "y": 108}, {"map": "Fire Realm", "x": 146, "y": 108}]},
+  {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit N Fire Realm"}], "map_locations": [{"map": "Overview", "x": 658, "y": 108}, {"map": "Fire Realm", "x": 146, "y": 108}]},
   {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit Near Goron Target Range"}], "map_locations": [{"map": "Overview", "x": 608, "y": 230}, {"map": "Fire Realm", "x": 96, "y": 230}]},
   {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit E Sand Maze"}], "map_locations": [{"map": "Overview", "x": 924, "y": 314}, {"map": "Fire Realm", "x": 412, "y": 314}]},
   {"name": "Fire Rabbit Event", "sections": [{"name": "EVENT: Rabbit Mid Sand Maze"}], "map_locations": [{"map": "Overview", "x": 880, "y": 338}, {"map": "Fire Realm", "x": 368, "y": 338}]},

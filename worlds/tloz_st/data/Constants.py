@@ -410,11 +410,15 @@ BOSS_LOCATION_TO_EVENT_REGION = {
     "Cactops Boss Reward": "oct phytops",
     "Vulcano Boss Reward": "mtt pre vulcano",
     "Capbone Boss Reward": "dt skeldritch safety",
+    "Phytops Boss Reward": "oct phytops",
+    "Cragma Boss Reward": "mtt pre vulcano",
+    "Skeldritch Boss Reward": "dt skeldritch safety",
     "ToS 3F Forest Rail Glyph": "tos 3f rail map",
     "ToS 7F Snow Rail Glyph": "tos 7f rail map",
     "ToS 12F Ocean Rail Glyph": "tos 11f",
     "ToS 17F Fire Rail Glyph": "tos 16f",
     "ToS 23F Defeat Staven": "tos staven",
+    "ToS 23F Defeat Byrne": "tos staven",
     "ToS 24F Final Chest": "tos 24f",
     "Castle Town Take 'em All On Level 3": "teao 3",
     "Lost at Sea Final Chest": "las event shield"
@@ -423,9 +427,18 @@ BOSS_LOCATION_TO_EVENT_REGION = {
 BOSS_LOCATION_TO_POST_LOCATIONS = {
     "Stagnox Boss Reward": ["Stagnox Boss Reward", "Stagnox Heart Container"],
     "Fraaz Boss Reward": ["Fraaz Boss Reward", "Fraaz Heart Container"],
-    "Cactops Boss Reward": ["Cactops Boss Reward", "Cactops Heart Container"],
-    "Vulcano Boss Reward": ["Vulcano Boss Reward", "Vulcano Heart Container"],
-    "Capbone Boss Reward": ["Capbone Boss Reward", "Capbone Heart Container", "Desert Temple Bow of Light Chest"]
+    "Cactops Boss Reward": ["Cactops Boss Reward", "Cactops Heart Container",
+                            "Phytops Boss Reward", "Phytops Heart Container"],
+    "Vulcano Boss Reward": ["Vulcano Boss Reward", "Vulcano Heart Container",
+                            "Cragma Boss Reward", "Cragma Heart Container"],
+    "Capbone Boss Reward": ["Capbone Boss Reward", "Capbone Heart Container", "Desert Temple Bow of Light Chest",
+                            "Skeldritch Boss Reward", "Skeldritch Heart Container", "Sand Temple Bow of Light Chest",],
+    "Phytops Boss Reward": ["Phytops Boss Reward", "Phytops Heart Container",
+                            "Cactops Boss Reward", "Cactops Heart Container"],
+    "Cragma Boss Reward": ["Cragma Boss Reward", "Cragma Heart Container",
+                           "Vulcano Boss Reward", "Vulcano Heart Container"],
+    "Skeldritch Boss Reward": ["Skeldritch Boss Reward", "Skeldritch Heart Container", "Sand Temple Bow of Light Chest",
+                               "Capbone Boss Reward", "Capbone Heart Container", "Desert Temple Bow of Light Chest"]
 }
 
 DUNGEON_TO_ENTRANCE = {

@@ -1112,6 +1112,7 @@ class SpiritTracksLocalization(Choice):
     alias_au = 1
     alias_nz = 1
     alias_na = 1
+    default = 0
 
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
