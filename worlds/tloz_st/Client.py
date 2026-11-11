@@ -451,6 +451,13 @@ class SpiritTracksClient(DSZeldaClient):
 
         return size
 
+    def get_loc_id(self, ctx, name):
+        localization = ctx.slot_data.get("localization", 0)
+        loc_data = LOCATIONS_DATA[name]
+        if loc_data.pair_data:
+            return loc_data.pair_data[localization]
+        return loc_data.id
+
     async def has_special_dynamic_requirements(self, ctx: "BizHawkClientContext", data) -> bool:
         def check_dungeon_reqs():
             if "dungeons" in data:
@@ -1129,7 +1136,7 @@ class SpiritTracksClient(DSZeldaClient):
                 return
             location = potion_location_lookup.get(self.current_scene, {}).get(slot, None)
             if location:
-                if self.location_name_to_id[location] not in ctx.checked_locations:
+                if self.get_loc_id(ctx, location) not in ctx.checked_locations:
                     await self._process_checked_locations(ctx, location)
 
     async def check_ammo_shop(self, ctx):
@@ -1139,7 +1146,7 @@ class SpiritTracksClient(DSZeldaClient):
             current_ammo = await addr.read(ctx)
             if current_ammo == 0:
                 continue
-            if self.location_name_to_id[loc] not in ctx.checked_locations:
+            if self.get_loc_id(ctx, loc) not in ctx.checked_locations:
                 await self._process_checked_locations(ctx, loc)
                 return
             self.save_ammo[addr] = current_ammo
@@ -1177,7 +1184,7 @@ class SpiritTracksClient(DSZeldaClient):
             for data in SHOP_TREASURE_DATA[self.current_scene]:
                 if single_item in ITEM_GROUPS[data["group"] + " Treasures"]:
                     for location in data["locations"]:
-                        if self.location_name_to_id[location] not in ctx.checked_locations:
+                        if self.get_loc_id(ctx, location) not in ctx.checked_locations:
                             await remove_treasure()
                             await self._process_checked_locations(ctx, location)
                             await self.set_shop_models(ctx, False)
@@ -1512,7 +1519,7 @@ class SpiritTracksClient(DSZeldaClient):
             valid_locations += [loc for treasures in SHOP_TREASURE_DATA.get(self.current_scene, []) for loc in treasures.get("locations", [])]
         printl(f"Setting shop models {self.current_scene}: {valid_locations}")
         for loc in valid_locations.copy():
-            if self.location_name_to_id[loc] in ctx.checked_locations:
+            if self.get_loc_id(ctx, loc) in ctx.checked_locations:
                 valid_locations.remove(loc)
                 printl(f"Already checked location {loc}!")
         await self.swap_models(ctx, valid_locations)
@@ -1747,7 +1754,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def reset_snurglar_door(self, ctx):
         if self.last_scene == 0x700:
-            snurglar_ids = [self.location_name_to_id[f"Snurglars {color} Key"] for color in ["Purple", "Orange", "Gold"]]
+            snurglar_ids = [self.get_loc_id(ctx, f"Snurglars {color} Key") for color in ["Purple", "Orange", "Gold"]]
             for i in snurglar_ids:
                 if i not in ctx.checked_locations:
                     await self.snurglar_addr.unset_bits(ctx, 0x30)
@@ -1820,8 +1827,8 @@ class SpiritTracksClient(DSZeldaClient):
                         ) or ( # Tos with key needs key location to open door
                             has_key and (
                                 tos_loc or
-                                (current_scene == 0x1309 and self.location_name_to_id["ToS 10F Boss Key"] in ctx.checked_locations)
-                                or (current_scene == 0x1318 and self.location_name_to_id["ToS 22F Boss Key"] in ctx.checked_locations)
+                                (current_scene == 0x1309 and self.get_loc_id(ctx, "ToS 10F Boss Key") in ctx.checked_locations)
+                                or (current_scene == 0x1318 and self.get_loc_id(ctx, "ToS 22F Boss Key") in ctx.checked_locations)
                             )
                         )
                     )
@@ -1837,7 +1844,7 @@ class SpiritTracksClient(DSZeldaClient):
         if self.current_scene in BOSS_KEY_DATA and ctx.slot_data.get("randomize_boss_keys", 0):
             actor_table = await self.get_actor_table(ctx)
             data = BOSS_KEY_DATA[self.current_scene]
-            if self.location_name_to_id[data["location"]] in ctx.checked_locations:
+            if self.get_loc_id(ctx, data["location"]) in ctx.checked_locations:
                 printl(f"Has found location {data['location']}, deleting boss key")
                 await self.delete_boss_key(ctx)
             else:
@@ -2126,7 +2133,7 @@ class SpiritTracksClient(DSZeldaClient):
         if exit_data.name == "Capbone Exit":
             post_fight = self.entrances["Skeldritch Post-Fight Exit"]
             er_map.setdefault(post_fight.scene, {})[post_fight] = detect_data
-            if self.location_name_to_id["Capbone Boss Reward"] in ctx.checked_locations:
+            if self.get_loc_id(ctx, "Capbone Boss Reward") in ctx.checked_locations:
                 er_map.setdefault(detect_data.scene, {})[detect_data] = post_fight
             else:
                 er_map.setdefault(detect_data.scene, {})[detect_data] = exit_data

@@ -1098,6 +1098,21 @@ class SpiritTracksExtraEvents(OptionSet):
     default = {"portals", "stamps", "visits", "rabbits", "warps", "passengers", "cargo"}
     valid_keys = ["portals", "stamps", "visits", "rabbits", "warps", "passengers", "cargo", "shortcuts"]
 
+class SpiritTracksLocalization(Choice):
+    """
+    Option to localize location names to either EU or US/AU names.
+    Does not care about your rom version.
+    - eu: PAL localisation (Outset, Mayscore, Wooded Temple, Staven etc.)
+    - us: NTSC localization (Aboda, Whittleton, Forest Temple, Byrne etc.)
+    """
+    display_name = "Localization"
+    option_eu = 0
+    alias_uk = 0
+    option_us = 1
+    alias_au = 1
+    alias_nz = 1
+    alias_na = 1
+
 @dataclass
 class SpiritTracksOptions(PerGameCommonOptions):
     # Accessibility
@@ -1211,6 +1226,7 @@ class SpiritTracksOptions(PerGameCommonOptions):
     starting_train: SpiritTracksStartingTrain
     multiworld_item_model_swaps: SpiritTracksZeldaModelSwaps
     multiworld_item_default_models: SpiritTracksMultiworldItemModel
+    localization: SpiritTracksLocalization
 
     # Generic
     start_inventory_from_pool: StartInventoryPool
@@ -1323,7 +1339,8 @@ st_option_groups = [
     OptionGroup("Cosmetic Options", [
         SpiritTracksStartingTrain,
         SpiritTracksZeldaModelSwaps,
-        SpiritTracksMultiworldItemModel
+        SpiritTracksMultiworldItemModel,
+        SpiritTracksLocalization
     ]),
     OptionGroup("Item & Location Options", [
         SpiritTracksRemoveItemsFromPool

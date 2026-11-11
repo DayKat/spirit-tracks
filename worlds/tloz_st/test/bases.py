@@ -120,7 +120,7 @@ starve_rupees = {
 
 basic = {
 
-        "shopsanity": ["all"],
+        "shopsanity": [],
 
         "exclude_sections": "include",
         "exclude_dungeons": "remove",
@@ -132,6 +132,8 @@ basic = {
         "randomize_passengers": "no_passengers",
         "rabbitsanity": "both",
         "track_pool": "mixed_large",
+
+        "localization": "nz"
 }
 
 class TestGeneration(WorldTestBase):

@@ -785,7 +785,9 @@ class SpiritTracksWorld(WorldParent):
 
         if self.options.randomize_stamps.value in [1, 4]:
             excluded_dungeons = self.non_required_dungeons if self.options.exclude_dungeons.value else []
-            [self.create_event(LOCATIONS_DATA[loc].region.replace("station", "event"), "_stamp_stand") for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
+            [self.create_event(LOCATIONS_DATA[loc].region.replace("station", "event"),
+                               "_stamp_stand")
+             for loc in LOCATION_GROUPS["Stamp Stands"] if LOCATIONS_DATA[loc].get("dungeon") not in excluded_dungeons]
 
         # Create rupee farming events
         rupee_farming_regions = ["mayscore whip game", "mayscore leaves",
