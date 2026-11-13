@@ -1083,7 +1083,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt 1f left", "mtt 1f right", False, has_short_range],
         ["mtt 1f left", "mtt 2f left", True, None],
         ["mtt 1f right", "mtt 2f right", True, None],
-        ["mtt 2f right", "mtt 2f chest", False, can_kill_bat],
+        ["mtt 2f right", "mtt 2f chest", False, can_hit_minecart_switches],
 
         ["mtt 1f", "mtt 1f door puzzle", False, has_small_keys_er("Mountain Temple", 2, er=3) & Or(
             has_bombs, has_boomerang, hard_logic & (has_bow | has_sword_beam | has_whip)
@@ -1129,10 +1129,10 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["mtt b1 cart exit", "mtt b2 s", True, None],
         ["mtt b2 s", "mtt b3", True, None],
 
-        ["mtt b3", "mtt b3 ne", False, has_short_range],
+        ["mtt b3", "mtt b3 ne", False, can_hit_minecart_switches],
         ["mtt b3 ne", "mtt b3 chest", False, has_whip],
-        ["mtt b3 ne", "mtt b3 bk", False, has_whirlwind],
-        ["mtt b3 ne", "mtt b3 n", False, None],
+        ["mtt b3 ne", "mtt b3 bk", False, has_whirlwind & can_hit_far_minecart_switches],
+        ["mtt b3 ne", "mtt b3 n", False, can_hit_minecart_switches],
         ["mtt b3 n", "mtt b3 chest", False, hard_logic],
         ["mtt b3 n", "mtt b3 ne", False, has_whip],
         ["mtt b3 bk", "mtt b3 boss door", False, True_() & vanilla_boss_keys],
@@ -1532,7 +1532,10 @@ def create_connections(world: "SpiritTracksWorld", player: int, origin_name: str
 
     def create_entrance(r1, r2, rule_):
         entrance_data: "STTransition" or None = entrance_lookup.get((r1.name, r2.name), None)
-        name = entrance_data.name if entrance_data else None
+        if not entrance_data:
+            name = None
+        else:
+            name = entrance_data.us_name if entrance_data.us_name and world.options.localization.value else entrance_data.name
 
         entrance = r1.connect(r2, name)
         if rule_ is not None:

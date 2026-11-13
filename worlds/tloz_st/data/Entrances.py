@@ -44,6 +44,7 @@ ENTRANCE_DATA = {
     # Outset
     "Outset West House": {
         "return_name": "Niko's House Exit",
+        "us_name": "Aboda West House",
         "exit": (0x2F, 0xA, 1),
         "entrance": (0x2F, 0x0, 1),
         "exit_region": "niko's house",
@@ -54,6 +55,7 @@ ENTRANCE_DATA = {
     },
     "Outset East House": {
         "return_name": "Mary's House Exit",
+        "us_name": "Aboda East House",
         "exit": (0x2F, 0xC, 0),
         "entrance": (0x2F, 0x0, 3),
         "exit_region": "mary's house",
@@ -64,6 +66,7 @@ ENTRANCE_DATA = {
     },
     "Outset Alfonzo's Workshop": {
         "return_name": "Alfonzo's Workshop Exit",
+        "us_name": "Aboda Alfonzo's Workshop",
         "exit": (0x2F, 0xB, 0),
         "entrance": (0x2F, 0x0, 2),
         "exit_region": "train workshop",
@@ -1144,6 +1147,8 @@ ENTRANCE_DATA |= {
     },
     "Outset Board Train": {
         "return_name": "Forest Realm Outset Station",
+        "us_name": "Aboda Board Train",
+        "reverse_us_name": "Forest Realm Aboda Station",
         "exit": (0x4, 0x0, 1),
         "entrance": (0x2F, 0x0, 0),
         "exit_region": "outset station",
@@ -3117,3 +3122,6 @@ valid_starts: set[str] = {
     and d.category_group not in [EntranceGroups.TRAIN_PORTAL, EntranceGroups.OVERWORLD_TRAIN, EntranceGroups.EVENT, EntranceGroups.NONE]
     and not (d.category_group == EntranceGroups.STATION and d.direction == EntranceGroups.UP)
 }
+
+
+ENTRANCE_NAME_LOOKUP: dict[str, STTransition] = ENTRANCES | {e.us_name: e for e in ENTRANCES.values() if e.us_name}

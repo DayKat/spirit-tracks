@@ -119,7 +119,6 @@ starve_rupees = {
 }
 
 basic = {
-
         "shopsanity": [],
 
         "exclude_sections": "include",

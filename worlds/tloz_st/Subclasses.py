@@ -333,6 +333,11 @@ class STTransition(DSTransition):
     opposite_entrance_groups = OPPOSITE_ENTRANCE_GROUPS
     required_groups: list[str | tuple[str]]
     vanilla_reciprocal: "STTransition"
+    us_name: str = ""
+
+    def __init__(self, name, data):
+        super().__init__(name, data)
+        self.us_name = data.get("us_name", "")
 
     @classmethod
     def from_data(cls, entrance_data):
@@ -342,6 +347,7 @@ class STTransition(DSTransition):
         for name, data in entrance_data.items():
             data["id"] = ident
             res[name] = cls(name, data)
+            res[name].us_name = data.get("us_name", "")
             # print(f"{i} {ENTRANCES[name].entrance_region} -> {ENTRANCES[name].exit_region}")
             ident += 1
             point = data["entrance_region"] + "<=>" + data["exit_region"]
@@ -366,6 +372,7 @@ class STTransition(DSTransition):
                 "island": data.get("return_island", data.get("island", cls.entrance_groups.NONE)),
                 "direction": cls.opposite_entrance_groups[data["direction"]],
                 "coords": data.get("reverse_coords", data.get("coords", None)),
+                "us_name": data.get("reverse_us_name", "")
 
             }
             if reverse_data["coords"] == "flip_h":

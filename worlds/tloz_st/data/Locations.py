@@ -129,7 +129,7 @@ def conditional_dummy(*args):
     return False
 
 def conditional_localize(self: "SpiritTracksWorld", location_data: DSLocation):
-    print(f"Condition: {location_data.name} {location_data.localized} {location_data.conditional_2}")
+    # print(f"Condition: {location_data.name} {location_data.localized} {location_data.conditional_2}")
     if location_data.localized is not None:
         if self.options.localization.value != location_data.localized:
             return False
@@ -5697,6 +5697,8 @@ for data in new_loc_data:
 
         LOCATIONS_DATA[names[0]].localized = 0
         LOCATIONS_DATA[names[1]].localized = 1
+        LOCATIONS_DATA[names[0]].local_pair_name = names[1]
+        LOCATIONS_DATA[names[1]].local_pair_name = names[0]
         # print(f"{names[0]}: {LOCATIONS_DATA[names[0]]}")
         # print(f"{names[1]}: {LOCATIONS_DATA[names[1]]}")
 # LOCATIONS_DATA = {data.name: data for data in new_loc_data}

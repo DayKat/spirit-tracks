@@ -16,7 +16,7 @@ from .data.Constants import *
 from .data.ModelLookups import all_lookups
 from .data.Regions import REGIONS
 from .data.LogicPredicates import *
-from .data.Entrances import (ENTRANCES, entrance_id_to_region, entrance_id_to_entrance,
+from .data.Entrances import (ENTRANCES, ENTRANCE_NAME_LOOKUP, entrance_id_to_region, entrance_id_to_entrance,
                              location_event_lookup, goal_event_lookup, boss_events, cargo_events)
 
 from .Client import SpiritTracksClient  # Unused, but required to register with BizHawkClient
@@ -582,12 +582,17 @@ class SpiritTracksWorld(WorldParent):
                     "EVENT: Blizzard Temple 1F Bell Door 3"
                 ]
 
-        self.ut_events = events
+
         # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
-        print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
+        us_local = self.options.localization.value == 1
         for e in events:
             event = ENTRANCES[e]
             self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
+            if us_local and event.us_name:
+                self.ut_events.append(event.us_name)
+            else:
+                self.ut_events.append(e)
+        print(f"UT Events: {events} hidden: {self.ut_map_page_hidden_entrances}")
 
     def create_item_mappings(self):
         self.item_mapping_collect = {
@@ -646,10 +651,8 @@ class SpiritTracksWorld(WorldParent):
             case_compare = {k.lower(): v for k, v in pre_pick_boss_pairings.items()}
             required_dungeons = list({case_compare[dung.lower()] for dung in self.options.plando_dungeon_pool.value})
         else:
-            required_dungeons = list(BOSS_LOCATION_TO_POST_LOCATIONS.keys())
-            implemented_tos = ["ToS 3F Forest Rail Glyph", "ToS 7F Snow Rail Glyph",
-                               "ToS 12F Ocean Rail Glyph", "ToS 17F Fire Rail Glyph",
-                               "ToS 23F Defeat Staven", "ToS 24F Final Chest"]
+            required_dungeons = list(BOSS_LOCATION_TO_EVENT_REGION.keys())[:5]
+            implemented_tos = list(BOSS_LOCATION_TO_EVENT_REGION.keys())[5:11]
             if self.options.tos_dungeon_options == "final_section":
                 required_dungeons.append(implemented_tos[-1])
             elif self.options.tos_dungeon_options == "all_sections":
@@ -665,7 +668,7 @@ class SpiritTracksWorld(WorldParent):
         self.random.shuffle(required_dungeons)
         required_dungeons = force_require + required_dungeons
         required_dungeons = required_dungeons[:self.options.dungeons_required.value]
-        # print(f"Required dungeons: {required_dungeons}")
+        print(f"Required dungeons: {required_dungeons}")
 
         if self.options.dungeon_hints:
             self.options.start_location_hints.value.update(required_dungeons)
@@ -751,8 +754,10 @@ class SpiritTracksWorld(WorldParent):
         if self.options.goal == "defeat_malladus":
             self.create_event("malladus goal", "_beaten_game")
             if self.options.dark_realm_access in ["dungeons", "both"]:
+                boss_region_lookup = BOSS_LOCATION_TO_EVENT_REGION | US_BOSS_LOCS
+
                 for loc in self.required_boss_locs:
-                    self.create_event(BOSS_LOCATION_TO_EVENT_REGION[loc], "_dungeon_reward")
+                    self.create_event(boss_region_lookup[loc], "_dungeon_reward")
         else:
             goal_loc = list(BOSS_LOCATION_TO_EVENT_REGION.keys())[self.options.goal.value]
             goal_reg = BOSS_LOCATION_TO_EVENT_REGION[goal_loc]
@@ -1586,9 +1591,9 @@ class SpiritTracksWorld(WorldParent):
             if las_ow in disconnect_ids:
                 disconnect_ids.remove(las_ow)
             for e in self.valid_entrances:
-                if ENTRANCES[e.name].id in disconnect_ids:
+                if ENTRANCE_NAME_LOOKUP[e.name].id in disconnect_ids:
                     # print(f"Disconnecting {e.name}")
-                    target_name = ENTRANCES[e.name].vanilla_reciprocal.name
+                    target_name = ENTRANCE_NAME_LOOKUP[e.name].vanilla_reciprocal.name
                     disconnect_entrance_for_randomization(e, one_way_target_name=target_name)
             if getattr(self.multiworld, "enforce_deferred_connections", "default") == "off":
                 # print(f"Reconnecting entrances {self.ut_pairings}")

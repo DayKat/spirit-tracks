@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Iterable
-from ..data.Entrances import ENTRANCES
+from ..data.Entrances import ENTRANCES, ENTRANCE_NAME_LOOKUP
 from ..data.Locations import LOCATIONS_DATA, LOCATION_GROUPS
 
 if TYPE_CHECKING:
@@ -548,10 +548,19 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
         map_locs = [m for m in entrance.get("map_locations", [])]
         map_loc_names = [m["map"] for m in map_locs]
 
+        valid_entrance_names = list(ENTRANCE_NAME_LOOKUP.keys())
         for entr_name in entr_names:
-            if entr_name not in ENTRANCES:
+            print(f"\tChecking {entr_name}")
+            entrance_data = ENTRANCE_NAME_LOOKUP[entr_name]
+            if entr_name not in valid_entrance_names:
                 print(f"Wrong Entrance in tracker data: {entr_name}")
-            elif ENTRANCES[entr_name].id not in active_entrances:
+            elif entrance_data.id not in active_entrances:
+                print(f"Entrance not active: {entr_name}")
+                for map_loc in map_loc_names:
+                    entr_hidden.setdefault(map_loc, []).append(entr_name)
+            elif ((entrance_data.us_name == entr_name and not world.options.localization.value)
+                or (entrance_data.us_name and entrance_data.us_name != entr_name and world.options.localization.value)):
+                print(f"Wrong localization for {entr_name}")
                 for map_loc in map_loc_names:
                     entr_hidden.setdefault(map_loc, []).append(entr_name)
             else:
@@ -563,8 +572,6 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
                     else:
                         coords = (map_loc["x"], map_loc["y"])
                         map_coord_checks.setdefault(map_loc["map"], []).append(coords)
-
-
 
         # Filter out stations using station_section_link
         if entr_section in boss_event_link:
@@ -589,7 +596,7 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
         if loc_section in station_section_link:
             _e = station_section_link[loc_section]
             _e = _e if isinstance(_e, list) else [_e]
-            blocking_entrances = [ENTRANCES[i].id for i in _e]
+            blocking_entrances = [ENTRANCE_NAME_LOOKUP[i].id for i in _e]
             for blocking_entrance in blocking_entrances:
                 if blocking_entrance in active_entrances:
                     for loc_map in loc_maps:
@@ -623,8 +630,14 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
         for rabbit_loc in LOCATION_GROUPS["Unique Rabbits"]:
             if rabbit_loc in world.active_rabbit_locations:
                 entr_hidden.setdefault("Overview", []).append(f"EVENT: {rabbit_loc}")
+                paired_loc_name = LOCATIONS_DATA[rabbit_loc].local_pair_name
+                print(f"Pair: {rabbit_loc} | {paired_loc_name}")
+                if paired_loc_name:
+                    entr_hidden.setdefault("Overview", []).append(f"EVENT: {paired_loc_name}")
                 for scene in LOCATIONS_DATA[rabbit_loc].scenes:
                     entr_hidden.setdefault(realm_lookup[scene], []).append(f"EVENT: {rabbit_loc}")
+                    if paired_loc_name:
+                        entr_hidden.setdefault(realm_lookup[scene], []).append(f"EVENT: {paired_loc_name}")
 
     # Hide interiors from overview
     for data in interior_data:

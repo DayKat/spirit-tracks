@@ -5,7 +5,7 @@
   {"name": "Outset Interior", "sections": [{"name": "Mary's House Exit"}], "map_locations": [{"map": "Mary's House", "x": 128, "y": 120}]},
   {"name": "Outset Interior", "sections": [{"name": "Niko's House Exit"}], "map_locations": [{"map": "Niko's House", "x": 128, "y": 116}]},
   {"name": "Outset Interior", "sections": [{"name": "Alfonzo's Workshop Exit"}], "map_locations": [{"map": "Alfonzo's House", "x": 128, "y": 116}]},
-  {"name": "Outset", "sections": [{"name": "Outset Board Train"}], "map_locations": [{"map": "Outset Village", "x": 160, "y": 50}]},
+  {"name": "Outset", "sections": [{"name": "Outset Board Train"}, {"name": "Aboda Board Train"}], "map_locations": [{"map": "Outset Village", "x": 160, "y": 50}]},
 
   {"name": "Mayscore", "sections": [{"name": "Mayscore Shop"}], "map_locations": [{"map": "Mayscore", "x": 84, "y": 116}]},
   {"name": "Mayscore", "sections": [{"name": "Mayscore North House"}, {"name": "EVENT: Mayscore Pick Up Dovok"}], "map_locations": [{"map": "Mayscore", "x": 124, "y": 68}]},
@@ -450,7 +450,7 @@
   {"name": "Tower of Spirits 6", "sections": [{"name": "EVENT: Reach ToS 24F"}, {"name": "GOAL: Reach ToS 24F"}], "map_locations": [{"map": "Tower of Spirits", "x": 79, "y": 161}]},
   {"name": "Tower of Spirits 5 Staven", "sections": [{"name": "Tower of Spirits Exit Staven"}], "map_locations": [{"map": "Tower of Spirits", "x": 95, "y": 216}]},
 
-  {"name": "Forest Realm", "sections": [{"name": "Forest Realm Outset Station"}], "map_locations": [{"map": "Forest Realm", "x": 236, "y": 326}]},
+  {"name": "Forest Realm", "sections": [{"name": "Forest Realm Outset Station"}, {"name": "Forest Realm Aboda Station"}], "map_locations": [{"map": "Forest Realm", "x": 236, "y": 326}]},
   {"name": "Forest Realm", "sections": [{"name": "Forest Realm Castle Town Station"}], "map_locations": [{"map": "Forest Realm", "x": 404, "y": 86}]},
   {"name": "Forest Realm", "sections": [{"name": "Forest Realm Mayscore Station"}], "map_locations": [{"map": "Forest Realm", "x": 332, "y": 230}]},
   {"name": "Forest Realm", "sections": [{"name": "Forest Realm Woodland Sanctuary Station"}], "map_locations": [{"map": "Forest Realm", "x": 212, "y": 206}]},
@@ -555,7 +555,7 @@
     {"map": "Fire Realm", "x": 226, "y": 234},
     {"map": "Overview", "x": 738, "y": 234}
   ]},
-  {"name": "Overview Forest", "sections": [{"name": "Forest Realm Outset Station"}], "map_locations": [{"map": "Overview", "x": 236, "y": 710}]},
+  {"name": "Overview Forest", "sections": [{"name": "Forest Realm Outset Station"}, {"name": "Forest Realm Aboda Station"}], "map_locations": [{"map": "Overview", "x": 236, "y": 710}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Castle Town Station"}], "map_locations": [{"map": "Overview", "x": 404, "y": 470}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Mayscore Station"}], "map_locations": [{"map": "Overview", "x": 332, "y": 614}]},
   {"name": "Overview Forest", "sections": [{"name": "Forest Realm Woodland Sanctuary Station"}], "map_locations": [{"map": "Overview", "x": 212, "y": 590}]},
