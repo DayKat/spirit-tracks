@@ -79,6 +79,7 @@ ENTRANCE_DATA = {
     # Mayscore
     "Mayscore North House": {
         "return_name": "Dovok's House Exit",
+        "us_name": "Whittleton North House",
         "exit": (0x2A, 0x4, 0),
         "entrance": (0x2A, 0x0, 4),
         "exit_region": "dovok's house",
@@ -89,6 +90,7 @@ ENTRANCE_DATA = {
     },
     "Mayscore NW House": {
         "return_name": "Morris' House Exit",
+        "us_name": "Whittleton NW House",
         "exit": (0x2A, 0x3, 0),
         "entrance": (0x2A, 0x0, 3),
         "exit_region": "morris' house",
@@ -99,6 +101,7 @@ ENTRANCE_DATA = {
     },
     "Mayscore NE House": {
         "return_name": "Wood's House Exit",
+        "us_name": "Whittleton NE House",
         "exit": (0x2A, 0x2, 0),
         "entrance": (0x2A, 0x0, 2),
         "exit_region": "wood's house",
@@ -109,6 +112,7 @@ ENTRANCE_DATA = {
     },
     "Mayscore Shop": {
         "return_name": "Uriko's Shop Exit",
+        "us_name": "Whittleton Shop",
         "exit": (0x2A, 0x5, 0),
         "entrance": (0x2A, 0x0, 1),
         "exit_region": "uriko's shop",
@@ -119,6 +123,7 @@ ENTRANCE_DATA = {
     },
     "Mayscore North": {
         "return_name": "Mayscore Forest South",
+        "us_name": "Whittleton North",
         "exit": (0x38, 0x0, 0),
         "entrance": (0x2A, 0x0, 5),
         "exit_region": "mayscore north",
@@ -366,6 +371,7 @@ ENTRANCE_DATA = {
     # FOS
     "Woodland Sanctuary Cave": {
         "return_name": "Gage's Sanctuary Exit",
+        "us_name": "Forest Sanctuary Cave",
         "entrance": (0x30, 0, 1),
         "exit": (0x30, 0x1, 0),
         "entrance_region": "woodland sanc door",
@@ -449,6 +455,7 @@ ENTRANCE_DATA = {
     # Snowfall sanc
     "Snowfall Sanctuary Cave": {
         "return_name": "Head Statue Cave Exit",
+        "us_name": "Snow Sanctuary Cave",
         "entrance": (0x31, 0, 1),
         "exit": (0x31, 0x1, 0),
         "entrance_region": "snow sanc",
@@ -469,6 +476,8 @@ ENTRANCE_DATA = {
     },
     "Snowfall Sanctuary Shop": {
         "return_name": "Snowfall Supermarket Exit",
+        "us_name": "Snow Sanctuary Shop",
+        "reverse_us_name": "Snow Sanctuary Shop Exit",
         "entrance": (0x31, 0, 2),
         "exit": (0x31, 0x3, 0),
         "entrance_region": "snow sanc",
@@ -480,6 +489,7 @@ ENTRANCE_DATA = {
     # Small Stations
     "Icy Spring Trailer": {
         "return_name": "Ferrus' Trailer Exit",
+        "us_name": "Wellspring Trailer",
         "entrance": (0x35, 0, 1),
         "exit": (0x35, 0x1, 0),
         "entrance_region": "icyspring",
@@ -605,6 +615,7 @@ ENTRANCE_DATA = {
     # Papuzia
     "Papuzia NW House": {
         "return_name": "Fuku's House Exit",
+        "us_name": "Papuchia NW House",
         "entrance_region": "papuzia village",
         "exit_region": "fuku's house",
         "entrance": (0x2c, 0x0, 0x1),
@@ -615,6 +626,7 @@ ENTRANCE_DATA = {
     },
     "Papuzia Wise One's House": {
         "return_name": "Wise One's House Exit",
+        "us_name": "Papuchia Wise One's House",
         "entrance_region": "papuzia village",
         "exit_region": "wise one's house",
         "entrance": (0x2c, 0x0, 0x4),
@@ -625,6 +637,7 @@ ENTRANCE_DATA = {
     },
     "Papuzia South House": {
         "return_name": "Orca's House Exit",
+        "us_name": "Papuchia South House",
         "entrance_region": "papuzia village",
         "exit_region": "orca's house",
         "entrance": (0x2c, 0x0, 0x3),
@@ -635,6 +648,7 @@ ENTRANCE_DATA = {
     },
     "Papuzia Shop": {
         "return_name": "Kogane's Shop Exit",
+        "us_name": "Papuchia Shop",
         "entrance_region": "papuzia village",
         "exit_region": "kogane's shop",
         "entrance": (0x2c, 0x0, 0x2),
@@ -645,6 +659,8 @@ ENTRANCE_DATA = {
     },
     "Papuzia South": {
         "return_name": "Papuzia Archipelago North",
+        "us_name": "Papuchia South",
+        "reverse_us_name": "Papuzia Archipelago North",
         "entrance_region": "papuzia village south",
         "exit_region": "papuzia archipelago north",
         "entrance": (0x2c, 0x0, 0x5),
@@ -657,6 +673,7 @@ ENTRANCE_DATA = {
     # Island Sanctuary
     "Island Sanctuary South Cave": {
         "return_name": "Crab Cave Exit",
+        "us_name": "Ocean Sanctuary South Cave",
         "entrance_region": "island sanc",
         "exit_region": "island sanc cave west",
         "entrance": (0x32, 0x0, 0x1),
@@ -667,6 +684,7 @@ ENTRANCE_DATA = {
     },
     "Island Sanctuary North Staircase": {
         "return_name": "Crab Cave Staircase",
+        "us_name": "Ocean Sanctuary North Staircase",
         "entrance_region": "island sanc north",
         "exit_region": "island sanc cave east",
         "entrance": (0x32, 0x2, 0x0),
@@ -677,6 +695,7 @@ ENTRANCE_DATA = {
     },
     "Island Sanctuary North Cave": {
         "return_name": "Carben's Sanctuary Exit",
+        "us_name": "Ocean Sanctuary North Cave",
         "entrance_region": "island sanc north",
         "exit_region": "island sanc sanc",
         "entrance": (0x32, 0x2, 0x2),
@@ -687,6 +706,8 @@ ENTRANCE_DATA = {
     },
     "Island Sanctuary South Peninsula": {
         "return_name": "Island Sanctuary North Peninsula",
+        "us_name": "Ocean Sanctuary South Peninsula",
+        "reverse_us_name": "Ocean Sanctuary North Peninsula",
         "entrance_region": "island sanc peninsula",
         "exit_region": "island sanc north",
         "entrance": (0x32, 0x0, 0x2),
@@ -729,6 +750,7 @@ ENTRANCE_DATA = {
     },
     "Dune Sanctuary Secret Staircase": {
         "return_name": "Sandy Tunnel Right Staircase",
+        "us_name": "Sand Sanctuary Secret Staircase",
         "entrance_region": "sand sanc",
         "exit_region": "sand sanc tunnel",
         "entrance": (0x34, 0x0, 0x1),
@@ -865,6 +887,7 @@ ENTRANCE_DATA = {
     },
     "Goron Village Enclave North": {
         "return_name": "Valley Sanctuary South",
+        "us_name": "Fire Sanctuary South",
         "entrance_region": "goron village north",
         "exit_region": "valley sanc",
         "entrance": (0x2e, 0x0, 0x4),
@@ -875,6 +898,7 @@ ENTRANCE_DATA = {
     },
     "Valley Sanctuary Cave": {
         "return_name": "Embrose's Sanctuary Exit",
+        "us_name": "Fire Sanctuary Cave",
         "entrance_region": "valley sanc door",
         "exit_region": "valley sanc sanc",
         "entrance": (0x33, 0x0, 0x2),
@@ -1160,6 +1184,8 @@ ENTRANCE_DATA |= {
     },
     "Mayscore Board Train": {
         "return_name": "Forest Realm Mayscore Station",
+        "us_name": "Whittleton Board Train",
+        "reverse_us_name": "Forest Realm Whittleton Station",
         "exit": (0x4, 0x0, 2),
         "entrance": (0x2A, 0x0, 0),
         "exit_region": "mayscore station",
@@ -1182,6 +1208,8 @@ ENTRANCE_DATA |= {
     },
     "Woodland Sanctuary Board Train": {
         "return_name": "Forest Realm Woodland Sanctuary Station",
+        "us_name": "Forest Sanctuary Board Train",
+        "reverse_us_name": "Forest Realm Sanctuary Station",
         "exit": (0x4, 0x0, 3),
         "entrance": (0x30, 0x0, 0),
         "exit_region": "woodland sanc station",
@@ -1193,6 +1221,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple Lobby Board Train": {
         "return_name": "Forest Realm Wooded Temple Station",
+        "us_name": "Forest Temple Lobby Board Train",
+        "reverse_us_name": "Forest Realm Temple Station",
         "exit": (0x4, 0x0, 4),
         "entrance": (0x19, 0xA, 0),
         "exit_region": "wt station",
@@ -1204,6 +1234,8 @@ ENTRANCE_DATA |= {
     },
     "Rabbit Haven Board Train": {
         "return_name": "Forest Realm Rabbit Haven Station",
+        "us_name": "Rabbitland Rescue Board Train",
+        "reverse_us_name": "Forest Realm Rabbitland Rescue Station",
         "exit": (0x4, 0x0, 8),
         "entrance": (0x3E, 0x0, 0),
         "exit_region": "rabbit haven station",
@@ -1226,6 +1258,8 @@ ENTRANCE_DATA |= {
     },
     "Snowfall Sanctuary Board Train": {
         "return_name": "Snow Realm Snowfall Sanctuary Station",
+        "us_name": "Snow Sanctuary Board Train",
+        "reverse_us_name": "Snow Realm Sanctuary Station",
         "exit": (0x5, 0x0, 2),
         "entrance": (0x31, 0x0, 0),
         "exit_region": "snow sanc station",
@@ -1237,6 +1271,8 @@ ENTRANCE_DATA |= {
     },
     "Snow Realm Icy Spring Station": {
         "return_name": "Icy Spring Board Train",
+        "us_name": "Wellspring Board Train",
+        "reverse_us_name": "Snow Realm Wellspring Station",
         "entrance_region": "icyspring station",
         "exit_region": "icyspring",
         "required_groups": ["Tracks: Blizzard Temple Tracks"],
@@ -1259,6 +1295,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple Lobby Board Train": {
         "return_name": "Snow Realm Blizzard Temple Station",
+        "us_name": "Snow Temple Lobby Board Train",
+        "reverse_us_name": "Snow Realm Temple Station",
         "exit": (0x5, 0x0, 1),
         "entrance": (0x1A, 0x4, 0),
         "exit_region": "bt station",
@@ -1304,6 +1342,8 @@ ENTRANCE_DATA |= {
     },
     "Papuzia Board Train": {
         "return_name": "Ocean Realm Papuzia Station",
+        "us_name": "Papuchia Board Train",
+        "reverse_us_name": "Ocean Realm Papuchia Station",
         "exit": (0x6, 0x0, 0),
         "entrance": (0x2C, 0x0, 0),
         "exit_region": "ocean realm (pv)",
@@ -1315,6 +1355,8 @@ ENTRANCE_DATA |= {
     },
     "Island Sanctuary Board Train": {
         "return_name": "Ocean Realm Island Sanctuary Station",
+        "us_name": "Ocean Sanctuary Board Train",
+        "reverse_us_name": "Ocean Realm Sanctuary Station",
         "exit": (0x6, 0x0, 2),
         "entrance": (0x32, 0x0, 0),
         "exit_region": "island sanc station",
@@ -1326,6 +1368,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple Lobby Board Train": {
         "return_name": "Undersea Marine Temple Station",
+        "us_name": "Ocean Temple Lobby Board Train",
+        "reverse_us_name": "Undersea Ocean Temple Station",
         "exit": (0xA, 0x0, 1),
         "entrance": (0x1B, 0xA, 0),
         "exit_region": "oct station",
@@ -1370,6 +1414,8 @@ ENTRANCE_DATA |= {
     },
     "Dune Sanctuary Board Train": {
         "return_name": "Ocean Realm Dune Sanctuary Station",
+        "us_name": "Sand Sanctuary Board Train",
+        "reverse_us_name": "Ocean Realm Sand Sanctuary Station",
         "exit": (0x6, 0x0, 6),
         "entrance": (0x34, 0x0, 0),
         "exit_region": "sand sanc station",
@@ -1381,6 +1427,8 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple Lobby Board Train": {
         "return_name": "Ocean Realm Desert Temple Station",
+        "us_name": "Sand Temple Lobby Board Train",
+        "reverse_us_name": "Ocean Realm Sand Temple Station",
         "exit": (0x6, 0x0, 7),
         "entrance": (0x1D, 0x6, 0),
         "exit_region": "desert temple station",
@@ -1426,6 +1474,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple Lobby Board Train": {
         "return_name": "Fire Realm Mountain Temple Station",
+        "us_name": "Fire Temple Lobby Board Train",
+        "reverse_us_name": "Fire Realm Temple Station",
         "exit": (0x7, 0x0, 1),
         "entrance": (0x1c, 0xA, 0),
         "exit_region": "mtt station",
@@ -1499,6 +1549,8 @@ ENTRANCE_DATA |= {
     },
     "Forest Realm North W Wooded Temple": {
         "return_name": "Snow Realm South W Wooded Temple",
+        "us_name": "Forest Realm North W Forest Temple",
+        "reverse_us_name": "Snow Realm South W Forest Temple",
         "entrance_region": "w wooded temple tracks",
         "exit_region": "w wooded temple tracks north",
         "extra_data": {"x_max": -200000, "x_min": -240000},
@@ -1663,6 +1715,8 @@ ENTRANCE_DATA |= {
     },
     "Ocean Realm North Desert Temple": {
         "return_name": "Fire Realm South Desert Temple",
+        "us_name": "Ocean Realm North Sand Temple",
+        "reverse_us_name": "Fire Realm South Sand Temple",
         "entrance_region": "sand restoration south exit",
         "exit_region": "sand restoration mid",
         "extra_data": {"x_min": 400000},
@@ -1786,6 +1840,7 @@ ENTRANCE_DATA |= {
     },
     "Ocean Realm West Portal": {
         "return_name": "Forest Realm Mayscore Portal",
+        "reverse_us_name": "Forest Realm Whittleton Portal",
         "entrance": (0x6, 0, 0xd),
         "exit": (0x4, 0, 0xd),
         "entrance_region": "ocean portal",
@@ -1935,6 +1990,7 @@ ENTRANCE_DATA |= {
     },
     "Tower of Spirits Exit Staven": {
         "return_name": "ToS Summit Lower Exit",
+        "us_name": "Tower of Spirits Exit Byrne",
         "entrance": (0x23, 0, 1),
         "exit": (0x15, 0x0, 0),
         "entrance_region": "tos post staven",

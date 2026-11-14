@@ -62,8 +62,8 @@ def conditional_niko(self: "SpiritTracksWorld", location_data: DSLocation):
     # If dungeon stamp stands are excluded with vanilla stamps, niko has to give less items
     if self.options.exclude_dungeons.value and self.non_required_dungeons and self.options.randomize_stamps.value in [1, 2, 4]:
         if len(self.non_required_dungeons) > 5:
-            return location_data.name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward"]
-        return location_data.name not in ["Outset Niko 20 Stamps Reward"]
+            return location_data.name not in ["Outset Niko 15 Stamps Reward", "Outset Niko 20 Stamps Reward", "Aboda Niko 15 Stamps Reward", "Aboda Niko 20 Stamps Reward"]
+        return location_data.name not in ["Outset Niko 20 Stamps Reward", "Aboda Niko 20 Stamps Reward"]
     return self.options.randomize_stamps.value
 
 def conditional_shop(self: "SpiritTracksWorld", location_data: DSLocation):
@@ -376,8 +376,8 @@ new_loc_data: list[DSLocation] = [
                hint_entrance_secondary=['Castle Town Board Train', 'Castle Town North'],
                scenes=[0x290b],
                ),
-    DSLocation("Castle Town Take 'em All On Level 3 Capbone Chest",
-               id=19,
+    DSLocation(("Castle Town Take 'em All On Level 3 Capbone Chest", "Castle Town Take 'em All On Level 3 Skeldritch Chest"),
+               id=(19, 634),
                region="teao 3",
                vanilla_item=["Treasure: Pirate's Necklace", 'Treasure: Dragon Scale', 'Treasure: White Pearl Loop',
                              'Treasure: Ruto Crown', 'Treasure: Dark Pearl Loop'],
@@ -5701,13 +5701,14 @@ for data in new_loc_data:
         LOCATIONS_DATA[names[1]].local_pair_name = names[0]
         # print(f"{names[0]}: {LOCATIONS_DATA[names[0]]}")
         # print(f"{names[1]}: {LOCATIONS_DATA[names[1]]}")
+        # print(f"New localized location: {LOCATIONS_DATA[names[0]]}")
 # LOCATIONS_DATA = {data.name: data for data in new_loc_data}
 
 def set_condition(l: DSLocation, cond: Callable):
     if l.conditional is None:
         l.conditional = cond
 
-for location in new_loc_data:
+for location in LOCATIONS_DATA.values():
     for group in location.get("location_groups", []):
         LOCATION_GROUPS.setdefault(group, set()).add(location.name)
     if location.tos_section:

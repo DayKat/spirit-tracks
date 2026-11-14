@@ -586,7 +586,9 @@ class SpiritTracksWorld(WorldParent):
         # self.ut_map_page_hidden_entrances["Overview"] += [e.name for e in ENTRANCES.values() if e.category_group == EntranceGroups.EVENT and e.name not in self.ut_events and not e.name.startswith("Unnamed")]
         us_local = self.options.localization.value == 1
         for e in events:
-            event = ENTRANCES[e]
+            event = ENTRANCE_NAME_LOOKUP[e] # .get(e, None)  # commented stuff for incomplete data entry tests
+            # if not event:
+            #     continue
             self.ut_pairings[str(event.id)] = event.vanilla_reciprocal.id
             if us_local and event.us_name:
                 self.ut_events.append(event.us_name)

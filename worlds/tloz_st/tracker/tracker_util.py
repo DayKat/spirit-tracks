@@ -627,11 +627,12 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
             0x600: "Ocean Realm",
             0x700: "Fire Realm"
         }
+        # print(f"Active rabbits: {world.active_rabbit_locations}")
+        # print(f"Uniques: {LOCATION_GROUPS["Unique Rabbits"]}")
         for rabbit_loc in LOCATION_GROUPS["Unique Rabbits"]:
             if rabbit_loc in world.active_rabbit_locations:
                 entr_hidden.setdefault("Overview", []).append(f"EVENT: {rabbit_loc}")
                 paired_loc_name = LOCATIONS_DATA[rabbit_loc].local_pair_name
-                print(f"Pair: {rabbit_loc} | {paired_loc_name}")
                 if paired_loc_name:
                     entr_hidden.setdefault("Overview", []).append(f"EVENT: {paired_loc_name}")
                 for scene in LOCATIONS_DATA[rabbit_loc].scenes:
