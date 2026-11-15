@@ -474,7 +474,7 @@ class SpiritTracksWorld(WorldParent):
                 "EVENT: Visit Anouki Village",
                 "EVENT: Visit Icy Spring",
                 "EVENT: Visit Trading Post",
-                "EVENT: Visit Papuzia Village",
+                "EVENT: Visit Papuzia",
                 "EVENT: Visit Marine Temple",
                 "EVENT: Visit Goron Village",
             ]
@@ -1741,7 +1741,7 @@ class SpiritTracksWorld(WorldParent):
         for entrance in entrances_to_shuffle:
             if dev_prints:
                 print(f"Disconnecting {entrance.name}")
-            target_name = ENTRANCES[entrance.name].vanilla_reciprocal.name
+            target_name = ENTRANCE_NAME_LOOKUP[entrance.name].vanilla_reciprocal.name
             disconnect_entrance_for_randomization(entrance, one_way_target_name=target_name)
 
         # Get target groups
@@ -1798,7 +1798,7 @@ class SpiritTracksWorld(WorldParent):
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
-                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+                pairings[ENTRANCE_NAME_LOOKUP[e1].id] = ENTRANCE_NAME_LOOKUP[e2].id
         pairings |= self.plando_pairings
         pairings |= {int(k): v for k, v in self.ut_pairings.items()}
 
@@ -1988,7 +1988,7 @@ class SpiritTracksWorld(WorldParent):
         pairings = dict()
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
-                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+                pairings[ENTRANCE_NAME_LOOKUP[e1].id] = ENTRANCE_NAME_LOOKUP[e2].id
         pairings |= self.plando_pairings
         if not pairings:  # If not er, don't bother trying anything else
             return
@@ -2001,7 +2001,10 @@ class SpiritTracksWorld(WorldParent):
             for entrance_id in hint_entrances_ids:
                 reverse_id = reverse_pairings.get(entrance_id, None)
                 if reverse_id is not None and (reverse_id not in dead_end_ids or self.options.decouple_shuffled_entrances.value):
-                    entrance_list.add(entrance_id_to_entrance[reverse_id].name)
+                    if self.options.localization.value and entrance_id_to_entrance[reverse_id].us_name:
+                        entrance_list.add(entrance_id_to_entrance[reverse_id].us_name)
+                    else:
+                        entrance_list.add(entrance_id_to_entrance[reverse_id].name)
 
         reverse_pairings = {e2: int(e1) for e1, e2 in pairings.items()}
         dead_end_ids = [e.id for name, e in ENTRANCES.items() if name in DEAD_END_ENTRANCES]
@@ -2016,7 +2019,7 @@ class SpiritTracksWorld(WorldParent):
                     create_hint_entrances("hint_entrance_tertiary")
 
                 if entrance_list:
-                    player_hint_data[loc_data["id"]] = ", ".join(entrance_list)
+                    player_hint_data[loc_data.id] = ", ".join(entrance_list)
 
         hint_data[self.player] = player_hint_data
 
@@ -2099,7 +2102,7 @@ class SpiritTracksWorld(WorldParent):
         pairings = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
-                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+                pairings[ENTRANCE_NAME_LOOKUP[e1].id] = ENTRANCE_NAME_LOOKUP[e2].id
         self.redirect_boss_warps(pairings)
         pairings |= self.plando_pairings
         slot_data["er_pairings"] = pairings
@@ -2119,7 +2122,7 @@ class SpiritTracksWorld(WorldParent):
         pairings: dict[int, int] = {}
         if self.er_placement_state:
             for e1, e2 in self.er_placement_state.pairings:
-                pairings[ENTRANCES[e1].id] = ENTRANCES[e2].id
+                pairings[ENTRANCE_NAME_LOOKUP[e1].id] = ENTRANCE_NAME_LOOKUP[e2].id
         self.redirect_boss_warps(pairings)
         pairings |= self.plando_pairings
         if pairings:

@@ -662,7 +662,7 @@ ENTRANCE_DATA = {
     "Papuzia South": {
         "return_name": "Papuzia Archipelago North",
         "us_name": "Papuchia South",
-        "reverse_us_name": "Papuzia Archipelago North",
+        "reverse_us_name": "Papuchia Archipelago North",
         "entrance_region": "papuzia village south",
         "exit_region": "papuzia archipelago north",
         "entrance": (0x2c, 0x0, 0x5),
@@ -889,7 +889,7 @@ ENTRANCE_DATA = {
     },
     "Goron Village Enclave North": {
         "return_name": "Valley Sanctuary South",
-        "us_name": "Fire Sanctuary South",
+        "reverse_us_name": "Fire Sanctuary South",
         "entrance_region": "goron village north",
         "exit_region": "valley sanc",
         "entrance": (0x2e, 0x0, 0x4),
@@ -2475,7 +2475,7 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 4F East Staircase": {
         "return_name": "Marine Temple 5F East Staircase",
-        "us_name": "Ocean 4F East Staircase",
+        "us_name": "Ocean Temple 4F East Staircase",
         "reverse_us_name": "Ocean Temple 5F East Staircase",
         "entrance_region": "oct 4f east",
         "exit_region": "oct 5f",
@@ -3048,7 +3048,7 @@ ENTRANCE_DATA |= {
     "EVENT: Visit Anouki Village": event("anouki village", "visit anouki village"),
     "EVENT: Visit Icy Spring": event("icyspring", "visit icyspring", "EVENT: Visit Wellspring"),
     "EVENT: Visit Trading Post": event("trading post", "visit trading post"),
-    "EVENT: Visit Papuzia Village": event("papuzia village", "visit papuzia", "EVENT: Visit Papuchia"),
+    "EVENT: Visit Papuzia": event("papuzia village", "visit papuzia", "EVENT: Visit Papuchia"),
     "EVENT: Visit Marine Temple": event("marine temple lobby", "visit marine temple", "EVENT: Visit Ocean Temple"),
     "EVENT: Visit Goron Village": event("goron village", "visit goron village"),
 

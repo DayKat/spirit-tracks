@@ -276,8 +276,8 @@
   {"name": "Goron Village Cave", "sections": [{"name": "Burning Tunnel East Staircase"}], "map_locations": [{"map": "Burning Tunnel", "x": 188, "y": 48}]},
   {"name": "Goron Village", "sections": [{"name": "Goron Village Enclave Staircase"}], "map_locations": [{"map": "Goron Village", "x": 200, "y": 28}]},
   {"name": "Goron Village", "sections": [{"name": "Goron Village Enclave North"}], "map_locations": [{"map": "Goron Village", "x": 200, "y": 18}]},
-  {"name": "Valley Sanctuary", "sections": [{"name": "Valley Sanctuary South"}, {"name": "FIre Sanctuary South"}], "map_locations": [{"map": "Valley Sanctuary", "x": 36, "y": 174}]},
-  {"name": "Valley Sanctuary", "sections": [{"name": "Valley Sanctuary Cave"}, {"name": "FIre Sanctuary Cave"}], "map_locations": [{"map": "Valley Sanctuary", "x": 196, "y": 20}]},
+  {"name": "Valley Sanctuary", "sections": [{"name": "Valley Sanctuary South"}, {"name": "Fire Sanctuary South"}], "map_locations": [{"map": "Valley Sanctuary", "x": 36, "y": 174}]},
+  {"name": "Valley Sanctuary", "sections": [{"name": "Valley Sanctuary Cave"}, {"name": "Fire Sanctuary Cave"}], "map_locations": [{"map": "Valley Sanctuary", "x": 196, "y": 20}]},
   {"name": "Valley Sanctuary Interior", "sections": [{"name": "Embrose's Sanctuary Exit"}], "map_locations": [{"map": "Embrose's Sanctuary", "x": 132, "y": 138}]},
   {"name": "Goron Field Interior", "sections": [{"name": "Mountain Altar South"}], "map_locations": [{"map": "Mountain Altar", "x": 126, "y": 176}]},
   {"name": "Goron Target Range", "sections": [{"name": "Goron Target Range Board Train"}], "map_locations": [{"map": "Goron Target Range", "x": 102, "y": 94}]},
@@ -516,7 +516,7 @@
 
   {"name": "Ocean Realm", "sections": [{"name": "Ocean Realm Papuzia Station"}, {"name": "Ocean Realm Papuchia Station"}], "map_locations": [{"map": "Ocean Realm", "x": 84, "y": 302}]},
   {"name": "Ocean Realm", "sections": [{"name": "Ocean Realm Island Sanctuary Station"}, {"name": "Ocean Realm Sanctuary Station"}], "map_locations": [{"map": "Ocean Realm", "x": 204, "y": 302}]},
-  {"name": "Ocean Realm", "sections": [{"name": "Ocean Realm Dive Underwater"}, {"name": "Undersea Marine Temple Station"}, {"name": "Undersea Ocean Temple Station"}], "map_locations": [{"map": "Ocean Realm", "x": 300, "y": 188}, {"map": "Ocean Realm", "x": 300, "y": 188}, {"map": "Overview", "x": 812, "y": 576}]},
+  {"name": "Ocean Realm", "sections": [{"name": "Ocean Realm Dive Underwater"}, {"name": "Undersea Marine Temple Station"}, {"name": "Undersea Ocean Temple Station"}], "map_locations": [{"map": "Ocean Realm", "x": 300, "y": 188}, {"map": "Overview", "x": 812, "y": 576}]},
   {"name": "Ocean Realm Undersea", "sections": [{"name": "Undersea Tracks Surface"}], "map_locations": [{"map": "Ocean Undersea", "x": 134, "y": 100}]},
   {"name": "Ocean Realm Undersea", "sections": [{"name": "Undersea Marine Temple Station"}, {"name": "Undersea Ocean Temple Station"}], "map_locations": [{"map": "Ocean Undersea", "x": 219, "y": 84}]},
   {"name": "Ocean Realm", "sections": [{"name": "Ocean Realm Pirate Hideout Station"}], "map_locations": [{"map": "Ocean Realm", "x": 62, "y": 180}]},
@@ -619,7 +619,6 @@
 
   {"name": "Overview Ocean", "sections": [{"name": "Ocean Realm Papuzia Station"}, {"name": "Ocean Realm Papuchia Station"}], "map_locations": [{"map": "Overview", "x": 596, "y": 686}]},
   {"name": "Overview Ocean", "sections": [{"name": "Ocean Realm Island Sanctuary Station"}, {"name": "Ocean Realm Sanctuary Station"}], "map_locations": [{"map": "Overview", "x": 716, "y": 686}]},
-  {"name": "Overview Ocean", "sections": [{"name": "Undersea Marine Temple Station"}, {"name": "Undersea Ocean Temple Station"}], "map_locations": [{"map": "Overview", "x": 812, "y": 572}]},
   {"name": "Overview Ocean", "sections": [{"name": "Ocean Realm Pirate Hideout Station"}], "map_locations": [{"map": "Overview", "x": 574, "y": 564}]},
   {"name": "Overview Ocean", "sections": [{"name": "Ocean Realm Lost at Sea Station"}], "map_locations": [{"map": "Overview", "x": 956, "y": 734}]},
   {"name": "Overview Ocean Sand", "sections": [{"name": "Ocean Realm Dune Sanctuary Station"}, {"name": "Ocean Realm Sand Sanctuary Station"}], "map_locations": [{"map": "Overview", "x": 692, "y": 444}]},
@@ -798,12 +797,12 @@
     {"map": "Papuzia Archipelago", "x": 42, "y": 142}
   ]},
   {"name": "Papuzia Events", "sections": [
-    {"name": "EVENT: Visit Papuzia Village"},
+    {"name": "EVENT: Visit Papuzia"},
     {"name": "EVENT: Papuzia Village Pick Up Carben"},
     {"name": "EVENT: Papuzia Archipelago Stamp Station"},
     {"name": "EVENT: Papuzia Village Buy Fish"},
     {"name": "EVENT: Papuzia Village Buy Vessel"},
-        {"name": "EVENT: Visit Papuchia Village"},
+        {"name": "EVENT: Visit Papuchia"},
     {"name": "EVENT: Papuchia Village Pick Up Carben"},
     {"name": "EVENT: Papuchia Archipelago Stamp Station"},
     {"name": "EVENT: Papuchia Village Buy Fish"},

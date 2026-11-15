@@ -122,7 +122,7 @@
   {"name": "Castle Town", "sections": [{"name": "Castle Town Pick Up Mona"}], "map_locations": [{"map": "Castle Town", "x": 62, "y": 92}]},
 
   {"name": "Castle Town", "sections": [{"name": "Castle Town Shop Treasure 1"}, {"name": "Castle Town Shop Treasure 2"}, {"name": "Castle Town Shop Red Potion"}, {"name": "Castle Town Shop Shield"}, {"name": "Castle Town Shop Postcards"}], "map_locations": [{"map": "Castle Town", "x": 160, "y": 60}]},
-  {"name": "Castle Town", "sections": [{"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Castle Town", "x": 198, "y": 124}]},
+  {"name": "Castle Town", "sections": [{"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"},{"name": "Castle Town Take 'em All On Level 3 Skeldritch Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Castle Town", "x": 198, "y": 124}]},
   {"name": "Castle Town", "sections": [{"name": "Hyrule Castle Exterior NW Chest"}, {"name": "Hyrule Castle 1F Back Chest"}, {"name": "Hyrule Castle 1F Sword Minigame 60 Points"}, {"name": "Hyrule Castle 2F Indoors Chest"}, {"name": "Hyrule Castle 3F Spirit Flute"}, {"name": "Tunnel to ToS 1F Block Chest"}, {"name": "Tunnel to ToS 2F Chest"}], "map_locations": [{"map": "Castle Town", "x": 128, "y": 16}]},
   {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Deliver Fish"}], "map_locations": [{"map": "Lucia's House", "x": 128, "y": 88}]},
   {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Pick Up Mona"}], "map_locations": [{"map": "Mona's House", "x": 130, "y": 88}]},
@@ -141,7 +141,7 @@
       {"name": "Castle Town Interior", "sections": [
     {"name": "Castle Town Shop Postcards"}
   ], "map_locations": [{"map": "Castle Town Shop", "x": 136, "y": 88}]},
-  {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Take 'em All On Lobby", "x": 128, "y": 88}]},
+  {"name": "Castle Town Interior", "sections": [{"name": "Castle Town Take 'em All On Level 1"}, {"name": "Castle Town Take 'em All On Level 2"}, {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"},{"name": "Castle Town Take 'em All On Level 3 Skeldritch Chest"}, {"name": "Castle Town Take 'em All On Level 3"}], "map_locations": [{"map": "Take 'em All On Lobby", "x": 128, "y": 88}]},
 
   {"name": "Hyrule Castle", "sections": [{"name": "Hyrule Castle Exterior NW Chest"}], "map_locations": [{"map": "Hyrule Castle Courtyard", "x": 42, "y": 26}]},
   {"name": "Hyrule Castle Interior", "sections": [{"name": "Hyrule Castle 1F Back Chest"}], "map_locations": [{"map": "Hyrule Castle 1F", "x": 158, "y": 46}]},
@@ -662,6 +662,7 @@
     {"name": "Castle Town Take 'em All On Level 1"},
     {"name": "Castle Town Take 'em All On Level 2"},
     {"name": "Castle Town Take 'em All On Level 3 Capbone Chest"},
+    {"name": "Castle Town Take 'em All On Level 3 Skeldritch Chest"},
     {"name": "Castle Town Take 'em All On Level 3"}
   ], "map_locations": [
     {"map": "Overview", "x": 404, "y": 450}, {"map": "Forest Realm", "x": 404, "y": 66}

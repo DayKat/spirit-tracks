@@ -268,14 +268,17 @@ class Interior:
     def hide_locations(self, active_entr: list[int], hidden_locs: dict) -> dict:
         def check_entrances():
             for e in self.blocking_entrances:
-                if ENTRANCES[e].id in active_entr:
+                if ENTRANCE_NAME_LOOKUP[e].id in active_entr:
                     return True
             return False
 
         if check_entrances():
             for m in self.maps:
                 hidden_locs.setdefault(m, [])
-                hidden_locs[m] += [LOCATIONS_DATA[loc]["id"] for loc in self.locations]
+                hidden_locs[m] += [LOCATIONS_DATA[loc].id for loc in self.locations]
+                hidden_locs[m] += [LOCATIONS_DATA[loc].pair_data[1] for loc in self.locations if LOCATIONS_DATA[loc].pair_data]
+                print(f"Hiding: {self.locations}")
+                print(f"Hiding US: {[LOCATIONS_DATA[loc].local_pair_name for loc in self.locations if LOCATIONS_DATA[loc].pair_data]}")
         return hidden_locs
 
 @dataclass
@@ -288,7 +291,7 @@ class Enterior:
     def hide_entrances(self, active_entr: list[int], hidden_entrances: dict) -> dict:
         def check_entrances():
             for e in self.blocking_entrances:
-                if ENTRANCES[e].id in active_entr:
+                if ENTRANCE_NAME_LOOKUP[e].id in active_entr:
                     return True
             return False
 
@@ -296,6 +299,7 @@ class Enterior:
             for m in self.maps:
                 hidden_entrances.setdefault(m, [])
                 hidden_entrances[m] += list(self.entrances)
+                hidden_entrances[m] += [ENTRANCES[e].us_name for e in self.entrances if ENTRANCES[e].us_name]
         return hidden_entrances
 
 interior_data = [
@@ -403,7 +407,7 @@ enterior_data: list["Enterior"] = [
 
     Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Papuzia Village"]),
-    Enterior(["Ocean Realm Papuzia Station"], ["EVENT: Visit Papuzia Village", "EVENT: Papuzia Village Pick Up Carben", "EVENT: Papuzia Village Buy Fish"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Papuzia Station"], ["EVENT: Visit Papuzia", "EVENT: Papuzia Village Pick Up Carben", "EVENT: Papuzia Village Buy Fish"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Papuzia Station", "Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Overview", "Ocean Realm"]),
     Enterior(["Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Papuzia Village"]),
 
@@ -538,7 +542,6 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
     active_entrances = [int(i) for i in world.ut_pairings]
     entr_hidden: dict[str, list[str]] = {}
     locs_hidden: dict[str, list[int]] = {}  # map_name: [loc_ids]
-    events_hidden = {}
     map_coord_checks: dict[str, list[tuple[int, int]]] = {}
 
     # Handle entrances
@@ -550,17 +553,15 @@ def get_hidden_map_icons(world: "SpiritTracksWorld"):
 
         valid_entrance_names = list(ENTRANCE_NAME_LOOKUP.keys())
         for entr_name in entr_names:
-            print(f"\tChecking {entr_name}")
+            # print(f"\tChecking {entr_name}")
             entrance_data = ENTRANCE_NAME_LOOKUP[entr_name]
-            if entr_name not in valid_entrance_names:
-                print(f"Wrong Entrance in tracker data: {entr_name}")
-            elif entrance_data.id not in active_entrances:
-                print(f"Entrance not active: {entr_name}")
+            if entrance_data.id not in active_entrances:
+                # print(f"Entrance not active: {entr_name}")
                 for map_loc in map_loc_names:
                     entr_hidden.setdefault(map_loc, []).append(entr_name)
             elif ((entrance_data.us_name == entr_name and not world.options.localization.value)
                 or (entrance_data.us_name and entrance_data.us_name != entr_name and world.options.localization.value)):
-                print(f"Wrong localization for {entr_name}")
+                # print(f"Wrong localization for {entr_name}")
                 for map_loc in map_loc_names:
                     entr_hidden.setdefault(map_loc, []).append(entr_name)
             else:
