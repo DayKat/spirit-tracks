@@ -1,8 +1,9 @@
 from ..Subclasses import STTransition, EntranceGroups
 
-def event(reg1:str, reg2: str="") -> dict:
+def event(reg1:str, reg2: str="", us_name: str = "") -> dict:
     return {
         "two_way": False,
+        "us_name": us_name,
         "entrance_region": reg1,
         "exit_region": reg2 if reg2 else reg1 + " event",
         "entrance": (0x0, 0x0, 0xF),
@@ -124,6 +125,7 @@ ENTRANCE_DATA = {
     "Mayscore North": {
         "return_name": "Mayscore Forest South",
         "us_name": "Whittleton North",
+        "reverse_us_name": "Whittleton Forest South",
         "exit": (0x38, 0x0, 0),
         "entrance": (0x2A, 0x0, 5),
         "exit_region": "mayscore north",
@@ -2099,6 +2101,8 @@ ENTRANCE_DATA |= {
     # wooded temple
     "Wooded Temple Lobby Enter Dungeon": {
         "return_name": "Wooded Temple 1F Exit",
+        "us_name": "Forest Temple Lobby Enter Dungeon",
+        "reverse_us_name": "Forest Temple 1F Exit",
         "entrance_region": "wooded temple lobby",
         "exit_region": "wt 1f",
         "entrance": (0x19, 0xA, 1),
@@ -2109,6 +2113,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 1F SE Staircase": {
         "return_name": "Wooded Temple 2F SE Staircase",
+        "us_name": "Forest Temple 1F SE Staircase",
+        "reverse_us_name": "Forest Temple 2F SE Staircase",
         "entrance_region": "wt 1f se door",
         "exit_region": "wt 2f",
         "entrance": (0x19, 0x0, 1),
@@ -2119,6 +2125,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 1F NW Staircase": {
         "return_name": "Wooded Temple 2F NW Staircase",
+        "us_name": "Forest Temple 1F NW Staircase",
+        "reverse_us_name": "Forest Temple 2F NW Staircase",
         "entrance_region": "wt 1f north",
         "exit_region": "wt 2f north",
         "entrance": (0x19, 0x0, 2),
@@ -2129,6 +2137,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 1F SW Staircase": {
         "return_name": "Wooded Temple 2F SW Staircase",
+        "us_name": "Forest Temple 1F SW Staircase",
+        "reverse_us_name": "Forest Temple 2F SW Staircase",
         "entrance_region": "wt 1f left arena",
         "exit_region": "wt 2f left",
         "entrance": (0x19, 0x0, 3),
@@ -2139,6 +2149,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 2F W Staircase": {
         "return_name": "Wooded Temple 3F W Staircase",
+        "us_name": "Forest Temple 2F W Staircase",
+        "reverse_us_name": "Forest Temple 3F W Staircase",
         "entrance_region": "wt 2f left",
         "exit_region": "wt 3f left",
         "entrance": (0x19, 0x1, 4),
@@ -2149,6 +2161,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 2F Central Staircase": {
         "return_name": "Wooded Temple 3F N Staircase",
+        "us_name": "Forest Temple 2F Central Staircase",
+        "reverse_us_name": "Forest Temple 3F N Staircase",
         "entrance_region": "wt 2f moth door",
         "exit_region": "wt 3f",
         "entrance": (0x19, 0x1, 2),
@@ -2159,6 +2173,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 3F S Staircase": {
         "return_name": "Wooded Temple 4F S Staircase",
+        "us_name": "Forest Temple 3F S Staircase",
+        "reverse_us_name": "Forest Temple 4F S Staircase",
         "entrance_region": "wt 3f boss door",
         "exit_region": "wt 4f",
         "entrance": (0x19, 0x2, 1),
@@ -2169,6 +2185,7 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 4F N Staircase": {
         "return_name": "Stagnox Exit",
+        "us_name": "Forest Temple 4F N Staircase",
         "entrance_region": "wt 4f",
         "exit_region": "wt pre stagnox",
         "entrance": (0x19, 0x3, 1),
@@ -2179,6 +2196,8 @@ ENTRANCE_DATA |= {
     },
     "Wooded Temple 4F Blue Warp": {
         "return_name": "Wooded Temple Lobby Blue Warp",
+        "us_name": "Forest Temple 4F Blue Warp",
+        "reverse_us_name": "Forest Temple Lobby Blue Warp",
         "entrance_region": "wt blue warp",
         "exit_region": "wooded temple lobby",
         "entrance": (0x19, 0x3, 2),
@@ -2191,6 +2210,8 @@ ENTRANCE_DATA |= {
     # Blizzard Temple
     "Blizzard Temple Lobby Enter Dungeon": {
         "return_name": "Blizzard Temple 1F South Exit",
+        "us_name": "Snow Temple Lobby Enter Dungeon",
+        "reverse_us_name": "Snow Temple 1F South Exit",
         "entrance_region": "blizzard temple lobby",
         "exit_region": "bt 1f exit",
         "entrance": (0x1a, 0x4, 1),
@@ -2201,6 +2222,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F South Entrance": {
         "return_name": "Blizzard Temple 1F Main South",
+        "us_name": "Snow Temple 1F South Entrance",
+        "reverse_us_name": "Snow Temple 1F Main South",
         "entrance_region": "bt 1f s",
         "exit_region": "bt 1f",
         "entrance": (0x1a, 0x5, 5),
@@ -2211,6 +2234,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F Main East": {
         "return_name": "Blizzard Temple 1F SE Entrance",
+        "us_name": "Snow Temple 1F Main East",
+        "reverse_us_name": "Snow Temple 1F SE Entrance",
         "entrance_region": "bt 1f e",
         "exit_region": "bt 1f se",
         "entrance": (0x1a, 0x0, 8),
@@ -2221,6 +2246,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F SE Staircase": {
         "return_name": "Blizzard Temple B1 SE Staircase",
+        "us_name": "Snow Temple 1F SE Staircase",
+        "reverse_us_name": "Snow Temple B1 SE Staircase",
         "entrance_region": "bt 1f se door",
         "exit_region": "bt b1 se",
         "entrance": (0x1a, 0x5, 1),
@@ -2231,6 +2258,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F NE Staircase": {
         "return_name": "Blizzard Temple B1 NE Staircase",
+        "us_name": "Snow Temple 1F NE Staircase",
+        "reverse_us_name": "Snow Temple B1 NE Staircase",
         "entrance_region": "bt 1f ne",
         "exit_region": "bt b1 ne door",
         "entrance": (0x1a, 0x0, 2),
@@ -2241,6 +2270,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F Main SW": {
         "return_name": "Blizzard Temple 1F SW Entrance",
+        "us_name": "Snow Temple 1F Main SW",
+        "reverse_us_name": "Snow Temple 1F SW Entrance",
         "entrance_region": "bt 1f",
         "exit_region": "bt 1f sw",
         "entrance": (0x1a, 0x0, 6),
@@ -2251,6 +2282,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F SW Staircase": {
         "return_name": "Blizzard Temple B1 SW Staircase",
+        "us_name": "Snow Temple 1F SW Staircase",
+        "reverse_us_name": "Snow Temple B1 SW Staircase",
         "entrance_region": "bt 1f sw door",
         "exit_region": "bt b1 sw",
         "entrance": (0x1a, 0x5, 3),
@@ -2261,6 +2294,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F NW Staircase": {
         "return_name": "Blizzard Temple B1 NW Staircase",
+        "us_name": "Snow Temple 1F NW Staircase",
+        "reverse_us_name": "Snow Temple B1 NW Staircase",
         "entrance_region": "bt 1f nw",
         "exit_region": "bt b1 nw",
         "entrance": (0x1a, 0x0, 4),
@@ -2271,6 +2306,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F NW Entrance": {
         "return_name": "Blizzard Temple 1F West Entrance",
+        "us_name": "Snow Temple 1F NW Entrance",
+        "reverse_us_name": "Snow Temple 1F West Entrance",
         "entrance_region": "bt 1f nw",
         "exit_region": "bt 1f w",
         "entrance": (0x1a, 0x0, 9),
@@ -2281,6 +2318,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 1F North Staircase": {
         "return_name": "Blizzard Temple 2F North Staircase",
+        "us_name": "Snow Temple 1F North Staircase",
+        "reverse_us_name": "Snow Temple 2F North Staircase",
         "entrance_region": "bt 1f n",
         "exit_region": "bt 2f",
         "entrance": (0x1a, 0x0, 5),
@@ -2291,6 +2330,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 2F South Staircase": {
         "return_name": "Blizzard Temple 3F South Staircase",
+        "us_name": "Snow Temple 2F South Staircase",
+        "reverse_us_name": "Snow Temple 3F South Staircase",
         "entrance_region": "bt 2f boss door",
         "exit_region": "bt 3f",
         "entrance": (0x1a, 0x2, 1),
@@ -2301,6 +2342,7 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 3F North Staircase": {
         "return_name": "Fraaz Exit",
+        "us_name": "Snow Temple 3F North Staircase",
         "entrance_region": "bt 3f",
         "exit_region": "bt pre fraaz",
         "entrance": (0x1a, 0x3, 1),
@@ -2311,6 +2353,8 @@ ENTRANCE_DATA |= {
     },
     "Blizzard Temple 3F Blue Warp": {
         "return_name": "Blizzard Temple Lobby Blue Warp",
+        "us_name": "Snow Temple 3F Blue Warp",
+        "reverse_us_name": "Snow Temple Lobby Blue Warp",
         "entrance_region": "bt blue warp",
         "exit_region": "blizzard temple lobby",
         "entrance": (0x1a, 0x3, 2),
@@ -2323,6 +2367,8 @@ ENTRANCE_DATA |= {
     # Marine Temple
     "Marine Temple Lobby Enter Dungeon": {
         "return_name": "Marine Temple 1F Exit",
+        "us_name": "Ocean Temple Lobby Enter Dungeon",
+        "reverse_us_name": "Ocean Temple 1F Exit",
         "entrance_region": "marine temple lobby",
         "exit_region": "oct 1f",
         "entrance": (0x1b, 0xA, 1),
@@ -2333,6 +2379,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 1F North Staircase": {
         "return_name": "Marine Temple 2F North Staircase",
+        "us_name": "Ocean Temple 1F North Staircase",
+        "reverse_us_name": "Ocean Temple 2F North Staircase",
         "entrance_region": "oct 1f",
         "exit_region": "oct 2f",
         "entrance": (0x1b, 0x0, 1),
@@ -2343,6 +2391,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 2F Left Bomb Cave": {
         "return_name": "Marine Temple Stamp Room Exit",
+        "us_name": "Ocean Temple 2F Left Bomb Cave",
+        "reverse_us_name": "Ocean Temple Stamp Room Exit",
         "entrance_region": "oct 2f",
         "exit_region": "oct stamp room",
         "entrance": (0x1b, 0x1, 3),
@@ -2353,6 +2403,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 2F Right Bomb Cave": {
         "return_name": "Marine Temple Switch Room Exit",
+        "us_name": "Ocean Temple 2F Right Bomb Cave",
+        "reverse_us_name": "Ocean Temple Switch Room Exit",
         "entrance_region": "oct 2f",
         "exit_region": "oct boomerang room",
         "entrance": (0x1b, 0x1, 4),
@@ -2363,6 +2415,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 1F East Staircase": {
         "return_name": "Marine Temple 2F NE Staircase",
+        "us_name": "Ocean Temple 1F East Staircase",
+        "reverse_us_name": "Ocean Temple 2F NE Staircase",
         "entrance_region": "oct 1f right",
         "exit_region": "oct 2f right",
         "entrance": (0x1b, 0x0, 2),
@@ -2373,6 +2427,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 2F East Staircase": {
         "return_name": "Marine Temple 3F East Staircase",
+        "us_name": "Ocean Temple 2F East Staircase",
+        "reverse_us_name": "Ocean Temple 3F East Staircase",
         "entrance_region": "oct 2f right",
         "exit_region": "oct 3f east",
         "entrance": (0x1b, 0x1, 1),
@@ -2383,6 +2439,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 3F North Staircase": {
         "return_name": "Marine Temple 4F North Staircase",
+        "us_name": "Ocean Temple 3F North Staircase",
+        "reverse_us_name": "Ocean Temple 4F North Staircase",
         "entrance_region": "oct 3f ne",
         "exit_region": "oct 4f north",
         "entrance": (0x1b, 0x2, 3),
@@ -2393,6 +2451,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 3F West Staircase": {
         "return_name": "Marine Temple 4F West Staircase",
+        "us_name": "Ocean Temple 3F West Staircase",
+        "reverse_us_name": "Ocean Temple 4F West Staircase",
         "entrance_region": "oct 3f west",
         "exit_region": "oct 4f west",
         "entrance": (0x1b, 0x2, 1),
@@ -2403,6 +2463,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 3F South Staircase": {
         "return_name": "Marine Temple 4F South Staircase",
+        "us_name": "Ocean Temple 3F South Staircase",
+        "reverse_us_name": "Ocean Temple 4F South Staircase",
         "entrance_region": "oct 3f south",
         "exit_region": "oct 4f south",
         "entrance": (0x1b, 0x2, 2),
@@ -2413,6 +2475,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 4F East Staircase": {
         "return_name": "Marine Temple 5F East Staircase",
+        "us_name": "Ocean 4F East Staircase",
+        "reverse_us_name": "Ocean Temple 5F East Staircase",
         "entrance_region": "oct 4f east",
         "exit_region": "oct 5f",
         "entrance": (0x1b, 0x3, 1),
@@ -2423,6 +2487,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 5F NW Staircase": {
         "return_name": "Marine Temple 6F NW Staircase",
+        "us_name": "Ocean Temple 5F NW Staircase",
+        "reverse_us_name": "Ocean Temple 6F NW Staircase",
         "entrance_region": "oct 5f nw",
         "exit_region": "oct 6f nw",
         "entrance": (0x1b, 0x4, 2),
@@ -2433,6 +2499,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 5F SW Staircase": {
         "return_name": "Marine Temple 6F SW Staircase",
+        "us_name": "Ocean Temple 5F SW Staircase",
+        "reverse_us_name": "Ocean Temple 6F SW Staircase",
         "entrance_region": "oct 5f sw",
         "exit_region": "oct 6f sw",
         "entrance": (0x1b, 0x4, 1),
@@ -2443,6 +2511,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 5F SE Staircase": {
         "return_name": "Marine Temple 6F SE Staircase",
+        "us_name": "Ocean Temple 5F SE Staircase",
+        "reverse_us_name": "Ocean Temple 6F SE Staircase",
         "entrance_region": "oct 5f se",
         "exit_region": "oct 6f se",
         "entrance": (0x1b, 0x4, 4),
@@ -2453,6 +2523,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 6F Central Staircase": {
         "return_name": "Marine Temple 7F South Staircase",
+        "us_name": "Ocean Temple 6F Central Staircase",
+        "reverse_us_name": "Ocean Temple 7F South Staircase",
         "entrance_region": "oct 6f boss door",
         "exit_region": "oct 7f south",
         "entrance": (0x1b, 0x5, 3),
@@ -2463,6 +2535,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 7F North Staircase": {
         "return_name": "Cactops Exit",
+        "us_name": "Ocean Temple 7F North Staircase",
+        "reverse_us_name": "Phytops Exit",
         "entrance_region": "oct 7f thorns",
         "exit_region": "oct pre phytops",
         "entrance": (0x1b, 0x6, 1),
@@ -2473,6 +2547,8 @@ ENTRANCE_DATA |= {
     },
     "Marine Temple 7F Blue Warp": {
         "return_name": "Marine Temple Lobby Blue Warp",
+        "us_name": "Ocean Temple 7F Blue Warp",
+        "reverse_us_name": "Ocean Temple Lobby Blue Warp",
         "entrance_region": "oct blue warp",
         "exit_region": "marine temple lobby",
         "entrance": (0x1b, 0x6, 2),
@@ -2485,6 +2561,8 @@ ENTRANCE_DATA |= {
     # Mountain Temple
     "Mountain Temple Lobby Enter Dungeon": {
         "return_name": "Mountain Temple 1F Exit",
+        "us_name": "Fire Temple Lobby Enter Dungeon",
+        "reverse_us_name": "Fire Temple 1F Exit",
         "entrance_region": "mountain temple lobby",
         "exit_region": "mtt 1f",
         "entrance": (0x1c, 0xA, 1),
@@ -2495,6 +2573,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple 1F SW Staircase": {
         "return_name": "Mountain Temple 2F SW Staircase",
+        "us_name": "Fire Temple 1F SW Staircase",
+        "reverse_us_name": "Fire Temple 2F SW Staircase",
         "entrance_region": "mtt 1f left",
         "exit_region": "mtt 2f left",
         "entrance": (0x1c, 0x0, 5),
@@ -2505,6 +2585,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple 1F SE Staircase": {
         "return_name": "Mountain Temple 2F SE Staircase",
+        "us_name": "Fire Temple 1F SE Staircase",
+        "reverse_us_name": "Fire Temple 2F SE Staircase",
         "entrance_region": "mtt 1f right",
         "exit_region": "mtt 2f right",
         "entrance": (0x1c, 0x0, 4),
@@ -2515,6 +2597,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple 1F Central Staircase": {
         "return_name": "Mountain Temple 2F Central Staircase",
+        "us_name": "Fire Temple 1F Central Staircase",
+        "reverse_us_name": "Fire Temple 2F Central Staircase",
         "entrance_region": "mtt 1f door",
         "exit_region": "mtt 2f arena",
         "entrance": (0x1c, 0x0, 1),
@@ -2525,6 +2609,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple 1F NE Staircase": {
         "return_name": "Mountain Temple 2F NE Staircase",
+        "us_name": "Fire Temple 1F NE Staircase",
+        "reverse_us_name": "Fire Temple 2F NE Staircase",
         "entrance_region": "mtt 1f ne",
         "exit_region": "mtt 2f ne door",
         "entrance": (0x1c, 0x0, 3),
@@ -2535,6 +2621,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple 1F North Staircase": {
         "return_name": "Mountain Temple B1 NE Staircase",
+        "us_name": "Fire Temple 1F North Staircase",
+        "reverse_us_name": "Fire Temple B1 NE Staircase",
         "entrance_region": "mtt 1f n",
         "exit_region": "mtt b1 n",
         "entrance": (0x1c, 0x0, 2),
@@ -2545,6 +2633,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple B1 North Staircase": {
         "return_name": "Mountain Temple B2 North Staircase",
+        "us_name": "Fire Temple B1 North Staircase",
+        "reverse_us_name": "Fire Temple B2 North Staircase",
         "entrance_region": "mtt b1 n",
         "exit_region": "mtt b2 n",
         "entrance": (0x1c, 0x2, 1),
@@ -2555,6 +2645,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple B1 East Staircase": {
         "return_name": "Mountain Temple B2 East Staircase",
+        "us_name": "Fire Temple B1 East Staircase",
+        "reverse_us_name": "Fire Temple B2 East Staircase",
         "entrance_region": "mtt b1 arena",
         "exit_region": "mtt b2 se",
         "entrance": (0x1c, 0x2, 3),
@@ -2565,6 +2657,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple B1 West Staircase": {
         "return_name": "Mountain Temple B2 West Staircase",
+        "us_name": "Fire Temple B1 West Staircase",
+        "reverse_us_name": "Fire Temple B2 West Staircase",
         "entrance_region": "mtt b1 arena exit",
         "exit_region": "mtt b2 sw",
         "entrance": (0x1c, 0x2, 4),
@@ -2575,6 +2669,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple B1 Central Staircase": {
         "return_name": "Mountain Temple B2 Central Staircase",
+        "us_name": "Fire Temple B1 Central Staircase",
+        "reverse_us_name": "Fire Temple B2 Central Staircase",
         "entrance_region": "mtt b1 cart exit",
         "exit_region": "mtt b2 s",
         "entrance": (0x1c, 0x2, 2),
@@ -2585,6 +2681,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple B2 South Staircase": {
         "return_name": "Mountain Temple B3 South Staircase",
+        "us_name": "Fire Temple B2 South Staircase",
+        "reverse_us_name": "Fire Temple B3 South Staircase",
         "entrance_region": "mtt b2 s",
         "exit_region": "mtt b3",
         "entrance": (0x1c, 0x3, 3),
@@ -2595,6 +2693,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple B3 North Staircase": {
         "return_name": "Mountain Temple B4 South Staircase",
+        "us_name": "Fire Temple B3 North Staircase",
+        "reverse_us_name": "Fire Temple B4 South Staircase",
         "entrance_region": "mtt b3 boss door",
         "exit_region": "mtt b4",
         "entrance": (0x1c, 0x4, 2),
@@ -2605,6 +2705,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple B4 North Staircase": {
         "return_name": "Vulcano Exit",
+        "us_name": "Fire Temple B4 North Staircase",
+        "reverse_us_name": "Cragma Exit",
         "entrance_region": "mtt b4",
         "exit_region": "mtt pre vulcano",
         "entrance": (0x1c, 0x5, 2),
@@ -2615,6 +2717,8 @@ ENTRANCE_DATA |= {
     },
     "Mountain Temple Lobby Blue Warp": {
         "return_name": "Mountain Temple B4 Blue Warp",
+        "us_name": "Fire Temple Lobby Blue Warp",
+        "reverse_us_name": "Fire Temple B4 Blue Warp",
         "entrance_region": "mountain temple lobby",
         "exit_region": "mtt blue warp",
         "entrance": (0x1c, 0xa, 2),
@@ -2627,6 +2731,8 @@ ENTRANCE_DATA |= {
     # Desert Temple
     "Desert Temple Lobby Enter Dungeon": {
         "return_name": "Desert Temple 1F Exit",
+        "us_name": "Sand Temple Lobby Enter Dungeon",
+        "reverse_us_name": "Sand Temple 1F Exit",
         "entrance_region": "desert temple lobby",
         "exit_region": "dt",
         "entrance": (0x1d, 0x6, 1),
@@ -2637,6 +2743,8 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple 1F Lower Staircase": {
         "return_name": "Desert Temple B1 Left Staircase",
+        "us_name": "Sand Temple 1F Lower Staircase",
+        "reverse_us_name": "Sand Temple B1 Left Staircase",
         "entrance_region": "dt",
         "exit_region": "dt b1 stairs",
         "entrance": (0x1d, 0x0, 2),
@@ -2647,6 +2755,8 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple 1F Upper Staircase": {
         "return_name": "Desert Temple 2F Left Staircase",
+        "us_name": "Sand Temple 1F Upper Staircase",
+        "reverse_us_name": "Sand Temple 2F Left Staircase",
         "entrance_region": "dt",
         "exit_region": "dt 2f west",
         "entrance": (0x1d, 0x0, 1),
@@ -2657,6 +2767,8 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple 3F Staircase": {
         "return_name": "Desert Temple 2F Right Staircase",
+        "us_name": "Sand Temple 3F Staircase",
+        "reverse_us_name": "Sand Temple 2F Right Staircase",
         "entrance_region": "dt 3f",
         "exit_region": "dt 2f",
         "entrance": (0x1d, 0x2, 0),
@@ -2667,6 +2779,8 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple B1 Boss Door Staircase": {
         "return_name": "Desert Temple B2 South Staircase",
+        "us_name": "Sand Temple B1 Boss Door Staircase",
+        "reverse_us_name": "Sand Temple B2 South Staircase",
         "entrance_region": "dt b1 boss door",
         "exit_region": "dt b2 s",
         "entrance": (0x1d, 0x3, 1),
@@ -2677,6 +2791,8 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple B2 North Entrance": {
         "return_name": "Capbone Exit",
+        "us_name": "Sand Temple B2 North Entrance",
+        "reverse_us_name": "Skeldritch Exit",
         "entrance_region": "dt b2 n",
         "exit_region": "dt pre skeldritch",
         "entrance": (0x1d, 0x4, 1),
@@ -2687,6 +2803,8 @@ ENTRANCE_DATA |= {
     },
     "Desert Temple Lobby Blue Warp": {
         "return_name": "Desert Temple B2 Blue Warp",
+        "us_name": "Sand Temple Lobby Blue Warp",
+        "reverse_us_name": "Sand Temple B2 Blue Warp",
         "entrance_region": "desert temple lobby",
         "exit_region": "dt blue warp",
         "entrance": (0x1d, 0x6, 3),
@@ -2864,14 +2982,14 @@ ENTRANCE_DATA |= {
     # Boss Events
     "EVENT: Defeat Stagnox": event("wt stagnox", "event_stagnox"),
     "EVENT: Defeat Fraaz": event("bt fraaz", "event_fraaz"),
-    "EVENT: Defeat Cactops": event("oct phytops", "event_phytops"),
-    "EVENT: Defeat Vulcano": event("mtt vulcano", "event_vulcano"),
-    "EVENT: Defeat Capbone": event("dt skeldritch safety", "skeldritch event"),
+    "EVENT: Defeat Cactops": event("oct phytops", "event_phytops", "EVENT: Defeat Phytops"),
+    "EVENT: Defeat Vulcano": event("mtt vulcano", "event_vulcano", "EVENT: Defeat Cragma"),
+    "EVENT: Defeat Capbone": event("dt skeldritch safety", "skeldritch event", "EVENT: Defeat Skeldritch"),
     "EVENT: Reach ToS 3F": event("tos 3f rail map", "event_3f"),
     "EVENT: Reach ToS 7F": event("tos 7f rail map", "event_7f"),
     "EVENT: Reach ToS 12F": event("tos 11f", "event_12f"),
     "EVENT: Reach ToS 17F": event("tos 16f", "event_17f"),
-    "EVENT: Defeat Staven": event("tos staven", "event_staven"),
+    "EVENT: Defeat Staven": event("tos staven", "event_staven", "EVENT: Defeat Byrne"),
     "EVENT: Reach ToS 24F": event("tos 24f", "event_24f"),
     "EVENT: Complete Lost at Sea Dungeon": event("las event shield", "las_event"),
     "EVENT: Complete Take 'em All On 3": event("teao 3", "teao_event"),
@@ -2879,14 +2997,14 @@ ENTRANCE_DATA |= {
     # Goal Events
     "GOAL: Defeat Stagnox": event("wt stagnox", "goal_stagnox"),
     "GOAL: Defeat Fraaz": event("bt fraaz", "goal_fraaz"),
-    "GOAL: Defeat Cactops": event("oct phytops", "goal_phytops"),
-    "GOAL: Defeat Vulcano": event("mtt pre vulcano", "goal_vulcano"),
-    "GOAL: Defeat Skeldritch": event("dt skeldritch safety", "skeldritch goal"),
+    "GOAL: Defeat Cactops": event("oct phytops", "goal_phytops", "GOAL: Defeat Phytops"),
+    "GOAL: Defeat Vulcano": event("mtt pre vulcano", "goal_vulcano", "GOAL: Defeat Cragma"),
+    "GOAL: Defeat Capbone": event("dt skeldritch safety", "skeldritch goal", "GOAL: Defeat Skeldritch"),
     "GOAL: Reach ToS 3F": event("tos 3f rail map", "goal_forest_glyph"),
     "GOAL: Reach ToS 7F": event("tos 7f rail map", "goal_forest_glyph"),
     "GOAL: Reach ToS 12F": event("tos 11f", "goal_ocean_glyph"),
     "GOAL: Reach ToS 17F": event("tos 16f", "goal_fire_glyph"),
-    "GOAL: Defeat Staven": event("tos staven", "goal_staven"),
+    "GOAL: Defeat Staven": event("tos staven", "goal_staven", "GOAL: Defeat Byrne"),
     "GOAL: Reach ToS 24F": event("tos 24f", "goal_compass"),
     "GOAL: Defeat Malladus": event("malladus 2", "malladus event"),
     "GOAL: Enter Dark Realm": event("dark realm trains", "dark realm event"),
@@ -2896,77 +3014,77 @@ ENTRANCE_DATA |= {
     "EVENT: Trading Post Give Regal Ring to Linebeck": event("linebeck trading", "linebeck event"),
     "EVENT: Goron Village Bring Ice to Kagoron": event("goron ice", "goron ice event"),
     "EVENT: Mountain Altar Visit Kagoron": event("mountain altar", "kagoron event"),
-    "EVENT: Outset Drop Off Ferrus": event("delivered ferrus", "outset delivered ferrus event"),
+    "EVENT: Outset Drop Off Ferrus": event("delivered ferrus", "outset delivered ferrus event", "EVENT: Aboda Drop Off Ferrus"),
     "EVENT: Anouki Village Drop Off Goron": event("av goron", "av goron event"),
-    "EVENT: Island Sanctuary Drop Off Carben": event("island sanc carben", "carben event"),
+    "EVENT: Island Sanctuary Drop Off Carben": event("island sanc carben", "carben event", "EVENT: Ocean Sanctuary Drop Off Carben"),
     "EVENT: Disorientation Maze Find Chest": event("disorientation sod", "disorientation event"),
 
     # Blue Warp Events
-    "EVENT: Wooded Temple Open Blue Warp": event("wt blue warp", "wt warp event"),
-    "EVENT: Blizzard Temple Open Blue Warp": event("bt blue warp", "bt warp event"),
-    "EVENT: Marine Temple Open Blue Warp": event("oct blue warp", "oct warp event"),
-    "EVENT: Mountain Temple Open Blue Warp": event("mtt blue warp", "mtt warp event"),
-    "EVENT: Desert Temple Open Blue Warp": event("dt blue warp", "dt warp event"),
+    "EVENT: Wooded Temple Open Blue Warp": event("wt blue warp", "wt warp event", "EVENT: Forest Temple Open Blue Warp"),
+    "EVENT: Blizzard Temple Open Blue Warp": event("bt blue warp", "bt warp event", "EVENT: Snow Temple Open Blue Warp"),
+    "EVENT: Marine Temple Open Blue Warp": event("oct blue warp", "oct warp event", "EVENT: Ocean Temple Open Blue Warp"),
+    "EVENT: Mountain Temple Open Blue Warp": event("mtt blue warp", "mtt warp event", "EVENT: Fire Temple Open Blue Warp"),
+    "EVENT: Desert Temple Open Blue Warp": event("dt blue warp", "dt warp event", "EVENT: Sand Temple Open Blue Warp"),
 
     # Train Portal Events
     "EVENT: Unlock Forest Realm Cave Portal": event("forest cave portal loc", "cave portal event"),
     "EVENT: Unlock Snow Bridge Portal": event("snow bridge portal loc", "snow bridge portal event"),
     "EVENT: Unlock Anouki Village Portal": event("anouki portal", "anouki portal event"),
-    "EVENT: Unlock Icy Spring Portal": event("icyspring portal loc", "icyspring portal event"),
+    "EVENT: Unlock Icy Spring Portal": event("icyspring portal loc", "icyspring portal event", "EVENT: Unlock Wellspring Portal"),
     "EVENT: Unlock Forest Realm SE Portal": event("trading post portal", "trading post portal event"),
     "EVENT: Unlock Ocean Portal": event("ocean portal loc", "ocean portal event"),
-    "EVENT: Unlock Desert Temple Portal": event("sand restoration portal", "sand restoration portal event"),
+    "EVENT: Unlock Desert Temple Portal": event("sand restoration portal", "sand restoration portal event", "EVENT: Unlock Sand Temple Portal"),
     "EVENT: Unlock Sand Connection Portal": event("sand connection portal loc", "sand connection portal event"),
 
     # Dungeon Events
-    "EVENT: Marine Temple 6F Arena": event("oct 6f sw arena", "oct 6f sw arena event"),
-    "EVENT: Marine Temple 2F Boulders": event("oct 2f boulders", "oct 2f boulders event"),
-    "EVENT: Marine Temple Stamp Room Switch": event("oct boomerang switch", "oct boomerang switch event"),
+    "EVENT: Marine Temple 6F Arena": event("oct 6f sw arena", "oct 6f sw arena event", "EVENT: Ocean Temple 6F Arena"),
+    "EVENT: Marine Temple 2F Boulders": event("oct 2f boulders", "oct 2f boulders event", "EVENT: Ocean Temple 2F Boulders"),
+    "EVENT: Marine Temple Stamp Room Switch": event("oct boomerang switch", "oct boomerang switch event", "EVENT: Ocean Temple Stamp Room Switch"),
 
     # Visit Station Events
-    "EVENT: Visit Outset": event("outset village", "visit outset"),
+    "EVENT: Visit Outset": event("outset village", "visit outset", "EVENT: Visit Aboda"),
     "EVENT: Visit Castle Town": event("castle town", "visit castle town"),
-    "EVENT: Visit Rabbit Haven": event("rabbit haven", "visit rabbit haven"),
+    "EVENT: Visit Rabbit Haven": event("rabbit haven", "visit rabbit haven", "EVENT: Visit Rabbitland Rescue"),
     "EVENT: Visit Anouki Village": event("anouki village", "visit anouki village"),
-    "EVENT: Visit Icy Spring": event("icyspring", "visit icyspring"),
+    "EVENT: Visit Icy Spring": event("icyspring", "visit icyspring", "EVENT: Visit Wellspring"),
     "EVENT: Visit Trading Post": event("trading post", "visit trading post"),
-    "EVENT: Visit Papuzia Village": event("papuzia village", "visit papuzia"),
-    "EVENT: Visit Marine Temple": event("marine temple lobby", "visit marine temple"),
+    "EVENT: Visit Papuzia Village": event("papuzia village", "visit papuzia", "EVENT: Visit Papuchia"),
+    "EVENT: Visit Marine Temple": event("marine temple lobby", "visit marine temple", "EVENT: Visit Ocean Temple"),
     "EVENT: Visit Goron Village": event("goron village", "visit goron village"),
 
     # Stamp Station Events
-    "EVENT: Outset Stamp Station": event("outset stamp station", "outset stamp event"),
-    "EVENT: Mayscore Forest Stamp Station": event("mayscore stamp station", "mayscore stamp event"),
+    "EVENT: Outset Stamp Station": event("outset stamp station", "outset stamp event", "EVENT: Aboda Stamp Station"),
+    "EVENT: Mayscore Forest Stamp Station": event("mayscore stamp station", "mayscore stamp event", "EVENT: Whittleton Forest Stamp Station"),
     "EVENT: Castle Town Stamp Station": event("castle town stamp station", "castle town stamp event"),
-    "EVENT: Woodland Sanctuary Stamp Station": event("woodland sanc stamp station", "woodland sanc stamp event"),
+    "EVENT: Woodland Sanctuary Stamp Station": event("woodland sanc stamp station", "woodland sanc stamp event", "EVENT: Forest Sanctuary Stamp Station"),
     "EVENT: Anouki Village Stamp Station": event("anouki village stamp station", "anouki village stamp event"),
-    "EVENT: Snowfall Sanctuary Stamp Station": event("snow sanc stamp station", "snow sanc stamp event"),
-    "EVENT: Icy Spring Stamp Station": event("icyspring stamp station", "icyspring stamp event"),
+    "EVENT: Snowfall Sanctuary Stamp Station": event("snow sanc stamp station", "snow sanc stamp event", "EVENT: Snow Sanctuary Stamp Station"),
+    "EVENT: Icy Spring Stamp Station": event("icyspring stamp station", "icyspring stamp event", "EVENT: Wellspring Stamp Station"),
     "EVENT: Trading Post Tunnel Stamp Station": event("trading post stamp station", "trading post stamp event"),
-    "EVENT: Papuzia Archipelago Stamp Station": event("papuzia village stamp station", "papuzia village stamp event"),
-    "EVENT: Island Sanctuary Stamp Station": event("island sanc stamp station", "island sanc stamp event"),
+    "EVENT: Papuzia Archipelago Stamp Station": event("papuzia village stamp station", "papuzia village stamp event", "EVENT: Papuchia Archipelago Stamp Station"),
+    "EVENT: Island Sanctuary Stamp Station": event("island sanc stamp station", "island sanc stamp event", "EVENT: Ocean Sanctuary Stamp Station"),
     "EVENT: Pirate Hideout Stamp Station": event("pirate hideout stamp station", "pirate hideout stamp event"),
     "EVENT: Goron Field Stamp Station": event("goron field stamp station", "goron field stamp event"),
-    "EVENT: Valley Sanctuary Stamp Station": event("valley sanc stamp station", "valley sanc stamp event"),
-    "EVENT: Dune Sanctuary Stamp Station": event("sand sanc stamp station", "sand sanc stamp event"),
-    "EVENT: Wooded Temple Stamp Station": event("wt stamp station", "wt stamp event"),
-    "EVENT: Blizzard Temple Stamp Station": event("bt b1 stamp station", "bt b1 stamp event"),
-    "EVENT: Marine Temple Stamp Station": event("oct stamp station", "oct stamp event"),
-    "EVENT: Mountain Temple Stamp Station": event("mtt b1 stamp station", "mtt b1 stamp event"),
-    "EVENT: Desert Temple Stamp Station": event("dt stamp station", "dt stamp event"),
+    "EVENT: Valley Sanctuary Stamp Station": event("valley sanc stamp station", "valley sanc stamp event", "EVENT: Fire Sanctuary Stamp Station"),
+    "EVENT: Dune Sanctuary Stamp Station": event("sand sanc stamp station", "sand sanc stamp event", "EVENT: Sand Sanctuary Stamp Station"),
+    "EVENT: Wooded Temple Stamp Station": event("wt stamp station", "wt stamp event", "EVENT: Forest Temple Stamp Station"),
+    "EVENT: Blizzard Temple Stamp Station": event("bt b1 stamp station", "bt b1 stamp event", "EVENT: Snow Temple Stamp Station"),
+    "EVENT: Marine Temple Stamp Station": event("oct stamp station", "oct stamp event", "EVENT: Ocean Temple Stamp Station"),
+    "EVENT: Mountain Temple Stamp Station": event("mtt b1 stamp station", "mtt b1 stamp event", "EVENT: Fire Temple Stamp Station"),
+    "EVENT: Desert Temple Stamp Station": event("dt stamp station", "dt stamp event", "EVENT: Sand Temple Stamp Station"),
     "EVENT: Tower of Spirits Summit Stamp Station": event("tos stamp station", "tos stamp event"),
 
     # Rabbit Events
     "EVENT: Rabbit Near Castle Town": event("forest realm rabbits", "forest realm rabbits event"),
     "EVENT: Rabbit Near Ocean Shortcut": event("forest ocean shortcut rabbit", "forest ocean shortcut rabbit event"),
-    "EVENT: Rabbit E Mayscore": event("e mayscore rabbits", "e mayscore rabbits event"),
+    "EVENT: Rabbit E Mayscore": event("e mayscore rabbits", "e mayscore rabbits event", "EVENT: Rabbit E Whittleton"),
     "EVENT: Rabbit SW Trading Post": event("sw trading post rabbit", "sw trading post rabbit event"),
-    "EVENT: Rabbit E Outset": event("forest realm rabbits", "forest realm rabbits event 2"),
-    "EVENT: Rabbit SW Rabbit Haven": event("s rabbit haven rabbits", "s rabbit haven rabbits event"),
-    "EVENT: Rabbit Near Wooded Temple": event("wt rabbit", "wt rabbit event"),
-    "EVENT: Rabbit Near Rabbit Haven": event("nr rabbit haven rabbit", "nr rabbit haven rabbit event"),
+    "EVENT: Rabbit E Outset": event("forest realm rabbits", "forest realm rabbits event 2", "EVENT: Rabbit E Aboda"),
+    "EVENT: Rabbit SW Rabbit Haven": event("s rabbit haven rabbits", "s rabbit haven rabbits event", "EVENT: Rabbit SW Rabbitland Rescue"),
+    "EVENT: Rabbit Near Wooded Temple": event("wt rabbit", "wt rabbit event", "EVENT: Rabbit Near Forest Temple"),
+    "EVENT: Rabbit Near Rabbit Haven": event("nr rabbit haven rabbit", "nr rabbit haven rabbit event", "EVENT: Rabbit Near Rabbitland Rescue"),
     "EVENT: Rabbit Past Wooden Bridge": event("e mayscore rabbits", "e mayscore rabbits event 2"),
-    "EVENT: Rabbit S Rabbit Haven": event("s rabbit haven rabbits", "s rabbit haven rabbits event 2"),
+    "EVENT: Rabbit S Rabbit Haven": event("s rabbit haven rabbits", "s rabbit haven rabbits event 2", "EVENT: Rabbit S Rabbitland Rescue"),
 
     "EVENT: Rabbit Near ToS Fire Realm": event("fire source rabbits", "fire source rabbits event"),
     "EVENT: Rabbit Near Disorientation Station": event("disorientation rabbits", "disorientation rabbits event"),
@@ -2984,10 +3102,10 @@ ENTRANCE_DATA |= {
     "EVENT: Rabbit Sand Valley": event("sand connection rabbit", "sand connection rabbit event"),
 
     "EVENT: Rabbit W Lost at Sea": event("las rabbit", "las rabbit event"),
-    "EVENT: Rabbit Near Island Sanctuary": event("ocean rabbits", "ocean rabbits event"),
+    "EVENT: Rabbit Near Island Sanctuary": event("ocean rabbits", "ocean rabbits event", "EVENT: Rabbit Near Ocean Sanctuary"),
     "EVENT: Rabbit E Pirate Hideout": event("ocean source rabbits", "ocean source rabbits event"),
     "EVENT: Rabbit W Pirate Hideout": event("pirate rabbit", "pirate rabbit event"),
-    "EVENT: Rabbit W Marine Temple": event("ocean rabbits", "ocean rabbits event 2"),
+    "EVENT: Rabbit W Marine Temple": event("ocean rabbits", "ocean rabbits event 2", "EVENT: Rabbit W Ocean Temple"),
     "EVENT: Rabbit N Undersea Entrance": event("ocean rabbits", "ocean rabbits event 3"),
     "EVENT: Rabbit Near Ocean Portal": event("ocean portal rabbits", "ocean portal rabbits event"),
     "EVENT: Rabbit S Undersea Entrance": event("ocean rabbits", "ocean rabbits event 4"),
@@ -2997,8 +3115,8 @@ ENTRANCE_DATA |= {
     "EVENT: Rabbit N Sand Realm": event("sand realm rabbits", "sand realm rabbits event 2"),
     "EVENT: Rabbit S Sand Realm": event("sand realm rabbits", "sand realm rabbits event 3"),
     "EVENT: Rabbit W Sand Realm": event("sand realm rabbits", "sand realm rabbits event 4"),
-    "EVENT: Rabbit W Desert Temple": event("sand restoration south rabbits", "sand restoration south rabbits event"),
-    "EVENT: Rabbit E Desert Temple": event("sand restoration south rabbits", "sand restoration south rabbits event 2"),
+    "EVENT: Rabbit W Desert Temple": event("sand restoration south rabbits", "sand restoration south rabbits event", "EVENT: Rabbit W Sand Temple"),
+    "EVENT: Rabbit E Desert Temple": event("sand restoration south rabbits", "sand restoration south rabbits event 2", "EVENT: Rabbit E Sand Temple"),
 
     "EVENT: Rabbit NE Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event"),
     "EVENT: Rabbit SE Blizzard": event("snow realm blizzard rabbits", "snow realm blizzard rabbits event"),
@@ -3006,8 +3124,8 @@ ENTRANCE_DATA |= {
     "EVENT: Rabbit SW Blizzard": event("snow realm blizzard rabbits", "snow realm blizzard rabbits event 2"),
     "EVENT: Rabbit E Anouki Village": event("blizzard temple tracks rabbits", "blizzard temple tracks rabbits event"),
     "EVENT: Rabbit Near Snowdrift Station": event("snowdrift station rabbit", "snowdrift station rabbit event"),
-    "EVENT: Rabbit W Icy Spring Station": event("icyspring rabbits", "icyspring rabbits event"),
-    "EVENT: Rabbit N Icy Spring Station": event("icyspring rabbits", "icyspring rabbits event 2"),
+    "EVENT: Rabbit W Icy Spring Station": event("icyspring rabbits", "icyspring rabbits event","EVENT: Rabbit W Wellspring Station"),
+    "EVENT: Rabbit N Icy Spring Station": event("icyspring rabbits", "icyspring rabbits event 2", "EVENT: Rabbit N Wellspring Station"),
     "EVENT: Rabbit NW Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event 2"),
     "EVENT: Rabbit Central Blizzard": event("snow realm early blizzard rabbits", "snow realm early blizzard rabbits event 3"),
 
@@ -3018,13 +3136,13 @@ ENTRANCE_DATA |= {
 
     "EVENT: Anouki Village Pick Up Kofu": event("av kofu"),
     "EVENT: Anouki Village Pick Up Noko": event("av noko"),
-    "EVENT: Icy Spring Drop Off Noko": event("icyspring noko"),  # no event item
+    "EVENT: Icy Spring Drop Off Noko": event("icyspring noko", us_name="EVENT: Wellspring Drop Off Noko"),  # no event item
 
     "EVENT: Castle Town Pick Up Mona": event("castle town mona"),
-    "EVENT: Outset Pick Up Joe": event("outset joe"),
-    "EVENT: Mayscore Pick Up Dovok": event("mayscore dovok"),
+    "EVENT: Outset Pick Up Joe": event("outset joe", us_name="EVENT: Aboda Pick Up Joe"),
+    "EVENT: Mayscore Pick Up Dovok": event("mayscore dovok", us_name="EVENT: Whittleton Pick Up Dovok"),
 
-    "EVENT: Papuzia Village Pick Up Carben": event("pv carben"),
+    "EVENT: Papuzia Village Pick Up Carben": event("pv carben", us_name="EVENT: Papuchia Village Pick Up Carben"),
     "EVENT: Pirate Hideout Pick Up Wadatsumi": event("pirate wadatsumi"),
 
     "EVENT: Goron Village Pick Up Snow Goron": event("pick up snow goron"),
@@ -3032,16 +3150,16 @@ ENTRANCE_DATA |= {
 
     "EVENT: Snow Realm Pick Up Ferrus": event("snow realm ferrus"),
     "EVENT: Fire Realm Pick Up Ferrus": event("fire realm ferrus"),
-    "EVENT: Marine Temple Lobby Drop Off Ferrus": event("oct ferrus"),
+    "EVENT: Marine Temple Lobby Drop Off Ferrus": event("oct ferrus", us_name="EVENT: Ocean Temple Lobby Drop Off Ferrus"),
 
-    "EVENT: Dune Sanctuary Deliver Cuccos": event("sand sanc cuccos"),
+    "EVENT: Dune Sanctuary Deliver Cuccos": event("sand sanc cuccos", us_name="EVENT: Sand Sanctuary Deliver Cuccos"),
 
     # Vanilla buy cargo
-    "EVENT: Icy Spring Buy Mega Ice": event("icyspring ice"),
-    "EVENT: Mayscore Buy Lumber": event("mayscore lumber"),
+    "EVENT: Icy Spring Buy Mega Ice": event("icyspring ice", us_name="EVENT: Wellspring Buy Mega Ice"),
+    "EVENT: Mayscore Buy Lumber": event("mayscore lumber", us_name="EVENT: Whittleton Buy Lumber"),
     "EVENT: Castle Town Buy Cuccos": event("castle town buy cuccos"),
-    "EVENT: Papuzia Village Buy Fish": event("papuzia buy fish"),
-    "EVENT: Papuzia Village Buy Vessel": event("wise one buy vessel"),
+    "EVENT: Papuzia Village Buy Fish": event("papuzia buy fish", us_name="EVENT: Papuchia Village Buy Fish"),
+    "EVENT: Papuzia Village Buy Vessel": event("wise one buy vessel", us_name="EVENT: Papuchia Village Buy Vessel"),
     "EVENT: Goron Field Buy Steel": event("goron steel"),
     "EVENT: Dark Ore Mine Buy Ore": event("dark ore mine ore"),
 
@@ -3073,7 +3191,7 @@ ENTRANCE_DATA |= {
     "EVENT: Blizzard Temple B1 SE Windmill": silent_event("bt b1 e","bt b1 se"),
     "EVENT: Blizzard Temple 1F NE Door": silent_event("bt 1f","bt 1f ne"),
     "EVENT: Blizzard Temple 1F NW Door": silent_event("bt 1f","bt 1f nw"),
-    "EVENT: Blizzard Temple 1F Bell Door 3": event("bt 1f nw bell"),
+    "EVENT: Blizzard Temple 1F Bell Door 3": event("bt 1f nw bell", us_name="EVENT: Snow Temple 1F Bell Door 3"),
 
     "EVENT: Marine Temple 3F South Branch": silent_event("oct 3f arena","oct 3f south"),
     "EVENT: Marine Temple 4F West Door": silent_event("oct 4f west","oct 4f north"),
@@ -3095,7 +3213,7 @@ ENTRANCE_DATA |= {
     "EVENT: Tunnel to the Tower 2F Door": silent_event("tower tunnel 2f door", "tower tunnel 2f north"),
     "EVENT: Valley Sanctuary Door": silent_event("valley sanc door", "valley sanc east"),
 
-    "EVENT: Blizzard Temple 1F Bell Door 2": event("bt 1f ne bell"),
+    "EVENT: Blizzard Temple 1F Bell Door 2": event("bt 1f ne bell", us_name="EVENT: Snow Temple 1F Bell Door 2"),
     "EVENT: Desert Temple B1 Red Door": silent_event("dt b1 mid", "dt b1 s"),
 
     "Snow Realm Enter Rocktite Fight": {
