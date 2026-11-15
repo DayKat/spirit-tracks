@@ -4,7 +4,7 @@ from .DSZeldaClient.DSZeldaClient import *
 from .DSZeldaClient.subclasses import storage_key, split_bits, to_ascii
 from .data.Addresses import STAddr
 from .data.Items import ITEMS
-from .data.Entrances import ENTRANCES, entrance_tuple_to_entrance, entrances_per_scene
+from .data.Entrances import entrance_tuple_to_entrance, entrances_per_scene, ENTRANCE_NAME_LOOKUP
 from settings import get_settings
 from typing import Literal
 from .Subclasses import EntranceGroups
@@ -231,7 +231,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.event_reads: list["Address"] = []
         self.sent_event: bool = False
         self.event_data: list[dict] = []
-        self.entrances: dict[str, "STTransition"] = ENTRANCES
+        self.entrances: dict[str, "STTransition"] = ENTRANCE_NAME_LOOKUP
         self.boss_warp_entrance = None
         self.location_id_to_name = {loc.id: loc_name for loc_name, loc in LOCATIONS_DATA.items()}
         self.exit_coords_addr: tuple = STAddr.train_coords
@@ -532,7 +532,7 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def store_events(self, ctx, event_list: Iterable[str]):
         print(f"Storing Events: {event_list}")
-        entrance_ids = {ENTRANCES[e].id for e in event_list}
+        entrance_ids = {ENTRANCE_NAME_LOOKUP[e].id for e in event_list}
         key = storage_key(ctx, traversed_entrances_key)
         self.traversed_entrances |= set(get_stored_data(ctx, key, set()))
         new_events = {e for e in entrance_ids if e not in self.traversed_entrances}
@@ -718,7 +718,7 @@ class SpiritTracksClient(DSZeldaClient):
         return False
 
     async def enter_game(self, ctx):
-        starting_entr = ENTRANCES[ctx.slot_data["starting_entrance"]]
+        starting_entr = ENTRANCE_NAME_LOOKUP[ctx.slot_data["starting_entrance"]]
         self.starting_entrance = starting_entr.entrance
         self.safe_respawn_rooms = safe_respawn_rooms + [starting_entr.scene]
 
@@ -895,7 +895,7 @@ class SpiritTracksClient(DSZeldaClient):
                     self.visited_scenes.add(self.current_scene)
                 print(f"Visited {warp_data.region}")
                 if warp_data.event:
-                    event_entr = ENTRANCES[warp_data.event]
+                    event_entr = ENTRANCE_NAME_LOOKUP[warp_data.event]
                     await self.store_visited_entrances(ctx, event_entr, event_entr.vanilla_reciprocal)
 
         print(f"last scene {hex_f(self.last_scene)}")
@@ -996,7 +996,7 @@ class SpiritTracksClient(DSZeldaClient):
             clog = await STAddr.flip_clog.read(ctx, silent=True)
             if clog == 0x14 and not self.warp_to_start_flag:
                 self.warp_to_start_flag = True
-                stage = ENTRANCES[ctx.slot_data["starting_entrance"]].stage
+                stage = ENTRANCE_NAME_LOOKUP[ctx.slot_data["starting_entrance"]].stage
                 logger.info(f"Primed a warp to start. Enter any entrance or save and quit warp to {STAGES.get(stage, 'ERROR')}.")
             elif clog == 0 and self.warp_to_start_flag:
                 self.warp_to_start_flag = False
@@ -1434,6 +1434,8 @@ class SpiritTracksClient(DSZeldaClient):
         item_priority = {}
         for loc_name in locations:
             loc_data = LOCATIONS_DATA[loc_name]
+            if not loc_data.is_correct_localization(ctx):
+                continue
             vanilla_item = loc_data.vanilla_item or loc_data.hidden_vanilla_item
             vanilla_items = [vanilla_item] if isinstance(vanilla_item, str) else vanilla_item
             priority = loc_data.priority
@@ -1484,9 +1486,13 @@ class SpiritTracksClient(DSZeldaClient):
             if l is None:  # conflict
                 model_value = generic_model
                 model_name = "Generic"
-            elif l in ctx.missing_locations | ctx.checked_locations:  # randomized
+            elif l in ctx.missing_locations:  # randomized
                 model_value = OFFSET_TO_MODEL[model_data[str(l)]].value if str(l) in model_data else generic_model
                 model_name = OFFSET_TO_MODEL[model_data[str(l)]].name if model_value != generic_model else "Force Gem"
+            elif l in ctx.checked_locations and not self.location_id_to_location[l].farmable:  # already found
+                model_name = ITEMS[i].model
+                model_value = 0
+                printl(f"Setting already found model {model_name} to nothing")
             else:  # vanilla
                     printl(f"Vanilla item {i}, {l}")
                     model_name = ITEMS[i].model
@@ -1502,6 +1508,7 @@ class SpiritTracksClient(DSZeldaClient):
 
         printl(f"Swapped Models: {printl_list}")
         if write_list:
+            # print(f"\t{hex_f(write_list)}")
             await bizhawk.write(ctx.bizhawk_ctx, write_list)
 
     async def unset_special_vanilla_items(self, ctx, location, item):
@@ -1948,6 +1955,8 @@ class SpiritTracksClient(DSZeldaClient):
             instant_switch = True
 
         current_gear = read_result.get(self.train_gear_addr, 0)
+        if not 0 <= current_gear < 4:
+            return
         if current_gear != self.last_train_gear or instant_switch:
             self.last_train_gear = current_gear
 
@@ -1988,7 +1997,9 @@ class SpiritTracksClient(DSZeldaClient):
             'RTLK',
             'PSRT',
             'TETT',
-            'DRBT'
+            'DRBT',
+            'MEDB', # Tank
+            'RTKD', # Dark train
         }
         actor_profiles = await self.get_table_data(ctx, table_start, 0x90//4, size=3)
         actor_ids = await read_multiple(ctx, {Address.from_pointer(a, size=4) for a in actor_profiles.values()}, offset=0x20)

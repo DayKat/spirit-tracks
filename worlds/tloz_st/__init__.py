@@ -2172,7 +2172,7 @@ class SpiritTracksWorld(WorldParent):
             pairing = self.ut_pairings.get(str(connection), None)
             # print(f"Pairing {pairing} {entrance_id_to_entrance[i].name}")
             if pairing is not None:
-                exit_name = entrance_id_to_entrance[connection].name
+                exit_name = entrance_id_to_entrance[connection].get_local_name(self.options.localization.value)
                 try:
                     _exit: "Entrance" = self.get_entrance(exit_name)
                 except KeyError:
@@ -2188,7 +2188,7 @@ class SpiritTracksWorld(WorldParent):
                     print(f"Globally connecting outset village => {_exit.parent_region}")
                     self.get_region("menu").connect(_exit.parent_region)
 
-                if "silent_event" in ENTRANCES[exit_name].extra_data:
+                if "silent_event" in ENTRANCE_NAME_LOOKUP[exit_name].extra_data:
                     from rule_builder.rules import True_
                     print(f"Setting blank rule for silent entrance {_exit} -> {entrance_region}")
                     self.set_rule(_exit, True_())

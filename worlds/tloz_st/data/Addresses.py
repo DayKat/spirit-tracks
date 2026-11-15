@@ -95,6 +95,7 @@ async def load_on_enter_game(ctx):
     STAddr.tracks_0.set_addr(rail_manager+4)
     STAddr.tracks_1.set_addr(rail_manager+5)
     STAddr.tracks_2.set_addr(rail_manager+6)
+    STAddr.source_rails.set_addr(rail_manager+8)
 
     # Train Parts
     train_part_manager = rail_manager - 4*10

@@ -404,3 +404,7 @@ class STTransition(DSTransition):
             counter[point] += 1
         return res
 
+    def get_local_name(self, localization):
+        if localization and self.us_name:
+            return self.us_name
+        return self.name

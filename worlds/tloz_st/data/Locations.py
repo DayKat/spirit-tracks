@@ -4787,7 +4787,7 @@ new_loc_data: list[DSLocation] = [
                hint_entrance_secondary=['Papuzia Board Train', 'Papuzia South'],
                scenes=[0x2c02],
                ),
-    DSLocation(("Beedle Shop Bomb Refill","Papuchia Shop Bomb Refill"),
+    DSLocation(("Beedle Shop Bomb Refill","Beedle Shop Bomb Refill"),
                id=(390, 607),
                address=STAddr.bomb_count,
                value=0xa,
