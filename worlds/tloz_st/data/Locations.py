@@ -5255,6 +5255,7 @@ new_loc_data: list[DSLocation] = [
                conditional=conditional_passengers,
                region="pv wadatsumi",
                z_max=-15000,
+               ut_connect="EVENT: Papuzia Drop Off Wadatsumi",
                hint_entrance=['Papuzia Board Train', 'Papuzia South', 'Papuzia Shop', 'Papuzia South House',
                               "Papuzia Wise One's House", 'Papuzia NW House'],
                scenes=[0x2c00],

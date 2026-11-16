@@ -47,14 +47,6 @@ def count_bits(n):
         count += 1
     return count
 
-def get_client_as_command_processor(self: "BizHawkClientCommandProcessor"):
-    ctx = self.ctx
-    from worlds._bizhawk.context import BizHawkClientContext
-    assert isinstance(ctx, BizHawkClientContext)
-    client = ctx.client_handler
-    assert isinstance(client, SpiritTracksClient)
-    return client
-
 def cmd_train_option(self: "BizHawkClientCommandProcessor",
                      option: Literal["snap_speed", "quick_station", "speed", "options"] = "options",
                      *args: str):
@@ -295,6 +287,7 @@ class SpiritTracksClient(DSZeldaClient):
         self.rom_version: str = ""
 
         self.mobj_cache: dict[int, int] = {}
+        self.loaded_addresses_delayed: bool = False
 
     # Commands
 
@@ -604,6 +597,7 @@ class SpiritTracksClient(DSZeldaClient):
     def clear_variables(self):
         # self.title_screen_lock = False
         self.mobj_cache.clear()
+        self.loaded_addresses = False
         pass
 
     async def update_main_read_list(self, ctx: "BizHawkClientContext", stage: int, in_game=True):
@@ -707,15 +701,26 @@ class SpiritTracksClient(DSZeldaClient):
 
     async def load_addresses(self, ctx) -> bool:
         print(f"loaded? {self.loaded_addresses}")
-        if not self.loaded_addresses:
-            await bizhawk.lock(ctx.bizhawk_ctx)
-            await load_on_enter_game(ctx)
-            if not self.precision_operation:
-                await bizhawk.unlock(ctx.bizhawk_ctx)
-            self.loaded_addresses = True
-            await self.update_main_read_list(ctx, self.current_stage)
-            print(f"Loaded addresses")
-            return True
+        # if not self.loaded_addresses:
+        await bizhawk.lock(ctx.bizhawk_ctx)
+        await load_on_enter_game(ctx)
+        if not self.precision_operation:
+            await bizhawk.unlock(ctx.bizhawk_ctx)
+        self.loaded_addresses = True
+        self.loaded_addresses_delayed = False
+        await self.update_main_read_list(ctx, self.current_stage)
+        print(f"Loaded addresses")
+        return True
+
+    async def load_addresses_delayed(self, ctx):
+        if not self.loaded_addresses_delayed:
+            item_get_loaded = await STAddr.itemGetManager.read(ctx, silent=True)
+            if item_get_loaded:
+                printl(f"Loading delayed addresses! {hex_f(item_get_loaded)}")
+                await load_delayed(ctx)
+                self.loaded_addresses_delayed = True
+                await self.update_main_read_list(ctx, self.current_stage)
+                return True
         return False
 
     async def enter_game(self, ctx):
@@ -752,7 +757,7 @@ class SpiritTracksClient(DSZeldaClient):
         current_menu: "Address" = read_result[STAddr.menu]
 
         # Getting location reads
-        if not self.on_train:
+        if not self.on_train and self.loaded_addresses_delayed:
             self.in_stamp_stand = current_menu == 0x0E
 
             getting_location = read_result[STAddr.getting_location] and not read_result[STAddr.saving] and not self.saving
@@ -789,7 +794,6 @@ class SpiritTracksClient(DSZeldaClient):
             self.current_scene = (stage << 8) + room
             self.current_stage = read_result[STAddr.stage] = stage
             read_result[STAddr.room] = room
-            printl(hex(self.current_scene), hex(self.current_stage))
             await STAddr.stage.overwrite(ctx, stage)
             await STAddr.room.overwrite(ctx, room)
 

@@ -37,6 +37,14 @@ async def load_adv_flags(ctx):
 async def load_on_connect(ctx):
     pass
 
+async def load_delayed(ctx):
+    print(f"Delayed loading")
+    await load_multi(ctx, [
+        STAddr.menu,
+        STAddr.flip_clog,
+        STAddr.getting_location
+    ])
+
 async def load_on_enter_game(ctx):
     # Room data
     await STAddr.stage.load(ctx)  # TODO: add double loader support to load_multi()
@@ -47,7 +55,6 @@ async def load_on_enter_game(ctx):
     STAddr.respawn_stage.set_addr(room_handler+0x14)
     STAddr.respawn_room.set_addr(room_handler + 0x1E)
     STAddr.respawn_entrance.set_addr(room_handler + 0x1F)
-    print(f"Loaded stage: {STAddr.stage}")
 
     # Load all single stage loaders in bulk
     await load_multi(ctx, [
@@ -65,6 +72,8 @@ async def load_on_enter_game(ctx):
         STAddr.flip_clog,
         # STAddr.fade_timer
     ])
+    print(f"Loaded menu: {STAddr.menu}")
+    print(f"Loaded getting_location: {STAddr.getting_location}")
 
     STAddr.mid_load.set_addr(STAddr.stage_flag_pointer+3)
 
@@ -73,7 +82,7 @@ async def load_on_enter_game(ctx):
     item_manager = AddressLoader(STAddr.health+0x2C)
     await item_manager.load(ctx)
 
-    STAddr.equipped_item.set_addr(item_manager)
+    # STAddr.equipped_item.set_addr(item_manager)
     STAddr.items_0.set_addr(item_manager.addr+0x8)
     STAddr.items_2.set_addr(item_manager.addr + 0xA)
     STAddr.arrow_capacity.set_addr(item_manager.addr + 4 * 6 + 0)
@@ -249,7 +258,7 @@ class STAddr:
     link_z = Address.pointer(0x05D4)
     
     menu = AddressLoader(gpCurrentGameModeMgr, 1, 0xF8, name="menu")
-    equipped_item = Address(0x265318, size=4)
+    # equipped_item = Address(0x265318, size=4)
     flip_clog = AddressLoader(itemGetManager, load_offset=0x14da)
     
     health = AddressLoader(gSaveManager, 1, 0)

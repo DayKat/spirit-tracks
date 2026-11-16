@@ -569,6 +569,7 @@ REGIONS = [
     "pv dovok",
     "pv carben",
     "pv wadatsumi",
+    "pv wadatsumi event",
     "papuzia buy fish",
     "papuzia shop",
     "papuzia shop bombs",

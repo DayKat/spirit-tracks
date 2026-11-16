@@ -541,6 +541,8 @@ class SpiritTracksWorld(WorldParent):
                 events += ["EVENT: Icy Spring Drop Off Noko"]
             if self.options.randomize_stamps.value:
                 events += ["EVENT: Dune Sanctuary Deliver Cuccos"]
+            if self.options.randomize_minigames.value > 1:
+                events += ["EVENT: Papuzia Drop Off Wadatsumi"]
 
         if self.options.randomize_cargo.value == 1 and "cargo" in self.options.extra_events.value:
             events += [
@@ -827,6 +829,7 @@ class SpiritTracksWorld(WorldParent):
             self.create_event("fire realm ferrus event", "_ferrus_2")
             self.create_event("oct ferrus event", "_ferrus_3")
             self.create_event("icyspring", "_ferrus_backup")
+            self.create_event("pv wadatsumi event", "_papuzia_wadatsumi")
         if self.options.randomize_cargo == "vanilla":
             self.create_event("mayscore lumber event", "_buy_lumber")
             self.create_event("icyspring ice event", "_buy_ice")

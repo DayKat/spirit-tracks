@@ -806,11 +806,17 @@
     {"name": "EVENT: Papuchia Village Pick Up Carben"},
     {"name": "EVENT: Papuchia Archipelago Stamp Station"},
     {"name": "EVENT: Papuchia Village Buy Fish"},
-    {"name": "EVENT: Papuchia Village Buy Vessel"}
+    {"name": "EVENT: Papuchia Village Buy Vessel"},
+    {"name": "EVENT: Papuzia Drop Off Wadatsumi"},
+    {"name": "EVENT: Papuchia Drop Off Wadatsumi"}
   ], "map_locations": [
     {"map": "Overview", "x": 612, "y": 668},
     {"map": "Ocean Realm", "x": 100, "y": 284}
   ]},
+  {"name": "Wadatsumi Event", "sections": [
+    {"name": "EVENT: Papuzia Drop Off Wadatsumi"},
+    {"name": "EVENT: Papuchia Drop Off Wadatsumi"}
+  ], "map_locations": [{"map": "Papuzia Village", "x": 68, "y": 38}]},
   {"name": "Island Sanctuary", "sections": [{"name": "EVENT: Island Sanctuary Stamp Station"}, {"name": "EVENT: Ocean Sanctuary Stamp Station"}], "map_locations": [{"map": "Island Sanctuary North", "x": 122, "y": 86}]},
   {"name": "Marine Temple 2F Cave", "sections": [{"name": "EVENT: Marine Temple Stamp Station"}, {"name": "EVENT: Ocean Temple Stamp Station"}], "map_locations": [{"map": "Marine Temple 2F Secret", "x": 122, "y": 58}]},
   {"name": "Dune Sanctuary", "sections": [

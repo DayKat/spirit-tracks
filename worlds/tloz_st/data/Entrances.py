@@ -3238,6 +3238,7 @@ ENTRANCE_DATA |= {
         "island": EntranceGroups.NONE,
         "two_way": False
     },
+    "EVENT: Papuzia Drop Off Wadatsumi": event("pv wadatsumi", "pv wadatsumi event", "EVENT: Papuchia Drop Off Wadatsumi")
 }
 
 

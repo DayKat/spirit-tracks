@@ -407,7 +407,7 @@ enterior_data: list["Enterior"] = [
 
     Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Papuzia Station", "Papuzia South"], ["EVENT: Papuzia Archipelago Stamp Station"], ["Papuzia Village"]),
-    Enterior(["Ocean Realm Papuzia Station"], ["EVENT: Visit Papuzia", "EVENT: Papuzia Village Pick Up Carben", "EVENT: Papuzia Village Buy Fish"], ["Overview", "Ocean Realm"]),
+    Enterior(["Ocean Realm Papuzia Station"], ["EVENT: Visit Papuzia", "EVENT: Papuzia Village Pick Up Carben", "EVENT: Papuzia Village Buy Fish", "EVENT: Papuzia Drop Off Wadatsumi"], ["Overview", "Ocean Realm"]),
     Enterior(["Ocean Realm Papuzia Station", "Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Overview", "Ocean Realm"]),
     Enterior(["Papuzia Wise One's House"], ["EVENT: Papuzia Village Buy Vessel"], ["Papuzia Village"]),
 

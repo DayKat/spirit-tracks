@@ -785,6 +785,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
 
         ["papuzia village", "pv carben", False, has_sod],
         ["papuzia village", "pv wadatsumi", False, has_passenger("Wadatsumi", "_wadatsumi")],
+        ["pv wadatsumi", "pv wadatsumi event", False, None],
         ["papuzia village song statue", "papuzia village south", False, hard_birds],
         ["papuzia village south", "papuzia village", False, Has("_papuzia_sob") & hard_birds],
         ["papuzia village south", "papuzia archipelago north", True, None],
@@ -900,7 +901,7 @@ def make_overworld_logic(player: int, origin_name: str, world):
         ["pirate hideout stamp station", "pirate hideout stamp event", False, None],
         ["pirate hideout", "pirate hideout secret cave", False, has_bombs],
         ["pirate hideout secret cave", "pirate hideout", False, None],
-        ["pirate hideout", "pirate hideout minigame", False, has_bow],
+        ["pirate hideout", "pirate hideout minigame", False, has_bow & (Has("_papuzia_wadatsumi", options=vanilla_passengers, filtered_resolution=True) | ool)],
         ["pirate hideout", "pirate hangout", True, None],
         # Wadatsumi able to be reached with only tracks with minigames turned off, otherwise requires bow
         ["pirate hideout", "pirate wadatsumi", False, pickup_passenger("Ocean Glyph", "_visit_papuzia")]
