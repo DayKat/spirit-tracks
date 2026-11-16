@@ -2202,7 +2202,7 @@ class SpiritTracksWorld(WorldParent):
             entr_id = connection
             if str(entr_id) not in self.ut_pairings or entr_id in self.ut_traversed_entrances:
                 return
-            e = self.get_entrance(entrance_id_to_entrance[entr_id].name)
+            e = self.get_entrance(entrance_id_to_entrance[entr_id].get_local_name(self.options.localization.value))
             if (entr_id in stored_data and e.parent_region and e.connected_region
                     and entr_id in self.ut_checked_entrances
                     and entr_id not in self.ut_traversed_entrances):

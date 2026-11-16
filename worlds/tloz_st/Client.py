@@ -406,6 +406,7 @@ class SpiritTracksClient(DSZeldaClient):
             return False
         elif not self.title_screen_lock and not self.loaded_addresses:
             current_stage = await Address.from_pointer(in_game).read(ctx)
+            print(f"current_stage {current_stage}")
             if current_stage in [0, 0x50]:
                 self.title_screen_lock = True
                 return False
@@ -630,7 +631,7 @@ class SpiritTracksClient(DSZeldaClient):
                 self.health_address = STAddr.health
 
                 offset = 0xf80 if self.current_stage == 0x29 else 0xf64
-                potion_addr = await STAddr.drinking_potion_pointer.read(ctx) - 0x2000000 + offset
+                potion_addr = await STAddr.drinking_potion_pointer.read(ctx) + offset
                 if 0x400000 > potion_addr > 0:
                     self.addr_drinking_potion = Address.from_pointer(potion_addr, size=4)
                     read_keys.append(self.addr_drinking_potion)

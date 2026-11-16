@@ -61,6 +61,8 @@ async def load_on_enter_game(ctx):
         STAddr.saving,
         STAddr.selected_station,
         STAddr.getting_item_safety,
+        STAddr.drinking_potion_pointer,
+        STAddr.flip_clog,
         # STAddr.fade_timer
     ])
 
@@ -236,10 +238,11 @@ class STAddr:
 
     item_safety_pointer = Address.pointer(0x9BC)
     getting_item_safety = AddressLoader(item_safety_pointer, 1, 0xC4)  # Address(0x264648)  not actually in the same structure, but they seem to stick together
-    entering_shop = Address(0x260A44)
+    # entering_shop = Address(0x260A44)
 
     # drinking_potion = Address(0x317ED0)  # 39 normal, 3b drinking
-    drinking_potion_pointer = Address(0x265338, size=4)
+    potion_pointer_addr = Address.pointer(0x0480)
+    drinking_potion_pointer = AddressLoader(potion_pointer_addr, size=3, load_offset=0x20)
     
     link_x = Address.pointer(0x05CC)  # Not actually pointers, but the object does all the settings right
     link_y = Address.pointer(0x05D0)
@@ -247,7 +250,7 @@ class STAddr:
     
     menu = AddressLoader(gpCurrentGameModeMgr, 1, 0xF8, name="menu")
     equipped_item = Address(0x265318, size=4)
-    flip_clog = Address(0x04C3DC)
+    flip_clog = AddressLoader(itemGetManager, load_offset=0x14da)
     
     health = AddressLoader(gSaveManager, 1, 0)
     heart_count = AddressLoader(gSaveManager, 1, 1)
