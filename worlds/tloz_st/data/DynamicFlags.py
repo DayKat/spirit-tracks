@@ -2218,7 +2218,7 @@ DYNAMIC_FLAGS: dict[str, dict[str, Any]] = {
     },
     "Papuzia prevent carben crash post carben": {
         "on_scenes": [0x2c00],
-        "has_locations": ["Papuzia Village Pick Up Carben"],
+        "has_locations": ["Papuzia Village Pick Up Carben", "Papuzia Village Song Statue"],
         "has_slot_data": [("randomize_passengers", [2, 3])],
         "set_if_true": [(STAddr.adv_flags_9, 0x30)],
     },

@@ -46,6 +46,7 @@ async def load_delayed(ctx):
     ])
 
 async def load_on_enter_game(ctx):
+    await load_adv_flags(ctx)
     # Room data
     await STAddr.stage.load(ctx)  # TODO: add double loader support to load_multi()
     room_handler = await STAddr.gStageData.read(ctx)
@@ -122,6 +123,7 @@ async def load_on_enter_game(ctx):
     STAddr.has_passenger_1.set_addr(STAddr.passenger_tag_0 + 0x18)
     STAddr.passenger_tag_1.set_addr(STAddr.passenger_tag_0 + 0x14)
     STAddr.passenger_goal.set_addr(STAddr.passenger_tag_0 + 0x8)
+    STAddr.passenger_happiness.set_addr(STAddr.passenger_tag_0 + 0x10)
 
     # Cargo
     STAddr.cargo_1.set_addr(STAddr.cargo_0+0xC)
@@ -167,11 +169,18 @@ async def load_on_enter_game(ctx):
     STAddr.priceless_stone_count.set_addr(STAddr.all_treasure_count + 28)
     STAddr.regal_ring_count.set_addr(STAddr.all_treasure_count + 30)
 
+    # Train coords
+    await STAddr.train_x.load(ctx)
+    STAddr.train_y.set_addr(STAddr.train_x + 4)
+    STAddr.train_z.set_addr(STAddr.train_x + 8)
+
     # Other
     await STAddr.entrance_animation.load(ctx)
     STAddr.quick_pen_coords.set_addr(STAddr.menu + 17*4)
     STAddr.last_x.set_addr(STAddr.quick_pen_coords + 4)
     STAddr.exiting_map.set_addr(STAddr.last_x + 0xA4)
+
+
 
 
 async def load_on_train(ctx):
@@ -287,7 +296,8 @@ class STAddr:
     train_trans_y = Address(0x262094, size=4)
     train_trans_z = Address(0x262098, size=4)
 
-    train_x = Address(0x264628, size=4)
+    train_pos_pointer = Address.pointer(0x09BC)  # not the same structure, but works
+    train_x = AddressLoader(train_pos_pointer, size=4, load_offset=0xa4)
     train_y = Address(0x26462C, size=4)
     train_z = Address(0x264630, size=4)
     train_coords = (train_x, train_y, train_z)
@@ -341,6 +351,7 @@ class STAddr:
     passenger_tag_0 = AddressLoader(gpPassengerManager, size=4)  # passenger id
     passenger_tag_1 = Address(0x2655A8, size=4)  # passenger id on respawn
     passenger_goal = Address(0x26559C, size=4)  # goal station stage
+    passenger_happiness = Address(0x2655a4)
 
     # Cargo Data
     cargo_0 = AddressLoader(gpCargoManager, size=4)

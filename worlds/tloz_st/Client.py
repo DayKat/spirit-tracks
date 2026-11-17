@@ -288,6 +288,8 @@ class SpiritTracksClient(DSZeldaClient):
 
         self.mobj_cache: dict[int, int] = {}
         self.loaded_addresses_delayed: bool = False
+        self.last_passenger: int = 0  # used to detect angy warp
+        self.last_coords: tuple[int, int] | None = None
 
     # Commands
 
@@ -619,6 +621,10 @@ class SpiritTracksClient(DSZeldaClient):
                     self.train_speed_pointer = train_speed_thingy
                     self.train_gear_addr = Address.from_pointer(self.train_speed_pointer+TRAIN_GEAR_OFFSET)
                     read_keys.append(self.train_gear_addr)
+
+                if ctx.slot_data["randomize_passengers"] == 1:
+                    read_keys += [STAddr.passenger_happiness]
+
             else:
                 self.on_train = False
                 read_keys += read_keys_land
@@ -855,6 +861,9 @@ class SpiritTracksClient(DSZeldaClient):
         await self.update_potion_tracker(ctx, "room_load")
         await self.update_rabbit_count(ctx)
 
+        if self.last_passenger > 5:
+            self.last_passenger = 0
+
         # printl(F"Room load goal: {ctx.slot_data['goal']}, {ctx.slot_data['endgame_scope']}, {self.current_stage}")
         if (ctx.slot_data["goal"] == -1 and ctx.slot_data["endgame_scope"] == 5
                 and self.current_stage in [0xF, 0x10, 0x24, 0x25, 0x27]):
@@ -1015,6 +1024,27 @@ class SpiritTracksClient(DSZeldaClient):
                 self.was_in_clog = True
         elif read_result[STAddr.menu] < 9:
             self.was_in_clog = False
+
+        # Prevent angy warp ER
+        if self.on_train and ctx.slot_data["randomize_passengers"] == 1:
+            if self.last_passenger == 7:
+                current_coords = await read_multiple(ctx, [STAddr.train_x, STAddr.train_z])
+                if self.last_coords != list(current_coords.values()):
+                    printl(f"No Angy Warp")
+                    self.last_passenger = 0
+                    self.last_coords = None
+            elif self.last_passenger == 6:
+                if await STAddr.has_passenger_0.read(ctx, silent=True):
+                    printl(f"Angy train stopped!")
+                    self.last_coords = list((await read_multiple(ctx, [STAddr.train_x, STAddr.train_z])).values())
+                    self.last_passenger = 7
+            elif self.last_passenger and not read_result[STAddr.passenger_happiness]:
+                printl(f"Angy warp possible")
+                self.last_passenger = 6  # check coords
+            else:
+                self.last_passenger = read_result[STAddr.passenger_happiness]
+
+
 
     async def process_slow(self, ctx: "BizHawkClientContext", read_result: dict):
         await self.anticipate_location(ctx, read_result)
@@ -1902,7 +1932,7 @@ class SpiritTracksClient(DSZeldaClient):
                                         offset=0x20)
 
         for actor, profile in actor_profiles.items():
-            if actor_ids[profile] in BOSS_KEY_IDS:
+            if actor_ids.get(profile, 0) in BOSS_KEY_IDS:
                 print(f"Deleting boss key: {actor} {actor_ids[profile]}")
                 await Address.from_pointer(actor.addr, size=4).overwrite(ctx, 0)
                 break
@@ -2046,6 +2076,14 @@ class SpiritTracksClient(DSZeldaClient):
         if current_destination and not await self.conditional_er(ctx, current_destination, detect_data=current_destination.vanilla_reciprocal):
             return current_destination.vanilla_reciprocal
         return None
+
+    def cancel_warp(self, ctx):
+        if self.last_passenger == 7:
+            printl(f"Angy warp ER detected, canceling ER")
+            self.last_passenger = 0
+            self.last_coords = None
+            return True
+        return False
 
     async def conditional_er(self, ctx, exit_data, silent=False, detect_data=None) -> bool:
         if self._just_entered_game:
@@ -2453,7 +2491,7 @@ class SpiritTracksClient(DSZeldaClient):
             if object_type in ["PSLF"]:  # Floor Spikes
                 write_list.append(Address.from_pointer(addr+19*4+3, size=1).get_inner_write_list(0))
 
-            if object_type in ["KBRD"]:  # Door BK
+            if object_type in ["KBRD", "KTRD"]:  # Door BK
                 await self.open_boss_door(ctx, addr)
                 self.boss_door_addr = addr
 

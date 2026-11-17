@@ -1273,8 +1273,8 @@ ENTRANCE_DATA |= {
     },
     "Snow Realm Icy Spring Station": {
         "return_name": "Icy Spring Board Train",
-        "us_name": "Wellspring Board Train",
-        "reverse_us_name": "Snow Realm Wellspring Station",
+        "reverse_us_name": "Wellspring Board Train",
+        "us_name": "Snow Realm Wellspring Station",
         "entrance_region": "icyspring station",
         "exit_region": "icyspring",
         "required_groups": ["Tracks: Blizzard Temple Tracks"],
